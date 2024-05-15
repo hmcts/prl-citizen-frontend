@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PaymentResponse } from '../../modules/payments/paymentController';
+import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
+import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders } from '../../steps/common/documents/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
+  AWPApplicationReason,
+  AWPApplicationType,
   AllegationOfHarm,
   AllegationsOfHarmChildAbductionTable,
   AllegationsOfHarmDomesticAbuseTable,
@@ -12,18 +16,30 @@ import {
   Applicant,
   ApplicantTable,
   AttendingTheHearingTable,
+  C100Applicant,
+  C100DocumentInfo,
+  C100OrderTypes,
+  C100RebuildPartyDetails,
+  C1AAbuseTypes,
+  C1ASafteyConcerns,
+  C1ASafteyConcernsAbout,
   CaseData,
   CaseInvite,
   CaseStatus,
   Child,
   ChildDetailsExtraTable,
   ChildDetailsTable,
+  ChildrenDetails,
   ConfidentialDetails,
   ContactDetails,
+  ContactPreference,
   DateOfSubmission,
   Document,
+  DocumentInfo,
+  DocumentUploadResponse,
   DraftConsentOrderFile,
   ExistingProceedings,
+  FeeDetailsResponse,
   Fl401UploadWitnessDocuments,
   HearingUrgencyTable,
   HearingsList,
@@ -32,20 +48,28 @@ import {
   ListValue,
   LitigationCapacityTable,
   MiamExemptionsTable,
+  MiamNonAttendReason,
   MiamTable,
+  OrderInterface,
+  OtherChildrenDetails,
   OtherDocuments,
   OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
+  OtherProceedings,
   OtherProceedingsDetailsTable,
   OtherProceedingsForSummaryTab,
   OtherProceedingsTable,
   OthersToNotify,
   PRLDocument,
+  PRL_C1AAbuseTypes,
+  PRL_C1ASafteyConcerns,
+  PRL_C1ASafteyConcernsAbout,
   PartyDetails,
   ProceedingsOrderTypes,
   ReasonableAdjustments,
   Respondent,
+  RespondentDocs,
   ResponseDocumentList,
   SelectTypeOfOrderEnum,
   SpecialArrangement,
@@ -59,30 +83,6 @@ import {
   WithoutNoticeOrderDetails,
   YesNoDontKnow,
   YesOrNo,
-  orderInterface,
-  //C100 Rebuild
-  // eslint-disable-next-line sort-imports
-  C100DocumentInfo,
-  C100OrderTypes,
-  C1ASafteyConcerns,
-  MiamNonAttendReason,
-  OtherProceedings,
-  //DocumentType,
-  ChildrenDetails,
-  C1ASafteyConcernsAbout,
-  C1AAbuseTypes,
-  OtherChildrenDetails,
-  C100RebuildPartyDetails,
-  C100Applicant,
-  PRL_C1ASafteyConcernsAbout,
-  PRL_C1ASafteyConcerns,
-  PRL_C1AAbuseTypes,
-  applicantContactPreferencesEnum,
-  RespondentDocs,
-  DocumentInfo,
-  FeeDetailsResponse,
-  AWPApplicationReason,
-  AWPApplicationType,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -106,7 +106,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateOfSubmission: 'dateOfSubmission',
   //declarationTable: 'DeclarationTable',
   interpreterNeeds: 'interpreterNeeds',
-  applicantCaseName: 'applicantCaseName',
   childDetailsTable: 'childDetailsTable',
   jurisdictionIssue: 'jurisdictionIssue',
   ordersApplyingFor: 'ordersApplyingFor',
@@ -230,8 +229,13 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentDocsList: 'respondentDocsList',
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
+  c100DraftDoc: 'submitAndPayDownloadApplicationLink',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
+  citizenDocuments: 'citizenDocuments',
+  citizenOrders: 'citizenOrders',
+  citizenApplicationPacks: 'citizenApplicationPacks',
+  finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -271,7 +275,6 @@ export interface Case {
   dateOfSubmission?: DateOfSubmission;
   //declarationTable?: DeclarationTable;
   interpreterNeeds?: InterpreterNeed[];
-  applicantCaseName?: string;
   childDetailsTable?: ChildDetailsTable[];
   jurisdictionIssue?: string;
   ordersApplyingFor?: string[];
@@ -381,43 +384,48 @@ export interface Case {
   yourchildconcernsstart?: YesOrNo;
   cameoutofallegationsharmwithNo?: boolean;
   //applicant1CannotUploadDocuments?: DocumentType[];
+  hasCourtAskedForThisDoc?: YesOrNo;
+  reasonForDocumentCantBeShared?: string;
+  haveReasonForDocNotToBeShared?: YesOrNo;
+  reasonsToNotSeeTheDocument?: string[];
+  reasonsToRestrictDocument?: string;
   documentText?: string;
-  applicantUploadFiles?: UploadedFile[];
+  applicantUploadFiles?: DocumentUploadResponse['document'][];
   declarationCheck?: string;
   finalDocument?: Document;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
-  respondentUploadFiles?: UploadedFile[];
+  respondentUploadFiles?: DocumentUploadResponse['document'][];
   proceedingsCourtCase?: string;
   proceedingsStart?: YesOrNo;
   proceedingsCourtOrder?: string;
   proceedingsStartOrder?: YesOrNo;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
-  supervisionOrder?: orderInterface;
+  supervisionOrder?: OrderInterface;
   emergencyOrderOptions?: YesOrNo;
-  emergencyOrder?: orderInterface;
+  emergencyOrder?: OrderInterface;
   careOrderOptions?: YesOrNo;
-  careOrder?: orderInterface;
+  careOrder?: OrderInterface;
   childAbductionOrderOption?: YesOrNo;
-  childAbductionOrder?: orderInterface;
+  childAbductionOrder?: OrderInterface;
   caOrderOption?: YesOrNo;
-  caOrder?: orderInterface;
+  caOrder?: OrderInterface;
   financialOrderOption?: YesOrNo;
-  financialOrder?: orderInterface;
+  financialOrder?: OrderInterface;
   nonmolestationOrderOption?: YesOrNo;
-  nonmolestationOrder?: orderInterface;
+  nonmolestationOrder?: OrderInterface;
   occupationalOrderOptions?: YesOrNo;
-  occupationOrder?: orderInterface;
+  occupationOrder?: OrderInterface;
   marraigeOrderOptions?: YesOrNo;
-  marraigeOrder?: orderInterface;
+  marraigeOrder?: OrderInterface;
   restrainingOrderOptions?: YesOrNo;
-  restrainingOrder?: orderInterface;
+  restrainingOrder?: OrderInterface;
   injuctiveOrderOptions?: YesOrNo;
-  injuctiveOrder?: orderInterface;
+  injuctiveOrder?: OrderInterface;
   underTakingOrderOptions?: YesOrNo;
-  underTakingOrder?: orderInterface;
+  underTakingOrder?: OrderInterface;
 
   /***** Applicant1 *****/
   citizenUserFullName?: string;
@@ -511,7 +519,6 @@ export interface Case {
   //C100 Rebuild
   contactDetailsPrivateAlternative?: string;
   c100ApplicationFees?: string;
-  ra_disabilityRequirements?: string[];
   hwf_needHelpWithFees?: YesOrNo;
   hwf_feesAppliedDetails?: YesOrNo;
   caseId?: string;
@@ -591,8 +598,9 @@ export interface Case {
   lastModifiedDate?: string;
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
-  applicantPreferredContact?: applicantContactPreferencesEnum;
+  partyContactPreference?: ContactPreference | null;
   draftOrderDoc?: Document;
+  c100DraftDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
@@ -613,7 +621,55 @@ export interface Case {
   awp_supportingDocuments?: DocumentInfo[];
   awp_applicationType?: AWPApplicationType;
   awp_applicationReason?: AWPApplicationReason;
+  citizenDocuments?: CitizenDocuments[];
+  citizenOrders?: CitizenOrders[];
+  citizenApplicationPacks?: CitizenApplicationPacks[];
+  // RA local component
+  ra_typeOfHearing?: string[];
+  ra_noVideoAndPhoneHearing_subfield?: string;
+  ra_specialArrangements?: string[];
+  ra_specialArrangementsOther_subfield?: string;
+  ra_languageNeeds?: string[];
+  ra_needInterpreterInCertainLanguage_subfield?: string;
+  ra_documentInformation?: string[];
+  ra_disabilityRequirements?: string[];
+  ra_specifiedColorDocuments_subfield?: string;
+  ra_largePrintDocuments_subfield?: string;
+  ra_documentHelpOther_subfield?: string;
+  ra_communicationHelp?: string[];
+  ra_signLanguageInterpreter_subfield?: string;
+  ra_communicationHelpOther_subfield?: string;
+  ra_supportCourt?: string[];
+  ra_supportWorkerCarer_subfield?: string;
+  ra_friendFamilyMember_subfield?: string;
+  ra_therapyAnimal_subfield?: string;
+  ra_supportCourtOther_subfield?: string;
+  ra_feelComportable?: string[];
+  ra_appropriateLighting_subfield?: string;
+  ra_feelComportableOther_subfield?: string;
+  ra_travellingCourt?: string[];
+  ra_parkingSpace_subfield?: string;
+  ra_differentTypeChair_subfield?: string;
+  ra_travellingCourtOther_subfield?: string;
+  ra_languageReqAndSpecialArrangements?: string;
+  ra_existingFlags?: RAFlags;
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
+export interface ServedApplicationDetails {
+  id: string;
+  value: ServedApplication;
+}
+export type ServedApplication = {
+  emailNotificationDetails: EmailNotificationDetails[] | [];
+  whoIsResponsible: string;
+};
+export interface EmailNotificationDetails {
+  id: string;
+  value: emailNotification;
+}
+export type emailNotification = {
+  servedParty: string;
+};
 
 export interface CaseWithId extends Case {
   paymentSuccessDetails?: {
@@ -677,4 +733,11 @@ export enum FieldPrefix {
 export interface UploadedFile {
   id: string;
   name: string;
+}
+export interface HearingData {
+  hmctsServiceCode: string;
+  caseRef: string;
+  caseHearings: HearingsList[];
+  courtTypeId: string;
+  courtName: string;
 }

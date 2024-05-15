@@ -255,7 +255,7 @@ describe('testcase for tasklist', () => {
     language: 'en',
     userCase: {
       ...mockUserCase,
-      state: State.AwaitingSubmissionToHmcts,
+      state: State.CASE_DRAFT,
     },
     additionalData: {
       req: {
@@ -264,13 +264,13 @@ describe('testcase for tasklist', () => {
           userCase: {
             ...mockUserCase,
             caseTypeOfApplication: 'C100',
-            state: State.AwaitingSubmissionToHmcts,
+            state: State.CASE_DRAFT,
           },
         },
         params: {
           partyType: PartyType.APPLICANT,
         },
-        state: State.AwaitingSubmissionToHmcts,
+        state: State.CASE_DRAFT,
       },
     },
   } as unknown as CommonContent;
@@ -333,6 +333,12 @@ describe('testcase for tasklist', () => {
 
   test('should return correct sidebar hyperlinks for FL401 applicant', () => {
     commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = 'FL401';
+    commonContent.additionalData!.req.session.userCase.applicantsFL401 = {
+      ...commonContent.additionalData!.req.session.userCase.applicantsFL401,
+      user: {
+        idamId: '1234',
+      },
+    };
     expect(generateContent(commonContent).hyperlinks).toStrictEqual([
       {
         label: 'Add a legal representative',

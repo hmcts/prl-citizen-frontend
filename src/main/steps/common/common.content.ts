@@ -7,7 +7,7 @@ import { C100_APPLICANT_TASKLIST, C100_URL, COMMON_PAGE_URLS } from '../../steps
 
 import AppSurvey from './app-survey/appSurveyController';
 import { appSurveyContents } from './app-survey/content';
-
+console.info('** FOR SONAR **');
 export const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',
@@ -275,7 +275,7 @@ export const generatePageContent = ({
   byApplicant?: string;
   userIdamId?: string;
   additionalData?: CommonContentAdditionalData;
-  userId?: string | undefined;
+  userId?: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const url = additionalData?.req?.path;
@@ -354,7 +354,7 @@ export type CommonContent = typeof en & {
   addresses?: any[];
   byApplicant?: string;
   additionalData?: CommonContentAdditionalData;
-  userId?: string | undefined;
+  userId?: string;
   userIdamId?: string;
 };
 

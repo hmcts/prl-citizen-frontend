@@ -25,8 +25,7 @@ const SUCCESS = 'Success';
 export const PaymentHandler = async (req: AppRequest, res: Response) => {
   try {
     const paymentHelperTranspiler = await new PaymentHelper().SystemCredentailsToApiData(req);
-    const { Authorization, ServiceAuthorization, returnUrL, caseId, applicantCaseName, hwfRefNumber, feeType } =
-      paymentHelperTranspiler;
+    const { Authorization, ServiceAuthorization, returnUrL, caseId, hwfRefNumber, feeType } = paymentHelperTranspiler;
     const paymentApiEndpoint = config.get('services.cos.url');
     const createPaymentEndpoint = '/fees-and-payment-apis/create-payment';
     const baseURL = paymentApiEndpoint + createPaymentEndpoint;
@@ -37,7 +36,6 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       ServiceAuthorization,
       caseId,
       returnUrL,
-      applicantCaseName as string,
       hwfRefNumber as string,
       feeType
     );
@@ -51,7 +49,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       submitCase(
         req,
         res,
-        req.session.userCase!.caseId!,
+        req.session.userCase.caseId!,
         req.session.userCase,
         req.originalUrl,
         C100_CASE_EVENT.CASE_SUBMIT_WITH_HWF
@@ -61,7 +59,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       submitCase(
         req,
         res,
-        req.session.userCase!.caseId!,
+        req.session.userCase.caseId!,
         req.session.userCase,
         req.originalUrl,
         C100_CASE_EVENT.CASE_SUBMIT
@@ -111,7 +109,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
         submitCase(
           req,
           res,
-          req.session.userCase!.caseId!,
+          req.session.userCase.caseId!,
           req.session.userCase,
           req.originalUrl,
           C100_CASE_EVENT.CASE_SUBMIT

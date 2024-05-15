@@ -137,7 +137,7 @@ describe('list of applications content', () => {
         },
       ],
       breadcrumb: {
-        href: '/applicant/task-list/1234',
+        href: '/case/1234',
         id: 'caseView',
       },
       form: {
@@ -224,7 +224,7 @@ describe('list of applications content', () => {
         },
       ],
       breadcrumb: {
-        href: '/applicant/task-list/1234',
+        href: '/case/1234',
         id: 'caseView',
       },
       form: {
@@ -343,7 +343,7 @@ describe('list of applications content', () => {
         },
       ],
       breadcrumb: {
-        href: '/respondent/task-list/1234',
+        href: '/case/1234',
         id: 'caseView',
       },
       form: {
@@ -403,7 +403,7 @@ describe('list of applications content', () => {
         },
       ],
       breadcrumb: {
-        href: '/respondent/task-list/1234',
+        href: '/case/1234',
         id: 'caseView',
       },
       form: {
@@ -1155,7 +1155,7 @@ describe('list of applications content', () => {
         },
       ],
       breadcrumb: {
-        href: '/applicant/task-list/1234',
+        href: '/case/1234',
         id: 'caseView',
       },
       form: {

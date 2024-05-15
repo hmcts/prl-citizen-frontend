@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Case } from '../../../../app/case/case';
-import { C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
+import { C100Applicant, C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -33,7 +33,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       TempFirstName: applicantFirstName,
       TempLastName: applicantLastName,
     };
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
     const { _csrf, ...formData } = form.getParsedBody(req.body);
     const saveAndContinueChecked = req['body']['saveAndContinue'];
@@ -179,7 +179,8 @@ export default class AddApplicantPostController extends PostController<AnyObject
         canNotProvideTelephoneNumberReason: '',
         canLeaveVoiceMail: YesNoEmpty.EMPTY,
       },
-    };
+      reasonableAdjustmentsFlags: [],
+    } as C100Applicant;
     let applicantInSession: C100ListOfApplicants = [];
     if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {
       applicantInSession = req.session.userCase.appl_allApplicants;
@@ -242,6 +243,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
         applicantFirstName,
         applicantLastName,
       };
+
       newApplicantStorage.push(applicantObject);
     }
   }

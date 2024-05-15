@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CaseWithId } from '../../../app/case/case';
-import { CaseType, PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { applyParms } from '../../../steps/common/url-parser';
@@ -9,11 +7,7 @@ import * as URL from '../../urls';
 import { isValidApplicationReason } from '../utils';
 export * from './routeGuard';
 
-import {
-  APPLICANT_TASK_LIST_URL,
-  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
-  RESPONDENT_TASK_LIST_URL,
-} from './../../urls';
+import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from './../../urls';
 import { listOfApplications } from './config';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -292,24 +286,6 @@ const getPaginationConfig = (pageNumber, totalPages) => {
   return pagination;
 };
 
-const getCaseViewUrl = (partyType: PartyType, caseData: Partial<CaseWithId>): string => {
-  let caseDashboardUrl;
-  const caseType = caseData?.caseTypeOfApplication;
-  const caseId = caseData.id as string;
-
-  if (partyType === PartyType.APPLICANT) {
-    if (caseType === CaseType.C100) {
-      caseDashboardUrl = applyParms(`${URL.FETCH_CASE_DETAILS}`, { caseId });
-    } else {
-      caseDashboardUrl = `${APPLICANT_TASK_LIST_URL}/${caseId}`;
-    }
-  } else {
-    caseDashboardUrl = `${RESPONDENT_TASK_LIST_URL}/${caseId}`;
-  }
-
-  return caseDashboardUrl;
-};
-
 const generateApplicationList = (applicationIndex, applicationList, rest, application, link) => {
   if (applicationIndex < 0) {
     applicationList.push({
@@ -367,7 +343,7 @@ export const generateContent: TranslationFn = content => {
     accordionTitle,
     breadcrumb: {
       id: 'caseView',
-      href: getCaseViewUrl(partyType, caseData),
+      href: applyParms(`${URL.FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
     },
     form,
     applications: applications.slice((pageNumber - 1) * pageSize, pageNumber * pageSize),

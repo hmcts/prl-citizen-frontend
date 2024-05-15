@@ -9,7 +9,6 @@ type ISystemCredentailsToApiData = {
   ServiceAuthorization: string;
   returnUrL: string;
   caseId: string;
-  applicantCaseName: CaseWithId['applicantCaseName'];
   hwfRefNumber: CaseWithId['helpWithFeesReferenceNumber'];
   feeType: string;
 };
@@ -18,7 +17,7 @@ type ISystemCredentailsToApiData = {
 export class PaymentHelper {
   SystemCredentailsToApiData = async (req: AppRequest): Promise<ISystemCredentailsToApiData> => {
     let { caseId } = req.session.userCase;
-    const { applicantCaseName, helpWithFeesReferenceNumber } = req.session.userCase;
+    const { helpWithFeesReferenceNumber } = req.session.userCase;
     const { accessToken } = req.session.user;
     const returnURL = `${req.protocol}://${req.headers.host}${PAYMENT_RETURN_URL}`;
     let token = '';
@@ -34,7 +33,6 @@ export class PaymentHelper {
       ServiceAuthorization: token,
       returnUrL: returnURL,
       caseId,
-      applicantCaseName,
       hwfRefNumber: helpWithFeesReferenceNumber,
       feeType: 'C100_SUBMISSION_FEE',
     };

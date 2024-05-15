@@ -1,13 +1,14 @@
 import { CaseWithId } from '../../app/case/case';
 import { Applicant, CaseType, PartyDetails, PartyType, Respondent } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
-import { mapSupportYouNeedDetails } from '../../steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
+import { RAProvider } from '../../modules/reasonable-adjustments';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
-import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
-import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
+import { mapContactPreference } from '../common/contact-preference/ContactPreferencesMapper';
+import { mapKeepYourDetailsPrivate } from '../common/keep-details-private/KeepYourDetailsPrivateMapper';
 
 import { mapSafetyConcernsDetails } from './allegations-of-harm-and-violence/SafetyConcernsMapper';
+import { mapConsentToApplicationDetails } from './consent-to-application/summary/ConsentMapper';
 import { mapInternationalFactorsDetails } from './international-factors/InternationalFactorsMapper';
 import { mapMIAMDetails } from './miam/MIAMMapper';
 import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';
@@ -20,21 +21,27 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
       setDataInSession(userCase, partyDetails);
     }
 
-    if (partyDetails.response.consent) {
-      Object.assign(userCase, mapConsentToApplicationDetails(partyDetails));
-    }
-  }
-  if (partyDetails) {
     Object.assign(userCase, mapConfirmContactDetails(partyDetails));
   }
+
+  if (partyDetails?.response?.consent) {
+    Object.assign(userCase, mapConsentToApplicationDetails(partyDetails));
+  }
+
   if (partyDetails?.response?.keepDetailsPrivate?.confidentiality) {
     Object.assign(userCase, mapKeepYourDetailsPrivate(partyDetails));
   }
+
   if (partyDetails?.response?.supportYouNeed) {
-    Object.assign(userCase, mapSupportYouNeedDetails(partyDetails));
+    Object.assign(userCase, RAProvider.utils.mapRADetailsForRespondent(partyDetails));
+  }
+
+  if (partyDetails?.contactPreferences) {
+    Object.assign(userCase, mapContactPreference(partyDetails));
   }
 };
-function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
+
+const setDataInSession = (userCase: CaseWithId, partyDetails: PartyDetails): void => {
   if (partyDetails?.response?.safetyConcerns) {
     Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
   }
@@ -50,7 +57,7 @@ function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
   if (partyDetails?.response?.miam) {
     Object.assign(userCase, mapMIAMDetails(partyDetails));
   }
-}
+};
 
 export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetails | undefined => {
   let partyData;
@@ -75,11 +82,11 @@ export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id'])
   }
 
   if (partyData?.value) {
-    return Object.assign({}, partyData.value);
+    return { ...partyData.value, partyId: partyData.id };
   }
 
   if (partyData) {
-    return Object.assign({}, partyData);
+    return { ...partyData };
   }
 
   return partyData;

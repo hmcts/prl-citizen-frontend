@@ -1,4 +1,5 @@
 import { TranslationFn } from '../../../app/controller/GetController';
+import { FormContent } from '../../../app/form/Form';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -63,9 +64,14 @@ const languages = {
   cy,
 };
 
+export const form: FormContent = {
+  fields: {},
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
+    form,
   };
 };
