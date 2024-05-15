@@ -121,7 +121,7 @@
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-typescript": "^7.16.7",
     "@pact-foundation/absolute-version": "^0.0.4",
-    "@pact-foundation/pact": "^9.17.3",
+    "@pact-foundation/pact": "^12.0.0",
     "@playwright/test": "1.37.0",
     "@stryker-mutator/core": "^5.3.0",
     "@stryker-mutator/jest-runner": "^5.3.0",
