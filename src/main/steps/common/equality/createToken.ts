@@ -11,6 +11,8 @@ export const createToken = (params: PcqParameters, tokenKey: string): string => 
   const key = crypto.scryptSync(tokenKey, 'salt', keyLen);
 
   // Convert all params to string before encrypting
+  console.log('Token key : ' + tokenKey);
+
   Object.keys(params).forEach(p => {
     params[p] = String(params[p]);
   });
