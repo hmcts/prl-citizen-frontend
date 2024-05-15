@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { PartyType, State, YesOrNo } from '../../../app/case/definition';
+import { CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
 import { CommonContent } from '../common.content';
 import { generateContent } from '../task-list/content';
 
@@ -275,10 +275,10 @@ describe('testcase for tasklist', () => {
     },
   } as unknown as CommonContent;
   test('should return correct english content', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
+    languageAssertions('en', en, () => generateContent({...commonContent,userCase:{caseTypeOfApplication:CaseType.C100}}));
   });
   test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy', userCase:{caseTypeOfApplication:CaseType.C100}}));
   });
 
   test('should return correct sidebar hyperlinks for c100 applicant', () => {

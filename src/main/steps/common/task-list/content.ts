@@ -142,6 +142,7 @@ export const generateContent: TranslationFn = content => {
   const caseData = request.session.userCase;
   const partyType = request.params.partyType;
   const _isRepresentedBySolicotor = isRepresentedBySolicotor(caseData, request.session.user.id);
+  const hideTraintrack:boolean=false;
 
   if (caseData?.caseTypeOfApplication) {
     translations.hyperlinks = sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks;
@@ -165,7 +166,7 @@ export const generateContent: TranslationFn = content => {
       },
     ],
     partyName: getPartyName(caseData, partyType, request.session.user),
-    progressBar: getProgressBarConfig(caseData, partyType, content.language, request.session.user),
+    progressBar: hideTraintrack?getProgressBarConfig(caseData, partyType, content.language, request.session.user):undefined,
     notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),
     taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language),
   };
