@@ -1,17 +1,18 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { CaseType } from '../../../../app/case/definition';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
-import ApplicantRemoveLegalRepresentativePostController from './postController';
+import RemoveLegalRepresentativePostController from './RemoveLegalRepresentativePostController';
 
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
 let partyDetails;
 
-describe('ApplicantRemoveLegalRepresentativePostController', () => {
-  let controller = new ApplicantRemoveLegalRepresentativePostController({});
+describe('RemoveLegalRepresentativePostController', () => {
+  let controller = new RemoveLegalRepresentativePostController({});
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {
@@ -55,11 +56,12 @@ describe('ApplicantRemoveLegalRepresentativePostController', () => {
     retrieveByCaseIdMock.mockClear();
     updateCaserMock.mockClear();
   });
-  test('post should call common post controller', async () => {
+
+  test('Should update the respondent partyDetails details', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    req.session.userCase.respondents = [];
-    req.session.userCase.applicants = partyDetails;
-    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.respondents = partyDetails;
+    req.session.userCase.applicants = [];
+    req.session.userCase.caseTypeOfApplication = CaseType.C100;
     req.session.userCase.caseInvites = [
       {
         id: 'string',
@@ -73,9 +75,29 @@ describe('ApplicantRemoveLegalRepresentativePostController', () => {
         },
       },
     ];
-    req.body = { declarationCheck: true };
     await controller.post(req, res);
-    await new Promise(process.nextTick);
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/remove-legal-representative/confirm');
+  });
+
+  test('Should update the applicant partyDetails details', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.respondents = [];
+    req.session.userCase.applicants = partyDetails;
+    req.session.userCase.caseTypeOfApplication = CaseType.C100;
+    req.session.userCase.caseInvites = [
+      {
+        id: 'string',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
+        },
+      },
+    ];
+    await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith('/applicant/remove-legal-representative/confirm');
   });
 
@@ -112,11 +134,38 @@ describe('ApplicantRemoveLegalRepresentativePostController', () => {
         },
       },
     } as unknown as FormContent;
-    controller = new ApplicantRemoveLegalRepresentativePostController(mockFormContent.fields as FormFields);
+    controller = new RemoveLegalRepresentativePostController(mockFormContent.fields as FormFields);
     req.body = { declarationCheck: undefined };
     await controller.post(req, res);
     await new Promise(process.nextTick);
 
     expect(res.redirect).toHaveBeenCalledWith('/request');
+  });
+
+  test('Should catch and throw errors', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.respondents = [];
+    req.session.userCase.applicants = partyDetails;
+    req.session.userCase.caseTypeOfApplication = CaseType.C100;
+    req.session.userCase.caseInvites = [
+      {
+        id: 'string',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
+        },
+      },
+    ];
+    updateCaserMock.mockClear();
+    updateCaserMock.mockRejectedValue({ status: '500' });
+    controller = new RemoveLegalRepresentativePostController({});
+
+    await expect(controller.post(req, res)).rejects.toThrow(
+      'RemoveLegalRepresentativePostController - Case could not be updated.'
+    );
   });
 });

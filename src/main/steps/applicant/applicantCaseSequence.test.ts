@@ -8,21 +8,37 @@ describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
     expect(applicantCaseSequence).toHaveLength(45);
 
-    expect(applicantCaseSequence[0].url).toBe('/applicant/keep-details-private/details_known');
+    expect(applicantCaseSequence[0].url).toBe('/:partyType/keep-details-private/details_known');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[0].getNextStep({})).toBe('/applicant/keep-details-private/start_alternative');
+    expect(
+      applicantCaseSequence[0].getNextStep({}, {
+        session: { userCase: { id: '1234' }, user: { id: '1234' } },
+      } as unknown as AppRequest)
+    ).toBe('/applicant/keep-details-private/start_alternative');
 
-    expect(applicantCaseSequence[1].url).toBe('/applicant/keep-details-private/start_alternative');
+    expect(applicantCaseSequence[1].url).toBe('/:partyType/keep-details-private/start_alternative');
     expect(applicantCaseSequence[1].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[1].getNextStep({})).toBe('/');
+    expect(
+      applicantCaseSequence[1].getNextStep({}, {
+        session: { userCase: { id: '1234' }, user: { id: '1234' } },
+      } as unknown as AppRequest)
+    ).toBe('/');
 
-    expect(applicantCaseSequence[2].url).toBe('/applicant/keep-details-private/private_details_confirmed');
+    expect(applicantCaseSequence[2].url).toBe('/:partyType/keep-details-private/private_details_confirmed');
     expect(applicantCaseSequence[2].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[2].getNextStep({ id: '1234' })).toBe('/case/1234');
+    expect(
+      applicantCaseSequence[2].getNextStep({}, {
+        session: { userCase: { id: '1234' }, user: { id: '1234' } },
+      } as unknown as AppRequest)
+    ).toBe('/case/1234');
 
-    expect(applicantCaseSequence[3].url).toBe('/applicant/keep-details-private/private_details_not_confirmed');
+    expect(applicantCaseSequence[3].url).toBe('/:partyType/keep-details-private/private_details_not_confirmed');
     expect(applicantCaseSequence[3].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[3].getNextStep({ id: '1234' })).toBe('/case/1234');
+    expect(
+      applicantCaseSequence[3].getNextStep({}, {
+        session: { userCase: { id: '1234' }, user: { id: '1234' } },
+      } as unknown as AppRequest)
+    ).toBe('/case/1234');
 
     expect(applicantCaseSequence[4].url).toBe('/applicant/confirm-contact-details/checkanswers');
     expect(applicantCaseSequence[4].showInSection).toBe('aboutApplicantCase');
@@ -72,11 +88,11 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[15].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[15].getNextStep({ id: '1234' })).toBe('/case/1234');
 
-    expect(applicantCaseSequence[16].url).toBe('/applicant/remove-legal-representative/start');
+    expect(applicantCaseSequence[16].url).toBe('/:partyType/remove-legal-representative/start');
     expect(applicantCaseSequence[16].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[16].getNextStep({})).toBe('/applicant/remove-legal-representative/confirm');
 
-    expect(applicantCaseSequence[17].url).toBe('/applicant/remove-legal-representative/confirm');
+    expect(applicantCaseSequence[17].url).toBe('/:partyType/remove-legal-representative/confirm');
     expect(applicantCaseSequence[17].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[17].getNextStep({ id: '1234' })).toBe('/case/1234');
 

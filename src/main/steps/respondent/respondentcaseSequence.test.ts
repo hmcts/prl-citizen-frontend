@@ -8,21 +8,41 @@ describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
     expect(respondentCaseSequence).toHaveLength(31);
 
-    expect(respondentCaseSequence[0].url).toBe('/respondent/keep-details-private/details_known');
+    expect(respondentCaseSequence[0].url).toBe('/:partyType/keep-details-private/details_known');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[0].getNextStep({})).toBe('/respondent/keep-details-private/start_alternative');
+    expect(
+      respondentCaseSequence[0].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/respondent/keep-details-private/start_alternative');
 
-    expect(respondentCaseSequence[1].url).toBe('/respondent/keep-details-private/start_alternative');
+    expect(respondentCaseSequence[1].url).toBe('/:partyType/keep-details-private/start_alternative');
     expect(respondentCaseSequence[1].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[1].getNextStep({})).toBe('/');
+    expect(
+      respondentCaseSequence[1].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/');
 
-    expect(respondentCaseSequence[2].url).toBe('/respondent/keep-details-private/private_details_confirmed');
+    expect(respondentCaseSequence[2].url).toBe('/:partyType/keep-details-private/private_details_confirmed');
     expect(respondentCaseSequence[2].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[2].getNextStep({ id: '1234' })).toBe('/case/1234');
+    expect(
+      respondentCaseSequence[2].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/case/1234');
 
-    expect(respondentCaseSequence[3].url).toBe('/respondent/keep-details-private/private_details_not_confirmed');
+    expect(respondentCaseSequence[3].url).toBe('/:partyType/keep-details-private/private_details_not_confirmed');
     expect(respondentCaseSequence[3].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[3].getNextStep({ id: '1234' })).toBe('/case/1234');
+    expect(
+      respondentCaseSequence[3].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/case/1234');
 
     expect(respondentCaseSequence[4].url).toBe('/tasklistresponse/miam/miam-start');
     expect(respondentCaseSequence[4].showInSection).toBe('aboutRespondentCase');
@@ -99,11 +119,11 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[21].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[21].getNextStep({ id: '1234' })).toBe('/case/1234');
 
-    expect(respondentCaseSequence[22].url).toBe('/respondent/remove-legal-representative/start');
+    expect(respondentCaseSequence[22].url).toBe('/:partyType/remove-legal-representative/start');
     expect(respondentCaseSequence[22].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[22].getNextStep({})).toBe('/respondent/remove-legal-representative/confirm');
 
-    expect(respondentCaseSequence[23].url).toBe('/respondent/remove-legal-representative/confirm');
+    expect(respondentCaseSequence[23].url).toBe('/:partyType/remove-legal-representative/confirm');
     expect(respondentCaseSequence[23].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[23].getNextStep({ id: '1234' })).toBe('/case/1234');
 
