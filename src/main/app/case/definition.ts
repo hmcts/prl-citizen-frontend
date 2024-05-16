@@ -5,7 +5,6 @@
 import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
 
 import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
-import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
 import { CaseDate, CitizenNotification, FieldPrefix, ServedApplicationDetails } from './case';
 console.info("** FOR SONAR **");
 

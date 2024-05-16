@@ -9,7 +9,6 @@ import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   APPLICANT_CHECK_ANSWERS,
-  APPLICANT_DETAILS_KNOWN,
   C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   CHOOSE_CONTACT_PREFERENCE,
   CONSENT_TO_APPLICATION,
