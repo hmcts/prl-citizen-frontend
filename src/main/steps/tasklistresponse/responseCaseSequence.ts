@@ -39,7 +39,6 @@ import {
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_PERSONAL_DETAILS,
-  RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_TO_APPLICATION_SUMMARY,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
@@ -58,11 +57,6 @@ export const responseCaseSequence: Step[] = [
     url: CONSENT_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => '/',
-  },
-  {
-    url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: MIAM_START,

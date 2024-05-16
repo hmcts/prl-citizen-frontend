@@ -3,11 +3,9 @@
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../app/case/case';
-import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
+import { UserDetails } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
-import { FETCH_CASE_DETAILS, PageLink, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 import { DocumentCategory } from '../documents/definitions';
-import { applyParms } from '../url-parser';
 
 import {
   CaseType,
@@ -97,13 +95,6 @@ export const hasRespondentRespondedToC7Application = (
 
 export const isC7ResponseSubmitted = (respondent: PartyDetails | undefined): boolean => {
   return _.get(respondent, 'response.c7ResponseSubmitted', YesOrNo.NO) === YesOrNo.YES;
-};
-
-// temporary, remove after fl401 tasklist refactored
-export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppRequest): PageLink => {
-  return req?.session.applicationSettings?.navfromRespondToApplication
-    ? RESPOND_TO_APPLICATION
-    : (applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData.id as string }) as PageLink);
 };
 
 export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;

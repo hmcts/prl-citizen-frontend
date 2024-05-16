@@ -28,6 +28,7 @@ const enContent = {
       paternityTestReports: 'Paternity test reports',
       drugAndAlcoholTests: 'Drug and alcohol tests (toxicology)',
       policeReports: 'Police reports',
+      fm5Document: 'Statement of position on non-court dispute resolution (NCDR) (form FM5)',
       otherDocuments: 'Other documents',
     },
   },
@@ -82,6 +83,7 @@ const cyContent = {
       paternityTestReports: 'Adroddiadau profion tadolaeth',
       drugAndAlcoholTests: 'Profion cyffuriau ac alcohol (tocsicoleg)',
       policeReports: "Adroddiadau'r heddlu",
+      fm5Document: 'Datganiad safbwynt ar ddatrys anghydfod y tu allan i’r llys (NCDR) (ffurflen FM5)',
       otherDocuments: 'Dogfennau eraill',
     },
   },
@@ -234,6 +236,13 @@ describe('documents > upload > content', () => {
         {
           id: 'otherDocuments',
           items: [
+            {
+              categoryId: 'fm5-document',
+              link: {
+                text: 'Statement of position on non-court dispute resolution (NCDR) (form FM5)',
+                url: '/applicant/documents/upload/fm5-document/document-sharing-details',
+              },
+            },
             {
               categoryId: 'other-documents',
               link: {

@@ -229,6 +229,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   citizenApplicationPacks: 'citizenApplicationPacks',
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
   newChildDetails: 'newChildDetails',
+  citizenNotifications: 'citizenNotifications',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -627,6 +628,12 @@ export interface Case {
   c1A_concernAboutRespondent?: C1AAbuseTypes[];
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
+  citizenNotifications?: CitizenNotification[];
+}
+
+export interface CitizenNotification {
+  id: string;
+  show: boolean;
 }
 export interface ServedApplicationDetails {
   id: string;

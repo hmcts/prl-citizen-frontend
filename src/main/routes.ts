@@ -20,13 +20,13 @@ import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetCont
 import { TasklistGetController } from './steps/tasklistresponse/TasklistGetController';
 import {
   APPLICANT_CHECK_ANSWERS,
-  APPLICANT_DETAILS_KNOWN,
   C100_RETRIVE_CASE,
   CA_RESPONDENT_GENERATE_C7_DRAFT,
   CONSENT_TO_APPLICATION,
   CREATE_DRAFT,
   CSRF_TOKEN_ERROR_URL,
   DASHBOARD_URL,
+  DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT,
   DOWNLOAD_DOCUMENT_BY_TYPE,
   FETCH_CASE_DETAILS,
@@ -67,14 +67,10 @@ export class Routes {
     app.get(C100_RETRIVE_CASE, errorHandler(new CaseDataController().getC100ApplicantCase));
     //Tasklist event common get controller routes
     app.get(
-      `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT).get)
+      `${DETAILS_KNOWN}/:caseId`,
+      errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE).get)
     );
     app.get(FETCH_HEARING_DETAILS, errorHandler(new TasklistGetController(EventRoutesContext.HEARINGS).get)); //use sequence? is caseId needed here?
-    app.get(
-      `${APPLICANT_DETAILS_KNOWN}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT).get)
-    );
     app.get(
       `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_RESPONDENT).get)

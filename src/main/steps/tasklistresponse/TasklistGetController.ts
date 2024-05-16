@@ -13,6 +13,7 @@ import {
   C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   CHOOSE_CONTACT_PREFERENCE,
   CONSENT_TO_APPLICATION,
+  DETAILS_KNOWN,
   INTERNATIONAL_FACTORS_START,
   MIAM_START,
   PARTY_YOUR_HEARINGS,
@@ -20,7 +21,6 @@ import {
   PageLink,
   //RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
-  RESPONDENT_DETAILS_KNOWN,
 } from '../urls';
 
 @autobind
@@ -55,11 +55,8 @@ export class TasklistGetController {
       case EventRoutesContext.CONSENT_RESPONSE:
         redirectUrl = CONSENT_TO_APPLICATION;
         break;
-      case EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT:
-        redirectUrl = APPLICANT_DETAILS_KNOWN;
-        break;
-      case EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT:
-        redirectUrl = RESPONDENT_DETAILS_KNOWN;
+      case EventRoutesContext.KEEP_DETAILS_PRIVATE:
+        redirectUrl = applyParms(DETAILS_KNOWN, { partyType: getCasePartyType(userCase, user.id) });
         break;
       case EventRoutesContext.CONFIRM_CONTACT_DETAILS_APPLICANT:
         redirectUrl = APPLICANT_CHECK_ANSWERS;

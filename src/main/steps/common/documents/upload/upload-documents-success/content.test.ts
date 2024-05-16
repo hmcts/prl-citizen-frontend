@@ -8,8 +8,12 @@ const en = {
   pageTitle: 'Document submitted',
   bannerHeading: 'Important',
   bannerTitle: 'You must serve the documents',
-  paragraphs: [
+  fm5DocumentBannerTitle: 'You must give the document to the other party',
+  bannerContents: [
     'You can do this by sending them to the party’s legal representative if they have one, or by posting or emailing them directly to the party.',
+  ],
+  fm5DocumentBannerContents: [
+    'You can do this by sending it to the party’s legal representative if they have one, or by posting or emailing the document directly to the party.',
   ],
   whatHappensNext: 'What happens next',
   courtWillMakeDecisions: 'The court will make a decision on whether to restrict access to this document.',
@@ -22,8 +26,12 @@ const cy: typeof en = {
   pageTitle: 'Cyflwynwyd y ddogfen',
   bannerHeading: 'Pwysig',
   bannerTitle: "Rhaid i chi gyflwyno'r dogfennau",
-  paragraphs: [
+  fm5DocumentBannerTitle: 'Mae’n rhaid i chi roi’r ddogfen i’r parti arall',
+  bannerContents: [
     'Gallwch wneud hyn drwy eu hanfon at gynrychiolydd cyfreithiol y parti os oes ganddynt un, neu drwy eu postio neu eu hanfon yn uniongyrchol at y parti.',
+  ],
+  fm5DocumentBannerContents: [
+    'Gallwch wneud hyn drwy ei hanfon at gynrychiolydd cyfreithiol y parti os oes ganddynt un, neu drwy ei phostio neu ei hanfon yn uniongyrchol at y parti.',
   ],
   whatHappensNext: 'Beth fydd yn digwydd nesaf',
   courtWillMakeDecisions: "Bydd y llys yn penderfynu a ddylid cyfyngu ar fynediad i'r ddogfen hon ai peidio",

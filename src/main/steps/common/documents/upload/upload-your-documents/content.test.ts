@@ -37,9 +37,11 @@ const en = {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
     uploadDocumentFileUpload: {
-      uploadError: 'Document could not be uploaded',
-      donwloadError: 'Document could not be deleted',
-      empty: 'Enter your statement or upload a file.',
+      multipleFiles: 'You can upload only one document.',
+      noFile: 'Upload a file.',
+      noStatementOrFile: 'Enter your statement or upload a file.',
+      uploadError: 'Document could not be uploaded.',
+      deleteError: 'Document could not be deleted.',
     },
   },
 };
@@ -77,9 +79,11 @@ const cy: typeof en = {
       required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
     },
     uploadDocumentFileUpload: {
-      uploadError: 'Document could not be uploaded -welsh',
-      donwloadError: 'Document could not be deleted - welsh',
-      empty: 'Rhowch eich datganiad neu llwythwch ffeil',
+      multipleFiles: 'You can upload only one document. - welsh',
+      noFile: 'Upload a file. - welsh',
+      noStatementOrFile: 'Rhowch eich datganiad neu llwythwch ffeil.',
+      uploadError: 'Document could not be uploaded. - welsh',
+      deleteError: 'Document could not be deleted. - welsh',
     },
   },
 };
@@ -157,7 +161,7 @@ describe('documents > upload > upload-your-documents > content', () => {
   test('generateContent should return correct details', () => {
     commonContent.additionalData!.req.session = {
       ...commonContent.additionalData!.req.session,
-      errors: [{ errorType: 'empty', propertyName: 'uploadDocumentFileUpload' }],
+      errors: [{ errorType: 'noStatementOrFile', propertyName: 'uploadDocumentFileUpload' }],
     };
     commonContent.userCase = {
       ...commonContent.userCase,
