@@ -24,16 +24,16 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Upload your application (welsh)',
-  fillForm: `You will need to fill in the form ${applicationType} and upload it when submitting this request. (welsh)`,
-  alreadyCompleted: `Have you already completed the ${applicationType} form? (welsh)`,
-  yes: 'Yes (welsh)',
-  no: 'No (welsh)',
+  title: 'Uwchlwytho eich cais',
+  fillForm: `Bydd angen i chi lenwi ffurflen ${applicationType} a’i huwchlwytho pan fyddwch yn cyflwyno’r cais hwn.`,
+  alreadyCompleted: `Ydych chi wedi llenwi ffurflen ${applicationType} yn barod?`,
+  yes: 'Do',
+  no: 'Naddo',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
     awp_completedForm: {
-      required: `Select if you have the form ${applicationType} ready to upload (welsh)`,
+      required: `Mae’n rhaid i chi ddewis os yw ffurflen ${applicationType} gennych yn barod i’w huwchlwytho`,
     },
   },
 };

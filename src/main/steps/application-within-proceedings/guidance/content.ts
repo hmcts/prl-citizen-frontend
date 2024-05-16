@@ -148,38 +148,38 @@ const en = {
 };
 
 const cy: typeof en = {
-  caseNumber: 'Case number - welsh',
-  startNow: 'Start now -  welsh',
-  caption: 'Make a {applicationType} application - welsh',
+  caseNumber: 'Rhif yr achos',
+  startNow: 'Dechrau nawr',
+  caption: 'Gwneud cais {applicationType}',
   [AWPApplicationReason.DELAY_CANCEL_HEARING_DATE]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'You will not have to pay a fee if the hearing is more than 14 days away and the other person in the case agrees to your request. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Ni fydd rhaid i chi dalu ffi os yw’r gwrandawiad mwy na 14 diwrnod i ffwrdd ac mae’r unigolyn arall yn yr achos yn cytuno â’ch cais.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.REQUEST_MORE_TIME]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.CHILD_ARRANGEMENTS_ORDER_TO_LIVE_SPEND_TIME]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.PROHIBITED_STEPS_ORDER]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.SPECIFIC_ISSUE_ORCDER]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.ENFORCE_CHILD_ARRANGEMENTS_ORDER]: {
@@ -194,38 +194,38 @@ const cy: typeof en = {
   },
   [AWPApplicationReason.SUBMIT_EVIDENCE_COURT_NOT_REQUESTED]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.SHARE_DOCUMENTS_WITH_SOMEONE_ELSE]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.JOIN_OR_LEAVE_CASE]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.REQUEST_TO_WITHDRAW_APPLICATION]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.ASK_COURT_FOR_APPOINTING_EXPERT]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.PERMISSION_FOR_APPLICATION]: {
     contents: [
-      'If you can get the other person in the case to agree to your request, the fee you may have to pay will reduce. - welsh',
-      'Fees can be up to {applicationFee} depending on the information you provide. - welsh',
+      'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+      'Gall y ffi fod yn hyd at {applicationFee} yn dibynnu ar yr wybodaeth a ddarperir gennych.',
     ],
   },
   [AWPApplicationReason.REQUEST_PARENTAL_RESPONSIBILITY]: {
@@ -278,9 +278,9 @@ const cy: typeof en = {
     contents: ['You will have to pay a fee of {applicationFee} to request the court issues an arrest warrant. - welsh'],
   },
   helpWithFees: {
-    title: 'Get help paying court fees - welsh',
+    title: 'Help i dalu ffioedd llys',
     contents: [
-      'You can check the help with fees guidance on <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a" class="govuk-link" rel="external" target="_blank">GOV.UK (opens in a new tab)</a> to find out if you are eligible for support. - welsh',
+      'Gallwch wirio’r cyfarwyddyd ar help i dalu ffioedd ar <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a" class="govuk-link" rel="external" target="_blank">GOV.UK (yn agor mewn tab newydd)</a> i ganfod a ydych yn gymwys i gael cymorth.',
     ],
   },
 };

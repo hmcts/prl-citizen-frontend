@@ -7,7 +7,7 @@ import { generateContent } from './content';
 
 const applicationType = 'C2';
 const enReasonText = 'ask to delay or cancel a hearing date';
-const cyReasonText = 'ask to delay or cancel a hearing date - welsh';
+const cyReasonText = 'gohirio neu ganslo dyddiad gwrandawiad';
 
 const en = {
   title: 'Apply for help with fees',
@@ -25,15 +25,15 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Apply for help with fees (welsh)',
-  applyBefore: 'You must apply for help with fees before submitting your application. (welsh)',
-  nextSteps: 'Next steps (welsh)',
+  title: 'Gwneud cais am help i dalu ffioedd',
+  applyBefore: 'Mae’n rhaid i chi wneud cais am Help i Dalu Ffioedd cyn i chi gyflwyno’ch cais.',
+  nextSteps: 'Y camau nesaf',
   listItems: [
-    'Go to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" rel="external" target="_blank">apply for help with fees (opens in a new tab)</a> (welsh)',
-    `Enter ${applicationType} when you are asked to enter a court or tribunal number (welsh)`,
-    'Complete the help with fees application (welsh)',
-    `Return to complete your ${applicationType} application to ${cyReasonText} (welsh)`,
-    'Enter your help with fees reference number (welsh)',
+    'Ewch i <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" rel="external" target="_blank">Gwneud Cais am Help i Dalu Ffioedd (yn agor mewn tab newydd)</a>',
+    `Rhowch ${applicationType} pan ofynnir i chi roi rhif llys neu dribiwnlys`,
+    'Cwblhewch y cais am Help i Dalu Ffioedd',
+    `Dychwelwch eich cais ${applicationType} i ${cyReasonText}`,
+    'Rhowch eich cyfeirnod Help i Dalu Ffioedd',
   ],
   onlyContinue: 'Parhau',
   cancel: 'Canslo',

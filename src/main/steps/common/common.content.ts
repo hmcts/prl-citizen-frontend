@@ -244,7 +244,7 @@ export const cy: typeof en = {
     'Os hoffech roi gwybod inni am broblem neu os oes gennych awgrym i’n helpu ni i wella’r gwasanaeth hwn, anfonwch neges e-bost i: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk-welsh</a>',
   contactUs4: "Dim ond i roi adborth ar y gwasanaeth digidol y dylid defnyddio'r cyfeiriad e-bost hwn.",
   feedback: 'Adborth',
-  awpErrorSummaryHeading: 'There is a problem (welsh)',
+  awpErrorSummaryHeading: 'Mae yna broblem',
   invalidDate: 'Dyddiad Annilys',
 };
 

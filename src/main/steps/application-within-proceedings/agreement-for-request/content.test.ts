@@ -25,19 +25,19 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Get agreement for your request (welsh)',
+  title: 'Cael cytundeb ar gyfer eich cais',
   gettingAgreement:
-    'If you are able to, getting agreement from the other person in the case will reduce the fee you may have to pay. (welsh)',
-  provideProof: 'You will need to provide proof of their agreement. (welsh)',
-  otherPersonAgree: 'Does the other person in the case agree with this request? (welsh)',
-  otherPersonAgreeDate: 'Does the other person in the case agree with the date change? (welsh)',
-  yes: 'Yes (welsh)',
-  no: 'No (welsh)',
+    'Os gallwch gael yr unigolyn arall yn yr achos i gytuno â’ch cais, bydd y ffi y bydd rhaid i chi efallai ei thalu yn llai.',
+  provideProof: 'Bydd angen i chi ddarparu prawf eu bod yn cytuno â’ch cais.',
+  otherPersonAgree: 'A yw’r unigolyn arall yn yr achos yn cytuno â’r cais hwn?',
+  otherPersonAgreeDate: 'A yw’r unigolyn arall yn yr achos yn cytuno i newid y dyddiad?',
+  yes: 'Ydy',
+  no: 'Nac ydy',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
     awp_agreementForRequest: {
-      required: 'Select whether the other person in the case agrees with your request (welsh)',
+      required: 'Dewiswch p’un a yw’r unigolyn arall yn yr achos yn cytuno â’ch cais',
     },
   },
 };

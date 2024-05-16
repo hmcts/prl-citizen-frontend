@@ -22,16 +22,16 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Do you have supporting documents to upload? (welsh)',
+  title: 'A oes gennych chi ddogfennau ategol i’w huwchlwytho?',
   canShowProof:
-    'If you can show you have proof the other person in the case agrees to your request or you have any other supporting documents, you can upload them here. (welsh)',
-  yes: 'Yes (welsh)',
-  no: 'No (welsh)',
+    'Os gallwch ddangos bod gennych brawf bod yr unigolyn arall yn yr achos yn cytuno â’ch cais neu os oes gennych unrhyw ddogfennau ategol eraill, gallwch eu huwchlwytho yma.',
+  yes: 'Oes',
+  no: 'Nac oes',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
     awp_hasSupportingDocuments: {
-      required: 'Select whether you have supporting documents to upload (welsh)',
+      required: 'Dewiswch p’un a oes gennych chi ddogfennau ategol i’w huwchlwytho',
     },
   },
 };

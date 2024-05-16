@@ -32,21 +32,21 @@ const en = {
 };
 
 const cy = {
-  section: 'Check your answers -welsh',
+  section: 'Gwirio eich atebion',
   caseNumber: 'Rhif yr achos ',
-  application: 'application -welsh',
+  application: 'Cais',
   sectionTitles: {},
-  typeOfApplication: 'What are you applying for? -welsh',
-  whichHearing: 'Which hearing are you applying to delay or cancel? -welsh',
-  doHaveAgreementForRequest: 'Does the other person in the case agree with the date change? -welsh',
+  typeOfApplication: 'Beth ydych chi’n gwneud cais amdano?',
+  whichHearing: 'Pa wrandawiad ydych chi’n gwneud cais i’w ohirio neu ei ganslo?',
+  doHaveAgreementForRequest: 'A yw’r unigolyn arall yn yr achos yn cytuno i newid y dyddiad?',
   isOtherInformed: 'Can the respondent be informed about the application? -welsh',
-  documentsUpload: 'Document uploaded -welsh',
-  doHaveSupportingDocuments: 'Do you have supporting documents to upload? -welsh',
-  isHwfRequired: 'Will you be using help with fees to pay for this application? -welsh',
-  hwfReferenceNumber: 'Help with fees reference number -welsh',
-  change: 'Change -welsh',
-  cancel: 'Cancel -welsh',
-  continue: 'Submit Application -welsh',
+  documentsUpload: 'Dogfen wedi’i huwchlwytho',
+  doHaveSupportingDocuments: 'A oes gennych chi ddogfennau ategol i’w huwchlwytho?',
+  isHwfRequired: 'A fyddwch chi’n defnyddio Help i Dalu Ffioedd i dalu am y cais hwn?',
+  hwfReferenceNumber: 'Cyfeirnod Help i Dalu Ffioedd',
+  change: 'Newid',
+  cancel: 'Canslo',
+  continue: 'Cyflwyno’r cais',
   errors: {
     paymentError: {
       title: 'Mae yna broblem',

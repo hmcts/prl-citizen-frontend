@@ -14,13 +14,13 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Pay and submit (welsh)',
+  title: 'Talu a chyflwyno eich cais',
   line1:
-    'You will be asked to enter your card details and make payment. You will receive a confirmation email when your payment is successful. (welsh)',
+    'Fe ofynnir i chi roi manylion eich cerdyn a thalu ffi. Fe gewch e-bost cadarnhad pan fydd eich taliad yn llwyddiannus.',
   line2:
-    'Once you have paid, your application will be submitted to the court and you will not be able to make any further changes. (welsh)',
-  line3: 'The court will process your application and take it forward. (welsh)',
-  submit: 'Pay and submit (welsh)',
+    'Unwaith y byddwch wedi talu, fe gyflwynir eich cais i’r llys ac ni fyddwch yn gallu gwneud unrhyw newidiadau pellach iddo.',
+  line3: 'Bydd y llys yn prosesu eich cais ac yn ei symud yn ei flaen.',
+  submit: 'Talu a chyflwyno',
   cancel: 'Canslo',
 };
 

@@ -78,7 +78,7 @@ const en = {
 
 const cy: typeof en = {
   [AWPApplicationReason.DELAY_CANCEL_HEARING_DATE]: {
-    reasonText: 'Ask to delay or cancel a hearing date - welsh',
+    reasonText: 'Gohirio neu ganslo dyddiad gwrandawiad',
   },
   [AWPApplicationReason.REQUEST_MORE_TIME]: {
     reasonText: 'Request more time to do what is required by a court order - welsh',

@@ -25,11 +25,11 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Is there a reason why your request needs to be considered in the next five days? (welsh)',
-  reasonText: 'Give a reason why the court should consider your request urgently (welsh)',
-  hintText: 'For example, if there is an upcoming hearing or deadline set by the court. (welsh)',
-  yes: 'Yes (welsh)',
-  no: 'No (welsh)',
+  title: 'A oes yna reswm pam bod angen ystyried eich cais yn y pum diwrnod nesaf?',
+  reasonText: 'Rhowch reswm pam dylai’r llys ystyried eich cais ar frys.',
+  hintText: 'Er enghraifft, os oes yna wrandawiad sydd ar ddod neu derfyn amser wedi’i bennu gan y llys.',
+  yes: 'Oes',
+  no: 'Nac oes',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
@@ -38,7 +38,7 @@ const cy: typeof en = {
         'Select whether there is a reason why your request needs to be considered in the next five days (welsh)',
     },
     awp_urgentRequestReason: {
-      required: 'Enter the reason why the court should consider this application as a matter of urgency (welsh)',
+      required: 'Mae’n rhaid i chi roi rheswm pam dylai’r llys ystyried y cais hwn ar frys',
     },
   },
 };

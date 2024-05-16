@@ -70,7 +70,7 @@ describe('application reasons content', () => {
   });
 
   test.each([
-    { value: 'delay-or-cancel-hearing-date', expected: 'Ask to delay or cancel a hearing date - welsh' },
+    { value: 'delay-or-cancel-hearing-date', expected: 'Gohirio neu ganslo dyddiad gwrandawiad' },
     { value: 'request-more-time', expected: 'Request more time to do what is required by a court order - welsh' },
     {
       value: 'child-arrangements-order-to-live-with-or-spend-time',
