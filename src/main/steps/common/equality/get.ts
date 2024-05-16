@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../tasklistresponse/utils';
-import { C100_CHECK_YOUR_ANSWER, PageLink, RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
+import { C100_CHECK_YOUR_ANSWER_REDIRECT, PageLink, RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
 
 import { createToken } from './createToken';
 
@@ -20,15 +20,18 @@ export default class PCQGetController {
     const { userCase, user } = req.session;
     let partyType;
     let partyDetails;
+    let pcqExists;
     if (req.url.includes('c100-rebuild')) {
       partyType = 'applicant';
       partyDetails = userCase.appl_allApplicants;
+      pcqExists = userCase.applicantPcqId ? true : undefined;
     } else {
       partyType = 'respondent';
       partyDetails = getPartyDetails(userCase, user.id);
+      pcqExists = partyDetails?.user?.pcqId ? true : undefined;
     }
     const redirectUrl = getRedirectUrl(partyType);
-    if (!partyDetails?.user?.pcqId) {
+    if (!pcqExists) {
       const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
       const url = config.get('services.equalityAndDiversity.url');
       const pcqEnabled = config.get('services.equalityAndDiversity.pcqEnabled');
@@ -84,11 +87,8 @@ export default class PCQGetController {
           return res.redirect(`${url}${path}?${qs}`);
         });
       } else {
-        logger.info(
-          `User already attempted for PCQ ID or pcqEnabled is not enabled:${partyDetails?.user.pcqId} , pcqEnabled: ${pcqEnabled}`
-        );
-        res.redirect(redirectUrl);
-        return;
+        logger.info(`User already attempted for PCQ with ID :${partyDetails?.user.pcqId} , pcqEnabled: ${pcqEnabled}`);
+        return res.redirect(redirectUrl);
       }
     } else {
       return res.redirect(redirectUrl);
@@ -97,7 +97,7 @@ export default class PCQGetController {
 }
 
 const getRedirectUrl = (partyType: PartyType): PageLink => {
-  let redirectUrl = C100_CHECK_YOUR_ANSWER;
+  let redirectUrl = C100_CHECK_YOUR_ANSWER_REDIRECT;
   if (partyType === PartyType.RESPONDENT) {
     redirectUrl = RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT;
   }
