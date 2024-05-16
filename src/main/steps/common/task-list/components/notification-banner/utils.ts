@@ -147,7 +147,8 @@ export const isPersonalServiceByCourtStaff = (caseData: Partial<CaseWithId>): bo
 
 export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   return !!(
-    caseData?.citizenApplicationPacks?.length && caseData.citizenApplicationPacks[0] && 
+    caseData?.citizenApplicationPacks?.length &&
+    caseData.citizenApplicationPacks[0] &&
     getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyId === caseData.citizenApplicationPacks[0].partyId
   );
 };
