@@ -2147,7 +2147,7 @@ describe('tasklist index', () => {
               hintText: null,
               href: '/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
-              linkText: undefined,
+              linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
@@ -2311,7 +2311,7 @@ describe('tasklist index', () => {
               hintText: null,
               href: '/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
-              linkText: undefined,
+              linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
@@ -2439,7 +2439,7 @@ describe('tasklist index', () => {
               hintText: null,
               href: '/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
-              linkText: undefined,
+              linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
@@ -2549,7 +2549,7 @@ describe('tasklist index', () => {
               hintText: null,
               href: '/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
-              linkText: undefined,
+              linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
@@ -3027,7 +3027,7 @@ describe('c100 respondent', () => {
             hintText: null,
             href: '/application-within-proceedings/list-of-applications/1',
             id: 'requestToCourtAboutYourCase',
-            linkText: undefined,
+            linkText: 'Make a request to the court about your case',
             openInAnotherTab: false,
             stateTag: {
               className: 'govuk-tag--blue',
@@ -3268,7 +3268,7 @@ describe('c100 respondent', () => {
             hintText: null,
             href: '/application-within-proceedings/list-of-applications/1',
             id: 'requestToCourtAboutYourCase',
-            linkText: undefined,
+            linkText: 'Make a request to the court about your case',
             openInAnotherTab: false,
             stateTag: {
               className: 'govuk-tag--blue',
@@ -3561,7 +3561,7 @@ describe('c100 respondent', () => {
             hintText: null,
             href: '/application-within-proceedings/list-of-applications/1',
             id: 'requestToCourtAboutYourCase',
-            linkText: undefined,
+            linkText: 'Make a request to the court about your case',
             openInAnotherTab: false,
             stateTag: {
               className: 'govuk-tag--blue',

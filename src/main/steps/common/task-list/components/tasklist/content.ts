@@ -121,6 +121,9 @@ const en: TaskListContent = {
           respondToAOHAndViolence: {
             linkText: 'Respond to the allegations of harm and violence',
           },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
+          },
         },
       },
       yourHearing: {
@@ -162,6 +165,9 @@ const en: TaskListContent = {
           },
           yourAapplicationWitnessStatment: {
             linkText: 'Witness statement (PDF)',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
           },
         },
       },
@@ -385,6 +391,9 @@ const cy: typeof en = {
           respondToAOHAndViolence: {
             linkText: "Ymateb i'r honiadau o niwed a thrais",
           },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case -  welsh',
+          },
         },
       },
       yourHearing: {
@@ -426,6 +435,9 @@ const cy: typeof en = {
           },
           yourAapplicationWitnessStatment: {
             linkText: 'Datganiad tyst (PDF)',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case -  welsh',
           },
         },
       },
