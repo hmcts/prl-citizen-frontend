@@ -22,7 +22,6 @@ import { TasklistGetController } from './steps/tasklistresponse/TasklistGetContr
 import { SafetyConcernsPostController } from './steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsPostController';
 import {
   APPLICANT_CHECK_ANSWERS,
-  APPLICANT_DETAILS_KNOWN,
   APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK,
   APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
   C100_RETRIVE_CASE,
@@ -32,6 +31,7 @@ import {
   CREATE_DRAFT,
   CSRF_TOKEN_ERROR_URL,
   DASHBOARD_URL,
+  DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT,
   DOWNLOAD_DOCUMENT_BY_TYPE,
   FETCH_CASE_DETAILS,
@@ -47,7 +47,6 @@ import {
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CHECK_ANSWERS_NO,
-  RESPONDENT_DETAILS_KNOWN,
   RESPOND_TO_APPLICATION,
 } from './steps/urls';
 
@@ -74,14 +73,10 @@ export class Routes {
     app.get(C100_RETRIVE_CASE, errorHandler(new CaseDataController().getC100ApplicantCase));
     //Tasklist event common get controller routes
     app.get(
-      `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT).get)
+      `${DETAILS_KNOWN}/:caseId`,
+      errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE).get)
     );
     app.get(FETCH_HEARING_DETAILS, errorHandler(new TasklistGetController(EventRoutesContext.HEARINGS).get)); //use sequence? is caseId needed here?
-    app.get(
-      `${APPLICANT_DETAILS_KNOWN}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT).get)
-    );
     app.get(
       `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_RESPONDENT).get)

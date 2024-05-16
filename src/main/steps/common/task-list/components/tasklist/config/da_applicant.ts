@@ -10,9 +10,9 @@ import { isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../.
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
-  APPLICANT_DETAILS_KNOWN,
   APPLICANT_YOURHEARINGS_HEARINGS,
   APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
+  DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT_BY_TYPE,
   REASONABLE_ADJUSTMENTS_INTRO,
   UPLOAD_DOCUMENT,
@@ -45,7 +45,8 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
-        href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
+        href: (caseData: Partial<CaseWithId>) =>
+          `${applyParms(DETAILS_KNOWN, { partyType: PartyType.APPLICANT })}/${caseData.id}`,
         stateTag: (caseData: Partial<CaseWithId>) =>
           getKeepYourDetailsPrivateStatus(caseData?.applicantsFL401?.response?.keepDetailsPrivate),
       },

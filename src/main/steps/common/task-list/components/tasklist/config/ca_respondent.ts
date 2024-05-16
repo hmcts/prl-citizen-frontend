@@ -10,11 +10,11 @@ import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils'
 import {
   APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   CHOOSE_CONTACT_PREFERENCE,
+  DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT_BY_TYPE,
   FETCH_HEARING_DETAILS,
   REASONABLE_ADJUSTMENTS_INTRO,
   RESPONDENT_CHECK_ANSWERS,
-  RESPONDENT_DETAILS_KNOWN,
   RESPOND_TO_APPLICATION,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
@@ -54,7 +54,8 @@ export const aboutYou: TaskListConfigProps = {
   tasks: (): Task[] => [
     {
       id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
-      href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_DETAILS_KNOWN}/${caseData.id}`,
+      href: (caseData: Partial<CaseWithId>) =>
+        `${applyParms(DETAILS_KNOWN, { partyType: PartyType.RESPONDENT })}/${caseData.id}`,
       stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);

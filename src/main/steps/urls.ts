@@ -45,22 +45,12 @@ export const CONTACT_DETAILS_SAVE: PageLink = `${CONFIRM_CONTACT_DETAILS}/save`;
 /*confirm-contact-details-end */
 
 /* keep-details-private */
-export const KEEP_DETAILS_PRIVATE: PageLink = '/keep-details-private';
+export const KEEP_DETAILS_PRIVATE: PageLink = '/:partyType/keep-details-private';
 export const DETAILS_KNOWN: PageLink = `${KEEP_DETAILS_PRIVATE}/details_known`;
-export const DETAILS_KNOWN_RESPONDENT: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}/details_known`;
 export const START_ALTERNATIVE: PageLink = `${KEEP_DETAILS_PRIVATE}/start_alternative`;
-export const START_ALTERNATIVE_RESPONDENT: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}/start_alternative`;
 export const PRIVATE_DETAILS_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_confirmed`;
 export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_not_confirmed`;
 /* keep-details-private-end */
-
-/* Respondent-start */
-export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;
-export const RESPONDENT_DETAILS_KNOWN: PageLink = `${RESPONDENT}${DETAILS_KNOWN}`;
-export const RESPONDENT_START_ALTERNATIVE: PageLink = `${RESPONDENT}${START_ALTERNATIVE}`;
-export const RESPONDENT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${RESPONDENT}${PRIVATE_DETAILS_CONFIRMED}`;
-export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
-/* respondent-keep-details-private-end */
 
 /* MIAM */
 export const TASK_LIST_RESPONSE: PageLink = '/tasklistresponse';
@@ -127,14 +117,6 @@ export const APPLICANT_ADDRESS_HISTORY: PageLink = `${APPLICANT}${ADDRESS_HISTOR
 export const APPLICANT_SELECT_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/select`;
 export const APPLICANT_MANUAL_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/manual`;
 /* applicant-confirm-contact-details-end */
-
-/* applicant-respondent-keep-details-private */
-export const APPLICANT_KEEP_DETAILS_PRIVATE: PageLink = `${APPLICANT}${KEEP_DETAILS_PRIVATE}`;
-export const APPLICANT_DETAILS_KNOWN: PageLink = `${APPLICANT}${DETAILS_KNOWN}`;
-export const APPLICANT_START_ALTERNATIVE: PageLink = `${APPLICANT}${START_ALTERNATIVE}`;
-export const APPLICANT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_CONFIRMED}`;
-export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
-/* applicant-keep-details-private-end */
 
 /* consent-to-the-application */
 export const CONSENT: PageLink = `${RESPONSE_TASKLIST}/consent-to-application`;
@@ -463,11 +445,9 @@ export const RESPONDENT_TASKLIST_HEARING_NEEDS: PageLink = `${RESPONDENT}${HEARI
 export const RESPONDENT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${RESPONDENT}/add-legal-representative`;
 export const APPLICANT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${APPLICANT}/add-legal-representative`;
 
-export const RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = `${RESPONDENT}/remove-legal-representative/start`;
-export const RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = `${RESPONDENT}/remove-legal-representative/confirm`;
+export const REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = '/:partyType/remove-legal-representative/start';
+export const REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = '/:partyType/remove-legal-representative/confirm';
 
-export const APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = `${APPLICANT}/remove-legal-representative/start`;
-export const APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = `${APPLICANT}/remove-legal-representative/confirm`;
 /** Screening questions */
 export const SCREENING_QUESTION_GUIDANCE: PageLink = '/complete-your-application-guidance';
 export const SCREENING_QUESTION_COURT_FEE: PageLink = '/agree-court-fee';

@@ -1,18 +1,18 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CosApiClient } from '../../../app/case/CosApiClient';
-import { YesOrNo } from '../../../app/case/definition';
-import { APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED, RESPONDENT_PRIVATE_DETAILS_CONFIRMED } from '../../urls';
+import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
+import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { CaseType, YesOrNo } from '../../../../app/case/definition';
+import { FormContent, FormFields } from '../../../../app/form/Form';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
 
-import { KeepDetailsPrivatePostController } from './KeepDetailsPrivatePostController';
+import KeepDetailsPrivatePostController from './KeepDetailsPrivatePostController';
 
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
 let partyDetails;
 
 describe('KeepDetailsPrivatePostController', () => {
-  let fields;
-  const controller = new KeepDetailsPrivatePostController(fields);
+  let controller = new KeepDetailsPrivatePostController({});
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {
@@ -79,6 +79,8 @@ describe('KeepDetailsPrivatePostController', () => {
       },
     ];
     req.url = 'respondent';
+    req.body = { startAlternative: 'Yes', contactDetailsPrivate: ['phoneNumber', 'email', 'address'] };
+
     await controller.post(req, res);
     expect(req.session.userCase.respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
   });
@@ -104,6 +106,7 @@ describe('KeepDetailsPrivatePostController', () => {
         },
       },
     ];
+
     await controller.post(req, res);
     const expected = {
       confidentiality: 'Yes',
@@ -276,7 +279,7 @@ describe('KeepDetailsPrivatePostController', () => {
     req.session.userCase.caseTypeOfApplication = 'fl401';
     req.url = 'applicant';
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED);
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should perform correct redirect for respondent when startAlternative is No', async () => {
@@ -302,6 +305,106 @@ describe('KeepDetailsPrivatePostController', () => {
     ];
     req.url = 'respondent';
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(RESPONDENT_PRIVATE_DETAILS_CONFIRMED);
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
+  });
+
+  test('post should redirect to same page when declaration check not present', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.respondents = [];
+    req.session.userCase.applicants = partyDetails;
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.caseInvites = [
+      {
+        id: 'string',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
+        },
+      },
+    ];
+    const mockFormContent = {
+      fields: {
+        startAlternative: {
+          id: 'startAlternative',
+          type: 'radios',
+          classes: 'govuk-radios',
+          section: l => l.section,
+          values: [
+            {
+              label: l => l.one,
+              value: 'Yes',
+              subFields: {
+                contactDetailsPrivate: {
+                  type: 'checkboxes',
+                  label: l => l.contact_details_private,
+                  hint: l => l.contact_details_private_hint,
+                  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+                  validator: atLeastOneFieldIsChecked,
+                  values: [
+                    {
+                      name: 'contactDetailsPrivate',
+                      label: l => l.address,
+                      value: 'address',
+                    },
+                    {
+                      name: 'contactDetailsPrivate',
+                      label: l => l.Phone_number,
+                      value: 'phoneNumber',
+                    },
+                    {
+                      name: 'contactDetailsPrivate',
+                      label: l => l.Email,
+                      value: 'email',
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              label: l => l.two,
+              value: 'No',
+            },
+          ],
+          validator: isFieldFilledIn,
+        },
+      },
+    } as unknown as FormContent;
+    controller = new KeepDetailsPrivatePostController(mockFormContent.fields as FormFields);
+    req.body = { declarationCheck: undefined };
+    await controller.post(req, res);
+    await new Promise(process.nextTick);
+
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
+  });
+
+  test('Should catch and throw errors', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.respondents = [];
+    req.session.userCase.applicants = partyDetails;
+    req.session.userCase.caseTypeOfApplication = CaseType.C100;
+    req.session.userCase.caseInvites = [
+      {
+        id: 'string',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
+        },
+      },
+    ];
+    updateCaserMock.mockClear();
+    updateCaserMock.mockRejectedValue({ status: '500' });
+    controller = new KeepDetailsPrivatePostController({});
+
+    await expect(controller.post(req, res)).rejects.toThrow(
+      'KeepDetailsPrivatePostController - Case could not be updated.'
+    );
   });
 });
