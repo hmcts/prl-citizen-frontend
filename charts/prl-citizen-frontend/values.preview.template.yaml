@@ -45,6 +45,7 @@ nodejs:
         - launchDarkly-sdk-key
         - citizen-upload-docs-email
         - redis-access-key
+        - prl-pcq-token-key
 idam-pr:
   enabled: true
   redirect_uris:

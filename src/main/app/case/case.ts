@@ -633,6 +633,7 @@ export interface Case {
   ra_languageReqAndSpecialArrangements?: string;
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+  applicantPcqId?: string;
   respondentPcqId?: string;
 }
 export interface ServedApplicationDetails {

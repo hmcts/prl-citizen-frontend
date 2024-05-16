@@ -66,6 +66,8 @@ export default class PCQGetController {
         logger.info(`PCQ service return URL: ${params.returnUrl}`);
         if (partyType === 'respondent') {
           req.session.userCase.respondentPcqId = pcqId;
+        } else {
+          req.session.userCase.applicantPcqId = pcqId;
         }
         const qs = Object.keys(params)
           .map(key => `${key}=${params[key]}`)

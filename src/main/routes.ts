@@ -10,6 +10,7 @@ import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
+import PayAndSubmitPostController from './steps/c100-rebuild/check-your-answers/PostControllerAfterPcq';
 import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
@@ -22,6 +23,7 @@ import { ResponseSummaryConfirmationPostController } from './steps/tasklistrespo
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
+  C100_CHECK_YOUR_ANSWER_REDIRECT,
   C100_RETRIVE_CASE,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   CA_RESPONDENT_GENERATE_C7_DRAFT,
@@ -150,6 +152,7 @@ export class Routes {
           RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT,
           errorHandler(new ResponseSummaryConfirmationPostController(step.form.fields).post)
         );
+        app.get(C100_CHECK_YOUR_ANSWER_REDIRECT, errorHandler(new PayAndSubmitPostController(step.form.fields).post));
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
       }
     }
