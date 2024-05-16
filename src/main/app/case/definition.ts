@@ -5,7 +5,7 @@
 import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
 
 import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
-import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
+import { CaseDate, CitizenNotification, FieldPrefix, ServedApplicationDetails } from './case';
 console.info("** FOR SONAR **");
 export interface ChildDetails {
   gender: string;
@@ -885,6 +885,7 @@ export interface CaseData {
   citizenOrders?: CitizenDocuments[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+  citizenNotifications?: CitizenNotification[];
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1460,8 +1461,7 @@ export const enum ApplyingWith {
 }
 
 export const enum EventRoutesContext {
-  KEEP_DETAILS_PRIVATE_RESPONDENT = 'KEEP_DETAILS_PRIVATE_RESPONDENT',
-  KEEP_DETAILS_PRIVATE_APPLICANT = 'KEEP_DETAILS_PRIVATE_APPLICANT',
+  KEEP_DETAILS_PRIVATE = 'KEEP_DETAILS_PRIVATE',
   CONFIRM_CONTACT_DETAILS_RESPONDENT = 'CONFIRM_CONTACT_DETAILS_RESPONDENT',
   CONFIRM_CONTACT_DETAILS_APPLICANT = 'CONFIRM_CONTACT_DETAILS_APPLICANT',
   MIAM_RESPONSE = 'MIAM_RESPONSE',
