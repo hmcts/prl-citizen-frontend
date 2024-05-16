@@ -618,9 +618,9 @@ const en = (content: CommonContent) => {
     SafetyConcerns(enSaftyConcern, userCase, content.language)
   );
 
-  if (userCase.hasOwnProperty('PRL_c1A_haveSafetyConcerns') && userCase['PRL_c1A_haveSafetyConcerns'] === YesOrNo.YES) {
+  if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
     sections.push(SafetyConcerns_child(enSaftyConcern, userCase, content.language));
-    if (toggleApplicantSafetyConcerns('PRL_c1A_safetyConernAbout', userCase, 'PRL_c1A_concernAboutChild')) {
+    if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
       sections.push(SafetyConcerns_yours(enSaftyConcern, userCase, content.language));
     }
     sections.push(SafetyConcerns_others(enSaftyConcern, userCase, content.language));
@@ -672,9 +672,9 @@ const cy: typeof en = (content: CommonContent) => {
     SafetyConcerns(cySaftyConcern, userCase, content.language)
   );
 
-  if (userCase.hasOwnProperty('PRL_c1A_haveSafetyConcerns') && userCase['PRL_c1A_haveSafetyConcerns'] === YesOrNo.YES) {
+  if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
     sections.push(SafetyConcerns_child(cySaftyConcern, userCase, content.language));
-    if (toggleApplicantSafetyConcerns('PRL_c1A_safetyConernAbout', userCase, 'PRL_c1A_concernAboutChild')) {
+    if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
       sections.push(SafetyConcerns_yours(cySaftyConcern, userCase, content.language));
     }
     sections.push(SafetyConcerns_others(cySaftyConcern, userCase, content.language));

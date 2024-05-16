@@ -1,10 +1,13 @@
 import { Case } from '../../app/case/case';
-import { RootContext, YesOrNo } from '../../app/case/definition';
+import {
+  //RootContext,
+  YesOrNo,
+} from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../constants';
 import {
-  C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+  //C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   CA_RESPONDENT_RESPONSE_CONFIRMATION,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
@@ -209,11 +212,11 @@ export const responseCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => '/',
   },
-  {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.RESPONDENT }) as PageLink,
-  },
+  // {
+  //   url: RESPOND_TO_APPLICATION,
+  //   showInSection: Sections.AboutRespondentCase,
+  //   getNextStep: () => applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.RESPONDENT }) as PageLink,
+  // },
   {
     url: RESPOND_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
