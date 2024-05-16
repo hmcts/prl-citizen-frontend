@@ -231,6 +231,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   citizenOrders: 'citizenOrders',
   citizenApplicationPacks: 'citizenApplicationPacks',
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
+  citizenNotifications: 'citizenNotifications',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -635,6 +636,12 @@ export interface Case {
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
   applicantPcqId?: string;
   respondentPcqId?: string;
+  citizenNotifications?: CitizenNotification[];
+}
+
+export interface CitizenNotification {
+  id: string;
+  show: boolean;
 }
 export interface ServedApplicationDetails {
   id: string;
