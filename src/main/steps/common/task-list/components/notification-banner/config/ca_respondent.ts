@@ -24,4 +24,14 @@ export const CA_RESPONDENT: NotificationBannerProps[] = [
       return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && isPartyServed(caseData, userDetails);
     },
   },
+  {
+    ...notificationBanner[BannerNotification.SUMBIT_FM5],
+    show: (caseData: Partial<CaseWithId>): boolean => {
+      const notification = caseData?.citizenNotifications?.find(
+        citizenNotification => citizenNotification.id === 'CAN_10'
+      );
+
+      return notification?.show ?? false;
+    },
+  },
 ];
