@@ -5,7 +5,7 @@
 import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
 
 import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
-import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
+import { CaseDate, CitizenNotification, FieldPrefix, ServedApplicationDetails } from './case';
 console.info("** FOR SONAR **");
 export interface ChildDetails {
   gender: string;
@@ -885,6 +885,7 @@ export interface CaseData {
   citizenOrders?: CitizenDocuments[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+  citizenNotifications?: CitizenNotification[];
 }
 
 export const enum SelectTypeOfOrderEnum {
