@@ -238,6 +238,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   citizenOrders: 'citizenOrders',
   citizenApplicationPacks: 'citizenApplicationPacks',
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
+  citizenNotifications: 'citizenNotifications',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -652,9 +653,15 @@ export interface Case {
   ra_languageReqAndSpecialArrangements?: string;
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+  citizenNotifications?: CitizenNotification[];
   miam_noAppointmentAvailableDetails?: string;
   miam_unableToAttainDueToDisablityDetails?: string;
   miam_noMediatorIn15mileDetails?: string;
+}
+
+export interface CitizenNotification {
+  id: string;
+  show: boolean;
 }
 
 export enum Miam_notAttendingReasons {

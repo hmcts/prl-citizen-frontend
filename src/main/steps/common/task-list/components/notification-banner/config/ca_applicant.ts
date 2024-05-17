@@ -97,4 +97,14 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
     },
   },
   ...generateResponseNotifications(userCase),
+  {
+    ...notificationBanner[BannerNotification.SUMBIT_FM5],
+    show: (caseData: Partial<CaseWithId>): boolean => {
+      const notification = caseData?.citizenNotifications?.find(
+        citizenNotification => citizenNotification.id === 'CAN_10'
+      );
+
+      return notification?.show ?? false;
+    },
+  },
 ];

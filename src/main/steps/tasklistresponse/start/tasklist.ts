@@ -63,7 +63,7 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'keep-your-details-private',
             text: taskListItems.keep_your_details_private,
             status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-            href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
+            href: applyParms(URL.DETAILS_KNOWN, { partyType: PartyType.RESPONDENT }) + '/' + userCase.id,
           },
           {
             id: 'contact-preference',
