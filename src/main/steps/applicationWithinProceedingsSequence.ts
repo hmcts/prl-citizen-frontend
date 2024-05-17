@@ -136,7 +136,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     url: APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
-      req?.session.applicationSettings?.awpSelectedApplicationDetails.applicationFee === '£0' ||
+      req?.session.applicationSettings?.awpSelectedApplicationDetails.applicationFee === '£0.00' ||
       (caseData.awp_need_hwf === YesOrNo.YES &&
         caseData.awp_have_hwfReference === YesOrNo.YES &&
         caseData.awp_hwf_referenceNumber)

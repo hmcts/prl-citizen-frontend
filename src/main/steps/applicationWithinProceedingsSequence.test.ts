@@ -158,7 +158,7 @@ describe('applicationWithinProceedingsSequence', () => {
           applicationSettings: {
             ...req.session.applicationSettings,
             awpSelectedApplicationDetails: {
-              applicationFee: '£0',
+              applicationFee: '£0.00',
             },
           },
         },

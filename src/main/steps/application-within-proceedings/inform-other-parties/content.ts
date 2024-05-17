@@ -27,14 +27,15 @@ export const en = {
 };
 
 export const cy: typeof en = {
-  title: 'Inform the other parties in the case (welsh)',
+  title: 'Hysbysu’r partïon eraill yn yr achos',
   reasonCantBeInformed:
-    "If there is a reason the other parties in this case cannot be informed about the application, the court may need to consider it without their involvement. This is known as 'without notice'. (welsh)",
-  needToAsk: 'We need to ask this question as it may determine the court fees you need to pay. (welsh)',
-  informOtherPartieslabel: 'Can the other parties in the case be informed about this application? (welsh)',
-  cantBeInformedLabel: 'Give a reason why the other parties cannot be informed (welsh)',
-  yes: 'Yes (welsh)',
-  no: 'No (welsh)',
+    'Os oes yna reswm pam na ellir hysbysu’r partïon eraill yn yr achos am y cais, efallai y bydd angen i’r llys ei ystyried heb eu mewnbwn nhw. Gelwir hyn yn ‘heb rybudd’.',
+  needToAsk:
+    'Mae angen i ni ofyn y cwestiwn hwn oherwydd efallai y bydd yn pennu ffioedd y llys y bydd angen i chi dalu.',
+  informOtherPartieslabel: 'A ellir hysbysu’r partïon eraill yn yr achos am y cais hwn?',
+  cantBeInformedLabel: 'Rhowch reswm pam na ellir hysbysu’r partïon eraill',
+  yes: 'Gellir',
+  no: 'Na ellir',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {

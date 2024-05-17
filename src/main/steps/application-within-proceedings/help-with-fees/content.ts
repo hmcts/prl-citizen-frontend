@@ -24,18 +24,18 @@ export const en = {
 };
 
 export const cy: typeof en = {
-  title: 'Help with fees (welsh)',
-  applicationCost: 'The cost of this application is (welsh)',
+  title: 'Help i Dalu Ffioedd',
+  applicationCost: 'Cost y cais hwn yw ',
   checkGuidance:
-    'You can check the help with fees guidance on <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a" class="govuk-link" rel="external" target="_blank">GOV.UK (opens in a new tab)</a> to find out if you are eligible for support. (welsh)',
-  usingHelpWithFees: 'Will you be using help with fees to pay for this application? (welsh)',
-  yes: 'Yes (welsh)',
-  no: 'No (welsh)',
+    ' Gallwch wirio’r cyfarwyddyd ar help i dalu ffioedd ar <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a" class="govuk-link" rel="external" target="_blank">GOV.UK (yn agor mewn tab newydd)</a> i ganfod a ydych yn gymwys i gael cymorth.',
+  usingHelpWithFees: 'A fyddwch chi’n defnyddio Help i Dalu Ffioedd i dalu am y cais hwn?',
+  yes: 'Byddaf',
+  no: 'Na fyddaf',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
     awp_need_hwf: {
-      required: 'Select whether you will be using help with fees for this application (welsh)',
+      required: 'Dewiswch p’un a fyddwch yn defnyddio Help i Dalu Ffioedd ar gyfer y cais hwn.',
     },
   },
 };

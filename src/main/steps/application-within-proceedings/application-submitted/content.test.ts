@@ -13,12 +13,12 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Application submitted (welsh)',
-  updatesFromCourt: 'You will get updates from the court about the progress of your application. (welsh)',
-  next: 'What happens next (welsh)',
+  title: "Cais wedi'i gyflwyno",
+  updatesFromCourt: 'Byddwch yn cael diweddariadau gan y llys am gynnydd eich cais.',
+  next: 'Beth fydd yn digwydd nesaf',
   courtConsider:
-    'The court will consider your application and will be in touch to let you know what happens next. (welsh)',
-  closeAndReturn: 'Close and return to case overview (welsh)',
+    'Bydd y llys yn adolygu eich dogfennau ac yn cysylltu â chi i roi gwybod i chi beth fydd yn digwydd nesaf.',
+  closeAndReturn: 'Cau a dychwelyd i drosolwg o’r achos',
 };
 
 describe('application submitted content', () => {

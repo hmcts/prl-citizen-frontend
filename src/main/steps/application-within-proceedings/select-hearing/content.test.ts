@@ -21,15 +21,15 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Which hearing are you applying to delay or cancel? - welsh',
-  caption: 'Delay or cancel a hearing date - welsh',
-  cancel: 'Cancel - welsh',
-  selectHearingLabel: 'Select the hearing - welsh',
-  selectHearingDropdownDefaultLabel: '-- Select a value -- welsh',
+  title: 'Pa wrandawiad ydych chi’n gwneud cais i’w ohirio neu ei ganslo?',
+  caption: 'Gohirio neu ganslo dyddiad gwrandawiad',
+  cancel: 'Canslo',
+  selectHearingLabel: 'Dewiswch y gwrandawiad',
+  selectHearingDropdownDefaultLabel: '-- Dewiswch y gwerth',
   urgentFlag: 'Urgent - welsh',
   errors: {
     awp_cancelDelayHearing: {
-      notSelected: 'Select the hearing you want to delay or cancel - welsh',
+      notSelected: 'Dewiswch y gwrandawiad rydych eisiau ei ohirio neu ei ganslo',
     },
   },
 };

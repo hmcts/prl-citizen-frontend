@@ -21,17 +21,17 @@ export const en = {
 };
 
 export const cy: typeof en = {
-  title: 'Download the form (welsh)',
-  explainRequest: 'You can explain your request by completing and uploading the form (welsh)',
-  nextSteps: 'Next steps (welsh)',
+  title: 'Lawrlwytho ffurflen',
+  explainRequest: 'Gallwch egluro eich cais drwy lenwi ac uwchlwytho ffurflen',
+  nextSteps: 'Y camau nesaf',
   listItems: [
-    'Download the form {applicationType} from <a href="{downloadUrl}" target="_blank" class="govuk-link">GOV.UK (opens in a new tab)</a> (welsh)',
-    'Complete the application form (welsh)',
-    'Save the application form onto your device (welsh)',
-    'Return to upload your application form (welsh)',
+    'Lawrlwythwch ffurflen  {applicationType} o <a href="{downloadUrl}" target="_blank" class="govuk-link">GOV.UK (yn agor mewn tab newydd)</a>',
+    'Llenwch y ffurflen gais',
+    'Cadwch y ffurflen gais ar eich dyfais',
+    'Dychwelwch i uwchlwytho’ch ffurflen gais',
   ],
-  warning: 'Warning (welsh)',
-  warningText: 'You need to return to upload your application form for your request to be completed. (welsh)',
+  warning: 'Rhybudd',
+  warningText: 'Bydd angen i chi ddychwelyd i uwchlwytho’ch ffurflen gais er mwyn i’ch cais fod yn gyflawn.',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
 };

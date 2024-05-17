@@ -100,7 +100,7 @@ const generateHTMLContent = (
     }
   } else {
     if (config[id].key === 'typeOfApplication') {
-      return `${applicationType} ${language === 'en' ? en.application : cy.application}`;
+      return language === 'en' ? `${applicationType} ${en.application}` : `${cy.application} ${applicationType}`;
     }
   }
 };

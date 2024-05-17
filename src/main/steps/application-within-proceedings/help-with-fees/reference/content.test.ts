@@ -28,22 +28,22 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Do you have a help with fees reference number? (welsh)',
+  title: 'A oes gennych chi gyfeirnod Help i Dalu Ffioedd?',
   enterReferenceNumber:
-    '<p class="govuk-heading-s govuk-!-margin-bottom-0">Enter your help with fees reference number (welsh)</p>',
+    '<p class="govuk-heading-s govuk-!-margin-bottom-0">Rhowch eich cyfeirnod Help i Dalu Ffioedd</p>',
   referenceText:
-    'You will have received this number when you applied for Help with Fees. This reference must not have been used for a previous application. (welsh)',
-  hint: 'For example, HWF-A1B-23C (welsh)',
-  yes: 'Yes (welsh)',
-  no: 'No (welsh)',
+    'Byddwch wedi cael y rhif hwn pan wnaethoch gais am Help i Dalu Ffioedd. Ni ddylai’r cyfernod hwn fod wedi’i ddefnyddio ar gyfer cais blaenorol.',
+  hint: 'Er enghraifft, HWF-A1B-23C',
+  yes: 'Oes',
+  no: 'Nac oes',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
     awp_have_hwfReference: {
-      required: 'Select whether you have a help with fees reference number (welsh)',
+      required: 'Dewiswch p’un a oes gennych chi gyfeirnod Help i Dalu Ffioedd',
     },
     awp_hwf_referenceNumber: {
-      required: 'Enter a valid help with fees reference number (welsh)',
+      required: 'Rhowch gyfeirnod Help i Dalu Ffioedd dilys',
     },
   },
 };

@@ -39,29 +39,29 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Upload your application (welsh)',
-  fileUploadLabel: 'Upload your application form - welsh',
+  title: 'Uwchlwytho eich cais',
+  fileUploadLabel: 'Uwchlwytho eich ffurflen gais',
   uploadYourApplication:
-    'Upload your application to the case. If you are uploading a paper copy of the application, make sure this has been scanned in clearly and saved in a suitable format such as PDF. (welsh)',
+    'Uwchlwytho eich cais i’r achos. Os ydych chi’n uwchlwytho copi papur o’r cais, gwnewch yn siŵr ei fod wedi’i sganio’n glir, a’i gadw mewn fformat ffeil addas megis PDF.',
   uploadYourApplicationHint:
-    'Give each document a file name that makes it clear what it is about. For example position-statement.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX. -  welsh',
-  uploadDescription: 'Take a picture of a document on your phone and upload it (welsh)',
+    'Rhowch enw ffeil i bob dogfen sy’n dweud yn glir beth ydyw. Er enghraifft, datganiad-safbwynt.docx. Rhaid i’r ffeiliau fod yn ffeiliau JPG, JPEG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
+  uploadDescription: 'Tynnu llun o ddogfen ar eich ffôn a’i uwchlwytho',
   uploadRequirements: [
     'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
     "Tynnwch lun o’r ddogfen gyfan. Dylech allu gweld corneli'r ddogfen.",
-    'Gwiriwch eich bod yn gallu gweld yr ysgrifen i gyd, gan gynnwys y llawysgrifen.',
+    'Gwiriwch eich bod yn gallu darllen yr holl ysgrifen, gan gynnwys y llawysgrifen.',
     'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
-    'Llwythwch y ffeil yma.',
+    'Uwchlwythwch y ffeil yma.',
   ],
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   uploadButton: 'Llwytho ffeil',
   removeFileText: 'Dileu',
   errorText: 'Error: (welsh)',
-  noFilesText: 'No files uploaded (welsh)',
+  noFilesText: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
   errors: {
     awpUploadApplicationForm: {
-      required: `Upload your ${applicationType} application form (welsh)`,
+      required: `Mae’n rhaid i chi uwchlwytho eich ffurflen gais ${applicationType}`,
       fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
       fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr",
     },
