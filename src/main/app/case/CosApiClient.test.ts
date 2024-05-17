@@ -180,7 +180,8 @@ describe('CosApiClient', () => {
 
   test('updateCaseData', async () => {
     const response = { id: '200', state: 'SUCCESS' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const apiResponse = { caseData: { id: '200', state: 'SUCCESS' } };
+    mockedAxios.post.mockReturnValueOnce({ data: apiResponse } as unknown as Promise<CaseWithId>);
     const client = new CosApiClient('abc', mockLogger);
     const actual = await client.updateCaseData(
       '123456',
@@ -491,7 +492,9 @@ describe('CosApiClient', () => {
         document_filename: 'test',
       },
     };
+
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+
     const client = new CosApiClient('abc', mockLogger);
     const actual = await client.generateC7DraftDocument('123456', '123456789');
     expect(actual).not.toBeUndefined;
@@ -499,6 +502,7 @@ describe('CosApiClient', () => {
 
   test('generateC7Document throws exception', async () => {
     mockedAxios.post.mockRejectedValueOnce;
+
     const client = new CosApiClient('abc', mockLogger);
     let flag = false;
     try {
