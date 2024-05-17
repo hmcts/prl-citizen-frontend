@@ -32,9 +32,9 @@ describe('application reasons content', () => {
     },
     {
       value: 'request-grant-for-parental-responsibility',
-      expected: 'Request the court grants you parental responsibility',
+      expected: 'Request an order relating to a child',
     },
-    { value: 'request-appoint-a-guardian-for-child', expected: 'Request the court appoints a guardian for the child' },
+    { value: 'request-appoint-a-guardian-for-child', expected: 'Request an order relating to a child' },
     { value: 'ask-to-deliver-paper-to-other-party', expected: 'Ask the court to deliver papers to the other party' },
     {
       value: 'ask-court-to-order-someone-to-provide-child-information',
@@ -78,7 +78,7 @@ describe('application reasons content', () => {
     },
     { value: 'prohibited-steps-order', expected: 'Prohibited steps order - welsh' },
     { value: 'specific-issue-order', expected: 'Specific issue order - welsh' },
-    { value: 'enforce-a-child-arrangements-order', expected: 'Enforce a Child Arrangements Order - welsh' },
+    { value: 'enforce-a-child-arrangements-order', expected: 'Gorfodi Gorchymyn Trefniadau Plant' },
     {
       value: 'change-extend-or-cancel-non-molestation-order-or-occupation-order',
       expected: 'Apply to change, extend or cancel a non-molestation order or occupation order - welsh',
@@ -100,23 +100,23 @@ describe('application reasons content', () => {
     },
     {
       value: 'request-grant-for-parental-responsibility',
-      expected: 'Request the court grants you parental responsibility - welsh',
+      expected: 'Gofyn am orchymyn sy’n ymwneud â phlentyn',
     },
     {
       value: 'request-appoint-a-guardian-for-child',
-      expected: 'Request the court appoints a guardian for the child - welsh',
+      expected: 'Gofyn am orchymyn sy’n ymwneud â phlentyn',
     },
     {
       value: 'ask-to-deliver-paper-to-other-party',
-      expected: 'Ask the court to deliver papers to the other party - welsh',
+      expected: 'Gofyn i’r llys ddanfon papurau i’r parti arall',
     },
     {
       value: 'ask-court-to-order-someone-to-provide-child-information',
-      expected: 'Ask the court to order someone to provide information on where a child is - welsh',
+      expected: 'Gofyn i’r llys orchymyn bod rhywun yn darparu gwybodaeth am leoliad plentyn',
     },
     {
       value: 'appeal-a-order-or-ask-permission-to-appeal',
-      expected: 'Appeal a court order or ask for permission to appeal - welsh',
+      expected: 'Apelio yn erbyn gorchymyn llys neu ofyn am ganiatâd i apelio',
     },
     {
       value: 'prevent-questioning-in-person-accusing-someone',
@@ -128,15 +128,16 @@ describe('application reasons content', () => {
     },
     {
       value: 'order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
-      expected: 'Ask for an order authorising search for, taking charge of and delivery of a child - welsh',
+      expected:
+        'Gofyn am orchymyn i awdurdodi chwilio am blentyn, cymryd cyfrifoldeb dros blentyn a throsglwyddo plentyn',
     },
     {
       value: 'request-to-order-a-witness-to-attend-court',
-      expected: 'Make a request to order a witness to attend court - welsh',
+      expected: 'Gwneud cais am orchymyn i dyst fynychu’r llys',
     },
     {
       value: 'request-court-to-act-when-someone-in-the-case-is-disobeying-court-order',
-      expected: 'Request the court acts when someone in the case is disobeying a court order - welsh',
+      expected: 'Gofyn i’r llys orchymyn bod rhywun yn darparu gwybodaeth am leoliad plentyn',
     },
     {
       value: 'request-the-court-issues-an-arrest-warrant',

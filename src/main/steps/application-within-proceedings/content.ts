@@ -42,10 +42,10 @@ const en = {
     reasonText: 'Get permission for an application if the court previously stopped you',
   },
   [AWPApplicationReason.REQUEST_PARENTAL_RESPONSIBILITY]: {
-    reasonText: 'Request the court grants you parental responsibility',
+    reasonText: 'Request an order relating to a child',
   },
   [AWPApplicationReason.REQUEST_GUARDIAN_FOR_CHILD]: {
-    reasonText: 'Request the court appoints a guardian for the child',
+    reasonText: 'Request an order relating to a child',
   },
   [AWPApplicationReason.DELIVER_PAPER_TO_OTHER_PARTY]: {
     reasonText: 'Ask the court to deliver papers to the other party',
@@ -93,7 +93,7 @@ const cy: typeof en = {
     reasonText: 'Specific issue order - welsh',
   },
   [AWPApplicationReason.ENFORCE_CHILD_ARRANGEMENTS_ORDER]: {
-    reasonText: 'Enforce a Child Arrangements Order - welsh',
+    reasonText: 'Gorfodi Gorchymyn Trefniadau Plant',
   },
   [AWPApplicationReason.CHANGE_EXTEND_CANCEL_NON_MOLESTATION_OR_OCCUPATION_ORDER]: {
     reasonText: 'Apply to change, extend or cancel a non-molestation order or occupation order - welsh',
@@ -117,19 +117,19 @@ const cy: typeof en = {
     reasonText: 'Get permission for an application if the court previously stopped you - welsh',
   },
   [AWPApplicationReason.REQUEST_PARENTAL_RESPONSIBILITY]: {
-    reasonText: 'Request the court grants you parental responsibility - welsh',
+    reasonText: 'Gofyn am orchymyn sy’n ymwneud â phlentyn',
   },
   [AWPApplicationReason.REQUEST_GUARDIAN_FOR_CHILD]: {
-    reasonText: 'Request the court appoints a guardian for the child - welsh',
+    reasonText: 'Gofyn am orchymyn sy’n ymwneud â phlentyn',
   },
   [AWPApplicationReason.DELIVER_PAPER_TO_OTHER_PARTY]: {
-    reasonText: 'Ask the court to deliver papers to the other party - welsh',
+    reasonText: 'Gofyn i’r llys ddanfon papurau i’r parti arall',
   },
   [AWPApplicationReason.ORDER_TO_KNOW_ABOUT_CHILD]: {
-    reasonText: 'Ask the court to order someone to provide information on where a child is - welsh',
+    reasonText: 'Gofyn i’r llys orchymyn bod rhywun yn darparu gwybodaeth am leoliad plentyn',
   },
   [AWPApplicationReason.APPEAL_COURT_ORDER]: {
-    reasonText: 'Appeal a court order or ask for permission to appeal - welsh',
+    reasonText: 'Apelio yn erbyn gorchymyn llys neu ofyn am ganiatâd i apelio',
   },
   [AWPApplicationReason.YOU_ACCUSED_SOMEONE]: {
     reasonText: 'Ask the court to prevent questioning in person when accusations of abuse have been made - welsh',
@@ -138,13 +138,14 @@ const cy: typeof en = {
     reasonText: 'Ask the court to prevent questioning in person when accusations of abuse have been made - welsh',
   },
   [AWPApplicationReason.ORDER_AUTHORISING_SEARCH]: {
-    reasonText: 'Ask for an order authorising search for, taking charge of and delivery of a child - welsh',
+    reasonText:
+      'Gofyn am orchymyn i awdurdodi chwilio am blentyn, cymryd cyfrifoldeb dros blentyn a throsglwyddo plentyn',
   },
   [AWPApplicationReason.REQUEST_FOR_ORDER_WITNESS]: {
-    reasonText: 'Make a request to order a witness to attend court - welsh',
+    reasonText: 'Gwneud cais am orchymyn i dyst fynychu’r llys',
   },
   [AWPApplicationReason.REQUEST_COURT_TO_ACT_DURING_DISOBEY]: {
-    reasonText: 'Request the court acts when someone in the case is disobeying a court order - welsh',
+    reasonText: 'Gofyn i’r llys orchymyn bod rhywun yn darparu gwybodaeth am leoliad plentyn',
   },
   [AWPApplicationReason.REQUEST_FOR_ARREST_WARRENT]: {
     reasonText: 'Request the court issues an arrest warrant - welsh',

@@ -183,9 +183,7 @@ const cy: typeof en = {
     ],
   },
   [AWPApplicationReason.ENFORCE_CHILD_ARRANGEMENTS_ORDER]: {
-    contents: [
-      'You will have to pay a fee of {applicationFee} for your request to enforce a Child Arrangements Order. - welsh',
-    ],
+    contents: ['Bydd rhaid i chi dalu ffi o {applicationFee} ar gyfer eich cais i orfodi Gorchymyn Trefniadau Plant.'],
   },
   [AWPApplicationReason.CHANGE_EXTEND_CANCEL_NON_MOLESTATION_OR_OCCUPATION_ORDER]: {
     contents: [
@@ -229,24 +227,24 @@ const cy: typeof en = {
     ],
   },
   [AWPApplicationReason.REQUEST_PARENTAL_RESPONSIBILITY]: {
-    contents: ['You will have to pay a fee of {applicationFee} to request an order relating to a child. - welsh'],
+    contents: ['Bydd rhaid i chi dalu ffi o {applicationFee} i ofyn am orchymyn sy’n ymwneud â phlentyn.'],
   },
   [AWPApplicationReason.REQUEST_GUARDIAN_FOR_CHILD]: {
-    contents: ['You will have to pay a fee of {applicationFee} to request an order relating to a child. - welsh'],
+    contents: ['Bydd rhaid i chi dalu ffi o {applicationFee} i ofyn am orchymyn sy’n ymwneud â phlentyn.'],
   },
   [AWPApplicationReason.DELIVER_PAPER_TO_OTHER_PARTY]: {
     contents: [
-      'You will have to pay a fee of {applicationFee} for your request to ask the court to deliver papers to the other party. - welsh',
+      'Bydd rhaid i chi dalu ffi o {applicationFee} ar gyfer eich cais i ofyn i’r llys ddanfon papurau i’r parti arall.',
     ],
   },
   [AWPApplicationReason.ORDER_TO_KNOW_ABOUT_CHILD]: {
     contents: [
-      'You will have to pay a fee of {applicationFee} to ask the court to order someone to provide information on where a child is. - welsh',
+      'Bydd rhaid i chi dalu ffi o {applicationFee} i ofyn i’r llys orchymyn bod rhywun yn darparu gwybodaeth am leoliad plentyn.',
     ],
   },
   [AWPApplicationReason.APPEAL_COURT_ORDER]: {
     contents: [
-      'You will have to pay a fee of {applicationFee} for your request to appeal a court order or ask for permission to appeal. - welsh',
+      'Bydd rhaid i chi dalu ffi o {applicationFee} ar gyfer eich cais i apelio yn erbyn gorchymyn llys neu i ofyn am ganiatâd i apelio.',
     ],
   },
   [AWPApplicationReason.YOU_ACCUSED_SOMEONE]: {
@@ -261,17 +259,17 @@ const cy: typeof en = {
   },
   [AWPApplicationReason.ORDER_AUTHORISING_SEARCH]: {
     contents: [
-      'You will have to pay a fee of {applicationFee} to ask for an order authorising search for, taking charge of and delivery of a child. - welsh',
+      'Bydd angen i chi dalu ffi o {applicationFee} i ofyn am orchymyn sy’n awdurdodi chwilio am blentyn, cymryd cyfrifoldeb dros blentyn a throsglwyddo plentyn.',
     ],
   },
   [AWPApplicationReason.REQUEST_FOR_ORDER_WITNESS]: {
     contents: [
-      'You will need to pay a fee of {applicationFee} for your request to ask the court to order a witness to attend or bring in documents. - welsh',
+      'Bydd angen i chi dalu ffi o {applicationFee} ar gyfer eich cais i ofyn i’r llys orchymyn i dyst fynychu’r llys neu ddod â dogfennau i’r llys.',
     ],
   },
   [AWPApplicationReason.REQUEST_COURT_TO_ACT_DURING_DISOBEY]: {
     contents: [
-      'You will have to pay a fee of {applicationFee} to request the court acts when someone in the case is disobeying a court order. - welsh',
+      'Bydd rhaid i chi dalu ffi o {applicationFee} i ofyn i’r llys weithredu pan fydd rhywun yn yr achos yn anufuddhau i orchymyn llys.',
     ],
   },
   [AWPApplicationReason.REQUEST_FOR_ARREST_WARRENT]: {
