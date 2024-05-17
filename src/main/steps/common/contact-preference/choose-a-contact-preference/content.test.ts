@@ -25,7 +25,7 @@ const en = {
   labelPost: 'Post',
   labelPostHintText: 'All communication from the court will be sent by post.',
   errors: {
-    preferredModeOfContact: {
+    partyContactPreference: {
       required: 'Please select a contact preference',
     },
   },
@@ -48,7 +48,7 @@ const cy = {
   labelPostHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy’r post.',
   continue: 'Cadw a pharhau',
   errors: {
-    preferredModeOfContact: {
+    partyContactPreference: {
       required: 'Dewiswch sut hoffech inni gysylltu â chi',
     },
   },
