@@ -243,9 +243,7 @@ describe('GetCaseController', () => {
     controller = new TasklistGetController(EventRoutesContext.SAFETY_CONCERNS_RESPONSE);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(
-      '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page'
-    );
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/safety-concerns/concern-guidance');
   });
   test('C100 case for respondent PROCEEDINGS_RESPONSE', async () => {
     controller = new TasklistGetController(EventRoutesContext.PROCEEDINGS_RESPONSE);

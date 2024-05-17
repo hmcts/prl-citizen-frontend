@@ -12,16 +12,15 @@ import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
+import { AohSequence } from './steps/common/safety-concerns/sequence';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { ErrorController } from './steps/error/error.controller';
 import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
 import { TasklistGetController } from './steps/tasklistresponse/TasklistGetController';
-import { SafetyConcernsPostController } from './steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsPostController';
 import {
   APPLICANT_CHECK_ANSWERS,
   C100_RETRIVE_CASE,
-  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   CA_RESPONDENT_GENERATE_C7_DRAFT,
   CONSENT_TO_APPLICATION,
   CREATE_DRAFT,
@@ -40,9 +39,7 @@ import {
   PAYMENT_GATEWAY_ENTRY_URL,
   PAYMENT_RETURN_URL_CALLBACK,
   PROCEEDINGS_START,
-  RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
-  RESPONDENT_CHECK_ANSWERS_NO,
   RESPOND_TO_APPLICATION,
 } from './steps/urls';
 
@@ -94,10 +91,6 @@ export class Routes {
       errorHandler(new TasklistGetController(EventRoutesContext.CONSENT_RESPONSE).get)
     );
     app.get(
-      `${RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.SAFETY_CONCERNS_RESPONSE).get)
-    );
-    app.get(
       `${INTERNATIONAL_FACTORS_START}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE).get)
     );
@@ -108,8 +101,11 @@ export class Routes {
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
     app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
-
-    const steps = [...stepsWithContent, ...getStepsWithContent(await RAProvider.getSequence(), '/common')];
+    const steps = [
+      ...stepsWithContent,
+      ...getStepsWithContent(AohSequence.getSequence(), '/common'),
+      ...getStepsWithContent(await RAProvider.getSequence(), '/common'),
+    ];
 
     for (const step of steps) {
       const files = fs.readdirSync(`${step.stepDir}`);
@@ -136,11 +132,6 @@ export class Routes {
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
         );
-        app.get(
-          C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
-          errorHandler(new SafetyConcernsPostController(step.form.fields).post)
-        );
-        app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
       }
     }
     /**

@@ -7,6 +7,7 @@ import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/do
 import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
 import { CaseDate, CitizenNotification, FieldPrefix, ServedApplicationDetails } from './case';
 console.info("** FOR SONAR **");
+
 export interface ChildDetails {
   gender: string;
   lastName: string;
@@ -122,6 +123,7 @@ export interface User {
 }
 
 export interface Response {
+  respondingCitizenAoH?:string,
   legalRepresentation?: string;
   consent?: Consent;
   miam?: Miam;
@@ -130,7 +132,6 @@ export interface Response {
   citizenFlags?: CitizenFlags;
   safeToCallOption?: string;
   supportYouNeed?: ReasonableAdjustmentsSupport;
-  safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
   c7ResponseSubmitted?: YesOrNo;
 }
@@ -712,6 +713,7 @@ export type C100ListOfApplicants = C100Applicant[];
 export interface CaseData {
   id: string;
   children: Child[];
+  newChildDetails?:Child[];
   miamTable: MiamTable;
   applicants: Applicant[];
   applicantsFL401: PartyDetails;
@@ -2617,14 +2619,6 @@ export enum C1ASafteyConcernsAbout {
   OTHER = 'otherConcerns',
   RESPONDENT = 'respondent',
 }
-
-export enum PRL_C1ASafteyConcernsAbout {
-  CHILDREN = 'children',
-  RESPONDENT = 'respondent',
-  APPLICANT = 'applicant',
-  OTHER = 'otherConcerns',
-}
-
 export interface C1ASafteyConcernsAbuse {
   behaviourDetails?: string;
   behaviourStartDate?: string;
@@ -2669,99 +2663,19 @@ export interface C1ASafteyConcerns {
     somethingElse?: C1ASafteyConcernsAbuse;
   };
 }
-
-export interface PRL_C1ASafteyConcerns {
-  child?: {
-    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
-    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  };
-  applicant?: {
-    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
-    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  };
-  respondent?: {
-    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
-    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  };
-}
-
-export interface PRL_C1ASafteyConcerns_total {
-  haveSafetyConcerns?: YesOrNo;
-  safetyConcernAbout?: PRL_C1ASafteyConcernsAbout[];
-  concernAboutChild?: PRL_C1AAbuseTypes[];
-  concernAboutRespondent?: PRL_C1AAbuseTypes[];
-  child?: {
-    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
-    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  };
-  applicant?: {
-    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
-    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  };
-  respondent?: {
-    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
-    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  };
-  otherconcerns?: {
-    c1AkeepingSafeStatement?: string;
-    c1AsupervisionAgreementDetails?: string;
-    c1AagreementOtherWaysDetails?: YesOrNo;
-    c1AotherConcernsDrugs?: YesOrNo;
-    c1AotherConcernsDrugsDetails?: string;
-    c1AchildSafetyConcerns?: YesOrNo;
-    c1AchildSafetyConcernsDetails?: string;
-  };
-  abductions?: {
-    c1AabductionReasonOutsideUk?: string;
-    c1AchildsCurrentLocation?: string;
-    c1AchildrenMoreThanOnePassport?: YesOrNo;
-    c1ApossessionChildrenPassport?: string[];
-    c1AprovideOtherDetails?: string;
-    c1ApassportOffice?: YesOrNo;
-    c1AabductionPassportOfficeNotified?: YesOrNo;
-    c1ApreviousAbductionsShortDesc?: string;
-    c1ApoliceOrInvestigatorInvolved?: YesOrNo;
-    c1ApoliceOrInvestigatorOtherDetails?: string;
-    c1AchildAbductedBefore?: YesOrNo;
-  };
+ export interface RespDomesticAbuseBehaviours {
+  id?:string;
+  value?: RespDomesticAbuseBehavioursDetails;
+ }
+ export interface RespDomesticAbuseBehavioursDetails {
+  respTypeOfAbuse?:string;
+  respAbuseNatureDescription?:string;
+  respBehavioursStartDateAndLength?:string;
+  respBehavioursApplicantSoughtHelp?:YesOrNo;
+  respBehavioursApplicantHelpSoughtWho?:string;
 }
 
 export enum C1AAbuseTypes {
-  PHYSICAL_ABUSE = 'physicalAbuse',
-  PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
-  EMOTIONAL_ABUSE = 'emotionalAbuse',
-  SEXUAL_ABUSE = 'sexualAbuse',
-  FINANCIAL_ABUSE = 'financialAbuse',
-  ABDUCTION = 'abduction',
-  WITNESSING_DOMESTIC_ABUSE = 'witnessingDomesticAbuse',
-  SOMETHING_ELSE = 'somethingElse',
-}
-
-export enum PRL_C1AAbuseTypes {
   PHYSICAL_ABUSE = 'physicalAbuse',
   PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
   EMOTIONAL_ABUSE = 'emotionalAbuse',
@@ -2791,6 +2705,11 @@ export type ChildrenDetails = {
   };
   liveWith?: People[];
 };
+export type Childinfo = {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
 
 export type OtherChildrenDetails = {
   id: string;
@@ -2892,9 +2811,10 @@ export enum CaseEvent {
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
-  CONTACT_PREFERENCE = 'citizenContactPreference',
-  CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
-  CITIZEN_INTERNAL_FLAG_UPDATES = 'citizenInternalFlagUpdates',
+  CONTACT_PREFERENCE='citizenContactPreference',
+  CITIZEN_SAVE_C100_DRAFT_INTERNAL="citizenSaveC100DraftInternal",
+  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates",
+  CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding"
 }
 
 export enum hearingStatus {
@@ -2948,4 +2868,8 @@ export enum PaymentErrorContext {
   DEFAULT_PAYMENT_ERROR = 'defaultPaymentError',
   PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
   APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted',
+}
+export enum RootContext {
+  C100_REBUILD = 'c100-rebuild',
+  RESPONDENT = 'respondent',
 }
