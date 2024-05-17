@@ -30,7 +30,7 @@ export default class ProceedingPostController extends PostController<AnyObject> 
           partyDetails,
           partyType,
           userCase.caseTypeOfApplication as CaseType,
-          CaseEvent.CITIZEN_CASE_UPDATE
+          CaseEvent.CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));

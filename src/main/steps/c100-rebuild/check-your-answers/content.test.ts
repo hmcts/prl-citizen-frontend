@@ -891,7 +891,7 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
-                  href: '/c100-rebuild/safety-concerns/applicant/concerns-about',
+                  href: '/c100-rebuild/safety-concerns/yourself/concerns-about',
                   text: 'Edit',
                   visuallyHiddenText:
                     'What type of behaviour have the children experienced or are at risk of experiencing?',
