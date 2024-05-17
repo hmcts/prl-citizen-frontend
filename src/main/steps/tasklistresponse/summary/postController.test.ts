@@ -1,11 +1,9 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CosApiClient } from '../../../app/case/CosApiClient';
 
 import ResponseSummaryConfirmationPostController from './postController';
 
 describe('ResponseSummaryConfirmationPostController', () => {
-  const submitRespondentResponseMock = jest.spyOn(CosApiClient.prototype, 'submitRespondentResponse');
   test('post', async () => {
     const req = mockRequest();
     const res = mockResponse();
@@ -25,9 +23,8 @@ describe('ResponseSummaryConfirmationPostController', () => {
       },
     ];
     req.session.userCase.respondents = partyDetails;
-    submitRespondentResponseMock.mockResolvedValue(req.session.userCase);
     const controller = new ResponseSummaryConfirmationPostController({});
     await controller.post(req, res);
-    expect(req.session.userCase.respondents).toHaveLength(1);
+    expect(req.session.save).not.toHaveBeenCalled();
   });
 });

@@ -61,11 +61,12 @@ export default class PCQGetController {
           partyId: user.email,
           returnUrl,
           language: req.session.lang || 'en',
-          ccdCaseId: userCase.id,
+          ccdCaseId: userCase.id ?? userCase.caseId,
         };
-        params.partyId = encodeURIComponent(params.partyId);
+        //params.partyId = encodeURIComponent(params.partyId);
         params['token'] = createToken(params, tokenKey);
         logger.info('*** Params : ' + JSON.stringify(params));
+        logger.info('*** Token Key ' + tokenKey);
         logger.info(`PCQ service return URL: ${params.returnUrl}`);
         if (partyType === 'respondent') {
           req.session.userCase.respondentPcqId = pcqId;
