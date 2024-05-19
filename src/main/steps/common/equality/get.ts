@@ -63,7 +63,6 @@ export default class PCQGetController {
           language: req.session.lang || 'en',
           ccdCaseId: userCase.id ?? userCase.caseId,
         };
-        //params.partyId = encodeURIComponent(params.partyId);
         params['token'] = createToken(params, tokenKey);
         logger.info('*** Params : ' + JSON.stringify(params));
         logger.info('*** Token Key ' + tokenKey);

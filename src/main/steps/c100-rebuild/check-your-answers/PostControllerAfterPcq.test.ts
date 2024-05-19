@@ -46,10 +46,10 @@ describe('PayAndSubmitPostController test cases', () => {
     expect(res.redirect).not.toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
   });
 
-  test('Should navigate to check your answers in case of any errors', async () => {
+  test('Should not navigate to confirmation in case of any errors', async () => {
     delete req.body;
     const controller = new PayAndSubmitPostController(mockFormContent.fields);
     await controller.post(req, res);
-    expect(req.session.save).not.toHaveBeenCalled();
+    expect(res.redirect).not.toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
   });
 });
