@@ -28,7 +28,6 @@ services:
     tokenKey: PCQ_TOKEN
     pcqEnabled: PCQ_ENABLED
     path: '/service-endpoint'
-    port: 4000
   reasonableAdjustments:
     url: REASONABLE_ADJUSTMENTS
   dgs:
