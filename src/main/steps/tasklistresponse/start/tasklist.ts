@@ -1,21 +1,22 @@
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../app/case/case';
-import { PartyType, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { PartyType, Respondent, RootContext, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { UserDetails } from '../../../app/controller/AppRequest';
 import { applyParms } from '../../../steps/common/url-parser';
 import { hasContactPreference } from '../../common/contact-preference/util';
 import {
+  C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   CHOOSE_CONTACT_PREFERENCE,
   CONSENT_TO_APPLICATION,
+  DETAILS_KNOWN,
   INTERNATIONAL_FACTORS_START,
   LEGAL_REPRESENTATION_START,
   MIAM_START,
   PROCEEDINGS_START,
+  PageLink,
   REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
-  RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
-  RESPONDENT_DETAILS_KNOWN,
   RESPOND_TO_AOH,
 } from '../../urls';
 
@@ -79,7 +80,7 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'keep-your-details-private',
             text: taskListItems.keep_your_details_private,
             status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-            href: RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
+            href: applyParms(DETAILS_KNOWN, { partyType: PartyType.RESPONDENT }) + '/' + userCase.id,
           },
           {
             id: 'contact-preference',
@@ -155,7 +156,9 @@ const getSafetyConcernsTasks = (
       id: 'allegations_of_harm_and_violence',
       text: taskContents.allegations_of_harm_and_violence,
       status: getAllegationOfHarmStatus(caseData),
-      href: `${RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE}/${caseData.id}`,
+      href: applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, {
+        root: RootContext.RESPONDENT,
+      }) as PageLink,
     },
   ];
 
@@ -164,7 +167,7 @@ const getSafetyConcernsTasks = (
       id: 'respond_to_allegations_of_harm_and_violence',
       text: taskContents.respond_to_allegations_of_harm_and_violence,
       status: getResponseToAllegationOfHarmStatus(caseData, userIdamId),
-      href: applyParms(RESPOND_TO_AOH, { partyType: PartyType.RESPONDENT }),
+      href: applyParms(RESPOND_TO_AOH, { partyType: PartyType.RESPONDENT }) as PageLink,
     });
   }
 

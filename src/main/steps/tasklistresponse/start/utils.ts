@@ -186,7 +186,7 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
 };
 
 export const getAllegationOfHarmStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase.PRL_c1A_haveSafetyConcerns === YesOrNo.NO || userCase.PRL_c1A_haveSafetyConcerns === YesOrNo.YES) {
+  if (userCase.c1A_haveSafetyConcerns === YesOrNo.NO || userCase.c1A_haveSafetyConcerns === YesOrNo.YES) {
     return SectionStatus.COMPLETED;
   }
   return SectionStatus.TO_DO;

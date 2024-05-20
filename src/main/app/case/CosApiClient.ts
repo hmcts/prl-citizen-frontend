@@ -154,18 +154,31 @@ export class CosApiClient {
     }
   }
 
-  /**  submit respondent response*/
-  public async submitRespondentResponse(caseId: string, partyId: string, data: Partial<CaseData>): Promise<CaseWithId> {
+  public async submitC7Response(
+    caseId: string,
+    partyDetails: Partial<PartyDetails>,
+    partyType: PartyType,
+    caseType: CaseType
+  ): Promise<CaseWithId> {
     try {
+      const data = {
+        partyDetails,
+        partyType,
+        caseType,
+      };
       const response = await this.client.post(
-        config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
+        config.get('services.cos.url') + `/citizen/${caseId}/submit-citizen-response`,
         data
       );
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+      return {
+        id: response.data.caseData.id,
+        state: response.data.caseData.state,
+        ...fromApiFormat(response.data.caseData),
+      };
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, final-c7document generation failed - submitRespondentResponse');
+      throw new Error('Error occured, case could not be updated - updateCaseData');
     }
   }
 
@@ -173,7 +186,7 @@ export class CosApiClient {
   public async generateC7DraftDocument(caseId: string, partyId: string): Promise<Document> {
     try {
       const response = await this.client.post(
-        config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`
+        config.get('services.cos.url') + `/citizen/${caseId}/${partyId}/generate-c7document`
       );
 
       return response.data;

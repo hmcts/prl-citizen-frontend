@@ -1,6 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../../test/unit/utils/mockUserCase';
-import { FormContent } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent } from '../../common.content';
 import { generateContent } from '../../remove-legal-representative/start/content';
 
@@ -70,9 +71,11 @@ describe('add-legal-representative content', () => {
   } as unknown as CommonContent;
   let generatedContent;
   let form;
+  let fields;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
   });
 
   test('should return correct english content', () => {
@@ -87,13 +90,21 @@ describe('add-legal-representative content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
   });
 
+  test('should have correct fields', () => {
+    const declarationCheckField = fields.declarationCheck as FormOptions;
+    expect(declarationCheckField.validator).toBe(atLeastOneFieldIsChecked);
+    expect((declarationCheckField.values[0].label as Function)(generatedContent)).toBe(
+      enContent.removelLegalRepresentativeInformationLine5
+    );
+  });
+
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+  test('should contain submit button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
