@@ -23,9 +23,12 @@ services:
   documentManagement:
     url: DOCUMENT_MANAGEMENT_URL
   equalityAndDiversity:
+    name: 'Equality and Diversity Service'
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN
     pcqEnabled: PCQ_ENABLED
+    path: '/service-endpoint'
+    port: 4000
   reasonableAdjustments:
     url: REASONABLE_ADJUSTMENTS
   dgs:

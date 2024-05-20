@@ -2815,7 +2815,7 @@ export enum CaseEvent {
   CONTACT_PREFERENCE = 'citizenContactPreference',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
   CITIZEN_INTERNAL_FLAG_UPDATES = 'citizenInternalFlagUpdates',
-  CITIZEN_PCQ_UPDATE = 'citizenPcqUpdate',
+  CITIZEN_PCQ_UPDATE = 'pcqUpdateForCitizen',
   CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding"
 }
 
