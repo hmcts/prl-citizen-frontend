@@ -147,7 +147,7 @@ export type ViewDocCategoryLinkProps = {
   };
 };
 
-type DocumentMeta = {
+export type DocumentMeta = {
   document_url: string;
   document_binary_url: string;
   document_filename: string;
