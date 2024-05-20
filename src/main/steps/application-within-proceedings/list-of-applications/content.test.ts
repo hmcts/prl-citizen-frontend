@@ -11,8 +11,8 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Make a request to the court about your case - welsh',
-  accordionTitle: 'Select a form to make an application in your court proceedings. - welsh',
+  title: 'Gwneud cais i’r llys am eich achos',
+  accordionTitle: 'Dewiswch ffurflen i wneud cais yn eich achos llys.',
 };
 
 describe('list of applications content', () => {
@@ -56,6 +56,10 @@ describe('list of applications content', () => {
   test('should contain forms for FL401 applicant page 1', () => {
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: ['You can apply to delay or cancel a hearing by completing and submitting the form C2.'],
@@ -147,6 +151,7 @@ describe('list of applications content', () => {
         next: {
           href: '/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 2',
+          text: 'Next',
         },
         pageNumber: 1,
         show: true,
@@ -160,6 +165,10 @@ describe('list of applications content', () => {
     commonContent.additionalData!.req.params = { pageNumber: 2 };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: [
@@ -235,6 +244,7 @@ describe('list of applications content', () => {
         previous: {
           href: '/application-within-proceedings/list-of-applications/1',
           labelText: '1 of 2',
+          text: 'Previous',
         },
         show: true,
         totalPages: 2,
@@ -267,6 +277,10 @@ describe('list of applications content', () => {
     };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: ['You can apply to delay or cancel a hearing by completing and submitting the form C2.'],
@@ -353,6 +367,7 @@ describe('list of applications content', () => {
         next: {
           href: '/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 2',
+          text: 'Next',
         },
         pageNumber: 1,
         show: true,
@@ -387,6 +402,10 @@ describe('list of applications content', () => {
     commonContent.additionalData!.req.params = { pageNumber: 2 };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: [
@@ -414,6 +433,7 @@ describe('list of applications content', () => {
         previous: {
           href: '/application-within-proceedings/list-of-applications/1',
           labelText: '1 of 2',
+          text: 'Previous',
         },
         show: true,
         totalPages: 2,
@@ -429,6 +449,10 @@ describe('list of applications content', () => {
     };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: ['You can apply to delay or cancel a hearing by completing and submitting the form C2.'],
@@ -530,6 +554,7 @@ describe('list of applications content', () => {
       pagination: {
         next: {
           href: '/application-within-proceedings/list-of-applications/2',
+          text: 'Next',
           labelText: '2 of 3',
         },
         pageNumber: 1,
@@ -548,6 +573,10 @@ describe('list of applications content', () => {
     commonContent.additionalData!.req.params = { pageNumber: 2 };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: ['You can apply for a parental responsibility order by completing and submitting the form C1.'],
@@ -626,10 +655,12 @@ describe('list of applications content', () => {
         next: {
           href: '/application-within-proceedings/list-of-applications/3',
           labelText: '3 of 3',
+          text: 'Next',
         },
         previous: {
           href: '/application-within-proceedings/list-of-applications/1',
           labelText: '1 of 3',
+          text: 'Previous',
         },
         show: true,
         totalPages: 3,
@@ -646,6 +677,10 @@ describe('list of applications content', () => {
     commonContent.additionalData!.req.params = { pageNumber: 3 };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: [
@@ -708,6 +743,7 @@ describe('list of applications content', () => {
         previous: {
           href: '/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 3',
+          text: 'Previous',
         },
         show: true,
         totalPages: 3,
@@ -743,6 +779,10 @@ describe('list of applications content', () => {
     };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: ['You can apply to delay or cancel a hearing by completing and submitting the form C2.'],
@@ -845,6 +885,7 @@ describe('list of applications content', () => {
         next: {
           href: '/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 3',
+          text: 'Next',
         },
         pageNumber: 1,
         show: true,
@@ -882,6 +923,10 @@ describe('list of applications content', () => {
     commonContent.additionalData!.req.params = { pageNumber: 2 };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: ['You can apply for a parental responsibility order by completing and submitting the form C1.'],
@@ -960,9 +1005,11 @@ describe('list of applications content', () => {
         next: {
           href: '/application-within-proceedings/list-of-applications/3',
           labelText: '3 of 3',
+          text: 'Next',
         },
         previous: {
           href: '/application-within-proceedings/list-of-applications/1',
+          text: 'Previous',
           labelText: '1 of 3',
         },
         show: true,
@@ -1000,6 +1047,10 @@ describe('list of applications content', () => {
     commonContent.additionalData!.req.params = { pageNumber: 3 };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: [
@@ -1062,6 +1113,7 @@ describe('list of applications content', () => {
         previous: {
           href: '/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 3',
+          text: 'Previous',
         },
         show: true,
         totalPages: 3,
@@ -1074,6 +1126,10 @@ describe('list of applications content', () => {
     commonContent.additionalData!.req.params = { pageNumber: undefined };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showAllSectionsText: 'Show all sections',
+      showSectionText: 'Show',
       applications: [
         {
           contents: ['You can apply to delay or cancel a hearing by completing and submitting the form C2.'],
@@ -1165,6 +1221,7 @@ describe('list of applications content', () => {
         next: {
           href: '/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 2',
+          text: 'Next',
         },
         pageNumber: 1,
         show: true,
