@@ -838,6 +838,10 @@ describe('tasklist index', () => {
         ...data.respondents![0].value.response,
         c7ResponseSubmitted: 'Yes' as YesOrNo,
       };
+      data.respondents![0].value.user = {
+        ...data.respondents![0].value.user,
+        idamId: '123456',
+      };
 
       const party = PartyType.APPLICANT;
       const language = 'en';
