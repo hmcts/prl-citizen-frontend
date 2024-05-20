@@ -62,8 +62,9 @@ const cyContent = {
   caseNumber: 'Rhif yr achos',
   uploadDocuments: {
     title: 'Dewiswch y math o ddogfen',
-    pageCaption: 'Upload documents - welsh',
-    content: 'The court will tell you in a letter or email which documents or material you need to submit. - welsh',
+    pageCaption: 'Llwytho dogfennau',
+    content:
+      'Bydd y llys yn dweud wrthych mewn llythyr neu e-bost pa ddogfennau neu ddeunydd y mae angen i chi eu cyflwyno.',
     documentSectionTitles: {
       witnessStatementsAndEvidence: 'Datganiadau tyst a thystiolaeth',
       applications: 'Ceisiadau',
