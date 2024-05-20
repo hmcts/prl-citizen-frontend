@@ -55,7 +55,8 @@ export const enum DocumentCategory {
   DNA_REPORTS = 'DNAReports_expertReport',
   DRUG_ALCOHOL_TESTS = 'DRUG_AND_ALCOHOL_TESTS',
   RESPONDENT_C7_RESPONSE_TO_APPLICATION = 'respondentApplication',
-  RESPONDENT_C1A_RESPONSE_TO_APPLICATION = 'respondentC1AResponse',
+  RESPONDENT_RESPOND_TO_C1A = 'respondentC1AResponse',
+  RESPONDENT_C1A_RESPONSE_TO_APPLICATION = 'respondentC1AApplication',
 }
 
 export const enum UploadDocumentAPICategory {

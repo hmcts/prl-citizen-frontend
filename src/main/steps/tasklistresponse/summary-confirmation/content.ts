@@ -22,11 +22,15 @@ const en = {
   downloadLink:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document">Download your response</a>',
   downloadLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document">Download your response welsh</a>',
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document-welsh">Download your response welsh</a>',
   downloadC1aLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your C1A response</a>',
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document">Download your C1A response</a>',
   downloadC1aLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your C1A response - welsh</a>',
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document-welsh">Download your C1A response - welsh</a>',
+  downloadresponseToC1aLink:
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your response to applicant C1A</a>',
+  downloadresponseToC1aLinkWelsh:
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document-welsh">Download your response to applicant C1A - welsh</a>',
   saveAndContinue: 'Continue',
 };
 
@@ -50,9 +54,14 @@ const cy: typeof en = {
   downloadLinkWelsh:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document">Lawrlwytho eich ymateb cymareg</a>',
   downloadC1aLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Lawrlwytho eich ymateb -eng </a>',
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document">Lawrlwytho eich ymateb -eng </a>',
   downloadC1aLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Lawrlwytho eich ymateb cymareg -wel</a>',
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document">Lawrlwytho eich ymateb cymareg -wel</a>',
+  downloadresponseToC1aLink:
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your response to applicant C1A</a>',
+  downloadresponseToC1aLinkWelsh:
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document-welsh">Download your response to applicant C1A - welsh</a>',
+
   saveAndContinue: 'Parhau',
 };
 
