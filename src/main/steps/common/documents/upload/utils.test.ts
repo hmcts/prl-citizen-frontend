@@ -78,7 +78,7 @@ describe('documents > upload > utils', () => {
       await deleteDocument(req, res);
       await new Promise(process.nextTick);
       expect(req.session.errors).toStrictEqual([
-        { errorType: 'donwloadError', propertyName: 'uploadDocumentFileUpload' },
+        { errorType: 'deleteError', propertyName: 'uploadDocumentFileUpload' },
       ]);
     });
   });

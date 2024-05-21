@@ -95,6 +95,11 @@ export const uploadDocumentSections: UploadDocumentSectionsProps[] = [
       getDocumentSectionTitle(UploadDocumentSectionId.OTHER_DOCUMENTS, documentSectionTitles),
     documentCategoryList: [
       {
+        categoryId: UploadDocumentCategory.FM5_DOCUMENT,
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.FM5_DOCUMENT, documentCategoryLabels),
+      },
+      {
         categoryId: UploadDocumentCategory.OTHER_DOCUMENTS,
         documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
           getDocumentCategoryLabel(DocumentLabelCategory.OTHER_DOCUMENTS, documentCategoryLabels),

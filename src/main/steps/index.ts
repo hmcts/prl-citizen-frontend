@@ -12,6 +12,7 @@ import { RASequence } from '../modules/reasonable-adjustments/sequence';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { C100Sequence } from './c100-rebuild/c100sequence';
+import { AohSequence } from './common/safety-concerns/sequence';
 import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
 import { citizenSequence } from './prl-cases/citizenSequence';
@@ -50,6 +51,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...responseCaseSequence,
     ...C100Sequence,
     ...screeningQuestionsSequence,
+    ...AohSequence.getSequence(),
     ...RASequence.getSequence(),
   ].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : DASHBOARD_URL;

@@ -28,6 +28,7 @@ const enContent = {
       paternityTestReports: 'Paternity test reports',
       drugAndAlcoholTests: 'Drug and alcohol tests (toxicology)',
       policeReports: 'Police reports',
+      fm5Document: 'Statement of position on non-court dispute resolution (NCDR) (form FM5)',
       otherDocuments: 'Other documents',
     },
   },
@@ -61,8 +62,9 @@ const cyContent = {
   caseNumber: 'Rhif yr achos',
   uploadDocuments: {
     title: 'Dewiswch y math o ddogfen',
-    pageCaption: 'Upload documents - welsh',
-    content: 'The court will tell you in a letter or email which documents or material you need to submit. - welsh',
+    pageCaption: 'Llwytho dogfennau',
+    content:
+      'Bydd y llys yn dweud wrthych mewn llythyr neu e-bost pa ddogfennau neu ddeunydd y mae angen i chi eu cyflwyno.',
     documentSectionTitles: {
       witnessStatementsAndEvidence: 'Datganiadau tyst a thystiolaeth',
       applications: 'Ceisiadau',
@@ -82,6 +84,7 @@ const cyContent = {
       paternityTestReports: 'Adroddiadau profion tadolaeth',
       drugAndAlcoholTests: 'Profion cyffuriau ac alcohol (tocsicoleg)',
       policeReports: "Adroddiadau'r heddlu",
+      fm5Document: 'Datganiad safbwynt ar ddatrys anghydfod y tu allan i’r llys (NCDR) (ffurflen FM5)',
       otherDocuments: 'Dogfennau eraill',
     },
   },
@@ -234,6 +237,13 @@ describe('documents > upload > content', () => {
         {
           id: 'otherDocuments',
           items: [
+            {
+              categoryId: 'fm5-document',
+              link: {
+                text: 'Statement of position on non-court dispute resolution (NCDR) (form FM5)',
+                url: '/applicant/documents/upload/fm5-document/document-sharing-details',
+              },
+            },
             {
               categoryId: 'other-documents',
               link: {
