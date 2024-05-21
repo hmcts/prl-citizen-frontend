@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import { Case, CaseDate } from '../../../../app/case/case';
+import { PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
@@ -11,9 +12,7 @@ import {
   isFutureDate,
 } from '../../../../app/form/validation';
 import { UPLOAD_STATEMENT_OF_SERVICE } from '../../../urls';
-import { PartyType } from '../../../../app/case/definition';
 import { applyParms } from '../../url-parser';
-import { AppRequest } from '../../../../app/controller/AppRequest';
 export * from './routeGuard';
 
 const en = {
@@ -29,10 +28,10 @@ const en = {
   noFilesUploaded: 'No files uploaded',
   removeDocumentLabel: 'Remove',
   errors: {
-    sos_respondentsServed: {
+    sos_partiesServed: {
       required: 'You must select a respondent',
     },
-    sos_servedDate: {
+    sos_partiesServedDate: {
       required: 'You must enter the date of service',
     },
     statementOfServiceDoc: {
@@ -60,10 +59,10 @@ const cy: typeof en = {
   noFilesUploaded: 'No files uploaded',
   removeDocumentLabel: 'Remove',
   errors: {
-    sos_respondentsServed: {
+    sos_partiesServed: {
       required: 'You must select a respondent',
     },
-    sos_servedDate: {
+    sos_partiesServedDate: {
       required: 'You must enter the date of service',
     },
     statementOfServiceDoc: {
@@ -84,7 +83,7 @@ export const languages = {
 };
 
 export const form: FormContent = {
-  fields: (caseData: Partial<Case>, req: AppRequest) => {
+  fields: (caseData: Partial<Case>) => {
     return {
       sos_partiesServed: {
         type: 'checkboxes',

@@ -1,14 +1,14 @@
 import { Response } from 'express';
+
 import { CosApiClient } from '../../../app/case/CosApiClient';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { UPLOAD_STATEMENT_OF_SERVICE } from '../../../steps/urls';
-import { FormError } from '../../../app/form/Form';
-import { applyParms } from '../url-parser';
 import { CaseWithId } from '../../../app/case/case';
 import { PartyType } from '../../../app/case/definition';
-
+import { AppRequest } from '../../../app/controller/AppRequest';
+import { FormError } from '../../../app/form/Form';
 import { GovUkNunjucksSummary } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
+import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
+import { UPLOAD_STATEMENT_OF_SERVICE } from '../../../steps/urls';
+import { applyParms } from '../url-parser';
 
 export const removeUploadDocErrors = (errors: FormError[] | undefined): FormError[] => {
   return errors?.length ? errors.filter(error => error.propertyName !== 'statementOfServiceDoc') : [];

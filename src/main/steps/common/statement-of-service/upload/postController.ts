@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import _ from 'lodash';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { PartyType, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { handleError, removeUploadDocErrors } from '../utils';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { UPLOAD_STATEMENT_OF_SERVICE } from '../../../../steps/urls';
+import { handleError, removeUploadDocErrors } from '../utils';
 
 @autobind
 export default class SOSUploadDocumentPostController extends PostController<AnyObject> {
