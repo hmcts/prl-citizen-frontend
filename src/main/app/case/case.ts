@@ -627,6 +627,9 @@ export interface Case {
   aoh_wishToRespond?: YesOrNo;
   aoh_responseToAllegations?: string;
   citizenNotifications?: CitizenNotification[];
+  miam_noAppointmentAvailableDetails?: string;
+  miam_unableToAttainDueToDisablityDetails?: string;
+  miam_noMediatorIn15mileDetails?: string;
   //AOH fields
   c1A_safteyConcerns?: C1ASafteyConcerns;
   c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
@@ -652,10 +655,6 @@ export interface Case {
   c1A_concernAboutRespondent?: C1AAbuseTypes[];
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
-  citizenNotifications?: CitizenNotification[];
-  miam_noAppointmentAvailableDetails?: string;
-  miam_unableToAttainDueToDisablityDetails?: string;
-  miam_noMediatorIn15mileDetails?: string;
 }
 
 export interface CitizenNotification {
