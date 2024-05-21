@@ -1,11 +1,11 @@
-import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { PartyType } from '../../../../app/case/definition';
-import { FormContent } from '../../../../app/form/Form';
-import { CommonContent } from '../../../common/common.content';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+import { PartyType } from '../../../../../app/case/definition';
+import { FormContent } from '../../../../../app/form/Form';
+import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
-import PersonaldetailsPostController from './postController';
+import ChildLivingArrangementsPostController from './postController';
 
 const commonContent = {
   language: 'en',
@@ -35,7 +35,7 @@ const commonContent = {
         parentialResponsibility: {
           statement: 'test',
         },
-        liveWith: [
+        livingArrangements: [
           {
             id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
             firstName: 'Dummy',
@@ -64,11 +64,11 @@ const commonContent = {
 } as unknown as CommonContent;
 
 describe('PersonaldetailsPostController Post Controller', () => {
-  test('Should navigagte to the next page when there are no errors when continue button is clicked', async () => {
+  test('Should navigate to the next page when there are no errors when continue button is clicked', async () => {
     const mockFormContent = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new PersonaldetailsPostController(mockFormContent.fields);
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
       params: {
@@ -76,7 +76,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
       },
       body: {
         onlycontinue: true,
-        liveWith: ['480e8295-4c5b-4b9b-827f-f9be423ec1c5'],
+        livingArrangements: ['480e8295-4c5b-4b9b-827f-f9be423ec1c5'],
       },
       session: {
         lang: language,
@@ -86,7 +86,6 @@ describe('PersonaldetailsPostController Post Controller', () => {
       },
     });
     const res = mockResponse();
-    generateContent(commonContent);
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalled();
@@ -107,7 +106,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
           firstName: 'Bob',
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           lastName: 'Silly',
-          liveWith: [
+          livingArrangements: [
             {
               firstName: 'Dummy ',
               id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
@@ -137,11 +136,11 @@ describe('PersonaldetailsPostController Post Controller', () => {
     });
   });
 
-  test('Should navigagte to the next page when there are no errors when continue button is clicked > liveWith > !Array', async () => {
+  test('Should navigate to the next page when there are no errors when continue button is clicked > liveWith > !Array', async () => {
     const mockFormContent = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new PersonaldetailsPostController(mockFormContent.fields);
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
       params: {
@@ -149,7 +148,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
       },
       body: {
         onlycontinue: true,
-        liveWith: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        livingArrangements: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
       },
       session: {
         lang: language,
@@ -180,7 +179,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
           firstName: 'Bob',
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           lastName: 'Silly',
-          liveWith: [],
+          livingArrangements: [],
           parentialResponsibility: {
             statement: 'test',
           },
@@ -207,7 +206,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
     const mockFormContent = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new PersonaldetailsPostController(mockFormContent.fields);
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
       params: {
@@ -234,14 +233,14 @@ describe('PersonaldetailsPostController Post Controller', () => {
     const mockFormContent = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new PersonaldetailsPostController(mockFormContent.fields);
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
       params: {
         childId: '7483640e-0817-4ddc-b709-6723f7925474',
       },
       body: {
-        liveWith: [
+        livingArrangements: [
           {
             id: '7483640e-0817-4ddc-b709-6723f7925474',
             firstName: 'Bob',
@@ -277,14 +276,14 @@ describe('PersonaldetailsPostController Post Controller', () => {
     const mockFormContent = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new PersonaldetailsPostController(mockFormContent.fields);
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
       params: {
         childId: '7483640e-0817-4ddc-b709-6723f7925474',
       },
       body: {
-        liveWith: [
+        livingArrangements: [
           {
             id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
             firstName: 'Bob',
@@ -328,14 +327,14 @@ describe('PersonaldetailsPostController Post Controller', () => {
     const mockFormContent = {
       fields: {},
     } as unknown as FormContent;
-    const controller = new PersonaldetailsPostController(mockFormContent.fields);
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
       params: {
         childId: '7483640e-0817-4ddc-b709-6723f7925474',
       },
       body: {
-        liveWith: [
+        livingArrangements: [
           {
             id: '7483640e-0817-4ddc-b709-6723f7925474',
             firstName: 'Bob',

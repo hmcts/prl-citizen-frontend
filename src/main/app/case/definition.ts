@@ -2703,7 +2703,8 @@ export type ChildrenDetails = {
   parentialResponsibility: {
     statement: string;
   };
-  liveWith?: People[];
+  livingArrangements?: People[];
+  mainlyLiveWith?: People;
 };
 export type Childinfo = {
   id: string;

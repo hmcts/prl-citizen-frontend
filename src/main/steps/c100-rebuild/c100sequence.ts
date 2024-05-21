@@ -108,7 +108,6 @@ import {
   C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
-  C100_CHILDERN_LIVE_WITH,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
@@ -117,6 +116,8 @@ import {
   C100_CHECK_YOUR_ANSWER,
   C100_APPLICANT_CONTACT_PREFERENCES,
   REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
+  C100_CHILDERN_LIVING_ARRANGEMENTS,
+  C100_CHILDERN_MAINLY_LIVE_WITH,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -746,10 +747,16 @@ export const C100Sequence: Step[] = [
       ),
   },
   {
-    url: C100_CHILDERN_LIVE_WITH,
+    url: C100_CHILDERN_MAINLY_LIVE_WITH,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, caseData, req?.params),
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_MAINLY_LIVE_WITH, caseData, req?.params),
+  },
+  {
+    url: C100_CHILDERN_LIVING_ARRANGEMENTS,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVING_ARRANGEMENTS, caseData, req?.params),
   },
   {
     url: C100_APPLICANTS_PERSONAL_DETAILS,
