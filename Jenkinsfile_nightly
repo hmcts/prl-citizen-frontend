@@ -41,9 +41,11 @@ def secrets = [
     secret('launchDarkly-sdk-key', 'LAUNCH_DARKLY_SDK_KEY'),
     secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET'),
     secret('system-update-user-username', 'SYSTEM_UPDATE_USER_USERNAME'),
-    secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD'),
+    secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PW'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
-    secret('citizen-password', 'CITIZEN_PASSWORD')
+    secret('citizen-password', 'CITIZEN_PW'),
+    secret('pact-broker-username', 'PACT_BROKER_YAML_USERNAME'),
+    secret('pact-broker-password', 'PACT_BROKER_YAML_PW'),
   ]
 ]
 

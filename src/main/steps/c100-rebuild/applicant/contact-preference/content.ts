@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../app/case/case';
-import { C100Applicant, applicantContactPreferencesEnum } from '../../../../app/case/definition';
+import { C100Applicant, ContactPreference } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -8,7 +8,6 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Contact Preferences for',
-  serviceName: 'Child Arrangements',
   paragraphs: [
     'You can choose to receive case updates by email or post.',
     'If you receive updates by email, the updates will also be available to view in your dashboard.',
@@ -30,7 +29,6 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Dewisiadau cyswllt ar gyfer',
-  serviceName: 'Trefniadau plant',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
     'Os byddwch yn dewis cael diweddariadau drwy e-bost, byddwch hefyd yn gallu gweld y diweddariadau yn eich dangosfwrdd.',
@@ -88,14 +86,14 @@ export const generateFormFields = (data: C100Applicant): GenerateDynamicFormFiel
         {
           label: l => l.labelDigital,
           name: 'applicantContactPreferences',
-          value: applicantContactPreferencesEnum.DIGITAL,
+          value: ContactPreference.EMAIL,
           hint: l => l.labelDitigalHintText,
           disabled: !data?.applicantContactDetail?.emailAddress,
         },
         {
           label: l => l.labelPost,
           name: 'applicantContactPreferences',
-          value: applicantContactPreferencesEnum.POST,
+          value: ContactPreference.POST,
           hint: l => l.labelPostHintText,
         },
       ],

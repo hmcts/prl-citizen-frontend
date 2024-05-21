@@ -23,7 +23,7 @@ let partyDetails;
 describe('utils', () => {
   describe('getConfirmOrEditYourContactDetails', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
       partyDetails = [
         {
           id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
@@ -51,6 +51,15 @@ describe('utils', () => {
       partyDetails[0].value.lastName = 'Citizen';
       partyDetails[0].value.placeOfBirth = 'London';
       partyDetails[0].value.dateOfBirth = '11-11-2011';
+      partyDetails[0].value.address = {
+        AddressLine1: 'string',
+        AddressLine2: 'string',
+        PostTown: 'string',
+        County: 'string',
+        PostCode: 'string',
+      };
+      partyDetails[0].value.email = 'dummy';
+      partyDetails[0].value.phoneNumber = 'dummy';
 
       userCase.respondents = partyDetails;
       expect(getConfirmOrEditYourContactDetails(userCase, '0c09b130-2eba-4ca8-a910-1f001bac01e6')).toBe(
@@ -63,7 +72,14 @@ describe('utils', () => {
       partyDetails[0].value.lastName = undefined;
       partyDetails[0].value.placeOfBirth = undefined;
       partyDetails[0].value.dateOfBirth = undefined;
-
+      partyDetails[0].value.address = {
+        AddressLine1: '',
+        AddressLine2: '',
+        PostTown: '',
+        County: '',
+        PostCode: '',
+      };
+      partyDetails[0].value.email = undefined;
       userCase.respondents = partyDetails;
       expect(getConfirmOrEditYourContactDetails(userCase, '0c09b130-2eba-4ca8-a910-1f001bac01e6')).toBe(
         SectionStatus.TO_DO
@@ -73,7 +89,7 @@ describe('utils', () => {
 
   describe('getConsentToApplicationStatus', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
 
       const tempresponse = {
         legalRepresentation: 'No',
@@ -174,7 +190,7 @@ describe('utils', () => {
 
   describe('getInternationalFactorsStatus', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
 
       const tempresponse = {
         citizenInternationalElements: {
@@ -260,7 +276,7 @@ describe('utils', () => {
 
   describe('getKeepYourDetailsPrivateStatus', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
 
       const tempresponse = {
         legalRepresentation: 'No',
@@ -323,7 +339,7 @@ describe('utils', () => {
 
   describe('getMiamStatus', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
 
       const tempresponse = {
         miam: {
@@ -411,7 +427,7 @@ describe('utils', () => {
 
   describe('getYourSafetyStatus', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
     });
 
     test('getYourSafetyStatus TO_DO', async () => {

@@ -91,3 +91,26 @@ export enum RASupportContext {
   REQUEST_SUPPORT = 'request',
   MANAGE_SUPPORT = 'manage',
 }
+
+export enum RARootContext {
+  C100_REBUILD = 'c100-rebuild',
+  RESPONDENT = 'respondent',
+}
+
+export enum RALocalComponentC100SupportNeeds {
+  DOCUMENTS_SUPPORT = 'documentsHelp',
+  COMMUNICATION_HELP = 'communicationHelp',
+  COURT_HEARING_SUPPORT = 'extraSupport',
+  COURT_HEARING_COMFORT = 'feelComfortableSupport',
+  TRAVELLING_TO_COURT = 'helpTravellingMovingBuildingSupport',
+  NO_SUPPORT = 'noSupportRequired',
+}
+
+export enum RALocalComponentRespondentSupportNeeds {
+  DOCUMENTS_SUPPORT = 'docsformat',
+  COMMUNICATION_HELP = 'commhelp',
+  COURT_HEARING_SUPPORT = 'hearingsupport',
+  COURT_HEARING_COMFORT = 'hearingcomfort',
+  TRAVELLING_TO_COURT = 'travellinghelp',
+  NO_SUPPORT = 'nosupport',
+}

@@ -4,7 +4,6 @@ import { Application, NextFunction, Response } from 'express';
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { caseApi } from '../../app/case/C100CaseApi';
 import { getCaseApi } from '../../app/case/CaseApi';
-import { CosApiClient } from '../../app/case/CosApiClient';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { parseUrl } from '../../steps/common/url-parser';
@@ -40,8 +39,8 @@ export class OidcMiddleware {
       res.redirect(url);
     });
 
-    app.get(SIGN_OUT_URL, (req, res) => {
-      RAProvider.destroy();
+    app.get(SIGN_OUT_URL, async (req, res) => {
+      await RAProvider.destroy(req as AppRequest);
       req.session.destroy(() => res.redirect('/'));
     });
 
@@ -63,7 +62,7 @@ export class OidcMiddleware {
             req.session.save(() => res.redirect(DASHBOARD_URL));
           }
         } else {
-          RAProvider.destroy();
+          await RAProvider.destroy(req as AppRequest);
           res.redirect(SIGN_IN_URL);
         }
       })
@@ -104,13 +103,13 @@ export class OidcMiddleware {
             //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
             if (req.path.startsWith(C100_URL)) {
               if (c100RebuildLdFlag) {
-                return RAProvider.recordPageNavigation(req, next);
+                return next();
               } else {
                 return res.redirect(DASHBOARD_URL);
               }
             }
             //If testing support URL is not part of the path, then we need to redirect user to dashboard even if they click on link
-            if (req.path.startsWith(TESTING_SUPPORT) || req.path.includes(LOCAL_API_SESSION)) {
+            if (req.path.startsWith(TESTING_SUPPORT) || req.path.startsWith(LOCAL_API_SESSION)) {
               if (req.session.testingSupport) {
                 return next();
               } else {
@@ -122,36 +121,12 @@ export class OidcMiddleware {
               const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
               if (
                 !SAFEGAURD_EXCLUDE_URLS.some(url => {
-                  return parseUrl(url)
-                    .url.split('/')
-                    .every(chunk => req.path.split('/').includes(chunk));
+                  const _url = parseUrl(url).url;
+                  return _url.split('/').every(chunk => req.path.split('/').includes(chunk));
                 }) &&
                 !req.path.split('/').includes(partyType)
               ) {
                 return res.redirect(DASHBOARD_URL);
-              }
-              if (req.session.accessCodeLoginIn) {
-                try {
-                  const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-                  if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
-                    const caseReference = req.session.userCase.caseCode;
-                    const accessCode = req.session.userCase.accessCode;
-                    const data = { applicantCaseName: 'DUMMY CASE DATA' };
-
-                    const linkCaseToCitizenData = await client.linkCaseToCitizen(
-                      req.session.user,
-                      caseReference as string,
-                      req,
-                      accessCode as string,
-                      data
-                    );
-                    req.session.userCase = linkCaseToCitizenData.data;
-                    req.session.accessCodeLoginIn = false;
-                  }
-                } catch (err) {
-                  req.session.accessCodeLoginIn = false;
-                }
-                return req.session.save(next);
               }
             }
             return next();
@@ -159,7 +134,7 @@ export class OidcMiddleware {
             if (req.originalUrl.includes('.css')) {
               return next();
             }
-            RAProvider.destroy();
+            await RAProvider.destroy(req as AppRequest);
             res.redirect(SIGN_IN_URL + `?callback=${encodeURIComponent(req.originalUrl)}`);
           }
         });
