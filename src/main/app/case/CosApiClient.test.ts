@@ -296,7 +296,7 @@ describe('CosApiClient', () => {
     expect(actual).toEqual(response);
   });
 
-  test('uploadStatementDocument should return correct response data', async () => {
+  test('uploadDocument should return correct response data', async () => {
     const response = {
       status: 200,
       document: {
@@ -320,20 +320,20 @@ describe('CosApiClient', () => {
 
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<DocumentUploadResponse>);
     const client = new CosApiClient('abc', mockLogger);
-    const result = await client.uploadStatementDocument(userDetails, req);
+    const result = await client.uploadDocument(userDetails, req);
     expect(result).toStrictEqual(response);
   });
 
-  test('uploadStatementDocument-with api error', async () => {
+  test('uploadDocument-with api error', async () => {
     mockedAxios.post.mockRejectedValueOnce;
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    await expect(client.uploadStatementDocument(req.session.user, DocumentUploadReq)).rejects.toThrow(
+    await expect(client.uploadDocument(req.session.user, DocumentUploadReq)).rejects.toThrow(
       'Error occured, upload citizen statement document failed - UploadDocumentListFromCitizen'
     );
   });
 
-  test('deleteCitizenStatementDocument-', async () => {
+  test('deleteDocument-', async () => {
     mockedAxios.delete.mockResolvedValueOnce;
     const req = mockRequest({
       session: {
@@ -354,8 +354,8 @@ describe('CosApiClient', () => {
     req.params.documentId = 'c9f56483-6e2d-43ce-9de8-72661755b87c';
     const client = new CosApiClient('abc', mockLogger);
     const docId = 'c9f56483-6e2d-43ce-9de8-72661755b87c';
-    await expect(client.deleteCitizenStatementDocument(docId)).rejects.toThrow(
-      'Error occured, document could not be deleted. - deleteCitizenStatementDocument'
+    await expect(client.deleteDocument(docId)).rejects.toThrow(
+      'Error occured, document could not be deleted. - deleteDocument'
     );
   });
   test('submitUploadedDocuments-', async () => {
@@ -581,7 +581,7 @@ describe('CosApiClientWithError', () => {
     expect(flag).toEqual(false);
   });
 
-  test('uploadStatementDocument', async () => {
+  test('uploadDocument', async () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
     const DocumentUploadReq = {
@@ -591,7 +591,7 @@ describe('CosApiClientWithError', () => {
     };
     let flag = true;
     try {
-      await client.uploadStatementDocument(req.session.user, DocumentUploadReq);
+      await client.uploadDocument(req.session.user, DocumentUploadReq);
     } catch {
       flag = false;
     }
@@ -599,12 +599,12 @@ describe('CosApiClientWithError', () => {
     expect(flag).toEqual(false);
   });
 
-  test('deleteCitizenStatementDocumentWithError', async () => {
+  test('deleteDocumentWithError', async () => {
     const client = new CosApiClient('abc', mockLogger);
     const docId = '12345';
     let flag = true;
     try {
-      await client.deleteCitizenStatementDocument(docId);
+      await client.deleteDocument(docId);
     } catch {
       flag = false;
     }

@@ -629,6 +629,9 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
   citizenNotifications?: CitizenNotification[];
+  sos_partiesServed?: string[];
+  sos_partiesServedDate?: CaseDate;
+  sos_document?: Document;
 }
 
 export interface CitizenNotification {
@@ -719,4 +722,10 @@ export interface HearingData {
   caseHearings: HearingsList[];
   courtTypeId: string;
   courtName: string;
+}
+export interface StatementOfServiceRequest {
+  partiesServedDate: string;
+  partiesServed: string[];
+  citizenSosDocs: Document;
+  isOrder: YesOrNo;
 }

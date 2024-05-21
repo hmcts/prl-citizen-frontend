@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../app/case/case';
-import { YesOrNo } from '../../app/case/definition';
+import { PartyType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { UploadDocumentCategory } from '../../steps/common/documents/definitions';
 import { applyParms } from '../../steps/common/url-parser';
@@ -31,6 +31,8 @@ import {
   REMOVE_LEGAL_REPRESENTATIVE_START,
   REVIEW_CONTACT_PREFERENCE,
   START_ALTERNATIVE,
+  STATEMENT_OF_SERVICE_REVIEW,
+  STATEMENT_OF_SERVICE_SUCCESS,
   UPLOAD_DOCUMENT,
   UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
   UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
@@ -39,6 +41,7 @@ import {
   UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
   UPLOAD_DOCUMENT_SUCCESS,
   UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS,
+  UPLOAD_STATEMENT_OF_SERVICE,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
@@ -380,5 +383,27 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
     getNextStep: () => '/',
+  },
+  {
+    url: UPLOAD_STATEMENT_OF_SERVICE,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData, req) =>
+      applyParms(STATEMENT_OF_SERVICE_REVIEW, {
+        partyType: PartyType.APPLICANT,
+        context: req?.params?.context ?? 'soa',
+      }) as PageLink,
+  },
+  {
+    url: STATEMENT_OF_SERVICE_REVIEW,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => applyParms(STATEMENT_OF_SERVICE_SUCCESS, { partyType: PartyType.APPLICANT }) as PageLink,
+  },
+  {
+    url: STATEMENT_OF_SERVICE_SUCCESS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
 ];

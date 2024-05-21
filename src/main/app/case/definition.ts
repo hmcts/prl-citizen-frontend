@@ -2814,7 +2814,8 @@ export enum CaseEvent {
   CONTACT_PREFERENCE='citizenContactPreference',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL="citizenSaveC100DraftInternal",
   CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates",
-  CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding"
+  CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding",
+  UPLOAD_STATEMENT_OF_SERVICE = 'citizenStatementOfService',
 }
 
 export enum hearingStatus {

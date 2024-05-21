@@ -1,0 +1,31 @@
+{% extends "common/template.njk" %}
+{% from "common/fileupload/macro-v1.njk" import fileUpload with context %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">
+    {{title}}
+  </h1>
+
+  {% if fileUploadConfig.errorMessage != undefined %}
+    <div class="govuk-form-group--error">
+    {% endif %}
+
+    {{ fileUpload({
+      name: "statementOfServiceDoc",
+      uploadButtonText: fileUploadConfig.uploadButtonText,
+      labelText: fileUploadConfig.labelText,
+      hintText: fileUploadConfig.hintText,
+      allowedFileTypes: "image/jpg,image/jpeg,image/bmp,image/png,image/tiff,application/pdf,application/msword",
+      uploadUrl: "",
+      uploadedFiles: fileUploadConfig.uploadedFiles,
+      errorMessage: fileUploadConfig.errorMessage,
+      noFilesText: fileUploadConfig.noFilesText,
+      removeFileText: fileUploadConfig.removeFileText,
+      token: csrfToken
+    }) }}
+
+    {% if fileUploadConfig.errorMessage != undefined %}
+    </div>
+  {% endif %}
+
+{% endblock %}
