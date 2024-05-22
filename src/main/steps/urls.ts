@@ -446,7 +446,8 @@ export const REASONABLE_ADJUSTMENTS_COURT_NEEDS: PageLink = `/:root/${REASONABLE
 export const REASONABLE_ADJUSTMENTS_RESPONDENT_RESPONSE_REVIEW: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/review`;
 /** Reasonable Adjustments end */
 
-const STATEMENT_OF_SERVICE : PageLink = '/:partyType/statement-of-service';
+const STATEMENT_OF_SERVICE: PageLink = '/:partyType/statement-of-service';
+export const STATEMENT_OF_SERVICE_WHO_WAS_SERVED: PageLink = `${STATEMENT_OF_SERVICE}/who-was-served/:context`;
 export const UPLOAD_STATEMENT_OF_SERVICE: PageLink = `${STATEMENT_OF_SERVICE}/upload/:context/:removeFileId?`;
 export const STATEMENT_OF_SERVICE_REVIEW: PageLink = `${STATEMENT_OF_SERVICE}/review/:context`;
 export const STATEMENT_OF_SERVICE_SUCCESS: PageLink = `${STATEMENT_OF_SERVICE}/success`;

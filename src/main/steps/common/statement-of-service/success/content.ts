@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 

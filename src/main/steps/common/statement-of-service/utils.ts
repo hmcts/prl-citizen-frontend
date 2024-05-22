@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
@@ -7,10 +8,10 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { FormError } from '../../../app/form/Form';
 import { GovUkNunjucksSummary } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { UPLOAD_STATEMENT_OF_SERVICE } from '../../../steps/urls';
+import { STATEMENT_OF_SERVICE_WHO_WAS_SERVED, UPLOAD_STATEMENT_OF_SERVICE } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
 
-export const removeUploadDocErrors = (errors: FormError[] | undefined): FormError[] => {
+export const removeErrors = (errors: FormError[] | undefined): FormError[] => {
   return errors?.length ? errors.filter(error => error.propertyName !== 'statementOfServiceDoc') : [];
 };
 
@@ -22,7 +23,7 @@ export const handleError = (
   let _errors: FormError[] = errors?.length ? errors : [];
 
   if (omitOtherErrors) {
-    _errors = [...removeUploadDocErrors(_errors)];
+    _errors = [...removeErrors(_errors)];
   }
 
   return [..._errors, { errorType, propertyName: 'statementOfServiceDoc' }];
@@ -41,7 +42,7 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
       delete req.session.userCase.sos_document;
     }
 
-    req.session.errors = removeUploadDocErrors(req.session.errors);
+    req.session.errors = removeErrors(req.session.errors);
   } catch (e) {
     req.session.errors = handleError(req.session.errors, 'deleteError', true);
   } finally {
@@ -63,6 +64,7 @@ export const prepareSummaryList = (
 ): GovUkNunjucksSummary[] => {
   const summaryList: GovUkNunjucksSummary[] = [];
   const servedPartiesName: string[] = [];
+  const summary: Record<string, string>[] = [];
 
   caseData?.sos_partiesServed?.forEach(partyId => {
     if (partyId) {
@@ -73,33 +75,42 @@ export const prepareSummaryList = (
     }
   });
 
-  [
-    {
+  if (servedPartiesName.length > 1) {
+    summary.push({
       label: translations.whoWasServedLabel,
-      value: servedPartiesName.join(', '),
-    },
-    {
+      value: servedPartiesName.join('<br/>'),
+      href: STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
+    });
+  }
+
+  if (caseData?.sos_partiesServedDate?.day) {
+    summary.push({
       label: translations.servedDateLabel,
-      value: `${caseData?.sos_partiesServedDate!.day}-${caseData?.sos_partiesServedDate!.month}-${
-        caseData?.sos_partiesServedDate!.year
-      }`,
-    },
-    {
+      value: `${caseData.sos_partiesServedDate.day}-${caseData.sos_partiesServedDate.month}-${caseData.sos_partiesServedDate.year}`,
+      href: STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
+    });
+  }
+
+  if (caseData?.sos_document?.document_filename) {
+    summary.push({
       label: translations.filesUploadedLabel,
-      value: caseData?.sos_document?.document_filename,
-    },
-  ].forEach(row => {
+      value: caseData.sos_document.document_filename,
+      href: UPLOAD_STATEMENT_OF_SERVICE,
+    });
+  }
+
+  summary.forEach(row => {
     summaryList.push({
       key: {
         text: row.label,
       },
       value: {
-        text: row.value,
+        html: row.value,
       },
       actions: {
         items: [
           {
-            href: applyParms(UPLOAD_STATEMENT_OF_SERVICE, {
+            href: applyParms(row.href, {
               partyType: PartyType.APPLICANT,
               context,
             }),

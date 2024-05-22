@@ -33,6 +33,7 @@ import {
   START_ALTERNATIVE,
   STATEMENT_OF_SERVICE_REVIEW,
   STATEMENT_OF_SERVICE_SUCCESS,
+  STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
   UPLOAD_DOCUMENT,
   UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
   UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
@@ -385,13 +386,23 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => '/',
   },
   {
+    url: STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData, req) =>
+      applyParms(UPLOAD_STATEMENT_OF_SERVICE, {
+        partyType: PartyType.APPLICANT,
+        context: req?.params?.context ?? 'personal-service',
+      }) as PageLink,
+  },
+  {
     url: UPLOAD_STATEMENT_OF_SERVICE,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
     getNextStep: (caseData, req) =>
       applyParms(STATEMENT_OF_SERVICE_REVIEW, {
         partyType: PartyType.APPLICANT,
-        context: req?.params?.context ?? 'soa',
+        context: req?.params?.context ?? 'personal-service',
       }) as PageLink,
   },
   {

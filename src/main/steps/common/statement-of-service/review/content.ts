@@ -1,15 +1,19 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { cy as commonContentCy, en as commonContentEn } from '../../common.content';
 import { languages as uploadSOSLang } from '../upload/content';
 import { prepareSummaryList } from '../utils';
+import { languages as whoWasServedLang } from '../who-was-served/content';
 
 const en = {
+  ...commonContentEn,
   title: 'Check your answers',
-  whoWasServedLabel: uploadSOSLang.en.whoWasServedLabel,
-  servedDateLabel: uploadSOSLang.en.servedDateLabel,
+  whoWasServedLabel: whoWasServedLang.en.whoWasServedLabel,
+  servedDateLabel: whoWasServedLang.en.servedDateLabel,
   filesUploadedLabel: uploadSOSLang.en.filesUploadedLabel,
   statementOfTruthHeading: 'Statement of truth',
+  caseNumber: 'Case number',
   confirmation:
     'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   consentLabel: 'I believe that the facts stated in this application are true',
@@ -22,11 +26,13 @@ const en = {
 };
 
 const cy: typeof en = {
+  ...commonContentCy,
   title: 'Gwiriwch eich atebion',
-  whoWasServedLabel: uploadSOSLang.cy.whoWasServedLabel,
-  servedDateLabel: uploadSOSLang.cy.servedDateLabel,
+  whoWasServedLabel: whoWasServedLang.cy.whoWasServedLabel,
+  servedDateLabel: whoWasServedLang.cy.servedDateLabel,
   filesUploadedLabel: uploadSOSLang.cy.filesUploadedLabel,
   statementOfTruthHeading: 'Datganiad gwirionedd',
+  caseNumber: 'Rhif yr achos',
   confirmation:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth.',
   consentLabel: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
@@ -46,7 +52,7 @@ export const form: FormContent = {
       values: [
         {
           name: 'sos_reviewConsent',
-          label: l => l.consent,
+          label: l => l.consentLabel,
           value: 'true',
         },
       ],
@@ -64,10 +70,19 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  const summaryListRows = prepareSummaryList(
+    translations,
+    content?.additionalData?.req.params?.context,
+    content.userCase
+  );
+
+  if (!summaryListRows.length) {
+    form.onlyContinue!.disabled = true;
+  }
 
   return {
     ...translations,
     form,
-    summaryListRows: prepareSummaryList(translations, content?.additionalData?.req.params?.context, content.userCase),
+    summaryListRows,
   };
 };

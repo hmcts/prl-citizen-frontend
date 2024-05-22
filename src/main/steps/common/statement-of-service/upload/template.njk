@@ -1,3 +1,4 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% extends "common/template.njk" %}
 {% from "common/fileupload/macro-v1.njk" import fileUpload with context %}
 
@@ -19,6 +20,7 @@
       uploadUrl: "",
       uploadedFiles: fileUploadConfig.uploadedFiles,
       errorMessage: fileUploadConfig.errorMessage,
+      uploadedFilesCaption: fileUploadConfig.uploadedFilesCaption,
       noFilesText: fileUploadConfig.noFilesText,
       removeFileText: fileUploadConfig.removeFileText,
       token: csrfToken
@@ -27,5 +29,16 @@
     {% if fileUploadConfig.errorMessage != undefined %}
     </div>
   {% endif %}
+
+  {% set uploadGuidelinesList = ""%}
+  {% for item in uploadGuidelines %}
+    {% set uploadGuidelinesList = uploadGuidelinesList + "<li>" + item + "</li>"%}
+  {% endfor %}
+  {% set uploadGuidelinesText = "<ol class='govuk-list govuk-list--number'>" + uploadGuidelinesList + "</ol>" %}
+
+  {{ govukDetails({
+  summaryText: uploadGuidelinesAccordionLabel,
+  text: uploadGuidelinesText  | safe
+}) }}
 
 {% endblock %}

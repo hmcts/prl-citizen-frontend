@@ -10,8 +10,8 @@ import {
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   RESPOND_TO_APPLICATION,
+  STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
   UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
-  UPLOAD_STATEMENT_OF_SERVICE,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
@@ -280,7 +280,10 @@ const en: NotificationBannerContent = {
                 },
                 {
                   text: 'Upload the statement of service (form C9)',
-                  href: applyParms(UPLOAD_STATEMENT_OF_SERVICE, { partyType: PartyType.APPLICANT, context: 'soa' }),
+                  href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+                    partyType: PartyType.APPLICANT,
+                    context: 'personal-service',
+                  }),
                 },
               ],
             },

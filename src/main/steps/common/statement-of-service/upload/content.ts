@@ -1,25 +1,14 @@
 import _ from 'lodash';
 
-import { Case, CaseDate } from '../../../../app/case/case';
 import { PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
-import { covertToDateObject } from '../../../../app/form/parser';
-import {
-  areDateFieldsFilledIn,
-  atLeastOneFieldIsChecked,
-  isDateInputInvalid,
-  isFutureDate,
-} from '../../../../app/form/validation';
+import { FormContent } from '../../../../app/form/Form';
 import { UPLOAD_STATEMENT_OF_SERVICE } from '../../../urls';
 import { applyParms } from '../../url-parser';
 export * from './routeGuard';
 
 const en = {
   title: 'Upload the statement of service',
-  whoWasServedLabel: 'Who was served?',
-  servedDateLabel: 'When were they served?',
-  servedDateHint: 'For example: 16 4 2021',
   uploadFileHeading: 'Upload a document',
   uplodFileHint:
     'When uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
@@ -27,13 +16,15 @@ const en = {
   filesUploadedLabel: 'Files uploaded',
   noFilesUploaded: 'No files uploaded',
   removeDocumentLabel: 'Remove',
+  uploadGuidelinesAccordionLabel: 'How to take a picture of a document on your phone and upload it',
+  uploadGuidelines: [
+    'Place your document on a flat service in a well-lit room. Use a flash if you need to.',
+    'Take a picture of the whole document. You should be able to see its edges.',
+    'Check you can read all the writing, including the handwriting.',
+    'Email or send the photo or scan to the device you are using now.',
+    'Upload it here.',
+  ],
   errors: {
-    sos_partiesServed: {
-      required: 'You must select a respondent',
-    },
-    sos_partiesServedDate: {
-      required: 'You must enter the date of service',
-    },
     statementOfServiceDoc: {
       empty: 'You must upload a statement of service',
       uploadError: 'Document could not be uploaded',
@@ -48,23 +39,22 @@ const en = {
 
 const cy: typeof en = {
   title: 'Llwytho’r datganiad cyflwyno',
-  whoWasServedLabel: 'Ar bwy y cyflwynwyd?',
-  servedDateLabel: 'Pryd cawson nhw eu cyflwyno?',
-  servedDateHint: 'Er enghraifft: 16 4 2021',
   uploadFileHeading: 'Llwytho dogfen',
   uplodFileHint:
     'When uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
-  uploadButtonLabel: 'Upload file',
-  filesUploadedLabel: 'Files uploaded',
-  noFilesUploaded: 'No files uploaded',
-  removeDocumentLabel: 'Remove',
+  uploadButtonLabel: 'Llwytho ffeil',
+  filesUploadedLabel: 'Ffeiliau sydd wedi’u llwytho',
+  noFilesUploaded: "Nid oes ffeiliau wedi'u llwytho",
+  removeDocumentLabel: 'Dileu',
+  uploadGuidelinesAccordionLabel: 'Sut i dynnu llun o ddogfen ar eich ffôn a’i lwytho',
+  uploadGuidelines: [
+    'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
+    "Tynnwch lun o’r ddogfen gyfan. Dylech allu gweld corneli'r ddogfen.",
+    'Gwiriwch eich bod yn gallu gweld yr ysgrifen i gyd, gan gynnwys y llawysgrifen.',
+    'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
+    'Llwythwch y ffeil yma.',
+  ],
   errors: {
-    sos_partiesServed: {
-      required: 'You must select a respondent',
-    },
-    sos_partiesServedDate: {
-      required: 'You must enter the date of service',
-    },
     statementOfServiceDoc: {
       empty: 'You must upload a statement of service',
       uploadError: 'Document could not be uploaded',
@@ -83,57 +73,7 @@ export const languages = {
 };
 
 export const form: FormContent = {
-  fields: (caseData: Partial<Case>) => {
-    return {
-      sos_partiesServed: {
-        type: 'checkboxes',
-        label: l => l.whoWasServedLabel,
-        values:
-          caseData?.respondents?.map(respondent => ({
-            name: 'sos_partiesServed',
-            value: respondent.id,
-            label: `${respondent.value.firstName} ${respondent.value.lastName}`,
-            selected: caseData?.sos_partiesServed?.includes(respondent.id) || false,
-          })) ?? [],
-        validator: atLeastOneFieldIsChecked,
-      },
-      sos_partiesServedDate: {
-        type: 'date',
-        classes: 'govuk-date-input',
-        label: l => l.servedDateLabel,
-        labelSize: 's',
-        hint: l => l.servedDateHint,
-        values: [
-          {
-            label: l => l.dateFormat['day'],
-            name: 'day',
-            classes: 'govuk-input--width-2',
-            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            value: caseData?.sos_partiesServedDate?.day ?? '',
-          },
-          {
-            label: l => l.dateFormat['month'],
-            name: 'month',
-            classes: 'govuk-input--width-2',
-            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            value: caseData?.sos_partiesServedDate?.month ?? '',
-          },
-          {
-            label: l => l.dateFormat['year'],
-            name: 'year',
-            classes: 'govuk-input--width-4',
-            attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-            value: caseData?.sos_partiesServedDate?.year ?? '',
-          },
-        ],
-        parser: body => covertToDateObject('sos_partiesServedDate', body as Record<string, unknown>),
-        validator: value =>
-          areDateFieldsFilledIn(value as CaseDate) ||
-          isDateInputInvalid(value as CaseDate) ||
-          isFutureDate(value as CaseDate),
-      },
-    };
-  },
+  fields: {},
   onlyContinue: {
     text: l => l.onlycontinue,
   },
@@ -143,21 +83,22 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const { session, params } = content.additionalData?.req;
   const uploadDocError = session?.errors?.find(error => error.propertyName === 'statementOfServiceDoc') ?? null;
-  const uploadedDocument = session?.userCase?.statementOfServiceDocument;
+  const uploadedDocument = session?.userCase?.sos_document;
 
   return {
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
+    form,
     fileUploadConfig: {
       labelText: translations.uploadFileHeading,
       hintText: translations.uplodFileHint,
       uploadButtonText: translations.uploadButtonLabel,
+      uploadedFilesCaption: translations.filesUploadedLabel,
       noFilesText: translations.noFilesUploaded,
       removeFileText: translations.removeDocumentLabel,
       errorMessage: uploadDocError
         ? translations.errors.statementOfServiceDoc?.[uploadDocError.errorType] ?? null
         : null,
-      uploadedFiles: uploadedDocument
+      uploadedFiles: uploadedDocument?.document_url
         ? [
             {
               filename: uploadedDocument.document_filename,

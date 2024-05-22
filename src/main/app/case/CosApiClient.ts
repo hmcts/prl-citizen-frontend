@@ -228,10 +228,7 @@ export class CosApiClient {
     }
   }
 
-  public async uploadDocument(
-    user: UserDetails,
-    request: DocumentFileUploadRequest
-  ): Promise<DocumentUploadResponse> {
+  public async uploadDocument(user: UserDetails, request: DocumentFileUploadRequest): Promise<DocumentUploadResponse> {
     try {
       const formData = new FormData();
 
@@ -392,11 +389,12 @@ export class CosApiClient {
 
   public async submitStatementOfService(
     caseId: string,
-    statementOfServiceData: StatementOfServiceRequest,
+    statementOfServiceData: StatementOfServiceRequest
   ): Promise<AxiosResponse> {
     try {
       const response = await this.client.post(
-        config.get('services.cos.url') + `/${caseId}/${CaseEvent.UPLOAD_STATEMENT_OF_SERVICE}/save-statement-of-service-by-citizen`,
+        config.get('services.cos.url') +
+          `/${caseId}/${CaseEvent.UPLOAD_STATEMENT_OF_SERVICE}/save-statement-of-service-by-citizen`,
         statementOfServiceData
       );
 
