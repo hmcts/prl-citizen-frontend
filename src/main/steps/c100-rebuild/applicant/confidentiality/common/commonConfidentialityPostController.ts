@@ -2,7 +2,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { YesOrNo } from '../../../../../app/case/definition';
+import { C100Applicant, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -61,10 +61,10 @@ export default class ApplicantCommonConfidentialityController {
 
   private CofidentialityStartDataUpdate = (applicantId: string): [] => {
     return this.request.session.userCase.appl_allApplicants?.map(applicant => {
-      const applicantInformation = applicant;
+      const applicantInformation: C100Applicant = applicant;
       if (applicant['id'] === applicantId) {
         applicantInformation['contactDetailsPrivateAlternative'] = [];
-        applicantInformation['start'] = this.request['body']['start'];
+        applicantInformation['start'] = this.request['body']['start'] as C100Applicant['start'];
         if (this.request.body['start'] === YesOrNo.NO) {
           applicantInformation['contactDetailsPrivate'] = [];
         } else {

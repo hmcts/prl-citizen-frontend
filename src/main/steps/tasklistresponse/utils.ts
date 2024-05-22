@@ -1,14 +1,15 @@
+import _ from 'lodash';
+
 import { CaseWithId } from '../../app/case/case';
 import { Applicant, CaseType, PartyDetails, PartyType, Respondent } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { RAProvider } from '../../modules/reasonable-adjustments';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
-import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
-import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
 import { mapContactPreference } from '../common/contact-preference/ContactPreferencesMapper';
+import { mapKeepYourDetailsPrivate } from '../common/keep-details-private/KeepYourDetailsPrivateMapper';
 
-import { mapSafetyConcernsDetails } from './allegations-of-harm-and-violence/SafetyConcernsMapper';
+import { mapConsentToApplicationDetails } from './consent-to-application/summary/ConsentMapper';
 import { mapInternationalFactorsDetails } from './international-factors/InternationalFactorsMapper';
 import { mapMIAMDetails } from './miam/MIAMMapper';
 import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';
@@ -40,24 +41,28 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
     Object.assign(userCase, mapContactPreference(partyDetails));
   }
 };
-
-const setDataInSession = (userCase: CaseWithId, partyDetails: PartyDetails): void => {
-  if (partyDetails?.response?.safetyConcerns) {
-    Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
+function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
+  const allegationOfHarm = _.get(partyDetails, 'response.respondingCitizenAoH');
+  if (allegationOfHarm) {
+    try {
+      Object.assign(userCase, JSON.parse(allegationOfHarm));
+    } catch (err) {
+      console.log('Error: ', err);
+    }
   }
 
   if (partyDetails?.response?.citizenInternationalElements) {
     Object.assign(userCase, mapInternationalFactorsDetails(partyDetails));
   }
 
-  if (partyDetails?.response.currentOrPreviousProceedings) {
+  if (partyDetails?.response?.currentOrPreviousProceedings) {
     Object.assign(userCase, mapProceedingDetails(partyDetails));
   }
 
   if (partyDetails?.response?.miam) {
     Object.assign(userCase, mapMIAMDetails(partyDetails));
   }
-};
+}
 
 export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetails | undefined => {
   let partyData;

@@ -2,7 +2,6 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { CaseWithId } from '../../../../app/case/case';
 import { CaseEvent, CaseType, PartyDetails, PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
@@ -12,12 +11,9 @@ import { applyParms } from '../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 import {
-  APPLICANT_TASK_LIST_URL,
-  C100_APPLICANT_TASKLIST,
   CONTACT_PREFERENCE_CONFIRMATION,
   PARTY_TASKLIST,
   PageLink,
-  RESPONDENT_TASK_LIST_URL,
   RESPOND_TO_APPLICATION,
 } from '../../../../steps/urls';
 
@@ -27,6 +23,7 @@ import {
   setAddressFields,
   //setContactDetails
 } from './ContactDetailsMapper';
+console.info('** FOR SONAR **');
 
 @autobind
 export class ConfirmContactDetailsPostController extends PostController<AnyObject> {
@@ -43,25 +40,14 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
   }
 }
 
-const getRedirectUrl = (partyType: PartyType, req: AppRequest<AnyObject>, userCase: CaseWithId): PageLink => {
+const getRedirectUrl = (partyType: PartyType, req: AppRequest<AnyObject>): PageLink => {
   let redirectUrl;
   if (req.session.applicationSettings?.navFromContactPreferences) {
     redirectUrl = applyParms(CONTACT_PREFERENCE_CONFIRMATION, { partyType });
-  } else if (partyType === PartyType.RESPONDENT) {
-    // temporary until FL401 respondent tasklist refactored
-    if (req.session.userCase.caseTypeOfApplication === 'C100') {
-      redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
-        ? RESPOND_TO_APPLICATION
-        : applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT });
-    } else {
-      redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
-        ? RESPOND_TO_APPLICATION
-        : RESPONDENT_TASK_LIST_URL;
-    }
-  } else if (userCase.caseTypeOfApplication === CaseType.C100) {
-    redirectUrl = C100_APPLICANT_TASKLIST;
+  } else if (req.session.applicationSettings?.navfromRespondToApplication) {
+    redirectUrl = RESPOND_TO_APPLICATION;
   } else {
-    redirectUrl = APPLICANT_TASK_LIST_URL;
+    redirectUrl = applyParms(`${PARTY_TASKLIST}`, { partyType });
   }
   return redirectUrl;
 };
@@ -112,7 +98,7 @@ export const saveAndRedirectContactDetailsAndPreference = async (
       mapDataInSession(req.session.userCase, user.id);
       req.session.userCase.citizenUserAddressText = setAddressFields(req).citizenUserAddressText;
       req.session.save(() => {
-        const redirectUrl = getRedirectUrl(partyType, req, userCase);
+        const redirectUrl = getRedirectUrl(partyType, req);
         res.redirect(redirectUrl);
       });
     } catch (error) {

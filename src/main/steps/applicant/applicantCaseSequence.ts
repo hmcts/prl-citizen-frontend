@@ -1,8 +1,11 @@
-import { Case, CaseWithId } from '../../app/case/case';
-import { CaseType, YesOrNo } from '../../app/case/definition';
+import { CaseWithId } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { UploadDocumentCategory } from '../../steps/common/documents/definitions';
 import { applyParms } from '../../steps/common/url-parser';
 import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
+import KeepDetailsPrivateNavigationController from '../common/keep-details-private/navigationController';
+import RemoveLegalRepresentativeNavigationController from '../common/remove-legal-representative/navigationController';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT_ADDRESS_CONFIRMATION,
@@ -12,27 +15,22 @@ import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
-  APPLICANT_CONTACT_DETAILS_SAVE,
-  APPLICANT_DETAILS_KNOWN,
   APPLICANT_FIND_ADDRESS,
-  APPLICANT_KEEP_DETAILS_PRIVATE_SAVE,
   APPLICANT_MANUAL_ADDRESS,
   APPLICANT_PERSONAL_DETAILS,
-  APPLICANT_POSTAL_ADDRESS_DETAILS,
-  APPLICANT_PRIVATE_DETAILS_CONFIRMED,
-  APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
-  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
-  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_SELECT_ADDRESS,
-  APPLICANT_START_ALTERNATIVE,
-  APPLICANT_TASK_LIST_URL,
   APPLICANT_YOURHEARINGS_HEARINGS,
-  C100_APPLICANT_TASKLIST,
   CHOOSE_CONTACT_PREFERENCE,
   CONTACT_PREFERENCE_CONFIRMATION,
+  DETAILS_KNOWN,
   FETCH_CASE_DETAILS,
+  PRIVATE_DETAILS_CONFIRMED,
+  PRIVATE_DETAILS_NOT_CONFIRMED,
   PageLink,
+  REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+  REMOVE_LEGAL_REPRESENTATIVE_START,
   REVIEW_CONTACT_PREFERENCE,
+  START_ALTERNATIVE,
   UPLOAD_DOCUMENT,
   UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
   UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
@@ -49,36 +47,37 @@ import {
 
 export const applicantCaseSequence: Step[] = [
   {
-    url: APPLICANT_TASK_LIST_URL,
+    url: DETAILS_KNOWN,
+    subDir: '/common',
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: (caseData, req) =>
+      KeepDetailsPrivateNavigationController.getNextPageUrl(DETAILS_KNOWN, caseData, req!),
   },
   {
-    url: APPLICANT_DETAILS_KNOWN,
+    url: START_ALTERNATIVE,
+    subDir: '/common',
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_START_ALTERNATIVE,
+    getNextStep: (caseData, req) =>
+      KeepDetailsPrivateNavigationController.getNextPageUrl(START_ALTERNATIVE, caseData, req!),
   },
   {
-    url: APPLICANT_START_ALTERNATIVE,
+    url: PRIVATE_DETAILS_CONFIRMED,
+    subDir: '/common',
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_KEEP_DETAILS_PRIVATE_SAVE,
+    getNextStep: (caseData, req) =>
+      KeepDetailsPrivateNavigationController.getNextPageUrl(PRIVATE_DETAILS_CONFIRMED, caseData, req!),
   },
   {
-    url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,
+    url: PRIVATE_DETAILS_NOT_CONFIRMED,
+    subDir: '/common',
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
-  },
-  {
-    url: APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+    getNextStep: (caseData, req) =>
+      KeepDetailsPrivateNavigationController.getNextPageUrl(PRIVATE_DETAILS_NOT_CONFIRMED, caseData, req!),
   },
   {
     url: APPLICANT_CHECK_ANSWERS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_CONTACT_DETAILS_SAVE,
+    getNextStep: () => '/',
   },
   {
     url: APPLICANT_PERSONAL_DETAILS,
@@ -127,39 +126,30 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_CHECK_ANSWERS,
   },
   {
-    url: APPLICANT_POSTAL_ADDRESS_DETAILS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
-  },
-  {
     url: APPLICANT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutApplicantCase,
     // getController: HearingsGetController,
-    getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
-  },
-  {
-    url: APPLICANT_TASK_LIST_URL,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_YOURHEARINGS_HEARINGS,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     //80
-    url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    url: REMOVE_LEGAL_REPRESENTATIVE_START,
+    subDir: '/common',
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    getNextStep: (caseData, req) =>
+      RemoveLegalRepresentativeNavigationController.getNextPageUrl(REMOVE_LEGAL_REPRESENTATIVE_START, caseData, req!),
   },
   {
-    url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    url: REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    subDir: '/common',
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+    getNextStep: (caseData, req) =>
+      RemoveLegalRepresentativeNavigationController.getNextPageUrl(REMOVE_LEGAL_REPRESENTATIVE_CONFIRM, caseData, req!),
   },
   {
     url: CHOOSE_CONTACT_PREFERENCE,
@@ -207,17 +197,22 @@ export const applicantCaseSequence: Step[] = [
     url: UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
     getNextStep: (caseData, req) =>
-      applyParms(UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS, {
-        partyType: req!.params.partyType,
-        docCategory: req!.params.docCategory,
-      }) as PageLink,
+      applyParms(
+        req?.params.docCategory === UploadDocumentCategory.FM5_DOCUMENT
+          ? UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS
+          : UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
+        {
+          partyType: req!.params.partyType,
+          docCategory: req!.params.docCategory,
+        }
+      ) as PageLink,
   },
   {
     url: UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
@@ -309,7 +304,7 @@ export const applicantCaseSequence: Step[] = [
     url: UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: String(caseData?.id) }) as PageLink,
   },
   {
     url: UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,

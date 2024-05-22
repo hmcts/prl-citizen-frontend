@@ -13,16 +13,26 @@ import {
   Applicant,
   ApplicantTable,
   AttendingTheHearingTable,
+  C100Applicant,
+  C100DocumentInfo,
+  C100OrderTypes,
+  C100RebuildPartyDetails,
+  C1AAbuseTypes,
+  C1ASafteyConcerns,
+  C1ASafteyConcernsAbout,
   CaseData,
   CaseInvite,
   CaseStatus,
   Child,
   ChildDetailsExtraTable,
   ChildDetailsTable,
+  ChildrenDetails,
   ConfidentialDetails,
   ContactDetails,
+  ContactPreference,
   DateOfSubmission,
   Document,
+  DocumentUploadResponse,
   DraftConsentOrderFile,
   ExistingProceedings,
   Fl401UploadWitnessDocuments,
@@ -33,11 +43,15 @@ import {
   ListValue,
   LitigationCapacityTable,
   MiamExemptionsTable,
+  MiamNonAttendReason,
   MiamTable,
+  OrderInterface,
+  OtherChildrenDetails,
   OtherDocuments,
   OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
+  OtherProceedings,
   OtherProceedingsDetailsTable,
   OtherProceedingsForSummaryTab,
   OtherProceedingsTable,
@@ -47,6 +61,7 @@ import {
   ProceedingsOrderTypes,
   ReasonableAdjustments,
   Respondent,
+  RespondentDocs,
   ResponseDocumentList,
   SelectTypeOfOrderEnum,
   SpecialArrangement,
@@ -60,27 +75,6 @@ import {
   WithoutNoticeOrderDetails,
   YesNoDontKnow,
   YesOrNo,
-  orderInterface,
-  //C100 Rebuild
-  // eslint-disable-next-line sort-imports
-  C100DocumentInfo,
-  C100OrderTypes,
-  C1ASafteyConcerns,
-  MiamNonAttendReason,
-  OtherProceedings,
-  //DocumentType,
-  ChildrenDetails,
-  C1ASafteyConcernsAbout,
-  C1AAbuseTypes,
-  OtherChildrenDetails,
-  C100RebuildPartyDetails,
-  C100Applicant,
-  PRL_C1ASafteyConcernsAbout,
-  PRL_C1ASafteyConcerns,
-  PRL_C1AAbuseTypes,
-  RespondentDocs,
-  DocumentUploadResponse,
-  ContactPreference,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -104,7 +98,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateOfSubmission: 'dateOfSubmission',
   //declarationTable: 'DeclarationTable',
   interpreterNeeds: 'interpreterNeeds',
-  applicantCaseName: 'applicantCaseName',
   childDetailsTable: 'childDetailsTable',
   jurisdictionIssue: 'jurisdictionIssue',
   ordersApplyingFor: 'ordersApplyingFor',
@@ -235,6 +228,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   citizenOrders: 'citizenOrders',
   citizenApplicationPacks: 'citizenApplicationPacks',
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
+  newChildDetails: 'newChildDetails',
+  citizenNotifications: 'citizenNotifications',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -255,6 +250,7 @@ export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
   children?: Child[];
+  newChildDetails?: Child[];
   miamTable?: MiamTable;
   applicants?: Applicant[];
   applicantsFL401?: PartyDetails;
@@ -274,7 +270,6 @@ export interface Case {
   dateOfSubmission?: DateOfSubmission;
   //declarationTable?: DeclarationTable;
   interpreterNeeds?: InterpreterNeed[];
-  applicantCaseName?: string;
   childDetailsTable?: ChildDetailsTable[];
   jurisdictionIssue?: string;
   ordersApplyingFor?: string[];
@@ -403,29 +398,29 @@ export interface Case {
   proceedingsStartOrder?: YesOrNo;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
-  supervisionOrder?: orderInterface;
+  supervisionOrder?: OrderInterface;
   emergencyOrderOptions?: YesOrNo;
-  emergencyOrder?: orderInterface;
+  emergencyOrder?: OrderInterface;
   careOrderOptions?: YesOrNo;
-  careOrder?: orderInterface;
+  careOrder?: OrderInterface;
   childAbductionOrderOption?: YesOrNo;
-  childAbductionOrder?: orderInterface;
+  childAbductionOrder?: OrderInterface;
   caOrderOption?: YesOrNo;
-  caOrder?: orderInterface;
+  caOrder?: OrderInterface;
   financialOrderOption?: YesOrNo;
-  financialOrder?: orderInterface;
+  financialOrder?: OrderInterface;
   nonmolestationOrderOption?: YesOrNo;
-  nonmolestationOrder?: orderInterface;
+  nonmolestationOrder?: OrderInterface;
   occupationalOrderOptions?: YesOrNo;
-  occupationOrder?: orderInterface;
+  occupationOrder?: OrderInterface;
   marraigeOrderOptions?: YesOrNo;
-  marraigeOrder?: orderInterface;
+  marraigeOrder?: OrderInterface;
   restrainingOrderOptions?: YesOrNo;
-  restrainingOrder?: orderInterface;
+  restrainingOrder?: OrderInterface;
   injuctiveOrderOptions?: YesOrNo;
-  injuctiveOrder?: orderInterface;
+  injuctiveOrder?: OrderInterface;
   underTakingOrderOptions?: YesOrNo;
-  underTakingOrder?: orderInterface;
+  underTakingOrder?: OrderInterface;
 
   /***** Applicant1 *****/
   citizenUserFullName?: string;
@@ -522,19 +517,8 @@ export interface Case {
   hwf_needHelpWithFees?: YesOrNo;
   hwf_feesAppliedDetails?: YesOrNo;
   caseId?: string;
-  c1A_haveSafetyConcerns?: YesOrNo;
-  PRL_c1A_haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
-  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
-  PRL_c1A_safetyConernAbout?: PRL_C1ASafteyConcernsAbout[];
-  c1A_safteyConcerns?: C1ASafteyConcerns;
-  PRL_c1A_safteyConcerns?: PRL_C1ASafteyConcerns;
-  PRL_c1A_abductionReasonOutsideUk?: string;
-  PRL_c1A_childsCurrentLocation?: string;
-  PRL_c1A_childrenMoreThanOnePassport?: YesOrNo;
-  PRL_c1A_possessionChildrenPassport?: string[];
-  PRL_c1A_provideOtherDetails?: string;
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
   miam_consent?: string;
@@ -549,20 +533,6 @@ export interface Case {
   miam_previousAttendance?: string[];
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
-  c1A_passportOffice?: YesOrNo;
-  PRL_c1A_passportOffice?: YesOrNo;
-  PRL_c1A_abductionPassportOfficeNotified?: YesOrNo;
-  PRL_c1A_previousAbductionsShortDesc?: string;
-  PRL_c1A_policeOrInvestigatorInvolved?: YesOrNo;
-  PRL_c1A_policeOrInvestigatorOtherDetails?: string;
-  PRL_c1A_childAbductedBefore?: YesOrNo;
-  PRL_c1A_otherConcernsDrugs?: YesOrNo;
-  PRL_c1A_otherConcernsDrugsDetails?: string;
-  PRL_c1A_childSafetyConcerns?: YesOrNo;
-  PRL_c1A_childSafetyConcernsDetails?: string;
-  PRL_c1A_keepingSafeStatement?: string;
-  PRL_c1A_supervisionAgreementDetails?: string;
-  PRL_c1A_agreementOtherWaysDetails?: YesOrNo;
   cd_children?: ChildrenDetails[];
   ocd_otherChildren?: OtherChildrenDetails[];
   ocd_hasOtherChildren?: YesOrNo;
@@ -570,12 +540,7 @@ export interface Case {
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
   sq_courtPermissionRequired?: YesOrNo;
-  c1A_concernAboutChild?: C1AAbuseTypes[];
-  PRL_c1A_concernAboutChild?: PRL_C1AAbuseTypes[];
-  c1A_concernAboutApplicant?: C1AAbuseTypes[];
-  c1A_concernAboutRespondent?: C1AAbuseTypes[];
-  PRL_c1A_concernAboutRespondent?: PRL_C1AAbuseTypes[];
-  c1A_childAbductedBefore?: YesOrNo;
+
   co_certificate?: C100DocumentInfo;
   too_courtOrder?: string[];
   too_stopOtherPeopleDoingSomethingSubField?: string[];
@@ -638,16 +603,47 @@ export interface Case {
   ra_languageReqAndSpecialArrangements?: string;
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+  //AOH fields
+  c1A_safteyConcerns?: C1ASafteyConcerns;
+  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
+  c1A_haveSafetyConcerns?: YesOrNo;
+  c1A_abductionReasonOutsideUk?: string;
+  c1A_childsCurrentLocation?: string;
+  c1A_childrenMoreThanOnePassport?: YesOrNo;
+  c1A_possessionChildrenPassport?: string[];
+  c1A_provideOtherDetails?: string;
+  c1A_passportOffice?: YesOrNo;
+  c1A_abductionPassportOfficeNotified?: YesOrNo;
+  c1A_previousAbductionsShortDesc?: string;
+  c1A_policeOrInvestigatorInvolved?: YesOrNo;
+  c1A_policeOrInvestigatorOtherDetails?: string;
+  c1A_otherConcernsDrugs?: YesOrNo;
+  c1A_otherConcernsDrugsDetails?: string;
+  c1A_childSafetyConcerns?: YesOrNo;
+  c1A_childSafetyConcernsDetails?: string;
+  c1A_keepingSafeStatement?: string;
+  c1A_supervisionAgreementDetails?: string;
+  c1A_agreementOtherWaysDetails?: YesOrNo;
+  c1A_concernAboutApplicant?: C1AAbuseTypes[];
+  c1A_concernAboutRespondent?: C1AAbuseTypes[];
+  c1A_concernAboutChild?: C1AAbuseTypes[];
+  c1A_childAbductedBefore?: YesOrNo;
+  citizenNotifications?: CitizenNotification[];
+}
+
+export interface CitizenNotification {
+  id: string;
+  show: boolean;
 }
 export interface ServedApplicationDetails {
   id: string;
   value: ServedApplication;
 }
 export type ServedApplication = {
-  emailNotificationDetails: emailNotificationDetails[] | [];
+  emailNotificationDetails: EmailNotificationDetails[] | [];
   whoIsResponsible: string;
 };
-export interface emailNotificationDetails {
+export interface EmailNotificationDetails {
   id: string;
   value: emailNotification;
 }

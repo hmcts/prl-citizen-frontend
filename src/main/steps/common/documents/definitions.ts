@@ -35,6 +35,7 @@ export type UploadDocumentCategoryListProps = {
     documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
     uploadedByPartyName?: string
   ) => string;
+  show?: (caseData: CaseWithId) => boolean;
 };
 
 export type UploadDocumentSectionsProps = {
@@ -54,6 +55,7 @@ export const enum DocumentCategory {
   DNA_REPORTS = 'DNAReports_expertReport',
   DRUG_ALCOHOL_TESTS = 'DRUG_AND_ALCOHOL_TESTS',
   RESPONDENT_C7_RESPONSE_TO_APPLICATION = 'respondentApplication',
+  RESPONDENT_C1A_RESPONSE_TO_APPLICATION = 'respondentC1AResponse',
 }
 
 export const enum UploadDocumentAPICategory {
@@ -71,6 +73,7 @@ export const enum UploadDocumentAPICategory {
   PREVIOUS_ORDERS_SUBMITTED_RESPONDENT = 'PREVIOUS_ORDERS_SUBMITTED_RESPONDENT',
   POLICE_REPORTS = 'POLICE_REPORTS',
   PATERNITY_TEST_REPORTS = 'PATERNITY_TEST_REPORTS',
+  FM5_DOCUMENT = 'FM5_STATEMENTS',
   OTHER_DOCUMENTS = 'OTHER_DOCUMENTS',
   DRUG_ALCOHOL_TESTS = 'DRUG_AND_ALCOHOL_TESTS',
 }
@@ -88,6 +91,7 @@ export const enum UploadDocumentCategory {
   PATERNITY_TEST_REPORTS = 'paternity-test-reports',
   DRUG_ALCOHOL_TESTS = 'drug-and-alcohol-tests',
   POLICE_REPORTS = 'police-disclosures',
+  FM5_DOCUMENT = 'fm5-document',
   OTHER_DOCUMENTS = 'other-documents',
 }
 
@@ -123,6 +127,7 @@ export const enum DocumentLabelCategory {
   PREVIOUS_ORDERS_SUBMITTED = 'previousOrdersSubmitted',
   PATERNITY_TEST_REPORTS = 'paternityTestReports',
   EMAIL_IMAGES_MEDIA = 'emailImagesMedia',
+  FM5_DOCUMENT = 'fm5Document',
   OTHER_DOCUMENTS = 'otherDocuments',
 }
 
@@ -164,6 +169,7 @@ export type CitizenDocuments = {
   documentWelsh: DocumentMeta | null;
   solicitorRepresentedPartyName?: string;
   solicitorRepresentedPartyId?: string;
+  documentLanguage?: string;
 };
 
 export type CitizenOrders = {

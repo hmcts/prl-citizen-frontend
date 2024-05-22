@@ -1,12 +1,13 @@
 /* eslint-disable import/no-unresolved */
-import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
+import { applyParms } from '../../../steps/common/url-parser';
 import {
   CONSENT_TO_APPLICATION,
-  DETAILS_KNOWN_RESPONDENT,
+  DETAILS_KNOWN,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
@@ -20,16 +21,16 @@ import {
   RESPONDENT_ADDRESS_HISTORY,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_PERSONAL_DETAILS,
-  START_ALTERNATIVE_RESPONDENT,
+  START_ALTERNATIVE,
 } from '../../../steps/urls';
 import { summaryList as prepareRASummaryList } from '../../common/reasonable-adjustments/review/content';
-import { summaryList } from '../../common/summary/utils';
 import {
   SafetyConcerns,
   SafetyConcerns_child,
   SafetyConcerns_others,
   SafetyConcerns_yours,
-} from '../allegations-of-harm-and-violence/check-your-answers/mainUtil';
+} from '../../common/safety-concerns/review/mainUtil';
+import { summaryList } from '../../common/summary/utils';
 import { PastAndCurrentProceedings } from '../proceedings/mainUtils';
 
 import { ANYTYPE } from './common/index';
@@ -560,8 +561,8 @@ const urls = {
   iFactorsJurisdictionProvideDetails: INTERNATIONAL_FACTORS_JURISDICTION,
   request: INTERNATIONAL_FACTORS_REQUEST,
   iFactorsRequestProvideDetails: INTERNATIONAL_FACTORS_REQUEST,
-  detailsKnown: DETAILS_KNOWN_RESPONDENT,
-  startAlternative: START_ALTERNATIVE_RESPONDENT,
+  detailsKnown: applyParms(DETAILS_KNOWN, { partyType: PartyType.RESPONDENT }),
+  startAlternative: applyParms(START_ALTERNATIVE, { partyType: PartyType.RESPONDENT }),
   miamWillingness: MIAM_ATTEND_WILLINGNESS,
   miamNotWillingExplnation: MIAM_ATTEND_WILLINGNESS,
   miamStart: MIAM_START,
@@ -572,11 +573,11 @@ const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childCo
   const safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected =
     userCase.hasOwnProperty(safteyConcernsAboutKey) &&
     userCase[safteyConcernsAboutKey]?.length === 1 &&
-    userCase[safteyConcernsAboutKey]?.some(concerner => concerner === PRL_C1ASafteyConcernsAbout.CHILDREN) &&
+    userCase[safteyConcernsAboutKey]?.some(concerner => concerner === C1ASafteyConcernsAbout.CHILDREN) &&
     userCase.hasOwnProperty(childConcernsKey) &&
-    userCase[childConcernsKey]?.some(abuseType => abuseType === PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE);
+    userCase[childConcernsKey]?.some(abuseType => abuseType === C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE);
   const checkIfYourSafetyConcernSelected = userCase[safteyConcernsAboutKey]?.some(
-    concerner => concerner === PRL_C1ASafteyConcernsAbout.RESPONDENT
+    concerner => concerner === C1ASafteyConcernsAbout.RESPONDENT
   );
   return !!(safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected || checkIfYourSafetyConcernSelected);
 };
@@ -618,9 +619,9 @@ const en = (content: CommonContent) => {
     SafetyConcerns(enSaftyConcern, userCase, content.language)
   );
 
-  if (userCase.hasOwnProperty('PRL_c1A_haveSafetyConcerns') && userCase['PRL_c1A_haveSafetyConcerns'] === YesOrNo.YES) {
+  if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
     sections.push(SafetyConcerns_child(enSaftyConcern, userCase, content.language));
-    if (toggleApplicantSafetyConcerns('PRL_c1A_safetyConernAbout', userCase, 'PRL_c1A_concernAboutChild')) {
+    if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
       sections.push(SafetyConcerns_yours(enSaftyConcern, userCase, content.language));
     }
     sections.push(SafetyConcerns_others(enSaftyConcern, userCase, content.language));
@@ -672,9 +673,9 @@ const cy: typeof en = (content: CommonContent) => {
     SafetyConcerns(cySaftyConcern, userCase, content.language)
   );
 
-  if (userCase.hasOwnProperty('PRL_c1A_haveSafetyConcerns') && userCase['PRL_c1A_haveSafetyConcerns'] === YesOrNo.YES) {
+  if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
     sections.push(SafetyConcerns_child(cySaftyConcern, userCase, content.language));
-    if (toggleApplicantSafetyConcerns('PRL_c1A_safetyConernAbout', userCase, 'PRL_c1A_concernAboutChild')) {
+    if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
       sections.push(SafetyConcerns_yours(cySaftyConcern, userCase, content.language));
     }
     sections.push(SafetyConcerns_others(cySaftyConcern, userCase, content.language));

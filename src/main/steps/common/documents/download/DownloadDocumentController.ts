@@ -30,6 +30,12 @@ export default class DownloadDocumentController {
           doc.partyId === userDetails.id && doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
       );
       documentReference = c7Document?.document;
+    } else if (documentType === 'c1a-response-document') {
+      const c1aDocument = caseData.citizenDocuments?.find(
+        doc =>
+          doc.partyId === userDetails.id && doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION
+      );
+      documentReference = c1aDocument?.document;
     }
 
     const documentId = documentReference
@@ -45,7 +51,7 @@ export default class DownloadDocumentController {
 
   public async download(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     // eslint-disable-next-line prefer-const
-    let { documentId, documentName, documentType, forceDownload = false } = req.params;
+    let { documentId, documentName, documentType, forceDownload } = req.params;
 
     try {
       if (documentType) {
@@ -61,7 +67,7 @@ export default class DownloadDocumentController {
       res.setHeader('Content-Type', document.headers['content-type']);
       res.setHeader(
         'Content-Disposition',
-        `${forceDownload ? 'attachment' : 'inline'}; filename=${deTransformFileName(documentName)};`
+        `${forceDownload === 'forceDownload' ? 'attachment' : 'inline'}; filename=${deTransformFileName(documentName)};` //check with vivek
       );
       res.end(document.data);
     } catch (error) {

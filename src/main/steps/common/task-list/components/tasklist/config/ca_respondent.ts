@@ -9,11 +9,11 @@ import { applyParms } from '../../../../../../steps/common/url-parser';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
   CHOOSE_CONTACT_PREFERENCE,
+  DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT_BY_TYPE,
+  FETCH_HEARING_DETAILS,
   REASONABLE_ADJUSTMENTS_INTRO,
   RESPONDENT_CHECK_ANSWERS,
-  RESPONDENT_DETAILS_KNOWN,
-  RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
@@ -53,7 +53,8 @@ export const aboutYou: TaskListConfigProps = {
   tasks: (): Task[] => [
     {
       id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
-      href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_DETAILS_KNOWN}/${caseData.id}`,
+      href: (caseData: Partial<CaseWithId>) =>
+        `${applyParms(DETAILS_KNOWN, { partyType: PartyType.RESPONDENT })}/${caseData.id}`,
       stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
@@ -95,7 +96,7 @@ export const hearing: TaskListConfigProps = {
     {
       id: Tasks.VIEW_HEARING_DETAILS,
       href: (caseData: Partial<CaseWithId>) =>
-        hasAnyHearing(caseData) ? `${RESPONDENT_YOURHEARINGS_HEARINGS}/${caseData.id}` : '#',
+        applyParms(FETCH_HEARING_DETAILS, { partyType: PartyType.RESPONDENT, caseId: caseData.id as string }),
       stateTag: (caseData: Partial<CaseWithId>) => {
         if (hasAnyHearing(caseData)) {
           return StateTags.READY_TO_VIEW;
@@ -202,7 +203,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
                 partyType: PartyType.RESPONDENT,
                 documentType: 'c7-response-document',
               })
-            : `${RESPOND_TO_APPLICATION}/flag/updateFlag`;
+            : RESPOND_TO_APPLICATION;
         },
         stateTag: (caseData, userDetails) => {
           return getC7ApplicationResponseStatus(caseData, userDetails);

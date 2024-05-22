@@ -1,15 +1,8 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { CaseWithId } from '../../../app/case/case';
 import { Applicant, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../app/case/definition';
 import { UserDetails } from '../../../app/controller/AppRequest';
 
-import {
-  getPartyName,
-  hasRespondentRespondedToC7Application,
-  hasResponseBeenReviewed,
-  isCaseWithdrawn,
-  keepDetailsPrivateNav,
-} from './utils';
+import { getPartyName, hasRespondentRespondedToC7Application, hasResponseBeenReviewed, isCaseWithdrawn } from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
@@ -416,23 +409,6 @@ describe('hasRespondentRespondedToC7Application', () => {
     } as unknown as CaseWithId;
     expect(hasRespondentRespondedToC7Application(userCase, { id: '1234' } as unknown as UserDetails)).toBe(false);
   });
-});
-
-test('keepDetailsPrivateNav', () => {
-  const userCase = {
-    respondents: [
-      {
-        id: '1234',
-        value: {
-          user: {
-            idamId: '1234',
-          },
-        },
-      },
-    ],
-  } as unknown as CaseWithId;
-  const req = mockRequest({ session: { ...userCase } });
-  expect(keepDetailsPrivateNav(userCase, req)).toBe('/respondent/task-list');
 });
 
 describe('hasResponseBeenReviewed', () => {
