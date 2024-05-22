@@ -38,6 +38,7 @@ describe('PaymentTaskResolver class testing', () => {
   const dummyCaseID = '2122323';
   const dummyreturnUrl = 'http://localhost:3001/payment/reciever/callback';
   const hwfRefNumber = 'HWF-1234';
+  const feeType = 'C100_SUBMISSION_FEE';
   test('Should be an Instance of Axios', async () => {
     const InstanceOfPaymentSystemAPIInstance = new PaymentTaskResolver(
       paymentURL,
@@ -45,7 +46,8 @@ describe('PaymentTaskResolver class testing', () => {
       mockServiceToken,
       dummyCaseID,
       dummyreturnUrl,
-      hwfRefNumber
+      hwfRefNumber,
+      feeType
     );
     const fetchData = await InstanceOfPaymentSystemAPIInstance.getPaymentCredentails();
     //due to credential failure it must fail;

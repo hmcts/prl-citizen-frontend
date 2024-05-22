@@ -1,0 +1,60 @@
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% macro fileUpload(params) %}
+  {% set allowedFileTypes = "image/jpeg,image/tiff,image/png,application/pdf,image/jpg,image/bmp,image/tif,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"%}
+  {% set labelHtml %}
+  <div class="govuk-!-font-weight-bold">{{params.labelText}}</div>
+  <div class="govuk-hint">{{params.hintText}}</div>
+  {% set tableRows = [] %}
+
+  {% if params.uploadedFiles.length > 0%}
+    {% for file in params.uploadedFiles %}
+      {% set removeDocumentLinkHtml %}
+        <a href="{{file.fileremoveUrl}}" class="govuk-link--no-visited-state float-right">{{ params.removeFileText }}</a>
+      {% endset %}
+      {% set tableRows = (tableRows.push([
+        {
+          text: file.filename
+        },{
+          html: removeDocumentLinkHtml
+        }
+      ]), tableRows) %}
+    {% endfor %}
+  {% else %}
+    {% set tableRows = (tableRows.push([{text: params.noFilesText}]), tableRows) %}
+  {% endif %}
+  {{ govukTable({
+          rows: tableRows
+        }) 
+      }}
+  {% endset %}
+
+  <div class="govuk-form-group govuk-inset-text">
+    <form action="{{params.uploadUrl}}?_csrf={{ params.token }}" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" id="csrfToken" value="{{ params.token }}">
+      {{ govukFileUpload({
+          id: params.id if params.id else "fileupload" ,
+          name: params.name if params.name else "file" ,
+          attributes: {
+            accept: params.allowedFileTypes if params.allowedFileTypes else allowedFileTypes
+          },
+          classes: "govuk-!-margin-bottom-3",
+          label: {
+            html: labelHtml
+          },
+          errorMessage: {
+            text: params.errorMessage
+          } if params.errorMessage
+      }) }}
+
+      {{ govukButton({
+          text: params.uploadButtonText,
+          type: "upload document",
+          classes: "govuk-button--secondary govuk-!-margin-bottom-0 govuk--custom__button"
+        }) }}
+    </form>
+  </div>
+
+{% endmacro %}
