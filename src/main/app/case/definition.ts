@@ -134,6 +134,8 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
   c7ResponseSubmitted?: YesOrNo;
+  responseToAllegationsOfHarmYesOrNoResponse? : YesOrNo;
+  respondentResponseToAllegationOfHarm?: string;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -1474,7 +1476,7 @@ export const enum EventRoutesContext {
   SAFETY_CONCERNS_NO = 'SAFETY_CONCERNS_NO',
   VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS',
   CONTACT_PREFERENCE = 'CONTACT_PREFERENCE',
-  HEARINGS = 'HEARINGS'
+  HEARINGS = 'HEARINGS',
 }
 
 export const enum ClarificationReason {
@@ -2822,10 +2824,10 @@ export enum CaseEvent {
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
+  CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
   CONTACT_PREFERENCE='citizenContactPreference',
-  CITIZEN_SAVE_C100_DRAFT_INTERNAL="citizenSaveC100DraftInternal",
-  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates",
-  CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding"
+  CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding",
+  CITIZEN_RESPONSE_TO_AOH = 'citizenResponseToAoH'
 }
 
 export enum hearingStatus {

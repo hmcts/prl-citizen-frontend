@@ -146,6 +146,7 @@ export class CosApiClient {
         id: response.data.caseData.id,
         state: response.data.caseData.state,
         ...fromApiFormat(response.data.caseData),
+        hearingCollection: response.data?.hearings?.caseHearings ?? [],
       };
     } catch (error) {
       this.logError(error);
@@ -153,7 +154,7 @@ export class CosApiClient {
     }
   }
 
-  public async submitRespondentResponse1(
+  public async submitC7Response(
     caseId: string,
     partyDetails: Partial<PartyDetails>,
     partyType: PartyType,
@@ -178,21 +179,6 @@ export class CosApiClient {
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, case could not be updated - updateCaseData');
-    }
-  }
-
-  /**  submit respondent response*/
-  public async submitRespondentResponse(caseId: string, partyId: string, data: Partial<CaseData>): Promise<CaseWithId> {
-    try {
-      const response = await this.client.post(
-        config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
-        data
-      );
-
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
-    } catch (error) {
-      this.logError(error);
-      throw new Error('Error occured, final-c7document generation failed - submitRespondentResponse');
     }
   }
 

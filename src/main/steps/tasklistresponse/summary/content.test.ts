@@ -48,7 +48,7 @@ describe('citizen-home content', () => {
   });
   test('should contain continue button', () => {
     expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and continue');
   });
   test('should return correct english content respondent abuse only', () => {

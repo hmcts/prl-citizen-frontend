@@ -693,22 +693,20 @@ const cy: typeof en = (content: CommonContent) => {
 };
 
 export const form: FormContent = {
-  fields: () => {
-    return {
-      declarationCheck: {
-        type: 'checkboxes',
-        values: [
-          {
-            name: 'declarationCheck',
-            label: l => l.declaration,
-            value: 'declaration',
-          },
-        ],
-        validator: atLeastOneFieldIsChecked,
-      },
-    };
+  fields: {
+    declarationCheck: {
+      type: 'checkboxes',
+      values: [
+        {
+          name: 'declarationCheck',
+          label: l => l.declaration,
+          value: 'declaration',
+        },
+      ],
+      validator: atLeastOneFieldIsChecked,
+    },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };
@@ -720,6 +718,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+
   return {
     ...translations,
     form,

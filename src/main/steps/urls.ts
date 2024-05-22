@@ -124,6 +124,13 @@ export const CONSENT: PageLink = `${RESPONSE_TASKLIST}/consent-to-application`;
 export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 
+/* respond to allegations of harm */
+const partyType: PageLink = '/:partyType';
+export const RESPOND_TO_AOH: PageLink = `${partyType}${RESPONSE_TASKLIST}/respond-to-allegations-of-harm/willing-to-respond`;
+export const RESPONSE_TO_AOH: PageLink = `${partyType}${RESPONSE_TASKLIST}/respond-to-allegations-of-harm/your-response`;
+export const RESPOND_TO_AOH_REVIEW: PageLink = `${partyType}${RESPONSE_TASKLIST}/respond-to-allegations-of-harm/review`;
+/* consent-to-the-application */
+
 /** Documents */
 const DOCUMENTS = '/:partyType/documents';
 
