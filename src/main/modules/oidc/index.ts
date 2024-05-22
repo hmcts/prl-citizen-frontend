@@ -73,7 +73,10 @@ export class OidcMiddleware {
         if (app.locals.developmentMode) {
           req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
           req.session.testingSupport = config.get('launchDarkly.offline');
-          req.session.enableCaseTrainTrack = config.get('launchDarkly.offline')===true?config.get('featureToggles.enableCaseTrainTrack'):config.get('launchDarkly.offline');
+          req.session.enableCaseTrainTrack =
+            config.get('launchDarkly.offline') === true
+              ? config.get('featureToggles.enableCaseTrainTrack')
+              : config.get('launchDarkly.offline');
         }
 
         req.session.testingSupport = req.session.testingSupport ?? (await getFeatureToggle().isTestingSupportEnabled());
