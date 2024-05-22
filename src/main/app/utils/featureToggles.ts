@@ -49,6 +49,12 @@ export class FeatureToggles {
     return isTestingSupportEnabled;
   }
 
+  async isCitizenTrainTrackFeatureEnabled(): Promise<boolean> {
+    return this.launchDarklyClient.serviceVariation(
+      'citizen-train-track-feature',
+      toBoolean(config.get<boolean>('featureToggles.citizenTrainTrackFeature'))
+    );
+  }
   async isRAComponentEnabled(): Promise<boolean> {
     if (this.launchDarklyClient) {
       return this.launchDarklyClient.serviceVariation(

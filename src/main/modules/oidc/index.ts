@@ -73,9 +73,12 @@ export class OidcMiddleware {
         if (app.locals.developmentMode) {
           req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
           req.session.testingSupport = config.get('launchDarkly.offline');
+          req.session.citizenTrainTrackFeature = config.get('launchDarkly.offline');
         }
 
         req.session.testingSupport = req.session.testingSupport ?? (await getFeatureToggle().isTestingSupportEnabled());
+        req.session.citizenTrainTrackFeature =
+          req.session.citizenTrainTrackFeature ?? (await getFeatureToggle().isCitizenTrainTrackFeatureEnabled());
 
         req.session.save(async () => {
           const isAnonymousPage = ANONYMOUS_URLS.some(url => url.includes(req.path));

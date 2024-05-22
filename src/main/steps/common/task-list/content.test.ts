@@ -82,29 +82,29 @@ describe('testcase for tasklist', () => {
       },
     ],
     partyName: 'undefined undefined',
-    // progressBar: [
-    //   {
-    //     ariaLabel: 'Application submitted stage is not yet started',
-    //     label: 'Application<br/> submitted',
-    //     statusBarClassName: '',
-    //   },
-    //   {
-    //     ariaLabel: 'Cafcass child safety checks stage is not yet started',
-    //     label: 'Cafcass child<br/> safety checks',
-    //     statusBarClassName: '',
-    //   },
-    //   {
-    //     ariaLabel: 'Response submitted stage is not yet started',
-    //     label: 'Response<br/> submitted',
-    //     statusBarClassName: '',
-    //   },
-    //   {
-    //     ariaLabel: 'Hearings and court orders stage is not yet started',
-    //     label: 'Hearings and<br/> court orders',
-    //     statusBarClassName: '',
-    //   },
-    //   { ariaLabel: 'Case closed stage is not yet started', label: 'Case closed', statusBarClassName: '' },
-    // ],
+    progressBar: [
+      {
+        ariaLabel: 'Application submitted stage is not yet started',
+        label: 'Application<br/> submitted',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Cafcass child safety checks stage is not yet started',
+        label: 'Cafcass child<br/> safety checks',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Response submitted stage is not yet started',
+        label: 'Response<br/> submitted',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Hearings and court orders stage is not yet started',
+        label: 'Hearings and<br/> court orders',
+        statusBarClassName: '',
+      },
+      { ariaLabel: 'Case closed stage is not yet started', label: 'Case closed', statusBarClassName: '' },
+    ],
     taskLists: [
       {
         heading: 'Your application',
@@ -204,33 +204,33 @@ describe('testcase for tasklist', () => {
       },
     ],
     partyName: 'undefined undefined',
-    // progressBar: [
-    //   {
-    //     ariaLabel: 'Cam cais wedi’i gyflwyno heb ddechrau eto',
-    //     label: "Cais wedi'i<br/> gyflwyno",
-    //     statusBarClassName: '',
-    //   },
-    //   {
-    //     ariaLabel: 'Cam gwiriadau diogelwch plant Cafcass heb ddechrau eto',
-    //     label: 'Gwiriadau diogelwch<br/> plant Cafcass',
-    //     statusBarClassName: '',
-    //   },
-    //   {
-    //     ariaLabel: 'Cam ymateb wedi’i gyflwyno heb ddechrau eto',
-    //     label: "Ymateb wedi'i<br/> gyflwyno",
-    //     statusBarClassName: '',
-    //   },
-    //   {
-    //     ariaLabel: 'Cam gwrandawiadau a gorchmynion llys heb ddechrau eto',
-    //     label: 'Gwrandawiadau <br/>a<br/> gorchmynion llys',
-    //     statusBarClassName: '',
-    //   },
-    //   {
-    //     ariaLabel: 'Cam achos wedi’i gau heb ddechrau eto',
-    //     label: 'Achos wedi’i <br/>gau',
-    //     statusBarClassName: '',
-    //   },
-    // ],
+    progressBar: [
+      {
+        ariaLabel: 'Cam cais wedi’i gyflwyno heb ddechrau eto',
+        label: "Cais wedi'i<br/> gyflwyno",
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Cam gwiriadau diogelwch plant Cafcass heb ddechrau eto',
+        label: 'Gwiriadau diogelwch<br/> plant Cafcass',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Cam ymateb wedi’i gyflwyno heb ddechrau eto',
+        label: "Ymateb wedi'i<br/> gyflwyno",
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Cam gwrandawiadau a gorchmynion llys heb ddechrau eto',
+        label: 'Gwrandawiadau <br/>a<br/> gorchmynion llys',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Cam achos wedi’i gau heb ddechrau eto',
+        label: 'Achos wedi’i <br/>gau',
+        statusBarClassName: '',
+      },
+    ],
     taskLists: [
       {
         heading: 'Eich cais',
@@ -260,6 +260,7 @@ describe('testcase for tasklist', () => {
     additionalData: {
       req: {
         session: {
+          citizenTrainTrackFeature: true,
           user: { id: '1234' },
           userCase: {
             ...mockUserCase,

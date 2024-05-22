@@ -45,8 +45,8 @@ featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
   c100Rebuild: true
   testingSupport: true
+  citizenTrainTrackFeature: false
   enableRAComponent: true
-
 
 launchDarkly:
   offline: true
