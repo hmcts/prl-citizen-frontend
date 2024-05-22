@@ -23,4 +23,4 @@ EXPOSE 3001
 
 #
 HEALTHCHECK --interval=30s --timeout=15s --start-period=60s --retries=3 \
-    CMD wget -q --spider localhost:3100/health || exit 1
+    CMD wget -q --spider localhost:3001/health || exit 1
