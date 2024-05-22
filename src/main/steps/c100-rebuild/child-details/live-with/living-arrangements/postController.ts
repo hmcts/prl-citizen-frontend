@@ -28,14 +28,11 @@ export default class ChildLivingArrangementsPostController extends PostControlle
     req.session.userCase.cd_children = updatePartyDetails(
       {
         ...(getPartyDetails(childId, req.session.userCase.cd_children) as ChildrenDetails),
-        livingArrangements:
-          !livingArrangements || !livingArrangements.length
-            ? []
-            : getPeople(req.session.userCase).filter(person =>
-                _.isArray(livingArrangements)
-                  ? livingArrangements.includes(person.id)
-                  : livingArrangements === person.id
-              ),
+        livingArrangements: !livingArrangements?.length
+          ? []
+          : getPeople(req.session.userCase).filter(person =>
+              _.isArray(livingArrangements) ? livingArrangements.includes(person.id) : livingArrangements === person.id
+            ),
       },
       req.session.userCase.cd_children
     ) as ChildrenDetails[];
