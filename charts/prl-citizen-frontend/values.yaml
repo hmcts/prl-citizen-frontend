@@ -25,7 +25,7 @@ nodejs:
     LAUNCH_DARKLY_OFFLINE_MODE: false
     C100_REBUILD_FLAG: false
     TESTING_SUPPORT_FLAG: false
-    CITIZEN_TRAIN_TRACK_FEATURE_FLAG: false
+    ENABLE_CASE_TRAIN_TRACK: true
     ENABLE_RA_COMPONENT: true
   keyVaults:
     prl:

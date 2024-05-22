@@ -22,7 +22,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 }
 
 export interface AppSession extends Session {
-  citizenTrainTrackFeature: boolean;
+  enableCaseTrainTrack: boolean;
   testingSupport: boolean;
   paymentError: PaymentError;
   user: UserDetails;

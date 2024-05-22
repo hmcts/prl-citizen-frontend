@@ -163,9 +163,9 @@ export const generateContent: TranslationFn = content => {
       },
     ],
     partyName: getPartyName(caseData, partyType, request.session.user),
-    progressBar: request.session.citizenTrainTrackFeature
+    progressBar: request.session.enableCaseTrainTrack
       ? getProgressBarConfig(caseData, partyType, content.language, request.session.user)
-      : undefined,
+      : [],
     notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),
     taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language),
   };
