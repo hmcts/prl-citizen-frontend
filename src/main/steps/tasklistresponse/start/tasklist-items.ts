@@ -7,13 +7,14 @@ export const respondent_tasklist_items_en = {
   support_you_need_during_your_case: 'Support you need during your case',
   mediation_miam: 'Mediation(MIAM)',
   current_or_previous_proceedings: 'Current or previous proceedings',
-  allegations_of_harm_and_violence: 'Allegations of harm and violence',
+  allegations_of_harm_and_violence: 'Make allegations of harm and violence',
+  respond_to_allegations_of_harm_and_violence: 'Respond to allegations of harm and violence',
   your_safety: 'Your safety',
   childrens_safety: "The children's safety",
   abduction_concerns: 'Abduction concerns',
   other_concerns: 'Other concerns',
   what_do_you_want_the_court_to_do: 'What do you want the court to do?',
-  international_factors: 'International element',
+  international_factors: 'International elements',
 };
 
 export const respondent_tasklist_items_cy = {
@@ -26,6 +27,7 @@ export const respondent_tasklist_items_cy = {
   mediation_miam: 'Cyfryngu (MIAM)',
   current_or_previous_proceedings: 'Achos cyfredol neu flaenorol',
   allegations_of_harm_and_violence: 'Honiadau o niwed a thrais',
+  respond_to_allegations_of_harm_and_violence: 'Ymateb i honiadau o niwed a thrais',
   your_safety: 'Eich diogelwch',
   childrens_safety: 'Diogelwch y plant',
   abduction_concerns: 'Pryderon am herwgydio',

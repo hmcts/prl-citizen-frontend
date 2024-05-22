@@ -19,10 +19,6 @@ export default class ResponseSummaryConfirmationPcqPostController extends PostCo
     const form = new Form(fields);
     const { _csrf, ...formData } = form.getParsedBody(req.body);
 
-    req.session.userCase = {
-      ...req.session.userCase,
-      declarationCheck: formData.declarationCheck,
-    };
     req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length) {

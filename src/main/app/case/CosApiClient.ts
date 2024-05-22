@@ -146,6 +146,7 @@ export class CosApiClient {
         id: response.data.caseData.id,
         state: response.data.caseData.state,
         ...fromApiFormat(response.data.caseData),
+        hearingCollection: response.data?.hearings?.caseHearings ?? [],
       };
     } catch (error) {
       this.logError(error);
@@ -153,7 +154,7 @@ export class CosApiClient {
     }
   }
 
-  public async submitRespondentResponse1(
+  public async submitC7Response(
     caseId: string,
     partyDetails: Partial<PartyDetails>,
     partyType: PartyType,

@@ -2827,14 +2827,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@promptbook/utils@npm:0.49.0":
-  version: 0.49.0
-  resolution: "@promptbook/utils@npm:0.49.0"
+"@promptbook/utils@npm:0.50.0-10":
+  version: 0.50.0-10
+  resolution: "@promptbook/utils@npm:0.50.0-10"
   dependencies:
     moment: 2.30.1
     prettier: 2.8.1
-    spacetrim: 0.11.24
-  checksum: 342762c012d3fd2c3adda0d3c47ee350d9cf535e185f5783474eb261ca519f86ee266f021785c9a167be0cbee55b3d5ad2df3670b8957ea3238247ddb53db056
+    spacetrim: 0.11.25
+  checksum: c6211d01111bf06a6f4411a32a60311b7ae0e61295d7a7d55cb825b621737c8124035a786559516c01483387bd1a9d6805c457096ebac9b63a384bdfc0a04b96
   languageName: node
   linkType: hard
 
@@ -3843,9 +3843,9 @@ __metadata:
   linkType: hard
 
 "@types/lodash@npm:^4.14.186":
-  version: 4.17.1
-  resolution: "@types/lodash@npm:4.17.1"
-  checksum: 01984d5b44c09ef45258f8ac6d0cf926900624064722d51a020ba179e5d4a293da0068fb278d87dc695586afe7ebd3362ec57f5c0e7c4f6c1fab9d04a80e77f5
+  version: 4.17.4
+  resolution: "@types/lodash@npm:4.17.4"
+  checksum: 268e652fd52d49189f155bc89b49bd4535aa44f0b6b0ed9ce7e50318307bda58147c49539d2047f39ca37cf5b5ea38dfb801d0dbcdbc8b019c95c1afc346b05a
   languageName: node
   linkType: hard
 
@@ -8927,9 +8927,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.668":
-  version: 1.4.772
-  resolution: "electron-to-chromium@npm:1.4.772"
-  checksum: 685eb387e896e571efb07927e10e2b8e980214fe4b5daac80c20c9eae881dfd06d2fa3d8a4195b3455fbf0bc268bd472004a07685e07245a5d59aac5a44fb17d
+  version: 1.4.773
+  resolution: "electron-to-chromium@npm:1.4.773"
+  checksum: 440cf258b8645c6e1c17c35a52578abc4ddce76139be7b1aa70f98ec199ec42f4ea9d9cfc4f6b9a9155601878801053b9f5fa76e5553009d3bfa08d79406e1de
   languageName: node
   linkType: hard
 
@@ -12652,8 +12652,8 @@ __metadata:
   linkType: hard
 
 "jest-environment-emit@npm:^1.0.5":
-  version: 1.0.7
-  resolution: "jest-environment-emit@npm:1.0.7"
+  version: 1.0.8
+  resolution: "jest-environment-emit@npm:1.0.8"
   dependencies:
     bunyamin: ^1.5.2
     bunyan: ^2.0.5
@@ -12680,7 +12680,7 @@ __metadata:
       optional: true
     jest-environment-node:
       optional: true
-  checksum: 6620dacd5ff43e93c20d51c91acc8b7c9219f26ccce95adbdfe2bf21ffe0544c3a98905b97a4aa8a5609c863861a074ea10efcd6c8df8d9c4ed50b7fbb627aad
+  checksum: 0c7bafbd3a6e5952f6abb45958f0d2997371d29b29f3876afda48d1d734ccd703577aaac0d5afec2e19dc33a9db0e9458721fe73dbe797f0ced21481d908acfd
   languageName: node
   linkType: hard
 
@@ -13888,13 +13888,13 @@ __metadata:
   linkType: hard
 
 "locate-app@npm:^2.1.0":
-  version: 2.4.14
-  resolution: "locate-app@npm:2.4.14"
+  version: 2.4.15
+  resolution: "locate-app@npm:2.4.15"
   dependencies:
-    "@promptbook/utils": 0.49.0
+    "@promptbook/utils": 0.50.0-10
     type-fest: 2.13.0
     userhome: 1.0.0
-  checksum: ee21e03c34c482b9bac8cf1caa4150b96d9c5f9120834b2d0605a38f764398f3b28a8168b0131cfffb3c1082a05a07da39e9263965ff2e2f0848ecf1ca60525b
+  checksum: f8c71260714f34c5128b9b35e82bfaebddde5520b0892e73b2e9e8dd44ec2a11446cd777df2756bc08aacedc54cf94f6b742c16e296e05ff0d7e3b3cd221dbb1
   languageName: node
   linkType: hard
 
@@ -19370,10 +19370,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"spacetrim@npm:0.11.24":
-  version: 0.11.24
-  resolution: "spacetrim@npm:0.11.24"
-  checksum: aba6ed71c887e310bc1f0ef62b1bde4eca95af7d1152bb82971cd06186285f866e2eb56b09cf9f4f0ced0ef5596dc0ac9c536243c9793608920331b7c7fb8380
+"spacetrim@npm:0.11.25":
+  version: 0.11.25
+  resolution: "spacetrim@npm:0.11.25"
+  checksum: 34206f9dc0694dc8067c875647b61cb130879dad7cc31466f03bf1a08d97d2cc40327cd5f0f782420938c57296de8de72bf218e77b86cdb02c53437363d2807f
   languageName: node
   linkType: hard
 

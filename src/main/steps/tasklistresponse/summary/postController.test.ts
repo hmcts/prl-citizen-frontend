@@ -6,7 +6,6 @@ import ResponseSummaryConfirmationPostController from './postController';
 
 describe('ResponseSummaryConfirmationPostController', () => {
   const pcqGetControllerMock = jest.spyOn(PCQGetController.prototype, 'get');
-
   test('post', async () => {
     const req = mockRequest();
     const res = mockResponse();
