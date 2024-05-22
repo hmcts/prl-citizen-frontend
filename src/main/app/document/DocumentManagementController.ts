@@ -349,7 +349,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       if (err) {
         throw err;
       } else if (generatedDocument) {
-        res.setHeader('Content-Type', generatedDocument.headers['content-type']);
+        res.setHeader('Content-Type', generatedDocument.headers['content-type']!);
         if (cdamUrl && this.getFlagViewed(req, fieldFlag) === true) {
           // download and open the pdf in the same window
           return res.send(generatedDocument.data);
