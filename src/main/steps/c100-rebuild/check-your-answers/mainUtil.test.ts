@@ -1178,7 +1178,7 @@ describe('test cases for main util', () => {
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           firstName: 'Bob',
           lastName: 'Silly',
-          livingArrangements: [
+          liveWith: [
             {
               id: '2',
               firstName: 'test',

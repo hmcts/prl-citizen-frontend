@@ -23,15 +23,15 @@ export default class ChildLivingArrangementsPostController extends PostControlle
     const form = new Form(getFormFields(req.session.userCase, childId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const { livingArrangements } = formData as Record<string, any>;
+    const { liveWith } = formData as Record<string, any>;
 
     req.session.userCase.cd_children = updatePartyDetails(
       {
         ...(getPartyDetails(childId, req.session.userCase.cd_children) as ChildrenDetails),
-        livingArrangements: !livingArrangements?.length
+        liveWith: !liveWith?.length
           ? []
           : getPeople(req.session.userCase).filter(person =>
-              _.isArray(livingArrangements) ? livingArrangements.includes(person.id) : livingArrangements === person.id
+              _.isArray(liveWith) ? liveWith.includes(person.id) : liveWith === person.id
             ),
       },
       req.session.userCase.cd_children

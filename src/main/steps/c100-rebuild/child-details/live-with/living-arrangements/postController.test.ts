@@ -35,7 +35,7 @@ const commonContent = {
         parentialResponsibility: {
           statement: 'test',
         },
-        livingArrangements: [
+        liveWith: [
           {
             id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
             firstName: 'Dummy',
@@ -76,7 +76,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
       },
       body: {
         onlycontinue: true,
-        livingArrangements: ['480e8295-4c5b-4b9b-827f-f9be423ec1c5'],
+        liveWith: ['480e8295-4c5b-4b9b-827f-f9be423ec1c5'],
       },
       session: {
         lang: language,
@@ -106,7 +106,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
           firstName: 'Bob',
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           lastName: 'Silly',
-          livingArrangements: [
+          liveWith: [
             {
               firstName: 'Dummy ',
               id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
@@ -148,7 +148,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
       },
       body: {
         onlycontinue: true,
-        livingArrangements: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        liveWith: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
       },
       session: {
         lang: language,
@@ -179,7 +179,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
           firstName: 'Bob',
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           lastName: 'Silly',
-          livingArrangements: [],
+          liveWith: [],
           parentialResponsibility: {
             statement: 'test',
           },
@@ -240,7 +240,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
         childId: '7483640e-0817-4ddc-b709-6723f7925474',
       },
       body: {
-        livingArrangements: [
+        liveWith: [
           {
             id: '7483640e-0817-4ddc-b709-6723f7925474',
             firstName: 'Bob',
@@ -283,7 +283,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
         childId: '7483640e-0817-4ddc-b709-6723f7925474',
       },
       body: {
-        livingArrangements: [
+        liveWith: [
           {
             id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
             firstName: 'Bob',
@@ -334,7 +334,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
         childId: '7483640e-0817-4ddc-b709-6723f7925474',
       },
       body: {
-        livingArrangements: [
+        liveWith: [
           {
             id: '7483640e-0817-4ddc-b709-6723f7925474',
             firstName: 'Bob',

@@ -13,7 +13,7 @@ const en = {
     'We need this information so that the court has a complete understanding of the child’s living arrangements.',
   liveWithLabel: 'Select all of the people that the child lives with',
   errors: {
-    livingArrangements: {
+    liveWith: {
       required: 'Select all of the people that the child lives with',
     },
   },
@@ -25,7 +25,7 @@ const cy = {
     'We need this information so that the court has a complete understanding of the child’s living arrangements. (welsh)',
   liveWithLabel: 'Select all of the people that the child lives with (welsh)',
   errors: {
-    livingArrangements: {
+    liveWith: {
       required: 'Select all of the people that the child lives with (welsh)',
     },
   },
@@ -116,12 +116,12 @@ describe('child > live with', () => {
   });
 
   test('should contain personal details form fields', () => {
-    const { livingArrangements } = fields as Record<string, FormFields>;
-    const livingArrangementsValues = livingArrangements.values as FormInput[];
+    const { liveWith } = fields as Record<string, FormFields>;
+    const livingArrangementsValues = liveWith.values as FormInput[];
 
-    expect(livingArrangements.type).toBe('checkboxes');
-    expect((livingArrangements.label as Function)(generatedContent)).toBe(en.liveWithLabel);
-    (livingArrangements.validator as Validator)('');
+    expect(liveWith.type).toBe('checkboxes');
+    expect((liveWith.label as Function)(generatedContent)).toBe(en.liveWithLabel);
+    (liveWith.validator as Validator)('');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('');
     expect(livingArrangementsValues).toHaveLength(3);
     expect(livingArrangementsValues[0].label).toBe('Applicant1-firstName Applicant1-lastName');

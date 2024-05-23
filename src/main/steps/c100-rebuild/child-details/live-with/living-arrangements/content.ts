@@ -15,7 +15,7 @@ const en = {
     'We need this information so that the court has a complete understanding of the child’s living arrangements.',
   liveWithLabel: 'Select all of the people that the child lives with',
   errors: {
-    livingArrangements: {
+    liveWith: {
       required: 'Select all of the people that the child lives with',
     },
   },
@@ -27,7 +27,7 @@ const cy = {
     'We need this information so that the court has a complete understanding of the child’s living arrangements. (welsh)',
   liveWithLabel: 'Select all of the people that the child lives with (welsh)',
   errors: {
-    livingArrangements: {
+    liveWith: {
       required: 'Select all of the people that the child lives with (welsh)',
     },
   },
@@ -54,7 +54,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 
 export const generateFormFields = (
   persons: People[],
-  livingArrangements: ChildrenDetails['livingArrangements'],
+  liveWith: ChildrenDetails['liveWith'],
   mainlyLiveWith: ChildrenDetails['mainlyLiveWith']
 ): GenerateDynamicFormFields => {
   const errors = {
@@ -63,18 +63,17 @@ export const generateFormFields = (
   };
 
   const fields = {
-    livingArrangements: {
+    liveWith: {
       type: 'checkboxes',
       label: l => l.liveWithLabel,
       labelSize: 'm',
       validator: atLeastOneFieldIsChecked,
       values: persons.map(person => ({
-        name: 'livingArrangements',
+        name: 'liveWith',
         label: `${person.firstName} ${person.lastName}`,
         value: person.id,
         selected:
-          !!livingArrangements?.find(liveWithPerson => liveWithPerson.id === person.id) ||
-          mainlyLiveWith?.id === person.id,
+          !!liveWith?.find(liveWithPerson => liveWithPerson.id === person.id) || mainlyLiveWith?.id === person.id,
       })),
     },
   };
@@ -93,14 +92,14 @@ export const form: FormContent = {
 };
 
 export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id']): FormContent => {
-  const { livingArrangements, mainlyLiveWith } = getPartyDetails(childId, caseData?.cd_children) as ChildrenDetails;
-  return updateFormFields(form, generateFormFields(getPeople(caseData), livingArrangements, mainlyLiveWith).fields);
+  const { liveWith, mainlyLiveWith } = getPartyDetails(childId, caseData?.cd_children) as ChildrenDetails;
+  return updateFormFields(form, generateFormFields(getPeople(caseData), liveWith, mainlyLiveWith).fields);
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const childId = content.additionalData!.req.params.childId;
-  const { firstName, lastName, livingArrangements, mainlyLiveWith } = getPartyDetails(
+  const { firstName, lastName, liveWith, mainlyLiveWith } = getPartyDetails(
     childId,
     content.userCase!.cd_children
   ) as ChildrenDetails;
@@ -110,7 +109,7 @@ export const generateContent: TranslationFn = content => {
     title: interpolate(translations.title, { firstName, lastName }),
     form: updateFormFields(
       form,
-      generateFormFields(getPeople(content.userCase!), livingArrangements as People[], mainlyLiveWith).fields
+      generateFormFields(getPeople(content.userCase!), liveWith as People[], mainlyLiveWith).fields
     ),
   };
 };

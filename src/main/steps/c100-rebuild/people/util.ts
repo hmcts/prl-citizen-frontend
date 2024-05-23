@@ -52,7 +52,7 @@ export const getDataShape = (context: PartyType): People => {
       parentialResponsibility: {
         statement: '',
       },
-      livingArrangements: [],
+      liveWith: [],
       mainlyLiveWith: [],
     });
   } else if (context === PartyType.RESPONDENT || context === PartyType.OTHER_PERSON) {

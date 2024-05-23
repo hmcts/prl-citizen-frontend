@@ -1448,7 +1448,7 @@ export const whereDoChildrenLive = (
       value: '',
       valueHtml:
         HTML.UNORDER_LIST +
-        sessionChildData[child]?.['livingArrangements']
+        sessionChildData[child]?.['liveWith']
           ?.map(respectiveParty => {
             const { firstName, lastName } = respectiveParty;
             return `${HTML.LIST_ITEM}${firstName} ${lastName}${HTML.LIST_ITEM_END}`;
