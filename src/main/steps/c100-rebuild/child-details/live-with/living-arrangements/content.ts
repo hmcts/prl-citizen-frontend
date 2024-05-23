@@ -9,7 +9,7 @@ import { getPeople } from '../utils';
 export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+const en = {
   title: "{firstName} {lastName}'s living arrangements",
   livingArrangements:
     'We need this information so that the court has a complete understanding of the child’s living arrangements.',
@@ -19,9 +19,9 @@ const en = () => ({
       required: 'Select all of the people that the child lives with',
     },
   },
-});
+};
 
-const cy = () => ({
+const cy = {
   title: "{firstName} {lastName}'s living arrangements (welsh)",
   livingArrangements:
     'We need this information so that the court has a complete understanding of the child’s living arrangements. (welsh)',
@@ -31,7 +31,7 @@ const cy = () => ({
       required: 'Select all of the people that the child lives with (welsh)',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -98,7 +98,7 @@ export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDe
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   const childId = content.additionalData!.req.params.childId;
   const { firstName, lastName, livingArrangements, mainlyLiveWith } = getPartyDetails(
     childId,

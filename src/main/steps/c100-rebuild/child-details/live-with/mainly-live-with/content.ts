@@ -10,7 +10,7 @@ import { getPartyDetails } from '../../../people/util';
 import { getAddresses, getPeople } from '../utils';
 export * from '../routeGuard';
 
-const en = () => ({
+const en = {
   title: 'Who does {firstName} {lastName} mainly live with?',
   liveWithHint: 'Select the person that the child lives with most of the time.',
   incorrectAddress:
@@ -22,9 +22,9 @@ const en = () => ({
       required: 'Select the person the child lives with most of the time',
     },
   },
-});
+};
 
-const cy = () => ({
+const cy = {
   title: 'Who does {firstName} {lastName} mainly live with? (welsh)',
   liveWithHint: 'Select the person that the child lives with most of the time. (welsh)',
   incorrectAddress:
@@ -36,7 +36,7 @@ const cy = () => ({
       required: 'Select the person the child lives with most of the time (welsh)',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -66,7 +66,6 @@ export const generateFormFields = (
     cy: {},
   };
 
-  const people = getPeople(userCase);
   const addresses = getAddresses(userCase);
 
   const fields = {
@@ -74,7 +73,7 @@ export const generateFormFields = (
       type: 'radios',
       hint: l => l.liveWithHint,
       validator: atLeastOneFieldIsChecked,
-      values: people.map(person => ({
+      values: getPeople(userCase).map(person => ({
         name: 'mainlyLiveWith',
         label: `${person.firstName} ${person.lastName}`,
         hint: l => {
@@ -106,7 +105,7 @@ export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDe
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   const childId = content.additionalData!.req.params.childId;
   const { firstName, lastName, mainlyLiveWith } = getPartyDetails(
     childId,
