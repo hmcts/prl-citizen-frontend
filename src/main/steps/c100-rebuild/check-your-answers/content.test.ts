@@ -1,5 +1,4 @@
 /* eslint-disable import/no-unresolved */
-import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { Miam_urgency } from '../../../app/case/case';
 import { C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../app/form/Form';
