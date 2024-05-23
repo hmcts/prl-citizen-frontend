@@ -24,9 +24,6 @@ export default class DownloadDocumentController {
         break;
 
       case 'fl401-application':
-        documentReference = caseData.finalDocument;
-        break;
-
       case 'cada-document':
         documentReference = caseData.finalDocument;
         break;
