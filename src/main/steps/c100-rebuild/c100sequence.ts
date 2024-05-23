@@ -61,7 +61,7 @@ import {
   C100_HEARING_URGENCY_URGENT_DETAILS,
   C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES,
   PageLink,
-  C100_MIAM_NO_NEED_WITH_REASONS,
+  C100_MIAM_EXCEMPTION_SUMMARY,
 
   /** Consent Order questions */
   C100_CONSENT_ORDER_UPLOAD,
@@ -117,6 +117,11 @@ import {
   C100_CHECK_YOUR_ANSWER,
   C100_APPLICANT_CONTACT_PREFERENCES,
   REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
+  C100_MIAM_NO_ACCESS_MEDIATOR,
+  C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING,
+  C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
+  C100_MIAM_PROVIDING_DA_EVIDENCE,
+  C100_MIAM_UPLOAD_DA_EVIDENCE,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -375,7 +380,7 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_ATTENDANCE,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.miam_attendance === YesOrNo.YES ? C100_MIAM_MEDIATOR_DOCUMENT : C100_MIAM_MEDIATOR_CONFIRMAION,
+      data.miam_attendance === YesOrNo.YES ? C100_MIAM_MEDIATOR_DOCUMENT : C100_MIAM_VALID_REASON,
   },
   {
     url: C100_MIAM_MEDIATOR_CONFIRMAION,
@@ -392,6 +397,16 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_PREVIOUS_ATTENDANCE,
     showInSection: Sections.C100,
     getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_PREVIOUS_ATTENDANCE, caseData),
+  },
+  {
+    url: C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING, caseData),
+  },
+  {
+    url: C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR, caseData),
   },
   {
     url: C100_MIAM_INFO,
@@ -415,6 +430,11 @@ export const C100Sequence: Step[] = [
     getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_OTHER, caseData),
   },
   {
+    url: C100_MIAM_NO_ACCESS_MEDIATOR,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_NO_ACCESS_MEDIATOR, caseData),
+  },
+  {
     url: C100_MIAM_CHILD_PROTECTION,
     showInSection: Sections.C100,
     getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_CHILD_PROTECTION, caseData),
@@ -424,6 +444,16 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_MIAM_DOMESTIC_ABUSE,
     showInSection: Sections.C100,
     getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE, caseData),
+  },
+  {
+    url: C100_MIAM_PROVIDING_DA_EVIDENCE,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_PROVIDING_DA_EVIDENCE, caseData),
+  },
+  {
+    url: C100_MIAM_UPLOAD_DA_EVIDENCE,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_UPLOAD_DA_EVIDENCE, caseData),
   },
   {
     url: C100_MIAM_GENERAL_REASONS,
@@ -452,9 +482,9 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_MIAM_GET_DOC,
   },
   {
-    url: C100_MIAM_NO_NEED_WITH_REASONS,
+    url: C100_MIAM_EXCEMPTION_SUMMARY,
     showInSection: Sections.C100,
-    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_NO_NEED_WITH_REASONS, caseData),
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_EXCEMPTION_SUMMARY, caseData),
   },
   {
     url: C100_HEARING_URGENCY_URGENT,

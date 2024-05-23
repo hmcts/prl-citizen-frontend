@@ -290,16 +290,21 @@ export const C100_MIAM_MEDIATOR_CONFIRMAION: PageLink = `${C100_MIAM}/mediator-c
 export const C100_MIAM_UPLOAD_CONFIRMATION: PageLink = `${C100_MIAM}/upload-confirmation`;
 export const C100_MIAM_URGENCY: PageLink = `${C100_MIAM}/urgency`;
 export const C100_MIAM_PREVIOUS_ATTENDANCE: PageLink = `${C100_MIAM}/previous-attendance`;
+export const C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING: PageLink = `${C100_MIAM}/upload-evidence-of-attending-miam-or-ncdr/:removeFileId?`;
+export const C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR: PageLink = `${C100_MIAM}/previous-miam-attendance-or-ncdr`;
 export const C100_MIAM_INFO: PageLink = `${C100_MIAM}/miam-info`;
 export const C100_MIAM_VALID_REASON: PageLink = `${C100_MIAM}/valid-reason`;
 export const C100_MIAM_NONEED: PageLink = `${C100_MIAM}/no-need`;
 export const C100_MIAM_OTHER: PageLink = `${C100_MIAM}/miam-other`;
-export const C100_MIAM_MIAM_DOMESTIC_ABUSE: PageLink = `${C100_MIAM}/domestic-abuse`;
+export const C100_MIAM_NO_ACCESS_MEDIATOR: PageLink = `${C100_MIAM}/no-access-to-mediator`;
+export const C100_MIAM_MIAM_DOMESTIC_ABUSE: PageLink = `${C100_MIAM}/domestic-abuse/domestic-abuse`;
 export const C100_MIAM_GENERAL_REASONS: PageLink = `${C100_MIAM}/general-reasons`;
 export const C100_MIAM_GET_MEDIATOR: PageLink = `${C100_MIAM}/get-mediator`;
 export const C100_MIAM_UPLOAD: PageLink = `${C100_MIAM}/upload`;
 export const C100_MIAM_GET_DOC: PageLink = `${C100_MIAM}/get-doc`;
-export const C100_MIAM_NO_NEED_WITH_REASONS: PageLink = `${C100_MIAM}/no-need-with-reasons`;
+export const C100_MIAM_EXCEMPTION_SUMMARY: PageLink = `${C100_MIAM}/miam-excemptions-summary`;
+export const C100_MIAM_PROVIDING_DA_EVIDENCE: PageLink = `${C100_MIAM}/domestic-abuse/providing-evidence`;
+export const C100_MIAM_UPLOAD_DA_EVIDENCE: PageLink = `${C100_MIAM}/domestic-abuse/upload-evidence/:removeFileId?`;
 
 /** @C100 Urgency */
 export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/hearing-urgency`;
