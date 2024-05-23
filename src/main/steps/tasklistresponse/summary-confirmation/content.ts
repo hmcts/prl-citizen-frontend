@@ -22,15 +22,15 @@ const en = {
   downloadLink:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document">Download your response</a>',
   downloadLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document-welsh">Download your response welsh</a>',
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document-welsh">Download your response (Welsh version)</a>',
   downloadC1aLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document">Download your C1A response</a>',
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document">Download allegations of harm</a>',
   downloadC1aLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document-welsh">Download your C1A response - welsh</a>',
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document-welsh">Download allegations of harm in Welsh</a>',
   downloadresponseToC1aLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your response to applicant C1A</a>',
+    ` <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your response to applicant's allegations of harm</a>`,
   downloadresponseToC1aLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document-welsh">Download your response to applicant C1A - welsh</a>',
+    ` <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document-welsh">Download your response to applicant's allegations of harm in Welsh</a>`,
   saveAndContinue: 'Continue',
 };
 
