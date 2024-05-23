@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -73,7 +74,7 @@ export const generateContent: TranslationFn = content => {
   const summaryListRows = prepareSummaryList(
     translations,
     content?.additionalData?.req.params?.context,
-    content.userCase
+    content.userCase as Partial<CaseWithId>
   );
 
   if (!summaryListRows.length) {

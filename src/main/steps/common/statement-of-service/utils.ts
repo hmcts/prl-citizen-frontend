@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
@@ -60,22 +61,21 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
 export const prepareSummaryList = (
   translations: Record<string, any>,
   context: string,
-  caseData: Partial<CaseWithId> | undefined
+  caseData: Partial<CaseWithId>
 ): GovUkNunjucksSummary[] => {
   const summaryList: GovUkNunjucksSummary[] = [];
   const servedPartiesName: string[] = [];
   const summary: Record<string, string>[] = [];
 
-  caseData?.sos_partiesServed?.forEach(partyId => {
-    if (partyId) {
-      const respondentMeta = caseData.respondents?.find(respondent => respondent.id === partyId);
-      if (respondentMeta?.value) {
-        servedPartiesName?.push(`${respondentMeta.value.firstName} ${respondentMeta.value.lastName}`);
+  if (_.isArray(caseData?.respondents) && caseData.respondents.length > 1 && _.isArray(caseData?.sos_partiesServed)) {
+    caseData.sos_partiesServed.forEach(partyId => {
+      if (partyId) {
+        const respondentMeta = caseData.respondents?.find(respondent => respondent.id === partyId);
+        if (respondentMeta?.value) {
+          servedPartiesName?.push(`${respondentMeta.value.firstName} ${respondentMeta.value.lastName}`);
+        }
       }
-    }
-  });
-
-  if (servedPartiesName.length > 1) {
+    });
     summary.push({
       label: translations.whoWasServedLabel,
       value: servedPartiesName.join('<br/>'),

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { YesOrNo } from '../../../../app/case/definition';
@@ -32,13 +33,15 @@ export default class SOSReviewPostController extends PostController<AnyObject> {
         caseData.sos_partiesServedDate!.year
       }`;
       const response = await client.submitStatementOfService(caseData.id, {
-        partiesServed: caseData.sos_partiesServed as string[],
+        partiesServed: (!_.isArray(caseData?.sos_partiesServed)
+          ? [caseData.sos_partiesServed]
+          : caseData.sos_partiesServed) as string[],
         partiesServedDate,
         citizenSosDocs: caseData.sos_document!,
         isOrder: req.params?.context === 'order' ? YesOrNo.YES : YesOrNo.NO,
       });
 
-      if (response.data !== 'Success') {
+      if (response.statusText !== 'OK') {
         return this.redirect(req, res, req.url);
       }
 
