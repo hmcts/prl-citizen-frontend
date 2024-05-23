@@ -1,8 +1,10 @@
+import { DOWNLOAD_DOCUMENT_BY_TYPE } from '../../../steps/urls';
 import { PartyType, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import AppSurvey from '../../../steps/common/app-survey/appSurveyController';
 import { appSurveyContents } from '../../../steps/common/app-survey/content';
+import { applyParms } from '../../../steps/common/url-parser';
 
 const en = {
   success: 'Response submitted successfully',
@@ -24,32 +26,44 @@ const en = {
     {
       text: 'Download your response',
       isWelsh: YesOrNo.NO,
-      href: '/respondent/documents/download/type/c7-response-document',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c7-response-document"
+      }),
     },
     {
       text: 'Download your response in Welsh',
       isWelsh: YesOrNo.YES,
-      href: '/respondent/documents/download/type/c7-response-document-welsh',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c7-response-document-welsh"
+      }),
     },
     {
       text: 'Download your allegations of harm',
       isWelsh: YesOrNo.NO,
-      href: '/respondent/documents/download/type/c1a-application-document',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c1a-application-document"
+      }),
     },
     {
       text: 'Download your allegations of harm in Welsh',
       isWelsh: YesOrNo.YES,
-      href: '/respondent/documents/download/type/c1a-application-document-welsh',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c1a-application-document-welsh"
+      }),
     },
     {
       text: 'Download your response to the applicant’s allegations',
       isWelsh: YesOrNo.NO,
-      href: '/respondent/documents/download/type/c7-response-document',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c7-response-document"
+      }),
     },
     {
       text: 'Download your response to the applicant’s allegations in Welsh',
       isWelsh: YesOrNo.YES,
-      href: '/respondent/documents/download/type/c7-response-document-welsh',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c7-response-document-welsh"
+      }),
     },
   ],
   saveAndContinue: 'Continue',
@@ -74,32 +88,44 @@ const cy: typeof en = {
     {
       text: 'Download your response',
       isWelsh: YesOrNo.NO,
-      href: '/respondent/documents/download/type/c7-response-document',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c7-response-document"
+      }),
     },
     {
       text: 'Download your response in Welsh',
       isWelsh: YesOrNo.YES,
-      href: '/respondent/documents/download/type/c7-response-document-welsh',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c7-response-document-welsh"
+      }),
     },
     {
       text: 'Download your allegations of harm',
       isWelsh: YesOrNo.NO,
-      href: '/respondent/documents/download/type/c1a-application-document',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c1a-application-document"
+      }),
     },
     {
       text: 'Download your allegations of harm in Welsh',
       isWelsh: YesOrNo.YES,
-      href: '/respondent/documents/download/type/c1a-application-document-welsh',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c1a-application-document-welsh"
+      }),
     },
     {
       text: 'Download your response to the applicant’s allegations',
       isWelsh: YesOrNo.NO,
-      href: '/respondent/documents/download/type/c7-response-document',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c7-response-document"
+      }),
     },
     {
       text: 'Download your response to the applicant’s allegations in Welsh',
       isWelsh: YesOrNo.YES,
-      href: '/respondent/documents/download/type/c7-response-document-welsh',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,documentType:"c7-response-document-welsh"
+      }),
     },
   ],
   saveAndContinue: 'Parhau',
