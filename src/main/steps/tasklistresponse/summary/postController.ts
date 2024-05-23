@@ -5,7 +5,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import PCQGetController from '../../common/equality/get';
+import PCQGetController from '../../common/equality/PcqNavigationController';
 import { RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
 
 @autobind

@@ -1,5 +1,6 @@
+import crypto from 'crypto';
+
 import { Logger } from '@hmcts/nodejs-logging';
-import autobind from 'autobind-decorator';
 import axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import { Response } from 'express';
@@ -10,11 +11,14 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../tasklistresponse/utils';
 import { C100_CHECK_YOUR_ANSWER_REDIRECT, PageLink, RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
 
-import { createToken } from './createToken';
+import { PcqParameters, StatusResponse } from './definitions';
 
+const algorithm = 'aes-256-gcm';
+const bufferSize = 16;
+const iv = Buffer.alloc(bufferSize, 0); // Initialization vector.
+const keyLen = 32;
 const logger = Logger.getLogger('PCQGetController');
 
-@autobind
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response, returnUrl: string): Promise<void> {
     const { userCase, user } = req.session;
@@ -104,6 +108,19 @@ const getRedirectUrl = (partyType: PartyType): PageLink => {
   return redirectUrl;
 };
 
-export interface StatusResponse {
-  status: 'UP' | 'DOWN' | undefined;
-}
+export const createToken = (params: PcqParameters, tokenKey: string): string => {
+  const key = crypto.scryptSync(tokenKey, 'salt', keyLen);
+
+  // Convert all params to string before encrypting
+  Object.keys(params).forEach(p => {
+    params[p] = String(params[p]);
+  });
+  const strParams = JSON.stringify(params);
+  const cipher = crypto.createCipheriv(algorithm, key, iv);
+
+  let encrypted = '';
+  encrypted = cipher.update(strParams, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+
+  return encrypted;
+};

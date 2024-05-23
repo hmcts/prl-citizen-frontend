@@ -6,3 +6,7 @@ export interface PcqParameters {
   returnUrl: string;
   language: string;
 }
+
+export interface StatusResponse {
+  status: 'UP' | 'DOWN' | undefined;
+}

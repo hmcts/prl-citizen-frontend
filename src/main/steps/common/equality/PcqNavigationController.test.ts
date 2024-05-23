@@ -1,11 +1,16 @@
 import axios from 'axios';
 import config from 'config';
+import { v4 as uuid } from 'uuid';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { C100_CHECK_YOUR_ANSWER_REDIRECT, RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
+import {
+  C100_CHECK_YOUR_ANSWER,
+  C100_CHECK_YOUR_ANSWER_REDIRECT,
+  RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT,
+} from '../../urls';
 
-import PCQGetController from './get';
+import PCQGetController, { createToken } from './PcqNavigationController';
 
 jest.mock('axios');
 jest.mock('config');
@@ -123,5 +128,22 @@ describe('PCQGetController', () => {
     await controller.get(req, res, 'http://localhost:3001');
 
     expect(res.redirect).toHaveBeenCalledWith(RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT);
+  });
+});
+
+describe('createToken', () => {
+  const params = {
+    serviceId: 'prl_ca',
+    actor: 'APPLICANT',
+    pcqId: uuid(),
+    partyId: 'test@email.com',
+    returnUrl: C100_CHECK_YOUR_ANSWER,
+    language: 'en',
+    token: '',
+  };
+
+  test('Should create token if tokenKey exists', async () => {
+    const result = await createToken(params, 'PCQ_TOKEN');
+    expect(result).toHaveLength(380);
   });
 });
