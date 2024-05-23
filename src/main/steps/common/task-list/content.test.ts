@@ -260,6 +260,7 @@ describe('testcase for tasklist', () => {
     additionalData: {
       req: {
         session: {
+          enableCaseTrainTrack: true,
           user: { id: '1234' },
           userCase: {
             ...mockUserCase,
