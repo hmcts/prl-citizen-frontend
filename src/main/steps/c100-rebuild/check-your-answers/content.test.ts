@@ -1,9 +1,9 @@
 /* eslint-disable import/no-unresolved */
+import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
-import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
