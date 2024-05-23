@@ -42,18 +42,19 @@
       <p class="govuk-body">
         {{line7}}
       </p>
-
-      {{downloadLink |safe}}
+      {% for downloadLink in DownloadLinks %}
+      {% if (downloadLink.isWelsh == "yes" and userCase.welshLanguageRequirement == 'Yes') %}
+      <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href=downloadLink.href>
+      {{downloadLink.text}}
+      </a>
       <br/>
-      {% if (userCase.welshLanguageRequirement == 'Yes'  or userCase.welshLanguageRequirement == 'Ydy') %}
-      {{downloadLinkWelsh | safe}}
+      {% else %}
+      <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href={{downloadLink.href}}>
+      {{downloadLink.text}}
+      </a>
+      <br/>
       {% endif %}
-      <br/>
-       {{downloadC1aLink |safe}}
-      <br/>
-      {% if (userCase.welshLanguageRequirement == 'Yes'  or userCase.welshLanguageRequirement == 'Ydy') %}
-      {{downloadC1aLinkWelsh | safe}}
-      {% endif %}
+      {% endfor %}
     </div>
   </details>
 
