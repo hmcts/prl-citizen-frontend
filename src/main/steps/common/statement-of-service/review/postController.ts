@@ -37,7 +37,7 @@ export default class SOSReviewPostController extends PostController<AnyObject> {
         partiesServed: (!_.isArray(caseData?.sos_partiesServed)
           ? [caseData.sos_partiesServed]
           : caseData.sos_partiesServed) as string[],
-        partiesServedDate: dayjs(partiesServedDate).format('DD-MMM-YYYY'),
+        partiesServedDate: dayjs(partiesServedDate).format('DD MMM YYYY'),
         citizenSosDocs: caseData.sos_document!,
         isOrder: req.params?.context === 'order' ? YesOrNo.YES : YesOrNo.NO,
       });

@@ -90,7 +90,7 @@ export const prepareSummaryList = (
     }`;
     summary.push({
       label: translations.servedDateLabel,
-      value: dayjs(partiesServedDate).format('DD-MMM-YYYY'),
+      value: dayjs(partiesServedDate).format('DD MMM YYYY'),
       href: STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
     });
   }
