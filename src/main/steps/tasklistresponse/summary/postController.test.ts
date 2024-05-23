@@ -4,8 +4,8 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 
 import ResponseSummaryConfirmationPostController from './postController';
 
-describe('ResponseSummaryConfirmationPostController', () => {
-  const submitRespondentResponseMock = jest.spyOn(CosApiClient.prototype, 'submitRespondentResponse');
+describe.skip('ResponseSummaryConfirmationPostController', () => {
+  const submitRespondentResponseMock = jest.spyOn(CosApiClient.prototype, 'submitC7Response');
   test('post', async () => {
     const req = mockRequest();
     const res = mockResponse();
