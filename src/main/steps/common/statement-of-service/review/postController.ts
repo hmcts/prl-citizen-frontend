@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
+import dayjs from 'dayjs';
 import { Response } from 'express';
 import _ from 'lodash';
 
@@ -29,14 +30,14 @@ export default class SOSReviewPostController extends PostController<AnyObject> {
 
     try {
       const client = new CosApiClient(user.accessToken, req.locals.logger);
-      const partiesServedDate = `${caseData.sos_partiesServedDate!.day}-${caseData.sos_partiesServedDate!.month}-${
+      const partiesServedDate = `${caseData.sos_partiesServedDate!.month}-${caseData.sos_partiesServedDate!.day}-${
         caseData.sos_partiesServedDate!.year
       }`;
       const response = await client.submitStatementOfService(caseData.id, {
         partiesServed: (!_.isArray(caseData?.sos_partiesServed)
           ? [caseData.sos_partiesServed]
           : caseData.sos_partiesServed) as string[],
-        partiesServedDate,
+        partiesServedDate: dayjs(partiesServedDate).format('DD-MMM-YYYY'),
         citizenSosDocs: caseData.sos_document!,
         isOrder: req.params?.context === 'order' ? YesOrNo.YES : YesOrNo.NO,
       });

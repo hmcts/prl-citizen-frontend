@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import dayjs from 'dayjs';
 import { Response } from 'express';
 import _ from 'lodash';
 
@@ -84,9 +85,12 @@ export const prepareSummaryList = (
   }
 
   if (caseData?.sos_partiesServedDate?.day) {
+    const partiesServedDate = `${caseData.sos_partiesServedDate!.month}-${caseData.sos_partiesServedDate!.day}-${
+      caseData.sos_partiesServedDate!.year
+    }`;
     summary.push({
       label: translations.servedDateLabel,
-      value: `${caseData.sos_partiesServedDate.day}-${caseData.sos_partiesServedDate.month}-${caseData.sos_partiesServedDate.year}`,
+      value: dayjs(partiesServedDate).format('DD-MMM-YYYY'),
       href: STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
     });
   }
