@@ -5,7 +5,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { UserDetails } from '../controller/AppRequest';
 
 import { CosApiClient, DocumentFileUploadRequest, UploadedFiles } from './CosApiClient';
-import { CaseWithId } from './case';
+import { CaseWithId, StatementOfServiceRequest } from './case';
 import { CaseEvent, CaseType, DocumentUploadResponse, PartyType, YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
 
@@ -329,7 +329,7 @@ describe('CosApiClient', () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
     await expect(client.uploadDocument(req.session.user, DocumentUploadReq)).rejects.toThrow(
-      'Error occured, upload citizen statement document failed - UploadDocumentListFromCitizen'
+      'Error occured, upload citizen statement document failed - uploadDocument'
     );
   });
 
@@ -639,5 +639,52 @@ describe('RetrieveCaseHearingsByCaseId', () => {
     await expect(client.retrieveCaseHearingsByCaseId(req.session.userCase, req.session.user)).rejects.toThrow(
       'Error occured, case could not be updated - retrieveCaseHearingsByCaseId'
     );
+  });
+
+  test('submitStatementOfService', async () => {
+    const response = {
+      status: 200,
+      document: {
+        document_url: 'abc',
+        document_binary_url: 'bcd',
+        document_filename: 'test',
+        document_hash: 'test',
+        document_creation_date: 'testDate',
+      },
+    };
+    const req = {
+      partiesServedDate: '1/1/2024',
+      partiesServed: ['1234'],
+      citizenSosDocs: {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+      isOrder: 'No',
+    } as StatementOfServiceRequest;
+
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<DocumentUploadResponse>);
+    const client = new CosApiClient('abc', mockLogger);
+    const result = await client.submitStatementOfService('1234', req);
+    expect(result.data).toStrictEqual(response);
+  });
+
+  test('submitStatementOfService should throw error', async () => {
+    mockedAxios.post.mockRejectedValueOnce({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+    const client = new CosApiClient('abc', mockLogger);
+
+    await expect(client.submitStatementOfService('1234', {} as unknown as StatementOfServiceRequest)).rejects.toThrow(
+      'Error occured, could not sumbit statement of service. - SubmitStatementOfService'
+    );
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
   });
 });
