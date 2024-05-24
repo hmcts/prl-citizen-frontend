@@ -3,21 +3,21 @@ import config from 'config';
 import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
-import { DocumentDetail } from '../../app/document/DocumentDetail';
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import type { UserDetails } from '../controller/AppRequest';
-
-import { CaseWithId, HearingData } from './case';
 import {
   CaseData,
   CaseEvent,
   CaseType,
+  Document,
   DocumentUploadResponse,
   PartyDetails,
   PartyType,
   UserRole,
   YesOrNo,
-} from './definition';
+} from '../../app/case/definition';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import type { UserDetails } from '../controller/AppRequest';
+
+import { CaseWithId, HearingData } from './case';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -35,7 +35,7 @@ export class CosApiClient {
     });
   }
 
-  private logError(error: AxiosError) {
+  public logError(error: AxiosError): void {
     if (error.response) {
       this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
       this.logger.info('Response: ', error.response.data);
@@ -142,46 +142,54 @@ export class CosApiClient {
         data
       );
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+      return {
+        id: response.data.caseData.id,
+        state: response.data.caseData.state,
+        ...fromApiFormat(response.data.caseData),
+        hearingCollection: response.data?.hearings?.caseHearings ?? [],
+      };
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, case could not be updated - updateCaseData');
     }
   }
 
-  /**  submit respondent response*/
-  public async submitRespondentResponse(caseId: string, partyId: string, data: Partial<CaseData>): Promise<CaseWithId> {
-    try {
-      const response = await this.client.post(
-        config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
-        data
-      );
-
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
-    } catch (error) {
-      this.logError(error);
-      throw new Error('Error occured, final-c7document generation failed - submitRespondentResponse');
-    }
-  }
-
-  /**  generate c7 draft document*/
-  public async generateC7DraftDocument(
-    user: UserDetails,
+  public async submitC7Response(
     caseId: string,
-    partyId: string,
-    data: Partial<CaseData>
-  ): Promise<DocumentDetail> {
+    partyDetails: Partial<PartyDetails>,
+    partyType: PartyType,
+    caseType: CaseType
+  ): Promise<CaseWithId> {
     try {
+      const data = {
+        partyDetails,
+        partyType,
+        caseType,
+      };
       const response = await this.client.post(
-        config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`,
+        config.get('services.cos.url') + `/citizen/${caseId}/submit-citizen-response`,
         data
       );
 
       return {
-        status: response.status,
-        documentId: response.data?.document_binary_url,
-        documentName: response.data?.document_filename,
+        id: response.data.caseData.id,
+        state: response.data.caseData.state,
+        ...fromApiFormat(response.data.caseData),
       };
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, case could not be updated - updateCaseData');
+    }
+  }
+
+  /**  generate c7 draft document*/
+  public async generateC7DraftDocument(caseId: string, partyId: string): Promise<Document> {
+    try {
+      const response = await this.client.post(
+        config.get('services.cos.url') + `/citizen/${caseId}/${partyId}/generate-c7document`
+      );
+
+      return response.data;
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, draft-c7document generation failed - generateC7DraftDocument');
@@ -213,7 +221,7 @@ export class CosApiClient {
     try {
       const formData = new FormData();
 
-      for (const [, file] of Object.entries(request.files!)) {
+      for (const [, file] of Object.entries(request.files)) {
         formData.append('file', file.data, file.name);
       }
 
@@ -267,15 +275,30 @@ export class CosApiClient {
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
 
-  public async linkCaseToCitizen(caseId: string, accessCode: string): Promise<AxiosResponse> {
+  public async linkCaseToCitizen(
+    caseId: string,
+    accessCode: string
+  ): Promise<{ caseData: CaseWithId; hearingData: HearingData | null }> {
     try {
       const data = {
         caseId,
         accessCode,
+        hearingNeeded: YesOrNo.YES,
       };
+      const response = await this.client.post(
+        config.get('services.cos.url') + '/citizen/link-case-to-account-with-hearing',
+        data
+      );
+      const { caseData, hearings } = response.data;
 
-      const response = await this.client.post(config.get('services.cos.url') + '/citizen/link-case-to-account', data);
-      return response;
+      return {
+        caseData: {
+          id: caseData.id,
+          state: caseData.state,
+          ...fromApiFormat(caseData),
+        } as CaseWithId,
+        hearingData: hearings,
+      };
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, failed to link case to citizen - linkCaseToCitizen');

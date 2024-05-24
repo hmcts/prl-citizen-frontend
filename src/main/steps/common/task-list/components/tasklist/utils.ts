@@ -147,23 +147,18 @@ export const getCheckAllegationOfHarmStatus = (caseData): StateTags => {
 };
 
 export const getC7ApplicationResponseStatus = (caseData: Partial<CaseWithId>, userDetails: UserDetails): StateTags => {
-  const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)!;
-  if (_.get(respondent, 'response.c7ResponseSubmitted', YesOrNo.NO) === YesOrNo.YES) {
-    return StateTags.READY_TO_VIEW;
-  } else if (
-    respondent.response.citizenInternationalElements ||
-    respondent.response.consent ||
-    respondent.response.currentOrPreviousProceedings ||
-    respondent.response.keepDetailsPrivate ||
-    respondent.response.miam ||
-    respondent.response.legalRepresentation ||
-    respondent.response.safetyConcerns ||
-    respondent.response.supportYouNeed
-  ) {
-    return StateTags.IN_PROGRESS;
+  const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
+  let status = StateTags.TO_DO;
+
+  if (respondent) {
+    if (_.get(respondent, 'response.c7ResponseSubmitted') === YesOrNo.YES) {
+      status = StateTags.READY_TO_VIEW;
+    } else if (respondent.response.legalRepresentation) {
+      status = StateTags.IN_PROGRESS;
+    }
   }
 
-  return StateTags.TO_DO;
+  return status;
 };
 
 export const getInternationalFactorsStatus = (

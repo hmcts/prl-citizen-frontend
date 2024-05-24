@@ -5,8 +5,6 @@ export const HEALTH_URL: PageLink = '/health';
 export const CALLBACK_URL: PageLink = '/receiver';
 export const SIGN_IN_URL: PageLink = '/login';
 export const SIGN_OUT_URL: PageLink = '/logout';
-export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
-export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 export const SERVICE_TYPE: PageLink = '/service-type';
@@ -21,7 +19,6 @@ export const COOKIES_PAGE: PageLink = '/cookies';
 export const PRIVACY_POLICY: PageLink = '/privacy-policy';
 export const ACCESSIBILITY_STATEMENT: PageLink = '/accessibility-statement';
 export const TERMS_AND_CONDITIONS: PageLink = '/terms-and-conditions';
-export const CONTACT_US: PageLink = '/contact-us';
 
 export const RESPOND_TO_APPLICATION: PageLink = '/tasklistresponse/start';
 export const RESPOND_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
@@ -49,24 +46,12 @@ export const CONTACT_DETAILS_SAVE: PageLink = `${CONFIRM_CONTACT_DETAILS}/save`;
 /*confirm-contact-details-end */
 
 /* keep-details-private */
-export const KEEP_DETAILS_PRIVATE: PageLink = '/keep-details-private';
+export const KEEP_DETAILS_PRIVATE: PageLink = '/:partyType/keep-details-private';
 export const DETAILS_KNOWN: PageLink = `${KEEP_DETAILS_PRIVATE}/details_known`;
-export const DETAILS_KNOWN_RESPONDENT: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}/details_known`;
 export const START_ALTERNATIVE: PageLink = `${KEEP_DETAILS_PRIVATE}/start_alternative`;
-export const START_ALTERNATIVE_RESPONDENT: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}/start_alternative`;
 export const PRIVATE_DETAILS_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_confirmed`;
 export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/private_details_not_confirmed`;
 /* keep-details-private-end */
-
-/* Respondent-start */
-export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
-export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;
-export const RESPONDENT_DETAILS_KNOWN: PageLink = `${RESPONDENT}${DETAILS_KNOWN}`;
-export const RESPONDENT_START_ALTERNATIVE: PageLink = `${RESPONDENT}${START_ALTERNATIVE}`;
-export const RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}/save`;
-export const RESPONDENT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${RESPONDENT}${PRIVATE_DETAILS_CONFIRMED}`;
-export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
-/* respondent-keep-details-private-end */
 
 /* MIAM */
 export const TASK_LIST_RESPONSE: PageLink = '/tasklistresponse';
@@ -81,16 +66,16 @@ export const INTERNATIONAL_FACTORS_PARENTS: PageLink = `${INTERNATIONAL_FACTORS}
 export const INTERNATIONAL_FACTORS_JURISDICTION: PageLink = `${INTERNATIONAL_FACTORS}/jurisdiction`;
 export const INTERNATIONAL_FACTORS_REQUEST: PageLink = `${INTERNATIONAL_FACTORS}/request`;
 export const INTERNATIONAL_FACTORS_SUMMARY: PageLink = `${INTERNATIONAL_FACTORS}/summary`;
-export const INTERNATIONAL_FACTORS_SAVE: PageLink = `${INTERNATIONAL_FACTORS}/save`;
 /* international-factors */
 
 export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
-export const MIAM_SAVE: PageLink = `${MIAM}/save`;
 /* MIAM */
 
 /* your hearings */
 export const YOURHEARINGS: PageLink = '/yourhearings';
 export const HEARINGS: PageLink = '/hearings';
+export const FETCH_HEARING_DETAILS = '/:partyType/hearings/:caseId';
+export const PARTY_YOUR_HEARINGS = `/:partyType${YOURHEARINGS}${HEARINGS}`;
 export const RESPONDENT_YOURHEARINGS_HEARINGS: PageLink = `${RESPONDENT}${YOURHEARINGS}${HEARINGS}`;
 /* your hearings */
 
@@ -113,12 +98,10 @@ export const RESPONDENT_FIND_ADDRESS: PageLink = `${RESPONDENT_ADDRESS_LOOKUP}`;
 export const RESPONDENT_ADDRESS_CONFIRMATION: PageLink = `${RESPONDENT}${ADDRESS_CONFIRMATION}`;
 export const RESPONDENT_ADDRESS_MANUAL: PageLink = `${RESPONDENT}/confirm-contact-details/address/manual`;
 export const RESPONDENT_ADDRESS_HISTORY: PageLink = `${RESPONDENT}${ADDRESS_HISTORY}`;
-export const RESPONDENT_CONTACT_DETAILS_SAVE: PageLink = `${RESPONDENT}${CONTACT_DETAILS_SAVE}`;
 /* respondent-confirm-contact-details-end */
 
 /* Applicant-start */
 export const APPLICANT: PageLink = '/applicant';
-export const APPLICANT_TASK_LIST_URL: PageLink = '/applicant/task-list';
 
 /* applicant-confirm-contact-details-start */
 export const APPLICANT_CONFIRM_CONTACT_DETAILS: PageLink = `${APPLICANT}${CONFIRM_CONTACT_DETAILS}`;
@@ -132,78 +115,21 @@ export const APPLICANT_FIND_ADDRESS: PageLink = `${APPLICANT_ADDRESS_LOOKUP}`;
 export const APPLICANT_ADDRESS_CONFIRMATION: PageLink = `${APPLICANT}${ADDRESS_CONFIRMATION}`;
 export const APPLICANT_ADDRESS_BLANK: PageLink = `${APPLICANT}${ADDRESS_BLANK}`;
 export const APPLICANT_ADDRESS_HISTORY: PageLink = `${APPLICANT}${ADDRESS_HISTORY}`;
-export const APPLICANT_CONTACT_DETAILS_SAVE: PageLink = `${APPLICANT}${CONTACT_DETAILS_SAVE}`;
 export const APPLICANT_SELECT_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/select`;
 export const APPLICANT_MANUAL_ADDRESS: PageLink = `${APPLICANT_CONFIRM_CONTACT_DETAILS}/address/manual`;
 /* applicant-confirm-contact-details-end */
-
-/* applicant-respondent-keep-details-private */
-export const APPLICANT_KEEP_DETAILS_PRIVATE: PageLink = `${APPLICANT}${KEEP_DETAILS_PRIVATE}`;
-export const APPLICANT_DETAILS_KNOWN: PageLink = `${APPLICANT}${DETAILS_KNOWN}`;
-export const APPLICANT_START_ALTERNATIVE: PageLink = `${APPLICANT}${START_ALTERNATIVE}`;
-export const APPLICANT_KEEP_DETAILS_PRIVATE_SAVE: PageLink = `${APPLICANT}${KEEP_DETAILS_PRIVATE}/save`;
-export const APPLICANT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_CONFIRMED}`;
-export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
-/* applicant-keep-details-private-end */
 
 /* consent-to-the-application */
 export const CONSENT: PageLink = `${RESPONSE_TASKLIST}/consent-to-application`;
 export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
 export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
-export const CONSENT_SAVE: PageLink = `${CONSENT}/save`;
 
+/* respond to allegations of harm */
+const partyType: PageLink = '/:partyType';
+export const RESPOND_TO_AOH: PageLink = `${partyType}${RESPONSE_TASKLIST}/respond-to-allegations-of-harm/willing-to-respond`;
+export const RESPONSE_TO_AOH: PageLink = `${partyType}${RESPONSE_TASKLIST}/respond-to-allegations-of-harm/your-response`;
+export const RESPOND_TO_AOH_REVIEW: PageLink = `${partyType}${RESPONSE_TASKLIST}/respond-to-allegations-of-harm/review`;
 /* consent-to-the-application */
-export const RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE_LINK: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence';
-export const RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page';
-export const RESPONDENT_YOUR_CHILD_CONCERNS: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns';
-export const RESPONDENT_CHECK_ANSWERS_NO: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/check-answers-no';
-export const RESPONDENT_CHECK_ANSWERS_YES: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes';
-
-export const PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about';
-export const PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/respondent/concerns-about';
-export const PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType';
-export const PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/respondent/report-abuse/:abuseType';
-export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/drugs';
-export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/other-issues';
-export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_COURT_ACTION: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/orders-required/court-action';
-export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised';
-export const C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = '/tasklistresponse/allegations-of-harm-and-violence/abduction';
-export const PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/no-feedback';
-
-export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/abduction/child-location';
-export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-amount';
-export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office';
-export const C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office-notified';
-export const C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/abduction/previousabductions';
-export const C1A_SAFETY_CONCERNS_ABDUCTION_THREATS: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/abduction/threats';
-
-export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers';
-
-export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE: PageLink =
-  '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers/save';
-
-export const VIEW_DOCUMENT_URL = '/doc/:docType/:uploadedBy/:partyName?';
 
 /** Documents */
 const DOCUMENTS = '/:partyType/documents';
@@ -228,7 +154,7 @@ export const UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE: PageLink = `${UPLOAD_DOCUMEN
 export const DOWNLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/download/:documentId/:documentName/:forceDownload?`;
 export const DOWNLOAD_DOCUMENT_BY_TYPE: PageLink = `${DOCUMENTS}/download/type/:documentType/:forceDownload?`;
 
-export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
+export const RESPONDENT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 
 export const PROCEEDINGS: PageLink = `${RESPONSE_TASKLIST}/proceedings`;
@@ -253,12 +179,10 @@ export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = '/tasklistresponse/
 export const CA_RESPONDENT_RESPONSE_SUBMIT: PageLink = `${CA_RESPONDENT_RESPONSE_CONFIRMATION}/submit`;
 export const CA_RESPONDENT_GENERATE_C7_DRAFT: PageLink = '/tasklistresponse/generate-c7-draft';
 /* Legal representation*/
-
-export const LEGAL_REPRESENTATION_START: PageLink = '/tasklistresponse/legalrepresentation/start';
-export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = '/tasklistresponse/legalrepresentation/solicitordirect';
-export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink =
-  '/tasklistresponse/legalrepresentation/solicitornotdirect';
-export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
+const RESPOND_TO_APPLICATION_LEGAL_REPRESENTATION = '/tasklistresponse/legalrepresentation';
+export const LEGAL_REPRESENTATION_START: PageLink = `${RESPOND_TO_APPLICATION_LEGAL_REPRESENTATION}/start`;
+export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = `${RESPOND_TO_APPLICATION_LEGAL_REPRESENTATION}/solicitordirect`;
+export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink = `${RESPOND_TO_APPLICATION_LEGAL_REPRESENTATION}/solicitornotdirect`;
 
 /* Applicant Hearings */
 export const APPLICANT_YOURHEARINGS_HEARINGS: PageLink = `${APPLICANT}${YOURHEARINGS}${HEARINGS}`;
@@ -269,7 +193,6 @@ export const C100_URL: PageLink = '/c100-rebuild';
 export const C100_START: PageLink = `${C100_URL}/start`;
 export const C100_CHILD_ADDRESS: PageLink = `${C100_URL}/childaddress`;
 
-export const C100_CREATE_CASE: PageLink = `${C100_URL}/case/create`;
 export const C100_RETRIVE_CASE: PageLink = `${C100_URL}/case/:caseId/retrive`;
 export const C100_CONFIRMATIONPAGE: PageLink = `${C100_URL}/confirmation-page`;
 export const C100_CONFIDENTIALITY_DETAILS_KNOW: PageLink = `${C100_URL}/confidentiality/details-know`;
@@ -322,31 +245,37 @@ export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
 export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
 export const PAYMENT_RETURN_URL_CALLBACK: PageLink = `${PAYMENT_RETURN_URL}/:paymentId/:status`;
 
-/** @C100 Rebuild C1A Safety Concerns */
-export const C100_C1A_SAFETY_CONCERNS: PageLink = `${C100_URL}/safety-concerns`;
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = `${C100_C1A_SAFETY_CONCERNS}/abduction`;
-export const C100_C1A_SAFETY_CONCERNS_CHILD: PageLink = `${C100_C1A_SAFETY_CONCERNS}/child`;
-export const C100_C1A_SAFETY_CONCERNS_APPLICANT: PageLink = `${C100_C1A_SAFETY_CONCERNS}/applicant`;
-export const C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-guidance`;
-export const C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-about`;
-export const C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concerns-for-safety`;
-export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink = `${C100_C1A_SAFETY_CONCERNS_CHILD}/concerns-about`;
-export const C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink = `${C100_C1A_SAFETY_CONCERNS_CHILD}/report-abuse/:abuseType`;
-export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: PageLink = `${C100_C1A_SAFETY_CONCERNS_APPLICANT}/concerns-about`;
-export const C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink = `${C100_C1A_SAFETY_CONCERNS_APPLICANT}/report-abuse/:abuseType`;
-export const C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink = `${C100_C1A_SAFETY_CONCERNS}/other-concerns/drugs`;
-export const C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED: PageLink = `${C100_C1A_SAFETY_CONCERNS}/orders-required/unsupervised`;
-export const C100_C1A_SAFETY_CONCERNS_OTHER: PageLink = `${C100_C1A_SAFETY_CONCERNS}/other-concerns/other-issues`;
-export const C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_COURT_ACTION: PageLink = `${C100_C1A_SAFETY_CONCERNS}/orders-required/court-action`;
-export const C100_C1A_SAFETY_CONCERNS_NOFEEDBACK: PageLink = `${C100_C1A_SAFETY_CONCERNS}/no-feedback`;
+/** common C1A Safety Concerns */
+export const C1A_SAFETY_CONCERNS: PageLink = '/:root/safety-concerns';
+export const C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = '/:root/safety-concerns/abduction';
+export const C1A_SAFETY_CONCERNS_CHILD: PageLink = '/:root/safety-concerns/child';
+export const C1A_SAFETY_CONCERNS_YOURSELF: PageLink = '/:root/safety-concerns/yourself';
+export const C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE: PageLink = '/:root/safety-concerns/concern-guidance';
+export const C1A_SAFETY_CONCERNS_CONCERN_ABOUT: PageLink = '/:root/safety-concerns/concern-about';
+export const C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY: PageLink = '/:root/safety-concerns/concerns-for-safety';
+export const C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink = `${C1A_SAFETY_CONCERNS_CHILD}/concerns-about`;
+export const C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink = `${C1A_SAFETY_CONCERNS_CHILD}/report-abuse/:abuseType`;
+export const C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF: PageLink = `${C1A_SAFETY_CONCERNS_YOURSELF}/concerns-about`;
+export const C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE: PageLink = `${C1A_SAFETY_CONCERNS_YOURSELF}/report-abuse/:abuseType`;
+export const C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink = '/:root/safety-concerns/other-concerns/drugs';
+export const C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED: PageLink =
+  '/:root/safety-concerns/orders-required/unsupervised';
+export const C1A_SAFETY_CONCERNS_OTHER: PageLink = '/:root/safety-concerns/other-concerns/other-issues';
+export const C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_COURT_ACTION: PageLink =
+  '/:root/safety-concerns/orders-required/court-action';
+export const C1A_SAFETY_CONCERNS_NOFEEDBACK: PageLink = '/:root/safety-concerns/no-feedback';
 
 /***@C100 SafetyConcerns Abduction */
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/passport-office-notified`;
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/passport-office`;
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_AMOUNT: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/passport-amount`;
-export const C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/previousabductions`;
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/child-location`;
-export const C100_C1A_CHILD_ABDUCTION_THREATS: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/threats`;
+export const C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION: PageLink =
+  '/:root/safety-concerns/abduction/passport-office-notified';
+export const C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE: PageLink =
+  '/:root/safety-concerns/abduction/passport-office';
+export const C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_AMOUNT: PageLink =
+  '/:root/safety-concerns/abduction/passport-amount';
+export const C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS: PageLink = '/:root/safety-concerns/abduction/previousabductions';
+export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink = '/:root/safety-concerns/abduction/child-location';
+export const C1A_CHILD_ABDUCTION_THREATS: PageLink = '/:root/safety-concerns/abduction/threats';
+export const C1A_SAFETY_CONCERNS_REVIEW: PageLink = '/:root/safety-concerns/review';
 
 /** @C100 Document Submission */
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
@@ -361,16 +290,21 @@ export const C100_MIAM_MEDIATOR_CONFIRMAION: PageLink = `${C100_MIAM}/mediator-c
 export const C100_MIAM_UPLOAD_CONFIRMATION: PageLink = `${C100_MIAM}/upload-confirmation`;
 export const C100_MIAM_URGENCY: PageLink = `${C100_MIAM}/urgency`;
 export const C100_MIAM_PREVIOUS_ATTENDANCE: PageLink = `${C100_MIAM}/previous-attendance`;
+export const C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING: PageLink = `${C100_MIAM}/upload-evidence-of-attending-miam-or-ncdr/:removeFileId?`;
+export const C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR: PageLink = `${C100_MIAM}/previous-miam-attendance-or-ncdr`;
 export const C100_MIAM_INFO: PageLink = `${C100_MIAM}/miam-info`;
 export const C100_MIAM_VALID_REASON: PageLink = `${C100_MIAM}/valid-reason`;
 export const C100_MIAM_NONEED: PageLink = `${C100_MIAM}/no-need`;
 export const C100_MIAM_OTHER: PageLink = `${C100_MIAM}/miam-other`;
-export const C100_MIAM_MIAM_DOMESTIC_ABUSE: PageLink = `${C100_MIAM}/domestic-abuse`;
+export const C100_MIAM_NO_ACCESS_MEDIATOR: PageLink = `${C100_MIAM}/no-access-to-mediator`;
+export const C100_MIAM_MIAM_DOMESTIC_ABUSE: PageLink = `${C100_MIAM}/domestic-abuse/domestic-abuse`;
 export const C100_MIAM_GENERAL_REASONS: PageLink = `${C100_MIAM}/general-reasons`;
 export const C100_MIAM_GET_MEDIATOR: PageLink = `${C100_MIAM}/get-mediator`;
 export const C100_MIAM_UPLOAD: PageLink = `${C100_MIAM}/upload`;
 export const C100_MIAM_GET_DOC: PageLink = `${C100_MIAM}/get-doc`;
-export const C100_MIAM_NO_NEED_WITH_REASONS: PageLink = `${C100_MIAM}/no-need-with-reasons`;
+export const C100_MIAM_EXCEMPTION_SUMMARY: PageLink = `${C100_MIAM}/miam-excemptions-summary`;
+export const C100_MIAM_PROVIDING_DA_EVIDENCE: PageLink = `${C100_MIAM}/domestic-abuse/providing-evidence`;
+export const C100_MIAM_UPLOAD_DA_EVIDENCE: PageLink = `${C100_MIAM}/domestic-abuse/upload-evidence/:removeFileId?`;
 
 /** @C100 Urgency */
 export const C100_HEARING_URGENCY: PageLink = `${C100_URL}/hearing-urgency`;
@@ -443,8 +377,8 @@ export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orde
 export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
 
 export const TESTING_SUPPORT: PageLink = '/testing-support';
-export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';
-export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-Draft';
+export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-draft';
+export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-draft';
 export const CREATE_DRAFT: PageLink = '/draft-controller';
 /* tasklist-contactpreferences*/
 export const CONTACT_PREFERENCE: PageLink = '/:partyType/contact-preference';
@@ -475,11 +409,9 @@ export const RESPONDENT_TASKLIST_HEARING_NEEDS: PageLink = `${RESPONDENT}${HEARI
 export const RESPONDENT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${RESPONDENT}/add-legal-representative`;
 export const APPLICANT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${APPLICANT}/add-legal-representative`;
 
-export const RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = `${RESPONDENT}/remove-legal-representative/start`;
-export const RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = `${RESPONDENT}/remove-legal-representative/confirm`;
+export const REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = '/:partyType/remove-legal-representative/start';
+export const REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = '/:partyType/remove-legal-representative/confirm';
 
-export const APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = `${APPLICANT}/remove-legal-representative/start`;
-export const APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = `${APPLICANT}/remove-legal-representative/confirm`;
 /** Screening questions */
 export const SCREENING_QUESTION_GUIDANCE: PageLink = '/complete-your-application-guidance';
 export const SCREENING_QUESTION_COURT_FEE: PageLink = '/agree-court-fee';

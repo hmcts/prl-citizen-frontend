@@ -1,6 +1,6 @@
 import { PartyType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../../steps/urls';
@@ -38,9 +38,11 @@ const en = {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
     uploadDocumentFileUpload: {
-      uploadError: 'Document could not be uploaded',
-      donwloadError: 'Document could not be deleted',
-      empty: 'Enter your statement or upload a file.',
+      noStatementOrFile: 'Enter your statement or upload a file.',
+      noFile: 'Upload a file.',
+      multipleFiles: 'You can upload only one document.',
+      uploadError: 'Document could not be uploaded.',
+      deleteError: 'Document could not be deleted.',
     },
   },
 };
@@ -78,9 +80,11 @@ const cy: typeof en = {
       required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
     },
     uploadDocumentFileUpload: {
-      uploadError: 'Document could not be uploaded -welsh',
-      donwloadError: 'Document could not be deleted - welsh',
-      empty: 'Rhowch eich datganiad neu llwythwch ffeil',
+      noStatementOrFile: 'Rhowch eich datganiad neu llwythwch ffeil.',
+      noFile: 'Upload a file. - welsh',
+      multipleFiles: 'You can upload only one document. - welsh',
+      uploadError: 'Document could not be uploaded. - welsh',
+      deleteError: 'Document could not be deleted. - welsh',
     },
   },
 };
@@ -91,26 +95,28 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: () => {
-    return {
-      declarationCheck: {
-        type: 'checkboxes',
-        values: [
-          {
-            name: 'declarationCheck',
-            label: l => l.declaration,
-            value: 'declaration',
+  fields: (userCase, req) => {
+    return req.params.docCategory !== UploadDocumentCategory.FM5_DOCUMENT
+      ? {
+          declarationCheck: {
+            type: 'checkboxes',
+            values: [
+              {
+                name: 'declarationCheck',
+                label: l => l.declaration,
+                value: 'declaration',
+              },
+            ],
+            validator: atLeastOneFieldIsChecked,
           },
-        ],
-        validator: atLeastOneFieldIsChecked,
-      },
-      consentConfirm: {
-        type: 'label',
-        classes: 'govuk-label govuk-!-margin-bottom-6',
-        label: l => l.consent,
-        labelSize: 'm',
-      },
-    };
+          consentConfirm: {
+            type: 'label',
+            classes: 'govuk-label govuk-!-margin-bottom-6',
+            label: l => l.consent,
+            labelSize: 'm',
+          },
+        }
+      : ({} as FormFields);
   },
   onlyContinue: {
     text: l => l.submitButtonText,

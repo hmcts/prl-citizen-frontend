@@ -4,7 +4,6 @@ import { Application } from 'express';
 import { RAProvider } from '../main/modules/reasonable-adjustments/index';
 
 import { Routes } from './routes';
-import { ACCESSIBILITY_STATEMENT, CONTACT_US, COOKIES_PAGE, PRIVACY_POLICY, TERMS_AND_CONDITIONS } from './steps/urls';
 
 const mockCSRFTokenError = jest.fn();
 const mockNotFound = jest.fn();
@@ -18,69 +17,6 @@ jest.mock('./steps/error/error.controller', () => {
 
 jest.spyOn(RAProvider, 'isComponentEnabled').mockImplementation(() => Promise.resolve(true));
 jest.spyOn((RAProvider as any).route, 'enable');
-
-const mockCookiesGetController = jest.fn();
-jest.mock('../main/steps/cookies/get', () => {
-  return {
-    CookiesGetController: jest.fn().mockImplementation(() => {
-      return { get: mockCookiesGetController };
-    }),
-  };
-});
-
-const mockPrivacyPolicyGetController = jest.fn();
-jest.mock('../main/steps/privacy-policy/get', () => {
-  return {
-    PrivacyPolicyGetController: jest.fn().mockImplementation(() => {
-      return { get: mockPrivacyPolicyGetController };
-    }),
-  };
-});
-
-const mockTermsAndConditionsGetController = jest.fn();
-jest.mock('../main/steps/terms-and-conditions/get', () => {
-  return {
-    TermsAndConditionsGetController: jest.fn().mockImplementation(() => {
-      return { get: mockTermsAndConditionsGetController };
-    }),
-  };
-});
-
-const mockAccessibilityStatementGetController = jest.fn();
-jest.mock('../main/steps/accessibility-statement/get', () => {
-  return {
-    AccessibilityStatementGetController: jest.fn().mockImplementation(() => {
-      return { get: mockAccessibilityStatementGetController };
-    }),
-  };
-});
-
-const mockContactUsGetController = jest.fn();
-jest.mock('../main/steps/contact-us/get', () => {
-  return {
-    ContactUsGetController: jest.fn().mockImplementation(() => {
-      return { get: mockContactUsGetController };
-    }),
-  };
-});
-
-const mockSaveAndSignOutGetController = jest.fn();
-jest.mock('./steps/save-sign-out/get', () => {
-  return {
-    SaveSignOutGetController: jest.fn().mockImplementation(() => {
-      return { get: mockSaveAndSignOutGetController };
-    }),
-  };
-});
-
-const mockTimedOutGetController = jest.fn();
-jest.mock('./steps/timed-out/get', () => {
-  return {
-    TimedOutGetController: jest.fn().mockImplementation(() => {
-      return { get: mockTimedOutGetController };
-    }),
-  };
-});
 
 describe('Routes', () => {
   let appMock;
@@ -100,12 +36,5 @@ describe('Routes', () => {
 
   test('should setup routes', () => {
     expect(appMock.get).toHaveBeenCalledWith('/csrf-token-error', mockCSRFTokenError);
-    expect(appMock.get).toHaveBeenCalledWith(COOKIES_PAGE, mockCookiesGetController);
-    expect(appMock.get).toHaveBeenCalledWith(PRIVACY_POLICY, mockPrivacyPolicyGetController);
-    expect(appMock.get).toHaveBeenCalledWith(TERMS_AND_CONDITIONS, mockTermsAndConditionsGetController);
-    expect(appMock.get).toHaveBeenCalledWith(ACCESSIBILITY_STATEMENT, mockAccessibilityStatementGetController);
-    expect(appMock.get).toHaveBeenCalledWith(CONTACT_US, mockContactUsGetController);
-    expect(appMock.get).toHaveBeenCalledWith('/save-and-sign-out', mockSaveAndSignOutGetController);
-    expect(appMock.get).toHaveBeenCalledWith('/timed-out', mockTimedOutGetController);
   });
 });

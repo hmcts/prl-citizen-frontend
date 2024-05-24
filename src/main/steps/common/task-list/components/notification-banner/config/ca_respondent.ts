@@ -9,7 +9,7 @@ export const CA_RESPONDENT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.NEW_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state !== State.CASE_CLOSED && hasOrders(caseData as CaseWithId);
+      return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && hasOrders(caseData as CaseWithId);
     },
   },
   {
@@ -21,7 +21,17 @@ export const CA_RESPONDENT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.CA_RESPONDENT_SERVED],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-      return caseData?.state !== State.CASE_CLOSED && isPartyServed(caseData, userDetails);
+      return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && isPartyServed(caseData, userDetails);
+    },
+  },
+  {
+    ...notificationBanner[BannerNotification.SUMBIT_FM5],
+    show: (caseData: Partial<CaseWithId>): boolean => {
+      const notification = caseData?.citizenNotifications?.find(
+        citizenNotification => citizenNotification.id === 'CAN_10'
+      );
+
+      return notification?.show ?? false;
     },
   },
 ];

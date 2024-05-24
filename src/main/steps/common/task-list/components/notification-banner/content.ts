@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { UploadDocumentCategory } from '../../../../../steps/common/documents/definitions';
 import { hasApplicationPacks } from '../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import {
@@ -9,6 +10,7 @@ import {
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   RESPOND_TO_APPLICATION,
+  UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
@@ -326,6 +328,27 @@ const en: NotificationBannerContent = {
             },
           ],
         },
+        submitFM5: {
+          heading: 'Submit the statement of position on non-court dispute resolution (NCDR)',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'You must complete and submit the form at least 7 working days before the hearing.',
+                },
+              ],
+              links: [
+                {
+                  text: 'Upload the statement of position on NCDR (form FM5) (opens in a new tab)',
+                  href: applyParms(UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS, {
+                    partyType: PartyType.APPLICANT,
+                    docCategory: UploadDocumentCategory.FM5_DOCUMENT,
+                  }),
+                },
+              ],
+            },
+          ],
+        },
       },
     },
     [PartyType.RESPONDENT]: {
@@ -349,7 +372,6 @@ const en: NotificationBannerContent = {
             },
           ],
         },
-
         newOrder: {
           heading: 'You have a new order from the court',
           sections: [
@@ -394,7 +416,7 @@ const en: NotificationBannerContent = {
                   },
                 },
                 {
-                  href: `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
+                  href: RESPOND_TO_APPLICATION,
                   text: 'Respond to the application',
                 },
               ],
@@ -430,6 +452,27 @@ const en: NotificationBannerContent = {
                   text: 'Find out about Cafcass Cymru',
                   show: isCafcassCymruServed,
                   external: true,
+                },
+              ],
+            },
+          ],
+        },
+        submitFM5: {
+          heading: 'Submit the statement of position on non-court dispute resolution (NCDR)',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'You must complete and submit the form at least 7 working days before the hearing.',
+                },
+              ],
+              links: [
+                {
+                  text: 'Upload the statement of position on NCDR (form FM5) (opens in a new tab)',
+                  href: applyParms(UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS, {
+                    partyType: PartyType.APPLICANT,
+                    docCategory: UploadDocumentCategory.FM5_DOCUMENT,
+                  }),
                 },
               ],
             },
@@ -859,6 +902,27 @@ const cy: typeof en = {
             },
           ],
         },
+        submitFM5: {
+          heading: 'Submit the statement of position on non-court dispute resolution (NCDR) - welsh',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'You must complete and submit the form at least 7 working days before the hearing. - welsh',
+                },
+              ],
+              links: [
+                {
+                  text: 'Upload the statement of position on NCDR (form FM5) (opens in a new tab) - welsh',
+                  href: applyParms(UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS, {
+                    partyType: PartyType.APPLICANT,
+                    docCategory: UploadDocumentCategory.FM5_DOCUMENT,
+                  }),
+                },
+              ],
+            },
+          ],
+        },
       },
     },
     [PartyType.RESPONDENT]: {
@@ -927,7 +991,7 @@ const cy: typeof en = {
                   },
                 },
                 {
-                  href: `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
+                  href: RESPOND_TO_APPLICATION,
                   text: "Ymateb i'r cais",
                 },
               ],
@@ -963,6 +1027,27 @@ const cy: typeof en = {
                   text: 'Gwybodaeth am Cafcass Cymru',
                   show: isCafcassCymruServed,
                   external: true,
+                },
+              ],
+            },
+          ],
+        },
+        submitFM5: {
+          heading: 'Submit the statement of position on non-court dispute resolution (NCDR) - welsh',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'You must complete and submit the form at least 7 working days before the hearing. - welsh',
+                },
+              ],
+              links: [
+                {
+                  text: 'Upload the statement of position on NCDR (form FM5) (opens in a new tab) - welsh',
+                  href: applyParms(UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS, {
+                    partyType: PartyType.APPLICANT,
+                    docCategory: UploadDocumentCategory.FM5_DOCUMENT,
+                  }),
                 },
               ],
             },

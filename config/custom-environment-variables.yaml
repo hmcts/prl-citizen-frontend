@@ -40,6 +40,7 @@ featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
   c100Rebuild: C100_REBUILD_FLAG
   testingSupport: TESTING_SUPPORT_FLAG
+  enableCaseTrainTrack: ENABLE_CASE_TRAIN_TRACK
   enableRAComponent: ENABLE_RA_COMPONENT
 
 launchDarkly:

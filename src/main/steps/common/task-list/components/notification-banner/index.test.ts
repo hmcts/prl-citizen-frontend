@@ -540,7 +540,7 @@ describe('testcase for notification Banner', () => {
       ],
       citizenDocuments: [
         {
-          partyId: '1',
+          partyId: '1234',
           partyName: null,
           partyType: 'respondent',
           categoryId: 'respondentApplication',
@@ -767,7 +767,7 @@ describe('testcase for notification Banner', () => {
   test('when case is closed', () => {
     const data = {
       id: '12',
-      state: State.CASE_CLOSED,
+      state: State.ALL_FINAL_ORDERS_ISSUED,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -975,7 +975,7 @@ describe('testcase for notification Banner', () => {
                 },
                 {
                   external: false,
-                  href: '/tasklistresponse/start/flag/updateFlag',
+                  href: '/tasklistresponse/start',
                   text: 'Respond to the application',
                 },
               ],

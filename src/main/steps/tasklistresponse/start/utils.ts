@@ -1,5 +1,9 @@
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../app/case/case';
 import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { UserDetails } from '../../../app/controller/AppRequest';
+import { getPartyDetails } from '../utils';
 
 export const getLegalRepresentationStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (userCase?.legalRepresentation) {
@@ -182,8 +186,26 @@ export const getYourSafetyStatus = (userCase: Partial<CaseWithId> | undefined): 
 };
 
 export const getAllegationOfHarmStatus = (userCase: CaseWithId): SectionStatus => {
-  if (userCase.PRL_c1A_haveSafetyConcerns === YesOrNo.NO || userCase.PRL_c1A_haveSafetyConcerns === YesOrNo.YES) {
+  if (userCase.c1A_haveSafetyConcerns === YesOrNo.NO || userCase.c1A_haveSafetyConcerns === YesOrNo.YES) {
     return SectionStatus.COMPLETED;
   }
+  return SectionStatus.TO_DO;
+};
+
+export const getResponseToAllegationOfHarmStatus = (
+  caseData: CaseWithId,
+  userIdamId: UserDetails['id']
+): SectionStatus => {
+  const partyDetails = getPartyDetails(caseData, userIdamId);
+
+  if (
+    partyDetails &&
+    (_.get(partyDetails, 'response.responseToAllegationsOfHarmYesOrNoResponse') === YesOrNo.NO ||
+      (_.get(partyDetails, 'response.responseToAllegationsOfHarmYesOrNoResponse') === YesOrNo.YES &&
+        _.get(partyDetails, 'response.respondentResponseToAllegationOfHarm')))
+  ) {
+    return SectionStatus.COMPLETED;
+  }
+
   return SectionStatus.TO_DO;
 };

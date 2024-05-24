@@ -7,11 +7,11 @@ import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
-  APPLICANT_DETAILS_KNOWN,
-  APPLICANT_YOURHEARINGS_HEARINGS,
   C100_START,
   CHOOSE_CONTACT_PREFERENCE,
+  DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT_BY_TYPE,
+  FETCH_HEARING_DETAILS,
   REASONABLE_ADJUSTMENTS_INTRO,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
@@ -48,7 +48,8 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
-        href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
+        href: (caseData: Partial<CaseWithId>) =>
+          `${applyParms(DETAILS_KNOWN, { partyType: PartyType.APPLICANT })}/${caseData.id}`,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
@@ -149,7 +150,8 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.VIEW_HEARING_DETAILS,
-        href: (caseData: Partial<CaseWithId>) => `${APPLICANT_YOURHEARINGS_HEARINGS}/${caseData.id}`,
+        href: (caseData: Partial<CaseWithId>) =>
+          applyParms(FETCH_HEARING_DETAILS, { partyType: PartyType.APPLICANT, caseId: caseData.id as string }),
         stateTag: (caseData: Partial<CaseWithId>) => {
           if (hasAnyHearing(caseData)) {
             return StateTags.READY_TO_VIEW;

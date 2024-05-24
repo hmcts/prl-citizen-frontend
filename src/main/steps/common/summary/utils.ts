@@ -3,7 +3,6 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { State } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
@@ -12,11 +11,17 @@ import {
   SummaryListContent,
   SummaryListRow,
 } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
-import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { OPotherProceedingsSessionParserUtil as OPotherProceedingsSessionParserUtilRespondent } from '../../../steps/tasklistresponse/proceedings/proceedingUtils';
+import {
+  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+  C100_OTHER_PROCEEDINGS_DETAILS,
+  PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_START,
+} from '../../../steps/urls';
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
+import { OPotherProceedingsSessionParserUtil } from '../../c100-rebuild/check-your-answers/util/otherProceeding.util';
 import { cy, en } from '../common.content';
-import { applyParms } from '../url-parser';
-
+console.info('** FOR SONAR **');
 export const getSectionSummaryList = (
   rows: SummaryListRow[],
   content: PageContent,
@@ -127,71 +132,6 @@ export const summaryList = (
   };
 };
 
-export const summaryCaseList = (
-  userCaseList: Partial<CaseWithId>[],
-  sectionTitle?: string,
-  isRespondent?: boolean
-): SummaryList | undefined => {
-  const summaryData: SummaryListRow[] = [];
-  summaryData.push({ key: 'Case Name', value: '<h4>Case Status</h4>' });
-  for (const userCase of userCaseList) {
-    const id = userCase.id as string;
-    const name = userCase.applicantCaseName;
-    const state = userCase.caseStatus?.state;
-    let caseUrl = '#';
-    if (userCase.caseTypeOfApplication === 'C100') {
-      if (!isRespondent) {
-        if (state === State.Draft) {
-          caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
-        }
-      } else {
-        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
-      }
-    } else if (userCase.caseTypeOfApplication === 'FL401') {
-      const App_ID = APPLICANT_TASK_LIST_URL + '/' + id;
-      const Res_ID = RESPONDENT_TASK_LIST_URL + '/' + id;
-      caseUrl = !isRespondent ? App_ID : Res_ID;
-    }
-    const row = {
-      key: name,
-      value: state,
-      changeUrl: id,
-      caseLink: caseUrl,
-    };
-
-    summaryData.push(row);
-  }
-
-  return {
-    title: sectionTitle!,
-    rows: getSectionCaseList(summaryData),
-  };
-};
-
-const getSectionCaseList = (rows: SummaryListRow[]): GovUkNunjucksSummary[] => {
-  return rows.map(item => {
-    const changeUrl = item.changeUrl;
-    return {
-      key: { ...(item.key ? { text: item.key } : {}) },
-      value: { ...(item.value ? { html: item.value } : {}) },
-      ...(changeUrl
-        ? {
-            actions: {
-              items: [
-                {
-                  href: `${item.caseLink}`,
-                  text: `${item.changeUrl}`,
-                  visuallyHiddenText: `${item.changeUrl}`,
-                },
-              ],
-            },
-          }
-        : {}),
-      ...(item.classes ? { classes: item.classes } : {}),
-    };
-  });
-};
-
 export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>
   date && !isDateInputInvalid(date)
     ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')
@@ -226,4 +166,46 @@ export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
     }
   }
   return temp;
+};
+export const proceedingSummaryData = (
+  keys: Record<string, string>,
+  language: string | undefined,
+  userCase: Partial<CaseWithId>,
+  courtOrderDetails: string,
+  isRespondent: boolean
+) => {
+  return [
+    {
+      key: keys['childrenInvolvedCourtCase'],
+      value: getYesNoTranslation(
+        language,
+        isRespondent ? userCase['proceedingsStart'] : userCase['op_childrenInvolvedCourtCase'],
+        'doTranslation'
+      ),
+      changeUrl: isRespondent ? PROCEEDINGS_START : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    },
+    {
+      key: keys['courtOrderProtection'],
+      value: getYesNoTranslation(
+        language,
+        isRespondent ? userCase['proceedingsStartOrder'] : userCase['op_courtOrderProtection'],
+        'oesTranslation'
+      ),
+      changeUrl: isRespondent ? PROCEEDINGS_START : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    },
+    {
+      key: keys['optitle'],
+      valueHtml: isRespondent
+        ? userCase.hasOwnProperty('courtProceedingsOrders')
+          ? courtOrderDetails?.split(',').join('')
+          : ''
+        : userCase.hasOwnProperty('op_courtProceedingsOrders')
+        ? courtOrderDetails?.split(',').join('')
+        : '',
+      changeUrl: isRespondent ? PROCEEDINGS_COURT_PROCEEDINGS : C100_OTHER_PROCEEDINGS_DETAILS,
+    },
+    ...(isRespondent
+      ? OPotherProceedingsSessionParserUtilRespondent(userCase, keys, 'courtProceedingsOrders', language)
+      : OPotherProceedingsSessionParserUtil(userCase, keys, 'op_courtProceedingsOrders', language)),
+  ];
 };

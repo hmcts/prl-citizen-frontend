@@ -39,8 +39,9 @@ describe('documents > upload > config', () => {
 
     test('otherDocuments should have correct document categories', () => {
       const otherDocumentsCategoryList = uploadDocumentSections[3].documentCategoryList;
-      expect(otherDocumentsCategoryList).toHaveLength(1);
-      expect(otherDocumentsCategoryList[0].categoryId).toBe('other-documents');
+      expect(otherDocumentsCategoryList).toHaveLength(2);
+      expect(otherDocumentsCategoryList[0].categoryId).toBe('fm5-document');
+      expect(otherDocumentsCategoryList[1].categoryId).toBe('other-documents');
     });
   });
 });

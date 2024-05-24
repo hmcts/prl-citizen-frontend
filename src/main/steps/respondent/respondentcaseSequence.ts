@@ -1,22 +1,28 @@
 import { CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { keepDetailsPrivateNav } from '../../steps/common/task-list/utils';
+import { applyParms } from '../../steps/common/url-parser';
 import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
+import KeepDetailsPrivateNavigationController from '../common/keep-details-private/navigationController';
+import RemoveLegalRepresentativeNavigationController from '../common/remove-legal-representative/navigationController';
 import { Sections, Step } from '../constants';
 import {
   CA_RESPONDENT_RESPONSE_CONFIRMATION,
-  CA_RESPONDENT_RESPONSE_SUBMIT,
   CHOOSE_CONTACT_PREFERENCE,
   CONTACT_PREFERENCE_CONFIRMATION,
+  DETAILS_KNOWN,
+  FETCH_CASE_DETAILS,
   LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
   LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
   LEGAL_REPRESENTATION_START,
   MIAM_ATTEND_WILLINGNESS,
-  MIAM_SAVE,
   MIAM_START,
   MIAM_SUMMARY,
-  RESPNDT_TO_APPLICATION_SUMMARY,
+  PRIVATE_DETAILS_CONFIRMED,
+  PRIVATE_DETAILS_NOT_CONFIRMED,
+  PageLink,
+  REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+  REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
   RESPONDENT_ADDRESS_HISTORY,
@@ -26,20 +32,12 @@ import {
   RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS,
-  RESPONDENT_CONTACT_DETAILS_SAVE,
-  RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_FIND_ADDRESS,
-  RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_PERSONAL_DETAILS,
-  RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
-  RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
-  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
-  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
-  RESPONDENT_START_ALTERNATIVE,
-  RESPONDENT_TASK_LIST_URL,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
   REVIEW_CONTACT_PREFERENCE,
+  START_ALTERNATIVE,
   TASKLIST_RESPONDENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
@@ -49,29 +47,32 @@ import {
 
 export const respondentCaseSequence: Step[] = [
   {
-    url: RESPONDENT_TASK_LIST_URL,
+    url: DETAILS_KNOWN,
+    subDir: '/common',
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: (caseData, req) =>
+      KeepDetailsPrivateNavigationController.getNextPageUrl(DETAILS_KNOWN, caseData, req!),
   },
   {
-    url: RESPONDENT_DETAILS_KNOWN,
+    url: START_ALTERNATIVE,
+    subDir: '/common',
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_START_ALTERNATIVE,
+    getNextStep: (caseData, req) =>
+      KeepDetailsPrivateNavigationController.getNextPageUrl(START_ALTERNATIVE, caseData, req!),
   },
   {
-    url: RESPONDENT_START_ALTERNATIVE,
+    url: PRIVATE_DETAILS_CONFIRMED,
+    subDir: '/common',
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
+    getNextStep: (caseData, req) =>
+      KeepDetailsPrivateNavigationController.getNextPageUrl(PRIVATE_DETAILS_CONFIRMED, caseData, req!),
   },
   {
-    url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
+    url: PRIVATE_DETAILS_NOT_CONFIRMED,
+    subDir: '/common',
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: (caseData, req) => keepDetailsPrivateNav(caseData, req!),
-  },
-  {
-    url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: (caseData, req) => keepDetailsPrivateNav(caseData, req!),
+    getNextStep: (caseData, req) =>
+      KeepDetailsPrivateNavigationController.getNextPageUrl(PRIVATE_DETAILS_NOT_CONFIRMED, caseData, req!),
   },
   {
     url: MIAM_START,
@@ -84,14 +85,9 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => MIAM_SUMMARY,
   },
   {
-    url: MIAM_SUMMARY,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => MIAM_SAVE,
-  },
-  {
     url: RESPONDENT_CHECK_ANSWERS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_CONTACT_DETAILS_SAVE,
+    getNextStep: () => '/',
   },
   {
     url: RESPONDENT_PERSONAL_DETAILS,
@@ -139,39 +135,14 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_CHECK_ANSWERS,
   },
   {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPNDT_TO_APPLICATION_SUMMARY,
-  },
-  {
-    url: RESPNDT_TO_APPLICATION_SUMMARY,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => CA_RESPONDENT_RESPONSE_SUBMIT,
-  },
-  {
     url: CA_RESPONDENT_RESPONSE_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => TASKLIST_RESPONDENT,
   },
   {
-    url: RESPONDENT_TASK_LIST_URL,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
-  {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => LEGAL_REPRESENTATION_START,
-  },
-  {
     url: LEGAL_REPRESENTATION_START,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
-  },
-  {
-    url: LEGAL_REPRESENTATION_START,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
+    getNextStep: () => '/',
   },
   {
     url: LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
@@ -186,22 +157,26 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
-    url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    url: REMOVE_LEGAL_REPRESENTATIVE_START,
+    subDir: '/common',
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    getNextStep: (caseData, req) =>
+      RemoveLegalRepresentativeNavigationController.getNextPageUrl(REMOVE_LEGAL_REPRESENTATIVE_START, caseData, req!),
   },
   {
-    url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    url: REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    subDir: '/common',
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: (caseData, req) =>
+      RemoveLegalRepresentativeNavigationController.getNextPageUrl(REMOVE_LEGAL_REPRESENTATIVE_CONFIRM, caseData, req!),
   },
   {
     url: VIEW_ALL_DOCUMENT_TYPES,

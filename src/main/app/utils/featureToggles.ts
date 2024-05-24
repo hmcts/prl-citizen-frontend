@@ -3,7 +3,7 @@ import config = require('config');
 import toBoolean = require('to-boolean');
 
 import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
-
+console.info('** FOR SONAR **');
 export class FeatureToggles {
   launchDarklyClient: LaunchDarklyClient;
 
@@ -49,6 +49,12 @@ export class FeatureToggles {
     return isTestingSupportEnabled;
   }
 
+  async isCaseTrainTrackEnabled(): Promise<boolean> {
+    return this.launchDarklyClient.serviceVariation(
+      'citizen-train-track-feature',
+      toBoolean(config.get<boolean>('featureToggles.enableCaseTrainTrack'))
+    );
+  }
   async isRAComponentEnabled(): Promise<boolean> {
     if (this.launchDarklyClient) {
       return this.launchDarklyClient.serviceVariation(

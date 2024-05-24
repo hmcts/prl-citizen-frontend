@@ -5,7 +5,7 @@ import {
   CitizenOrders,
   DocumentCategory,
   DocumentLabelCategory,
-  DocumentSectionId,
+  ViewDocumentsSectionId,
 } from '../definitions';
 
 import {
@@ -283,7 +283,7 @@ describe('documents > view > utils', () => {
     test('should get correct applicant documents', () => {
       expect(
         getViewDocumentCategoryList(
-          'applicantsDocuments' as DocumentSectionId,
+          'applicantsDocuments' as ViewDocumentsSectionId,
           {
             citizenDocuments: [
               {
@@ -340,7 +340,7 @@ describe('documents > view > utils', () => {
     test('should get correct respondent documents', () => {
       expect(
         getViewDocumentCategoryList(
-          'respondentsDocuments' as DocumentSectionId,
+          'respondentsDocuments' as ViewDocumentsSectionId,
 
           {
             citizenDocuments: [
@@ -398,7 +398,7 @@ describe('documents > view > utils', () => {
     test('should not get documents when sectionId is not applicant or respondent documents', () => {
       expect(
         getViewDocumentCategoryList(
-          'ordersFromTheCourt' as DocumentSectionId,
+          'ordersFromTheCourt' as ViewDocumentsSectionId,
           {
             citizenDocuments: [
               {
@@ -446,7 +446,7 @@ describe('documents > view > utils', () => {
     test('should add documents for same category with different party ids', () => {
       expect(
         getViewDocumentCategoryList(
-          'respondentsDocuments' as DocumentSectionId,
+          'respondentsDocuments' as ViewDocumentsSectionId,
           {
             citizenDocuments: [
               {
@@ -511,7 +511,7 @@ describe('documents > view > utils', () => {
     test('should only get one document for other categories', () => {
       expect(
         getViewDocumentCategoryList(
-          'respondentsDocuments' as DocumentSectionId,
+          'respondentsDocuments' as ViewDocumentsSectionId,
 
           {
             citizenDocuments: [
