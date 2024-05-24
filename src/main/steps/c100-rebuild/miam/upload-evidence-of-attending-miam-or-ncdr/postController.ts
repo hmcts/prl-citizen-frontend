@@ -28,7 +28,7 @@ export default class MIAMAttendanceEvidenceUploadController extends PostControll
     } else if (!documentUploaded) {
       errorType = 'required';
     } else if (!isValidFileFormat({ documents: documentUploaded })) {
-      ('invalidFileFormat');
+      errorType = 'invalidFileFormat';
     } else if (isFileSizeGreaterThanMaxAllowed({ documents: documentUploaded })) {
       errorType = 'maxFileSize';
     }
