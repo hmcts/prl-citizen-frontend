@@ -1,7 +1,7 @@
+import PCQGetController from '../../../../main/steps/common/equality/PcqNavigationController';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../../app/form/Form';
-import PCQGetController from '../../common/equality/get';
 
 import C100RebuildPostController from './PcqPostController';
 
