@@ -19,7 +19,7 @@ import TaskListGetController from './steps/common/task-list/controllers/TaskList
 import { ErrorController } from './steps/error/error.controller';
 import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
 import { TasklistGetController } from './steps/tasklistresponse/TasklistGetController';
-import { ResponseSummaryConfirmationPostController } from './steps/tasklistresponse/summary/postControllerAfterPcq';
+import ResponseSummaryConfirmationPostController from './steps/tasklistresponse/summary/postController';
 import {
   APPLICANT_CHECK_ANSWERS,
   C100_CHECK_YOUR_ANSWER_REDIRECT,
@@ -137,7 +137,7 @@ export class Routes {
         );
         app.get(
           RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT,
-          errorHandler(new ResponseSummaryConfirmationPostController(step.form.fields).post)
+          errorHandler(new ResponseSummaryConfirmationPostController(step.form.fields).submitC7)
         );
         app.get(
           C100_CHECK_YOUR_ANSWER_REDIRECT,
