@@ -1,3 +1,5 @@
+import { applyParms } from '../../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 import { CaseWithId } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
@@ -62,6 +64,11 @@ export const form: FormContent = {
   onlyContinue: {
     text: l => l.submit,
   },
+  link: {
+    classes: 'govuk-!-margin-left-3',
+    href: '#',
+    text: l => l.cancel,
+  },
 };
 
 const languages = {
@@ -80,6 +87,10 @@ export const generateContent: TranslationFn = content => {
   if (!summaryListRows.length) {
     form.onlyContinue!.disabled = true;
   }
+
+  Object.assign(form.link!, {
+    href: applyParms(FETCH_CASE_DETAILS, { caseId: content?.userCase?.id as string }),
+  });
 
   return {
     ...translations,

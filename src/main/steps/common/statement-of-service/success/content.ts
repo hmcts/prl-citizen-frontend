@@ -1,7 +1,11 @@
+import { applyParms } from '../../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { cy as commonContentCy, en as commonContentEn } from '../../common.content';
 
 const en = {
+  ...commonContentEn,
   bannerTitle: 'Statement of service submitted to the court',
   heading: 'What happens next',
   content1: 'The court will contact you with details of what happens next.',
@@ -10,6 +14,7 @@ const en = {
 };
 
 const cy: typeof en = {
+  ...commonContentCy,
   bannerTitle: 'Cyflwynwyd y datganiad cyflwyno i’r llys',
   heading: 'Beth fydd yn digwydd nesaf',
   content1: 'Bydd y llys yn cysylltu â chi gyda manylion am yr hyn fydd yn digwydd nesaf.',
@@ -27,11 +32,20 @@ export const form: FormContent = {
   onlyContinue: {
     text: l => l.returnToCaseOverview,
   },
+  link: {
+    classes: 'govuk-!-margin-left-3',
+    href: '#',
+    text: l => l.cancel,
+  },
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
 
+  Object.assign(form.link!, {
+    href: applyParms(FETCH_CASE_DETAILS, { caseId: content?.userCase?.id as string }),
+  });
+  
   return {
     ...translations,
     form,

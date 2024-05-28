@@ -2,14 +2,18 @@ import { Case, CaseDate } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
+import { cy as commonContentCy, en as commonContentEn } from '../../common.content';
 import {
   areDateFieldsFilledIn,
   atLeastOneFieldIsChecked,
   isDateInputInvalid,
   isFutureDate,
 } from '../../../../app/form/validation';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 const en = {
+  ...commonContentEn,
   title: 'Statement of service',
   whoWasServedLabel: 'Who was served?',
   servedDateLabel: 'When were they served?',
@@ -30,6 +34,7 @@ const en = {
 };
 
 const cy: typeof en = {
+  ...commonContentCy,
   title: 'datganiad cyflwyno',
   whoWasServedLabel: 'Ar bwy y cyflwynwyd?',
   servedDateLabel: 'Pryd cawson nhw eu cyflwyno?',
@@ -113,6 +118,11 @@ export const form: FormContent = {
   onlyContinue: {
     text: l => l.onlycontinue,
   },
+  link: {
+    classes: 'govuk-!-margin-left-3',
+    href: '#',
+    text: l => l.cancel,
+  },
 };
 
 export const generateContent: TranslationFn = content => {
@@ -120,6 +130,13 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
+    form: {
+      ...form,
+      fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req),
+      link: {
+        ...form.link,
+        href: applyParms(FETCH_CASE_DETAILS, { caseId: content?.userCase?.id as string }),
+      },
+    },
   };
 };
