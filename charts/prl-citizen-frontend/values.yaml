@@ -25,6 +25,7 @@ nodejs:
     LAUNCH_DARKLY_OFFLINE_MODE: false
     C100_REBUILD_FLAG: false
     TESTING_SUPPORT_FLAG: false
+    ENABLE_CASE_TRAIN_TRACK: true
     ENABLE_RA_COMPONENT: true
     PCQ_ENABLED: true
 

@@ -768,7 +768,7 @@ export interface CaseData {
   miamExemptionsChecklist: string[];
   attendingTheHearingTable: AttendingTheHearingTable;
   caseUrgencyTimeAndReason: string;
-  welshLanguageRequirement: string;
+  welshLanguageRequirement:YesOrNo;
   internationalElementTable: InternationalElementTable;
   litigationCapacityFactors: string;
   miamOtherGroundsChecklist: string;
@@ -1671,7 +1671,7 @@ export interface AllegationsOfHarmOverviewTable {
 }
 
 export interface WelshLanguageRequirementsTable {
-  welshLanguageRequirement: string;
+  welshLanguageRequirement: YesOrNo;
   welshLanguageRequirementApplication: string;
   languageRequirementApplicationNeedWelsh: string;
   welshLanguageRequirementApplicationNeedEnglish: string;
