@@ -29,11 +29,12 @@
       }
     ]), tableRows) %}
   {% endif %}
+
   {{ govukTable({
-    caption: params.uploadedFilesCaption if params.uploadedFilesCaption,
-          rows: tableRows
-        }) 
-      }}
+      caption: params.uploadedFilesCaption if params.uploadedFilesCaption,
+      rows: tableRows
+    }) 
+  }}
   {% endset %}
 
   <div class="govuk-form-group govuk-inset-text">

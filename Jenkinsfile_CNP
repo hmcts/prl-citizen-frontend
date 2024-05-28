@@ -32,6 +32,7 @@ def secrets = [
     secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PW'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
     secret('citizen-password', 'CITIZEN_PW'),
+    secret('pact-broker-username', 'PACT_BROKER_YAML_USERNAME'),
     secret('pact-broker-password', 'PACT_BROKER_YAML_PW'),
   ]
 ]
@@ -43,6 +44,7 @@ env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
 env.LAUNCH_DARKLY_OFFLINE_MODE = false
 env.C100_REBUILD_FLAG = false
 env.TESTING_SUPPORT_FLAG = false
+env.ENABLE_CASE_TRAIN_TRACK = false
 
 
 withPipeline(type, product, component) {

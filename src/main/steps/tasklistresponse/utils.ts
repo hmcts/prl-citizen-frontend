@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import _ from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
-import { Applicant, CaseType, PartyDetails, PartyType, Respondent } from '../../app/case/definition';
+import { Applicant, CaseType, PartyDetails, PartyType, Respondent, YesOrNo } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { RAProvider } from '../../modules/reasonable-adjustments';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
+import { SummaryListRow } from '../../steps/common/models/summaryListContent';
+import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
+import { RESPOND_TO_AOH, RESPONSE_TO_AOH } from '../../steps/urls';
 import { mapContactPreference } from '../common/contact-preference/ContactPreferencesMapper';
 import { mapKeepYourDetailsPrivate } from '../common/keep-details-private/KeepYourDetailsPrivateMapper';
 
@@ -13,6 +17,7 @@ import { mapConsentToApplicationDetails } from './consent-to-application/summary
 import { mapInternationalFactorsDetails } from './international-factors/InternationalFactorsMapper';
 import { mapMIAMDetails } from './miam/MIAMMapper';
 import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';
+import { mapResponseToAOH } from './respond-to-allegations-of-harm/respondToAOHMapper';
 
 export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']): void => {
   const caseType = userCase.caseTypeOfApplication;
@@ -39,6 +44,10 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
 
   if (partyDetails?.contactPreferences) {
     Object.assign(userCase, mapContactPreference(partyDetails));
+  }
+
+  if (partyDetails?.response?.responseToAllegationsOfHarmYesOrNoResponse) {
+    Object.assign(userCase, mapResponseToAOH(partyDetails));
   }
 };
 function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
@@ -95,4 +104,55 @@ export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id'])
   }
 
   return partyData;
+};
+
+export const getRespondToAohSummary = (
+  caseData: Partial<CaseWithId> | undefined,
+  translation: Record<string, any>
+): SummaryListRow[] => {
+  if (!caseData) {
+    return [];
+  }
+
+  const itemsToReview = [
+    {
+      key: {
+        text: translation.wishToRespondLabel,
+      },
+      value: {
+        text: caseData?.aoh_wishToRespond === YesOrNo.YES ? translation.yes : translation.no,
+      },
+      actions: {
+        items: [
+          {
+            href: applyParms(RESPOND_TO_AOH, { partyType: PartyType.RESPONDENT }),
+            text: translation.change,
+            visuallyHiddenText: translation.change,
+          },
+        ],
+      },
+    },
+  ];
+
+  if (caseData?.aoh_responseToAllegations) {
+    itemsToReview.push({
+      key: {
+        text: translation.responseToAohLabel,
+      },
+      value: {
+        text: caseData.aoh_responseToAllegations,
+      },
+      actions: {
+        items: [
+          {
+            href: applyParms(RESPONSE_TO_AOH, { partyType: PartyType.RESPONDENT }),
+            text: translation.change,
+            visuallyHiddenText: translation.change,
+          },
+        ],
+      },
+    });
+  }
+
+  return itemsToReview;
 };
