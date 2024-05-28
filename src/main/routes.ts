@@ -10,7 +10,7 @@ import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
-import PayAndSubmitPostController from './steps/c100-rebuild/check-your-answers/PostControllerAfterPcq';
+import PayAndSubmitPostController from './steps/c100-rebuild/check-your-answers/PayAndSubmitPostController';
 import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
 import { AohSequence } from './steps/common/safety-concerns/sequence';
@@ -139,7 +139,10 @@ export class Routes {
           RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT,
           errorHandler(new ResponseSummaryConfirmationPostController(step.form.fields).post)
         );
-        app.get(C100_CHECK_YOUR_ANSWER_REDIRECT, errorHandler(new PayAndSubmitPostController(step.form.fields).post));
+        app.get(
+          C100_CHECK_YOUR_ANSWER_REDIRECT,
+          errorHandler(new PayAndSubmitPostController(step.form.fields).handlePayment)
+        );
       }
     }
     /**
