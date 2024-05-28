@@ -3,8 +3,8 @@ import _ from 'lodash';
 import { PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { cy as commonContentCy, en as commonContentEn } from '../../common.content';
 import { FETCH_CASE_DETAILS, UPLOAD_STATEMENT_OF_SERVICE } from '../../../urls';
+import { cy as commonContentCy, en as commonContentEn } from '../../common.content';
 import { applyParms } from '../../url-parser';
 export * from './routeGuard';
 
@@ -96,7 +96,7 @@ export const generateContent: TranslationFn = content => {
   Object.assign(form.link!, {
     href: applyParms(FETCH_CASE_DETAILS, { caseId: content?.userCase?.id as string }),
   });
-  
+
   return {
     ...translations,
     form,

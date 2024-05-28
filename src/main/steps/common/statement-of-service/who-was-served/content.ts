@@ -2,7 +2,6 @@ import { Case, CaseDate } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
-import { cy as commonContentCy, en as commonContentEn } from '../../common.content';
 import {
   areDateFieldsFilledIn,
   atLeastOneFieldIsChecked,
@@ -11,6 +10,7 @@ import {
 } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
+import { cy as commonContentCy, en as commonContentEn } from '../../common.content';
 
 const en = {
   ...commonContentEn,

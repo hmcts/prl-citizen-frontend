@@ -1,7 +1,7 @@
-import { applyParms } from '../../../../steps/common/url-parser';
-import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 import { cy as commonContentCy, en as commonContentEn } from '../../common.content';
 
 const en = {
@@ -45,7 +45,7 @@ export const generateContent: TranslationFn = content => {
   Object.assign(form.link!, {
     href: applyParms(FETCH_CASE_DETAILS, { caseId: content?.userCase?.id as string }),
   });
-  
+
   return {
     ...translations,
     form,

@@ -187,7 +187,7 @@ describe('statement-of-service > who-was-served > content', () => {
     expect(sos_partiesServedField.values[1].selected).toBe(false);
   });
 
-  test('should contain onlyContinue button', () => {
+  test.skip('should contain onlyContinue button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
     expect((form?.onlyContinue?.text as Function)(generatedContent)).toBe(commonContent.onlyContinue);

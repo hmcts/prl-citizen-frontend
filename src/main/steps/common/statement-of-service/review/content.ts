@@ -1,9 +1,9 @@
-import { applyParms } from '../../../../steps/common/url-parser';
-import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 import { CaseWithId } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 import { cy as commonContentCy, en as commonContentEn } from '../../common.content';
 import { languages as uploadSOSLang } from '../upload/content';
 import { prepareSummaryList } from '../utils';
