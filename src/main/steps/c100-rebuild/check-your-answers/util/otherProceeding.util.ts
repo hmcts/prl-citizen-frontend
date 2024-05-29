@@ -75,8 +75,23 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, 
   if (UserCase.hasOwnProperty(sessionKey)) {
     const orderSessionStorage = [] as { key: string; valueHtml: string; changeUrl: string }[];
     UserCase[sessionKey].forEach(order => {
-      if (UserCase['op_otherProceedings']?.['order'].hasOwnProperty(`${order}s`)) {
-        const orderDetails = UserCase['op_otherProceedings']?.['order'][`${order}s`];
+      if (
+        UserCase['op_otherProceedings']?.['order'].hasOwnProperty(`${order}s`) ||
+        UserCase['op_otherProceedings']?.['order'].hasOwnProperty('contactOrdersForDivorce') ||
+        UserCase['op_otherProceedings']?.['order'].hasOwnProperty('contactOrdersForAdoption')
+      ) {
+        let orderDetails;
+        switch (order) {
+          case 'contactOrderForDivorce':
+            orderDetails = UserCase['op_otherProceedings']?.['order']['contactOrdersForDivorce'];
+            break;
+          case 'contactOrderForAdoption':
+            orderDetails = UserCase['op_otherProceedings']?.['order']['contactOrdersForAdoption'];
+            break;
+          default:
+            orderDetails = UserCase['op_otherProceedings']?.['order'][`${order}s`];
+            break;
+        }
         orderDetails.forEach((nestedOrder, index) => {
           const IndexNumber = index > 0 ? index + 1 : '';
           orderSessionStorage.push({
