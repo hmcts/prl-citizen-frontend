@@ -109,7 +109,7 @@ const dataCleanUpForRespondentAbuse = (
   c1A_safetyConernAbout: C1ASafteyConcernsAbout[] | undefined,
   c1A_concernAboutRespondent: C1AAbuseTypes[] | undefined,
   data
-) => {
+): void => {
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
     !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.PHYSICAL_ABUSE)
@@ -156,7 +156,7 @@ const dataCleanUpForChildAbuse = (
   c1A_safetyConernAbout: C1ASafteyConcernsAbout[] | undefined,
   c1A_concernAboutChild: C1AAbuseTypes[] | undefined,
   data
-) => {
+): void => {
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
     !c1A_concernAboutChild?.includes(C1AAbuseTypes.PHYSICAL_ABUSE)
@@ -205,7 +205,7 @@ const dataCleanUpForAbduction = (
   c1A_possessionChildrenPassport: string[] | undefined,
   c1A_childAbductedBefore: YesOrNo | undefined,
   c1A_passportOffice: YesOrNo | undefined
-) => {
+): void => {
   if (!c1A_concernAboutChild?.includes(C1AAbuseTypes.ABDUCTION)) {
     data.c1A_abductionReasonOutsideUk = '';
     data.c1A_childsCurrentLocation = '';
@@ -236,7 +236,7 @@ const dataCleanUpForAbduction = (
   }
 };
 
-const dataCleanupForNoSafetyConcern = (c1A_haveSafetyConcerns: YesOrNo | undefined, data) => {
+const dataCleanupForNoSafetyConcern = (c1A_haveSafetyConcerns: YesOrNo | undefined, data): void => {
   if (c1A_haveSafetyConcerns === YesOrNo.NO) {
     data.c1A_safetyConernAbout = [];
     data.c1A_concernAboutChild = [];

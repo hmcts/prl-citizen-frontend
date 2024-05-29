@@ -206,10 +206,10 @@ export const proceedingSummaryData = (
   ];
 };
 
-const applicantOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string) => {
+const applicantOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string): string => {
   return userCase.hasOwnProperty('op_courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '';
 };
 
-const respondentOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string) => {
+const respondentOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string): string => {
   return userCase.hasOwnProperty('courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '';
 };
