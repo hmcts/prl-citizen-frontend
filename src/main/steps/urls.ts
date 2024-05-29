@@ -156,6 +156,7 @@ export const DOWNLOAD_DOCUMENT_BY_TYPE: PageLink = `${DOCUMENTS}/download/type/:
 
 export const RESPONDENT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 export const RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT: PageLink = '/tasklistresponse/summary/equality';
+export const PCQ_CALLBACK_URL: PageLink = '/pcq/equality/:context';
 
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 
@@ -372,7 +373,6 @@ export const C100_CONSENT_ORDER_UPLOAD: PageLink = `${C100_CONSENT_ORDER}/upload
 export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_ORDER}/upload-confirmation`;
 /**@C100 check you answers */
 export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`;
-export const C100_CHECK_YOUR_ANSWER_REDIRECT: PageLink = `${C100_URL}/check-your-answers/equality`;
 
 export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orderType/:orderId/documentUpload/:removeId?`;
 

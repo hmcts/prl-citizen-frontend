@@ -10,7 +10,6 @@ import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
-import PayAndSubmitPostController from './steps/c100-rebuild/check-your-answers/PayAndSubmitPostController';
 import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
 import { AohSequence } from './steps/common/safety-concerns/sequence';
@@ -19,10 +18,8 @@ import TaskListGetController from './steps/common/task-list/controllers/TaskList
 import { ErrorController } from './steps/error/error.controller';
 import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
 import { TasklistGetController } from './steps/tasklistresponse/TasklistGetController';
-import ResponseSummaryConfirmationPostController from './steps/tasklistresponse/summary/postController';
 import {
   APPLICANT_CHECK_ANSWERS,
-  C100_CHECK_YOUR_ANSWER_REDIRECT,
   C100_RETRIVE_CASE,
   CA_RESPONDENT_GENERATE_C7_DRAFT,
   CONSENT_TO_APPLICATION,
@@ -43,7 +40,6 @@ import {
   PAYMENT_RETURN_URL_CALLBACK,
   PROCEEDINGS_START,
   RESPONDENT_CHECK_ANSWERS,
-  RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT,
   RESPOND_TO_APPLICATION,
 } from './steps/urls';
 
@@ -134,14 +130,6 @@ export class Routes {
           // eslint-disable-next-line prettier/prettier
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
-        );
-        app.get(
-          RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT,
-          errorHandler(new ResponseSummaryConfirmationPostController(step.form.fields).submitC7)
-        );
-        app.get(
-          C100_CHECK_YOUR_ANSWER_REDIRECT,
-          errorHandler(new PayAndSubmitPostController(step.form.fields).handlePayment)
         );
       }
     }

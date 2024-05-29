@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import { config } from 'codeceptjs';
+import config from 'config';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
@@ -7,9 +7,11 @@ import { CaseType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import PCQGetController from '../../../steps/common/equality/PcqNavigationController';
+import { PCQProvider } from '../../../modules/pcq';
+import { PCQController } from '../../../modules/pcq/controller';
+import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { CA_RESPONDENT_RESPONSE_CONFIRMATION, RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
+import { CA_RESPONDENT_RESPONSE_CONFIRMATION, PCQ_CALLBACK_URL } from '../../urls';
 import { getPartyDetails, mapDataInSession } from '../utils';
 
 @autobind
@@ -28,13 +30,19 @@ export default class ResponseSummaryConfirmationPostController extends PostContr
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-    const protocol = req.app.locals.developmentMode ? 'http://' : '';
-    const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-    const returnUrl = `${protocol}${res.locals.host}${port}${RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT}`;
-    new PCQGetController().get(req, res, returnUrl);
+    if (!PCQProvider.getPcqId(req) && (await PCQProvider.isComponentEnabled())) {
+      const protocol = req.app.locals.developmentMode ? 'http://' : '';
+      const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
+      const returnUrl = `${protocol}${res.locals.host}${port}${applyParms(PCQ_CALLBACK_URL, {
+        context: 'c7-response',
+      })}`;
+      PCQController.launch(req, res, returnUrl);
+    } else {
+      this.submitC7Response(req, res);
+    }
   }
 
-  public async submitC7(req: AppRequest, res: Response): Promise<void> {
+  public async submitC7Response(req: AppRequest, res: Response): Promise<void> {
     //TODO update when merged with response submission fixes
     const { user, userCase } = req.session;
     const partyType = getCasePartyType(userCase, user.id);
