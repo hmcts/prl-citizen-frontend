@@ -196,16 +196,20 @@ export const proceedingSummaryData = (
     {
       key: keys['optitle'],
       valueHtml: isRespondent
-        ? userCase.hasOwnProperty('courtProceedingsOrders')
-          ? courtOrderDetails?.split(',').join('')
-          : ''
-        : userCase.hasOwnProperty('op_courtProceedingsOrders')
-        ? courtOrderDetails?.split(',').join('')
-        : '',
+        ? respondentOrderDetails(userCase, courtOrderDetails)
+        : applicantOrderDetails(userCase, courtOrderDetails),
       changeUrl: isRespondent ? PROCEEDINGS_COURT_PROCEEDINGS : C100_OTHER_PROCEEDINGS_DETAILS,
     },
     ...(isRespondent
       ? OPotherProceedingsSessionParserUtilRespondent(userCase, keys, 'courtProceedingsOrders', language)
       : OPotherProceedingsSessionParserUtil(userCase, keys, 'op_courtProceedingsOrders', language)),
   ];
+};
+
+const applicantOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string) => {
+  return userCase.hasOwnProperty('op_courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '';
+};
+
+const respondentOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string) => {
+  return userCase.hasOwnProperty('courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '';
 };

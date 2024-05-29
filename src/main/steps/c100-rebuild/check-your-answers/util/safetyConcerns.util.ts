@@ -10,12 +10,14 @@ import {
   en as passportAmountEn,
 } from '../../../common/safety-concerns/abduction/passport-amount/content';
 import {
+  cy as passportOfficeNotifiedCy,
+  en as passportOfficeNotifiedEn,
   cy as previousAbductionCy,
   en as previousAbductionEn,
 } from '../../../common/safety-concerns/abduction/passport-office-notified/content';
 import {
-  cy as passportOfficeNotifiedCy,
-  en as passportOfficeNotifiedEn,
+  cy as havePassportCy,
+  en as havePassportEn,
 } from '../../../common/safety-concerns/abduction/passport-office/content';
 import {
   cy as passportOfficeCy,
@@ -80,10 +82,12 @@ export const SafetyConcernContentElements = SystemLanguage => {
         supervisionAgreementOtherWaysLabel: unsupervisedEn().supervisionAgreementOtherWaysLabel,
         childLocation: abductionChildLocationEn().title,
         childsCurrentLocationText: abductionChildLocationEn().childsCurrentLocationText,
-        passportOffice: passportOfficeEn().title,
+        detailsofAbduction: passportOfficeEn().title,
+        doAnyOfTheChildHavePassport: havePassportEn().title,
         haspassportOfficeNotified: passportOfficeNotifiedEn().title,
         abducionThreats: abducionThreatsEn().title,
         previousAbduction: previousAbductionEn().title,
+        c1A_policeOrInvestigatorInvolved: passportOfficeEn().c1A_policeOrInvestigatorInvolved,
         errors: '',
       };
     },
@@ -108,10 +112,12 @@ export const SafetyConcernContentElements = SystemLanguage => {
         supervisionAgreementOtherWaysLabel: unsupervisedCy().supervisionAgreementOtherWaysLabel,
         childLocation: abductionChildLocationCy().title,
         childsCurrentLocationText: abductionChildLocationCy().childsCurrentLocationText,
-        passportOffice: passportOfficeCy().title,
+        detailsofAbduction: passportOfficeCy().title,
         haspassportOfficeNotified: passportOfficeNotifiedCy().title,
         abducionThreats: abducionThreatsCy().title,
         previousAbduction: previousAbductionCy().title,
+        c1A_policeOrInvestigatorInvolved: passportOfficeCy().c1A_policeOrInvestigatorInvolved,
+        doAnyOfTheChildHavePassport: havePassportCy().title,
         errors: '',
       };
     },
