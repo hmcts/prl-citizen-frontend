@@ -40,7 +40,7 @@ export default class SafteyConcernsApplicantAbusePostController extends PostCont
       };
       if (onlycontinue) {
         super.redirect(req, res);
-      } else if (saveAndComeLater && C100RebuildJourney) {
+      } else if (saveAndComeLater) {
         super.saveAndComeLater(req, res, { ...applicantAbuseData });
       }
     } else {
