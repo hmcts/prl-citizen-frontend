@@ -51,7 +51,7 @@ export default class ResponseSummaryConfirmationPostController extends PostContr
     if (partyDetails) {
       try {
         if (!partyDetails.user.pcqId) {
-          partyDetails.user.pcqId = userCase.respondentPcqId;
+          partyDetails.user.pcqId = req.session.applicationSettings?.pcqId;
         }
 
         req.session.userCase = await client.submitC7Response(

@@ -27,17 +27,12 @@ export class PcqController {
             .map(key => `${key}=${params[key]}`)
             .join('&');
           const pcqServiceUrl = PCQProvider.buildPcqServiceUrl(url as string, path, qs);
-
-          try {
-            return await PCQProvider.service.launchPcqService(req, res, pcqServiceUrl);
-          } catch (error) {
-            return PcqController.handleError(error, res);
-          }
+          return await PCQProvider.service.launchPcqService(req, res, pcqServiceUrl);
         } catch (error) {
           return PcqController.handleError(error, res);
         }
       } else {
-        PCQProvider.log('error', 'PCQ service is down, pcqEnabled');
+        PCQProvider.log('error', 'PCQ service is down');
         return res.redirect(returnUrl);
       }
     } catch (error) {

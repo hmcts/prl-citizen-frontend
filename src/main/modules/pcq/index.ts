@@ -122,6 +122,9 @@ class PcqProvider {
       ccdCaseId: caseData.id ?? caseData.caseId,
     };
     params['token'] = this.createToken(params, tokenKey);
+    if (partyType === 'applicant') {
+      req.session.userCase.applicantPcqId = pcqId;
+    }
     this.savePcqId(req, pcqId);
     return params;
   }
