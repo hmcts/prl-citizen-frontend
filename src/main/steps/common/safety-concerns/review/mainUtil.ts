@@ -28,7 +28,7 @@ export const SafetyConcerns = (
 ): SummaryList | undefined => {
   const dataForConcerns = userCase.hasOwnProperty('c1A_safetyConernAbout')
     ? userCase['c1A_safetyConernAbout']?.map(
-        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
+        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END
       )
     : '';
   const SummaryData = [
@@ -68,7 +68,7 @@ export const SafetyConcerns_child = (
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutChild')
     ? userCase['c1A_concernAboutChild']?.map(
-        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
+        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END
       )
     : '';
   let subFields = userCase['c1A_concernAboutChild'] as ANYTYPE;
@@ -119,12 +119,12 @@ export const SafetyConcerns_child = (
   const abdutionScreenData = [
     {
       key: keys['childLocation'],
-      valueHtml: userCase['c1A_abductionReasonOutsideUk']  || '',
+      valueHtml: userCase['c1A_abductionReasonOutsideUk']  ?? '',
       changeUrl:applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'], { root:RootContext.RESPONDENT }) as Urls.PageLink
     },
     {
       key: keys['childsCurrentLocationText'],
-      valueHtml: userCase['c1A_childsCurrentLocation']  || '',
+      valueHtml: userCase['c1A_childsCurrentLocation']  ?? '',
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'], { root:RootContext.RESPONDENT }) as Urls.PageLink
     },
     {
@@ -178,7 +178,7 @@ export const SafetyConcerns_yours = (
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutRespondent')
     ? userCase['c1A_concernAboutRespondent']?.map(
-        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
+        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END
       )
     : '';
   let subFields = userCase?.['c1A_concernAboutRespondent'] as ANYTYPE;
@@ -332,7 +332,7 @@ function childAbductedBeforeHTML(userCase: Partial<CaseWithId>, abdutionScreenDa
     abdutionScreenData.push(
       {
         key: keys['previousAbduction'],
-        valueHtml: userCase['c1A_previousAbductionsShortDesc'] || '',
+        valueHtml: userCase['c1A_previousAbductionsShortDesc'] ?? '',
         changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'], { root:RootContext.RESPONDENT }) as Urls.PageLink
       },
       {
