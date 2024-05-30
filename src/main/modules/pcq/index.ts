@@ -37,7 +37,13 @@ class PcqProvider {
     return new Promise(resolve => {
       (async () => {
         await this.resetPcqId(req);
-        req.session.applicationSettings!.pcqId = pcqId;
+        if (req.session.applicationSettings) {
+          req.session.applicationSettings.pcqId = pcqId;
+        } else {
+          req.session.applicationSettings = {
+            pcqId,
+          };
+        }
         return req.session.save(resolve);
       })();
     });

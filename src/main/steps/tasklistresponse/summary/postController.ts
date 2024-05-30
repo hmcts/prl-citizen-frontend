@@ -3,14 +3,13 @@ import config from 'config';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
-import { CaseType } from '../../../app/case/definition';
+import { CaseType, PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { PCQProvider } from '../../../modules/pcq';
 import { PCQController } from '../../../modules/pcq/controller';
 import { applyParms } from '../../../steps/common/url-parser';
-import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { CA_RESPONDENT_RESPONSE_CONFIRMATION, PCQ_CALLBACK_URL } from '../../urls';
 import { getPartyDetails, mapDataInSession } from '../utils';
 
@@ -30,7 +29,9 @@ export default class ResponseSummaryConfirmationPostController extends PostContr
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-    if (!PCQProvider.getPcqId(req) && (await PCQProvider.isComponentEnabled())) {
+    const { user, userCase } = req.session;
+    const partyDetails = getPartyDetails(userCase, user.id);
+    if (!(PCQProvider.getPcqId(req) || partyDetails?.user.pcqId) && (await PCQProvider.isComponentEnabled())) {
       const protocol = req.app.locals.developmentMode ? 'http://' : '';
       const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
       const returnUrl = `${protocol}${res.locals.host}${port}${applyParms(PCQ_CALLBACK_URL, {
@@ -45,7 +46,6 @@ export default class ResponseSummaryConfirmationPostController extends PostContr
   public async submitC7Response(req: AppRequest, res: Response): Promise<void> {
     //TODO update when merged with response submission fixes
     const { user, userCase } = req.session;
-    const partyType = getCasePartyType(userCase, user.id);
     const partyDetails = getPartyDetails(userCase, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     if (partyDetails) {
@@ -57,7 +57,7 @@ export default class ResponseSummaryConfirmationPostController extends PostContr
         req.session.userCase = await client.submitC7Response(
           userCase.id,
           partyDetails,
-          partyType,
+          PartyType.RESPONDENT,
           userCase.caseTypeOfApplication as CaseType
         );
         mapDataInSession(req.session.userCase, user.id);
