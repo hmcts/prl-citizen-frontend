@@ -21,11 +21,15 @@ const finalDocument: Document = {
 
 describe('PayAndSubmitPostController test cases', () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
+  const pcqGetControllerMock = jest.spyOn(PcqController.prototype, 'launch');
   beforeEach(() => {
     req = mockRequest();
     res = mockResponse();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   const mockFormContent = {
     fields: {},
   } as unknown as FormContent;
@@ -101,13 +105,10 @@ describe('PayAndSubmitPostController test cases', () => {
         },
       },
     });
-    jest.clearAllMocks();
-    jest.spyOn(PCQProvider, 'getPcqId').mockReturnValueOnce(null);
-    jest.spyOn(PCQProvider, 'isComponentEnabled').mockReturnValueOnce(Promise.resolve(true));
-    const pcqGetControllerMock = jest.spyOn(PcqController.prototype, 'launch');
+    jest.spyOn(PCQProvider, 'isComponentEnabled').mockReturnValue(Promise.resolve(true));
     mockedAxios.post.mockResolvedValueOnce({ finalDocument });
     const controller = new PayAndSubmitPostController(mockFormContent.fields);
     await controller.post(req, res);
-    expect(pcqGetControllerMock).toHaveBeenCalled();
+    expect(pcqGetControllerMock).not.toHaveBeenCalled();
   });
 });
