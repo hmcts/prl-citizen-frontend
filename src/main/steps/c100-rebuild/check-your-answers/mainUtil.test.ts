@@ -74,7 +74,7 @@ const keys = {
   childGenderLabel: 'childGenderLabel',
   orderAppliedFor: 'orderAppliedFor',
   parentalResponsibility: 'parentalResponsibility',
-  previousAbduction: 'previousAbduction',
+  detailsofAbduction: 'detailsofAbduction',
   c1A_policeOrInvestigatorInvolved: 'c1A_policeOrInvestigatorInvolved',
   childDrugAbuse: 'childDrugAbuse',
   otherWellBeingIssues: 'otherWellBeingIssues',
@@ -1364,12 +1364,12 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/safety-concerns/abduction/previousabductions',
               text: undefined,
-              visuallyHiddenText: 'previousAbduction',
+              visuallyHiddenText: 'detailsofAbduction',
             },
           ],
         },
         key: {
-          text: 'previousAbduction',
+          text: 'detailsofAbduction',
         },
         value: {},
       },
