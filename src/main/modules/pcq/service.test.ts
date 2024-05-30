@@ -50,7 +50,7 @@ describe('Pcq service', () => {
     mockedAxios.get.mockRejectedValueOnce;
     await PCQService.getPcqHealthStatus('http://pcq.aat.com/health');
     expect(PCQProvider.log).toBeCalled;
-});
+  });
 
   test('when invoking launch pcq - success scenario', async () => {
     try {

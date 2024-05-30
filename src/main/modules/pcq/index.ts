@@ -2,7 +2,7 @@
 
 import crypto from 'crypto';
 
-import { AxiosError, AxiosInstance } from 'axios';
+import { AxiosError } from 'axios';
 import config from 'config';
 import { Application } from 'express';
 import { v4 as uuid } from 'uuid';
@@ -17,7 +17,6 @@ import { PCQService, PcqService } from './service';
 
 class PcqProvider {
   private isEnabled = false;
-  private client: AxiosInstance | null = null;
   private logger: LoggerInstance | Record<string, never> = {};
 
   private algorithm = 'aes-256-gcm';
@@ -64,10 +63,6 @@ class PcqProvider {
     if (this.isEnabled) {
       this.route.enable(app);
     }
-  }
-
-  APIClient(): AxiosInstance | null {
-    return this.client;
   }
 
   async isComponentEnabled(): Promise<boolean> {
