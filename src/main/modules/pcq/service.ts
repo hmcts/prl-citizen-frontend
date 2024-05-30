@@ -1,18 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
-
-import { StatusResponse } from './definitions';
 
 import { PCQProvider } from './index';
 
 export class PcqService {
   async getPcqHealthStatus(url: string): Promise<string | undefined> {
     try {
-      const response: AxiosResponse<StatusResponse> = await axios.get(url);
+      const response = await axios.get(url);
       return response.data.status;
     } catch (err) {
       PCQProvider.log('error', err);
