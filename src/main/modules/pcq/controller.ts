@@ -3,14 +3,13 @@ import config from 'config';
 import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
-import { REASONABLE_ADJUSTMENTS_ERROR } from '../../steps/urls';
 
 import { PCQProvider } from './index';
 
 export class PcqController {
-  protected static handleError(error: string | AxiosError, res: Response): void {
+  protected static handleError(error: string | AxiosError, res: Response, redirectUrl: string): void {
     PCQProvider.log('error', error);
-    return res.redirect(REASONABLE_ADJUSTMENTS_ERROR);
+    return res.redirect(redirectUrl);
   }
 
   async launch(req: AppRequest, res: Response, returnUrl: string): Promise<void> {
@@ -29,14 +28,14 @@ export class PcqController {
           const pcqServiceUrl = PCQProvider.buildPcqServiceUrl(url as string, path, qs);
           return await PCQProvider.service.launchPcqService(req, res, pcqServiceUrl);
         } catch (error) {
-          return PcqController.handleError(error, res);
+          return PcqController.handleError(error, res, returnUrl);
         }
       } else {
         PCQProvider.log('error', 'PCQ service is down');
         return res.redirect(returnUrl);
       }
     } catch (error) {
-      PcqController.handleError(error, res);
+      PcqController.handleError(error, res, returnUrl);
     }
   }
 }
