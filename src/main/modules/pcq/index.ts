@@ -105,7 +105,7 @@ class PcqProvider {
     return encrypted;
   }
 
-  buildRequestParams(req: AppRequest, returnUrl: string): PcqParameters {
+  async buildRequestParams(req: AppRequest, returnUrl: string): PcqParameters {
     const pcqId = uuid();
     const caseData = req.session.userCase;
     const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
@@ -130,7 +130,11 @@ class PcqProvider {
     return params;
   }
 
-  buildPcqServiceUrl(url: string, path: string, qs: string): string {
+  async getPcqServiceUrl(url: string, path: string, req: AppRequest, returnUrl: string): string {
+    const params = this.buildRequestParams(req, returnUrl);
+    const qs = Object.keys(params)
+      .map(key => `${key}=${params[key]}`)
+      .join('&');
     return `${url}${path}?${qs}`;
   }
 }

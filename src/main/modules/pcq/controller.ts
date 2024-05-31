@@ -20,12 +20,7 @@ export class PcqController {
 
       if (status === 'UP') {
         try {
-          const params = PCQProvider.buildRequestParams(req, returnUrl);
-
-          const qs = Object.keys(params)
-            .map(key => `${key}=${params[key]}`)
-            .join('&');
-          const pcqServiceUrl = PCQProvider.buildPcqServiceUrl(url as string, path, qs);
+          const pcqServiceUrl = await PCQProvider.getPcqServiceUrl(url as string, path, req, returnUrl);
           return await PCQProvider.service.launchPcqService(req, res, pcqServiceUrl);
         } catch (error) {
           return PcqController.handleError(error, res, returnUrl);
