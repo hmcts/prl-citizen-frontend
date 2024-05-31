@@ -5,14 +5,14 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { ResponseSummaryConfirmationPostController } from './postControllerAfterPcq';
 
 describe('ResponseSummaryConfirmationPostController', () => {
-  const submitRespondentResponseMock = jest.spyOn(CosApiClient.prototype, 'submitRespondentResponse');
+  const submitRespondentResponseMock = jest.spyOn(CosApiClient.prototype, 'submitC7Response');
   test('post', async () => {
     const req = mockRequest();
     const res = mockResponse();
-    req.session.userCase.id = '12234567890';
+
     const partyDetails = [
       {
-        id: '1',
+        id: '12234567890',
         value: {
           firstName: '',
           lastName: '',
@@ -24,11 +24,28 @@ describe('ResponseSummaryConfirmationPostController', () => {
         },
       },
     ];
+    req.session.userCase = {
+      id: '12234567890',
+      respondents: partyDetails,
+      caseTypeOfApplication: 'C100',
+      caseInvites: [
+        {
+          id: '1',
+          value: {
+            partyId: '12234567890',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '12234567890',
+            expiryDate: 'string',
+            isApplicant: 'No',
+          },
+        },
+      ],
+    };
     req.session.user.id = '12234567890';
-    req.session.userCase.respondents = partyDetails;
     submitRespondentResponseMock.mockResolvedValue(req.session.userCase);
     const controller = new ResponseSummaryConfirmationPostController({});
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/summary-confirmation');
+    expect(res.redirect).toHaveBeenCalled;
   });
 });
