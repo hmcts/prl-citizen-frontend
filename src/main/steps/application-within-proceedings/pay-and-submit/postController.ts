@@ -79,7 +79,11 @@ export default class AWPPayAndSubmitPostController extends PostController<AnyObj
         appRequest.session.save();
       }, 1000);
       appResponse.redirect(
-        applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, { applicationType, applicationReason })
+        applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, {
+          partyType: appRequest.params?.partyType,
+          applicationType,
+          applicationReason,
+        })
       );
     });
   }

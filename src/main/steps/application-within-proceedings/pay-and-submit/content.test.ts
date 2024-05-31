@@ -28,7 +28,30 @@ const cy: typeof en = {
 };
 
 describe('pay and submit content', () => {
-  const commonContent = { language: 'en' } as unknown as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        params: {
+          partyType: 'applicant',
+          applicationType: 'C2',
+          applicationReason: 'delay-or-cancel-hearing-date',
+        },
+        session: {
+          userCase: {
+            id: '1234',
+            caseTypeOfApplication: 'FL401',
+            caseInvites: [],
+            respondents: '',
+            respondentsFL401: '',
+          },
+          user: {
+            id: '1234',
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
 
@@ -53,6 +76,6 @@ describe('pay and submit content', () => {
 
   test('should contain cancel link', () => {
     expect(form?.link?.text(generatePageContent({ language: 'en' }))).toBe(en.cancel);
-    expect(form?.link?.href).toBe('/application-within-proceedings/list-of-applications/1');
+    expect(form?.link?.href).toBe('/applicant/application-within-proceedings/list-of-applications/1');
   });
 });

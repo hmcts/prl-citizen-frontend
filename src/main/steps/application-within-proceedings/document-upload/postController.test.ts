@@ -32,6 +32,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -55,7 +56,7 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
     };
-    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     const res = mockResponse();
 
     mockedAxios.post.mockImplementation(url => {
@@ -84,7 +85,7 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
+      '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
     );
     expect(req.session.userCase.awp_uploadedApplicationForms).toStrictEqual([
       {
@@ -125,6 +126,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -132,7 +134,7 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
     };
-    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
 
     const res = mockResponse();
 
@@ -159,7 +161,7 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
+      '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
     );
     expect(req.session.userCase.awp_uploadedApplicationForms).toEqual([
       {
@@ -187,6 +189,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -211,7 +214,7 @@ describe('Document upload controller', () => {
       awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
     };
     req.route.path =
-      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
     const res = mockResponse();
 
     mockedAxios.post.mockImplementation(url => {
@@ -240,7 +243,7 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
+      '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
     );
     expect(req.session.userCase.awp_supportingDocuments).toStrictEqual([
       {
@@ -281,6 +284,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -289,7 +293,7 @@ describe('Document upload controller', () => {
       awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
     };
     req.route.path =
-      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
 
     const res = mockResponse();
 
@@ -316,7 +320,7 @@ describe('Document upload controller', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
+      '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
     );
     expect(req.session.userCase.awp_supportingDocuments).toEqual([
       {
@@ -345,6 +349,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -362,7 +367,7 @@ describe('Document upload controller', () => {
         },
       },
     });
-    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -394,6 +399,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -411,7 +417,7 @@ describe('Document upload controller', () => {
         },
       },
     });
-    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     req.files = { awp_application_form: { name: 'test.spf', size: '812300', data: '', mimetype: 'text' } };
     const res = mockResponse();
 
@@ -444,6 +450,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -464,7 +471,7 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF.tiff', size: '999999999', data: '', mimetype: 'text' },
     };
-    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -496,6 +503,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -514,7 +522,7 @@ describe('Document upload controller', () => {
       },
     });
     req.route.path =
-      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -546,6 +554,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -564,7 +573,7 @@ describe('Document upload controller', () => {
       },
     });
     req.route.path =
-      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
     req.files = { awp_application_form: { name: 'test.spf', size: '812300', data: '', mimetype: 'text' } };
     const res = mockResponse();
 
@@ -597,6 +606,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -618,7 +628,7 @@ describe('Document upload controller', () => {
       awp_application_form: { name: 'file_example_TIFF.tiff', size: '999999999', data: '', mimetype: 'text' },
     };
     req.route.path =
-      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -651,6 +661,7 @@ describe('Document upload controller', () => {
         onlyContinue: 'true',
       },
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -668,13 +679,13 @@ describe('Document upload controller', () => {
         },
       },
     });
-    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
 
     const controller = new UploadDocumentController(mockForm.fields);
     const res = mockResponse();
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents'
+      '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents'
     );
   });
 
@@ -695,6 +706,7 @@ describe('Document upload controller', () => {
         onlyContinue: 'true',
       },
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -713,13 +725,13 @@ describe('Document upload controller', () => {
       },
     });
     req.route.path =
-      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
 
     const controller = new UploadDocumentController(mockForm.fields);
     const res = mockResponse();
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers'
+      '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers'
     );
   });
 
@@ -737,6 +749,7 @@ describe('Document upload controller', () => {
 
     const req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -758,7 +771,7 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
     };
-    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
 
     const controller = new UploadDocumentController(mockForm.fields);
     const res = mockResponse();
@@ -772,6 +785,7 @@ describe('Document upload controller', () => {
       const res = mockResponse();
       const req = mockRequest({
         params: {
+          partyType: 'applicant',
           applicationType: 'C2',
           applicationReason: 'delay-or-cancel-hearing-date',
         },
@@ -791,7 +805,7 @@ describe('Document upload controller', () => {
           save: jest.fn(done => done('MOCK_ERROR')),
         },
       });
-      req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+      req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
 
       try {
         await controller.post(req, res);

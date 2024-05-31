@@ -1,8 +1,11 @@
-import { AWPApplicationReason, AWPApplicationType, YesOrNo } from '../app/case/definition';
+import _ from 'lodash';
+
+import { AWPApplicationReason, AWPApplicationType, PartyType, YesOrNo } from '../app/case/definition';
 
 import ApplicationWithinProceedingsNavigationController from './application-within-proceedings/navigationController';
 import { applyParms } from './common/url-parser';
 import { Sections, Step } from './constants';
+import { getCasePartyType } from './prl-cases/dashboard/utils';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
   APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED,
@@ -35,6 +38,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+        partyType: req?.params.partyType as PartyType,
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
@@ -54,6 +58,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+        partyType: req?.params.partyType as PartyType,
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
@@ -63,6 +68,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST, {
+        partyType: req?.params.partyType as PartyType,
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
@@ -82,6 +88,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES, {
+        partyType: getCasePartyType(caseData, _.get(req, 'session.user.id', '')),
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
@@ -92,10 +99,12 @@ export const applicationWithinProceedingsSequence: Step[] = [
     getNextStep: (caseData, req) =>
       caseData.awp_need_hwf === YesOrNo.YES
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE, {
+            partyType: getCasePartyType(caseData, _.get(req, 'session.user.id', '')),
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
           }) as PageLink)
         : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+            partyType: getCasePartyType(caseData, _.get(req, 'session.user.id', '')),
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
           }) as PageLink),
@@ -106,10 +115,12 @@ export const applicationWithinProceedingsSequence: Step[] = [
     getNextStep: (caseData, req) =>
       caseData.awp_have_hwfReference === YesOrNo.NO
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_APPLY_FOR_HWF, {
+            partyType: req?.params.partyType as PartyType,
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
           }) as PageLink)
         : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+            partyType: req?.params.partyType as PartyType,
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
           }) as PageLink),
@@ -119,6 +130,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE, {
+        partyType: req?.params.partyType as PartyType,
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
@@ -126,8 +138,9 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (_userCase, req) =>
+    getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS, {
+        partyType: req?.params.partyType as PartyType,
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
@@ -141,10 +154,12 @@ export const applicationWithinProceedingsSequence: Step[] = [
         caseData.awp_have_hwfReference === YesOrNo.YES &&
         caseData.awp_hwf_referenceNumber)
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED, {
+            partyType: req?.params.partyType as PartyType,
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
           }) as PageLink)
         : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT, {
+            partyType: req?.params.partyType as PartyType,
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
           }) as PageLink),
@@ -152,8 +167,9 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (_userCase, req) =>
+    getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, {
+        partyType: req?.params.partyType as PartyType,
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
@@ -171,13 +187,15 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (_userCase, req) =>
+    getNextStep: (caseData, req) =>
       req?.params.applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, {
+            partyType: req?.params.partyType as PartyType,
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
           }) as PageLink)
         : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST, {
+            partyType: req?.params.partyType as PartyType,
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
           }) as PageLink),
@@ -187,6 +205,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+        partyType: req?.params.partyType as PartyType,
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
@@ -196,6 +215,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+        partyType: req?.params.partyType as PartyType,
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,

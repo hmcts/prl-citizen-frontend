@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { APPLICATION_SIGNPOSTING_URL } from '../utils';
+import { getApplicationListUrl } from '../utils';
 
 export * from './routeGuard';
 
@@ -61,7 +61,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: APPLICATION_SIGNPOSTING_URL,
+    href: '#',
     text: l => l.cancel,
   },
 };
@@ -73,6 +73,10 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+
+  Object.assign(form.link!, {
+    href: getApplicationListUrl(content.additionalData?.req?.params?.partyType),
+  });
 
   return {
     ...translations,

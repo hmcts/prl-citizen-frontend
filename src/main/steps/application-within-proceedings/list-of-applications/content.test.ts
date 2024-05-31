@@ -67,7 +67,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C2',
-              url: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
+              url: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
             },
           ],
           sectionTitle: 'Ask to delay or cancel a hearing date',
@@ -80,7 +80,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C2',
-              url: '/application-within-proceedings/C2/request-more-time/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-more-time/guidance',
             },
           ],
           sectionTitle: 'Request more time to do what is required by a court order',
@@ -93,7 +93,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form FL403',
-              url: '/application-within-proceedings/FL403/change-extend-or-cancel-non-molestation-order-or-occupation-order/guidance',
+              url: '/applicant/application-within-proceedings/FL403/change-extend-or-cancel-non-molestation-order-or-occupation-order/guidance',
             },
           ],
           sectionTitle: 'Apply to change, extend or cancel a non-molestation order or occupation order',
@@ -104,23 +104,23 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Ask to submit evidence the court has not requested',
-              url: '/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
+              url: '/applicant/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
             },
             {
               text: 'Ask to share documents with someone else',
-              url: '/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
+              url: '/applicant/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
             },
             {
               text: 'Ask to join or leave a case',
-              url: '/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
+              url: '/applicant/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
             },
             {
               text: 'Request to withdraw an application',
-              url: '/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
             },
             {
               text: 'Ask the court to appoint an expert (such as a medical professional or a child psychologist)',
-              url: '/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
             },
           ],
           sectionTitle: 'Other requests to the court where you need to complete a form C2',
@@ -134,7 +134,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form D89',
-              url: '/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
+              url: '/applicant/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
             },
           ],
           sectionTitle: 'Ask the court to deliver papers to the other party',
@@ -149,7 +149,7 @@ describe('list of applications content', () => {
       },
       pagination: {
         next: {
-          href: '/application-within-proceedings/list-of-applications/2',
+          href: '/applicant/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 2',
           text: 'Next',
         },
@@ -178,7 +178,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form N161',
-              url: '/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
+              url: '/applicant/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
             },
           ],
           sectionTitle: 'Appeal a court order or ask for permission to appeal',
@@ -200,7 +200,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: ' Apply to the court using form FP25',
-              url: '/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/guidance',
+              url: '/applicant/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/guidance',
             },
           ],
           sectionTitle: 'Make a request to order a witness to attend court',
@@ -213,7 +213,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form FC600',
-              url: '/application-within-proceedings/FC600/request-court-to-act-when-someone-in-the-case-is-disobeying-court-order/guidance',
+              url: '/applicant/application-within-proceedings/FC600/request-court-to-act-when-someone-in-the-case-is-disobeying-court-order/guidance',
             },
           ],
           sectionTitle: 'Request the court acts when someone in the case is disobeying a court order',
@@ -226,7 +226,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form FL407',
-              url: '/application-within-proceedings/FL407/request-the-court-issues-an-arrest-warrant/guidance',
+              url: '/applicant/application-within-proceedings/FL407/request-the-court-issues-an-arrest-warrant/guidance',
             },
           ],
           sectionTitle: 'Request the court issues an arrest warrant',
@@ -242,7 +242,7 @@ describe('list of applications content', () => {
       pagination: {
         pageNumber: 2,
         previous: {
-          href: '/application-within-proceedings/list-of-applications/1',
+          href: '/applicant/application-within-proceedings/list-of-applications/1',
           labelText: '1 of 2',
           text: 'Previous',
         },
@@ -288,7 +288,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C2',
-              url: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
+              url: '/respondent/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
             },
           ],
           sectionTitle: 'Ask to delay or cancel a hearing date',
@@ -301,7 +301,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C2',
-              url: '/application-within-proceedings/C2/request-more-time/guidance',
+              url: '/respondent/application-within-proceedings/C2/request-more-time/guidance',
             },
           ],
           sectionTitle: 'Request more time to do what is required by a court order',
@@ -314,7 +314,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form FL403',
-              url: '/application-within-proceedings/FL403/change-extend-or-cancel-non-molestation-order-or-occupation-order/guidance',
+              url: '/respondent/application-within-proceedings/FL403/change-extend-or-cancel-non-molestation-order-or-occupation-order/guidance',
             },
           ],
           sectionTitle: 'Apply to change, extend or cancel a non-molestation order or occupation order',
@@ -325,23 +325,23 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Ask to submit evidence the court has not requested',
-              url: '/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
+              url: '/respondent/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
             },
             {
               text: 'Ask to share documents with someone else',
-              url: '/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
+              url: '/respondent/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
             },
             {
               text: 'Ask to join or leave a case',
-              url: '/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
+              url: '/respondent/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
             },
             {
               text: 'Request to withdraw an application',
-              url: '/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
+              url: '/respondent/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
             },
             {
               text: 'Ask the court to appoint an expert (such as a medical professional or a child psychologist)',
-              url: '/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
+              url: '/respondent/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
             },
           ],
           sectionTitle: 'Other requests to the court where you need to complete a form C2',
@@ -365,7 +365,7 @@ describe('list of applications content', () => {
       },
       pagination: {
         next: {
-          href: '/application-within-proceedings/list-of-applications/2',
+          href: '/respondent/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 2',
           text: 'Next',
         },
@@ -415,7 +415,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: ' Apply to the court using form FP25',
-              url: '/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/guidance',
+              url: '/respondent/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/guidance',
             },
           ],
           sectionTitle: 'Make a request to order a witness to attend court',
@@ -431,7 +431,7 @@ describe('list of applications content', () => {
       pagination: {
         pageNumber: 2,
         previous: {
-          href: '/application-within-proceedings/list-of-applications/1',
+          href: '/respondent/application-within-proceedings/list-of-applications/1',
           labelText: '1 of 2',
           text: 'Previous',
         },
@@ -460,7 +460,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C2',
-              url: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
+              url: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
             },
           ],
           sectionTitle: 'Ask to delay or cancel a hearing date',
@@ -473,7 +473,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C2',
-              url: '/application-within-proceedings/C2/request-more-time/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-more-time/guidance',
             },
           ],
           sectionTitle: 'Request more time to do what is required by a court order',
@@ -486,15 +486,15 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Child arrangements live with, or spend time with, order',
-              url: '/application-within-proceedings/C2/child-arrangements-order-to-live-with-or-spend-time/guidance',
+              url: '/applicant/application-within-proceedings/C2/child-arrangements-order-to-live-with-or-spend-time/guidance',
             },
             {
               text: 'Prohibited steps order',
-              url: '/application-within-proceedings/C2/prohibited-steps-order/guidance',
+              url: '/applicant/application-within-proceedings/C2/prohibited-steps-order/guidance',
             },
             {
               text: 'Specific issue order',
-              url: '/application-within-proceedings/C2/specific-issue-order/guidance',
+              url: '/applicant/application-within-proceedings/C2/specific-issue-order/guidance',
             },
           ],
           sectionTitle: 'Request an order relating to a child',
@@ -507,7 +507,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C79',
-              url: '/application-within-proceedings/C79/enforce-a-child-arrangements-order/guidance',
+              url: '/applicant/application-within-proceedings/C79/enforce-a-child-arrangements-order/guidance',
             },
           ],
           sectionTitle: 'Enforce a Child Arrangements Order',
@@ -518,27 +518,27 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Ask to submit evidence the court has not requested',
-              url: '/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
+              url: '/applicant/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
             },
             {
               text: 'Ask to share documents with someone else',
-              url: '/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
+              url: '/applicant/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
             },
             {
               text: 'Ask to join or leave a case',
-              url: '/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
+              url: '/applicant/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
             },
             {
               text: 'Request to withdraw an application',
-              url: '/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
             },
             {
               text: 'Ask the court to appoint an expert (such as a medical professional or a child psychologist)',
-              url: '/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
             },
             {
               text: 'Get permission for an application if the court previously stopped you',
-              url: '/application-within-proceedings/C2/permission-for-an-application-if-court-previously-stopped-you/guidance',
+              url: '/applicant/application-within-proceedings/C2/permission-for-an-application-if-court-previously-stopped-you/guidance',
             },
           ],
           sectionTitle: 'Other requests to the court where you need to complete a form C2',
@@ -553,7 +553,7 @@ describe('list of applications content', () => {
       },
       pagination: {
         next: {
-          href: '/application-within-proceedings/list-of-applications/2',
+          href: '/applicant/application-within-proceedings/list-of-applications/2',
           text: 'Next',
           labelText: '2 of 3',
         },
@@ -584,7 +584,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C1',
-              url: '/application-within-proceedings/C1/request-grant-for-parental-responsibility/guidance',
+              url: '/applicant/application-within-proceedings/C1/request-grant-for-parental-responsibility/guidance',
             },
           ],
           sectionTitle: 'Request the court grants you parental responsibility',
@@ -597,7 +597,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C1',
-              url: '/application-within-proceedings/C1/request-appoint-a-guardian-for-child/guidance',
+              url: '/applicant/application-within-proceedings/C1/request-appoint-a-guardian-for-child/guidance',
             },
           ],
           sectionTitle: 'Request the court appoints a guardian for the child',
@@ -611,7 +611,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form D89',
-              url: '/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
+              url: '/applicant/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
             },
           ],
           sectionTitle: 'Ask the court to deliver papers to the other party',
@@ -624,7 +624,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C4',
-              url: '/application-within-proceedings/C4/ask-court-to-order-someone-to-provide-child-information/guidance',
+              url: '/applicant/application-within-proceedings/C4/ask-court-to-order-someone-to-provide-child-information/guidance',
             },
           ],
           sectionTitle: 'Ask the court to order someone to provide information on where a child is',
@@ -637,7 +637,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form N161',
-              url: '/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
+              url: '/applicant/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
             },
           ],
           sectionTitle: 'Appeal a court order or ask for permission to appeal',
@@ -653,12 +653,12 @@ describe('list of applications content', () => {
       pagination: {
         pageNumber: 2,
         next: {
-          href: '/application-within-proceedings/list-of-applications/3',
+          href: '/applicant/application-within-proceedings/list-of-applications/3',
           labelText: '3 of 3',
           text: 'Next',
         },
         previous: {
-          href: '/application-within-proceedings/list-of-applications/1',
+          href: '/applicant/application-within-proceedings/list-of-applications/1',
           labelText: '1 of 3',
           text: 'Previous',
         },
@@ -699,7 +699,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C3',
-              url: '/application-within-proceedings/C3/order-authorising-search-for-taking-charge-of-and-delivery-of-a-child/guidance',
+              url: '/applicant/application-within-proceedings/C3/order-authorising-search-for-taking-charge-of-and-delivery-of-a-child/guidance',
             },
           ],
           sectionTitle: 'Ask for an order authorising search for, taking charge of and delivery of a child',
@@ -712,7 +712,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: ' Apply to the court using form FP25',
-              url: '/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/guidance',
+              url: '/applicant/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/guidance',
             },
           ],
           sectionTitle: 'Make a request to order a witness to attend court',
@@ -725,7 +725,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form FC600',
-              url: '/application-within-proceedings/FC600/request-court-to-act-when-someone-in-the-case-is-disobeying-court-order/guidance',
+              url: '/applicant/application-within-proceedings/FC600/request-court-to-act-when-someone-in-the-case-is-disobeying-court-order/guidance',
             },
           ],
           sectionTitle: 'Request the court acts when someone in the case is disobeying a court order',
@@ -741,7 +741,7 @@ describe('list of applications content', () => {
       pagination: {
         pageNumber: 3,
         previous: {
-          href: '/application-within-proceedings/list-of-applications/2',
+          href: '/applicant/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 3',
           text: 'Previous',
         },
@@ -790,7 +790,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C2',
-              url: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
+              url: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
             },
           ],
           sectionTitle: 'Ask to delay or cancel a hearing date',
@@ -803,7 +803,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C2',
-              url: '/application-within-proceedings/C2/request-more-time/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-more-time/guidance',
             },
           ],
           sectionTitle: 'Request more time to do what is required by a court order',
@@ -816,15 +816,15 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Child arrangements live with, or spend time with, order',
-              url: '/application-within-proceedings/C2/child-arrangements-order-to-live-with-or-spend-time/guidance',
+              url: '/applicant/application-within-proceedings/C2/child-arrangements-order-to-live-with-or-spend-time/guidance',
             },
             {
               text: 'Prohibited steps order',
-              url: '/application-within-proceedings/C2/prohibited-steps-order/guidance',
+              url: '/applicant/application-within-proceedings/C2/prohibited-steps-order/guidance',
             },
             {
               text: 'Specific issue order',
-              url: '/application-within-proceedings/C2/specific-issue-order/guidance',
+              url: '/applicant/application-within-proceedings/C2/specific-issue-order/guidance',
             },
           ],
           sectionTitle: 'Request an order relating to a child',
@@ -837,7 +837,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C79',
-              url: '/application-within-proceedings/C79/enforce-a-child-arrangements-order/guidance',
+              url: '/applicant/application-within-proceedings/C79/enforce-a-child-arrangements-order/guidance',
             },
           ],
           sectionTitle: 'Enforce a Child Arrangements Order',
@@ -848,27 +848,27 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Ask to submit evidence the court has not requested',
-              url: '/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
+              url: '/applicant/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
             },
             {
               text: 'Ask to share documents with someone else',
-              url: '/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
+              url: '/applicant/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
             },
             {
               text: 'Ask to join or leave a case',
-              url: '/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
+              url: '/applicant/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
             },
             {
               text: 'Request to withdraw an application',
-              url: '/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
             },
             {
               text: 'Ask the court to appoint an expert (such as a medical professional or a child psychologist)',
-              url: '/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
             },
             {
               text: 'Get permission for an application if the court previously stopped you',
-              url: '/application-within-proceedings/C2/permission-for-an-application-if-court-previously-stopped-you/guidance',
+              url: '/applicant/application-within-proceedings/C2/permission-for-an-application-if-court-previously-stopped-you/guidance',
             },
           ],
           sectionTitle: 'Other requests to the court where you need to complete a form C2',
@@ -883,7 +883,7 @@ describe('list of applications content', () => {
       },
       pagination: {
         next: {
-          href: '/application-within-proceedings/list-of-applications/2',
+          href: '/applicant/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 3',
           text: 'Next',
         },
@@ -934,7 +934,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C1',
-              url: '/application-within-proceedings/C1/request-grant-for-parental-responsibility/guidance',
+              url: '/applicant/application-within-proceedings/C1/request-grant-for-parental-responsibility/guidance',
             },
           ],
           sectionTitle: 'Request the court grants you parental responsibility',
@@ -947,7 +947,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C1',
-              url: '/application-within-proceedings/C1/request-appoint-a-guardian-for-child/guidance',
+              url: '/applicant/application-within-proceedings/C1/request-appoint-a-guardian-for-child/guidance',
             },
           ],
           sectionTitle: 'Request the court appoints a guardian for the child',
@@ -961,7 +961,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form D89',
-              url: '/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
+              url: '/applicant/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
             },
           ],
           sectionTitle: 'Ask the court to deliver papers to the other party',
@@ -974,7 +974,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C4',
-              url: '/application-within-proceedings/C4/ask-court-to-order-someone-to-provide-child-information/guidance',
+              url: '/applicant/application-within-proceedings/C4/ask-court-to-order-someone-to-provide-child-information/guidance',
             },
           ],
           sectionTitle: 'Ask the court to order someone to provide information on where a child is',
@@ -987,7 +987,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form N161',
-              url: '/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
+              url: '/applicant/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
             },
           ],
           sectionTitle: 'Appeal a court order or ask for permission to appeal',
@@ -1003,12 +1003,12 @@ describe('list of applications content', () => {
       pagination: {
         pageNumber: 2,
         next: {
-          href: '/application-within-proceedings/list-of-applications/3',
+          href: '/applicant/application-within-proceedings/list-of-applications/3',
           labelText: '3 of 3',
           text: 'Next',
         },
         previous: {
-          href: '/application-within-proceedings/list-of-applications/1',
+          href: '/applicant/application-within-proceedings/list-of-applications/1',
           text: 'Previous',
           labelText: '1 of 3',
         },
@@ -1069,7 +1069,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C3',
-              url: '/application-within-proceedings/C3/order-authorising-search-for-taking-charge-of-and-delivery-of-a-child/guidance',
+              url: '/applicant/application-within-proceedings/C3/order-authorising-search-for-taking-charge-of-and-delivery-of-a-child/guidance',
             },
           ],
           sectionTitle: 'Ask for an order authorising search for, taking charge of and delivery of a child',
@@ -1082,7 +1082,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: ' Apply to the court using form FP25',
-              url: '/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/guidance',
+              url: '/applicant/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/guidance',
             },
           ],
           sectionTitle: 'Make a request to order a witness to attend court',
@@ -1095,7 +1095,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form FC600',
-              url: '/application-within-proceedings/FC600/request-court-to-act-when-someone-in-the-case-is-disobeying-court-order/guidance',
+              url: '/applicant/application-within-proceedings/FC600/request-court-to-act-when-someone-in-the-case-is-disobeying-court-order/guidance',
             },
           ],
           sectionTitle: 'Request the court acts when someone in the case is disobeying a court order',
@@ -1111,7 +1111,7 @@ describe('list of applications content', () => {
       pagination: {
         pageNumber: 3,
         previous: {
-          href: '/application-within-proceedings/list-of-applications/2',
+          href: '/applicant/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 3',
           text: 'Previous',
         },
@@ -1137,7 +1137,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C2',
-              url: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
+              url: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
             },
           ],
           sectionTitle: 'Ask to delay or cancel a hearing date',
@@ -1150,7 +1150,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form C2',
-              url: '/application-within-proceedings/C2/request-more-time/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-more-time/guidance',
             },
           ],
           sectionTitle: 'Request more time to do what is required by a court order',
@@ -1163,7 +1163,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form FL403',
-              url: '/application-within-proceedings/FL403/change-extend-or-cancel-non-molestation-order-or-occupation-order/guidance',
+              url: '/applicant/application-within-proceedings/FL403/change-extend-or-cancel-non-molestation-order-or-occupation-order/guidance',
             },
           ],
           sectionTitle: 'Apply to change, extend or cancel a non-molestation order or occupation order',
@@ -1174,23 +1174,23 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Ask to submit evidence the court has not requested',
-              url: '/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
+              url: '/applicant/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
             },
             {
               text: 'Ask to share documents with someone else',
-              url: '/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
+              url: '/applicant/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
             },
             {
               text: 'Ask to join or leave a case',
-              url: '/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
+              url: '/applicant/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
             },
             {
               text: 'Request to withdraw an application',
-              url: '/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
             },
             {
               text: 'Ask the court to appoint an expert (such as a medical professional or a child psychologist)',
-              url: '/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
+              url: '/applicant/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
             },
           ],
           sectionTitle: 'Other requests to the court where you need to complete a form C2',
@@ -1204,7 +1204,7 @@ describe('list of applications content', () => {
           links: [
             {
               text: 'Apply to the court using form D89',
-              url: '/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
+              url: '/applicant/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
             },
           ],
           sectionTitle: 'Ask the court to deliver papers to the other party',
@@ -1219,7 +1219,7 @@ describe('list of applications content', () => {
       },
       pagination: {
         next: {
-          href: '/application-within-proceedings/list-of-applications/2',
+          href: '/applicant/application-within-proceedings/list-of-applications/2',
           labelText: '2 of 2',
           text: 'Next',
         },

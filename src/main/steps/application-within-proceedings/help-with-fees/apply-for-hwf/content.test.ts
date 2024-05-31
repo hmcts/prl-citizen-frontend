@@ -45,6 +45,7 @@ describe('help with fees content', () => {
     additionalData: {
       req: {
         params: {
+          partyType: 'applicant',
           applicationType: 'C2',
           applicationReason: 'delay-or-cancel-hearing-date',
         },
@@ -87,7 +88,11 @@ describe('help with fees content', () => {
   });
 
   test('should contain cancel link', () => {
-    expect(form?.link?.text(generatePageContent({ language: 'en' }))).toBe(en.cancel);
-    expect(form?.link?.href).toBe('/application-within-proceedings/list-of-applications/1');
+    expect(
+      form?.link?.text(
+        generatePageContent({ language: 'en' })
+      )
+    ).toBe(en.cancel);
+    expect(form?.link?.href).toBe('/applicant/application-within-proceedings/list-of-applications/1');
   });
 });

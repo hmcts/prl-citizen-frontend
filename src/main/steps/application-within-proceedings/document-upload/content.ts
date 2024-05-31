@@ -4,7 +4,7 @@ import { interpolate } from '../../../steps/common/string-parser';
 import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../steps/urls';
-import { APPLICATION_SIGNPOSTING_URL, getApplicationDetails } from '../utils';
+import { getApplicationDetails, getApplicationListUrl } from '../utils';
 
 export * from './routeGuard';
 
@@ -80,7 +80,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: APPLICATION_SIGNPOSTING_URL,
+    href: '#',
     text: l => l.cancel,
   },
 };
@@ -111,6 +111,10 @@ export const generateContent: TranslationFn = content => {
   const uploadDocError =
     request.session?.errors?.find(error => error.propertyName === 'awpUploadApplicationForm') ?? null;
 
+  Object.assign(form.link!, {
+    href: getApplicationListUrl(partyType),
+  });
+
   return {
     ...translations,
     errors: interpolatedErrors,
@@ -121,6 +125,7 @@ export const generateContent: TranslationFn = content => {
     fileUploadConfig: {
       labelText: translations.fileUploadLabel,
       uploadUrl: applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+        partyType,
         applicationType,
         applicationReason,
       }),
@@ -133,6 +138,7 @@ export const generateContent: TranslationFn = content => {
         caseData?.awp_uploadedApplicationForms?.map(applicationForm => ({
           filename: applicationForm.filename,
           fileremoveUrl: applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+            partyType,
             applicationType,
             applicationReason,
             removeId: applicationForm.id,

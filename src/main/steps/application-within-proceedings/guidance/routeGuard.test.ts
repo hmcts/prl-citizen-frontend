@@ -17,6 +17,7 @@ describe('AWP RouteGuard', () => {
   beforeEach(() => {
     req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
       },
@@ -106,7 +107,7 @@ describe('AWP RouteGuard', () => {
       },
     };
     req.session.userCase.awpFeeDetails = undefined;
-    req.originalUrl = '/application-within-proceedings/list-of-applications/1';
+    req.originalUrl = '/applicant/application-within-proceedings/list-of-applications/1';
 
     mockedAxios.post.mockReturnValueOnce({ data: feeDetails } as unknown as Promise<FeeDetailsResponse>);
     const res = mockResponse();
@@ -115,7 +116,7 @@ describe('AWP RouteGuard', () => {
 
     await routeGuard.get(req, res, next);
 
-    expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/list-of-applications/1');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/application-within-proceedings/list-of-applications/1');
     expect(next).not.toHaveBeenCalled();
   });
 
@@ -129,11 +130,11 @@ describe('AWP RouteGuard', () => {
 
   test('Should redirect to original url when error happens', async () => {
     req.session.save = undefined;
-    req.originalUrl = '/application-within-proceedings/list-of-applications/1';
+    req.originalUrl = '/applicant/application-within-proceedings/list-of-applications/1';
     const res = mockResponse();
     const next = jest.fn();
     await routeGuard.get(req, res, next);
-    expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/list-of-applications/1');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/application-within-proceedings/list-of-applications/1');
     expect(next).not.toHaveBeenCalled();
   });
 });

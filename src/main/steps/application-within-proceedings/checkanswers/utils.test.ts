@@ -15,6 +15,7 @@ describe('awp> checkAnswer > utils', () => {
       additionalData: {
         req: {
           params: {
+            partyType: 'applicant',
             applicationType: 'C2',
             applicationReason: 'delay-or-cancel-hearing-date',
           },
@@ -64,7 +65,7 @@ describe('awp> checkAnswer > utils', () => {
             actions: {
               items: [
                 {
-                  href: '/application-within-proceedings/list-of-applications/1',
+                  href: '/applicant/application-within-proceedings/list-of-applications/1',
                   text: 'Change',
                   visuallyHiddenText: 'What are you applying for?',
                 },
@@ -81,7 +82,7 @@ describe('awp> checkAnswer > utils', () => {
             actions: {
               items: [
                 {
-                  href: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing',
+                  href: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing',
                   text: 'Change',
                   visuallyHiddenText: 'Which hearing are you applying to delay or cancel?',
                 },
@@ -98,7 +99,7 @@ describe('awp> checkAnswer > utils', () => {
             actions: {
               items: [
                 {
-                  href: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/agreement-for-request',
+                  href: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/agreement-for-request',
                   text: 'Change',
                   visuallyHiddenText: 'Does the other person in the case agree with the date change?',
                 },
@@ -115,7 +116,7 @@ describe('awp> checkAnswer > utils', () => {
             actions: {
               items: [
                 {
-                  href: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/inform-other-parties',
+                  href: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/inform-other-parties',
                   text: 'Change',
                   visuallyHiddenText: 'Can the respondent be informed about the application?',
                 },
@@ -132,7 +133,7 @@ describe('awp> checkAnswer > utils', () => {
             actions: {
               items: [
                 {
-                  href: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload',
+                  href: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload',
                   text: 'Change',
                   visuallyHiddenText: 'Document uploaded',
                 },
@@ -149,7 +150,7 @@ describe('awp> checkAnswer > utils', () => {
             actions: {
               items: [
                 {
-                  href: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents',
+                  href: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents',
                   text: 'Change',
                   visuallyHiddenText: 'Do you have supporting documents to upload?',
                 },
@@ -166,7 +167,7 @@ describe('awp> checkAnswer > utils', () => {
             actions: {
               items: [
                 {
-                  href: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees',
+                  href: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees',
                   text: 'Change',
                   visuallyHiddenText: 'Will you be using help with fees to pay for this application?',
                 },
@@ -183,7 +184,7 @@ describe('awp> checkAnswer > utils', () => {
             actions: {
               items: [
                 {
-                  href: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees/reference',
+                  href: '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees/reference',
                   text: 'Change',
                   visuallyHiddenText: 'Help with fees reference number',
                 },

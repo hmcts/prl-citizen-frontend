@@ -315,7 +315,7 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     breadcrumb: {
       id: 'requestTheCourtForChange',
-      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { partyType, pageNumber: '1' }),
     },
     caption: interpolate(translations.caption, { applicationType: applicationDetails!.applicationType }),
     title: applicationDetails!.reasonText,

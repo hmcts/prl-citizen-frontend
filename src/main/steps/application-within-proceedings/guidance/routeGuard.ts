@@ -2,7 +2,9 @@ import { NextFunction, Response } from 'express';
 
 import { AWPApplicationReason, AWPApplicationType, CaseType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
+import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from '../../../steps/urls';
 import { fetchAndSaveFeeCodeDetails, getApplicationDetails } from '../utils';
 
 export const routeGuard = {
@@ -71,7 +73,9 @@ export const routeGuard = {
 
       return next();
     } catch (error) {
-      return res.redirect(req.originalUrl);
+      return res.redirect(
+        applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { partyType, pageNumber: '1' })
+      );
     }
   },
 };

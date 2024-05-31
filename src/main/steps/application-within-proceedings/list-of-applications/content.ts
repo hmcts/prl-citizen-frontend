@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { applyParms } from '../../../steps/common/url-parser';
@@ -268,7 +269,7 @@ export const form: FormContent = {
   fields: {},
 };
 
-const getPaginationConfig = (pageNumber, totalPages, language: string) => {
+const getPaginationConfig = (pageNumber: number, totalPages: number, language: string, partyType: PartyType) => {
   const pageNo = Number(pageNumber);
   const pagination = {
     pageNumber: pageNo,
@@ -282,7 +283,10 @@ const getPaginationConfig = (pageNumber, totalPages, language: string) => {
   if (!isLastPage) {
     pagination.next = {
       labelText: language === 'en' ? `${pageNo + 1} of ${totalPages}` : `${pageNo + 1} o ${totalPages}`,
-      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: (pageNo + 1).toString() }),
+      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+        partyType,
+        pageNumber: (pageNo + 1).toString(),
+      }),
       text: language === 'en' ? en.next : cy.next,
     };
   }
@@ -290,7 +294,10 @@ const getPaginationConfig = (pageNumber, totalPages, language: string) => {
   if (!isFirstPage) {
     pagination.previous = {
       labelText: language === 'en' ? `${pageNo - 1} of ${totalPages}` : `${pageNo - 1} o ${totalPages}`,
-      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: (pageNo - 1).toString() }),
+      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+        partyType,
+        pageNumber: (pageNo - 1).toString(),
+      }),
       text: language === 'en' ? en.previous : cy.previous,
     };
   }
@@ -298,7 +305,14 @@ const getPaginationConfig = (pageNumber, totalPages, language: string) => {
   return pagination;
 };
 
-const generateApplicationList = (applicationIndex, applicationList, rest, application, link) => {
+const generateApplicationList = (
+  applicationIndex: number,
+  applicationList: Record<string, any>,
+  rest: Record<string, any>,
+  application: Record<string, any>,
+  link: Record<string, any>,
+  partyType: PartyType
+) => {
   if (applicationIndex < 0) {
     applicationList.push({
       id: application.contentMappingKey,
@@ -310,14 +324,14 @@ const generateApplicationList = (applicationIndex, applicationList, rest, applic
     if (link.url && link.textMappingKey) {
       applicationList[applicationList.length - 1].links.push({
         text: rest?.[application.contentMappingKey]?.[link.textMappingKey],
-        url: applyParms(link.url, { applicationType: link.applicationType, applicationReason: link.reason }),
+        url: applyParms(link.url, { partyType, applicationType: link.applicationType, applicationReason: link.reason }),
       });
     }
   } else {
     if (link.url && link.textMappingKey) {
       applicationList[applicationIndex].links.push({
         text: rest?.[application.contentMappingKey]?.[link.textMappingKey],
-        url: applyParms(link.url, { applicationType: link.applicationType, applicationReason: link.reason }),
+        url: applyParms(link.url, { partyType, applicationType: link.applicationType, applicationReason: link.reason }),
       });
     }
   }
@@ -342,7 +356,7 @@ export const generateContent: TranslationFn = content => {
           _application => _application.id === application.contentMappingKey
         );
 
-        generateApplicationList(applicationIndex, applications, rest, application, link);
+        generateApplicationList(applicationIndex, applications, rest, application, link, partyType);
       }
     });
   });
@@ -364,6 +378,6 @@ export const generateContent: TranslationFn = content => {
     showSectionText,
     showAllSectionsText,
     applications: applications.slice((pageNumber - 1) * pageSize, pageNumber * pageSize),
-    pagination: getPaginationConfig(pageNumber, totalPages, content.language),
+    pagination: getPaginationConfig(pageNumber, totalPages, content.language, partyType),
   };
 };

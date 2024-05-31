@@ -21,7 +21,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { awp_application_form } = (req?.files as Record<string, any>) ?? {};
-    const { applicationType, applicationReason } = req.params;
+    const { partyType, applicationType, applicationReason } = req.params;
 
     const isSupportingDocuments = req.route.path === APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD;
     const areFilesUploaded = isSupportingDocuments
@@ -66,7 +66,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           this.addDocsToSession(isSupportingDocuments, req, documentInfo);
 
           req.session.save(() => {
-            res.redirect(applyParms(req.route.path, { applicationType, applicationReason }));
+            res.redirect(applyParms(req.route.path, { partyType, applicationType, applicationReason }));
           });
         } catch (error) {
           res.json(error);
