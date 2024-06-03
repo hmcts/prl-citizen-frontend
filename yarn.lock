@@ -4351,12 +4351,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.0.0, @types/node@npm:^18.6.1":
+"@types/node@npm:^18.0.0":
   version: 18.19.26
   resolution: "@types/node@npm:18.19.26"
   dependencies:
     undici-types: ~5.26.4
   checksum: d72d4e7e520206a2a05cb3e03a73696fc3bdcdc6ba5330a75cfef4818cb137b260c32dfe85e8b4ea28e8fe92f1d1497e26336c607254c5eaf47032a1b1c8bb6e
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.14.0":
+  version: 20.14.0
+  resolution: "@types/node@npm:20.14.0"
+  dependencies:
+    undici-types: ~5.26.4
+  checksum: b62383ea004deb1b40c0612f373eaf02247381b65a90f7957dc3034dda9b5622ab61b7afafa82f67909667a5cf9ea43a0643b2a78ea295dac8b77e75e11470d7
   languageName: node
   linkType: hard
 
@@ -18240,7 +18249,7 @@ __metadata:
     "@types/mini-css-extract-plugin": ^2.5.1
     "@types/multer": ^1.4.7
     "@types/negotiator": ^0.6.1
-    "@types/node": ^18.6.1
+    "@types/node": ^20.14.0
     "@types/nunjucks": ^3.2.1
     "@types/pino-pretty": ^4.7.5
     "@types/pino-std-serializers": ^4.0.0
