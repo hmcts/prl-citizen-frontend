@@ -8,7 +8,9 @@ import {
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
   C100_APPLICANT_CONTACT_DETAIL,
+  C100_APPLICANT_REFUGE_CONFIRMATION,
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+  C100_APPLICANT_STAYING_IN_REFUGE,
 } from '../../urls';
 
 import ApplicantDetailsNavigationController from './navigationController';
@@ -130,5 +132,36 @@ describe('ApplicantDetailsNavigationController', () => {
         dummyRequest.params
       )
     ).toBe('/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/start-alternative');
+  });
+
+  test('From Applicant1 refuge -> navigate to details know page', async () => {
+    dummyRequest.params.applicantId = '2732dd53-2e6c-46f9-88cd-08230e735b08';
+    expect(
+      ApplicantDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_STAYING_IN_REFUGE,
+        dummyRequest.session.userCase,
+        dummyRequest.params
+      )
+    ).toBe('/c100-rebuild/applicant/2732dd53-2e6c-46f9-88cd-08230e735b08/confidentiality/details-know');
+  });
+  test('From Applicant2 refuge -> navigate to refuge confirmation', async () => {
+    dummyRequest.params.applicantId = '2cd885a0-135e-45f1-85b7-aa46a1f78f46';
+    expect(
+      ApplicantDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_STAYING_IN_REFUGE,
+        dummyRequest.session.userCase,
+        dummyRequest.params
+      )
+    ).toBe('/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/refuge-confirmation');
+  });
+  test('From Applicant2 refuge confirmation -> navigate to personal details page', async () => {
+    dummyRequest.params.applicantId = '2cd885a0-135e-45f1-85b7-aa46a1f78f46';
+    expect(
+      ApplicantDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_REFUGE_CONFIRMATION,
+        dummyRequest.session.userCase,
+        dummyRequest.params
+      )
+    ).toBe('/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/personal-details');
   });
 });

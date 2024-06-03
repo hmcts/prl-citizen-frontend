@@ -121,7 +121,6 @@ export const getFormFields = (caseData: Partial<CaseWithId>, applicantId: string
   );
 };
 
-
 export const generateContent: TranslationFn = content => {
   const applicantId = content.additionalData!.req.params.applicantId;
   const applicantDetails = getPartyDetails(applicantId, content.userCase!.appl_allApplicants) as C100Applicant;

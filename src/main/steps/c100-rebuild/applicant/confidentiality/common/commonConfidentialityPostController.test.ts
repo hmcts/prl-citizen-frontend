@@ -96,6 +96,19 @@ describe('CommonConfidentialityController - post Controller', () => {
     await controller.post(req, res);
     expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivate).toEqual(['email']);
   });
+  test('postcontroller Start No', async () => {
+    const language = 'en';
+    req.session.lang = language;
+    req.params.applicantId = '480e8295-4c5b-4b9b-827f-f9be423ec1c5';
+    req.session.userCase.appl_allApplicants = dummyData;
+    req.body = {
+      _ctx: 'appl_start',
+      start: 'No',
+      contactDetailsPrivate: ['email'],
+    };
+    await controller.post(req, res);
+    expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivate).toEqual([]);
+  });
 
   test('postcontroller start Alternative', async () => {
     const language = 'en';
@@ -110,5 +123,36 @@ describe('CommonConfidentialityController - post Controller', () => {
     await controller.post(req, res);
     expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivate).toEqual([]);
     expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivateAlternative).toEqual(['email']);
+  });
+  test('postcontroller start Alternative No', async () => {
+    const language = 'en';
+    req.session.lang = language;
+    req.params.applicantId = '480e8295-4c5b-4b9b-827f-f9be423ec1c5';
+    req.session.userCase.appl_allApplicants = dummyData;
+    req.body = {
+      _ctx: 'appl_start_alternative',
+      startAlternative: 'No',
+      contactDetailsPrivateAlternative: ['email'],
+    };
+    await controller.post(req, res);
+    expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivateAlternative).toEqual([]);
+  });
+  test('postcontroller Refuge', async () => {
+    const language = 'en';
+    req.session.lang = language;
+    req.params.applicantId = '480e8295-4c5b-4b9b-827f-f9be423ec1c5';
+    req.session.userCase.appl_allApplicants = dummyData;
+    req.body = {
+      _ctx: 'appl_refuge',
+      stayingInRefuge: 'Yes',
+      contactDetailsPrivateAlternative: [],
+    };
+    await controller.post(req, res);
+    expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivate).toEqual([]);
+    expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivateAlternative).toEqual([
+      'address',
+      'telephone',
+      'email',
+    ]);
   });
 });

@@ -32,10 +32,12 @@ export default class ApplicantCommonConfidentialityController {
     const form = new Form(<FormFields>this.fields);
     const { ...formData } = form.getParsedBody(this.request.body);
     const { applicantId } = req['params'];
-    const form1 = new Form(getFormFields(req.session.userCase, applicantId).fields as FormFields);
+    const refugeForm = new Form(getFormFields(req.session.userCase, applicantId).fields as FormFields);
     if (!this.request.body['saveAndComeLater']) {
       this.request.session.errors =
-        this.request.body._ctx === this.contextNavigators.REFUGE ? form1.getErrors(formData) : form.getErrors(formData);
+        this.request.body._ctx === this.contextNavigators.REFUGE
+          ? refugeForm.getErrors(formData)
+          : form.getErrors(formData);
     }
 
     switch (this.request.body._ctx) {
@@ -71,7 +73,7 @@ export default class ApplicantCommonConfidentialityController {
       const applicantInformation = applicant;
       if (applicant['id'] === applicantId) {
         applicantInformation['stayingInRefuge'] = this.request.body.stayingInRefuge as YesOrNo;
-        applicantInformation['contactDetailsPrivateAlternative']=['address', 'telephone', 'email'];
+        applicantInformation['contactDetailsPrivateAlternative'] = ['address', 'telephone', 'email'];
       }
       return applicantInformation;
     }) as [];
