@@ -122,6 +122,8 @@ import {
   C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
   C100_MIAM_PROVIDING_DA_EVIDENCE,
   C100_MIAM_UPLOAD_DA_EVIDENCE,
+  C100_APPLICANT_STAYING_IN_REFUGE,
+  C100_APPLICANT_REFUGE_CONFIRMATION,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -560,7 +562,20 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_ADD_APPLICANTS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_APPLICANT_STAYING_IN_REFUGE,
+  },
+  {
+    url: C100_APPLICANT_STAYING_IN_REFUGE,
+    showInSection: Sections.C100,
+    postController: ApplicantCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_APPLICANT_STAYING_IN_REFUGE, caseData, req?.params),
+  },
+  {
+    url: C100_APPLICANT_REFUGE_CONFIRMATION,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      ApplicantNavigationController.getNextUrl(C100_APPLICANT_REFUGE_CONFIRMATION, caseData, req?.params),
   },
   {
     //80

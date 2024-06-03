@@ -660,6 +660,7 @@ export type C100Applicant = {
   id?: string;
   applicantFirstName?: string;
   applicantLastName?: string;
+  stayingInRefuge?:YesOrNo;
   detailsKnown?: string;
   startAlternative?: string;
   start?: string;

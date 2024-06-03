@@ -333,7 +333,8 @@ export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK: PageLink = 
 export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/feedbackno`;
 export const C100_APPLICANT_RELATIONSHIP_TO_CHILD: PageLink = `${C100_URL}/applicant/:applicantId/relationship-to-child/:childId`;
 export const C100_APPLICANTS_PERSONAL_DETAILS: PageLink = `${C100_URL}/applicant/:applicantId/personal-details`;
-
+export const C100_APPLICANT_STAYING_IN_REFUGE: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/staying-in-refuge`;
+export const C100_APPLICANT_REFUGE_CONFIRMATION: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/refuge-confirmation`;
 /**@C100 applicant address and contact detail*/
 export const C100_APPLICANT_ADDRESS: PageLink = `${C100_URL}/applicant/:applicantId/address`;
 export const C100_APPLICANT_ADDRESS_LOOKUP: PageLink = `${C100_APPLICANT_ADDRESS}/lookup`;

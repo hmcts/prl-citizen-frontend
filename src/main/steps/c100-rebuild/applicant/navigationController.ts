@@ -13,7 +13,9 @@ import {
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
   C100_APPLICANT_CONTACT_DETAIL,
   C100_APPLICANT_CONTACT_PREFERENCES,
+  C100_APPLICANT_REFUGE_CONFIRMATION,
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+  C100_APPLICANT_STAYING_IN_REFUGE,
   C100_RESPONDENT_DETAILS_ADD,
   PageLink,
 } from '../../urls';
@@ -48,6 +50,17 @@ class ApplicantNavigationController {
     let nextUrl;
 
     switch (currentPageUrl) {
+      case C100_APPLICANT_STAYING_IN_REFUGE: {
+        const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
+
+        nextUrl = applyParms(
+          applicantData.stayingInRefuge === YesOrNo.YES
+            ? C100_APPLICANT_REFUGE_CONFIRMATION
+            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+          { applicantId: this.applicantId }
+        );
+        break;
+      }
       case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW: {
         const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
 
@@ -74,7 +87,8 @@ class ApplicantNavigationController {
         break;
       }
       case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK:
-      case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO: {
+      case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO:
+      case C100_APPLICANT_REFUGE_CONFIRMATION: {
         nextUrl = applyParms(C100_APPLICANTS_PERSONAL_DETAILS, {
           applicantId: this.applicantId,
         });
@@ -128,7 +142,7 @@ class ApplicantNavigationController {
         const nextApplicant = this.getNextApplicant();
 
         nextUrl = nextApplicant
-          ? applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
+          ? applyParms(C100_APPLICANT_STAYING_IN_REFUGE, {
               applicantId: nextApplicant.id!,
             })
           : C100_RESPONDENT_DETAILS_ADD;
