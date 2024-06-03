@@ -20,7 +20,7 @@ import {
   SIGN_OUT_URL,
   TESTING_SUPPORT,
 } from '../../steps/urls';
-import { PCQProvider } from '../pcq';
+//import { PCQProvider } from '../pcq';
 import { RAProvider } from '../reasonable-adjustments';
 
 /**
@@ -51,7 +51,7 @@ export class OidcMiddleware {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
           RAProvider.init(req);
-          PCQProvider.init(req);
+          //PCQProvider.init(req);
 
           if (req.session.cookie.path) {
             const caseId = req.session.cookie.path.split('/').pop();
@@ -98,7 +98,7 @@ export class OidcMiddleware {
 
           if (req.session?.user) {
             RAProvider.init(req);
-            PCQProvider.init(req);
+            //PCQProvider.init(req);
             res.locals.isLoggedIn = true;
             req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 

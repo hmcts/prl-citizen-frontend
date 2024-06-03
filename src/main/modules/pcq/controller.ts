@@ -39,10 +39,10 @@ export class PcqController {
 
   async onPcqCompletion(req: AppRequest, res: Response): Promise<void> {
     try {
-      if (req.params.context === 'C100-rebuild') {
-        new PayAndSubmitPostController({} as FormFieldsFn).handlePayment(req, res);
+      if (req.params.context === 'c100-rebuild') {
+        return new PayAndSubmitPostController({} as FormFieldsFn).handlePayment(req, res);
       } else {
-        new ResponseSummaryConfirmationPostController({} as FormFieldsFn).submitC7Response(req, res);
+        return new ResponseSummaryConfirmationPostController({} as FormFieldsFn).submitC7Response(req, res);
       }
     } catch (error) {
       console.log(error.message);

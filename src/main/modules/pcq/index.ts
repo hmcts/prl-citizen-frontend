@@ -12,7 +12,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 
 import { PCQController, PcqController } from './controller';
 import { PcqParameters } from './definitions';
-import { PCQRoute, PcqRoute } from './route';
+import { PCQRoute, PcqRoute } from './routes';
 import { PCQService, PcqService } from './service';
 
 export class PcqProvider {
