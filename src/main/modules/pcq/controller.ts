@@ -2,7 +2,10 @@ import { AxiosError } from 'axios';
 import config from 'config';
 import { Response } from 'express';
 
+import { FormFieldsFn } from '../../../main/app/form/Form';
 import { AppRequest } from '../../app/controller/AppRequest';
+import PayAndSubmitPostController from '../../steps/c100-rebuild/check-your-answers/PayAndSubmitPostController';
+import ResponseSummaryConfirmationPostController from '../../steps/tasklistresponse/summary/postController';
 
 import { PCQProvider } from './index';
 
@@ -31,6 +34,18 @@ export class PcqController {
       }
     } catch (error) {
       PcqController.handleError(error, res, returnUrl);
+    }
+  }
+
+  async onPcqCompletion(req: AppRequest, res: Response): Promise<void> {
+    try {
+      if (req.params.context === 'C100-rebuild') {
+        new PayAndSubmitPostController({} as FormFieldsFn).handlePayment(req, res);
+      } else {
+        new ResponseSummaryConfirmationPostController({} as FormFieldsFn).submitC7Response(req, res);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   }
 }

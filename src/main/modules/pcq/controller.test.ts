@@ -47,21 +47,6 @@ describe('PCQController', () => {
               gender: 'Male',
               applicantPlaceOfBirth: '',
             },
-            reasonableAdjustmentsFlags: [
-              {
-                name: 'Private waiting area',
-                name_cy: 'Ystafell aros breifat',
-                flagComment: '',
-                flagComment_cy: '',
-                dateTimeCreated: '2023-11-16T16:05:25.000',
-                dateTimeModified: '2023-11-16T16:05:57.000',
-                path: ['Party', 'Reasonable adjustment', 'I need something to feel comfortable during my hearing'],
-                hearingRelevant: 'Yes',
-                flagCode: 'RA0033',
-                status: 'Requested',
-                availableExternally: 'Yes',
-              },
-            ],
           },
         ],
         applicants: [
