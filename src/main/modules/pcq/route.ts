@@ -1,6 +1,6 @@
 import { Application } from 'express';
 
-import { stepsWithContent } from '../../steps/';
+import { FormFieldsFn } from '../../../main/app/form/Form';
 import PayAndSubmitPostController from '../../steps/c100-rebuild/check-your-answers/PayAndSubmitPostController';
 import { applyParms } from '../../steps/common/url-parser';
 import ResponseSummaryConfirmationPostController from '../../steps/tasklistresponse/summary/postController';
@@ -15,20 +15,15 @@ export class PcqRoute {
 
   enable(app: Application): void {
     const { errorHandler } = app.locals;
-    const steps = [...stepsWithContent];
 
-    for (const step of steps) {
-      if (step.form) {
-        app.get(
-          applyParms(PCQ_CALLBACK_URL, { context: 'c100-rebuild' }),
-          errorHandler(new PayAndSubmitPostController(step.form.fields).handlePayment)
-        );
-        app.get(
-          applyParms(PCQ_CALLBACK_URL, { context: 'c7-response' }),
-          errorHandler(new ResponseSummaryConfirmationPostController(step.form.fields).submitC7Response)
-        );
-      }
-    }
+    app.get(
+      applyParms(PCQ_CALLBACK_URL, { context: 'c100-rebuild' }),
+      errorHandler(new PayAndSubmitPostController({} as FormFieldsFn).handlePayment)
+    );
+    app.get(
+      applyParms(PCQ_CALLBACK_URL, { context: 'c7-response' }),
+      errorHandler(new ResponseSummaryConfirmationPostController({} as FormFieldsFn).submitC7Response)
+    );
   }
 }
 
