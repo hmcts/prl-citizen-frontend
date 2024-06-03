@@ -67,7 +67,9 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload');
+    ).toBe(
+      '/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload'
+    );
   });
   test('should get correct url for upload application for paid application', () => {
     req.params.applicationType = AWPApplicationType.FP25;
@@ -122,7 +124,9 @@ describe('applicationWithinProceedingsNavigationController', () => {
           userCase,
           req
         )
-      ).toBe('/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload');
+      ).toBe(
+        '/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload'
+      );
     });
 
     test('should get correct url for upload application for paid application', () => {
@@ -135,7 +139,9 @@ describe('applicationWithinProceedingsNavigationController', () => {
           userCase,
           req
         )
-      ).toBe('/applicant/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/help-with-fees');
+      ).toBe(
+        '/applicant/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/help-with-fees'
+      );
     });
   });
 
@@ -169,7 +175,9 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload');
+    ).toBe(
+      '/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload'
+    );
   });
 
   test('should get correct url for upload application for paid application1', () => {

@@ -324,7 +324,7 @@ describe('AWP utils', () => {
     test('should create application and redirect if hwf reference exists', async () => {
       awpRequest = {
         ...awpRequest,
-        params: { partyType: 'applicant', type: 'C2', reason: 'request-more-time' },
+        params: { partyType: 'applicant', applicationType: 'C2', applicationReason: 'request-more-time' },
         session: {
           ...awpRequest.session,
           user: userDetails,
@@ -369,7 +369,7 @@ describe('AWP utils', () => {
     test('should catch error with create awp application and redirect when hwf reference exists', async () => {
       awpRequest = {
         ...awpRequest,
-        params: { partyType: 'applicant', type: 'C2', reason: 'request-more-time' },
+        params: { partyType: 'applicant', applicationType: 'C2', applicationReason: 'request-more-time' },
         session: {
           ...awpRequest.session,
           user: userDetails,
@@ -393,7 +393,9 @@ describe('AWP utils', () => {
 
       expect(awpRequest.session.paymentError.hasError).toBe(true);
       expect(awpRequest.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/applicant/application-within-proceedings/C2/request-more-time/checkanswers');
+      expect(res.redirect).toHaveBeenCalledWith(
+        '/applicant/application-within-proceedings/C2/request-more-time/checkanswers'
+      );
       expect(awpRequest.session.userCase.paymentData).toBe(undefined);
       expect(awpRequest.session.userCase.awp_applicationType).toBe(undefined);
       expect(awpRequest.session.userCase.awp_applicationReason).toBe(undefined);
@@ -402,7 +404,7 @@ describe('AWP utils', () => {
     test('should create application and redirect if hwf reference does not exist', async () => {
       awpRequest = {
         ...awpRequest,
-        params: { partyType: 'applicant', type: 'C2', reason: 'request-more-time' },
+        params: { partyType: 'applicant', applicationType: 'C2', applicationReason: 'request-more-time' },
         session: {
           ...awpRequest.session,
           user: userDetails,
@@ -449,7 +451,7 @@ describe('AWP utils', () => {
     test('should catch rejected promise from payment status and redirect', async () => {
       awpRequest = {
         ...awpRequest,
-        params: { partyType: 'applicant', type: 'C2', reason: 'request-more-time' },
+        params: { partyType: 'applicant', applicationType: 'C2', applicationReason: 'request-more-time' },
         session: {
           ...awpRequest.session,
           user: userDetails,
@@ -474,7 +476,9 @@ describe('AWP utils', () => {
 
       expect(awpRequest.session.paymentError.hasError).toBe(true);
       expect(awpRequest.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/applicant/application-within-proceedings/C2/request-more-time/checkanswers');
+      expect(res.redirect).toHaveBeenCalledWith(
+        '/applicant/application-within-proceedings/C2/request-more-time/checkanswers'
+      );
       expect(awpRequest.session.userCase.paymentData).toBe(undefined);
       expect(awpRequest.session.userCase.awp_applicationType).toBe(undefined);
       expect(awpRequest.session.userCase.awp_applicationReason).toBe(undefined);
@@ -483,11 +487,11 @@ describe('AWP utils', () => {
     test('should catch error with payment status and redirect', async () => {
       awpRequest = {
         ...awpRequest,
-        params: { partyType: 'applicant', type: 'C2', reason: 'request-more-time' },
+        params: { partyType: 'applicant', applicationType: 'C2', applicationReason: 'request-more-time' },
         session: {
           ...awpRequest.session,
           user: {
-            id: userDetails
+            id: userDetails,
           },
           userCase: {
             ...awpRequest.session.userCase,

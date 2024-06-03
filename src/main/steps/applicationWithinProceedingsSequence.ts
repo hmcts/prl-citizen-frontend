@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { AWPApplicationReason, AWPApplicationType, PartyType, YesOrNo } from '../app/case/definition';
 
 import ApplicationWithinProceedingsNavigationController from './application-within-proceedings/navigationController';
+import { isFreeApplication } from './application-within-proceedings/utils';
 import { applyParms } from './common/url-parser';
 import { Sections, Step } from './constants';
 import { getCasePartyType } from './prl-cases/dashboard/utils';
@@ -149,7 +150,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     url: APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
-      req?.session.applicationSettings?.awpSelectedApplicationDetails.applicationFee === '£0.00' ||
+      isFreeApplication(caseData) ||
       (caseData.awp_need_hwf === YesOrNo.YES &&
         caseData.awp_have_hwfReference === YesOrNo.YES &&
         caseData.awp_hwf_referenceNumber)

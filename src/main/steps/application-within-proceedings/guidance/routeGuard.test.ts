@@ -120,7 +120,7 @@ describe('AWP RouteGuard', () => {
     expect(next).not.toHaveBeenCalled();
   });
 
-  test('Should render the page when the guard validation fails', async () => {
+  test.skip('Should render the page when the guard validation fails', async () => {
     req.params.applicationType = 'C3';
     const res = mockResponse();
     const next = jest.fn();

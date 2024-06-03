@@ -124,7 +124,7 @@ describe('applicationWithinProceedingsSequence', () => {
     );
     expect(applicationWithinProceedingsSequence[11].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[11].getNextStep(userCase, req)).toBe(
-      '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/pay-and-submit'
+      '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/application-submitted'
     );
     expect(
       applicationWithinProceedingsSequence[11].getNextStep(
@@ -146,7 +146,7 @@ describe('applicationWithinProceedingsSequence', () => {
           },
         },
       })
-    ).toBe('/applicant/application-within-proceedings/C2/prohibited-steps-order/pay-and-submit');
+    ).toBe('/applicant/application-within-proceedings/C2/prohibited-steps-order/application-submitted');
     expect(
       applicationWithinProceedingsSequence[11].getNextStep(userCase, {
         ...req,

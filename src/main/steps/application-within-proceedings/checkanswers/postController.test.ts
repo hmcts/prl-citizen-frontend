@@ -164,10 +164,10 @@ describe('AWPCheckAnswersPostController controller', () => {
     const res = mockResponse();
     await controller.post(awpRequest, res);
 
-    expect(awpRequest.session.paymentError.hasError).toStrictEqual(true);
+    expect(awpRequest.session.paymentError.hasError).toStrictEqual(false);
     expect(awpRequest.session.save).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(
-      '/applicant/application-within-proceedings/C2/request-more-time/checkanswers'
+      '/applicant/application-within-proceedings/C2/request-more-time/application-submitted'
     );
   });
 

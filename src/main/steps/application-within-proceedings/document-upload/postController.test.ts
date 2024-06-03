@@ -56,7 +56,8 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
     };
-    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path =
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     const res = mockResponse();
 
     mockedAxios.post.mockImplementation(url => {
@@ -134,7 +135,8 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
     };
-    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path =
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
 
     const res = mockResponse();
 
@@ -367,7 +369,8 @@ describe('Document upload controller', () => {
         },
       },
     });
-    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path =
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -417,7 +420,8 @@ describe('Document upload controller', () => {
         },
       },
     });
-    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path =
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     req.files = { awp_application_form: { name: 'test.spf', size: '812300', data: '', mimetype: 'text' } };
     const res = mockResponse();
 
@@ -471,7 +475,8 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF.tiff', size: '999999999', data: '', mimetype: 'text' },
     };
-    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path =
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -679,7 +684,8 @@ describe('Document upload controller', () => {
         },
       },
     });
-    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path =
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
 
     const controller = new UploadDocumentController(mockForm.fields);
     const res = mockResponse();
@@ -771,7 +777,8 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
     };
-    req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+    req.route.path =
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
 
     const controller = new UploadDocumentController(mockForm.fields);
     const res = mockResponse();
@@ -805,7 +812,8 @@ describe('Document upload controller', () => {
           save: jest.fn(done => done('MOCK_ERROR')),
         },
       });
-      req.route.path = '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+      req.route.path =
+        '/:partyType/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
 
       try {
         await controller.post(req, res);

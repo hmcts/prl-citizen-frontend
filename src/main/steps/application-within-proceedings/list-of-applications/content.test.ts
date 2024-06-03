@@ -140,10 +140,12 @@ describe('list of applications content', () => {
           sectionTitle: 'Ask the court to deliver papers to the other party',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },
@@ -185,8 +187,8 @@ describe('list of applications content', () => {
         },
         {
           contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
-            'If someone has accused you,  <a href="/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+            'If someone has accused you,  <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
           ],
           id: 'courtToPreventAccusations',
           links: [],
@@ -232,10 +234,12 @@ describe('list of applications content', () => {
           sectionTitle: 'Request the court issues an arrest warrant',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },
@@ -348,18 +352,20 @@ describe('list of applications content', () => {
         },
         {
           contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
-            'If someone has accused you,  <a href="/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/respondent/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+            'If someone has accused you,  <a href="/respondent/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
           ],
           id: 'courtToPreventAccusations',
           links: [],
           sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },
@@ -421,10 +427,12 @@ describe('list of applications content', () => {
           sectionTitle: 'Make a request to order a witness to attend court',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },
@@ -544,10 +552,12 @@ describe('list of applications content', () => {
           sectionTitle: 'Other requests to the court where you need to complete a form C2',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },
@@ -643,10 +653,12 @@ describe('list of applications content', () => {
           sectionTitle: 'Appeal a court order or ask for permission to appeal',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },
@@ -684,8 +696,8 @@ describe('list of applications content', () => {
       applications: [
         {
           contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
-            'If someone has accused you,  <a href="/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+            'If someone has accused you,  <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
           ],
           id: 'courtToPreventAccusations',
           links: [],
@@ -731,10 +743,12 @@ describe('list of applications content', () => {
           sectionTitle: 'Request the court acts when someone in the case is disobeying a court order',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },
@@ -874,10 +888,12 @@ describe('list of applications content', () => {
           sectionTitle: 'Other requests to the court where you need to complete a form C2',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },
@@ -993,10 +1009,12 @@ describe('list of applications content', () => {
           sectionTitle: 'Appeal a court order or ask for permission to appeal',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },
@@ -1054,8 +1072,8 @@ describe('list of applications content', () => {
       applications: [
         {
           contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
-            'If someone has accused you,  <a href="/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+            'If someone has accused you,  <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
           ],
           id: 'courtToPreventAccusations',
           links: [],
@@ -1101,10 +1119,12 @@ describe('list of applications content', () => {
           sectionTitle: 'Request the court acts when someone in the case is disobeying a court order',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },
@@ -1210,10 +1230,12 @@ describe('list of applications content', () => {
           sectionTitle: 'Ask the court to deliver papers to the other party',
         },
       ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
+      breadcrumbs: [
+        {
+          href: '/case/1234',
+          id: 'caseView',
+        },
+      ],
       form: {
         fields: {},
       },

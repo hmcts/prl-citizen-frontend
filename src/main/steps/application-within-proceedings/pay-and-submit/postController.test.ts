@@ -155,7 +155,9 @@ describe('AWPPayAndSubmitPostController controller', () => {
     expect(awpRequest.session.userCase.paymentData).toStrictEqual(undefined);
     expect(awpRequest.session.paymentError.hasError).toStrictEqual(true);
     expect(awpRequest.session.save).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/application-within-proceedings/C2/request-more-time/checkanswers');
+    expect(res.redirect).toHaveBeenCalledWith(
+      '/applicant/application-within-proceedings/C2/request-more-time/checkanswers'
+    );
   });
 
   test('other errors should be caught', async () => {
@@ -167,6 +169,8 @@ describe('AWPPayAndSubmitPostController controller', () => {
     expect(awpRequest.session.userCase.paymentData).toStrictEqual(undefined);
     expect(awpRequest.session.paymentError.hasError).toStrictEqual(true);
     expect(awpRequest.session.save).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/application-within-proceedings/C2/request-more-time/checkanswers');
+    expect(res.redirect).toHaveBeenCalledWith(
+      '/applicant/application-within-proceedings/C2/request-more-time/checkanswers'
+    );
   });
 });

@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { CaseWithId } from '../../app/case/case';
@@ -467,18 +468,21 @@ export const processAWPApplication = async (appRequest: AppRequest, appResponse:
   const userDetails = appRequest.session.user;
   const caseData = appRequest.session.userCase;
   const applicationType =
-    (appRequest.params.type as AWPApplicationType) ?? appRequest.session.userCase.awp_applicationType;
+    (appRequest.params.applicationType as AWPApplicationType) ?? appRequest.session.userCase.awp_applicationType;
   const applicationReason =
-    (appRequest.params.reason as AWPApplicationReason) ?? appRequest.session.userCase.awp_applicationReason;
+    (appRequest.params.applicationReason as AWPApplicationReason) ?? appRequest.session.userCase.awp_applicationReason;
   const partyType = getCasePartyType(caseData, userDetails.id);
 
   try {
-    const caseId = caseData?.id ?? caseData?.caseId;
-    const paymentReference = caseData?.paymentData!.paymentReference;
-
-    if (caseData?.awp_hwf_referenceNumber && caseData.paymentData?.paymentServiceRequestReference) {
+    if (
+      isFreeApplication(caseData) ||
+      (caseData?.awp_hwf_referenceNumber && caseData.paymentData?.paymentServiceRequestReference)
+    ) {
       return createAWPApplication(userDetails, caseData, applicationType, applicationReason, appRequest, appResponse);
     }
+
+    const caseId = caseData?.id ?? caseData?.caseId;
+    const paymentReference = caseData?.paymentData!.paymentReference;
 
     await PaymentController.getPaymentStatus(userDetails, caseId, paymentReference).then(
       async ({ response }) => {
@@ -525,3 +529,6 @@ const handlePageRedirection = (
     );
   });
 };
+
+export const isFreeApplication = (caseData: Partial<CaseWithId>): boolean =>
+  Number(_.get(caseData, 'awpFeeDetails.feeAmount', 0)) <= 0;

@@ -2,13 +2,17 @@
 import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { interpolate } from '../../../steps/common/string-parser';
 import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import * as URL from '../../urls';
 import { isValidApplicationReason } from '../utils';
 export * from './routeGuard';
 
-import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from './../../urls';
+import {
+  APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
+} from './../../urls';
 import { listOfApplications } from './config';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -102,8 +106,8 @@ const en = {
   courtToPreventAccusations: {
     sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
     contents: [
-      'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
-      'If someone has accused you,  <a href="/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
+      'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="{APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE}" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+      'If someone has accused you,  <a href="{APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE}" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
     ],
   },
   authorisingSearchOrder: {
@@ -317,7 +321,15 @@ const generateApplicationList = (
     applicationList.push({
       id: application.contentMappingKey,
       sectionTitle: rest?.[application.contentMappingKey]?.sectionTitle,
-      contents: rest?.[application.contentMappingKey]?.contents,
+      contents: rest?.[application.contentMappingKey]?.contents?.map(content =>
+        interpolate(content, {
+          APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE: applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+            partyType,
+            applicationType: link.applicationType,
+            applicationReason: link.reason,
+          }),
+        })
+      ),
       links: [],
     });
 
@@ -368,10 +380,12 @@ export const generateContent: TranslationFn = content => {
   return {
     title,
     accordionTitle,
-    breadcrumb: {
-      id: 'caseView',
-      href: applyParms(`${URL.FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
-    },
+    breadcrumbs: [
+      {
+        id: 'caseView',
+        href: applyParms(`${URL.FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
+      },
+    ],
     form,
     hideAllSectionsText,
     hideSectionText,
