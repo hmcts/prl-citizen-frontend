@@ -623,7 +623,6 @@ export interface Case {
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
   applicantPcqId?: string;
-  respondentPcqId?: string;
   wishToRespond?: YesOrNo;
   your_response_to_aoh?: string;
   aoh_wishToRespond?: YesOrNo;

@@ -2,14 +2,19 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 
+import { CosApiClient } from '../../../app/case/CosApiClient';
+import { CaseType, PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import PCQGetController from '../../common/equality/PcqNavigationController';
-import { RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
+import { PCQProvider } from '../../../modules/pcq';
+import { PCQController } from '../../../modules/pcq/controller';
+import { applyParms } from '../../../steps/common/url-parser';
+import { CA_RESPONDENT_RESPONSE_CONFIRMATION, PCQ_CALLBACK_URL } from '../../urls';
+import { getPartyDetails, mapDataInSession } from '../utils';
 
 @autobind
-export default class ResponseSummaryConfirmationPcqPostController extends PostController<AnyObject> {
+export default class ResponseSummaryConfirmationPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
@@ -24,9 +29,46 @@ export default class ResponseSummaryConfirmationPcqPostController extends PostCo
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-    const protocol = req.app.locals.developmentMode ? 'http://' : '';
-    const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-    const returnUrl = `${protocol}${res.locals.host}${port}${RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT}`;
-    new PCQGetController().get(req, res, returnUrl);
+    const { user, userCase } = req.session;
+    const partyDetails = getPartyDetails(userCase, user.id);
+    if (!(PCQProvider.getPcqId(req) || partyDetails?.user.pcqId) && (await PCQProvider.isComponentEnabled())) {
+      const protocol = req.app.locals.developmentMode ? 'http://' : '';
+      const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
+      const returnUrl = `${protocol}${res.locals.host}${port}${applyParms(PCQ_CALLBACK_URL, {
+        context: 'c7-response',
+      })}`;
+      PCQController.launch(req, res, returnUrl);
+    } else {
+      this.submitC7Response(req, res);
+    }
+  }
+
+  public async submitC7Response(req: AppRequest, res: Response): Promise<void> {
+    //TODO update when merged with response submission fixes
+    const { user, userCase } = req.session;
+    const partyDetails = getPartyDetails(userCase, user.id);
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
+    if (partyDetails) {
+      try {
+        if (!partyDetails.user.pcqId) {
+          partyDetails.user.pcqId = req.session.applicationSettings?.pcqId;
+        }
+
+        req.session.userCase = await client.submitC7Response(
+          userCase.id,
+          partyDetails,
+          PartyType.RESPONDENT,
+          userCase.caseTypeOfApplication as CaseType
+        );
+        mapDataInSession(req.session.userCase, user.id);
+        req.session.save(() => {
+          res.redirect(CA_RESPONDENT_RESPONSE_CONFIRMATION);
+        });
+      } catch (error) {
+        throw new Error('Error occured, could not sumbit C7 response. - ResponseSummaryConfirmationPostController');
+      }
+    } else {
+      this.redirect(req, res);
+    }
   }
 }
