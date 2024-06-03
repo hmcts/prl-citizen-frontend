@@ -21,7 +21,7 @@ export class PcqController {
       if (status === 'UP') {
         try {
           const pcqServiceUrl = await PCQProvider.getPcqServiceUrl(url as string, path, req, returnUrl);
-          return await PCQProvider.service.launchPcqService(req, res, pcqServiceUrl);
+          return await PCQProvider.launchPcqService(req, res, pcqServiceUrl);
         } catch (error) {
           return PcqController.handleError(error, res, returnUrl);
         }

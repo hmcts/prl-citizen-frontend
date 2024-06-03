@@ -4,7 +4,7 @@ import crypto from 'crypto';
 
 import { AxiosError } from 'axios';
 import config from 'config';
-import { Application } from 'express';
+import { Application, Response } from 'express';
 import { v4 as uuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
@@ -15,7 +15,7 @@ import { PcqParameters } from './definitions';
 import { PCQRoute, PcqRoute } from './route';
 import { PCQService, PcqService } from './service';
 
-class PcqProvider {
+export class PcqProvider {
   private isEnabled = false;
   private logger: LoggerInstance | Record<string, never> = {};
 
@@ -74,7 +74,9 @@ class PcqProvider {
   async isComponentEnabled(): Promise<boolean> {
     const pcqEnabled = config.get('services.equalityAndDiversity.pcqEnabled');
     const isEnabled = pcqEnabled ? pcqEnabled === 'true' : false;
-    return isEnabled;
+    return new Promise(resolve => {
+      resolve(isEnabled);
+    });
   }
 
   async init(appRequest: AppRequest): Promise<void> {
@@ -136,6 +138,20 @@ class PcqProvider {
       .map(key => `${key}=${params[key]}`)
       .join('&');
     return `${url}${path}?${qs}`;
+  }
+
+  async launchPcqService(req: AppRequest, res: Response, url: string): Promise<void> {
+    try {
+      req.session.save(err => {
+        if (err) {
+          req.locals.logger.error('Error', err);
+          throw err;
+        }
+        return res.redirect(url);
+      });
+    } catch (err) {
+      PCQProvider.log('error', err);
+    }
   }
 }
 

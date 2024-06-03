@@ -2,14 +2,13 @@
 import axios from 'axios';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../test/unit/utils/mockResponse';
 
 import { PCQService } from './service';
 
 import { PCQProvider } from './index';
 
 describe('Pcq service', () => {
-  let appRequest, appResponse;
+  let appRequest;
   jest.spyOn(PCQProvider, 'log');
   const mockedAxios = axios as jest.Mocked<typeof axios>;
   mockedAxios.create = jest.fn(() => mockedAxios);
@@ -25,7 +24,6 @@ describe('Pcq service', () => {
       },
     });
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    appResponse = mockResponse();
   });
 
   test('when invoking pcq health - success scenario', async () => {
@@ -50,26 +48,5 @@ describe('Pcq service', () => {
     mockedAxios.get.mockRejectedValueOnce;
     await PCQService.getPcqHealthStatus('http://pcq.aat.com/health');
     expect(PCQProvider.log).toBeCalled;
-  });
-
-  test('when invoking launch pcq - success scenario', async () => {
-    try {
-      const callBackResponse = {
-        status: 'UP',
-      };
-      mockedAxios.get.mockReturnValueOnce({ data: callBackResponse } as unknown as Promise<any>);
-
-      await PCQService.launchPcqService(appRequest, appResponse, 'http://pcq.aat.com/service-endpoint');
-    } catch (error) {
-      expect(PCQProvider.log).toBeCalled;
-    }
-  });
-
-  test('when invoking launch pcq - error scenario', async () => {
-    try {
-      await PCQService.launchPcqService(appRequest, appResponse, 'http://pcq.aat.com/service-endpoint');
-    } catch (error) {
-      expect(PCQProvider.log).toBeCalled;
-    }
   });
 });

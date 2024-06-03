@@ -151,13 +151,13 @@ describe('PCQController', () => {
   });
 
   test('when launching Pcq module for c7 - success scenario', async () => {
-    jest.spyOn(PCQProvider.service, 'launchPcqService').mockImplementation(() => Promise.resolve());
+    jest.spyOn(PCQProvider, 'launchPcqService').mockImplementation(() => Promise.resolve());
     jest.spyOn(PCQProvider.service, 'getPcqHealthStatus').mockImplementation(() => Promise.resolve('UP'));
-    jest.spyOn(PCQProvider, 'buildPcqServiceUrl');
+    jest.spyOn(PCQProvider, 'getPcqServiceUrl');
     jest.spyOn(config, 'get').mockImplementation(() => 'password');
     await PCQController.launch(appRequest, appResponse, 'http://localhost:3001');
     expect(PCQProvider.buildRequestParams).toBeCalled;
-    expect(PCQProvider.buildPcqServiceUrl).toBeCalled;
+    expect(PCQProvider.getPcqServiceUrl).toBeCalled;
   });
 
   test('when launching Pcq module for c7 - error scenario', async () => {
@@ -166,7 +166,7 @@ describe('PCQController', () => {
     await PCQController.launch(appRequest, appResponse, 'http://localhost:3001');
     expect((PCQController as any).handleError).toBeCalled;
     expect(PCQProvider.buildRequestParams).not.toBeCalled;
-    expect(PCQProvider.buildPcqServiceUrl).not.toBeCalled;
+    expect(PCQProvider.getPcqServiceUrl).not.toBeCalled;
   });
 
   test('when launching Pcq module for c7 - error scenario when pcq health is down', async () => {
@@ -175,26 +175,26 @@ describe('PCQController', () => {
     await PCQController.launch(appRequest, appResponse, 'http://localhost:3001');
     expect((PCQController as any).handleError).toBeCalled;
     expect(PCQProvider.buildRequestParams).not.toBeCalled;
-    expect(PCQProvider.buildPcqServiceUrl).not.toBeCalled;
+    expect(PCQProvider.getPcqServiceUrl).not.toBeCalled;
   });
 
   test('when launching Pcq module for c100 rebuild - success scenario', async () => {
-    jest.spyOn(PCQProvider.service, 'launchPcqService').mockImplementation(() => Promise.resolve());
+    jest.spyOn(PCQProvider, 'launchPcqService').mockImplementation(() => Promise.resolve());
     jest.spyOn(PCQProvider.service, 'getPcqHealthStatus').mockImplementation(() => Promise.resolve('UP'));
-    jest.spyOn(PCQProvider, 'buildPcqServiceUrl');
+    jest.spyOn(PCQProvider, 'getPcqServiceUrl');
     appRequest.url = 'http://localhost:3001/pcq/c100-rebuild';
     jest.spyOn(config, 'get').mockImplementation(() => 'password');
     await PCQController.launch(appRequest, appResponse, 'http://localhost:3001');
     expect(PCQProvider.buildRequestParams).toBeCalled;
-    expect(PCQProvider.buildPcqServiceUrl).toBeCalled;
+    expect(PCQProvider.getPcqServiceUrl).toBeCalled;
   });
 
   test('when launching Pcq module for c100 rebuild - error scenario', async () => {
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    jest.spyOn(PCQProvider.service, 'launchPcqService').mockRejectedValueOnce({ status: 500 });
+    jest.spyOn(PCQProvider, 'launchPcqService').mockRejectedValueOnce({ status: 500 });
     await PCQController.launch(appRequest, appResponse, 'http://localhost:3001');
     expect((PCQController as any).handleError).toBeCalled;
     expect(PCQProvider.buildRequestParams).not.toBeCalled;
-    expect(PCQProvider.buildPcqServiceUrl).not.toBeCalled;
+    expect(PCQProvider.getPcqServiceUrl).not.toBeCalled;
   });
 });
