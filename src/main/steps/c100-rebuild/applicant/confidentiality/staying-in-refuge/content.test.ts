@@ -11,13 +11,13 @@ import { form as contentForms, generateContent } from './content';
 jest.mock('../../../../../app/form/validation');
 
 const en = {
-  headingTitle: 'Staying in a refuge',
+  title: 'Staying in a refuge',
   paragraph1:
     'A refuge is a secure place for people and their children to stay when they are escaping domestic abuse. It provides a space to feel safe and supported.',
   paragraph2:
     'Find out more about refuges at <a href=" https://www.citizensadvice.org.uk/family/gender-violence/domestic-violence-and-abuse/#:~:text=Finding%20a%20refuge">Citizen’s Advice (opens in a new tab)</a>.',
-  title: 'Does ',
-  title1: 'currently live in a refuge?',
+  label: 'Does ',
+  label1: 'currently live in a refuge?',
   one: 'Yes',
   two: 'No',
   errors: {
@@ -29,13 +29,13 @@ const en = {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const cy = {
-  headingTitle: 'Staying in a refuge -welsh',
+  title: 'Staying in a refuge -welsh',
   paragraph1:
     'A refuge is a secure place for people and their children to stay when they are escaping domestic abuse. It provides a space to feel safe and supported. -welsh',
   paragraph2:
     'Find out more about refuges at <a href=" https://www.citizensadvice.org.uk/family/gender-violence/domestic-violence-and-abuse/#:~:text=Finding%20a%20refuge">Citizen’s Advice (opens in a new tab)</a>. -welsh',
-  title: 'Does  -welsh',
-  title1: 'currently live in a refuge? -welsh',
+  label: 'Does  -welsh',
+  label1: 'currently live in a refuge? -welsh',
   one: 'Yes -welsh',
   two: 'No -welsh',
   errors: {

@@ -149,10 +149,26 @@ describe('CommonConfidentialityController - post Controller', () => {
     };
     await controller.post(req, res);
     expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivate).toEqual([]);
+    expect(req.session.userCase['appl_allApplicants'][0].stayingInRefuge).toEqual('Yes');
     expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivateAlternative).toEqual([
       'address',
       'telephone',
       'email',
     ]);
+  });
+  test('postcontroller Refuge no', async () => {
+    const language = 'en';
+    req.session.lang = language;
+    req.params.applicantId = '480e8295-4c5b-4b9b-827f-f9be423ec1c5';
+    req.session.userCase.appl_allApplicants = dummyData;
+    req.body = {
+      _ctx: 'appl_refuge',
+      stayingInRefuge: 'No',
+      contactDetailsPrivateAlternative: [],
+    };
+    await controller.post(req, res);
+    expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivate).toEqual([]);
+    expect(req.session.userCase['appl_allApplicants'][0].stayingInRefuge).toEqual('No');
+    expect(req.session.userCase['appl_allApplicants'][0].contactDetailsPrivateAlternative).toEqual([]);
   });
 });

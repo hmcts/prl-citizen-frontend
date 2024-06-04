@@ -54,7 +54,7 @@ class ApplicantNavigationController {
         const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
 
         nextUrl = applyParms(
-          applicantData.stayingInRefuge === YesOrNo.YES
+          applicantData?.stayingInRefuge === YesOrNo.YES
             ? C100_APPLICANT_REFUGE_CONFIRMATION
             : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
           { applicantId: this.applicantId }
@@ -65,7 +65,7 @@ class ApplicantNavigationController {
         const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
 
         nextUrl = applyParms(
-          applicantData.detailsKnown === YesOrNo.YES
+          applicantData?.detailsKnown === YesOrNo.YES
             ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START
             : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
           { applicantId: this.applicantId }

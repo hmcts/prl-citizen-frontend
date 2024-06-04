@@ -7,13 +7,13 @@ import { getPartyDetails } from '../../../people/util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = {
-  headingTitle: 'Staying in a refuge',
+  title: 'Staying in a refuge',
   paragraph1:
     'A refuge is a secure place for people and their children to stay when they are escaping domestic abuse. It provides a space to feel safe and supported.',
   paragraph2:
     'Find out more about refuges at <a href=" https://www.citizensadvice.org.uk/family/gender-violence/domestic-violence-and-abuse/#:~:text=Finding%20a%20refuge">Citizen’s Advice (opens in a new tab)</a>.',
-  title: 'Does ',
-  title1: 'currently live in a refuge?',
+  label: 'Does ',
+  label1: 'currently live in a refuge?',
   one: 'Yes',
   two: 'No',
   errors: {
@@ -25,13 +25,13 @@ export const en = {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = {
-  headingTitle: 'Staying in a refuge -welsh',
+  title: 'Staying in a refuge -welsh',
   paragraph1:
     'A refuge is a secure place for people and their children to stay when they are escaping domestic abuse. It provides a space to feel safe and supported. -welsh',
   paragraph2:
     'Find out more about refuges at <a href=" https://www.citizensadvice.org.uk/family/gender-violence/domestic-violence-and-abuse/#:~:text=Finding%20a%20refuge">Citizen’s Advice (opens in a new tab)</a>. -welsh',
-  title: 'Does  -welsh',
-  title1: 'currently live in a refuge? -welsh',
+  label: 'Does  -welsh',
+  label1: 'currently live in a refuge? -welsh',
   one: 'Yes -welsh',
   two: 'No -welsh',
   errors: {
@@ -70,7 +70,7 @@ export const generateFormFields = (refuge: YesOrNo | undefined, applicantName: s
     stayingInRefuge: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.title + ' ' + applicantName + ' ' + l.title1,
+      label: l => `${l.label} ${applicantName} ${l.label1}`,
       section: l => l.section,
       values: [
         {
@@ -113,19 +113,23 @@ export const form: FormContent = {
 
 export const getFormFields = (caseData: Partial<CaseWithId>, applicantId: string): FormContent => {
   const applicantDetails = getPartyDetails(applicantId, caseData?.appl_allApplicants) as C100Applicant;
-  const applicantName = applicantDetails?.['applicantFirstName'] + ' ' + applicantDetails?.['applicantLastName'];
 
   return updateFormFields(
     form,
-    generateFormFields(applicantDetails?.stayingInRefuge ?? undefined, applicantName).fields
+    generateFormFields(
+      applicantDetails?.stayingInRefuge,
+      `${applicantDetails?.['applicantFirstName']} ${applicantDetails?.['applicantLastName']}`
+    ).fields
   );
 };
 
 export const generateContent: TranslationFn = content => {
   const applicantId = content.additionalData!.req.params.applicantId;
   const applicantDetails = getPartyDetails(applicantId, content.userCase!.appl_allApplicants) as C100Applicant;
-  const applicantName = applicantDetails?.['applicantFirstName'] + ' ' + applicantDetails?.['applicantLastName'];
-  const { fields } = generateFormFields(applicantDetails.stayingInRefuge, applicantName);
+  const { fields } = generateFormFields(
+    applicantDetails.stayingInRefuge,
+    `${applicantDetails?.['applicantFirstName']} ${applicantDetails?.['applicantLastName']}`
+  );
   const translations = languages[content.language];
   return {
     ...translations,
