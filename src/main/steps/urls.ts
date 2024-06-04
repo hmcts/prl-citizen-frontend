@@ -177,7 +177,7 @@ export const FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH = 'https://llyw.cymru/cafcass-cy
 /* Respondent respnse */
 export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = '/tasklistresponse/summary-confirmation';
 export const CA_RESPONDENT_RESPONSE_SUBMIT: PageLink = `${CA_RESPONDENT_RESPONSE_CONFIRMATION}/submit`;
-export const CA_RESPONDENT_GENERATE_C7_DRAFT: PageLink = '/tasklistresponse/generate-c7-draft';
+export const CA_RESPONDENT_GENERATE_C7_DRAFT: PageLink = '/tasklistresponse/generate-c7-draft/:language';
 /* Legal representation*/
 const RESPOND_TO_APPLICATION_LEGAL_REPRESENTATION = '/tasklistresponse/legalrepresentation';
 export const LEGAL_REPRESENTATION_START: PageLink = `${RESPOND_TO_APPLICATION_LEGAL_REPRESENTATION}/start`;
