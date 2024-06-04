@@ -15,6 +15,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
   beforeEach(() => {
     req = mockRequest({
       params: {
+        partyType: 'applicant',
         applicationType: AWPApplicationType.C2,
         applicationReason: AWPApplicationReason.DELAY_CANCEL_HEARING_DATE,
       },
@@ -36,7 +37,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         { awp_completedForm: YesOrNo.NO },
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/download-form');
+    ).toBe('/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/download-form');
   });
   test('should get correct url for upload application when c2 and delay cancel hearing date', () => {
     expect(
@@ -45,7 +46,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing');
+    ).toBe('/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing');
   });
   test('should get correct url for upload application when c2 and not delay cancel hearing date', () => {
     req.params.applicationReason = AWPApplicationReason.REQUEST_MORE_TIME;
@@ -55,7 +56,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/C2/request-more-time/agreement-for-request');
+    ).toBe('/applicant/application-within-proceedings/C2/request-more-time/agreement-for-request');
   });
   test('should get correct url for upload application for free application', () => {
     req.params.applicationType = AWPApplicationType.EX740;
@@ -66,7 +67,9 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload');
+    ).toBe(
+      '/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload'
+    );
   });
   test('should get correct url for upload application for paid application', () => {
     req.params.applicationType = AWPApplicationType.FP25;
@@ -78,7 +81,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/help-with-fees');
+    ).toBe('/applicant/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/help-with-fees');
   });
   describe('getUploadApplicationNextStep', () => {
     test('should get correct url for upload application when no selected', () => {
@@ -88,7 +91,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
           { awp_completedForm: YesOrNo.NO },
           req
         )
-      ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/download-form');
+      ).toBe('/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/download-form');
     });
 
     test('should get correct url for upload application when c2 and delay cancel hearing date', () => {
@@ -98,7 +101,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
           userCase,
           req
         )
-      ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing');
+      ).toBe('/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing');
     });
 
     test('should get correct url for upload application when c2 and not delay cancel hearing date', () => {
@@ -109,7 +112,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
           userCase,
           req
         )
-      ).toBe('/application-within-proceedings/C2/request-more-time/agreement-for-request');
+      ).toBe('/applicant/application-within-proceedings/C2/request-more-time/agreement-for-request');
     });
 
     test('should get correct url for upload application for free application', () => {
@@ -121,7 +124,9 @@ describe('applicationWithinProceedingsNavigationController', () => {
           userCase,
           req
         )
-      ).toBe('/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload');
+      ).toBe(
+        '/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload'
+      );
     });
 
     test('should get correct url for upload application for paid application', () => {
@@ -134,7 +139,9 @@ describe('applicationWithinProceedingsNavigationController', () => {
           userCase,
           req
         )
-      ).toBe('/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/help-with-fees');
+      ).toBe(
+        '/applicant/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/help-with-fees'
+      );
     });
   });
 
@@ -145,7 +152,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing');
+    ).toBe('/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing');
   });
 
   test('should get correct url for upload application when c2 and not delay cancel hearing date-1', () => {
@@ -156,7 +163,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/C2/request-more-time/agreement-for-request');
+    ).toBe('/applicant/application-within-proceedings/C2/request-more-time/agreement-for-request');
   });
 
   test('should get correct url for upload application for free application1', () => {
@@ -168,7 +175,9 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload');
+    ).toBe(
+      '/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload'
+    );
   });
 
   test('should get correct url for upload application for paid application1', () => {
@@ -181,7 +190,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/help-with-fees');
+    ).toBe('/applicant/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/help-with-fees');
   });
   test('should get correct url for agreement for request for free delay or cancel hearing application', () => {
     expect(
@@ -190,7 +199,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload');
+    ).toBe('/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload');
   });
 
   test('should get correct url for agreement for request for paid delay or cancel hearing application', () => {
@@ -201,7 +210,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees');
+    ).toBe('/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees');
   });
   test('should get correct url for agreement for request for other C2 application when yes selected', () => {
     req.params.applicationReason = AWPApplicationReason.REQUEST_MORE_TIME;
@@ -212,7 +221,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         { awp_agreementForRequest: YesOrNo.YES },
         req
       )
-    ).toBe('/application-within-proceedings/C2/request-more-time/help-with-fees');
+    ).toBe('/applicant/application-within-proceedings/C2/request-more-time/help-with-fees');
   });
   test('should get correct url for agreement for request for other C2 application when no selected', () => {
     req.params.applicationReason = AWPApplicationReason.REQUEST_MORE_TIME;
@@ -222,7 +231,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         { awp_agreementForRequest: YesOrNo.NO },
         req
       )
-    ).toBe('/application-within-proceedings/C2/request-more-time/inform-other-parties');
+    ).toBe('/applicant/application-within-proceedings/C2/request-more-time/inform-other-parties');
   });
   test('should get correct url for supporting documents for delay cancel hearing date when yes selected', () => {
     expect(
@@ -231,7 +240,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         { awp_hasSupportingDocuments: YesOrNo.YES },
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload');
+    ).toBe('/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload');
   });
   test('should get correct url for supporting documents for delay cancel hearing date when no selected', () => {
     expect(
@@ -240,7 +249,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         { awp_hasSupportingDocuments: YesOrNo.NO },
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers');
+    ).toBe('/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers');
   });
 
   test('should get correct url for supporting documents for other application reason when yes selected', () => {
@@ -251,7 +260,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         { awp_hasSupportingDocuments: YesOrNo.YES },
         req
       )
-    ).toBe('/application-within-proceedings/C2/request-more-time/supporting-document-upload');
+    ).toBe('/applicant/application-within-proceedings/C2/request-more-time/supporting-document-upload');
   });
 
   test('should get correct url for supporting documents for other application reason when no selected', () => {
@@ -262,17 +271,17 @@ describe('applicationWithinProceedingsNavigationController', () => {
         { awp_hasSupportingDocuments: YesOrNo.NO },
         req
       )
-    ).toBe('/application-within-proceedings/C2/request-more-time/urgent-request');
+    ).toBe('/applicant/application-within-proceedings/C2/request-more-time/urgent-request');
   });
 
   test('redirects to same page in other cases', () => {
     req.params.applicationReason = AWPApplicationReason.REQUEST_MORE_TIME;
     expect(
       ApplicationWithinProceedingsNavigationController.getNextUrl(
-        '/application-within-proceedings/C2/request-more-time/help-with-fees',
+        '/applicant/application-within-proceedings/C2/request-more-time/help-with-fees',
         {},
         req
       )
-    ).toBe('/application-within-proceedings/C2/request-more-time/help-with-fees');
+    ).toBe('/applicant/application-within-proceedings/C2/request-more-time/help-with-fees');
   });
 });

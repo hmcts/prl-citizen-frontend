@@ -28,7 +28,7 @@ describe('AWPPayAndSubmitPostController controller', () => {
 
   beforeEach(() => {
     awpRequest = mockRequest({
-      params: { applicationType: 'C2', applicationReason: 'request-more-time' },
+      params: { partyType: 'applicant', applicationType: 'C2', applicationReason: 'request-more-time' },
       session: {
         save: jest.fn(done => done()),
         applicationSettings: {
@@ -81,7 +81,7 @@ describe('AWPPayAndSubmitPostController controller', () => {
       payment_reference: 'MOCK_REFERENCE',
       date_created: 'MOCK_DATE',
       external_reference: 'MOCK_REFERENCE',
-      next_url: '/application-within-proceedings/C2/request-more-time/application-submitted',
+      next_url: '/applicant/application-within-proceedings/C2/request-more-time/application-submitted',
       status: 'Success',
       serviceRequestReference: 'MOCK_REFERENCE',
     };
@@ -111,7 +111,7 @@ describe('AWPPayAndSubmitPostController controller', () => {
       paymentReference: 'MOCK_REFERENCE',
       paymentDate: 'MOCK_DATE',
       externalReference: 'MOCK_REFERENCE',
-      nextActionUrl: '/application-within-proceedings/C2/request-more-time/application-submitted',
+      nextActionUrl: '/applicant/application-within-proceedings/C2/request-more-time/application-submitted',
       paymentStatus: 'Success',
       paymentServiceRequestReference: 'MOCK_REFERENCE',
     });
@@ -132,13 +132,13 @@ describe('AWPPayAndSubmitPostController controller', () => {
       paymentReference: 'MOCK_REFERENCE',
       paymentDate: 'MOCK_DATE',
       externalReference: 'MOCK_REFERENCE',
-      nextActionUrl: '/application-within-proceedings/C2/request-more-time/application-submitted',
+      nextActionUrl: '/applicant/application-within-proceedings/C2/request-more-time/application-submitted',
       paymentServiceRequestReference: undefined,
       paymentStatus: 'Success',
     });
     expect(awpRequest.session.save).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(
-      '/application-within-proceedings/C2/request-more-time/application-submitted'
+      '/applicant/application-within-proceedings/C2/request-more-time/application-submitted'
     );
   });
 
@@ -155,7 +155,9 @@ describe('AWPPayAndSubmitPostController controller', () => {
     expect(awpRequest.session.userCase.paymentData).toStrictEqual(undefined);
     expect(awpRequest.session.paymentError.hasError).toStrictEqual(true);
     expect(awpRequest.session.save).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
+    expect(res.redirect).toHaveBeenCalledWith(
+      '/applicant/application-within-proceedings/C2/request-more-time/checkanswers'
+    );
   });
 
   test('other errors should be caught', async () => {
@@ -167,6 +169,8 @@ describe('AWPPayAndSubmitPostController controller', () => {
     expect(awpRequest.session.userCase.paymentData).toStrictEqual(undefined);
     expect(awpRequest.session.paymentError.hasError).toStrictEqual(true);
     expect(awpRequest.session.save).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
+    expect(res.redirect).toHaveBeenCalledWith(
+      '/applicant/application-within-proceedings/C2/request-more-time/checkanswers'
+    );
   });
 });

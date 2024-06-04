@@ -2,7 +2,9 @@ import { NextFunction, Response } from 'express';
 
 import { AWPApplicationReason, AWPApplicationType, CaseType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
+import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from '../../../steps/urls';
 import { fetchAndSaveFeeCodeDetails, getApplicationDetails } from '../utils';
 
 export const routeGuard = {
@@ -13,31 +15,6 @@ export const routeGuard = {
     const language = req.session.lang ?? 'en';
     const applicationType = req.params.applicationType as AWPApplicationType;
     const applicationReason = req.params.applicationReason as AWPApplicationReason;
-    const awpDetails =
-      req.session.applicationSettings && req.session.applicationSettings?.awpSelectedApplicationDetails;
-
-    if (
-      awpDetails?.language === language &&
-      awpDetails?.applicationType === applicationType &&
-      awpDetails?.applicationReason === applicationReason &&
-      awpDetails?.applicationFeeAmount === req.session?.userCase?.awpFeeDetails?.feeAmount
-    ) {
-      if (req.session.userCase && !req.session.userCase?.awpFeeDetails) {
-        try {
-          await fetchAndSaveFeeCodeDetails(req, req.session.user, {
-            caseId: req.session.userCase.id,
-            applicationType,
-            applicationReason,
-            caseType: caseTypeOfApplication,
-            partyType,
-          });
-          return next();
-        } catch (error) {
-          return res.redirect(req.originalUrl);
-        }
-      }
-      return next();
-    }
 
     try {
       await fetchAndSaveFeeCodeDetails(req, req.session.user, {
@@ -71,7 +48,9 @@ export const routeGuard = {
 
       return next();
     } catch (error) {
-      return res.redirect(req.originalUrl);
+      return res.redirect(
+        applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { partyType, pageNumber: '1' })
+      );
     }
   },
 };

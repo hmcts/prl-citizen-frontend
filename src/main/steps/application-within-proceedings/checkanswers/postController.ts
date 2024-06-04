@@ -11,7 +11,7 @@ import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER } from '../../../steps/urls';
-import { processAWPApplication } from '../utils';
+import { isFreeApplication, processAWPApplication } from '../utils';
 
 @autobind
 export default class AWPCheckAnswersPostController extends PostController<AnyObject> {
@@ -32,6 +32,10 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
 
     try {
       appRequest.session.paymentError.hasError = false;
+
+      if (isFreeApplication(caseData)) {
+        return processAWPApplication(appRequest, appResponse);
+      }
 
       if (needHWF === YesOrNo.YES && hasHWFRefrence === YesOrNo.YES && hwfRefNumber) {
         const { id: caseId, awpFeeDetails } = caseData;
@@ -91,7 +95,11 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
         appRequest.session.save();
       }, 1000);
       appResponse.redirect(
-        applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, { applicationType, applicationReason })
+        applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, {
+          partyType: appRequest.params?.partyType,
+          applicationType,
+          applicationReason,
+        })
       );
     });
   }

@@ -1,9 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import {
-  APPLICATION_SIGNPOSTING_URL,
-  getApplicationDetails,
-} from '../../../../steps/application-within-proceedings/utils';
+import { getApplicationDetails, getApplicationListUrl } from '../../../../steps/application-within-proceedings/utils';
 import { interpolate } from '../../../../steps/common/string-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 
@@ -49,7 +46,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: APPLICATION_SIGNPOSTING_URL,
+    href: '#',
     text: l => l.cancel,
   },
 };
@@ -69,6 +66,10 @@ export const generateContent: TranslationFn = content => {
     content.language,
     request.session
   );
+
+  Object.assign(form.link!, {
+    href: getApplicationListUrl(partyType),
+  });
 
   return {
     ...translations,

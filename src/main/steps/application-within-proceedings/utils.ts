@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { CaseWithId } from '../../app/case/case';
@@ -383,9 +384,11 @@ export const isValidApplicationReason = (
   return false;
 };
 
-export const APPLICATION_SIGNPOSTING_URL = applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
-  pageNumber: '1',
-});
+export const getApplicationListUrl = (partyType: PartyType): string =>
+  applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+    partyType,
+    pageNumber: '1',
+  });
 
 export const fetchAndSaveFeeCodeDetails = async (
   req: AppRequest,
@@ -444,36 +447,42 @@ const createAWPApplication = async (
   appRequest: AppRequest,
   appResponse: Response
 ): Promise<void> => {
+  const partyType = getCasePartyType(caseData, userDetails.id);
+
   try {
     await new CosApiClient(userDetails.accessToken, appRequest.locals.logger).createAWPApplication(
       userDetails,
       caseData,
       applicationType,
       applicationReason,
-      getCasePartyType(caseData, userDetails.id),
+      partyType,
       getPartyDetails(caseData, userDetails.id)
     );
-    handlePageRedirection('success', applicationType, applicationReason, appRequest, appResponse);
+    handlePageRedirection('success', partyType, applicationType, applicationReason, appRequest, appResponse);
   } catch (error) {
-    handlePageRedirection('error', applicationType, applicationReason, appRequest, appResponse);
+    handlePageRedirection('error', partyType, applicationType, applicationReason, appRequest, appResponse);
   }
 };
 
 export const processAWPApplication = async (appRequest: AppRequest, appResponse: Response): Promise<void> => {
+  const userDetails = appRequest.session.user;
+  const caseData = appRequest.session.userCase;
   const applicationType =
-    (appRequest.params.type as AWPApplicationType) ?? appRequest.session.userCase.awp_applicationType;
+    (appRequest.params.applicationType as AWPApplicationType) ?? appRequest.session.userCase.awp_applicationType;
   const applicationReason =
-    (appRequest.params.reason as AWPApplicationReason) ?? appRequest.session.userCase.awp_applicationReason;
+    (appRequest.params.applicationReason as AWPApplicationReason) ?? appRequest.session.userCase.awp_applicationReason;
+  const partyType = getCasePartyType(caseData, userDetails.id);
 
   try {
-    const userDetails = appRequest.session.user;
-    const caseData = appRequest.session.userCase;
-    const caseId = caseData?.id ?? caseData?.caseId;
-    const paymentReference = caseData?.paymentData!.paymentReference;
-
-    if (caseData?.awp_hwf_referenceNumber && caseData.paymentData?.paymentServiceRequestReference) {
+    if (
+      isFreeApplication(caseData) ||
+      (caseData?.awp_hwf_referenceNumber && caseData.paymentData?.paymentServiceRequestReference)
+    ) {
       return createAWPApplication(userDetails, caseData, applicationType, applicationReason, appRequest, appResponse);
     }
+
+    const caseId = caseData?.id ?? caseData?.caseId;
+    const paymentReference = caseData?.paymentData!.paymentReference;
 
     await PaymentController.getPaymentStatus(userDetails, caseId, paymentReference).then(
       async ({ response }) => {
@@ -485,16 +494,17 @@ export const processAWPApplication = async (appRequest: AppRequest, appResponse:
         createAWPApplication(userDetails, caseData, applicationType, applicationReason, appRequest, appResponse);
       },
       () => {
-        handlePageRedirection('error', applicationType, applicationReason, appRequest, appResponse);
+        handlePageRedirection('error', partyType, applicationType, applicationReason, appRequest, appResponse);
       }
     );
   } catch (error) {
-    handlePageRedirection('error', applicationType, applicationReason, appRequest, appResponse);
+    handlePageRedirection('error', partyType, applicationType, applicationReason, appRequest, appResponse);
   }
 };
 
 const handlePageRedirection = (
   errorType: string,
+  partyType: PartyType,
   applicationType: AWPApplicationType,
   applicationReason: AWPApplicationReason,
   appRequest: AppRequest,
@@ -514,8 +524,11 @@ const handlePageRedirection = (
         errorType === 'success'
           ? APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED
           : APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER,
-        { applicationType, applicationReason }
+        { partyType, applicationType, applicationReason }
       )
     );
   });
 };
+
+export const isFreeApplication = (caseData: Partial<CaseWithId>): boolean =>
+  Number(_.get(caseData, 'awpFeeDetails.feeAmount', 0)) <= 0;

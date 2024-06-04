@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { interpolate } from '../../../steps/common/string-parser';
 import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import * as URL from '../../urls';
 import { isValidApplicationReason } from '../utils';
 export * from './routeGuard';
 
-import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from './../../urls';
+import {
+  APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
+} from './../../urls';
 import { listOfApplications } from './config';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -101,8 +106,8 @@ const en = {
   courtToPreventAccusations: {
     sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
     contents: [
-      'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
-      'If someone has accused you,  <a href="/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
+      'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="{APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE}" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+      'If someone has accused you,  <a href="{APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE}" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
     ],
   },
   authorisingSearchOrder: {
@@ -268,7 +273,7 @@ export const form: FormContent = {
   fields: {},
 };
 
-const getPaginationConfig = (pageNumber, totalPages, language: string) => {
+const getPaginationConfig = (pageNumber: number, totalPages: number, language: string, partyType: PartyType) => {
   const pageNo = Number(pageNumber);
   const pagination = {
     pageNumber: pageNo,
@@ -282,7 +287,10 @@ const getPaginationConfig = (pageNumber, totalPages, language: string) => {
   if (!isLastPage) {
     pagination.next = {
       labelText: language === 'en' ? `${pageNo + 1} of ${totalPages}` : `${pageNo + 1} o ${totalPages}`,
-      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: (pageNo + 1).toString() }),
+      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+        partyType,
+        pageNumber: (pageNo + 1).toString(),
+      }),
       text: language === 'en' ? en.next : cy.next,
     };
   }
@@ -290,7 +298,10 @@ const getPaginationConfig = (pageNumber, totalPages, language: string) => {
   if (!isFirstPage) {
     pagination.previous = {
       labelText: language === 'en' ? `${pageNo - 1} of ${totalPages}` : `${pageNo - 1} o ${totalPages}`,
-      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: (pageNo - 1).toString() }),
+      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+        partyType,
+        pageNumber: (pageNo - 1).toString(),
+      }),
       text: language === 'en' ? en.previous : cy.previous,
     };
   }
@@ -298,26 +309,41 @@ const getPaginationConfig = (pageNumber, totalPages, language: string) => {
   return pagination;
 };
 
-const generateApplicationList = (applicationIndex, applicationList, rest, application, link) => {
+const generateApplicationList = (
+  applicationIndex: number,
+  applicationList: Record<string, any>,
+  rest: Record<string, any>,
+  application: Record<string, any>,
+  link: Record<string, any>,
+  partyType: PartyType
+) => {
   if (applicationIndex < 0) {
     applicationList.push({
       id: application.contentMappingKey,
       sectionTitle: rest?.[application.contentMappingKey]?.sectionTitle,
-      contents: rest?.[application.contentMappingKey]?.contents,
+      contents: rest?.[application.contentMappingKey]?.contents?.map(content =>
+        interpolate(content, {
+          APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE: applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+            partyType,
+            applicationType: link.applicationType,
+            applicationReason: link.reason,
+          }),
+        })
+      ),
       links: [],
     });
 
     if (link.url && link.textMappingKey) {
       applicationList[applicationList.length - 1].links.push({
         text: rest?.[application.contentMappingKey]?.[link.textMappingKey],
-        url: applyParms(link.url, { applicationType: link.applicationType, applicationReason: link.reason }),
+        url: applyParms(link.url, { partyType, applicationType: link.applicationType, applicationReason: link.reason }),
       });
     }
   } else {
     if (link.url && link.textMappingKey) {
       applicationList[applicationIndex].links.push({
         text: rest?.[application.contentMappingKey]?.[link.textMappingKey],
-        url: applyParms(link.url, { applicationType: link.applicationType, applicationReason: link.reason }),
+        url: applyParms(link.url, { partyType, applicationType: link.applicationType, applicationReason: link.reason }),
       });
     }
   }
@@ -342,7 +368,7 @@ export const generateContent: TranslationFn = content => {
           _application => _application.id === application.contentMappingKey
         );
 
-        generateApplicationList(applicationIndex, applications, rest, application, link);
+        generateApplicationList(applicationIndex, applications, rest, application, link, partyType);
       }
     });
   });
@@ -354,16 +380,18 @@ export const generateContent: TranslationFn = content => {
   return {
     title,
     accordionTitle,
-    breadcrumb: {
-      id: 'caseView',
-      href: applyParms(`${URL.FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
-    },
+    breadcrumbs: [
+      {
+        id: 'caseView',
+        href: applyParms(`${URL.FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
+      },
+    ],
     form,
     hideAllSectionsText,
     hideSectionText,
     showSectionText,
     showAllSectionsText,
     applications: applications.slice((pageNumber - 1) * pageSize, pageNumber * pageSize),
-    pagination: getPaginationConfig(pageNumber, totalPages, content.language),
+    pagination: getPaginationConfig(pageNumber, totalPages, content.language, partyType),
   };
 };

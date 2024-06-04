@@ -6,8 +6,8 @@ import { HearingsList } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFields, GenerateDynamicFormFields } from '../../../app/form/Form';
 import { isValidOption } from '../../../app/form/validation';
-import { applyParms } from '../../common/url-parser';
-import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from '../../urls';
+import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
+import { getApplicationListUrl } from '../utils';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = {
@@ -108,7 +108,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+    href: '#',
     text: l => l.cancel,
   },
 };
@@ -122,7 +122,11 @@ export const generateContent: TranslationFn = ({ language, additionalData }) => 
   const translations = languages[language];
   const request = additionalData?.req;
   const caseData = request?.session?.userCase;
+  const formProps = updateFormFields(form, generateFormFields(caseData, translations).fields);
 
+  Object.assign(formProps.link!, {
+    href: getApplicationListUrl(getCasePartyType(caseData, request.session?.user?.id)),
+  });
   /*caseData.hearingCollection = [{
     hearingType: 'ABA5-FOF',
     hearingTypeValue: 'Finding of Fact',
@@ -150,6 +154,6 @@ export const generateContent: TranslationFn = ({ language, additionalData }) => 
 
   return {
     ...translations,
-    form: updateFormFields(form, generateFormFields(caseData, translations).fields),
+    form: formProps,
   };
 };

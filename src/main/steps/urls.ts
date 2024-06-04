@@ -420,10 +420,9 @@ export const SCREENING_QUESTIONS = [
 ];
 
 /** AWP */
-export const APPLICATION_WITHIN_PROCEEDINGS_BASE_URL: PageLink = '/application-within-proceedings';
+export const APPLICATION_WITHIN_PROCEEDINGS_BASE_URL: PageLink = '/:partyType/application-within-proceedings';
 export const APPLICATION_WITHIN_PROCEEDINGS: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS_BASE_URL}/:applicationType/:applicationReason`;
-export const APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS: PageLink =
-  '/application-within-proceedings/list-of-applications/:pageNumber';
+export const APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS_BASE_URL}/list-of-applications/:pageNumber`;
 export const APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/guidance`;
 export const APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/upload-your-application`;
 export const APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/download-form`;
@@ -501,7 +500,6 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   ACCESSIBILITY_STATEMENT,
   TERMS_AND_CONDITIONS,
   PIN_ACTIVATION_URL,
-  APPLICATION_WITHIN_PROCEEDINGS_BASE_URL,
   '/payment-callback',
 ];
 

@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { APPLICATION_SIGNPOSTING_URL, getApplicationDetails } from '../utils';
+import { getApplicationDetails, getApplicationListUrl } from '../utils';
 
 export const en = {
   title: 'Get agreement for your request',
@@ -71,7 +71,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: APPLICATION_SIGNPOSTING_URL,
+    href: '#',
     text: l => l.cancel,
   },
 };
@@ -91,6 +91,10 @@ export const generateContent: TranslationFn = content => {
     content.language,
     request.session
   );
+
+  Object.assign(form.link!, {
+    href: getApplicationListUrl(content.additionalData?.req?.params?.partyType),
+  });
 
   return {
     ...translations,

@@ -13,14 +13,14 @@ import {
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE,
   APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES,
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
 } from '../../urls';
-import { APPLICATION_SIGNPOSTING_URL } from '../utils';
 
 import { cy, en } from './content';
 
 const config = [
-  { key: 'typeOfApplication', value: 'awp_applicationList', href: APPLICATION_SIGNPOSTING_URL },
+  { key: 'typeOfApplication', value: 'awp_applicationList', href: APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS },
   {
     key: 'whichHearing',
     value: 'awp_cancelDelayHearing',
@@ -110,7 +110,7 @@ export const prepareSummaryList = (pageContent: any, content: CommonContent) => 
   const summaryData: SummaryListRow[] = [];
   const userCase = content.userCase!;
   /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-  const { applicationType, applicationReason } = content.additionalData?.req.params!;
+  const { partyType, applicationType, applicationReason } = content.additionalData?.req.params!;
 
   for (const matchkey in config) {
     const row = {
@@ -133,8 +133,10 @@ export const prepareSummaryList = (pageContent: any, content: CommonContent) => 
             items: [
               {
                 href: applyParms(item.changeUrl!, {
+                  partyType,
                   applicationType,
                   applicationReason,
+                  pageNumber: '1',
                 }),
                 text: content.language === 'en' ? en.change : cy.change,
                 visuallyHiddenText: `${item.key}`,

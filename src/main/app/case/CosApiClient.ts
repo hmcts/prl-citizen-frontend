@@ -436,7 +436,8 @@ export class CosApiClient {
       );
       return response.data;
     } catch (error) {
-      throw new Error('AWP Fee code details could not be retrieved.' + error);
+      this.logError(error);
+      throw new Error('Error occured, fee details could not be retrieved - fetchAWPFeeCodeDetails');
     }
   }
 

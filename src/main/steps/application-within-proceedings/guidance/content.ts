@@ -313,10 +313,12 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    breadcrumb: {
-      id: 'requestTheCourtForChange',
-      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
-    },
+    breadcrumbs: [
+      {
+        id: 'requestTheCourtForChange',
+        href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { partyType, pageNumber: '1' }),
+      },
+    ],
     caption: interpolate(translations.caption, { applicationType: applicationDetails!.applicationType }),
     title: applicationDetails!.reasonText,
     contents: translations[applicationDetails!.applicationReason].contents.map(_content =>

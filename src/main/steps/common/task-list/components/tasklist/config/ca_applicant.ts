@@ -101,7 +101,11 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
-        href: () => applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+        href: () =>
+          applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+            partyType: PartyType.APPLICANT,
+            pageNumber: '1',
+          }),
         stateTag: () => StateTags.OPTIONAL,
         show: isCaseLinked,
         disabled: isCaseClosed,

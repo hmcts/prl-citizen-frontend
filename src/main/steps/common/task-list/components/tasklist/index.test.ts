@@ -579,7 +579,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/application-within-proceedings/list-of-applications/1',
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
               linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
@@ -932,7 +932,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/application-within-proceedings/list-of-applications/1',
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
               linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
@@ -1172,7 +1172,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/application-within-proceedings/list-of-applications/1',
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
               linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
@@ -1560,7 +1560,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/application-within-proceedings/list-of-applications/1',
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
               linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
@@ -1864,7 +1864,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/application-within-proceedings/list-of-applications/1',
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
               linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
@@ -2149,7 +2149,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/application-within-proceedings/list-of-applications/1',
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
               linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
@@ -2313,7 +2313,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/application-within-proceedings/list-of-applications/1',
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
               linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
@@ -2441,7 +2441,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/application-within-proceedings/list-of-applications/1',
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
               linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
@@ -2551,7 +2551,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/application-within-proceedings/list-of-applications/1',
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
               linkText: 'Make a request to the court about your case',
               openInAnotherTab: false,
@@ -3029,7 +3029,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/application-within-proceedings/list-of-applications/1',
+            href: '/respondent/application-within-proceedings/list-of-applications/1',
             id: 'requestToCourtAboutYourCase',
             linkText: 'Make a request to the court about your case',
             openInAnotherTab: false,
@@ -3270,7 +3270,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/application-within-proceedings/list-of-applications/1',
+            href: '/respondent/application-within-proceedings/list-of-applications/1',
             id: 'requestToCourtAboutYourCase',
             linkText: 'Make a request to the court about your case',
             openInAnotherTab: false,
@@ -3563,7 +3563,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/application-within-proceedings/list-of-applications/1',
+            href: '/respondent/application-within-proceedings/list-of-applications/1',
             id: 'requestToCourtAboutYourCase',
             linkText: 'Make a request to the court about your case',
             openInAnotherTab: false,
