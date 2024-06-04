@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { generateResponseNotifications } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
-import { State, YesOrNo } from '../../../../../../app/case/definition';
+import { State } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
@@ -30,29 +30,6 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
   {
     ...notificationBanner[BannerNotification.APPLICATION_WITHDRAWN],
     show: isCaseWithdrawn,
-  },
-  {
-    ...notificationBanner[BannerNotification.WITHDRAWAL_REQ_REJECTED],
-    show: (caseData: Partial<CaseWithId>): boolean => {
-      return !!caseData?.orderCollection?.find(
-        order =>
-          order.value?.orderTypeId === 'blankOrderOrDirectionsWithdraw' &&
-          order.value?.withdrawnRequestType === 'Withdrawn application' &&
-          order.value?.isWithdrawnRequestApproved === YesOrNo.NO
-      );
-    },
-  },
-  {
-    ...notificationBanner[BannerNotification.APPLICATION_SENT_TO_LOCAL_COURT],
-    show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state === State.CASE_ISSUED_TO_LOCAL_COURT;
-    },
-  },
-  {
-    ...notificationBanner[BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING],
-    show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state === State.CASE_GATE_KEEPING;
-    },
   },
   {
     ...notificationBanner[BannerNotification.APPLICATION_SERVED_LINKED],
