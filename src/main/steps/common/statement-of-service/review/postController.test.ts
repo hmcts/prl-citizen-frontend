@@ -24,12 +24,12 @@ describe('statement-of-service > review > postController', () => {
   test('should submit statement of service document and redirect', async () => {
     req.body = { onlyContinue: true };
     req.session.userCase = {
-      sos_partiesServedDate: {
+      sos_respondentsServedDate: {
         day: '1',
         month: '1',
         year: '2024',
       },
-      sos_partiesServed: ['1234'],
+      sos_respondentsServed: ['1234'],
       citizenSosDocs: {
         document_url: 'test2/1234',
         document_binary_url: 'binary/test2/1234',
@@ -51,12 +51,12 @@ describe('statement-of-service > review > postController', () => {
   test('should submit statement of service document and redirect when order and sos parties served is not array', async () => {
     req.body = { onlyContinue: true };
     req.session.userCase = {
-      sos_partiesServedDate: {
+      sos_respondentsServedDate: {
         day: '1',
         month: '1',
         year: '2024',
       },
-      sos_partiesServed: '1234',
+      sos_respondentsServed: '1234',
       citizenSosDocs: {
         document_url: 'test2/1234',
         document_binary_url: 'binary/test2/1234',
@@ -79,12 +79,12 @@ describe('statement-of-service > review > postController', () => {
   test('should redirect to the same page if response is not OK', async () => {
     req.body = { onlyContinue: true };
     req.session.userCase = {
-      sos_partiesServedDate: {
+      sos_respondentsServedDate: {
         day: '1',
         month: '1',
         year: '2024',
       },
-      sos_partiesServed: ['1234'],
+      sos_respondentsServed: ['1234'],
       citizenSosDocs: {
         document_url: 'test2/1234',
         document_binary_url: 'binary/test2/1234',
@@ -107,12 +107,12 @@ describe('statement-of-service > review > postController', () => {
   test('should redirect to the same page if error is thrown', async () => {
     req.body = { onlyContinue: true };
     req.session.userCase = {
-      sos_partiesServedDate: {
+      sos_respondentsServedDate: {
         day: '1',
         month: '1',
         year: '2024',
       },
-      sos_partiesServed: ['1234'],
+      sos_respondentsServed: ['1234'],
       citizenSosDocs: {
         document_url: 'test2/1234',
         document_binary_url: 'binary/test2/1234',
@@ -135,12 +135,12 @@ describe('statement-of-service > review > postController', () => {
   test('should redirect to the same page if there is an error in the form', async () => {
     req.body = { onlyContinue: true, sos_reviewConsent: undefined };
     req.session.userCase = {
-      sos_partiesServedDate: {
+      sos_respondentsServedDate: {
         day: '1',
         month: '1',
         year: '2024',
       },
-      sos_partiesServed: ['1234'],
+      sos_respondentsServed: ['1234'],
       citizenSosDocs: {
         document_url: 'test2/1234',
         document_binary_url: 'binary/test2/1234',

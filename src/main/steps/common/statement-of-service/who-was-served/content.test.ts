@@ -14,10 +14,10 @@ const en = {
   servedDateLabel: 'When were they served?',
   servedDateHint: 'For example: 16 4 2021',
   errors: {
-    sos_partiesServed: {
+    sos_respondentsServed: {
       required: 'You must select a respondent',
     },
-    sos_partiesServedDate: {
+    sos_respondentsServedDate: {
       required: 'You must enter the date of service',
       invalidDate: 'Date of service is not valid',
       incompleteDay: 'Date of service must include a day',
@@ -34,10 +34,10 @@ const cy: typeof en = {
   servedDateLabel: 'Pryd cawson nhw eu cyflwyno?',
   servedDateHint: 'Er enghraifft: 16 4 2021',
   errors: {
-    sos_partiesServed: {
+    sos_respondentsServed: {
       required: 'Mae’n rhaid i chi ddewis atebydd',
     },
-    sos_partiesServedDate: {
+    sos_respondentsServedDate: {
       required: 'Mae’n rhaid i chi nodi’r dyddiad cyflwyno',
       invalidDate: 'Date of service is not valid - welsh',
       incompleteDay: 'Date of service must include a day - welsh',
@@ -80,7 +80,7 @@ describe('statement-of-service > who-was-served > content', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const sos_partiesServedField = fields.sos_partiesServed as FormOptions;
+    const sos_partiesServedField = fields.sos_respondentsServed as FormOptions;
 
     expect(sos_partiesServedField.type).toBe('checkboxes');
     expect((sos_partiesServedField.label as Function)(generatedContent)).toBe(en.whoWasServedLabel);
@@ -89,7 +89,7 @@ describe('statement-of-service > who-was-served > content', () => {
     expect(sos_partiesServedField.values[0].value).toBe('123');
     expect(sos_partiesServedField.values[0].selected).toBe(true);
 
-    const sos_partiesServedDateField = fields.sos_partiesServedDate as FormOptions;
+    const sos_partiesServedDateField = fields.sos_respondentsServedDate as FormOptions;
     expect(sos_partiesServedDateField.type).toBe('date');
     expect((sos_partiesServedDateField.label as Function)(generatedContent)).toBe(en.servedDateLabel);
     expect((sos_partiesServedDateField.hint as Function)(generatedContent)).toBe(en.servedDateHint);
@@ -145,7 +145,7 @@ describe('statement-of-service > who-was-served > content', () => {
     const generatedContent = generateContent({
       language: 'en',
       userCase: {
-        sos_partiesServed: ['123'],
+        sos_respondentsServed: ['123'],
         respondents: [
           {
             id: '123',
@@ -172,7 +172,7 @@ describe('statement-of-service > who-was-served > content', () => {
     } as unknown as CommonContent);
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const sos_partiesServedField = fields.sos_partiesServed as FormOptions;
+    const sos_partiesServedField = fields.sos_respondentsServed as FormOptions;
 
     expect(sos_partiesServedField.type).toBe('checkboxes');
     expect((sos_partiesServedField.label as Function)(generatedContent)).toBe(en.whoWasServedLabel);

@@ -19,10 +19,10 @@ const en = {
   servedDateLabel: 'When were they served?',
   servedDateHint: 'For example: 16 4 2021',
   errors: {
-    sos_partiesServed: {
+    sos_respondentsServed: {
       required: 'You must select a respondent',
     },
-    sos_partiesServedDate: {
+    sos_respondentsServedDate: {
       required: 'You must enter the date of service',
       invalidDate: 'Date of service is not valid',
       incompleteDay: 'Date of service must include a day',
@@ -40,10 +40,10 @@ const cy: typeof en = {
   servedDateLabel: 'Pryd cawson nhw eu cyflwyno?',
   servedDateHint: 'Er enghraifft: 16 4 2021',
   errors: {
-    sos_partiesServed: {
+    sos_respondentsServed: {
       required: 'Mae’n rhaid i chi ddewis atebydd',
     },
-    sos_partiesServedDate: {
+    sos_respondentsServedDate: {
       required: 'Mae’n rhaid i chi nodi’r dyddiad cyflwyno',
       invalidDate: 'Date of service is not valid - welsh',
       incompleteDay: 'Date of service must include a day - welsh',
@@ -62,23 +62,23 @@ export const languages = {
 export const form: FormContent = {
   fields: (caseData: Partial<Case>) => {
     return {
-      sos_partiesServed: {
+      sos_respondentsServed: {
         type: 'checkboxes',
         hidden: caseData?.respondents?.length === 1,
         label: l => l.whoWasServedLabel,
         values:
           caseData?.respondents?.map(respondent => ({
-            name: 'sos_partiesServed',
+            name: 'sos_respondentsServed',
             value: respondent.id,
             label: `${respondent.value.firstName} ${respondent.value.lastName}`,
             selected:
               caseData?.respondents?.length === 1
                 ? true
-                : caseData?.sos_partiesServed?.includes(respondent.id) || false,
+                : caseData?.sos_respondentsServed?.includes(respondent.id) || false,
           })) ?? [],
         validator: atLeastOneFieldIsChecked,
       },
-      sos_partiesServedDate: {
+      sos_respondentsServedDate: {
         type: 'date',
         classes: 'govuk-date-input',
         label: l => l.servedDateLabel,
@@ -90,24 +90,24 @@ export const form: FormContent = {
             name: 'day',
             classes: 'govuk-input--width-2',
             attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            value: caseData?.sos_partiesServedDate?.day ?? '',
+            value: caseData?.sos_respondentsServedDate?.day ?? '',
           },
           {
             label: l => l.dateFormat['month'],
             name: 'month',
             classes: 'govuk-input--width-2',
             attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            value: caseData?.sos_partiesServedDate?.month ?? '',
+            value: caseData?.sos_respondentsServedDate?.month ?? '',
           },
           {
             label: l => l.dateFormat['year'],
             name: 'year',
             classes: 'govuk-input--width-4',
             attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-            value: caseData?.sos_partiesServedDate?.year ?? '',
+            value: caseData?.sos_respondentsServedDate?.year ?? '',
           },
         ],
-        parser: body => covertToDateObject('sos_partiesServedDate', body as Record<string, unknown>),
+        parser: body => covertToDateObject('sos_respondentsServedDate', body as Record<string, unknown>),
         validator: value =>
           areDateFieldsFilledIn(value as CaseDate) ||
           isDateInputInvalid(value as CaseDate) ||

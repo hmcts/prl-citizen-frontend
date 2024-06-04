@@ -30,13 +30,13 @@ export default class SOSReviewPostController extends PostController<AnyObject> {
 
     try {
       const client = new CosApiClient(user.accessToken, req.locals.logger);
-      const partiesServedDate = `${caseData.sos_partiesServedDate!.month}-${caseData.sos_partiesServedDate!.day}-${
-        caseData.sos_partiesServedDate!.year
-      }`;
+      const partiesServedDate = `${caseData.sos_respondentsServedDate!.month}-${
+        caseData.sos_respondentsServedDate!.day
+      }-${caseData.sos_respondentsServedDate!.year}`;
       const response = await client.submitStatementOfService(caseData.id, {
-        partiesServed: (!_.isArray(caseData?.sos_partiesServed)
-          ? [caseData.sos_partiesServed]
-          : caseData.sos_partiesServed) as string[],
+        partiesServed: (!_.isArray(caseData?.sos_respondentsServed)
+          ? [caseData.sos_respondentsServed]
+          : caseData.sos_respondentsServed) as string[],
         partiesServedDate: dayjs(partiesServedDate).format('DD MMM YYYY'),
         citizenSosDocs: caseData.sos_document!,
         isOrder: req.params?.context === 'order' ? YesOrNo.YES : YesOrNo.NO,

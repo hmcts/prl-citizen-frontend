@@ -116,7 +116,7 @@ describe('statement-of-service > utils', () => {
   describe('prepareSummaryList', () => {
     test('should return correct summary list', () => {
       const userCase = {
-        sos_partiesServed: ['123', '1234'],
+        sos_respondentsServed: ['123', '1234'],
         respondents: [
           {
             id: '123',
@@ -139,7 +139,7 @@ describe('statement-of-service > utils', () => {
             },
           },
         ],
-        sos_partiesServedDate: {
+        sos_respondentsServedDate: {
           day: '1',
           month: '1',
           year: '2024',

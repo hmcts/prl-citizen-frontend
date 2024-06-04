@@ -68,8 +68,12 @@ export const prepareSummaryList = (
   const servedPartiesName: string[] = [];
   const summary: Record<string, string>[] = [];
 
-  if (_.isArray(caseData?.respondents) && caseData.respondents.length > 1 && _.isArray(caseData?.sos_partiesServed)) {
-    caseData.sos_partiesServed.forEach(partyId => {
+  if (
+    _.isArray(caseData?.respondents) &&
+    caseData.respondents.length > 1 &&
+    _.isArray(caseData?.sos_respondentsServed)
+  ) {
+    caseData.sos_respondentsServed.forEach(partyId => {
       if (partyId) {
         const respondentMeta = caseData.respondents?.find(respondent => respondent.id === partyId);
         if (respondentMeta?.value) {
@@ -84,10 +88,8 @@ export const prepareSummaryList = (
     });
   }
 
-  if (caseData?.sos_partiesServedDate?.day) {
-    const partiesServedDate = `${caseData.sos_partiesServedDate!.month}-${caseData.sos_partiesServedDate!.day}-${
-      caseData.sos_partiesServedDate!.year
-    }`;
+  if (caseData?.sos_respondentsServedDate?.day) {
+    const partiesServedDate = `${caseData.sos_respondentsServedDate.month}-${caseData.sos_respondentsServedDate.day}-${caseData.sos_respondentsServedDate.year}`;
     summary.push({
       label: translations.servedDateLabel,
       value: dayjs(partiesServedDate).format('DD MMM YYYY'),

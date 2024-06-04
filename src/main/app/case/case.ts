@@ -655,8 +655,8 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
   citizenNotifications?: CitizenNotification[];
-  sos_partiesServed?: string[];
-  sos_partiesServedDate?: CaseDate;
+  sos_respondentsServed?: string[];
+  sos_respondentsServedDate?: CaseDate;
   sos_document?: Document;
 }
 
