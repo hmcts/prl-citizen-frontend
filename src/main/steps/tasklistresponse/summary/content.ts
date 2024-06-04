@@ -128,7 +128,7 @@ export const enContent = {
   tryAgain: 'and try again.',
   forRecords: 'Please note this draft is for your records. Only the completed response will be admitted in court.',
   downloadDraft: 'Download draft response',
-  downloadDraftWelsh: 'Download draft response welsh'
+  downloadDraftWelsh: 'Download draft response welsh',
 };
 
 export const enInternationalContent = {

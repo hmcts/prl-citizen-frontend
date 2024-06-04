@@ -183,7 +183,11 @@ export class CosApiClient {
   }
 
   /**  generate c7 draft document*/
-  public async generateC7DraftDocument(caseId: string, partyId: string, isDocRequiredInWelsh: boolean): Promise<Document> {
+  public async generateC7DraftDocument(
+    caseId: string,
+    partyId: string,
+    isDocRequiredInWelsh: boolean
+  ): Promise<Document> {
     try {
       const response = await this.client.post(
         config.get('services.cos.url') + `/citizen/${caseId}/${partyId}/generate-c7document`,
