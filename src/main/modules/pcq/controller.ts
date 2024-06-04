@@ -17,6 +17,7 @@ export class PcqController {
 
   async launch(req: AppRequest, res: Response, returnUrl: string): Promise<void> {
     try {
+      PCQProvider.init(req);
       const url = config.get('services.equalityAndDiversity.url');
       const path: string = config.get('services.equalityAndDiversity.path');
       const status = await PCQProvider.service.getPcqHealthStatus(`${url}/health`);
