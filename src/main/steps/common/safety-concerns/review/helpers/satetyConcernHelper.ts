@@ -83,17 +83,16 @@ const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, lan
       FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
     ) {
       bodyHtml += HTML.LIST_ITEM + FoundElement['childrenConcernedAbout'][0] + HTML.LIST_ITEM_END;
+    } else if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
+      bodyHtml += FoundElement['childrenConcernedAbout']
+        ?.map(childId => childNameFormatter(childId, userCase))
+        .toString()
+        .split(',')
+        .join('');
     } else {
-      if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
-        bodyHtml += FoundElement['childrenConcernedAbout']
-          ?.map(childId => childNameFormatter(childId, userCase))
-          .toString()
-          .split(',')
-          .join('');
-      } else {
-        bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
-      }
+      bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
     }
+
     bodyHtml += HTML.UNORDER_LIST_END;
   }
   bodyHtml += HTML.RULER;

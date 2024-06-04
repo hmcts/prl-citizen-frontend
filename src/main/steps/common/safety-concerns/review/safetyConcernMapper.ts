@@ -54,30 +54,8 @@ export const prepareRequest = (caseData: Partial<Case>): string => {
     c1A_childAbductedBefore,
     c1A_safteyConcerns,
   };
-  if (c1A_haveSafetyConcerns === YesOrNo.NO) {
-    data.c1A_safetyConernAbout = [];
-    data.c1A_concernAboutChild = [];
-    (data.c1A_concernAboutRespondent = []),
-      (data.c1A_keepingSafeStatement = ''),
-      (data.c1A_supervisionAgreementDetails = ''),
-      (data.c1A_agreementOtherWaysDetails = undefined),
-      (data.c1A_otherConcernsDrugs = undefined),
-      (data.c1A_otherConcernsDrugsDetails = ''),
-      (data.c1A_childSafetyConcerns = undefined),
-      (data.c1A_childSafetyConcernsDetails = ''),
-      (data.c1A_abductionReasonOutsideUk = ''),
-      (data.c1A_childsCurrentLocation = ''),
-      (data.c1A_childrenMoreThanOnePassport = undefined),
-      (data.c1A_possessionChildrenPassport = []),
-      (data.c1A_provideOtherDetails = ''),
-      (data.c1A_passportOffice = undefined),
-      (data.c1A_abductionPassportOfficeNotified = undefined),
-      (data.c1A_previousAbductionsShortDesc = ''),
-      (data.c1A_policeOrInvestigatorInvolved = undefined),
-      (data.c1A_policeOrInvestigatorOtherDetails = ''),
-      (data.c1A_childAbductedBefore = undefined),
-      (data.c1A_safteyConcerns = {});
-  }
+
+  dataCleanupForNoSafetyConcern(c1A_haveSafetyConcerns, data);
   if (c1A_otherConcernsDrugs === YesOrNo.NO) {
     data.c1A_otherConcernsDrugsDetails = undefined;
   }
@@ -93,46 +71,45 @@ export const prepareRequest = (caseData: Partial<Case>): string => {
     }
     data.c1A_concernAboutRespondent = [];
   }
-  if (
-    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
-    !c1A_concernAboutChild?.includes(C1AAbuseTypes.PHYSICAL_ABUSE)
-  ) {
-    if (data.c1A_safteyConcerns?.child?.physicalAbuse) {
-      data.c1A_safteyConcerns.child.physicalAbuse = undefined;
+  dataCleanUpForChildAbuse(c1A_safetyConernAbout, c1A_concernAboutChild, data);
+  dataCleanUpForRespondentAbuse(c1A_safetyConernAbout, c1A_concernAboutRespondent, data);
+  dataCleanUpForAbduction(
+    c1A_concernAboutChild,
+    data,
+    c1A_possessionChildrenPassport,
+    c1A_childAbductedBefore,
+    c1A_passportOffice
+  );
+
+  const caseDataMapperKeys = Object.keys(updateCaseDataMapper);
+  const transformedCaseData = Object.entries(data).reduce((transformedData: Record<string, any>, [field, data1]) => {
+    const [type] = field.split('_');
+    const key = updateCaseDataMapper[type];
+
+    if (caseDataMapperKeys.includes(type) && !transformedData[key]) {
+      transformedData[key] = {};
     }
-  }
-  if (
-    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
-    !c1A_concernAboutChild?.includes(C1AAbuseTypes.PSYCHOLOGICAL_ABUSE)
-  ) {
-    if (data.c1A_safteyConcerns?.child?.psychologicalAbuse) {
-      data.c1A_safteyConcerns.child.psychologicalAbuse = undefined;
+
+    if (transformedData[key]) {
+      transformedData[key][field] = data1;
     }
-  }
-  if (
-    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
-    !c1A_concernAboutChild?.includes(C1AAbuseTypes.EMOTIONAL_ABUSE)
-  ) {
-    if (data.c1A_safteyConcerns?.child?.emotionalAbuse) {
-      data.c1A_safteyConcerns.child.emotionalAbuse = undefined;
-    }
-  }
-  if (
-    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
-    !c1A_concernAboutChild?.includes(C1AAbuseTypes.FINANCIAL_ABUSE)
-  ) {
-    if (data.c1A_safteyConcerns?.child?.financialAbuse) {
-      data.c1A_safteyConcerns.child.financialAbuse = undefined;
-    }
-  }
-  if (
-    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
-    !c1A_concernAboutChild?.includes(C1AAbuseTypes.SEXUAL_ABUSE)
-  ) {
-    if (data.c1A_safteyConcerns?.child?.sexualAbuse) {
-      data.c1A_safteyConcerns.child.sexualAbuse = undefined;
-    }
-  }
+
+    return transformedData;
+  }, {});
+
+  return JSON.stringify(transformedCaseData.respondingCitizenAoH, function (k, v) {
+    return v === undefined ? null : v;
+  });
+};
+const updateCaseDataMapper = {
+  c1A: 'respondingCitizenAoH',
+};
+
+const dataCleanUpForRespondentAbuse = (
+  c1A_safetyConernAbout: C1ASafteyConcernsAbout[] | undefined,
+  c1A_concernAboutRespondent: C1AAbuseTypes[] | undefined,
+  data
+): void => {
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
     !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.PHYSICAL_ABUSE)
@@ -173,7 +150,62 @@ export const prepareRequest = (caseData: Partial<Case>): string => {
       data.c1A_safteyConcerns.respondent.sexualAbuse = undefined;
     }
   }
+};
 
+const dataCleanUpForChildAbuse = (
+  c1A_safetyConernAbout: C1ASafteyConcernsAbout[] | undefined,
+  c1A_concernAboutChild: C1AAbuseTypes[] | undefined,
+  data
+): void => {
+  if (
+    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
+    !c1A_concernAboutChild?.includes(C1AAbuseTypes.PHYSICAL_ABUSE)
+  ) {
+    if (data.c1A_safteyConcerns?.child?.physicalAbuse) {
+      data.c1A_safteyConcerns.child.physicalAbuse = undefined;
+    }
+  }
+  if (
+    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
+    !c1A_concernAboutChild?.includes(C1AAbuseTypes.PSYCHOLOGICAL_ABUSE)
+  ) {
+    if (data.c1A_safteyConcerns?.child?.psychologicalAbuse) {
+      data.c1A_safteyConcerns.child.psychologicalAbuse = undefined;
+    }
+  }
+  if (
+    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
+    !c1A_concernAboutChild?.includes(C1AAbuseTypes.EMOTIONAL_ABUSE)
+  ) {
+    if (data.c1A_safteyConcerns?.child?.emotionalAbuse) {
+      data.c1A_safteyConcerns.child.emotionalAbuse = undefined;
+    }
+  }
+  if (
+    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
+    !c1A_concernAboutChild?.includes(C1AAbuseTypes.FINANCIAL_ABUSE)
+  ) {
+    if (data.c1A_safteyConcerns?.child?.financialAbuse) {
+      data.c1A_safteyConcerns.child.financialAbuse = undefined;
+    }
+  }
+  if (
+    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
+    !c1A_concernAboutChild?.includes(C1AAbuseTypes.SEXUAL_ABUSE)
+  ) {
+    if (data.c1A_safteyConcerns?.child?.sexualAbuse) {
+      data.c1A_safteyConcerns.child.sexualAbuse = undefined;
+    }
+  }
+};
+
+const dataCleanUpForAbduction = (
+  c1A_concernAboutChild: C1AAbuseTypes[] | undefined,
+  data,
+  c1A_possessionChildrenPassport: string[] | undefined,
+  c1A_childAbductedBefore: YesOrNo | undefined,
+  c1A_passportOffice: YesOrNo | undefined
+): void => {
   if (!c1A_concernAboutChild?.includes(C1AAbuseTypes.ABDUCTION)) {
     data.c1A_abductionReasonOutsideUk = '';
     data.c1A_childsCurrentLocation = '';
@@ -202,27 +234,31 @@ export const prepareRequest = (caseData: Partial<Case>): string => {
     data.c1A_possessionChildrenPassport = [];
     data.c1A_abductionPassportOfficeNotified = undefined;
   }
-
-  const caseDataMapperKeys = Object.keys(updateCaseDataMapper);
-  const transformedCaseData = Object.entries(data).reduce((transformedData: Record<string, any>, [field, data1]) => {
-    const [type] = field.split('_');
-    const key = updateCaseDataMapper[type];
-
-    if (caseDataMapperKeys.includes(type) && !transformedData[key]) {
-      transformedData[key] = {};
-    }
-
-    if (transformedData[key]) {
-      transformedData[key][field] = data1;
-    }
-
-    return transformedData;
-  }, {});
-
-  return JSON.stringify(transformedCaseData.respondingCitizenAoH, function (k, v) {
-    return v === undefined ? null : v;
-  });
 };
-const updateCaseDataMapper = {
-  c1A: 'respondingCitizenAoH',
+
+const dataCleanupForNoSafetyConcern = (c1A_haveSafetyConcerns: YesOrNo | undefined, data): void => {
+  if (c1A_haveSafetyConcerns === YesOrNo.NO) {
+    data.c1A_safetyConernAbout = [];
+    data.c1A_concernAboutChild = [];
+    data.c1A_concernAboutRespondent = [];
+    data.c1A_keepingSafeStatement = '';
+    data.c1A_supervisionAgreementDetails = '';
+    data.c1A_agreementOtherWaysDetails = undefined;
+    data.c1A_otherConcernsDrugs = undefined;
+    data.c1A_otherConcernsDrugsDetails = '';
+    data.c1A_childSafetyConcerns = undefined;
+    data.c1A_childSafetyConcernsDetails = '';
+    data.c1A_abductionReasonOutsideUk = '';
+    data.c1A_childsCurrentLocation = '';
+    data.c1A_childrenMoreThanOnePassport = undefined;
+    data.c1A_possessionChildrenPassport = [];
+    data.c1A_provideOtherDetails = '';
+    data.c1A_passportOffice = undefined;
+    data.c1A_abductionPassportOfficeNotified = undefined;
+    data.c1A_previousAbductionsShortDesc = '';
+    data.c1A_policeOrInvestigatorInvolved = undefined;
+    data.c1A_policeOrInvestigatorOtherDetails = '';
+    data.c1A_childAbductedBefore = undefined;
+    data.c1A_safteyConcerns = {};
+  }
 };
