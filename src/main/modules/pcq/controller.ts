@@ -23,12 +23,8 @@ export class PcqController {
       const status = await PCQProvider.service.getPcqHealthStatus(`${url}/health`);
 
       if (status === 'UP') {
-        try {
-          const pcqServiceUrl = await PCQProvider.getPcqServiceUrl(url as string, path, req, returnUrl);
-          return await PCQProvider.launchPcqService(req, res, pcqServiceUrl);
-        } catch (error) {
-          return PcqController.handleError(error, res, returnUrl);
-        }
+        const pcqServiceUrl = await PCQProvider.getPcqServiceUrl(url as string, path, req, returnUrl);
+        return await PCQProvider.launchPcqService(req, res, pcqServiceUrl);
       } else {
         PCQProvider.log('error', 'PCQ service is down');
         return res.redirect(returnUrl);
@@ -39,14 +35,10 @@ export class PcqController {
   }
 
   async onPcqCompletion(req: AppRequest, res: Response): Promise<void> {
-    try {
-      if (req.params.context === 'c100-rebuild') {
-        return new PayAndSubmitPostController({} as FormFieldsFn).handlePayment(req, res);
-      } else {
-        return new ResponseSummaryConfirmationPostController({} as FormFieldsFn).submitC7Response(req, res);
-      }
-    } catch (error) {
-      console.log(error.message);
+    if (req.params.context === 'c100-rebuild') {
+      return new PayAndSubmitPostController({} as FormFieldsFn).handlePayment(req, res);
+    } else {
+      return new ResponseSummaryConfirmationPostController({} as FormFieldsFn).submitC7Response(req, res);
     }
   }
 }

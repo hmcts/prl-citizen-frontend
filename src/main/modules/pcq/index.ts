@@ -125,7 +125,7 @@ export class PcqProvider {
       ccdCaseId: caseData.id ?? caseData.caseId,
     };
     params['token'] = this.createToken(params, tokenKey);
-    this.savePcqId(req, pcqId);
+    await this.savePcqId(req, pcqId);
     return params;
   }
 

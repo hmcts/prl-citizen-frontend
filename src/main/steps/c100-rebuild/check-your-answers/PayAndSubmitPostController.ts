@@ -34,7 +34,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
         /** Invoke Pcq questionnaire
          * */
         if (!PCQProvider.getPcqId(req) && (await PCQProvider.isComponentEnabled())) {
-          const protocol = req.app.locals.developmentMode ? 'http://' : '';
+          const protocol = req.protocol ? 'http://' : '';
           const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
           const returnUrl = `${protocol}${res.locals.host}${port}${applyParms(PCQ_CALLBACK_URL, {
             context: 'c100-rebuild',

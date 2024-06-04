@@ -11,7 +11,7 @@ export class PcqService {
       return response.data.status;
     } catch (err) {
       PCQProvider.log('error', err);
-      return '';
+      return Promise.resolve('DOWN');
     }
   }
 }
