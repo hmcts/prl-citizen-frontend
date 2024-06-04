@@ -15,7 +15,7 @@ const en = {
   paragraph1:
     'A refuge is a secure place for people and their children to stay when they are escaping domestic abuse. It provides a space to feel safe and supported.',
   paragraph2:
-    'Find out more about refuges at <a href=" https://www.citizensadvice.org.uk/family/gender-violence/domestic-violence-and-abuse/#:~:text=Finding%20a%20refuge">Citizen’s Advice (opens in a new tab).</a>',
+    'Find out more about refuges at <a href=" https://www.citizensadvice.org.uk/family/gender-violence/domestic-violence-and-abuse/#:~:text=Finding%20a%20refuge">Citizen’s Advice (opens in a new tab)</a>.',
   title: 'Does ',
   title1: 'currently live in a refuge?',
   one: 'Yes',
@@ -33,7 +33,7 @@ const cy = {
   paragraph1:
     'A refuge is a secure place for people and their children to stay when they are escaping domestic abuse. It provides a space to feel safe and supported. -welsh',
   paragraph2:
-    'Find out more about refuges at <a href=" https://www.citizensadvice.org.uk/family/gender-violence/domestic-violence-and-abuse/#:~:text=Finding%20a%20refuge">Citizen’s Advice (opens in a new tab).</a> -welsh',
+    'Find out more about refuges at <a href=" https://www.citizensadvice.org.uk/family/gender-violence/domestic-violence-and-abuse/#:~:text=Finding%20a%20refuge">Citizen’s Advice (opens in a new tab)</a>. -welsh',
   title: 'Does  -welsh',
   title1: 'currently live in a refuge? -welsh',
   one: 'Yes -welsh',
