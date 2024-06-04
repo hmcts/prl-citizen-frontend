@@ -152,7 +152,7 @@ describe('ApplicantDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyRequest.params
       )
-    ).toBe('/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/refuge-confirmation');
+    ).toBe('/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/confidential-confirmation');
   });
   test('From Applicant2 refuge confirmation -> navigate to personal details page', async () => {
     dummyRequest.params.applicantId = '2cd885a0-135e-45f1-85b7-aa46a1f78f46';

@@ -370,7 +370,7 @@ describe('C100Sequence', () => {
       '/c100-rebuild/applicant/2732dd53-2e6c-46f9-88cd-08230e735b08/confidentiality/details-know'
     );
 
-    expect(C100Sequence[68].url).toBe('/c100-rebuild/applicant/:applicantId/confidentiality/refuge-confirmation');
+    expect(C100Sequence[68].url).toBe('/c100-rebuild/applicant/:applicantId/confidentiality/confidential-confirmation');
     expect(C100Sequence[68].showInSection).toBe('c100');
     expect(C100Sequence[68].getNextStep({})).toBe('/c100-rebuild/applicant/undefined/personal-details');
 
