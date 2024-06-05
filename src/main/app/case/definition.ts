@@ -2826,6 +2826,8 @@ export enum CaseEvent {
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
   CONTACT_PREFERENCE='citizenContactPreference',
+  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates",
+  UPLOAD_STATEMENT_OF_SERVICE = 'citizenStatementOfService',
   CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding",
   CITIZEN_RESPONSE_TO_AOH = 'citizenResponseToAoH'
 }
