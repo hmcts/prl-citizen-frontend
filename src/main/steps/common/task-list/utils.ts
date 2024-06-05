@@ -61,8 +61,7 @@ export const isCaseWithdrawn = (caseData: Partial<CaseWithId>): boolean => {
   //       order.value.isWithdrawnRequestApproved === YesOrNo.YES
   //   );
   // } else {
-    return [State.CASE_WITHDRAWN].includes(caseData.state!);
-  
+  return [State.CASE_WITHDRAWN].includes(caseData.state!);
 };
 
 export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
