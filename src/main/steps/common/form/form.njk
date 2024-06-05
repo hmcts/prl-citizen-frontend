@@ -49,6 +49,7 @@
             type: "submit",
             name: "saveAndContinue",
             value: true,
+            disabled: true if form.submit.disabled else false,
             preventDoubleClick: true,
             attributes: {
               id: 'main-form-submit'
