@@ -68,12 +68,12 @@ export class CaseApi {
     caseData: Partial<CaseWithId>,
     returnUrl: string,
     caseEvent: C100_CASE_EVENT,
-    additionalSettings: Record<string, any> | undefined
+    additionalData: Record<string, any> | undefined
   ): Promise<UpdateCaseResponse> {
     const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
-      applicantPcqId: additionalSettings?.pcqId,
+      applicantPcqId: additionalData?.pcqId,
       caseTypeOfApplication: caseTypeOfApplication as string,
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,

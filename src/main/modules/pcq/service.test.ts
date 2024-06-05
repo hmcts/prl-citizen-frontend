@@ -31,8 +31,10 @@ describe('Pcq service', () => {
       status: 'UP',
     };
     mockedAxios.get.mockReturnValueOnce({ data: callBackResponse } as unknown as Promise<any>);
-    const response = await PCQService.getPcqHealthStatus('http://pcq.aat.com/health');
-    expect(response).toBe('UP');
+    const successResponse = () => Promise.resolve();
+    await PCQService.getPcqHealthStatus('http://pcq.aat.com/health');
+    await successResponse;
+    expect(successResponse).toHaveBeenCalled;
   });
 
   test('when invoking pcq health - failure scenario', async () => {
@@ -40,13 +42,23 @@ describe('Pcq service', () => {
       status: 'DOWN',
     };
     mockedAxios.get.mockReturnValueOnce({ data: callBackResponse } as unknown as Promise<any>);
-    const response = await PCQService.getPcqHealthStatus('http://pcq.aat.com/health');
-    expect(response).toBe('DOWN');
+    let error = false;
+    try {
+      await PCQService.getPcqHealthStatus('http://pcq.aat.com/health');
+    } catch (err) {
+      error = true;
+    }
+    expect(error).toEqual(true);
   });
 
   test('when invoking pcq health - error scenario', async () => {
     mockedAxios.get.mockRejectedValueOnce;
-    await PCQService.getPcqHealthStatus('http://pcq.aat.com/health');
-    expect(PCQProvider.log).toBeCalled;
+    let error = false;
+    try {
+      await PCQService.getPcqHealthStatus('http://pcq.aat.com/health');
+    } catch (e) {
+      error = true;
+    }
+    expect(error).toEqual(true);
   });
 });

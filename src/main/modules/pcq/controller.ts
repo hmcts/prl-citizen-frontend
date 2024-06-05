@@ -17,18 +17,18 @@ export class PcqController {
 
   async launch(req: AppRequest, res: Response, returnUrl: string): Promise<void> {
     try {
-      PCQProvider.init(req);
+      PCQProvider.initialiseLogger(req);
       const url = config.get('services.equalityAndDiversity.url');
       const path: string = config.get('services.equalityAndDiversity.path');
-      const status = await PCQProvider.service.getPcqHealthStatus(`${url}/health`);
-
-      if (status === 'UP') {
-        const pcqServiceUrl = await PCQProvider.getPcqServiceUrl(url as string, path, req, returnUrl);
-        return await PCQProvider.launchPcqService(req, res, pcqServiceUrl);
-      } else {
-        PCQProvider.log('error', 'PCQ service is down');
-        return res.redirect(returnUrl);
-      }
+      await PCQProvider.service.getPcqHealthStatus(`${url}/health`);
+      const pcqServiceUrl = await PCQProvider.getPcqServiceUrl(url as string, path, req, returnUrl);
+      req.session.save(err => {
+        if (err) {
+          req.locals.logger.error('Error', err);
+          throw err;
+        }
+        return res.redirect(pcqServiceUrl);
+      });
     } catch (error) {
       PcqController.handleError(error, res, returnUrl);
     }

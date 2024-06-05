@@ -5,13 +5,16 @@ import axios from 'axios';
 import { PCQProvider } from './index';
 
 export class PcqService {
-  async getPcqHealthStatus(url: string): Promise<string | undefined> {
+  async getPcqHealthStatus(url: string): Promise<void> {
     try {
       const response = await axios.get(url);
-      return response.data.status;
+      if (response?.data.status === 'UP') {
+        return new Promise(resolve => resolve());
+      }
+      return new Promise((resolve, reject) => reject());
     } catch (err) {
       PCQProvider.log('error', err);
-      return Promise.resolve('DOWN');
+      throw err;
     }
   }
 }

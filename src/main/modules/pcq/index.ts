@@ -4,7 +4,7 @@ import crypto from 'crypto';
 
 import { AxiosError } from 'axios';
 import config from 'config';
-import { Application, Response } from 'express';
+import { Application } from 'express';
 import { v4 as uuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
@@ -79,7 +79,7 @@ export class PcqProvider {
     });
   }
 
-  async init(appRequest: AppRequest): Promise<void> {
+  async initialiseLogger(appRequest: AppRequest): Promise<void> {
     this.logger = appRequest.locals.logger;
     return Promise.resolve();
   }
@@ -135,20 +135,6 @@ export class PcqProvider {
       .map(key => `${key}=${params[key]}`)
       .join('&');
     return `${url}${path}?${qs}`;
-  }
-
-  async launchPcqService(req: AppRequest, res: Response, url: string): Promise<void> {
-    try {
-      req.session.save(err => {
-        if (err) {
-          req.locals.logger.error('Error', err);
-          throw err;
-        }
-        return res.redirect(url);
-      });
-    } catch (err) {
-      PCQProvider.log('error', err);
-    }
   }
 }
 
