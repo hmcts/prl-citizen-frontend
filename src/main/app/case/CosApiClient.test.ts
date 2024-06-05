@@ -271,6 +271,7 @@ describe('CosApiClient', () => {
   /*test.skip('submitC7Response', async () => {
     const response = { id: '200', state: 'SUCCESS' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
     const caseData = toApiFormat(req?.session?.userCase);
     const actual = await client.submitC7Response('123456', '123456', caseData);
@@ -548,6 +549,7 @@ describe('CosApiClientWithError', () => {
   /*test.skip('submitC7ResponseWithError', async () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
+    const caseData = toApiFormat(req?.session?.userCase);
     let flag = true;
     try {
       await client.submitC7Response('123456', '123456', caseData);

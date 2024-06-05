@@ -32,7 +32,7 @@ export default class ResponseSummaryConfirmationPostController extends PostContr
     const { user, userCase } = req.session;
     const partyDetails = getPartyDetails(userCase, user.id);
     if (!(PCQProvider.getPcqId(req) || partyDetails?.user.pcqId) && (await PCQProvider.isComponentEnabled())) {
-      const protocol = req.app.locals.developmentMode ? 'http://' : '';
+      const protocol = req.protocol ? 'http://' : '';
       const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
       const returnUrl = `${protocol}${res.locals.host}${port}${applyParms(PCQ_CALLBACK_URL, {
         context: 'c7-response',

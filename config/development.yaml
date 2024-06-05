@@ -32,7 +32,6 @@ services:
     name: 'Equality and Diversity Service'
     url: 'https://pcq.aat.platform.hmcts.net'
     path: '/service-endpoint'
-    port: 4000
     tokenKey: PCQ_TOKEN
     pcqEnabled: 'true'
 health:
