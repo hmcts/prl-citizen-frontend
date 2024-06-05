@@ -1,8 +1,15 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { Applicant, CaseType, State } from '../../../../../app/case/definition';
+import { Applicant, CaseType, CitizenNotificationId, State } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 
-import { BannerNotification, isApplicantLIPServingRespondent, isPrimaryApplicant, notificationBanner } from './utils';
+import { languages as content } from './content';
+import {
+  BannerNotification,
+  getCRNF2NewOrderHeading,
+  isApplicantLIPServingRespondent,
+  isPrimaryApplicant,
+  notificationBanner,
+} from './utils';
 
 describe('notification Banner', () => {
   const data = {
@@ -48,6 +55,8 @@ describe('notification Banner', () => {
     BannerNotification.CA_PERSONAL_SERVICE,
     BannerNotification.RESPONSE_SUBMITTED,
     BannerNotification.CA_RESPONDENT_SERVED,
+    BannerNotification.SUMBIT_FM5,
+    BannerNotification.CRNF2_NEW_ORDER,
   ])('should have show as false by default', notification => {
     expect(notificationBanner[notification].show()).toBe(false);
   });
@@ -92,5 +101,76 @@ describe('notification Banner', () => {
         state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
       } as Partial<CaseWithId>)
     ).toBe(false);
+  });
+
+  describe('getCRNF2NewOrderHeading', () => {
+    test('should return correct translation for heading when multiple final orders', () => {
+      expect(
+        getCRNF2NewOrderHeading(
+          {
+            id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+            show: true,
+            isMultipleOrders: true,
+            isFinalOrder: true,
+          },
+          content.en
+        )
+      ).toBe('final');
+    });
+
+    test('should return correct translation for heading when multiple orders', () => {
+      expect(
+        getCRNF2NewOrderHeading(
+          {
+            id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+            show: true,
+            isMultipleOrders: true,
+            isFinalOrder: false,
+          },
+          content.en
+        )
+      ).toBe('new');
+    });
+
+    test('should return correct translation for heading when single final order', () => {
+      expect(
+        getCRNF2NewOrderHeading(
+          {
+            id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+            show: true,
+            isMultipleOrders: false,
+            isFinalOrder: true,
+          },
+          content.en
+        )
+      ).toBe('a final');
+    });
+
+    test('should return correct translation for heading when single order', () => {
+      expect(
+        getCRNF2NewOrderHeading(
+          {
+            id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+            show: true,
+            isMultipleOrders: false,
+            isFinalOrder: false,
+          },
+          content.en
+        )
+      ).toBe('a new');
+    });
+
+    test('should return correct translation for heading when new and final order', () => {
+      expect(
+        getCRNF2NewOrderHeading(
+          {
+            id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+            show: true,
+            newAndFinalOrder: true,
+          },
+          content.en
+        )
+      ).toBe('new and final');
+    });
   });
 });

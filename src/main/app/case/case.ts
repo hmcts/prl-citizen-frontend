@@ -28,6 +28,7 @@ import {
   ChildDetailsExtraTable,
   ChildDetailsTable,
   ChildrenDetails,
+  CitizenNotificationId,
   ConfidentialDetails,
   ContactDetails,
   ContactPreference,
@@ -658,8 +659,11 @@ export interface Case {
 }
 
 export interface CitizenNotification {
-  id: string;
+  id: CitizenNotificationId;
   show: boolean;
+  isFinalOrder?: boolean;
+  isMultipleOrders?: boolean;
+  newAndFinalOrder?: boolean;
 }
 
 export enum Miam_notAttendingReasons {

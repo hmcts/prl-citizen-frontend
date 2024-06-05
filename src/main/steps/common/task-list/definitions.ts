@@ -98,6 +98,14 @@ export type NotificationBannerProps = {
 
 export type NotificationBannerContent = {
   title: string;
+  final: string;
+  a: string;
+  new: string;
+  order: string;
+  orders: string;
+  tell: string;
+  tells: string;
+  and: string;
 } & {
   [key in CaseType]: {
     [key in PartyType]?: {

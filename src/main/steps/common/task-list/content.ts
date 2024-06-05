@@ -154,6 +154,17 @@ export const generateContent: TranslationFn = content => {
     }
   });
 
+  //temp
+  // caseData.citizenNotifications = [
+  //   {
+  //     id: 'CRNF2_APPLICANT_RESPONDENT',
+  //     show: true,
+  //     isMultipleOrders: false,
+  //     isFinalOrder: true,
+  //     newAndFinalOrder: false,
+  //   },
+  // ];
+
   return {
     ...translations,
     breadcrumbs: [

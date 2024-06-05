@@ -23,9 +23,10 @@ describe('ca_applicant', () => {
     expect(ca_applicantNotifications[6].id).toBe('applicationSentToGateKeeping');
     expect(ca_applicantNotifications[7].id).toBe('applicationServedAndLinked');
     expect(ca_applicantNotifications[8].id).toBe('applicationClosed');
-    expect(ca_applicantNotifications[9].id).toBe('newOrder');
-    expect(ca_applicantNotifications[10].id).toBe('giveRespondentTheirDocuments');
-    expect(ca_applicantNotifications[11].id).toBe('caPersonalService');
-    expect(ca_applicantNotifications[12].id).toBe('responseSubmitted');
+    expect(ca_applicantNotifications[9].id).toBe('giveRespondentTheirDocuments');
+    expect(ca_applicantNotifications[10].id).toBe('caPersonalService');
+    expect(ca_applicantNotifications[11].id).toBe('responseSubmitted');
+    expect(ca_applicantNotifications[12].id).toBe('submitFM5');
+    expect(ca_applicantNotifications[13].id).toBe('CRNF2NewOrder');
   });
 });

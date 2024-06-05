@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { generateResponseNotifications } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
-import { State, YesOrNo } from '../../../../../../app/case/definition';
+import { CitizenNotificationId, State, YesOrNo } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
-import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseLinked, isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
 import { BannerNotification, isApplicantLIPServingRespondent, isPrimaryApplicant, notificationBanner } from '../utils';
@@ -71,12 +70,6 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
     },
   },
   {
-    ...notificationBanner[BannerNotification.NEW_ORDER],
-    show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && hasOrders(caseData as CaseWithId);
-    },
-  },
-  {
     ...notificationBanner[BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
       return (
@@ -101,7 +94,17 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
     ...notificationBanner[BannerNotification.SUMBIT_FM5],
     show: (caseData: Partial<CaseWithId>): boolean => {
       const notification = caseData?.citizenNotifications?.find(
-        citizenNotification => citizenNotification.id === 'CAN_10'
+        citizenNotification => citizenNotification.id === CitizenNotificationId.CAN10_FM5
+      );
+
+      return notification?.show ?? false;
+    },
+  },
+  {
+    ...notificationBanner[BannerNotification.CRNF2_NEW_ORDER],
+    show: (caseData: Partial<CaseWithId>): boolean => {
+      const notification = caseData?.citizenNotifications?.find(
+        citizenNotification => citizenNotification.id === CitizenNotificationId.CRNF2_APPLICANT_RESPONDENT
       );
 
       return notification?.show ?? false;

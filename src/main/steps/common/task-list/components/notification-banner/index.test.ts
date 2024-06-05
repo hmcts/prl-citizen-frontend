@@ -1,5 +1,13 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseInvite, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
+import {
+  CaseInvite,
+  CaseType,
+  CitizenNotificationId,
+  PartyType,
+  Respondent,
+  State,
+  YesOrNo,
+} from '../../../../../app/case/definition';
 import { CitizenApplicationPacks, CitizenOrders } from '../../../documents/definitions';
 
 import { getNotificationBannerConfig } from '.';
@@ -294,6 +302,14 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
+      citizenNotifications: [
+        {
+          id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+          show: true,
+          isMultipleOrders: false,
+          isFinalOrder: false,
+        },
+      ],
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -315,7 +331,7 @@ describe('testcase for notification Banner', () => {
       },
       {
         heading: 'You have a new order from the court',
-        id: 'newOrder',
+        id: 'CRNF2NewOrder',
         sections: [
           {
             contents: [
@@ -837,11 +853,18 @@ describe('testcase for notification Banner', () => {
           },
         } as unknown as CitizenOrders,
       ];
+      data.citizenNotifications = [
+        {
+          id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+          show: true,
+          isMultipleOrders: false,
+          isFinalOrder: false,
+        },
+      ];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have a new order from the court',
-          id: 'newOrder',
-
+          id: 'CRNF2NewOrder',
           sections: [
             {
               contents: [
@@ -931,30 +954,17 @@ describe('testcase for notification Banner', () => {
           },
         },
       ] as unknown as CaseInvite[];
+      data.citizenNotifications = [
+        {
+          id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+          show: true,
+          isMultipleOrders: false,
+          isFinalOrder: false,
+        },
+      ];
       data.caseTypeOfApplication = 'C100';
       // data.citizenApplicationPacks = [{ partyId: '123' } as unknown as CitizenApplicationPacks];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
-        {
-          heading: 'You have a new order from the court',
-          id: 'newOrder',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'The court has made a decision about your case. The order tells you what the court has decided.',
-                },
-              ],
-              links: [
-                {
-                  external: false,
-                  href: '/respondent/documents/view/orders-from-the-court',
-                  text: 'View the order (PDF)',
-                },
-              ],
-            },
-          ],
-          title: 'Important',
-        },
         {
           heading: 'Respond to an application about a child',
           id: 'caRespondentServed',
@@ -981,6 +991,27 @@ describe('testcase for notification Banner', () => {
               ],
             },
             { contents: [], links: [] },
+          ],
+          title: 'Important',
+        },
+        {
+          heading: 'You have a new order from the court',
+          id: 'CRNF2NewOrder',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/documents/view/orders-from-the-court',
+                  text: 'View the order (PDF)',
+                },
+              ],
+            },
           ],
           title: 'Important',
         },
@@ -1018,15 +1049,23 @@ describe('testcase for notification Banner', () => {
           },
         } as unknown as CitizenOrders,
       ];
+      data.citizenNotifications = [
+        {
+          id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+          show: true,
+          isMultipleOrders: false,
+          isFinalOrder: true,
+        },
+      ];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
-          heading: 'You have a final order',
-          id: 'finalOrder',
+          heading: 'You have a final order from the court',
+          id: 'CRNF2NewOrder',
           sections: [
             {
               contents: [
                 {
-                  text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+                  text: 'The court has made a final decision about your case. The order tells you what the court has decided.',
                 },
               ],
               links: [

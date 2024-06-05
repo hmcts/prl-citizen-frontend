@@ -22,6 +22,14 @@ import { isPersonalServiceByCourtStaff } from './utils';
 
 const en: NotificationBannerContent = {
   title: 'Important',
+  final: 'final',
+  a: 'a',
+  new: 'new',
+  order: 'order',
+  orders: 'orders',
+  tell: 'tell',
+  tells: 'tells',
+  and: 'and',
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
       notifications: {
@@ -209,19 +217,19 @@ const en: NotificationBannerContent = {
             },
           ],
         },
-        newOrder: {
-          heading: 'You have a new order from the court',
+        CRNF2NewOrder: {
+          heading: 'You have {finalOrNew} {order} from the court',
           sections: [
             {
               contents: [
                 {
-                  text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+                  text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
                 },
               ],
               links: [
                 {
                   //** validate **
-                  text: 'View the order (PDF)',
+                  text: 'View the {order} (PDF)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
@@ -353,38 +361,19 @@ const en: NotificationBannerContent = {
     },
     [PartyType.RESPONDENT]: {
       notifications: {
-        finalOrder: {
-          heading: 'You have a final order',
+        CRNF2NewOrder: {
+          heading: 'You have {finalOrNew} {order} from the court',
           sections: [
             {
               contents: [
                 {
-                  text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+                  text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
                 },
               ],
               links: [
                 {
                   //** validate **
-                  text: 'View the order (PDF)',
-                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
-                },
-              ],
-            },
-          ],
-        },
-        newOrder: {
-          heading: 'You have a new order from the court',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'The court has made a decision about your case. The order tells you what the court has decided.',
-                },
-              ],
-              links: [
-                {
-                  //** validate **
-                  text: 'View the order (PDF)',
+                  text: 'View the {order} (PDF)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
@@ -603,6 +592,14 @@ const en: NotificationBannerContent = {
 
 const cy: typeof en = {
   title: 'Pwysig',
+  final: 'final (welsh)',
+  a: 'a (welsh)',
+  new: 'new (welsh)',
+  order: 'order (welsh)',
+  orders: 'orders (welsh)',
+  tell: 'tell (welsh)',
+  tells: 'tells (welsh)',
+  and: 'and (welsh)',
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
       notifications: {
@@ -790,19 +787,19 @@ const cy: typeof en = {
             },
           ],
         },
-        newOrder: {
-          heading: 'Mae gennych orchymyn newydd gan y llys',
+        CRNF2NewOrder: {
+          heading: 'You have {finalOrNew} {order} from the court (welsh)',
           sections: [
             {
               contents: [
                 {
-                  text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+                  text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided. (welsh)',
                 },
               ],
               links: [
                 {
                   //** validate **
-                  text: 'Gweld y gorchymyn (PDF)',
+                  text: 'View the {order} (PDF) (welsh)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
@@ -927,39 +924,19 @@ const cy: typeof en = {
     },
     [PartyType.RESPONDENT]: {
       notifications: {
-        finalOrder: {
-          heading: 'Mae gennych orchymyn terfynol',
+        CRNF2NewOrder: {
+          heading: 'You have {finalOrNew} {order} from the court (welsh)',
           sections: [
             {
               contents: [
                 {
-                  text: 'Mae’r llys wedi gwneud penderfyniad terfynol ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu.  ',
+                  text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided. (welsh)',
                 },
               ],
               links: [
                 {
                   //** validate **
-                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
-                  text: 'Gweld y gorchymyn (PDF)',
-                },
-              ],
-            },
-          ],
-        },
-
-        newOrder: {
-          heading: 'You have a new order from the court',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'The court has made a decision about your case. The order tells you what the court has decided.',
-                },
-              ],
-              links: [
-                {
-                  //** validate **
-                  text: 'View the order (PDF)',
+                  text: 'View the {order}(PDF) (welsh)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],

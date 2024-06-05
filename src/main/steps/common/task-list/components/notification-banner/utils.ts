@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 
-import { CaseWithId } from './../../../../../app/case/case';
+import { CaseWithId, CitizenNotification } from './../../../../../app/case/case';
 import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
@@ -31,6 +31,7 @@ export enum BannerNotification {
   GIVE_RESPONDENT_THEIR_DOCUMENTS = 'giveRespondentTheirDocuments',
   CA_PERSONAL_SERVICE = 'caPersonalService',
   SUMBIT_FM5 = 'submitFM5',
+  CRNF2_NEW_ORDER = 'CRNF2NewOrder',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
@@ -128,6 +129,11 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.SUMBIT_FM5),
     show: () => false,
   },
+  [BannerNotification.CRNF2_NEW_ORDER]: {
+    id: BannerNotification.CRNF2_NEW_ORDER,
+    content: getContent.bind(null, BannerNotification.CRNF2_NEW_ORDER),
+    show: () => false,
+  },
 };
 
 export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {
@@ -151,4 +157,18 @@ export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDe
     caseData.citizenApplicationPacks[0] &&
     getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyId === caseData.citizenApplicationPacks[0].partyId
   );
+};
+
+export const getCRNF2NewOrderHeading = (notification: CitizenNotification, translations): string => {
+  if (notification.newAndFinalOrder) {
+    return `${translations.new} ${translations.and} ${translations.final}`;
+  } else if (notification.isMultipleOrders && notification.isFinalOrder) {
+    return translations.final;
+  } else if (notification.isMultipleOrders && !notification.isFinalOrder) {
+    return translations.new;
+  } else if (!notification.isMultipleOrders && notification.isFinalOrder) {
+    return `${translations.a} ${translations.final}`;
+  } else {
+    return `${translations.a} ${translations.new}`;
+  }
 };

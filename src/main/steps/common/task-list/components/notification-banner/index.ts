@@ -7,10 +7,11 @@ import { interpolate } from '../../../string-parser';
 import { NotificationBannerConfig, NotificationBannerProps, NotificationSection } from '../../definitions';
 import { hasResponseBeenReviewed, isC7ResponseSubmitted, isCaseLinked } from '../../utils';
 
-import { CaseType, PartyType } from './../../../../../app/case/definition';
+import { CaseType, CitizenNotificationId, PartyType } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
 import notifConfig from './config/index';
-import { BannerNotification, notificationBanner } from './utils';
+import { languages as notificationContent } from './content';
+import { BannerNotification, getCRNF2NewOrderHeading, notificationBanner } from './utils';
 
 const notificationBannerConfig = (caseData): NotificationBannerConfig => {
   return {
@@ -50,6 +51,9 @@ export const getNotificationBannerConfig = (
           if (show(caseData, userDetails)) {
             const _content = config.content(caseType, language, partyType);
             const sections: NotificationSection[] = [];
+            const notification = caseData?.citizenNotifications?.find(
+              citizenNotification => citizenNotification.id === CitizenNotificationId.CRNF2_APPLICANT_RESPONDENT
+            );
 
             _content.sections.forEach(section => {
               const contents = section?.contents
@@ -58,6 +62,13 @@ export const getNotificationBannerConfig = (
                   text: interpolate(content.text, {
                     noOfDaysRemainingToSubmitCase:
                       caseData?.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
+                    final: notification?.isFinalOrder ? ` ${notificationContent[language].final}` : '',
+                    order: notification?.isMultipleOrders
+                      ? notificationContent[language].orders
+                      : notificationContent[language].order ?? '',
+                    tell: notification?.isMultipleOrders
+                      ? notificationContent[language].tell
+                      : notificationContent[language].tells ?? '',
                   }),
                 }));
 
@@ -71,6 +82,11 @@ export const getNotificationBannerConfig = (
                         c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
                         withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
                       }),
+                      text: interpolate(link.text, {
+                        order: notification?.isMultipleOrders
+                          ? notificationContent[language].orders
+                          : notificationContent[language].order ?? '',
+                      }),
                     }))
                 : null;
 
@@ -80,6 +96,12 @@ export const getNotificationBannerConfig = (
             return {
               id,
               ..._content,
+              heading: interpolate(_content.heading, {
+                order: notification?.isMultipleOrders
+                  ? notificationContent[language].orders
+                  : notificationContent[language].order ?? '',
+                finalOrNew: notification ? getCRNF2NewOrderHeading(notification, notificationContent[language]) : '',
+              }),
               sections,
             };
           }
