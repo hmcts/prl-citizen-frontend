@@ -33,7 +33,6 @@ services:
     url: 'https://pcq.aat.platform.hmcts.net'
     path: '/service-endpoint'
     tokenKey: PCQ_TOKEN
-    pcqEnabled: 'true'
 health:
   timeout: 5000
   deadline: 15000
@@ -55,5 +54,6 @@ featureToggles:
   enableCaseTrainTrack: ENABLE_CASE_TRAIN_TRACK
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
   enableRAComponent: ENABLE_RA_COMPONENT
+  enablePcqComponent: ENABLE_PCQ_COMPONENT
 launchDarkly:
   offline: false

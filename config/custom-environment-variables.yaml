@@ -26,7 +26,6 @@ services:
     name: 'Equality and Diversity Service'
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN
-    pcqEnabled: PCQ_ENABLED
     path: '/service-endpoint'
   reasonableAdjustments:
     url: REASONABLE_ADJUSTMENTS
@@ -48,6 +47,7 @@ featureToggles:
   testingSupport: TESTING_SUPPORT_FLAG
   enableCaseTrainTrack: ENABLE_CASE_TRAIN_TRACK
   enableRAComponent: ENABLE_RA_COMPONENT
+  enablePcqComponent: ENABLE_PCQ_COMPONENT
 
 launchDarkly:
   offline: LAUNCH_DARKLY_OFFLINE_MODE

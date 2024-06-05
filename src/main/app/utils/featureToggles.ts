@@ -64,6 +64,15 @@ export class FeatureToggles {
     }
     return toBoolean(config.get<boolean>('featureToggles.enableRAComponent'));
   }
+  async isPcqComponentEnabled(): Promise<boolean> {
+    if (this.launchDarklyClient) {
+      return this.launchDarklyClient.serviceVariation(
+        'enable-pcq-component',
+        toBoolean(config.get<boolean>('featureToggles.enablePcqComponent'))
+      );
+    }
+    return toBoolean(config.get<boolean>('featureToggles.enablePcqComponent'));
+  }
 }
 
 let featureToggleObj: FeatureToggles;

@@ -5,10 +5,12 @@ import crypto from 'crypto';
 import { AxiosError } from 'axios';
 import config from 'config';
 import { Application } from 'express';
+import toBoolean from 'to-boolean';
 import { v4 as uuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
 import { AppRequest } from '../../app/controller/AppRequest';
+import { getFeatureToggle } from '../../app/utils/featureToggles';
 
 import { PCQController, PcqController } from './controller';
 import { PcqParameters } from './definitions';
@@ -72,8 +74,9 @@ export class PcqProvider {
   }
 
   async isComponentEnabled(): Promise<boolean> {
-    const pcqEnabled = config.get('services.equalityAndDiversity.pcqEnabled');
-    const isEnabled = pcqEnabled ? pcqEnabled === 'true' : false;
+    const isEnabled =
+      getFeatureToggle()?.isPcqComponentEnabled() ??
+      toBoolean(config.get<boolean>('featureToggles.enablePcqComponent'));
     return new Promise(resolve => {
       resolve(isEnabled);
     });

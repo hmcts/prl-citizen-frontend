@@ -12,7 +12,6 @@ nodejs:
     enabled: false
   environment:
     NODE_ENV: production
-    PCQ_ENABLED: true
     REFORM_TEAM: prl
     REFORM_SERVICE_NAME: prl-citizen-frontend
     SERVICE_AUTH_PROVIDER_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
@@ -29,6 +28,7 @@ nodejs:
     TESTING_SUPPORT_FLAG: true
     ENABLE_CASE_TRAIN_TRACK: true
     ENABLE_RA_COMPONENT: true
+    ENABLE_PCQ_COMPONENT: true
   keyVaults:
     prl:
       resourceGroup: prl
