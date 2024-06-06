@@ -147,6 +147,7 @@ export interface FormContent {
     text: Label;
     classes?: string;
     href?: string;
+    disabled?: boolean;
   };
   onlyContinue?: {
     text: Label;
