@@ -6,6 +6,7 @@ import { C100Applicant, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { getFormFields } from '../staying-in-refuge/content';
 
 @autobind
 export default class ApplicantCommonConfidentialityController {
@@ -22,6 +23,7 @@ export default class ApplicantCommonConfidentialityController {
       START: 'appl_start',
       START_ALTERNATIVE: 'appl_start_alternative',
       DETAIL_KNOW: 'appl_detailsknow',
+      REFUGE: 'appl_refuge',
     };
   }
 
@@ -29,11 +31,14 @@ export default class ApplicantCommonConfidentialityController {
     this.request = req;
     const form = new Form(<FormFields>this.fields);
     const { ...formData } = form.getParsedBody(this.request.body);
-
-    if (!this.request.body['saveAndComeLater']) {
-      this.request.session.errors = form.getErrors(formData);
-    }
     const { applicantId } = req['params'];
+    if (!this.request.body['saveAndComeLater']) {
+      this.request.session.errors =
+        this.request.body._ctx === this.contextNavigators.REFUGE
+          ? new Form(getFormFields(req.session.userCase, applicantId).fields as FormFields).getErrors(formData)
+          : form.getErrors(formData);
+    }
+
     switch (this.request.body._ctx) {
       case this.contextNavigators.START: {
         this.applicantData = this.CofidentialityStartDataUpdate(applicantId);
@@ -47,6 +52,10 @@ export default class ApplicantCommonConfidentialityController {
         this.applicantData = this.CofidentialityDetailKnownDataUpdate(applicantId);
         break;
       }
+      case this.contextNavigators.REFUGE: {
+        this.applicantData = this.refugeUpdate(applicantId);
+        break;
+      }
     }
     this.request.session.userCase.appl_allApplicants = this.applicantData;
     if (this.request.session.errors && this.request.session.errors.length) {
@@ -57,6 +66,18 @@ export default class ApplicantCommonConfidentialityController {
     } else {
       return this.parent.redirect(this.request, res);
     }
+  }
+  private refugeUpdate(applicantId: string) {
+    const index = this.request.session.userCase.appl_allApplicants
+      ?.map(applicant => applicant.id)
+      .indexOf(applicantId) as number;
+    if (index !== undefined) {
+      this.request.session.userCase.appl_allApplicants![index].stayingInRefuge = this.request.body
+        .stayingInRefuge as YesOrNo;
+      this.request.session.userCase.appl_allApplicants![index].contactDetailsPrivateAlternative =
+        this.request.body.stayingInRefuge === YesOrNo.YES ? ['address', 'telephone', 'email'] : [];
+    }
+    return this.request.session.userCase.appl_allApplicants;
   }
 
   private CofidentialityStartDataUpdate = (applicantId: string): [] => {
