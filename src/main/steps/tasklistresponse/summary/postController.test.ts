@@ -1,11 +1,11 @@
+import PCQGetController from '../../../../main/steps/common/equality/PcqNavigationController';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CosApiClient } from '../../../app/case/CosApiClient';
 
 import ResponseSummaryConfirmationPostController from './postController';
 
-describe.skip('ResponseSummaryConfirmationPostController', () => {
-  const submitRespondentResponseMock = jest.spyOn(CosApiClient.prototype, 'submitC7Response');
+describe('ResponseSummaryConfirmationPostController', () => {
+  const pcqGetControllerMock = jest.spyOn(PCQGetController.prototype, 'get');
   test('post', async () => {
     const req = mockRequest();
     const res = mockResponse();
@@ -25,9 +25,8 @@ describe.skip('ResponseSummaryConfirmationPostController', () => {
       },
     ];
     req.session.userCase.respondents = partyDetails;
-    submitRespondentResponseMock.mockResolvedValue(req.session.userCase);
     const controller = new ResponseSummaryConfirmationPostController({});
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/summary-confirmation');
+    expect(pcqGetControllerMock).toHaveBeenCalled();
   });
 });

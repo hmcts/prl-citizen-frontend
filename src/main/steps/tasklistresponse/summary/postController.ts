@@ -1,17 +1,15 @@
 import autobind from 'autobind-decorator';
+import config from 'config';
 import { Response } from 'express';
 
-import { CosApiClient } from '../../../app/case/CosApiClient';
-import { CaseType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { CA_RESPONDENT_RESPONSE_CONFIRMATION } from '../../urls';
-import { getPartyDetails, mapDataInSession } from '../utils';
+import PCQGetController from '../../common/equality/PcqNavigationController';
+import { RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
 
 @autobind
-export default class ResponseSummaryConfirmationPostController extends PostController<AnyObject> {
+export default class ResponseSummaryConfirmationPcqPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
@@ -26,30 +24,9 @@ export default class ResponseSummaryConfirmationPostController extends PostContr
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-
-    const { user, userCase } = req.session;
-    const partyType = getCasePartyType(userCase, user.id);
-    const partyDetails = getPartyDetails(userCase, user.id);
-    const client = new CosApiClient(user.accessToken, req.locals.logger);
-
-    if (partyDetails) {
-      try {
-        req.session.userCase = await client.submitC7Response(
-          userCase.id,
-          partyDetails,
-          partyType,
-          userCase.caseTypeOfApplication as CaseType
-        );
-        mapDataInSession(req.session.userCase, user.id);
-        req.session.save(() => {
-          const redirectUrl = CA_RESPONDENT_RESPONSE_CONFIRMATION;
-          res.redirect(redirectUrl);
-        });
-      } catch (error) {
-        throw new Error('Error occured, could not sumbit C7 response. - ResponseSummaryConfirmationPostController');
-      }
-    } else {
-      this.redirect(req, res);
-    }
+    const protocol = req.app.locals.developmentMode ? 'http://' : '';
+    const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
+    const returnUrl = `${protocol}${res.locals.host}${port}${RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT}`;
+    new PCQGetController().get(req, res, returnUrl);
   }
 }
