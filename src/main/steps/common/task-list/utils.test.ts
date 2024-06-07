@@ -1,82 +1,85 @@
+import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { CaseWithId } from '../../../app/case/case';
 import { Applicant, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../app/case/definition';
 import { UserDetails } from '../../../app/controller/AppRequest';
 
-import { getPartyName, hasRespondentRespondedToC7Application, hasResponseBeenReviewed, isCaseWithdrawn } from './utils';
+import { getPartyName, hasRespondentRespondedToC7Application, isC7ResponseReviewed, isCaseWithdrawn } from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
-    const data = {
-      id: '12',
-      state: State.CASE_SUBMITTED_PAID,
-      respondents: [
-        {
-          id: '1',
-          value: {
-            email: 'abc',
-            gender: 'male',
-            address: {
-              AddressLine1: '',
-              AddressLine2: '',
-              PostTown: '',
-              County: '',
-              PostCode: '',
-            },
-            dxNumber: '123',
-            landline: '987654321',
-            lastName: 'Smith',
-            firstName: 'John',
-            dateOfBirth: '',
-            otherGender: '',
-            phoneNumber: '',
-            placeOfBirth: '',
-            previousName: '',
-            solicitorOrg: {
-              OrganisationID: '',
-              OrganisationName: '',
-            },
-            sendSignUpLink: '',
-            solicitorEmail: '',
-            isAddressUnknown: '',
-            solicitorAddress: {
-              County: '',
-              Country: '',
-              PostCode: '',
-              PostTown: '',
-              AddressLine1: '',
-              AddressLine2: '',
-              AddressLine3: '',
-            },
-            isDateOfBirthKnown: '',
-            solicitorReference: '',
-            solicitorTelephone: '',
-            isPlaceOfBirthKnown: '',
-            isDateOfBirthUnknown: '',
-            isAddressConfidential: '',
-            isCurrentAddressKnown: '',
-            relationshipToChildren: '',
-            representativeLastName: '',
-            representativeFirstName: '',
-            canYouProvidePhoneNumber: '',
-            canYouProvideEmailAddress: '',
-            isAtAddressLessThan5Years: '',
-            isPhoneNumberConfidential: '',
-            isEmailAddressConfidential: '',
-            respondentLivedWithApplicant: '',
-            doTheyHaveLegalRepresentation: '',
-            addressLivedLessThan5YearsDetails: '',
-            otherPersonRelationshipToChildren: [''],
-            isAtAddressLessThan5YearsWithDontKnow: '',
-            response: {},
-            user: {
+    const data = mockRequest({
+      userCase: {
+        id: '12',
+        state: State.CASE_SUBMITTED_PAID,
+        respondents: [
+          {
+            id: '1',
+            value: {
               email: 'abc',
-              idamId: '12345',
+              gender: 'male',
+              address: {
+                AddressLine1: '',
+                AddressLine2: '',
+                PostTown: '',
+                County: '',
+                PostCode: '',
+              },
+              dxNumber: '123',
+              landline: '987654321',
+              lastName: 'Smith',
+              firstName: 'John',
+              dateOfBirth: '',
+              otherGender: '',
+              phoneNumber: '',
+              placeOfBirth: '',
+              previousName: '',
+              solicitorOrg: {
+                OrganisationID: '',
+                OrganisationName: '',
+              },
+              sendSignUpLink: '',
+              solicitorEmail: '',
+              isAddressUnknown: '',
+              solicitorAddress: {
+                County: '',
+                Country: '',
+                PostCode: '',
+                PostTown: '',
+                AddressLine1: '',
+                AddressLine2: '',
+                AddressLine3: '',
+              },
+              isDateOfBirthKnown: '',
+              solicitorReference: '',
+              solicitorTelephone: '',
+              isPlaceOfBirthKnown: '',
+              isDateOfBirthUnknown: '',
+              isAddressConfidential: '',
+              isCurrentAddressKnown: '',
+              relationshipToChildren: '',
+              representativeLastName: '',
+              representativeFirstName: '',
+              canYouProvidePhoneNumber: '',
+              canYouProvideEmailAddress: '',
+              isAtAddressLessThan5Years: '',
+              isPhoneNumberConfidential: '',
+              isEmailAddressConfidential: '',
+              respondentLivedWithApplicant: '',
+              doTheyHaveLegalRepresentation: '',
+              addressLivedLessThan5YearsDetails: '',
+              otherPersonRelationshipToChildren: [''],
+              isAtAddressLessThan5YearsWithDontKnow: '',
+              response: {},
+              user: {
+                email: 'abc',
+                idamId: '12345',
+              },
             },
           },
-        },
-      ],
-      caseTypeOfApplication: CaseType.C100,
-    };
+        ],
+        caseTypeOfApplication: CaseType.C100,
+      },
+    });
     const party = PartyType.RESPONDENT;
     const userDetail = {
       accessToken: '1234',
@@ -352,7 +355,7 @@ describe('testcase for isCaseWithdrawn', () => {
     expect(isCaseWithdrawn(data)).toBe(false);
   });
   test('when no case data', () => {
-    const data = {};
+    const data = mockRequest({ userCase: {} });
     expect(isCaseWithdrawn(data)).toBe(false);
   });
 });
@@ -411,10 +414,10 @@ describe('hasRespondentRespondedToC7Application', () => {
   });
 });
 
-describe('hasResponseBeenReviewed', () => {
+describe('isC7ResponseReviewed', () => {
   test('should return true if respondent submitted response document is present', () => {
     expect(
-      hasResponseBeenReviewed(
+      isC7ResponseReviewed(
         {
           citizenDocuments: [
             {
@@ -451,7 +454,7 @@ describe('hasResponseBeenReviewed', () => {
 
   test('should return true if solicitor submitted response document is present', () => {
     expect(
-      hasResponseBeenReviewed(
+      isC7ResponseReviewed(
         {
           citizenDocuments: [
             {
@@ -490,7 +493,7 @@ describe('hasResponseBeenReviewed', () => {
 
   test('should return false if response document is not present', () => {
     expect(
-      hasResponseBeenReviewed(
+      isC7ResponseReviewed(
         {
           citizenDocuments: [
             {

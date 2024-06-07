@@ -3,7 +3,6 @@ import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType } from '../../../app/case/definition';
 import { UserDetails } from '../../../app/controller/AppRequest';
 
-import { BannerNotification } from './components/notification-banner/utils';
 import { CaseProgressionStage } from './components/progress-bar/utils';
 import { StateTags, TaskListSection, Tasks } from './components/tasklist/utils';
 
@@ -82,56 +81,6 @@ export type HyperLinkConfig = {
 type PreparedStateTag = {
   label: string;
   className: string;
-};
-
-export type NotificationBannerConfig = {
-  [key in CaseType]: {
-    [key in PartyType]?: NotificationBannerProps[];
-  };
-};
-
-export type NotificationBannerProps = {
-  id: BannerNotification;
-  content?: (caseType: CaseType, language: string, partyType: PartyType) => NotificationBannerContent;
-  show?: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => boolean;
-};
-
-export type NotificationBannerContent = {
-  title: string;
-  final: string;
-  a: string;
-  new: string;
-  order: string;
-  orders: string;
-  tell: string;
-  tells: string;
-  and: string;
-} & {
-  [key in CaseType]: {
-    [key in PartyType]?: {
-      notifications: {
-        [key in BannerNotification]?: NotificationContent;
-      };
-    };
-  };
-};
-
-type NotificationContent = {
-  heading: string;
-  sections: NotificationSection[];
-};
-
-export type NotificationSection = {
-  contents: {
-    text: string;
-    show?: (caseData: Partial<CaseWithId>) => boolean;
-  }[];
-  links?: {
-    text: string;
-    href?: string;
-    show?: (caseData: Partial<CaseWithId>) => boolean;
-    external?: boolean;
-  }[];
 };
 
 export type ProgressBarConfig = {

@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { applyParms } from '../url-parser';
 
 import { APPLICANT_ADD_LEGAL_REPRESENTATIVE, DASHBOARD_URL, REMOVE_LEGAL_REPRESENTATIVE_START } from './../../urls';
-import { getNotificationBannerConfig } from './components/notification-banner/.';
+import { getNotifications } from './components/notification-banner/index';
 import { getProgressBarConfig } from './components/progress-bar/index';
 import { languages as sideLinks } from './components/side-links/content';
 import { getTaskListConfig } from './components/tasklist/index';
@@ -177,7 +177,7 @@ export const generateContent: TranslationFn = content => {
     progressBar: request.session.enableCaseTrainTrack
       ? getProgressBarConfig(caseData, partyType, content.language, request.session.user)
       : [],
-    notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),
+    notifications: getNotifications(caseData, request.session.user, partyType, content.language),
     taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language),
   };
 };

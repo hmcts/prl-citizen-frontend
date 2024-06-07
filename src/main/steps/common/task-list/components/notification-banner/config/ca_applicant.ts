@@ -1,38 +1,40 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { generateResponseNotifications } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
-import { CitizenNotificationId, State, YesOrNo } from '../../../../../../app/case/definition';
+import { State, YesOrNo } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
-import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseLinked, isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
-import { BannerNotification, isApplicantLIPServingRespondent, isPrimaryApplicant, notificationBanner } from '../utils';
+import { NotificationBannerProps, NotificationType } from '../definitions';
+import { isApplicantLIPServingRespondent, isPrimaryApplicant, showNotification } from '../utils';
 
-export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerProps[] => [
+export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerProps[] => [
   {
-    ...notificationBanner[BannerNotification.APPLICATION_NOT_STARTED],
-    show: (caseData: Partial<CaseWithId>): boolean => {
+    id: NotificationType.APPLICATION_NOT_STARTED,
+    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
       return !caseData;
     },
   },
   {
-    ...notificationBanner[BannerNotification.APPLICATION_IN_PROGRESS],
-    show: (caseData: Partial<CaseWithId>): boolean => {
+    id: NotificationType.APPLICATION_IN_PROGRESS,
+    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
       return caseData?.state === State.CASE_DRAFT;
     },
   },
   {
-    ...notificationBanner[BannerNotification.APPLICATION_SUBMITTED],
-    show: (caseData: Partial<CaseWithId>): boolean => {
+    id: NotificationType.APPLICATION_SUBMITTED,
+    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
       return caseData?.state === State.CASE_SUBMITTED_PAID || caseData?.state === State.CASE_SUBMITTED_NOT_PAID;
     },
   },
   {
-    ...notificationBanner[BannerNotification.APPLICATION_WITHDRAWN],
-    show: isCaseWithdrawn,
+    id: NotificationType.APPLICATION_WITHDRAWN,
+    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
+      return isCaseWithdrawn(caseData);
+    },
   },
   {
-    ...notificationBanner[BannerNotification.WITHDRAWAL_REQ_REJECTED],
-    show: (caseData: Partial<CaseWithId>): boolean => {
+    id: NotificationType.WITHDRAWAL_REQ_REJECTED,
+    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
       return !!caseData?.orderCollection?.find(
         order =>
           order.value?.orderTypeId === 'blankOrderOrDirectionsWithdraw' &&
@@ -42,36 +44,34 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
     },
   },
   {
-    ...notificationBanner[BannerNotification.APPLICATION_SENT_TO_LOCAL_COURT],
-    show: (caseData: Partial<CaseWithId>): boolean => {
+    id: NotificationType.APPLICATION_SENT_TO_LOCAL_COURT,
+    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
       return caseData?.state === State.CASE_ISSUED_TO_LOCAL_COURT;
     },
   },
   {
-    ...notificationBanner[BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING],
-    show: (caseData: Partial<CaseWithId>): boolean => {
+    id: NotificationType.APPLICATION_SENT_TO_GATE_KEEPING,
+    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
       return caseData?.state === State.CASE_GATE_KEEPING;
     },
   },
   {
-    ...notificationBanner[BannerNotification.APPLICATION_SERVED_LINKED],
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-      return (
-        caseData?.state === State.CASE_SERVED &&
-        isCaseLinked(caseData, userDetails) &&
-        !isApplicantLIPServingRespondent(caseData)
-      );
-    },
+    id: NotificationType.APPLICATION_SERVED_FOR_APPLICANT,
+    show: showNotification,
   },
   {
-    ...notificationBanner[BannerNotification.APPLICATION_CLOSED],
-    show: (caseData: Partial<CaseWithId>): boolean => {
+    id: NotificationType.APPLICATION_CLOSED,
+    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
       return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED && !isCaseWithdrawn(caseData);
     },
   },
   {
-    ...notificationBanner[BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS],
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+    id: NotificationType.CRNF2_NEW_ORDER,
+    show: showNotification,
+  },
+  {
+    id: NotificationType.GIVE_RESPONDENT_THEIR_DOCUMENTS,
+    show: (notificationType: NotificationType, caseData: CaseWithId, userDetails: UserDetails): boolean => {
       return (
         isCaseLinked(caseData, userDetails) &&
         isPrimaryApplicant(caseData, userDetails) &&
@@ -80,8 +80,8 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
     },
   },
   {
-    ...notificationBanner[BannerNotification.CA_PERSONAL_SERVICE],
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+    id: NotificationType.CA_PERSONAL_SERVICE,
+    show: (notificationType: NotificationType, caseData: CaseWithId, userDetails: UserDetails): boolean => {
       return (
         isCaseLinked(caseData, userDetails) &&
         !isPrimaryApplicant(caseData, userDetails) &&
@@ -91,23 +91,7 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
   },
   ...generateResponseNotifications(userCase),
   {
-    ...notificationBanner[BannerNotification.SUMBIT_FM5],
-    show: (caseData: Partial<CaseWithId>): boolean => {
-      const notification = caseData?.citizenNotifications?.find(
-        citizenNotification => citizenNotification.id === CitizenNotificationId.CAN10_FM5
-      );
-
-      return notification?.show ?? false;
-    },
-  },
-  {
-    ...notificationBanner[BannerNotification.CRNF2_NEW_ORDER],
-    show: (caseData: Partial<CaseWithId>): boolean => {
-      const notification = caseData?.citizenNotifications?.find(
-        citizenNotification => citizenNotification.id === CitizenNotificationId.CRNF2_APPLICANT_RESPONDENT
-      );
-
-      return notification?.show ?? false;
-    },
+    id: NotificationType.SUMBIT_FM5,
+    show: showNotification,
   },
 ];

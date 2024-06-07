@@ -2,14 +2,10 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { Applicant, CaseType, CitizenNotificationId, State } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 
+import { NOTIFICATION_BASE_CONFIG } from './config';
 import { languages as content } from './content';
-import {
-  BannerNotification,
-  getCRNF2NewOrderHeading,
-  isApplicantLIPServingRespondent,
-  isPrimaryApplicant,
-  notificationBanner,
-} from './utils';
+import { NotificationType } from './definitions';
+import { getCRNF2NewOrderHeading, isApplicantLIPServingRespondent, isPrimaryApplicant } from './utils';
 
 describe('notification Banner', () => {
   const data = {
@@ -39,26 +35,26 @@ describe('notification Banner', () => {
   } as Partial<CaseWithId>;
 
   test.each([
-    BannerNotification.APPLICATION_NOT_STARTED,
-    BannerNotification.APPLICATION_IN_PROGRESS,
-    BannerNotification.APPLICATION_SUBMITTED,
-    BannerNotification.APPLICATION_WITHDRAWN,
-    BannerNotification.WITHDRAWAL_REQ_REJECTED,
-    BannerNotification.APPLICATION_SENT_TO_LOCAL_COURT,
-    BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING,
-    BannerNotification.APPLICATION_SERVED_LINKED,
-    BannerNotification.APPLICATION_CLOSED,
-    BannerNotification.NEW_ORDER,
-    BannerNotification.FINAL_ORDER,
-    BannerNotification.DA_RESPONDENT_BANNER,
-    BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS,
-    BannerNotification.CA_PERSONAL_SERVICE,
-    BannerNotification.RESPONSE_SUBMITTED,
-    BannerNotification.CA_RESPONDENT_SERVED,
-    BannerNotification.SUMBIT_FM5,
-    BannerNotification.CRNF2_NEW_ORDER,
+    NotificationType.APPLICATION_NOT_STARTED,
+    NotificationType.APPLICATION_IN_PROGRESS,
+    NotificationType.APPLICATION_SUBMITTED,
+    NotificationType.APPLICATION_WITHDRAWN,
+    NotificationType.WITHDRAWAL_REQ_REJECTED,
+    NotificationType.APPLICATION_SENT_TO_LOCAL_COURT,
+    NotificationType.APPLICATION_SENT_TO_GATE_KEEPING,
+    NotificationType.APPLICATION_SERVED_FOR_APPLICANT,
+    NotificationType.APPLICATION_CLOSED,
+    NotificationType.NEW_ORDER,
+    NotificationType.FINAL_ORDER,
+    NotificationType.DA_RESPONDENT_BANNER,
+    NotificationType.GIVE_RESPONDENT_THEIR_DOCUMENTS,
+    NotificationType.CA_PERSONAL_SERVICE,
+    NotificationType.RESPONSE_SUBMITTED,
+    NotificationType.APPLICATION_SERVED_FOR_RESPONDENT,
+    NotificationType.SUMBIT_FM5,
+    NotificationType.CRNF2_NEW_ORDER,
   ])('should have show as false by default', notification => {
-    expect(notificationBanner[notification].show()).toBe(false);
+    expect(NOTIFICATION_BASE_CONFIG.find(config => config.id === notification)?.show()).toBe(false);
   });
 
   test('isPrimaryApplicant should return true when user is first applicant', () => {
