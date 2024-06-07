@@ -1,17 +1,22 @@
+import { mockRequest } from '../../../../../../../test/unit/utils/mockRequest';
 import { PartyDetails } from '../../../../../../app/case/definition';
 
-import { CA_APPLICANT } from './ca_applicant';
+import { CA_APPLICANT_CONFIG } from './ca_applicant';
 
 describe('ca_applicant', () => {
   test('should have correct notification ids', () => {
-    const ca_applicantNotifications = CA_APPLICANT({
-      respondents: [
-        {
-          id: '1',
-          value: {} as PartyDetails,
+    const ca_applicantNotifications = CA_APPLICANT_CONFIG(
+      mockRequest({
+        userCase: {
+          respondents: [
+            {
+              id: '1',
+              value: {} as PartyDetails,
+            },
+          ],
         },
-      ],
-    });
+      })
+    );
 
     expect(ca_applicantNotifications).toHaveLength(14);
     expect(ca_applicantNotifications[0].id).toBe('applicationNotStarted');
@@ -21,7 +26,7 @@ describe('ca_applicant', () => {
     expect(ca_applicantNotifications[4].id).toBe('withdrawalRequestRejected');
     expect(ca_applicantNotifications[5].id).toBe('applicationSentToLocalCourt');
     expect(ca_applicantNotifications[6].id).toBe('applicationSentToGateKeeping');
-    expect(ca_applicantNotifications[7].id).toBe('applicationServedAndLinked');
+    expect(ca_applicantNotifications[7].id).toBe('applicationServedForApplicant');
     expect(ca_applicantNotifications[8].id).toBe('applicationClosed');
     expect(ca_applicantNotifications[9].id).toBe('newOrder');
     expect(ca_applicantNotifications[10].id).toBe('giveRespondentTheirDocuments');

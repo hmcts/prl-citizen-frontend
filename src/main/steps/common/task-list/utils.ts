@@ -7,15 +7,7 @@ import { UserDetails } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { DocumentCategory } from '../documents/definitions';
 
-import {
-  CaseType,
-  PartyDetails,
-  PartyType,
-  Respondent,
-  ServedParty,
-  State,
-  YesOrNo,
-} from './../../../app/case/definition';
+import { CaseType, PartyDetails, PartyType, Respondent, State, YesOrNo } from './../../../app/case/definition';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -48,7 +40,7 @@ export const getPartyName = (
   return partyDetails ? `${partyDetails.firstName} ${partyDetails.lastName}` : '';
 };
 
-export const isCaseWithdrawn = (caseData: Partial<CaseWithId>): boolean => {
+export const isCaseWithdrawn = (caseData: CaseWithId): boolean => {
   if (!caseData) {
     return false;
   }
@@ -97,21 +89,7 @@ export const isC7ResponseSubmitted = (respondent: PartyDetails | undefined): boo
   return _.get(respondent, 'response.c7ResponseSubmitted', YesOrNo.NO) === YesOrNo.YES;
 };
 
-export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
-
-export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => {
-  if (
-    caseData.finalServedApplicationDetailsList?.length &&
-    caseData.finalServedApplicationDetailsList.find(list =>
-      list.value.emailNotificationDetails?.find(i => i.value?.servedParty === ServedParty.CYMRU)
-    )
-  ) {
-    return true;
-  }
-  return false;
-};
-
-export const hasResponseBeenReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
+export const isC7ResponseReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
   return !!(
     caseData?.citizenDocuments?.length &&
     caseData.citizenDocuments.find(
