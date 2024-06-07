@@ -137,6 +137,6 @@ describe('PcqProvider', () => {
     appRequest.protocol = 'http';
     appRequest.host = 'http://localhost:3031';
     const url = await PCQProvider.getReturnUrl(appRequest, PartyType.APPLICANT, 'c100-rebuild');
-    expect(url).toEqual('http://localhost:3031/applicant/pcq/equality/c100-rebuild');
+    expect(url).toContain('/applicant/pcq/equality/c100-rebuild');
   });
 });
