@@ -5,129 +5,60 @@
 import _ from 'lodash';
 
 import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { hasApplicationPacks } from '../../../../../steps/common/documents/view/utils';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 
 import { CaseWithId } from './../../../../../app/case/case';
 import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
+import {
+  CA_APPLICANT_CONFIG,
+  CA_RESPONDENT_CONFIG,
+  DA_APPLICANT_CONFIG,
+  DA_RESPONDENT_CONFIG,
+  NOTIFICATION_BASE_CONFIG,
+} from './config';
 import { languages as content } from './content';
+import { NotificationBannerProps, NotificationID, NotificationType } from './definitions';
 
-export enum BannerNotification {
-  APPLICATION_NOT_STARTED = 'applicationNotStarted',
-  APPLICATION_IN_PROGRESS = 'applicationInProgress',
-  APPLICATION_SUBMITTED = 'applicationSubmitted',
-  APPLICATION_WITHDRAWN = 'applicationWithdrawn',
-  WITHDRAWAL_REQ_REJECTED = 'withdrawalRequestRejected',
-  APPLICATION_SENT_TO_LOCAL_COURT = 'applicationSentToLocalCourt',
-  APPLICATION_SENT_TO_GATE_KEEPING = 'applicationSentToGateKeeping',
-  APPLICATION_SERVED_LINKED = 'applicationServedAndLinked',
-  APPLICATION_CLOSED = 'applicationClosed',
-  NEW_ORDER = 'newOrder',
-  NEW_DOCUMENT = 'newDocument',
-  FINAL_ORDER = 'finalOrder',
-  DA_RESPONDENT_BANNER = 'daRespondentBanner',
-  CA_RESPONDENT_SERVED = 'caRespondentServed',
-  CAFFCASS = 'cafcass',
-  RESPONSE_SUBMITTED = 'responseSubmitted',
-  GIVE_RESPONDENT_THEIR_DOCUMENTS = 'giveRespondentTheirDocuments',
-  CA_PERSONAL_SERVICE = 'caPersonalService',
-  SUMBIT_FM5 = 'submitFM5',
-}
+export const getNotificationConfig = (
+  caseType: CaseType,
+  partyType: PartyType,
+  caseData: CaseWithId
+): NotificationBannerProps[] | [] => {
+  const config = {
+    [CaseType.C100]: {
+      [PartyType.APPLICANT]: CA_APPLICANT_CONFIG(caseData),
+      [PartyType.RESPONDENT]: CA_RESPONDENT_CONFIG(),
+    },
+    [CaseType.FL401]: {
+      [PartyType.APPLICANT]: DA_APPLICANT_CONFIG(),
+      [PartyType.RESPONDENT]: DA_RESPONDENT_CONFIG(),
+    },
+  };
 
-const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
+  return (config?.[caseType]?.[partyType] ?? [])
+    .map(notificationConfig => {
+      const baseConfig = NOTIFICATION_BASE_CONFIG.find(
+        baseNotificationConfig => baseNotificationConfig.id === notificationConfig.id
+      );
+
+      return baseConfig ? { ...baseConfig, notificationConfig } : null;
+    })
+    .filter(notificationConfig => notificationConfig !== null);
+};
+
+export const getNotificationContent = (
+  notficationType: NotificationType,
+  caseType: CaseType,
+  language: string,
+  partyType: PartyType
+) => {
   const translation = content[language];
 
   return {
     title: translation.title,
-    ...translation?.[caseType]?.[partyType]?.['notifications']?.[notfication],
+    ...translation?.[caseType]?.[partyType]?.[notficationType],
   };
-};
-
-export const notificationBanner = {
-  [BannerNotification.APPLICATION_NOT_STARTED]: {
-    id: BannerNotification.APPLICATION_NOT_STARTED,
-    content: getContent.bind(null, BannerNotification.APPLICATION_NOT_STARTED),
-    show: () => false,
-  },
-  [BannerNotification.APPLICATION_IN_PROGRESS]: {
-    id: BannerNotification.APPLICATION_IN_PROGRESS,
-    content: getContent.bind(null, BannerNotification.APPLICATION_IN_PROGRESS),
-    show: () => false,
-  },
-  [BannerNotification.APPLICATION_SUBMITTED]: {
-    id: BannerNotification.APPLICATION_SUBMITTED,
-    content: getContent.bind(null, BannerNotification.APPLICATION_SUBMITTED),
-    show: () => false,
-  },
-  [BannerNotification.APPLICATION_WITHDRAWN]: {
-    id: BannerNotification.APPLICATION_WITHDRAWN,
-    content: getContent.bind(null, BannerNotification.APPLICATION_WITHDRAWN),
-    show: () => false,
-  },
-  [BannerNotification.WITHDRAWAL_REQ_REJECTED]: {
-    id: BannerNotification.WITHDRAWAL_REQ_REJECTED,
-    content: getContent.bind(null, BannerNotification.WITHDRAWAL_REQ_REJECTED),
-    show: () => false,
-  },
-  [BannerNotification.APPLICATION_SENT_TO_LOCAL_COURT]: {
-    id: BannerNotification.APPLICATION_SENT_TO_LOCAL_COURT,
-    content: getContent.bind(null, BannerNotification.APPLICATION_SENT_TO_LOCAL_COURT),
-    show: () => false,
-  },
-  [BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING]: {
-    id: BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING,
-    content: getContent.bind(null, BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING),
-    show: () => false,
-  },
-  [BannerNotification.APPLICATION_SERVED_LINKED]: {
-    id: BannerNotification.APPLICATION_SERVED_LINKED,
-    content: getContent.bind(null, BannerNotification.APPLICATION_SERVED_LINKED),
-    show: () => false,
-  },
-  [BannerNotification.APPLICATION_CLOSED]: {
-    id: BannerNotification.APPLICATION_CLOSED,
-    content: getContent.bind(null, BannerNotification.APPLICATION_CLOSED),
-    show: () => false,
-  },
-  [BannerNotification.NEW_ORDER]: {
-    id: BannerNotification.NEW_ORDER,
-    content: getContent.bind(null, BannerNotification.NEW_ORDER),
-    show: () => false,
-  },
-  [BannerNotification.FINAL_ORDER]: {
-    id: BannerNotification.FINAL_ORDER,
-    content: getContent.bind(null, BannerNotification.FINAL_ORDER),
-    show: () => false,
-  },
-  [BannerNotification.DA_RESPONDENT_BANNER]: {
-    id: BannerNotification.DA_RESPONDENT_BANNER,
-    content: getContent.bind(null, BannerNotification.DA_RESPONDENT_BANNER),
-    show: () => false,
-  },
-  [BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS]: {
-    id: BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS,
-    content: getContent.bind(null, BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS),
-    show: () => false,
-  },
-  [BannerNotification.CA_PERSONAL_SERVICE]: {
-    id: BannerNotification.CA_PERSONAL_SERVICE,
-    content: getContent.bind(null, BannerNotification.CA_PERSONAL_SERVICE),
-    show: () => false,
-  },
-  [BannerNotification.RESPONSE_SUBMITTED]: {
-    id: BannerNotification.RESPONSE_SUBMITTED,
-    content: getContent.bind(null, BannerNotification.RESPONSE_SUBMITTED),
-    show: () => false,
-  },
-  [BannerNotification.CA_RESPONDENT_SERVED]: {
-    id: BannerNotification.CA_RESPONDENT_SERVED,
-    content: getContent.bind(null, BannerNotification.CA_RESPONDENT_SERVED),
-    show: () => false,
-  },
-  [BannerNotification.SUMBIT_FM5]: {
-    id: BannerNotification.SUMBIT_FM5,
-    content: getContent.bind(null, BannerNotification.SUMBIT_FM5),
-    show: () => false,
-  },
 };
 
 export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {
@@ -138,13 +69,6 @@ export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: U
   return caseData.applicants?.[0].value.user.idamId === userDetails.id;
 };
 
-export const isPersonalServiceByCourtStaff = (caseData: Partial<CaseWithId>): boolean => {
-  const PERSONAL_SOA_BY_COURT_STAFF = ['Court - court admin', 'Court - court bailiff'];
-  return caseData?.finalServedApplicationDetailsList?.length
-    ? PERSONAL_SOA_BY_COURT_STAFF.includes(_.last(caseData.finalServedApplicationDetailsList)?.value.whoIsResponsible!)
-    : false;
-};
-
 export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   return !!(
     caseData?.citizenApplicationPacks?.length &&
@@ -152,3 +76,53 @@ export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDe
     getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyId === caseData.citizenApplicationPacks[0].partyId
   );
 };
+
+/*** */
+
+export const isApplicationPackAvailable = (caseData: Partial<CaseWithId>, partyType: PartyType): boolean => {
+  return (
+    hasApplicationPacks(caseData as CaseWithId) &&
+    (_.get(
+      caseData.citizenApplicationPacks![0],
+      partyType === PartyType.APPLICANT ? 'applicantSoaPack' : 'respondentSoaPack',
+      false
+    ) as boolean)
+  );
+};
+
+export const isPersonalServiceByCourt = (caseData: CaseWithId): boolean =>
+  hasApplicationPacks(caseData as CaseWithId) &&
+  _.get(caseData.citizenApplicationPacks![0], 'isPersonalService', false);
+
+export const isCafcassServed = (caseData: CaseWithId): boolean =>
+  hasApplicationPacks(caseData as CaseWithId) && _.get(caseData.citizenApplicationPacks![0], 'wasCafcassServed', false);
+
+export const isCafcassCymruServed = (caseData: CaseWithId): boolean =>
+  hasApplicationPacks(caseData as CaseWithId) &&
+  _.get(caseData.citizenApplicationPacks![0], 'wasCafcassCymruServed', false);
+
+export function showNotification(notificationType: NotificationType, caseData: CaseWithId): boolean {
+  let notificationId;
+
+  switch (notificationType) {
+    case NotificationType.APPLICATION_SERVED_FOR_APPLICANT:
+      {
+        notificationId = NotificationID.APPLICATION_SERVED_FOR_APPLICANT;
+      }
+      break;
+    case NotificationType.APPLICATION_SERVED_FOR_RESPONDENT:
+      {
+        notificationId = NotificationID.APPLICATION_SERVED_FOR_RESPONDENT;
+      }
+      break;
+    case NotificationType.SUMBIT_FM5:
+      {
+        notificationId = NotificationID.SUMBIT_FM5;
+      }
+      break;
+  }
+
+  return notificationId
+    ? caseData?.citizenNotifications?.find(notification => notification.id === notificationId)?.show ?? false
+    : false;
+}
