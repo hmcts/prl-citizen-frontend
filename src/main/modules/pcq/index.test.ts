@@ -11,6 +11,7 @@ import { Application } from 'express';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 
 import { PCQProvider } from './index';
+import { PartyType } from '../../app/case/definition';
 
 describe('PcqProvider', () => {
   let appRequest;
@@ -130,5 +131,12 @@ describe('PcqProvider', () => {
     expect(url).toEqual(
       'http://localhost/service-endpoint?serviceId=prl_ca&actor=RESPONDENT&pcqId=MOCK_V4_UUID&partyId=user@gmail.com&returnUrl=actor=APPLICANT&language=en&ccdCaseId=undefined&token=b768000010d95d8814cc797c341dfcd9cdd693088e686ac1890b95c14ce0dd16c70160f511cbab4bd18fe0a4aeecc0b5fd10fc4ea73254fd206c368df7f1fdde0921566ee8360d653c50f7be16a6fee8191cb3e34c3c45e4b9a04299229c1f20f3062cb53bdf15b4d8a7181377347695fa3f7de0b4faab76c0f60405f8966926def1aa3a392ff2576e2d7bd463de0cbc5b982f645d8e18e258ba09536ad3cec0282769'
     );
+  });
+
+  test('should return url based on context and party type', async () => {
+    appRequest.protocol = 'http';
+    appRequest.host = 'http://localhost:3031';
+    const url = await PCQProvider.getReturnUrl(appRequest, PartyType.APPLICANT, 'c100-rebuild');
+    expect(url).toEqual('http://localhost:3031/applicant/pcq/equality/c100-rebuild');
   });
 });

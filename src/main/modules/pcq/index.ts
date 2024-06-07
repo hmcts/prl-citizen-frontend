@@ -9,6 +9,8 @@ import toBoolean from 'to-boolean';
 import { v4 as uuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
+import { applyParms } from '../../../main/steps/common/url-parser';
+import { PCQ_CALLBACK_URL } from '../../../main/steps/urls';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 
@@ -138,6 +140,13 @@ export class PcqProvider {
       .map(key => `${key}=${params[key]}`)
       .join('&');
     return `${url}${path}?${qs}`;
+  }
+
+  getReturnUrl(req: AppRequest, partyType: string, context: string): string {
+    return `${req.protocol}://${req.get('host')}${applyParms(PCQ_CALLBACK_URL, {
+      partyType,
+      context,
+    })}`;
   }
 }
 

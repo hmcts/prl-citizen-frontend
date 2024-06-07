@@ -1,5 +1,4 @@
 import autobind from 'autobind-decorator';
-import config from 'config';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
@@ -9,8 +8,7 @@ import { AnyObject, PostController } from '../../../app/controller/PostControlle
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { PCQProvider } from '../../../modules/pcq';
 import { PCQController } from '../../../modules/pcq/controller';
-import { applyParms } from '../../../steps/common/url-parser';
-import { CA_RESPONDENT_RESPONSE_CONFIRMATION, PCQ_CALLBACK_URL } from '../../urls';
+import { CA_RESPONDENT_RESPONSE_CONFIRMATION } from '../../urls';
 import { getPartyDetails, mapDataInSession } from '../utils';
 
 @autobind
@@ -32,12 +30,7 @@ export default class ResponseSummaryConfirmationPostController extends PostContr
     const { user, userCase } = req.session;
     const partyDetails = getPartyDetails(userCase, user.id);
     if (!(PCQProvider.getPcqId(req) || partyDetails?.user.pcqId) && (await PCQProvider.isComponentEnabled())) {
-      const protocol = req.protocol ? 'http://' : '';
-      const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-      const returnUrl = `${protocol}${res.locals.host}${port}${applyParms(PCQ_CALLBACK_URL, {
-        context: 'c7-response',
-      })}`;
-      PCQController.launch(req, res, returnUrl);
+      PCQController.launch(req, res, PCQProvider.getReturnUrl(req, PartyType.RESPONDENT, 'c7-response'));
     } else {
       this.submitC7Response(req, res);
     }

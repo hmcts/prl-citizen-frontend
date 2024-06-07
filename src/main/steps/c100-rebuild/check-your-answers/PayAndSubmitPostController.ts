@@ -1,15 +1,14 @@
 import autobind from 'autobind-decorator';
-import config from 'config';
 import { Response } from 'express';
 
+import { PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { PaymentHandler } from '../../../modules/payments/paymentController';
 import { PCQProvider } from '../../../modules/pcq';
 import { PCQController } from '../../../modules/pcq/controller';
-import { applyParms } from '../../../steps/common/url-parser';
-import { C100_CHECK_YOUR_ANSWER, PCQ_CALLBACK_URL } from '../../../steps/urls';
+import { C100_CHECK_YOUR_ANSWER } from '../../../steps/urls';
 
 @autobind
 export default class PayAndSubmitPostController extends PostController<AnyObject> {
@@ -34,12 +33,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
         /** Invoke Pcq questionnaire
          * */
         if (!PCQProvider.getPcqId(req) && (await PCQProvider.isComponentEnabled())) {
-          const protocol = req.protocol ? 'http://' : '';
-          const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
-          const returnUrl = `${protocol}${res.locals.host}${port}${applyParms(PCQ_CALLBACK_URL, {
-            context: 'c100-rebuild',
-          })}`;
-          PCQController.launch(req, res, returnUrl);
+          PCQController.launch(req, res, PCQProvider.getReturnUrl(req, PartyType.APPLICANT, 'c100-rebuild'));
         } else {
           this.handlePayment(req, res);
         }
