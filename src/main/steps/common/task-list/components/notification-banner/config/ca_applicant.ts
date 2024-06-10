@@ -38,30 +38,7 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
     },
   },
   {
-    id: NotificationType.WITHDRAWAL_REQ_REJECTED,
-    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
-      return !!caseData?.orderCollection?.find(
-        order =>
-          order.value?.orderTypeId === 'blankOrderOrDirectionsWithdraw' &&
-          order.value?.withdrawnRequestType === 'Withdrawn application' &&
-          order.value?.isWithdrawnRequestApproved === YesOrNo.NO
-      );
-    },
-  },
-  {
-    id: NotificationType.APPLICATION_SENT_TO_LOCAL_COURT,
-    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
-      return caseData?.state === State.CASE_ISSUED_TO_LOCAL_COURT;
-    },
-  },
-  {
-    id: NotificationType.APPLICATION_SENT_TO_GATE_KEEPING,
-    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
-      return caseData?.state === State.CASE_GATE_KEEPING;
-    },
-  },
-  {
-    id: NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
+    id: NotificationType.APPLICATION_SERVED_FOR_APPLICANT,
     show: showNotification,
   },
   ...generateC7ResponseNotifications(userCase),

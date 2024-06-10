@@ -44,17 +44,7 @@ export const isCaseWithdrawn = (caseData: CaseWithId): boolean => {
   if (!caseData) {
     return false;
   }
-
-  if (caseData?.orderCollection) {
-    return !!caseData.orderCollection.find(
-      order =>
-        order.value?.orderTypeId === 'blankOrderOrDirectionsWithdraw' &&
-        order.value?.withdrawnRequestType === 'Withdrawn application' &&
-        order.value.isWithdrawnRequestApproved === YesOrNo.YES
-    );
-  } else {
     return [State.CASE_WITHDRAWN].includes(caseData.state!);
-  }
 };
 
 export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
