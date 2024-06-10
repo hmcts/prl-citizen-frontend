@@ -90,7 +90,7 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
   {
     id: NotificationType.NEW_ORDER,
     show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
-      return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && hasOrders(caseData as CaseWithId);
+      return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && hasOrders(caseData);
     },
   },
 ];

@@ -51,6 +51,12 @@ export type NotificationBannerContentConfig = {
     [key in PartyType]?: {
       [key in NotificationType]?: {
         heading: string;
+        interpolateHeading?: (
+          content: string,
+          commonContent: NotificationBannerContent['common'],
+          caseData: CaseWithId,
+          userDetails: UserDetails
+        ) => string;
         sections: NotificationSection[];
       };
     };
@@ -61,6 +67,12 @@ export type NotificationBannerContent = {
   title: string;
   common: Record<string, string>;
   heading: string;
+  interpolateHeading?: (
+    content: string,
+    commonContent: NotificationBannerContent['common'],
+    caseData: CaseWithId,
+    userDetails: UserDetails
+  ) => string;
   sections: NotificationSection[];
 };
 
@@ -72,6 +84,11 @@ export type NotificationSection = {
   links?: {
     text: string;
     href?: string;
+    interpolateLinkText?: (
+      content: string,
+      commonContent: NotificationBannerContent['common'],
+      caseData: CaseWithId
+    ) => string;
     interpolateHref?: (content: string, caseData: CaseWithId) => string;
     show?: (caseData: CaseWithId) => boolean;
     external?: boolean;

@@ -40,7 +40,9 @@ export const getNotifications = (
             ? section.links
                 .filter(_content => (_.isFunction(_content?.show) ? _content.show(caseData) : true))
                 ?.map(link => ({
-                  text: link.text,
+                  text: isFunction(link?.interpolateLinkText)
+                    ? link.interpolateLinkText(link.text, content.common, caseData)
+                    : link.text,
                   href: isFunction(link?.interpolateHref) ? link.interpolateHref(link.href!, caseData) : link.href,
                   external: link?.external ?? false,
                 }))
@@ -51,7 +53,9 @@ export const getNotifications = (
 
         return {
           id,
-          heading: content.heading,
+          heading: _.isFunction(content?.interpolateHeading)
+            ? content.interpolateHeading(content.heading, content.common, caseData, userDetails)
+            : content.heading,
           sections,
         };
       }
