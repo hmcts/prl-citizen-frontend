@@ -26,11 +26,11 @@ describe('ca_applicant', () => {
     expect(ca_applicantNotifications[4].id).toBe('withdrawalRequestRejected');
     expect(ca_applicantNotifications[5].id).toBe('applicationSentToLocalCourt');
     expect(ca_applicantNotifications[6].id).toBe('applicationSentToGateKeeping');
-    expect(ca_applicantNotifications[7].id).toBe('applicationServedForApplicant');
+    expect(ca_applicantNotifications[7].id).toBe('applicationServedByCourtPersonalNonPersonalService');
     expect(ca_applicantNotifications[8].id).toBe('applicationClosed');
     expect(ca_applicantNotifications[9].id).toBe('newOrder');
-    expect(ca_applicantNotifications[10].id).toBe('giveRespondentTheirDocuments');
-    expect(ca_applicantNotifications[11].id).toBe('caPersonalService');
-    expect(ca_applicantNotifications[12].id).toBe('responseSubmitted');
+    expect(ca_applicantNotifications[10].id).toBe('applicantToPersonallyServeRespondent');
+    expect(ca_applicantNotifications[11].id).toBe('applicationIssuedByCourtPersonalService');
+    expect(ca_applicantNotifications[12].id).toBe('viewResponseToApplication');
   });
 });

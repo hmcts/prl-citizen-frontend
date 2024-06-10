@@ -1,11 +1,10 @@
-import _ from 'lodash';
-
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UploadDocumentCategory } from '../../../../../steps/common/documents/definitions';
-import { hasApplicationPacks } from '../../../../../steps/common/documents/view/utils';
+import { interpolate } from '../../../../../steps/common/string-parser';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import {
+  C100_WITHDRAW_CASE,
   DOWNLOAD_DOCUMENT_BY_TYPE,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
@@ -16,11 +15,20 @@ import {
   VIEW_APPLICATION_PACK_DOCUMENTS,
 } from '../../../../../steps/urls';
 
-import { NotificationBannerContent } from './definitions';
-import { isApplicationPackAvailable, isCafcassCymruServed, isCafcassServed, isPersonalServiceByCourt } from './utils';
+import { NotificationBannerContentConfig } from './definitions';
+import {
+  hasMoreThanOneApplicant,
+  isApplicationPackAvailable,
+  isCafcassCymruServed,
+  isCafcassServed,
+  isPersonalServiceByCourt,
+} from './utils';
 
-const en: NotificationBannerContent = {
+const en: NotificationBannerContentConfig = {
   title: 'Important',
+  common: {
+    theRespondent: 'The respondent',
+  },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
       applicationNotStarted: {
@@ -57,6 +65,11 @@ const en: NotificationBannerContent = {
               {
                 text: 'Continue your application',
                 href: '{c100RebuildReturnUrl}',
+                interpolateHref: (content: string, caseData: CaseWithId): string => {
+                  return interpolate(content, {
+                    c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
+                  });
+                },
               },
             ],
           },
@@ -75,6 +88,11 @@ const en: NotificationBannerContent = {
               {
                 text: 'Withdraw your application',
                 href: '{withdrawCase}',
+                interpolateHref: (content: string, caseData: CaseWithId): string => {
+                  return interpolate(content, {
+                    withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
+                  });
+                },
               },
             ],
           },
@@ -128,7 +146,7 @@ const en: NotificationBannerContent = {
           },
         ],
       },
-      applicationServedForApplicant: {
+      applicationServedByCourtPersonalNonPersonalService: {
         heading: 'The court has issued your application',
         sections: [
           {
@@ -138,7 +156,9 @@ const en: NotificationBannerContent = {
               },
               {
                 text: 'We will let you know when the other people in the case have been given your application and case documents.',
-                show: isPersonalServiceByCourt,
+                show: (caseData: CaseWithId): boolean => {
+                  return isPersonalServiceByCourt(caseData);
+                },
               },
             ],
             links: [
@@ -155,32 +175,44 @@ const en: NotificationBannerContent = {
             contents: [
               {
                 text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
               },
               {
                 text: '<p class="govuk-notification-banner__heading">Cafcass Cymru will contact you</p>',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
               },
               {
                 text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
               },
               {
                 text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
               },
             ],
             links: [
               {
                 text: 'Find out about Cafcass',
                 href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
                 external: true,
               },
               {
                 text: 'Find out about Cafcass Cymru',
                 href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
                 external: true,
               },
             ],
@@ -218,13 +250,19 @@ const en: NotificationBannerContent = {
           },
         ],
       },
-      giveRespondentTheirDocuments: {
+      applicantToPersonallyServeRespondent: {
         heading: 'You must give the respondent their documents',
         sections: [
           {
             contents: [
               {
                 text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to the other people in the case (the respondents).',
+              },
+              {
+                text: 'As there is more than one applicant, please agree who will serve the order on the respondent.',
+                show: (caseData: CaseWithId): boolean => {
+                  return hasMoreThanOneApplicant(caseData);
+                },
               },
               {
                 text: 'You must give the following documents to the respondent:',
@@ -237,11 +275,8 @@ const en: NotificationBannerContent = {
                   partyType: PartyType.APPLICANT,
                   context: 'to-be-served',
                 }),
-                show: (caseData: Partial<CaseWithId>): boolean => {
-                  return (
-                    hasApplicationPacks(caseData as CaseWithId) &&
-                    (_.get(caseData.citizenApplicationPacks![0], 'respondentSoaPack', false) as boolean)
-                  );
+                show: (caseData: CaseWithId): boolean => {
+                  return isApplicationPackAvailable(caseData, PartyType.RESPONDENT);
                 },
               },
             ],
@@ -252,7 +287,7 @@ const en: NotificationBannerContent = {
                 text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party (such as a process server or court bailiff). More information about court bailiffs can be found on GOV.UK.',
               },
               {
-                text: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
+                text: '<a class="govuk-link" href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
               },
               {
                 text: '<br/><p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
@@ -275,7 +310,7 @@ const en: NotificationBannerContent = {
           },
         ],
       },
-      caPersonalService: {
+      applicationIssuedByCourtPersonalService: {
         heading: 'The court has issued your application',
         sections: [
           {
@@ -289,24 +324,21 @@ const en: NotificationBannerContent = {
                 //** validate **
                 text: 'View your application pack',
                 href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.APPLICANT }),
-                show: (caseData: Partial<CaseWithId>): boolean => {
-                  return (
-                    hasApplicationPacks(caseData as CaseWithId) &&
-                    (_.get(caseData.citizenApplicationPacks![0], 'applicantSoaPack', false) as boolean)
-                  );
+                show: (caseData: CaseWithId): boolean => {
+                  return isApplicationPackAvailable(caseData, PartyType.APPLICANT);
                 },
               },
             ],
           },
         ],
       },
-      responseSubmitted: {
+      viewResponseToApplication: {
         heading: 'View the response to your application',
         sections: [
           {
             contents: [
               {
-                text: 'The other person in the case (the respondent) has responded to your application.',
+                text: '{respondent} has responded to your application.',
               },
             ],
             links: [
@@ -379,7 +411,7 @@ const en: NotificationBannerContent = {
           },
         ],
       },
-      applicationServedForRespondent: {
+      applicationServedByCourtToRespondent: {
         heading: 'Respond to an application about a child',
         sections: [
           {
@@ -409,32 +441,44 @@ const en: NotificationBannerContent = {
             contents: [
               {
                 text: '<br/><p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
               },
               {
                 text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
               },
               {
                 text: '<br/><p class="govuk-notification-banner__heading">Cafcass Cymru will contact you </p>',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
               },
               {
                 text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
               },
             ],
             links: [
               {
                 href: FIND_OUT_ABOUT_CAFCASS,
                 text: 'Find out about CafcassFind out about Cafcass Cymru',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
                 external: true,
               },
               {
                 href: FIND_OUT_ABOUT_CAFCASS_CYMRU,
                 text: 'Find out about Cafcass Cymru',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
                 external: true,
               },
             ],
@@ -582,6 +626,9 @@ const en: NotificationBannerContent = {
 
 const cy: typeof en = {
   title: 'Pwysig',
+  common: {
+    theRespondent: 'The respondent - welsh',
+  },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
       applicationNotStarted: {
@@ -618,6 +665,11 @@ const cy: typeof en = {
               {
                 text: 'Parhau gyda’ch cais',
                 href: '{c100RebuildReturnUrl}',
+                interpolateHref: (content: string, caseData: CaseWithId): string => {
+                  return interpolate(content, {
+                    c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
+                  });
+                },
               },
             ],
           },
@@ -636,6 +688,11 @@ const cy: typeof en = {
               {
                 text: 'Tynnu eich cais yn ôl',
                 href: '{withdrawCase}',
+                interpolateHref: (content: string, caseData: CaseWithId): string => {
+                  return interpolate(content, {
+                    withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
+                  });
+                },
               },
             ],
           },
@@ -689,7 +746,7 @@ const cy: typeof en = {
           },
         ],
       },
-      applicationServedForApplicant: {
+      applicationServedByCourtPersonalNonPersonalService: {
         heading: "Mae'r llys wedi cychwyn eich cais",
         sections: [
           {
@@ -699,7 +756,9 @@ const cy: typeof en = {
               },
               {
                 text: "Byddwn yn rhoi gwybod i chi pan fydd y bobl eraill yn yr achos wedi cael eich cais a'ch dogfennau achos.",
-                show: isPersonalServiceByCourt,
+                show: (caseData: CaseWithId): boolean => {
+                  return isPersonalServiceByCourt(caseData);
+                },
               },
             ],
             links: [
@@ -716,32 +775,44 @@ const cy: typeof en = {
             contents: [
               {
                 text: '<p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
               },
               {
                 text: '<p class="govuk-notification-banner__heading">Bydd Cafcass Cymru yn cysylltu â chi </p>',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
               },
               {
                 text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
               },
               {
                 text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
               },
             ],
             links: [
               {
                 text: 'Gwybodaeth am Cafcass',
                 href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
                 external: true,
               },
               {
                 text: 'Gwybodaeth am Cafcass Cymru',
                 href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
                 external: true,
               },
             ],
@@ -779,13 +850,19 @@ const cy: typeof en = {
           },
         ],
       },
-      giveRespondentTheirDocuments: {
+      applicantToPersonallyServeRespondent: {
         heading: "Mae'n rhaid i chi roi'r dogfennau i'r atebydd",
         sections: [
           {
             contents: [
               {
                 text: 'Mae’r llys wedi cychwyn eich cais. Mae hyn yn golygu bod copi o’ch cais a’r dogfennau llys eraill yn barod i’w rhoi i’r bobl eraill yn yr achos (yr atebwyr).',
+              },
+              {
+                text: 'As there is more than one applicant, please agree who will serve the order on the respondent. - welsh',
+                show: (caseData: CaseWithId): boolean => {
+                  return hasMoreThanOneApplicant(caseData);
+                },
               },
               {
                 text: 'Mae’n rhaid i chi roi’r dogfennau canlynol i’r atebydd:',
@@ -798,11 +875,8 @@ const cy: typeof en = {
                   partyType: PartyType.APPLICANT,
                   context: 'to-be-served',
                 }),
-                show: (caseData: Partial<CaseWithId>): boolean => {
-                  return (
-                    hasApplicationPacks(caseData as CaseWithId) &&
-                    (_.get(caseData.citizenApplicationPacks![0], 'respondentSoaPack', false) as boolean)
-                  );
+                show: (caseData: CaseWithId): boolean => {
+                  return isApplicationPackAvailable(caseData, PartyType.RESPONDENT);
                 },
               },
             ],
@@ -813,7 +887,7 @@ const cy: typeof en = {
                 text: 'Gallwch roi’r dogfennau i’r atebydd neu ddewis unigolyn sydd wedi cytuno i’w rhoi i’r atebydd. Gall hyn fod yn rhywun rydych chi’n ei adnabod neu’n drydydd parti proffesiynol (fel gweinydd proses neu feili’r llys). Mae mwy o wybodaeth am feili’r llys ar gael ar GOV.UK.',
               },
               {
-                text: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
+                text: '<a class="govuk-link" href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
               },
               {
                 text: '<br/><p class="govuk-notification-banner__heading">Dywedwch wrthym unwaith y bydd yr atebydd wedi cael y dogfennau</p>',
@@ -836,7 +910,7 @@ const cy: typeof en = {
           },
         ],
       },
-      caPersonalService: {
+      applicationIssuedByCourtPersonalService: {
         heading: 'Mae’r llys wedi cychwyn eich cais',
         sections: [
           {
@@ -854,13 +928,13 @@ const cy: typeof en = {
           },
         ],
       },
-      responseSubmitted: {
+      viewResponseToApplication: {
         heading: 'View the response to your application (welsh)',
         sections: [
           {
             contents: [
               {
-                text: 'The other person in the case (the respondent) has responded to your application. (welsh)',
+                text: '{respondent} has responded to your application. (welsh)',
               },
             ],
             links: [
@@ -934,7 +1008,7 @@ const cy: typeof en = {
           },
         ],
       },
-      applicationServedForRespondent: {
+      applicationServedByCourtToRespondent: {
         heading: 'Ymateb i gais ynghylch plentyn',
         sections: [
           {
@@ -964,32 +1038,44 @@ const cy: typeof en = {
             contents: [
               {
                 text: '<br/><p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
               },
               {
                 text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
               },
               {
                 text: '<br/><p class="govuk-notification-banner__heading">Bydd Cafcass Cymru yn cysylltu â chi</p>',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
               },
               {
                 text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
               },
             ],
             links: [
               {
                 href: FIND_OUT_ABOUT_CAFCASS,
                 text: 'Gwybodaeth am Cafcass',
-                show: isCafcassServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassServed(caseData);
+                },
                 external: true,
               },
               {
                 href: FIND_OUT_ABOUT_CAFCASS_CYMRU,
                 text: 'Gwybodaeth am Cafcass Cymru',
-                show: isCafcassCymruServed,
+                show: (caseData: CaseWithId): boolean => {
+                  return isCafcassCymruServed(caseData);
+                },
                 external: true,
               },
             ],

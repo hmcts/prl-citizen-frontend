@@ -11,28 +11,41 @@ export enum NotificationType {
   WITHDRAWAL_REQ_REJECTED = 'withdrawalRequestRejected',
   APPLICATION_SENT_TO_LOCAL_COURT = 'applicationSentToLocalCourt',
   APPLICATION_SENT_TO_GATE_KEEPING = 'applicationSentToGateKeeping',
-  APPLICATION_SERVED_FOR_APPLICANT = 'applicationServedForApplicant',
-  APPLICATION_SERVED_FOR_RESPONDENT = 'applicationServedForRespondent',
+  APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE = 'applicationServedByCourtPersonalNonPersonalService',
+  APPLICATION_SERVED_BY_COURT_TO_RESPONDENT = 'applicationServedByCourtToRespondent',
+  VIEW_RESPONSE_TO_APPLICATION = 'viewResponseToApplication',
+  APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT = 'applicantToPersonallyServeRespondent',
+  APPLICATION_SERVED_BY_SOLICITOR_BAILIFF_TO_RESPONDENT = 'applicationServedBySolictorBailiffToRespondent',
+  APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE = 'applicationIssuedByCourtPersonalService',
+  SUMBIT_FM5 = 'submitFM5',
   APPLICATION_CLOSED = 'applicationClosed',
   NEW_ORDER = 'newOrder',
   NEW_DOCUMENT = 'newDocument',
   FINAL_ORDER = 'finalOrder',
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
   CAFFCASS = 'cafcass',
-  RESPONSE_SUBMITTED = 'responseSubmitted',
-  GIVE_RESPONDENT_THEIR_DOCUMENTS = 'giveRespondentTheirDocuments',
-  CA_PERSONAL_SERVICE = 'caPersonalService',
-  SUMBIT_FM5 = 'submitFM5',
 }
 
 export type NotificationBannerProps = {
   id: NotificationType;
-  content?: (caseType: CaseType, language: string, partyType: PartyType) => NotificationBannerContent;
+  content?: (
+    notificationType: NotificationType,
+    caseType: CaseType,
+    language: string,
+    partyType: PartyType
+  ) => NotificationBannerContent;
+  interpolateContent?: (
+    content: string,
+    commonContent: NotificationBannerContent['common'],
+    caseData: CaseWithId,
+    userDetails: UserDetails
+  ) => string;
   show?: (notificationType: NotificationType, caseData: CaseWithId, userDetails: UserDetails) => boolean;
 };
 
-export type NotificationBannerContent = {
+export type NotificationBannerContentConfig = {
   title: string;
+  common: Record<string, string>;
 } & {
   [key in CaseType]: {
     [key in PartyType]?: {
@@ -44,6 +57,13 @@ export type NotificationBannerContent = {
   };
 };
 
+export type NotificationBannerContent = {
+  title: string;
+  common: Record<string, string>;
+  heading: string;
+  sections: NotificationSection[];
+};
+
 export type NotificationSection = {
   contents: {
     text: string;
@@ -52,13 +72,35 @@ export type NotificationSection = {
   links?: {
     text: string;
     href?: string;
+    interpolateHref?: (content: string, caseData: CaseWithId) => string;
     show?: (caseData: CaseWithId) => boolean;
     external?: boolean;
   }[];
 };
 
+export type NotificationContent = {
+  id: NotificationType;
+  heading: string;
+  sections: {
+    contents: {
+      text: string;
+    }[];
+    links:
+      | {
+          text: string;
+          href?: string;
+          external?: boolean;
+        }[]
+      | [];
+  }[];
+};
+
 export enum NotificationID {
-  APPLICATION_SERVED_FOR_APPLICANT = 'CAN4_SOA_PERS_NONPERS_APPLICANT',
-  APPLICATION_SERVED_FOR_RESPONDENT = 'CAN5_SOA_RESPONDENT',
+  APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE = 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+  APPLICATION_SERVED_BY_COURT_TO_RESPONDENT = 'CAN5_SOA_RESPONDENT',
+  VIEW_RESPONSE_TO_APPLICATION = 'CAN6_VIEW_RESPONSE_APPLICANT', // dynamic name of resp to be done
+  APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT = 'CAN7_SOA_PERSONAL_APPLICANT',
+  APPLICATION_SERVED_BY_SOLICITOR_BAILIFF_TO_RESPONDENT = 'CAN8_SOS_PERSONAL_APPLICANT', // notification not built yet
+  APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE = 'CAN9_SOA_PERSONAL_APPLICANT',
   SUMBIT_FM5 = 'CAN10_FM5',
 }
