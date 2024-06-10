@@ -18,19 +18,17 @@ describe('ca_applicant', () => {
       })
     );
 
-    expect(ca_applicantNotifications).toHaveLength(14);
+    expect(ca_applicantNotifications).toHaveLength(11);
     expect(ca_applicantNotifications[0].id).toBe('applicationNotStarted');
     expect(ca_applicantNotifications[1].id).toBe('applicationInProgress');
     expect(ca_applicantNotifications[2].id).toBe('applicationSubmitted');
     expect(ca_applicantNotifications[3].id).toBe('applicationWithdrawn');
-    expect(ca_applicantNotifications[4].id).toBe('withdrawalRequestRejected');
-    expect(ca_applicantNotifications[5].id).toBe('applicationSentToLocalCourt');
-    expect(ca_applicantNotifications[6].id).toBe('applicationSentToGateKeeping');
-    expect(ca_applicantNotifications[7].id).toBe('applicationServedByCourtPersonalNonPersonalService');
-    expect(ca_applicantNotifications[8].id).toBe('applicationClosed');
-    expect(ca_applicantNotifications[9].id).toBe('newOrder');
-    expect(ca_applicantNotifications[10].id).toBe('applicantToPersonallyServeRespondent');
-    expect(ca_applicantNotifications[11].id).toBe('applicationIssuedByCourtPersonalService');
-    expect(ca_applicantNotifications[12].id).toBe('viewResponseToApplication');
+    expect(ca_applicantNotifications[4].id).toBe('applicationServedByCourtPersonalNonPersonalService');
+    expect(ca_applicantNotifications[5].id).toBe('applicantToPersonallyServeRespondent');
+    expect(ca_applicantNotifications[6].id).toBe('applicationServedBySolictorBailiffToRespondent');
+    expect(ca_applicantNotifications[7].id).toBe('applicationIssuedByCourtPersonalService');
+    expect(ca_applicantNotifications[8].id).toBe('submitFM5');
+    expect(ca_applicantNotifications[9].id).toBe('applicationClosed');
+    expect(ca_applicantNotifications[10].id).toBe('newOrder');
   });
 });
