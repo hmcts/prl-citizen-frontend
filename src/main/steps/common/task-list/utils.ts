@@ -5,9 +5,9 @@ import _ from 'lodash';
 import { CaseWithId } from '../../../app/case/case';
 import { UserDetails } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
-import { DocumentCategory } from '../documents/definitions';
 
 import { CaseType, PartyDetails, PartyType, Respondent, State, YesOrNo } from './../../../app/case/definition';
+import { findC7ResponseDocument } from './components/notification-banner/utils';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -90,12 +90,5 @@ export const isC7ResponseSubmitted = (respondent: PartyDetails | undefined): boo
 };
 
 export const isC7ResponseReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
-  return !!(
-    caseData?.citizenDocuments?.length &&
-    caseData.citizenDocuments.find(
-      document =>
-        (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
-        document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
-    )
-  );
+  return !!findC7ResponseDocument(caseData as CaseWithId, respondent);
 };

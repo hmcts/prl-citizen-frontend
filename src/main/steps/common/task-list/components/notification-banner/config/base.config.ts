@@ -1,92 +1,113 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { NotificationType } from '../definitions';
-import { getNotificationContent } from '../utils';
+import { CaseType, PartyType } from '../../../../../../app/case/definition';
+import { languages as content } from '../content';
+import { NotificationBannerContent, NotificationType } from '../definitions';
+
+const getNotificationContent = (
+  notficationType: NotificationType,
+  caseType: CaseType,
+  language: string,
+  partyType: PartyType
+): NotificationBannerContent => {
+  const translation = content[language];
+
+  return {
+    title: translation.title,
+    common: translation.common,
+    ...translation?.[caseType]?.[partyType]?.[notficationType],
+  };
+};
 
 export const NOTIFICATION_BASE_CONFIG = [
   {
     id: NotificationType.APPLICATION_NOT_STARTED,
-    content: getNotificationContent.bind(null, NotificationType.APPLICATION_NOT_STARTED),
+    content: getNotificationContent,
     show: () => false,
   },
   {
     id: NotificationType.APPLICATION_IN_PROGRESS,
-    content: getNotificationContent.bind(null, NotificationType.APPLICATION_IN_PROGRESS),
+    content: getNotificationContent,
     show: () => false,
   },
   {
     id: NotificationType.APPLICATION_SUBMITTED,
-    content: getNotificationContent.bind(null, NotificationType.APPLICATION_SUBMITTED),
+    content: getNotificationContent,
     show: () => false,
   },
   {
     id: NotificationType.APPLICATION_WITHDRAWN,
-    content: getNotificationContent.bind(null, NotificationType.APPLICATION_WITHDRAWN),
+    content: getNotificationContent,
     show: () => false,
   },
   {
     id: NotificationType.WITHDRAWAL_REQ_REJECTED,
-    content: getNotificationContent.bind(null, NotificationType.WITHDRAWAL_REQ_REJECTED),
+    content: getNotificationContent,
     show: () => false,
   },
   {
     id: NotificationType.APPLICATION_SENT_TO_LOCAL_COURT,
-    content: getNotificationContent.bind(null, NotificationType.APPLICATION_SENT_TO_LOCAL_COURT),
+    content: getNotificationContent,
     show: () => false,
   },
   {
     id: NotificationType.APPLICATION_SENT_TO_GATE_KEEPING,
-    content: getNotificationContent.bind(null, NotificationType.APPLICATION_SENT_TO_GATE_KEEPING),
+    content: getNotificationContent,
     show: () => false,
   },
   {
-    id: NotificationType.APPLICATION_SERVED_FOR_APPLICANT,
-    content: getNotificationContent.bind(null, NotificationType.APPLICATION_SERVED_FOR_APPLICANT),
+    id: NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
+    content: getNotificationContent,
     show: () => false,
   },
   {
-    id: NotificationType.APPLICATION_CLOSED,
-    content: getNotificationContent.bind(null, NotificationType.APPLICATION_CLOSED),
+    id: NotificationType.APPLICATION_SERVED_BY_COURT_TO_RESPONDENT,
+    content: getNotificationContent,
     show: () => false,
   },
   {
-    id: NotificationType.NEW_ORDER,
-    content: getNotificationContent.bind(null, NotificationType.NEW_ORDER),
+    id: NotificationType.VIEW_RESPONSE_TO_APPLICATION,
+    content: getNotificationContent,
     show: () => false,
   },
   {
-    id: NotificationType.FINAL_ORDER,
-    content: getNotificationContent.bind(null, NotificationType.FINAL_ORDER),
+    id: NotificationType.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT,
+    content: getNotificationContent,
     show: () => false,
   },
   {
-    id: NotificationType.DA_RESPONDENT_BANNER,
-    content: getNotificationContent.bind(null, NotificationType.DA_RESPONDENT_BANNER),
+    id: NotificationType.APPLICATION_SERVED_BY_SOLICITOR_BAILIFF_TO_RESPONDENT,
+    content: getNotificationContent,
     show: () => false,
   },
   {
-    id: NotificationType.GIVE_RESPONDENT_THEIR_DOCUMENTS,
-    content: getNotificationContent.bind(null, NotificationType.GIVE_RESPONDENT_THEIR_DOCUMENTS),
-    show: () => false,
-  },
-  {
-    id: NotificationType.CA_PERSONAL_SERVICE,
-    content: getNotificationContent.bind(null, NotificationType.CA_PERSONAL_SERVICE),
-    show: () => false,
-  },
-  {
-    id: NotificationType.RESPONSE_SUBMITTED,
-    content: getNotificationContent.bind(null, NotificationType.RESPONSE_SUBMITTED),
-    show: () => false,
-  },
-  {
-    id: NotificationType.APPLICATION_SERVED_FOR_RESPONDENT,
-    content: getNotificationContent.bind(null, NotificationType.APPLICATION_SERVED_FOR_RESPONDENT),
+    id: NotificationType.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE,
+    content: getNotificationContent,
     show: () => false,
   },
   {
     id: NotificationType.SUMBIT_FM5,
-    content: getNotificationContent.bind(null, NotificationType.SUMBIT_FM5),
+    content: getNotificationContent,
+    show: () => false,
+  },
+  {
+    id: NotificationType.APPLICATION_CLOSED,
+    content: getNotificationContent,
+    show: () => false,
+  },
+  {
+    id: NotificationType.NEW_ORDER,
+    content: getNotificationContent,
+    show: () => false,
+  },
+  {
+    id: NotificationType.FINAL_ORDER,
+    content: getNotificationContent,
+    show: () => false,
+  },
+  {
+    id: NotificationType.DA_RESPONDENT_BANNER,
+    content: getNotificationContent,
     show: () => false,
   },
   {
