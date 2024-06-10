@@ -661,9 +661,9 @@ export interface Case {
 export interface CitizenNotification {
   id: NotificationID;
   show: boolean;
-  isFinalOrder?: boolean;
-  isMultipleOrders?: boolean;
-  newAndFinalOrder?: boolean;
+  new: boolean;
+  final: boolean;
+  multiple: boolean;
   personalService?: boolean;
 }
 

@@ -3,7 +3,7 @@ import { CaseWithId } from '../../../../../../app/case/case';
 import { State, YesOrNo } from '../../../../../../app/case/definition';
 import { isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
 import { interpolate } from '../../../../string-parser';
-import { NotificationBannerContent, NotificationBannerProps, NotificationType } from '../definitions';
+import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
 import { findC7ResponseDocument, showNotification } from '../utils';
 
 export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerProps[] => [
@@ -87,8 +87,19 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
     },
   },
   {
-    id: NotificationType.CRNF2_NEW_ORDER,
+    id: NotificationType.ORDER_PERSONAL_SERVICE,
     show: showNotification,
+    interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
+      const notification = caseData?.citizenNotifications?.find(
+        citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
+      );
+
+      return interpolate(content, {
+        final: notification?.final ? ` ${commonContent.final}` : '',
+        order: notification?.multiple ? commonContent.orders : commonContent.order,
+        tell: notification?.multiple ? commonContent.tell : commonContent.tells,
+      });
+    },
   },
 ];
 

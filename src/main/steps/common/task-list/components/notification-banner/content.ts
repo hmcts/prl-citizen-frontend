@@ -15,8 +15,9 @@ import {
   VIEW_APPLICATION_PACK_DOCUMENTS,
 } from '../../../../../steps/urls';
 
-import { NotificationBannerContentConfig } from './definitions';
+import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from './definitions';
 import {
+  getCRNF2OrderHeading,
   hasMoreThanOneApplicant,
   isApplicationPackAvailable,
   isCafcassCymruServed,
@@ -239,8 +240,22 @@ const en: NotificationBannerContentConfig = {
           },
         ],
       },
-      CRNF2NewOrder: {
+      orderPersonalService: {
         heading: 'You have {finalOrNew} {order} from the court',
+        interpolateHeading: (
+          content: string,
+          commonContent: NotificationBannerContent['common'],
+          caseData: CaseWithId
+        ): string => {
+          const notification = caseData?.citizenNotifications?.find(
+            citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
+          );
+
+          return interpolate(content, {
+            order: notification?.multiple ? commonContent.orders : commonContent.order,
+            finalOrNew: notification ? getCRNF2OrderHeading(notification, commonContent) : '',
+          });
+        },
         sections: [
           {
             contents: [
@@ -253,6 +268,19 @@ const en: NotificationBannerContentConfig = {
                 //** validate **
                 text: 'View the {order} (PDF)',
                 href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                interpolateLinkText: (
+                  content: string,
+                  commonContent: NotificationBannerContent['common'],
+                  caseData: CaseWithId
+                ): string => {
+                  const notification = caseData?.citizenNotifications?.find(
+                    citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
+                  );
+
+                  return interpolate(content, {
+                    order: notification?.multiple ? commonContent.orders : commonContent.order,
+                  });
+                },
               },
             ],
           },
@@ -381,8 +409,22 @@ const en: NotificationBannerContentConfig = {
       },
     },
     [PartyType.RESPONDENT]: {
-      CRNF2NewOrder: {
+      orderPersonalService: {
         heading: 'You have {finalOrNew} {order} from the court',
+        interpolateHeading: (
+          content: string,
+          commonContent: NotificationBannerContent['common'],
+          caseData: CaseWithId
+        ): string => {
+          const notification = caseData?.citizenNotifications?.find(
+            citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
+          );
+
+          return interpolate(content, {
+            order: notification?.multiple ? commonContent.orders : commonContent.order,
+            finalOrNew: notification ? getCRNF2OrderHeading(notification, commonContent) : '',
+          });
+        },
         sections: [
           {
             contents: [
@@ -395,6 +437,19 @@ const en: NotificationBannerContentConfig = {
                 //** validate **
                 text: 'View the {order} (PDF)',
                 href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
+                interpolateLinkText: (
+                  content: string,
+                  commonContent: NotificationBannerContent['common'],
+                  caseData: CaseWithId
+                ): string => {
+                  const notification = caseData?.citizenNotifications?.find(
+                    citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
+                  );
+
+                  return interpolate(content, {
+                    order: notification?.multiple ? commonContent.orders : commonContent.order,
+                  });
+                },
               },
             ],
           },
@@ -848,8 +903,22 @@ const cy: typeof en = {
           },
         ],
       },
-      CRNF2NewOrder: {
+      orderPersonalService: {
         heading: 'You have {finalOrNew} {order} from the court (welsh)',
+        interpolateHeading: (
+          content: string,
+          commonContent: NotificationBannerContent['common'],
+          caseData: CaseWithId
+        ): string => {
+          const notification = caseData?.citizenNotifications?.find(
+            citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
+          );
+
+          return interpolate(content, {
+            order: notification?.multiple ? commonContent.orders : commonContent.order,
+            finalOrNew: notification ? getCRNF2OrderHeading(notification, commonContent) : '',
+          });
+        },
         sections: [
           {
             contents: [
@@ -862,6 +931,19 @@ const cy: typeof en = {
                 //** validate **
                 text: 'View the {order} (PDF) (welsh)',
                 href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                interpolateLinkText: (
+                  content: string,
+                  commonContent: NotificationBannerContent['common'],
+                  caseData: CaseWithId
+                ): string => {
+                  const notification = caseData?.citizenNotifications?.find(
+                    citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
+                  );
+
+                  return interpolate(content, {
+                    order: notification?.multiple ? commonContent.orders : commonContent.order,
+                  });
+                },
               },
             ],
           },
@@ -986,8 +1068,22 @@ const cy: typeof en = {
       },
     },
     [PartyType.RESPONDENT]: {
-      CRNF2NewOrder: {
+      orderPersonalService: {
         heading: 'You have {finalOrNew} {order} from the court (welsh)',
+        interpolateHeading: (
+          content: string,
+          commonContent: NotificationBannerContent['common'],
+          caseData: CaseWithId
+        ): string => {
+          const notification = caseData?.citizenNotifications?.find(
+            citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
+          );
+
+          return interpolate(content, {
+            order: notification?.multiple ? commonContent.orders : commonContent.order,
+            finalOrNew: notification ? getCRNF2OrderHeading(notification, commonContent) : '',
+          });
+        },
         sections: [
           {
             contents: [
@@ -1000,6 +1096,19 @@ const cy: typeof en = {
                 //** validate **
                 text: 'View the {order}(PDF) (welsh)',
                 href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
+                interpolateLinkText: (
+                  content: string,
+                  commonContent: NotificationBannerContent['common'],
+                  caseData: CaseWithId
+                ): string => {
+                  const notification = caseData?.citizenNotifications?.find(
+                    citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
+                  );
+
+                  return interpolate(content, {
+                    order: notification?.multiple ? commonContent.orders : commonContent.order,
+                  });
+                },
               },
             ],
           },

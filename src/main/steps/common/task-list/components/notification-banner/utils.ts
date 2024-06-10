@@ -18,7 +18,7 @@ import {
   DA_RESPONDENT_CONFIG,
   NOTIFICATION_BASE_CONFIG,
 } from './config';
-import { NotificationBannerProps, NotificationID, NotificationType } from './definitions';
+import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from './definitions';
 
 export const getNotificationConfig = (
   caseType: CaseType,
@@ -69,6 +69,7 @@ const NotificationTypeIDMap = {
   [NotificationType.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE]:
     NotificationID.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE,
   [NotificationType.SUMBIT_FM5]: NotificationID.SUMBIT_FM5,
+  [NotificationType.ORDER_PERSONAL_SERVICE]: NotificationID.ORDER_PERSONAL_SERVICE,
 };
 
 export const isApplicationPackAvailable = (caseData: Partial<CaseWithId>, partyType: PartyType): boolean => {
@@ -117,16 +118,19 @@ export const findC7ResponseDocument = (caseData: CaseWithId, respondent: Respond
   );
 };
 
-export const getCRNF2NewOrderHeading = (notification: CitizenNotification, translations): string => {
-  if (notification.newAndFinalOrder) {
-    return `${translations.new} ${translations.and} ${translations.final}`;
-  } else if (notification.isMultipleOrders && notification.isFinalOrder) {
-    return translations.final;
-  } else if (notification.isMultipleOrders && !notification.isFinalOrder) {
-    return translations.new;
-  } else if (!notification.isMultipleOrders && notification.isFinalOrder) {
-    return `${translations.a} ${translations.final}`;
+export const getCRNF2OrderHeading = (
+  notification: CitizenNotification,
+  commonContent: NotificationBannerContent['common']
+): string => {
+  if (notification.new && notification.final) {
+    return `${commonContent.new} ${commonContent.and} ${commonContent.final}`;
+  } else if (notification.multiple && notification.final) {
+    return commonContent.final;
+  } else if (notification.multiple && !notification.final) {
+    return commonContent.new;
+  } else if (!notification.multiple && notification.final) {
+    return `${commonContent.a} ${commonContent.final}`;
   } else {
-    return `${translations.a} ${translations.new}`;
+    return `${commonContent.a} ${commonContent.new}`;
   }
 };

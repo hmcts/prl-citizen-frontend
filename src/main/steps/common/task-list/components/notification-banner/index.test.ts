@@ -1,15 +1,7 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
-import { CaseWithId } from '../../../../../app/case/case';
-import {
-  CaseInvite,
-  CaseType,
-  CitizenNotificationId,
-  PartyType,
-  Respondent,
-  State,
-  YesOrNo,
-} from '../../../../../app/case/definition';
-import { CitizenApplicationPacks, CitizenOrders } from '../../../documents/definitions';
+import { CaseWithId, CitizenNotification } from '../../../../../app/case/case';
+import { CaseInvite, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
+import { CitizenApplicationPacks } from '../../../documents/definitions';
 
 import { getNotifications } from '.';
 
@@ -313,15 +305,16 @@ describe('testcase for notification Banner', () => {
           },
         ],
       },
-      citizenNotifications: [
-        {
-          id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
-          show: true,
-          isMultipleOrders: false,
-          isFinalOrder: false,
-        },
-      ],
+      caseTypeOfApplication: 'C100',
     });
+    data.citizenNotifications = [
+      {
+        id: 'CRNF2_APPLICANT_RESPONDENT',
+        show: true,
+        isMultipleOrders: false,
+        isFinalOrder: false,
+      },
+    ];
     const party = PartyType.APPLICANT;
     const language = 'en';
     expect(getNotifications(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
@@ -342,7 +335,7 @@ describe('testcase for notification Banner', () => {
       },
       {
         heading: 'You have a new order from the court',
-        id: 'CRNF2NewOrder',
+        id: 'orderPersonalService',
         sections: [
           {
             contents: [
@@ -866,34 +859,19 @@ describe('testcase for notification Banner', () => {
         } as unknown as Respondent,
       ];
       data.state = State.Draft;
-      data.citizenOrders = [
-        {
-          dateCreated: 'MOCK_DATE',
-          orderType: 'ORDER',
-          document: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-          documentWelsh: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-        } as unknown as CitizenOrders,
-      ];
+      data.caseTypeOfApplication = 'C100';
       data.citizenNotifications = [
         {
-          id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+          id: 'CRNF2_APPLICANT_RESPONDENT',
           show: true,
-          isMultipleOrders: false,
-          isFinalOrder: false,
-        },
+          multiple: false,
+          final: false,
+        } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have a new order from the court',
-          id: 'CRNF2NewOrder',
+          id: 'orderPersonalService',
           sections: [
             {
               contents: [
@@ -910,7 +888,54 @@ describe('testcase for notification Banner', () => {
               ],
             },
           ],
-          title: 'Important',
+        },
+      ]);
+    });
+
+    test('banners should be added when multiple new orders added', () => {
+      data.respondents = [
+        {
+          id: '123',
+          value: {
+            user: {
+              idamId: '123',
+            },
+            response: {
+              citizenFlags: {},
+            },
+          },
+        } as unknown as Respondent,
+      ];
+      data.caseTypeOfApplication = 'C100';
+      data.state = State.Draft;
+      data.citizenNotifications = [
+        {
+          id: 'CRNF2_APPLICANT_RESPONDENT',
+          show: true,
+          multiple: true,
+          final: false,
+        } as CitizenNotification,
+      ];
+      expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+        {
+          heading: 'You have new orders from the court',
+          id: 'orderPersonalService',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The court has made a decision about your case. The orders tell you what the court has decided.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/documents/view/orders-from-the-court',
+                  text: 'View the orders (PDF)',
+                },
+              ],
+            },
+          ],
         },
       ]);
     });
@@ -946,31 +971,6 @@ describe('testcase for notification Banner', () => {
         },
       ] as unknown as CitizenApplicationPacks[];
       data.state = State.Draft;
-      data.orderCollection = [
-        {
-          id: '1234',
-          value: {
-            dateCreated: 'MOCK_DATE',
-            orderType: 'ORDER',
-            orderDocument: {
-              document_url: 'DOC_URL',
-              document_filename: 'DOC_FILENAME',
-              document_binary_url: 'DOC_BINARY_URL',
-            },
-            orderDocumentWelsh: {
-              document_url: 'DOC_URL',
-              document_filename: 'DOC_FILENAME',
-              document_binary_url: 'DOC_BINARY_URL',
-            },
-            otherDetails: {
-              createdBy: '1234',
-              orderCreatedDate: 'MOCK_DATE',
-              orderMadeDate: 'MOCK_DATE',
-              orderRecipients: 'RECIPIENTS',
-            },
-          },
-        },
-      ];
       data.caseInvites = [
         {
           id: '123',
@@ -985,11 +985,11 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CaseInvite[];
       data.citizenNotifications = [
         {
-          id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+          id: 'CRNF2_APPLICANT_RESPONDENT',
           show: true,
-          isMultipleOrders: false,
-          isFinalOrder: false,
-        },
+          multiple: false,
+          final: false,
+        } as CitizenNotification,
       ];
       data.caseTypeOfApplication = 'C100';
       // data.citizenApplicationPacks = [{ partyId: '123' } as unknown as CitizenApplicationPacks];
@@ -1024,8 +1024,8 @@ describe('testcase for notification Banner', () => {
           title: 'Important',
         },
         {
-          heading: 'Respond to an application about a child',
-          id: 'applicationServedByCourtToRespondent',
+          heading: 'You have a new order from the court',
+          id: 'orderPersonalService',
           sections: [
             {
               contents: [
@@ -1042,7 +1042,6 @@ describe('testcase for notification Banner', () => {
               ],
             },
           ],
-          title: 'Important',
         },
       ]);
     });
@@ -1062,34 +1061,18 @@ describe('testcase for notification Banner', () => {
         } as unknown as Respondent,
       ];
       data.state = State.ALL_FINAL_ORDERS_ISSUED;
-      data.citizenOrders = [
-        {
-          dateCreated: 'MOCK_DATE',
-          orderType: 'ORDER',
-          document: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-          documentWelsh: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-        } as unknown as CitizenOrders,
-      ];
       data.citizenNotifications = [
         {
-          id: 'CRNF2_APPLICANT_RESPONDENT' as CitizenNotificationId,
+          id: 'CRNF2_APPLICANT_RESPONDENT',
           show: true,
-          isMultipleOrders: false,
-          isFinalOrder: true,
-        },
+          multiple: false,
+          final: true,
+        } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have a final order from the court',
-          id: 'CRNF2NewOrder',
+          id: 'orderPersonalService',
           sections: [
             {
               contents: [
@@ -1106,8 +1089,6 @@ describe('testcase for notification Banner', () => {
               ],
             },
           ],
-
-          title: 'Important',
         },
       ]);
     });

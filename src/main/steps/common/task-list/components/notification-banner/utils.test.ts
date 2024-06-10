@@ -1,11 +1,10 @@
-// import { CaseWithId } from '../../../../../app/case/case';
-// import { Applicant, CaseType, CitizenNotificationId, State } from '../../../../../app/case/definition';
-// import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { CitizenNotification } from '../../../../../app/case/case';
+// import { Applicant, CaseType, State } from '../../../../../app/case/definition';
 
 import { NOTIFICATION_BASE_CONFIG } from './config';
 import { languages as content } from './content';
-import { NotificationID, NotificationType } from './definitions';
-import { getCRNF2NewOrderHeading } from './utils';
+import { NotificationType } from './definitions';
+import { getCRNF2OrderHeading } from './utils';
 
 describe('notification Banner', () => {
   // const data = {
@@ -52,9 +51,9 @@ describe('notification Banner', () => {
     NotificationType.VIEW_RESPONSE_TO_APPLICATION,
     NotificationType.APPLICATION_SERVED_BY_COURT_TO_RESPONDENT,
     NotificationType.SUMBIT_FM5,
-    NotificationType.CRNF2_NEW_ORDER,
+    NotificationType.ORDER_PERSONAL_SERVICE,
   ])('should have show as false by default', notification => {
-    expect(NOTIFICATION_BASE_CONFIG.find(config => config.id === notification)?.show()).toBe(false);
+    expect(NOTIFICATION_BASE_CONFIG.find(config => config.id === notification)?.show!()).toBe(false);
   });
 
   // test('isPrimaryApplicant should return true when user is first applicant', () => {
@@ -102,69 +101,75 @@ describe('notification Banner', () => {
   describe('getCRNF2NewOrderHeading', () => {
     test('should return correct translation for heading when multiple final orders', () => {
       expect(
-        getCRNF2NewOrderHeading(
+        getCRNF2OrderHeading(
           {
-            id: 'CRNF2_APPLICANT_RESPONDENT' as NotificationID,
+            id: 'CRNF2_APPLICANT_RESPONDENT',
             show: true,
-            isMultipleOrders: true,
-            isFinalOrder: true,
-          },
-          content.en
+            multiple: true,
+            final: true,
+            new: false,
+          } as CitizenNotification,
+          content.en.common
         )
       ).toBe('final');
     });
 
     test('should return correct translation for heading when multiple orders', () => {
       expect(
-        getCRNF2NewOrderHeading(
+        getCRNF2OrderHeading(
           {
-            id: 'CRNF2_APPLICANT_RESPONDENT' as NotificationID,
+            id: 'CRNF2_APPLICANT_RESPONDENT',
             show: true,
-            isMultipleOrders: true,
-            isFinalOrder: false,
-          },
-          content.en
+            multiple: true,
+            final: false,
+            new: false,
+          } as CitizenNotification,
+          content.en.common
         )
       ).toBe('new');
     });
 
     test('should return correct translation for heading when single final order', () => {
       expect(
-        getCRNF2NewOrderHeading(
+        getCRNF2OrderHeading(
           {
-            id: 'CRNF2_APPLICANT_RESPONDENT' as NotificationID,
+            id: 'CRNF2_APPLICANT_RESPONDENT',
             show: true,
-            isMultipleOrders: false,
-            isFinalOrder: true,
-          },
-          content.en
+            multiple: false,
+            final: true,
+            new: false,
+          } as CitizenNotification,
+          content.en.common
         )
       ).toBe('a final');
     });
 
     test('should return correct translation for heading when single order', () => {
       expect(
-        getCRNF2NewOrderHeading(
+        getCRNF2OrderHeading(
           {
-            id: 'CRNF2_APPLICANT_RESPONDENT' as NotificationID,
+            id: 'CRNF2_APPLICANT_RESPONDENT',
             show: true,
-            isMultipleOrders: false,
-            isFinalOrder: false,
-          },
-          content.en
+            multiple: false,
+            final: false,
+            new: false,
+          } as CitizenNotification,
+          content.en.common
         )
       ).toBe('a new');
     });
 
     test('should return correct translation for heading when new and final order', () => {
       expect(
-        getCRNF2NewOrderHeading(
+        getCRNF2OrderHeading(
           {
-            id: 'CRNF2_APPLICANT_RESPONDENT' as NotificationID,
+            id: 'CRNF2_APPLICANT_RESPONDENT',
             show: true,
-            newAndFinalOrder: true,
-          },
-          content.en
+            new: true,
+            multiple: false,
+            final: true,
+          } as CitizenNotification,
+          content.en.common
         )
       ).toBe('new and final');
     });

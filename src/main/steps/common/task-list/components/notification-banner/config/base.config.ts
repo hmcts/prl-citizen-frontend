@@ -111,8 +111,8 @@ export const NOTIFICATION_BASE_CONFIG = [
     show: () => false,
   },
   {
-    id: NotificationType.CRNF2_NEW_ORDER,
-    content: getNotificationContent.bind(null, NotificationType.CRNF2_NEW_ORDER),
+    id: NotificationType.ORDER_PERSONAL_SERVICE,
+    content: getNotificationContent,
     show: () => false,
   },
 ];
