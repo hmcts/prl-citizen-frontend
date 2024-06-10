@@ -182,7 +182,7 @@ export type CitizenOrders = {
   documentWelsh: DocumentMeta;
   orderType: string;
   createdDate: string;
-  servedDate: string;
+  servedDateTime: string;
   wasCafcassServed: boolean;
   final: boolean;
   new: boolean;
