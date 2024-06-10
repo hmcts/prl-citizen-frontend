@@ -5,6 +5,6 @@ describe('ca_respondent', () => {
     expect(CA_RESPONDENT_CONFIG).toHaveLength(4);
     expect(CA_RESPONDENT_CONFIG[0].id).toBe('newOrder');
     expect(CA_RESPONDENT_CONFIG[1].id).toBe('finalOrder');
-    expect(CA_RESPONDENT_CONFIG[2].id).toBe('applicationServedForRespondent');
+    expect(CA_RESPONDENT_CONFIG[2].id).toBe('applicationServedByCourtToRespondent');
   });
 });

@@ -660,6 +660,7 @@ export interface Case {
 export interface CitizenNotification {
   id: string;
   show: boolean;
+  personalService?: boolean;
 }
 
 export enum Miam_notAttendingReasons {

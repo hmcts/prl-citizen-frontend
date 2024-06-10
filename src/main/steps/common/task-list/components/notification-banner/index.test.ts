@@ -310,7 +310,7 @@ describe('testcase for notification Banner', () => {
           },
         ],
         heading: 'The court has issued your application',
-        id: 'applicationServedForApplicant',
+        id: 'applicationServedByCourtPersonalNonPersonalService',
         title: 'Important',
       },
     ]);
@@ -369,7 +369,7 @@ describe('testcase for notification Banner', () => {
           },
         ],
         heading: 'The court has issued your application',
-        id: 'applicationServedForApplicant',
+        id: 'applicationServedByCourtPersonalNonPersonalService',
         title: 'Important',
       },
     ]);
@@ -445,12 +445,12 @@ describe('testcase for notification Banner', () => {
           },
         ],
         heading: 'The court has issued your application',
-        id: 'applicationServedForApplicant',
+        id: 'applicationServedByCourtPersonalNonPersonalService',
         title: 'Important',
       },
       {
         heading: 'View the response to your application',
-        id: 'responseSubmitted',
+        id: 'viewResponseToApplication',
         sections: [
           {
             contents: [
@@ -514,7 +514,7 @@ describe('testcase for notification Banner', () => {
     expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'You must give the respondent their documents',
-        id: 'giveRespondentTheirDocuments',
+        id: 'applicantToPersonallyServeRespondent',
         sections: [
           {
             contents: [
@@ -616,7 +616,7 @@ describe('testcase for notification Banner', () => {
     expect(getNotifications(data, { ...userDetails, id: '1234' }, party, language)).toStrictEqual([
       {
         heading: 'The court has issued your application',
-        id: 'caPersonalService',
+        id: 'applicationIssuedByCourtPersonalService',
         sections: [
           {
             contents: [
@@ -836,7 +836,7 @@ describe('testcase for notification Banner', () => {
         },
         {
           heading: 'Respond to an application about a child',
-          id: 'applicationServedForRespondent',
+          id: 'applicationServedByCourtToRespondent',
           sections: [
             {
               contents: [

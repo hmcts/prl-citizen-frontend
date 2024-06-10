@@ -6,7 +6,11 @@ import { showNotification } from '../utils';
 
 export const CA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
   {
-    id: NotificationType.APPLICATION_SERVED_FOR_RESPONDENT,
+    id: NotificationType.APPLICATION_SERVED_BY_COURT_TO_RESPONDENT,
+    show: showNotification,
+  },
+  {
+    id: NotificationType.SUMBIT_FM5,
     show: showNotification,
   },
   {
@@ -20,9 +24,5 @@ export const CA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
     show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
       return caseData.state === State.ALL_FINAL_ORDERS_ISSUED && hasOrders(caseData as CaseWithId);
     },
-  },
-  {
-    id: NotificationType.SUMBIT_FM5,
-    show: showNotification,
   },
 ];

@@ -7,9 +7,10 @@ import _ from 'lodash';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { hasApplicationPacks } from '../../../../../steps/common/documents/view/utils';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
+import { CitizenDocuments, DocumentCategory } from '../../../documents/definitions';
 
-import { CaseWithId } from './../../../../../app/case/case';
-import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
+import { CaseWithId, CitizenNotification } from './../../../../../app/case/case';
+import { CaseType, PartyType, Respondent } from './../../../../../app/case/definition';
 import {
   CA_APPLICANT_CONFIG,
   CA_RESPONDENT_CONFIG,
@@ -17,7 +18,6 @@ import {
   DA_RESPONDENT_CONFIG,
   NOTIFICATION_BASE_CONFIG,
 } from './config';
-import { languages as content } from './content';
 import { NotificationBannerProps, NotificationID, NotificationType } from './definitions';
 
 export const getNotificationConfig = (
@@ -42,31 +42,9 @@ export const getNotificationConfig = (
         baseNotificationConfig => baseNotificationConfig.id === notificationConfig.id
       );
 
-      return baseConfig ? { ...baseConfig, notificationConfig } : null;
+      return baseConfig ? { ...baseConfig, ...notificationConfig } : null;
     })
     .filter(notificationConfig => notificationConfig !== null);
-};
-
-export const getNotificationContent = (
-  notficationType: NotificationType,
-  caseType: CaseType,
-  language: string,
-  partyType: PartyType
-) => {
-  const translation = content[language];
-
-  return {
-    title: translation.title,
-    ...translation?.[caseType]?.[partyType]?.[notficationType],
-  };
-};
-
-export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {
-  return caseData.applicants?.[0].value?.response?.citizenFlags?.isApplicationToBeServed === YesOrNo.YES;
-};
-
-export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-  return caseData.applicants?.[0].value.user.idamId === userDetails.id;
 };
 
 export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
@@ -78,6 +56,20 @@ export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDe
 };
 
 /*** */
+
+const NotificationTypeIDMap = {
+  [NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE]:
+    NotificationID.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
+  [NotificationType.APPLICATION_SERVED_BY_COURT_TO_RESPONDENT]:
+    NotificationID.APPLICATION_SERVED_BY_COURT_TO_RESPONDENT,
+  [NotificationType.VIEW_RESPONSE_TO_APPLICATION]: NotificationID.VIEW_RESPONSE_TO_APPLICATION,
+  [NotificationType.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT]: NotificationID.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT,
+  [NotificationType.APPLICATION_SERVED_BY_SOLICITOR_BAILIFF_TO_RESPONDENT]:
+    NotificationID.APPLICATION_SERVED_BY_SOLICITOR_BAILIFF_TO_RESPONDENT,
+  [NotificationType.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE]:
+    NotificationID.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE,
+  [NotificationType.SUMBIT_FM5]: NotificationID.SUMBIT_FM5,
+};
 
 export const isApplicationPackAvailable = (caseData: Partial<CaseWithId>, partyType: PartyType): boolean => {
   return (
@@ -91,38 +83,36 @@ export const isApplicationPackAvailable = (caseData: Partial<CaseWithId>, partyT
 };
 
 export const isPersonalServiceByCourt = (caseData: CaseWithId): boolean =>
-  hasApplicationPacks(caseData as CaseWithId) &&
-  _.get(caseData.citizenApplicationPacks![0], 'isPersonalService', false);
+  findNotification(caseData, NotificationID.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE)
+    ?.personalService ?? false;
 
 export const isCafcassServed = (caseData: CaseWithId): boolean =>
-  hasApplicationPacks(caseData as CaseWithId) && _.get(caseData.citizenApplicationPacks![0], 'wasCafcassServed', false);
+  hasApplicationPacks(caseData) && _.get(caseData.citizenApplicationPacks![0], 'wasCafcassServed', false);
 
 export const isCafcassCymruServed = (caseData: CaseWithId): boolean =>
-  hasApplicationPacks(caseData as CaseWithId) &&
-  _.get(caseData.citizenApplicationPacks![0], 'wasCafcassCymruServed', false);
+  hasApplicationPacks(caseData) && _.get(caseData.citizenApplicationPacks![0], 'wasCafcassCymruServed', false);
 
-export function showNotification(notificationType: NotificationType, caseData: CaseWithId): boolean {
-  let notificationId;
+export const showNotification = (notificationType: NotificationType, caseData: CaseWithId): boolean => {
+  const notificationId = NotificationTypeIDMap?.[notificationType];
 
-  switch (notificationType) {
-    case NotificationType.APPLICATION_SERVED_FOR_APPLICANT:
-      {
-        notificationId = NotificationID.APPLICATION_SERVED_FOR_APPLICANT;
-      }
-      break;
-    case NotificationType.APPLICATION_SERVED_FOR_RESPONDENT:
-      {
-        notificationId = NotificationID.APPLICATION_SERVED_FOR_RESPONDENT;
-      }
-      break;
-    case NotificationType.SUMBIT_FM5:
-      {
-        notificationId = NotificationID.SUMBIT_FM5;
-      }
-      break;
-  }
+  return notificationId ? findNotification(caseData, notificationId)?.show ?? false : false;
+};
 
-  return notificationId
-    ? caseData?.citizenNotifications?.find(notification => notification.id === notificationId)?.show ?? false
-    : false;
-}
+export const findNotification = (
+  caseData: CaseWithId,
+  notificationId: NotificationID
+): CitizenNotification | undefined => {
+  return caseData?.citizenNotifications?.find(notification => notification.id === notificationId);
+};
+
+export const hasMoreThanOneApplicant = (caseData: CaseWithId): boolean => {
+  return _.get(caseData, 'applicants', []).length > 1;
+};
+
+export const findC7ResponseDocument = (caseData: CaseWithId, respondent: Respondent): CitizenDocuments | undefined => {
+  return caseData?.citizenDocuments?.find(
+    document =>
+      (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
+      document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+  );
+};
