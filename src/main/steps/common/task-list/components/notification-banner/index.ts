@@ -26,9 +26,6 @@ export const getNotifications = (
       if (_.isFunction(show) && show(id, caseData, userDetails) && _.isFunction(getContent)) {
         const content = getContent(id, caseType, language, partyType);
         const sections: NotificationSection[] = [];
-        const notification = caseData?.citizenNotifications?.find(
-          citizenNotification => citizenNotification.id === CitizenNotificationId.CRNF2_APPLICANT_RESPONDENT
-        );
 
         content.sections.forEach(section => {
           const contents = section?.contents
