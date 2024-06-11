@@ -65,7 +65,7 @@ const en: NotificationBannerContentConfig = {
           {
             contents: [
               {
-                text: 'You have {noOfDaysRemainingToSubmitCase} days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+                text: 'You have {noOfDaysRemainingToSubmitCase} days to submit your application from the date you started it, or it will be deleted and you will need to start the application again. This is to keep your information secure.',
               },
               {
                 text: 'You can review all your answers before you submit your application.',
@@ -115,42 +115,6 @@ const en: NotificationBannerContentConfig = {
             contents: [
               {
                 text: 'You can still access all documents related to the case',
-              },
-            ],
-          },
-        ],
-      },
-      withdrawalRequestRejected: {
-        heading: 'Your withdrawal request was rejected',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'The court rejected your request to withdraw this application. The application will continue to progress.',
-              },
-            ],
-          },
-        ],
-      },
-      applicationSentToLocalCourt: {
-        heading: 'Your application is in progress',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Your application is being reviewed and you will be contacted with next steps.',
-              },
-            ],
-          },
-        ],
-      },
-      applicationSentToGateKeeping: {
-        heading: 'Your application is in progress',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Your application is being reviewed and you will be contacted with next steps.',
               },
             ],
           },
@@ -720,7 +684,7 @@ const cy: typeof en = {
           {
             contents: [
               {
-                text: 'Mae gennych {noOfDaysRemainingToSubmitCase} diwrnod i gyflwyno eich cais o’r dyddiad y gwnaethoch ei gychwyn, neu bydd yn cael ei ddileu a bydd rhaid i chi gychwyn y cais eto. Mae hyn er mwyn cadw eich gwybodaeth yn ddiogel.',
+                text: 'You have {noOfDaysRemainingToSubmitCase} days to submit your application from the date you started it, or it will be deleted and you will need to start the application again. This is to keep your information secure. -welsh',
               },
               {
                 text: 'You can review all your answers before you submit your application.-welsh',
@@ -770,42 +734,6 @@ const cy: typeof en = {
             contents: [
               {
                 text: 'Gallwch dal gael mynediad at yr holl ddogfennau sy’n gysylltiedig â’r achos hwn',
-              },
-            ],
-          },
-        ],
-      },
-      withdrawalRequestRejected: {
-        heading: 'YCafodd eich cais i dynnu’r cais yn ôl ei wrthod ',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Bu i’r llys wrthod eich cais i dynnu’r cais hwn yn ôl. Bydd y cais yn parhau i fynd rhagddo.',
-              },
-            ],
-          },
-        ],
-      },
-      applicationSentToLocalCourt: {
-        heading: 'Mae eich cais ar y gweill',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Mae eich cais yn cael ei adolygu a bydd y llys yn cysylltu â chi ynghylch y camau nesaf.',
-              },
-            ],
-          },
-        ],
-      },
-      applicationSentToGateKeeping: {
-        heading: 'Mae eich cais ar y gweill',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Mae eich cais yn cael ei adolygu a bydd y llys yn cysylltu â chi ynghylch y camau nesaf.',
               },
             ],
           },

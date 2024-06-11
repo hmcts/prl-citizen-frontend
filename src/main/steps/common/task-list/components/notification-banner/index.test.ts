@@ -202,7 +202,7 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'You have 2 days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+                text: 'You have 2 days to submit your application from the date you started it, or it will be deleted and you will need to start the application again. This is to keep your information secure.',
               },
               {
                 text: 'You can review all your answers before you submit your application.',
@@ -244,128 +244,6 @@ describe('testcase for notification Banner', () => {
         ],
         heading: 'This case has now been withdrawn',
         id: 'applicationWithdrawn',
-      },
-    ]);
-  });
-
-  test('withdrawn is rejected', () => {
-    const data = {
-      id: '12',
-      state: State.Submitted,
-      orderCollection: [
-        {
-          id: '',
-          value: {
-            dateCreated: '',
-            orderType: '',
-            orderDocument: {
-              document_url: '',
-              document_filename: '',
-              document_binary_url: '',
-            },
-            orderDocumentWelsh: {
-              document_url: '',
-              document_filename: '',
-              document_binary_url: '',
-            },
-            otherDetails: {
-              createdBy: '',
-              orderCreatedDate: '',
-              orderMadeDate: '',
-              orderRecipients: '',
-            },
-            orderTypeId: 'blankOrderOrDirectionsWithdraw',
-            isWithdrawnRequestApproved: YesOrNo.NO,
-            withdrawnRequestType: 'Withdrawn application',
-          },
-        },
-      ],
-      citizenOrders: [
-        {
-          dateCreated: 'MOCK_DATE',
-          orderType: 'ORDER',
-          document: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-          documentWelsh: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-        },
-      ],
-    } as unknown as CaseWithId;
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-    expect(getNotifications(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
-      {
-        heading: 'Your withdrawal request was rejected',
-        id: 'withdrawalRequestRejected',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'The court rejected your request to withdraw this application. The application will continue to progress.',
-              },
-            ],
-            links: [],
-          },
-        ],
-      },
-    ]);
-  });
-
-  test('when case is issue to local court', () => {
-    const data = {
-      id: '12',
-      state: State.CASE_ISSUED_TO_LOCAL_COURT,
-      caseTypeOfApplication: CaseType.C100,
-    } as unknown as CaseWithId;
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-
-    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
-      {
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Your application is being reviewed and you will be contacted with next steps.',
-              },
-            ],
-            links: [],
-          },
-        ],
-        heading: 'Your application is in progress',
-        id: 'applicationSentToLocalCourt',
-      },
-    ]);
-  });
-  test('when case is in gate keeping state', () => {
-    const data = {
-      id: '12',
-      state: State.CASE_GATE_KEEPING,
-      caseTypeOfApplication: CaseType.C100,
-    } as unknown as CaseWithId;
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-
-    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
-      {
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Your application is being reviewed and you will be contacted with next steps.',
-              },
-            ],
-            links: [],
-          },
-        ],
-        heading: 'Your application is in progress',
-        id: 'applicationSentToGateKeeping',
       },
     ]);
   });

@@ -10,7 +10,7 @@ import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { CitizenDocuments, DocumentCategory } from '../../../documents/definitions';
 
 import { CaseWithId, CitizenNotification } from './../../../../../app/case/case';
-import { CaseType, PartyType, Respondent } from './../../../../../app/case/definition';
+import { CaseType, PartyType, Respondent, State } from './../../../../../app/case/definition';
 import {
   CA_APPLICANT_CONFIG,
   CA_RESPONDENT_CONFIG,
@@ -98,6 +98,24 @@ export const showNotification = (notificationType: NotificationType, caseData: C
 
   return notificationId ? findNotification(caseData, notificationId)?.show ?? false : false;
 };
+export function showPreDashBoardNotification(notificationType: NotificationType, caseData: CaseWithId): boolean {
+  let allowNotification = false;
+  switch (notificationType) {
+    case NotificationType.APPLICATION_NOT_STARTED:
+      allowNotification = !caseData;
+      break;
+    case NotificationType.APPLICATION_IN_PROGRESS:
+      allowNotification = caseData?.state === State.CASE_DRAFT;
+      break;
+    case NotificationType.APPLICATION_SUBMITTED:
+      allowNotification = [State.CASE_SUBMITTED_PAID, State.CASE_SUBMITTED_NOT_PAID].includes(caseData.state);
+      break;
+    case NotificationType.APPLICATION_WITHDRAWN:
+      allowNotification = caseData?.state === State.CASE_WITHDRAWN;
+      break;
+  }
+  return allowNotification;
+}
 
 export const findNotification = (
   caseData: CaseWithId,
