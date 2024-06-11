@@ -163,22 +163,19 @@ describe('notification Banner', () => {
         } as CaseWithId
       );
 
-      expect(config).toHaveLength(15);
+      expect(config).toHaveLength(12);
       expect(config[0].id).toBe('applicationNotStarted');
       expect(config[1].id).toBe('applicationInProgress');
       expect(config[2].id).toBe('applicationSubmitted');
       expect(config[3].id).toBe('applicationWithdrawn');
-      expect(config[4].id).toBe('withdrawalRequestRejected');
-      expect(config[5].id).toBe('applicationSentToLocalCourt');
-      expect(config[6].id).toBe('applicationSentToGateKeeping');
-      expect(config[7].id).toBe('applicationServedByCourtPersonalNonPersonalService');
-      expect(config[8].id).toBe('viewResponseToApplication');
-      expect(config[9].id).toBe('applicantToPersonallyServeRespondent');
-      expect(config[10].id).toBe('applicationServedBySolictorBailiffToRespondent');
-      expect(config[11].id).toBe('applicationIssuedByCourtPersonalService');
-      expect(config[12].id).toBe('submitFM5');
-      expect(config[13].id).toBe('applicationClosed');
-      expect(config[14].id).toBe('orderPersonalService');
+      expect(config[4].id).toBe('applicationServedByCourtPersonalNonPersonalService');
+      expect(config[5].id).toBe('viewResponseToApplication');
+      expect(config[6].id).toBe('applicantToPersonallyServeRespondent');
+      expect(config[7].id).toBe('applicationServedBySolictorBailiffToRespondent');
+      expect(config[8].id).toBe('applicationIssuedByCourtPersonalService');
+      expect(config[9].id).toBe('submitFM5');
+      expect(config[10].id).toBe('applicationClosed');
+      expect(config[11].id).toBe('orderPersonalService');
     });
 
     test('should return correct configs for CA respondent', () => {

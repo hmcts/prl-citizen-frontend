@@ -202,7 +202,7 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'You have 2 days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+                text: 'You have 2 days to submit your application from the date you started it, or it will be deleted and you will need to start the application again. This is to keep your information secure.',
               },
               {
                 text: 'You can review all your answers before you submit your application.',
@@ -247,7 +247,7 @@ describe('testcase for notification Banner', () => {
       },
     ]);
   });
-  
+
   test('when application is being served personally by court and cafcass is served', () => {
     const data = {
       id: '12',

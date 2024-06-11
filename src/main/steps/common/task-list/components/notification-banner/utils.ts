@@ -99,22 +99,22 @@ export const showNotification = (notificationType: NotificationType, caseData: C
   return notificationId ? findNotification(caseData, notificationId)?.show ?? false : false;
 };
 export function showPreDashBoardNotification(notificationType: NotificationType, caseData: CaseWithId): boolean {
-  let showNotification = false;
+  let allowNotification = false;
   switch (notificationType) {
     case NotificationType.APPLICATION_NOT_STARTED:
-      showNotification = !caseData;
+      allowNotification = !caseData;
       break;
     case NotificationType.APPLICATION_IN_PROGRESS:
-      showNotification = caseData?.state === State.CASE_DRAFT;
+      allowNotification = caseData?.state === State.CASE_DRAFT;
       break;
     case NotificationType.APPLICATION_SUBMITTED:
-      showNotification = [State.CASE_SUBMITTED_PAID, State.CASE_SUBMITTED_NOT_PAID].includes(caseData.state);
+      allowNotification = [State.CASE_SUBMITTED_PAID, State.CASE_SUBMITTED_NOT_PAID].includes(caseData.state);
       break;
     case NotificationType.APPLICATION_WITHDRAWN:
-      showNotification = caseData?.state === State.CASE_WITHDRAWN;
+      allowNotification = caseData?.state === State.CASE_WITHDRAWN;
       break;
   }
-  return showNotification;
+  return allowNotification;
 }
 
 export const findNotification = (

@@ -4,7 +4,7 @@ import { State } from '../../../../../../app/case/definition';
 import { isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
 import { interpolate } from '../../../../string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
-import { findC7ResponseDocument, findNotification, showNotification } from '../utils';
+import { findC7ResponseDocument, findNotification, showNotification, showPreDashBoardNotification } from '../utils';
 
 export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerProps[] => [
   {
