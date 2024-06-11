@@ -110,4 +110,9 @@ export const NOTIFICATION_BASE_CONFIG = [
     content: getNotificationContent,
     show: () => false,
   },
+  {
+    id: NotificationType.ORDER_PERSONAL_SERVICE,
+    content: getNotificationContent,
+    show: () => false,
+  },
 ];

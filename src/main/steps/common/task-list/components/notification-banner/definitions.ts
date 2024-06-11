@@ -24,6 +24,7 @@ export enum NotificationType {
   FINAL_ORDER = 'finalOrder',
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
   CAFFCASS = 'cafcass',
+  ORDER_PERSONAL_SERVICE = 'orderPersonalService',
 }
 
 export type NotificationBannerProps = {
@@ -120,4 +121,5 @@ export enum NotificationID {
   APPLICATION_SERVED_BY_SOLICITOR_BAILIFF_TO_RESPONDENT = 'CAN8_SOS_PERSONAL_APPLICANT', // notification not built yet
   APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE = 'CAN9_SOA_PERSONAL_APPLICANT',
   SUMBIT_FM5 = 'CAN10_FM5',
+  ORDER_PERSONAL_SERVICE = 'CRNF2_APPLICANT_RESPONDENT',
 }
