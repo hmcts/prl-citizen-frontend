@@ -15,8 +15,10 @@ import {
   VIEW_APPLICATION_PACK_DOCUMENTS,
 } from '../../../../../steps/urls';
 
-import { NotificationBannerContentConfig } from './definitions';
+import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from './definitions';
 import {
+  findNotification,
+  getOrderNotificationHeading,
   hasMoreThanOneApplicant,
   isApplicationPackAvailable,
   isCafcassCymruServed,
@@ -28,6 +30,14 @@ const en: NotificationBannerContentConfig = {
   title: 'Important',
   common: {
     theRespondent: 'The respondent',
+    final: 'final',
+    a: 'a',
+    new: 'new',
+    order: 'order',
+    orders: 'orders',
+    tell: 'tell',
+    tells: 'tells',
+    and: 'and',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -195,20 +205,43 @@ const en: NotificationBannerContentConfig = {
           },
         ],
       },
-      newOrder: {
-        heading: 'You have a new order from the court',
+      orderPersonalService: {
+        heading: 'You have {finalOrNew} {order} from the court',
+        interpolateHeading: (
+          content: string,
+          commonContent: NotificationBannerContent['common'],
+          caseData: CaseWithId
+        ): string => {
+          const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+
+          return interpolate(content, {
+            order: notification?.multiple ? commonContent.orders : commonContent.order,
+            finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
+          });
+        },
         sections: [
           {
             contents: [
               {
-                text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+                text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
               },
             ],
             links: [
               {
                 //** validate **
-                text: 'View the order (PDF)',
+                text: 'View the {order} (PDF)',
                 href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                interpolateLinkText: (
+                  content: string,
+                  commonContent: NotificationBannerContent['common'],
+                  caseData: CaseWithId
+                ): string => {
+                  const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+
+                  return interpolate(content, {
+                    order: notification?.multiple ? commonContent.orders : commonContent.order,
+                  });
+                },
               },
             ],
           },
@@ -337,20 +370,43 @@ const en: NotificationBannerContentConfig = {
       },
     },
     [PartyType.RESPONDENT]: {
-      finalOrder: {
-        heading: 'You have a final order',
+      orderPersonalService: {
+        heading: 'You have {finalOrNew} {order} from the court',
+        interpolateHeading: (
+          content: string,
+          commonContent: NotificationBannerContent['common'],
+          caseData: CaseWithId
+        ): string => {
+          const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+
+          return interpolate(content, {
+            order: notification?.multiple ? commonContent.orders : commonContent.order,
+            finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
+          });
+        },
         sections: [
           {
             contents: [
               {
-                text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+                text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
               },
             ],
             links: [
               {
                 //** validate **
-                text: 'View the order (PDF)',
+                text: 'View the {order} (PDF)',
                 href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
+                interpolateLinkText: (
+                  content: string,
+                  commonContent: NotificationBannerContent['common'],
+                  caseData: CaseWithId
+                ): string => {
+                  const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+
+                  return interpolate(content, {
+                    order: notification?.multiple ? commonContent.orders : commonContent.order,
+                  });
+                },
               },
             ],
           },
@@ -389,6 +445,7 @@ const en: NotificationBannerContentConfig = {
             ],
             links: [
               {
+                //** validate **
                 href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.RESPONDENT }),
                 text: 'View the application pack',
                 show: (caseData: Partial<CaseWithId>): boolean => {
@@ -592,6 +649,14 @@ const cy: typeof en = {
   title: 'Pwysig',
   common: {
     theRespondent: 'The respondent - welsh',
+    final: 'final (welsh)',
+    a: 'a (welsh)',
+    new: 'new (welsh)',
+    order: 'order (welsh)',
+    orders: 'orders (welsh)',
+    tell: 'tell (welsh)',
+    tells: 'tells (welsh)',
+    and: 'and (welsh)',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -759,20 +824,43 @@ const cy: typeof en = {
           },
         ],
       },
-      newOrder: {
-        heading: 'Mae gennych orchymyn newydd gan y llys',
+      orderPersonalService: {
+        heading: 'You have {finalOrNew} {order} from the court (welsh)',
+        interpolateHeading: (
+          content: string,
+          commonContent: NotificationBannerContent['common'],
+          caseData: CaseWithId
+        ): string => {
+          const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+
+          return interpolate(content, {
+            order: notification?.multiple ? commonContent.orders : commonContent.order,
+            finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
+          });
+        },
         sections: [
           {
             contents: [
               {
-                text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+                text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided. (welsh)',
               },
             ],
             links: [
               {
                 //** validate **
-                text: 'Gweld y gorchymyn (PDF)',
+                text: 'View the {order} (PDF) (welsh)',
                 href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                interpolateLinkText: (
+                  content: string,
+                  commonContent: NotificationBannerContent['common'],
+                  caseData: CaseWithId
+                ): string => {
+                  const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+
+                  return interpolate(content, {
+                    order: notification?.multiple ? commonContent.orders : commonContent.order,
+                  });
+                },
               },
             ],
           },
@@ -897,40 +985,43 @@ const cy: typeof en = {
       },
     },
     [PartyType.RESPONDENT]: {
-      finalOrder: {
-        heading: 'Mae gennych orchymyn terfynol',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Mae’r llys wedi gwneud penderfyniad terfynol ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu.  ',
-              },
-            ],
-            links: [
-              {
-                //** validate **
-                href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
-                text: 'Gweld y gorchymyn (PDF)',
-              },
-            ],
-          },
-        ],
-      },
+      orderPersonalService: {
+        heading: 'You have {finalOrNew} {order} from the court (welsh)',
+        interpolateHeading: (
+          content: string,
+          commonContent: NotificationBannerContent['common'],
+          caseData: CaseWithId
+        ): string => {
+          const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
-      newOrder: {
-        heading: 'You have a new order from the court',
+          return interpolate(content, {
+            order: notification?.multiple ? commonContent.orders : commonContent.order,
+            finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
+          });
+        },
         sections: [
           {
             contents: [
               {
-                text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+                text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided. (welsh)',
               },
             ],
             links: [
               {
                 //** validate **
-                text: 'View the order (PDF)',
+                text: 'View the {order}(PDF) (welsh)',
                 href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
+                interpolateLinkText: (
+                  content: string,
+                  commonContent: NotificationBannerContent['common'],
+                  caseData: CaseWithId
+                ): string => {
+                  const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+
+                  return interpolate(content, {
+                    order: notification?.multiple ? commonContent.orders : commonContent.order,
+                  });
+                },
               },
             ],
           },
@@ -950,6 +1041,7 @@ const cy: typeof en = {
             ],
             links: [
               {
+                //** validate **
                 href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.RESPONDENT }),
                 text: 'Gweld y cais',
                 show: (caseData: Partial<CaseWithId>): boolean => {

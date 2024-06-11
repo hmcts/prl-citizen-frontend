@@ -1,22 +1,19 @@
-import { mockRequest } from '../../../../../../../test/unit/utils/mockRequest';
+import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyDetails } from '../../../../../../app/case/definition';
 
 import { CA_APPLICANT_CONFIG } from './ca_applicant';
 
 describe('ca_applicant', () => {
   test('should have correct notification ids', () => {
-    const ca_applicantNotifications = CA_APPLICANT_CONFIG(
-      mockRequest({
-        userCase: {
-          respondents: [
-            {
-              id: '1',
-              value: {} as PartyDetails,
-            },
-          ],
+    const ca_applicantNotifications = CA_APPLICANT_CONFIG({
+      respondents: [
+        {
+          id: '1',
+          value: {} as PartyDetails,
         },
-      })
-    );
+      ],
+    } as CaseWithId);
+
 
     expect(ca_applicantNotifications).toHaveLength(11);
     expect(ca_applicantNotifications[0].id).toBe('applicationNotStarted');
@@ -29,6 +26,6 @@ describe('ca_applicant', () => {
     expect(ca_applicantNotifications[7].id).toBe('applicationIssuedByCourtPersonalService');
     expect(ca_applicantNotifications[8].id).toBe('submitFM5');
     expect(ca_applicantNotifications[9].id).toBe('applicationClosed');
-    expect(ca_applicantNotifications[10].id).toBe('newOrder');
+    expect(ca_applicantNotifications[10].id).toBe('orderPersonalService');
   });
 });
