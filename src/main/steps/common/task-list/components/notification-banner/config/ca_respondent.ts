@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { interpolate } from '../../../../../../steps/common/string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
-import { showNotification } from '../utils';
+import { findNotification, showNotification } from '../utils';
 
 export const CA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
   {
@@ -16,9 +16,7 @@ export const CA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
     id: NotificationType.ORDER_PERSONAL_SERVICE,
     show: showNotification,
     interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
-      const notification = caseData?.citizenNotifications?.find(
-        citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
-      );
+      const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
       return interpolate(content, {
         final: notification?.final ? ` ${commonContent.final}` : '',

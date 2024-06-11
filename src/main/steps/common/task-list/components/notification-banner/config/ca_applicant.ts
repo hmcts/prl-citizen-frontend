@@ -4,7 +4,7 @@ import { State, YesOrNo } from '../../../../../../app/case/definition';
 import { isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
 import { interpolate } from '../../../../string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
-import { findC7ResponseDocument, showNotification } from '../utils';
+import { findC7ResponseDocument, findNotification, showNotification } from '../utils';
 
 export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerProps[] => [
   {
@@ -90,9 +90,7 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
     id: NotificationType.ORDER_PERSONAL_SERVICE,
     show: showNotification,
     interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
-      const notification = caseData?.citizenNotifications?.find(
-        citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
-      );
+      const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
       return interpolate(content, {
         final: notification?.final ? ` ${commonContent.final}` : '',

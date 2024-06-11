@@ -9,8 +9,8 @@ import { NotificationID, NotificationType } from './definitions';
 import {
   findC7ResponseDocument,
   findNotification,
-  getCRNF2OrderHeading,
   getNotificationConfig,
+  getOrderNotificationHeading,
   hasMoreThanOneApplicant,
   isApplicationPackAvailable,
   isCafcassCymruServed,
@@ -74,7 +74,7 @@ describe('notification Banner', () => {
   describe('getCRNF2NewOrderHeading', () => {
     test('should return correct translation for heading when multiple final orders', () => {
       expect(
-        getCRNF2OrderHeading(
+        getOrderNotificationHeading(
           {
             id: 'CRNF2_APPLICANT_RESPONDENT',
             show: true,
@@ -89,7 +89,7 @@ describe('notification Banner', () => {
 
     test('should return correct translation for heading when multiple orders', () => {
       expect(
-        getCRNF2OrderHeading(
+        getOrderNotificationHeading(
           {
             id: 'CRNF2_APPLICANT_RESPONDENT',
             show: true,
@@ -104,7 +104,7 @@ describe('notification Banner', () => {
 
     test('should return correct translation for heading when single final order', () => {
       expect(
-        getCRNF2OrderHeading(
+        getOrderNotificationHeading(
           {
             id: 'CRNF2_APPLICANT_RESPONDENT',
             show: true,
@@ -119,7 +119,7 @@ describe('notification Banner', () => {
 
     test('should return correct translation for heading when single order', () => {
       expect(
-        getCRNF2OrderHeading(
+        getOrderNotificationHeading(
           {
             id: 'CRNF2_APPLICANT_RESPONDENT',
             show: true,
@@ -134,7 +134,7 @@ describe('notification Banner', () => {
 
     test('should return correct translation for heading when new and final order', () => {
       expect(
-        getCRNF2OrderHeading(
+        getOrderNotificationHeading(
           {
             id: 'CRNF2_APPLICANT_RESPONDENT',
             show: true,

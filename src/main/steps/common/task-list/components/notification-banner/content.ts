@@ -17,7 +17,8 @@ import {
 
 import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from './definitions';
 import {
-  getCRNF2OrderHeading,
+  findNotification,
+  getOrderNotificationHeading,
   hasMoreThanOneApplicant,
   isApplicationPackAvailable,
   isCafcassCymruServed,
@@ -247,13 +248,11 @@ const en: NotificationBannerContentConfig = {
           commonContent: NotificationBannerContent['common'],
           caseData: CaseWithId
         ): string => {
-          const notification = caseData?.citizenNotifications?.find(
-            citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
-          );
+          const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
           return interpolate(content, {
             order: notification?.multiple ? commonContent.orders : commonContent.order,
-            finalOrNew: notification ? getCRNF2OrderHeading(notification, commonContent) : '',
+            finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
           });
         },
         sections: [
@@ -273,9 +272,7 @@ const en: NotificationBannerContentConfig = {
                   commonContent: NotificationBannerContent['common'],
                   caseData: CaseWithId
                 ): string => {
-                  const notification = caseData?.citizenNotifications?.find(
-                    citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
-                  );
+                  const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
                   return interpolate(content, {
                     order: notification?.multiple ? commonContent.orders : commonContent.order,
@@ -416,13 +413,11 @@ const en: NotificationBannerContentConfig = {
           commonContent: NotificationBannerContent['common'],
           caseData: CaseWithId
         ): string => {
-          const notification = caseData?.citizenNotifications?.find(
-            citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
-          );
+          const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
           return interpolate(content, {
             order: notification?.multiple ? commonContent.orders : commonContent.order,
-            finalOrNew: notification ? getCRNF2OrderHeading(notification, commonContent) : '',
+            finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
           });
         },
         sections: [
@@ -442,9 +437,7 @@ const en: NotificationBannerContentConfig = {
                   commonContent: NotificationBannerContent['common'],
                   caseData: CaseWithId
                 ): string => {
-                  const notification = caseData?.citizenNotifications?.find(
-                    citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
-                  );
+                  const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
                   return interpolate(content, {
                     order: notification?.multiple ? commonContent.orders : commonContent.order,
@@ -910,13 +903,11 @@ const cy: typeof en = {
           commonContent: NotificationBannerContent['common'],
           caseData: CaseWithId
         ): string => {
-          const notification = caseData?.citizenNotifications?.find(
-            citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
-          );
+          const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
           return interpolate(content, {
             order: notification?.multiple ? commonContent.orders : commonContent.order,
-            finalOrNew: notification ? getCRNF2OrderHeading(notification, commonContent) : '',
+            finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
           });
         },
         sections: [
@@ -936,9 +927,7 @@ const cy: typeof en = {
                   commonContent: NotificationBannerContent['common'],
                   caseData: CaseWithId
                 ): string => {
-                  const notification = caseData?.citizenNotifications?.find(
-                    citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
-                  );
+                  const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
                   return interpolate(content, {
                     order: notification?.multiple ? commonContent.orders : commonContent.order,
@@ -1075,13 +1064,11 @@ const cy: typeof en = {
           commonContent: NotificationBannerContent['common'],
           caseData: CaseWithId
         ): string => {
-          const notification = caseData?.citizenNotifications?.find(
-            citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
-          );
+          const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
           return interpolate(content, {
             order: notification?.multiple ? commonContent.orders : commonContent.order,
-            finalOrNew: notification ? getCRNF2OrderHeading(notification, commonContent) : '',
+            finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
           });
         },
         sections: [
@@ -1101,9 +1088,7 @@ const cy: typeof en = {
                   commonContent: NotificationBannerContent['common'],
                   caseData: CaseWithId
                 ): string => {
-                  const notification = caseData?.citizenNotifications?.find(
-                    citizenNotification => citizenNotification.id === NotificationID.ORDER_PERSONAL_SERVICE
-                  );
+                  const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
                   return interpolate(content, {
                     order: notification?.multiple ? commonContent.orders : commonContent.order,

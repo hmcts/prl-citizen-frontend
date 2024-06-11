@@ -118,7 +118,7 @@ export const findC7ResponseDocument = (caseData: CaseWithId, respondent: Respond
   );
 };
 
-export const getCRNF2OrderHeading = (
+export const getOrderNotificationHeading = (
   notification: CitizenNotification,
   commonContent: NotificationBannerContent['common']
 ): string => {
