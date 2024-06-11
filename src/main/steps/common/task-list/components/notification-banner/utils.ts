@@ -108,7 +108,7 @@ export function showPreDashBoardNotification(notificationType: NotificationType,
       allowNotification = caseData?.state === State.CASE_DRAFT;
       break;
     case NotificationType.APPLICATION_SUBMITTED:
-      allowNotification = [State.CASE_SUBMITTED_PAID, State.CASE_SUBMITTED_NOT_PAID].includes(caseData.state);
+      allowNotification = [State.CASE_SUBMITTED_PAID, State.CASE_SUBMITTED_NOT_PAID].includes(caseData?.state);
       break;
     case NotificationType.APPLICATION_WITHDRAWN:
       allowNotification = caseData?.state === State.CASE_WITHDRAWN;
