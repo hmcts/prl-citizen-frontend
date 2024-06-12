@@ -45,22 +45,24 @@ export type NotificationBannerProps = {
 };
 
 export type NotificationBannerContentConfig = {
+  [key in NotificationType]?: {
+    heading: string;
+    interpolateHeading?: (
+      content: string,
+      commonContent: NotificationBannerContent['common'],
+      caseData: CaseWithId,
+      userDetails: UserDetails
+    ) => string;
+    sections: NotificationSection[];
+  };
+};
+
+export type NotificationBannerContentBaseConfig = {
   title: string;
   common: Record<string, string>;
 } & {
   [key in CaseType]: {
-    [key in PartyType]?: {
-      [key in NotificationType]?: {
-        heading: string;
-        interpolateHeading?: (
-          content: string,
-          commonContent: NotificationBannerContent['common'],
-          caseData: CaseWithId,
-          userDetails: UserDetails
-        ) => string;
-        sections: NotificationSection[];
-      };
-    };
+    [key in PartyType]?: NotificationBannerContentConfig;
   };
 };
 

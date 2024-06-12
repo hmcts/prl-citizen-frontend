@@ -4,7 +4,7 @@ import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { CitizenApplicationPacks, CitizenDocuments } from '../../../documents/definitions';
 
 import { NOTIFICATION_BASE_CONFIG } from './config';
-import { languages as content } from './content';
+import { languages as content } from './content/base.content';
 import { NotificationID, NotificationType } from './definitions';
 import {
   findC7ResponseDocument,
@@ -52,9 +52,6 @@ describe('notification Banner', () => {
     NotificationType.APPLICATION_IN_PROGRESS,
     NotificationType.APPLICATION_SUBMITTED,
     NotificationType.APPLICATION_WITHDRAWN,
-    NotificationType.WITHDRAWAL_REQ_REJECTED,
-    NotificationType.APPLICATION_SENT_TO_LOCAL_COURT,
-    NotificationType.APPLICATION_SENT_TO_GATE_KEEPING,
     NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
     NotificationType.APPLICATION_CLOSED,
     NotificationType.NEW_ORDER,

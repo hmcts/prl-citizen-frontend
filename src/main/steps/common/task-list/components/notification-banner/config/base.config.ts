@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { CaseType, PartyType } from '../../../../../../app/case/definition';
-import { languages as content } from '../content';
+import { languages as content } from '../content/base.content';
 import { NotificationBannerContent, NotificationType } from '../definitions';
 
 const getNotificationContent = (
@@ -37,21 +37,6 @@ export const NOTIFICATION_BASE_CONFIG = [
   },
   {
     id: NotificationType.APPLICATION_WITHDRAWN,
-    content: getNotificationContent,
-    show: () => false,
-  },
-  {
-    id: NotificationType.WITHDRAWAL_REQ_REJECTED,
-    content: getNotificationContent,
-    show: () => false,
-  },
-  {
-    id: NotificationType.APPLICATION_SENT_TO_LOCAL_COURT,
-    content: getNotificationContent,
-    show: () => false,
-  },
-  {
-    id: NotificationType.APPLICATION_SENT_TO_GATE_KEEPING,
     content: getNotificationContent,
     show: () => false,
   },
