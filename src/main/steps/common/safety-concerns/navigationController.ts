@@ -192,36 +192,37 @@ class SafteyConcernsNavigationController {
     this.applicantConcerns = caseData?.c1A_concernAboutApplicant as C1AAbuseTypes[];
     this.respondentConcerns = caseData?.c1A_concernAboutRespondent as C1AAbuseTypes[];
     const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
+    const ctx = C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT;
+
     switch (currentPageUrl) {
       case applyParms(C1A_SAFETY_CONCERNS_CONCERN_ABOUT, {
-        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+        root: ctx,
       }): {
         nextUrl = this.getPageUrl(this.concernsAbout[0]);
         break;
       }
       case applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, {
-        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+        root: ctx,
       }): {
         nextUrl = this.getNextUrlSafetyConcernChild(
           this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, this.childConcerns[0])
         );
-
         break;
       }
       case applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, {
-        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+        root: ctx,
       }):
       case applyParms(C1A_CHILD_ABDUCTION_THREATS, {
-        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+        root: ctx,
       }):
       case applyParms(C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS, {
-        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+        root: ctx,
       }): {
         nextUrl = this.getNextUrlSafetyConcernAbduct(params, currentPageUrl);
         break;
       }
       case applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, {
-        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+        root: ctx,
       }): {
         nextUrl = C100rebuildJourney
           ? this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT, this.applicantConcerns[0])
@@ -229,7 +230,7 @@ class SafteyConcernsNavigationController {
         break;
       }
       case applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, {
-        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+        root: ctx,
       }): {
         nextUrl = this.getNextUrlSafetyConcernReport(params);
         break;
@@ -240,7 +241,7 @@ class SafteyConcernsNavigationController {
     }
 
     return applyParms(nextUrl, {
-      root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+      root: ctx,
     }) as PageLink;
   }
 

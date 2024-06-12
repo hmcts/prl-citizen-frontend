@@ -1,13 +1,12 @@
 /* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
-import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
-import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
 import { HTML } from './common/htmlSelectors';
 
@@ -149,20 +148,17 @@ export const enContent = {
     askingNoHearing: 'Are you asking for a without notice hearing?',
     phoneNumber: 'Phone number',
     emailAddress: 'Contact number of the person named on the application',
-    domesticVoilenceHeading: DomesticAbuseEn().title,
-    childProtectionHeading: ChildProtectionEn().title,
-    midatatorDocumentTitle: EnMidiationDocument().title,
+    domesticVoilenceHeading: 'What evidence of domestic abuse do you have?',
+    childProtectionHeading: 'Which child protection concern applies?',
+    midatatorDocumentTitle: EnMidiationDocument.title,
     previousAddress: 'Previous Addresses',
     none: 'none',
     details: 'Details',
     fullName: 'Full name',
     respondents: 'Respondent',
-    urgentHearingHeading:
-      'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
-    previousMIAMOrExemptHeading:
-      'Can you confirm that you previously attended a MIAM, or had a valid reason not to attend?',
-    validExemptionHeading:
-      'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
+    urgentHearingHeading: 'Why is your application urgent?',
+    previousMIAMOrExemptHeading: 'What evidence do you have that you previously attended a MIAM or NCDR?',
+    validExemptionHeading: 'What other reason do you have for not attending a MIAM?',
     //child concern screens
     detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
     concerns: 'concerns',
@@ -183,6 +179,26 @@ export const enContent = {
     contactPrefernces: 'Contact preferences',
     child: 'Child',
     reasonForNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
+    domesticAbuseProvideEvidence: 'Can you provide evidence?',
+    domesticAbuseCantProvideEvidence: 'Explain why you cannot provide evidence',
+    domesticAbuseEvidence: 'Evidence of domestic abuse',
+    haveDocSignedByMediatorForPrevAttendance: 'Do you have a document signed by a mediator?',
+    detailsOfPrevMiamEvidence: 'Provide details of MIAM attendance',
+    prevMiamEvidence: 'Evidence of attending a MIAM or NCDR',
+    whyCantAccessMediator: 'Why can you not access a mediator?',
+    giveDetailsOfMediators: 'Give details of the mediators you’ve contacted',
+    disability:
+      'You have a disability or other inability that prevents you from attending a MIAM in person, online or by video link, and the contacted mediators are unable to provide appropriate facilities for you to attend.',
+    noMediatorIn15mile:
+      'There is no mediator within 15 miles of your home and you cannot attend the MIAM online or by video link.',
+    noAppointmentAvailable:
+      'You are unable to attend a MIAM online or by video link because the  mediators contacted are unable to conduct a MIAM within 15 business days of the date of contact.',
+    inPrison:
+      'You are in prison or any other institution and there are no facilities for you to attend a MIAM online or by video link.',
+    bailThatPreventContact: 'You are subject to conditions of bail that prevent contact with the other person.',
+    releaseFromPrisonOnLicence:
+      'You have been released from prison on licence, and you have a non-contact licence condition which includes someone who is a party to the application',
+    noneOfTheAbove: 'None of these',
   },
 };
 export const cyContent = {
@@ -272,20 +288,17 @@ export const cyContent = {
     askingNoHearing: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
     phoneNumber: ' Rhif ffôn',
     emailAddress: 'C Rhif cyswllt yr un a enwir yn y cais',
-    domesticVoilenceHeading: DomesticAbuseCy().title,
-    childProtectionHeading: ChildProtectionCy().title,
-    midatatorDocumentTitle: CyMidiationDocument().title,
+    domesticVoilenceHeading: 'Pa dystiolaeth o gam-drin domestig sydd gennych chi?',
+    childProtectionHeading: 'Pa bryderon amddiffyn plant sy’n berthnasol?',
+    midatatorDocumentTitle: CyMidiationDocument.title,
     previousAddress: 'Cyfeiriad blaenorol',
     none: 'dim',
     details: 'Manylion',
     fullName: 'Enw llawn',
     respondents: 'Atebydd',
-    urgentHearingHeading:
-      'Oes angen gwrandawiad brys arnoch chi am eich bod chi neu’r plant mewn perygl am unrhyw un o’r rhesymau canlynol?',
-    previousMIAMOrExemptHeading:
-      'A allwch chi gadarnhau eich bod wedi mynychu MIAM yn flaenorol, neu fod gennych reswm dilys dros beidio â mynychu?’,',
-    validExemptionHeading:
-      'A allwch chi gadarnhau bod unrhyw un o’r rhesymau dilys eraill dros beidio â mynychu MIAM yn berthnasol?',
+    urgentHearingHeading: 'Pam bod eich cais yn un brys?',
+    previousMIAMOrExemptHeading: 'Pa dystiolaeth sydd gennych eich bod eisoes wedi mynychu MIAM neu NCDR?',
+    validExemptionHeading: 'Pa reswm arall sydd gennych dros beidio â mynychu MIAM?',
     //child concern screens
     detailsOfChildConcern: 'Disgrifiwch y  [***] [^^^] yn fyr os ydych yn teimlo eich bod yn gallu gwneud hynny',
     concerns: 'pryderon',
@@ -305,6 +318,26 @@ export const cyContent = {
     contactPrefernces: 'Dewisiadau cyswllt',
     child: 'Plant',
     reasonForNotAttendingMiam: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+    domesticAbuseProvideEvidence: 'A allwch chi ddarparu tystiolaeth?',
+    domesticAbuseCantProvideEvidence: 'Eglurwch pam na allwch chi ddarparu tystiolaeth',
+    domesticAbuseEvidence: 'Tystiolaeth o gam-drin domestig',
+    haveDocSignedByMediatorForPrevAttendance: 'A oes gennych chi ddogfen wedi’i llofnodi gan gyfryngwr?',
+    detailsOfPrevMiamEvidence: 'Darparu manylion o fynychu MIAM',
+    prevMiamEvidence: 'Tystiolaeth o fynychu MIAM neu NCDR',
+    whyCantAccessMediator: 'Pam na allwch chi gael mynediad at gyfryngwr',
+    giveDetailsOfMediators: 'Rhowch fanylion y cyfryngwr rydych wedi cysylltu ag o/â hi',
+    disability:
+      'Mae gennych anabledd neu analluogrwydd arall sy’n eich atal rhag mynychu MIAM yn bersonol, ar-lein neu drwy gyswllt fideo, ac ni all y cyfryngwyr y bu ichi gysylltu â nhw ddarparu cyfleusterau i chi fynychu.',
+    noMediatorIn15mile:
+      'Nid oes yna gyfryngwr o fewn 15 milltir i’ch cartref ac ni allwch fynychu MIAM ar-lein neu drwy gyswllt fideo.',
+    noAppointmentAvailable:
+      'Ni allwch fynychu MIAM ar-lein neu drwy gyswllt fideo oherwydd ni all y cyfryngwyr y bu ichi gysylltu â nhw gynnal MIAM o fewn 15 diwrnod busnes i ddyddiad y cyswllt.',
+    inPrison:
+      'Rydych yn y carchar neu mewn unrhyw fath arall o sefydliad ac nid oes yna gyfleusterau i chi fynychu MIAM ar-lein neu drwy gyswllt fideo.',
+    bailThatPreventContact: 'Rydych yn destun amodau mechniaeth sy’n eich atal rhag cysylltu â’r unigolyn arall.',
+    releaseFromPrisonOnLicence:
+      'Rydych wedi cael eich rhyddhau o’r carchar ar drwydded, ac mae gennych amod dim cysylltu ar eich trwydded sy’n cynnwys rhywun sy’n barti i’r cais',
+    noneOfTheAbove: 'Dim un o’r rhain',
   },
   yesNo: {
     ydynTranslation: {
@@ -389,6 +422,10 @@ export const cyContent = {
     byddwnTranslation: {
       Yes: 'Byddwn',
       No: 'Na fyddwn',
+    },
+    gallafTranslation: {
+      Yes: 'Gallaf',
+      No: 'Na allaf',
     },
   },
 };
@@ -501,7 +538,7 @@ export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents, lan
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
-    MiamExemption(newContents, userCase),
+    MiamExemption(newContents, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
     TypeOfOrder(contentLanguage, userCase),
     peopleSections(userCase, contentLanguage, language),
@@ -517,7 +554,7 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, lan
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
-    MiamExemption(newContents, userCase),
+    MiamExemption(newContents, userCase, language),
     TypeOfOrder(contentLanguage, userCase),
     WithoutNoticeHearing(contentLanguage, userCase, language),
     peopleSections(userCase, contentLanguage, language),
@@ -540,11 +577,7 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
       sections = CheckYourAnswerFlow2(userCase, enContent, content.language).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
-      if (
-        userCase['miam_urgency'] &&
-        userCase.hasOwnProperty('miam_urgency') &&
-        !userCase['miam_urgency'].includes('none')
-      ) {
+      if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
         sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
       } else {
         sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
@@ -570,11 +603,7 @@ export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
       sections = CheckYourAnswerFlow2(userCase, cyContent, content.language).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
-      if (
-        userCase['miam_urgency'] &&
-        userCase.hasOwnProperty('miam_urgency') &&
-        !userCase['miam_urgency'].includes('none')
-      ) {
+      if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
         sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
       } else {
         sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
