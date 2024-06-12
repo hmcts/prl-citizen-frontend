@@ -1,6 +1,10 @@
+const path = require('path');
+
+const outputDir = path.resolve(__dirname, '../../../output');
+
 exports.config = {
   tests: './tests/*.js',
-  output: './output',
+  output: outputDir,
   helpers: {
     Playwright: {
       // headless mode
@@ -15,7 +19,14 @@ exports.config = {
         ignoreHTTPSErrors: true,
         args: [ '--disable-gpu', '--no-sandbox', '--allow-running-insecure-content', '--ignore-certificate-errors']
       },
-      windowSize: '1280x960'
+      windowSize: '1280x960',
+      disableScreenshots: false,
+      video: true,
+      recordVideo: { dir: outputDir },
+      keepVideoForPassedTests: false,
+      keepTraceForPassedTests: false,
+      fullPageScreenshots: true,
+      uniqueScreenshotNames: true
     },
     PlaywrightHelpers: { require: './helpers/playwrightHelper.js' }
   },
@@ -29,7 +40,30 @@ exports.config = {
   },
   include: { I: './steps_file.js' },
   bootstrap: null,
-  mocha: {},
+  mocha: {
+    reporterEnabled: 'codeceptjs-cli-reporter, mochawesome',
+    reporterOptions: {
+      'codeceptjs-cli-reporter': {
+        stdout: '-',
+        options: {
+          verbose: false,
+          steps: true
+        }
+      },
+      mochawesome: {
+        stdout: `${outputDir}/console.log`,
+        options: {
+          includeScreenshots: true,
+          reportDir: outputDir,
+          reportFilename: 'PrL-cui-tests',
+          reportTitle: 'PrL Citizen UI Tests',
+          inline: true,
+          html: true,
+          json: true
+        }
+      }
+    }
+  },
   multiple: {
     parallel: {
       chunks: 2,
