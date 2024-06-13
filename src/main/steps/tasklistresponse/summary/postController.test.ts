@@ -70,6 +70,7 @@ describe('ResponseSummaryConfirmationPostController', () => {
       },
     ];
     jest.spyOn(PCQProvider, 'isComponentEnabled').mockReturnValueOnce(Promise.resolve(true));
+    jest.spyOn(PCQProvider, 'getReturnUrl').mockReturnValueOnce('http://localhost:3001/pcq/equality');
     req.session.userCase.respondents = partyDetails;
     const controller = new ResponseSummaryConfirmationPostController({});
     await controller.post(req, res);
