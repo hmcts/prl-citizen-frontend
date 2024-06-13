@@ -25,7 +25,7 @@
     "test:smoke:downstream": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.smoke.config.js",
     "test:smoke": "yarn install && codeceptjs run --steps --grep \"@smoke\" -c src/test/end-to-end/codecept.smoke.conf.js",
     "test:functional": "yarn install && codeceptjs run --steps --grep \"@master\" -c src/test/end-to-end/codecept.conf.js",
-    "test:fullfunctional": "yarn install && codeceptjs run-multiple parallel --all --steps --grep \"@nightly\" -c src/test/end-to-end/codecept.conf.js",
+    "test:fullfunctional": "yarn install && codeceptjs run-multiple parallel --all --steps --grep \"@nightly\" -c src/test/end-to-end/codecept.conf.js  --reporter mocha-multi",
     "test:crossbrowser-e2e": "MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
     "cichecks": "yarn && run-p build lint test",
