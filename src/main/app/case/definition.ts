@@ -120,6 +120,7 @@ export interface User {
   email: string;
   idamId: string;
   solicitorRepresented?: string;
+  pcqId?: string;
 }
 
 export interface Response {
@@ -2824,6 +2825,7 @@ export enum CaseEvent {
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
+  CITIZEN_PCQ_UPDATE = 'pcqUpdateForCitizen',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
   CONTACT_PREFERENCE='citizenContactPreference',
   CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding",
