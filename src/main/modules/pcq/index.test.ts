@@ -9,9 +9,9 @@ import config from 'config';
 import { Application } from 'express';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { PartyType } from '../../app/case/definition';
 
 import { PCQProvider } from './index';
-import { PartyType } from '../../app/case/definition';
 
 describe('PcqProvider', () => {
   let appRequest;
