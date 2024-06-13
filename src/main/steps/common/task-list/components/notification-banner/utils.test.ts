@@ -63,7 +63,6 @@ describe('notification Banner', () => {
     NotificationType.APPLICATION_SERVED_BY_COURT_TO_RESPONDENT,
     NotificationType.SUMBIT_FM5,
     NotificationType.ORDER_PERSONAL_SERVICE,
-    NotificationType.APPLICATION_SERVED_BY_SOLICITOR_BAILIFF_TO_RESPONDENT,
   ])('should have show as false by default', notification => {
     expect(NOTIFICATION_BASE_CONFIG.find(config => config.id === notification)?.show!()).toBe(false);
   });
@@ -160,7 +159,7 @@ describe('notification Banner', () => {
         } as CaseWithId
       );
 
-      expect(config).toHaveLength(12);
+      expect(config).toHaveLength(11);
       expect(config[0].id).toBe('applicationNotStarted');
       expect(config[1].id).toBe('applicationInProgress');
       expect(config[2].id).toBe('applicationSubmitted');
@@ -168,11 +167,10 @@ describe('notification Banner', () => {
       expect(config[4].id).toBe('applicationServedByCourtPersonalNonPersonalService');
       expect(config[5].id).toBe('viewResponseToApplication');
       expect(config[6].id).toBe('applicantToPersonallyServeRespondent');
-      expect(config[7].id).toBe('applicationServedBySolictorBailiffToRespondent');
-      expect(config[8].id).toBe('applicationIssuedByCourtPersonalService');
-      expect(config[9].id).toBe('submitFM5');
-      expect(config[10].id).toBe('applicationClosed');
-      expect(config[11].id).toBe('orderPersonalService');
+      expect(config[7].id).toBe('applicationIssuedByCourtPersonalService');
+      expect(config[8].id).toBe('submitFM5');
+      expect(config[9].id).toBe('applicationClosed');
+      expect(config[10].id).toBe('orderPersonalService');
     });
 
     test('should return correct configs for CA respondent', () => {

@@ -61,11 +61,6 @@ export const NOTIFICATION_BASE_CONFIG = [
     show: () => false,
   },
   {
-    id: NotificationType.APPLICATION_SERVED_BY_SOLICITOR_BAILIFF_TO_RESPONDENT,
-    content: getNotificationContent,
-    show: () => false,
-  },
-  {
     id: NotificationType.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE,
     content: getNotificationContent,
     show: () => false,
