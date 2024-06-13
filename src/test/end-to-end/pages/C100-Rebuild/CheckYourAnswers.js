@@ -89,7 +89,7 @@ module.exports = {
         await I.retry(3).click('Continue');
         await I.wait(10);
         await I.retry(3).waitForText('Confirm your payment', 30);
-        await I.retry(3).waitForText('£232.00', 30);
+        await I.retry(3).waitForText('£255.00', 30);
         await I.waitForElement(this.fields.confirmPayment);
         // await I.click(this.fields.confirmPayment);
         await I.usePlaywrightTo('force click on confirm payment', async({ page }) => {
