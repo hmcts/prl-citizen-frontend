@@ -2,7 +2,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { AWPApplicationReason, AWPApplicationType, YesOrNo } from '../../../app/case/definition';
+import { AWPApplicationReason, AWPApplicationType, PaymentErrorContext, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
@@ -31,7 +31,7 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
     } = caseData;
 
     try {
-      appRequest.session.paymentError.hasError = false;
+      appRequest.session.paymentError = { hasError: false, errorContext: null };
 
       if (isFreeApplication(caseData)) {
         return processAWPApplication(appRequest, appResponse);
@@ -69,6 +69,10 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
               });
             },
             () => {
+              appRequest.session.paymentError = {
+                hasError: true,
+                errorContext: PaymentErrorContext.PAYMENT_UNSUCCESSFUL,
+              };
               this.handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
             }
           );
@@ -78,6 +82,7 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
         super.redirect(appRequest, appResponse);
       });
     } catch (error) {
+      appRequest.session.paymentError = { hasError: true, errorContext: PaymentErrorContext.DEFAULT_PAYMENT_ERROR };
       this.handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
     }
   }
@@ -88,7 +93,6 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
     appRequest: AppRequest<AnyObject>,
     appResponse: Response
   ) {
-    appRequest.session.paymentError.hasError = true;
     appRequest.session.save(() => {
       setTimeout(() => {
         appRequest.session.paymentError.hasError = false;
