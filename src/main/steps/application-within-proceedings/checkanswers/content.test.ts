@@ -27,7 +27,8 @@ const en = {
     paymentError: {
       title: 'There is a problem',
       defaultPaymentError: 'Your application is not submitted. Please try again',
-      applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application',
+      applicationNotSubmitted:
+        'Your payment was successful but you need to resubmit your application. If you are unable to submit the application, please contact the court',
       paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
     },
   },
@@ -53,7 +54,8 @@ const cy = {
     paymentError: {
       title: 'Mae yna broblem',
       defaultPaymentError: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
-      applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application (welsh)',
+      applicationNotSubmitted:
+        'Your payment was successful but you need to resubmit your application. If you are unable to submit the application, please contact the court (welsh)',
       paymentUnsuccessful:
         'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
     },
