@@ -17,6 +17,10 @@ import {
   en as CommonDomesticAbuseEn,
   languages as commonLanguages,
 } from '../domestic-abuse/common.content';
+import {
+  cy as ExamptionCy,
+  en as ExamptionEn,
+} from '../general-reasons/content';
 import { cy as OtherCy, en as OtherEn } from '../miam-other/content';
 import { cy as MidiationCy, en as MidiationEn } from '../no-access-to-mediator/content';
 import { cy as PreviousAttendanceCy, en as PreviousAttendanceEn } from '../previous-attendance/content';
@@ -29,11 +33,11 @@ export const en = {
   content2: 'You might still be asked to attend a MIAM if the court decides your reasons are not valid.',
   content3: 'Reasons given for not attending a MIAM:',
   nonAttendanceReasons: {
-    domesticViolence: 'Domestic violence or abuse evidence',
-    childProtection: 'Child protection concerns',
-    urgentHearing: 'Urgency',
-    previousMIAMOrExempt: 'Previous MIAM attendance or MIAM exemption',
-    validExemption: 'Other exemptions',
+    domesticViolence: ExamptionEn.domesticViolence,
+    childProtection: ExamptionEn.childProtection,
+    urgentHearing: ExamptionEn.urgentHearing,
+    previousMIAMOrExempt: ExamptionEn.previousMIAMOrExempt,
+    validExemption: ExamptionEn.validExemption,
   },
   abuseList: {
     policeInvolvement: CommonDomesticAbuseEn.policeInvolvement,
@@ -87,11 +91,11 @@ export const cy = {
   content3: 'Rhesymau a roddwyd dros beidio â mynychu MIAM:',
 
   nonAttendanceReasons: {
-    domesticViolence: 'Tystiolaeth o drais neu gam-drin domestig',
-    childProtection: 'Pryderon amddiffyn plant',
-    urgentHearing: 'Cais brys',
-    previousMIAMOrExempt: 'Eisoes wedi mynychu MIAM neu esemptiad MIAM',
-    validExemption: 'Esemptiadau eraill',
+    domesticViolence: ExamptionCy.domesticViolence,
+    childProtection: ExamptionCy.childProtection,
+    urgentHearing: ExamptionCy.urgentHearing,
+    previousMIAMOrExempt: ExamptionCy.previousMIAMOrExempt,
+    validExemption: ExamptionCy.validExemption,
   },
   abuseList: {
     policeInvolvement: CommonDomesticAbuseCy.policeInvolvement_subFields,
