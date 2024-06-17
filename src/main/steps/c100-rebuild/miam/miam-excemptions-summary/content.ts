@@ -17,10 +17,7 @@ import {
   en as CommonDomesticAbuseEn,
   languages as commonLanguages,
 } from '../domestic-abuse/common.content';
-import {
-  cy as ExamptionCy,
-  en as ExamptionEn,
-} from '../general-reasons/content';
+import { cy as ExamptionCy, en as ExamptionEn } from '../general-reasons/content';
 import { cy as OtherCy, en as OtherEn } from '../miam-other/content';
 import { cy as MidiationCy, en as MidiationEn } from '../no-access-to-mediator/content';
 import { cy as PreviousAttendanceCy, en as PreviousAttendanceEn } from '../previous-attendance/content';
