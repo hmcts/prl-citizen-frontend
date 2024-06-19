@@ -26,6 +26,8 @@ services:
     url: 'http://prl-cos-aat.service.core-compute-aat.internal'
   documentManagement:
     url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
+  fact:
+    url: 'http://fact-api-aat.service.core-compute-perftest.internal'
   reasonableAdjustments:
     url: 'https://cui-ra.aat.platform.hmcts.net'
   equalityAndDiversity:
