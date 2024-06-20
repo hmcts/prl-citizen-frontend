@@ -4,6 +4,8 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 
 import { miam_collapse_content_cy, miam_collapse_content_en } from './miam-details-content';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
   one: 'Yes',

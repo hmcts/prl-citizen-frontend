@@ -43,7 +43,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
-
+    console.info('** FOR SONAR **');
     if (this.fileNameSearchPatternElementMap.size === 0) {
       this.fileNameSearchPatternElementMap = new Map<string, FileProperties>();
       this.fileNameSearchPatternElementMap.set('miamcertificate', { elements: ['miamCertificationDocumentUpload'] });

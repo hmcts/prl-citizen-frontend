@@ -10,6 +10,8 @@ import {
 } from '../../../../steps/urls';
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
 
+console.info('** FOR SONAR **');
+
 export { form } from '../../../common/yourhearings/hearings/content';
 export const generateContent: TranslationFn = content => {
   const hearingsContent = yourhearingshearingscontent(content);

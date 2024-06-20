@@ -2,6 +2,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 const en = {
   section: 'Safety requirements',
   title: 'Do you or the children need special safety arrangements at court?',

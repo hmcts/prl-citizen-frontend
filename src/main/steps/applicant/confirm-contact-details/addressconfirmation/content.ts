@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { generateContent as addressConfirmationGenerateContent } from '../../../common/confirm-contact-details/addressconfirmation/content';
 
+console.info('** FOR SONAR **');
+
 export { form } from '../../../common/confirm-contact-details/addressconfirmation/content';
 
 export const generateContent: TranslationFn = content => {

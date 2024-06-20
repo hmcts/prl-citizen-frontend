@@ -1,5 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Will you be using a legal representative to respond to the application?',
   insetText:

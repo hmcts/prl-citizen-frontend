@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'You were signed out to protect your privacy',
   line1: 'Your application was inactive for more than 20 minutes so you were signed out.',

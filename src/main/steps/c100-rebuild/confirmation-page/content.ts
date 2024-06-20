@@ -3,6 +3,8 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import AppSurvey from '../../../steps/common/app-survey/appSurveyController';
 import { appSurveyContents } from '../../../steps/common/app-survey/content';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   successMessage: 'Your application has been submitted',

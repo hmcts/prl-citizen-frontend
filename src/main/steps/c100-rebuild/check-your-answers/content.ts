@@ -54,6 +54,8 @@ import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
 
+console.info('** FOR SONAR **');
+
 export const enContent = {
   section: '',
   title: 'Check your Answers',

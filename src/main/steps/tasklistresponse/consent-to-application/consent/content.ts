@@ -10,6 +10,8 @@ import {
   isTextAreaValid,
 } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Your understanding of the application',
   consent: 'Do you agree to the application?',

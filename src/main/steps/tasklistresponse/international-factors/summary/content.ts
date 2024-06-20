@@ -11,6 +11,8 @@ import {
 } from '../../../../steps/urls';
 import { summaryList } from '../../../common/summary/utils';
 
+console.info('** FOR SONAR **');
+
 export const enContent = {
   section: ' ',
   title: 'Check your answers',

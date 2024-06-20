@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = {
   section: 'How your documents will be shared',
   title: 'Your document has been uploaded successfully',

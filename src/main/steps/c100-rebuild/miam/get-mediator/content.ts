@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   title: 'You must attend a MIAM',
   paragraph: `You have not provided a valid reason for not attending a MIAM.

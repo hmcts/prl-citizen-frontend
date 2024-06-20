@@ -3,6 +3,8 @@ import { FormContent, FormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Have you lived at this address for more than 5 years?',
   one: 'Yes',

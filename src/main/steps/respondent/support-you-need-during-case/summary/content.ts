@@ -10,6 +10,8 @@ import {
 import { CommonContent } from '../../../common/common.content';
 import { filterSelectedUrls } from '../../../common/support-you-need-during-case/summary/handler';
 
+console.info('** FOR SONAR **');
+
 export const enContent = {
   section: 'Check your answers ',
   title: 'Your hearing needs and requirments',

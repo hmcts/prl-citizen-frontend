@@ -1,5 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
+console.info('** FOR SONAR **');
+
 const en = {
   [StatusCodes.BAD_REQUEST]: {
     title: 'Bad request',

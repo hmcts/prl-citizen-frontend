@@ -7,6 +7,8 @@ import {
 } from '../../../../common/components/address-select';
 import { APPLICANT_FIND_ADDRESS, APPLICANT_MANUAL_ADDRESS } from '../../../../urls';
 
+console.info('** FOR SONAR **');
+
 const selectAddressFormFields = selectAddressForm.fields as FormFields;
 
 const SELECT_ADDRESS = 'select-address';

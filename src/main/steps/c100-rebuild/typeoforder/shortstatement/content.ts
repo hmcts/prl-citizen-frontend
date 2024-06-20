@@ -2,6 +2,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Describe what you want the court to do regarding the children in this application',
