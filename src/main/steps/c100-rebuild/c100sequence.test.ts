@@ -10,7 +10,6 @@ import { YesOrNo } from '../../app/case/definition';
 
 import PageStepConfigurator from './PageStepConfigurator';
 import { C100Sequence } from './c100sequence';
-
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
     expect(C100Sequence).toHaveLength(124);
@@ -157,14 +156,15 @@ describe('C100Sequence', () => {
           'feelComfortableSupport',
           'helpTravellingMovingBuildingSupport',
         ],
-      })
-    ).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
+      },otherProceedingsMockData
+      )
+    ).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/travelling-court');
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[12].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[12].showInSection).toBe('c100');
     expect(C100Sequence[12].getNextStep({ ra_disabilityRequirements: ['dummyPage'] })).toBe(
-      '/c100-rebuild/help-with-fees/need-help-with-fees'
+      '/c100-rebuild/reasonable-adjustments/disability-requirements'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
@@ -172,8 +172,8 @@ describe('C100Sequence', () => {
       '/c100-rebuild/reasonable-adjustments/disability-requirements/document-information'
     );
     expect(C100Sequence[13].showInSection).toBe('c100');
-    expect(C100Sequence[13].getNextStep({ ra_disabilityRequirements: ['documentsHelp'] })).toBe(
-      '/c100-rebuild/help-with-fees/need-help-with-fees'
+    expect(C100Sequence[13].getNextStep({ ra_disabilityRequirements: ['documentsHelp'] },otherProceedingsMockData)).toBe(
+      '/c100-rebuild/reasonable-adjustments/disability-requirements/document-information'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
@@ -182,21 +182,21 @@ describe('C100Sequence', () => {
     );
     expect(C100Sequence[14].showInSection).toBe('c100');
     expect(C100Sequence[14].getNextStep({ ra_disabilityRequirements: ['communicationHelp'] })).toBe(
-      '/c100-rebuild/help-with-fees/need-help-with-fees'
+      '/c100-rebuild/reasonable-adjustments/disability-requirements/communication-help'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[15].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/support-court');
     expect(C100Sequence[15].showInSection).toBe('c100');
     expect(C100Sequence[15].getNextStep({ ra_disabilityRequirements: ['extraSupport'] })).toBe(
-      '/c100-rebuild/help-with-fees/need-help-with-fees'
+      '/c100-rebuild/reasonable-adjustments/disability-requirements/support-court'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
     expect(C100Sequence[16].url).toBe('/c100-rebuild/reasonable-adjustments/disability-requirements/feel-comfortable');
     expect(C100Sequence[16].showInSection).toBe('c100');
     expect(C100Sequence[16].getNextStep({ ra_disabilityRequirements: ['feelComfortableSupport'] })).toBe(
-      '/c100-rebuild/help-with-fees/need-help-with-fees'
+      '/c100-rebuild/reasonable-adjustments/disability-requirements/feel-comfortable'
     );
 
     PageStepConfigurator.clearSteps('/c100-rebuild/reasonable-adjustments/disability-requirements');
