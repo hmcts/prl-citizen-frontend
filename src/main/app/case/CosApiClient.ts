@@ -421,7 +421,7 @@ export type UploadedFiles =
     }
   | Express.Multer.File[];
 
-type FindCourtByPostCodeAndServiceResponse = {
+export type FindCourtByPostCodeAndServiceResponse = {
   slug: string;
   name: string;
   courts: {

@@ -81,10 +81,4 @@ describe('applicant personal details > applying-with > content', () => {
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
   });
-
-  test('should contain SaveAndComeLater button', () => {
-    expect(
-      (form.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
-  });
 });

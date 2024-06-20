@@ -69,7 +69,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.onlycontinue,
-  }
+  },
 };
 
 export const generateContent: TranslationFn = content => {

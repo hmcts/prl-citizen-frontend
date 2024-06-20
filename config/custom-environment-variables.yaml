@@ -53,3 +53,4 @@ featureToggles:
 
 launchDarkly:
   offline: LAUNCH_DARKLY_OFFLINE_MODE
+allowedCourts: ALLOWED_COURTS

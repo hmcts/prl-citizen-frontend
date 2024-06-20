@@ -59,3 +59,4 @@ featureToggles:
   enablePcqComponent: ENABLE_PCQ_COMPONENT
 launchDarkly:
   offline: false
+allowedCourts: ["Swansea Civil Justice Centre"]
