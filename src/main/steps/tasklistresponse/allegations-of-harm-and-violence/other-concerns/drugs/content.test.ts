@@ -17,10 +17,10 @@ const en = {
   description:
     'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
   errors: {
-    PRL_c1A_otherConcernsDrugs: {
+    c1A_otherConcernsDrugs: {
       required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse',
     },
-    PRL_c1A_otherConcernsDrugsDetails: {
+    c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -31,7 +31,7 @@ const en = {
 
 const cy = {
   caption: 'Pryderon diogelwch',
-  title: 'A yw’r plant wedi cael eu heffeithio o ganlyniad i gamddefnyddio cyffuriau, alcohol neu sylweddau?',
+  title: 'A fu effaith ar y plant o ganlyniad i gamddefnyddio cyffuriau, alcohol neu sylweddau?',
   line1: "Gallai hyn fod yn gamdriniaeth sy'n digwydd nawr neu yn y gorffennol.",
   line2:
     "Er enghraifft, rydych chi'n meddwl yr effeithir ar y plant oherwydd eu bod yn byw efo rhywun sydd â phroblem camddefnyddio sylweddau.",
@@ -40,11 +40,11 @@ const cy = {
   description:
     "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
-    PRL_c1A_otherConcernsDrugs: {
+    c1A_otherConcernsDrugs: {
       required:
         "Dewiswch do os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
     },
-    PRL_c1A_otherConcernsDrugsDetails: {
+    c1A_otherConcernsDrugsDetails: {
       required:
         "Dewiswch do os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
@@ -71,12 +71,12 @@ describe('Safety concern > other-concerns> drugs', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.PRL_c1A_otherConcernsDrugs as FormOptions;
+    const applyingWithField = fields.c1A_otherConcernsDrugs as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    const field2 = applyingWithField.values[0].subFields!.PRL_c1A_otherConcernsDrugsDetails;
+    const field2 = applyingWithField.values[0].subFields!.c1A_otherConcernsDrugsDetails;
     expect((field2?.label as Function)(generatedContent)).toBe(en.description);
     expect(field2.type).toBe('textarea');
     (field2.validator as Function)('Yes');
@@ -87,7 +87,14 @@ describe('Safety concern > other-concerns> drugs', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
     expect(
-      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+  test('should contain SaveAndComeLater button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent | undefined;
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });

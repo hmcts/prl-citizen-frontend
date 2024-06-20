@@ -621,7 +621,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     this.fileData(req);
 
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
 
     const { _csrf, ...formData } = form.getParsedBody(req.body);

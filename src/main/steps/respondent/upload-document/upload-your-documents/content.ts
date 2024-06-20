@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
+import { FormContent, 
+  FormFieldsFn
+ } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 const en = {
@@ -116,7 +118,8 @@ export const generateContent: TranslationFn = content => {
   const { parentDocType, docType } = content.additionalData!.req.query;
   return {
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    form
+    : { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {},content.additionalData?.req) },
     parentDocType,
     docType,
   };

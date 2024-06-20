@@ -20,13 +20,13 @@ const en = {
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses.',
   errors: {
-    PRL_c1A_abductionReasonOutsideUk: {
+    c1A_abductionReasonOutsideUk: {
       required: 'Explain why you think the children may be abducted or kept outside of the UK without your consent',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
-    PRL_c1A_childsCurrentLocation: {
+    c1A_childsCurrentLocation: {
       required: 'Describe where the children are now',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -37,26 +37,26 @@ const en = {
 
 const cy = {
   section: 'Pryderon diogelwch',
-  title: "Pam ydych chi'n meddwl y gallai'r plant gael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd?",
+  title: "Pam rydych chi'n meddwl y gallai'r plant gael eu cipio neu eu cadw y tu allan i'r DU heb eich caniatâd?",
   warningText: {
-    text: "Cysylltwch â'r heddlu neu'r gwasanaethau cymdeithasol os yw plentyn yr ydych yn gyfrifol amdano/amdani mewn perygl o gael ei dynnu/thynnu allan o'r DU heb eich caniatâd.",
+    text: " Cysylltwch â'r heddlu neu'r gwasanaethau cymdeithasol os yw plentyn yr ydych yn gyfrifol amdano/amdani mewn perygl o gael ei dynnu/thynnu allan o'r DU heb eich caniatâd.",
     iconFallbackText: 'Rhybudd',
   },
   safetyConcernsText: 'Esboniwch eich pryderon yn gryno, gan gynnwys:',
   safetyConcernsBullet1: 'pwy allai eu cymryd',
   safetyConcernsBullet2: 'lle y gellid mynd â nhw neu eu cadw',
-  childsCurrentLocationText: "Ble mae'r plant nawr?",
+  childsCurrentLocationText: "Lle mae'r plant nawr?",
   childsCurrentLocationHint:
     'Os ydyn nhw y tu allan i Gymru neu Loegr, dylech gynnwys pa wlad maen nhw ynddi a pha mor hir maen nhw wedi bod yno. Does dim angen i chi gynnwys unrhyw gyfeiriadau.',
   errors: {
-    PRL_c1A_abductionReasonOutsideUk: {
+    c1A_abductionReasonOutsideUk: {
       required:
         "Esboniwch pam rydych chi'n meddwl y gallai'r plant gael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
-    PRL_c1A_childsCurrentLocation: {
+    c1A_childsCurrentLocation: {
       required: "Disgrifiwch lle mae'r plant erbyn hyn",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
@@ -87,20 +87,26 @@ describe('Safety concern > abduction > child-location', () => {
   });
 
   test('should contain safety concerns > abduction > child-location fields', () => {
-    const c1A_abductionReasonOutsideUk = fields.PRL_c1A_abductionReasonOutsideUk as FormOptions;
+    const c1A_abductionReasonOutsideUk = fields.c1A_abductionReasonOutsideUk as FormOptions;
     expect(c1A_abductionReasonOutsideUk.type).toBe('textarea');
-    (c1A_abductionReasonOutsideUk.validator as Function)('PRL_c1A_safetyConcerns');
+    (c1A_abductionReasonOutsideUk.validator as Function)('c1A_safetyConcerns');
 
-    const c1A_childsCurrentLocation = fields.PRL_c1A_childsCurrentLocation as FormOptions;
+    const c1A_childsCurrentLocation = fields.c1A_childsCurrentLocation as FormOptions;
     expect(c1A_childsCurrentLocation.type).toBe('textarea');
     expect((c1A_childsCurrentLocation.label as LanguageLookup)(generatedContent)).toBe(en.childsCurrentLocationText);
     expect((c1A_childsCurrentLocation.hint as LanguageLookup)(generatedContent)).toBe(en.childsCurrentLocationHint);
-    (c1A_childsCurrentLocation.validator as Function)('PRL_c1A_safetyConcerns');
+    (c1A_childsCurrentLocation.validator as Function)('c1A_safetyConcerns');
   });
 
   test('should contain Save and continue button', () => {
     expect(
-      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+
+  test('should contain saveAndComeLater button', () => {
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });

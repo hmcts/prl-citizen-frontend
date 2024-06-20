@@ -13,7 +13,7 @@ const en = {
   Yes: 'Yes',
   No: 'No',
   errors: {
-    PRL_c1A_abductionPassportOfficeNotified: {
+    c1A_abductionPassportOfficeNotified: {
       required: 'Select yes if the passport office has been notified',
     },
   },
@@ -22,11 +22,11 @@ const en = {
 const cy = {
   caption: 'Pryderon diogelwch',
   title: "Ydy'r swyddfa basbort wedi cael gwybod?",
-  Yes: 'Oes',
-  No: 'Nac oes',
+  Yes: 'Ydy',
+  No: 'Nac ydy',
   errors: {
-    PRL_c1A_abductionPassportOfficeNotified: {
-      required: 'Dewiswch ydy os yw’r swyddfa basbort wedi’i hysbysu',
+    c1A_abductionPassportOfficeNotified: {
+      required: "Dewiswch ydy os yw'r swyddfa basbort wedi cael ei hysbysu",
     },
   },
 };
@@ -53,18 +53,24 @@ describe('Safety concern > abduction > passportofficenotified', () => {
   });
 
   test('should contain safety concern about field', () => {
-    const concernAboutField = fields.PRL_c1A_abductionPassportOfficeNotified as FormOptions;
+    const concernAboutField = fields.c1A_abductionPassportOfficeNotified as FormOptions;
     expect(concernAboutField.type).toBe('radios');
     expect((concernAboutField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.Yes);
     expect((concernAboutField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.No);
 
-    (concernAboutField.validator as Function)('PRL_c1A_abductionPassportOfficeNotified');
-    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('PRL_c1A_abductionPassportOfficeNotified');
+    (concernAboutField.validator as Function)('c1A_abductionPassportOfficeNotified');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('c1A_abductionPassportOfficeNotified');
   });
 
   test('should contain Save and continue button', () => {
     expect(
-      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+
+  test('should contain saveAndComeLater button', () => {
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });

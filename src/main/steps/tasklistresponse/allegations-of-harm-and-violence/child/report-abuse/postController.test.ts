@@ -40,7 +40,7 @@ describe('SafteyConcernsAbusePostController Post Controller', () => {
     generateContent(commonContent);
     await controller.post(req, res);
 
-    expect(res.redirect).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalled();
   });
 
   test('Should update case when save and come back button is clicked', async () => {
@@ -64,6 +64,6 @@ describe('SafteyConcernsAbusePostController Post Controller', () => {
     generateContent(commonContent);
     await controller.post(req, res);
 
-    expect(res.redirect).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalled();
   });
 });

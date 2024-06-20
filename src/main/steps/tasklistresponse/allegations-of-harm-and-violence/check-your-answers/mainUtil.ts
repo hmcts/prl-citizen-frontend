@@ -6,7 +6,7 @@ import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } fro
 import { getYesNoTranslation } from '../../../c100-rebuild/check-your-answers/mainUtil';
 import { applyParms } from '../../../common/url-parser';
 import * as Urls from '../../../urls';
-import { cy } from '../abduction/passport-amount/content';
+import { cy } from '../../../common/safety-concerns/abduction/passport-amount/content';
 
 import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';

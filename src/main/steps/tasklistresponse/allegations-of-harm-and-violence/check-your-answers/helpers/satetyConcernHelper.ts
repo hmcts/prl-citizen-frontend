@@ -2,7 +2,7 @@
 
 import { PRL_C1ASafteyConcernsAbout, YesOrNo } from '../../../../../app/case/definition';
 import { getYesNoTranslation } from '../../../../c100-rebuild/check-your-answers/mainUtil';
-import { cy } from '../../child/report-abuse/content';
+//import { cy } from '../../../../common/safety-concerns/child/report-abuse/content';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
 
@@ -79,15 +79,15 @@ const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, lan
   bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
   if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
     bodyHtml += HTML.UNORDER_LIST;
-    if (
-      Array.isArray(FoundElement['childrenConcernedAbout']) &&
-      FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
-    ) {
-      bodyHtml +=
-        HTML.LIST_ITEM +
-        (language === 'cy' ? cy().allchildLabel : FoundElement['childrenConcernedAbout'][0]) +
-        HTML.LIST_ITEM_END;
-    } else {
+    // if (
+    //   Array.isArray(FoundElement['childrenConcernedAbout']) &&
+    //   FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
+    // ) {
+    //   bodyHtml +=
+    //     HTML.LIST_ITEM +
+    //     (language === 'cy' ? cy().allchildLabel : FoundElement['childrenConcernedAbout'][0]) +
+    //     HTML.LIST_ITEM_END;
+    // } else {
       if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
         bodyHtml += FoundElement['childrenConcernedAbout']
           ?.map(childId => childNameFormatter(childId, userCase))
@@ -97,7 +97,7 @@ const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, lan
       } else {
         bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
       }
-    }
+   // }
     bodyHtml += HTML.UNORDER_LIST_END;
   }
   bodyHtml += HTML.RULER;
