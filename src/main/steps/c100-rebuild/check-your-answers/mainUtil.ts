@@ -1139,7 +1139,9 @@ export const RespondentDetails = (
         },
         {
           key: keys['hasNameChanged'],
-          valueHtml: changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1),
+          valueHtml: (language==='en' || personalDetails['hasNameChanged']==='dontKnow')? changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1) : 
+          personalDetails['hasNameChanged']==='yes'? getYesNoTranslation(language,'Yes','doTranslation') + changeNameInformation.slice(3)
+          :getYesNoTranslation(language,'No','doTranslation'),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         },
         {
@@ -1269,7 +1271,9 @@ export const OtherPeopleDetails = (
         },
         {
           key: keys['hasNameChanged'],
-          valueHtml: changeNameInformation,
+          valueHtml: (language==='en' || personalDetails['hasNameChanged']==='dontKnow')? changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1) : 
+          personalDetails['hasNameChanged']==='yes'? getYesNoTranslation(language,'Yes','doTranslation') + changeNameInformation.slice(3)
+          :getYesNoTranslation(language,'No','doTranslation'),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
         },
         {
