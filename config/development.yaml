@@ -21,13 +21,18 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2227.preview.platform.hmcts.net'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2220.preview.platform.hmcts.net'
   cos:
-    url: 'https://prl-cos-pr-2436.preview.platform.hmcts.net'
+    url: 'https://prl-cos-pr-2425.preview.platform.hmcts.net'
   documentManagement:
-    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2227.preview.platform.hmcts.net'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2220.preview.platform.hmcts.net'
   reasonableAdjustments:
     url: 'https://cui-ra.aat.platform.hmcts.net'
+  equalityAndDiversity:
+    name: 'Equality and Diversity Service'
+    url: 'https://pcq.aat.platform.hmcts.net'
+    path: '/service-endpoint'
+    tokenKey: PCQ_TOKEN
 health:
   timeout: 5000
   deadline: 15000
@@ -47,6 +52,7 @@ featureToggles:
   testingSupport: true
   enableCaseTrainTrack: true  
   enableRAComponent: true
+  enablePcqComponent: true
 
 launchDarkly:
   offline: true
