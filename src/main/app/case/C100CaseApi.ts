@@ -5,7 +5,7 @@ import config from 'config';
 import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
-import { C100_CHILD_ADDRESS } from '../../steps/urls';
+import { C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { AppSession, UserDetails } from '../controller/AppRequest';
 
@@ -31,7 +31,7 @@ export class CaseApi {
   public async createCase(): Promise<CreateCaseResponse> {
     const data = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
-      c100RebuildReturnUrl: C100_CHILD_ADDRESS, //added to handle deafult returnURL incase save & come back is not invoked at all
+      c100RebuildReturnUrl: C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT, //added to handle deafult returnURL incase save & come back is not invoked at all
     };
 
     try {
