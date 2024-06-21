@@ -9,6 +9,7 @@ import {
   AWPFeeDetailsRequest,
   CaseType,
   PartyType,
+  PaymentErrorContext,
 } from '../../app/case/definition';
 import { AppRequest, AppSession, UserDetails } from '../../app/controller/AppRequest';
 import { PaymentController, PaymentResponse } from '../../modules/payments/paymentController';
@@ -449,6 +450,7 @@ const createAWPApplication = async (
 ): Promise<void> => {
   const partyType = getCasePartyType(caseData, userDetails.id);
 
+  appRequest.session.paymentError = { hasError: false, errorContext: null };
   try {
     await new CosApiClient(userDetails.accessToken, appRequest.locals.logger).createAWPApplication(
       userDetails,
@@ -460,6 +462,7 @@ const createAWPApplication = async (
     );
     handlePageRedirection('success', partyType, applicationType, applicationReason, appRequest, appResponse);
   } catch (error) {
+    appRequest.session.paymentError = { hasError: true, errorContext: PaymentErrorContext.APPLICATION_NOT_SUBMITTED };
     handlePageRedirection('error', partyType, applicationType, applicationReason, appRequest, appResponse);
   }
 };
@@ -494,10 +497,12 @@ export const processAWPApplication = async (appRequest: AppRequest, appResponse:
         createAWPApplication(userDetails, caseData, applicationType, applicationReason, appRequest, appResponse);
       },
       () => {
+        appRequest.session.paymentError = { hasError: true, errorContext: PaymentErrorContext.PAYMENT_UNSUCCESSFUL };
         handlePageRedirection('error', partyType, applicationType, applicationReason, appRequest, appResponse);
       }
     );
   } catch (error) {
+    appRequest.session.paymentError = { hasError: true, errorContext: PaymentErrorContext.DEFAULT_PAYMENT_ERROR };
     handlePageRedirection('error', partyType, applicationType, applicationReason, appRequest, appResponse);
   }
 };
@@ -510,7 +515,6 @@ const handlePageRedirection = (
   appRequest: AppRequest,
   appResponse: Response
 ) => {
-  appRequest.session.paymentError.hasError = errorType !== 'success';
   delete appRequest.session.userCase?.paymentData;
   delete appRequest.session.userCase?.awp_applicationType;
   delete appRequest.session.userCase?.awp_applicationReason;

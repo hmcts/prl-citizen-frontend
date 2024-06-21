@@ -2,7 +2,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { AWPApplicationReason, AWPApplicationType } from '../../../app/case/definition';
+import { AWPApplicationReason, AWPApplicationType, PaymentErrorContext } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
@@ -27,7 +27,8 @@ export default class AWPPayAndSubmitPostController extends PostController<AnyObj
     const partyName = getPartyDetails(caseData, userDetails.id);
 
     try {
-      appRequest.session.paymentError.hasError = false;
+      appRequest.session.paymentError = { hasError: false, errorContext: null };
+
       const { id: caseId, awpFeeDetails } = caseData;
       const paymentAPI = await PaymentAPI(userDetails.accessToken, appRequest.locals.logger);
 
@@ -57,10 +58,15 @@ export default class AWPPayAndSubmitPostController extends PostController<AnyObj
             });
           },
           () => {
+            appRequest.session.paymentError = {
+              hasError: true,
+              errorContext: PaymentErrorContext.PAYMENT_UNSUCCESSFUL,
+            };
             this.handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
           }
         );
     } catch (error) {
+      appRequest.session.paymentError = { hasError: true, errorContext: PaymentErrorContext.DEFAULT_PAYMENT_ERROR };
       this.handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
     }
   }
@@ -71,7 +77,6 @@ export default class AWPPayAndSubmitPostController extends PostController<AnyObj
     appRequest: AppRequest<AnyObject>,
     appResponse: Response
   ) {
-    appRequest.session.paymentError.hasError = true;
     delete appRequest.session.userCase.paymentData;
     appRequest.session.save(() => {
       setTimeout(() => {
