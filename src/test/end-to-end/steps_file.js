@@ -9,7 +9,7 @@ const UploadDocuments = require('./pages/uploadDocuments');
 const CreateApplication = require('./pages/C100-Rebuild/CreateApplication');
 const StartTheApplication= require('./pages/C100-Rebuild/MiniDashboard')
 const CaseNameAndPostCode = require('./pages/C100-Rebuild/CaseNameAndPostCode');
-const ScreeningQuestions = require('./pages/C100-Rebuild/ScreeningQuestions'); 
+const ScreeningQuestions = require('./pages/C100-Rebuild/ScreeningQuestions');
 const GoToMiam = require('./pages/C100-Rebuild/GoToMiam');
 const TypeOfOrder = require('./pages/C100-Rebuild/TypeOfOrder');
 const UrgencyWithoutNotice = require('./pages/C100-Rebuild/UrgencyWithoutNotice');
@@ -27,6 +27,9 @@ const ConsentOrder = require('./pages/C100-Rebuild/ConsentOrder');
 const CheckYourAnswersSimple = require('./pages/C100-Rebuild/CheckYourAnswersSimple');
 const RespondentEvents = require('./pages/RespondentEvents');
 const ApplicantAboutYouFL401 = require('./pages/FL-401Applicant/ApplicantAboutYouFL401.js');
+const MiniDashboard = require('./pages/MiniDashboardPage');
+const PCQ = require('./pages/PCQPage');
+
 
 module.exports = () => {
   return actor({
@@ -88,7 +91,7 @@ module.exports = () => {
     typeOfOrder() {
       return TypeOfOrder.typeOfOrder();
     },
-    urgencyWithoutNotice() { 
+    urgencyWithoutNotice() {
       return UrgencyWithoutNotice.urgencyWithoutNotice();
     },
     childrenDetails() {
@@ -129,6 +132,15 @@ module.exports = () => {
     },
     withoutHelpWithFees() {
       return HelpWithFees.withoutHelpWithFees();
+    },
+    DontWantSubmitPCQ() {
+      return PCQ.DontWantSubmitPCQ();
+    },
+    submitPCQ() {
+      return PCQ.SubmitPCQ();
+    },
+    createC100DraftTS() {
+      return MiniDashboard.createC100DraftTS();
     },
     checkYourAnswersEvent() {
       return CheckYourAnswers.checkYourAnswersEvent();
