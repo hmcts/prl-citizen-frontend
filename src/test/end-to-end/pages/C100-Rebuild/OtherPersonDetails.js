@@ -16,6 +16,8 @@ module.exports = {
     otherPersonPostCodeField: '//*[@id="PostCode"]', 
     addressList: '//*[@id="selectAddress"]',
     liveWithFirstOptionButton: '//*[@id="liveWith"]', 
+    //Newly added
+    applicantOptionButton: '//*[@id="mainlyLiveWith"]',
   },
    async otherPerson(otherPersonOption) {
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonPageTitle , 30);
@@ -61,13 +63,20 @@ module.exports = {
     await I.retry(retryCount).waitForText(OtherPersonDetails.confirmAddressPageTitle , 30);
     await I.retry(retryCount).click('Continue');
   },
+  
+  async livesMostOfTheTime () {
+    await I.retry(retryCount).waitForText(OtherPersonDetails.childMainlyLiveWith, 30);
+    await I.retry(retryCount).click(this.fields.applicantOptionButton);
+    await I.retry(retryCount).click('Continue'); 
+  },
+ 
    async currentlyLiveWith() {
-    await I.retry(retryCount).waitForText(OtherPersonDetails.currentlyLiveWithPageTitle , 30);
+    await I.retry(retryCount).waitForText(OtherPersonDetails.childLivingArrangements , 30);
     await I.retry(retryCount).waitForSelector(this.fields.liveWithFirstOptionButton, 30);
     await I.retry(retryCount).click(this.fields.liveWithFirstOptionButton);
     await I.retry(retryCount).click('Continue');
   },
-
+  
   //With Other Person
   async otherPersonDetails() {
     await this.otherPerson(true);
@@ -77,12 +86,14 @@ module.exports = {
     await this.addressOfOtherPerson();
     await this.addressLookUpPage();
     await this.confirmAddress();
+    await this.livesMostOfTheTime(); 
     await this.currentlyLiveWith();
   },
 
   //Without Other Person 
   async withoutOtherPerson(){
     await this.otherPerson(false);
+    await this.livesMostOfTheTime(); 
     await this.currentlyLiveWith();
   }
 
