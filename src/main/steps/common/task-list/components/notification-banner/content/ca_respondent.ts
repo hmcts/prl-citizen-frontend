@@ -21,14 +21,14 @@ import {
 } from '../utils';
 
 const en: NotificationBannerContentConfig = {
-  orderPersonalService: {
+  orderNonPersonalService: {
     heading: 'You have {finalOrNew} {order} from the court',
     interpolateHeading: (
       content: string,
       commonContent: NotificationBannerContent['common'],
       caseData: CaseWithId
     ): string => {
-      const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+      const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
 
       return interpolate(content, {
         order: notification?.multiple ? commonContent.orders : commonContent.order,
@@ -52,7 +52,7 @@ const en: NotificationBannerContentConfig = {
               commonContent: NotificationBannerContent['common'],
               caseData: CaseWithId
             ): string => {
-              const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+              const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
 
               return interpolate(content, {
                 order: notification?.multiple ? commonContent.orders : commonContent.order,

@@ -69,6 +69,7 @@ const NotificationTypeIDMap = {
   [NotificationType.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE]:
     NotificationID.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE,
   [NotificationType.SUMBIT_FM5]: NotificationID.SUMBIT_FM5,
+  [NotificationType.ORDER_NON_PERSONAL_SERVICE]: NotificationID.ORDER_NON_PERSONAL_SERVICE,
   [NotificationType.ORDER_PERSONAL_SERVICE]: NotificationID.ORDER_PERSONAL_SERVICE,
 };
 
