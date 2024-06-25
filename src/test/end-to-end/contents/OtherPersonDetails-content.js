@@ -18,7 +18,6 @@ module.exports = {
     addressLookUpSubHeading: 'Select an address',
     lookUpOption: '417, SAXON GATE EAST, MILTON KEYNES, MK9 3DX', 
     confirmAddressPageTitle: 'Address details of',
-    //Newly added
     childMainlyLiveWith: 'Select the person that the child lives with most of the time.',
     childLivingArrangements: "We need this information so that the court has a complete understanding of the child’s living arrang",
 };
