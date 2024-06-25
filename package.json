@@ -135,7 +135,7 @@
     "@typescript-eslint/parser": "^5.31.0",
     "@wdio/sauce-service": "^8.3.10",
     "allure-commandline": "^2.13.8",
-    "axios-debug-log": "^0.8.4",
+    "axios-debug-log": "^1.0.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "chai": "^4.3.5",
