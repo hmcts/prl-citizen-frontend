@@ -14,7 +14,7 @@ describe('ca_applicant', () => {
       ],
     } as CaseWithId);
 
-    expect(ca_applicantNotifications).toHaveLength(11);
+    expect(ca_applicantNotifications).toHaveLength(12);
     expect(ca_applicantNotifications[0].id).toBe('applicationNotStarted');
     expect(ca_applicantNotifications[1].id).toBe('applicationInProgress');
     expect(ca_applicantNotifications[2].id).toBe('applicationSubmitted');
@@ -25,6 +25,6 @@ describe('ca_applicant', () => {
     expect(ca_applicantNotifications[7].id).toBe('applicationIssuedByCourtPersonalService');
     expect(ca_applicantNotifications[8].id).toBe('submitFM5');
     expect(ca_applicantNotifications[9].id).toBe('applicationClosed');
-    expect(ca_applicantNotifications[10].id).toBe('orderPersonalService');
+    expect(ca_applicantNotifications[10].id).toBe('orderNonPersonalService');
   });
 });

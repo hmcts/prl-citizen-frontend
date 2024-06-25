@@ -18,6 +18,10 @@ const en: NotificationBannerContentBaseConfig = {
     tell: 'tell',
     tells: 'tells',
     and: 'and',
+    respondent: 'respondent',
+    respondents: 'respondents',
+    has: 'has',
+    have: 'have',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: CA_APPLICANT_CONTENT.en,
@@ -41,6 +45,10 @@ const cy: typeof en = {
     tell: 'tell (welsh)',
     tells: 'tells (welsh)',
     and: 'and (welsh)',
+    respondent: 'respondent (welsh)',
+    respondents: 'respondents (welsh)',
+    has: 'has (welsh)',
+    have: 'have (welsh)',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: CA_APPLICANT_CONTENT.cy,
