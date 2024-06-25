@@ -16,7 +16,7 @@ module.exports = {
     otherPersonPostCodeField: '//*[@id="PostCode"]', 
     addressList: '//*[@id="selectAddress"]',
     liveWithFirstOptionButton: '//*[@id="liveWith"]', 
-    applicantOptionButton: '//*[@id="mainlyLiveWith"]',
+    applicantOptionButton: '//*[@id="mainlyLiveWith"]'
   },
    async otherPerson(otherPersonOption) {
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonPageTitle , 30);
