@@ -283,7 +283,7 @@ const en: NotificationBannerContentConfig = {
         links: [
           {
             text: 'Download the statement of service (form C9) (opens in a new tab)',
-            href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
+            href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
             external: true,
           },
           {
@@ -739,7 +739,7 @@ const cy: typeof en = {
         links: [
           {
             text: 'Lawrlwythwch y datganiad cyflwyno (ffurflen C9) (agor mewn tab newydd)',
-            href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
+            href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
             external: true,
           },
           {
