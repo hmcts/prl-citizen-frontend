@@ -16,7 +16,6 @@ module.exports = {
     otherPersonPostCodeField: '//*[@id="PostCode"]', 
     addressList: '//*[@id="selectAddress"]',
     liveWithFirstOptionButton: '//*[@id="liveWith"]', 
-    //Newly added
     applicantOptionButton: '//*[@id="mainlyLiveWith"]',
   },
    async otherPerson(otherPersonOption) {
