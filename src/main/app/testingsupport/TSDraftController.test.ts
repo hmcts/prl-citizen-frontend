@@ -64,7 +64,6 @@ describe('TSDraftController', () => {
 
     expect(req.session.userCase).toStrictEqual({
       caseId: '1234',
-      applicantCaseName: 'MOCK_CASE_NAME',
       caseTypeOfApplication: 'C100',
       c100RebuildChildPostCode: undefined,
       c100RebuildReturnUrl: undefined,
