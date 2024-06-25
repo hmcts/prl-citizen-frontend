@@ -618,24 +618,10 @@ export const MiamAttendance = (
         });
       } else {
         SummaryData.push({
-          key: keys['mediatorConfirmation'],
-          value: getYesNoTranslation(language, userCase['miam_mediatorDocument'], 'ydynTranslation'),
-          changeUrl: Urls['C100_MIAM_MEDIATOR_CONFIRMAION'],
+          key: keys['reasonForNotAttendingMiam'],
+          value: getYesNoTranslation(language, userCase['miam_validReason'], 'ydynTranslation'),
+          changeUrl: Urls['C100_MIAM_VALID_REASON'],
         });
-
-        if (userCase.hasOwnProperty('miam_mediatorDocument') && userCase['miam_mediatorDocument'] === YesOrNo.YES) {
-          SummaryData.push({
-            key: keys['midatatorDocumentTitle'],
-            value: getYesNoTranslation(language, userCase['miam_haveDocSigned'], 'ydynTranslation'),
-            changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
-          });
-        } else {
-          SummaryData.push({
-            key: keys['reasonForNotAttendingMiam'],
-            value: getYesNoTranslation(language, userCase['miam_validReason'], 'ydynTranslation'),
-            changeUrl: Urls['C100_MIAM_VALID_REASON'],
-          });
-        }
       }
     }
   }
@@ -648,7 +634,8 @@ export const MiamAttendance = (
 
 export const MiamExemption = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
-  userCase: Partial<CaseWithId>
+  userCase: Partial<CaseWithId>,
+  language: string
 ): SummaryList | undefined => {
   const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys);
   const SummaryData = [
@@ -657,7 +644,7 @@ export const MiamExemption = (
       valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },
-    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, Urls),
+    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language),
   ];
   return {
     title: sectionTitles['MiamExemption'],
@@ -889,37 +876,29 @@ export const SafetyConcerns_child = (
       }) as Urls.PageLink,
     },
     {
-      key: keys['passportOffice'],
-      valueHtml: c1A_childAbductedBefore as string,
+      key: keys['doAnyOfTheChildHavePassport'],
+      valueHtml: c1A_childAbductedBefore,
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
     },
     {
       key: keys['haspassportOfficeNotified'],
-      valueHtml: getYesNoTranslation(
-        language,
-        userCase['c1A_abductionPassportOfficeNotified'],
-        'ydyTranslation'
-      ) as string,
+      valueHtml: getYesNoTranslation(language, userCase['c1A_abductionPassportOfficeNotified'], 'ydyTranslation'),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
     },
     {
       key: keys['abducionThreats'],
-      valueHtml: getYesNoTranslation(
-        language,
-        userCase['c1A_childAbductedBefore'] as string,
-        'ydynTranslation'
-      ) as string,
+      valueHtml: getYesNoTranslation(language, userCase['c1A_childAbductedBefore'] as string, 'ydynTranslation'),
       changeUrl: applyParms(Urls['C1A_CHILD_ABDUCTION_THREATS'], { root: RootContext.C100_REBUILD }) as Urls.PageLink,
     },
   ];
   if (userCase.hasOwnProperty('c1A_childAbductedBefore') && userCase['c1A_childAbductedBefore'] === 'Yes') {
     abdutionScreenData.push(
       {
-        key: keys['previousAbduction'],
+        key: keys['detailsofAbduction'],
         valueHtml: userCase['c1A_previousAbductionsShortDesc'] as string,
         changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'], {
           root: RootContext.C100_REBUILD,
@@ -927,7 +906,7 @@ export const SafetyConcerns_child = (
       },
       {
         key: keys['c1A_policeOrInvestigatorInvolved'],
-        valueHtml: policeOrInvestigatorsOtherDetailsHTML as string,
+        valueHtml: policeOrInvestigatorsOtherDetailsHTML,
         changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'], {
           root: RootContext.C100_REBUILD,
         }) as Urls.PageLink,

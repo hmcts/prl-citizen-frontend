@@ -1,8 +1,10 @@
-import { PartyType } from '../../../app/case/definition';
+import { PartyType, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import AppSurvey from '../../../steps/common/app-survey/appSurveyController';
 import { appSurveyContents } from '../../../steps/common/app-survey/content';
+import { applyParms } from '../../../steps/common/url-parser';
+import { DOWNLOAD_DOCUMENT_BY_TYPE } from '../../../steps/urls';
 
 const en = {
   success: 'Response submitted successfully',
@@ -19,18 +21,57 @@ const en = {
   line6: `If you cannot open the PDF file on your device, download and install
   <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> and try again.`,
   line7: 'A copy of your submitted application will be in your personal dashboard.',
-  downloadLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document">Download your response</a>',
-  downloadLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document-welsh">Download your response welsh</a>',
-  downloadC1aLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document">Download your C1A response</a>',
-  downloadC1aLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document-welsh">Download your C1A response - welsh</a>',
-  downloadresponseToC1aLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your response to applicant C1A</a>',
-  downloadresponseToC1aLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document-welsh">Download your response to applicant C1A - welsh</a>',
+
+  DownloadLinks: [
+    {
+      text: 'Download your response',
+      isWelsh: YesOrNo.NO,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document',
+      }),
+    },
+    {
+      text: 'Download your response in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document-welsh',
+      }),
+    },
+    {
+      text: 'Download your allegations of harm',
+      isWelsh: YesOrNo.NO,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-application-document',
+      }),
+    },
+    {
+      text: 'Download your allegations of harm in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-application-document-welsh',
+      }),
+    },
+    {
+      text: 'Download your response to the applicant’s allegations',
+      isWelsh: YesOrNo.NO,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document',
+      }),
+    },
+    {
+      text: 'Download your response to the applicant’s allegations in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document-welsh',
+      }),
+    },
+  ],
   saveAndContinue: 'Continue',
 };
 
@@ -49,19 +90,56 @@ const cy: typeof en = {
   line6: `Os na allwch agor y ffeil PDF ar eich dyfais, llwythwch a gosodwch
   <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> ar eich dyfais a cheisio eto.`,
   line7: 'Bydd copi o’r cais a gyflwynwyd ar eich dangosfwrdd personol',
-  downloadLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document">Lawrlwytho eich ymateb</a>',
-  downloadLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document">Lawrlwytho eich ymateb cymareg</a>',
-  downloadC1aLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document">Lawrlwytho eich ymateb -eng </a>',
-  downloadC1aLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-application-document">Lawrlwytho eich ymateb cymareg -wel</a>',
-  downloadresponseToC1aLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your response to applicant C1A</a>',
-  downloadresponseToC1aLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document-welsh">Download your response to applicant C1A - welsh</a>',
-
+  DownloadLinks: [
+    {
+      text: 'Download your response',
+      isWelsh: YesOrNo.NO,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document',
+      }),
+    },
+    {
+      text: 'Download your response in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document-welsh',
+      }),
+    },
+    {
+      text: 'Download your allegations of harm',
+      isWelsh: YesOrNo.NO,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-application-document',
+      }),
+    },
+    {
+      text: 'Download your allegations of harm in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-application-document-welsh',
+      }),
+    },
+    {
+      text: 'Download your response to the applicant’s allegations',
+      isWelsh: YesOrNo.NO,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document',
+      }),
+    },
+    {
+      text: 'Download your response to the applicant’s allegations in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document-welsh',
+      }),
+    },
+  ],
   saveAndContinue: 'Parhau',
 };
 

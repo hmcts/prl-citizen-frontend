@@ -23,6 +23,7 @@ import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
 //import { StateRedirectMiddleware } from './modules/state-redirect';
+import { PCQProvider } from './modules/pcq';
 import { PropertiesVolume } from './modules/properties-volume';
 import { RAProvider } from './modules/reasonable-adjustments';
 import { SessionStorage } from './modules/session';
@@ -54,6 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(async (req, res, next) => {
   app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
   app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
+  app.settings.nunjucksEnv.globals.enableCaseTrainTrack = await featureToggles.isCaseTrainTrackEnabled();
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
 
   next();
@@ -78,6 +80,7 @@ new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
 new FeatureToggleProvider().enable(app);
 RAProvider.enable(app);
+PCQProvider.enable(app);
 
 setupDev(app, developmentMode);
 const port: number = parseInt(process.env.PORT || '3001', 10);

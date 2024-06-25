@@ -25,7 +25,10 @@ nodejs:
     LAUNCH_DARKLY_OFFLINE_MODE: false
     C100_REBUILD_FLAG: false
     TESTING_SUPPORT_FLAG: false
+    ENABLE_CASE_TRAIN_TRACK: true
     ENABLE_RA_COMPONENT: true
+    ENABLE_PCQ_COMPONENT: true
+
   keyVaults:
     prl:
       resourceGroup: prl
@@ -43,6 +46,7 @@ nodejs:
         - launchDarkly-sdk-key
         - citizen-upload-docs-email
         - redis-access-key
+        - prl-pcq-token-key
 
 idam-pr:
   enabled: false
