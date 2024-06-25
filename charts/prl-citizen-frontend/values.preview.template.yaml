@@ -20,7 +20,7 @@ nodejs:
     CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2223.preview.platform.hmcts.net'
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
     DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2223.preview.platform.hmcts.net'
-    COS_URL: 'https://prl-cos-pr-2428.preview.platform.hmcts.net'
+    COS_URL: 'https://prl-cos-pr-2502.preview.platform.hmcts.net'
     REASONABLE_ADJUSTMENTS: 'https://cui-ra.aat.platform.hmcts.net'
     REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
     LAUNCH_DARKLY_OFFLINE_MODE: false
