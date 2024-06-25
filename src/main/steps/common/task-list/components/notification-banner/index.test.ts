@@ -634,7 +634,7 @@ describe('testcase for notification Banner', () => {
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
       {
         heading: 'You have new and final orders from the court',
-        id: 'orderPersonalService',
+        id: 'orderNonPersonalService',
         sections: [
           {
             contents: [
@@ -699,7 +699,7 @@ describe('testcase for notification Banner', () => {
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
       {
         heading: 'You have new (welsh) and (welsh) final (welsh) orders (welsh) from the court (welsh)',
-        id: 'orderPersonalService',
+        id: 'orderNonPersonalService',
         sections: [
           {
             contents: [
@@ -1149,7 +1149,7 @@ describe('testcase for notification Banner', () => {
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have a new order from the court',
-          id: 'orderPersonalService',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
@@ -1197,7 +1197,7 @@ describe('testcase for notification Banner', () => {
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
         {
           heading: 'You have a (welsh) new (welsh) order (welsh) from the court (welsh)',
-          id: 'orderPersonalService',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
@@ -1245,7 +1245,7 @@ describe('testcase for notification Banner', () => {
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have new orders from the court',
-          id: 'orderPersonalService',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
@@ -1293,7 +1293,7 @@ describe('testcase for notification Banner', () => {
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
         {
           heading: 'You have new (welsh) orders (welsh) from the court (welsh)',
-          id: 'orderPersonalService',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
@@ -1478,7 +1478,7 @@ describe('testcase for notification Banner', () => {
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have a final order from the court',
-          id: 'orderPersonalService',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [

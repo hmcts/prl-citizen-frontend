@@ -16,7 +16,7 @@ export const CA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
     id: NotificationType.ORDER_NON_PERSONAL_SERVICE,
     show: showNotification,
     interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
-      const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+      const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
 
       return interpolate(content, {
         final: notification?.final ? ` ${commonContent.final}` : '',
