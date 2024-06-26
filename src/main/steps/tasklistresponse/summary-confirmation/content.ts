@@ -60,7 +60,7 @@ const en = {
       isWelsh: YesOrNo.NO,
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c7-response-document',
+        documentType: 'c1a-response-document',
       }),
     },
     {
@@ -68,7 +68,7 @@ const en = {
       isWelsh: YesOrNo.YES,
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c7-response-document-welsh',
+        documentType: 'c1a-response-document-welsh',
       }),
     },
   ],
