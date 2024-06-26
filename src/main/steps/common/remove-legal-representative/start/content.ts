@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+
 export const en = {
   title: 'Remove my representative',
   continue: 'Continue',
@@ -56,7 +57,7 @@ export const form: FormContent = {
       ],
     },
   },
-  onlyContinue: {
+  submit: {
     text: l => l.continue,
   },
 };

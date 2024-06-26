@@ -1,30 +1,20 @@
 import { CaseWithId } from '../../../../../../app/case/case';
-import { State, YesOrNo } from '../../../../../../app/case/definition';
-import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { State } from '../../../../../../app/case/definition';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
 import { BannerNotification, notificationBanner } from '../utils';
 
 export const DA_APPLICANT: NotificationBannerProps[] = [
   {
-    ...notificationBanner[BannerNotification.NEW_DOCUMENT],
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-      return !!(
-        caseData &&
-        caseData?.applicantsFL401?.user?.idamId === userDetails.id &&
-        caseData?.applicantsFL401?.response?.citizenFlags?.isAllDocumentsViewed === YesOrNo.NO
-      );
-    },
-  },
-  {
     ...notificationBanner[BannerNotification.NEW_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+      return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && hasOrders(caseData as CaseWithId);
     },
   },
   {
     ...notificationBanner[BannerNotification.FINAL_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state === State.CASE_CLOSED;
+      return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED;
     },
   },
 ];

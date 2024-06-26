@@ -1,10 +1,8 @@
+import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { applyParms } from '../url-parser';
 
-import {
-  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
-  DASHBOARD_URL,
-} from './../../urls';
+import { APPLICANT_ADD_LEGAL_REPRESENTATIVE, DASHBOARD_URL, REMOVE_LEGAL_REPRESENTATIVE_START } from './../../urls';
 import { getNotificationBannerConfig } from './components/notification-banner/.';
 import { getProgressBarConfig } from './components/progress-bar/index';
 import { languages as sideLinks } from './components/side-links/content';
@@ -23,7 +21,7 @@ const en = {
     },
     {
       label: 'Remove a legal representative',
-      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+      link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
       target: '',
     },
     {
@@ -83,7 +81,7 @@ const cy = {
     },
     {
       label: 'Dileu cynrychiolydd cyfreithiol',
-      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+      link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
       target: '',
     },
     {
@@ -158,12 +156,16 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    breadcrumb: {
-      id: 'home',
-      href: DASHBOARD_URL,
-    },
+    breadcrumbs: [
+      {
+        id: 'home',
+        href: DASHBOARD_URL,
+      },
+    ],
     partyName: getPartyName(caseData, partyType, request.session.user),
-    progressBar: getProgressBarConfig(caseData, partyType, content.language, request.session.user),
+    progressBar: request.session.enableCaseTrainTrack
+      ? getProgressBarConfig(caseData, partyType, content.language, request.session.user)
+      : [],
     notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),
     taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language),
   };
