@@ -5,10 +5,10 @@ const retryCount = 3;
 
 module.exports = {
     fields: {
-        statementOfTruthYes: '//*[@id="statementOfTruth"]', 
+        statementOfTruthYes: '//*[@id="statementOfTruth"]',
         submitApplication: '//button[@id="main-form-submit"]',
         confirmPayment: '//button[@id="confirm"]',
-        
+
         //PAYMENT
         paymentTypeCard: '//*[@id="paymentType"]',
         cardNo: '//*[@id="card-no"]',
@@ -59,7 +59,7 @@ module.exports = {
         await I.wait('5');
         await I.retry(retryCount).click(this.fields.statementOfTruthYes);
         await I.retry(retryCount).click('Submit your application');
-    }, 
+    },
 
     async checkYourAnswersAndPay() {
         await I.wait('4');
@@ -89,7 +89,7 @@ module.exports = {
         await I.retry(3).click('Continue');
         await I.wait(10);
         await I.retry(3).waitForText('Confirm your payment', 30);
-        await I.retry(3).waitForText('£232.00', 30);
+        await I.retry(3).waitForText('£255.00', 30);
         await I.waitForElement(this.fields.confirmPayment);
         // await I.click(this.fields.confirmPayment);
         await I.usePlaywrightTo('force click on confirm payment', async({ page }) => {

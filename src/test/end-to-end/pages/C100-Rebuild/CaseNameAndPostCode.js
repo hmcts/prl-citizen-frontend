@@ -22,7 +22,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
   async addCaseNameAndPostCode() {
-    await this.gettingStarted();
+    // await this.gettingStarted();
     await this.childrensPostcode();
   },
 };
