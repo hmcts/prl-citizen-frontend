@@ -153,3 +153,18 @@ export const getOrderNotificationHeading = (
     return `${commonContent.a} ${commonContent.new}`;
   }
 };
+
+export const findMultipleRespondent=(caseData: CaseWithId, commonContent: Record<string, string>)=> {
+  let respondent = '';
+  let has = '';
+  if (caseData.respondents?.length) {
+    if (caseData.respondents?.length === 1) {
+      respondent = commonContent.respondent;
+      has = commonContent.has;
+    } else {
+      respondent = commonContent.respondents;
+      has = commonContent.have;
+    }
+  }
+  return { respondent, has };
+}
