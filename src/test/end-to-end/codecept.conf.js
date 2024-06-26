@@ -1,5 +1,5 @@
 exports.config = {
-  tests: './tests/C100-PCQ-Test.js',
+  tests: './tests/*.js',
   output: './output',
   helpers: {
     Playwright: {
