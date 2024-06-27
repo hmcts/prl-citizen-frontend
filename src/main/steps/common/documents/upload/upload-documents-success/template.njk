@@ -1,0 +1,48 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% block pageTitle %}
+  {{ pageTitle }}
+  {{ appName }}
+{% endblock %}
+
+{% block page_content %}
+  {% block backLink %}{% endblock %}
+
+  {{ govukPanel({
+    titleText: pageTitle
+}) }}
+
+  {% if haveReasonForDocNotToBeShared === "No"%}
+    {% set html %}
+    <h2 class="govuk-notification-banner__heading">{{ bannerTitle }}</h2>
+    {% for content in bannerContents %}
+      <p class="govuk-body">{{ content | safe }}</p>
+    {% endfor %}
+    {% endset %}
+    {{ govukNotificationBanner({
+  titleText: bannerHeading,
+  html:html
+}) }}
+  {% else %}
+    <div class="govuk-!-margin-top-6 govuk-!-margin-bottom-6">
+      <h2 class="govuk-heading-m">{{whatHappensNext}}</h2>
+      {% if hasConfidentialDetails %}
+        <p class="govuk-body-m">{{accessToCourtOnly}}</p>
+      {% else %}
+        <p class="govuk-body-m">{{courtWillMakeDecisions}}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="govuk-button-group">
+    <form action="?_csrf={{ csrfToken }}" method="post" novalidate>
+      <button class="govuk-button" type="submit" value="true" name="returnToCaseView" data-module="govuk-button" value="Continue">
+        {{ continue }}
+      </button>
+      <input type="hidden" name="answers-checked" value="true">
+      <button class="govuk-button govuk-button--secondary" type="submit" value="true" name="returnToUploadDoc" data-module="govuk-button">{{ uploadAgain }}</button>
+    </form>
+  </div>
+{% endblock %}

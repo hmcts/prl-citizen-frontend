@@ -1,0 +1,30 @@
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+
+      <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l">{{caption}}</span>
+            {{title}}
+      </h1>
+
+      <h2 class="govuk-heading-m">{{ content1 }}</h2>
+      <p class="govuk-body">{{ content2}}</p>
+      <p class="govuk-body">{{ content3}}</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+            {% for item in list %}
+                  <li>{{ item.content }}</li>
+            {% endfor %}
+      </ul>
+
+      <h2 class="govuk-heading-m">{{ content4 }}</h2>
+      <p class="govuk-body">{{ content5}}</p>
+
+      <span class="govuk-body">{{ content6}}</span>
+      <ul class="govuk-list govuk-list--bullet">
+            {% for item in specialArrangementsList %}
+                  <li>{{ item.content }}</li>
+            {% endfor %}
+      </ul>
+
+{% endblock %}

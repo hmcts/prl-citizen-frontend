@@ -1,15 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Case } from '../../../app/case/case';
-import { MiamNonAttendReason } from '../../../app/case/definition';
+import {
+  Case,
+  Miam_noMediatorReasons,
+  Miam_notAttendingReasons,
+  Miam_previousAttendance,
+} from '../../../app/case/case';
+import { DomesticAbuseExemptions, MiamNonAttendReason, YesOrNo } from '../../../app/case/definition';
+import { applyParms } from '../../../steps/common/url-parser';
 import {
   C100_HEARING_URGENCY_URGENT,
   C100_MIAM_CHILD_PROTECTION,
+  C100_MIAM_EXCEMPTION_SUMMARY,
   C100_MIAM_GENERAL_REASONS,
   C100_MIAM_GET_MEDIATOR,
   C100_MIAM_MIAM_DOMESTIC_ABUSE,
-  C100_MIAM_NO_NEED_WITH_REASONS,
+  C100_MIAM_NO_ACCESS_MEDIATOR,
   C100_MIAM_OTHER,
   C100_MIAM_PREVIOUS_ATTENDANCE,
+  C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
+  C100_MIAM_PROVIDING_DA_EVIDENCE,
+  C100_MIAM_UPLOAD_DA_EVIDENCE,
+  C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING,
   C100_MIAM_URGENCY,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
   PageLink,
@@ -84,20 +95,99 @@ class MIAMNavigationController {
         url = this.pages[this.selectedPages[0]].url;
         break;
       }
-      case C100_MIAM_NO_NEED_WITH_REASONS: {
+      case C100_MIAM_EXCEMPTION_SUMMARY: {
         url = this.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
           ? C100_HEARING_URGENCY_URGENT
           : C100_TYPE_ORDER_SELECT_COURT_ORDER;
         break;
       }
+      case C100_MIAM_OTHER: {
+        url =
+          caseData.miam_notAttendingReasons === Miam_notAttendingReasons.canNotAccessMediator
+            ? C100_MIAM_NO_ACCESS_MEDIATOR
+            : this.checkForAnyValidReason(caseData)
+            ? C100_MIAM_EXCEMPTION_SUMMARY
+            : C100_MIAM_GET_MEDIATOR;
+        break;
+      }
+      case C100_MIAM_NO_ACCESS_MEDIATOR: {
+        url =
+          caseData.miam_noMediatorReasons === Miam_noMediatorReasons.none
+            ? C100_MIAM_GET_MEDIATOR
+            : C100_MIAM_EXCEMPTION_SUMMARY;
+        break;
+      }
+      case C100_MIAM_PREVIOUS_ATTENDANCE: {
+        if (caseData.miam_previousAttendance === Miam_previousAttendance.fourMonthsPriorAttended) {
+          url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
+        } else if (caseData.miam_previousAttendance === Miam_previousAttendance.miamExamptionApplied) {
+          url = C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR;
+        } else {
+          url =
+            this.getNextPageUrl(C100_MIAM_PREVIOUS_ATTENDANCE) ||
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
+        }
+        break;
+      }
+      case C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR: {
+        if (caseData.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.YES) {
+          url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
+        } else {
+          url = this.checkForOtherExemption(caseData, currentPageUrl);
+        }
+        break;
+      }
+      case C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING: {
+        url = this.checkForOtherExemption(caseData, currentPageUrl);
+        break;
+      }
+      case C100_MIAM_MIAM_DOMESTIC_ABUSE: {
+        if (!caseData.miam_domesticAbuse?.includes(DomesticAbuseExemptions.NONE)) {
+          url = applyParms(C100_MIAM_PROVIDING_DA_EVIDENCE) as PageLink;
+        } else {
+          url =
+            this.getNextPageUrl(currentPageUrl) ??
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
+        }
+        break;
+      }
+      case C100_MIAM_PROVIDING_DA_EVIDENCE: {
+        if (caseData.miam_canProvideDomesticAbuseEvidence === YesOrNo.YES) {
+          url = applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE) as PageLink;
+        } else {
+          url =
+            this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
+        }
+        break;
+      }
+      case C100_MIAM_UPLOAD_DA_EVIDENCE: {
+        url =
+          this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??
+          (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
+
+        break;
+      }
       default: {
         url =
           this.getNextPageUrl(currentPageUrl) ||
-          (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+          (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
         break;
       }
     }
 
+    return url;
+  }
+
+  private checkForOtherExemption(caseData: Partial<Case>, currentPageUrl: PageLink): PageLink {
+    let url: PageLink;
+    if (caseData?.miam_nonAttendanceReasons?.includes(MiamNonAttendReason.EXEMPT)) {
+      url = C100_MIAM_OTHER;
+    } else {
+      url =
+        this.getNextPageUrl(currentPageUrl) ||
+        (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
+    }
     return url;
   }
 }

@@ -18,10 +18,11 @@ describe('da_respondent', () => {
     const aboutYouTasks = DA_RESPONDENT[0].tasks(data, {} as SectionContent);
 
     expect(DA_RESPONDENT[0].id).toBe('aboutYou');
-    expect(aboutYouTasks).toHaveLength(3);
+    expect(aboutYouTasks).toHaveLength(4);
     expect(aboutYouTasks[0].id).toBe('keepYourDetailsPrivate');
-    expect(aboutYouTasks[1].id).toBe('editYouContactDetails');
-    expect(aboutYouTasks[2].id).toBe('yourSupport');
+    expect(aboutYouTasks[1].id).toBe('contactPreferences');
+    expect(aboutYouTasks[2].id).toBe('editYouContactDetails');
+    expect(aboutYouTasks[3].id).toBe('supportYouNeed');
   });
 
   test('the application section should contain correct ids and tasks', () => {
@@ -45,8 +46,8 @@ describe('da_respondent', () => {
 
     expect(DA_RESPONDENT[3].id).toBe('yourDocuments');
     expect(yourDocumentsTasks).toHaveLength(2);
-    expect(yourDocumentsTasks[0].id).toBe('viewAllDocuments');
-    expect(yourDocumentsTasks[1].id).toBe('uploadDocuments');
+    expect(yourDocumentsTasks[0].id).toBe('uploadDocuments');
+    expect(yourDocumentsTasks[1].id).toBe('viewAllDocuments');
   });
 
   test('your orders section should contain correct ids and tasks', () => {
