@@ -3,7 +3,12 @@ import _ from 'lodash';
 
 import { CaseWithId } from '../../../../app/case/case';
 import { PartyType } from '../../../../app/case/definition';
-import { DOWNLOAD_DOCUMENT, VIEW_ALL_ORDERS, VIEW_APPLICATION_PACK_DOCUMENTS, VIEW_DOCUMENTS } from '../../../urls';
+import {
+  DOWNLOAD_DOCUMENT,
+  VIEW_ALL_ORDERS,
+  VIEW_APPLICATION_PACK_DOCUMENTS,
+  ///VIEW_DOCUMENTS
+} from '../../../urls';
 import { interpolate } from '../../string-parser';
 import { applyParms } from '../../url-parser';
 import {
@@ -18,7 +23,7 @@ import {
   DocumentTypes,
   OrderDocumentMeta,
   ViewDocCategoryLinkProps,
-  ViewDocumentDetails,
+  //ViewDocumentDetails,
   ViewDocumentsCategoryListProps,
   ViewDocumentsSectionId,
 } from '../definitions';
@@ -43,44 +48,44 @@ export const getDocumentSectionTitle = (
   documentSectionTitles: Record<DocumentSectionId, string>
 ): string => _.get(documentSectionTitles, documentSectionId, '');
 
-const getViewDocumentLinkMeta = (
-  document: CitizenDocuments,
-  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-  loggedInUserPartyType: PartyType
-): ViewDocumentDetails['link'] => {
-  const documentConfig = getDocumentConfig(document.categoryId);
-  const linkMeta = {
-    text: '',
-    url: '',
-    openInAnotherTab: false,
-  };
-  const urlParams = {
-    partyType: loggedInUserPartyType,
-    documentPartyType: document.partyType,
-    documentCategory: document.categoryId,
-  };
-  const isDownloadDocument = [DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION].includes(document.categoryId);
+// const getViewDocumentLinkMeta = (
+//   document: CitizenDocuments,
+//   documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+//   loggedInUserPartyType: PartyType
+// ): ViewDocumentDetails['link'] => {
+//   const documentConfig = getDocumentConfig(document.categoryId);
+//   const linkMeta = {
+//     text: '',
+//     url: '',
+//     openInAnotherTab: false,
+//   };
+//   const urlParams = {
+//     partyType: loggedInUserPartyType,
+//     documentPartyType: document.partyType,
+//     documentCategory: document.categoryId,
+//   };
+//   const isDownloadDocument = [DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION].includes(document.categoryId);
 
-  if (
-    [
-      DocumentCategory.POSITION_STATEMENTS,
-      DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-      DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
-    ].includes(document.categoryId)
-  ) {
-    Object.assign(urlParams, { documentPartyId: document.partyId });
-  }
+//   if (
+//     [
+//       DocumentCategory.POSITION_STATEMENTS,
+//       DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
+//       DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
+//     ].includes(document.categoryId)
+//   ) {
+//     Object.assign(urlParams, { documentPartyId: document.partyId });
+//   }
 
-  return documentConfig
-    ? Object.assign(linkMeta, {
-        text: documentConfig ? documentConfig.documentCategoryLabel(documentCategoryLabels, document.uploadedBy) : '',
-        url: isDownloadDocument
-          ? getDownloadDocUrl(document, loggedInUserPartyType)
-          : applyParms(VIEW_DOCUMENTS, urlParams),
-        openInAnotherTab: isDownloadDocument,
-      })
-    : linkMeta;
-};
+//   return documentConfig
+//     ? Object.assign(linkMeta, {
+//         text: documentConfig ? documentConfig.documentCategoryLabel(documentCategoryLabels, document.uploadedBy) : '',
+//         url: isDownloadDocument
+//           ? getDownloadDocUrl(document, loggedInUserPartyType)
+//           : applyParms(VIEW_DOCUMENTS, urlParams),
+//         openInAnotherTab: isDownloadDocument,
+//       })
+//     : linkMeta;
+// };
 
 export const getDocumentCategoryLabel = (
   documentLabelId: DocumentLabelCategory,
@@ -103,42 +108,42 @@ export const getDocumentCategoryLabel = (
   return documentLabel;
 };
 
-const filterAndGroupPartyDocuments = (
-  partyType: PartyType,
-  documents: CaseWithId['citizenDocuments']
-): CaseWithId['citizenDocuments'] | [] => {
-  const groupedDocuments: CaseWithId['citizenDocuments'] = [];
+// const filterAndGroupPartyDocuments = (
+//   partyType: PartyType,
+//   documents: CaseWithId['citizenDocuments']
+// ): CaseWithId['citizenDocuments'] | [] => {
+//   const groupedDocuments: CaseWithId['citizenDocuments'] = [];
 
-  if (documents?.length) {
-    documents
-      .filter(document => document.partyType === partyType)
-      .forEach(document => {
-        if (
-          ([
-            DocumentCategory.POSITION_STATEMENTS,
-            DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-            DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
-            DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
-          ].includes(document.categoryId) &&
-            !groupedDocuments.find(groupedDoc => groupedDoc.partyId === document.partyId)) ||
-          !groupedDocuments.find(groupedDoc => groupedDoc.categoryId === document.categoryId)
-        ) {
-          groupedDocuments.push(document);
-        }
-      });
-  }
+//   if (documents?.length) {
+//     documents
+//       .filter(document => document.partyType === partyType)
+//       .forEach(document => {
+//         if (
+//           ([
+//             DocumentCategory.POSITION_STATEMENTS,
+//             DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
+//             DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
+//             DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+//           ].includes(document.categoryId) &&
+//             !groupedDocuments.find(groupedDoc => groupedDoc.partyId === document.partyId)) ||
+//           !groupedDocuments.find(groupedDoc => groupedDoc.categoryId === document.categoryId)
+//         ) {
+//           groupedDocuments.push(document);
+//         }
+//       });
+//   }
 
-  return groupedDocuments;
-};
+//   return groupedDocuments;
+// };
 
-const getViewDocumentCategoryDetails = (
-  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-  loggedInUserPartyType: PartyType,
-  document: CitizenDocuments
-): ViewDocumentDetails => ({
-  categoryId: document.categoryId,
-  link: getViewDocumentLinkMeta(document, documentCategoryLabels, loggedInUserPartyType),
-});
+// const getViewDocumentCategoryDetails = (
+//   documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+//   loggedInUserPartyType: PartyType,
+//   document: CitizenDocuments
+// ): ViewDocumentDetails => ({
+//   categoryId: document.categoryId,
+//   link: getViewDocumentLinkMeta(document, documentCategoryLabels, loggedInUserPartyType),
+// });
 
 export const getApplicationPacksCategoryList = (
   caseData: CaseWithId,
@@ -269,22 +274,47 @@ export const getViewDocumentCategoryList = (
   caseData: CaseWithId,
   documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
   loggedInUserPartyType: PartyType
-): ViewDocumentDetails[] | [] => {
-  let documents: ViewDocumentDetails[] | [] = [];
-
-  if (
-    [ViewDocumentsSectionId.APPLICANTS_DOCUMENT, ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS].includes(
-      documentSectionId
-    )
-  ) {
-    documents = filterAndGroupPartyDocuments(
-      documentSectionId === ViewDocumentsSectionId.APPLICANTS_DOCUMENT ? PartyType.APPLICANT : PartyType.RESPONDENT,
-      caseData?.citizenDocuments
-    )!.map(getViewDocumentCategoryDetails.bind(null, documentCategoryLabels, loggedInUserPartyType));
+): ViewDocCategoryLinkProps[] | [] => {
+  let doclabel;
+  switch (documentSectionId) {
+    case ViewDocumentsSectionId.APPLICANTS_DOCUMENT:
+      doclabel = DocumentLabelCategory.VIEW_APPLICANTS_DOCUMENT;
+      break;
+    case ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS:
+      doclabel = DocumentLabelCategory.VIEW_RESPONDENTS_DOCUMENT;
+      break;
+    case ViewDocumentsSectionId.ATTENDING_THE_HEARING:
+      doclabel = DocumentLabelCategory.VIEW_ATTENDING_THE_HEARING;
+      break;
+    case ViewDocumentsSectionId.OTHER_DOCUMENTS:
+      doclabel = DocumentLabelCategory.VIEW_OTHER_DOCUMENTS;
+      break;
   }
-
-  return documents;
+  return [
+    {
+      link: {
+        text: getDocumentCategoryLabel(doclabel, documentCategoryLabels),
+        url: applyParms(VIEW_ALL_ORDERS, {
+          partyType: loggedInUserPartyType,
+        }),
+      },
+    },
+  ];
 };
+
+// if (
+//   [ViewDocumentsSectionId.APPLICANTS_DOCUMENT, ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS].includes(
+//     documentSectionId
+//   )
+// ) {
+//   documents = filterAndGroupPartyDocuments(
+//     documentSectionId === ViewDocumentsSectionId.APPLICANTS_DOCUMENT ? PartyType.APPLICANT : PartyType.RESPONDENT,
+//     caseData?.citizenDocuments
+//   )!.map(getViewDocumentCategoryDetails.bind(null, documentCategoryLabels, loggedInUserPartyType));
+// }
+
+// return documents;
+//};
 
 const filterDocumentsByPartyIdAndCategory = (
   documentPartyId: CitizenDocuments['partyId'],

@@ -87,9 +87,37 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
     sectionId: ViewDocumentsSectionId.ATTENDING_THE_HEARING,
     sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
       getDocumentSectionTitle(ViewDocumentsSectionId.ATTENDING_THE_HEARING, documentSectionTitles),
-    documentCategoryList: () => [],
+    documentCategoryList: (
+      caseData: CaseWithId,
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      loggedInUserPartyType: PartyType
+    ) =>
+      getViewDocumentCategoryList(
+        ViewDocumentsSectionId.ATTENDING_THE_HEARING,
+        caseData,
+        documentCategoryLabels,
+        loggedInUserPartyType
+      ),
     isVisible: () => false,
     displayOrder: () => 5,
+  },
+  {
+    sectionId: ViewDocumentsSectionId.OTHER_DOCUMENTS,
+    sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
+      getDocumentSectionTitle(ViewDocumentsSectionId.OTHER_DOCUMENTS, documentSectionTitles),
+    documentCategoryList: (
+      caseData: CaseWithId,
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      loggedInUserPartyType: PartyType
+    ) =>
+      getViewDocumentCategoryList(
+        ViewDocumentsSectionId.OTHER_DOCUMENTS,
+        caseData,
+        documentCategoryLabels,
+        loggedInUserPartyType
+      ),
+    isVisible: () => false,
+    displayOrder: () => 6,
   },
 ];
 
