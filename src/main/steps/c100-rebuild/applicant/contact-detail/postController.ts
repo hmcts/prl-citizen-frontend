@@ -19,7 +19,7 @@ export default class ContactDetailPostController extends PostController<AnyObjec
 
     const form = new Form(getFormFields(req.session.userCase, applicantId).fields as FormFields);
     const { onlycontinue, saveAndComeLater } = req.body;
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
 
     const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId) as number;
     req.session.userCase.appl_allApplicants![applicantIndex].applicantContactDetail = {

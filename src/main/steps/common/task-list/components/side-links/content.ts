@@ -1,9 +1,9 @@
 import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { applyParms } from '../../../../../steps/common/url-parser';
 import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
-  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
 } from '../../../../../steps/urls';
 
 const en = {
@@ -17,7 +17,7 @@ const en = {
         },
         {
           label: 'Remove a legal representative',
-          link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
           target: '',
         },
         {
@@ -70,7 +70,7 @@ const en = {
         },
         {
           label: 'Remove a legal representative',
-          link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.RESPONDENT }),
         },
         {
           label: 'Find my local court',
@@ -100,7 +100,7 @@ const en = {
         },
         {
           label: 'Remove a legal representative',
-          link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
         },
         {
           label: 'Find my local court',
@@ -128,7 +128,7 @@ const en = {
         },
         {
           label: 'Remove a legal representative',
-          link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.RESPONDENT }),
         },
         {
           label: 'Find my local court',
@@ -162,7 +162,7 @@ const cy: typeof en = {
         },
         {
           label: 'Dileu cynrychiolydd cyfreithiol',
-          link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
           target: '',
         },
         {
@@ -215,7 +215,7 @@ const cy: typeof en = {
         },
         {
           label: 'Dileu cynrychiolydd cyfreithiol',
-          link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.RESPONDENT }),
         },
         {
           label: 'Dod o hyd i fy llys lleol',
@@ -245,7 +245,7 @@ const cy: typeof en = {
         },
         {
           label: 'Dileu cynrychiolydd cyfreithiol',
-          link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
         },
         {
           label: 'Dod o hyd i fy llys lleol',
@@ -273,7 +273,7 @@ const cy: typeof en = {
         },
         {
           label: 'Dileu cynrychiolydd cyfreithiol',
-          link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.RESPONDENT }),
         },
         {
           label: 'Dod o hyd i fy llys lleol',

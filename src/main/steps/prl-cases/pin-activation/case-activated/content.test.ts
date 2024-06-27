@@ -1,43 +1,42 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, LanguageLookup } from '../../../../app/form/Form';
+import { FormContent } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-jest.mock('../../../../app/form/validation');
-let caseNumber;
-
-const en = {
-  caption: `Case number ${caseNumber}`,
+const enContent = {
+  caption: 'Case number',
   title: 'Case added to your account',
-  text: 'The case can now be seen on your child arrangements and family injunction account.',
-  continue: 'Continue',
+  content: 'The case can now be seen on your child arrangements and family injunction account.',
 };
 
-const cy = {
-  caption: `Rhif yr achos ${caseNumber}`,
+const cyContent = {
+  caption: 'Rhif yr achos',
   title: 'Achos wedi’i ychwanegu i’ch cyfrif',
-  text: 'Gallwch nawr weld yr achos yn eich cyfrif trefniadau plant a gwaharddeb teulu.',
-  continue: 'Parhau',
+  content: 'Gallwch nawr weld yr achos yn eich cyfrif trefniadau plant a gwaharddeb teulu.',
 };
 
-describe('case activated content', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+describe('pin-activation > case-activated > content', () => {
+  const commonContent = { language: 'en', userCase: {} } as CommonContent;
+  let generatedContent;
+  let form;
+
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+  });
+
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
+    languageAssertions('en', enContent, () => generateContent(commonContent));
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+    languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain Submit button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent;
-    expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and continue');
+  test('should contain continue button', () => {
+    expect(form.onlyContinue.text(generatePageContent({ language: 'en' }))).toBe('Continue');
   });
 });

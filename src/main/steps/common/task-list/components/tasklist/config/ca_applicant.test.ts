@@ -22,7 +22,7 @@ describe('ca_applicant', () => {
     expect(aboutYouTasks[0].id).toBe('editYouContactDetails');
     expect(aboutYouTasks[1].id).toBe('contactPreferences');
     expect(aboutYouTasks[2].id).toBe('keepYourDetailsPrivate');
-    expect(aboutYouTasks[3].id).toBe('yourSupport');
+    expect(aboutYouTasks[3].id).toBe('supportYouNeed');
   });
 
   test('your application section should contain correct ids and tasks', () => {

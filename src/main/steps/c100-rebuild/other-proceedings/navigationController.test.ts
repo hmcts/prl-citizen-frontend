@@ -1,12 +1,14 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { RootContext } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
-  C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   C100_OTHER_PROCEEDINGS_DETAILS,
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
   C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
+  C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+  PageLink,
 } from '../../urls';
 
 import OtherProceedingsNavigationController from './navigationController';
@@ -176,17 +178,19 @@ describe('OtherProceedingsNavigationController', () => {
       dummyRequest.session.userCase,
       dummyRequest.params
     );
-    expect(nextUrl).toBe(applyParms(C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { orderType: 'otherOrder' }));
+    expect(nextUrl).toBe(
+      applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { orderType: 'otherOrder', root: RootContext.C100_REBUILD })
+    );
   });
 
   test('Default', async () => {
     dummyRequest.params = {};
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
-      C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+      applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink,
       dummyRequest.session.userCase,
       dummyRequest.params
     );
-    expect(nextUrl).toBe(C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE);
+    expect(nextUrl).toBe(applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }));
   });
   test('C100_OTHER_PROCEEDINGS_ORDER_DETAILS with out order', async () => {
     dummyRequest.params = {};
@@ -196,6 +200,6 @@ describe('OtherProceedingsNavigationController', () => {
       dummyRequest.session.userCase,
       dummyRequest.params
     );
-    expect(nextUrl).toBe(C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE);
+    expect(nextUrl).toBe(applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }));
   });
 });

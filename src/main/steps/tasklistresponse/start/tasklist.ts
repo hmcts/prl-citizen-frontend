@@ -1,6 +1,24 @@
-import { Respondent, YesOrNo } from '../../../app/case/definition';
-import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
-import * as URL from '../../urls';
+import _ from 'lodash';
+
+import { CaseWithId } from '../../../app/case/case';
+import { PartyType, Respondent, RootContext, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { UserDetails } from '../../../app/controller/AppRequest';
+import { applyParms } from '../../../steps/common/url-parser';
+import { hasContactPreference } from '../../common/contact-preference/util';
+import {
+  C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+  CHOOSE_CONTACT_PREFERENCE,
+  CONSENT_TO_APPLICATION,
+  DETAILS_KNOWN,
+  INTERNATIONAL_FACTORS_START,
+  LEGAL_REPRESENTATION_START,
+  MIAM_START,
+  PROCEEDINGS_START,
+  PageLink,
+  REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
+  RESPONDENT_CHECK_ANSWERS,
+  RESPOND_TO_AOH,
+} from '../../urls';
 
 import {
   getAllegationOfHarmStatus,
@@ -11,9 +29,10 @@ import {
   getKeepYourDetailsPrivateStatus,
   getLegalRepresentationStatus,
   getMiamStatus,
+  getResponseToAllegationOfHarmStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
+console.info('** FOR SONAR **');
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (respondent?.value?.user?.idamId === userIdamId) {
@@ -32,7 +51,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'do_you_have_legal_representation',
           text: taskListItems.do_you_have_legal_representation,
           status: getLegalRepresentationStatus(userCase),
-          href: URL.LEGAL_REPRESENTATION_START,
+          href: LEGAL_REPRESENTATION_START,
         },
       ],
     },
@@ -50,7 +69,7 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'consent-to-the-application',
             text: taskListItems.do_you_consent_to_the_application,
             status: getConsentToApplicationStatus(userCase, userIdamId),
-            href: URL.CONSENT_TO_APPLICATION + '/' + userCase.id,
+            href: CONSENT_TO_APPLICATION + '/' + userCase.id,
           },
         ],
       },
@@ -61,19 +80,27 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'keep-your-details-private',
             text: taskListItems.keep_your_details_private,
             status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-            href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
+            href: applyParms(DETAILS_KNOWN, { partyType: PartyType.RESPONDENT }) + '/' + userCase.id,
+          },
+          {
+            id: 'contact-preference',
+            text: taskListItems.contact_preference,
+            status: !hasContactPreference(userCase, userIdamId) ? SectionStatus.TO_DO : SectionStatus.COMPLETED,
+            href: applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: PartyType.RESPONDENT }),
           },
           {
             id: 'confirm-or-edit-your-contact-details',
             text: taskListItems.confirm_or_edit_your_contact_details,
             status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
-            href: URL.RESPONDENT_CHECK_ANSWERS + '/' + userCase.id,
+            href: RESPONDENT_CHECK_ANSWERS + '/' + userCase.id,
           },
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: getSupportYourNeedsDetails(userCase),
-            href: URL.C7_ATTENDING_THE_COURT + '/' + userCase.id,
+            status: SectionStatus.OPTIONAL,
+            href: applyParms(REASONABLE_ADJUSTMENTS_ATTENDING_COURT, {
+              root: PartyType.RESPONDENT,
+            }),
           },
         ],
       },
@@ -84,26 +111,19 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'medation-miam',
             text: taskListItems.mediation_miam,
             status: getMiamStatus(userCase, userIdamId),
-            href: URL.MIAM_START + '/' + userCase.id,
+            href: MIAM_START + '/' + userCase.id,
           },
           {
             id: 'current-or-previous-proceedings',
             text: taskListItems.current_or_previous_proceedings,
             status: getCurrentOrOtherProceedingsStatus(userCase),
-            href: URL.PROCEEDINGS_START + '/' + userCase.id,
+            href: PROCEEDINGS_START + '/' + userCase.id,
           },
         ],
       },
       {
         title: sectionTitles.safetyConcerns,
-        items: [
-          {
-            id: 'allegations_of_harm_and_violence',
-            text: taskListItems.allegations_of_harm_and_violence,
-            status: getAllegationOfHarmStatus(userCase),
-            href: URL.RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE + '/' + userCase.id,
-          },
-        ],
+        items: getSafetyConcernsTasks(userCase, userIdamId, taskListItems),
       },
       {
         title: sectionTitles.additionalInformation,
@@ -112,11 +132,44 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'international-factors',
             text: taskListItems.international_factors,
             status: getInternationalFactorsStatus(userCase, userIdamId),
-            href: URL.INTERNATIONAL_FACTORS_START + '/' + userCase.id,
+            href: INTERNATIONAL_FACTORS_START + '/' + userCase.id,
           },
         ],
       },
     ];
   }
+
   return [];
+};
+const getSafetyConcernsTasks = (
+  caseData: CaseWithId,
+  userIdamId: UserDetails['id'],
+  taskContents: Record<string, string>
+): {
+  id: string;
+  text: string;
+  status: SectionStatus;
+  href: string;
+}[] => {
+  const tasks = [
+    {
+      id: 'allegations_of_harm_and_violence',
+      text: taskContents.allegations_of_harm_and_violence,
+      status: getAllegationOfHarmStatus(caseData),
+      href: applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, {
+        root: RootContext.RESPONDENT,
+      }) as PageLink,
+    },
+  ];
+
+  if (_.get(caseData, 'c1ADocument.document_binary_url')) {
+    tasks.push({
+      id: 'respond_to_allegations_of_harm_and_violence',
+      text: taskContents.respond_to_allegations_of_harm_and_violence,
+      status: getResponseToAllegationOfHarmStatus(caseData, userIdamId),
+      href: applyParms(RESPOND_TO_AOH, { partyType: PartyType.RESPONDENT }) as PageLink,
+    });
+  }
+
+  return tasks;
 };

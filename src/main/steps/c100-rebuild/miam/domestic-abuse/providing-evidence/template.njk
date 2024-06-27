@@ -1,0 +1,25 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">
+    <span class="govuk-caption-m">{{ caption }}</span>
+    {{ title }}
+  </h1>
+  <p class="govuk-body">{{ dontNeedToAttend }}</p>
+  <p class="govuk-body govuk-!-margin-bottom-0">{{ validReason }}</p>
+  <p class="govuk-body govuk-!-margin-bottom-2">{{ reasonsGiven }}</p>
+
+  <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-1">
+    {% for abuseReason in listOfAbuseReasons %}
+      <li>{{ abuseReason.abuseEvidenceType }}</li>
+      {% if abuseReason.abuseEvidenceReasons %}
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-2">
+          {% for evidence in abuseReason.abuseEvidenceReasons %}
+            <li>{{ evidence }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  </ul>
+<br/>
+{% endblock %}

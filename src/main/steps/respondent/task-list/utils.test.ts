@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../app/case/case';
 import { CaseType, State, YesOrNo } from '../../../app/case/definition';
 
 import { getRespondentPartyDetailsCa } from './utils';
@@ -98,11 +99,11 @@ const userCase2 = {
     },
   ],
   caseTypeOfApplication: CaseType.C100,
-};
+} as unknown as Partial<CaseWithId>;
 
 describe('utils', () => {
   test('getRespondentPartyDetailsCa', () => {
     expect(getRespondentPartyDetailsCa(userCase2, '123456')).toBe(undefined);
-    expect(getRespondentPartyDetailsCa(userCase2, '12345')).toBe(userCase2.respondents[0]);
+    expect(getRespondentPartyDetailsCa(userCase2, '12345')).toBe(userCase2.respondents![0]);
   });
 });

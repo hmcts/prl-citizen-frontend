@@ -8,7 +8,7 @@ describe('progress-bar', () => {
     CaseProgressionStage.HEARING_AND_COURT_ORDERS,
     CaseProgressionStage.CASE_OPENED,
     CaseProgressionStage.FINAL_ORDER,
-    CaseProgressionStage.CASE_CLOSED,
+    CaseProgressionStage.ALL_FINAL_ORDERS_ISSUED,
   ])('stages should have isInProgress and isComplete as false by default', notification => {
     expect(progressBarStage[notification].isInProgress()).toBe(false);
     expect(progressBarStage[notification].isComplete()).toBe(false);

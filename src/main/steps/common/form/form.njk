@@ -30,11 +30,13 @@
         {{
           govukButton({
             text: getContent(form.onlyContinue.text),
-            classes: form.submit.classes,
+            classes: form.onlyContinue.classes,
             preventDoubleClick: true,
             type: "submit",
             name: "onlyContinue",
             value: true,
+            disabled: true if form.onlyContinue.disabled else false,
+            isStartButton: true if form.onlyContinue.isStartButton,
             attributes: {
               id: ''
             }
@@ -47,6 +49,7 @@
             type: "submit",
             name: "saveAndContinue",
             value: true,
+            disabled: true if form.submit.disabled else false,
             preventDoubleClick: true,
             attributes: {
               id: 'main-form-submit'

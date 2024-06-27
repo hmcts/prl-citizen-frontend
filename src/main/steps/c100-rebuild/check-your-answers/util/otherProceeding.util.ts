@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { C100_OTHER_PROCEEDINGS_ORDER_DETAILS } from '../../../../steps/urls';
 import { DATE_FORMATTOR } from '../../../common/dateformatter';
 import { applyParms } from '../../../common/url-parser';
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
@@ -70,18 +71,33 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
  *   changeUrl: string
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessionKey, language) => {
+export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, language) => {
   if (UserCase.hasOwnProperty(sessionKey)) {
     const orderSessionStorage = [] as { key: string; valueHtml: string; changeUrl: string }[];
     UserCase[sessionKey].forEach(order => {
-      if (UserCase['op_otherProceedings']?.['order'].hasOwnProperty(`${order}s`)) {
-        const orderDetails = UserCase['op_otherProceedings']?.['order'][`${order}s`];
+      if (
+        UserCase['op_otherProceedings']?.['order'].hasOwnProperty(`${order}s`) ||
+        UserCase['op_otherProceedings']?.['order'].hasOwnProperty('contactOrdersForDivorce') ||
+        UserCase['op_otherProceedings']?.['order'].hasOwnProperty('contactOrdersForAdoption')
+      ) {
+        let orderDetails;
+        switch (order) {
+          case 'contactOrderForDivorce':
+            orderDetails = UserCase['op_otherProceedings']?.['order']['contactOrdersForDivorce'];
+            break;
+          case 'contactOrderForAdoption':
+            orderDetails = UserCase['op_otherProceedings']?.['order']['contactOrdersForAdoption'];
+            break;
+          default:
+            orderDetails = UserCase['op_otherProceedings']?.['order'][`${order}s`];
+            break;
+        }
         orderDetails.forEach((nestedOrder, index) => {
           const IndexNumber = index > 0 ? index + 1 : '';
           orderSessionStorage.push({
             key: `${keys[order + 'Label']} ${IndexNumber}`,
             valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
-            changeUrl: applyParms(URLS['C100_OTHER_PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
+            changeUrl: applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: order }),
           });
         });
       }

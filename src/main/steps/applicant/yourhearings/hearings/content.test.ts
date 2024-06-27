@@ -28,7 +28,7 @@ const enContent = {
   previousHearings: 'Previous hearings',
   supportDuringCaselinktext: 'Support you need during your hearing',
   delayorcancellinktext: 'Ask to delay or cancel a hearing date',
-  linkforsupport: '/applicant/hearing-needs/support-help',
+  linkforsupport: '/applicant/reasonable-adjustments/intro',
   linkfordelayorcancel: '#',
   hearingOutcome: 'Hearing outcome',
   hearing: 'Hearing',
@@ -68,7 +68,7 @@ const cyContent: typeof enContent = {
   previousHearings: 'Previous hearings - welsh',
   supportDuringCaselinktext: 'Support you need during your hearing - welsh',
   delayorcancellinktext: 'Ask to delay or cancel a hearing date - welsh',
-  linkforsupport: '/applicant/hearing-needs/support-help',
+  linkforsupport: '/applicant/reasonable-adjustments/intro',
   linkfordelayorcancel: '#',
   hearingOutcome: 'Hearing outcome - welsh',
   hearing: 'Hearing - welsh',
@@ -261,9 +261,7 @@ describe('citizen-home yourhearings hearings content', () => {
 
   test('should generate correct link for FL401 case', () => {
     commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = 'FL401';
-    expect(generateContent(commonContent).linkforsupport).toBe(
-      '/applicant/support-you-need-during-case/attending-the-court'
-    );
+    expect(generateContent(commonContent).linkforsupport).toBe('/applicant/reasonable-adjustments/intro');
   });
 
   test('should generate hearingOrders correctly', () => {
@@ -302,7 +300,7 @@ describe('citizen-home yourhearings hearings content', () => {
     ];
     expect(generateContent(commonContent).hearingOrders).toStrictEqual([
       {
-        href: '/applicant/yourdocuments/alldocuments/orders/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        href: '/applicant/documents/download/c9f56483-6e2d-43ce-9de8-72661755b87c/finalDocument.pdf',
         createdDate: '1/1/2020',
         fileName: 'finalDocument.pdf',
         id: 1,

@@ -1,0 +1,145 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+<div class="govuk-form-group">
+  {% block page_content %}
+    <div class="govuk-form-group">
+      <h1 class="govuk-heading-l">
+        <span class="govuk-caption-l">{{caption}}</span>
+        {{title}}
+      </h1>
+      {% if allowGenerateDocs %}
+        <form
+        action="?docCategory={{ docCategory }}&_csrf={{ csrfToken }}"
+        method="post"
+        novalidate>
+          <div class="govuk-form-group">
+            <div class="govuk-label-wrapper">
+              <label class="govuk-label" for="more-detail">
+                {{textAreaDocUploadText1}}
+              </label>
+            </div>
+
+            {{ govukTextarea({
+              name: "statementText",
+              label: {
+                text: textAreaDocUploadText2,
+                classes: "govuk-label--s govuk-!-margin-top-4"
+              },
+               errorMessage: {
+            text: errorMessage
+          } if errorMessage !== null
+            }) }}
+          </div>
+          <button type="submit" value="true" name="generateDocument" class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button">
+            {{submitButtonText}}
+          </button>
+        </form>
+      {% endif %}
+
+    </div>
+    <p class="govuk-body">{{uplodFileText1}}</p>
+    <p class="govuk-body govuk-!-margin-bottom-6">{{uplodFileText2}}</p>
+    <details class="govuk-details govuk-!-margin-bottom-9" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          {{uplodFileText3}}
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        <ol class="govuk-list govuk-list--number">
+          <li>{{uplodFileText4}}</li>
+          <li>{{uplodFileText5}}</li>
+          <li>{{uplodFileText6}}</li>
+          <li>{{uplodFileText7}}</li>
+          <li>{{uplodFileText8}}</li>
+        </ol>
+      </div>
+    </details>
+    <div id="uploadGroup" tabindex="0" class="uploadGroup">
+      <div class=" govuk-!-margin-bottom-3">
+        {% if errorMessage !== null %}
+          <div class="govuk-form-group--error">
+          {% endif %}
+          <div class="govuk-form-group govuk-inset-text">
+            <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+              {{uploadFileHeading}}
+            </label>
+            <form
+            action="?docCategory={{ docCategory }}&_csrf={{ csrfToken }}"
+            method="post"
+            enctype="multipart/form-data"
+            novalidate>
+              {{ govukFileUpload({
+          id: "uploadDocumentFileUpload",
+          name: "uploadDocumentFileUpload",
+          attributes: {
+            accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          },
+          classes: "govuk-!-margin-bottom-4",
+          errorMessage: {
+            text: errorMessage
+          } if errorMessage !== null
+        }) }}
+              {{ govukButton({
+          text: uploadFileButtontext,
+          name: "uploadFile",
+          value: "true",
+          type: "submit", 
+          classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+        }) }}
+            </form>
+          </div>
+        </div>
+        {% if errorMessage !== null %}
+        </div>
+      {% endif %}
+
+      {% if filesUploaded.length > 0 %}
+        <h2 class="govuk-heading-s">{{ uploadDocumentFileUpload }}</h2>
+
+        <ul id="filesUploadedList" class="govuk-list">
+          <dl class="govuk-summary-list">
+            {% for file in filesUploaded %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__value">
+                  {{ file.document_filename }}
+                </dt>
+                <dd class="govuk-summary-list__actions">
+                  <a
+                    href="?documentId={{ file.id }}"
+                  class="govuk-link">
+                    {{ removeDocument }}</span>
+                </a>
+              </dd>
+            </div>
+          {% endfor %}
+        </dl>
+      </ul>
+    {% endif %}
+  </div>
+
+  {% if docCategory !== 'fm5-document' %}
+    <div class="govuk-form-group govuk-!-margin-bottom-0">
+      <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h3 class="govuk-heading-m">
+            {{ statementOfTruth }}
+          </h3>
+        </legend>
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-warning-text__assistive">{{ warning }}</span>
+            {{ warningText }}
+          </strong>
+        </div>
+      </fieldset>
+    </div>
+  {% endif %}
+
+{% endblock %}
+</div>

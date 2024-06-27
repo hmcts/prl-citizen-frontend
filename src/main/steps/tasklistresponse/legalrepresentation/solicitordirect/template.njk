@@ -1,30 +1,19 @@
-
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% extends "common/template.njk" %}
 
-{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% block page_content %}
-<div>
-<main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
-    <form action="/redirect/tasklistresponse" method="post">
-    <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
-    <h1 class="govuk-heading-xl">{{title}}</h1> 
-    <p class="govuk-body">{{line1}}</p>
-    <p class="govuk-body">{{line2}}</p>
-        <ul class="govuk-list govuk-list--bullet">
-        <li>{{listItem}}{{caseId}}</li>
-        </ul>
-        <div class="govuk-!-padding-bottom-4"></div>
-        <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive">{{warning}}</span>
-            {{line3}}
-        </strong>
-        </div>
-        <button class="govuk-button" data-module="govuk-button">
-            {{continue}}
-        </button>
-    </form>
-</main>
-</div>
+    <h1 class="govuk-heading-l">{{title}}</h1>
+
+    <p class="govuk-body">{{content1}}</p>
+    <p class="govuk-body">{{content2}}</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{content3}}{{caseId}}</li>
+    </ul>
+
+    <div class="govuk-!-padding-bottom-4"></div>
+
+    {{ govukWarningText({
+    text: content4
+    }) }}
 {% endblock %}

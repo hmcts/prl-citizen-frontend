@@ -23,7 +23,9 @@
 
       <div class="govuk-grid-column-two-thirds">
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        {% if progressBar.length %}
         {{buildProgressBar(progressBar)}}
+        {% endif %}
         <div class="govuk-!-padding-bottom-4"></div>
         {{buildNotificationBanners(notifications)}}
         <ol class="app-task-list">

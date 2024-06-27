@@ -20,6 +20,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
       this.setSecret('secrets.prl.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.prl.redis-access-key', 'session.secret');
+      this.setSecret('secrets.prl.prl-pcq-token-key', 'services.equalityAndDiversity.tokenKey');
     } else {
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
       this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
@@ -30,6 +31,7 @@ export class PropertiesVolume {
       this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
       this.setLocalSecret('citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
       this.setLocalSecret('launchDarkly-sdk-key', 'featureToggles.launchDarklyKey');
+      this.setLocalSecret('prl-pcq-token-key', 'services.equalityAndDiversity.tokenKey');
     }
   }
 
@@ -40,7 +42,7 @@ export class PropertiesVolume {
   }
 
   /**
-   * Load a secret from the AAT vault using azure cli
+   * Load a secret from the aat vault using azure cli
    */
   private setLocalSecret(secret: string, toPath: string): void {
     const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);

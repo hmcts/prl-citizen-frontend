@@ -1,59 +1,50 @@
-import { CommonContent } from '../../../../steps/common/common.content';
+import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent } from '../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../../steps/common/common.content';
 
 import { generateContent } from './content';
 
-jest.mock('../../../../app/form/validation');
-
-const EN = 'en';
-const CY = 'cy';
-const commonContent = {
-  language: EN,
-  dateFormat: {
-    day: 'Day',
-    month: 'Month',
-    year: 'Year',
-  },
-} as CommonContent;
-
-const enContent = {
+const en = {
   title: 'Transfer your case to your legal representative',
-  line1: 'To transfer your case to your legal representative, provide them with your Case number.',
-  line2:
+  content1: 'To transfer your case to your legal representative, provide them with your Case number.',
+  content2:
     "Once your case is passed to your representative, you won't be able to edit your response. They will handle your case and receive any updates from the court.",
-  listItem: 'Your Case number is: ',
-  warning: 'Warning',
-  line3:
+  content3: 'Your Case number is: ',
+  content4:
     'Do not respond to this application yourself if you plan to have a legal representative complete the response.',
-  continue: 'Continue',
 };
 
-const cyContent = {
+const cy = {
   title: "Trosglwyddo eich achos i'ch cynrychiolydd cyfreithiol",
-  line1: "I drosglwyddo eich achos i'ch cynrychiolydd cyfreithiol, rhowch eich rhif achos iddo.",
-  line2:
+  content1: "I drosglwyddo eich achos i'ch cynrychiolydd cyfreithiol, rhowch eich rhif achos iddo.",
+  content2:
     "Ar ôl i'ch achos gael ei drosglwyddo i'ch cynrychiolydd, ni fyddwch yn gallu golygu eich ymateb. Bydd yn trin eich achos ac yn derbyn unrhyw ddiweddariadau gan y llys.",
-  listItem: 'Rhif eich achos yw:',
-  warning: 'Warning - welsh',
-  line3:
+  content3: 'Rhif eich achos yw:',
+  content4:
     "Peidiwch ag ymateb i'r cais hwn eich hun os ydych yn bwriadu cael cynrychiolydd cyfreithiol i gwblhau'r ymateb.",
-  continue: 'Parhau',
 };
 
-describe('consent to the application', () => {
-  test('should return correct english content', () => {
-    const generatedContent = generateContent({ ...commonContent });
+describe('tasklistresponse > legalrepresentation >  solicitordirect > content', () => {
+  const commonContent = { language: 'en', userCase: {} } as CommonContent;
+  let generatedContent;
+  let form;
 
-    expect(generatedContent.title).toEqual(enContent.title);
-    expect(generatedContent.continue).toEqual(enContent.continue);
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
   });
 
-  test('should return correct welsh content', () => {
-    const generatedContent = generateContent({
-      ...commonContent,
-      language: CY,
-    });
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct english content', () => {
+    languageAssertions('en', en, () => generatedContent);
+  });
 
-    expect(generatedContent.title).toEqual(cyContent.title);
-    expect(generatedContent.continue).toEqual(cyContent.continue);
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct welsh content', () => {
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should contain continue button', () => {
+    expect(form.onlyContinue.text(generatePageContent({ language: 'en' }))).toBe('Continue');
   });
 });

@@ -1,49 +1,48 @@
+import { Miam_childProtectionEvidence } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { isFieldFilledIn } from '../../../../app/form/validation';
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const en = () => ({
+export const en = {
   section: 'MIAM exemptions',
-  title: 'What evidence of child protection concerns do you have?',
-  needMoreDetails1: 'If you are seeking a MIAM exemption, you will need to give more details.',
-  needMoreDetails2: 'The court needs this information to decide if you need to attend a MIAM.',
-  optionHint: 'Select all that apply',
+  title: 'Child protection concerns',
+  needMoreDetails1: 'You need to give the court more information about your concerns.',
+  subTitle: 'Which child protection concern applies?',
   localAuthority:
-    'The children in the application, or another child in the household, is the subject of enquiries by a local authority under section 47 of the Children Act 1989 Act',
-  localAuthorityHint:
-    'This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm. See <a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a> for further details.',
+    'The children in the application (or another child in the household) are the subject of a child protection plan put in place by the local authority',
   childProtectionPlan:
-    'The children in the application, or another child in the household, is the subject of a child protection plan put in place by the local authority',
-  none: 'None of the above',
+    'The children in the application (or another child in the household) is the subject of enquiries by a local authority under section 47 of the Children Act 1989 Act',
+  childProtectionPlanHint:
+    'This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm.',
+  none: 'None of these',
   errors: {
     miam_childProtectionEvidence: {
-      required: 'Select what evidence of child safety concerns you have',
+      required: 'Select what evidence you have of child protection concerns.',
     },
   },
-});
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const cy = () => ({
+export const cy = {
   section: 'Esemptiadau MIAM',
-  title: 'Pa dystiolaeth o bryderon amddiffyn plant sydd gennych?',
-  needMoreDetails1: 'Os ydych chi’n ceisio esemptiad rhag mynychu MIAM, bydd angen i chi roi mwy o fanylion.',
-  needMoreDetails2: "Mae'r llys angen yr wybodaeth hon i benderfynu a oes angen i chi fynychu MIAM ai peidio.",
-  optionHint: 'Dogfennau mewn lliw penodol',
+  title: 'Pryderon amddiffyn plant',
+  needMoreDetails1: 'Mae angen i chi roi mwy o wybodaeth am eich pryderon i’r llys.',
+  subTitle: 'Pa bryder amddiffyn plant sy’n berthnasol?',
   localAuthority:
-    'Mae’r plant yn y cais, neu blentyn arall ar yr aelwyd, yn destun ymholiadau gan awdurdod lleol o dan adran 47 Deddf Plant 1989',
-  localAuthorityHint:
-    'Fe allai hynny olygu bod awdurdod lleol yn cynnal ymholiadau oherwydd pryderon fod y plant yn dioddef neu y gallant ddioddef niwed sylweddol. Gweler <a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">sdran 47 Deddf Plant 1989</a> am fwy o fanylion.',
+    'Mae’r plant yn y cais (neu blentyn arall ar yr aelwyd) yn destun cynllun amddiffyn plant a roddwyd ar waith gan yr awdurdod lleol',
   childProtectionPlan:
-    'Mae’r plant yn y cais, neu blentyn arall ar yr aelwyd, yn destun cynllun amddiffyn plant a roddwyd ar waith gan yr awdurdod lleol',
-  none: 'Dim un o’r uchod',
+    'Mae’r plant yn y cais (neu blentyn arall ar yr aelwyd) yn destun ymholiadau gan awdurdod lleol o dan adran 47 Deddf Plant 1989',
+  childProtectionPlanHint:
+    'Fe allai hynny olygu bod awdurdod lleol yn cynnal ymholiadau oherwydd pryderon fod y plant yn dioddef neu y gallant ddioddef niwed sylweddol.',
+  none: 'Dim un o’r rhain',
   errors: {
     miam_childProtectionEvidence: {
-      required: 'Dewiswch pa dystiolaeth o bryderon diogelwch plant sydd gennych',
+      required: 'Dewiswch pa dystiolaeth sydd gennych o bryderon amddiffyn plant.',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -53,33 +52,27 @@ const languages = {
 export const form: FormContent = {
   fields: {
     miam_childProtectionEvidence: {
-      type: 'checkboxes',
-      labelHidden: true,
-      hint: l => l.optionHint,
-      section: l => l.section,
-      validator: atLeastOneFieldIsChecked,
+      type: 'radios',
+      classes: 'govuk-radios',
       values: [
         {
-          name: 'miam_childProtectionEvidence',
           label: l => l.localAuthority,
-          hint: l => l.localAuthorityHint,
-          value: 'localAuthority',
+          value: Miam_childProtectionEvidence.localAuthority,
         },
         {
-          name: 'miam_childProtectionEvidence',
           label: l => l.childProtectionPlan,
-          value: 'childProtectionPlan',
+          hint: l => l.childProtectionPlanHint,
+          value: Miam_childProtectionEvidence.childProtectionPlan,
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
-          name: 'miam_childProtectionEvidence',
           label: l => l.none,
-          value: 'none',
-          exclusive: true,
+          value: Miam_childProtectionEvidence.none,
         },
       ],
+      validator: isFieldFilledIn,
     },
   },
   submit: {
@@ -90,7 +83,7 @@ export const form: FormContent = {
   },
 };
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   return {
     ...translations,
     form,

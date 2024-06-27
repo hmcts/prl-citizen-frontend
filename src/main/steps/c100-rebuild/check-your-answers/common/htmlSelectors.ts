@@ -22,4 +22,6 @@ export enum HTML {
   H4_SECTION_TITLE = '<h4 class="app-task-list__section">',
   STATEMENT_OF_TRUTH_H2 = "<h2 class='govuk-heading-m govuk-!-padding-bottom-4'>",
   STATEMENT_OF_TRUTH_H2_CLOSE = '</h2>',
+  BOLD = '<b>',
+  BOLD_CLOSE = '</b>',
 }

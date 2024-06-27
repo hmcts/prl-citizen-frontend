@@ -37,7 +37,6 @@ describe('PaymentSystemAPIInstance class testing', () => {
 describe('PaymentTaskResolver class testing', () => {
   const dummyCaseID = '2122323';
   const dummyreturnUrl = 'http://localhost:3001/payment/reciever/callback';
-  const applicantCaseName = 'Test';
   const hwfRefNumber = 'HWF-1234';
   test('Should be an Instance of Axios', async () => {
     const InstanceOfPaymentSystemAPIInstance = new PaymentTaskResolver(
@@ -46,7 +45,6 @@ describe('PaymentTaskResolver class testing', () => {
       mockServiceToken,
       dummyCaseID,
       dummyreturnUrl,
-      applicantCaseName,
       hwfRefNumber
     );
     const fetchData = await InstanceOfPaymentSystemAPIInstance.getPaymentCredentails();

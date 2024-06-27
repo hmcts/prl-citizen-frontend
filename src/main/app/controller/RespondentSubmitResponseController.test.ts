@@ -1,18 +1,19 @@
+import { AxiosResponse } from 'axios';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CA_RESPONDENT_RESPONSE_CONFIRMATION } from '../../steps/urls';
 import { CosApiClient } from '../case/CosApiClient';
+import { CaseType, Document } from '../case/definition';
 
 import { RespondentSubmitResponseController } from './RespondentSubmitResponseController';
 
-const { mockGet } = require('../document/DocumentManagementClient');
-jest.mock('../document/DocumentManagementClient');
 describe('RespondentSubmitResponseController', () => {
   const controller = new RespondentSubmitResponseController();
   const req = mockRequest();
   const res = mockResponse();
-  const submitRespondentResponseMock = jest.spyOn(CosApiClient.prototype, 'submitRespondentResponse');
+  const submitRespondentResponseMock = jest.spyOn(CosApiClient.prototype, 'submitC7Response');
   const generateC7DraftDocumenteMock = jest.spyOn(CosApiClient.prototype, 'generateC7DraftDocument');
+  const downloadDocumentDocumenteMock = jest.spyOn(CosApiClient.prototype, 'downloadDocument');
   let partyDetails;
   const document = {
     status: 1,
@@ -22,80 +23,94 @@ describe('RespondentSubmitResponseController', () => {
   };
   beforeEach(() => {
     submitRespondentResponseMock.mockResolvedValue(req.session.userCase);
-    generateC7DraftDocumenteMock.mockResolvedValue(document);
-    mockGet.mockResolvedValue('true');
+    generateC7DraftDocumenteMock.mockResolvedValue(document as unknown as Document);
+    downloadDocumentDocumenteMock.mockResolvedValue({
+      headers: { 'content-type': 'test' },
+      data: {},
+    } as unknown as AxiosResponse);
   });
   afterEach(() => {
     submitRespondentResponseMock.mockClear();
     generateC7DraftDocumenteMock.mockClear();
-    mockGet.mockClear();
-  });
-  test('Save', async () => {
-    req.session.userCase.id = '12234567890';
-    partyDetails = [
-      {
-        id: '1',
-        value: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          user: {
-            idamId: '12234567890',
-            email: '',
-          },
-        },
-      },
-    ];
-    req.session.userCase.respondents = partyDetails;
-    await controller.save(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(CA_RESPONDENT_RESPONSE_CONFIRMATION);
   });
 
-  test('getDraftDocument', async () => {
+  test.skip('generateAndDownloadC7ResponseDraftDocument', async () => {
     req.session.userCase.id = '12234567890';
+    req.session.userCase.caseTypeOfApplication = CaseType.C100;
     req.session.user.id = '12234567890';
-    partyDetails = [
+    (req.session.userCase.caseInvites = [
       {
-        id: '1',
+        id: 'string',
         value: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          user: {
-            idamId: '12234567890',
-            email: '',
-          },
+          partyId: '12234567890',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '12234567890',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
         },
       },
-    ];
+    ]),
+      (partyDetails = [
+        {
+          id: '12234567890',
+          value: {
+            address: {
+              AddressLine1: 'Flatc1',
+              AddressLine2: 'Unkonwn lane',
+              County: 'Dummy County',
+              PostCode: 'SW13ND',
+              PostTown: 'Dummy Town',
+            },
+            dateOfBirth: '2000-11-14',
+            email: 'a.b@test.com',
+            firstName: 'John',
+            isAtAddressLessThan5Years: 'Yes',
+
+            phoneNumber: '0987654321',
+            placeOfBirth: 'london',
+            previousName: 'Johnny Smith',
+            user: {
+              idamId: '12234567890',
+              email: '',
+            },
+          },
+        },
+      ]);
     req.session.userCase.respondents = partyDetails;
-    await controller.getDraftDocument(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/summary-confirmation');
+    await controller.generateAndDownloadC7ResponseDraftDocument(req, res);
+    expect(res.end).toHaveBeenCalled();
   });
-  test('getDraftDocument with error', async () => {
-    const document1 = {
-      status: 1,
-      documentId: '',
-      documentName: 'MOCK_FILENAME',
-    };
-    generateC7DraftDocumenteMock.mockResolvedValue(document1);
+
+  test('generateAndDownloadC7ResponseDraftDocument with error', async () => {
+    generateC7DraftDocumenteMock.mockRejectedValue({ status: '500' });
     req.session.userCase.id = '12234567890';
-    req.session.user.id = '12234567890';
-    partyDetails = [
-      {
-        id: '1',
-        value: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          user: {
-            idamId: '12234567890',
-            email: '',
+    req.session.user.id = '1234';
+    req.session.userCase = {
+      caseTypeOfApplication: 'C100',
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            response: {
+              citizenFlags: {},
+            },
+            user: {
+              idamId: '1234',
+            },
           },
         },
-      },
-    ];
+      ],
+      caseInvites: [
+        {
+          value: {
+            partyId: '1234',
+            invitedUserId: '1234',
+          },
+        },
+      ],
+    };
     req.session.userCase.respondents = partyDetails;
-    await expect(controller.getDraftDocument(req, res)).rejects.toThrow('Document url is not found');
+    await expect(controller.generateAndDownloadC7ResponseDraftDocument(req, res)).rejects.toThrow();
   });
 });

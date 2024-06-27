@@ -8,9 +8,11 @@ import { Case } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
 import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
+import { RASequence } from '../modules/reasonable-adjustments/sequence';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { C100Sequence } from './c100-rebuild/c100sequence';
+import { AohSequence } from './common/safety-concerns/sequence';
 import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
 import { citizenSequence } from './prl-cases/citizenSequence';
@@ -49,6 +51,8 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...responseCaseSequence,
     ...C100Sequence,
     ...screeningQuestionsSequence,
+    ...AohSequence.getSequence(),
+    ...RASequence.getSequence(),
   ].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : DASHBOARD_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
@@ -97,14 +101,15 @@ export type StepWithContent = Step & {
   view: string;
   routeGuard?: RouteGuard;
 };
-const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] => {
+export const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] => {
   const dir = __dirname;
 
   const results: StepWithContent[] = [];
   if (sequence?.length) {
     for (const step of sequence) {
       const { url } = parseUrl(step.url);
-      const subdirurl = url.startsWith(subDir) ? url : `${subDir}${url}`;
+      const _subDir = step?.subDir ?? subDir;
+      const subdirurl = url.startsWith(_subDir) ? url : `${_subDir}${url}`;
       const stepDir = `${dir}${subdirurl}`;
       const { content, view } = getStepFiles(stepDir);
       results.push({ stepDir, ...step, ...content, view });

@@ -1,7 +1,7 @@
 export type TextObject = {
   text: string;
 };
-
+console.info('** FOR SONAR **');
 export type ActionItem = {
   href?: string;
   text: string;

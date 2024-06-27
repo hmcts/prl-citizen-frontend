@@ -1,0 +1,49 @@
+{% extends "common/page.njk" %}
+{% from "common/breadcrumb/breadcrumb.macro.njk" import appBreadcrumb with context %}
+
+{% block backLink %}{% endblock %}
+
+{% block pageTitle %}
+  {{viewDocuments.title}} - Private law - GOV.UK
+{% endblock %}
+
+{% block page_content %}
+  {{appBreadcrumb(breadcrumbs)}}
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">
+    {{viewDocuments.title}}
+  </h1>
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <p class="govuk-body">{{caseNumber}}&nbsp;&nbsp;{{caseId}}</p>
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    </fieldset>
+  </div>
+
+  <ol class="app-task-list">
+    {% for section in sections %}
+      <li>
+        <h2 class="app-task-list__section">
+          {{section.title}}
+        </h2>
+        <ul class="app-task-list__items">
+          {% for item in section.items %}
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                {% if item.link.openInAnotherTab %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status" target="_blank">
+                    {{item.link.text}}
+                  </a>
+                {% else %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status">
+                    {{item.link.text}}
+                  </a>
+                {% endif %}
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ol>
+{% endblock %}

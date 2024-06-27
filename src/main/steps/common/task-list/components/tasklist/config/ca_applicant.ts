@@ -1,22 +1,26 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
+import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
+import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
-  APPLICANT_DETAILS_KNOWN,
-  APPLICANT_ORDERS_FROM_THE_COURT,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-  APPLICANT_TASKLIST_HEARING_NEEDS,
-  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
-  APPLICANT_YOURHEARINGS_HEARINGS,
-  C100_DOWNLOAD_APPLICATION,
   C100_START,
+  CHOOSE_CONTACT_PREFERENCE,
+  DETAILS_KNOWN,
+  DOWNLOAD_DOCUMENT_BY_TYPE,
+  FETCH_HEARING_DETAILS,
+  REASONABLE_ADJUSTMENTS_INTRO,
+  UPLOAD_DOCUMENT,
+  VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_ALL_ORDERS,
 } from '../../../../../../steps/urls';
+import { hasContactPreference } from '../../../../contact-preference/util';
 import { Task, TaskListConfigProps } from '../../../definitions';
 import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
-import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, hasAnyOrder } from '../utils';
+import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing } from '../utils';
 
 export const CA_APPLICANT: TaskListConfigProps[] = [
   {
@@ -33,28 +37,30 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
         id: Tasks.CONTACT_PREFERENCES,
-        href: (caseData: Partial<CaseWithId>) => `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`,
+        href: () => applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: PartyType.APPLICANT }),
         disabled: isCaseClosed,
-        stateTag: () => StateTags.SUBMITTED,
+        stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          !hasContactPreference(caseData as CaseWithId, userDetails.id) ? StateTags.TO_DO : StateTags.COMPLETED,
       },
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
-        href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
-        disabled: isCaseClosed,
+        href: (caseData: Partial<CaseWithId>) =>
+          `${applyParms(DETAILS_KNOWN, { partyType: PartyType.APPLICANT })}/${caseData.id}`,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
-        id: Tasks.YOUR_SUPPORT,
+        id: Tasks.SUPPORT_YOU_NEED,
         href: () => {
-          return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
+          return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
+            partyType: PartyType.APPLICANT,
+          });
         },
         disabled: isCaseClosed,
-        stateTag: () => StateTags.SUBMITTED,
+        stateTag: () => StateTags.OPTIONAL,
       },
     ],
   },
@@ -80,9 +86,16 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.YOUR_APPLICATION_PDF,
-        href: () => C100_DOWNLOAD_APPLICATION,
+        href: () => {
+          //** validate **
+          return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'c100-application',
+          });
+        },
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+        openInAnotherTab: () => true,
       },
     ],
   },
@@ -93,20 +106,16 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
-        href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+        href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return (
-            isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
-          );
+          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
         },
-        disabled: isCaseClosed,
         stateTag: () => StateTags.OPTIONAL,
       },
       {
         id: Tasks.VIEW_ALL_DOCUMENTS,
-        href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+        href: () => applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
         stateTag: () => StateTags.READY_TO_VIEW,
-        show: isCaseLinked,
       },
     ],
   },
@@ -117,14 +126,14 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.VIEW_ORDERS,
-        href: () => APPLICANT_ORDERS_FROM_THE_COURT,
+        href: () => applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
         stateTag: (caseData: Partial<CaseWithId>) => {
-          if (hasAnyOrder(caseData)) {
+          if (hasOrders(caseData as CaseWithId)) {
             return StateTags.READY_TO_VIEW;
           }
           return StateTags.NOT_AVAILABLE_YET;
         },
-        disabled: (caseData: Partial<CaseWithId>) => !hasAnyOrder(caseData),
+        disabled: (caseData: Partial<CaseWithId>) => !hasOrders(caseData as CaseWithId),
       },
     ],
   },
@@ -141,7 +150,8 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.VIEW_HEARING_DETAILS,
-        href: (caseData: Partial<CaseWithId>) => `${APPLICANT_YOURHEARINGS_HEARINGS}/${caseData.id}`,
+        href: (caseData: Partial<CaseWithId>) =>
+          applyParms(FETCH_HEARING_DETAILS, { partyType: PartyType.APPLICANT, caseId: caseData.id as string }),
         stateTag: (caseData: Partial<CaseWithId>) => {
           if (hasAnyHearing(caseData)) {
             return StateTags.READY_TO_VIEW;

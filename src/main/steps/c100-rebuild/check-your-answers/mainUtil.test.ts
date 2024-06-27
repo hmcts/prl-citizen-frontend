@@ -5,7 +5,6 @@ import { PartyType, YesOrNo } from '../../../app/case/definition';
 import { ANYTYPE } from './common/index';
 import {
   ApplicantDetails,
-  CaseName,
   ChildernDetails,
   ChildernDetailsAdditional,
   HelpWithFee,
@@ -75,7 +74,7 @@ const keys = {
   childGenderLabel: 'childGenderLabel',
   orderAppliedFor: 'orderAppliedFor',
   parentalResponsibility: 'parentalResponsibility',
-  previousAbduction: 'previousAbduction',
+  detailsofAbduction: 'detailsofAbduction',
   c1A_policeOrInvestigatorInvolved: 'c1A_policeOrInvestigatorInvolved',
   childDrugAbuse: 'childDrugAbuse',
   otherWellBeingIssues: 'otherWellBeingIssues',
@@ -1198,6 +1197,8 @@ describe('test cases for main util', () => {
           contactDetails: {
             emailAddress: 'abc@gmail.com',
             telephoneNumber: '+447205308786',
+            donKnowEmailAddress: 'Yes',
+            donKnowTelephoneNumber: 'Yes',
           },
         },
       ],
@@ -1363,12 +1364,12 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/safety-concerns/abduction/previousabductions',
               text: undefined,
-              visuallyHiddenText: 'previousAbduction',
+              visuallyHiddenText: 'detailsofAbduction',
             },
           ],
         },
         key: {
-          text: 'previousAbduction',
+          text: 'detailsofAbduction',
         },
         value: {},
       },
@@ -1633,12 +1634,12 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
-              visuallyHiddenText: 'Email',
+              visuallyHiddenText: 'E-mail',
             },
           ],
         },
         key: {
-          text: 'Email',
+          text: 'E-mail',
         },
         value: {
           text: 'abc@gmail.com',
@@ -1680,23 +1681,6 @@ describe('test cases for main util', () => {
     expect(safetyConcerns_yoursObj?.rows).not.toBe([]);
     expect(safetyConcerns_yoursObj?.title).toBe(undefined);
   });
-
-  test('CaseName - util', () => {
-    const userCase = {
-      id: 'id',
-      state: undefined,
-      applicantCaseName: 'test',
-    } as ANYTYPE;
-    const CaseName_fun = CaseName({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
-    expect(CaseName_fun?.rows).not.toBe([]);
-    expect(CaseName_fun?.title).toBe(undefined);
-  });
-
-  /**
-   *   InternationalElement,
-  PastAndCurrentProceedings
-   */
-
   test('MiamAttendance - util', () => {
     const userCase = {
       id: 'id',
@@ -1739,6 +1723,7 @@ describe('test cases for main util', () => {
       miam_otherProceedings: YesOrNo.NO,
       miam_attendance: YesOrNo.NO,
       miam_mediatorDocument: YesOrNo.YES,
+      miam_validReason: YesOrNo.YES,
     } as ANYTYPE;
     const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).toStrictEqual([
@@ -1780,33 +1765,16 @@ describe('test cases for main util', () => {
         actions: {
           items: [
             {
-              href: '/c100-rebuild/miam/mediator-confirmation',
+              href: '/c100-rebuild/miam/valid-reason',
               text: undefined,
-              visuallyHiddenText: 'mediatorConfirmation',
+              visuallyHiddenText: 'undefined',
             },
           ],
         },
-        key: {
-          text: 'mediatorConfirmation',
-        },
+        key: {},
         value: {
           text: 'Yes',
         },
-      },
-      {
-        actions: {
-          items: [
-            {
-              href: '/c100-rebuild/miam/mediator-document',
-              text: undefined,
-              visuallyHiddenText: 'midatatorDocumentTitle',
-            },
-          ],
-        },
-        key: {
-          text: 'midatatorDocumentTitle',
-        },
-        value: {},
       },
     ]);
     expect(CaseName_fun?.title).toBe('MiamAttendance');

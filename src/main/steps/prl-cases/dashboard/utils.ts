@@ -10,8 +10,8 @@ export const getCasePartyType = (caseData: Partial<CaseWithId>, userId: string):
         respondents?.find(
           respondent =>
             respondent.id === invities.value.partyId &&
-            respondent.value.user.idamId === invities.value.invitedUserId &&
-            respondent.value.user.idamId === userId
+            respondent.value?.user?.idamId === invities.value.invitedUserId &&
+            respondent.value?.user?.idamId === userId
         )
       )
     ) {

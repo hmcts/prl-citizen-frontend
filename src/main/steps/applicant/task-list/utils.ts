@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Applicant, SectionStatus } from '../../../app/case/definition';
+import { Applicant } from '../../../app/case/definition';
 
 export const getApplicantAllegationsOfHarmAndViolence = (userCase: CaseWithId): boolean => {
   let flag = false;
@@ -7,18 +7,6 @@ export const getApplicantAllegationsOfHarmAndViolence = (userCase: CaseWithId): 
     flag = true;
   }
   return flag;
-};
-
-export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus => {
-  if (
-    userCase?.languageRequirements?.length &&
-    userCase?.reasonableAdjustments?.length &&
-    userCase?.safetyArrangements?.length &&
-    userCase?.attendingToCourt?.length
-  ) {
-    return SectionStatus.COMPLETED;
-  }
-  return SectionStatus.TO_DO;
 };
 
 export const getApplicantPartyDetails = (userCase: Partial<CaseWithId>, userId: string): Applicant | undefined => {

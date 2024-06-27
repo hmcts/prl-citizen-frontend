@@ -1,9 +1,11 @@
 {% extends "common/template.njk" %}
 
 {% block page_content %}
-<span class="govuk-caption-xl">{{caption}}</span>
-<h1 class="govuk-heading-xl">{{title}}</h1>
-<p class="govuk-body-m">{{text}}</p>
+    <h1 class="govuk-heading-l">
+        <span class="govuk-caption-l">{{caption}}&nbsp;&nbsp;{{caseId}}</span>
+        {{title}}
+    </h1>
 
+    <p class="govuk-body">{{content}}</p>
 
 {% endblock %}

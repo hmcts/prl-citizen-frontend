@@ -144,7 +144,7 @@ export const generateContent: TranslationFn = content => {
     nextHearing,
     futureHearings,
     completedHearings,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
   };
 };
 

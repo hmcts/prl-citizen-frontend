@@ -4,7 +4,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
-export const en = () => ({
+export const en = {
   title: 'Do you have a document signed by the mediator?  ',
   docSigned:
     'The mediator should give you a signed document to confirm you attended a MIAM, or do not need to attend. If you do not have a document, you should ask the mediator for one.',
@@ -15,9 +15,9 @@ export const en = () => ({
       required: 'Select yes if you have a document signed by the mediator',
     },
   },
-});
+};
 
-export const cy = () => ({
+export const cy = {
   title: 'A oes gennych chi ddogfen wedi’i llofnodi gan y cyfryngwr?',
   docSigned:
     "Dylai’r cyfryngwr roi dogfen wedi’i llofnodi i chi i gadarnhau eich bod wedi mynychu MIAM, neu i gadarnhau nad oes angen i chi fynychu. Os nad oes gennych ddogfen, dylech ofyn i'r cyfryngwr am un.",
@@ -28,7 +28,7 @@ export const cy = () => ({
       required: "Dewiswch oes os oes gennych ddogfen wedi'i llofnodi gan gyfryngwr",
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -64,7 +64,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   return {
     ...translations,
     form,

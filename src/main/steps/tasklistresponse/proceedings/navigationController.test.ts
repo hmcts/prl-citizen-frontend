@@ -6,7 +6,6 @@ import {
   PROCEEDINGS_ORDER_DETAILS,
   PROCEEDINGS_START,
   PROCEEDINGS_SUMMARY,
-  PROCEEDING_SAVE,
 } from '../../urls';
 
 import OtherProceedingsNavigationController from './navigationController';
@@ -163,13 +162,5 @@ describe('OtherProceedingsNavigationController', () => {
       dummyRequest.params
     );
     expect(nextUrl).toBe('/tasklistresponse/proceedings/summary');
-  });
-  test('From save screen -> navigate to save screen', async () => {
-    const nextUrl = OtherProceedingsNavigationController.getNextUrl(
-      PROCEEDING_SAVE,
-      dummyRequest.session.userCase,
-      dummyRequest.params
-    );
-    expect(nextUrl).toBe('/tasklistresponse/proceedings/save');
   });
 });
