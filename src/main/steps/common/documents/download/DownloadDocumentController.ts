@@ -105,7 +105,7 @@ export default class DownloadDocumentController {
         documentId,
         req.session.user.id
       );
-      res.setHeader('Content-Type', document.headers['content-type']||'');//check with vivek
+      res.setHeader('Content-Type', document.headers['content-type'] || ''); //check with vivek
       res.setHeader(
         'Content-Disposition',
         `${forceDownload === 'forceDownload' ? 'attachment' : 'inline'}; filename=${deTransformFileName(documentName)};` //check with vivek
