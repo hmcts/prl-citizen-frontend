@@ -116,10 +116,10 @@ export const generateContent: TranslationFn = content => {
       },
     ],
     sections: sections
-      .filter(section => section.isVisible(caseData))
-      .sort((current, next) =>
-        current.displayOrder(loggedInUserPartyType) > next.displayOrder(loggedInUserPartyType) ? 1 : -1
-      )
+      // .filter(section => section.isVisible(caseData))
+      // .sort((current, next) =>
+      //   current.displayOrder(loggedInUserPartyType) > next.displayOrder(loggedInUserPartyType) ? 1 : -1
+      // )
       .map(section => ({
         id: section.sectionId,
         title: section.sectionTitle(documentSectionTitles),

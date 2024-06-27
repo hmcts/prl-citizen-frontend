@@ -7,6 +7,7 @@ export const enum ViewDocumentsSectionId {
   APPLICANTS_DOCUMENT = 'applicantsDocuments',
   RESPONDENTS_DOCUMENTS = 'respondentsDocuments',
   ATTENDING_THE_HEARING = 'attendingTheHearing',
+  OTHER_DOCUMENTS = 'otherDocuments',
 }
 export type DocumentSectionId = UploadDocumentSectionId | ViewDocumentsSectionId;
 
@@ -130,6 +131,10 @@ export const enum DocumentLabelCategory {
   EMAIL_IMAGES_MEDIA = 'emailImagesMedia',
   FM5_DOCUMENT = 'fm5Document',
   OTHER_DOCUMENTS = 'otherDocuments',
+  VIEW_APPLICANTS_DOCUMENT = 'viewApplicantsDocuments',
+  VIEW_RESPONDENTS_DOCUMENT = 'viewRespondentsDocuments',
+  VIEW_ATTENDING_THE_HEARING = 'viewAttendingTheHearing',
+  VIEW_OTHER_DOCUMENTS = 'viewOtherDocuments',
 }
 
 export type ViewDocumentDetails = {
