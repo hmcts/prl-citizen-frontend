@@ -16,7 +16,7 @@ import {
   TaskListConfig,
   TaskListConfigProps,
 } from '../../definitions';
-import { hasResponseBeenReviewed, isC7ResponseSubmitted, isDraftCase } from '../../utils';
+import { isC7ResponseReviewed, isC7ResponseSubmitted, isDraftCase } from '../../utils';
 
 import tasklistConfig from './config/index';
 import { StateTags, Tasks, getStateTagLabel } from './utils';
@@ -190,7 +190,7 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
         respondentPosition: `${index + 1}`,
       }),
       href: () => {
-        if (!isC7ResponseSubmitted(respondent.value) || !hasResponseBeenReviewed(caseData, respondent)) {
+        if (!isC7ResponseSubmitted(respondent.value) || !isC7ResponseReviewed(caseData, respondent)) {
           return '#';
         }
         const c7Document = caseData.citizenDocuments?.find(
@@ -201,13 +201,13 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
         return getDownloadDocUrl(c7Document!, PartyType.APPLICANT);
       },
       stateTag: () => {
-        return isC7ResponseSubmitted(respondent.value) && hasResponseBeenReviewed(caseData, respondent)
+        return isC7ResponseSubmitted(respondent.value) && isC7ResponseReviewed(caseData, respondent)
           ? StateTags.READY_TO_VIEW
           : StateTags.NOT_AVAILABLE_YET;
       },
       show: () => caseData && !isDraftCase(caseData),
       disabled: () => {
-        return !isC7ResponseSubmitted(respondent.value) || !hasResponseBeenReviewed(caseData, respondent);
+        return !isC7ResponseSubmitted(respondent.value) || !isC7ResponseReviewed(caseData, respondent);
       },
       openInAnotherTab: () => true,
     });
