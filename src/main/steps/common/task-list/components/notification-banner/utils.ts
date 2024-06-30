@@ -31,6 +31,9 @@ export enum BannerNotification {
   GIVE_RESPONDENT_THEIR_DOCUMENTS = 'giveRespondentTheirDocuments',
   CA_PERSONAL_SERVICE = 'caPersonalService',
   SUMBIT_FM5 = 'submitFM5',
+  RESPONSE_AP13 = 'responseAp13',
+  RESPONSE_AP14 = 'responseAp14',
+  RESPONSE_AP15 = 'responseAp15',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
@@ -126,6 +129,21 @@ export const notificationBanner = {
   [BannerNotification.SUMBIT_FM5]: {
     id: BannerNotification.SUMBIT_FM5,
     content: getContent.bind(null, BannerNotification.SUMBIT_FM5),
+    show: () => false,
+  },
+  [BannerNotification.RESPONSE_AP13]: {
+    id: BannerNotification.RESPONSE_AP13,
+    content: getContent.bind(null, BannerNotification.RESPONSE_AP13),
+    show: () => false,
+  },
+  [BannerNotification.RESPONSE_AP14]: {
+    id: BannerNotification.RESPONSE_AP14,
+    content: getContent.bind(null, BannerNotification.RESPONSE_AP14),
+    show: () => false,
+  },
+  [BannerNotification.RESPONSE_AP15]: {
+    id: BannerNotification.RESPONSE_AP15,
+    content: getContent.bind(null, BannerNotification.RESPONSE_AP15),
     show: () => false,
   },
 };

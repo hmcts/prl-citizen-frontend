@@ -46,6 +46,9 @@ describe('TSDraftController', () => {
       citizenUserAddressHistory: "Don't want to state",
       applicantCaseName: 'MOCK_CASE_NAME',
       caseTypeOfApplication: 'C100',
+      nameOfRespondentAp13: 'MOCK_RESPONDENT_NAME',
+      nameOfRespondentAp14: 'MOCK_RESPONDENT_NAME',
+      nameOfRespondentAp15: 'MOCK_RESPONDENT_NAME'
     };
   });
 
@@ -70,6 +73,9 @@ describe('TSDraftController', () => {
       helpWithFeesReferenceNumber: undefined,
       noOfDaysRemainingToSubmitCase: undefined,
       state: undefined,
+      nameOfRespondentAp13: 'MOCK_RESPONDENT_NAME',
+      nameOfRespondentAp14: 'MOCK_RESPONDENT_NAME',
+      nameOfRespondentAp15: 'MOCK_RESPONDENT_NAME'
     });
     expect(req.session.save).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');

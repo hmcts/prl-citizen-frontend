@@ -582,6 +582,9 @@ export interface Case {
   lastModifiedDate?: string;
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
+  nameOfRespondentAp13?: string;
+  nameOfRespondentAp14?: string;
+  nameOfRespondentAp15?: string;
   partyContactPreference?: ContactPreference | null;
   draftOrderDoc?: Document;
   c100DraftDoc?: Document;
@@ -745,6 +748,9 @@ export interface CaseWithId extends Case {
   applicationPayOnline?: YesOrNo;
   legalRepresentativeForProceedings?: YesOrNo;
   legalRepresentativeForApplication?: YesOrNo;
+  nameOfRespondentAp13?: string;
+  nameOfRespondentAp14?: string;
+  nameOfRespondentAp15?: string;
 }
 
 export enum Checkbox {

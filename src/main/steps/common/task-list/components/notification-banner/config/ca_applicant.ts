@@ -107,4 +107,34 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
       return notification?.show ?? false;
     },
   },
+  {
+    ...notificationBanner[BannerNotification.RESPONSE_AP13],
+    show: (caseData: Partial<CaseWithId>): boolean => {
+      const notification = caseData?.citizenNotifications?.find(
+        citizenNotification => citizenNotification.id === 'CAN_6'
+      );
+
+      return notification?.show ?? false;
+    },
+  },
+  {
+    ...notificationBanner[BannerNotification.RESPONSE_AP14],
+    show: (caseData: Partial<CaseWithId>): boolean => {
+      const notification = caseData?.citizenNotifications?.find(
+        citizenNotification => citizenNotification.id === 'CAN_6A'
+      );
+
+      return notification?.show ?? false;
+    },
+  },
+  {
+    ...notificationBanner[BannerNotification.RESPONSE_AP15],
+    show: (caseData: Partial<CaseWithId>): boolean => {
+      const notification = caseData?.citizenNotifications?.find(
+        citizenNotification => citizenNotification.id === 'CAN_6B'
+      );
+
+      return notification?.show ?? false;
+    },
+  },
 ];

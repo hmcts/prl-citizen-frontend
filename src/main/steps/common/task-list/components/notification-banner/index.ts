@@ -58,6 +58,12 @@ export const getNotificationBannerConfig = (
                   text: interpolate(content.text, {
                     noOfDaysRemainingToSubmitCase:
                       caseData?.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
+                    nameOfRespondentAp13:
+                      caseData?.nameOfRespondentAp13 ?? 'caseData.nameOfRespondentAp13',
+                    nameOfRespondentAp14:
+                      caseData?.nameOfRespondentAp14 ?? 'caseData.nameOfRespondentAp14',
+                    nameOfRespondentAp15:
+                      caseData?.nameOfRespondentAp15 ?? 'caseData.nameOfRespondentAp15',
                   }),
                 }));
 

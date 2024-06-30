@@ -349,6 +349,60 @@ const en: NotificationBannerContent = {
             },
           ],
         },
+        responseAp13: {
+          heading: 'View the response to your application',
+          sections: [
+            {
+              contents: [
+                {
+                  text: '{nameOfRespondentAp13} has responded to your application',
+                },
+              ],
+              links: [
+                {
+                  text: 'View the response',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        responseAp14: {
+          heading: `View the respondent's allegations of harm`,
+          sections: [
+            {
+              contents: [
+                {
+                  text: '{nameOfRespondentAp14} has made allegations of harm against you.',
+                },
+              ],
+              links: [
+                {
+                  text: 'View allegations of harm and violence',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        responseAp15: {
+          heading: 'View the response to your allegations of harm',
+          sections: [
+            {
+              contents: [
+                {
+                  text: '{nameOfRespondentAp15} has responded to your allegations of harm.',
+                },
+              ],
+              links: [
+                {
+                  text: 'View allegations of harm and violence',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
       },
     },
     [PartyType.RESPONDENT]: {
@@ -918,6 +972,60 @@ const cy: typeof en = {
                     partyType: PartyType.APPLICANT,
                     docCategory: UploadDocumentCategory.FM5_DOCUMENT,
                   }),
+                },
+              ],
+            },
+          ],
+        },
+        responseAp13: {
+          heading: 'Gweld yr ymateb i’ch cais',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Mae {nameOfRespondentAp13} wedi ymateb i’ch cais.',
+                },
+              ],
+              links: [
+                {
+                  text: 'Gweld yr ymateb',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        responseAp14: {
+          heading: 'Gweld honiadau o niwed yr atebydd',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Mae {nameOfRespondentAp14} wedi gwneud honiadau o niwed yn eich erbyn.',
+                },
+              ],
+              links: [
+                {
+                  text: 'Gweld honiadau o niwed a thrais',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        responseAp15: {
+          heading: `Gweld yr ymateb i'ch honiadau o niwed`,
+          sections: [
+            {
+              contents: [
+                {
+                  text: `Mae {nameOfRespondentAp15} wedi ymateb i'ch honiadau o niwed.`,
+                },
+              ],
+              links: [
+                {
+                  text: `Gweld yr ymateb i'r honiadau o niwed a thrais`,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },

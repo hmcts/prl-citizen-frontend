@@ -353,6 +353,9 @@ export class CosApiClient {
         caseData: {
           id: caseData.id,
           state: caseData.state,
+          nameOfRespondentAp13: caseData.nameOfRespondentAp13,
+          nameOfRespondentAp14: caseData.nameOfRespondentAp14,
+          nameOfRespondentAp15: caseData.nameOfRespondentAp15,
           ...fromApiFormat(caseData),
         } as CaseWithId,
         hearingData: hearings,

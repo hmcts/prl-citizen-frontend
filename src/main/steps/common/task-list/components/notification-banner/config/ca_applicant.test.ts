@@ -13,7 +13,7 @@ describe('ca_applicant', () => {
       ],
     });
 
-    expect(ca_applicantNotifications).toHaveLength(14);
+    expect(ca_applicantNotifications).toHaveLength(17);
     expect(ca_applicantNotifications[0].id).toBe('applicationNotStarted');
     expect(ca_applicantNotifications[1].id).toBe('applicationInProgress');
     expect(ca_applicantNotifications[2].id).toBe('applicationSubmitted');
