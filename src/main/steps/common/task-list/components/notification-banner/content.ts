@@ -355,7 +355,7 @@ const en: NotificationBannerContent = {
             {
               contents: [
                 {
-                  text: '{nameOfRespondentAp13} has responded to your application',
+                  text: '{nameOfRespondentAp13Eng} has responded to your application',
                 },
               ],
               links: [
@@ -373,7 +373,7 @@ const en: NotificationBannerContent = {
             {
               contents: [
                 {
-                  text: '{nameOfRespondentAp14} has made allegations of harm against you.',
+                  text: '{nameOfRespondentAp14Eng} has made allegations of harm against you.',
                 },
               ],
               links: [
@@ -391,7 +391,7 @@ const en: NotificationBannerContent = {
             {
               contents: [
                 {
-                  text: '{nameOfRespondentAp15} has responded to your allegations of harm.',
+                  text: '{nameOfRespondentAp15Eng} has responded to your allegations of harm.',
                 },
               ],
               links: [
@@ -983,7 +983,7 @@ const cy: typeof en = {
             {
               contents: [
                 {
-                  text: 'Mae {nameOfRespondentAp13} wedi ymateb i’ch cais.',
+                  text: '{nameOfRespondentAp13Welsh} wedi ymateb i’ch cais.',
                 },
               ],
               links: [
@@ -1001,7 +1001,7 @@ const cy: typeof en = {
             {
               contents: [
                 {
-                  text: 'Mae {nameOfRespondentAp14} wedi gwneud honiadau o niwed yn eich erbyn.',
+                  text: '{nameOfRespondentAp14Welsh} wedi gwneud honiadau o niwed yn eich erbyn.',
                 },
               ],
               links: [
@@ -1019,7 +1019,7 @@ const cy: typeof en = {
             {
               contents: [
                 {
-                  text: `Mae {nameOfRespondentAp15} wedi ymateb i'ch honiadau o niwed.`,
+                  text: `{nameOfRespondentAp15Welsh} wedi ymateb i'ch honiadau o niwed.`,
                 },
               ],
               links: [
