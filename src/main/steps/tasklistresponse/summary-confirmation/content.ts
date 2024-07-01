@@ -1,8 +1,9 @@
-import { PartyType, YesOrNo } from '../../../app/case/definition';
+import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import AppSurvey from '../../../steps/common/app-survey/appSurveyController';
 import { appSurveyContents } from '../../../steps/common/app-survey/content';
+import { DocumentCategory } from '../../../steps/common/documents/definitions';
 import { applyParms } from '../../../steps/common/url-parser';
 import { DOWNLOAD_DOCUMENT_BY_TYPE } from '../../../steps/urls';
 
@@ -24,52 +25,64 @@ const en = {
 
   DownloadLinks: [
     {
+      id: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
       text: 'Download your response',
-      isWelsh: YesOrNo.NO,
+      language: 'en',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c7-response-document',
       }),
+      isVisible: false,
     },
     {
+      id: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
       text: 'Download your response in Welsh',
-      isWelsh: YesOrNo.YES,
+      language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c7-response-document-welsh',
       }),
+      isVisible: false,
     },
     {
+      id: DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION,
       text: 'Download your allegations of harm',
-      isWelsh: YesOrNo.NO,
+      language: 'en',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-application-document',
       }),
+      isVisible: false,
     },
     {
+      id: DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION,
       text: 'Download your allegations of harm in Welsh',
-      isWelsh: YesOrNo.YES,
+      language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-application-document-welsh',
       }),
+      isVisible: false,
     },
     {
+      id: DocumentCategory.RESPONDENT_RESPOND_TO_C1A,
       text: 'Download your response to the applicant’s allegations',
-      isWelsh: YesOrNo.NO,
+      language: 'en',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-response-document',
       }),
+      isVisible: false,
     },
     {
+      id: DocumentCategory.RESPONDENT_RESPOND_TO_C1A,
       text: 'Download your response to the applicant’s allegations in Welsh',
-      isWelsh: YesOrNo.YES,
+      language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-response-document-welsh',
       }),
+      isVisible: false,
     },
   ],
   saveAndContinue: 'Continue',
@@ -92,52 +105,64 @@ const cy: typeof en = {
   line7: 'Bydd copi o’r cais a gyflwynwyd ar eich dangosfwrdd personol',
   DownloadLinks: [
     {
+      id: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
       text: 'Download your response',
-      isWelsh: YesOrNo.NO,
+      language: 'en',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c7-response-document',
       }),
+      isVisible: false,
     },
     {
+      id: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
       text: 'Download your response in Welsh',
-      isWelsh: YesOrNo.YES,
+      language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c7-response-document-welsh',
       }),
+      isVisible: false,
     },
     {
+      id: DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION,
       text: 'Download your allegations of harm',
-      isWelsh: YesOrNo.NO,
+      language: 'en',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-application-document',
       }),
+      isVisible: false,
     },
     {
+      id: DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION,
       text: 'Download your allegations of harm in Welsh',
-      isWelsh: YesOrNo.YES,
+      language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-application-document-welsh',
       }),
+      isVisible: false,
     },
     {
+      id: DocumentCategory.RESPONDENT_RESPOND_TO_C1A,
       text: 'Download your response to the applicant’s allegations',
-      isWelsh: YesOrNo.NO,
+      language: 'en',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-response-document',
       }),
+      isVisible: false,
     },
     {
+      id: DocumentCategory.RESPONDENT_RESPOND_TO_C1A,
       text: 'Download your response to the applicant’s allegations in Welsh',
-      isWelsh: YesOrNo.YES,
+      language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-response-document-welsh',
       }),
+      isVisible: false,
     },
   ],
   saveAndContinue: 'Parhau',
@@ -158,6 +183,19 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const { exitPageSurveyTitle, exitPageSurveyContent } = appSurveyContents[content.language];
+  translations.DownloadLinks.map(link => {
+    if (
+      content.userCase?.citizenDocuments?.find(
+        doc =>
+          doc.partyId === content.additionalData?.req.session.user.id &&
+          doc.categoryId === link.id &&
+          doc.documentLanguage === link.language
+      )
+    ) {
+      link.isVisible = true;
+    }
+    return link;
+  });
 
   return {
     ...translations,
