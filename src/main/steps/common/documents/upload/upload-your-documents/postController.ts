@@ -141,7 +141,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     try {
       const response = await client.generateStatementDocument({
         caseId: caseData.id,
-        categoryId: this.getDocumentCategory(docCategory as UploadDocumentCategory, partyType),
+        categoryId: this.getDocumentCategory(docCategory, partyType),
         partyId: user.id,
         partyName: getPartyName(caseData, partyType, user),
         partyType,
@@ -229,7 +229,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       return this.redirect(req, res);
     }
 
-    const categoryId = this.getDocumentCategory(docCategory as UploadDocumentCategory, partyType);
+    const categoryId = this.getDocumentCategory(docCategory, partyType);
 
     try {
       const client = new CosApiClient(user.accessToken, req.locals.logger);

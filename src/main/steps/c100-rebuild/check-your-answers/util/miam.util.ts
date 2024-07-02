@@ -29,7 +29,7 @@ export class CommonDataLoader {
     return mappedData;
   };
 
-  static SessionToFieldGenerator = (key: string, userCase: CaseWithId): string[] => {
+  static readonly SessionToFieldGenerator = (key: string, userCase: CaseWithId): string[] => {
     const storage: string[] = [];
     if (_.isArray(userCase[key])) {
       userCase[key].forEach(element => {
