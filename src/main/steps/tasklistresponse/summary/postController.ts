@@ -37,7 +37,6 @@ export default class ResponseSummaryConfirmationPostController extends PostContr
   }
 
   public async submitC7Response(req: AppRequest, res: Response): Promise<void> {
-    //TODO update when merged with response submission fixes
     const { user, userCase } = req.session;
     const partyDetails = getPartyDetails(userCase, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);

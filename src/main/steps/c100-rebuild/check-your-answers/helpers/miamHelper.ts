@@ -256,7 +256,7 @@ export const MiamHelperDynamicEnteriesMapper = (
   return mapper[key];
 };
 
-InstanceOfMiamHelper.__proto__.miamExemptionParserDynamicEnteries = (
+Object.getPrototypeOf(InstanceOfMiamHelper).miamExemptionParserDynamicEnteries = (
   userCase: Partial<CaseWithId>,
   keys: Record<string, string>,
   language: string
