@@ -1,6 +1,13 @@
 const path = require('path');
-
+const fs = require('fs');
 const outputDir = path.resolve(__dirname, '../../../output');
+
+if (!fs.existsSync(outputDir)){
+  fs.mkdirSync(outputDir);
+}
+
+const DataSetupManager = require('./exuiSupport/restApiData/DataSetupManager')
+
 
 exports.config = {
   tests: './tests/*.js',
@@ -11,6 +18,7 @@ exports.config = {
       show: process.env.SHOW_BROWSER_WINDOW || false,
       // show: true,
       url: 'http://localhost:3000',
+      timeout: 20000,
       waitForTimeout: 60000,
       getPageTimeout: 60000,
       waitForAction: 1000,
@@ -38,7 +46,7 @@ exports.config = {
     },
     autoDelay: { enabled: true }
   },
-  include: { I: './steps_file.js' },
+  include: { I: './steps_file.js'},
   bootstrap: null,
   mocha: {
     reporterEnabled: 'codeceptjs-cli-reporter, mochawesome',
@@ -70,6 +78,14 @@ exports.config = {
       browsers: ['chrome']
     }
   },
+  bootstrap: () =>  {
+    DataSetupManager.init();
+  },
+
+  teardown: async() => {
+    await DataSetupManager.close();
+  },
+
   name: 'prl-citizen-frontend'
 };
 

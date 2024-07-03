@@ -1,9 +1,11 @@
 const testConfig = require('../config');
-
+const apiUtil = require('../utilities/apiUtil')
 Feature('C100 Citizen Basic Flow - Master');
 
 Scenario('C100 Citizen Basic Flow - Master @cross-browser @nightly @smoke', async ({ I }) => {
     await I.loginAsCitizen();
+    const res = await apiUtil.getData('https://privatelaw.aat.platform.hmcts.net/dashboard');
+    console.log(res)
     await I.createC100Application();
     await I.startTheApplication();
     await I.addCaseNameAndPostCode();
