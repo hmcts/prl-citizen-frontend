@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { FieldPrefix } from '../../../app/case/case';
-import { C100_CASE_EVENT, PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
+import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
 
@@ -23,12 +23,11 @@ export default class CheckYourAnswersGetController extends GetController {
       req.session.save();
     }
     try {
-      await req.locals.C100Api.updateCase(
+      await req.locals.C100Api.saveC100DraftApplication(
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         req.session.userCase?.caseId as string,
         req.session.userCase,
-        req.originalUrl,
-        C100_CASE_EVENT.CASE_UPDATE
+        req.originalUrl
       );
 
       //clear payment error

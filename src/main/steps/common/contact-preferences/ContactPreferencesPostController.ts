@@ -24,19 +24,18 @@ export class ContactPreferencesPostController extends PostController<AnyObject> 
     const { user, userCase } = req.session;
     const partyType = getCasePartyType(userCase, user.id);
     const partyDetails = getPartyDetails(userCase, user.id);
-    const client = new CosApiClient(user.accessToken, 'https://return-url');
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
 
     if (partyDetails) {
       const request = setContactPreferences(partyDetails, req);
       Object.assign(partyDetails, { contactPreferences: request.contactPreferences });
       try {
         req.session.userCase = await client.updateCaseData(
-          user,
           userCase.id,
           partyDetails,
           partyType,
           userCase.caseTypeOfApplication as CaseType,
-          CaseEvent.PARTY_PERSONAL_DETAILS
+          CaseEvent.CONTACT_PREFERENCE
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.userCase.applicantPreferredContact = partyDetails.contactPreferences;
