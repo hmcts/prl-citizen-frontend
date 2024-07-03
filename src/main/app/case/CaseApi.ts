@@ -184,10 +184,10 @@ export class CaseApi {
 
   private logError(error: AxiosError) {
     if (error.response) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
       this.logger.info('Response: ', error.response.data);
     } else if (error.request) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
     } else {
       this.logger.error('API Error', error.message);
     }

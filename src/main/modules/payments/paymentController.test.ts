@@ -16,7 +16,8 @@ const dummyCaseID = '2122323';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
-const updateCaserMock = jest.spyOn(C100Api.prototype, 'updateCase');
+const saveC100DraftApplicationMock = jest.spyOn(C100Api.prototype, 'saveC100DraftApplication');
+const submittedCaserMock = jest.spyOn(C100Api.prototype, 'submitC100Case');
 
 const mockLogger = {
   error: jest.fn().mockImplementation((message: string) => message),
@@ -38,7 +39,7 @@ describe('PaymentHandler', () => {
   });
 
   test('Should render the page', async () => {
-    updateCaserMock.mockResolvedValue(req.session.userCase);
+    saveC100DraftApplicationMock.mockResolvedValue(req.session.userCase);
     const paymentDetailsRequestBody = {
       payment_reference: 'a',
       date_created: 'b',
@@ -58,10 +59,10 @@ describe('PaymentHandler', () => {
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(res.send.mock.calls).toHaveLength(0);
     expect(req.host).toBe('localhost:3001');
-    expect(updateCaserMock).toHaveBeenCalled;
+    expect(saveC100DraftApplicationMock).toHaveBeenCalled;
   });
   test('Should render the page in case of HWF', async () => {
-    updateCaserMock.mockResolvedValue(req.session.userCase);
+    saveC100DraftApplicationMock.mockResolvedValue(req.session.userCase);
     req.session.userCase.helpWithFeesReferenceNumber = '12345';
     const paymentDetailsRequestBody = {
       payment_reference: 'a',
@@ -82,10 +83,10 @@ describe('PaymentHandler', () => {
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(res.send.mock.calls).toHaveLength(0);
     expect(req.host).toBe('localhost:3001');
-    expect(updateCaserMock).toHaveBeenCalled;
+    expect(saveC100DraftApplicationMock).toHaveBeenCalled;
   });
   test('Should render the page in case next url', async () => {
-    updateCaserMock.mockResolvedValue(req.session.userCase);
+    saveC100DraftApplicationMock.mockResolvedValue(req.session.userCase);
     const paymentDetailsRequestBody = {
       payment_reference: '',
       date_created: '',
@@ -105,10 +106,10 @@ describe('PaymentHandler', () => {
     expect(res.redirect).toHaveBeenCalledWith('MOCK_NEXT_URL');
     expect(res.send.mock.calls).toHaveLength(0);
     expect(req.host).toBe('localhost:3001');
-    expect(updateCaserMock).toHaveBeenCalled;
+    expect(saveC100DraftApplicationMock).toHaveBeenCalled;
   });
   test('Should render the page in case error', async () => {
-    updateCaserMock.mockResolvedValue(req.session.userCase);
+    saveC100DraftApplicationMock.mockResolvedValue(req.session.userCase);
     const paymentDetailsRequestBody = {
       payment_reference: '',
       date_created: '',
@@ -129,7 +130,7 @@ describe('PaymentHandler', () => {
     expect(res.send.mock.calls).toHaveLength(0);
     expect(req.host).toBe('localhost:3001');
     expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'defaultPaymentError' });
-    expect(updateCaserMock).toHaveBeenCalled;
+    expect(saveC100DraftApplicationMock).toHaveBeenCalled;
   });
   test('should catch and log error', async () => {
     mockedAxios.post.mockRejectedValue(undefined);
@@ -167,7 +168,7 @@ describe('PaymentValidationHandler', () => {
         ...paymentDetails,
       },
     });
-    updateCaserMock.mockResolvedValue({
+    saveC100DraftApplicationMock.mockResolvedValue({
       data: {
         draftOrderDoc: {
           document_url:
@@ -276,7 +277,7 @@ describe('PaymentValidationHandler', () => {
   });
 
   test('submitCase should catch not submitted error', async () => {
-    updateCaserMock.mockRejectedValue({
+    submittedCaserMock.mockRejectedValue({
       response: {
         status: 500,
       },
