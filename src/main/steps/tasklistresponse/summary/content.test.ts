@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { FormContent, LanguageLookup } from '../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../common/common.content';
 
@@ -23,9 +23,9 @@ describe('citizen-home content', () => {
       safetyArrangements: [''],
       safetyArrangementsDetails: 'Please describe your need in detail',
       reasonableAdjustments: [''],
-      PRL_c1A_haveSafetyConcerns: YesOrNo.YES,
-      PRL_c1A_safetyConernAbout: [PRL_C1ASafteyConcernsAbout.CHILDREN],
-      PRL_c1A_concernAboutChild: [PRL_C1AAbuseTypes.PHYSICAL_ABUSE, PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE],
+      c1A_haveSafetyConcerns: YesOrNo.YES,
+      c1A_safetyConernAbout: [C1ASafteyConcernsAbout.CHILDREN],
+      c1A_concernAboutChild: [C1AAbuseTypes.PHYSICAL_ABUSE, C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE],
     };
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent | undefined;
@@ -48,7 +48,7 @@ describe('citizen-home content', () => {
   });
   test('should contain continue button', () => {
     expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and continue');
   });
   test('should return correct english content respondent abuse only', () => {
@@ -62,8 +62,8 @@ describe('citizen-home content', () => {
       safetyArrangements: [''],
       safetyArrangementsDetails: 'Please describe your need in detail',
       reasonableAdjustments: [''],
-      PRL_c1A_haveSafetyConcerns: YesOrNo.YES,
-      PRL_c1A_safetyConernAbout: [PRL_C1ASafteyConcernsAbout.RESPONDENT],
+      c1A_haveSafetyConcerns: YesOrNo.YES,
+      c1A_safetyConernAbout: [C1ASafteyConcernsAbout.RESPONDENT],
     };
     const generatedContent1 = generateContent(commonContent1);
     expect(generatedContent1.title).toEqual('Please review your answers before you complete your response.');

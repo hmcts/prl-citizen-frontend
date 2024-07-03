@@ -1,0 +1,39 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+    <span class="govuk-caption-l">{{caption}}</span>
+      {{title}}</h1>
+
+    <p class="govuk-body-m">{{content1}}
+    </p>
+    <p class="govuk-body-m">{{content2}}
+    </p>
+    <p class="govuk-heading-m">{{content3}}
+    </p>
+
+  {% for exemption in exemptionSummary %}
+  {% if exemption.title %}
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">{{ exemption.title }}</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      {% for abuseReasons in exemption.reasons %}
+       {% if abuseReasons.reason %}
+        <li>{{ abuseReasons.reason }}</li>
+        {% if abuseReasons.examption %}
+      <ul class="govuk-list govuk-list--bullet">  
+        {% for evidence in abuseReasons.examption %}
+          <li>{{ evidence }}</li>
+        {% endfor %}
+       </ul>
+       {% endif %}
+    {% endif %} 
+      {% endfor %}    
+     </ul> 
+  {% endif %}     
+  {% endfor %}      
+
+
+</br>
+
+  {% endblock %}
