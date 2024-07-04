@@ -23,6 +23,7 @@ import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
 //import { StateRedirectMiddleware } from './modules/state-redirect';
+import { PCQProvider } from './modules/pcq';
 import { PropertiesVolume } from './modules/properties-volume';
 import { RAProvider } from './modules/reasonable-adjustments';
 import { SessionStorage } from './modules/session';
@@ -79,6 +80,7 @@ new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
 new FeatureToggleProvider().enable(app);
 RAProvider.enable(app);
+PCQProvider.enable(app);
 
 setupDev(app, developmentMode);
 const port: number = parseInt(process.env.PORT || '3001', 10);

@@ -120,6 +120,7 @@ export interface User {
   email: string;
   idamId: string;
   solicitorRepresented?: string;
+  pcqId?: string;
 }
 
 export interface Response {
@@ -1861,7 +1862,7 @@ export const enum State {
   CASE_DRAFT = 'AWAITING_SUBMISSION_TO_HMCTS',
   CASE_SUBMITTED_PAID = 'SUBMITTED_PAID',
   CASE_SUBMITTED_NOT_PAID = 'SUBMITTED_NOT_PAID',
-  CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUE',
+  CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUED',
   CASE_GATE_KEEPING = 'JUDICIAL_REVIEW',
   CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
   CASE_WITHDRAWN = 'CASE_WITHDRAWN',
@@ -2824,6 +2825,7 @@ export enum CaseEvent {
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
+  CITIZEN_PCQ_UPDATE = 'pcqUpdateForCitizen',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
   CONTACT_PREFERENCE='citizenContactPreference',
   CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding",
