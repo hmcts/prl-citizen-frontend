@@ -1,5 +1,4 @@
 const testConfig = require('../config');
-const apiUtil = require('../utilities/apiUtil')
 Feature('C100 Citizen Basic Flow - Master');
 
 Scenario('C100 Citizen Basic Flow - Master @cross-browser @nightly @smoke', async ({ I }) => {
