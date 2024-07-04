@@ -1,3 +1,6 @@
+const path = require('path');
+const fs = require('fs');
+
 const outputDir = path.resolve(__dirname, '../../../output');
 
 if (!fs.existsSync(outputDir)) {
