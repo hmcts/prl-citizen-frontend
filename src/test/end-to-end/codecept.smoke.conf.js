@@ -1,6 +1,13 @@
+const outputDir = path.resolve(__dirname, '../../../output');
+
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir);
+}
+
+
 exports.config = {
     tests: './tests/*.js',
-    output: './output',
+  output: outputDir,
     helpers: {
       Playwright: {
         // headless mode
