@@ -21,6 +21,8 @@ import {
   RESPONDENT_ADDRESS_HISTORY,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_PERSONAL_DETAILS,
+  RESPOND_TO_AOH,
+  RESPONSE_TO_AOH,
   START_ALTERNATIVE,
 } from '../../../steps/urls';
 import { summaryList as prepareRASummaryList } from '../../common/reasonable-adjustments/review/content';
@@ -275,6 +277,15 @@ export const enSaftyConcern = {
   Yes: 'Yes',
   No: 'No ',
 };
+export const enResponseToAOH = {
+  sectionTitles: {
+    title: '7. Respond to allegations of harm and violence',
+  },
+  keys: {
+    aoh_wishToRespond: "Do you wish to respond to the applicant's allegations of harm?",
+    aoh_responseToAllegations: 'Your response',
+  },
+};
 
 export const cyContent: typeof enContent = {
   section: 'Gwirio eich atebion',
@@ -524,6 +535,15 @@ export const cyDummyContent = {
   },
   keys: {},
 };
+export const cyResponseToAOH = {
+  sectionTitles: {
+    title: '7. Ymateb i honiadau o niwed a thrais',
+  },
+  keys: {
+    aoh_wishToRespond: 'Ydych chi eisiau ymateb i honiadau o niwed a thrais y ceisydd?',
+    aoh_responseToAllegations: 'Eich ymateb',
+  },
+};
 
 const urls = {
   doYouConsent: CONSENT_TO_APPLICATION,
@@ -567,6 +587,8 @@ const urls = {
   miamNotWillingExplnation: MIAM_ATTEND_WILLINGNESS,
   miamStart: MIAM_START,
   legalRepresentation: LEGAL_REPRESENTATION_START,
+  aoh_wishToRespond: RESPOND_TO_AOH,
+  aoh_responseToAllegations: RESPONSE_TO_AOH,
 };
 
 const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
@@ -630,6 +652,9 @@ const en = (content: CommonContent) => {
   sections.push(
     summaryList(enInternationalContent, userCase, urls, enInternationalContent.sectionTitles.title, content.language)
   );
+  if (userCase.aoh_wishToRespond) {
+    sections.push(summaryList(enResponseToAOH, userCase, urls, enResponseToAOH.sectionTitles.title, content.language));
+  }
   return {
     ...enContent,
     language: content.language,
@@ -684,7 +709,9 @@ const cy: typeof en = (content: CommonContent) => {
   sections.push(
     summaryList(cyInternationalContent, userCase, urls, cyInternationalContent.sectionTitles.title, content.language)
   );
-
+  if (userCase.aoh_wishToRespond) {
+    sections.push(summaryList(cyResponseToAOH, userCase, urls, cyResponseToAOH.sectionTitles.title, content.language));
+  }
   return {
     ...cyContent,
     language: content.language,
