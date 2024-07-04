@@ -5,8 +5,12 @@ import { CaseWithId } from '../../../../app/case/case';
 import { PartyType } from '../../../../app/case/definition';
 import {
   DOWNLOAD_DOCUMENT,
+  FETCH_HEARING_DETAILS,
   VIEW_ALL_ORDERS,
+  VIEW_APPLICANTS_DOCUMENT,
   VIEW_APPLICATION_PACK_DOCUMENTS,
+  VIEW_OTHER_DOCUMENTS,
+  VIEW_RESPONDENTS_DOCUMENT,
   ///VIEW_DOCUMENTS
 } from '../../../urls';
 import { interpolate } from '../../string-parser';
@@ -17,19 +21,19 @@ import {
   CitizenDocuments,
   CitizenOrders,
   Document,
-  DocumentCategory,
+  //DocumentCategory,
   DocumentLabelCategory,
   DocumentSectionId,
   DocumentTypes,
   OrderDocumentMeta,
   ViewDocCategoryLinkProps,
   //ViewDocumentDetails,
-  ViewDocumentsCategoryListProps,
+  //ViewDocumentsCategoryListProps,
   ViewDocumentsSectionId,
 } from '../definitions';
 import { transformFileName } from '../download/utils';
 
-import { viewDocumentsCategoryListConfig } from './config';
+//import { viewDocumentsCategoryListConfig } from './config';
 
 /** View documents related utilty */
 
@@ -165,6 +169,7 @@ export const getApplicationPacksCategoryList = (
       link: {
         text: getDocumentCategoryLabel(DocumentLabelCategory.YOUR_APPLICATION_PACK, documentCategoryLabels),
         url: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: loggedInUserPartyType }),
+        serveDate: dayjs(_.first(caseData.citizenApplicationPacks!)!.uploadedDate).format('DD MMM YYYY') as string,
       },
     });
   }
@@ -181,6 +186,7 @@ export const getApplicationPacksCategoryList = (
           partyType: loggedInUserPartyType,
           context: 'to-be-served',
         }),
+        serveDate: dayjs(_.first(caseData.citizenApplicationPacks!)!.uploadedDate).format('DD MMM YYYY') as string,
       },
     });
   }
@@ -239,6 +245,9 @@ export const getOrdersFromTheCourtCategoryList = (
         url: applyParms(VIEW_ALL_ORDERS, {
           partyType: loggedInUserPartyType,
         }),
+        serveDate: caseData.citizenOrders?.length
+          ? (dayjs(_.first(caseData.citizenOrders!)!.servedDate).format('DD MMM YYYY') as string)
+          : '04 Jul 2024',
       },
     },
   ];
@@ -276,27 +285,47 @@ export const getViewDocumentCategoryList = (
   loggedInUserPartyType: PartyType
 ): ViewDocCategoryLinkProps[] | [] => {
   let doclabel;
+  let url;
+  let date;
   switch (documentSectionId) {
     case ViewDocumentsSectionId.APPLICANTS_DOCUMENT:
       doclabel = DocumentLabelCategory.VIEW_APPLICANTS_DOCUMENT;
+      url = VIEW_APPLICANTS_DOCUMENT;
+      date = caseData.citizenDocuments?.length
+        ? (dayjs(_.first(caseData.citizenDocuments!)!.uploadedDate).format('DD MMM YYYY') as string)
+        : '';
       break;
     case ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS:
       doclabel = DocumentLabelCategory.VIEW_RESPONDENTS_DOCUMENT;
+      url = VIEW_RESPONDENTS_DOCUMENT;
+      date = caseData.citizenOrders?.length
+        ? (dayjs(_.first(caseData.citizenDocuments!)!.uploadedDate).format('DD MMM YYYY') as string)
+        : '';
       break;
     case ViewDocumentsSectionId.ATTENDING_THE_HEARING:
       doclabel = DocumentLabelCategory.VIEW_ATTENDING_THE_HEARING;
+      url = FETCH_HEARING_DETAILS;
+      date = caseData.hearingCollection?.length
+        ? (dayjs(_.first(caseData.hearingCollection!)!.lastResponseReceivedDateTime).format('DD MMM YYYY') as string)
+        : '';
       break;
     case ViewDocumentsSectionId.OTHER_DOCUMENTS:
       doclabel = DocumentLabelCategory.VIEW_OTHER_DOCUMENTS;
+      url = VIEW_OTHER_DOCUMENTS;
+      date = caseData.citizenOrders?.length
+        ? (dayjs(_.first(caseData.citizenOrders!)!.servedDate).format('DD MMM YYYY') as string)
+        : '';
       break;
   }
   return [
     {
       link: {
         text: getDocumentCategoryLabel(doclabel, documentCategoryLabels),
-        url: applyParms(VIEW_ALL_ORDERS, {
+        url: applyParms(url, {
           partyType: loggedInUserPartyType,
+          caseId: caseData.id as string,
         }),
+        serveDate: date,
       },
     },
   ];
@@ -316,55 +345,57 @@ export const getViewDocumentCategoryList = (
 // return documents;
 //};
 
-const filterDocumentsByPartyIdAndCategory = (
-  documentPartyId: CitizenDocuments['partyId'],
-  documentCategoryId: DocumentCategory,
-  documents: CaseWithId['citizenDocuments']
-): CaseWithId['citizenDocuments'] => {
-  return documents?.length
-    ? documents.filter(document => document.partyId === documentPartyId && document.categoryId === documentCategoryId)
-    : [];
-};
+// const filterDocumentsByPartyIdAndCategory = (
+//   documentPartyId: CitizenDocuments['partyId'],
+//   documentCategoryId: DocumentCategory,
+//   documents: CaseWithId['citizenDocuments']
+// ): CaseWithId['citizenDocuments'] => {
+//   return documents?.length
+//     ? documents.filter(document => document.partyId === documentPartyId && document.categoryId === documentCategoryId)
+//     : [];
+// };
 
-const filterDocumentsByPartyTypeAndCategory = (
-  documentPartyType: CitizenDocuments['partyType'],
-  documentCategoryId: DocumentCategory,
-  documents: CaseWithId['citizenDocuments']
-): CaseWithId['citizenDocuments'] => {
-  return documents?.length
-    ? documents.filter(
-        document => document.categoryId === documentCategoryId && document.partyType === documentPartyType
-      )
-    : [];
-};
+// const filterDocumentsByPartyTypeAndCategory = (
+//   documentPartyType: CitizenDocuments['partyType'],
+//   documentCategoryId: DocumentCategory,
+//   documents: CaseWithId['citizenDocuments']
+// ): CaseWithId['citizenDocuments'] => {
+//   return documents?.length
+//     ? documents.filter(
+//         document => document.categoryId === documentCategoryId && document.partyType === documentPartyType
+//       )
+//     : [];
+// };
 
 export const getDocuments = (
-  documentCategoryId: DocumentCategory,
+  //documentCategoryId: DocumentCategory,
   documents: CaseWithId['citizenDocuments'],
-  loggedInUserPartyType: PartyType,
-  documentPartyType: CitizenDocuments['partyType'],
-  documentPartyId?: CitizenDocuments['partyId']
+  loggedInUserPartyType: PartyType
+  //documentPartyType: CitizenDocuments['partyType'],
+  //documentPartyId?: CitizenDocuments['partyId']
 ): Document[] => {
-  const filteredDocs =
-    documentPartyId &&
-    [
-      DocumentCategory.POSITION_STATEMENTS,
-      DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-      DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
-      DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
-    ].includes(documentCategoryId)
-      ? filterDocumentsByPartyIdAndCategory(documentPartyId, documentCategoryId, documents)
-      : filterDocumentsByPartyTypeAndCategory(documentPartyType, documentCategoryId, documents);
+  // const filteredDocs =
+  //   documentPartyId &&
+  //   [
+  //     DocumentCategory.POSITION_STATEMENTS,
+  //     DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
+  //     DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
+  //     DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+  //   ].includes(documentCategoryId)
+  //     ? filterDocumentsByPartyIdAndCategory(documentPartyId, documentCategoryId, documents)
+  //     : filterDocumentsByPartyTypeAndCategory(documentPartyType, documentCategoryId, documents);
   const docs: Document[] = [];
 
-  if (filteredDocs?.length) {
-    filteredDocs.forEach(doc => {
+  // if (filteredDocs?.length) {
+  //   filteredDocs.forEach(doc => {
+  if (documents?.length) {
+    documents.forEach(doc => {
       const documentId = doc.document.document_url.substring(doc.document.document_url.lastIndexOf('/') + 1);
       const document: Document = {
         [DocumentTypes.ENGLISH]: {
           documentId,
           documentName: doc.document.document_filename,
-          createdDate: dayjs(doc.document.document_creation_date).format('DD MMM YYYY'),
+          createdDate: dayjs(doc.uploadedDate).format('DD MMM YYYY'),
           uploadedBy: doc.uploadedBy,
           documentDownloadUrl: getDownloadDocUrl(doc, loggedInUserPartyType),
         },
@@ -385,5 +416,5 @@ export const getDownloadDocUrl = (document: CitizenDocuments, loggedInUserPartyT
   });
 };
 
-export const getDocumentConfig = (documentCategory: DocumentCategory): ViewDocumentsCategoryListProps | undefined =>
-  viewDocumentsCategoryListConfig.find(section => section.categoryId === documentCategory);
+// export const getDocumentConfig = (documentCategory: DocumentCategory): ViewDocumentsCategoryListProps | undefined =>
+//   viewDocumentsCategoryListConfig.find(section => section.categoryId === documentCategory);

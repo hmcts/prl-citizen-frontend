@@ -150,10 +150,12 @@ export type ViewDocCategoryLinkProps = {
   link: {
     text: string;
     url: string;
+    serveDate: string;
   };
 };
 
 export type DocumentMeta = {
+  uploadedDate?: string;
   document_url: string;
   document_binary_url: string;
   document_filename: string;

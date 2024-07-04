@@ -41,6 +41,7 @@ import {
   TASKLIST_RESPONDENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
+  VIEW_APPLICANTS_DOCUMENT,
   VIEW_APPLICATION_PACK_DOCUMENTS,
   VIEW_DOCUMENTS,
 } from '../urls';
@@ -222,5 +223,11 @@ export const respondentCaseSequence: Step[] = [
     subDir: '/common',
     getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
       ContactPreferenceNavigationController.getNextPageUrl(CONTACT_PREFERENCE_CONFIRMATION, caseData, req!),
+  },
+  {
+    url: VIEW_APPLICANTS_DOCUMENT,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
   },
 ];

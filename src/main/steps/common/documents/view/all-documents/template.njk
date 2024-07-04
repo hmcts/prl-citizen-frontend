@@ -28,8 +28,12 @@
         </h2>
         <ul class="app-task-list__items">
           {% for item in section.items %}
+          
             <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
+         
+            <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-half">
+              
                 {% if item.link.openInAnotherTab %}
                   <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status" target="_blank">
                     {{item.link.text}}
@@ -39,11 +43,101 @@
                     {{item.link.text}}
                   </a>
                 {% endif %}
-              </span>
+             
+              </dt>
+              <dd>
+                <dd class="govuk-summary-list__value govuk-!-width-one-half">
+                  last update date: {{item.link.serveDate}}
+                </dd>
+                </div>
+                </dl>
+           
             </li>
+            
           {% endfor %}
         </ul>
       </li>
     {% endfor %}
   </ol>
+
+  
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+     <dt class="govuk-summary-list__key govuk-!-width-full">
+        <p>
+          Categories
+        </p>
+      </dt>
+      <dd>
+      </dd>
+      <dd class="govuk-summary-list__key govuk-!-width-one-quarter">
+      
+        <p >
+          last Update
+        </p>
+      </dd>
+    </div>
+  
+  {% for section in sections %}
+     {% if section.items.length==1 %}
+       <div class="govuk-summary-list__row">
+          {% for item in section.items %}
+             
+                <dt class="govuk-summary-list__key govuk-!-width-full">
+                  {% if item.link.openInAnotherTab %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status" target="_blank">
+                    {{item.link.text}}
+                  </a>
+                {% else %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status">
+                    {{item.link.text}}
+                  </a>
+                {% endif %}
+
+                </dt>
+                <dd>
+                </dd>
+
+                <dd class="govuk-summary-list__value govuk-!-width-one-quarter">
+                  {{item.link.serveDate}}
+                </dd>
+             
+          {% endfor %}
+      </div>  
+
+      {% else %}
+      {% for item in section.items %}
+                  <div class="govuk-summary-list__row">
+          
+             
+                <dt class="govuk-summary-list__key govuk-!-width-full">
+                  {% if item.link.openInAnotherTab %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status" target="_blank">
+                    {{item.link.text}}
+                  </a>
+                {% else %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status">
+                    {{item.link.text}}
+                  </a>
+                {% endif %}
+
+                </dt>
+                <dd>
+                </dd>
+
+                <dd class="govuk-summary-list__value govuk-!-width-one-quarter">
+                  {{item.link.serveDate}}
+                </dd>
+             
+          
+      </div> 
+      {% endfor %}
+                {% endif %}
+  {% endfor %}
+     
+    
+</dl>
+      
+      
+
 {% endblock %}

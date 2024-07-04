@@ -6,7 +6,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(45);
+    expect(applicantCaseSequence).toHaveLength(46);
 
     expect(applicantCaseSequence[0].url).toBe('/:partyType/keep-details-private/details_known');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');

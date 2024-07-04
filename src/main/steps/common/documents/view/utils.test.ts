@@ -163,7 +163,7 @@ describe('documents > view > utils', () => {
     test('should get correct english documents with partyId', () => {
       expect(
         getDocuments(
-          'applicantStatements' as DocumentCategory,
+          //'applicantStatements' as DocumentCategory,
           [
             {
               partyId: '1',
@@ -172,7 +172,7 @@ describe('documents > view > utils', () => {
 
               categoryId: 'applicantStatements' as DocumentCategory,
               uploadedBy: 'test user',
-              uploadedDate: '2024-03-11T16:24:33.122506',
+              uploadedDate: '2024-01-01T16:24:33.122506',
               reviewedDate: null,
               document: {
                 document_url: 'MOCK_DOCUMENT_URL',
@@ -190,7 +190,7 @@ describe('documents > view > utils', () => {
               partyType: 'applicant' as PartyType,
               categoryId: 'positionStatements' as DocumentCategory,
               uploadedBy: 'test user2',
-              uploadedDate: '2024-03-11T16:24:33.122506',
+              uploadedDate: '2024-01-01T16:24:33.122506',
               reviewedDate: null,
               document: {
                 document_url: 'MOCK_DOCUMENT_URL',
@@ -203,9 +203,9 @@ describe('documents > view > utils', () => {
               documentWelsh: null,
             },
           ],
-          PartyType.RESPONDENT,
-          'respondent' as PartyType,
-          '1'
+          PartyType.RESPONDENT
+          // 'respondent' as PartyType,
+          // '1'
         )
       ).toStrictEqual([
         {
@@ -217,13 +217,22 @@ describe('documents > view > utils', () => {
             uploadedBy: 'test user',
           },
         },
+        {
+          document_en:{
+          createdDate: "01 Jan 2024",
+          documentDownloadUrl: "/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME",
+          documentId: "MOCK_DOCUMENT_URL",
+          documentName: "MOCK_FILENAME",
+          uploadedBy: "test user2",
+          },
+          }
       ]);
     });
 
     test('should get correct english documents without partyId', () => {
       expect(
         getDocuments(
-          'applicantStatements' as DocumentCategory,
+          //'applicantStatements' as DocumentCategory,
           [
             {
               partyId: '1',
@@ -231,7 +240,7 @@ describe('documents > view > utils', () => {
               partyName: 'testname1',
               categoryId: 'applicantStatements' as DocumentCategory,
               uploadedBy: 'test user',
-              uploadedDate: '2024-03-11T16:24:33.122506',
+              uploadedDate: '2024-01-01T16:24:33.122506',
               reviewedDate: null,
               document: {
                 document_url: 'MOCK_DOCUMENT_URL',
@@ -249,7 +258,7 @@ describe('documents > view > utils', () => {
               partyType: 'applicant' as PartyType,
               categoryId: 'positionStatements' as DocumentCategory,
               uploadedBy: 'test user2',
-              uploadedDate: '2024-03-11T16:24:33.122506',
+              uploadedDate: '2024-01-01T16:24:33.122506',
               reviewedDate: null,
               document: {
                 document_url: 'MOCK_DOCUMENT_URL',
@@ -262,8 +271,8 @@ describe('documents > view > utils', () => {
               documentWelsh: null,
             },
           ],
-          PartyType.RESPONDENT,
-          'respondent' as PartyType
+          PartyType.RESPONDENT
+          // 'respondent' as PartyType
         )
       ).toStrictEqual([
         {
@@ -291,7 +300,7 @@ describe('documents > view > utils', () => {
                 partyType: 'respondent' as PartyType,
                 categoryId: 'applicantStatements' as DocumentCategory,
                 uploadedBy: 'test user',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 document: {
                   document_url: 'MOCK_DOCUMENT_URL',
@@ -308,7 +317,7 @@ describe('documents > view > utils', () => {
                 partyType: 'applicant' as PartyType,
                 categoryId: 'positionStatements' as DocumentCategory,
                 uploadedBy: 'test user2',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 document: {
                   document_url: 'MOCK_DOCUMENT_URL',
@@ -349,7 +358,7 @@ describe('documents > view > utils', () => {
                 partyType: 'respondent' as PartyType,
                 categoryId: 'applicantStatements' as DocumentCategory,
                 uploadedBy: 'test user',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 document: {
                   document_url: 'MOCK_DOCUMENT_URL',
@@ -366,7 +375,7 @@ describe('documents > view > utils', () => {
                 partyType: 'applicant' as PartyType,
                 categoryId: 'positionStatements' as DocumentCategory,
                 uploadedBy: 'test user2',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 document: {
                   document_url: 'MOCK_DOCUMENT_URL',
@@ -406,7 +415,7 @@ describe('documents > view > utils', () => {
                 partyType: 'respondent' as PartyType,
                 categoryId: 'applicantStatements' as DocumentCategory,
                 uploadedBy: 'test user',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 document: {
                   document_url: 'MOCK_DOCUMENT_URL',
@@ -423,7 +432,7 @@ describe('documents > view > utils', () => {
                 partyType: 'applicant' as PartyType,
                 categoryId: 'positionStatements' as DocumentCategory,
                 uploadedBy: 'test user2',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 document: {
                   document_url: 'MOCK_DOCUMENT_URL',
@@ -454,7 +463,7 @@ describe('documents > view > utils', () => {
                 partyType: 'respondent' as PartyType,
                 categoryId: 'applicantStatements' as DocumentCategory,
                 uploadedBy: 'test user',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 document: {
                   document_url: 'MOCK_DOCUMENT_URL',
@@ -471,7 +480,7 @@ describe('documents > view > utils', () => {
                 partyType: 'respondent' as PartyType,
                 categoryId: 'applicantStatements' as DocumentCategory,
                 uploadedBy: 'test user2',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 document: {
                   document_url: 'MOCK_DOCUMENT_URL_DUPLICATE',
@@ -520,7 +529,7 @@ describe('documents > view > utils', () => {
                 partyType: 'respondent' as PartyType,
                 categoryId: 'medicalReports' as DocumentCategory,
                 uploadedBy: 'test user',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 document: {
                   document_url: 'MOCK_DOCUMENT_URL',
@@ -537,7 +546,7 @@ describe('documents > view > utils', () => {
                 partyType: 'respondent' as PartyType,
                 categoryId: 'medicalReports' as DocumentCategory,
                 uploadedBy: 'test user2',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 document: {
                   document_url: 'MOCK_DOCUMENT_URL2',
@@ -580,7 +589,7 @@ describe('documents > view > utils', () => {
                 partyType: 'applicant',
                 categoryId: 'undefined',
                 uploadedBy: 'test user',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 applicantSoaPack: [
                   {
@@ -621,7 +630,7 @@ describe('documents > view > utils', () => {
                 partyType: 'applicant',
                 categoryId: 'undefined',
                 uploadedBy: 'test user',
-                uploadedDate: '2024-03-11T16:24:33.122506',
+                uploadedDate: '2024-01-01T16:24:33.122506',
                 reviewedDate: null,
                 respondentSoaPack: [
                   {

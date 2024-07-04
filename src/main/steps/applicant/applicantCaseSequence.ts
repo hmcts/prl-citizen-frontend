@@ -41,6 +41,7 @@ import {
   UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
+  VIEW_APPLICANTS_DOCUMENT,
   VIEW_APPLICATION_PACK_DOCUMENTS,
   VIEW_DOCUMENTS,
 } from '../urls';
@@ -377,6 +378,12 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: VIEW_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_APPLICANTS_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
     getNextStep: () => '/',

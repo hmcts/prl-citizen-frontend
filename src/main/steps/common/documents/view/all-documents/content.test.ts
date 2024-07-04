@@ -93,6 +93,7 @@ describe('documents > view > all-documents > content', () => {
             link: {
               text: 'Your served application pack',
               url: '/applicant/documents/view/application-pack-documents',
+              serveDate: "11 Mar 2024"
             },
           },
         ],
@@ -105,6 +106,7 @@ describe('documents > view > all-documents > content', () => {
             link: {
               text: 'View all orders from the court',
               url: '/applicant/documents/view/orders-from-the-court',
+              serveDate: "11 Mar 2024"
             },
           },
         ],
@@ -119,6 +121,7 @@ describe('documents > view > all-documents > content', () => {
               openInAnotherTab: false,
               text: "test user2's position statements",
               url: '/applicant/documents/view/positionStatements/applicant/2?',
+              serveDate: "11 Mar 2024"
             },
           },
         ],
@@ -133,6 +136,7 @@ describe('documents > view > all-documents > content', () => {
               openInAnotherTab: false,
               text: "test user's position statements",
               url: '/applicant/documents/view/positionStatements/respondent/1234?',
+              serveDate: "11 Mar 2024"
             },
           },
         ],
