@@ -35,7 +35,6 @@ import {
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getFinalApplicationStatus,
-  getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   hasAnyHearing,
 } from '../utils';
