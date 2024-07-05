@@ -2,7 +2,7 @@ import languageAssertions from '../../../../../../test/unit/utils/languageAssert
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { Validator, isFieldFilledIn } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
-import { generateContent } from '../../../allegations-of-harm-and-violence/orders-required/unsupervised/content';
+import { generateContent } from '../../../../common/safety-concerns/orders-required/unsupervised/content';
 jest.mock('../../../../../app/form/validation');
 const en = {
   section: 'Safety concerns',
@@ -20,10 +20,10 @@ const en = {
   yes: 'Yes',
   no: 'No',
   errors: {
-    PRL_c1A_supervisionAgreementDetails: {
+    c1A_supervisionAgreementDetails: {
       required: 'Select whether you agree to the children spending time with the other people in this application',
     },
-    PRL_c1A_agreementOtherWaysDetails: {
+    c1A_agreementOtherWaysDetails: {
       required:
         'Select yes if you agree to the other people in this application being in touch with the children in other ways',
     },
@@ -45,10 +45,13 @@ const cy = {
   yes: 'Ydw',
   no: 'Nac ydw',
   errors: {
-    PRL_c1A_supervisionAgreementDetails:
-      "Dewiswch a ydych chi'n cytuno i'r plant dreulio amser gyda'r bobl eraill yn y cais hwn",
-    PRL_c1A_agreementOtherWaysDetails:
-      "Dewiswch a ydych chi'n cytuno i'r bobl eraill yn y cais hwn fod mewn cysylltiad â'r plant mewn ffyrdd eraill",
+    c1A_supervisionAgreementDetails: {
+      required: "Dewiswch a ydych chi'n cytuno i'r plant dreulio amser gyda'r bobl eraill yn y cais hwn",
+    },
+    c1A_agreementOtherWaysDetails: {
+      required:
+        "Dewiswch a ydych chi'n cytuno i'r bobl eraill yn y cais hwn fod mewn cysylltiad â'r plant mewn ffyrdd eraill",
+    },
   },
 };
 
@@ -73,8 +76,8 @@ describe('c1A safety concerns, orders required', () => {
   });
 
   test('should contain c1A safety concerns nvolved fields', () => {
-    const c1A_supervisionAgreementDetails = fields.PRL_c1A_supervisionAgreementDetails as FormOptions;
-    const c1A_agreementOtherWaysDetails = fields.PRL_c1A_agreementOtherWaysDetails as FormOptions;
+    const c1A_supervisionAgreementDetails = fields.c1A_supervisionAgreementDetails as FormOptions;
+    const c1A_agreementOtherWaysDetails = fields.c1A_agreementOtherWaysDetails as FormOptions;
     expect(c1A_supervisionAgreementDetails.type).toBe('radios');
     expect((c1A_supervisionAgreementDetails.label as LanguageLookup)(generatedContent)).toBe(
       en.selectSupervisionAgreementLabel
@@ -103,7 +106,13 @@ describe('c1A safety concerns, orders required', () => {
 
   test('should contain Continue button', () => {
     expect(
-      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+
+  test('should contain SaveAndComeLater button', () => {
+    expect(
+      (form.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });

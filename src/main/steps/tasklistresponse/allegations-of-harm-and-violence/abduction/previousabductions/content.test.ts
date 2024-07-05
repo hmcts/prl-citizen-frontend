@@ -18,16 +18,16 @@ const en = {
   two: 'No',
   otherDetails: 'Provide more details',
   errors: {
-    PRL_c1A_previousAbductionsShortDesc: {
+    c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
-    PRL_c1A_policeOrInvestigatorInvolved: {
+    c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved',
     },
-    PRL_c1A_policeOrInvestigatorOtherDetails: {
+    c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -38,7 +38,7 @@ const en = {
 
 const cy = {
   caption: 'Pryderon diogelwch',
-  title: 'Darparwch fanylion am y digwyddiadau blaenorol o herwgydio',
+  title: 'Darparwch fanylion am y digwyddiadau blaenorol o gipio',
   line1: "Rhowch ddisgrifiad byr o'r digwyddiadau blaenorol o gipio.",
   c1A_previousAbductionsShortDescHint: "Dylech gynnwys unrhyw ymdrechion blaenorol i fygwth neu gipio'r plant.",
   c1A_policeOrInvestigatorInvolved: 'A oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall ynghlwm â hyn?',
@@ -47,17 +47,17 @@ const cy = {
   two: 'Nac oedd',
   otherDetails: 'Darparwch fwy o fanylion',
   errors: {
-    PRL_c1A_previousAbductionsShortDesc: {
-      required: 'Disgrifiwch yn fyr y digwyddiadau blaenorol o herwgydio',
+    c1A_previousAbductionsShortDesc: {
+      required: 'Disgrifiwch yn fyr y digwyddiadau blaenorol o gipio',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
-    PRL_c1A_policeOrInvestigatorInvolved: {
-      required: 'Dewiswch oedd os oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall ynghlwm â hyn',
+    c1A_policeOrInvestigatorInvolved: {
+      required: 'Dewiswch oedd os oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall yn rhan o hyn?',
     },
-    PRL_c1A_policeOrInvestigatorOtherDetails: {
-      required: 'Rhowch fanylion yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall oedd ynghlwm â hyn',
+    c1A_policeOrInvestigatorOtherDetails: {
+      required: 'Darparwch fanylion yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall oedd yn rhan o hyn',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
@@ -82,7 +82,7 @@ describe('safetyconcerns > abduction > previous abductions > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const previousAbductionsShortDescField = fields.PRL_c1A_previousAbductionsShortDesc as FormOptions;
+    const previousAbductionsShortDescField = fields.c1A_previousAbductionsShortDesc as FormOptions;
 
     expect(previousAbductionsShortDescField.type).toBe('textarea');
     expect((previousAbductionsShortDescField.hint as LanguageLookup)(generatedContent)).toBe(
@@ -92,7 +92,7 @@ describe('safetyconcerns > abduction > previous abductions > content', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text');
 
-    const policeOrInvestigatorInvolvedField = fields.PRL_c1A_policeOrInvestigatorInvolved as FormOptions;
+    const policeOrInvestigatorInvolvedField = fields.c1A_policeOrInvestigatorInvolved as FormOptions;
     expect(policeOrInvestigatorInvolvedField.classes).toBe('govuk-radios');
     expect((policeOrInvestigatorInvolvedField.label as LanguageLookup)(generatedContent)).toBe(
       en.c1A_policeOrInvestigatorInvolved
@@ -104,7 +104,7 @@ describe('safetyconcerns > abduction > previous abductions > content', () => {
     expect((policeOrInvestigatorInvolvedField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
 
     const policeOrInvestigatorOtherDetails = policeOrInvestigatorInvolvedField.values[0].subFields!
-      .PRL_c1A_policeOrInvestigatorOtherDetails as FormInput;
+      .c1A_policeOrInvestigatorOtherDetails as FormInput;
 
     expect(policeOrInvestigatorOtherDetails.type).toBe('textarea');
     expect((policeOrInvestigatorOtherDetails.label as LanguageLookup)(generatedContent)).toBe(en.otherDetails);
@@ -117,7 +117,14 @@ describe('safetyconcerns > abduction > previous abductions > content', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
     expect(
-      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+  test('should contain SaveAndComeLater button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent | undefined;
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });

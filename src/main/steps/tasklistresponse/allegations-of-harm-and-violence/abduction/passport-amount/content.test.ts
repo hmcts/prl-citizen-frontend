@@ -20,13 +20,13 @@ const en = {
   option3: 'Other',
   otherDetails: 'Provide more details',
   errors: {
-    PRL_c1A_childrenMoreThanOnePassport: {
+    c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport',
     },
-    PRL_c1A_possessionChildrenPassport: {
+    c1A_possessionChildrenPassport: {
       required: "Specify who is in possession of the children's passports",
     },
-    PRL_c1A_provideOtherDetails: {
+    c1A_provideOtherDetails: {
       required: 'Please provide the details',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -48,14 +48,14 @@ const cy = {
   option3: 'Arall',
   otherDetails: 'Darparwch fwy o fanylion',
   errors: {
-    PRL_c1A_childrenMoreThanOnePassport: {
-      required: 'Dewiswch oes os oes gan y plant fwy nag un pasbort',
+    c1A_childrenMoreThanOnePassport: {
+      required: 'Dewis oes os oes gan y plant fwy nag un pasbort',
     },
-    PRL_c1A_possessionChildrenPassport: {
-      required: "Nodwch ym meddiant pwy y mae pasbortau'r plant",
+    c1A_possessionChildrenPassport: {
+      required: "Nodwch ym meddiant pwy y mae pasbortau'r plant? ",
     },
-    PRL_c1A_provideOtherDetails: {
-      required: 'Rhowch fanylion',
+    c1A_provideOtherDetails: {
+      required: 'Darparwch fwy o fanylion',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
@@ -66,7 +66,7 @@ const cy = {
 /* eslint-disable @typescript-eslint/ban-types */
 describe('safetyconcerns > abduction > passport amount > content', () => {
   const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
-  //eslint-disable-next-line jest/expect-expect
+  // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
   });
@@ -80,7 +80,7 @@ describe('safetyconcerns > abduction > passport amount > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const childrenMoreThanOnePassportField = fields.PRL_c1A_childrenMoreThanOnePassport as FormOptions;
+    const childrenMoreThanOnePassportField = fields.c1A_childrenMoreThanOnePassport as FormOptions;
 
     expect(childrenMoreThanOnePassportField.type).toBe('radios');
     expect(childrenMoreThanOnePassportField.classes).toBe('govuk-radios');
@@ -90,9 +90,9 @@ describe('safetyconcerns > abduction > passport amount > content', () => {
     expect((childrenMoreThanOnePassportField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((childrenMoreThanOnePassportField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
 
-    const possessionChildrenPassportField = fields.PRL_c1A_possessionChildrenPassport as FormOptions;
+    const possessionChildrenPassportField = fields.c1A_possessionChildrenPassport as FormOptions;
     const provideOtherDetails = possessionChildrenPassportField.values[2].subFields!
-      .PRL_c1A_provideOtherDetails as FormInput;
+      .c1A_provideOtherDetails as FormInput;
 
     expect(possessionChildrenPassportField.type).toBe('checkboxes');
     expect((possessionChildrenPassportField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_relevant);
@@ -114,7 +114,14 @@ describe('safetyconcerns > abduction > passport amount > content', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
     expect(
-      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+  test('should contain SaveAndComeLater button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent | undefined;
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });
