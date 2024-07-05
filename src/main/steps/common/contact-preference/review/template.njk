@@ -19,6 +19,9 @@
           {% for address in addresses %}
             <p class="govuk-body">{{address | safe}}</p>
           {% endfor %}
+          {% if addresses.length === 0 %}
+            <span class="govuk-error-message">{{ completeSection }}</span>
+          {% endif %}
         {% endif %}
       </dd>
       <dd class="govuk-summary-list__actions">
