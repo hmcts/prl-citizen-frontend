@@ -663,6 +663,7 @@ export interface Case {
 export interface CitizenNotification {
   id: string;
   show: boolean;
+  respondentNames: string;
 }
 
 export enum Miam_notAttendingReasons {

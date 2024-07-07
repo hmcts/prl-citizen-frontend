@@ -121,3 +121,8 @@ export const hasResponseBeenReviewed = (caseData: Partial<CaseWithId>, responden
     )
   );
 };
+
+export const respondentNamesByNotificationType = (caseData: Partial<CaseWithId>, notificationType: string): string | undefined => {
+  const notification = caseData.citizenNotifications?.find(notification => notification.id === notificationType);
+  return notification ? notification.respondentNames : undefined;
+};

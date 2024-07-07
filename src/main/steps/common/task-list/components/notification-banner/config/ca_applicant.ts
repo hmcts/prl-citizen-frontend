@@ -111,7 +111,7 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
     ...notificationBanner[BannerNotification.RESPONSE_AP13],
     show: (caseData: Partial<CaseWithId>): boolean => {
       const notification = caseData?.citizenNotifications?.find(
-        citizenNotification => citizenNotification.id === 'CAN_6'
+        citizenNotification => citizenNotification.id === 'CAN6_VIEW_RESPONSE_APPLICANT'
       );
 
       return notification?.show ?? false;
@@ -121,7 +121,7 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
     ...notificationBanner[BannerNotification.RESPONSE_AP14],
     show: (caseData: Partial<CaseWithId>): boolean => {
       const notification = caseData?.citizenNotifications?.find(
-        citizenNotification => citizenNotification.id === 'CAN_6A'
+        citizenNotification => citizenNotification.id === 'CAN6A_VIEW_C1A_RESPONSE_APPLICANT'
       );
 
       return notification?.show ?? false;
@@ -131,7 +131,7 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
     ...notificationBanner[BannerNotification.RESPONSE_AP15],
     show: (caseData: Partial<CaseWithId>): boolean => {
       const notification = caseData?.citizenNotifications?.find(
-        citizenNotification => citizenNotification.id === 'CAN_6B'
+        citizenNotification => citizenNotification.id === 'CAN6B_VIEW_C1AR_RESPONSE_APPLICANT'
       );
 
       return notification?.show ?? false;

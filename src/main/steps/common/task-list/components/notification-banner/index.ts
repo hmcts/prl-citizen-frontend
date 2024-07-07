@@ -5,7 +5,7 @@ import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
 import { NotificationBannerConfig, NotificationBannerProps, NotificationSection } from '../../definitions';
-import { hasResponseBeenReviewed, isC7ResponseSubmitted, isCaseLinked } from '../../utils';
+import { hasResponseBeenReviewed, isC7ResponseSubmitted, isCaseLinked, respondentNamesByNotificationType } from '../../utils';
 
 import { CaseType, PartyType } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
@@ -45,11 +45,14 @@ export const getNotificationBannerConfig = (
     notificationConfig[caseType].hasOwnProperty(partyType)
     ? notificationConfig[caseType][partyType]
         .map(config => {
-          const { id, show } = config;
-
+          const { id, show, respondentNames} = config;
+          console.log(respondentNames);
           if (show(caseData, userDetails)) {
             const _content = config.content(caseType, language, partyType);
             const sections: NotificationSection[] = [];
+            const can6RespondentName = respondentNamesByNotificationType(caseData, 'CAN6_VIEW_RESPONSE_APPLICANT');
+            const can6aRespondentNames = respondentNamesByNotificationType(caseData, 'CAN6A_VIEW_C1A_RESPONSE_APPLICANT');
+            const can6BRespondentName = respondentNamesByNotificationType(caseData, 'CAN6B_VIEW_C1AR_RESPONSE_APPLICANT');
 
             _content.sections.forEach(section => {
               const contents = section?.contents
@@ -57,19 +60,19 @@ export const getNotificationBannerConfig = (
                 ?.map(content => ({
                   text: interpolate(content.text, {
                     noOfDaysRemainingToSubmitCase:
-                      caseData?.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
+                      caseData.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
                     nameOfRespondentAp13Eng:
-                      caseData?.nameOfRespondentAp13 ?? 'The respondent',
+                      can6RespondentName ?? 'The respondent',
                     nameOfRespondentAp14Eng:
-                      caseData?.nameOfRespondentAp14 ?? 'The respondent',
+                      can6aRespondentNames ?? 'The respondent',
                     nameOfRespondentAp15Eng:
-                      caseData?.nameOfRespondentAp15 ?? 'The respondent',
+                      can6BRespondentName ?? 'The respondent',
                     nameOfRespondentAp13Welsh:
-                      caseData?.nameOfRespondentAp13 ?  'Mae ' + caseData?.nameOfRespondentAp13 :'Mae’r atebydd',
+                      can6RespondentName ?  'Mae ' + can6RespondentName :'Mae’r atebydd',
                     nameOfRespondentAp14Welsh:
-                      caseData?.nameOfRespondentAp14 ?  'Mae ' + caseData?.nameOfRespondentAp14 :'Mae’r atebydd',
+                      can6aRespondentNames ?  'Mae ' + can6aRespondentNames :'Mae’r atebydd',
                     nameOfRespondentAp15Welsh:
-                      caseData?.nameOfRespondentAp15 ?  'Mae ' + caseData?.nameOfRespondentAp15 :'Mae’r atebydd',
+                      can6BRespondentName ?  'Mae ' + can6BRespondentName :'Mae’r atebydd',
                   }),
                 }));
 
