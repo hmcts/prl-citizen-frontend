@@ -275,9 +275,6 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
     c100RebuildReturnUrl: caseData.c100RebuildReturnUrl,
     state: caseData.state,
     noOfDaysRemainingToSubmitCase: caseData.noOfDaysRemainingToSubmitCase,
-    nameOfRespondentAp13: caseData.nameOfRespondentAp13, 
-    nameOfRespondentAp14: caseData.nameOfRespondentAp14, 
-    nameOfRespondentAp15: caseData.nameOfRespondentAp15, 
   } as RetreiveDraftCase;
 
   Object.values(updateCaseDataMapper).forEach(field => {
