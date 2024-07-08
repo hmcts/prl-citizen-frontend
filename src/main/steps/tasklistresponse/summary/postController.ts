@@ -2,11 +2,12 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
-import { CaseType } from '../../../app/case/definition';
+import { CaseType, PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
+import { PCQProvider } from '../../../modules/pcq';
+import { PCQController } from '../../../modules/pcq/controller';
 import { CA_RESPONDENT_RESPONSE_CONFIRMATION } from '../../urls';
 import { getPartyDetails, mapDataInSession } from '../utils';
 
@@ -26,24 +27,35 @@ export default class ResponseSummaryConfirmationPostController extends PostContr
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-
     const { user, userCase } = req.session;
-    const partyType = getCasePartyType(userCase, user.id);
+    const partyDetails = getPartyDetails(userCase, user.id);
+    if (!(PCQProvider.getPcqId(req) || partyDetails?.user.pcqId) && (await PCQProvider.isComponentEnabled())) {
+      PCQController.launch(req, res, PCQProvider.getReturnUrl(req, PartyType.RESPONDENT, 'c7-response'));
+    } else {
+      this.submitC7Response(req, res);
+    }
+  }
+
+  public async submitC7Response(req: AppRequest, res: Response): Promise<void> {
+    //TODO update when merged with response submission fixes
+    const { user, userCase } = req.session;
     const partyDetails = getPartyDetails(userCase, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
-
     if (partyDetails) {
       try {
+        if (!partyDetails.user.pcqId) {
+          partyDetails.user.pcqId = req.session.applicationSettings?.pcqId;
+        }
+
         req.session.userCase = await client.submitC7Response(
           userCase.id,
           partyDetails,
-          partyType,
+          PartyType.RESPONDENT,
           userCase.caseTypeOfApplication as CaseType
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => {
-          const redirectUrl = CA_RESPONDENT_RESPONSE_CONFIRMATION;
-          res.redirect(redirectUrl);
+          res.redirect(CA_RESPONDENT_RESPONSE_CONFIRMATION);
         });
       } catch (error) {
         throw new Error('Error occured, could not sumbit C7 response. - ResponseSummaryConfirmationPostController');

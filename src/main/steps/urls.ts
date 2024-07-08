@@ -155,6 +155,8 @@ export const DOWNLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/download/:documentId/:d
 export const DOWNLOAD_DOCUMENT_BY_TYPE: PageLink = `${DOCUMENTS}/download/type/:documentType/:forceDownload?`;
 
 export const RESPONDENT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
+export const PCQ_CALLBACK_URL: PageLink = '/:partyType/pcq/equality/:context';
+
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 
 export const PROCEEDINGS: PageLink = `${RESPONSE_TASKLIST}/proceedings`;
@@ -373,9 +375,6 @@ export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_
 export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`;
 
 export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orderType/:orderId/documentUpload/:removeId?`;
-
-/** @C100 rebuild */
-export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
 
 export const TESTING_SUPPORT: PageLink = '/testing-support';
 export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-draft';
