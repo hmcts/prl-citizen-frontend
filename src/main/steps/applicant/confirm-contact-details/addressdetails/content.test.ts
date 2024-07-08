@@ -14,7 +14,9 @@ const en = {
 describe('address confirmation > content', () => {
   const commonContent = generatePageContent({
     language: 'en',
-    userCase: {},
+    userCase: {
+      citizenUserAddressText: 'address',
+    },
   }) as CommonContent;
 
   test('should return correct english content', () => {

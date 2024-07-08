@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
+import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders } from '../../steps/common/documents/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -11,16 +13,30 @@ import {
   Applicant,
   ApplicantTable,
   AttendingTheHearingTable,
+  AuthorityLetterEvidence,
+  C100Applicant,
+  C100DocumentInfo,
+  C100OrderTypes,
+  C100RebuildPartyDetails,
+  C1AAbuseTypes,
+  C1ASafteyConcerns,
+  C1ASafteyConcernsAbout,
   CaseData,
   CaseInvite,
   CaseStatus,
   Child,
   ChildDetailsExtraTable,
   ChildDetailsTable,
+  ChildrenDetails,
   ConfidentialDetails,
   ContactDetails,
+  ContactPreference,
+  CourtInvolvementEvidence,
   DateOfSubmission,
   Document,
+  DocumentResponse,
+  DocumentUploadResponse,
+  DomesticAbuseExemptions,
   DraftConsentOrderFile,
   ExistingProceedings,
   Fl401UploadWitnessDocuments,
@@ -31,53 +47,41 @@ import {
   ListValue,
   LitigationCapacityTable,
   MiamExemptionsTable,
+  MiamNonAttendReason,
   MiamTable,
+  OrderInterface,
+  OtherChildrenDetails,
   OtherDocuments,
   OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
+  OtherProceedings,
   OtherProceedingsDetailsTable,
   OtherProceedingsForSummaryTab,
   OtherProceedingsTable,
   OthersToNotify,
   PRLDocument,
   PartyDetails,
+  PoliceInvolvementEvidence,
   ProceedingsOrderTypes,
   ReasonableAdjustments,
   Respondent,
+  RespondentDocs,
   ResponseDocumentList,
   SelectTypeOfOrderEnum,
   SpecialArrangement,
   State,
   SummaryTabForOrderAppliedFor,
+  SupportServiceEvidence,
   TypeOfApplicationTable,
   UploadDocumentList,
   UrgencyDetails,
+  VictimLetterEvidence,
   WelshLanguageRequirementsTable,
   WelshNeed,
   WithoutNoticeOrderDetails,
   YesNoDontKnow,
   YesOrNo,
-  orderInterface,
-  //C100 Rebuild
-  // eslint-disable-next-line sort-imports
-  C100DocumentInfo,
-  C100OrderTypes,
-  C1ASafteyConcerns,
-  MiamNonAttendReason,
-  OtherProceedings,
-  //DocumentType,
-  ChildrenDetails,
-  C1ASafteyConcernsAbout,
-  C1AAbuseTypes,
-  OtherChildrenDetails,
-  C100RebuildPartyDetails,
-  C100Applicant,
-  PRL_C1ASafteyConcernsAbout,
-  PRL_C1ASafteyConcerns,
-  PRL_C1AAbuseTypes,
-  applicantContactPreferencesEnum,
-  RespondentDocs,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -101,7 +105,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateOfSubmission: 'dateOfSubmission',
   //declarationTable: 'DeclarationTable',
   interpreterNeeds: 'interpreterNeeds',
-  applicantCaseName: 'applicantCaseName',
   childDetailsTable: 'childDetailsTable',
   jurisdictionIssue: 'jurisdictionIssue',
   ordersApplyingFor: 'ordersApplyingFor',
@@ -225,8 +228,15 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentDocsList: 'respondentDocsList',
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
+  c100DraftDoc: 'submitAndPayDownloadApplicationLink',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
+  citizenDocuments: 'citizenDocuments',
+  citizenOrders: 'citizenOrders',
+  citizenApplicationPacks: 'citizenApplicationPacks',
+  finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
+  newChildDetails: 'newChildDetails',
+  citizenNotifications: 'citizenNotifications',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -247,6 +257,7 @@ export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
   children?: Child[];
+  newChildDetails?: Child[];
   miamTable?: MiamTable;
   applicants?: Applicant[];
   applicantsFL401?: PartyDetails;
@@ -266,7 +277,6 @@ export interface Case {
   dateOfSubmission?: DateOfSubmission;
   //declarationTable?: DeclarationTable;
   interpreterNeeds?: InterpreterNeed[];
-  applicantCaseName?: string;
   childDetailsTable?: ChildDetailsTable[];
   jurisdictionIssue?: string;
   ordersApplyingFor?: string[];
@@ -376,43 +386,48 @@ export interface Case {
   yourchildconcernsstart?: YesOrNo;
   cameoutofallegationsharmwithNo?: boolean;
   //applicant1CannotUploadDocuments?: DocumentType[];
+  hasCourtAskedForThisDoc?: YesOrNo;
+  reasonForDocumentCantBeShared?: string;
+  haveReasonForDocNotToBeShared?: YesOrNo;
+  reasonsToNotSeeTheDocument?: string[];
+  reasonsToRestrictDocument?: string;
   documentText?: string;
-  applicantUploadFiles?: UploadedFile[];
+  applicantUploadFiles?: DocumentUploadResponse['document'][];
   declarationCheck?: string;
   finalDocument?: Document;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
-  respondentUploadFiles?: UploadedFile[];
+  respondentUploadFiles?: DocumentUploadResponse['document'][];
   proceedingsCourtCase?: string;
   proceedingsStart?: YesOrNo;
   proceedingsCourtOrder?: string;
   proceedingsStartOrder?: YesOrNo;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
-  supervisionOrder?: orderInterface;
+  supervisionOrder?: OrderInterface;
   emergencyOrderOptions?: YesOrNo;
-  emergencyOrder?: orderInterface;
+  emergencyOrder?: OrderInterface;
   careOrderOptions?: YesOrNo;
-  careOrder?: orderInterface;
+  careOrder?: OrderInterface;
   childAbductionOrderOption?: YesOrNo;
-  childAbductionOrder?: orderInterface;
+  childAbductionOrder?: OrderInterface;
   caOrderOption?: YesOrNo;
-  caOrder?: orderInterface;
+  caOrder?: OrderInterface;
   financialOrderOption?: YesOrNo;
-  financialOrder?: orderInterface;
+  financialOrder?: OrderInterface;
   nonmolestationOrderOption?: YesOrNo;
-  nonmolestationOrder?: orderInterface;
+  nonmolestationOrder?: OrderInterface;
   occupationalOrderOptions?: YesOrNo;
-  occupationOrder?: orderInterface;
+  occupationOrder?: OrderInterface;
   marraigeOrderOptions?: YesOrNo;
-  marraigeOrder?: orderInterface;
+  marraigeOrder?: OrderInterface;
   restrainingOrderOptions?: YesOrNo;
-  restrainingOrder?: orderInterface;
+  restrainingOrder?: OrderInterface;
   injuctiveOrderOptions?: YesOrNo;
-  injuctiveOrder?: orderInterface;
+  injuctiveOrder?: OrderInterface;
   underTakingOrderOptions?: YesOrNo;
-  underTakingOrder?: orderInterface;
+  underTakingOrder?: OrderInterface;
 
   /***** Applicant1 *****/
   citizenUserFullName?: string;
@@ -506,23 +521,11 @@ export interface Case {
   //C100 Rebuild
   contactDetailsPrivateAlternative?: string;
   c100ApplicationFees?: string;
-  ra_disabilityRequirements?: string[];
   hwf_needHelpWithFees?: YesOrNo;
   hwf_feesAppliedDetails?: YesOrNo;
   caseId?: string;
-  c1A_haveSafetyConcerns?: YesOrNo;
-  PRL_c1A_haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
-  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
-  PRL_c1A_safetyConernAbout?: PRL_C1ASafteyConcernsAbout[];
-  c1A_safteyConcerns?: C1ASafteyConcerns;
-  PRL_c1A_safteyConcerns?: PRL_C1ASafteyConcerns;
-  PRL_c1A_abductionReasonOutsideUk?: string;
-  PRL_c1A_childsCurrentLocation?: string;
-  PRL_c1A_childrenMoreThanOnePassport?: YesOrNo;
-  PRL_c1A_possessionChildrenPassport?: string[];
-  PRL_c1A_provideOtherDetails?: string;
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
   miam_consent?: string;
@@ -531,26 +534,24 @@ export interface Case {
   miam_certificate?: C100DocumentInfo;
   miam_mediatorDocument?: YesOrNo;
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
-  miam_domesticAbuse?: string[];
-  miam_childProtectionEvidence?: string[];
-  miam_urgency?: string[];
-  miam_previousAttendance?: string[];
-  miam_notAttendingReasons?: string[];
+  miam_domesticAbuse?: DomesticAbuseExemptions[];
+  miam_domesticAbuse_policeInvolvement_subfields?: PoliceInvolvementEvidence[];
+  miam_domesticAbuse_courtInvolvement_subfields?: CourtInvolvementEvidence[];
+  miam_domesticAbuse_letterOfBeingVictim_subfields?: VictimLetterEvidence[];
+  miam_domesticAbuse_letterFromAuthority_subfields?: AuthorityLetterEvidence[];
+  miam_domesticAbuse_letterFromSupportService_subfields?: SupportServiceEvidence[];
+  miam_canProvideDomesticAbuseEvidence?: YesOrNo;
+  miam_detailsOfDomesticAbuseEvidence?: string;
+  miam_domesticAbuseEvidenceDocs?: DocumentResponse[];
+  miam_notAttendingReasons?: Miam_notAttendingReasons;
+  miam_noMediatorReasons?: Miam_noMediatorReasons;
+  miam_urgency?: Miam_urgency;
+  miam_previousAttendance?: Miam_previousAttendance;
+  miam_previousAttendanceEvidenceDoc?: DocumentResponse;
+  miam_haveDocSignedByMediatorForPrevAttendance?: YesOrNo;
+  miam_detailsOfEvidence?: string;
+  miam_childProtectionEvidence?: Miam_childProtectionEvidence;
   hu_urgentHearingReasons?: YesOrNo;
-  c1A_passportOffice?: YesOrNo;
-  PRL_c1A_passportOffice?: YesOrNo;
-  PRL_c1A_abductionPassportOfficeNotified?: YesOrNo;
-  PRL_c1A_previousAbductionsShortDesc?: string;
-  PRL_c1A_policeOrInvestigatorInvolved?: YesOrNo;
-  PRL_c1A_policeOrInvestigatorOtherDetails?: string;
-  PRL_c1A_childAbductedBefore?: YesOrNo;
-  PRL_c1A_otherConcernsDrugs?: YesOrNo;
-  PRL_c1A_otherConcernsDrugsDetails?: string;
-  PRL_c1A_childSafetyConcerns?: YesOrNo;
-  PRL_c1A_childSafetyConcernsDetails?: string;
-  PRL_c1A_keepingSafeStatement?: string;
-  PRL_c1A_supervisionAgreementDetails?: string;
-  PRL_c1A_agreementOtherWaysDetails?: YesOrNo;
   cd_children?: ChildrenDetails[];
   ocd_otherChildren?: OtherChildrenDetails[];
   ocd_hasOtherChildren?: YesOrNo;
@@ -558,12 +559,7 @@ export interface Case {
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
   sq_courtPermissionRequired?: YesOrNo;
-  c1A_concernAboutChild?: C1AAbuseTypes[];
-  PRL_c1A_concernAboutChild?: PRL_C1AAbuseTypes[];
-  c1A_concernAboutApplicant?: C1AAbuseTypes[];
-  c1A_concernAboutRespondent?: C1AAbuseTypes[];
-  PRL_c1A_concernAboutRespondent?: PRL_C1AAbuseTypes[];
-  c1A_childAbductedBefore?: YesOrNo;
+
   co_certificate?: C100DocumentInfo;
   too_courtOrder?: string[];
   too_stopOtherPeopleDoingSomethingSubField?: string[];
@@ -586,13 +582,139 @@ export interface Case {
   lastModifiedDate?: string;
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
-  applicantPreferredContact?: applicantContactPreferencesEnum;
+  partyContactPreference?: ContactPreference | null;
   draftOrderDoc?: Document;
+  c100DraftDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
+  citizenDocuments?: CitizenDocuments[];
+  citizenOrders?: CitizenOrders[];
+  citizenApplicationPacks?: CitizenApplicationPacks[];
+  // RA local component
+  ra_typeOfHearing?: string[];
+  ra_noVideoAndPhoneHearing_subfield?: string;
+  ra_specialArrangements?: string[];
+  ra_specialArrangementsOther_subfield?: string;
+  ra_languageNeeds?: string[];
+  ra_needInterpreterInCertainLanguage_subfield?: string;
+  ra_documentInformation?: string[];
+  ra_disabilityRequirements?: string[];
+  ra_specifiedColorDocuments_subfield?: string;
+  ra_largePrintDocuments_subfield?: string;
+  ra_documentHelpOther_subfield?: string;
+  ra_communicationHelp?: string[];
+  ra_signLanguageInterpreter_subfield?: string;
+  ra_communicationHelpOther_subfield?: string;
+  ra_supportCourt?: string[];
+  ra_supportWorkerCarer_subfield?: string;
+  ra_friendFamilyMember_subfield?: string;
+  ra_therapyAnimal_subfield?: string;
+  ra_supportCourtOther_subfield?: string;
+  ra_feelComportable?: string[];
+  ra_appropriateLighting_subfield?: string;
+  ra_feelComportableOther_subfield?: string;
+  ra_travellingCourt?: string[];
+  ra_parkingSpace_subfield?: string;
+  ra_differentTypeChair_subfield?: string;
+  ra_travellingCourtOther_subfield?: string;
+  ra_languageReqAndSpecialArrangements?: string;
+  ra_existingFlags?: RAFlags;
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
+  wishToRespond?: YesOrNo;
+  your_response_to_aoh?: string;
+  aoh_wishToRespond?: YesOrNo;
+  aoh_responseToAllegations?: string;
+  citizenNotifications?: CitizenNotification[];
+  miam_noAppointmentAvailableDetails?: string;
+  miam_unableToAttainDueToDisablityDetails?: string;
+  miam_noMediatorIn15mileDetails?: string;
+  //AOH fields
+  c1A_safteyConcerns?: C1ASafteyConcerns;
+  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
+  c1A_haveSafetyConcerns?: YesOrNo;
+  c1A_abductionReasonOutsideUk?: string;
+  c1A_childsCurrentLocation?: string;
+  c1A_childrenMoreThanOnePassport?: YesOrNo;
+  c1A_possessionChildrenPassport?: string[];
+  c1A_provideOtherDetails?: string;
+  c1A_passportOffice?: YesOrNo;
+  c1A_abductionPassportOfficeNotified?: YesOrNo;
+  c1A_previousAbductionsShortDesc?: string;
+  c1A_policeOrInvestigatorInvolved?: YesOrNo;
+  c1A_policeOrInvestigatorOtherDetails?: string;
+  c1A_otherConcernsDrugs?: YesOrNo;
+  c1A_otherConcernsDrugsDetails?: string;
+  c1A_childSafetyConcerns?: YesOrNo;
+  c1A_childSafetyConcernsDetails?: string;
+  c1A_keepingSafeStatement?: string;
+  c1A_supervisionAgreementDetails?: string;
+  c1A_agreementOtherWaysDetails?: YesOrNo;
+  c1A_concernAboutApplicant?: C1AAbuseTypes[];
+  c1A_concernAboutRespondent?: C1AAbuseTypes[];
+  c1A_concernAboutChild?: C1AAbuseTypes[];
+  c1A_childAbductedBefore?: YesOrNo;
 }
+
+export interface CitizenNotification {
+  id: string;
+  show: boolean;
+}
+
+export enum Miam_notAttendingReasons {
+  applyingForWithoutNoticeHearing = 'applyingForWithoutNoticeHearing',
+  under18 = 'under18',
+  canNotAccessMediator = 'canNotAccessMediator',
+  none = 'none',
+}
+export enum Miam_noMediatorReasons {
+  noAppointmentAvailable = 'noAppointmentAvailable',
+  disability = 'disability',
+  noMediatorIn15mile = 'noMediatorIn15mile',
+  inPrison = 'inPrison',
+  bailThatPreventContact = 'bailThatPreventContact',
+  releaseFromPrisonOnLicence = 'releaseFromPrisonOnLicence',
+  none = 'none',
+}
+
+export enum Miam_previousAttendance {
+  fourMonthsPriorAttended = 'fourMonthsPriorAttended',
+  miamExamptionApplied = 'miamExamptionApplied',
+  none = 'none',
+}
+export enum Miam_urgency {
+  freedomPhysicalSafety = 'freedomPhysicalSafety',
+  freedomPhysicalSafetyInFamily = 'freedomPhysicalSafetyInFamily',
+  riskSafetyInHome = 'riskSafetyInHome',
+  riskOfHarmToChildren = 'riskOfHarmToChildren',
+  unlawfullyRemovedFromUK = 'unlawfullyRemovedFromUK',
+  riskOfUnfairCourtDecision = 'riskOfUnfairCourtDecision',
+  riskUnreasonableFinancialHardship = 'riskUnreasonableFinancialHardship',
+  riskOfIrretrievableProblems = 'riskOfIrretrievableProblems',
+  riskOfCourtProceedingsDispute = 'riskOfCourtProceedingsDispute',
+  none = 'none',
+}
+export enum Miam_childProtectionEvidence {
+  localAuthority = 'localAuthority',
+  childProtectionPlan = 'childProtectionPlan',
+  none = 'none',
+}
+export interface ServedApplicationDetails {
+  id: string;
+  value: ServedApplication;
+}
+export type ServedApplication = {
+  emailNotificationDetails: EmailNotificationDetails[] | [];
+  whoIsResponsible: string;
+};
+export interface EmailNotificationDetails {
+  id: string;
+  value: emailNotification;
+}
+export type emailNotification = {
+  servedParty: string;
+};
 
 export interface CaseWithId extends Case {
   paymentSuccessDetails?: {
@@ -655,4 +777,11 @@ export enum FieldPrefix {
 export interface UploadedFile {
   id: string;
   name: string;
+}
+export interface HearingData {
+  hmctsServiceCode: string;
+  caseRef: string;
+  caseHearings: HearingsList[];
+  courtTypeId: string;
+  courtName: string;
 }

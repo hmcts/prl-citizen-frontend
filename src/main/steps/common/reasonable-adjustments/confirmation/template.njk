@@ -1,0 +1,24 @@
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% extends "common/page.njk" %}
+
+{% block pageTitle %}
+  {{ serviceName }} - {{ successText }}
+  {{appName}}
+{% endblock %}
+
+{% block backLink %}{% endblock %}
+
+{% block page_content %}
+
+  {{ govukPanel({
+  titleText: successText
+}) }}
+
+  <h2 class="govuk-heading-m">{{ content1 }}</h2>
+  <p class="govuk-body">{{ content2}}</p>
+  <p class="govuk-body">{{ content3}}</p>
+
+  <h2 class="govuk-heading-m">{{ content4 }}</h2>
+  <p class="govuk-body">{{ content5| safe}}</p>
+
+{% endblock %}

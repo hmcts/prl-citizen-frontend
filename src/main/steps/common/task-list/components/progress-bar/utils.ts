@@ -10,7 +10,7 @@ export enum CaseProgressionStage {
   HEARING_AND_COURT_ORDERS = 'hearingAndCourtOrders',
   CASE_OPENED = 'caseOpened',
   FINAL_ORDER = 'finalOrder',
-  CASE_CLOSED = 'caseClosed',
+  ALL_FINAL_ORDERS_ISSUED = 'caseClosed',
 }
 
 const getLabel = (caseStage: CaseProgressionStage, caseType: CaseType, language: string): string =>
@@ -65,9 +65,9 @@ export const progressBarStage = {
     isComplete: () => false,
   },
   caseClosed: {
-    id: CaseProgressionStage.CASE_CLOSED,
-    label: getLabel.bind(null, CaseProgressionStage.CASE_CLOSED),
-    ariaLabel: getAriaLabel.bind(null, CaseProgressionStage.CASE_CLOSED),
+    id: CaseProgressionStage.ALL_FINAL_ORDERS_ISSUED,
+    label: getLabel.bind(null, CaseProgressionStage.ALL_FINAL_ORDERS_ISSUED),
+    ariaLabel: getAriaLabel.bind(null, CaseProgressionStage.ALL_FINAL_ORDERS_ISSUED),
     isInProgress: () => false,
     isComplete: () => false,
   },
