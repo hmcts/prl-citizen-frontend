@@ -97,19 +97,19 @@ export const enum UploadDocumentCategory {
   OTHER_DOCUMENTS = 'other-documents',
 }
 
-export type ViewDocumentsCategoryListProps = {
-  categoryId: DocumentCategory;
-  documentCategoryLabel: (
-    documentCategoryLabels: Record<DocumentLabelCategory, string>,
-    uploadedByPartyName?: string
-  ) => string;
-  documents: (
-    documents: CaseWithId['citizenDocuments'],
-    loggedInUserPartyType: PartyType,
-    documentPartyType: CitizenDocuments['partyType'],
-    documentPartyId?: CitizenDocuments['partyId']
-  ) => Document[];
-};
+// export type ViewDocumentsCategoryListProps = {
+//   categoryId: DocumentCategory;
+//   documentCategoryLabel: (
+//     documentCategoryLabels: Record<DocumentLabelCategory, string>,
+//     uploadedByPartyName?: string
+//   ) => string;
+//   documents: (
+//     documents: CaseWithId['citizenDocuments'],
+//     loggedInUserPartyType: PartyType,
+//     documentPartyType: CitizenDocuments['partyType'],
+//     documentPartyId?: CitizenDocuments['partyId']
+//   ) => Document[];
+// };
 
 export const enum DocumentLabelCategory {
   VIEW_ALL_ORDERS = 'viewAllOrders',
@@ -189,7 +189,8 @@ export type CitizenOrders = {
   documentWelsh: DocumentMeta;
   orderType: string;
   createdDate: string;
-  servedDate: string;
+  servedDateTime: string;
+  madeDate: string;
   wasCafcassServed: boolean;
   final: boolean;
   new: boolean;

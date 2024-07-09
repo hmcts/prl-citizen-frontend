@@ -7,10 +7,11 @@ import {
   DOWNLOAD_DOCUMENT,
   FETCH_HEARING_DETAILS,
   VIEW_ALL_ORDERS,
-  VIEW_APPLICANTS_DOCUMENT,
+  //VIEW_APPLICANTS_DOCUMENT,
   VIEW_APPLICATION_PACK_DOCUMENTS,
   VIEW_OTHER_DOCUMENTS,
-  VIEW_RESPONDENTS_DOCUMENT,
+  //VIEW_RESPONDENTS_DOCUMENT,
+  VIEW_TYPE_DOCUMENT,
   ///VIEW_DOCUMENTS
 } from '../../../urls';
 import { interpolate } from '../../string-parser';
@@ -42,11 +43,15 @@ export const hasOrders = (caseData: CaseWithId): boolean => !!caseData?.citizenO
 export const hasApplicationPacks = (caseData: CaseWithId): boolean =>
   !!(caseData && _.isArray(caseData.citizenApplicationPacks) && _.first(caseData.citizenApplicationPacks));
 
-export const hasAnyDocumentForPartyType = (partyType: PartyType, caseData: CaseWithId): boolean =>
-  !!(caseData?.citizenDocuments?.length
-    ? caseData.citizenDocuments.find(document => document.partyType === partyType)
-    : false);
-
+export const hasAnyDocumentForPartyType = (partyType: PartyType, caseData: CaseWithId): boolean => {
+  if (partyType === PartyType.APPLICANT) {
+    return !!caseData?.applicantDocuments?.length;
+  } else if (partyType === PartyType.RESPONDENT) {
+    return !!caseData?.respondentDocuments?.length;
+  } else {
+    return !!caseData?.citizenOtherDocuments?.length;
+  }
+};
 export const getDocumentSectionTitle = (
   documentSectionId: DocumentSectionId,
   documentSectionTitles: Record<DocumentSectionId, string>
@@ -246,7 +251,7 @@ export const getOrdersFromTheCourtCategoryList = (
           partyType: loggedInUserPartyType,
         }),
         serveDate: caseData.citizenOrders?.length
-          ? (dayjs(_.first(caseData.citizenOrders!)!.servedDate).format('DD MMM YYYY') as string)
+          ? (dayjs(_.first(caseData.citizenOrders!)!.madeDate).format('DD MMM YYYY') as string)
           : '04 Jul 2024',
       },
     },
@@ -263,7 +268,7 @@ export const getOrderDocuments = (orders: CitizenOrders[], loggedInUserPartyType
       [DocumentTypes.ENGLISH]: {
         documentId,
         documentName: document.document_filename,
-        orderMadeDate: dayjs(order.createdDate).format('DD MMM YYYY'),
+        orderMadeDate: dayjs(order.madeDate).format('DD MMM YYYY'),
         documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
           partyType: loggedInUserPartyType,
           documentId,
@@ -287,19 +292,23 @@ export const getViewDocumentCategoryList = (
   let doclabel;
   let url;
   let date;
+  let type;
   switch (documentSectionId) {
     case ViewDocumentsSectionId.APPLICANTS_DOCUMENT:
       doclabel = DocumentLabelCategory.VIEW_APPLICANTS_DOCUMENT;
-      url = VIEW_APPLICANTS_DOCUMENT;
-      date = caseData.citizenDocuments?.length
-        ? (dayjs(_.first(caseData.citizenDocuments!)!.uploadedDate).format('DD MMM YYYY') as string)
+      //url = VIEW_APPLICANTS_DOCUMENT;
+      url = VIEW_TYPE_DOCUMENT;
+      type = 'applicant';
+      date = caseData.applicantDocuments?.length
+        ? (dayjs(_.first(caseData.applicantDocuments!)!.uploadedDate).format('DD MMM YYYY') as string)
         : '';
       break;
     case ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS:
       doclabel = DocumentLabelCategory.VIEW_RESPONDENTS_DOCUMENT;
-      url = VIEW_RESPONDENTS_DOCUMENT;
-      date = caseData.citizenOrders?.length
-        ? (dayjs(_.first(caseData.citizenDocuments!)!.uploadedDate).format('DD MMM YYYY') as string)
+      //url = VIEW_RESPONDENTS_DOCUMENT;
+      (url = VIEW_TYPE_DOCUMENT), (type = 'respondent');
+      date = caseData.respondentDocuments?.length
+        ? (dayjs(_.first(caseData.respondentDocuments!)!.uploadedDate).format('DD MMM YYYY') as string)
         : '';
       break;
     case ViewDocumentsSectionId.ATTENDING_THE_HEARING:
@@ -312,8 +321,9 @@ export const getViewDocumentCategoryList = (
     case ViewDocumentsSectionId.OTHER_DOCUMENTS:
       doclabel = DocumentLabelCategory.VIEW_OTHER_DOCUMENTS;
       url = VIEW_OTHER_DOCUMENTS;
-      date = caseData.citizenOrders?.length
-        ? (dayjs(_.first(caseData.citizenOrders!)!.servedDate).format('DD MMM YYYY') as string)
+      // url = applyParms(VIEW_TYPE_DOCUMENT, { type: 'other' });
+      date = caseData.citizenOtherDocuments?.length
+        ? (dayjs(_.first(caseData.citizenOtherDocuments!)!.uploadedDate).format('DD MMM YYYY') as string)
         : '';
       break;
   }
@@ -323,7 +333,8 @@ export const getViewDocumentCategoryList = (
         text: getDocumentCategoryLabel(doclabel, documentCategoryLabels),
         url: applyParms(url, {
           partyType: loggedInUserPartyType,
-          caseId: caseData.id as string,
+          // caseId: caseData.id as string,
+          type,
         }),
         serveDate: date,
       },
@@ -369,7 +380,7 @@ export const getViewDocumentCategoryList = (
 
 export const getDocuments = (
   //documentCategoryId: DocumentCategory,
-  documents: CaseWithId['citizenDocuments'],
+  documents: CitizenDocuments[],
   loggedInUserPartyType: PartyType
   //documentPartyType: CitizenDocuments['partyType'],
   //documentPartyId?: CitizenDocuments['partyId']
@@ -390,11 +401,19 @@ export const getDocuments = (
   //   filteredDocs.forEach(doc => {
   if (documents?.length) {
     documents.forEach(doc => {
-      const documentId = doc.document.document_url.substring(doc.document.document_url.lastIndexOf('/') + 1);
+      const documentId = doc.document
+        ? doc.document.document_url.substring(doc.document.document_url.lastIndexOf('/') + 1)
+        : doc.documentWelsh
+        ? doc.documentWelsh.document_url.substring(doc.documentWelsh.document_url.lastIndexOf('/') + 1)
+        : '';
       const document: Document = {
         [DocumentTypes.ENGLISH]: {
           documentId,
-          documentName: doc.document.document_filename,
+          documentName: doc.document
+            ? doc.document.document_filename
+            : doc.documentWelsh
+            ? doc.documentWelsh.document_filename
+            : '',
           createdDate: dayjs(doc.uploadedDate).format('DD MMM YYYY'),
           uploadedBy: doc.uploadedBy,
           documentDownloadUrl: getDownloadDocUrl(doc, loggedInUserPartyType),
@@ -411,8 +430,18 @@ export const getDocuments = (
 export const getDownloadDocUrl = (document: CitizenDocuments, loggedInUserPartyType: PartyType): string => {
   return applyParms(DOWNLOAD_DOCUMENT, {
     partyType: loggedInUserPartyType,
-    documentId: document.document.document_url.substring(document.document.document_url.lastIndexOf('/') + 1),
-    documentName: transformFileName(document.document.document_filename),
+    documentId: document.document
+      ? document.document.document_url.substring(document.document.document_url.lastIndexOf('/') + 1)
+      : document.documentWelsh
+      ? document.documentWelsh.document_url.substring(document.documentWelsh.document_url.lastIndexOf('/') + 1)
+      : '',
+    documentName: transformFileName(
+      document.document
+        ? document.document.document_filename
+        : document.documentWelsh
+        ? document.documentWelsh.document_filename
+        : ''
+    ),
   });
 };
 

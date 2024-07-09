@@ -31,7 +31,7 @@ export default class DownloadDocumentController {
         documentReference = caseData.c1ADocument;
         break;
       case 'c7-response-document':
-        documentReference = caseData.citizenDocuments?.find(
+        documentReference = caseData.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
@@ -39,7 +39,7 @@ export default class DownloadDocumentController {
         )?.document;
         break;
       case 'c7-response-document-welsh':
-        documentReference = caseData.citizenDocuments?.find(
+        documentReference = caseData.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
@@ -47,7 +47,7 @@ export default class DownloadDocumentController {
         )?.document;
         break;
       case 'c1a-application-document':
-        documentReference = caseData.citizenDocuments?.find(
+        documentReference = caseData.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
@@ -55,7 +55,7 @@ export default class DownloadDocumentController {
         )?.document;
         break;
       case 'c1a-application-document-welsh':
-        documentReference = caseData.citizenDocuments?.find(
+        documentReference = caseData.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
@@ -63,7 +63,7 @@ export default class DownloadDocumentController {
         )?.document;
         break;
       case 'c1a-response-document':
-        documentReference = caseData.citizenDocuments?.find(
+        documentReference = caseData.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&
@@ -71,7 +71,7 @@ export default class DownloadDocumentController {
         )?.document;
         break;
       case 'c1a-response-document-welsh':
-        documentReference = caseData.citizenDocuments?.find(
+        documentReference = caseData.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&

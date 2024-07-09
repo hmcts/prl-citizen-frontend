@@ -20,7 +20,7 @@ describe('documents > view > orders-from-the-court > content', () => {
             userCase: {
               citizenOrders: [
                 {
-                  createdDate: '01/01/2024',
+                  madeDate: '2024-01-01T16:24:33.122506',
                   orderType: 'ORDER',
                   document: {
                     document_url: 'DOC_URL/1234',

@@ -538,7 +538,7 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-      citizenDocuments: [
+      respondentDocuments: [
         {
           partyId: '1234',
           partyName: null,

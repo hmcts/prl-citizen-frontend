@@ -14,7 +14,31 @@ describe('documents > view > all-documents > content', () => {
                 id: '1234',
               },
               userCase: {
-                citizenDocuments: [
+                respondentDocuments: [
+                  {
+                    partyId: 1234,
+                    partyName: null,
+                    partyType: 'respondent',
+                    categoryId: 'positionStatements',
+                    uploadedBy: 'test user',
+                    uploadedDate: '2024-03-11T16:24:33.122506',
+                    reviewedDate: null,
+                    document: null,
+                    documentWelsh: null,
+                  },
+                  {
+                    partyId: 2,
+                    partyName: null,
+                    partyType: 'applicant',
+                    categoryId: 'positionStatements',
+                    uploadedBy: 'test user2',
+                    uploadedDate: '2024-03-11T16:24:33.122506',
+                    reviewedDate: null,
+                    document: null,
+                    documentWelsh: null,
+                  },
+                ],
+                applicantDocuments: [
                   {
                     partyId: 1234,
                     partyName: null,
@@ -44,7 +68,7 @@ describe('documents > view > all-documents > content', () => {
                     partyType: 'applicant',
                     categoryId: 'policeReport',
                     uploadedBy: 'test user',
-                    uploadedDate: '01/01/2024',
+                    madeDate: '2024-03-11T16:24:33.122506',
                     reviewedDate: '01/01/2024',
                     document: {
                       document_url: 'MOCK_DOCUMENT_URL',
@@ -93,7 +117,7 @@ describe('documents > view > all-documents > content', () => {
             link: {
               text: 'Your served application pack',
               url: '/applicant/documents/view/application-pack-documents',
-              serveDate: "11 Mar 2024"
+              serveDate: '11 Mar 2024',
             },
           },
         ],
@@ -104,9 +128,9 @@ describe('documents > view > all-documents > content', () => {
         items: [
           {
             link: {
-              text: 'View all orders from the court',
+              text: 'Orders from the court',
               url: '/applicant/documents/view/orders-from-the-court',
-              serveDate: "11 Mar 2024"
+              serveDate: '11 Mar 2024',
             },
           },
         ],
@@ -116,12 +140,11 @@ describe('documents > view > all-documents > content', () => {
         id: 'applicantsDocuments',
         items: [
           {
-            categoryId: 'positionStatements',
             link: {
-              openInAnotherTab: false,
-              text: "test user2's position statements",
-              url: '/applicant/documents/view/positionStatements/applicant/2?',
-              serveDate: "11 Mar 2024"
+              text: "Applicant's documents",
+              //url: '/applicant/documents/view/applicant-document',
+              url: '/applicant/documents/view/applicant/doc',
+              serveDate: '11 Mar 2024',
             },
           },
         ],
@@ -131,12 +154,11 @@ describe('documents > view > all-documents > content', () => {
         id: 'respondentsDocuments',
         items: [
           {
-            categoryId: 'positionStatements',
             link: {
-              openInAnotherTab: false,
-              text: "test user's position statements",
-              url: '/applicant/documents/view/positionStatements/respondent/1234?',
-              serveDate: "11 Mar 2024"
+              text: "Respondent's documents",
+              //url: '/applicant/documents/view/respondent-document',
+              url: '/applicant/documents/view/respondent/doc',
+              serveDate: '11 Mar 2024',
             },
           },
         ],

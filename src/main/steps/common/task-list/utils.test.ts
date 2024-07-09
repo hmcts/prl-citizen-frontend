@@ -416,7 +416,7 @@ describe('hasResponseBeenReviewed', () => {
     expect(
       hasResponseBeenReviewed(
         {
-          citizenDocuments: [
+          respondentDocuments: [
             {
               partyId: '1',
               partyName: null,
@@ -453,7 +453,7 @@ describe('hasResponseBeenReviewed', () => {
     expect(
       hasResponseBeenReviewed(
         {
-          citizenDocuments: [
+          respondentDocuments: [
             {
               partyId: null,
               partyName: null,

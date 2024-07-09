@@ -117,7 +117,7 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
         documentCategoryLabels,
         loggedInUserPartyType
       ),
-    isVisible: (caseData: CaseWithId) => hasAnyDocumentForPartyType(PartyType.RESPONDENT, caseData),
+    isVisible: (caseData: CaseWithId) => hasAnyDocumentForPartyType(PartyType.OTHER_PERSON, caseData),
     displayOrder: () => 6,
   },
 ];

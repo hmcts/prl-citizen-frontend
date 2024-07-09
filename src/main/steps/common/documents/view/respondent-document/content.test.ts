@@ -18,7 +18,7 @@ describe('documents > view > orders-from-the-court > content', () => {
               id: '1234',
             },
             userCase: {
-              applicantDocuments: [
+              respondentDocuments: [
                 {
                   partyId: 1234,
                   partyName: null,

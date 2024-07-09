@@ -8,8 +8,8 @@ import { viewDocumentsSections as sections } from '../config';
 export * from './routeGuard';
 
 const languages = {
-  en: { ...en },
-  cy: { ...cy },
+  en: { ...en, categories: 'Categories', lastUpdate: 'Last update' },
+  cy: { ...cy, categories: 'Categories -welsh', lastUpdate: 'Last update -welsh' },
 };
 
 export const generateContent: TranslationFn = content => {

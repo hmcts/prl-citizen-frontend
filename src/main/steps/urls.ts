@@ -142,6 +142,8 @@ export const VIEW_ALL_ORDERS: PageLink = `${DOCUMENTS}/view/orders-from-the-cour
 export const VIEW_APPLICANTS_DOCUMENT: PageLink = `${DOCUMENTS}/view/applicant-document`;
 export const VIEW_RESPONDENTS_DOCUMENT: PageLink = `${DOCUMENTS}/view/respondent-document`;
 export const VIEW_OTHER_DOCUMENTS: PageLink = `${DOCUMENTS}/view/other-document`;
+//export const VIEW_COMMON_DOCUMENT: PageLink = `${DOCUMENTS}/view/common-document/:docType`;
+export const VIEW_TYPE_DOCUMENT: PageLink = `${DOCUMENTS}/view/:type/doc`;
 
 /* Upload documents */
 export const UPLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/upload`;

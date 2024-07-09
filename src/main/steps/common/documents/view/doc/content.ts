@@ -31,6 +31,23 @@ export const generateContent: TranslationFn = content => {
     Partial<DocumentSectionId>,
     string
   >;
+  let docId;
+  let documentObject;
+  const { type } = request.params;
+  switch (type) {
+    case 'applicant':
+      docId = ViewDocumentsSectionId.APPLICANTS_DOCUMENT;
+      documentObject = caseData.applicantDocuments;
+      break;
+    case 'respondent':
+      docId = ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS;
+      documentObject = caseData.respondentDocuments;
+      break;
+    case 'other':
+      docId = ViewDocumentsSectionId.OTHER_DOCUMENTS;
+      documentObject = caseData.citizenOtherDocuments;
+      break;
+  }
 
   return {
     ...translations,
@@ -44,7 +61,7 @@ export const generateContent: TranslationFn = content => {
         href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),
       },
     ],
-    title: getDocumentSectionTitle(ViewDocumentsSectionId.APPLICANTS_DOCUMENT, documentSectionTitles),
-    documents: getDocuments(caseData.applicantDocuments, loggedInUserPartyType),
+    title: getDocumentSectionTitle(docId, documentSectionTitles),
+    documents: getDocuments(documentObject, loggedInUserPartyType),
   };
 };

@@ -44,7 +44,7 @@ export const generateContent: TranslationFn = content => {
         href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),
       },
     ],
-    title: getDocumentSectionTitle(ViewDocumentsSectionId.APPLICANTS_DOCUMENT, documentSectionTitles),
-    documents: getDocuments(caseData.applicantDocuments, loggedInUserPartyType),
+    title: getDocumentSectionTitle(ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS, documentSectionTitles),
+    documents: getDocuments(caseData.respondentDocuments, loggedInUserPartyType),
   };
 };

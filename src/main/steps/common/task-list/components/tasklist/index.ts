@@ -193,7 +193,7 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
         if (!isC7ResponseSubmitted(respondent.value) || !hasResponseBeenReviewed(caseData, respondent)) {
           return '#';
         }
-        const c7Document = caseData.citizenDocuments?.find(
+        const c7Document = caseData.respondentDocuments?.find(
           doc =>
             (doc.partyId === respondent.value.user.idamId || doc.solicitorRepresentedPartyId === respondent.id) &&
             doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION

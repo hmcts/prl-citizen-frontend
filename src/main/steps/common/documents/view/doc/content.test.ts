@@ -12,6 +12,7 @@ describe('documents > view > orders-from-the-court > content', () => {
             documentPartyId: 1234,
             documentPartyType: 'respondent',
             documentCategory: 'positionStatements',
+            type: 'applicant',
           },
           session: {
             user: {

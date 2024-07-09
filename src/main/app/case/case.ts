@@ -231,7 +231,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   c100DraftDoc: 'submitAndPayDownloadApplicationLink',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
-  citizenDocuments: 'citizenDocuments',
+  //citizenDocuments: 'citizenDocuments',
+  applicantDocuments: 'applicantDocuments',
+  respondentDocuments: 'respondentDocuments',
+  citizenOtherDocuments: 'citizenOtherDocuments',
   citizenOrders: 'citizenOrders',
   citizenApplicationPacks: 'citizenApplicationPacks',
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
@@ -589,7 +592,10 @@ export interface Case {
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
-  citizenDocuments?: CitizenDocuments[];
+  //citizenDocuments?: CitizenDocuments[];
+  applicantDocuments?: CitizenDocuments[];
+  respondentDocuments?: CitizenDocuments[];
+  citizenOtherDocuments?: CitizenDocuments[];
   citizenOrders?: CitizenOrders[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
   // RA local component

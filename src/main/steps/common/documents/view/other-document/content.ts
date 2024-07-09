@@ -45,6 +45,6 @@ export const generateContent: TranslationFn = content => {
       },
     ],
     title: getDocumentSectionTitle(ViewDocumentsSectionId.APPLICANTS_DOCUMENT, documentSectionTitles),
-    documents: getDocuments(caseData.applicantDocuments, loggedInUserPartyType),
+    documents: getDocuments(caseData.citizenOtherDocuments, loggedInUserPartyType),
   };
 };

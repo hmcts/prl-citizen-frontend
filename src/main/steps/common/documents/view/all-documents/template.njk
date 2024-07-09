@@ -19,53 +19,12 @@
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     </fieldset>
   </div>
-
-  <ol class="app-task-list">
-    {% for section in sections %}
-      <li>
-        <h2 class="app-task-list__section">
-          {{section.title}}
-        </h2>
-        <ul class="app-task-list__items">
-          {% for item in section.items %}
-          
-            <li class="app-task-list__item">
-         
-            <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key govuk-!-width-one-half">
-              
-                {% if item.link.openInAnotherTab %}
-                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status" target="_blank">
-                    {{item.link.text}}
-                  </a>
-                {% else %}
-                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status">
-                    {{item.link.text}}
-                  </a>
-                {% endif %}
-             
-              </dt>
-              <dd>
-                <dd class="govuk-summary-list__value govuk-!-width-one-half">
-                  last update date: {{item.link.serveDate}}
-                </dd>
-                </div>
-                </dl>
-           
-            </li>
-            
-          {% endfor %}
-        </ul>
-      </li>
-    {% endfor %}
-  </ol>
-
   
   <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
      <dt class="govuk-summary-list__key govuk-!-width-full">
         <p>
-          Categories
+          {{categories}}
         </p>
       </dt>
       <dd>
@@ -73,7 +32,7 @@
       <dd class="govuk-summary-list__key govuk-!-width-one-quarter">
       
         <p >
-          last Update
+          {{lastUpdate}}
         </p>
       </dd>
     </div>

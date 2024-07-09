@@ -28,7 +28,7 @@ export const generateContent: TranslationFn = content => {
   //   //documentCategory
   //   } = request.params;
   //const documentConfig = getDocumentConfig(documentCategory);
-  const documents = [];
+  //const documents = [];
   // documentConfig
   // ? documentConfig.documents(caseData.citizenDocuments, loggedInUserPartyType, documentPartyType, documentPartyId)
   // : [];
@@ -45,13 +45,13 @@ export const generateContent: TranslationFn = content => {
         href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),
       },
     ],
-    title: '',
-    //  interpolate(
-    //   // documentConfig && documents.length
-    //   //   ? documentConfig.documentCategoryLabel(documentCategoryLabels, documents[0].document_en!.uploadedBy)
-    //   //   : '',
-    //   { partyName: getPartyName(caseData, loggedInUserPartyType, userDetails) }
-    // ),
-    documents,
+    // title: '',
+    // //  interpolate(
+    // //   // documentConfig && documents.length
+    // //   //   ? documentConfig.documentCategoryLabel(documentCategoryLabels, documents[0].document_en!.uploadedBy)
+    // //   //   : '',
+    // //   { partyName: getPartyName(caseData, loggedInUserPartyType, userDetails) }
+    // // ),
+    // documents,
   };
 };

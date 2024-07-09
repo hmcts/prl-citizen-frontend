@@ -772,7 +772,7 @@ describe('tasklist index', () => {
             urgentFlag: false,
           },
         ],
-        citizenDocuments: [
+        respondentDocuments: [
           {
             partyId: '123456',
             partyName: null,
