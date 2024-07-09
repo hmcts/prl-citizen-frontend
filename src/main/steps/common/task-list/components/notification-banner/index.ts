@@ -45,8 +45,7 @@ export const getNotificationBannerConfig = (
     notificationConfig[caseType].hasOwnProperty(partyType)
     ? notificationConfig[caseType][partyType]
         .map(config => {
-          const { id, show, respondentNames} = config;
-          console.log(respondentNames);
+          const { id, show} = config;
           if (show(caseData, userDetails)) {
             const _content = config.content(caseType, language, partyType);
             const sections: NotificationSection[] = [];
@@ -61,17 +60,17 @@ export const getNotificationBannerConfig = (
                   text: interpolate(content.text, {
                     noOfDaysRemainingToSubmitCase:
                       caseData.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
-                    nameOfRespondentAp13Eng:
+                    nameOfRespondentCan6Eng:
                       can6RespondentName ?? 'The respondent',
-                    nameOfRespondentAp14Eng:
+                    nameOfRespondentCan6AEng:
                       can6aRespondentNames ?? 'The respondent',
-                    nameOfRespondentAp15Eng:
+                    nameOfRespondentCan6BEng:
                       can6BRespondentName ?? 'The respondent',
-                    nameOfRespondentAp13Welsh:
+                    nameOfRespondentCan6Welsh:
                       can6RespondentName ?  'Mae ' + can6RespondentName :'Mae’r atebydd',
-                    nameOfRespondentAp14Welsh:
+                    nameOfRespondentCan6AWelsh:
                       can6aRespondentNames ?  'Mae ' + can6aRespondentNames :'Mae’r atebydd',
-                    nameOfRespondentAp15Welsh:
+                    nameOfRespondentCan6BWelsh:
                       can6BRespondentName ?  'Mae ' + can6BRespondentName :'Mae’r atebydd',
                   }),
                 }));

@@ -349,13 +349,13 @@ const en: NotificationBannerContent = {
             },
           ],
         },
-        responseAp13: {
+        responseCan6: {
           heading: 'View the response to your application',
           sections: [
             {
               contents: [
                 {
-                  text: '{nameOfRespondentAp13Eng} has responded to your application',
+                  text: '{nameOfRespondentCan6Eng} has responded to your application',
                 },
               ],
               links: [
@@ -367,13 +367,13 @@ const en: NotificationBannerContent = {
             },
           ],
         },
-        responseAp14: {
+        responseCan6A: {
           heading: `View the respondent's allegations of harm`,
           sections: [
             {
               contents: [
                 {
-                  text: '{nameOfRespondentAp14Eng} has made allegations of harm against you.',
+                  text: '{nameOfRespondentCan6AEng} has made allegations of harm against you.',
                 },
               ],
               links: [
@@ -385,13 +385,13 @@ const en: NotificationBannerContent = {
             },
           ],
         },
-        responseAp15: {
+        responseCan6B: {
           heading: 'View the response to your allegations of harm',
           sections: [
             {
               contents: [
                 {
-                  text: '{nameOfRespondentAp15Eng} has responded to your allegations of harm.',
+                  text: '{nameOfRespondentCan6BEng} has responded to your allegations of harm.',
                 },
               ],
               links: [
@@ -977,13 +977,13 @@ const cy: typeof en = {
             },
           ],
         },
-        responseAp13: {
+        responseCan6: {
           heading: 'Gweld yr ymateb i’ch cais',
           sections: [
             {
               contents: [
                 {
-                  text: '{nameOfRespondentAp13Welsh} wedi ymateb i’ch cais.',
+                  text: '{nameOfRespondentCan6Welsh} wedi ymateb i’ch cais.',
                 },
               ],
               links: [
@@ -995,13 +995,13 @@ const cy: typeof en = {
             },
           ],
         },
-        responseAp14: {
+        responseCan6A: {
           heading: 'Gweld honiadau o niwed yr atebydd',
           sections: [
             {
               contents: [
                 {
-                  text: '{nameOfRespondentAp14Welsh} wedi gwneud honiadau o niwed yn eich erbyn.',
+                  text: '{nameOfRespondentCan6AWelsh} wedi gwneud honiadau o niwed yn eich erbyn.',
                 },
               ],
               links: [
@@ -1013,13 +1013,13 @@ const cy: typeof en = {
             },
           ],
         },
-        responseAp15: {
+        responseCan6B: {
           heading: `Gweld yr ymateb i'ch honiadau o niwed`,
           sections: [
             {
               contents: [
                 {
-                  text: `{nameOfRespondentAp15Welsh} wedi ymateb i'ch honiadau o niwed.`,
+                  text: `{nameOfRespondentCan6BWelsh} wedi ymateb i'ch honiadau o niwed.`,
                 },
               ],
               links: [
