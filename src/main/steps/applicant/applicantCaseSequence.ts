@@ -43,10 +43,10 @@ import {
   VIEW_ALL_ORDERS,
   //VIEW_APPLICANTS_DOCUMENT,
   VIEW_APPLICATION_PACK_DOCUMENTS,
-  VIEW_DOCUMENTS,
-  VIEW_TYPE_DOCUMENT,
-  VIEW_RESPONDENTS_DOCUMENT,
+  //VIEW_DOCUMENTS,
   VIEW_OTHER_DOCUMENTS,
+  VIEW_RESPONDENTS_DOCUMENT,
+  VIEW_TYPE_DOCUMENT,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -277,12 +277,12 @@ export const applicantCaseSequence: Step[] = [
     subDir: '/common',
     getNextStep: () => '/',
   },
-  {
-    url: VIEW_DOCUMENTS,
-    showInSection: Sections.AboutApplicantCase,
-    subDir: '/common',
-    getNextStep: () => '/',
-  },
+  // {
+  //   url: VIEW_DOCUMENTS,
+  //   showInSection: Sections.AboutApplicantCase,
+  //   subDir: '/common',
+  //   getNextStep: () => '/',
+  // },
   {
     url: UPLOAD_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,
@@ -379,12 +379,12 @@ export const applicantCaseSequence: Step[] = [
     subDir: '/common',
     getNextStep: () => '/',
   },
-  {
-    url: VIEW_DOCUMENTS,
-    showInSection: Sections.AboutApplicantCase,
-    subDir: '/common',
-    getNextStep: () => '/',
-  },
+  // {
+  //   url: VIEW_DOCUMENTS,
+  //   showInSection: Sections.AboutApplicantCase,
+  //   subDir: '/common',
+  //   getNextStep: () => '/',
+  // },
   // {
   //   url: VIEW_APPLICANTS_DOCUMENT,
   //   showInSection: Sections.AboutApplicantCase,
