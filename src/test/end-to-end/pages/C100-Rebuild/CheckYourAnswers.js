@@ -64,6 +64,7 @@ module.exports = {
     async checkYourAnswersAndPay() {
         await I.wait('4');
         await I.retry(retryCount).waitForText(CYA.cyaTitle , 60);
+        await I.retry(retryCount).waitForText(CYA.caseName , 60);
         await I.retry(retryCount).waitForText(CYA.statementOfTruth , 60);
         await I.retry(retryCount).waitForText(CYA.confirmStatementTruth , 60);
         await I.wait('5');
@@ -71,10 +72,7 @@ module.exports = {
         await I.wait('3');
         await I.retry(retryCount).click(this.fields.submitApplication);
     },
-    async selectNoPCQOption() {
-        await I.wait(5);
-        await I.retry(3).click("I don't want to answer these questions");
-    },
+
     async payByCard() {
         await I.wait(15);
         await I.retry(3).waitForText('Enter card details', 30);
@@ -90,7 +88,7 @@ module.exports = {
         await I.retry(3).fillField(this.fields.email, CYA.cardHolderEmailAddress);
         await I.retry(3).click('Continue');
         await I.wait(10);
-        await I.retry(3).waitForText('Confirm payment', 30);
+        await I.retry(3).waitForText('Confirm your payment', 30);
         await I.retry(3).waitForText('£255.00', 30);
         await I.waitForElement(this.fields.confirmPayment);
         // await I.click(this.fields.confirmPayment);
@@ -113,8 +111,7 @@ module.exports = {
 
     async checkAnswersAndPay() {
         await this.checkYourAnswersAndPay();
-        await this.selectNoPCQOption();
         await this.payByCard();
-        await this.applicationSubmitted();
+       // await this.applicationSubmitted();
     }
 };

@@ -13,8 +13,8 @@ module.exports = {
 
   },
   async gettingStarted() {
-    await I.retry(retryCount).waitForText('Before you start your application' , 30);
-    await I.retry(retryCount).click('Start now');
+    await I.retry(retryCount).waitForText('What you’ll need to complete your application' , 30);
+    await I.retry(retryCount).click('Continue');
   },
   async childrensPostcode() {
     await I.retry(retryCount).waitForText('Where do the children live?' , 30);
