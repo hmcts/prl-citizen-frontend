@@ -29,7 +29,7 @@ const documentCategoryLabels = {
   policeReports: 'Police reports',
 } as Record<Partial<DocumentLabelCategory>, string>;
 
-describe.skip('documents > view > utils', () => {
+describe('documents > view > utils', () => {
   describe('hasOrders', () => {
     test('should return true if citizenOrders present', () => {
       expect(
@@ -348,7 +348,7 @@ describe.skip('documents > view > utils', () => {
           link: {
             serveDate: '01 Jan 2024',
             text: '',
-            url: '/applicant/documents/view/document/applicant',
+            url: '/applicant/documents/view/applicant/doc',
           },
         },
       ]);
@@ -405,13 +405,13 @@ describe.skip('documents > view > utils', () => {
           link: {
             serveDate: '01 Jan 2024',
             text: '',
-            url: '/respondent/documents/view/document/respondent',
+            url: '/respondent/documents/view/respondent/doc',
           },
         },
       ]);
     });
 
-    test.skip('should not get documents when sectionId is not applicant or respondent documents', () => {
+    test('should not get documents when sectionId is not applicant or respondent documents', () => {
       expect(
         getViewDocumentCategoryList(
           'ordersFromTheCourt' as ViewDocumentsSectionId,
@@ -510,7 +510,7 @@ describe.skip('documents > view > utils', () => {
             //openInAnotherTab: false,
             serveDate: '01 Jan 2024',
             text: '',
-            url: '/respondent/documents/view/document/respondent',
+            url: '/respondent/documents/view/respondent/doc',
           },
         },
       ]);
@@ -567,7 +567,7 @@ describe.skip('documents > view > utils', () => {
           link: {
             serveDate: '01 Jan 2024',
             text: '',
-            url: '/respondent/documents/view/document/respondent',
+            url: '/respondent/documents/view/respondent/doc',
           },
         },
       ]);

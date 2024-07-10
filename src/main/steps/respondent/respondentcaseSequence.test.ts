@@ -4,9 +4,9 @@ import { YesOrNo } from '../../app/case/definition';
 
 import { respondentCaseSequence } from './respondentcaseSequence';
 
-describe.skip('respondent1Sequence', () => {
+describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(respondentCaseSequence).toHaveLength(32);
+    expect(respondentCaseSequence).toHaveLength(31);
 
     expect(respondentCaseSequence[0].url).toBe('/:partyType/keep-details-private/details_known');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
@@ -149,9 +149,7 @@ describe.skip('respondent1Sequence', () => {
     expect(respondentCaseSequence[26].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[26].getNextStep({})).toBe('/');
 
-    expect(respondentCaseSequence[27].url).toBe(
-      '/:partyType/documents/view/:documentCategory/:documentPartyType/:documentPartyId?'
-    );
+    expect(respondentCaseSequence[27].url).toBe('/:partyType/documents/view/:type/doc');
     expect(respondentCaseSequence[27].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[27].getNextStep({})).toBe('/');
 

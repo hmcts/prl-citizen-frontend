@@ -42,13 +42,8 @@ import {
   TASKLIST_RESPONDENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
-  VIEW_APPLICANTS_DOCUMENT,
   VIEW_APPLICATION_PACK_DOCUMENTS,
-  //VIEW_DOCUMENTS,
-  VIEW_OTHER_DOCUMENTS,
-  VIEW_RESPONDENTS_DOCUMENT,
   VIEW_TYPE_DOCUMENT,
-  //VIEW_COMMON_DOCUMENT
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -202,12 +197,12 @@ export const respondentCaseSequence: Step[] = [
     subDir: '/common',
     getNextStep: () => '/',
   },
-  // {
-  //   url: VIEW_DOCUMENTS,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   subDir: '/common',
-  //   getNextStep: () => '/',
-  // },
+  {
+    url: VIEW_TYPE_DOCUMENT,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
   {
     url: CHOOSE_CONTACT_PREFERENCE,
     showInSection: Sections.AboutApplicantCase,
@@ -229,34 +224,4 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
       ContactPreferenceNavigationController.getNextPageUrl(CONTACT_PREFERENCE_CONFIRMATION, caseData, req!),
   },
-  {
-    url: VIEW_APPLICANTS_DOCUMENT,
-    showInSection: Sections.AboutRespondentCase,
-    subDir: '/common',
-    getNextStep: () => '/',
-  },
-  {
-    url: VIEW_TYPE_DOCUMENT,
-    showInSection: Sections.AboutRespondentCase,
-    subDir: '/common',
-    getNextStep: () => '/',
-  },
-  {
-    url: VIEW_RESPONDENTS_DOCUMENT,
-    showInSection: Sections.AboutRespondentCase,
-    subDir: '/common',
-    getNextStep: () => '/',
-  },
-  {
-    url: VIEW_OTHER_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
-    subDir: '/common',
-    getNextStep: () => '/',
-  },
-  // {
-  //   url:VIEW_COMMON_DOCUMENT,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   subDir: '/common',
-  //   getNextStep: () => '/',
-  // },
 ];
