@@ -410,6 +410,62 @@ describe('documents > view > utils', () => {
         },
       ]);
     });
+    test('should get correct other documents', () => {
+      expect(
+        getViewDocumentCategoryList(
+          'otherDocuments' as ViewDocumentsSectionId,
+
+          {
+            citizenOtherDocuments: [
+              {
+                partyId: '1',
+                partyType: 'respondent' as PartyType,
+                categoryId: 'applicantStatements' as DocumentCategory,
+                uploadedBy: 'test user',
+                uploadedDate: '2024-01-01T16:24:33.122506',
+                reviewedDate: null,
+                document: {
+                  document_url: 'MOCK_DOCUMENT_URL',
+                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                  document_filename: 'MOCK_FILENAME',
+                  document_hash: null,
+                  category_id: 'applicantStatements' as DocumentCategory,
+                  document_creation_date: '01/01/2024',
+                },
+                documentWelsh: null,
+              },
+              {
+                partyId: '2',
+                partyType: 'applicant' as PartyType,
+                categoryId: 'positionStatements' as DocumentCategory,
+                uploadedBy: 'test user2',
+                uploadedDate: '2024-01-01T16:24:33.122506',
+                reviewedDate: null,
+                document: {
+                  document_url: 'MOCK_DOCUMENT_URL',
+                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                  document_filename: 'MOCK_FILENAME',
+                  document_hash: null,
+                  category_id: 'positionStatements' as DocumentCategory,
+                  document_creation_date: '01/01/2024',
+                },
+                documentWelsh: null,
+              },
+            ],
+          } as unknown as CaseWithId,
+          documentCategoryLabels,
+          'respondent' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          link: {
+            serveDate: '01 Jan 2024',
+            text: '',
+            url: '/respondent/documents/view/other/doc',
+          },
+        },
+      ]);
+    });
 
     test('should not get documents when sectionId is not applicant or respondent documents', () => {
       expect(

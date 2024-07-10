@@ -9,6 +9,7 @@ describe('documents > view > config', () => {
       expect(viewDocumentsSections[2].sectionId).toBe('applicantsDocuments');
       expect(viewDocumentsSections[3].sectionId).toBe('respondentsDocuments');
       expect(viewDocumentsSections[4].sectionId).toBe('attendingTheHearing');
+      expect(viewDocumentsSections[5].sectionId).toBe('otherDocuments');
     });
   });
 });
