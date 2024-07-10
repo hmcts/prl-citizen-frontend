@@ -173,7 +173,7 @@ export type CitizenDocuments = {
   uploadedBy: string;
   uploadedDate: string;
   reviewedDate: string | null;
-  document: DocumentMeta;
+  document: DocumentMeta | null;
   documentWelsh: DocumentMeta | null;
   solicitorRepresentedPartyName?: string;
   solicitorRepresentedPartyId?: string;

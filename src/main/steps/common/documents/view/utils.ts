@@ -233,7 +233,8 @@ export const getViewDocumentCategoryList = (
       break;
     case ViewDocumentsSectionId.OTHER_DOCUMENTS:
       doclabel = DocumentLabelCategory.VIEW_OTHER_DOCUMENTS;
-      (url = VIEW_TYPE_DOCUMENT), (type = 'other');
+      url = VIEW_TYPE_DOCUMENT;
+      type = 'other';
       date = caseData.citizenOtherDocuments?.length
         ? (dayjs(_.first(caseData.citizenOtherDocuments!)!.uploadedDate).format('DD MMM YYYY') as string)
         : '';

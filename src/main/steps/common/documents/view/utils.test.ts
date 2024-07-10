@@ -160,10 +160,9 @@ describe('documents > view > utils', () => {
   });
 
   describe('getDocuments', () => {
-    test('should get correct english documents with partyId', () => {
+    test('should get correct documents with partyId', () => {
       expect(
         getDocuments(
-          //'applicantStatements' as DocumentCategory,
           [
             {
               partyId: '1',
@@ -192,20 +191,18 @@ describe('documents > view > utils', () => {
               uploadedBy: 'test user2',
               uploadedDate: '2024-01-01T16:24:33.122506',
               reviewedDate: null,
-              document: {
-                document_url: 'MOCK_DOCUMENT_URL',
-                document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                document_filename: 'MOCK_FILENAME',
+              documentWelsh: {
+                document_url: 'MOCK_DOCUMENT_URL_welsh',
+                document_binary_url: 'MOCK_DOCUMENT_welsh_BINARY_URL',
+                document_filename: 'MOCK_FILENAME_welsh',
                 document_hash: null,
                 category_id: 'positionStatements' as DocumentCategory,
                 document_creation_date: '01/01/2024',
               },
-              documentWelsh: null,
+              document: null,
             },
           ],
           PartyType.RESPONDENT
-          // 'respondent' as PartyType,
-          // '1'
         )
       ).toStrictEqual([
         {
@@ -220,9 +217,9 @@ describe('documents > view > utils', () => {
         {
           document_en: {
             createdDate: '01 Jan 2024',
-            documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
-            documentId: 'MOCK_DOCUMENT_URL',
-            documentName: 'MOCK_FILENAME',
+            documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL_welsh/MOCK_FILENAME_welsh',
+            documentId: 'MOCK_DOCUMENT_URL_welsh',
+            documentName: 'MOCK_FILENAME_welsh',
             uploadedBy: 'test user2',
           },
         },
@@ -353,6 +350,26 @@ describe('documents > view > utils', () => {
         },
       ]);
     });
+    test('should show no date if applicant documents is empty', () => {
+      expect(
+        getViewDocumentCategoryList(
+          'applicantsDocuments' as ViewDocumentsSectionId,
+          {
+            applicantDocuments: [],
+          } as unknown as CaseWithId,
+          documentCategoryLabels,
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          link: {
+            serveDate: '',
+            text: '',
+            url: '/applicant/documents/view/applicant/doc',
+          },
+        },
+      ]);
+    });
 
     test('should get correct respondent documents', () => {
       expect(
@@ -410,6 +427,27 @@ describe('documents > view > utils', () => {
         },
       ]);
     });
+    test('should show no date if respondent documents is empty', () => {
+      expect(
+        getViewDocumentCategoryList(
+          'respondentsDocuments' as ViewDocumentsSectionId,
+
+          {
+            respondentDocuments: [],
+          } as unknown as CaseWithId,
+          documentCategoryLabels,
+          'respondent' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          link: {
+            serveDate: '',
+            text: '',
+            url: '/respondent/documents/view/respondent/doc',
+          },
+        },
+      ]);
+    });
     test('should get correct other documents', () => {
       expect(
         getViewDocumentCategoryList(
@@ -460,6 +498,27 @@ describe('documents > view > utils', () => {
         {
           link: {
             serveDate: '01 Jan 2024',
+            text: '',
+            url: '/respondent/documents/view/other/doc',
+          },
+        },
+      ]);
+    });
+    test('should show no date if other documents is empty', () => {
+      expect(
+        getViewDocumentCategoryList(
+          'otherDocuments' as ViewDocumentsSectionId,
+
+          {
+            citizenOtherDocuments: [],
+          } as unknown as CaseWithId,
+          documentCategoryLabels,
+          'respondent' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          link: {
+            serveDate: '',
             text: '',
             url: '/respondent/documents/view/other/doc',
           },
