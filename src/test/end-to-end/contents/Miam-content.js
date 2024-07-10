@@ -1,8 +1,8 @@
 module.exports = {
     otherProceedingsPageTitle: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?',
-    attendingMiamPageTitle: 'Attending a Mediation Information and Assessment Meeting MIAM',
-    attendingMiamSubHeading: 'When you don’t have to attend a MIAM',
-    attendedMiamPageTitle: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
+    attendingMiamPageTitle: 'Attending a Mediation Information and Assessment Meeting (MIAM)',
+    attendingMiamSubHeading: 'When you do not have to attend a MIAM',
+    attendedMiamPageTitle: 'Have you attended a MIAM?',
     medidatorConfirmedPageTitle: 'Has a mediator confirmed that you do not need to attend a MIAM?',
     validReasonsMiamPageTitle: 'Do you have a valid reason for not attending a MIAM?',
     validReasonWhatPageTitle: 'MIAM exemptions',
