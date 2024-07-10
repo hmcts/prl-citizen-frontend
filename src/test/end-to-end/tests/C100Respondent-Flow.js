@@ -3,7 +3,7 @@ const testConfig = require('../config');
 const CaseDataSetup = require('../exuiSupport/restApiData/CaseDataSetupV2');
 const dataSetupManager = require('../exuiSupport/restApiData/DataSetupManager')
 
-Feature('C100 Respondent - flow @debug');
+Feature('C100 Respondent - flow');
 
 // let caseId = '1719914949362828';
 // let accessCode = null;
@@ -38,7 +38,7 @@ Scenario('C100 Activate case as respondent @nightly', async ({ I }) => {
 
 
 caseId = '1719998425248205';
-Scenario('C100 Respondent - Respond to application- journey @debug', async ({ I }) => {
+Scenario('C100 Respondent - Respond to application- journey', async ({ I }) => {
   await I.loginAsCitizen();
   await I.respondentTaskList(caseId);
 }).retry({ retries: 3, minTimeout: 30000 });

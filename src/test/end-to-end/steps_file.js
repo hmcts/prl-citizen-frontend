@@ -30,8 +30,58 @@ const CheckYourAnswersSimple = require('./pages/C100-Rebuild/CheckYourAnswersSim
 const RespondentEvents = require('./pages/RespondentEvents');
 const ApplicantAboutYouFL401 = require('./pages/FL-401Applicant/ApplicantAboutYouFL401.js');
 const ActivateAccessCode = require('./pages/ActivateAccessCode.js')
+
+const createCaseE2E = require('./pages/C100-Rebuild/C100CreateCaseE2E.js');
+const commonActions = require('./pages/commonActions.js')
 module.exports = () => {
   return actor({
+
+    clickCheckBoxWithLabel(label) {
+      return commonActions.clickCheckBoxWithLabel(label);
+    },
+
+    clickRadioOption(fieldName, value) {
+      return commonActions.clickRadioOption(fieldName, value);
+
+    },
+
+    selectOptionWithLabel(name, pos) {
+      return commonActions.selectOptionWithLabel(name, pos);
+
+    },
+
+    clickLink(linkText) {
+      return commonActions.clickLink(linkText);
+
+    },
+
+    clickButton(label) {
+      return commonActions.clickButton(label);
+
+    },
+
+    clickFieldWithID(id) {
+      return commonActions.clickFieldWithID(id);
+
+    },
+
+    fillFieldWithLabel(name, value) {
+      return commonActions.fillFieldWithLabel(name, value);
+
+    },
+
+    fillFieldWithId(id, value) {
+      return commonActions.fillFieldWithId(id, value);
+
+    },
+
+    enterDate(dateField, day, month, year) {
+      return commonActions.enterDate(dateField, day, month, year);
+
+    },
+    selectFile(fieldName, filePath) {
+      return commonActions.selectFile(fieldName, filePath);
+    },
 
     enterPinPageHappyPath() {
       return EnterPinPage.enterPin();
@@ -194,7 +244,11 @@ module.exports = () => {
     },
     loginAsOldCourtAdmin() {
       return EXUILogin.loginAsOldCourtAdmin();
+    },
+    createCaseC100E2E(){
+      return createCaseE2E.createCaseC100E2E({});
     }
+
 
   });
 };

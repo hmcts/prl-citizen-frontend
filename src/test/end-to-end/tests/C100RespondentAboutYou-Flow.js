@@ -7,7 +7,7 @@ const dataSetupManager = require('../exuiSupport/restApiData/DataSetupManager')
 
 const respondentEvents = require('../pages/RespondentEvents');
 
-Feature('C100 Respondent About You - flow @nightly @debug');
+Feature('C100 Respondent About You - flow @nightly');
 
 
 let caseId = null;
