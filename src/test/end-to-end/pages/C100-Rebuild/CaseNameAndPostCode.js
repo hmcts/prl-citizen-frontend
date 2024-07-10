@@ -14,7 +14,7 @@ module.exports = {
   },
   async gettingStarted() {
     await I.retry(retryCount).waitForText('Before you start your application' , 30);
-    await I.click('Start now');
+    await I.retry(retryCount).click('Start now');
   },
   async childrensPostcode() {
     await I.retry(retryCount).waitForText('Where do the children live?' , 30);
