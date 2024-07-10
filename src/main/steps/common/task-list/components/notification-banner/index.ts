@@ -5,7 +5,12 @@ import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
 import { NotificationBannerConfig, NotificationBannerProps, NotificationSection } from '../../definitions';
-import { hasResponseBeenReviewed, isC7ResponseSubmitted, isCaseLinked, respondentNamesByNotificationType } from '../../utils';
+import {
+  hasResponseBeenReviewed,
+  isC7ResponseSubmitted,
+  isCaseLinked,
+  respondentNamesByNotificationType,
+} from '../../utils';
 
 import { CaseType, PartyType } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
@@ -45,13 +50,19 @@ export const getNotificationBannerConfig = (
     notificationConfig[caseType].hasOwnProperty(partyType)
     ? notificationConfig[caseType][partyType]
         .map(config => {
-          const { id, show} = config;
+          const { id, show } = config;
           if (show(caseData, userDetails)) {
             const _content = config.content(caseType, language, partyType);
             const sections: NotificationSection[] = [];
             const can6RespondentName = respondentNamesByNotificationType(caseData, 'CAN6_VIEW_RESPONSE_APPLICANT');
-            const can6aRespondentNames = respondentNamesByNotificationType(caseData, 'CAN6A_VIEW_C1A_RESPONSE_APPLICANT');
-            const can6BRespondentName = respondentNamesByNotificationType(caseData, 'CAN6B_VIEW_C1AR_RESPONSE_APPLICANT');
+            const can6aRespondentNames = respondentNamesByNotificationType(
+              caseData,
+              'CAN6A_VIEW_C1A_RESPONSE_APPLICANT'
+            );
+            const can6BRespondentName = respondentNamesByNotificationType(
+              caseData,
+              'CAN6B_VIEW_C1AR_RESPONSE_APPLICANT'
+            );
 
             _content.sections.forEach(section => {
               const contents = section?.contents
@@ -60,18 +71,12 @@ export const getNotificationBannerConfig = (
                   text: interpolate(content.text, {
                     noOfDaysRemainingToSubmitCase:
                       caseData.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
-                    nameOfRespondentCan6Eng:
-                      can6RespondentName ?? 'The respondent',
-                    nameOfRespondentCan6AEng:
-                      can6aRespondentNames ?? 'The respondent',
-                    nameOfRespondentCan6BEng:
-                      can6BRespondentName ?? 'The respondent',
-                    nameOfRespondentCan6Welsh:
-                      can6RespondentName ?  'Mae ' + can6RespondentName :'Mae’r atebydd',
-                    nameOfRespondentCan6AWelsh:
-                      can6aRespondentNames ?  'Mae ' + can6aRespondentNames :'Mae’r atebydd',
-                    nameOfRespondentCan6BWelsh:
-                      can6BRespondentName ?  'Mae ' + can6BRespondentName :'Mae’r atebydd',
+                    nameOfRespondentCan6Eng: can6RespondentName ?? 'The respondent',
+                    nameOfRespondentCan6AEng: can6aRespondentNames ?? 'The respondent',
+                    nameOfRespondentCan6BEng: can6BRespondentName ?? 'The respondent',
+                    nameOfRespondentCan6Welsh: can6RespondentName ? 'Mae ' + can6RespondentName : 'Mae’r atebydd',
+                    nameOfRespondentCan6AWelsh: can6aRespondentNames ? 'Mae ' + can6aRespondentNames : 'Mae’r atebydd',
+                    nameOfRespondentCan6BWelsh: can6BRespondentName ? 'Mae ' + can6BRespondentName : 'Mae’r atebydd',
                   }),
                 }));
 

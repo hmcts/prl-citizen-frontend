@@ -368,7 +368,7 @@ const en: NotificationBannerContent = {
           ],
         },
         responseCan6A: {
-          heading: `View the respondent's allegations of harm`,
+          heading: "View the respondent's allegations of harm",
           sections: [
             {
               contents: [
@@ -1014,17 +1014,17 @@ const cy: typeof en = {
           ],
         },
         responseCan6B: {
-          heading: `Gweld yr ymateb i'ch honiadau o niwed`,
+          heading: "Gweld yr ymateb i'ch honiadau o niwed",
           sections: [
             {
               contents: [
                 {
-                  text: `{nameOfRespondentCan6BWelsh} wedi ymateb i'ch honiadau o niwed.`,
+                  text: "{nameOfRespondentCan6BWelsh} wedi ymateb i'ch honiadau o niwed.",
                 },
               ],
               links: [
                 {
-                  text: `Gweld yr ymateb i'r honiadau o niwed a thrais`,
+                  text: "Gweld yr ymateb i'r honiadau o niwed a thrais",
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
