@@ -113,7 +113,7 @@ class CaseDataSetup {
     async login(usernameVal, passwordVal) {
         await this.retryBlock(async () => {
             await this.browserContext.clearCookies();
-            const xuiUrl = process.env.XUI_WEB_URL;
+            const xuiUrl = config.xuiAAT;
             await this.page.goto(xuiUrl);
             const username = this.page.locator('#username');
             const password = this.page.locator('#password');
