@@ -127,5 +127,5 @@ export const respondentNamesByNotificationType = (
   notificationType: string
 ): string | undefined => {
   const notificationItem = caseData.citizenNotifications?.find(notification => notification.id === notificationType);
-  return notificationItem ? notificationItem.respondentNames : undefined;
+  return notificationItem ? notificationItem.partyNames : undefined;
 };
