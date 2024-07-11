@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../../../main/app/case/definition';
 import { mockRequest } from '../../utils/mockRequest';
 
 export const applicantMockRequest = mockRequest({
@@ -62,6 +63,7 @@ export const applicantMockRequest = mockRequest({
       appl_allApplicants: [
         {
           id: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+          stayingInRefuge: YesOrNo.NO,
           applicantFirstName: 'ap1',
           applicantLastName: 'ap11',
           personalDetails: {
@@ -103,6 +105,7 @@ export const applicantMockRequest = mockRequest({
           id: '2cd885a0-135e-45f1-85b7-aa46a1f78f46',
           applicantFirstName: 'ap2',
           applicantLastName: 'ap22',
+          stayingInRefuge: YesOrNo.YES,
           personalDetails: {
             dateOfBirth: {
               day: '',

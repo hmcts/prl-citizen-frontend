@@ -463,22 +463,33 @@ export const ApplicantDetails = (
         changeUrl: Urls['C100_APPLICANT_ADD_APPLICANTS'],
       },
       {
-        key: keys['anyOtherPeopleKnowDetails'],
-        value: getYesNoTranslation(language, sessionApplicantData[applicant]['detailsKnown'], 'ydyntTranslation'),
-        changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
-      },
-      {
-        key: keys['doYouWantToKeep'],
-        value: '',
-        valueHtml:
-          sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
-            ? parseStartAndStartAlternativeSubFields('start', 'contactDetailsPrivate')
-            : parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
-        changeUrl:
-          sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
-            ? applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START'], { applicantId })
-            : applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], { applicantId }),
-      },
+        key: keys['stayingInRefuge'],
+        value: getYesNoTranslation(language, sessionApplicantData[applicant]['stayingInRefuge'], 'ydyntTranslation'),
+        changeUrl: applyParms(Urls['C100_APPLICANT_STAYING_IN_REFUGE'], { applicantId }),
+      }
+    );
+    if (sessionApplicantData[applicant]['stayingInRefuge'] === YesOrNo.NO) {
+      newApplicantData.push(
+        {
+          key: keys['anyOtherPeopleKnowDetails'],
+          value: getYesNoTranslation(language, sessionApplicantData[applicant]['detailsKnown'], 'ydyntTranslation'),
+          changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
+        },
+        {
+          key: keys['doYouWantToKeep'],
+          value: '',
+          valueHtml:
+            sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
+              ? parseStartAndStartAlternativeSubFields('start', 'contactDetailsPrivate')
+              : parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
+          changeUrl:
+            sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
+              ? applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START'], { applicantId })
+              : applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], { applicantId }),
+        }
+      );
+    }
+    newApplicantData.push(
       {
         key: keys['haveYouChangeNameLabel'],
         value: '',
