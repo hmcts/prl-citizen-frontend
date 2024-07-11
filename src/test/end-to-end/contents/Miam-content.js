@@ -16,7 +16,7 @@ module.exports = {
     confirmValidReasonPageTitle: 'Other reason for not attending a MIAM',
     evidenceAttendMIAMUpload: 'Upload evidence of attending a MIAM or NCDR',
     dontHaveToAttendMiamPageTitle: 'You’ve told us you have a valid reason for not attending a MIAM',
-    altDontHaveToAttendMiamPageTitle: 'You’ve told us you have a valid reason for not attending a MIAM',
+    altDontHaveToAttendMiamPageTitle: 'You do not have to attend a MIAM',
     reasonForNotAttendingMIAM: 'Reasons given for not attending a MIAM:',
     reasonDomesticAbuse: 'Domestic abuse',
     reasonChildProtection: 'Child protection concerns',

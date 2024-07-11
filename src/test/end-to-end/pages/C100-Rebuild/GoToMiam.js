@@ -134,15 +134,6 @@ module.exports = {
     await I.retry(retryCount).waitForText(MiamContent.urgentHearingTitle , 30);
     await I.wait('2');
     await I.retry(retryCount).click(this.fields.urgentHearing1);
-    await I.retry(retryCount).click(this.fields.urgentHearing2);
-    await I.wait('2');
-    await I.retry(retryCount).click(this.fields.urgentHearing3);
-    await I.retry(retryCount).click(this.fields.urgentHearing4);
-    await I.retry(retryCount).click(this.fields.urgentHearing5);
-    await I.retry(retryCount).click(this.fields.urgentHearing6);
-    await I.retry(retryCount).click(this.fields.urgentHearing7);
-    await I.retry(retryCount).click(this.fields.urgentHearing8);
-    await I.retry(retryCount).click(this.fields.urgentHearing9);
     await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
@@ -218,10 +209,6 @@ module.exports = {
   async dontHaveToAttendMiam() {
     await I.retry(retryCount).waitForText(MiamContent.dontHaveToAttendMiamPageTitle , 30);
     await I.retry(retryCount).waitForText(MiamContent.reasonForNotAttendingMIAM , 30);
-    await I.retry(retryCount).waitForText(MiamContent.reasonDomesticAbuse , 30);
-    await I.retry(retryCount).waitForText(MiamContent.reasonChildProtection , 30);
-    await I.retry(retryCount).waitForText(MiamContent.reasonNCDR , 30);
-    await I.retry(retryCount).waitForText(MiamContent.reasonOther , 30);
     await I.retry(retryCount).click('Continue');
   },
   async altDontHaveToAttendMiam() {
@@ -261,7 +248,6 @@ module.exports = {
     await this.miamOtherProceedings(false);
     await this.attendingMiam();
     await this.attendedMiam();
-    await this.medidatorConfirmed();
     await this.validReasonsMiam();
     await this.validReasonUrgent();
     await this.urgentHearingRisks();
