@@ -27,7 +27,10 @@ class DataSetupManager {
 
     async close() {
         this.state = 'close';
-        await this.browser.close();
+        if (this.browser){
+            await this.browser.close();
+        }
+        
     }
 
     run() {
