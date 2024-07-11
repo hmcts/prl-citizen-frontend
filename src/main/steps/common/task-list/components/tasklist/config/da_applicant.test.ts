@@ -18,10 +18,11 @@ describe('da_applicant', () => {
     const aboutYouTasks = DA_APPLICANT[0].tasks(data, {} as SectionContent);
 
     expect(DA_APPLICANT[0].id).toBe('aboutYou');
-    expect(aboutYouTasks).toHaveLength(3);
-    expect(aboutYouTasks[0].id).toBe('keepYourDetailsPrivate');
-    expect(aboutYouTasks[1].id).toBe('editYouContactDetails');
-    expect(aboutYouTasks[2].id).toBe('supportYouNeed');
+    expect(aboutYouTasks).toHaveLength(4);
+    expect(aboutYouTasks[0].id).toBe('editYouContactDetails');
+    expect(aboutYouTasks[1].id).toBe('contactPreferences');
+    expect(aboutYouTasks[2].id).toBe('keepYourDetailsPrivate');
+    expect(aboutYouTasks[3].id).toBe('supportYouNeed');
   });
 
   test('your application section should contain correct ids and tasks', () => {
