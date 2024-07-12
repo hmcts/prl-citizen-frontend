@@ -48,7 +48,7 @@ const en = {
 
 const cy: typeof en = {
   caption: 'Cychwyn arni',
-  title: 'Cyn i chi ddechrau eich cais - welsh',
+  title: 'Cyn i chi ddechrau eich cais',
   content1:
     "Os ydych chi ar hyn o bryd yn gysylltiedig ag achos sy’n ymwneud â Threfniadau Plant, Camau Gwaharddedig neu Orchymyn Materion Penodol ar gyfer yr un plentyn neu blant gallwch wneud cais i’r un llys gan ddefnyddio ffurflen fyrrach C2. Mae angen i chi nodi rhif yr achos pan fyddwch yn cyflwyno'r ffurflen",
   content2:
