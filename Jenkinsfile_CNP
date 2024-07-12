@@ -51,7 +51,7 @@ env.LAUNCH_DARKLY_OFFLINE_MODE = false
 env.C100_REBUILD_FLAG = false
 env.TESTING_SUPPORT_FLAG = false
 env.ENABLE_CASE_TRAIN_TRACK = false
-env.ENABLE_DATASETUP=true
+env.ENABLE_DATASETUP='true'
 
 
 withPipeline(type, product, component) {

@@ -4,7 +4,7 @@ const path = require('path');
 const { chromium } = require('playwright');
 const dataSetupRequestJson = require('./dataSetupRequest.json');
 const CaseDataSetupV2 = require('./CaseDataSetupV2');
-
+const config = require('../../config');
 class DataSetupManager {
     constructor() {
         this.dataSetupList = [];
@@ -20,7 +20,7 @@ class DataSetupManager {
 
     async init() {
         this.browser = await chromium.launch({ headless: true });
-        if(process.env.ENABLE_DATASETUP === 'true'){
+        if (config.enableDataSetup === 'true'){
             this.run();
         }
     }

@@ -22,7 +22,7 @@ def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 env.SAUCE_USERNAME = 'username'
 env.SAUCE_ACCESS_KEY = 'privatekey'
 env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
-env.ENABLE_DATASETUP=true
+env.ENABLE_DATASETUP='true'
 
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {

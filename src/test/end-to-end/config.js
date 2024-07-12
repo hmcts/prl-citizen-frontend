@@ -69,5 +69,6 @@ module.exports = {
 
   bxuiBseUrl: process.env.URL || 'https://manage-case.aat.platform.hmcts.net/cases',
   runningEnv: process.env.ENVIRONMENT,
+  enableDataSetup: process.env.ENABLE_DATASETUP ? process.env.ENABLE_DATASETUP : 'true'
   // eslint-disable-next-line no-magic-numbers
 };
