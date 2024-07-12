@@ -277,38 +277,31 @@ class SafteyConcernsNavigationController {
       if (!returnUrl || returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE)) {
         returnUrl = this.getPageUrl(yourself);
       }
-    } else {
-      //Flow-1 or Flow-2
-      /* 
+    }
+    //Flow-1 or Flow-2
+    /* 
     Flow-1 or Flow-2: If there is no page left to navigate for child, then the next page url should be other concerns page.
     Flow-2: If the next page url is applicant abuse selection page, then the next page url url should be other concerns page.
     */
-      if (!returnUrl || (this.checkForConcerns(yourself, true) && returnUrl === this.getPageUrl(yourself))) {
-        returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
-      }
+    else if (!returnUrl || (this.checkForConcerns(yourself, true) && returnUrl === this.getPageUrl(yourself))) {
+      returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
     }
 
     return returnUrl;
   }
 
   private getNextUrlSafetyConcernReport(params) {
+    const concernAbout =
+      params?.root === RootContext.C100_REBUILD ? C1ASafteyConcernsAbout.APPLICANT : C1ASafteyConcernsAbout.RESPONDENT;
+
     /* 
           Flow-2: If there is no page left to navigate for applicant, then the next page url should be child guidelines selection page.
           Flow-3: If there is no page left to navigate for applicant, then the next page url should be other concerns page.
           */
+
     const returnUrl =
-      this.getNextPageUrl(
-        params?.root === RootContext.C100_REBUILD
-          ? C1ASafteyConcernsAbout.APPLICANT
-          : C1ASafteyConcernsAbout.RESPONDENT,
-        params?.abuseType
-      ) ??
-      (this.checkForConcerns(
-        params?.root === RootContext.C100_REBUILD
-          ? C1ASafteyConcernsAbout.APPLICANT
-          : C1ASafteyConcernsAbout.RESPONDENT,
-        true
-      )
+      this.getNextPageUrl(concernAbout, params?.abuseType) ??
+      (this.checkForConcerns(concernAbout, true)
         ? this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, undefined, 'guidelines')
         : this.getPageUrl(C1ASafteyConcernsAbout.OTHER));
 

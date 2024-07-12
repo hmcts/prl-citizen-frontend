@@ -37,9 +37,6 @@ const C100OrderTypeNameMapper = {
   otherOrder: 'Other Order',
 };
 
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnyType = any;
-
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
@@ -58,12 +55,12 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { orderType, orderId } = requ.params;
     const req: AppRequest<AnyObject> = requ;
     const courtOrderType = orderType as ProceedingsOrderTypes;
-    const courtOrderId: AnyType | undefined = orderId;
+    const courtOrderId = orderId;
 
     const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
       ProceedingsOrderTypeKeyMapper[courtOrderType]
     ] as ProceedingsOrderInterface[];
-    const orderSessionDataById = orderSessionData[courtOrderId - 1];
+    const orderSessionDataById = orderSessionData[(courtOrderId as unknown as number) - 1];
 
     if (req.body.onlyContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
       return super.redirect(req, res);
@@ -90,9 +87,9 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   };
   /* eslint-disable @typescript-eslint/no-explicit-any*/
   private async processNewDocument(
-    files: { [fieldname: string]: Express.Multer.File[] } | Express.Multer.File[] | undefined,
-    req: AppRequest<AnyObject>,
-    res: Response<any, Record<string, any>>,
+    files,
+    req: AppRequest,
+    res: Response,
     orderType: string,
     orderId: string,
     courtOrderType: ProceedingsOrderTypes,
@@ -114,7 +111,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         errorType: 'fileSize',
       });
     } else {
-      const { documents }: AnyType = files;
+      const { documents } = files;
 
       const formData: FormData = new FormData();
 
@@ -175,8 +172,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
    */
 
   private uploadFileError(
-    req: AppRequest<AnyObject>,
-    res: Response<AnyType, Record<string, AnyType>>,
+    req: AppRequest,
+    res: Response,
     orderType: string,
     orderId: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
