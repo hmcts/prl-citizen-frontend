@@ -21,11 +21,12 @@
     "test:a11y": "echo 'a11y tests will be executed after functional tests' && exit 0",
     "test:pa11y": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.a11y.config.js --maxWorkers 1",
     "sonar-scan": "sonar-scanner",
+    "test:debug": "MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep \"@debug\" -c src/test/end-to-end/codecept.conf.js --reporter mocha-multi",
     "test:smoke:e2e": "MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep \"${SMOKE_TESTS_SELECTOR:=@smoke-tests}\" --reporter mocha-multi",
     "test:smoke:downstream": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.smoke.config.js",
-    "test:smoke": "yarn install && codeceptjs run --steps --grep \"@smoke\" -c src/test/end-to-end/codecept.smoke.conf.js",
-    "test:functional": "yarn install && codeceptjs run --steps --grep \"@master\" -c src/test/end-to-end/codecept.conf.js",
-    "test:fullfunctional": "yarn install && codeceptjs run-multiple parallel --all --steps --grep \"@nightly\" -c src/test/end-to-end/codecept.conf.js",
+    "test:smoke": "yarn install && codeceptjs run --steps --grep \"@smoke\" -c src/test/end-to-end/codecept.smoke.conf.js --reporter mocha-multi",
+    "test:functional": "yarn install && codeceptjs run --steps --grep \"@master\" -c src/test/end-to-end/codecept.conf.js --reporter mocha-multi",
+    "test:fullfunctional": "yarn install && codeceptjs run-multiple parallel --all --steps --grep \"@nightly\" -c src/test/end-to-end/codecept.conf.js --reporter mocha-multi",
     "test:crossbrowser-e2e": "MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
     "cichecks": "yarn && run-p build lint test",
@@ -71,6 +72,7 @@
     "@uppy/file-input": "^2.0.5",
     "@uppy/progress-bar": "^2.0.4",
     "@uppy/xhr-upload": "^2.0.7",
+    "angular": "^1.8.3",
     "applicationinsights": "^2.3.5",
     "autobind-decorator": "^2.4.0",
     "axios": "^0.28.0",
@@ -104,6 +106,7 @@
     "query-string": "^7.1.1",
     "redis": "^3.1.2",
     "require-directory": "^2.1.1",
+    "semver": "^7.6.2",
     "serve-favicon": "^2.5.0",
     "session-file-store": "^1.5.0",
     "supertest": "^6.2.2",
@@ -206,5 +209,5 @@
     "jest-environment-jsdom": "29.7.0",
     "socket.io": "^4.6.2"
   },
-  "packageManager": "yarn@3.8.1"
+  "packageManager": "yarn@3.8.3"
 }

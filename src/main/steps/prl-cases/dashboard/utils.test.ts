@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../app/case/case';
 import { CaseType, State, YesOrNo } from '../../../app/case/definition';
 
 import { getCasePartyType } from './utils';
@@ -151,7 +152,7 @@ describe('testcase for partytype', () => {
     };
     const idamId = '1234';
 
-    expect(getCasePartyType(data, idamId)).toBe('applicant');
+    expect(getCasePartyType(data as unknown as Partial<CaseWithId>, idamId)).toBe('applicant');
   });
   test('when party type c100-respondent', () => {
     const data = {
@@ -301,7 +302,7 @@ describe('testcase for partytype', () => {
     };
     const idamId = '1234';
 
-    expect(getCasePartyType(data, idamId)).toBe('respondent');
+    expect(getCasePartyType(data as unknown as Partial<CaseWithId>, idamId)).toBe('respondent');
   });
   test('when party type FL401-respondent', () => {
     const data = {
@@ -451,7 +452,7 @@ describe('testcase for partytype', () => {
     };
     const idamId = '12345';
 
-    expect(getCasePartyType(data, idamId)).toBe('respondent');
+    expect(getCasePartyType(data as unknown as Partial<CaseWithId>, idamId)).toBe('respondent');
   });
   test('when party type FL401-applicant', () => {
     const data = {
@@ -601,6 +602,6 @@ describe('testcase for partytype', () => {
     };
     const idamId = '12345';
 
-    expect(getCasePartyType(data, idamId)).toBe('applicant');
+    expect(getCasePartyType(data as unknown as Partial<CaseWithId>, idamId)).toBe('applicant');
   });
 });

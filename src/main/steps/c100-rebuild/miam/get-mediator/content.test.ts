@@ -7,20 +7,19 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'You must attend a MIAM',
-  paragraph: `You have not provided a valid reason for not attending a MIAM.
-                You’re legally required to attend one if you want to 
-                go to court to resolve a dispute involving the children.`,
-  stepsLabel: 'You need to follow these steps before continuing with your application:',
-  step1: 'Enter your postcode to find a mediator',
+  paragraph: 'You’re legally required to attend a MIAM before making a child arrangements application.',
+  whatNextLabel: 'What you need to do next',
+  stepsLabel: 'Follow these steps before continuing with your application:',
+  step1: 'Enter your postcode to find your nearest MIAM mediator',
   steps: [
-    'Book initial meeting with the mediator',
+    'Book an initial meeting with the mediator',
     'Attend the MIAM',
-    'Ask the mediator for a document confirming your attendance',
+    'Ask the mediator for a signed document confirming your attendance at the MIAM',
   ],
-  paragraph1: `Alternatively you can 
-                <a href="https://helpwithchildarrangements.service.justice.gov.uk" 
-                class="govuk-link" rel="external" target="_blank">read the child 
-                arrangements guide</a> to see if there’s a more suitable option 
+  paragraph1: `<a href="https://helpwithchildarrangements.service.justice.gov.uk" 
+                class="govuk-link" rel="external" target="_blank">
+                Read the child arrangements guide on GOV.UK (opens in a new tab)</a> 
+                to see if there’s a more suitable option 
                 than going to court.`,
   formActionUrl: 'https://www.familymediationcouncil.org.uk/find-local-mediator/',
   minimumDistance: '5',
@@ -28,19 +27,19 @@ const en = {
 };
 
 const cy = {
-  title: 'Rhaid i chi fynychu MIAM',
-  paragraph:
-    "Nid ydych wedi darparu rheswm dilys dros beidio â mynychu MIAM. Mae gofyniad cyfreithiol i chi fynychu un os ydych eisiau mynd i'r llys i ddatrys anghydfod yn ymwneud â'r plant.",
-  stepsLabel: 'Mae angen i chi ddilyn y camau hyn cyn parhau â’ch cais:',
-  step1: 'Rhoi eich cod post i ddod o hyd i gyfryngwr',
+  title: 'Mae’n rhaid i chi fynychu MIAM',
+  paragraph: 'Mae yna ofyniad cyfreithiol arnoch i fynychu MIAM cyn gwneud cais am drefniadau plant.',
+  whatNextLabel: 'Beth sydd angen i chi wneud nesaf',
+  stepsLabel: 'Dilynwch y camau hyn cyn parhau â’ch cais:',
+  step1: 'Rhowch eich cod post i ddod o hyd i’ch cyfryngwr MIAM agosaf',
   steps: [
-    "Trefnu cyfarfod cychwynnol gyda'r cyfryngwr",
-    'Mynychu’r MIAM',
-    'Gofyn i’r cyfryngwr am ddogfen sy’n cadarnhau eich presenoldeb',
+    "Trefnwch gyfarfod cychwynnol gyda'r cyfryngwr",
+    'Mynychwch y MIAM',
+    'Gofynnwch i’r cyfryngwr am ddogfen wedi’i llofnodi sy’n cadarnhau eich presenoldeb yn y MIAM',
   ],
-  paragraph1: `Neu , gallwch 
-                <a href="https://helpwithchildarrangements.service.justice.gov.uk" 
-                class="govuk-link" rel="external" target="_blank">ddarllen y canllaw trefniadau plant</a> i weld a oes opsiwn mwy addas na mynd i’r llys.`,
+  paragraph1: `<a href="https://helpwithchildarrangements.service.justice.gov.uk" 
+                class="govuk-link" rel="external" target="_blank">
+                Darllenwch y cyfarwyddyd ar drefniadau plant ar GOV.UK (yn agor mewn tab newydd)</a> i weld os oes opsiwn mwy addas na mynd i’r llys.`,
   formActionUrl: 'https://www.familymediationcouncil.org.uk/find-local-mediator/',
   minimumDistance: '5',
   findButtonText: 'Dod o hyd i gyfryngwr',

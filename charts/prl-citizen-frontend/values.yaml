@@ -20,10 +20,15 @@ nodejs:
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
     DOCUMENT_MANAGEMENT_URL: 'http://ccd-case-document-am-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     COS_URL: 'http://prl-cos-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
+    REASONABLE_ADJUSTMENTS: 'https://cui-ra.{{ .Values.global.environment }}.platform.hmcts.net'
     REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
     LAUNCH_DARKLY_OFFLINE_MODE: false
     C100_REBUILD_FLAG: false
     TESTING_SUPPORT_FLAG: false
+    ENABLE_CASE_TRAIN_TRACK: true
+    ENABLE_RA_COMPONENT: true
+    ENABLE_PCQ_COMPONENT: true
+
   keyVaults:
     prl:
       resourceGroup: prl
@@ -41,6 +46,7 @@ nodejs:
         - launchDarkly-sdk-key
         - citizen-upload-docs-email
         - redis-access-key
+        - prl-pcq-token-key
 
 idam-pr:
   enabled: false

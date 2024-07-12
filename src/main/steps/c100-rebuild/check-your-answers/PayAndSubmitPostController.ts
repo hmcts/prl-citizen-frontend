@@ -1,11 +1,13 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { PaymentErrorContext } from '../../../app/case/definition';
+import { PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { PaymentHandler } from '../../../modules/payments/paymentController';
+import { PCQProvider } from '../../../modules/pcq';
+import { PCQController } from '../../../modules/pcq/controller';
 import { C100_CHECK_YOUR_ANSWER } from '../../../steps/urls';
 
 @autobind
@@ -20,7 +22,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
       if (req.body.saveAndComeLater) {
         this.saveAndComeLater(req, res, req.session.userCase);
       } else {
-        const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+        const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
         const form = new Form(fields);
         const { ...formData } = form.getParsedBody(req.body);
         req.session.errors = form.getErrors(formData);
@@ -28,18 +30,27 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
           return super.redirect(req, res, C100_CHECK_YOUR_ANSWER);
         }
 
-        /** Invoke create payment
-         * 1. Create only service request for case with help with fees opted
-         * 2. Create service request & payment request ref in case of pay & submit
+        /** Invoke Pcq questionnaire
          * */
-        PaymentHandler(req, res);
+        if (!PCQProvider.getPcqId(req) && (await PCQProvider.isComponentEnabled())) {
+          PCQController.launch(req, res, PCQProvider.getReturnUrl(req, PartyType.APPLICANT, 'c100-rebuild'));
+        } else {
+          this.handlePayment(req, res);
+        }
       }
     } catch (e) {
-      req.session.paymentError = { hasError: true, errorContext: PaymentErrorContext.DEFAULT_PAYMENT_ERROR };
-      req.locals.logger.error('Error happened in pay & submit case', e);
+      req.locals.logger.error('Error happened in application submission', e);
       req.session.save(() => {
         res.redirect(C100_CHECK_YOUR_ANSWER);
       });
     }
+  }
+
+  public async handlePayment(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    /** Invoke create payment
+     * 1. Create only service request for case with help with fees opted
+     * 2. Create service request & payment request ref in case of pay & submit
+     * */
+    PaymentHandler(req, res);
   }
 }

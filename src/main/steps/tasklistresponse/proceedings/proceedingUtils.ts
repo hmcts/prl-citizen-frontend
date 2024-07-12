@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { YesOrNo } from '../../../app/case/definition';
+import { PROCEEDINGS_ORDER_DETAILS } from '../../../steps/urls';
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
@@ -8,6 +9,7 @@ import { applyParms } from '../../common/url-parser';
 import { cy, en } from './courtproceedings/content';
 import { HTML } from './htmlSelectors';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-details/content';
+console.info('** FOR SONAR **');
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order, language) => {
@@ -51,9 +53,7 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
           HTML.P +
           (value === YesOrNo.YES
             ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
-            : value === YesOrNo.NO
-            ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation')
-            : value) +
+            : isValueNo(value, language)) +
           HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       }
@@ -72,6 +72,9 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
   return Val;
 };
 
+const isValueNo = (value, language) =>
+  value === YesOrNo.NO ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation') : value;
+
 /**
  * It takes in a UserCase object, a keys object, a URLS object and a sessionKey string. It returns an
  * array of objects with keys key, valueHtml and changeUrl
@@ -85,7 +88,7 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
  *   changeUrl: string
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessionKey, language) => {
+export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, language) => {
   if (UserCase.hasOwnProperty(sessionKey)) {
     const orderSessionStorage = [] as { key: string; valueHtml: string; changeUrl: string }[];
     UserCase[sessionKey].forEach(order => {
@@ -94,7 +97,7 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessio
         UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForDivorce') ||
         UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForAdoption')
       ) {
-        prepareOrderDetail(order, UserCase, orderSessionStorage, keys, language, URLS);
+        prepareOrderDetail(order, UserCase, orderSessionStorage, keys, language);
       }
     });
     return orderSessionStorage;
@@ -128,8 +131,7 @@ function prepareOrderDetail(
   UserCase: any,
   orderSessionStorage: { key: string; valueHtml: string; changeUrl: string }[],
   keys: any,
-  language: any,
-  URLS: any
+  language: any
 ) {
   let orderDetails;
   if (order === 'contactOrderForDivorce') {
@@ -144,7 +146,7 @@ function prepareOrderDetail(
     orderSessionStorage.push({
       key: `${keys[order + 'Label']} ${IndexNumber}`,
       valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
-      changeUrl: applyParms(URLS['PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
+      changeUrl: applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: order }),
     });
   });
 }

@@ -14,8 +14,7 @@ const SUCCESS = 'Success';
 export const PaymentHandler = async (req: AppRequest, res: Response) => {
   try {
     const paymentHelperTranspiler = await new PaymentHelper().SystemCredentailsToApiData(req);
-    const { Authorization, ServiceAuthorization, returnUrL, caseId, applicantCaseName, hwfRefNumber } =
-      paymentHelperTranspiler;
+    const { Authorization, ServiceAuthorization, returnUrL, caseId, hwfRefNumber } = paymentHelperTranspiler;
     const paymentApiEndpoint = config.get('services.cos.url');
     const createPaymentEndpoint = '/fees-and-payment-apis/create-payment';
     const baseURL = paymentApiEndpoint + createPaymentEndpoint;
@@ -26,7 +25,6 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       ServiceAuthorization,
       caseId,
       returnUrL,
-      applicantCaseName as string,
       hwfRefNumber as string
     );
     const response = await paymentCreator.getPaymentCredentails();
@@ -39,7 +37,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       submitCase(
         req,
         res,
-        req.session.userCase!.caseId!,
+        req.session.userCase.caseId!,
         req.session.userCase,
         req.originalUrl,
         C100_CASE_EVENT.CASE_SUBMIT_WITH_HWF
@@ -49,7 +47,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       submitCase(
         req,
         res,
-        req.session.userCase!.caseId!,
+        req.session.userCase.caseId!,
         req.session.userCase,
         req.originalUrl,
         C100_CASE_EVENT.CASE_SUBMIT
@@ -99,7 +97,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
         submitCase(
           req,
           res,
-          req.session.userCase!.caseId!,
+          req.session.userCase.caseId!,
           req.session.userCase,
           req.originalUrl,
           C100_CASE_EVENT.CASE_SUBMIT
@@ -124,9 +122,15 @@ export async function submitCase(
 ): Promise<void> {
   try {
     req.session.paymentError = { hasError: false, errorContext: null };
-    const updatedCase = await req.locals.C100Api.submitC100Case(caseId, caseData, returnUrl, caseEvent);
+    const updatedCase = await req.locals.C100Api.submitC100Case(
+      caseId,
+      caseData,
+      returnUrl,
+      caseEvent,
+      req.session.applicationSettings
+    );
     //update final document in session for download on confirmation
-    req.session.userCase.finalDocument = updatedCase.data?.draftOrderDoc;
+    req.session.userCase.c100DraftDoc = updatedCase.data?.submitAndPayDownloadApplicationLink;
     //save & redirect to confirmation page
     req.session.save(() => {
       res.redirect(C100_CONFIRMATIONPAGE);
