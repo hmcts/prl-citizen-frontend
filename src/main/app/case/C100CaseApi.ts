@@ -45,10 +45,10 @@ export class CaseApi {
     }
   }
 
-  public async createCaseTestingSupport(): Promise<UpdateCaseResponse> {
+  public async createCaseTestingSupport(): Promise<RetreiveDraftCase> {
     try {
-      const response = await this.axios.post<UpdateCaseResponse>('/testing-support/create-dummy-citizen-case');
-      return response.data.id;
+      const response = await this.axios.post<RetreiveDraftCase>('/testing-support/create-dummy-citizen-case');
+      return detransformCaseData(response.data);
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
