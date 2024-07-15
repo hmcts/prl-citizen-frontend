@@ -130,7 +130,7 @@ export async function submitCase(
       req.session.applicationSettings
     );
     //update final document in session for download on confirmation
-    req.session.userCase.finalDocument = updatedCase.data?.draftOrderDoc;
+    req.session.userCase.c100DraftDoc = updatedCase.data?.submitAndPayDownloadApplicationLink;
     //save & redirect to confirmation page
     req.session.save(() => {
       res.redirect(C100_CONFIRMATIONPAGE);
