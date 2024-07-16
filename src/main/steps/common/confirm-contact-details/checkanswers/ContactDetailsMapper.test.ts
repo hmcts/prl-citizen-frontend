@@ -24,7 +24,7 @@ describe('ContactDetailsMapper', () => {
       citizenUserAddressTown: 'Dummy Town',
       citizenUserAddressCounty: 'Dummy County',
       citizenUserAddressPostcode: 'SW13ND',
-      isAtAddressLessThan5Years: 'No',
+      isAtAddressLessThan5Years: 'Yes',
       citizenUserAddressHistory: "Don't want to state",
     };
     respondents = [
@@ -59,7 +59,7 @@ describe('ContactDetailsMapper', () => {
         dateOfBirth: '2000-11-14',
         email: 'a.b@test.com',
         firstName: 'John',
-        isAtAddressLessThan5Years: 'No',
+        isAtAddressLessThan5Years: 'Yes',
         addressLivedLessThan5YearsDetails: "Don't want to state",
         lastName: 'Smith',
         phoneNumber: '0987654321',
@@ -218,7 +218,7 @@ describe('ContactDetailsMapper', () => {
           citizenUserAddressTown: 'Dummy Town',
           citizenUserAddressCounty: 'Dummy County',
           citizenUserAddressPostcode: 'SW13ND',
-          isAtAddressLessThan5Years: 'No',
+          isAtAddressLessThan5Years: 'Yes',
           citizenUserAddressHistory: "Don't want to state",
         },
       },
@@ -231,7 +231,6 @@ describe('ContactDetailsMapper', () => {
         citizenUserFirstNames: 'John',
         citizenUserLastNames: 'Smith',
         citizenUserFullName: 'John Smith',
-        citizenUserAddressHistory: "Don't want to state",
         citizenUserAdditionalName: 'Johnny Smith',
         citizenUserDateOfBirth: {
           year: '2000',
@@ -250,7 +249,8 @@ describe('ContactDetailsMapper', () => {
         citizenUserAddressTown: 'Dummy Town',
         citizenUserAddressCounty: 'Dummy County',
         citizenUserAddressPostcode: 'SW13ND',
-        isAtAddressLessThan5Years: 'No',
+        isAtAddressLessThan5Years: 'Yes',
+        citizenUserAddressHistory: "Don't want to state",
         citizenUserPlaceOfBirthText: 'london',
       })
     );
@@ -284,7 +284,7 @@ describe('ContactDetailsMapper', () => {
         citizenUserFirstNames: 'John',
         citizenUserLastNames: 'Smith',
         citizenUserFullName: 'John Smith',
-        citizenUserAddressHistory: '',
+        citizenUserAddressHistory: "Don't want to state",
         citizenUserAdditionalName: 'Johnny Smith',
         citizenUserDateOfBirth: undefined,
         citizenUserAddressText: '',

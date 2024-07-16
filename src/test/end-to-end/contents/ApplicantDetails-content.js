@@ -23,7 +23,7 @@ module.exports = {
     addressLookUpPageTitle: 'Select Address of',
     lookUpOption: 'APARTMENT 1, WESTSIDE ONE, 22, SUFFOLK STREET QUEENSWAY, BIRMINGHAM, B1 1LS', 
     confirmAddressPageTitle: 'Address of',
-    confirmAddressSubHeading: 'Have you lived at this address for more than 5 years?',
+    confirmAddressSubHeading: 'Have you lived at this address for less than 5 years?',
     contactDetailsPageTitle: 'Contact details of',
     contactDetailsSubHeading: 'Can the court leave you a voicemail?',
     email: 'testc100@test.com',

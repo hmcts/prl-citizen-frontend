@@ -11,10 +11,10 @@ export const en = () => ({
   country: 'Country',
   postcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
-  addressHistoryLabel: 'Have you lived at this address for more than 5 years?',
+  addressHistoryLabel: 'Have you lived at this address for less than 5 years?',
   one: 'Yes',
   two: 'No',
-  explainNoLabel: 'Provide details of previous addresses you have lived at in the last 5 years',
+  explainYesLabel: 'Provide details of previous addresses you have lived at in the last 5 years',
   explainNoHint: 'Start with your most recent',
 });
 
@@ -25,10 +25,10 @@ export const cy = () => ({
   country: 'Gwlad',
   postcode: 'Cod post',
   enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
-  addressHistoryLabel: 'A ydych wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
+  addressHistoryLabel: 'Ydych chi wedi byw yn y cyfeiriad hwn am lai na 5 mlynedd?',
   one: 'Do',
   two: 'Naddo',
-  explainNoLabel: 'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf',
+  explainYesLabel: 'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf',
   explainNoHint: 'Cychwynnwch gyda’r un mwyaf diweddar',
 });
 
@@ -105,15 +105,10 @@ export const form = (caseData: Partial<C100Applicant>): FormContent => {
             label: l => l.one,
             selected: applicantAddressHistory === YesOrNo.YES,
             value: YesOrNo.YES,
-          },
-          {
-            label: l => l.two,
-            value: YesOrNo.NO,
-            selected: applicantAddressHistory === YesOrNo.NO,
             subFields: {
               provideDetailsOfPreviousAddresses: {
                 type: 'textarea',
-                label: l => l.explainNoLabel,
+                label: l => l.explainYesLabel,
                 value: applicantProvideDetailsOfPreviousAddresses,
                 labelSize: null,
                 hint: l => l.explainNoHint,
@@ -121,6 +116,11 @@ export const form = (caseData: Partial<C100Applicant>): FormContent => {
                 validator: value => isFieldFilledIn(value),
               },
             },
+          },
+          {
+            label: l => l.two,
+            value: YesOrNo.NO,
+            selected: applicantAddressHistory === YesOrNo.NO,
           },
         ],
         validator: isFieldFilledIn,

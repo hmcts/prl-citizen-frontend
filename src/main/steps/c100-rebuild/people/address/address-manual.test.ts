@@ -12,7 +12,7 @@ const enContent = {
   country: 'Country',
   postcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
-  explainNoLabel: 'I dont know where they currently live',
+  explainYesLabel: 'I dont know where they currently live',
 };
 
 const cyContent = {
@@ -22,7 +22,7 @@ const cyContent = {
   country: 'Gwlad',
   postcode: 'Cod post',
   enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
-  explainNoLabel: 'Nid wyf yn gwybod lle maen nhw’n byw ar hyn o bryd',
+  explainYesLabel: 'Nid wyf yn gwybod lle maen nhw’n byw ar hyn o bryd',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */

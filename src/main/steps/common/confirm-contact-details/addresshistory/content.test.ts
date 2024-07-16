@@ -6,10 +6,10 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 const en = {
-  title: 'Have you lived at this address for more than 5 years?',
+  title: 'Have you lived at this address for less than 5 years?',
   one: 'Yes',
   two: 'No',
-  explainNoLabel:
+  explainYesLabel:
     'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
   continue: 'Continue',
   errors: {
@@ -30,7 +30,7 @@ const cy: typeof en = {
   title: 'Ydych chi wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
   one: 'Ydw',
   two: 'Nac ydw',
-  explainNoLabel:
+  explainYesLabel:
     'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf, gan gychwyn gyda’r diweddaraf',
   continue: 'Parhau',
   errors: {
@@ -79,16 +79,16 @@ describe('address history > content', () => {
     expect(isAtAddressLessThan5YearsField.values[0].value).toBe('Yes');
     expect((isAtAddressLessThan5YearsField.values[1].label as Function)(generatedContent)).toBe(en.two);
     expect(isAtAddressLessThan5YearsField.values[1].value).toBe('No');
-    expect(isAtAddressLessThan5YearsField.values[1].subFields?.citizenUserAddressHistory.type).toBe('textarea');
+    expect(isAtAddressLessThan5YearsField.values[0].subFields?.citizenUserAddressHistory.type).toBe('textarea');
     expect(
-      (isAtAddressLessThan5YearsField.values[1].subFields?.citizenUserAddressHistory.label as Function)(
+      (isAtAddressLessThan5YearsField.values[0].subFields?.citizenUserAddressHistory.label as Function)(
         generatedContent
       )
-    ).toBe(en.explainNoLabel);
-    expect(isAtAddressLessThan5YearsField.values[1].subFields?.citizenUserAddressHistory.id).toBe(
+    ).toBe(en.explainYesLabel);
+    expect(isAtAddressLessThan5YearsField.values[0].subFields?.citizenUserAddressHistory.id).toBe(
       'provideDetailsOfPreviousAddresses'
     );
-    (isAtAddressLessThan5YearsField.values[1].subFields?.citizenUserAddressHistory.validator as Validator)(
+    (isAtAddressLessThan5YearsField.values[0].subFields?.citizenUserAddressHistory.validator as Validator)(
       'test value'
     );
     expect(isAtAddressLessThan5YearsField.validator).toBe(isFieldFilledIn);

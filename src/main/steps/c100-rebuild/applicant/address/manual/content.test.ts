@@ -140,17 +140,17 @@ describe('applicant > address > manual > content', () => {
     expect(addressHistory.type).toBe('radios');
     expect(addressHistory.classes).toBe('govuk-radios');
     expect((addressHistory.label as LanguageLookup)(generatedContent)).toBe(
-      'Have you lived at this address for more than 5 years?'
+      'Have you lived at this address for less than 5 years?'
     );
     expect((addressHistory.section as Function)(generatedContent)).toBe(undefined);
     expect((addressHistory.values[0].label as LanguageLookup)(generatedContent)).toBe('Yes');
-    expect((addressHistory.values[1].label as LanguageLookup)(generatedContent)).toBe('No');
-    const applyTextField = addressHistory.values[1].subFields!.provideDetailsOfPreviousAddresses;
+    const applyTextField = addressHistory.values[0].subFields!.provideDetailsOfPreviousAddresses;
     expect(applyTextField.type).toBe('textarea');
     expect((applyTextField.label as LanguageLookup)(generatedContent)).toBe(
       'Provide details of previous addresses you have lived at in the last 5 years'
     );
     expect((applyTextField.hint as LanguageLookup)(generatedContent)).toBe('Start with your most recent');
+    expect((addressHistory.values[1].label as LanguageLookup)(generatedContent)).toBe('No');
   });
 
   test('should contain saveAndComeLater button', () => {

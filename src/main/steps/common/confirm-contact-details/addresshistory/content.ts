@@ -4,10 +4,10 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 import { CommonContent } from '../../../common/common.content';
 
 const en = {
-  title: 'Have you lived at this address for more than 5 years?',
+  title: 'Have you lived at this address for less than 5 years?',
   one: 'Yes',
   two: 'No',
-  explainNoLabel:
+  explainYesLabel:
     'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
   continue: 'Continue',
   errors: {
@@ -28,7 +28,7 @@ const cy: typeof en = {
   title: 'Ydych chi wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
   one: 'Ydw',
   two: 'Nac ydw',
-  explainNoLabel:
+  explainYesLabel:
     'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf, gan gychwyn gyda’r diweddaraf',
   continue: 'Parhau',
   errors: {
@@ -60,18 +60,18 @@ export const addressHistoryFields = (): FormFields => ({
       {
         label: l => l.one,
         value: 'Yes',
-      },
-      {
-        label: l => l.two,
-        value: 'No',
         subFields: {
           citizenUserAddressHistory: {
             type: 'textarea',
-            label: l => l.explainNoLabel,
+            label: l => l.explainYesLabel,
             id: 'provideDetailsOfPreviousAddresses',
             validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
           },
         },
+      },
+      {
+        label: l => l.two,
+        value: 'No',
       },
     ],
     validator: isFieldFilledIn,
