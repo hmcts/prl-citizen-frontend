@@ -45,7 +45,7 @@ describe.skip('documents > view > content', () => {
     } as unknown as CommonContent);
     expect(content.documents).toStrictEqual([
       {
-         createdDate: '01 Jan 2024',
+        createdDate: '01 Jan 2024',
         documentId: 'MOCK_DOCUMENT_URL',
         documentName: 'MOCK_FILENAME',
         documentDownloadUrl: '/applicant/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
