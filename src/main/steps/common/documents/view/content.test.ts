@@ -45,14 +45,14 @@ describe.skip('documents > view > content', () => {
     } as unknown as CommonContent);
     expect(content.documents).toStrictEqual([
       {
-        document_en: {
-          createdDate: '01 Jan 2024',
-          documentId: 'MOCK_DOCUMENT_URL',
-          documentName: 'MOCK_FILENAME',
-          documentDownloadUrl: '/applicant/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
-          uploadedBy: 'test user',
-        },
+        // document_en: {
+        createdDate: '01 Jan 2024',
+        documentId: 'MOCK_DOCUMENT_URL',
+        documentName: 'MOCK_FILENAME',
+        documentDownloadUrl: '/applicant/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
+        uploadedBy: 'test user',
       },
+      //},
     ]);
     expect(content.title).toBe("test user's position statements");
   });

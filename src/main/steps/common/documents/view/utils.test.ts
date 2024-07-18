@@ -202,27 +202,28 @@ describe('documents > view > utils', () => {
               document: null,
             },
           ],
-          PartyType.RESPONDENT
+          PartyType.RESPONDENT,
+          'en'
         )
       ).toStrictEqual([
         {
-          document_en: {
-            createdDate: '01 Jan 2024',
-            documentId: 'MOCK_DOCUMENT_URL',
-            documentName: 'MOCK_FILENAME',
-            documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
-            uploadedBy: 'test user',
-          },
+          // document_en: {
+          createdDate: '01 Jan 2024',
+          documentId: 'MOCK_DOCUMENT_URL',
+          documentName: 'MOCK_FILENAME',
+          documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
+          uploadedBy: 'test user',
+          //},
         },
         {
-          document_en: {
-            createdDate: '01 Jan 2024',
-            documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL_welsh/MOCK_FILENAME_welsh',
-            documentId: 'MOCK_DOCUMENT_URL_welsh',
-            documentName: 'MOCK_FILENAME_welsh',
-            uploadedBy: 'test user2',
-          },
+          //document_en: {
+          createdDate: '01 Jan 2024',
+          documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL_welsh/MOCK_FILENAME_welsh',
+          documentId: 'MOCK_DOCUMENT_URL_welsh',
+          documentName: 'MOCK_FILENAME_welsh',
+          uploadedBy: 'test user2',
         },
+        //},
       ]);
     });
 
@@ -268,28 +269,29 @@ describe('documents > view > utils', () => {
               documentWelsh: null,
             },
           ],
-          PartyType.RESPONDENT
-          // 'respondent' as PartyType
+          PartyType.RESPONDENT,
+          // 'respondent' as PartyType,
+          'en'
         )
       ).toStrictEqual([
         {
-          document_en: {
-            createdDate: '01 Jan 2024',
-            documentId: 'MOCK_DOCUMENT_URL',
-            documentName: 'MOCK_FILENAME',
-            documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
-            uploadedBy: 'test user',
-          },
+          // document_en: {
+          createdDate: '01 Jan 2024',
+          documentId: 'MOCK_DOCUMENT_URL',
+          documentName: 'MOCK_FILENAME',
+          documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
+          uploadedBy: 'test user',
         },
+        // },
         {
-          document_en: {
-            createdDate: '01 Jan 2024',
-            documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
-            documentId: 'MOCK_DOCUMENT_URL',
-            documentName: 'MOCK_FILENAME',
-            uploadedBy: 'test user2',
-          },
+          // document_en: {
+          createdDate: '01 Jan 2024',
+          documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
+          documentId: 'MOCK_DOCUMENT_URL',
+          documentName: 'MOCK_FILENAME',
+          uploadedBy: 'test user2',
         },
+        //},
       ]);
     });
   });
@@ -338,7 +340,8 @@ describe('documents > view > utils', () => {
             ],
           } as unknown as CaseWithId,
           documentCategoryLabels,
-          'applicant' as PartyType
+          'applicant' as PartyType,
+          'en'
         )
       ).toStrictEqual([
         {
@@ -358,7 +361,8 @@ describe('documents > view > utils', () => {
             applicantDocuments: [],
           } as unknown as CaseWithId,
           documentCategoryLabels,
-          'applicant' as PartyType
+          'applicant' as PartyType,
+          'en'
         )
       ).toStrictEqual([
         {
@@ -415,7 +419,8 @@ describe('documents > view > utils', () => {
             ],
           } as unknown as CaseWithId,
           documentCategoryLabels,
-          'respondent' as PartyType
+          'respondent' as PartyType,
+          'en'
         )
       ).toStrictEqual([
         {
@@ -436,7 +441,8 @@ describe('documents > view > utils', () => {
             respondentDocuments: [],
           } as unknown as CaseWithId,
           documentCategoryLabels,
-          'respondent' as PartyType
+          'respondent' as PartyType,
+          'en'
         )
       ).toStrictEqual([
         {
@@ -492,7 +498,8 @@ describe('documents > view > utils', () => {
             ],
           } as unknown as CaseWithId,
           documentCategoryLabels,
-          'respondent' as PartyType
+          'respondent' as PartyType,
+          'en'
         )
       ).toStrictEqual([
         {
@@ -513,7 +520,8 @@ describe('documents > view > utils', () => {
             citizenOtherDocuments: [],
           } as unknown as CaseWithId,
           documentCategoryLabels,
-          'respondent' as PartyType
+          'respondent' as PartyType,
+          'en'
         )
       ).toStrictEqual([
         {
@@ -569,7 +577,8 @@ describe('documents > view > utils', () => {
             ],
           } as unknown as CaseWithId,
           documentCategoryLabels,
-          'respondent' as PartyType
+          'respondent' as PartyType,
+          'en'
         )
       ).toStrictEqual([]);
     });
@@ -617,7 +626,8 @@ describe('documents > view > utils', () => {
             ],
           } as unknown as CaseWithId,
           documentCategoryLabels,
-          'respondent' as PartyType
+          'respondent' as PartyType,
+          'en'
         )
       ).toStrictEqual([
         {
@@ -675,7 +685,8 @@ describe('documents > view > utils', () => {
             ],
           } as unknown as CaseWithId,
           documentCategoryLabels,
-          'respondent' as PartyType
+          'respondent' as PartyType,
+          'en'
         )
       ).toStrictEqual([
         {
@@ -828,7 +839,8 @@ describe('documents > view > utils', () => {
             },
           ] as unknown as CitizenApplicationPacks[],
           'applicant' as PartyType,
-          'to-be-served'
+          'to-be-served',
+          'en'
         )
       ).toStrictEqual([
         {
@@ -879,7 +891,8 @@ describe('documents > view > utils', () => {
             },
           ] as unknown as CitizenApplicationPacks[],
           'applicant' as PartyType,
-          'other-context'
+          'other-context',
+          'en'
         )
       ).toStrictEqual([
         {
@@ -930,7 +943,8 @@ describe('documents > view > utils', () => {
             },
           ] as unknown as CitizenApplicationPacks[],
           'respondent' as PartyType,
-          'other-context'
+          'other-context',
+          'en'
         )
       ).toStrictEqual([
         {
