@@ -199,7 +199,7 @@
     "ua-parser-js": ">=1.0.33",
     "ip": "^2.0.1",
     "socket.io-parser": "^4.2.3",
-    "word-wrap": "1.2.4",
+    "word-wrap": "1.2.5",
     "tough-cookie": "4.1.4",
     "follow-redirects": "^1.15.4",
     "axios": "^0.28.0",
