@@ -212,7 +212,6 @@ export type OrderDocumentMeta = {
   documentName: string;
   orderMadeDate: string;
   documentDownloadUrl: string;
-
 };
 
 export type ApplicationPackDocumentMeta = {

@@ -190,7 +190,7 @@ export const getOrderDocuments = (
   orders.forEach(order => {
     let document = order.document;
     if (document) {
-    prepareOrderDocument(document, order, loggedInUserPartyType, orderDocuments, language);
+      prepareOrderDocument(document, order, loggedInUserPartyType, orderDocuments, language);
     }
     document = order.documentWelsh;
     if (document) {
@@ -314,13 +314,13 @@ const generateDocumentName = (document: CitizenDocuments): string => {
     return '';
   }
 };
-function prepareOrderDocument(
+const prepareOrderDocument = (
   document: DocumentMeta,
   order: CitizenOrders,
   loggedInUserPartyType: PartyType,
   orderDocuments: OrderDocumentMeta[],
-  language
-) {
+  language: string
+) => {
   const documentId = document.document_url.substring(document.document_url.lastIndexOf('/') + 1);
   const orderDoc: OrderDocumentMeta = {
     documentId,
@@ -334,4 +334,4 @@ function prepareOrderDocument(
   };
 
   orderDocuments.push(orderDoc);
-}
+};

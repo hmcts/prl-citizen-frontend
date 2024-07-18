@@ -41,7 +41,6 @@ describe('documents > view > orders-from-the-court > content', () => {
     } as unknown as CommonContent);
     expect(content.documents).toStrictEqual([
       {
-    
         documentDownloadUrl: '/applicant/documents/download/1234/DOC_FILENAME',
         documentId: '1234',
         documentName: 'DOC_FILENAME',
@@ -53,7 +52,6 @@ describe('documents > view > orders-from-the-court > content', () => {
         documentName: 'DOC_FILENAME',
         orderMadeDate: '01 Jan 2024',
       },
-
     ]);
   });
 });
