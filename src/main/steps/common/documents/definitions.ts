@@ -19,7 +19,8 @@ export type ViewDocumentsSectionsProps = {
   documentCategoryList: (
     caseData: CaseWithId,
     documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-    loggedInUserPartyType: PartyType
+    loggedInUserPartyType: PartyType,
+    language: string
   ) => ViewDocumentDetails[] | ViewDocCategoryLinkProps[] | [];
 };
 
@@ -207,12 +208,10 @@ export const enum DocumentTypes {
 }
 
 export type OrderDocumentMeta = {
-  [key in DocumentTypes]?: {
-    documentId: string;
-    documentName: string;
-    orderMadeDate: string;
-    documentDownloadUrl: string;
-  };
+  documentId: string;
+  documentName: string;
+  orderMadeDate: string;
+  documentDownloadUrl: string;
 };
 
 export type ApplicationPackDocumentMeta = {
@@ -223,11 +222,9 @@ export type ApplicationPackDocumentMeta = {
 };
 
 export type Document = {
-  [key in DocumentTypes]?: {
-    documentId: string;
-    documentName: string;
-    documentDownloadUrl: string;
-    createdDate?: string;
-    uploadedBy?: string;
-  };
+  documentId: string;
+  documentName: string;
+  documentDownloadUrl: string;
+  createdDate?: string;
+  uploadedBy?: string;
 };

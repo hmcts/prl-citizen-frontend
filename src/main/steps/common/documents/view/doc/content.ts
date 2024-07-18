@@ -62,6 +62,6 @@ export const generateContent: TranslationFn = content => {
       },
     ],
     title: getDocumentSectionTitle(docId, documentSectionTitles),
-    documents: getDocuments(documentObject, loggedInUserPartyType),
+    documents: getDocuments(documentObject, loggedInUserPartyType, content.language),
   };
 };

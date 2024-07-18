@@ -26,8 +26,9 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
     documentCategoryList: (
       caseData: CaseWithId,
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-      loggedInUserPartyType: PartyType
-    ) => getApplicationPacksCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType),
+      loggedInUserPartyType: PartyType,
+      language: string
+    ) => getApplicationPacksCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType, language),
     isVisible: hasApplicationPacks,
     displayOrder: () => 1,
   },
@@ -38,8 +39,9 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
     documentCategoryList: (
       caseData: CaseWithId,
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-      loggedInUserPartyType: PartyType
-    ) => getOrdersFromTheCourtCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType),
+      loggedInUserPartyType: PartyType,
+      language: string
+    ) => getOrdersFromTheCourtCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType, language),
     isVisible: hasOrders,
     displayOrder: () => 2,
   },
@@ -50,13 +52,15 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
     documentCategoryList: (
       caseData: CaseWithId,
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-      loggedInUserPartyType: PartyType
+      loggedInUserPartyType: PartyType,
+      language: string
     ) =>
       getViewDocumentCategoryList(
         ViewDocumentsSectionId.APPLICANTS_DOCUMENT,
         caseData,
         documentCategoryLabels,
-        loggedInUserPartyType
+        loggedInUserPartyType,
+        language
       ),
     isVisible: (caseData: CaseWithId) => hasAnyDocumentForPartyType(PartyType.APPLICANT, caseData),
     displayOrder: (partyType: PartyType) => (partyType === PartyType.APPLICANT ? 3 : 4),
@@ -68,13 +72,15 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
     documentCategoryList: (
       caseData: CaseWithId,
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-      loggedInUserPartyType: PartyType
+      loggedInUserPartyType: PartyType,
+      language: string
     ) =>
       getViewDocumentCategoryList(
         ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS,
         caseData,
         documentCategoryLabels,
-        loggedInUserPartyType
+        loggedInUserPartyType,
+        language
       ),
     isVisible: (caseData: CaseWithId) => hasAnyDocumentForPartyType(PartyType.RESPONDENT, caseData),
     displayOrder: (partyType: PartyType) => (partyType === PartyType.RESPONDENT ? 3 : 4),
@@ -86,13 +92,15 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
     documentCategoryList: (
       caseData: CaseWithId,
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-      loggedInUserPartyType: PartyType
+      loggedInUserPartyType: PartyType,
+      language: string
     ) =>
       getViewDocumentCategoryList(
         ViewDocumentsSectionId.ATTENDING_THE_HEARING,
         caseData,
         documentCategoryLabels,
-        loggedInUserPartyType
+        loggedInUserPartyType,
+        language
       ),
     isVisible: (caseData: CaseWithId) => hasAnyHearing(caseData),
     displayOrder: () => 5,
@@ -104,13 +112,15 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
     documentCategoryList: (
       caseData: CaseWithId,
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-      loggedInUserPartyType: PartyType
+      loggedInUserPartyType: PartyType,
+      language: string
     ) =>
       getViewDocumentCategoryList(
         ViewDocumentsSectionId.OTHER_DOCUMENTS,
         caseData,
         documentCategoryLabels,
-        loggedInUserPartyType
+        loggedInUserPartyType,
+        language
       ),
     isVisible: (caseData: CaseWithId) => hasAnyDocumentForPartyType(PartyType.OTHER_PERSON, caseData),
     displayOrder: () => 6,
