@@ -207,30 +207,25 @@ describe('documents > view > utils', () => {
         )
       ).toStrictEqual([
         {
-          // document_en: {
           createdDate: '01 Jan 2024',
           documentId: 'MOCK_DOCUMENT_URL',
           documentName: 'MOCK_FILENAME',
           documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
           uploadedBy: 'test user',
-          //},
         },
         {
-          //document_en: {
           createdDate: '01 Jan 2024',
           documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL_welsh/MOCK_FILENAME_welsh',
           documentId: 'MOCK_DOCUMENT_URL_welsh',
           documentName: 'MOCK_FILENAME_welsh',
           uploadedBy: 'test user2',
         },
-        //},
       ]);
     });
 
     test('should get correct english documents without partyId', () => {
       expect(
         getDocuments(
-          //'applicantStatements' as DocumentCategory,
           [
             {
               partyId: '1',
@@ -270,28 +265,23 @@ describe('documents > view > utils', () => {
             },
           ],
           PartyType.RESPONDENT,
-          // 'respondent' as PartyType,
           'en'
         )
       ).toStrictEqual([
         {
-          // document_en: {
           createdDate: '01 Jan 2024',
           documentId: 'MOCK_DOCUMENT_URL',
           documentName: 'MOCK_FILENAME',
           documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
           uploadedBy: 'test user',
         },
-        // },
         {
-          // document_en: {
           createdDate: '01 Jan 2024',
           documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
           documentId: 'MOCK_DOCUMENT_URL',
           documentName: 'MOCK_FILENAME',
           uploadedBy: 'test user2',
         },
-        //},
       ]);
     });
   });
