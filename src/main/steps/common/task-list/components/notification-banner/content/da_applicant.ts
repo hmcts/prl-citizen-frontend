@@ -42,6 +42,37 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
+  dn1: {
+    heading: 'The court has issued your application',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'This means the court will give a copy of your application and other court documents to the other person in the case (the respondent).',
+          },
+          {
+            text: '',
+          },
+          {
+            text: 'If the documents include a non-molestation order or an occupation order with a power of arrest, the court will also give a copy of the order to the police.',
+          },
+          {
+            text: 'You must not give the documents to the other person yourself.',
+          },
+        ],
+        links: [
+          {
+            text: '<The link below takes user to a folder containing the applicant’s served applicantion pack>',
+          },
+          {
+            //** validate **
+            text: 'View the application pack',
+            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
 };
 
 const cy: typeof en = {
@@ -77,6 +108,37 @@ const cy: typeof en = {
           {
             //** validate **
             text: 'Gweld y gorchymyn terfynol (PDF)',
+            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
+  dn1: {
+    heading: 'Mae’r llys wedi cychwyn eich cais',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'Mae hyn yn golygu y bydd y llys yn rhoi copi o’ch cais a’r dogfennau llys eraill i’r unigolyn arall yn yr achos (yr atebydd). ',
+          },
+          {
+            text: '',
+          },
+          {
+            text: 'Os bydd y dogfennau yn cynnwys gorchymyn rhag molestu neu orchymyn anheddu gyda phŵer i arestio, bydd y llys hefyd yn rhoi copi o’r gorchymyn i’r heddlu.',
+          },
+          {
+            text: 'Ni ddylech roi’r dogfennau i’r unigolyn arall eich hun.',
+          },
+        ],
+        links: [
+          {
+            text: '<Mae’r ddolen isod yn mynd â’r defnyddiwr i ffolder sy’n cynnwys pecyn gwneud cais y ceisydd sydd wedi’i gyflwyno>',
+          },
+          {
+            //** validate **
+            text: 'Gweld y pecyn cais',
             href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
           },
         ],
