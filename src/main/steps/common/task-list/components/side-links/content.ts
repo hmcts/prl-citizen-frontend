@@ -1,25 +1,10 @@
 import { CaseType, PartyType } from '../../../../../app/case/definition';
-import { applyParms } from '../../../../../steps/common/url-parser';
-import {
-  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-  REMOVE_LEGAL_REPRESENTATIVE_START,
-  RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
-} from '../../../../../steps/urls';
+import { APPLICANT_ADD_LEGAL_REPRESENTATIVE, RESPONDENT_ADD_LEGAL_REPRESENTATIVE } from '../../../../../steps/urls';
 
 const en = {
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
       hyperlinks: [
-        {
-          label: 'Add a legal representative',
-          link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-          target: '',
-        },
-        {
-          label: 'Remove a legal representative',
-          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
-          target: '',
-        },
         {
           label: 'Know more about child arrangements',
           link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
@@ -31,18 +16,8 @@ const en = {
           target: '_blank',
         },
         {
-          label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is',
-          link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
-          target: '_blank',
-        },
-        {
           label: 'Check if I am eligible for Legal Aid',
           link: 'https://www.gov.uk/check-legal-aid',
-          target: '_blank',
-        },
-        {
-          label: 'Check if I am eligible for Help with Fees',
-          link: 'https://www.gov.uk/get-help-with-court-fees',
           target: '_blank',
         },
         {
@@ -60,33 +35,49 @@ const en = {
           link: 'https://www.gov.uk/represent-yourself-in-court',
           target: '_blank',
         },
+        {
+          label: 'Find information about my court',
+          link: 'https://www.gov.uk/find-court-tribunal',
+          target: '_blank',
+        },
       ],
     },
     [PartyType.RESPONDENT]: {
       hyperlinks: [
         {
-          label: 'Add a legal representative',
-          link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
-        },
-        {
-          label: 'Remove a legal representative',
-          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.RESPONDENT }),
-        },
-        {
-          label: 'Find my local court',
-          link: '#',
-        },
-        {
-          label: 'Find legal advice',
-          link: '#',
-        },
-        {
           label: 'Know more about child arrangements',
-          link: '#',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+          target: '_blank',
         },
         {
           label: 'Know more about attending court',
-          link: '#',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+          target: '_blank',
+        },
+        {
+          label: 'Check if I am eligible for Legal Aid',
+          link: 'https://www.gov.uk/check-legal-aid',
+          target: '_blank',
+        },
+        {
+          label: 'Find out about The Family Mediation Voucher scheme',
+          link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+          target: '_blank',
+        },
+        {
+          label: 'Find legal advice',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+          target: '_blank',
+        },
+        {
+          label: 'Read how to represent myself in court',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+          target: '_blank',
+        },
+        {
+          label: 'Find information about my court',
+          link: 'https://www.gov.uk/find-court-tribunal',
+          target: '_blank',
         },
       ],
     },
@@ -97,26 +88,32 @@ const en = {
         {
           label: 'Add a legal representative',
           link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+          target: '_blank',
         },
         {
-          label: 'Remove a legal representative',
-          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
+          label: 'Make an application about your case',
+          link: 'https://www.gov.uk/injunction-domestic-violence',
+          target: '_blank',
         },
         {
-          label: 'Find my local court',
-          link: '#',
+          label: 'Know more about domestic abuse',
+          link: 'https://www.gov.uk/injunction-domestic-violence',
+          target: '_blank',
         },
         {
           label: 'Find legal advice',
-          link: '#',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+          target: '_blank',
         },
         {
-          label: 'Know more about child arrangements',
-          link: '#',
+          label: 'Read how to represent myself in court',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+          target: '_blank',
         },
         {
-          label: 'Know more about attending court',
-          link: '#',
+          label: 'Find information about my court',
+          link: 'https://www.gov.uk/find-court-tribunal',
+          target: '_blank',
         },
       ],
     },
@@ -125,26 +122,42 @@ const en = {
         {
           label: 'Add a legal representative',
           link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+          target: '_blank',
         },
         {
-          label: 'Remove a legal representative',
-          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.RESPONDENT }),
+          label: 'Make an application about your case',
+          link: 'https://www.gov.uk/injunction-domestic-violence',
+          target: '_blank',
         },
         {
-          label: 'Find my local court',
-          link: '#',
-        },
-        {
-          label: 'Find legal advice',
-          link: '#',
-        },
-        {
-          label: 'Know more about child arrangements',
-          link: '#',
+          label: 'Know more about domestic abuse',
+          link: 'https://www.gov.uk/injunction-domestic-violence',
+          target: '_blank',
         },
         {
           label: 'Know more about attending court',
-          link: '#',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+          target: '_blank',
+        },
+        {
+          label: 'Find legal advice',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+          target: '_blank',
+        },
+        {
+          label: 'Read how to represent myself in court',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+          target: '_blank',
+        },
+        {
+          label: 'Find information about my court',
+          link: 'https://www.gov.uk/find-court-tribunal',
+          target: '_blank',
+        },
+        {
+          label: 'Set aside or change an application',
+          link: 'https://www.gov.uk/government/publications/form-fl403-application-to-vary-extend-or-discharge-an-order-in-existing-proceedings',
+          target: '_blank',
         },
       ],
     },
@@ -156,16 +169,6 @@ const cy: typeof en = {
     [PartyType.APPLICANT]: {
       hyperlinks: [
         {
-          label: 'Ychwanegu cynrychiolydd cyfreithiol',
-          link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-          target: '',
-        },
-        {
-          label: 'Dileu cynrychiolydd cyfreithiol',
-          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
-          target: '',
-        },
-        {
           label: 'Gwybod mwy am drefniadau plant',
           link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
           target: '_blank',
@@ -176,23 +179,13 @@ const cy: typeof en = {
           target: '_blank',
         },
         {
-          label: 'Deall beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
-          link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
-          target: '_blank',
-        },
-        {
           label: 'Gwirio os wyf yn gymwys i gael Cymorth Cyfreithiol',
           link: 'https://www.gov.uk/check-legal-aid',
           target: '_blank',
         },
         {
-          label: 'Gwirio os wyf yn gymwys i gael Help i Dalu Ffioedd',
-          link: 'https://www.gov.uk/get-help-with-court-fees',
-          target: '_blank',
-        },
-        {
-          label: 'Rhagor o wybodaeth am y Cynllun Talebau Cyfryngu Teuluol',
-          link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+          label: 'Deall beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
+          link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
           target: '_blank',
         },
         {
@@ -205,33 +198,49 @@ const cy: typeof en = {
           link: 'https://www.gov.uk/represent-yourself-in-court',
           target: '_blank',
         },
+        {
+          label: 'Find information about my court (in welsh)',
+          link: 'https://www.gov.uk/find-court-tribunal',
+          target: '_blank',
+        },
       ],
     },
     [PartyType.RESPONDENT]: {
       hyperlinks: [
         {
-          label: 'Ychwanegu cynrychiolydd cyfreithiol',
-          link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
-        },
-        {
-          label: 'Dileu cynrychiolydd cyfreithiol',
-          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.RESPONDENT }),
-        },
-        {
-          label: 'Dod o hyd i fy llys lleol',
-          link: '#',
-        },
-        {
-          label: 'Dod o hyd i gyngor cyfreithiol',
-          link: '#',
-        },
-        {
           label: 'Gwybod mwy am drefniadau plant',
-          link: '#',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+          target: '_blank',
         },
         {
           label: 'Gwybod mwy am fynychu’r llys',
-          link: '#',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+          target: '_blank',
+        },
+        {
+          label: 'Gwirio os wyf yn gymwys i gael Cymorth Cyfreithiol',
+          link: 'https://www.gov.uk/check-legal-aid',
+          target: '_blank',
+        },
+        {
+          label: 'Deall beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
+          link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
+          target: '_blank',
+        },
+        {
+          label: 'Dod o hyd i gyngor cyfreithiol',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+          target: '_blank',
+        },
+        {
+          label: 'Darllen mwy am sut i gynrychioli fy hun yn y llys',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+          target: '_blank',
+        },
+        {
+          label: 'Find information about my court (in welsh)',
+          link: 'https://www.gov.uk/find-court-tribunal',
+          target: '_blank',
         },
       ],
     },
@@ -242,26 +251,32 @@ const cy: typeof en = {
         {
           label: 'Ychwanegu cynrychiolydd cyfreithiol',
           link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+          target: '_blank',
         },
         {
-          label: 'Dileu cynrychiolydd cyfreithiol',
-          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
+          label: 'Make an application about your case (in welsh)',
+          link: 'https://www.gov.uk/injunction-domestic-violence',
+          target: '_blank',
         },
         {
-          label: 'Dod o hyd i fy llys lleol',
-          link: '#',
+          label: 'Know more about domestic abuse (in welsh)',
+          link: 'https://www.gov.uk/injunction-domestic-violence',
+          target: '_blank',
         },
         {
           label: 'Dod o hyd i gyngor cyfreithiol',
-          link: '#',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+          target: '_blank',
         },
         {
-          label: 'Gwybod mwy am drefniadau plant',
-          link: '#',
+          label: 'Darllen mwy am sut i gynrychioli fy hun yn y llys',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+          target: '_blank',
         },
         {
-          label: 'Gwybod mwy am fynychu’r llys',
-          link: '#',
+          label: 'Find information about my court (in welsh)',
+          link: 'https://www.gov.uk/find-court-tribunal',
+          target: '_blank',
         },
       ],
     },
@@ -270,26 +285,42 @@ const cy: typeof en = {
         {
           label: 'Ychwanegu cynrychiolydd cyfreithiol',
           link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+          target: '_blank',
         },
         {
-          label: 'Dileu cynrychiolydd cyfreithiol',
-          link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.RESPONDENT }),
+          label: 'Make an application about your case (in welsh)',
+          link: 'https://www.gov.uk/injunction-domestic-violence',
+          target: '_blank',
         },
         {
-          label: 'Dod o hyd i fy llys lleol',
-          link: '#',
+          label: 'Know more about domestic abuse (in welsh)',
+          link: 'https://www.gov.uk/injunction-domestic-violence',
+          target: '_blank',
+        },
+        {
+          label: 'Know more about attending court (in welsh)',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+          target: '_blank',
         },
         {
           label: 'Dod o hyd i gyngor cyfreithiol',
-          link: '#',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+          target: '_blank',
         },
         {
-          label: 'Gwybod mwy am drefniadau plant',
-          link: '#',
+          label: 'Darllen mwy am sut i gynrychioli fy hun yn y llys',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+          target: '_blank',
         },
         {
-          label: 'Gwybod mwy am fynychu’r llys',
-          link: '#',
+          label: 'Find information about my court (in welsh)',
+          link: 'https://www.gov.uk/find-court-tribunal',
+          target: '_blank',
+        },
+        {
+          label: 'Set aside or change an application (in welsh)',
+          link: 'https://www.gov.uk/government/publications/form-fl403-application-to-vary-extend-or-discharge-an-order-in-existing-proceedings',
+          target: '_blank',
         },
       ],
     },

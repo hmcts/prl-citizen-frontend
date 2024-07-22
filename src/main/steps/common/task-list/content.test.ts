@@ -9,11 +9,6 @@ describe('testcase for tasklist', () => {
     caseNumber: 'Case number ',
     hyperlinks: [
       {
-        label: 'Add a legal representative',
-        link: '/applicant/add-legal-representative',
-        target: '',
-      },
-      {
         label: 'Know more about child arrangements',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
         target: '_blank',
@@ -24,18 +19,8 @@ describe('testcase for tasklist', () => {
         target: '_blank',
       },
       {
-        label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is',
-        link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
-        target: '_blank',
-      },
-      {
         label: 'Check if I am eligible for Legal Aid',
         link: 'https://www.gov.uk/check-legal-aid',
-        target: '_blank',
-      },
-      {
-        label: 'Check if I am eligible for Help with Fees',
-        link: 'https://www.gov.uk/get-help-with-court-fees',
         target: '_blank',
       },
       {
@@ -51,6 +36,11 @@ describe('testcase for tasklist', () => {
       {
         label: 'Read how to represent myself in court',
         link: 'https://www.gov.uk/represent-yourself-in-court',
+        target: '_blank',
+      },
+      {
+        label: 'Find information about my court',
+        link: 'https://www.gov.uk/find-court-tribunal',
         target: '_blank',
       },
     ],
@@ -132,11 +122,6 @@ describe('testcase for tasklist', () => {
     iWantTo: 'Rwyf eisiau...',
     hyperlinks: [
       {
-        label: 'Ychwanegu cynrychiolydd cyfreithiol',
-        link: '/applicant/add-legal-representative',
-        target: '',
-      },
-      {
         label: 'Gwybod mwy am drefniadau plant',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
         target: '_blank',
@@ -147,23 +132,13 @@ describe('testcase for tasklist', () => {
         target: '_blank',
       },
       {
-        label: 'Deall beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
-        link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
-        target: '_blank',
-      },
-      {
         label: 'Gwirio os wyf yn gymwys i gael Cymorth Cyfreithiol',
         link: 'https://www.gov.uk/check-legal-aid',
         target: '_blank',
       },
       {
-        label: 'Gwirio os wyf yn gymwys i gael Help i Dalu Ffioedd',
-        link: 'https://www.gov.uk/get-help-with-court-fees',
-        target: '_blank',
-      },
-      {
-        label: 'Rhagor o wybodaeth am y Cynllun Talebau Cyfryngu Teuluol',
-        link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+        label: 'Deall beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
+        link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
         target: '_blank',
       },
       {
@@ -174,6 +149,11 @@ describe('testcase for tasklist', () => {
       {
         label: 'Darllen mwy am sut i gynrychioli fy hun yn y llys',
         link: 'https://www.gov.uk/represent-yourself-in-court',
+        target: '_blank',
+      },
+      {
+        label: 'Find information about my court (in welsh)',
+        link: 'https://www.gov.uk/find-court-tribunal',
         target: '_blank',
       },
     ],
@@ -285,11 +265,6 @@ describe('testcase for tasklist', () => {
   test('should return correct sidebar hyperlinks for c100 applicant', () => {
     expect(generateContent(commonContent).hyperlinks).toStrictEqual([
       {
-        label: 'Add a legal representative',
-        link: '/applicant/add-legal-representative',
-        target: '',
-      },
-      {
         label: 'Know more about child arrangements',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
         target: '_blank',
@@ -300,18 +275,8 @@ describe('testcase for tasklist', () => {
         target: '_blank',
       },
       {
-        label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is',
-        link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
-        target: '_blank',
-      },
-      {
         label: 'Check if I am eligible for Legal Aid',
         link: 'https://www.gov.uk/check-legal-aid',
-        target: '_blank',
-      },
-      {
-        label: 'Check if I am eligible for Help with Fees',
-        link: 'https://www.gov.uk/get-help-with-court-fees',
         target: '_blank',
       },
       {
@@ -329,6 +294,11 @@ describe('testcase for tasklist', () => {
         link: 'https://www.gov.uk/represent-yourself-in-court',
         target: '_blank',
       },
+      {
+        label: 'Find information about my court',
+        link: 'https://www.gov.uk/find-court-tribunal',
+        target: '_blank',
+      },
     ]);
   });
 
@@ -344,22 +314,32 @@ describe('testcase for tasklist', () => {
       {
         label: 'Add a legal representative',
         link: '/applicant/add-legal-representative',
+        target: '_blank',
       },
       {
-        label: 'Find my local court',
-        link: '#',
+        label: 'Make an application about your case',
+        link: 'https://www.gov.uk/injunction-domestic-violence',
+        target: '_blank',
+      },
+      {
+        label: 'Know more about domestic abuse',
+        link: 'https://www.gov.uk/injunction-domestic-violence',
+        target: '_blank',
       },
       {
         label: 'Find legal advice',
-        link: '#',
+        link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+        target: '_blank',
       },
       {
-        label: 'Know more about child arrangements',
-        link: '#',
+        label: 'Read how to represent myself in court',
+        link: 'https://www.gov.uk/represent-yourself-in-court',
+        target: '_blank',
       },
       {
-        label: 'Know more about attending court',
-        link: '#',
+        label: 'Find information about my court',
+        link: 'https://www.gov.uk/find-court-tribunal',
+        target: '_blank',
       },
     ]);
   });
@@ -439,24 +419,39 @@ describe('testcase for tasklist', () => {
     };
     expect(generateContent(commonContent).hyperlinks).toStrictEqual([
       {
-        label: 'Add a legal representative',
-        link: '/respondent/add-legal-representative',
-      },
-      {
-        label: 'Find my local court',
-        link: '#',
-      },
-      {
-        label: 'Find legal advice',
-        link: '#',
-      },
-      {
         label: 'Know more about child arrangements',
-        link: '#',
+        link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+        target: '_blank',
       },
       {
         label: 'Know more about attending court',
-        link: '#',
+        link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+        target: '_blank',
+      },
+      {
+        label: 'Check if I am eligible for Legal Aid',
+        link: 'https://www.gov.uk/check-legal-aid',
+        target: '_blank',
+      },
+      {
+        label: 'Find out about The Family Mediation Voucher scheme',
+        link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+        target: '_blank',
+      },
+      {
+        label: 'Find legal advice',
+        link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+        target: '_blank',
+      },
+      {
+        label: 'Read how to represent myself in court',
+        link: 'https://www.gov.uk/represent-yourself-in-court',
+        target: '_blank',
+      },
+      {
+        label: 'Find information about my court',
+        link: 'https://www.gov.uk/find-court-tribunal',
+        target: '_blank',
       },
     ]);
   });
@@ -499,22 +494,42 @@ describe('testcase for tasklist', () => {
         {
           label: 'Add a legal representative',
           link: '/respondent/add-legal-representative',
+          target: '_blank',
         },
         {
-          label: 'Find my local court',
-          link: '#',
+          label: 'Make an application about your case',
+          link: 'https://www.gov.uk/injunction-domestic-violence',
+          target: '_blank',
         },
         {
-          label: 'Find legal advice',
-          link: '#',
-        },
-        {
-          label: 'Know more about child arrangements',
-          link: '#',
+          label: 'Know more about domestic abuse',
+          link: 'https://www.gov.uk/injunction-domestic-violence',
+          target: '_blank',
         },
         {
           label: 'Know more about attending court',
-          link: '#',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+          target: '_blank',
+        },
+        {
+          label: 'Find legal advice',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+          target: '_blank',
+        },
+        {
+          label: 'Read how to represent myself in court',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+          target: '_blank',
+        },
+        {
+          label: 'Find information about my court',
+          link: 'https://www.gov.uk/find-court-tribunal',
+          target: '_blank',
+        },
+        {
+          label: 'Set aside or change an application',
+          link: 'https://www.gov.uk/government/publications/form-fl403-application-to-vary-extend-or-discharge-an-order-in-existing-proceedings',
+          target: '_blank',
         },
       ]);
   });
