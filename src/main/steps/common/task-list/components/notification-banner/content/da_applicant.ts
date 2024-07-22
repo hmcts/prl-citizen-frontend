@@ -42,6 +42,29 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
+  dn5: {
+    heading: 'The respondent has been given the court documents',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'This means the respondent now has a copy of your application and any orders from the court.',
+          },
+          {
+            text: '',
+          },
+          {
+            text: 'If the documents include a non-molestation order or an occupation order with a power of arrest, the court will also give a copy of the order to the police.',
+          },
+        ],
+        links: [
+          {
+            text: 'n/a',
+          },
+        ],
+      },
+    ],
+  },
 };
 
 const cy: typeof en = {
@@ -78,6 +101,29 @@ const cy: typeof en = {
             //** validate **
             text: 'Gweld y gorchymyn terfynol (PDF)',
             href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
+  dn1: {
+    heading: 'Mae’r atebydd wedi cael dogfennau’r llys',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'Mae hyn yn golygu bod gan yr atebydd bellach gopi o’ch cais ac unrhyw orchmynion gan y llys.',
+          },
+          {
+            text: '',
+          },
+          {
+            text: 'Os bydd y dogfennau yn cynnwys gorchymyn rhag molestu neu orchymyn anheddu gyda phŵer i arestio, bydd y llys hefyd yn rhoi copi o’r gorchymyn i’r heddlu.',
+          },
+        ],
+        links: [
+          {
+            text: '',
           },
         ],
       },
