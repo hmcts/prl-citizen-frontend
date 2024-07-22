@@ -106,7 +106,7 @@ const cy: typeof en = {
       },
     ],
   },
-  dn1: {
+  dn5: {
     heading: 'Mae’r atebydd wedi cael dogfennau’r llys',
     sections: [
       {
