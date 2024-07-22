@@ -42,6 +42,26 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
+  dn6: {
+      heading: 'The respondent has been Served with the order',
+      sections: [
+        {
+          contents: [
+            {
+              text: 'This means the respondent has now been given a copy of the order made by the court.',
+            },
+            {
+              text: 'The police have been given a copy of the court order.',
+            },
+          ],
+          links: [
+            {
+              text: 'n/a',
+            },
+          ],
+        },
+      ],
+    },
 };
 
 const cy: typeof en = {
@@ -83,6 +103,26 @@ const cy: typeof en = {
       },
     ],
   },
+  dn6: {
+      heading: 'Mae’r gorchymyn wedil cael ei gyflwyno i’r atebydd',
+      sections: [
+        {
+          contents: [
+            {
+              text: 'Mae hyn yn golygu bod yr yr atebydd bellach wedi cael copi o’r gorchymyn a wnaethpwyd gan y llys.',
+            },
+            {
+              text: 'Mae’r heddlu wedi cael copi o’r gorchymyn llys',
+            },
+          ],
+          links: [
+            {
+              text: 'n/a',
+            },
+          ],
+        },
+      ],
+    },
 };
 
 export const DA_APPLICANT_CONTENT = {
