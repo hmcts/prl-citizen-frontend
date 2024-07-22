@@ -29,9 +29,9 @@ describe('ca_respondent', () => {
     const theApplicationTasks = CA_RESPONDENT[1].tasks(data, {} as SectionContent);
 
     expect(CA_RESPONDENT[1].id).toBe('theApplication');
-    expect(theApplicationTasks).toHaveLength(2);
+    expect(theApplicationTasks).toHaveLength(4);
     expect(theApplicationTasks[0].id).toBe('checkTheApplication');
-    expect(theApplicationTasks[1].id).toBe('checkAllegationsOfHarmAndViolence');
+    expect(theApplicationTasks[1].id).toBe('checkTheApplicationWelsh');
   });
 
   test('your response section should contain correct ids and tasks', () => {

@@ -184,6 +184,18 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
   const tasks: Task[] = [];
 
   caseData.respondents?.forEach((respondent, index) => {
+    const c7Document = caseData.respondentDocuments?.find(
+      doc =>
+        (doc.partyId === respondent.value.user.idamId || doc.solicitorRepresentedPartyId === respondent.id) &&
+        doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
+        doc.documentLanguage === 'en'
+    );
+    const c7DocumentWelsh = caseData.respondentDocuments?.find(
+      doc =>
+        (doc.partyId === respondent.value.user.idamId || doc.solicitorRepresentedPartyId === respondent.id) &&
+        doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
+        doc.documentLanguage === 'cy'
+    );
     tasks.push({
       id: Tasks.THE_RESPONSE_PDF,
       linkText: interpolate(_.get(content, 'tasks.theResponsePDF.linkText', ''), {
@@ -193,11 +205,6 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
         if (!isC7ResponseSubmitted(respondent.value) || !hasResponseBeenReviewed(caseData, respondent)) {
           return '#';
         }
-        const c7Document = caseData.respondentDocuments?.find(
-          doc =>
-            (doc.partyId === respondent.value.user.idamId || doc.solicitorRepresentedPartyId === respondent.id) &&
-            doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
-        );
         return getDownloadDocUrl(c7Document!, PartyType.APPLICANT);
       },
       stateTag: () => {
@@ -206,6 +213,29 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
           : StateTags.NOT_AVAILABLE_YET;
       },
       show: () => caseData && !isDraftCase(caseData),
+      disabled: () => {
+        return !isC7ResponseSubmitted(respondent.value) || !hasResponseBeenReviewed(caseData, respondent);
+      },
+      openInAnotherTab: () => true,
+    });
+    tasks.push({
+      id: Tasks.THE_RESPONSE_PDF_WELSH,
+      linkText: interpolate(_.get(content, 'tasks.theResponsePDFWelsh.linkText', ''), {
+        respondentPosition: `${index + 1}`,
+      }),
+      href: () => {
+        if (!isC7ResponseSubmitted(respondent.value) || !hasResponseBeenReviewed(caseData, respondent)) {
+          return '#';
+        }
+
+        return getDownloadDocUrl(c7DocumentWelsh!, PartyType.APPLICANT);
+      },
+      stateTag: () => {
+        return isC7ResponseSubmitted(respondent.value) && hasResponseBeenReviewed(caseData, respondent)
+          ? StateTags.READY_TO_VIEW
+          : StateTags.NOT_AVAILABLE_YET;
+      },
+      show: () => caseData && !isDraftCase(caseData) && c7DocumentWelsh !== undefined,
       disabled: () => {
         return !isC7ResponseSubmitted(respondent.value) || !hasResponseBeenReviewed(caseData, respondent);
       },

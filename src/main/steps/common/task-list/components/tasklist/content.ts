@@ -25,6 +25,15 @@ const en: TaskListContent = {
           yourApplicationPDF: {
             linkText: 'Your application (PDF)',
           },
+          yourApplicationWelshPDF: {
+            linkText: 'Your application (PDF) in welsh',
+          },
+          yourAOHPDF: {
+            linkText: ' Your allegations of harm and violence (PDF)',
+          },
+          yourAOHWelshPDF: {
+            linkText: ' Your allegations of harm and violence (PDF) in welsh',
+          },
         },
       },
       yourDocuments: {
@@ -43,6 +52,10 @@ const en: TaskListContent = {
         tasks: {
           theResponsePDF: {
             linkText: 'Response {respondentPosition} to your application',
+            //   linkText:'The response to application',
+            // },
+            // theResponsePDFWelsh: {
+            //   linkText:'The response to application in welsh',
           },
         },
       },
@@ -104,8 +117,14 @@ const en: TaskListContent = {
           checkTheApplication: {
             linkText: 'Check the application (PDF)',
           },
+          checkTheApplicationWelsh: {
+            linkText: 'Check the application (PDF) in welsh',
+          },
           checkAllegationsOfHarmAndViolence: {
             linkText: 'Check the allegations of harm and violence (PDF)',
+          },
+          checkAllegationsOfHarmAndViolenceWelsh: {
+            linkText: 'Check the allegations of harm and violence (PDF) in welsh',
           },
         },
       },
@@ -157,8 +176,14 @@ const en: TaskListContent = {
           yourApplicationPDF: {
             linkText: 'Your application (PDF)',
           },
+          yourApplicationWelshPDF: {
+            linkText: 'Your application (PDF) in welsh',
+          },
           yourAapplicationWitnessStatment: {
             linkText: 'Witness statement (PDF)',
+          },
+          yourAapplicationWitnessStatmentWelsh: {
+            linkText: 'Witness statement (PDF) in welsh',
           },
         },
       },
@@ -228,6 +253,9 @@ const en: TaskListContent = {
           checkTheApplication: {
             linkText: 'Check the application (PDF)',
           },
+          checkTheApplicationWelsh: {
+            linkText: 'Check the application (PDF) in welsh',
+          },
         },
       },
       yourHearing: {
@@ -285,6 +313,15 @@ const cy: typeof en = {
           yourApplicationPDF: {
             linkText: 'Eich cais (PDF)',
           },
+          yourApplicationWelshPDF: {
+            linkText: 'Your application (PDF) in welsh',
+          },
+          yourAOHPDF: {
+            linkText: ' Your allegations of harm and violence (PDF)',
+          },
+          yourAOHWelshPDF: {
+            linkText: ' Your allegations of harm and violence (PDF) in welsh -welsh',
+          },
         },
       },
       yourDocuments: {
@@ -303,6 +340,10 @@ const cy: typeof en = {
         tasks: {
           theResponsePDF: {
             linkText: 'Response {respondentPosition} to your application (welsh)',
+            //   linkText:'The response to application',
+            // },
+            // theResponsePDFWelsh: {
+            //   linkText:'The response to application in welsh',
           },
         },
       },
@@ -365,8 +406,14 @@ const cy: typeof en = {
           checkTheApplication: {
             linkText: 'Gwirio’r cais (PDF)',
           },
+          checkTheApplicationWelsh: {
+            linkText: 'Check the application (PDF) in welsh',
+          },
           checkAllegationsOfHarmAndViolence: {
             linkText: 'Gwirio’r honiadau o niwed a thrais (PDF)',
+          },
+          checkAllegationsOfHarmAndViolenceWelsh: {
+            linkText: 'Check the allegations of harm and violence (PDF) in welsh',
           },
         },
       },
@@ -418,8 +465,14 @@ const cy: typeof en = {
           yourApplicationPDF: {
             linkText: 'Eich cais (PDF)',
           },
+          yourApplicationWelshPDF: {
+            linkText: 'Your application (PDF) in welsh',
+          },
           yourAapplicationWitnessStatment: {
             linkText: 'Datganiad tyst (PDF)',
+          },
+          yourAapplicationWitnessStatmentWelsh: {
+            linkText: 'Witness statement (PDF) in welsh',
           },
         },
       },
@@ -490,6 +543,9 @@ const cy: typeof en = {
         tasks: {
           checkTheApplication: {
             linkText: 'Gwirio’r cais (PDF)',
+          },
+          checkTheApplicationWelsh: {
+            linkText: 'Check the application (PDF) in welsh',
           },
         },
       },

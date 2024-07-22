@@ -3,10 +3,14 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
-import { DocumentCategory } from '../../../../../../steps/common/documents/definitions';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
-import { isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../../../../steps/common/task-list/utils';
+import {
+  iswelshDocPresent,
+  isCaseClosed,
+  isCaseLinked,
+  isRepresentedBySolicotor,
+} from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
@@ -17,7 +21,6 @@ import {
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
-  VIEW_DOCUMENTS,
 } from '../../../../../../steps/urls';
 import {
   StateTags,
@@ -26,7 +29,6 @@ import {
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getKeepYourDetailsPrivateStatus,
-  getYourWitnessStatementStatus,
   hasAnyHearing,
 } from '../utils';
 
@@ -82,14 +84,17 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         // ** validate **
-        id: Tasks.YOUR_APPLICATION_WITNESS_STATEMENT,
+        id: Tasks.YOUR_APPLICATION_PDF_WELSH,
         href: () =>
-          applyParms(VIEW_DOCUMENTS, {
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
-            documentCategory: DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-            documentPartyType: PartyType.APPLICANT,
+            documentType: 'fl401-application-welsh',
           }),
-        stateTag: caseData => getYourWitnessStatementStatus(caseData),
+        stateTag: caseData =>
+          caseData.finalWelshDocument?.document_filename ? StateTags.DOWNLOAD : StateTags.NOT_AVAILABLE_YET,
+        openInAnotherTab: () => true,
+        show: caseData => iswelshDocPresent(caseData, 'finalWelshDocument'),
+        //caseData.finalWelshDocument?.document_filename?true:false
       },
     ],
   },

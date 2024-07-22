@@ -755,6 +755,7 @@ export interface CaseData {
   allocatedJudgeDetails: AllocatedJudgeDetails;
   miamCertificationDocumentUpload: Document;
   c1ADocument: Document;
+  c1AWelshDocument:Document;
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;
@@ -817,6 +818,7 @@ export interface CaseData {
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
+  finalWelshDocument?: Document;
   serviceType: string;
   claimNumber: string;
   caseCode: string;
@@ -884,6 +886,7 @@ export interface CaseData {
   respondentDocsList?: RespondentDocs[];
   draftOrderDoc?: Document;
   submitAndPayDownloadApplicationLink?: Document;
+  submitAndPayDownloadApplicationWelshLink?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions?: YesOrNo | null;
   //citizenDocuments?: CitizenDocuments[];

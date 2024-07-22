@@ -18,10 +18,12 @@ import {
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
+  VIEW_TYPE_DOCUMENT,
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
 import {
   hasRespondentRespondedToC7Application,
+  iswelshDocPresent,
   isCaseClosed,
   isCaseLinked,
   isRepresentedBySolicotor,
@@ -32,9 +34,11 @@ import {
   Tasks,
   getC7ApplicationResponseStatus,
   getCheckAllegationOfHarmStatus,
+  getCheckAllegationOfHarmStatusWelsh,
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getFinalApplicationStatus,
+  getFinalApplicationWelshStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   hasAnyHearing,
@@ -170,6 +174,23 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
       },
       {
         //** validate **
+        id: Tasks.CHECK_THE_APPLICATION_WELSH,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.RESPONDENT,
+            documentType: 'cada-document-welsh',
+          }),
+        stateTag: caseData => getFinalApplicationWelshStatus(caseData),
+        show: caseData => {
+          return (
+            getFinalApplicationWelshStatus(caseData) !== StateTags.NOT_AVAILABLE_YET &&
+            iswelshDocPresent(caseData, 'finalWelshDocument')
+          );
+        },
+        openInAnotherTab: () => true,
+      },
+      {
+        //** validate **
         id: Tasks.CHECK_AOH_AND_VIOLENCE,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -179,6 +200,23 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         stateTag: caseData => getCheckAllegationOfHarmStatus(caseData),
         disabled: caseData => {
           return getCheckAllegationOfHarmStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
+        },
+        openInAnotherTab: () => true,
+      },
+      {
+        //** validate **
+        id: Tasks.CHECK_AOH_AND_VIOLENCE_WELSH,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.RESPONDENT,
+            documentType: 'aoh-document-welsh',
+          }),
+        stateTag: caseData => getCheckAllegationOfHarmStatusWelsh(caseData),
+        disabled: caseData => {
+          return (
+            getCheckAllegationOfHarmStatusWelsh(caseData) === StateTags.NOT_AVAILABLE_YET &&
+            iswelshDocPresent(caseData, 'c1AWelshDocument')
+          );
         },
         openInAnotherTab: () => true,
       },
@@ -199,9 +237,8 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         id: Tasks.RESPOND_TO_THE_APPLICATION,
         href: (caseData, userDetails) => {
           return hasRespondentRespondedToC7Application(caseData, userDetails)
-            ? applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
-                partyType: PartyType.RESPONDENT,
-                documentType: 'c7-response-document',
+            ? applyParms(VIEW_TYPE_DOCUMENT, {
+                type: 'respondent',
               })
             : RESPOND_TO_APPLICATION;
         },

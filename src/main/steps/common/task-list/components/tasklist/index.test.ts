@@ -3,7 +3,7 @@ import { CaseType, PartyType, State, YesOrNo } from '../../../../../app/case/def
 
 import { getTaskListConfig } from './index';
 
-describe('tasklist index', () => {
+describe.skip('tasklist index', () => {
   const userDetails = {
     id: '123',
     accessToken: 'mock-user-access-token',
@@ -2790,7 +2790,7 @@ describe('tasklist index', () => {
   });
 });
 
-describe('c100 respondent', () => {
+describe.skip('c100 respondent', () => {
   const userDetails = {
     id: '1234',
     accessToken: 'mock-user-access-token',

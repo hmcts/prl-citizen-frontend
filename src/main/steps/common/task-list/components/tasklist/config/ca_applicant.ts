@@ -19,8 +19,8 @@ import {
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
 import { Task, TaskListConfigProps } from '../../../definitions';
-import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
-import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing } from '../utils';
+import { iswelshDocPresent, isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
+import { StateTags, TaskListSection, Tasks, getCheckAllegationOfHarmStatus, getCheckAllegationOfHarmStatusWelsh, getContents, hasAnyHearing } from '../utils';
 
 export const CA_APPLICANT: TaskListConfigProps[] = [
   {
@@ -95,6 +95,56 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         },
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+        openInAnotherTab: () => true,
+      },
+      {
+        id: Tasks.YOUR_APPLICATION_PDF_WELSH,
+        href: () => {
+          //** validate **
+          return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'c100-application-welsh',
+          });
+        },
+        stateTag: () => StateTags.SUBMITTED,
+        show: (
+          caseData: Partial<CaseWithId>) =>
+          caseData &&
+          !isDraftCase(caseData) &&
+          (iswelshDocPresent(caseData, 'finalWelshDocument')||iswelshDocPresent(caseData, 'c100DraftDocWelsh')),
+        openInAnotherTab: () => true,
+      },
+      {
+        //** validate **
+        id: Tasks.YOUR_AOH_PDF,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'aoh-document',
+          }),
+        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData),
+        disabled: caseData => {
+          return getCheckAllegationOfHarmStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
+        },
+        show: isCaseLinked,
+        openInAnotherTab: () => true,
+      },
+      {
+        //** validate **
+        id: Tasks.YOUR_AOH_PDF_WELSH,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'aoh-document-welsh',
+          }),
+        stateTag: caseData => getCheckAllegationOfHarmStatusWelsh(caseData),
+        disabled: caseData => {
+          return (
+            getCheckAllegationOfHarmStatusWelsh(caseData) === StateTags.NOT_AVAILABLE_YET &&
+            iswelshDocPresent(caseData, 'c1AWelshDocument')
+          );
+        },
+        show:(caseData: Partial<CaseWithId>, userDetails: UserDetails)=>isCaseLinked(caseData, userDetails) && iswelshDocPresent(caseData, 'c1AWelshDocument'),
         openInAnotherTab: () => true,
       },
     ],

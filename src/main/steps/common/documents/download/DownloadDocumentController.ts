@@ -22,13 +22,23 @@ export default class DownloadDocumentController {
       case 'c100-application':
         documentReference = caseData.finalDocument ?? caseData.c100DraftDoc;
         break;
+      case 'c100-application-welsh':
+        documentReference = caseData.finalWelshDocument ?? caseData.c100DraftDocWelsh;
+        break;
 
       case 'fl401-application':
       case 'cada-document':
         documentReference = caseData.finalDocument;
         break;
+      case 'fl401-application-welsh':
+      case 'cada-document-welsh':
+        documentReference = caseData.finalWelshDocument;
+        break;
       case 'aoh-document':
         documentReference = caseData.c1ADocument;
+        break;
+      case 'aoh-document-welsh':
+        documentReference = caseData.c1AWelshDocument;
         break;
       case 'c7-response-document':
         documentReference = caseData.respondentDocuments?.find(

@@ -77,6 +77,12 @@ export const isCaseClosed = (caseData: Partial<CaseWithId>): boolean =>
 export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
   return caseData?.state === State.CASE_DRAFT;
 };
+export const iswelshDocPresent = (caseData: Partial<CaseWithId>, filename: string): boolean => {
+  if (caseData[filename]) {
+    return true;
+  }
+  return false;
+};
 
 export const isRepresentedBySolicotor = (caseData: CaseWithId, userId: UserDetails['id']): boolean => {
   return checkPartyRepresentedBySolicitor(getPartyDetails(caseData, userId));
