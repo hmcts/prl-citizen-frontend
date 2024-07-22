@@ -1,7 +1,8 @@
 import { CaseWithId } from '../../../../../../app/case/case';
-import { State, YesOrNo } from '../../../../../../app/case/definition';
+import { State } from '../../../../../../app/case/definition';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { NotificationBannerProps, NotificationType } from '../definitions';
+import { showNotification } from '../utils';
 
 export const DA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
   {
@@ -18,9 +19,6 @@ export const DA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
   },
   {
     id: NotificationType.DA_RESPONDENT_BANNER,
-    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
-      // banners.length === 0 && (revisit latter)
-      return caseData.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES;
-    },
+    show: showNotification,
   },
 ];

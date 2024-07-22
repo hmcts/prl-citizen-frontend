@@ -43,30 +43,26 @@ const en: NotificationBannerContentConfig = {
     ],
   },
   daRespondentBanner: {
-    heading: 'You have been named as the respondent in a domestic abuse application and have an order from the court',
+    heading:
+      'You have been named as the respondent in a domestic abuse application and have been given instructions from the court',
     sections: [
       {
         contents: [
           {
-            text: 'This means that another person (the applicant) has applied to a court for protection from domestic abuse.',
+            text: 'This means that the applicant has applied to a court for protection from domestic abuse.',
           },
           {
-            text: 'The court has considered their concerns. The order tells you what the court has decided.',
+            text: 'The court has considered their concerns and provided you further instructions.',
           },
         ],
         links: [
-          {
-            //** validate **
-            text: 'Read the order (PDF)',
-            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
-          },
           {
             //** validate **
             href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
               partyType: PartyType.RESPONDENT,
               documentType: 'cada-document',
             }),
-            text: 'Read the application (PDF)',
+            text: 'View the court documents',
             external: true,
           },
         ],
@@ -115,30 +111,26 @@ const cy: typeof en = {
     ],
   },
   daRespondentBanner: {
-    heading: 'Rydych wedi cael eich enwi fel yr atebydd mewn cais cam-drin domestig ac mae gennych orchymyn gan y llys',
+    heading:
+      'You have been named as the respondent in a domestic abuse application and have been given instructions from the court -welsh',
     sections: [
       {
         contents: [
           {
-            text: 'Mae hyn yn golygu bod unigolyn arall (y ceisydd) wedi gwneud cais i’r llys am orchymyn amddiffyn rhag cam-drin domestig.',
+            text: 'This means that the applicant has applied to a court for protection from domestic abuse. -welsh',
           },
           {
-            text: 'Mae’r llys wedi ystyried eu pryderon. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+            text: 'The court has considered their concerns and provided you further instructions. -welsh',
           },
         ],
         links: [
           {
             //** validate **
-            text: 'Darllen y gorchymyn (PDF)',
-            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
-          },
-          {
-            //** validate **
-            text: 'Darllen y gorchymyn (PDF)',
             href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
               partyType: PartyType.RESPONDENT,
               documentType: 'cada-document',
             }),
+            text: 'View the court documents -welsh',
             external: true,
           },
         ],
