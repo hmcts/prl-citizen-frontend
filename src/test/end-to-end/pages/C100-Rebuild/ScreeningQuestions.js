@@ -31,6 +31,10 @@ module.exports = {
         await I.retry(retryCount).waitForText(ScreeningQuestions.beforeYouGoToCourtSubHeading , 30);
         await I.retry(retryCount).click('Continue');
     },
+    async reachingAgreementWithoutGoingToCourt(){
+        await I.retry(retryCount).waitForText('Reaching an agreement without going to court', 30);
+        await I.retry(retryCount).click('Continue');
+    },
     async otherWaysToReachAnAgreement() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.otherWaysToReachAnAgreementPageTitle , 30);
         await I.retry(retryCount).click(this.fields.reachingAgreementYes);     
@@ -68,7 +72,8 @@ module.exports = {
     async screeningQuestions() {
         await this.writtenAgreementButton(false);
         await this.beforeYouGoToCourt();
-        await this.otherWaysToReachAnAgreement();
+        await this.reachingAgreementWithoutGoingToCourt();
+        // await this.otherWaysToReachAnAgreement();
         await this.usingLegalRepresentative();
         await this.permissionFromCourt();
         await this.permissionFromCourtWhy();

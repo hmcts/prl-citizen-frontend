@@ -65,7 +65,6 @@ export class Routes {
       `${CA_RESPONDENT_GENERATE_C7_DRAFT}`,
       errorHandler(new RespondentSubmitResponseController().generateAndDownloadC7ResponseDraftDocument)
     );
-
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_RETRIVE_CASE, errorHandler(new CaseDataController().getC100ApplicantCase));
     //Tasklist event common get controller routes

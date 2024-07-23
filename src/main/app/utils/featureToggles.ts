@@ -49,6 +49,12 @@ export class FeatureToggles {
     return isTestingSupportEnabled;
   }
 
+  async isCaseTrainTrackEnabled(): Promise<boolean> {
+    return this.launchDarklyClient.serviceVariation(
+      'citizen-train-track-feature',
+      toBoolean(config.get<boolean>('featureToggles.enableCaseTrainTrack'))
+    );
+  }
   async isRAComponentEnabled(): Promise<boolean> {
     if (this.launchDarklyClient) {
       return this.launchDarklyClient.serviceVariation(
@@ -57,6 +63,15 @@ export class FeatureToggles {
       );
     }
     return toBoolean(config.get<boolean>('featureToggles.enableRAComponent'));
+  }
+  async isPcqComponentEnabled(): Promise<boolean> {
+    if (this.launchDarklyClient) {
+      return this.launchDarklyClient.serviceVariation(
+        'enable-pcq-component',
+        toBoolean(config.get<boolean>('featureToggles.enablePcqComponent'))
+      );
+    }
+    return toBoolean(config.get<boolean>('featureToggles.enablePcqComponent'));
   }
 }
 

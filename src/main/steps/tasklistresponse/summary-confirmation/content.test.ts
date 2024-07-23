@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
+import { YesOrNo } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
@@ -20,8 +21,38 @@ const en = {
   line6: `If you cannot open the PDF file on your device, download and install
   <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> and try again.`,
   line7: 'A copy of your submitted application will be in your personal dashboard.',
-  downloadLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document">Download your response</a>',
+  DownloadLinks: [
+    {
+      text: 'Download your response',
+      isWelsh: YesOrNo.NO,
+      href: '/respondent/documents/download/type/c7-response-document',
+    },
+    {
+      text: 'Download your response in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: '/respondent/documents/download/type/c7-response-document-welsh',
+    },
+    {
+      text: 'Download your allegations of harm',
+      isWelsh: YesOrNo.NO,
+      href: '/respondent/documents/download/type/c1a-application-document',
+    },
+    {
+      text: 'Download your allegations of harm in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: '/respondent/documents/download/type/c1a-application-document-welsh',
+    },
+    {
+      text: 'Download your response to the applicant’s allegations',
+      isWelsh: YesOrNo.NO,
+      href: '/respondent/documents/download/type/c1a-response-document',
+    },
+    {
+      text: 'Download your response to the applicant’s allegations in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: '/respondent/documents/download/type/c1a-response-document-welsh',
+    },
+  ],
   saveAndContinue: 'Continue',
 };
 
@@ -40,8 +71,38 @@ const cy: typeof en = {
   line6: `Os na allwch agor y ffeil PDF ar eich dyfais, llwythwch a gosodwch
   <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> ar eich dyfais a cheisio eto.`,
   line7: 'Bydd copi o’r cais a gyflwynwyd ar eich dangosfwrdd personol',
-  downloadLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c7-response-document">Lawrlwytho eich ymateb</a>',
+  DownloadLinks: [
+    {
+      text: 'Download your response',
+      isWelsh: YesOrNo.NO,
+      href: '/respondent/documents/download/type/c7-response-document',
+    },
+    {
+      text: 'Download your response in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: '/respondent/documents/download/type/c7-response-document-welsh',
+    },
+    {
+      text: 'Download your allegations of harm',
+      isWelsh: YesOrNo.NO,
+      href: '/respondent/documents/download/type/c1a-application-document',
+    },
+    {
+      text: 'Download your allegations of harm in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: '/respondent/documents/download/type/c1a-application-document-welsh',
+    },
+    {
+      text: 'Download your response to the applicant’s allegations',
+      isWelsh: YesOrNo.NO,
+      href: '/respondent/documents/download/type/c1a-response-document',
+    },
+    {
+      text: 'Download your response to the applicant’s allegations in Welsh',
+      isWelsh: YesOrNo.YES,
+      href: '/respondent/documents/download/type/c1a-response-document-welsh',
+    },
+  ],
   saveAndContinue: 'Parhau',
 };
 
