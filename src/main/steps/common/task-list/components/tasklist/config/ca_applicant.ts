@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { DocumentCategory } from '../../../../../../steps/common/documents/definitions';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
@@ -16,11 +16,20 @@ import {
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
+  VIEW_TYPE_DOCUMENT,
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
 import { Task, TaskListConfigProps } from '../../../definitions';
-import { iswelshDocPresent, isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
-import { StateTags, TaskListSection, Tasks, getCheckAllegationOfHarmStatus, getCheckAllegationOfHarmStatusWelsh, getContents, hasAnyHearing } from '../utils';
+import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor, iswelshDocPresent } from '../../../utils';
+import {
+  StateTags,
+  TaskListSection,
+  Tasks,
+  getCheckAllegationOfHarmStatus,
+  getCheckAllegationOfHarmStatusWelsh,
+  getContents,
+  hasAnyHearing,
+} from '../utils';
 
 export const CA_APPLICANT: TaskListConfigProps[] = [
   {
@@ -107,11 +116,10 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           });
         },
         stateTag: () => StateTags.SUBMITTED,
-        show: (
-          caseData: Partial<CaseWithId>) =>
+        show: (caseData: Partial<CaseWithId>) =>
           caseData &&
           !isDraftCase(caseData) &&
-          (iswelshDocPresent(caseData, 'finalWelshDocument')||iswelshDocPresent(caseData, 'c100DraftDocWelsh')),
+          (iswelshDocPresent(caseData, 'finalWelshDocument') || iswelshDocPresent(caseData, 'c100DraftDocWelsh')),
         openInAnotherTab: () => true,
       },
       {
@@ -144,7 +152,8 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
             iswelshDocPresent(caseData, 'c1AWelshDocument')
           );
         },
-        show:(caseData: Partial<CaseWithId>, userDetails: UserDetails)=>isCaseLinked(caseData, userDetails) && iswelshDocPresent(caseData, 'c1AWelshDocument'),
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && iswelshDocPresent(caseData, 'c1AWelshDocument'),
         openInAnotherTab: () => true,
       },
     ],
@@ -191,7 +200,27 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     id: TaskListSection.THE_RESPONSE,
     content: getContents.bind(null, TaskListSection.THE_RESPONSE),
     show: isCaseLinked,
-    tasks: (caseData, content): Task[] => generateTheResponseTasks(caseData, content),
+    tasks: (): Task[] => [
+      {
+        id: Tasks.THE_RESPONSE_PDF,
+        href: () =>
+          applyParms(VIEW_TYPE_DOCUMENT, {
+            partyType: PartyType.RESPONDENT,
+            type: 'respondent',
+          }),
+        stateTag: (caseData: Partial<CaseWithId>) => {
+          if (
+            caseData.respondentDocuments?.find(
+              doc => doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+            )
+          ) {
+            return StateTags.READY_TO_VIEW;
+          }
+          return StateTags.NOT_AVAILABLE_YET;
+        },
+        show: isCaseLinked,
+      },
+    ],
   },
   {
     id: TaskListSection.YOUR_HEARING,

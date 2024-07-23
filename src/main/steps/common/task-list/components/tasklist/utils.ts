@@ -11,6 +11,7 @@ import {
   hearingStatus,
 } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { DocumentCategory } from '../../../../../steps/common/documents/definitions';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { TaskListContent } from '../../definitions';
 
@@ -211,4 +212,9 @@ export const getFinalApplicationWelshStatus = (caseData): StateTags => {
   return _.get(caseData, 'finalWelshDocument.document_binary_url')
     ? StateTags.READY_TO_VIEW
     : StateTags.NOT_AVAILABLE_YET;
+};
+export const isRespondentSubmitedResponse = (caseData: Partial<CaseWithId>) => {
+  return caseData.respondentDocuments?.find(
+    doc => doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+  );
 };

@@ -6,10 +6,10 @@ import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import {
-  iswelshDocPresent,
   isCaseClosed,
   isCaseLinked,
   isRepresentedBySolicotor,
+  iswelshDocPresent,
 } from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {

@@ -23,10 +23,10 @@ import {
 import { hasContactPreference } from '../../../../contact-preference/util';
 import {
   hasRespondentRespondedToC7Application,
-  iswelshDocPresent,
   isCaseClosed,
   isCaseLinked,
   isRepresentedBySolicotor,
+  iswelshDocPresent,
 } from '../../../utils';
 import {
   StateTags,
@@ -39,9 +39,9 @@ import {
   getContents,
   getFinalApplicationStatus,
   getFinalApplicationWelshStatus,
-  getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   hasAnyHearing,
+  isRespondentSubmitedResponse,
 } from '../utils';
 
 export const aboutYou: TaskListConfigProps = {
@@ -235,28 +235,26 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.RESPOND_TO_THE_APPLICATION,
-        href: (caseData, userDetails) => {
-          return hasRespondentRespondedToC7Application(caseData, userDetails)
-            ? applyParms(VIEW_TYPE_DOCUMENT, {
-                type: 'respondent',
-              })
-            : RESPOND_TO_APPLICATION;
-        },
+        href: () => RESPOND_TO_APPLICATION,
         stateTag: (caseData, userDetails) => {
           return getC7ApplicationResponseStatus(caseData, userDetails);
         },
-        openInAnotherTab: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
+        show: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
       },
       {
-        id: Tasks.RESPOND_TO_AOH_AND_VIOLENCE,
-        href: () => {
-          //** validate **
-          return '#';
+        id: Tasks.THE_RESPONSE_PDF,
+        href: caseData => {
+          return isRespondentSubmitedResponse(caseData)
+            ? applyParms(VIEW_TYPE_DOCUMENT, {
+                partyType: PartyType.RESPONDENT,
+                type: 'respondent',
+              })
+            : '#';
         },
-        stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-          return getInternationalFactorsStatus(respondent?.response.citizenInternationalElements);
-        },
+        stateTag: (caseData: Partial<CaseWithId>) =>
+          isRespondentSubmitedResponse(caseData) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET,
+        show: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
+        openInAnotherTab: () => true,
       },
     ],
   },

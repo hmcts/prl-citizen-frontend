@@ -51,11 +51,7 @@ const en: TaskListContent = {
         heading: 'The response',
         tasks: {
           theResponsePDF: {
-            linkText: 'Response {respondentPosition} to your application',
-            //   linkText:'The response to application',
-            // },
-            // theResponsePDFWelsh: {
-            //   linkText:'The response to application in welsh',
+            linkText: 'The response to application',
           },
         },
       },
@@ -339,11 +335,7 @@ const cy: typeof en = {
         heading: 'The response (welsh)',
         tasks: {
           theResponsePDF: {
-            linkText: 'Response {respondentPosition} to your application (welsh)',
-            //   linkText:'The response to application',
-            // },
-            // theResponsePDFWelsh: {
-            //   linkText:'The response to application in welsh',
+            linkText: 'The response to application -welsh',
           },
         },
       },

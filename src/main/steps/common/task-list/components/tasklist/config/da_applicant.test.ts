@@ -28,7 +28,7 @@ describe('da_applicant', () => {
     const yourApplicationTasks = DA_APPLICANT[1].tasks(data, {} as SectionContent);
 
     expect(DA_APPLICANT[1].id).toBe('yourApplication');
-    expect(yourApplicationTasks).toHaveLength(4);
+    expect(yourApplicationTasks).toHaveLength(2);
     expect(yourApplicationTasks[0].id).toBe('yourApplicationPDF');
     expect(yourApplicationTasks[1].id).toBe('yourApplicationWelshPDF');
   });
