@@ -42,7 +42,7 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
-  dn1: {
+  daApplicationServedByCourtAdminCourtBayliff: {
     heading: 'The court has issued your application',
     sections: [
       {
@@ -114,7 +114,7 @@ const cy: typeof en = {
       },
     ],
   },
-  dn1: {
+  daApplicationServedByCourtAdminCourtBayliff: {
     heading: 'Mae’r llys wedi cychwyn eich cais',
     sections: [
       {

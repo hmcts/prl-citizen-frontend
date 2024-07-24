@@ -7,6 +7,6 @@ describe('da_applicant', () => {
     expect(da_applicantNotifications).toHaveLength(3);
     expect(da_applicantNotifications[0].id).toBe('newOrder');
     expect(da_applicantNotifications[1].id).toBe('finalOrder');
-    expect(da_applicantNotifications[2].id).toBe('dn1');
+    expect(da_applicantNotifications[2].id).toBe('daApplicationServedByCourtAdminCourtBayliff');
   });
 });
