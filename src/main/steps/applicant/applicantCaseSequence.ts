@@ -273,12 +273,6 @@ export const applicantCaseSequence: Step[] = [
     subDir: '/common',
     getNextStep: () => '/',
   },
-  // {
-  //   url: VIEW_DOCUMENTS,
-  //   showInSection: Sections.AboutApplicantCase,
-  //   subDir: '/common',
-  //   getNextStep: () => '/',
-  // },
   {
     url: UPLOAD_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,

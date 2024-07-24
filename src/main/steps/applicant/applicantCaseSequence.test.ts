@@ -205,13 +205,6 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[31].url).toBe('/:partyType/documents/view/orders-from-the-court');
     expect(applicantCaseSequence[31].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[31].getNextStep({})).toBe('/');
-
-    // expect(applicantCaseSequence[32].url).toBe(
-    //   '/:partyType/documents/view/:documentCategory/:documentPartyType/:documentPartyId?'
-    // );
-    // expect(applicantCaseSequence[32].showInSection).toBe('aboutApplicantCase');
-    // expect(applicantCaseSequence[32].getNextStep({})).toBe('/');
-
     expect(applicantCaseSequence[32].url).toBe('/:partyType/documents/upload');
     expect(applicantCaseSequence[32].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[32].getNextStep({})).toBe('/');

@@ -98,20 +98,6 @@ export const enum UploadDocumentCategory {
   OTHER_DOCUMENTS = 'other-documents',
 }
 
-// export type ViewDocumentsCategoryListProps = {
-//   categoryId: DocumentCategory;
-//   documentCategoryLabel: (
-//     documentCategoryLabels: Record<DocumentLabelCategory, string>,
-//     uploadedByPartyName?: string
-//   ) => string;
-//   documents: (
-//     documents: CaseWithId['citizenDocuments'],
-//     loggedInUserPartyType: PartyType,
-//     documentPartyType: CitizenDocuments['partyType'],
-//     documentPartyId?: CitizenDocuments['partyId']
-//   ) => Document[];
-// };
-
 export const enum DocumentLabelCategory {
   VIEW_ALL_ORDERS = 'viewAllOrders',
   YOUR_APPLICATION_PACK = 'packServed',

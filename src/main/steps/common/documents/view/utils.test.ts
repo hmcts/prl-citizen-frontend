@@ -622,7 +622,6 @@ describe('documents > view > utils', () => {
       ).toStrictEqual([
         {
           link: {
-            //openInAnotherTab: false,
             serveDate: '01 Jan 2024',
             text: '',
             url: '/respondent/documents/view/respondent/doc',
