@@ -95,4 +95,9 @@ export const NOTIFICATION_BASE_CONFIG = [
     content: getNotificationContent,
     show: () => false,
   },
+  {
+    id: NotificationType.DA_APPLICATION_SERVED_BY_COURT_ADMIN_COURT_BAYLIFF,
+    content: getNotificationContent,
+    show: () => false,
+  },
 ];
