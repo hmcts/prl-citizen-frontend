@@ -25,6 +25,7 @@ export enum NotificationType {
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
   CAFFCASS = 'cafcass',
   ORDER_PERSONAL_SERVICE = 'orderPersonalService',
+  DA_APPLICATION_SERVED_BY_COURT_ADMIN_COURT_BAYLIFF = 'daApplicationServedByCourtAdminCourtBayliff',
 }
 
 export type NotificationBannerProps = {
