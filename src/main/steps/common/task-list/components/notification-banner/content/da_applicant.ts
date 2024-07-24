@@ -42,7 +42,7 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
-  dn6: {
+  daApplicantAfterCourtServesOrderToRespondentPersonally: {
       heading: 'The respondent has been Served with the order',
       sections: [
         {
@@ -52,11 +52,6 @@ const en: NotificationBannerContentConfig = {
             },
             {
               text: 'The police have been given a copy of the court order.',
-            },
-          ],
-          links: [
-            {
-              text: 'n/a',
             },
           ],
         },
@@ -103,7 +98,7 @@ const cy: typeof en = {
       },
     ],
   },
-  dn6: {
+  daApplicantAfterCourtServesOrderToRespondentPersonally: {
       heading: 'Mae’r gorchymyn wedil cael ei gyflwyno i’r atebydd',
       sections: [
         {
@@ -113,11 +108,6 @@ const cy: typeof en = {
             },
             {
               text: 'Mae’r heddlu wedi cael copi o’r gorchymyn llys',
-            },
-          ],
-          links: [
-            {
-              text: 'n/a',
             },
           ],
         },
