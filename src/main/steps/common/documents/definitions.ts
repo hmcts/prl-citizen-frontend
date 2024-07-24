@@ -206,6 +206,11 @@ export const enum DocumentTypes {
   ENGLISH = 'document_en',
   WELSH = 'document_cy',
 }
+export const enum DocumentPartyType {
+  APPLICANT = 'applicant',
+  RESPONDENT = 'respondent',
+  OTHER = 'other',
+}
 
 export type OrderDocumentMeta = {
   documentId: string;

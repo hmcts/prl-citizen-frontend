@@ -590,7 +590,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/documents/view/all-documents',
+                href: '/applicant/documents/view/all-categories',
                 text: 'View the response (PDF)',
               },
             ],
