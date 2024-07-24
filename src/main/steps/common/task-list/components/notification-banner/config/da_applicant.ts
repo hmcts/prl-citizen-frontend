@@ -16,4 +16,10 @@ export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
       return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED;
     },
   },
+  {
+      id: NotificationType.DA_APPLICANT_AFTER_COURT_SERVES_ORDER_TO_RESPONDENT_PERSONALLY,
+      show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
+        return caseData?.state === State.CASE_ISSUED;
+      },
+    },
 ];

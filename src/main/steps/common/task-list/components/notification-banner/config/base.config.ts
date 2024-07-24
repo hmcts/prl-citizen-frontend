@@ -95,4 +95,9 @@ export const NOTIFICATION_BASE_CONFIG = [
     content: getNotificationContent,
     show: () => false,
   },
+  {
+      id: NotificationType.DA_APPLICANT_AFTER_COURT_SERVES_ORDER_TO_RESPONDENT_PERSONALLY,
+      content: getNotificationContent,
+      show: () => false,
+    },
 ];
