@@ -3,8 +3,7 @@ import { State } from '../../../../../../app/case/definition';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { interpolate } from '../../../../../../steps/common/string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
-import { findMultipleRespondent, findNotification, showNotification } from '../utils';
-
+import { findNotification, getBannerContentForRespondent, showNotification } from '../utils';
 
 export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
   {
@@ -24,7 +23,7 @@ export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
     show: showNotification,
     interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
       const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
-      let {respondent} = findMultipleRespondent(caseData, commonContent);
+      const { respondent } = getBannerContentForRespondent(caseData, commonContent);
 
       return interpolate(content, {
         final: notification?.final ? ` ${commonContent.final}` : '',
@@ -35,4 +34,3 @@ export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
     },
   },
 ];
-

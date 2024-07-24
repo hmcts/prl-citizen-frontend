@@ -154,7 +154,7 @@ export const getOrderNotificationHeading = (
   }
 };
 
-export const findMultipleRespondent=(caseData: CaseWithId, commonContent: Record<string, string>)=> {
+export const getBannerContentForRespondent = (caseData: CaseWithId, commonContent: Record<string, string>) => {
   let respondent = '';
   let has = '';
   if (caseData.respondents?.length) {
@@ -167,4 +167,4 @@ export const findMultipleRespondent=(caseData: CaseWithId, commonContent: Record
     }
   }
   return { respondent, has };
-}
+};
