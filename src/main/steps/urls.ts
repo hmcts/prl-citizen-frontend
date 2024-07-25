@@ -135,10 +135,11 @@ export const RESPOND_TO_AOH_REVIEW: PageLink = `${partyType}${RESPONSE_TASKLIST}
 const DOCUMENTS = '/:partyType/documents';
 
 /** View all documents */
-export const VIEW_ALL_DOCUMENT_TYPES: PageLink = `${DOCUMENTS}/view/all-documents`;
+export const VIEW_ALL_DOCUMENT_TYPES: PageLink = `${DOCUMENTS}/view/all-categories`;
 export const VIEW_DOCUMENTS: PageLink = `${DOCUMENTS}/view/:documentCategory/:documentPartyType/:documentPartyId?`;
 export const VIEW_APPLICATION_PACK_DOCUMENTS: PageLink = `${DOCUMENTS}/view/application-pack-documents/:context?`;
 export const VIEW_ALL_ORDERS: PageLink = `${DOCUMENTS}/view/orders-from-the-court`;
+export const VIEW_TYPE_DOCUMENT: PageLink = `${DOCUMENTS}/view/:type/doc`;
 
 /* Upload documents */
 export const UPLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/upload`;

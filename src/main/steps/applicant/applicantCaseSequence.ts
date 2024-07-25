@@ -46,7 +46,7 @@ import {
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
-  VIEW_DOCUMENTS,
+  VIEW_TYPE_DOCUMENT,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -278,12 +278,6 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => '/',
   },
   {
-    url: VIEW_DOCUMENTS,
-    showInSection: Sections.AboutApplicantCase,
-    subDir: '/common',
-    getNextStep: () => '/',
-  },
-  {
     url: UPLOAD_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
@@ -380,7 +374,7 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => '/',
   },
   {
-    url: VIEW_DOCUMENTS,
+    url: VIEW_TYPE_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
     getNextStep: () => '/',

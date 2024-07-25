@@ -17504,6 +17504,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pino-std-serializers@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "pino-std-serializers@npm:7.0.0"
+  checksum: 08cd1d7b7adc4cfca39e42c2d5fd21bcf4513153734e7b8fa278b0e9e9f62df78c4c202886343fe882a462539c931cb8110b661775ad7f7217c96856795b5a86
+  languageName: node
+  linkType: hard
+
 "pino@npm:^6.11.0, pino@npm:^6.5.1":
   version: 6.14.0
   resolution: "pino@npm:6.14.0"
@@ -17882,6 +17889,7 @@ __metadata:
     otplib: ^12.0.1
     pa11y: ^6.2.3
     pcf-start: ^1.31.2
+    pino-std-serializers: ^7.0.0
     playwright: 1.37.0
     prettier: ^2.7.1
     query-string: ^7.1.1

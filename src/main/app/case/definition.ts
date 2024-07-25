@@ -886,7 +886,9 @@ export interface CaseData {
   submitAndPayDownloadApplicationLink?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions?: YesOrNo | null;
-  citizenDocuments?: CitizenDocuments[];
+  applicantDocuments?:CitizenDocuments[];
+  respondentDocuments?:CitizenDocuments[];
+  citizenOtherDocuments?:CitizenDocuments[];
   citizenOrders?: CitizenDocuments[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];

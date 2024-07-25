@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
 import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders } from '../../steps/common/documents/definitions';
+import { NotificationID } from '../../steps/common/task-list/components/notification-banner/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -231,7 +232,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   c100DraftDoc: 'submitAndPayDownloadApplicationLink',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
-  citizenDocuments: 'citizenDocuments',
+  applicantDocuments: 'applicantDocuments',
+  respondentDocuments: 'respondentDocuments',
+  citizenOtherDocuments: 'citizenOtherDocuments',
   citizenOrders: 'citizenOrders',
   citizenApplicationPacks: 'citizenApplicationPacks',
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
@@ -589,7 +592,9 @@ export interface Case {
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
-  citizenDocuments?: CitizenDocuments[];
+  applicantDocuments?: CitizenDocuments[];
+  respondentDocuments?: CitizenDocuments[];
+  citizenOtherDocuments?: CitizenDocuments[];
   citizenOrders?: CitizenOrders[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
   // RA local component
@@ -661,8 +666,12 @@ export interface Case {
 }
 
 export interface CitizenNotification {
-  id: string;
+  id: NotificationID;
   show: boolean;
+  new: boolean;
+  final: boolean;
+  multiple: boolean;
+  personalService?: boolean;
 }
 
 export enum Miam_notAttendingReasons {
