@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isAlphaNumeric, isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 
-const en = {
+export const en = {
   title: 'Your contact details',
   citizenUserPhoneNumber: 'UK telephone number',
   citizenUserEmailAddress: 'Email address',
@@ -24,7 +24,7 @@ const en = {
   },
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Eich manylion cyswllt',
   citizenUserPhoneNumber: 'Rhif ffôn yn y DU',
   citizenUserEmailAddress: 'Cyfeiriad e-bost',
