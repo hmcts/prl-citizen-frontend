@@ -23,16 +23,25 @@
 
       <li>
         <dl class="govuk-summary-list govuk-summary-list--no-border">
-          <dt class="govuk-summary-list__key">
-            {{ dateOrderMade }}
+          <dt class="govuk-summary-list__key govuk-!-width-one-quarter">
+            {{ uploadDate }}
           </dt>
+          <dd class="govuk-summary-list__key govuk-!-width-full">
+          {{ file }}
+          </dd>
+          <dd class="govuk-summary-list__key govuk-!-width-one-quarter">
+          {{ uploadedBy }}
+          </dd>
           {% for document in documents %}
             <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {{document['orderMadeDate']}}
+              <dt class="govuk-summary-list__key govuk-!-width-one-quarter">
+                {{document['createdDate']}}
               </dt>
-              <dd class="govuk-summary-list__value">
+              <dd class="govuk-summary-list__value govuk-!-width-full">
                 <a href={{document['documentDownloadUrl']}} target="_blank">{{ document['documentName'] }}</a>
+              </dd>
+              <dd class="govuk-summary-list__value govuk-!-width-one-quarter">
+                {{ document['uploadedBy'] }}
               </dd>
             </div>
           {% endfor %}

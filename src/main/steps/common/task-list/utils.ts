@@ -92,3 +92,28 @@ export const isC7ResponseSubmitted = (respondent: PartyDetails | undefined): boo
 export const isC7ResponseReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
   return !!findC7ResponseDocument(caseData as CaseWithId, respondent);
 };
+
+export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
+
+export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => {
+  if (
+    caseData.finalServedApplicationDetailsList?.length &&
+    caseData.finalServedApplicationDetailsList.find(list =>
+      list.value.emailNotificationDetails?.find(i => i.value?.servedParty === ServedParty.CYMRU)
+    )
+  ) {
+    return true;
+  }
+  return false;
+};
+
+export const hasResponseBeenReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
+  return !!(
+    caseData?.respondentDocuments?.length &&
+    caseData.respondentDocuments.find(
+      document =>
+        (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
+        document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+    )
+  );
+};
