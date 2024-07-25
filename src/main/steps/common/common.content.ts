@@ -202,7 +202,7 @@ export const cy: typeof en = {
   notSure: 'Ddim yn siŵr',
   english: 'Saesneg',
   welsh: 'Cymraeg',
-  contactUsForHelp: 'Cysylltiadau i gael gymorth',
+  contactUsForHelp: 'Cysylltu â ni i gael cymorth',
   webChat: 'Sgwrsio dros y we',
   webChatDetails: 'Gofyn cwestiwn neu gael cymorth mewn unrhyw iaith',
   sendUsAMessage: 'Ffôn',
