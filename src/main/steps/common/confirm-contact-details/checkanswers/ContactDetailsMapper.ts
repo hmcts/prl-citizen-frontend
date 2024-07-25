@@ -44,7 +44,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
       AddressLine1: citizenUserAddress1,
       AddressLine2: citizenUserAddress2,
       PostTown: citizenUserAddressTown,
-      County: citizenUserAddressCountry,
+      Country: citizenUserAddressCountry,
       PostCode: citizenUserAddressPostcode,
     },
   });
