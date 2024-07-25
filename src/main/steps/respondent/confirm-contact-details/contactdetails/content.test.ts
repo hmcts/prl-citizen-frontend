@@ -7,8 +7,6 @@ const en = {
   title: 'Your contact details',
   citizenUserPhoneNumber: 'UK telephone number',
   citizenUserEmailAddress: 'Email address',
-  citizenUserSafeToCall: 'When it is safe to call you (optional)',
-  safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
   continue: 'Continue',
   errors: {
     citizenUserPhoneNumber: {
