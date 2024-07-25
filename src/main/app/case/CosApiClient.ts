@@ -17,7 +17,7 @@ import {
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
-import { CaseWithId, HearingData } from './case';
+import { CaseWithId, HearingData, StatementOfServiceRequest } from './case';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -37,10 +37,10 @@ export class CosApiClient {
 
   public logError(error: AxiosError): void {
     if (error.response) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
       this.logger.info('Response: ', error.response.data);
     } else if (error.request) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
     } else {
       this.logger.error('API Error', error.message);
     }
@@ -198,10 +198,7 @@ export class CosApiClient {
 
   public async generateStatementDocument(request: GenerateDocumentRequest): Promise<DocumentUploadResponse> {
     try {
-      const response = await this.client.post(
-        config.get('services.cos.url') + '/generate-citizen-statement-document',
-        request
-      );
+      const response = await this.client.post(config.get('services.cos.url') + '/citizen-generate-document', request);
       return {
         status: response.data.status,
         document: response.data.document,
@@ -214,10 +211,7 @@ export class CosApiClient {
     }
   }
 
-  public async uploadStatementDocument(
-    user: UserDetails,
-    request: DocumentFileUploadRequest
-  ): Promise<DocumentUploadResponse> {
+  public async uploadDocument(user: UserDetails, request: DocumentFileUploadRequest): Promise<DocumentUploadResponse> {
     try {
       const formData = new FormData();
 
@@ -240,17 +234,17 @@ export class CosApiClient {
       };
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, upload citizen statement document failed - UploadDocumentListFromCitizen');
+      throw new Error('Error occured, upload citizen statement document failed - uploadDocument');
     }
   }
 
-  public async deleteCitizenStatementDocument(documentId: string): Promise<string> {
+  public async deleteDocument(documentId: string): Promise<string> {
     try {
       const response = await this.client.delete(config.get('services.cos.url') + `/${documentId}/delete`);
       return response.data;
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, document could not be deleted. - deleteCitizenStatementDocument');
+      throw new Error('Error occured, document could not be deleted. - deleteDocument');
     }
   }
 
@@ -373,6 +367,24 @@ export class CosApiClient {
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, document could not be fetched for download - downloadDocument');
+    }
+  }
+
+  public async submitStatementOfService(
+    caseId: string,
+    statementOfServiceData: StatementOfServiceRequest
+  ): Promise<AxiosResponse> {
+    try {
+      const response = await this.client.post(
+        config.get('services.cos.url') +
+          `/${caseId}/${CaseEvent.UPLOAD_STATEMENT_OF_SERVICE}/save-statement-of-service-by-citizen`,
+        statementOfServiceData
+      );
+
+      return response;
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, could not sumbit statement of service. - SubmitStatementOfService');
     }
   }
 }

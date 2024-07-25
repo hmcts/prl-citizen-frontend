@@ -7,6 +7,7 @@ export const enum ViewDocumentsSectionId {
   APPLICANTS_DOCUMENT = 'applicantsDocuments',
   RESPONDENTS_DOCUMENTS = 'respondentsDocuments',
   ATTENDING_THE_HEARING = 'attendingTheHearing',
+  OTHER_DOCUMENTS = 'otherDocuments',
 }
 export type DocumentSectionId = UploadDocumentSectionId | ViewDocumentsSectionId;
 
@@ -18,7 +19,8 @@ export type ViewDocumentsSectionsProps = {
   documentCategoryList: (
     caseData: CaseWithId,
     documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-    loggedInUserPartyType: PartyType
+    loggedInUserPartyType: PartyType,
+    language: string
   ) => ViewDocumentDetails[] | ViewDocCategoryLinkProps[] | [];
 };
 
@@ -96,20 +98,6 @@ export const enum UploadDocumentCategory {
   OTHER_DOCUMENTS = 'other-documents',
 }
 
-export type ViewDocumentsCategoryListProps = {
-  categoryId: DocumentCategory;
-  documentCategoryLabel: (
-    documentCategoryLabels: Record<DocumentLabelCategory, string>,
-    uploadedByPartyName?: string
-  ) => string;
-  documents: (
-    documents: CaseWithId['citizenDocuments'],
-    loggedInUserPartyType: PartyType,
-    documentPartyType: CitizenDocuments['partyType'],
-    documentPartyId?: CitizenDocuments['partyId']
-  ) => Document[];
-};
-
 export const enum DocumentLabelCategory {
   VIEW_ALL_ORDERS = 'viewAllOrders',
   YOUR_APPLICATION_PACK = 'packServed',
@@ -130,6 +118,10 @@ export const enum DocumentLabelCategory {
   EMAIL_IMAGES_MEDIA = 'emailImagesMedia',
   FM5_DOCUMENT = 'fm5Document',
   OTHER_DOCUMENTS = 'otherDocuments',
+  VIEW_APPLICANTS_DOCUMENT = 'viewApplicantsDocuments',
+  VIEW_RESPONDENTS_DOCUMENT = 'viewRespondentsDocuments',
+  VIEW_ATTENDING_THE_HEARING = 'viewAttendingTheHearing',
+  VIEW_OTHER_DOCUMENTS = 'viewOtherDocuments',
 }
 
 export type ViewDocumentDetails = {
@@ -145,10 +137,12 @@ export type ViewDocCategoryLinkProps = {
   link: {
     text: string;
     url: string;
+    serveDate: string;
   };
 };
 
 export type DocumentMeta = {
+  uploadedDate?: string;
   document_url: string;
   document_binary_url: string;
   document_filename: string;
@@ -166,7 +160,7 @@ export type CitizenDocuments = {
   uploadedBy: string;
   uploadedDate: string;
   reviewedDate: string | null;
-  document: DocumentMeta;
+  document: DocumentMeta | null;
   documentWelsh: DocumentMeta | null;
   solicitorRepresentedPartyName?: string;
   solicitorRepresentedPartyId?: string;
@@ -183,6 +177,7 @@ export type CitizenOrders = {
   orderType: string;
   createdDate: string;
   servedDateTime: string;
+  madeDate: string;
   wasCafcassServed: boolean;
   final: boolean;
   new: boolean;
@@ -197,14 +192,17 @@ export const enum DocumentTypes {
   ENGLISH = 'document_en',
   WELSH = 'document_cy',
 }
+export const enum DocumentPartyType {
+  APPLICANT = 'applicant',
+  RESPONDENT = 'respondent',
+  OTHER = 'other',
+}
 
 export type OrderDocumentMeta = {
-  [key in DocumentTypes]?: {
-    documentId: string;
-    documentName: string;
-    orderMadeDate: string;
-    documentDownloadUrl: string;
-  };
+  documentId: string;
+  documentName: string;
+  orderMadeDate: string;
+  documentDownloadUrl: string;
 };
 
 export type ApplicationPackDocumentMeta = {
@@ -215,11 +213,9 @@ export type ApplicationPackDocumentMeta = {
 };
 
 export type Document = {
-  [key in DocumentTypes]?: {
-    documentId: string;
-    documentName: string;
-    documentDownloadUrl: string;
-    createdDate?: string;
-    uploadedBy?: string;
-  };
+  documentId: string;
+  documentName: string;
+  documentDownloadUrl: string;
+  createdDate?: string;
+  uploadedBy?: string;
 };

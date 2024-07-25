@@ -452,7 +452,7 @@ describe('notification Banner', () => {
 
   describe('findC7ResponseDocument', () => {
     test('should return C7 response document', () => {
-      data.citizenDocuments = [
+      data.respondentDocuments = [
         {
           partyId: '1234',
           partyType: 'respondent',
