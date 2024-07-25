@@ -178,8 +178,8 @@ function prepareAddress(respondent: Respondent, userCase: Partial<CaseWithId>) {
   if (respondent?.value.address.PostTown) {
     userCase.citizenUserAddressTown = respondent?.value.address.PostTown;
   }
-  if (respondent?.value.address.County) {
-    userCase.citizenUserAddressCountry = respondent?.value.address.County;
+  if (respondent?.value.address.Country) {
+    userCase.citizenUserAddressCountry = respondent?.value.address.Country;
   }
   if (respondent?.value.address.PostCode) {
     userCase.citizenUserAddressPostcode = respondent?.value.address.PostCode;

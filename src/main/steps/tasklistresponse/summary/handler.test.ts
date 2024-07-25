@@ -149,7 +149,7 @@ describe('handler', () => {
       AddressLine1: '1',
       AddressLine2: 'road',
       PostTown: 'town',
-      County: 'county',
+      Country: 'country',
       PostCode: 'abc123',
     };
     data.respondents[0].value.addressLivedLessThan5YearsDetails = 'abcde';
@@ -157,7 +157,7 @@ describe('handler', () => {
     expect(data.citizenUserAddress1).toEqual('1');
     expect(data.citizenUserAddress2).toEqual('road');
     expect(data.citizenUserAddressTown).toEqual('town');
-    expect(data.citizenUserAddressCountry).toEqual('county');
+    expect(data.citizenUserAddressCountry).toEqual('country');
     expect(data.citizenUserAddressPostcode).toEqual('abc123');
     expect(data.citizenUserAddressHistory).toEqual('abcde');
   });

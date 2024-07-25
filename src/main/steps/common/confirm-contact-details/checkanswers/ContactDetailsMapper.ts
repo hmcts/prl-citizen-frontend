@@ -109,7 +109,7 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     citizenUserAddress1: address.AddressLine1,
     citizenUserAddress2: address.AddressLine2,
     citizenUserAddressTown: address.PostTown,
-    citizenUserAddressCountry: address.County,
+    citizenUserAddressCountry: address.Country,
     citizenUserAddressPostcode: address.PostCode,
     ...rest,
   });

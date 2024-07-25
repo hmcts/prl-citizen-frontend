@@ -40,7 +40,7 @@ describe('ConfirmContactDetailsPostController', () => {
           address: {
             AddressLine1: 'Flatc1',
             AddressLine2: 'Unkonwn lane',
-            County: 'Dummy County',
+            Country: 'Dummy County',
             PostCode: 'SW13ND',
             PostTown: 'Dummy Town',
           },
@@ -105,7 +105,7 @@ describe('ConfirmContactDetailsPostController', () => {
             address: {
               AddressLine1: 'Flatc1',
               AddressLine2: 'Unkonwn lane',
-              County: 'Dummy County',
+              Country: 'Dummy County',
               PostCode: 'SW13ND',
               PostTown: 'Dummy Town',
             },
@@ -157,7 +157,7 @@ describe('ConfirmContactDetailsPostController', () => {
       address: {
         AddressLine1: 'Flatc1',
         AddressLine2: 'Unkonwn lane',
-        County: 'Dummy County',
+        Country: 'Dummy County',
         PostCode: 'SW13ND',
         PostTown: 'Dummy Town',
       },

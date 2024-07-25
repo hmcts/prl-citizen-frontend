@@ -24,7 +24,7 @@ describe('RA > review > postController', () => {
               addressLine1: '',
               AddressLine2: '',
               PostTown: '',
-              County: '',
+              Country: '',
               PostCode: '',
             },
           },
@@ -66,7 +66,7 @@ describe('RA > review > postController', () => {
       applicantsFL401: {
         address: {
           AddressLine2: '',
-          County: '',
+          Country: '',
           PostCode: '',
           PostTown: '',
           addressLine1: '',
@@ -170,7 +170,7 @@ describe('RA > review > postController', () => {
               addressLine1: '',
               AddressLine2: '',
               PostTown: '',
-              County: '',
+              Country: '',
               PostCode: '',
             },
           },
