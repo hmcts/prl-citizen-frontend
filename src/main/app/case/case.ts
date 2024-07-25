@@ -631,7 +631,6 @@ export interface Case {
   your_response_to_aoh?: string;
   aoh_wishToRespond?: YesOrNo;
   aoh_responseToAllegations?: string;
-  citizenNotifications?: CitizenNotification[];
   miam_noAppointmentAvailableDetails?: string;
   miam_unableToAttainDueToDisablityDetails?: string;
   miam_noMediatorIn15mileDetails?: string;
@@ -660,6 +659,10 @@ export interface Case {
   c1A_concernAboutRespondent?: C1AAbuseTypes[];
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
+  citizenNotifications?: CitizenNotification[];
+  sos_respondentsServed?: string[];
+  sos_respondentsServedDate?: CaseDate;
+  sos_document?: Document;
 }
 
 export interface CitizenNotification {
@@ -793,4 +796,10 @@ export interface HearingData {
   caseHearings: HearingsList[];
   courtTypeId: string;
   courtName: string;
+}
+export interface StatementOfServiceRequest {
+  partiesServedDate: string;
+  partiesServed: string[];
+  citizenSosDocs: Document;
+  isOrder: YesOrNo;
 }

@@ -48,7 +48,7 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
   const uploadedFilesDataReference = getUploadedFilesDataReference(partyType);
 
   try {
-    await client.deleteCitizenStatementDocument(query.documentId as string);
+    await client.deleteDocument(query.documentId as string);
 
     if (req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
       req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(

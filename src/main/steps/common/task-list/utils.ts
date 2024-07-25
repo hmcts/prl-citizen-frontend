@@ -5,8 +5,17 @@ import _ from 'lodash';
 import { CaseWithId } from '../../../app/case/case';
 import { UserDetails } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
+import { DocumentCategory } from '../documents/definitions';
 
-import { CaseType, PartyDetails, PartyType, Respondent, State, YesOrNo } from './../../../app/case/definition';
+import {
+  CaseType,
+  PartyDetails,
+  PartyType,
+  Respondent,
+  ServedParty,
+  State,
+  YesOrNo,
+} from './../../../app/case/definition';
 import { findC7ResponseDocument } from './components/notification-banner/utils';
 
 export const getPartyName = (
