@@ -325,7 +325,7 @@ export const cyContent = {
     detailsOfPrevMiamEvidence: 'Darparu manylion o fynychu MIAM',
     prevMiamEvidence: 'Tystiolaeth o fynychu MIAM neu NCDR',
     whyCantAccessMediator: 'Pam na allwch chi gael mynediad at gyfryngwr',
-    giveDetailsOfMediators: 'Rhowch fanylion y cyfryngwr rydych wedi cysylltu ag o/â hi',
+    giveDetailsOfMediators: 'Rhowch fanylion y cyfryngwyr rydych wedi cysylltu â nhw',
     disability:
       'Mae gennych anabledd neu analluogrwydd arall sy’n eich atal rhag mynychu MIAM yn bersonol, ar-lein neu drwy gyswllt fideo, ac ni all y cyfryngwyr y bu ichi gysylltu â nhw ddarparu cyfleusterau i chi fynychu.',
     noMediatorIn15mile:

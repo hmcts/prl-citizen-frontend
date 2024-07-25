@@ -16,6 +16,7 @@ import {
   State,
   YesOrNo,
 } from './../../../app/case/definition';
+import { findC7ResponseDocument } from './components/notification-banner/utils';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -48,7 +49,7 @@ export const getPartyName = (
   return partyDetails ? `${partyDetails.firstName} ${partyDetails.lastName}` : '';
 };
 
-export const isCaseWithdrawn = (caseData: Partial<CaseWithId>): boolean => {
+export const isCaseWithdrawn = (caseData: CaseWithId): boolean => {
   if (!caseData) {
     return false;
   }
@@ -97,6 +98,10 @@ export const isC7ResponseSubmitted = (respondent: PartyDetails | undefined): boo
   return _.get(respondent, 'response.c7ResponseSubmitted', YesOrNo.NO) === YesOrNo.YES;
 };
 
+export const isC7ResponseReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
+  return !!findC7ResponseDocument(caseData as CaseWithId, respondent);
+};
+
 export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
 
 export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => {
@@ -113,8 +118,8 @@ export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => 
 
 export const hasResponseBeenReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
   return !!(
-    caseData?.citizenDocuments?.length &&
-    caseData.citizenDocuments.find(
+    caseData?.respondentDocuments?.length &&
+    caseData.respondentDocuments.find(
       document =>
         (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
         document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
