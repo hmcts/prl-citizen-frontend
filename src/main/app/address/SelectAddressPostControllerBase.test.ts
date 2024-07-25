@@ -30,7 +30,7 @@ describe('SelectAddressPostController', () => {
         userCase: { id: 'MOCK_ID' },
         addresses: [
           {
-            county: 'CITY OF WESTMINSTER',
+            country: 'CITY OF WESTMINSTER',
             fullAddress: 'MINISTRY OF JUSTICE, SEVENTH FLOOR, 102, PETTY FRANCE, LONDON, SW1H 9AJ',
             postcode: 'SW1H 9AJ',
             street1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
@@ -58,7 +58,7 @@ describe('SelectAddressPostController', () => {
 
     describe('and when there is a selected address', () => {
       const formData = {
-        citizenUserAddressCounty: 'CITY OF WESTMINSTER',
+        citizenUserAddressCountry: 'CITY OF WESTMINSTER',
         citizenUserAddressPostcode: 'SW1H 9AJ',
         citizenUserAddress1: '102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE',
         citizenUserAddress2: '',
@@ -78,7 +78,7 @@ describe('SelectAddressPostController', () => {
         expect(req.session.userCase.citizenUserAddress1).toBe('102 MINISTRY OF JUSTICE, SEVENTH FLOOR, PETTY FRANCE');
         expect(req.session.userCase.citizenUserAddress2).toBe('');
         expect(req.session.userCase.citizenUserAddressTown).toBe('LONDON');
-        expect(req.session.userCase.citizenUserAddressCounty).toBe('CITY OF WESTMINSTER');
+        expect(req.session.userCase.citizenUserAddressCountry).toBe('CITY OF WESTMINSTER');
         expect(req.session.userCase.citizenUserAddressPostcode).toBe('SW1H 9AJ');
       });
     });
@@ -95,7 +95,7 @@ describe('SelectAddressPostController', () => {
         expect(req.session.userCase.citizenUserAddress1).toBe(undefined);
         expect(req.session.userCase.citizenUserAddress2).toBe(undefined);
         expect(req.session.userCase.citizenUserAddressTown).toBe(undefined);
-        expect(req.session.userCase.citizenUserAddressCounty).toBe(undefined);
+        expect(req.session.userCase.citizenUserAddressCountry).toBe(undefined);
         expect(req.session.userCase.citizenUserAddressPostcode).toBe(undefined);
       });
     });

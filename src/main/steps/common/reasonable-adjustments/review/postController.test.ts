@@ -107,7 +107,7 @@ describe('RA > review > postController', () => {
       citizenUserAdditionalName: undefined,
       citizenUserAddress1: undefined,
       citizenUserAddress2: '',
-      citizenUserAddressCounty: '',
+      citizenUserAddressCountry: '',
       citizenUserAddressHistory: undefined,
       citizenUserAddressPostcode: '',
       citizenUserAddressTown: '',

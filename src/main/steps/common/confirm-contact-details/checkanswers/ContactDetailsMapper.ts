@@ -21,7 +21,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
     citizenUserAddress1,
     citizenUserAddress2,
     citizenUserAddressTown,
-    citizenUserAddressCounty,
+    citizenUserAddressCountry,
     citizenUserAddressPostcode,
     isAtAddressLessThan5Years,
     citizenUserAddressHistory,
@@ -44,7 +44,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
       AddressLine1: citizenUserAddress1,
       AddressLine2: citizenUserAddress2,
       PostTown: citizenUserAddressTown,
-      County: citizenUserAddressCounty,
+      County: citizenUserAddressCountry,
       PostCode: citizenUserAddressPostcode,
     },
   });
@@ -109,7 +109,7 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     citizenUserAddress1: address.AddressLine1,
     citizenUserAddress2: address.AddressLine2,
     citizenUserAddressTown: address.PostTown,
-    citizenUserAddressCounty: address.County,
+    citizenUserAddressCountry: address.County,
     citizenUserAddressPostcode: address.PostCode,
     ...rest,
   });

@@ -845,7 +845,7 @@ export interface CaseData {
   citizenUserAddress1?: string;
   citizenUserAddress2?: string;
   citizenUserAddressTown?: string;
-  citizenUserAddressCounty?: string;
+  citizenUserAddressCountry?: string;
   citizenUserAddressPostcode?: string;
   applicant1ContactDetails?: ContactDetails[];
   applicant1ContactDetailsConsent?: YesOrNo;

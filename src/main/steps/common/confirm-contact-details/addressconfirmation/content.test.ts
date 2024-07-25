@@ -9,7 +9,7 @@ const en = {
   title: 'Your Address',
   citizenUserAddress1: 'Building and street',
   citizenUserAddressTown: 'Town or city',
-  citizenUserAddressCounty: 'County',
+  citizenUserAddressCountry: 'Country',
   citizenUserAddressPostcode: 'Postcode',
   errors: {
     citizenUserAddress1: {
@@ -29,7 +29,7 @@ const cy: typeof en = {
   title: 'Beth yw eich cyfeiriad?',
   citizenUserAddress1: 'Adeilad a stryd',
   citizenUserAddressTown: 'Tref neu ddinas',
-  citizenUserAddressCounty: 'Sir',
+  citizenUserAddressCountry: 'Gwlad',
   citizenUserAddressPostcode: 'Cod post',
   errors: {
     citizenUserAddress1: {
@@ -85,10 +85,10 @@ describe('address confirmation > content', () => {
     expect((citizenUserAddressTownField.label as Function)(generatedContent)).toBe(en.citizenUserAddressTown);
     expect(citizenUserAddressTownField.validator).toBe(isFieldFilledIn);
 
-    const citizenUserAddressCountyField = fields.citizenUserAddressCounty as FormOptions;
-    expect(citizenUserAddressCountyField.type).toBe('text');
-    expect(citizenUserAddressCountyField.classes).toBe('govuk-label govuk-!-width-two-thirds');
-    expect((citizenUserAddressCountyField.label as Function)(generatedContent)).toBe(en.citizenUserAddressCounty);
+    const citizenUserAddressCountryField = fields.citizenUserAddressCountry as FormOptions;
+    expect(citizenUserAddressCountryField.type).toBe('text');
+    expect(citizenUserAddressCountryField.classes).toBe('govuk-label govuk-!-width-two-thirds');
+    expect((citizenUserAddressCountryField.label as Function)(generatedContent)).toBe(en.citizenUserAddressCountry);
 
     const citizenUserAddressPostcodeField = fields.citizenUserAddressPostcode as FormOptions;
     expect(citizenUserAddressPostcodeField.type).toBe('text');

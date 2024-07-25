@@ -179,7 +179,7 @@ function prepareAddress(respondent: Respondent, userCase: Partial<CaseWithId>) {
     userCase.citizenUserAddressTown = respondent?.value.address.PostTown;
   }
   if (respondent?.value.address.County) {
-    userCase.citizenUserAddressCounty = respondent?.value.address.County;
+    userCase.citizenUserAddressCountry = respondent?.value.address.County;
   }
   if (respondent?.value.address.PostCode) {
     userCase.citizenUserAddressPostcode = respondent?.value.address.PostCode;

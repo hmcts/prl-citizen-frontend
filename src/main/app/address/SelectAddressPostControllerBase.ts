@@ -29,7 +29,7 @@ export default class SelectAddressPostControllerBase extends PostController<AnyO
       req.session.userCase.citizenUserAddress1 = selectedAddress.street1;
       req.session.userCase.citizenUserAddress2 = selectedAddress.street2;
       req.session.userCase.citizenUserAddressTown = selectedAddress.town;
-      req.session.userCase.citizenUserAddressCounty = selectedAddress.county;
+      req.session.userCase.citizenUserAddressCountry = selectedAddress.country;
       req.session.userCase.citizenUserAddressPostcode = selectedAddress.postcode;
     }
 

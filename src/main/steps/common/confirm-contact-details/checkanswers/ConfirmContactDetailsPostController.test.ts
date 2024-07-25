@@ -71,7 +71,7 @@ describe('ConfirmContactDetailsPostController', () => {
       ...req.session.userCase,
       citizenUserAddress1: 'Flatc1',
       citizenUserAddress2: 'Unkonwn lane',
-      citizenUserAddressCounty: 'Dummy County',
+      citizenUserAddressCountry: 'Dummy County',
       citizenUserAddressPostcode: 'SW13ND',
       citizenUserAddressTown: 'Dummy Town',
       state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',

@@ -40,7 +40,7 @@ describe('TSDraftController', () => {
       citizenUserAddress1: 'Flatc1',
       citizenUserAddress2: 'Unkonwn lane',
       citizenUserAddressTown: 'Dummy Town',
-      citizenUserAddressCounty: 'Dummy County',
+      citizenUserAddressCountry: 'Dummy County',
       citizenUserAddressPostcode: 'SW13ND',
       isAtAddressLessThan5Years: 'No',
       citizenUserAddressHistory: "Don't want to state",

@@ -157,7 +157,7 @@ describe('handler', () => {
     expect(data.citizenUserAddress1).toEqual('1');
     expect(data.citizenUserAddress2).toEqual('road');
     expect(data.citizenUserAddressTown).toEqual('town');
-    expect(data.citizenUserAddressCounty).toEqual('county');
+    expect(data.citizenUserAddressCountry).toEqual('county');
     expect(data.citizenUserAddressPostcode).toEqual('abc123');
     expect(data.citizenUserAddressHistory).toEqual('abcde');
   });
