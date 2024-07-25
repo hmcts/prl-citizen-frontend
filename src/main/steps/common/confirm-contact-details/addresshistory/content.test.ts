@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
@@ -76,9 +77,9 @@ describe('address history > content', () => {
     expect((isAtAddressLessThan5YearsField.label as Function)(generatedContent)).toBe(undefined);
     expect((isAtAddressLessThan5YearsField.section as Function)(generatedContent)).toBe(undefined);
     expect((isAtAddressLessThan5YearsField.values[0].label as Function)(generatedContent)).toBe(en.one);
-    expect(isAtAddressLessThan5YearsField.values[0].value).toBe('Yes');
+    expect(isAtAddressLessThan5YearsField.values[0].value).toBe(YesOrNo.YES);
     expect((isAtAddressLessThan5YearsField.values[1].label as Function)(generatedContent)).toBe(en.two);
-    expect(isAtAddressLessThan5YearsField.values[1].value).toBe('No');
+    expect(isAtAddressLessThan5YearsField.values[1].value).toBe(YesOrNo.NO);
     expect(isAtAddressLessThan5YearsField.values[0].subFields?.citizenUserAddressHistory.type).toBe('textarea');
     expect(
       (isAtAddressLessThan5YearsField.values[0].subFields?.citizenUserAddressHistory.label as Function)(

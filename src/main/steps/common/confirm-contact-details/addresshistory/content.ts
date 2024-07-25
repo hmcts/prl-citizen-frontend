@@ -1,3 +1,4 @@
+import { YesOrNo } from '../../../../app/case/definition';
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -59,7 +60,7 @@ export const addressHistoryFields = (): FormFields => ({
     values: [
       {
         label: l => l.one,
-        value: 'Yes',
+        value: YesOrNo.YES,
         subFields: {
           citizenUserAddressHistory: {
             type: 'textarea',
@@ -71,7 +72,7 @@ export const addressHistoryFields = (): FormFields => ({
       },
       {
         label: l => l.two,
-        value: 'No',
+        value: YesOrNo.NO,
       },
     ],
     validator: isFieldFilledIn,
