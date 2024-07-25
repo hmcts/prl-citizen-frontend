@@ -2720,6 +2720,7 @@ export type ChildrenDetails = {
     statement: string;
   };
   liveWith?: People[];
+  mainlyLiveWith?: People;
 };
 export type Childinfo = {
   id: string;

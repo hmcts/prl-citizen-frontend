@@ -1,28 +1,32 @@
-import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormInput, LanguageLookup } from '../../../../app/form/Form';
-import { Validator, atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { CommonContent, generatePageContent } from '../../../common/common.content';
+import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormInput, LanguageLookup } from '../../../../../app/form/Form';
+import { Validator, atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
+import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
-jest.mock('../../../../app/form/validation');
+jest.mock('../../../../../app/form/validation');
 
 const en = {
-  title: 'Who does {{firstName}} {{lastName}} currently live with?',
-  liveWithHint: 'Select all that apply',
+  title: "{firstName} {lastName}'s living arrangements",
+  livingArrangements:
+    'We need this information so that the court has a complete understanding of the child’s living arrangements.',
+  liveWithLabel: 'Select all of the people that the child lives with',
   errors: {
     liveWith: {
-      required: 'You must select at least one person',
+      required: 'Select all of the people that the child lives with',
     },
   },
 };
 
 const cy = {
-  title: 'Gyda phwy mae {firstName} {lastName} yn byw ar hyn o bryd?',
-  liveWithHint: 'Dewiswch bob un sy’n berthnasol',
+  title: "{firstName} {lastName}'s living arrangements (welsh)",
+  livingArrangements:
+    'We need this information so that the court has a complete understanding of the child’s living arrangements. (welsh)',
+  liveWithLabel: 'Select all of the people that the child lives with (welsh)',
   errors: {
     liveWith: {
-      required: 'Rhaid i chi ddewis o leiaf un unigolyn',
+      required: 'Select all of the people that the child lives with (welsh)',
     },
   },
 };
@@ -45,6 +49,11 @@ describe('child > live with', () => {
           id: '7483640e-0817-4ddc-b709-6723f7925678',
           applicantFirstName: 'Applicant1-firstName',
           applicantLastName: 'Applicant1-lastName',
+          applicantAddress1: '',
+          applicantAddress2: '',
+          applicantAddressCounty: '',
+          applicantAddressPostcode: '',
+          applicantAddressTown: '',
         },
       ],
       resp_Respondents: [
@@ -52,11 +61,27 @@ describe('child > live with', () => {
           id: '7483640e-0817-4ddc-b709-6723f7945678',
           firstName: 'Respondent1-firstName',
           lastName: 'Respondent1-lastName',
+          address: {
+            AddressLine1: '',
+            AddressLine2: '',
+            County: '',
+            PostCode: '',
+            PostTown: '',
+            Country: '',
+          },
         },
         {
           id: '7483640e-0817-4ddc-b709-6723f7345678',
           firstName: 'Respondent2-firstName',
           lastName: 'Respondent2-lastName',
+          address: {
+            AddressLine1: '',
+            AddressLine2: '',
+            County: '',
+            PostCode: '',
+            PostTown: '',
+            Country: '',
+          },
         },
       ],
     },
@@ -78,32 +103,30 @@ describe('child > live with', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    languageAssertions('en', { ...en, title: 'Who does Child1-firstName Child1-lastName currently live with?' }, () =>
+    languageAssertions('en', { ...en, title: "Child1-firstName Child1-lastName's living arrangements" }, () =>
       generateContent(commonContent)
     );
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions(
-      'cy',
-      { ...cy, title: 'Gyda phwy mae Child1-firstName Child1-lastName yn byw ar hyn o bryd?' },
-      () => generateContent({ ...commonContent, language: 'cy' })
+    languageAssertions('cy', { ...cy, title: "Child1-firstName Child1-lastName's living arrangements (welsh)" }, () =>
+      generateContent({ ...commonContent, language: 'cy' })
     );
   });
 
   test('should contain personal details form fields', () => {
     const { liveWith } = fields as Record<string, FormFields>;
-    const liveWithValues = liveWith.values as FormInput[];
+    const livingArrangementsValues = liveWith.values as FormInput[];
 
     expect(liveWith.type).toBe('checkboxes');
-    expect((liveWith.hint as Function)(generatedContent)).toBe(en.liveWithHint);
+    expect((liveWith.label as Function)(generatedContent)).toBe(en.liveWithLabel);
     (liveWith.validator as Validator)('');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('');
-    expect(liveWithValues).toHaveLength(3);
-    expect(liveWithValues[0].label).toBe('Applicant1-firstName Applicant1-lastName');
-    expect(liveWithValues[1].label).toBe('Respondent1-firstName Respondent1-lastName');
-    expect(liveWithValues[2].label).toBe('Respondent2-firstName Respondent2-lastName');
+    expect(livingArrangementsValues).toHaveLength(3);
+    expect(livingArrangementsValues[0].label).toBe('Applicant1-firstName Applicant1-lastName');
+    expect(livingArrangementsValues[1].label).toBe('Respondent1-firstName Respondent1-lastName');
+    expect(livingArrangementsValues[2].label).toBe('Respondent2-firstName Respondent2-lastName');
   });
 
   test('should contain Save and continue button', () => {
