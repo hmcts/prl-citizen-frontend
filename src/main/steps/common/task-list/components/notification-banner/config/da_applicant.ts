@@ -19,7 +19,7 @@ export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
 {
     id: NotificationType.DN2,
     show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
-      return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED;
+      return caseData?.state === State.CASE_ISSUED_TO_LOCAL_COURT;
     },
   },
 ];
