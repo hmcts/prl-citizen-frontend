@@ -72,9 +72,9 @@ describe('applicant1 > address > manual > content', () => {
     expect(citizenUserAddressTownField).toEqual(manualAddressFormFields.citizenUserManualAddressTown);
   });
 
-  test('should contain citizenUserAddressCounty field', () => {
-    const citizenUserAddressCountyField = fields.citizenUserManualAddressCounty as FormOptions;
-    expect(citizenUserAddressCountyField).toEqual(manualAddressFormFields.citizenUserManualAddressCounty);
+  test('should contain citizenUserAddressCountry field', () => {
+    const citizenUserAddressCountryField = fields.citizenUserManualAddressCounty as FormOptions;
+    expect(citizenUserAddressCountryField).toEqual(manualAddressFormFields.citizenUserManualAddressCounty);
   });
 
   test('should contain citizenUserAddressPostcode field', () => {

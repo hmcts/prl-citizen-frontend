@@ -52,7 +52,6 @@ describe('ContactDetailsMapper', () => {
         address: {
           AddressLine1: 'Flatc1',
           AddressLine2: 'Unkonwn lane',
-          County: 'Dummy County',
           PostCode: 'SW13ND',
           PostTown: 'Dummy Town',
         },
@@ -83,7 +82,6 @@ describe('ContactDetailsMapper', () => {
         address: {
           AddressLine1: 'Flatc1',
           AddressLine2: 'Unkonwn lane',
-          County: 'Dummy County',
           PostCode: 'SW13ND',
           PostTown: 'Dummy Town',
         },
@@ -107,7 +105,7 @@ describe('ContactDetailsMapper', () => {
       address: {
         AddressLine1: 'Flatc1',
         AddressLine2: 'Unkonwn lane',
-        County: 'Dummy County',
+        Country: 'Dummy County',
         PostCode: 'SW13ND',
         PostTown: 'Dummy Town',
       },
@@ -143,7 +141,7 @@ describe('ContactDetailsMapper', () => {
         citizenUserAddress1: 'Flatc1',
         citizenUserAddress2: 'Unkonwn lane',
         citizenUserAddressTown: 'Dummy Town',
-        citizenUserAddressCounty: 'Dummy County',
+        citizenUserAddressCountry: 'Dummy County',
         citizenUserAddressPostcode: 'SW13ND',
         isAtAddressLessThan5Years: 'Yes',
         citizenUserSafeToCall: '4 pm',
@@ -157,7 +155,7 @@ describe('ContactDetailsMapper', () => {
       address: {
         AddressLine1: 'Flatc1',
         AddressLine2: 'Unkonwn lane',
-        County: 'Dummy County',
+        Country: 'Dummy County',
         PostCode: 'SW13ND',
         PostTown: 'Dummy Town',
       },
@@ -190,7 +188,7 @@ describe('ContactDetailsMapper', () => {
         citizenUserAddress1: 'Flatc1',
         citizenUserAddress2: 'Unkonwn lane',
         citizenUserAddressTown: 'Dummy Town',
-        citizenUserAddressCounty: 'Dummy County',
+        citizenUserAddressCountry: 'Dummy County',
         citizenUserAddressPostcode: 'SW13ND',
         isAtAddressLessThan5Years: 'Yes',
         citizenUserSelectAddress: '',

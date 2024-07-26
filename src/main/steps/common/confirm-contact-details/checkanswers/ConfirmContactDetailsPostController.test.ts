@@ -40,7 +40,7 @@ describe('ConfirmContactDetailsPostController', () => {
           address: {
             AddressLine1: 'Flatc1',
             AddressLine2: 'Unkonwn lane',
-            County: 'Dummy County',
+            Country: 'Dummy County',
             PostCode: 'SW13ND',
             PostTown: 'Dummy Town',
           },
@@ -71,7 +71,7 @@ describe('ConfirmContactDetailsPostController', () => {
       ...req.session.userCase,
       citizenUserAddress1: 'Flatc1',
       citizenUserAddress2: 'Unkonwn lane',
-      citizenUserAddressCounty: 'Dummy County',
+      citizenUserAddressCountry: 'Dummy County',
       citizenUserAddressPostcode: 'SW13ND',
       citizenUserAddressTown: 'Dummy Town',
       state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
@@ -105,7 +105,7 @@ describe('ConfirmContactDetailsPostController', () => {
             address: {
               AddressLine1: 'Flatc1',
               AddressLine2: 'Unkonwn lane',
-              County: 'Dummy County',
+              Country: 'Dummy County',
               PostCode: 'SW13ND',
               PostTown: 'Dummy Town',
             },
@@ -137,7 +137,7 @@ describe('ConfirmContactDetailsPostController', () => {
       address: {
         AddressLine1: 'Flatc1',
         AddressLine2: 'Unkonwn lane',
-        County: 'Dummy County',
+        Country: 'Dummy County',
         PostCode: 'SW13ND',
         PostTown: 'Dummy Town',
       },
@@ -157,7 +157,7 @@ describe('ConfirmContactDetailsPostController', () => {
       address: {
         AddressLine1: 'Flatc1',
         AddressLine2: 'Unkonwn lane',
-        County: 'Dummy County',
+        Country: 'Dummy County',
         PostCode: 'SW13ND',
         PostTown: 'Dummy Town',
       },

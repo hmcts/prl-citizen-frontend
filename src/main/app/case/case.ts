@@ -206,7 +206,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   // citizenUserAddress1: 'citizenUserAddress1',
   // citizenUserAddress2: 'citizenUserAddress2',
   // citizenUserAddressTown: 'citizenUserAddressTown',
-  // citizenUserAddressCounty: 'applicant1AddressCountry',
+  // citizenUserAddressCountry: 'applicant1AddressCountry',
   // citizenUserAddressPostcode: 'applicant1AddressPostCode',
   applicant1ContactDetails: 'applicant1ContactDetails',
   applicant1ContactDetailsConsent: 'applicant1ContactDetailsConsent',
@@ -450,7 +450,7 @@ export interface Case {
   citizenUserAddress1?: string;
   citizenUserAddress2?: string;
   citizenUserAddressTown?: string;
-  citizenUserAddressCounty?: string;
+  citizenUserAddressCountry?: string;
   citizenUserAddressPostcode?: string;
   citizenUserAddressText?: string;
   citizenUserAddressHistory?: string;

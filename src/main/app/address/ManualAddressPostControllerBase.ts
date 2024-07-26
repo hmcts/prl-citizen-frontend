@@ -35,7 +35,7 @@ export default class ManualAddressPostControllerBase extends PostController<AnyO
       req.session.userCase.citizenUserAddress1 = req.session.userCase.citizenUserManualAddress1;
       req.session.userCase.citizenUserAddress2 = req.session.userCase.citizenUserManualAddress2;
       req.session.userCase.citizenUserAddressTown = req.session.userCase.citizenUserManualAddressTown;
-      req.session.userCase.citizenUserAddressCounty = req.session.userCase.citizenUserManualAddressCounty;
+      req.session.userCase.citizenUserAddressCountry = req.session.userCase.citizenUserManualAddressCounty;
       req.session.userCase.citizenUserAddressPostcode = req.session.userCase.citizenUserManualAddressPostcode;
 
       req.session.userCase.citizenUserManualAddress1 = '';

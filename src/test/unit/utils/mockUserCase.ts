@@ -38,7 +38,7 @@ export default {
   applicant1Occupation: 'MOCK_OCCUPATION',
   citizenUserAddress1: 'MOCK_ADDRESS_LINE_1',
   citizenUserAddressTown: 'MOCK_ADDRESS_TOWN',
-  citizenUserAddressCounty: 'MOCK_ADDRESS_COUNTY',
+  citizenUserAddressCountry: 'MOCK_ADDRESS_COUNTY',
   citizenUserAddressPostcode: 'MOCK_ADDRESS_POSTCODE',
 
   applicant2FirstNames: 'MOCK_APPLICANT1_FIRST_NAMES',
