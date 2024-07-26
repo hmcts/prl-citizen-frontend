@@ -17368,8 +17368,8 @@ __metadata:
   linkType: hard
 
 "pcf-start@npm:^1.31.2":
-  version: 1.32.5
-  resolution: "pcf-start@npm:1.32.5"
+  version: 1.33.3
+  resolution: "pcf-start@npm:1.33.3"
   dependencies:
     applicationinsights: ^2.5.0
     bluebird: ^3.5.4
@@ -17395,7 +17395,7 @@ __metadata:
     yargs: ^16.2.0
   bin:
     pcf-start: bin/pcf-start.js
-  checksum: e2c61f5723da74f4e5be96b796e4b58f015d15db349dc4627288fc56fb3c822a058845b4d9d8680f537fcb581cc16023c289fc4f42586210122503a08f8e2620
+  checksum: 47cb406398ffe985ecb289058ef7f4d7e5d4fafc8887065a026d9a118cb40399396a47dd2e4c470a7e46f4174f18d63640c34fdfac13be88b95e354c649efea6
   languageName: node
   linkType: hard
 
