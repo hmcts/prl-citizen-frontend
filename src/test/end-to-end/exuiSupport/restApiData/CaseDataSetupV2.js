@@ -10,7 +10,7 @@ const accessCodeExtractor = require('./accessCodeExtractor/index');
 
 const restApiData = JSON.parse(JSON.stringify(restApiDataTemplate));
 const config = require('../../config');
-
+const DataSetupCommon = require('./common')
 
 const childAndApplicantProcess = (eventRestObj, startDEventRes) => {
     const eventDataField = startDEventRes.case_fields.find(field => {
@@ -82,6 +82,7 @@ class CaseDataSetup {
     constructor(browser) {
         this.outputDir = '../../../../../output';
         this.caseId = null;
+        this.caseName = null;
         this.browser = browser;
         // this.initBrowser();
     }
@@ -89,6 +90,7 @@ class CaseDataSetup {
     async initBrowser() {
         this.browserContext = await this.browser.newContext();
         this.page = await this.browserContext.newPage();
+        this.common = new DataSetupCommon(this.page)
     }
 
     async close() {
@@ -284,6 +286,7 @@ class CaseDataSetup {
 
 
         this.caseId = caseCreateRes.id;
+        this.common.caseId = caseCreateRes.id;
         console.log(this.caseId);
         this.log(`***** Case created: ${this.caseId}`);
         // fs.appendFileSync(logPath, JSON.stringify(caseCreateRes, null, '2'));
