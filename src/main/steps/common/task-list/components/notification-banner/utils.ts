@@ -129,7 +129,7 @@ export const hasMoreThanOneApplicant = (caseData: CaseWithId): boolean => {
 };
 
 export const findC7ResponseDocument = (caseData: CaseWithId, respondent: Respondent): CitizenDocuments | undefined => {
-  return caseData?.citizenDocuments?.find(
+  return caseData?.respondentDocuments?.find(
     document =>
       (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
       document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION

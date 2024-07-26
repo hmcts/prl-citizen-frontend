@@ -3,7 +3,13 @@ import _ from 'lodash';
 
 import { CaseWithId } from '../../../../app/case/case';
 import { PartyType } from '../../../../app/case/definition';
-import { DOWNLOAD_DOCUMENT, VIEW_ALL_ORDERS, VIEW_APPLICATION_PACK_DOCUMENTS, VIEW_DOCUMENTS } from '../../../urls';
+import {
+  DOWNLOAD_DOCUMENT,
+  FETCH_HEARING_DETAILS,
+  VIEW_ALL_ORDERS,
+  VIEW_APPLICATION_PACK_DOCUMENTS,
+  VIEW_TYPE_DOCUMENT,
+} from '../../../urls';
 import { interpolate } from '../../string-parser';
 import { applyParms } from '../../url-parser';
 import {
@@ -12,19 +18,15 @@ import {
   CitizenDocuments,
   CitizenOrders,
   Document,
-  DocumentCategory,
   DocumentLabelCategory,
+  DocumentMeta,
+  DocumentPartyType,
   DocumentSectionId,
-  DocumentTypes,
   OrderDocumentMeta,
   ViewDocCategoryLinkProps,
-  ViewDocumentDetails,
-  ViewDocumentsCategoryListProps,
   ViewDocumentsSectionId,
 } from '../definitions';
 import { transformFileName } from '../download/utils';
-
-import { viewDocumentsCategoryListConfig } from './config';
 
 /** View documents related utilty */
 
@@ -33,54 +35,19 @@ export const hasOrders = (caseData: CaseWithId): boolean => !!caseData?.citizenO
 export const hasApplicationPacks = (caseData: CaseWithId): boolean =>
   !!(caseData && _.isArray(caseData.citizenApplicationPacks) && _.first(caseData.citizenApplicationPacks));
 
-export const hasAnyDocumentForPartyType = (partyType: PartyType, caseData: CaseWithId): boolean =>
-  !!(caseData?.citizenDocuments?.length
-    ? caseData.citizenDocuments.find(document => document.partyType === partyType)
-    : false);
-
+export const hasAnyDocumentForPartyType = (partyType: PartyType, caseData: CaseWithId): boolean => {
+  if (partyType === PartyType.APPLICANT) {
+    return !!caseData?.applicantDocuments?.length;
+  } else if (partyType === PartyType.RESPONDENT) {
+    return !!caseData?.respondentDocuments?.length;
+  } else {
+    return !!caseData?.citizenOtherDocuments?.length;
+  }
+};
 export const getDocumentSectionTitle = (
   documentSectionId: DocumentSectionId,
   documentSectionTitles: Record<DocumentSectionId, string>
 ): string => _.get(documentSectionTitles, documentSectionId, '');
-
-const getViewDocumentLinkMeta = (
-  document: CitizenDocuments,
-  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-  loggedInUserPartyType: PartyType
-): ViewDocumentDetails['link'] => {
-  const documentConfig = getDocumentConfig(document.categoryId);
-  const linkMeta = {
-    text: '',
-    url: '',
-    openInAnotherTab: false,
-  };
-  const urlParams = {
-    partyType: loggedInUserPartyType,
-    documentPartyType: document.partyType,
-    documentCategory: document.categoryId,
-  };
-  const isDownloadDocument = [DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION].includes(document.categoryId);
-
-  if (
-    [
-      DocumentCategory.POSITION_STATEMENTS,
-      DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-      DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
-    ].includes(document.categoryId)
-  ) {
-    Object.assign(urlParams, { documentPartyId: document.partyId });
-  }
-
-  return documentConfig
-    ? Object.assign(linkMeta, {
-        text: documentConfig ? documentConfig.documentCategoryLabel(documentCategoryLabels, document.uploadedBy) : '',
-        url: isDownloadDocument
-          ? getDownloadDocUrl(document, loggedInUserPartyType)
-          : applyParms(VIEW_DOCUMENTS, urlParams),
-        openInAnotherTab: isDownloadDocument,
-      })
-    : linkMeta;
-};
 
 export const getDocumentCategoryLabel = (
   documentLabelId: DocumentLabelCategory,
@@ -103,47 +70,11 @@ export const getDocumentCategoryLabel = (
   return documentLabel;
 };
 
-const filterAndGroupPartyDocuments = (
-  partyType: PartyType,
-  documents: CaseWithId['citizenDocuments']
-): CaseWithId['citizenDocuments'] | [] => {
-  const groupedDocuments: CaseWithId['citizenDocuments'] = [];
-
-  if (documents?.length) {
-    documents
-      .filter(document => document.partyType === partyType)
-      .forEach(document => {
-        if (
-          ([
-            DocumentCategory.POSITION_STATEMENTS,
-            DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-            DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
-            DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
-          ].includes(document.categoryId) &&
-            !groupedDocuments.find(groupedDoc => groupedDoc.partyId === document.partyId)) ||
-          !groupedDocuments.find(groupedDoc => groupedDoc.categoryId === document.categoryId)
-        ) {
-          groupedDocuments.push(document);
-        }
-      });
-  }
-
-  return groupedDocuments;
-};
-
-const getViewDocumentCategoryDetails = (
-  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-  loggedInUserPartyType: PartyType,
-  document: CitizenDocuments
-): ViewDocumentDetails => ({
-  categoryId: document.categoryId,
-  link: getViewDocumentLinkMeta(document, documentCategoryLabels, loggedInUserPartyType),
-});
-
 export const getApplicationPacksCategoryList = (
   caseData: CaseWithId,
   documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-  loggedInUserPartyType: PartyType
+  loggedInUserPartyType: PartyType,
+  language?: string
 ): ViewDocCategoryLinkProps[] => {
   const packs = _.first(caseData.citizenApplicationPacks);
   const applicationPacksSectionList: ViewDocCategoryLinkProps[] = [];
@@ -160,6 +91,11 @@ export const getApplicationPacksCategoryList = (
       link: {
         text: getDocumentCategoryLabel(DocumentLabelCategory.YOUR_APPLICATION_PACK, documentCategoryLabels),
         url: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: loggedInUserPartyType }),
+        serveDate: caseData.citizenApplicationPacks?.length
+          ? (dayjs(_.first(caseData.citizenApplicationPacks)!.uploadedDate)
+              .locale(language ?? 'default')
+              .format('DD MMM YYYY') as string)
+          : '',
       },
     });
   }
@@ -176,6 +112,9 @@ export const getApplicationPacksCategoryList = (
           partyType: loggedInUserPartyType,
           context: 'to-be-served',
         }),
+        serveDate: dayjs(_.first(caseData.citizenApplicationPacks!)!.uploadedDate)
+          .locale(language ?? 'default')
+          .format('DD MMM YYYY') as string,
       },
     });
   }
@@ -186,7 +125,8 @@ export const getApplicationPacksCategoryList = (
 export const getApplicationPackDocuments = (
   soaPacks: CitizenApplicationPacks[],
   loggedInUserPartyType: PartyType,
-  context: string
+  context: string,
+  language: string
 ): ApplicationPackDocumentMeta[] => {
   const soaPack = _.first(soaPacks);
   const applicationPacksDocuments: ApplicationPackDocumentMeta[] = [];
@@ -203,15 +143,13 @@ export const getApplicationPackDocuments = (
 
     if (packDocuments) {
       packDocuments.forEach(document => {
-        const documentId = document.document_url.substring(document.document_url.lastIndexOf('/') + 1);
-
         applicationPacksDocuments.push({
-          documentId,
+          documentId: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
           documentName: document.document_filename,
-          servedDate: dayjs(soaPack.uploadedDate).format('DD MMM YYYY'),
+          servedDate: soaPack.uploadedDate ? dayjs(soaPack.uploadedDate).locale(language).format('DD MMM YYYY') : '',
           documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
             partyType: loggedInUserPartyType,
-            documentId,
+            documentId: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
             documentName: transformFileName(document.document_filename),
           }),
         });
@@ -225,7 +163,8 @@ export const getApplicationPackDocuments = (
 export const getOrdersFromTheCourtCategoryList = (
   caseData: CaseWithId,
   documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-  loggedInUserPartyType: PartyType
+  loggedInUserPartyType: PartyType,
+  language: string
 ): ViewDocCategoryLinkProps[] => {
   return [
     {
@@ -234,31 +173,30 @@ export const getOrdersFromTheCourtCategoryList = (
         url: applyParms(VIEW_ALL_ORDERS, {
           partyType: loggedInUserPartyType,
         }),
+        serveDate: caseData.citizenOrders?.length
+          ? (dayjs(_.first(caseData.citizenOrders)!.madeDate).locale(language).format('DD MMM YYYY') as string)
+          : ' ',
       },
     },
   ];
 };
 
-export const getOrderDocuments = (orders: CitizenOrders[], loggedInUserPartyType: PartyType): OrderDocumentMeta[] => {
+export const getOrderDocuments = (
+  orders: CitizenOrders[],
+  loggedInUserPartyType: PartyType,
+  language: string
+): OrderDocumentMeta[] => {
   const orderDocuments: OrderDocumentMeta[] = [];
 
   orders.forEach(order => {
-    const document = order.document;
-    const documentId = document.document_url.substring(document.document_url.lastIndexOf('/') + 1);
-    const orderDoc: OrderDocumentMeta = {
-      [DocumentTypes.ENGLISH]: {
-        documentId,
-        documentName: document.document_filename,
-        orderMadeDate: dayjs(order.createdDate).format('DD MMM YYYY'),
-        documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
-          partyType: loggedInUserPartyType,
-          documentId,
-          documentName: transformFileName(document.document_filename),
-        }),
-      },
-    };
-
-    orderDocuments.push(orderDoc);
+    if (order.document) {
+      orderDocuments.push(prepareOrderDocument(order.document, order, loggedInUserPartyType, orderDocuments, language));
+    }
+    if (order.documentWelsh) {
+      orderDocuments.push(
+        prepareOrderDocument(order.documentWelsh, order, loggedInUserPartyType, orderDocuments, language)
+      );
+    }
   });
 
   return orderDocuments;
@@ -268,76 +206,79 @@ export const getViewDocumentCategoryList = (
   documentSectionId: ViewDocumentsSectionId,
   caseData: CaseWithId,
   documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
-  loggedInUserPartyType: PartyType
-): ViewDocumentDetails[] | [] => {
-  let documents: ViewDocumentDetails[] | [] = [];
-
-  if (
-    [ViewDocumentsSectionId.APPLICANTS_DOCUMENT, ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS].includes(
-      documentSectionId
-    )
-  ) {
-    documents = filterAndGroupPartyDocuments(
-      documentSectionId === ViewDocumentsSectionId.APPLICANTS_DOCUMENT ? PartyType.APPLICANT : PartyType.RESPONDENT,
-      caseData?.citizenDocuments
-    )!.map(getViewDocumentCategoryDetails.bind(null, documentCategoryLabels, loggedInUserPartyType));
+  loggedInUserPartyType: PartyType,
+  language: string
+): ViewDocCategoryLinkProps[] | [] => {
+  let doclabel;
+  let url;
+  let date;
+  let type;
+  switch (documentSectionId) {
+    case ViewDocumentsSectionId.APPLICANTS_DOCUMENT:
+      doclabel = DocumentLabelCategory.VIEW_APPLICANTS_DOCUMENT;
+      url = VIEW_TYPE_DOCUMENT;
+      type = DocumentPartyType.APPLICANT;
+      date = caseData.applicantDocuments?.length
+        ? (dayjs(_.first(caseData.applicantDocuments!)!.uploadedDate).locale(language).format('DD MMM YYYY') as string)
+        : '';
+      break;
+    case ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS:
+      doclabel = DocumentLabelCategory.VIEW_RESPONDENTS_DOCUMENT;
+      (url = VIEW_TYPE_DOCUMENT), (type = DocumentPartyType.RESPONDENT);
+      date = caseData.respondentDocuments?.length
+        ? (dayjs(_.first(caseData.respondentDocuments!)!.uploadedDate).locale(language).format('DD MMM YYYY') as string)
+        : '';
+      break;
+    case ViewDocumentsSectionId.ATTENDING_THE_HEARING:
+      doclabel = DocumentLabelCategory.VIEW_ATTENDING_THE_HEARING;
+      url = FETCH_HEARING_DETAILS;
+      date = caseData.hearingCollection?.length
+        ? (dayjs(_.first(caseData.hearingCollection!)!.lastResponseReceivedDateTime)
+            .locale(language)
+            .format('DD MMM YYYY') as string)
+        : '';
+      break;
+    case ViewDocumentsSectionId.OTHER_DOCUMENTS:
+      doclabel = DocumentLabelCategory.VIEW_OTHER_DOCUMENTS;
+      url = VIEW_TYPE_DOCUMENT;
+      type = DocumentPartyType.OTHER;
+      date = caseData.citizenOtherDocuments?.length
+        ? (dayjs(_.first(caseData.citizenOtherDocuments!)!.uploadedDate)
+            .locale(language)
+            .format('DD MMM YYYY') as string)
+        : '';
+      break;
+    default:
+      return [];
   }
-
-  return documents;
-};
-
-const filterDocumentsByPartyIdAndCategory = (
-  documentPartyId: CitizenDocuments['partyId'],
-  documentCategoryId: DocumentCategory,
-  documents: CaseWithId['citizenDocuments']
-): CaseWithId['citizenDocuments'] => {
-  return documents?.length
-    ? documents.filter(document => document.partyId === documentPartyId && document.categoryId === documentCategoryId)
-    : [];
-};
-
-const filterDocumentsByPartyTypeAndCategory = (
-  documentPartyType: CitizenDocuments['partyType'],
-  documentCategoryId: DocumentCategory,
-  documents: CaseWithId['citizenDocuments']
-): CaseWithId['citizenDocuments'] => {
-  return documents?.length
-    ? documents.filter(
-        document => document.categoryId === documentCategoryId && document.partyType === documentPartyType
-      )
-    : [];
+  return [
+    {
+      link: {
+        text: getDocumentCategoryLabel(doclabel, documentCategoryLabels),
+        url: applyParms(url, {
+          partyType: loggedInUserPartyType,
+          type,
+        }),
+        serveDate: date,
+      },
+    },
+  ];
 };
 
 export const getDocuments = (
-  documentCategoryId: DocumentCategory,
-  documents: CaseWithId['citizenDocuments'],
+  documents: CitizenDocuments[],
   loggedInUserPartyType: PartyType,
-  documentPartyType: CitizenDocuments['partyType'],
-  documentPartyId?: CitizenDocuments['partyId']
+  language: string
 ): Document[] => {
-  const filteredDocs =
-    documentPartyId &&
-    [
-      DocumentCategory.POSITION_STATEMENTS,
-      DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-      DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
-      DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
-    ].includes(documentCategoryId)
-      ? filterDocumentsByPartyIdAndCategory(documentPartyId, documentCategoryId, documents)
-      : filterDocumentsByPartyTypeAndCategory(documentPartyType, documentCategoryId, documents);
   const docs: Document[] = [];
-
-  if (filteredDocs?.length) {
-    filteredDocs.forEach(doc => {
-      const documentId = doc.document.document_url.substring(doc.document.document_url.lastIndexOf('/') + 1);
+  if (documents?.length) {
+    documents.forEach(doc => {
       const document: Document = {
-        [DocumentTypes.ENGLISH]: {
-          documentId,
-          documentName: doc.document.document_filename,
-          createdDate: dayjs(doc.document.document_creation_date).format('DD MMM YYYY'),
-          uploadedBy: doc.uploadedBy,
-          documentDownloadUrl: getDownloadDocUrl(doc, loggedInUserPartyType),
-        },
+        documentId: generateDocumentID(doc),
+        documentName: generateDocumentName(doc),
+        createdDate: dayjs(doc.uploadedDate).locale(language).format('DD MMM YYYY'),
+        uploadedBy: doc.uploadedBy,
+        documentDownloadUrl: getDownloadDocUrl(doc, loggedInUserPartyType),
       };
 
       docs.push(document);
@@ -350,10 +291,44 @@ export const getDocuments = (
 export const getDownloadDocUrl = (document: CitizenDocuments, loggedInUserPartyType: PartyType): string => {
   return applyParms(DOWNLOAD_DOCUMENT, {
     partyType: loggedInUserPartyType,
-    documentId: document.document.document_url.substring(document.document.document_url.lastIndexOf('/') + 1),
-    documentName: transformFileName(document.document.document_filename),
+    documentId: generateDocumentID(document),
+    documentName: transformFileName(generateDocumentName(document)),
   });
 };
+const generateDocumentID = (doc: CitizenDocuments): string => {
+  if (doc.document) {
+    return doc.document.document_url.substring(doc.document.document_url.lastIndexOf('/') + 1);
+  } else if (doc.documentWelsh) {
+    return doc.documentWelsh.document_url.substring(doc.documentWelsh.document_url.lastIndexOf('/') + 1);
+  } else {
+    return '';
+  }
+};
 
-export const getDocumentConfig = (documentCategory: DocumentCategory): ViewDocumentsCategoryListProps | undefined =>
-  viewDocumentsCategoryListConfig.find(section => section.categoryId === documentCategory);
+const generateDocumentName = (document: CitizenDocuments): string => {
+  if (document.document) {
+    return document.document.document_filename;
+  } else if (document.documentWelsh) {
+    return document.documentWelsh.document_filename;
+  } else {
+    return '';
+  }
+};
+const prepareOrderDocument = (
+  document: DocumentMeta,
+  order: CitizenOrders,
+  loggedInUserPartyType: PartyType,
+  orderDocuments: OrderDocumentMeta[],
+  language: string
+): OrderDocumentMeta => {
+  return {
+    documentId: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
+    documentName: document.document_filename,
+    orderMadeDate: dayjs(order.madeDate).locale(language).format('DD MMM YYYY'),
+    documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
+      partyType: loggedInUserPartyType,
+      documentId: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
+      documentName: transformFileName(document.document_filename),
+    }),
+  };
+};

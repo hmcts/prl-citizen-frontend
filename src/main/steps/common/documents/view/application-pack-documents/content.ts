@@ -49,6 +49,11 @@ export const generateContent: TranslationFn = content => {
     ],
     title: isPackToBeServed ? translations.packToBeServedTitle : translations.packServedTitle,
     isPackToBeServed,
-    documents: getApplicationPackDocuments(caseData.citizenApplicationPacks, loggedInUserPartyType, context),
+    documents: getApplicationPackDocuments(
+      caseData.citizenApplicationPacks,
+      loggedInUserPartyType,
+      context,
+      content.language
+    ),
   };
 };

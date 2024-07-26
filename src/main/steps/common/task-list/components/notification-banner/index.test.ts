@@ -752,7 +752,7 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-      citizenDocuments: [
+      respondentDocuments: [
         {
           partyId: '1234',
           partyName: null,
@@ -795,7 +795,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/documents/view/all-documents',
+                href: '/applicant/documents/view/all-categories',
                 text: 'View the response (PDF)',
               },
             ],
@@ -897,7 +897,7 @@ describe('testcase for notification Banner', () => {
               },
               {
                 external: false,
-                href: '',
+                href: '/applicant/statement-of-service/who-was-served/personal-service',
                 text: 'Upload the statement of service (form C9)',
               },
             ],

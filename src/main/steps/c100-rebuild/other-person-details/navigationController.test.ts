@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { RelationshipType } from '../../../app/case/definition';
 import {
-  C100_CHILDERN_LIVE_WITH,
+  C100_CHILDERN_MAINLY_LIVE_WITH,
   C100_OTHER_PERSON_DETAILS_ADD,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
@@ -211,7 +211,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyparams.params
       )
-    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with');
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with');
   });
   test('default', async () => {
     const dummyparams = mockRequest({
@@ -219,10 +219,10 @@ describe('OtherPersonsDetailsNavigationController', () => {
     });
     expect(
       OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_CHILDERN_LIVE_WITH,
+        C100_CHILDERN_MAINLY_LIVE_WITH,
         dummyRequest.session.userCase,
         dummyparams.params
       )
-    ).toBe(C100_CHILDERN_LIVE_WITH);
+    ).toBe(C100_CHILDERN_MAINLY_LIVE_WITH);
   });
 });
