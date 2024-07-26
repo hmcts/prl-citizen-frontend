@@ -12,9 +12,7 @@ const en = {
   keys: {
     citizenUserFullName: 'Name',
     citizenUserDateOfBirthText: 'Date of birth',
-    citizenUserPlaceOfBirthText: 'Place of birth',
     citizenUserAddressText: 'Address',
-    citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
     citizenUserEmailAddressText: 'Email',
     citizenUserSafeToCall: 'When it is safe to call you (optional)',
