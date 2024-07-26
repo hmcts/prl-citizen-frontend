@@ -186,18 +186,16 @@ describe('notification Banner', () => {
     test('should return correct configs for DA applicant', () => {
       const config = getNotificationConfig('FL401' as CaseType, 'applicant' as PartyType, {} as CaseWithId);
 
-      expect(config).toHaveLength(2);
-      expect(config[0].id).toBe('newOrder');
-      expect(config[1].id).toBe('finalOrder');
+      expect(config).toHaveLength(1);
+      expect(config[0].id).toBe('orderPersonalService');
     });
 
     test('should return correct configs for DA respondent', () => {
       const config = getNotificationConfig('FL401' as CaseType, 'respondent' as PartyType, {} as CaseWithId);
 
-      expect(config).toHaveLength(3);
-      expect(config[0].id).toBe('newOrder');
-      expect(config[1].id).toBe('finalOrder');
-      expect(config[2].id).toBe('daRespondentBanner');
+      expect(config).toHaveLength(2);
+      expect(config[0].id).toBe('daRespondentBanner');
+      expect(config[1].id).toBe('orderPersonalService');
     });
   });
 
