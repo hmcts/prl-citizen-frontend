@@ -42,6 +42,48 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
+ daApplicationServedByCourtAdminCourtBayliffDN2: {
+      heading: 'The court has issued your application',
+      sections: [
+        {
+          contents: [
+            {
+              text: 'This means the court will give a copy of your application and other court documents are ready to give to the respondent).',
+            },
+            {
+              text: 'You must not give the documents to the other person yourself.',
+            },
+            {
+              text: 'Give them to the person who has agreed to hand deliver the documents for you.This is usually a process server.',
+            },
+            {
+              text: 'If the documents include a non-molestation order or an occupation order with a power of arrest, the process server will need to provide a copy to the police after the respondent has been served.',
+            },
+            {
+              text: 'you need to submit a statement of service after the respondent has been given the documents.',
+            },
+          ],
+          links: [
+            {
+              text: '<The link below takes user to download the folder>',
+            },
+            {
+              //** validate **
+              text: 'Download the Statement of service(form FL415)',
+              href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+            },
+            {
+              text: '<Link goes to the statement of service event>',
+            },
+            {
+               //** validate **
+               text: 'upload the Statement of service(form FL415)',
+               href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+            },
+          ],
+        },
+      ],
+    },
 };
 
 const cy: typeof en = {
@@ -83,6 +125,42 @@ const cy: typeof en = {
       },
     ],
   },
+  daApplicationServedByCourtAdminCourtBayliffDN2: {
+      heading: 'Mae’r llys wedi cychwyn eich cais - gwiriwch beth sydd angen i chi ei wneud nesaf',
+      sections: [
+        {
+          contents: [
+            {
+              text: 'Mae’r llys wedi cychwyn eich cais Mae hyn yn golygu bod copi o’ch cais a’r dogfennau llys eraill yn barod i’w rhoi i’r atebydd. ',
+            },
+            {
+              text: 'Ni ddylech roi’r dogfennau i’r unigolyn arall eich hun.',
+            },
+            {
+              text: 'Rhowch y rhain i’r unigolyn sydd wedi cytuno i ddanfon y dogfennau â llaw ar eich rhan. Cyflwynwyr proses yw hyn fel arfer.',
+            },
+            {
+              text: 'Os bydd y dogfennau yn cynnwys gorchymyn rhag molestu ac/neu orchymyn meddiannu gyda phwer i arestio, bydd angen i’r llys roi copi i’r heddlu ar ôl iddynt gael eu cyflwyno i’r atebydd.',
+            },
+            {
+              text: 'Mae angen i chi gyflwyno’r datganiad cyflwyno ar ôl i''r atebydd gael y dogfennau.',
+            },
+            {
+              text: 'Dolen (Galwad i weithredu).',
+            },
+          ],
+          links: [
+            {
+              text: '<Lawrlwythwch y datganiad cyflwyno (ffurflen FL415)>',
+            },
+            {
+              //** validate **
+              text: '<Llwytho’r datganiad cyflwyno>',
+            },
+          ],
+        },
+      ],
+    },
 };
 
 export const DA_APPLICANT_CONTENT = {
