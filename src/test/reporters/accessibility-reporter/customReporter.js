@@ -1,5 +1,5 @@
 const fs = require('fs');
-const testConfig = require('../../config.js');
+const testConfig = require('../../end-to-end/config.js');
 
 function generateAccessibilityReport(reportObj) {
   // eslint-disable-next-line no-use-before-define
