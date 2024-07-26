@@ -130,8 +130,8 @@ const en: TaskListContent = {
           respondToTheApplication: {
             linkText: 'Respond to the application',
           },
-          respondToAOHAndViolence: {
-            linkText: 'Respond to the allegations of harm and violence',
+          theResponsePDF: {
+            linkText: 'The response to application',
           },
         },
       },
@@ -415,8 +415,8 @@ const cy: typeof en = {
           respondToTheApplication: {
             linkText: "Ymateb i'r cais",
           },
-          respondToAOHAndViolence: {
-            linkText: "Ymateb i'r honiadau o niwed a thrais",
+          theResponsePDF: {
+            linkText: 'The response to application -welsh',
           },
         },
       },

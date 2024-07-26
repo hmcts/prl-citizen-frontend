@@ -94,7 +94,6 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
           caseData.finalWelshDocument?.document_filename ? StateTags.DOWNLOAD : StateTags.NOT_AVAILABLE_YET,
         openInAnotherTab: () => true,
         show: caseData => iswelshDocPresent(caseData, 'finalWelshDocument'),
-        //caseData.finalWelshDocument?.document_filename?true:false
       },
     ],
   },

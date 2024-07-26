@@ -212,6 +212,9 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
             documentType: 'aoh-document-welsh',
           }),
         stateTag: caseData => getCheckAllegationOfHarmStatusWelsh(caseData),
+        show: caseData => {
+          return iswelshDocPresent(caseData, 'c1AWelshDocument');
+        },
         disabled: caseData => {
           return (
             getCheckAllegationOfHarmStatusWelsh(caseData) === StateTags.NOT_AVAILABLE_YET &&
@@ -239,7 +242,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         stateTag: (caseData, userDetails) => {
           return getC7ApplicationResponseStatus(caseData, userDetails);
         },
-        show: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
+        show: (caseData, userDetails) => !hasRespondentRespondedToC7Application(caseData, userDetails),
       },
       {
         id: Tasks.THE_RESPONSE_PDF,
@@ -254,7 +257,6 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         stateTag: (caseData: Partial<CaseWithId>) =>
           isRespondentSubmitedResponse(caseData) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET,
         show: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
-        openInAnotherTab: () => true,
       },
     ],
   },

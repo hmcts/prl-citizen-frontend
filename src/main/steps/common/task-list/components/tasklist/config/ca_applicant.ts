@@ -29,6 +29,7 @@ import {
   getCheckAllegationOfHarmStatusWelsh,
   getContents,
   hasAnyHearing,
+  isRespondentSubmitedResponse,
 } from '../utils';
 
 export const CA_APPLICANT: TaskListConfigProps[] = [
@@ -205,7 +206,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         id: Tasks.THE_RESPONSE_PDF,
         href: () =>
           applyParms(VIEW_TYPE_DOCUMENT, {
-            partyType: PartyType.RESPONDENT,
+            partyType: PartyType.APPLICANT,
             type: 'respondent',
           }),
         stateTag: (caseData: Partial<CaseWithId>) => {
@@ -219,6 +220,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           return StateTags.NOT_AVAILABLE_YET;
         },
         show: isCaseLinked,
+        disabled: (caseData: Partial<CaseWithId>) => !isRespondentSubmitedResponse(caseData),
       },
     ],
   },
