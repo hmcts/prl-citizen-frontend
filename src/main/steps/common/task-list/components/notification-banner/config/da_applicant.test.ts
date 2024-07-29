@@ -5,6 +5,6 @@ describe('da_applicant', () => {
     const da_applicantNotifications = DA_APPLICANT_CONFIG();
 
     expect(da_applicantNotifications).toHaveLength(1);
-    expect(da_applicantNotifications[0].id).toBe('orderPersonalService');
+    expect(da_applicantNotifications[0].id).toBe('orderNonPersonalService');
   });
 });

@@ -159,7 +159,7 @@ describe('notification Banner', () => {
         } as CaseWithId
       );
 
-      expect(config).toHaveLength(11);
+      expect(config).toHaveLength(12);
       expect(config[0].id).toBe('applicationNotStarted');
       expect(config[1].id).toBe('applicationInProgress');
       expect(config[2].id).toBe('applicationSubmitted');
@@ -170,7 +170,8 @@ describe('notification Banner', () => {
       expect(config[7].id).toBe('applicationIssuedByCourtPersonalService');
       expect(config[8].id).toBe('submitFM5');
       expect(config[9].id).toBe('applicationClosed');
-      expect(config[10].id).toBe('orderPersonalService');
+      expect(config[10].id).toBe('orderNonPersonalService');
+      expect(config[11].id).toBe('orderPersonalService');
     });
 
     test('should return correct configs for CA respondent', () => {
@@ -179,14 +180,14 @@ describe('notification Banner', () => {
       expect(config).toHaveLength(3);
       expect(config[0].id).toBe('applicationServedByCourtToRespondent');
       expect(config[1].id).toBe('submitFM5');
-      expect(config[2].id).toBe('orderPersonalService');
+      expect(config[2].id).toBe('orderNonPersonalService');
     });
 
     test('should return correct configs for DA applicant', () => {
       const config = getNotificationConfig('FL401' as CaseType, 'applicant' as PartyType, {} as CaseWithId);
 
       expect(config).toHaveLength(1);
-      expect(config[0].id).toBe('orderPersonalService');
+      expect(config[0].id).toBe('orderNonPersonalService');
     });
 
     test('should return correct configs for DA respondent', () => {
@@ -194,7 +195,7 @@ describe('notification Banner', () => {
 
       expect(config).toHaveLength(2);
       expect(config[0].id).toBe('daRespondentBanner');
-      expect(config[1].id).toBe('orderPersonalService');
+      expect(config[1].id).toBe('orderNonPersonalService');
     });
   });
 

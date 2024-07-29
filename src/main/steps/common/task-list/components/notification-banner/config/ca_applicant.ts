@@ -52,15 +52,41 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
     },
   },
   {
-    id: NotificationType.ORDER_PERSONAL_SERVICE,
+    id: NotificationType.ORDER_NON_PERSONAL_SERVICE,
     show: showNotification,
     interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
-      const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+      const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
 
       return interpolate(content, {
         final: notification?.final ? ` ${commonContent.final}` : '',
         order: notification?.multiple ? commonContent.orders : commonContent.order,
         tell: notification?.multiple ? commonContent.tell : commonContent.tells,
+      });
+    },
+  },
+  {
+    id: NotificationType.ORDER_PERSONAL_SERVICE,
+    show: showNotification,
+    interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
+      const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+      let respondent = '';
+      let has = '';
+      if (caseData.respondents?.length) {
+        if (caseData.respondents?.length === 1) {
+          respondent = commonContent.respondent;
+          has = commonContent.has;
+        } else {
+          respondent = commonContent.respondents;
+          has = commonContent.have;
+        }
+      }
+
+      return interpolate(content, {
+        final: notification?.final ? ` ${commonContent.final}` : '',
+        order: notification?.multiple ? commonContent.orders : commonContent.order,
+        tell: notification?.multiple ? commonContent.tell : commonContent.tells,
+        respondent,
+        has,
       });
     },
   },

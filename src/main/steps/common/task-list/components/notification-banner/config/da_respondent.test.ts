@@ -6,6 +6,6 @@ describe('da_respondent', () => {
 
     expect(da_respondentNotifications).toHaveLength(2);
     expect(da_respondentNotifications[0].id).toBe('daRespondentBanner');
-    expect(da_respondentNotifications[1].id).toBe('orderPersonalService');
+    expect(da_respondentNotifications[1].id).toBe('orderNonPersonalService');
   });
 });
