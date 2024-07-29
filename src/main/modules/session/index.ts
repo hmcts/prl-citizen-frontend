@@ -44,8 +44,7 @@ export class SessionStorage {
             tls: true,
             connectTimeout: 15000,
           },
-          password: config.get('session.redis.key'),
-          pingInterval: 10000,
+          password: config.get('session.redis.key') as string,
         });
 
         await redisClient.connect().catch(err => console.error('Redis Client Error', err));
