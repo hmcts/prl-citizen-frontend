@@ -1,12 +1,11 @@
 import config from 'config';
-import ConnectRedis from 'connect-redis';
+import RedisStore from 'connect-redis';
 import cookieParser from 'cookie-parser';
 import { Application } from 'express';
 import session from 'express-session';
-import * as redis from 'redis';
+import { createClient } from 'redis';
 import FileStoreFactory from 'session-file-store';
 
-const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
 
 export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
@@ -35,17 +34,27 @@ export class SessionStorage {
 
   private getStore(app: Application) {
     const redisHost = config.get('session.redis.host');
-    if (redisHost) {
-      const client = redis.createClient({
-        host: redisHost as string,
-        password: config.get('session.redis.key') as string,
-        port: 6380,
-        tls: true,
-        connect_timeout: 15000,
-      });
 
-      app.locals.redisClient = client;
-      return new RedisStore({ client });
+    if (redisHost) {
+      (async () => {
+        const redisClient = createClient({
+          socket: {
+            host: redisHost as string,
+            port: 6380,
+            tls: true,
+            connectTimeout: 15000,
+          },
+          password: config.get('session.redis.key') as string,
+        });
+
+        await redisClient.connect().catch(err => console.error('Redis Client Error', err));
+
+        app.locals.redisClient = redisClient;
+
+        return new RedisStore({
+          client: redisClient,
+        });
+      })();
     }
 
     return new FileStore({ path: '/tmp' });

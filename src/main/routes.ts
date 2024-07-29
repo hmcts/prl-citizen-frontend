@@ -95,6 +95,7 @@ export class Routes {
     );
     app.get(DOWNLOAD_DOCUMENT_BY_TYPE, errorHandler(new DownloadDocumentController().download));
     app.get(DOWNLOAD_DOCUMENT, errorHandler(new DownloadDocumentController().download));
+    app.get('/session/:context', errorHandler(new DashboardGetController().ammendSession));
 
     //C100 related routes
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
