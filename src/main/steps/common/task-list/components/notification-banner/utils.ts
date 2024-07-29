@@ -69,6 +69,7 @@ const NotificationTypeIDMap = {
   [NotificationType.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE]:
     NotificationID.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE,
   [NotificationType.SUMBIT_FM5]: NotificationID.SUMBIT_FM5,
+  [NotificationType.ORDER_NON_PERSONAL_SERVICE]: NotificationID.ORDER_NON_PERSONAL_SERVICE,
   [NotificationType.ORDER_PERSONAL_SERVICE]: NotificationID.ORDER_PERSONAL_SERVICE,
 };
 
@@ -129,7 +130,7 @@ export const hasMoreThanOneApplicant = (caseData: CaseWithId): boolean => {
 };
 
 export const findC7ResponseDocument = (caseData: CaseWithId, respondent: Respondent): CitizenDocuments | undefined => {
-  return caseData?.citizenDocuments?.find(
+  return caseData?.respondentDocuments?.find(
     document =>
       (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
       document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
@@ -151,4 +152,22 @@ export const getOrderNotificationHeading = (
   } else {
     return `${commonContent.a} ${commonContent.new}`;
   }
+};
+
+export const getBannerContentForRespondent = (
+  caseData: CaseWithId,
+  commonContent: Record<string, string>
+): { respondent: string; has: string } => {
+  let respondent = '';
+  let has = '';
+  if (caseData.respondents?.length) {
+    if (caseData.respondents?.length === 1) {
+      respondent = commonContent.respondent;
+      has = commonContent.has;
+    } else {
+      respondent = commonContent.respondents;
+      has = commonContent.have;
+    }
+  }
+  return { respondent, has };
 };

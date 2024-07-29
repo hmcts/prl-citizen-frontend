@@ -186,14 +186,14 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
-  orderPersonalService: {
+  orderNonPersonalService: {
     heading: 'You have {finalOrNew} {order} from the court',
     interpolateHeading: (
       content: string,
       commonContent: NotificationBannerContent['common'],
       caseData: CaseWithId
     ): string => {
-      const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+      const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
 
       return interpolate(content, {
         order: notification?.multiple ? commonContent.orders : commonContent.order,
@@ -217,12 +217,78 @@ const en: NotificationBannerContentConfig = {
               commonContent: NotificationBannerContent['common'],
               caseData: CaseWithId
             ): string => {
+              const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
+
+              return interpolate(content, {
+                order: notification?.multiple ? commonContent.orders : commonContent.order,
+              });
+            },
+          },
+        ],
+      },
+    ],
+  },
+  orderPersonalService: {
+    heading: 'You have {finalOrNew} {order} from the court',
+    interpolateHeading: (
+      content: string,
+      commonContent: NotificationBannerContent['common'],
+      caseData: CaseWithId
+    ): string => {
+      const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+
+      return interpolate(content, {
+        order: notification?.multiple ? commonContent.orders : commonContent.order,
+        finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
+      });
+    },
+    sections: [
+      {
+        contents: [
+          {
+            text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
+          },
+          {
+            text: 'You will need to arrange for the {respondent} to be served. See the {order} for further details.',
+          },
+        ],
+        links: [
+          {
+            //** validate **
+            text: 'View the {order} (PDF)',
+            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+            interpolateLinkText: (
+              content: string,
+              commonContent: NotificationBannerContent['common'],
+              caseData: CaseWithId
+            ): string => {
               const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
               return interpolate(content, {
                 order: notification?.multiple ? commonContent.orders : commonContent.order,
               });
             },
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'If there is more than one applicant, please agree which of you will serve the {order} on the {respondent}.',
+          },
+          {
+            text: 'You need to submit a statement of service after the {respondent} {has} been given the documents.',
+          },
+        ],
+        links: [
+          {
+            text: 'Download the statement of service (form C9) (opens in a new tab)',
+            href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
+            external: true,
+          },
+          {
+            text: 'Upload the statement of service (form C9)',
+            href: '',
           },
         ],
       },
@@ -282,7 +348,7 @@ const en: NotificationBannerContentConfig = {
           },
           {
             text: 'Upload the statement of service (form C9)',
-            href: '',
+            href: '/applicant/statement-of-service/who-was-served/personal-service',
           },
         ],
       },
@@ -516,14 +582,14 @@ const cy: typeof en = {
       },
     ],
   },
-  orderPersonalService: {
+  orderNonPersonalService: {
     heading: 'You have {finalOrNew} {order} from the court (welsh)',
     interpolateHeading: (
       content: string,
       commonContent: NotificationBannerContent['common'],
       caseData: CaseWithId
     ): string => {
-      const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+      const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
 
       return interpolate(content, {
         order: notification?.multiple ? commonContent.orders : commonContent.order,
@@ -547,12 +613,78 @@ const cy: typeof en = {
               commonContent: NotificationBannerContent['common'],
               caseData: CaseWithId
             ): string => {
+              const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
+
+              return interpolate(content, {
+                order: notification?.multiple ? commonContent.orders : commonContent.order,
+              });
+            },
+          },
+        ],
+      },
+    ],
+  },
+  orderPersonalService: {
+    heading: 'You have {finalOrNew} {order} from the court',
+    interpolateHeading: (
+      content: string,
+      commonContent: NotificationBannerContent['common'],
+      caseData: CaseWithId
+    ): string => {
+      const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
+
+      return interpolate(content, {
+        order: notification?.multiple ? commonContent.orders : commonContent.order,
+        finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
+      });
+    },
+    sections: [
+      {
+        contents: [
+          {
+            text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
+          },
+          {
+            text: 'You will need to arrange for the {respondent} to be served. See the {order} for further details.',
+          },
+        ],
+        links: [
+          {
+            //** validate **
+            text: 'View the {order} (PDF)',
+            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+            interpolateLinkText: (
+              content: string,
+              commonContent: NotificationBannerContent['common'],
+              caseData: CaseWithId
+            ): string => {
               const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
               return interpolate(content, {
                 order: notification?.multiple ? commonContent.orders : commonContent.order,
               });
             },
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'If there is more than one applicant, please agree which of you will serve the {order} on the {respondent}.',
+          },
+          {
+            text: 'You need to submit a statement of service after the {respondent} {has} been given the documents.',
+          },
+        ],
+        links: [
+          {
+            text: 'Download the statement of service (form C9) (opens in a new tab)',
+            href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
+            external: true,
+          },
+          {
+            text: 'Upload the statement of service (form C9)',
+            href: '',
           },
         ],
       },
@@ -607,7 +739,7 @@ const cy: typeof en = {
         links: [
           {
             text: 'Lawrlwythwch y datganiad cyflwyno (ffurflen C9) (agor mewn tab newydd)',
-            href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
+            href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
             external: true,
           },
           {

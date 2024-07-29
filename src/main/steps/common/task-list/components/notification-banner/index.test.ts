@@ -634,7 +634,7 @@ describe('testcase for notification Banner', () => {
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
       {
         heading: 'You have new and final orders from the court',
-        id: 'orderPersonalService',
+        id: 'orderNonPersonalService',
         sections: [
           {
             contents: [
@@ -647,6 +647,310 @@ describe('testcase for notification Banner', () => {
                 external: false,
                 href: '/applicant/documents/view/orders-from-the-court',
                 text: 'View the orders (PDF)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+  test('banners should be added when new and final orders added LIP personal service zero respondent', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CRNF3_PERS_SERV_APPLICANT',
+          show: true,
+          multiple: true,
+          final: true,
+          new: true,
+        },
+      ],
+    } as unknown as CaseWithId;
+
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'You have new and final orders from the court',
+        id: 'orderPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
+              },
+              {
+                text: 'You will need to arrange for the  to be served. See the orders for further details.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the orders (PDF)',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'If there is more than one applicant, please agree which of you will serve the orders on the .',
+              },
+              {
+                text: 'You need to submit a statement of service after the   been given the documents.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
+                text: 'Download the statement of service (form C9) (opens in a new tab)',
+              },
+              {
+                external: false,
+                href: '',
+                text: 'Upload the statement of service (form C9)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+  test('banners should be added when new and final orders added LIP personal service one respondent', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CRNF3_PERS_SERV_APPLICANT',
+          show: true,
+          multiple: true,
+          final: true,
+          new: true,
+        },
+      ],
+    } as unknown as CaseWithId;
+    data.respondents = [
+      {
+        id: '123',
+        value: {
+          user: {
+            idamId: '123',
+          },
+          response: {
+            citizenFlags: {},
+          },
+        },
+      } as unknown as Respondent,
+    ];
+
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'You have new and final orders from the court',
+        id: 'orderPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
+              },
+              {
+                text: 'You will need to arrange for the respondent to be served. See the orders for further details.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the orders (PDF)',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'If there is more than one applicant, please agree which of you will serve the orders on the respondent.',
+              },
+              {
+                text: 'You need to submit a statement of service after the respondent has been given the documents.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
+                text: 'Download the statement of service (form C9) (opens in a new tab)',
+              },
+              {
+                external: false,
+                href: '',
+                text: 'Upload the statement of service (form C9)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+  test('banners should be added when new and final orders added LIP personal service multiple respondent', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CRNF3_PERS_SERV_APPLICANT',
+          show: true,
+          multiple: true,
+          final: true,
+          new: true,
+        },
+      ],
+    } as unknown as CaseWithId;
+    data.respondents = [
+      {
+        id: '123',
+        value: {
+          user: {
+            idamId: '123',
+          },
+          response: {
+            citizenFlags: {},
+          },
+        },
+      } as unknown as Respondent,
+      {
+        id: '1231',
+        value: {
+          user: {
+            idamId: '1231',
+          },
+          response: {
+            citizenFlags: {},
+          },
+        },
+      } as unknown as Respondent,
+    ];
+
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'You have new and final orders from the court',
+        id: 'orderPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
+              },
+              {
+                text: 'You will need to arrange for the respondents to be served. See the orders for further details.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the orders (PDF)',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'If there is more than one applicant, please agree which of you will serve the orders on the respondents.',
+              },
+              {
+                text: 'You need to submit a statement of service after the respondents have been given the documents.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
+                text: 'Download the statement of service (form C9) (opens in a new tab)',
+              },
+              {
+                external: false,
+                href: '',
+                text: 'Upload the statement of service (form C9)',
               },
             ],
           },
@@ -699,7 +1003,7 @@ describe('testcase for notification Banner', () => {
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
       {
         heading: 'You have new (welsh) and (welsh) final (welsh) orders (welsh) from the court (welsh)',
-        id: 'orderPersonalService',
+        id: 'orderNonPersonalService',
         sections: [
           {
             contents: [
@@ -712,6 +1016,95 @@ describe('testcase for notification Banner', () => {
                 external: false,
                 href: '/applicant/documents/view/orders-from-the-court',
                 text: 'View the orders (welsh) (PDF) (welsh)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+  test('correct welsh banners should be added when new and final orders added LIP personal service', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CRNF3_PERS_SERV_APPLICANT',
+          show: true,
+          multiple: true,
+          final: true,
+          new: true,
+        },
+      ],
+    } as unknown as CaseWithId;
+
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
+      {
+        heading: 'You have new (welsh) and (welsh) final (welsh) orders (welsh) from the court',
+        id: 'orderPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a final (welsh) decision about your case. The orders (welsh) tell (welsh) you what the court has decided.',
+              },
+              {
+                text: 'You will need to arrange for the  to be served. See the orders (welsh) for further details.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the orders (welsh) (PDF)',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'If there is more than one applicant, please agree which of you will serve the orders (welsh) on the .',
+              },
+              {
+                text: 'You need to submit a statement of service after the   been given the documents.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
+                text: 'Download the statement of service (form C9) (opens in a new tab)',
+              },
+              {
+                external: false,
+                href: '',
+                text: 'Upload the statement of service (form C9)',
               },
             ],
           },
@@ -752,7 +1145,7 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-      citizenDocuments: [
+      respondentDocuments: [
         {
           partyId: '1234',
           partyName: null,
@@ -795,7 +1188,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/documents/view/all-documents',
+                href: '/applicant/documents/view/all-categories',
                 text: 'View the response (PDF)',
               },
             ],
@@ -897,7 +1290,7 @@ describe('testcase for notification Banner', () => {
               },
               {
                 external: false,
-                href: '',
+                href: '/applicant/statement-of-service/who-was-served/personal-service',
                 text: 'Upload the statement of service (form C9)',
               },
             ],
@@ -993,7 +1386,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: true,
-                href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
+                href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
                 text: 'Lawrlwythwch y datganiad cyflwyno (ffurflen C9) (agor mewn tab newydd)',
               },
               {
@@ -1149,7 +1542,7 @@ describe('testcase for notification Banner', () => {
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have a new order from the court',
-          id: 'orderPersonalService',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
@@ -1197,7 +1590,7 @@ describe('testcase for notification Banner', () => {
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
         {
           heading: 'You have a (welsh) new (welsh) order (welsh) from the court (welsh)',
-          id: 'orderPersonalService',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
@@ -1245,7 +1638,7 @@ describe('testcase for notification Banner', () => {
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have new orders from the court',
-          id: 'orderPersonalService',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
@@ -1293,7 +1686,7 @@ describe('testcase for notification Banner', () => {
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
         {
           heading: 'You have new (welsh) orders (welsh) from the court (welsh)',
-          id: 'orderPersonalService',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
@@ -1478,7 +1871,7 @@ describe('testcase for notification Banner', () => {
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have a final order from the court',
-          id: 'orderPersonalService',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
