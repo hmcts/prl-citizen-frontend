@@ -43,7 +43,7 @@ import { Application } from 'express';
 
 import { SessionStorage } from '.';
 
-describe.skip('session', () => {
+describe('session', () => {
   let mockApp;
 
   beforeEach(() => {
