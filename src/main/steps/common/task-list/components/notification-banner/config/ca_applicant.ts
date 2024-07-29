@@ -4,7 +4,13 @@ import { State } from '../../../../../../app/case/definition';
 import { isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
 import { interpolate } from '../../../../string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
-import { findC7ResponseDocument, findNotification, showNotification, showPreDashBoardNotification } from '../utils';
+import {
+  findC7ResponseDocument,
+  findNotification,
+  getBannerContentForRespondent,
+  showNotification,
+  showPreDashBoardNotification,
+} from '../utils';
 
 export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerProps[] => [
   {
@@ -69,18 +75,7 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
     show: showNotification,
     interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
       const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
-      let respondent = '';
-      let has = '';
-      if (caseData.respondents?.length) {
-        if (caseData.respondents?.length === 1) {
-          respondent = commonContent.respondent;
-          has = commonContent.has;
-        } else {
-          respondent = commonContent.respondents;
-          has = commonContent.have;
-        }
-      }
-
+      const { respondent, has } = getBannerContentForRespondent(caseData, commonContent);
       return interpolate(content, {
         final: notification?.final ? ` ${commonContent.final}` : '',
         order: notification?.multiple ? commonContent.orders : commonContent.order,
