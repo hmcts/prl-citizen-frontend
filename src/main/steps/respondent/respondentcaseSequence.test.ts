@@ -137,7 +137,7 @@ describe('respondent1Sequence', () => {
       )
     ).toBe('/case/1234');
 
-    expect(respondentCaseSequence[24].url).toBe('/:partyType/documents/view/all-documents');
+    expect(respondentCaseSequence[24].url).toBe('/:partyType/documents/view/all-categories');
     expect(respondentCaseSequence[24].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[24].getNextStep({})).toBe('/');
 

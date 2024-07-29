@@ -1,9 +1,11 @@
+import { CaseWithId } from '../../../../../app/case/case';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getCasePartyType } from '../../../../prl-cases/dashboard/utils';
 import { FETCH_CASE_DETAILS, VIEW_ALL_DOCUMENT_TYPES } from '../../../../urls';
 import { applyParms } from '../../../url-parser';
 import { cy, en } from '../../common/content';
-import { DocumentSectionId, ViewDocumentsSectionId } from '../../definitions';
+import { CitizenDocuments, DocumentSectionId, ViewDocumentsSectionId } from '../../definitions';
 import { getDocumentSectionTitle, getDocuments } from '../utils';
 
 const languages = {
@@ -31,23 +33,8 @@ export const generateContent: TranslationFn = content => {
     Partial<DocumentSectionId>,
     string
   >;
-  let docId;
-  let documentObject;
-  const { type } = request.params;
-  switch (type) {
-    case 'applicant':
-      docId = ViewDocumentsSectionId.APPLICANTS_DOCUMENT;
-      documentObject = caseData.applicantDocuments;
-      break;
-    case 'respondent':
-      docId = ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS;
-      documentObject = caseData.respondentDocuments;
-      break;
-    case 'other':
-      docId = ViewDocumentsSectionId.OTHER_DOCUMENTS;
-      documentObject = caseData.citizenOtherDocuments;
-      break;
-  }
+
+  const { documentSectionId, documentObject } = getDocumentsMeta(request, caseData);
 
   return {
     ...translations,
@@ -61,7 +48,31 @@ export const generateContent: TranslationFn = content => {
         href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),
       },
     ],
-    title: getDocumentSectionTitle(docId, documentSectionTitles),
+    title: getDocumentSectionTitle(documentSectionId, documentSectionTitles),
     documents: getDocuments(documentObject, loggedInUserPartyType, content.language),
   };
+};
+
+const getDocumentsMeta = (
+  req: AppRequest,
+  caseData: CaseWithId
+): { documentSectionId: ViewDocumentsSectionId; documentObject: CitizenDocuments[] } => {
+  let documentSectionId: ViewDocumentsSectionId;
+  let documentObject: CitizenDocuments[];
+  const { type } = req.params;
+  switch (type) {
+    case 'applicant':
+      documentSectionId = ViewDocumentsSectionId.APPLICANTS_DOCUMENT;
+      documentObject = caseData.applicantDocuments!;
+      break;
+    case 'respondent':
+      documentSectionId = ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS;
+      documentObject = caseData.respondentDocuments!;
+      break;
+    default:
+      documentSectionId = ViewDocumentsSectionId.OTHER_DOCUMENTS;
+      documentObject = caseData.citizenOtherDocuments!;
+      break;
+  }
+  return { documentSectionId, documentObject };
 };

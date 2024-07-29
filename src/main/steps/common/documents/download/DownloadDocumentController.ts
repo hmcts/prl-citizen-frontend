@@ -20,7 +20,7 @@ export default class DownloadDocumentController {
 
     switch (documentType) {
       case 'c100-application':
-        documentReference = caseData.finalDocument ?? caseData.c100DraftDoc;
+        documentReference = caseData?.finalDocument ?? caseData.c100DraftDoc;
         break;
       case 'c100-application-welsh':
         documentReference = caseData.finalWelshDocument ?? caseData.c100DraftDocWelsh;
@@ -28,20 +28,20 @@ export default class DownloadDocumentController {
 
       case 'fl401-application':
       case 'cada-document':
-        documentReference = caseData.finalDocument;
+        documentReference = caseData?.finalDocument;
         break;
       case 'fl401-application-welsh':
       case 'cada-document-welsh':
         documentReference = caseData.finalWelshDocument;
         break;
       case 'aoh-document':
-        documentReference = caseData.c1ADocument;
+        documentReference = caseData?.c1ADocument;
         break;
       case 'aoh-document-welsh':
         documentReference = caseData.c1AWelshDocument;
         break;
       case 'c7-response-document':
-        documentReference = caseData.respondentDocuments?.find(
+        documentReference = caseData?.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
@@ -49,7 +49,7 @@ export default class DownloadDocumentController {
         )?.document;
         break;
       case 'c7-response-document-welsh':
-        documentReference = caseData.respondentDocuments?.find(
+        documentReference = caseData?.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
@@ -57,7 +57,7 @@ export default class DownloadDocumentController {
         )?.document;
         break;
       case 'c1a-application-document':
-        documentReference = caseData.respondentDocuments?.find(
+        documentReference = caseData?.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
@@ -65,7 +65,7 @@ export default class DownloadDocumentController {
         )?.document;
         break;
       case 'c1a-application-document-welsh':
-        documentReference = caseData.respondentDocuments?.find(
+        documentReference = caseData?.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
@@ -73,7 +73,7 @@ export default class DownloadDocumentController {
         )?.document;
         break;
       case 'c1a-response-document':
-        documentReference = caseData.respondentDocuments?.find(
+        documentReference = caseData?.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&
@@ -81,7 +81,7 @@ export default class DownloadDocumentController {
         )?.document;
         break;
       case 'c1a-response-document-welsh':
-        documentReference = caseData.respondentDocuments?.find(
+        documentReference = caseData?.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&

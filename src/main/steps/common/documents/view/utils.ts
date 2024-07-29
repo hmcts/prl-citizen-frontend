@@ -20,6 +20,7 @@ import {
   Document,
   DocumentLabelCategory,
   DocumentMeta,
+  DocumentPartyType,
   DocumentSectionId,
   OrderDocumentMeta,
   ViewDocCategoryLinkProps,
@@ -90,9 +91,11 @@ export const getApplicationPacksCategoryList = (
       link: {
         text: getDocumentCategoryLabel(DocumentLabelCategory.YOUR_APPLICATION_PACK, documentCategoryLabels),
         url: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: loggedInUserPartyType }),
-        serveDate: dayjs(_.first(caseData.citizenApplicationPacks!)!.uploadedDate)
-          .locale(language ?? 'default')
-          .format('DD MMM YYYY') as string,
+        serveDate: caseData.citizenApplicationPacks?.length
+          ? (dayjs(_.first(caseData.citizenApplicationPacks)!.uploadedDate)
+              .locale(language ?? 'default')
+              .format('DD MMM YYYY') as string)
+          : '',
       },
     });
   }
@@ -140,15 +143,13 @@ export const getApplicationPackDocuments = (
 
     if (packDocuments) {
       packDocuments.forEach(document => {
-        const documentId = document.document_url.substring(document.document_url.lastIndexOf('/') + 1);
-
         applicationPacksDocuments.push({
-          documentId,
+          documentId: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
           documentName: document.document_filename,
-          servedDate: dayjs(soaPack.uploadedDate).locale(language).format('DD MMM YYYY'),
+          servedDate: soaPack.uploadedDate ? dayjs(soaPack.uploadedDate).locale(language).format('DD MMM YYYY') : '',
           documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
             partyType: loggedInUserPartyType,
-            documentId,
+            documentId: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
             documentName: transformFileName(document.document_filename),
           }),
         });
@@ -173,7 +174,7 @@ export const getOrdersFromTheCourtCategoryList = (
           partyType: loggedInUserPartyType,
         }),
         serveDate: caseData.citizenOrders?.length
-          ? (dayjs(_.first(caseData.citizenOrders!)!.madeDate).locale(language).format('DD MMM YYYY') as string)
+          ? (dayjs(_.first(caseData.citizenOrders)!.madeDate).locale(language).format('DD MMM YYYY') as string)
           : ' ',
       },
     },
@@ -188,13 +189,13 @@ export const getOrderDocuments = (
   const orderDocuments: OrderDocumentMeta[] = [];
 
   orders.forEach(order => {
-    let document = order.document;
-    if (document) {
-      prepareOrderDocument(document, order, loggedInUserPartyType, orderDocuments, language);
+    if (order.document) {
+      orderDocuments.push(prepareOrderDocument(order.document, order, loggedInUserPartyType, orderDocuments, language));
     }
-    document = order.documentWelsh;
-    if (document) {
-      prepareOrderDocument(document, order, loggedInUserPartyType, orderDocuments, language);
+    if (order.documentWelsh) {
+      orderDocuments.push(
+        prepareOrderDocument(order.documentWelsh, order, loggedInUserPartyType, orderDocuments, language)
+      );
     }
   });
 
@@ -216,14 +217,14 @@ export const getViewDocumentCategoryList = (
     case ViewDocumentsSectionId.APPLICANTS_DOCUMENT:
       doclabel = DocumentLabelCategory.VIEW_APPLICANTS_DOCUMENT;
       url = VIEW_TYPE_DOCUMENT;
-      type = 'applicant';
+      type = DocumentPartyType.APPLICANT;
       date = caseData.applicantDocuments?.length
         ? (dayjs(_.first(caseData.applicantDocuments!)!.uploadedDate).locale(language).format('DD MMM YYYY') as string)
         : '';
       break;
     case ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS:
       doclabel = DocumentLabelCategory.VIEW_RESPONDENTS_DOCUMENT;
-      (url = VIEW_TYPE_DOCUMENT), (type = 'respondent');
+      (url = VIEW_TYPE_DOCUMENT), (type = DocumentPartyType.RESPONDENT);
       date = caseData.respondentDocuments?.length
         ? (dayjs(_.first(caseData.respondentDocuments!)!.uploadedDate).locale(language).format('DD MMM YYYY') as string)
         : '';
@@ -240,7 +241,7 @@ export const getViewDocumentCategoryList = (
     case ViewDocumentsSectionId.OTHER_DOCUMENTS:
       doclabel = DocumentLabelCategory.VIEW_OTHER_DOCUMENTS;
       url = VIEW_TYPE_DOCUMENT;
-      type = 'other';
+      type = DocumentPartyType.OTHER;
       date = caseData.citizenOtherDocuments?.length
         ? (dayjs(_.first(caseData.citizenOtherDocuments!)!.uploadedDate)
             .locale(language)
@@ -272,9 +273,8 @@ export const getDocuments = (
   const docs: Document[] = [];
   if (documents?.length) {
     documents.forEach(doc => {
-      const documentId = generateDocumentID(doc);
       const document: Document = {
-        documentId,
+        documentId: generateDocumentID(doc),
         documentName: generateDocumentName(doc),
         createdDate: dayjs(doc.uploadedDate).locale(language).format('DD MMM YYYY'),
         uploadedBy: doc.uploadedBy,
@@ -295,7 +295,7 @@ export const getDownloadDocUrl = (document: CitizenDocuments, loggedInUserPartyT
     documentName: transformFileName(generateDocumentName(document)),
   });
 };
-const generateDocumentID = (doc: CitizenDocuments) => {
+const generateDocumentID = (doc: CitizenDocuments): string => {
   if (doc.document) {
     return doc.document.document_url.substring(doc.document.document_url.lastIndexOf('/') + 1);
   } else if (doc.documentWelsh) {
@@ -320,18 +320,15 @@ const prepareOrderDocument = (
   loggedInUserPartyType: PartyType,
   orderDocuments: OrderDocumentMeta[],
   language: string
-) => {
-  const documentId = document.document_url.substring(document.document_url.lastIndexOf('/') + 1);
-  const orderDoc: OrderDocumentMeta = {
-    documentId,
+): OrderDocumentMeta => {
+  return {
+    documentId: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
     documentName: document.document_filename,
     orderMadeDate: dayjs(order.madeDate).locale(language).format('DD MMM YYYY'),
     documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
       partyType: loggedInUserPartyType,
-      documentId,
+      documentId: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
       documentName: transformFileName(document.document_filename),
     }),
   };
-
-  orderDocuments.push(orderDoc);
 };

@@ -597,7 +597,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/documents/view/all-documents',
+              href: '/applicant/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -938,7 +938,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/documents/view/all-documents',
+              href: '/applicant/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -1166,7 +1166,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/documents/view/all-documents',
+              href: '/applicant/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -1542,7 +1542,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/documents/view/all-documents',
+              href: '/applicant/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -1834,7 +1834,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/documents/view/all-documents',
+              href: '/applicant/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -2125,7 +2125,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/documents/view/all-documents',
+              href: '/applicant/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -2277,7 +2277,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/documents/view/all-documents',
+              href: '/applicant/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -2381,7 +2381,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/documents/view/all-documents',
+              href: '/applicant/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -2479,7 +2479,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/documents/view/all-documents',
+              href: '/applicant/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -2631,7 +2631,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/respondent/documents/view/all-documents',
+              href: '/respondent/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -2720,7 +2720,7 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/respondent/documents/view/all-documents',
+              href: '/respondent/documents/view/all-categories',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -2951,7 +2951,7 @@ describe.skip('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/documents/view/all-documents',
+            href: '/respondent/documents/view/all-categories',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
             openInAnotherTab: false,
@@ -3180,7 +3180,7 @@ describe.skip('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/documents/view/all-documents',
+            href: '/respondent/documents/view/all-categories',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
             openInAnotherTab: false,
@@ -3461,7 +3461,7 @@ describe.skip('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/documents/view/all-documents',
+            href: '/respondent/documents/view/all-categories',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
             openInAnotherTab: false,
@@ -3666,7 +3666,7 @@ describe.skip('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/documents/view/all-documents',
+            href: '/respondent/documents/view/all-categories',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
             openInAnotherTab: false,

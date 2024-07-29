@@ -135,7 +135,7 @@ export const RESPOND_TO_AOH_REVIEW: PageLink = `${partyType}${RESPONSE_TASKLIST}
 const DOCUMENTS = '/:partyType/documents';
 
 /** View all documents */
-export const VIEW_ALL_DOCUMENT_TYPES: PageLink = `${DOCUMENTS}/view/all-documents`;
+export const VIEW_ALL_DOCUMENT_TYPES: PageLink = `${DOCUMENTS}/view/all-categories`;
 export const VIEW_APPLICATION_PACK_DOCUMENTS: PageLink = `${DOCUMENTS}/view/application-pack-documents/:context?`;
 export const VIEW_ALL_ORDERS: PageLink = `${DOCUMENTS}/view/orders-from-the-court`;
 export const VIEW_TYPE_DOCUMENT: PageLink = `${DOCUMENTS}/view/:type/doc`;
@@ -241,6 +241,8 @@ export const C100_CHILDERN_DETAILS_OTHER_CHILDREN: PageLink = `${C100_CHILDERN_D
 export const C100_CHILDERN_OTHER_CHILDREN_NAMES: PageLink = `${C100_CHILDERN_DETAILS_OTHERS}/names`;
 export const C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS: PageLink = `${C100_CHILDERN_DETAILS_OTHERS}/:childId/personal-details`;
 export const C100_CHILDERN_LIVE_WITH: PageLink = `${C100_CHILDERN_DETAILS}/:childId/live-with`;
+export const C100_CHILDERN_LIVING_ARRANGEMENTS: PageLink = `${C100_CHILDERN_LIVE_WITH}/living-arrangements`;
+export const C100_CHILDERN_MAINLY_LIVE_WITH: PageLink = `${C100_CHILDERN_LIVE_WITH}/mainly-live-with`;
 
 /** @C100  Payment Handler*/
 export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
@@ -456,6 +458,12 @@ export const REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING: PageLink = `/:root/${REAS
 export const REASONABLE_ADJUSTMENTS_COURT_NEEDS: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/needs-in-court`;
 export const REASONABLE_ADJUSTMENTS_RESPONDENT_RESPONSE_REVIEW: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/review`;
 /** Reasonable Adjustments end */
+
+const STATEMENT_OF_SERVICE: PageLink = '/:partyType/statement-of-service';
+export const STATEMENT_OF_SERVICE_WHO_WAS_SERVED: PageLink = `${STATEMENT_OF_SERVICE}/who-was-served/:context`;
+export const UPLOAD_STATEMENT_OF_SERVICE: PageLink = `${STATEMENT_OF_SERVICE}/upload/:context/:removeFileId?`;
+export const STATEMENT_OF_SERVICE_REVIEW: PageLink = `${STATEMENT_OF_SERVICE}/review/:context`;
+export const STATEMENT_OF_SERVICE_SUCCESS: PageLink = `${STATEMENT_OF_SERVICE}/success`;
 
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
 export const COMMON_PAGE_URLS = [
