@@ -1,5 +1,4 @@
 import { CaseWithId } from '../../../../../../app/case/case';
-import { YesOrNo } from '../../../../../../app/case/definition';
 import { interpolate } from '../../../../../../steps/common/string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
 import { findNotification, showNotification } from '../utils';
@@ -7,10 +6,7 @@ import { findNotification, showNotification } from '../utils';
 export const DA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
   {
     id: NotificationType.DA_RESPONDENT_BANNER,
-    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
-      // banners.length === 0 && (revisit latter)
-      return caseData.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES;
-    },
+    show: showNotification,
   },
   {
     id: NotificationType.ORDER_NON_PERSONAL_SERVICE,
