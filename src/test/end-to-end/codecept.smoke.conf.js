@@ -1,6 +1,16 @@
+const path = require('path');
+const fs = require('fs');
+
+const outputDir = path.resolve(__dirname, '../../../output');
+
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir);
+}
+
+
 exports.config = {
     tests: './tests/*.js',
-    output: './output',
+  output: outputDir,
     helpers: {
       Playwright: {
         // headless mode
@@ -29,7 +39,30 @@ exports.config = {
     },
     include: { I: './steps_file.js' },
     bootstrap: null,
-    mocha: {},
+    mocha: {
+      reporterEnabled: 'codeceptjs-cli-reporter, mochawesome',
+      reporterOptions: {
+        'codeceptjs-cli-reporter': {
+          stdout: '-',
+          options: {
+            verbose: false,
+            steps: true
+          }
+        },
+        mochawesome: {
+          stdout: `${outputDir}/console.log`,
+          options: {
+            includeScreenshots: true,
+            reportDir: outputDir,
+            reportFilename: 'PrL-cui-smoke-tests',
+            reportTitle: 'PrL Citizen UI smoke Tests',
+            inline: true,
+            html: true,
+            json: true
+          }
+        }
+      }
+    },
     multiple: {
       parallel: {
         chunks: 2,
