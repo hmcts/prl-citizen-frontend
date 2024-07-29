@@ -1,5 +1,4 @@
 import { CaseWithId } from '../../../../../../app/case/case';
-import { YesOrNo } from '../../../../../../app/case/definition';
 import { interpolate } from '../../../../../../steps/common/string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
 import { findNotification, showNotification } from '../utils';
