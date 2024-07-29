@@ -1,5 +1,3 @@
-/* eslint-disable import/order */
-import { ResourceReader } from '../.././../../../modules/resourcereader/ResourceReader';
 import { FormFields } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 import {
@@ -7,6 +5,7 @@ import {
   generateContent as generateAddressLookupContent,
 } from '../../../../common/components/address-lookup';
 import { APPLICANT_MANUAL_ADDRESS } from '../../../../urls';
+import { ResourceReader } from '../.././../../../modules/resourcereader/ResourceReader';
 
 import { generateContent } from './content';
 
