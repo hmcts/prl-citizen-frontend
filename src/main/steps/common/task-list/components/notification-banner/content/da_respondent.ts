@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { interpolate } from '../../../../../../steps/common/string-parser';
-import { DOWNLOAD_DOCUMENT_BY_TYPE, VIEW_ALL_ORDERS } from '../../../../../urls';
+import { VIEW_ALL_ORDERS, VIEW_APPLICATION_PACK_DOCUMENTS } from '../../../../../urls';
 import { applyParms } from '../../../../url-parser';
 import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from '../definitions';
 import { findNotification, getOrderNotificationHeading } from '../utils';
@@ -23,9 +23,8 @@ const en: NotificationBannerContentConfig = {
         links: [
           {
             //** validate **
-            href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
               partyType: PartyType.RESPONDENT,
-              documentType: 'cada-document',
             }),
             text: 'View the court documents',
             external: true,
@@ -95,9 +94,8 @@ const cy: typeof en = {
         links: [
           {
             //** validate **
-            href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
               partyType: PartyType.RESPONDENT,
-              documentType: 'cada-document',
             }),
             text: 'View the court documents -welsh',
             external: true,
