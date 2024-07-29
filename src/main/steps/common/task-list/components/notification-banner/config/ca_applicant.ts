@@ -76,7 +76,6 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
     interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
       const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
       const { respondent, has } = getBannerContentForRespondent(caseData, commonContent);
-
       return interpolate(content, {
         final: notification?.final ? ` ${commonContent.final}` : '',
         order: notification?.multiple ? commonContent.orders : commonContent.order,

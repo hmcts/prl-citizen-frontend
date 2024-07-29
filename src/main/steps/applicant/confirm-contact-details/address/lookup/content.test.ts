@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 import { ResourceReader } from '../.././../../../modules/resourcereader/ResourceReader';
 import { FormFields } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
