@@ -23,14 +23,45 @@
         {% for document in documents %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{document['document_en']['createdDate']}}
+              {{document['createdDate']}}
             </dt>
             <dd class="govuk-summary-list__value">
-              <a href={{document['document_en']['documentDownloadUrl']}} target="_blank">{{ document['document_en']['documentName'] }}</a>
+              <a href={{document['documentDownloadUrl']}} target="_blank">{{ document['documentName'] }}</a>
             </dd>
           </div>
         {% endfor %}
       </dl>
     </li>
   </ol>
+   {% if documents.length %}
+    <ol class="app-task-list">
+
+      <li>
+        <dl class="govuk-summary-list govuk-summary-list--no-border">
+          <dt class="govuk-summary-list__key govuk-!-width-one-quarter">
+            {{ uploadDate }}
+          </dt>
+          <dd class="govuk-summary-list__key govuk-!-width-full">
+          {{ file }}
+          </dd>
+          <dd class="govuk-summary-list__key govuk-!-width-one-quarter">
+          {{ uploadedBy }}
+          </dd>
+          {% for document in documents %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key govuk-!-width-one-quarter">
+                {{document['createdDate']}}
+              </dt>
+              <dd class="govuk-summary-list__value govuk-!-width-full">
+                <a href={{document['documentDownloadUrl']}} target="_blank">{{ document['documentName'] }}</a>
+              </dd>
+              <dd class="govuk-summary-list__value govuk-!-width-one-quarter">
+                {{ document['uploadedBy'] }}
+              </dd>
+            </div>
+          {% endfor %}
+        </dl>
+      </li>
+    </ol>
+  {% endif %}
 {% endblock %}

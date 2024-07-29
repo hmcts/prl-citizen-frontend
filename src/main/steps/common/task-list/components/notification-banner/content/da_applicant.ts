@@ -7,39 +7,43 @@ import { NotificationBannerContent, NotificationBannerContentConfig, Notificatio
 import { findNotification, getOrderNotificationHeading } from '../utils';
 
 const en: NotificationBannerContentConfig = {
-  newOrder: {
-    heading: 'You have a new order from the court',
+  orderNonPersonalService: {
+    heading: 'You have {finalOrNew} {order} from the court',
+    interpolateHeading: (
+      content: string,
+      commonContent: NotificationBannerContent['common'],
+      caseData: CaseWithId
+    ): string => {
+      const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
+
+      return interpolate(content, {
+        order: notification?.multiple ? commonContent.orders : commonContent.order,
+        finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
+      });
+    },
     sections: [
       {
         contents: [
           {
-            text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+            text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
           },
         ],
         links: [
           {
             //** validate **
-            text: 'View the order (PDF)',
+            text: 'View the {order} (PDF)',
             href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
-          },
-        ],
-      },
-    ],
-  },
-  finalOrder: {
-    heading: 'You have a final order',
-    sections: [
-      {
-        contents: [
-          {
-            text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
-          },
-        ],
-        links: [
-          {
-            //** validate **
-            text: 'View the final order (PDF)',
-            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+            interpolateLinkText: (
+              content: string,
+              commonContent: NotificationBannerContent['common'],
+              caseData: CaseWithId
+            ): string => {
+              const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
+
+              return interpolate(content, {
+                order: notification?.multiple ? commonContent.orders : commonContent.order,
+              });
+            },
           },
         ],
       },
@@ -114,39 +118,43 @@ const en: NotificationBannerContentConfig = {
 };
 
 const cy: typeof en = {
-  newOrder: {
-    heading: 'Mae gennych orchymyn newydd gan y llys',
+  orderNonPersonalService: {
+    heading: 'You have {finalOrNew} {order} from the court (welsh)',
+    interpolateHeading: (
+      content: string,
+      commonContent: NotificationBannerContent['common'],
+      caseData: CaseWithId
+    ): string => {
+      const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
+
+      return interpolate(content, {
+        order: notification?.multiple ? commonContent.orders : commonContent.order,
+        finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
+      });
+    },
     sections: [
       {
         contents: [
           {
-            text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+            text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided. (welsh)',
           },
         ],
         links: [
           {
             //** validate **
-            text: 'Gweld y gorchymyn (PDF)',
+            text: 'View the {order} (PDF) (welsh)',
             href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
-          },
-        ],
-      },
-    ],
-  },
-  finalOrder: {
-    heading: 'Mae gennych orchymyn terfynol',
-    sections: [
-      {
-        contents: [
-          {
-            text: 'Mae’r llys wedi gwneud penderfyniad terfynol ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu. ',
-          },
-        ],
-        links: [
-          {
-            //** validate **
-            text: 'Gweld y gorchymyn terfynol (PDF)',
-            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+            interpolateLinkText: (
+              content: string,
+              commonContent: NotificationBannerContent['common'],
+              caseData: CaseWithId
+            ): string => {
+              const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
+
+              return interpolate(content, {
+                order: notification?.multiple ? commonContent.orders : commonContent.order,
+              });
+            },
           },
         ],
       },

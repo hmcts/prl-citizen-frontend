@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
@@ -5,6 +6,8 @@ import { CaseWithId } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
+
+const logger = Logger.getLogger('service-auth-token');
 
 @autobind
 export default class C100StartPostController extends PostController<AnyObject> {
@@ -21,7 +24,7 @@ export default class C100StartPostController extends PostController<AnyObject> {
           state,
           noOfDaysRemainingToSubmitCase,
         } = await req.locals.C100Api.createCase();
-
+        logger.info('Create case details ', caseId, caseTypeOfApplication, state, noOfDaysRemainingToSubmitCase);
         req.session.userCase = {
           caseId,
           caseTypeOfApplication,

@@ -10,15 +10,15 @@ import {
   en as passportAmountEn,
 } from '../../../common/safety-concerns/abduction/passport-amount/content';
 import {
+  cy as havePassportCy,
+  en as havePassportEn,
+} from '../../../common/safety-concerns/abduction/passport-office/content';
+import {
   cy as passportOfficeNotifiedCy,
   en as passportOfficeNotifiedEn,
   cy as previousAbductionCy,
   en as previousAbductionEn,
 } from '../../../common/safety-concerns/abduction/passport-office-notified/content';
-import {
-  cy as havePassportCy,
-  en as havePassportEn,
-} from '../../../common/safety-concerns/abduction/passport-office/content';
 import {
   cy as passportOfficeCy,
   en as passportOfficeEn,

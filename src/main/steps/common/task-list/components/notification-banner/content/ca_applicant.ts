@@ -348,7 +348,7 @@ const en: NotificationBannerContentConfig = {
           },
           {
             text: 'Upload the statement of service (form C9)',
-            href: '',
+            href: '/applicant/statement-of-service/who-was-served/personal-service',
           },
         ],
       },

@@ -38,7 +38,7 @@ import {
   TypeOfOrder,
   WithoutNoticeHearing,
   reasonableAdjustment,
-  whereDoChildLive,
+  whereDoChildrenLive,
 } from './mainUtil';
 import { InternationElements } from './util/InternationElement.util';
 import { ApplicantElements } from './util/applicant.util';
@@ -166,7 +166,8 @@ export const enContent = {
     applicantDetails: 'Applicant [^^^] - Your details',
     //respondent-details
     relationshipTo: 'Relationship to',
-    whoDoesLiveWith: 'Who does [^childName^] currently live with?',
+    childLivingArrangements: "{firstname} {lastname}'s living arrangements",
+    whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with?',
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
@@ -305,7 +306,8 @@ export const cyContent = {
     applicantDetails: 'Ceisydd [^^^] - Eich manylion',
     //respondent-details
     relationshipTo: 'Perthynas â',
-    whoDoesLiveWith: 'Gyda phwy mae [^childName^] yn byw ar hyn o bryd?',
+    childLivingArrangements: "{firstname} {lastname}'s living arrangements (welsh)",
+    whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with? (welsh)',
     otherPerson: 'Rhywun arall',
     contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
     addressDetails: 'Manylion cyfeiriad',
@@ -323,7 +325,7 @@ export const cyContent = {
     detailsOfPrevMiamEvidence: 'Darparu manylion o fynychu MIAM',
     prevMiamEvidence: 'Tystiolaeth o fynychu MIAM neu NCDR',
     whyCantAccessMediator: 'Pam na allwch chi gael mynediad at gyfryngwr',
-    giveDetailsOfMediators: 'Rhowch fanylion y cyfryngwr rydych wedi cysylltu ag o/â hi',
+    giveDetailsOfMediators: 'Rhowch fanylion y cyfryngwyr rydych wedi cysylltu â nhw',
     disability:
       'Mae gennych anabledd neu analluogrwydd arall sy’n eich atal rhag mynychu MIAM yn bersonol, ar-lein neu drwy gyswllt fideo, ac ni all y cyfryngwyr y bu ichi gysylltu â nhw ddarparu cyfleusterau i chi fynychu.',
     noMediatorIn15mile:
@@ -467,7 +469,7 @@ export const peopleSections = (userCase, contentLanguage, language) => {
     RespondentDetails(contentLanguage, userCase, language),
     OtherPeopleDetailsTitle(contentLanguage, userCase, language),
     otherPeopleSection,
-    whereDoChildLive(contentLanguage, userCase),
+    whereDoChildrenLive(contentLanguage, userCase),
   ];
 };
 
