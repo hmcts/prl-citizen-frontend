@@ -120,6 +120,7 @@ export interface User {
   email: string;
   idamId: string;
   solicitorRepresented?: string;
+  pcqId?: string;
 }
 
 export interface Response {
@@ -134,6 +135,8 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
   c7ResponseSubmitted?: YesOrNo;
+  responseToAllegationsOfHarmYesOrNoResponse? : YesOrNo;
+  respondentResponseToAllegationOfHarm?: string;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -765,7 +768,7 @@ export interface CaseData {
   miamExemptionsChecklist: string[];
   attendingTheHearingTable: AttendingTheHearingTable;
   caseUrgencyTimeAndReason: string;
-  welshLanguageRequirement: string;
+  welshLanguageRequirement:YesOrNo;
   internationalElementTable: InternationalElementTable;
   litigationCapacityFactors: string;
   miamOtherGroundsChecklist: string;
@@ -1477,7 +1480,7 @@ export const enum EventRoutesContext {
   SAFETY_CONCERNS_NO = 'SAFETY_CONCERNS_NO',
   VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS',
   CONTACT_PREFERENCE = 'CONTACT_PREFERENCE',
-  HEARINGS = 'HEARINGS'
+  HEARINGS = 'HEARINGS',
 }
 
 export const enum ClarificationReason {
@@ -1671,7 +1674,7 @@ export interface AllegationsOfHarmOverviewTable {
 }
 
 export interface WelshLanguageRequirementsTable {
-  welshLanguageRequirement: string;
+  welshLanguageRequirement: YesOrNo;
   welshLanguageRequirementApplication: string;
   languageRequirementApplicationNeedWelsh: string;
   welshLanguageRequirementApplicationNeedEnglish: string;
@@ -1862,7 +1865,7 @@ export const enum State {
   CASE_DRAFT = 'AWAITING_SUBMISSION_TO_HMCTS',
   CASE_SUBMITTED_PAID = 'SUBMITTED_PAID',
   CASE_SUBMITTED_NOT_PAID = 'SUBMITTED_NOT_PAID',
-  CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUE',
+  CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUED',
   CASE_GATE_KEEPING = 'JUDICIAL_REVIEW',
   CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
   CASE_WITHDRAWN = 'CASE_WITHDRAWN',
@@ -2289,6 +2292,15 @@ export type Row = {
   displayText: string;
   value: string | null | undefined;
 };
+export type Reason= {
+  title?:string,
+  reasons?:Reasons[],
+
+};
+export type Reasons= {
+  reason?:string,
+  examption?:string[]
+}
 
 export interface CompletedHearings {
   hearingId: number | undefined;
@@ -2506,9 +2518,7 @@ export interface OtherProceedingsDocumentInfo extends DocumentInfo {
   id: string;
 }
 
-export interface DocumentUploadResponse {
-  status: string;
-  document: {
+export type DocumentResponse = {
     document_url: string;
     document_binary_url: string;
     document_filename: string;
@@ -2516,6 +2526,10 @@ export interface DocumentUploadResponse {
     document_creation_date: string;
     category_id?:string;
   };
+
+export interface DocumentUploadResponse {
+  status: string;
+  document: DocumentResponse;
 }
 
 export enum ReasonableAdjustments {
@@ -2818,10 +2832,11 @@ export enum CaseEvent {
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
+  CITIZEN_PCQ_UPDATE = 'pcqUpdateForCitizen',
+  CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
   CONTACT_PREFERENCE='citizenContactPreference',
-  CITIZEN_SAVE_C100_DRAFT_INTERNAL="citizenSaveC100DraftInternal",
-  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates",
-  CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding"
+  CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding",
+  CITIZEN_RESPONSE_TO_AOH = 'citizenResponseToAoH'
 }
 
 //DO NOT CHANGE VALUES AS THESE ARE USED IN BACKEND TO MAP FIELDS INTO CASE_DATA
@@ -2948,7 +2963,54 @@ export enum PaymentErrorContext {
   PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
   APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted',
 }
+
 export enum RootContext {
   C100_REBUILD = 'c100-rebuild',
   RESPONDENT = 'respondent',
+}
+
+export enum DomesticAbuseExemptions {
+  POLICE_INVOLVEMENT = 'policeInvolvement',
+  COURT_INVOLVEMENT = 'courtInvolvement',
+  LETTER_OF_BEING_VICTIM = 'letterOfBeingVictim',
+  LETTER_FROM_AUTHORITY = 'letterFromAuthority',
+  LETTER_FROM_SUPPORT_SERVICE = 'letterFromSupportService',
+  ILR_DUE_TO_DOMESTIC_ABUSE = 'ILRDuetoDomesticAbuse',
+  FINANCIAL_ABUSE = 'financialAbuse',
+  NONE = 'none',
+}
+
+export enum PoliceInvolvementEvidence {
+  PARTY_ARRESTED = 'evidenceOfSomeoneArrest',
+  POLICE_CAUTION = 'evidenceOfPolice',
+  ONGOING_CRIMINAL_PROCEEDING = 'evidenceOfOnGoingCriminalProceeding',
+  CONVICTION = 'evidenceOfConviction',
+  SECTION_24_NOTICE = 'evidenceOfSection24Notice',
+  SECTION_22_NOTICE = 'evidenceOfSection22Notice',
+}
+
+export enum CourtInvolvementEvidence {
+  BOUND_BY_COURT = 'boundedByCourtAction',
+  PROTECTIVE_INJUNCTION = 'protectionInjuction',
+  UNDERTAKING = 'undertaking',
+  UK_DOMESTIC_VIOLENCE = 'ukDomesticViolence',
+  UK_POTENTIAL_VICTIM = 'ukPotentialVictim',
+}
+
+export enum VictimLetterEvidence {
+  HEALTH_PROFESSIONAL_LETTER = 'letterFromHealthProfessional',
+  REFERRAL_LETTER = 'referralLetterFromHealthProfessional',
+}
+
+export enum AuthorityLetterEvidence {
+  MULTI_AGENCY_LETTER = 'letterFromMultiAgencyMember',
+  OFFICER_LETTER = 'letterFromOfficer',
+  PUBLIC_AUTHORITY_LETTER = 'letterFromPublicAuthority',
+}
+
+export enum SupportServiceEvidence {
+  DOMESTIC_VIOLENCE_ADVISOR = 'letterFromDomesticViolenceAdvisor',
+  SEXUAL_VIOLENCE_ADVISOR = 'letterFromSexualViolenceAdvisor',
+  DOMESTIC_VIOLENCE_ORGANISATION = 'letterFromOrgDomesticViolenceSupport',
+  UK_DOMESTIC_VIOLENCE_ORGANISATION = 'letterFromOrgDomesticViolenceInUk',
 }

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
 import { CaseWithId } from '../../../../app/case/case';
+import { ContactPreference } from '../../../../app/case/definition';
 import { UserDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -26,6 +27,7 @@ export const en = () => ({
   nameText: 'name',
   address: 'Address',
   addressLowerCase: 'address',
+  completeSection: 'Complete this section',
 });
 
 export const cy = () => ({
@@ -45,6 +47,7 @@ export const cy = () => ({
   nameText: 'enw',
   address: 'Cyfeiriad',
   addressLowerCase: 'cyfeiriad',
+  completeSection: 'Llenwch yr adran hon',
 });
 
 const languages = {
@@ -90,6 +93,18 @@ export const generateContent: TranslationFn = content => {
   const { fields } = generateFormFields();
   const partyDetails = getPartyDetails(content.userCase as CaseWithId, content.userIdamId as UserDetails['id']);
 
+  const addressDetails = Object.values(partyDetails?.address ?? {}).filter(address => {
+    if (address?.trim()) {
+      return address;
+    }
+  });
+
+  if (content.userCase?.partyContactPreference === ContactPreference.POST && addressDetails.length === 0) {
+    form.submit!.disabled = true;
+  } else {
+    delete form.submit?.disabled;
+  }
+
   return {
     ...translations,
     caption: interpolate(translations.caption, { caseNumber }),
@@ -100,10 +115,6 @@ export const generateContent: TranslationFn = content => {
       content.userCase?.partyContactPreference!
     ),
     contactPreference: content.userCase?.partyContactPreference,
-    addresses: Object.values(partyDetails?.address ?? {}).filter(address => {
-      if (address?.trim()) {
-        return address;
-      }
-    }),
+    addresses: addressDetails,
   };
 };

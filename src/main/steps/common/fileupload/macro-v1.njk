@@ -51,8 +51,10 @@
 
       {{ govukButton({
           text: params.uploadButtonText,
-          type: "upload document",
-          classes: "govuk-button--secondary govuk-!-margin-bottom-0 govuk--custom__button"
+          type: "submit",
+          value: "true",
+          name: "uploadFile",
+          classes: "govuk-button--secondary govuk-!-margin-bottom-0"
         }) }}
     </form>
   </div>

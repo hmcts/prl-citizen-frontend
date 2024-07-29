@@ -145,8 +145,8 @@ const cy: typeof en = {
   accordionTitle: 'Dewiswch ffurflen i wneud cais yn eich achos llys.',
   next: 'Nesaf',
   previous: 'Blaenorol',
-  showSectionText: 'Show - welsh',
-  showAllSectionsText: 'Show all sections - welsh',
+  showSectionText: 'Dangos',
+  showAllSectionsText: 'Dangos bob adran',
   hideSectionText: 'Cuddio',
   hideAllSectionsText: 'Cuddio pob adran',
   delayOrCancelHearing: {
@@ -182,7 +182,7 @@ const cy: typeof en = {
   },
   otherRequestsToCourt: {
     sectionTitle: 'Ceisiadau eraill i’r llys sy’n gofyn i chi lenwi ffurflen C2',
-    contents: ['You can complete form C2 to request the following: - welsh'],
+    contents: ['Gallwch lenwi ffurflen C2 i wneud cais am yr hyn a ganlyn:'],
     submitEvidenceLinkText: 'Gofyn i gael cyflwyno tystiolaeth nad yw’r llys wedi gofyn amdani',
     shareDocLinkText: 'Gofyn i gael rhannu dogfennau gyda rhywun arall',
     joinLeaveCaseLinkText: 'Gofyn i gael ymuno ag achos neu adael achos',
@@ -230,7 +230,7 @@ const cy: typeof en = {
       'Gofyn i’r llys atal caniatáu cwestiynu unigolyn yn bersonol pan fydd honiadau o gam-drin wedi’u gwneud',
     contents: [
       'Os ydych wedi cyhuddo rhywun mewn achos cam-drin ac eisiau i’r llys atal caniatáu cwestiynu’r unigolyn yn bersonol, <a href="" class="govuk-link" target="_blank" aria-label="complete and submit form EX47">llenwch a chyflwynwch ffurflen EX470</a>.',
-      'Os yw rhywun wedi’ch cyhuddo chi, <a href="" class="govuk-link" target="_blank" aria-label="complete and submit form EX471">llenwch a chyflwynwch ffurflen EX471</a>. - welsh',
+      'Os yw rhywun wedi’ch cyhuddo chi, <a href="" class="govuk-link" target="_blank" aria-label="complete and submit form EX471">llenwch a chyflwynwch ffurflen EX471</a>.',
     ],
   },
   authorisingSearchOrder: {

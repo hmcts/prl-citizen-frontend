@@ -42,10 +42,10 @@ export class CosApiClient {
 
   public logError(error: AxiosError): void {
     if (error.response) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
       this.logger.info('Response: ', error.response.data);
     } else if (error.request) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
     } else {
       this.logger.error('API Error', error.message);
     }
@@ -151,6 +151,7 @@ export class CosApiClient {
         id: response.data.caseData.id,
         state: response.data.caseData.state,
         ...fromApiFormat(response.data.caseData),
+        hearingCollection: response.data?.hearings?.caseHearings ?? [],
       };
     } catch (error) {
       this.logError(error);
@@ -158,7 +159,7 @@ export class CosApiClient {
     }
   }
 
-  public async submitRespondentResponse1(
+  public async submitC7Response(
     caseId: string,
     partyDetails: Partial<PartyDetails>,
     partyType: PartyType,
@@ -271,7 +272,6 @@ export class CosApiClient {
       throw new Error('Error occured, final-c7document generation failed - submitRespondentResponse');
     }
   }
-
   /**  generate c7 draft document*/
   public async generateC7DraftDocument(caseId: string, partyId: string): Promise<Document> {
     try {
@@ -288,10 +288,7 @@ export class CosApiClient {
 
   public async generateStatementDocument(request: GenerateDocumentRequest): Promise<DocumentUploadResponse> {
     try {
-      const response = await this.client.post(
-        config.get('services.cos.url') + '/generate-citizen-statement-document',
-        request
-      );
+      const response = await this.client.post(config.get('services.cos.url') + '/citizen-generate-document', request);
       return {
         status: response.data.status,
         document: response.data.document,

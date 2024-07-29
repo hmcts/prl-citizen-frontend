@@ -5,7 +5,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { C100_REBUILD_URL } from '../../../../steps/urls';
+import { C100_URL } from '../../../../steps/urls';
 import { generateContentForLocalComponent } from '../util';
 
 export const en = () => ({
@@ -41,7 +41,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
-    const C100Rebuildjourney = req.originalUrl.startsWith(C100_REBUILD_URL);
+    const C100Rebuildjourney = req.originalUrl.startsWith(C100_URL);
     return {
       c1A_safetyConernAbout: {
         id: 'c1A_safetyConernAbout',

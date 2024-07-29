@@ -18,26 +18,67 @@ export default class DownloadDocumentController {
   ): { documentId: string; documentName: string } {
     let documentReference;
 
-    if (documentType === 'c100-application') {
-      documentReference = caseData.finalDocument ?? caseData.c100DraftDoc;
-    } else if (['fl401-application', 'cada-document'].includes(documentType)) {
-      documentReference = caseData.finalDocument;
-    } else if (documentType === 'aoh-document') {
-      documentReference = caseData.c1ADocument;
-    } else if (documentType === 'c7-response-document') {
-      const c7Document = caseData.citizenDocuments?.find(
-        doc =>
-          doc.partyId === userDetails.id && doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
-      );
-      documentReference = c7Document?.document;
-    } else if (documentType === 'c1a-response-document') {
-      const c1aDocument = caseData.citizenDocuments?.find(
-        doc =>
-          doc.partyId === userDetails.id && doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION
-      );
-      documentReference = c1aDocument?.document;
-    }
+    switch (documentType) {
+      case 'c100-application':
+        documentReference = caseData.finalDocument ?? caseData.c100DraftDoc;
+        break;
 
+      case 'fl401-application':
+      case 'cada-document':
+        documentReference = caseData.finalDocument;
+        break;
+      case 'aoh-document':
+        documentReference = caseData.c1ADocument;
+        break;
+      case 'c7-response-document':
+        documentReference = caseData.citizenDocuments?.find(
+          doc =>
+            doc.partyId === userDetails.id &&
+            doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
+            doc.documentLanguage === 'en'
+        )?.document;
+        break;
+      case 'c7-response-document-welsh':
+        documentReference = caseData.citizenDocuments?.find(
+          doc =>
+            doc.partyId === userDetails.id &&
+            doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
+            doc.documentLanguage === 'cy'
+        )?.document;
+        break;
+      case 'c1a-application-document':
+        documentReference = caseData.citizenDocuments?.find(
+          doc =>
+            doc.partyId === userDetails.id &&
+            doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
+            doc.documentLanguage === 'en'
+        )?.document;
+        break;
+      case 'c1a-application-document-welsh':
+        documentReference = caseData.citizenDocuments?.find(
+          doc =>
+            doc.partyId === userDetails.id &&
+            doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
+            doc.documentLanguage === 'cy'
+        )?.document;
+        break;
+      case 'c1a-response-document':
+        documentReference = caseData.citizenDocuments?.find(
+          doc =>
+            doc.partyId === userDetails.id &&
+            doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&
+            doc.documentLanguage === 'en'
+        )?.document;
+        break;
+      case 'c1a-response-document-welsh':
+        documentReference = caseData.citizenDocuments?.find(
+          doc =>
+            doc.partyId === userDetails.id &&
+            doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&
+            doc.documentLanguage === 'cy'
+        )?.document;
+        break;
+    }
     const documentId = documentReference
       ? documentReference.document_url.substring(documentReference!.document_url.lastIndexOf('/') + 1)
       : '';
@@ -64,7 +105,7 @@ export default class DownloadDocumentController {
         documentId,
         req.session.user.id
       );
-      res.setHeader('Content-Type', document.headers['content-type']);
+      res.setHeader('Content-Type', document.headers['content-type'] || ''); //check with vivek
       res.setHeader(
         'Content-Disposition',
         `${forceDownload === 'forceDownload' ? 'attachment' : 'inline'}; filename=${deTransformFileName(documentName)};` //check with vivek

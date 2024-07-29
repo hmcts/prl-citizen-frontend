@@ -74,7 +74,7 @@ const keys = {
   childGenderLabel: 'childGenderLabel',
   orderAppliedFor: 'orderAppliedFor',
   parentalResponsibility: 'parentalResponsibility',
-  previousAbduction: 'previousAbduction',
+  detailsofAbduction: 'detailsofAbduction',
   c1A_policeOrInvestigatorInvolved: 'c1A_policeOrInvestigatorInvolved',
   childDrugAbuse: 'childDrugAbuse',
   otherWellBeingIssues: 'otherWellBeingIssues',
@@ -1364,12 +1364,12 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/safety-concerns/abduction/previousabductions',
               text: undefined,
-              visuallyHiddenText: 'previousAbduction',
+              visuallyHiddenText: 'detailsofAbduction',
             },
           ],
         },
         key: {
-          text: 'previousAbduction',
+          text: 'detailsofAbduction',
         },
         value: {},
       },
@@ -1723,6 +1723,7 @@ describe('test cases for main util', () => {
       miam_otherProceedings: YesOrNo.NO,
       miam_attendance: YesOrNo.NO,
       miam_mediatorDocument: YesOrNo.YES,
+      miam_validReason: YesOrNo.YES,
     } as ANYTYPE;
     const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).toStrictEqual([
@@ -1764,33 +1765,16 @@ describe('test cases for main util', () => {
         actions: {
           items: [
             {
-              href: '/c100-rebuild/miam/mediator-confirmation',
+              href: '/c100-rebuild/miam/valid-reason',
               text: undefined,
-              visuallyHiddenText: 'mediatorConfirmation',
+              visuallyHiddenText: 'undefined',
             },
           ],
         },
-        key: {
-          text: 'mediatorConfirmation',
-        },
+        key: {},
         value: {
           text: 'Yes',
         },
-      },
-      {
-        actions: {
-          items: [
-            {
-              href: '/c100-rebuild/miam/mediator-document',
-              text: undefined,
-              visuallyHiddenText: 'midatatorDocumentTitle',
-            },
-          ],
-        },
-        key: {
-          text: 'midatatorDocumentTitle',
-        },
-        value: {},
       },
     ]);
     expect(CaseName_fun?.title).toBe('MiamAttendance');

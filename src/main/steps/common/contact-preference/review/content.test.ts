@@ -22,6 +22,9 @@ const en = {
   email: 'Email',
   change: 'Change',
   nameText: 'name',
+  address: 'Address',
+  addressLowerCase: 'address',
+  completeSection: 'Complete this section',
 };
 
 const cy = {
@@ -39,6 +42,9 @@ const cy = {
   email: 'E-bost',
   change: 'Newid',
   nameText: 'enw',
+  address: 'Cyfeiriad',
+  addressLowerCase: 'cyfeiriad',
+  completeSection: 'Llenwch yr adran hon',
 };
 
 describe('contact email common content', () => {
@@ -155,5 +161,47 @@ describe('contact email common content', () => {
       'string',
       'string',
     ]);
+  });
+
+  test('should set submit button as disabled when post preference and no address details', () => {
+    commonContent.userCase = {
+      caseTypeOfApplication: 'C100',
+      partyContactPreference: 'post',
+      respondents: [
+        {
+          id: '123',
+          value: {
+            user: {
+              idamId: '123',
+            },
+            address: {
+              AddressLine1: null,
+              AddressLine2: null,
+              AddressLine3: null,
+              PostTown: null,
+              County: null,
+              PostCode: null,
+              Country: null,
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          value: {
+            partyId: '123',
+            invitedUserId: '123',
+          },
+        },
+      ],
+      user: {
+        id: '123',
+      },
+    } as unknown as Partial<CaseWithId>;
+    commonContent.userIdamId = '123';
+    commonContent.userId = '123';
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent;
+    expect(form?.submit?.disabled).toBe(true);
   });
 });
