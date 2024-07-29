@@ -58,7 +58,7 @@ const en: NotificationBannerContentConfig = {
     ): string => {
       const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
-     return interpolate(content, {
+      return interpolate(content, {
         order: notification?.multiple ? commonContent.orders : commonContent.order,
         finalOrNew: notification ? getOrderNotificationHeading(notification, commonContent) : '',
       });

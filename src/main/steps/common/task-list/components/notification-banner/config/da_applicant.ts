@@ -1,6 +1,4 @@
 import { CaseWithId } from '../../../../../../app/case/case';
-import { State } from '../../../../../../app/case/definition';
-import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { interpolate } from '../../../../../../steps/common/string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
 import { findNotification, getBannerContentForRespondent, showNotification } from '../utils';
