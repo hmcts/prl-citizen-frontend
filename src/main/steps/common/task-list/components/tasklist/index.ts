@@ -13,6 +13,7 @@ import {
   TaskListConfig,
   TaskListConfigProps,
 } from '../../definitions';
+
 import tasklistConfig from './config/index';
 import { StateTags, getStateTagLabel } from './utils';
 
@@ -174,4 +175,3 @@ const prepareHyperLinkConfig = (
       : task.openInAnotherTab ?? false,
   };
 };
-
