@@ -48,7 +48,7 @@ function copyResources() {
   }
 
   fs.copyFileSync(`${__dirname}/resources/angular.min.js`, `${resourceDir}angular.min.js`);
-  fs.copyFileSync(`${__dirname}/resources/css/all.css`, `${cssDir}all.css`);
+  // fs.copyFileSync(`${__dirname}/resources/css/all.css`, `${cssDir}all.css`);
   fs.copyFileSync(`${__dirname}/resources/webfonts/fa-solid-900.woff2`, `${webfontsDir}fa-solid-900.woff2`);
 }
 
