@@ -13,6 +13,8 @@ module.exports = {
             I.wait('2');
         
             await I.retry(retryCount).waitForText('Select the type of document');
+            await I.runAccessibilityTest();
+
             await I.retry(retryCount).waitForText('Witness statements and evidence');
             await I.retry(retryCount).click('#your-position-statements');
           
@@ -20,26 +22,36 @@ module.exports = {
 
             async clickConfirmOrEditYourContactDetails() {
                 await I.retry(retryCount).waitForText('confirm-or-edit-your-contact-details');
+              await I.runAccessibilityTest();
+
                 await I.retry(retryCount).click('#confirm-or-edit-your-contact-details');
                 I.wait('2');
               },
               async clickOtherWitnessStatements() {
                 await I.retry(retryCount).waitForText('other-witness-statements');
+                await I.runAccessibilityTest();
+
                 await I.retry(retryCount).click('#other-witness-statements');
                 I.wait('2');
               },
               async clickMailScreenshotsMediaFiles() {
                 await I.retry(retryCount).waitForText('mail-screenshots-media-files');
+                await I.runAccessibilityTest();
+
                 await I.retry(retryCount).click('#mail-screenshots-media-files');
                 I.wait('2');
               },
               async clickMedicalRecords() {
                 await I.retry(retryCount).waitForText('medical-records');
+                await I.runAccessibilityTest();
+
                 await I.retry(retryCount).click('#medical-records');
                 I.wait('2');
               },
               async clickLettersFromSchool() {
                 await I.retry(retryCount).waitForText('letters-from-school');
+                await I.runAccessibilityTest();
+
                 await I.retry(retryCount).click('#letters-from-school');
                 I.wait('2');
               },
@@ -55,6 +67,8 @@ module.exports = {
               },
               async clickPreviousOrdersSubmitted() {
                 await I.retry(retryCount).waitForText('previous-orders-submitted');
+                await I.runAccessibilityTest();
+
                 await I.retry(retryCount).click('#previous-orders-submitted');
                 I.wait('2');
               },
