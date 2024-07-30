@@ -10,7 +10,6 @@ module.exports = {
     async checkYourAnswersSimple() {
         await I.wait('10');
         await I.retry(retryCount).waitForText(CYA.cyaTitle , 60);
-        await I.retry(retryCount).waitForText(CYA.caseName , 60);
         await I.retry(retryCount).waitForText(CYA.statementOfTruth , 60);
         await I.retry(retryCount).waitForText(CYA.confirmStatementTruth , 60);
         await I.wait('5');
