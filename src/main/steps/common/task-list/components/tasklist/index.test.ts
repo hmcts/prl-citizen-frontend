@@ -1,9 +1,10 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
+import { DocumentCategory } from '../../../documents/definitions';
 
 import { getTaskListConfig } from './index';
 
-describe.skip('tasklist index', () => {
+describe('tasklist index', () => {
   const userDetails = {
     id: '123',
     accessToken: 'mock-user-access-token',
@@ -576,6 +577,18 @@ describe.skip('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: true,
+              hintText: null,
+              href: '/applicant/documents/download/type/aoh-document',
+              id: 'yourAOHPDF',
+              linkText: ' Your allegations of harm and violence (PDF)',
+              openInAnotherTab: true,
+              stateTag: {
+                className: 'govuk-tag--grey',
+                label: 'Not available yet',
+              },
+            },
           ],
         },
         {
@@ -634,22 +647,10 @@ describe.skip('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '#',
+              href: '/applicant/documents/view/respondent/doc',
               id: 'theResponsePDF',
-              linkText: 'Response 1 to your application',
-              openInAnotherTab: true,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
-              },
-            },
-            {
-              disabled: true,
-              hintText: null,
-              href: '#',
-              id: 'theResponsePDF',
-              linkText: 'Response 2 to your application',
-              openInAnotherTab: true,
+              linkText: 'The response to application',
+              openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -917,6 +918,18 @@ describe.skip('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: true,
+              hintText: null,
+              href: '/applicant/documents/download/type/aoh-document',
+              id: 'yourAOHPDF',
+              linkText: ' Your allegations of harm and violence (PDF)',
+              openInAnotherTab: true,
+              stateTag: {
+                className: 'govuk-tag--grey',
+                label: 'Not available yet',
+              },
+            },
           ],
         },
         {
@@ -975,25 +988,13 @@ describe.skip('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
+              href: '/applicant/documents/view/respondent/doc',
               id: 'theResponsePDF',
-              linkText: 'Response 1 to your application',
-              openInAnotherTab: true,
+              linkText: 'The response to application',
+              openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
                 label: 'Ready to view',
-              },
-            },
-            {
-              disabled: true,
-              hintText: null,
-              href: '#',
-              id: 'theResponsePDF',
-              linkText: 'Response 2 to your application',
-              openInAnotherTab: true,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
               },
             },
           ],
@@ -1145,6 +1146,18 @@ describe.skip('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: true,
+              hintText: null,
+              href: '/applicant/documents/download/type/aoh-document',
+              id: 'yourAOHPDF',
+              linkText: ' Your allegations of harm and violence (PDF)',
+              openInAnotherTab: true,
+              stateTag: {
+                className: 'govuk-tag--grey',
+                label: 'Not available yet',
+              },
+            },
           ],
         },
         {
@@ -1202,22 +1215,10 @@ describe.skip('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '#',
+              href: '/applicant/documents/view/respondent/doc',
               id: 'theResponsePDF',
-              linkText: 'Response 1 to your application',
-              openInAnotherTab: true,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
-              },
-            },
-            {
-              disabled: true,
-              hintText: null,
-              href: '#',
-              id: 'theResponsePDF',
-              linkText: 'Response 2 to your application',
-              openInAnotherTab: true,
+              linkText: 'The response to application',
+              openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -1521,6 +1522,18 @@ describe.skip('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: true,
+              hintText: null,
+              href: '/applicant/documents/download/type/aoh-document',
+              id: 'yourAOHPDF',
+              linkText: ' Your allegations of harm and violence (PDF)',
+              openInAnotherTab: true,
+              stateTag: {
+                className: 'govuk-tag--grey',
+                label: 'Not available yet',
+              },
+            },
           ],
         },
         {
@@ -1579,22 +1592,10 @@ describe.skip('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '#',
+              href: '/applicant/documents/view/respondent/doc',
               id: 'theResponsePDF',
-              linkText: 'Response 1 to your application',
-              openInAnotherTab: true,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
-              },
-            },
-            {
-              disabled: true,
-              hintText: null,
-              href: '#',
-              id: 'theResponsePDF',
-              linkText: 'Response 2 to your application',
-              openInAnotherTab: true,
+              linkText: 'The response to application',
+              openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -1813,6 +1814,18 @@ describe.skip('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: true,
+              hintText: null,
+              href: '/applicant/documents/download/type/aoh-document',
+              id: 'yourAOHPDF',
+              linkText: ' Your allegations of harm and violence (PDF)',
+              openInAnotherTab: true,
+              stateTag: {
+                className: 'govuk-tag--grey',
+                label: 'Not available yet',
+              },
+            },
           ],
         },
         {
@@ -1871,22 +1884,10 @@ describe.skip('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '#',
+              href: '/applicant/documents/view/respondent/doc',
               id: 'theResponsePDF',
-              linkText: 'Response 1 to your application',
-              openInAnotherTab: true,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
-              },
-            },
-            {
-              disabled: true,
-              hintText: null,
-              href: '#',
-              id: 'theResponsePDF',
-              linkText: 'Response 2 to your application',
-              openInAnotherTab: true,
+              linkText: 'The response to application',
+              openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -2074,18 +2075,6 @@ describe.skip('tasklist index', () => {
                 label: 'DOWNLOAD',
               },
             },
-            {
-              disabled: false,
-              hintText: null,
-              href: '/applicant/documents/view/applicantStatements/applicant',
-              id: 'yourAapplicationWitnessStatment',
-              linkText: 'Witness statement (PDF)',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
-              },
-            },
           ],
         },
         {
@@ -2226,18 +2215,6 @@ describe.skip('tasklist index', () => {
                 label: 'DOWNLOAD',
               },
             },
-            {
-              disabled: false,
-              hintText: null,
-              href: '/applicant/documents/view/applicantStatements/applicant',
-              id: 'yourAapplicationWitnessStatment',
-              linkText: 'Witness statement (PDF)',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
-              },
-            },
           ],
         },
         {
@@ -2342,18 +2319,6 @@ describe.skip('tasklist index', () => {
                 label: 'DOWNLOAD',
               },
             },
-            {
-              disabled: false,
-              hintText: null,
-              href: '/applicant/documents/view/applicantStatements/applicant',
-              id: 'yourAapplicationWitnessStatment',
-              linkText: 'Witness statement (PDF)',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
-              },
-            },
           ],
         },
         {
@@ -2438,18 +2403,6 @@ describe.skip('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--green',
                 label: 'DOWNLOAD',
-              },
-            },
-            {
-              disabled: false,
-              hintText: null,
-              href: '/applicant/documents/view/applicantStatements/applicant',
-              id: 'yourAapplicationWitnessStatment',
-              linkText: 'Witness statement (PDF)',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
               },
             },
           ],
@@ -2790,7 +2743,7 @@ describe.skip('tasklist index', () => {
   });
 });
 
-describe.skip('c100 respondent', () => {
+describe('c100 respondent', () => {
   const userDetails = {
     id: '1234',
     accessToken: 'mock-user-access-token',
@@ -2906,15 +2859,6 @@ describe.skip('c100 respondent', () => {
             href: '/tasklistresponse/start',
             id: 'respondToTheApplication',
             linkText: 'Respond to the application',
-            openInAnotherTab: false,
-            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
-          },
-          {
-            disabled: false,
-            hintText: null,
-            href: '#',
-            id: 'respondToAOHAndViolence',
-            linkText: 'Respond to the allegations of harm and violence',
             openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
           },
@@ -3138,15 +3082,6 @@ describe.skip('c100 respondent', () => {
             openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
           },
-          {
-            disabled: false,
-            hintText: null,
-            href: '#',
-            id: 'respondToAOHAndViolence',
-            linkText: 'Respond to the allegations of harm and violence',
-            openInAnotherTab: false,
-            stateTag: { className: 'govuk-tag--blue', label: 'In progress' },
-          },
         ],
       },
       {
@@ -3330,6 +3265,25 @@ describe.skip('c100 respondent', () => {
           },
         },
       ],
+      respondentDocuments: [
+        {
+          partyId: '1234',
+          partyType: 'respondent',
+          categoryId: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+          uploadedBy: 'test user',
+          uploadedDate: '01/01/2024',
+          reviewedDate: '01/01/2024',
+          document: {
+            document_url: 'MOCK_DOCUMENT_URL',
+            document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+            document_hash: null,
+            category_id: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+            document_creation_date: '01/01/2024',
+          },
+          documentWelsh: null,
+        },
+      ],
       caseInvites: [
         {
           value: {
@@ -3412,21 +3366,12 @@ describe.skip('c100 respondent', () => {
         tasks: [
           {
             disabled: false,
-            href: '/respondent/documents/download/type/c7-response-document',
-            id: 'respondToTheApplication',
+            href: '/respondent/documents/view/respondent/doc',
+            id: 'theResponsePDF',
             hintText: null,
-            linkText: 'Respond to the application',
-            openInAnotherTab: true,
-            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
-          },
-          {
-            disabled: false,
-            href: '#',
-            id: 'respondToAOHAndViolence',
-            hintText: null,
-            linkText: 'Respond to the allegations of harm and violence',
+            linkText: 'The response to application',
             openInAnotherTab: false,
-            stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
           },
         ],
       },
