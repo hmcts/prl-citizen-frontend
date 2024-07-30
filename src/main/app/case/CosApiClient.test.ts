@@ -613,7 +613,7 @@ describe('CosApiClientWithError', () => {
 describe('RetrieveCaseHearingsByCaseId', () => {
   test('retrieveCaseHearingsByCaseId', async () => {
     const req = mockRequest();
-    const response = { id: '1234567', data:[] };
+    const response = { id: '1234567', data: [] };
     mockedAxios.post.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
     const client = new CosApiClient('abc', mockLogger);
 
