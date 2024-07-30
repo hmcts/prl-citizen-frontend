@@ -82,7 +82,10 @@ export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => {
     hearingStatus.AWAITING_LISTING,
     hearingStatus.EXCEPTION,
   ];
-  return !!(caseData?.hearingCollection ?? []).find(hearing => !inactiveHmcStatus.includes(hearing.hmcStatus!));
+  return (
+    !!caseData?.hearingCollection?.length &&
+    !!caseData.hearingCollection.find(hearing => !inactiveHmcStatus.includes(hearing.hmcStatus!))
+  );
 };
 
 export const getStateTagLabel = (state: StateTags, language: string): string =>
