@@ -21,11 +21,11 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2327.preview.platform.hmcts.net'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2358.preview.platform.hmcts.net'
   cos:
-    url: 'https://prl-cos-pr-2544.preview.platform.hmcts.net'
+    url: 'https://prl-cos-pr-2597.preview.platform.hmcts.net'
   documentManagement:
-    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2327.preview.platform.hmcts.net'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2358.preview.platform.hmcts.net'
   fact:
     url: 'http://fact-api-aat.service.core-compute-aat.internal'
   reasonableAdjustments:
