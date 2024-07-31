@@ -45,12 +45,12 @@ const en = {
     {
       text: 'Download your response to the applicant’s allegations',
       isWelsh: YesOrNo.NO,
-      href: '/respondent/documents/download/type/c7-response-document',
+      href: '/respondent/documents/download/type/c1a-response-document',
     },
     {
       text: 'Download your response to the applicant’s allegations in Welsh',
       isWelsh: YesOrNo.YES,
-      href: '/respondent/documents/download/type/c7-response-document-welsh',
+      href: '/respondent/documents/download/type/c1a-response-document-welsh',
     },
   ],
   saveAndContinue: 'Continue',
@@ -95,12 +95,12 @@ const cy: typeof en = {
     {
       text: 'Download your response to the applicant’s allegations',
       isWelsh: YesOrNo.NO,
-      href: '/respondent/documents/download/type/c7-response-document',
+      href: '/respondent/documents/download/type/c1a-response-document',
     },
     {
       text: 'Download your response to the applicant’s allegations in Welsh',
       isWelsh: YesOrNo.YES,
-      href: '/respondent/documents/download/type/c7-response-document-welsh',
+      href: '/respondent/documents/download/type/c1a-response-document-welsh',
     },
   ],
   saveAndContinue: 'Parhau',

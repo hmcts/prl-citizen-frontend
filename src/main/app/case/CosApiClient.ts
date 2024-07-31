@@ -37,10 +37,10 @@ export class CosApiClient {
 
   public logError(error: AxiosError): void {
     if (error.response) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
       this.logger.info('Response: ', error.response.data);
     } else if (error.request) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
     } else {
       this.logger.error('API Error', error.message);
     }
@@ -198,10 +198,7 @@ export class CosApiClient {
 
   public async generateStatementDocument(request: GenerateDocumentRequest): Promise<DocumentUploadResponse> {
     try {
-      const response = await this.client.post(
-        config.get('services.cos.url') + '/generate-citizen-statement-document',
-        request
-      );
+      const response = await this.client.post(config.get('services.cos.url') + '/citizen-generate-document', request);
       return {
         status: response.data.status,
         document: response.data.document,
