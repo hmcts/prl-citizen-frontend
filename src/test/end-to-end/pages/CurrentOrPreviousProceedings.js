@@ -26,6 +26,8 @@ module.exports = {
   async courtCases() {
     I.wait('2');
     await I.retry(retryCount).waitForText('Provide details of court cases you or the children have been involved in');
+    await I.runAccessibilityTest();
+
     await I.retry(retryCount).click('#emergencyOrderOptions');
     await I.retry(retryCount).fillField('#emergencyOrder\\.caseNoDetails', '12345678');
     await I.retry(retryCount).fillField('#emergencyOrder\\.orderDateDetails-day', '1');
