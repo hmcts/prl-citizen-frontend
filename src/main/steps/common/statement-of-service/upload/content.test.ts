@@ -40,7 +40,7 @@ const cy = {
   title: 'Llwytho’r datganiad cyflwyno',
   uploadFileHeading: 'Llwytho dogfen',
   uplodFileHint:
-    'When uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
+    'Pan fyddwch yn llwytho dogfennau, gwnewch yn siŵr eich bod yn enwi’r ffeiliau yn glir.  Er enghraifft, datganiad-safbwynt.doc. Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
   uploadButtonLabel: 'Llwytho ffeil',
   filesUploadedLabel: 'Ffeiliau sydd wedi’u llwytho',
   noFilesUploaded: "Nid oes ffeiliau wedi'u llwytho",
