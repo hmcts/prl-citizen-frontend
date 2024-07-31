@@ -55,7 +55,7 @@ const cy = {
   ],
   errors: {
     statementOfServiceDoc: {
-      empty: 'You must upload a statement of service',
+      empty: 'Mae’n rhaid i chi lwytho datganiad cyflwyno',
       uploadError: 'Document could not be uploaded',
       deleteError: 'Document could not be deleted',
       multipleFiles:
