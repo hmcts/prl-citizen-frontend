@@ -17,6 +17,8 @@ module.exports = {
       async CheckYourDetails() {
         I.wait('2');
         await I.retry(retryCount).waitForText('Check your details');
+        await I.runAccessibilityTest();
+
         await I.retry(retryCount).click('Edit Name');
         await I.retry(retryCount).fillField('Place of birth', 'London');
         await I.retry(retryCount).click('#main-form-submit');
