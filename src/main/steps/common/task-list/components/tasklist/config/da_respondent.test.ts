@@ -19,9 +19,9 @@ describe('da_respondent', () => {
 
     expect(DA_RESPONDENT[0].id).toBe('aboutYou');
     expect(aboutYouTasks).toHaveLength(4);
-    expect(aboutYouTasks[0].id).toBe('keepYourDetailsPrivate');
+    expect(aboutYouTasks[0].id).toBe('editYouContactDetails');
     expect(aboutYouTasks[1].id).toBe('contactPreferences');
-    expect(aboutYouTasks[2].id).toBe('editYouContactDetails');
+    expect(aboutYouTasks[2].id).toBe('keepYourDetailsPrivate');
     expect(aboutYouTasks[3].id).toBe('supportYouNeed');
   });
 
