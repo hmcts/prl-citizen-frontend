@@ -780,7 +780,7 @@ const cy: typeof en = {
           },
           {
             text: 'Llwytho’r datganiad cyflwyno (ffurflen C9)',
-            href: '',
+            href: '/applicant/statement-of-service/who-was-served/personal-service',
           },
         ],
       },

@@ -26,6 +26,8 @@ services:
     url: 'https://prl-cos-pr-2597.preview.platform.hmcts.net'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2358.preview.platform.hmcts.net'
+  fact:
+    url: 'http://fact-api-aat.service.core-compute-aat.internal'
   reasonableAdjustments:
     url: 'https://cui-ra.aat.platform.hmcts.net'
   equalityAndDiversity:
@@ -56,3 +58,4 @@ featureToggles:
 
 launchDarkly:
   offline: true
+allowedCourts: ["Swansea Civil Justice Centre"]
