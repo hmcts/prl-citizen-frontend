@@ -5,6 +5,9 @@ const { chromium } = require('playwright');
 const dataSetupRequestJson = require('./dataSetupRequest.json');
 const CaseDataSetupV2 = require('./CaseDataSetupV2');
 
+const CaseDataSetupFL401 = require('./caseDataSetup_Fl401');
+
+
 class DataSetupManager {
     constructor() {
         this.dataSetupList = [];
@@ -20,9 +23,9 @@ class DataSetupManager {
 
     async init() {
         this.browser = await chromium.launch({ headless: true });
-        if(process.env.ENABLE_DATASETUP === 'true'){
+        // if(process.env.ENABLE_DATASETUP === 'true'){
             this.run();
-        }
+        // }
     }
 
     async close() {
@@ -34,8 +37,29 @@ class DataSetupManager {
     }
 
     run() {
-        for (const request of dataSetupRequestJson) {
+        for (const request of dataSetupRequestJson.C100) {
             const caseDataSetup = new CaseDataSetupV2(this.browser);
+            const caseSetup = {
+                scenario: request.scenario,
+                datasetupObj: caseDataSetup
+            };
+            this.dataSetupList.push(caseSetup);
+            caseDataSetup.state = 'running';
+            fs.appendFileSync(this.datasetupOutputLog, `${new Date().toLocaleTimeString()}: case for scenario => ${request.scenario} \n`);
+            caseDataSetup.caseSetupToServiceOfApplication().then(() => {
+                caseDataSetup.state = 'completed';
+                fs.appendFileSync(this.datasetupOutputLog, `${new Date().toLocaleTimeString()}: case for scenario => ${request.scenario} caseId ${caseDataSetup.caseId} Status: ${caseDataSetup.state} \n`, 'utf-8');
+            })
+                .catch(setupErr => {
+                    console.log(setupErr);
+                    caseDataSetup.state = 'failed';
+                    fs.appendFileSync(this.datasetupOutputLog, `${new Date().toLocaleTimeString()}: case for scenario => ${request.scenario} caseId ${caseDataSetup.caseId} Status: ${caseDataSetup.state} \n`, 'utf-8');
+                });
+            console.log('text');
+        }
+
+        for (const request of dataSetupRequestJson.FL401) {
+            const caseDataSetup = new CaseDataSetupFL401(this.browser, request.scenario);
             const caseSetup = {
                 scenario: request.scenario,
                 datasetupObj: caseDataSetup
