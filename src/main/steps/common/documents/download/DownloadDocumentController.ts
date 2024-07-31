@@ -7,43 +7,41 @@ import { CaseWithId } from '../../../../app/case/case';
 import { AppRequest, UserDetails } from '../../../../app/controller/AppRequest';
 import { AnyObject } from '../../../../app/controller/PostController';
 import { DocumentCategory } from '../definitions';
-import { deTransformFileName, transformFileName } from '../download/utils';
+import { DOCUMENT_LANGUAGE, deTransformFileName, transformFileName } from '../download/utils';
 
 @autobind
 export default class DownloadDocumentController {
   private getDocumentMeta(
     documentType: string,
     caseData: CaseWithId,
-    userDetails: UserDetails
+    userDetails: UserDetails,
+    language: string
   ): { documentId: string; documentName: string } {
     let documentReference;
 
     switch (documentType) {
       case 'c100-application':
-        documentReference = caseData?.finalDocument ?? caseData.c100DraftDoc;
+        if (language === DOCUMENT_LANGUAGE.ENGLISH) {
+          documentReference = caseData?.finalDocument ?? caseData.c100DraftDoc;
+        } else {
+          documentReference = caseData.finalWelshDocument ?? caseData.c100DraftDocWelsh;
+        }
         break;
 
       case 'fl401-application':
       case 'cada-document':
-        documentReference = caseData?.finalDocument;
+        documentReference =
+          language === DOCUMENT_LANGUAGE.ENGLISH ? caseData?.finalDocument : caseData.finalWelshDocument;
         break;
       case 'aoh-document':
-        documentReference = caseData?.c1ADocument;
+        documentReference = language === DOCUMENT_LANGUAGE.ENGLISH ? caseData?.c1ADocument : caseData.c1AWelshDocument;
         break;
       case 'c7-response-document':
         documentReference = caseData?.respondentDocuments?.find(
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
-            doc.documentLanguage === 'en'
-        )?.document;
-        break;
-      case 'c7-response-document-welsh':
-        documentReference = caseData?.respondentDocuments?.find(
-          doc =>
-            doc.partyId === userDetails.id &&
-            doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
-            doc.documentLanguage === 'cy'
+            doc.documentLanguage === language
         )?.document;
         break;
       case 'c1a-application-document':
@@ -51,15 +49,7 @@ export default class DownloadDocumentController {
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
-            doc.documentLanguage === 'en'
-        )?.document;
-        break;
-      case 'c1a-application-document-welsh':
-        documentReference = caseData?.respondentDocuments?.find(
-          doc =>
-            doc.partyId === userDetails.id &&
-            doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
-            doc.documentLanguage === 'cy'
+            doc.documentLanguage === language
         )?.document;
         break;
       case 'c1a-response-document':
@@ -67,15 +57,7 @@ export default class DownloadDocumentController {
           doc =>
             doc.partyId === userDetails.id &&
             doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&
-            doc.documentLanguage === 'en'
-        )?.document;
-        break;
-      case 'c1a-response-document-welsh':
-        documentReference = caseData?.respondentDocuments?.find(
-          doc =>
-            doc.partyId === userDetails.id &&
-            doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&
-            doc.documentLanguage === 'cy'
+            doc.documentLanguage === language
         )?.document;
         break;
     }
@@ -92,11 +74,11 @@ export default class DownloadDocumentController {
 
   public async download(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     // eslint-disable-next-line prefer-const
-    let { documentId, documentName, documentType, forceDownload } = req.params;
+    let { documentId, documentName, documentType, forceDownload, language } = req.params;
 
     try {
       if (documentType) {
-        const documentMeta = this.getDocumentMeta(documentType, req.session.userCase, req.session.user);
+        const documentMeta = this.getDocumentMeta(documentType, req.session.userCase, req.session.user, language);
         documentId = documentMeta.documentId;
         documentName = documentMeta.documentName;
       }

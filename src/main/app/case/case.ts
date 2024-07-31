@@ -125,6 +125,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   allocatedJudgeDetails: 'allocatedJudgeDetails',
   miamCertificationDocumentUpload: 'miamCertificationDocumentUpload',
   c1ADocument: 'c1ADocument',
+  c1AWelshDocument: 'c1AWelshDocument',
   applicantAttendedMiam: 'applicantAttendedMiam',
   caseTypeOfApplication: 'caseTypeOfApplication',
   claimingExemptionMiam: 'claimingExemptionMiam',
@@ -185,6 +186,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentName: 'respondentName',
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
+  finalWelshDocument: 'finalWelshDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
   citizenUploadedDocumentList: 'citizenUploadedDocumentList',
   serviceType: 'serviceType',
@@ -230,6 +232,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
   c100DraftDoc: 'submitAndPayDownloadApplicationLink',
+  c100DraftDocWelsh: 'submitAndPayDownloadApplicationWelshLink',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
   applicantDocuments: 'applicantDocuments',
@@ -302,6 +305,7 @@ export interface Case {
   claimingExemptionMiam?: string;
   miamCertificationDocumentUpload?: Document;
   c1ADocument?: Document;
+  c1AWelshDocument?: Document;
   draftConsentOrderFile?: DraftConsentOrderFile;
   otherProceedingsTable?: OtherProceedingsTable;
   allegationsOfHarmYesNo?: string;
@@ -398,6 +402,7 @@ export interface Case {
   applicantUploadFiles?: DocumentUploadResponse['document'][];
   declarationCheck?: string;
   finalDocument?: Document;
+  finalWelshDocument?: Document;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
@@ -588,6 +593,7 @@ export interface Case {
   partyContactPreference?: ContactPreference | null;
   draftOrderDoc?: Document;
   c100DraftDoc?: Document;
+  c100DraftDocWelsh?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;

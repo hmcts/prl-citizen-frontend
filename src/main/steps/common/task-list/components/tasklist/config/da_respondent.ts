@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { PartyType } from '../../../../../../app/case/definition';
+import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
+import { isDocPresent } from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import { DOWNLOAD_DOCUMENT_BY_TYPE } from '../../../../../urls';
 import { StateTags, TaskListSection, Tasks, getContents, getFinalApplicationStatus } from '../utils';
@@ -20,10 +22,29 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'cada-document',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           }),
-        stateTag: caseData => getFinalApplicationStatus(caseData),
+        stateTag: caseData => getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH),
         disabled: caseData => {
-          return getFinalApplicationStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
+          return getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH) === StateTags.NOT_AVAILABLE_YET;
+        },
+        openInAnotherTab: () => true,
+      },
+      {
+        //** validate **
+        id: Tasks.CHECK_THE_APPLICATION_WELSH,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.RESPONDENT,
+            documentType: 'cada-document',
+            language: DOCUMENT_LANGUAGE.WELSH,
+          }),
+        stateTag: caseData => getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.WELSH),
+        show: caseData => {
+          return (
+            getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.WELSH) !== StateTags.NOT_AVAILABLE_YET &&
+            isDocPresent(caseData, 'finalWelshDocument')
+          );
         },
         openInAnotherTab: () => true,
       },
