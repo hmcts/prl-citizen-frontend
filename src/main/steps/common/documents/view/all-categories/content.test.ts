@@ -14,6 +14,7 @@ describe('documents > view > all-documents > content', () => {
                 id: '1234',
               },
               userCase: {
+                id: '1234',
                 respondentDocuments: [
                   {
                     partyId: 1234,
@@ -233,7 +234,7 @@ describe('documents > view > all-documents > content', () => {
             link: {
               serveDate: '11 Jul 2023',
               text: 'Hearing details',
-              url: '/applicant/hearings/:caseId',
+              url: '/applicant/hearings/1234',
             },
           },
         ],

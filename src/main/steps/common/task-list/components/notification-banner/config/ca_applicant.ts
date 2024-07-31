@@ -44,6 +44,10 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
     show: showNotification,
   },
   {
+    id: NotificationType.APPLICATION_SERVED_BY_SOLICITOR_BAILIFF_TO_RESPONDENT,
+    show: showNotification,
+  },
+  {
     id: NotificationType.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE,
     show: showNotification,
   },

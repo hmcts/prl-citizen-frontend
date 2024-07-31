@@ -322,14 +322,14 @@ export class CosApiClient {
   }
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  public async retrieveCaseHearingsByCaseId(user: UserDetails, caseId: string): Promise<any> {
+  public async retrieveCaseHearingsByCaseId(caseId: string): Promise<{ hearingData: HearingData | null }> {
     try {
       const response = await this.client.post(config.get('services.cos.url') + `/hearing/${caseId}`);
 
-      return response.data;
+      return { hearingData: response.data };
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, case could not be updated - retrieveCaseHearingsByCaseId');
+      throw new Error('Error occured, hearing details could not be retrieved - retrieveCaseHearingsByCaseId');
     }
   }
 
@@ -387,6 +387,24 @@ export class CosApiClient {
       throw new Error('Error occured, could not sumbit statement of service. - SubmitStatementOfService');
     }
   }
+
+  public async findCourtByPostCodeAndService(postCode: string): Promise<FindCourtByPostCodeAndServiceResponse> {
+    try {
+      const response = await this.client.get(
+        `${config.get('services.fact.url')}/search/results?postcode=${encodeURIComponent(
+          postCode
+        )}&serviceArea=childcare-arrangements`
+      );
+
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      if (err?.response?.data?.message) {
+        return err.response.data;
+      }
+      throw new Error('Error occured, could not find court by post code - findCourtByPostCodeAndService');
+    }
+  }
 }
 
 interface DocumentUploadRequest {
@@ -414,3 +432,13 @@ export type UploadedFiles =
       [fieldname: string]: Express.Multer.File[];
     }
   | Express.Multer.File[];
+
+export type FindCourtByPostCodeAndServiceResponse = {
+  slug: string;
+  name: string;
+  courts: {
+    name: string;
+    slug: string;
+  }[];
+  message?: string;
+};

@@ -75,7 +75,7 @@ export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 export const YOURHEARINGS: PageLink = '/yourhearings';
 export const HEARINGS: PageLink = '/hearings';
 export const FETCH_HEARING_DETAILS = '/:partyType/hearings/:caseId';
-export const PARTY_YOUR_HEARINGS = `/:partyType${YOURHEARINGS}${HEARINGS}`;
+export const VIEW_HEARINGS_DETAILS = `/:partyType${YOURHEARINGS}${HEARINGS}`;
 export const RESPONDENT_YOURHEARINGS_HEARINGS: PageLink = `${RESPONDENT}${YOURHEARINGS}${HEARINGS}`;
 /* your hearings */
 

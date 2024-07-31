@@ -213,6 +213,7 @@ export const getViewDocumentCategoryList = (
   let url;
   let date;
   let type;
+
   switch (documentSectionId) {
     case ViewDocumentsSectionId.APPLICANTS_DOCUMENT:
       doclabel = DocumentLabelCategory.VIEW_APPLICANTS_DOCUMENT;
@@ -231,8 +232,10 @@ export const getViewDocumentCategoryList = (
       break;
     case ViewDocumentsSectionId.ATTENDING_THE_HEARING:
       doclabel = DocumentLabelCategory.VIEW_ATTENDING_THE_HEARING;
-      url = FETCH_HEARING_DETAILS;
-      date = caseData.hearingCollection?.length
+      url = applyParms(FETCH_HEARING_DETAILS, {
+        caseId: caseData.id,
+      });
+      date = caseData?.hearingCollection?.length
         ? (dayjs(_.first(caseData.hearingCollection!)!.lastResponseReceivedDateTime)
             .locale(language)
             .format('DD MMM YYYY') as string)
@@ -251,6 +254,7 @@ export const getViewDocumentCategoryList = (
     default:
       return [];
   }
+
   return [
     {
       link: {
