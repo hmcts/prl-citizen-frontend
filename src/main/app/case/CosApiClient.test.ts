@@ -241,13 +241,12 @@ describe('CosApiClient', () => {
   });
 
   test('getHearingsByCaseID', async () => {
-    const response = { id: '200', state: 'SUCCESS' };
+    const response = { id: '200', state: 'SUCCESS', data: [] };
     /* eslint-disable @typescript-eslint/no-explicit-any */
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<any>);
-    const req = mockRequest();
+    mockedAxios.post.mockReturnValueOnce(response as unknown as Promise<any>);
     const client = new CosApiClient('abc', mockLogger);
-    const actual = await client.retrieveCaseHearingsByCaseId(req.session.user, '123456');
-    expect(actual).toEqual(response);
+    const actual = await client.retrieveCaseHearingsByCaseId('123456');
+    expect(actual.hearingData).toEqual(response.data);
   });
 
   test('retrieveCaseHearingsByCaseId should throw error', async () => {
@@ -260,10 +259,9 @@ describe('CosApiClient', () => {
       },
     });
     const client = new CosApiClient('abc', mockLogger);
-    const req = mockRequest();
 
-    await expect(client.retrieveCaseHearingsByCaseId(req.session.user, '1234')).rejects.toThrow(
-      'Error occured, case could not be updated - retrieveCaseHearingsByCaseId'
+    await expect(client.retrieveCaseHearingsByCaseId('1234')).rejects.toThrow(
+      'Error occured, hearing details could not be retrieved - retrieveCaseHearingsByCaseId'
     );
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
   });
@@ -615,13 +613,13 @@ describe('CosApiClientWithError', () => {
 describe('RetrieveCaseHearingsByCaseId', () => {
   test('retrieveCaseHearingsByCaseId', async () => {
     const req = mockRequest();
-    const response = { id: '1234567' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const response = { id: '1234567', data: [] };
+    mockedAxios.post.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
     const client = new CosApiClient('abc', mockLogger);
 
-    const result = await client.retrieveCaseHearingsByCaseId(req.session.userCase, req.session.user);
+    const result = await client.retrieveCaseHearingsByCaseId(req.session.userCase.id);
 
-    expect(result).toEqual(response);
+    expect(result.hearingData).toEqual(response.data);
   });
 
   test('retrieveCaseHearingsByCaseId_Error', async () => {
@@ -635,8 +633,8 @@ describe('RetrieveCaseHearingsByCaseId', () => {
       },
     });
     const client = new CosApiClient('abc', mockLogger);
-    await expect(client.retrieveCaseHearingsByCaseId(req.session.userCase, req.session.user)).rejects.toThrow(
-      'Error occured, case could not be updated - retrieveCaseHearingsByCaseId'
+    await expect(client.retrieveCaseHearingsByCaseId(req.session.userCase.id)).rejects.toThrow(
+      'Error occured, hearing details could not be retrieved - retrieveCaseHearingsByCaseId'
     );
   });
 

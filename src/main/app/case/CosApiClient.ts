@@ -322,14 +322,14 @@ export class CosApiClient {
   }
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  public async retrieveCaseHearingsByCaseId(user: UserDetails, caseId: string): Promise<any> {
+  public async retrieveCaseHearingsByCaseId(caseId: string): Promise<{ hearingData: HearingData | null }> {
     try {
       const response = await this.client.post(config.get('services.cos.url') + `/hearing/${caseId}`);
 
-      return response.data;
+      return { hearingData: response.data };
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, case could not be updated - retrieveCaseHearingsByCaseId');
+      throw new Error('Error occured, hearing details could not be retrieved - retrieveCaseHearingsByCaseId');
     }
   }
 
