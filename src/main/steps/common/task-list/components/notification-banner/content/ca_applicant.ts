@@ -354,6 +354,42 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
+  applicationServedBySolictorBailiffToRespondent: {
+    heading: 'The court has issued your application',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'This means the court has served your application on the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+          },
+          {
+            text: 'The court has also sent the application to the Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru).',
+          },
+          {
+            text: 'Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
+          },
+        ],
+        links: [
+          {
+            text: 'Find out about Cafcass',
+            href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+            show: (caseData: CaseWithId): boolean => {
+              return isCafcassServed(caseData);
+            },
+            external: true,
+          },
+          {
+            text: 'Find out about Cafcass Cymru',
+            href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+            show: (caseData: CaseWithId): boolean => {
+              return isCafcassCymruServed(caseData);
+            },
+            external: true,
+          },
+        ],
+      },
+    ],
+  },
   applicationIssuedByCourtPersonalService: {
     heading: 'The court has issued your application',
     sections: [
@@ -744,7 +780,43 @@ const cy: typeof en = {
           },
           {
             text: 'Llwytho’r datganiad cyflwyno (ffurflen C9)',
-            href: '',
+            href: '/applicant/statement-of-service/who-was-served/personal-service',
+          },
+        ],
+      },
+    ],
+  },
+  applicationServedBySolictorBailiffToRespondent: {
+    heading: 'Mae’r llys wedi cychwyn eich cais',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'This means the court has served your application on the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond. - welsh',
+          },
+          {
+            text: 'The court has also sent the application to the Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru). - welsh',
+          },
+          {
+            text: 'Cafcass or Cafcass Cymru will contact you to consider the needs of the children. - welsh',
+          },
+        ],
+        links: [
+          {
+            text: 'Gwybodaeth am Cafcass',
+            href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+            show: (caseData: CaseWithId): boolean => {
+              return isCafcassServed(caseData);
+            },
+            external: true,
+          },
+          {
+            text: 'Gwybodaeth am Cafcass Cymru',
+            href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+            show: (caseData: CaseWithId): boolean => {
+              return isCafcassCymruServed(caseData);
+            },
+            external: true,
           },
         ],
       },

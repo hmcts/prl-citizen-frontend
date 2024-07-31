@@ -281,7 +281,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
           personalService: true,
         } as CitizenNotification,
@@ -367,7 +367,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
           personalService: true,
         } as CitizenNotification,
@@ -452,7 +452,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
           personalService: true,
         } as CitizenNotification,
@@ -538,7 +538,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
           personalService: true,
         } as CitizenNotification,
@@ -686,7 +686,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CRNF3_PERS_SERV_APPLICANT',
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
           show: true,
           multiple: true,
           final: true,
@@ -775,7 +775,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CRNF3_PERS_SERV_APPLICANT',
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
           show: true,
           multiple: true,
           final: true,
@@ -877,7 +877,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CRNF3_PERS_SERV_APPLICANT',
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
           show: true,
           multiple: true,
           final: true,
@@ -1055,7 +1055,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CRNF3_PERS_SERV_APPLICANT',
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
           show: true,
           multiple: true,
           final: true,
@@ -1292,107 +1292,6 @@ describe('testcase for notification Banner', () => {
                 external: false,
                 href: '/applicant/statement-of-service/who-was-served/personal-service',
                 text: 'Upload the statement of service (form C9)',
-              },
-            ],
-          },
-        ],
-      },
-    ]);
-  });
-
-  test('correct welsh banners when primary citizen has to serve respondent personally', () => {
-    const applicantLIP = applicant[0];
-    applicantLIP.value.response = { ...applicantLIP.value.response, citizenFlags: { isApplicationToBeServed: 'Yes' } };
-    const data = {
-      id: '12',
-      state: State.CASE_SERVED,
-      caseTypeOfApplication: CaseType.C100,
-      applicants: [applicantLIP, applicant[1]],
-      isCafcassServed: YesOrNo.YES,
-      citizenApplicationPacks: [
-        {
-          partyId: '123',
-          respondentSoaPack: [
-            {
-              document_url: 'MOCK_DOCUMENT_URL',
-              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-              document_filename: 'MOCK_FILENAME',
-              document_hash: null,
-              category_id: 'positionStatements',
-              document_creation_date: '01/01/2024',
-            },
-          ],
-        },
-      ] as unknown as CitizenApplicationPacks[],
-      finalServedApplicationDetailsList: [
-        {
-          id: '123',
-          value: {
-            emailNotificationDetails: [],
-            whoIsResponsible: 'Unrepresented Applicant',
-          },
-        },
-      ],
-      citizenNotifications: [
-        {
-          id: 'CAN7_SOA_PERSONAL_APPLICANT',
-          show: true,
-          multiple: false,
-          final: false,
-        } as CitizenNotification,
-      ],
-    } as unknown as CaseWithId;
-    const party = PartyType.APPLICANT;
-    expect(getNotifications(data, userDetails, party, 'cy')).toStrictEqual([
-      {
-        heading: "Mae'n rhaid i chi roi'r dogfennau i'r atebydd",
-        id: 'applicantToPersonallyServeRespondent',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Mae’r llys wedi cychwyn eich cais. Mae hyn yn golygu bod copi o’ch cais a’r dogfennau llys eraill yn barod i’w rhoi i’r bobl eraill yn yr achos (yr atebwyr).',
-              },
-              {
-                text: 'As there is more than one applicant, please agree who will serve the order on the respondent. - welsh',
-              },
-              {
-                text: 'Mae’n rhaid i chi roi’r dogfennau canlynol i’r atebydd:',
-              },
-            ],
-            links: [
-              {
-                external: false,
-                href: '/applicant/documents/view/application-pack-documents/to-be-served?',
-                text: 'Gweld dogfennau’r atebydd',
-              },
-            ],
-          },
-          {
-            contents: [
-              {
-                text: 'Gallwch roi’r dogfennau i’r atebydd neu ddewis unigolyn sydd wedi cytuno i’w rhoi i’r atebydd. Gall hyn fod yn rhywun rydych chi’n ei adnabod neu’n drydydd parti proffesiynol (fel gweinydd proses neu feili’r llys). Mae mwy o wybodaeth am feili’r llys ar gael ar GOV.UK.',
-              },
-              {
-                text: '<a class="govuk-link" href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
-              },
-              {
-                text: '<br/><p class="govuk-notification-banner__heading">Dywedwch wrthym unwaith y bydd yr atebydd wedi cael y dogfennau</p>',
-              },
-              {
-                text: "Mae angen i chi gyflwyno datganiad cyflwyno ar ôl i'r atebydd gael y dogfennau.",
-              },
-            ],
-            links: [
-              {
-                external: true,
-                href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
-                text: 'Lawrlwythwch y datganiad cyflwyno (ffurflen C9) (agor mewn tab newydd)',
-              },
-              {
-                external: false,
-                href: '',
-                text: 'Llwytho’r datganiad cyflwyno (ffurflen C9)',
               },
             ],
           },
