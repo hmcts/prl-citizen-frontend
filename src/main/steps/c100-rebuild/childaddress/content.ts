@@ -23,6 +23,7 @@ export const en = () => ({
     c100RebuildChildPostCode: {
       required: 'Enter a full postcode, with or without a space',
       invalid: 'Enter a valid full postcode, with or without a space',
+      generic: 'Sorry there is a problem, Please try again',
     },
   },
 });
@@ -44,6 +45,7 @@ export const cy = () => ({
     c100RebuildChildPostCode: {
       required: 'Rhowch god post llawn, gyda neu heb fwlch yn y canol',
       invalid: 'Rhowch god post llawn dilys, gyda neu heb fwlch yn y canol',
+      generic: 'Sorry there is a problem, Please try again - welsh',
     },
   },
 });
@@ -67,9 +69,6 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 
