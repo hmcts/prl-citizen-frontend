@@ -1,8 +1,6 @@
-import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { applyParms } from '../url-parser';
 
-import { APPLICANT_ADD_LEGAL_REPRESENTATIVE, DASHBOARD_URL, REMOVE_LEGAL_REPRESENTATIVE_START } from './../../urls';
+import { DASHBOARD_URL } from './../../urls';
 import { getNotificationBannerConfig } from './components/notification-banner/.';
 import { getProgressBarConfig } from './components/progress-bar/index';
 import { languages as sideLinks } from './components/side-links/content';
@@ -14,16 +12,6 @@ const en = {
   caseNumber: 'Case number ',
   iWantTo: 'I want to...',
   hyperlinks: [
-    {
-      label: 'Add a legal representative',
-      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-      target: '',
-    },
-    {
-      label: 'Remove a legal representative',
-      link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
-      target: '',
-    },
     {
       label: 'Know more about child arrangements',
       link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
@@ -74,16 +62,6 @@ const cy = {
   caseNumber: 'Rhif yr achos ',
   iWantTo: 'Rwyf eisiau...',
   hyperlinks: [
-    {
-      label: 'Ychwanegu cynrychiolydd cyfreithiol',
-      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-      target: '',
-    },
-    {
-      label: 'Dileu cynrychiolydd cyfreithiol',
-      link: applyParms(REMOVE_LEGAL_REPRESENTATIVE_START, { partyType: PartyType.APPLICANT }),
-      target: '',
-    },
     {
       label: 'Gwybod mwy am drefniadau plant',
       link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
