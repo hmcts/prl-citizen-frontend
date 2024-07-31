@@ -20,17 +20,8 @@ import {
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
 import { Task, TaskListConfigProps } from '../../../definitions';
-import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor, iswelshDocPresent } from '../../../utils';
-import {
-  StateTags,
-  TaskListSection,
-  Tasks,
-  getCheckAllegationOfHarmStatus,
-  getCheckAllegationOfHarmStatusWelsh,
-  getContents,
-  hasAnyHearing,
-  isRespondentSubmitedResponse,
-} from '../utils';
+import { isCaseClosed, isCaseLinked, isDocPresent, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
+import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, isRespondentSubmitedResponse } from '../utils';
 
 export const CA_APPLICANT: TaskListConfigProps[] = [
   {
@@ -101,6 +92,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
             documentType: 'c100-application',
+            language: 'en',
           });
         },
         stateTag: () => StateTags.SUBMITTED,
@@ -113,14 +105,15 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           //** validate **
           return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
-            documentType: 'c100-application-welsh',
+            documentType: 'c100-application',
+            language: 'cy',
           });
         },
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>) =>
           caseData &&
           !isDraftCase(caseData) &&
-          (iswelshDocPresent(caseData, 'finalWelshDocument') || iswelshDocPresent(caseData, 'c100DraftDocWelsh')),
+          (isDocPresent(caseData, 'finalWelshDocument') || isDocPresent(caseData, 'c100DraftDocWelsh')),
         openInAnotherTab: () => true,
       },
       {
@@ -130,12 +123,11 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
             documentType: 'aoh-document',
+            language: 'en',
           }),
-        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData),
-        disabled: caseData => {
-          return getCheckAllegationOfHarmStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
-        },
-        show: isCaseLinked,
+        stateTag: () => StateTags.SUBMITTED,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && isDocPresent(caseData, 'c1ADocument'),
         openInAnotherTab: () => true,
       },
       {
@@ -144,17 +136,12 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
-            documentType: 'aoh-document-welsh',
+            documentType: 'aoh-document',
+            language: 'cy',
           }),
-        stateTag: caseData => getCheckAllegationOfHarmStatusWelsh(caseData),
-        disabled: caseData => {
-          return (
-            getCheckAllegationOfHarmStatusWelsh(caseData) === StateTags.NOT_AVAILABLE_YET &&
-            iswelshDocPresent(caseData, 'c1AWelshDocument')
-          );
-        },
+        stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
-          isCaseLinked(caseData, userDetails) && iswelshDocPresent(caseData, 'c1AWelshDocument'),
+          isCaseLinked(caseData, userDetails) && isDocPresent(caseData, 'c1AWelshDocument'),
         openInAnotherTab: () => true,
       },
     ],

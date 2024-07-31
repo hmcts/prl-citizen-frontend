@@ -152,7 +152,7 @@ export const UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE: PageLink = `${UPLOAD_DOCUMEN
 
 /* Download documents */
 export const DOWNLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/download/:documentId/:documentName/:forceDownload?`;
-export const DOWNLOAD_DOCUMENT_BY_TYPE: PageLink = `${DOCUMENTS}/download/type/:documentType/:forceDownload?`;
+export const DOWNLOAD_DOCUMENT_BY_TYPE: PageLink = `${DOCUMENTS}/download/type/:documentType/:language/:forceDownload?`;
 
 export const RESPONDENT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 export const PCQ_CALLBACK_URL: PageLink = '/:partyType/pcq/equality/:context';

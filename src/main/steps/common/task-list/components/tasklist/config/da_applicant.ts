@@ -8,8 +8,8 @@ import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-l
 import {
   isCaseClosed,
   isCaseLinked,
+  isDocPresent,
   isRepresentedBySolicotor,
-  iswelshDocPresent,
 } from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
@@ -78,7 +78,11 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
         // ** validate **
         id: Tasks.YOUR_APPLICATION_PDF,
         href: () =>
-          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, { partyType: PartyType.APPLICANT, documentType: 'fl401-application' }),
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'fl401-application',
+            language: 'en',
+          }),
         stateTag: () => StateTags.DOWNLOAD,
         openInAnotherTab: () => true,
       },
@@ -88,12 +92,13 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
-            documentType: 'fl401-application-welsh',
+            documentType: 'fl401-application',
+            language: 'cy',
           }),
         stateTag: caseData =>
           caseData.finalWelshDocument?.document_filename ? StateTags.DOWNLOAD : StateTags.NOT_AVAILABLE_YET,
         openInAnotherTab: () => true,
-        show: caseData => iswelshDocPresent(caseData, 'finalWelshDocument'),
+        show: caseData => isDocPresent(caseData, 'finalWelshDocument'),
       },
     ],
   },

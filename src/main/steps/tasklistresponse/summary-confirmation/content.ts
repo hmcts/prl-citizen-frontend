@@ -29,6 +29,7 @@ const en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c7-response-document',
+        language: 'en',
       }),
     },
     {
@@ -36,7 +37,8 @@ const en = {
       isWelsh: YesOrNo.YES,
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c7-response-document-welsh',
+        documentType: 'c7-response-document',
+        language: 'cy',
       }),
     },
     {
@@ -45,6 +47,7 @@ const en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-application-document',
+        language: 'en',
       }),
     },
     {
@@ -52,7 +55,8 @@ const en = {
       isWelsh: YesOrNo.YES,
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c1a-application-document-welsh',
+        documentType: 'c1a-application-document',
+        language: 'cy',
       }),
     },
     {
@@ -61,6 +65,7 @@ const en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-response-document',
+        language: 'en',
       }),
     },
     {
@@ -68,7 +73,8 @@ const en = {
       isWelsh: YesOrNo.YES,
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c1a-response-document-welsh',
+        documentType: 'c1a-response-document',
+        language: 'cy',
       }),
     },
   ],
@@ -97,6 +103,7 @@ const cy: typeof en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c7-response-document',
+        language: 'en',
       }),
     },
     {
@@ -104,7 +111,8 @@ const cy: typeof en = {
       isWelsh: YesOrNo.YES,
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c7-response-document-welsh',
+        documentType: 'c7-response-document',
+        language: 'cy',
       }),
     },
     {
@@ -113,6 +121,7 @@ const cy: typeof en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-application-document',
+        language: 'en',
       }),
     },
     {
@@ -120,7 +129,8 @@ const cy: typeof en = {
       isWelsh: YesOrNo.YES,
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c1a-application-document-welsh',
+        documentType: 'c1a-application-document',
+        language: 'cy',
       }),
     },
     {
@@ -129,6 +139,7 @@ const cy: typeof en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-response-document',
+        language: 'en',
       }),
     },
     {
@@ -136,7 +147,8 @@ const cy: typeof en = {
       isWelsh: YesOrNo.YES,
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c1a-response-document-welsh',
+        documentType: 'c1a-response-document',
+        language: 'cy',
       }),
     },
   ],

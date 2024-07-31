@@ -25,8 +25,8 @@ import {
   hasRespondentRespondedToC7Application,
   isCaseClosed,
   isCaseLinked,
+  isDocPresent,
   isRepresentedBySolicotor,
-  iswelshDocPresent,
 } from '../../../utils';
 import {
   StateTags,
@@ -34,14 +34,11 @@ import {
   Tasks,
   getC7ApplicationResponseStatus,
   getCheckAllegationOfHarmStatus,
-  getCheckAllegationOfHarmStatusWelsh,
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getFinalApplicationStatus,
-  getFinalApplicationWelshStatus,
   getKeepYourDetailsPrivateStatus,
   hasAnyHearing,
-  isRespondentSubmitedResponse,
 } from '../utils';
 
 export const aboutYou: TaskListConfigProps = {
@@ -165,10 +162,11 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'cada-document',
+            language: 'en',
           }),
-        stateTag: caseData => getFinalApplicationStatus(caseData),
+        stateTag: caseData => getFinalApplicationStatus(caseData, 'en'),
         disabled: caseData => {
-          return getFinalApplicationStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
+          return getFinalApplicationStatus(caseData, 'en') === StateTags.NOT_AVAILABLE_YET;
         },
         openInAnotherTab: () => true,
       },
@@ -178,13 +176,14 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
-            documentType: 'cada-document-welsh',
+            documentType: 'cada-document',
+            language: 'cy',
           }),
-        stateTag: caseData => getFinalApplicationWelshStatus(caseData),
+        stateTag: caseData => getFinalApplicationStatus(caseData, 'cy'),
         show: caseData => {
           return (
-            getFinalApplicationWelshStatus(caseData) !== StateTags.NOT_AVAILABLE_YET &&
-            iswelshDocPresent(caseData, 'finalWelshDocument')
+            getFinalApplicationStatus(caseData, 'cy') !== StateTags.NOT_AVAILABLE_YET &&
+            isDocPresent(caseData, 'finalWelshDocument')
           );
         },
         openInAnotherTab: () => true,
@@ -196,10 +195,11 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'aoh-document',
+            language: 'en',
           }),
-        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData),
+        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData, 'en'),
         disabled: caseData => {
-          return getCheckAllegationOfHarmStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
+          return getCheckAllegationOfHarmStatus(caseData, 'en') === StateTags.NOT_AVAILABLE_YET;
         },
         openInAnotherTab: () => true,
       },
@@ -209,17 +209,12 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
-            documentType: 'aoh-document-welsh',
+            documentType: 'aoh-document',
+            language: 'cy',
           }),
-        stateTag: caseData => getCheckAllegationOfHarmStatusWelsh(caseData),
+        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData, 'cy'),
         show: caseData => {
-          return iswelshDocPresent(caseData, 'c1AWelshDocument');
-        },
-        disabled: caseData => {
-          return (
-            getCheckAllegationOfHarmStatusWelsh(caseData) === StateTags.NOT_AVAILABLE_YET &&
-            iswelshDocPresent(caseData, 'c1AWelshDocument')
-          );
+          return isDocPresent(caseData, 'c1AWelshDocument');
         },
         openInAnotherTab: () => true,
       },
@@ -246,16 +241,12 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.THE_RESPONSE_PDF,
-        href: caseData => {
-          return isRespondentSubmitedResponse(caseData)
-            ? applyParms(VIEW_TYPE_DOCUMENT, {
-                partyType: PartyType.RESPONDENT,
-                type: 'respondent',
-              })
-            : '#';
-        },
-        stateTag: (caseData: Partial<CaseWithId>) =>
-          isRespondentSubmitedResponse(caseData) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET,
+        href: () =>
+          applyParms(VIEW_TYPE_DOCUMENT, {
+            partyType: PartyType.RESPONDENT,
+            type: 'respondent',
+          }),
+        stateTag: () => StateTags.READY_TO_VIEW,
         show: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
       },
     ],

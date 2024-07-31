@@ -29,10 +29,10 @@ const en: TaskListContent = {
             linkText: 'Your application (PDF) in welsh',
           },
           yourAOHPDF: {
-            linkText: ' Your allegations of harm and violence (PDF)',
+            linkText: 'Your allegations of harm and violence (PDF)',
           },
           yourAOHWelshPDF: {
-            linkText: ' Your allegations of harm and violence (PDF) in welsh',
+            linkText: 'Your allegations of harm and violence (PDF) in welsh',
           },
         },
       },
@@ -313,10 +313,10 @@ const cy: typeof en = {
             linkText: 'Your application (PDF) in welsh',
           },
           yourAOHPDF: {
-            linkText: ' Your allegations of harm and violence (PDF)',
+            linkText: 'Your allegations of harm and violence (PDF)',
           },
           yourAOHWelshPDF: {
-            linkText: ' Your allegations of harm and violence (PDF) in welsh -welsh',
+            linkText: 'Your allegations of harm and violence (PDF) in welsh -welsh',
           },
         },
       },

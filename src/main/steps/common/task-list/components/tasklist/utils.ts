@@ -150,11 +150,8 @@ export const getYourWitnessStatementStatus = (userCase: Partial<CaseWithId>): St
     : StateTags.NOT_AVAILABLE_YET;
 };
 
-export const getCheckAllegationOfHarmStatus = (caseData): StateTags => {
-  return _.get(caseData, 'c1ADocument.document_binary_url') ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
-};
-export const getCheckAllegationOfHarmStatusWelsh = (caseData): StateTags => {
-  return _.get(caseData, 'c1AWelshDocument.document_binary_url')
+export const getCheckAllegationOfHarmStatus = (caseData, lang): StateTags => {
+  return _.get(caseData, lang === 'en' ? 'c1ADocument.document_binary_url' : 'c1AWelshDocument.document_binary_url')
     ? StateTags.READY_TO_VIEW
     : StateTags.NOT_AVAILABLE_YET;
 };
@@ -205,11 +202,8 @@ export const getInternationalFactorsStatus = (
   return StateTags.TO_DO;
 };
 
-export const getFinalApplicationStatus = (caseData): StateTags => {
-  return _.get(caseData, 'finalDocument.document_binary_url') ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
-};
-export const getFinalApplicationWelshStatus = (caseData): StateTags => {
-  return _.get(caseData, 'finalWelshDocument.document_binary_url')
+export const getFinalApplicationStatus = (caseData, lang): StateTags => {
+  return _.get(caseData, lang === 'en' ? 'finalDocument.document_binary_url' : 'finalWelshDocument.document_binary_url')
     ? StateTags.READY_TO_VIEW
     : StateTags.NOT_AVAILABLE_YET;
 };

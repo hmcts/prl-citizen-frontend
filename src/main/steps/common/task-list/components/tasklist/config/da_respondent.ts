@@ -1,17 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { PartyType } from '../../../../../../app/case/definition';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
-import { iswelshDocPresent } from '../../../../../../steps/common/task-list/utils';
+import { isDocPresent } from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import { DOWNLOAD_DOCUMENT_BY_TYPE } from '../../../../../urls';
-import {
-  StateTags,
-  TaskListSection,
-  Tasks,
-  getContents,
-  getFinalApplicationStatus,
-  getFinalApplicationWelshStatus,
-} from '../utils';
+import { StateTags, TaskListSection, Tasks, getContents, getFinalApplicationStatus } from '../utils';
 
 import { aboutYou, document, hearing, order } from './ca_respondent';
 
@@ -28,10 +21,11 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'cada-document',
+            language: 'en',
           }),
-        stateTag: caseData => getFinalApplicationStatus(caseData),
+        stateTag: caseData => getFinalApplicationStatus(caseData, 'en'),
         disabled: caseData => {
-          return getFinalApplicationStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
+          return getFinalApplicationStatus(caseData, 'en') === StateTags.NOT_AVAILABLE_YET;
         },
         openInAnotherTab: () => true,
       },
@@ -41,13 +35,14 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
-            documentType: 'cada-document-welsh',
+            documentType: 'cada-document',
+            language: 'cy',
           }),
-        stateTag: caseData => getFinalApplicationWelshStatus(caseData),
+        stateTag: caseData => getFinalApplicationStatus(caseData, 'cy'),
         show: caseData => {
           return (
-            getFinalApplicationWelshStatus(caseData) !== StateTags.NOT_AVAILABLE_YET &&
-            iswelshDocPresent(caseData, 'finalWelshDocument')
+            getFinalApplicationStatus(caseData, 'cy') !== StateTags.NOT_AVAILABLE_YET &&
+            isDocPresent(caseData, 'finalWelshDocument')
           );
         },
         openInAnotherTab: () => true,
