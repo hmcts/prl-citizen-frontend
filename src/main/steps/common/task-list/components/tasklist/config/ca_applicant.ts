@@ -3,6 +3,7 @@ import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { DocumentCategory } from '../../../../../../steps/common/documents/definitions';
+import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
@@ -92,7 +93,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
             documentType: 'c100-application',
-            language: 'en',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           });
         },
         stateTag: () => StateTags.SUBMITTED,
@@ -106,7 +107,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
             documentType: 'c100-application',
-            language: 'cy',
+            language: DOCUMENT_LANGUAGE.WELSH,
           });
         },
         stateTag: () => StateTags.SUBMITTED,
@@ -123,7 +124,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
             documentType: 'aoh-document',
-            language: 'en',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           }),
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
@@ -137,7 +138,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
             documentType: 'aoh-document',
-            language: 'cy',
+            language: DOCUMENT_LANGUAGE.WELSH,
           }),
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>

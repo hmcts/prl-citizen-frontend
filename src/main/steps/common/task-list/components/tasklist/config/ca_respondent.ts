@@ -3,6 +3,7 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { applyParms } from '../../../../../../steps/common/url-parser';
@@ -162,11 +163,11 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'cada-document',
-            language: 'en',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           }),
-        stateTag: caseData => getFinalApplicationStatus(caseData, 'en'),
+        stateTag: caseData => getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH),
         disabled: caseData => {
-          return getFinalApplicationStatus(caseData, 'en') === StateTags.NOT_AVAILABLE_YET;
+          return getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH) === StateTags.NOT_AVAILABLE_YET;
         },
         openInAnotherTab: () => true,
       },
@@ -177,12 +178,12 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'cada-document',
-            language: 'cy',
+            language: DOCUMENT_LANGUAGE.WELSH,
           }),
-        stateTag: caseData => getFinalApplicationStatus(caseData, 'cy'),
+        stateTag: caseData => getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.WELSH),
         show: caseData => {
           return (
-            getFinalApplicationStatus(caseData, 'cy') !== StateTags.NOT_AVAILABLE_YET &&
+            getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.WELSH) !== StateTags.NOT_AVAILABLE_YET &&
             isDocPresent(caseData, 'finalWelshDocument')
           );
         },
@@ -195,11 +196,11 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'aoh-document',
-            language: 'en',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           }),
-        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData, 'en'),
+        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH),
         disabled: caseData => {
-          return getCheckAllegationOfHarmStatus(caseData, 'en') === StateTags.NOT_AVAILABLE_YET;
+          return getCheckAllegationOfHarmStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH) === StateTags.NOT_AVAILABLE_YET;
         },
         openInAnotherTab: () => true,
       },
@@ -210,9 +211,9 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'aoh-document',
-            language: 'cy',
+            language: DOCUMENT_LANGUAGE.WELSH,
           }),
-        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData, 'cy'),
+        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData, DOCUMENT_LANGUAGE.WELSH),
         show: caseData => {
           return isDocPresent(caseData, 'c1AWelshDocument');
         },

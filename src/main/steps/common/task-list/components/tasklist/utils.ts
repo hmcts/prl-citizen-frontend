@@ -12,6 +12,7 @@ import {
 } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { DocumentCategory } from '../../../../../steps/common/documents/definitions';
+import { DOCUMENT_LANGUAGE } from '../../../../../steps/common/documents/download/utils';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { TaskListContent } from '../../definitions';
 
@@ -154,7 +155,10 @@ export const getYourWitnessStatementStatus = (userCase: Partial<CaseWithId>): St
 };
 
 export const getCheckAllegationOfHarmStatus = (caseData, lang): StateTags => {
-  return _.get(caseData, lang === 'en' ? 'c1ADocument.document_binary_url' : 'c1AWelshDocument.document_binary_url')
+  return _.get(
+    caseData,
+    lang === DOCUMENT_LANGUAGE.ENGLISH ? 'c1ADocument.document_binary_url' : 'c1AWelshDocument.document_binary_url'
+  )
     ? StateTags.READY_TO_VIEW
     : StateTags.NOT_AVAILABLE_YET;
 };
@@ -206,7 +210,10 @@ export const getInternationalFactorsStatus = (
 };
 
 export const getFinalApplicationStatus = (caseData, lang): StateTags => {
-  return _.get(caseData, lang === 'en' ? 'finalDocument.document_binary_url' : 'finalWelshDocument.document_binary_url')
+  return _.get(
+    caseData,
+    lang === DOCUMENT_LANGUAGE.ENGLISH ? 'finalDocument.document_binary_url' : 'finalWelshDocument.document_binary_url'
+  )
     ? StateTags.READY_TO_VIEW
     : StateTags.NOT_AVAILABLE_YET;
 };

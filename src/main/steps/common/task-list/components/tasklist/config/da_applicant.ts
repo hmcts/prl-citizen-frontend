@@ -3,6 +3,7 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import {
@@ -81,7 +82,7 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
             documentType: 'fl401-application',
-            language: 'en',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           }),
         stateTag: () => StateTags.DOWNLOAD,
         openInAnotherTab: () => true,
@@ -93,7 +94,7 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
             documentType: 'fl401-application',
-            language: 'cy',
+            language: DOCUMENT_LANGUAGE.WELSH,
           }),
         stateTag: caseData =>
           caseData.finalWelshDocument?.document_filename ? StateTags.DOWNLOAD : StateTags.NOT_AVAILABLE_YET,

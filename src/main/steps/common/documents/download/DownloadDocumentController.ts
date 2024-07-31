@@ -7,7 +7,7 @@ import { CaseWithId } from '../../../../app/case/case';
 import { AppRequest, UserDetails } from '../../../../app/controller/AppRequest';
 import { AnyObject } from '../../../../app/controller/PostController';
 import { DocumentCategory } from '../definitions';
-import { deTransformFileName, transformFileName } from '../download/utils';
+import { DOCUMENT_LANGUAGE, deTransformFileName, transformFileName } from '../download/utils';
 
 @autobind
 export default class DownloadDocumentController {
@@ -21,7 +21,7 @@ export default class DownloadDocumentController {
 
     switch (documentType) {
       case 'c100-application':
-        if (language === 'en') {
+        if (language === DOCUMENT_LANGUAGE.ENGLISH) {
           documentReference = caseData?.finalDocument ?? caseData.c100DraftDoc;
         } else {
           documentReference = caseData.finalWelshDocument ?? caseData.c100DraftDocWelsh;
@@ -30,69 +30,35 @@ export default class DownloadDocumentController {
 
       case 'fl401-application':
       case 'cada-document':
-        if (language === 'en') {
-          documentReference = caseData?.finalDocument;
-        } else {
-          documentReference = caseData.finalWelshDocument;
-        }
+        documentReference =
+          language === DOCUMENT_LANGUAGE.ENGLISH ? caseData?.finalDocument : caseData.finalWelshDocument;
         break;
       case 'aoh-document':
-        if (language === 'en') {
-          documentReference = caseData?.c1ADocument;
-        } else {
-          documentReference = caseData.c1AWelshDocument;
-        }
+        documentReference = language === DOCUMENT_LANGUAGE.ENGLISH ? caseData?.c1ADocument : caseData.c1AWelshDocument;
         break;
       case 'c7-response-document':
-        if (language === 'en') {
-          documentReference = caseData?.respondentDocuments?.find(
-            doc =>
-              doc.partyId === userDetails.id &&
-              doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
-              doc.documentLanguage === 'en'
-          )?.document;
-        } else {
-          documentReference = caseData?.respondentDocuments?.find(
-            doc =>
-              doc.partyId === userDetails.id &&
-              doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
-              doc.documentLanguage === 'cy'
-          )?.document;
-        }
+        documentReference = caseData?.respondentDocuments?.find(
+          doc =>
+            doc.partyId === userDetails.id &&
+            doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
+            doc.documentLanguage === language
+        )?.document;
         break;
       case 'c1a-application-document':
-        if (language === 'en') {
-          documentReference = caseData?.respondentDocuments?.find(
-            doc =>
-              doc.partyId === userDetails.id &&
-              doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
-              doc.documentLanguage === 'en'
-          )?.document;
-        } else {
-          documentReference = caseData?.respondentDocuments?.find(
-            doc =>
-              doc.partyId === userDetails.id &&
-              doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
-              doc.documentLanguage === 'cy'
-          )?.document;
-        }
+        documentReference = caseData?.respondentDocuments?.find(
+          doc =>
+            doc.partyId === userDetails.id &&
+            doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION &&
+            doc.documentLanguage === language
+        )?.document;
         break;
       case 'c1a-response-document':
-        if (language === 'en') {
-          documentReference = caseData?.respondentDocuments?.find(
-            doc =>
-              doc.partyId === userDetails.id &&
-              doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&
-              doc.documentLanguage === 'en'
-          )?.document;
-        } else {
-          documentReference = caseData?.respondentDocuments?.find(
-            doc =>
-              doc.partyId === userDetails.id &&
-              doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&
-              doc.documentLanguage === 'cy'
-          )?.document;
-        }
+        documentReference = caseData?.respondentDocuments?.find(
+          doc =>
+            doc.partyId === userDetails.id &&
+            doc.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A &&
+            doc.documentLanguage === language
+        )?.document;
         break;
     }
     const documentId = documentReference
