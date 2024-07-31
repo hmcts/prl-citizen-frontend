@@ -18,6 +18,8 @@ module.exports = {
 
     async fillAndSubmitActivateAccessCode(caseNumber, accessCode){
         await I.waitForElement(this.fields.caseCodeInput);
+        await I.runAccessibilityTest();
+
         await I.fillField(this.fields.caseCodeInput, caseNumber);
         await I.fillField(this.fields.accessCodeInput, accessCode);
 
