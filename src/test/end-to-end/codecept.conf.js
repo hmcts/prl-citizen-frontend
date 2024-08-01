@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 const outputDir = path.resolve(__dirname, '../../../output');
+const { getAccessibilityTestResult } = require('./accessibility/runner');
+const { generateAccessibilityReport } = require('../reporters/accessibility-reporter/customReporter');
 
 if (!fs.existsSync(outputDir)){
   fs.mkdirSync(outputDir);
@@ -34,7 +36,8 @@ exports.config = {
       keepVideoForPassedTests: false,
       keepTraceForPassedTests: false,
       fullPageScreenshots: true,
-      uniqueScreenshotNames: true
+      uniqueScreenshotNames: true,
+      bypassCSP: true
     },
     PlaywrightHelpers: { require: './helpers/playwrightHelper.js' }
   },
@@ -84,6 +87,8 @@ exports.config = {
 
   teardown: async() => {
     await DataSetupManager.close();
+    generateAccessibilityReport(getAccessibilityTestResult());
+
   },
 
   name: 'prl-citizen-frontend'

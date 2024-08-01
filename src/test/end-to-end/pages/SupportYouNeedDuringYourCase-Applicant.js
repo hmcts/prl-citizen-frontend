@@ -35,6 +35,8 @@ module.exports = {
   async reasonableAdjustments2() {
     I.wait('2');
     await I.retry(retryCount).waitForText('I need documents in an alternative format');
+    await I.runAccessibilityTest();
+
     await I.retry(retryCount).click('#docsSupport-10');
     await I.retry(retryCount).click('#docsSupport');
     await I.retry(retryCount).click('#docsSupport-2');
@@ -50,6 +52,8 @@ module.exports = {
   async reasonableAdjustments3() {
     I.wait('2');
     await I.retry(retryCount).waitForText('I need help communicating and understanding');
+    await I.runAccessibilityTest();
+
     await I.retry(retryCount).click('#helpCommunication');
     await I.retry(retryCount).click('#helpCommunication-2');
     await I.retry(retryCount).click('#helpCommunication-3');
@@ -67,6 +71,8 @@ module.exports = {
   async reasonableAdjustments4() {
     I.wait('2');
     await I.retry(retryCount).waitForText('I need to bring support with me to a court hearing');
+    await I.runAccessibilityTest();
+
     await I.retry(retryCount).click('#courtHearing');
     await I.retry(retryCount).click('#courtHearing-2');
     await I.retry(retryCount).click('#courtHearing-3');
@@ -78,6 +84,8 @@ module.exports = {
   async reasonableAdjustments5() {
     I.wait('2');
     await I.retry(retryCount).waitForText('I need something to make me feel comfortable during a court hearing');
+    await I.runAccessibilityTest();
+
     await I.retry(retryCount).click('#courtComfort');
     await I.retry(retryCount).click('#courtComfort-2');
     await I.retry(retryCount).click('#courtComfort-3');
@@ -88,6 +96,8 @@ module.exports = {
   async reasonableAdjustments6() {
     I.wait('2');
     await I.retry(retryCount).waitForText('I need help travelling to, or moving around court buildings');
+    await I.runAccessibilityTest();
+
     await I.retry(retryCount).click('#travellingToCourt');
     await I.retry(retryCount).click('#travellingToCourt-2');
     await I.retry(retryCount).click('#travellingToCourt-3');
@@ -102,6 +112,8 @@ module.exports = {
   async reasonableAdjustments7() {
     I.wait('2');
     await I.retry(retryCount).waitForText('Is there a reason you are unable to take part in the court proceedings?');
+    await I.runAccessibilityTest();
+
     await I.retry(retryCount).click('#unableForCourtProceedings');
     await I.retry(retryCount).fillField('#courtProceedingProvideDetails', 'Reasonable Adjustments 7');
     await I.retry(retryCount).click('Save and continue');
@@ -109,6 +121,8 @@ module.exports = {
   async safetyRequirements() {
     I.wait('2');
     await I.retry(retryCount).waitForText('Do you or the children need special safety arrangements at court?');
+    await I.runAccessibilityTest();
+
     await I.retry(retryCount).click('#safetyArrangements');
     await I.retry(retryCount).click('#safetyArrangements-2');
     await I.retry(retryCount).click('#safetyArrangements-3');
