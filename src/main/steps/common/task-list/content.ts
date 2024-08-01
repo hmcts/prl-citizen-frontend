@@ -7,7 +7,7 @@ import { getNotifications } from './components/notification-banner/index';
 import { getProgressBarConfig } from './components/progress-bar/index';
 import { languages as sideLinks } from './components/side-links/content';
 import { getTaskListConfig } from './components/tasklist/index';
-import { getPartyName, isRepresentedBySolicotor } from './utils';
+import { getPartyName, isCaseLinked, isRepresentedBySolicotor } from './utils';
 
 const en = {
   title: 'Child arrangements and family injunction cases',
@@ -67,6 +67,7 @@ const en = {
   ],
   addLegalRepresentative: 'Add a legal representative',
   removeLegalRepresentative: 'Remove a legal representative',
+  whatToExpect: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
 };
 
 const cy = {
@@ -127,6 +128,7 @@ const cy = {
   ],
   addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
   removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
+  whatToExpect: 'Beth i’w ddisgwyl pan fyddwch yn dod i lys neu dribiwnlys – GOV.UK(www.gov.uk)',
 };
 
 export const languages = {
@@ -142,13 +144,16 @@ export const generateContent: TranslationFn = content => {
   const _isRepresentedBySolicotor = isRepresentedBySolicotor(caseData, request.session.user.id);
 
   if (caseData?.caseTypeOfApplication) {
-    translations.hyperlinks = sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks;
+    translations.hyperlinks = [
+      ...sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks,
+    ];
   }
 
   translations.hyperlinks.forEach((hyperLink, index) => {
     if (
       (hyperLink.label.includes(translations.addLegalRepresentative) && _isRepresentedBySolicotor) ||
-      (hyperLink.label.includes(translations.removeLegalRepresentative) && !_isRepresentedBySolicotor)
+      (hyperLink.label.includes(translations.removeLegalRepresentative) && !_isRepresentedBySolicotor) ||
+      (hyperLink.label.includes(translations.whatToExpect) && !isCaseLinked(caseData, request.session.user))
     ) {
       translations.hyperlinks.splice(index, 1);
     }

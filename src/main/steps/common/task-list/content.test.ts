@@ -340,6 +340,11 @@ describe('testcase for tasklist', () => {
     };
     expect(generateContent(commonContent).hyperlinks).toStrictEqual([
       {
+        label: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
+        link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+        target: '_blank',
+      },
+      {
         label: 'Add a legal representative',
         link: '/applicant/add-legal-representative',
       },
@@ -437,6 +442,11 @@ describe('testcase for tasklist', () => {
     };
     expect(generateContent(commonContent).hyperlinks).toStrictEqual([
       {
+        label: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
+        link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+        target: '_blank',
+      },
+      {
         label: 'Add a legal representative',
         link: '/respondent/add-legal-representative',
       },
@@ -494,6 +504,11 @@ describe('testcase for tasklist', () => {
       },
     ]),
       expect(generateContent(commonContent).hyperlinks).toStrictEqual([
+        {
+          label: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
+          link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+          target: '_blank',
+        },
         {
           label: 'Add a legal representative',
           link: '/respondent/add-legal-representative',
