@@ -18,7 +18,7 @@ export const en = () => ({
   subtitle:
     "Include as much detail as you can. If there's information missing, your application may take longer to process.",
   addressLine1Hint: 'Court documents will be sent here',
-  addressHistoryLabel: 'Have they lived at this address for more than 5 years?',
+  addressHistoryLabel: 'Have they lived at this address for less than 5 years?',
   provideDetailsOfPreviousAddressLabel:
     'Please provide details of all previous addresses for the last 5 years below, including the dates and starting with the most recent',
   addressHistoryDontKnowHintText: "Leave blank if you don't know",
@@ -54,7 +54,7 @@ export const cy = () => ({
   subtitle:
     'Dylech gynnwys cymaint o fanylion ag y gallwch. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   addressLine1Hint: 'Bydd dogfennau’r llys yn cael eu hanfon yma',
-  addressHistoryLabel: 'A ydynt wedi byw yn y cyfeiriad hwn am 5 mlynedd neu fwy?',
+  addressHistoryLabel: 'Ydyn nhw wedi byw yn y cyfeiriad hwn am 5 mlynedd neu lai?',
   provideDetailsOfPreviousAddressLabel:
     'Os nad ydynt, rhowch fanylion yr holl gyfeiriadau blaenorol am y 5 mlynedd diwethaf, os yn hysbys, gan gynnwys y dyddiadau, gan ddechrau gyda’r diweddaraf',
   addressHistoryDontKnowHintText: 'Gadewch yn wag os nad ydych yn gwybod',
@@ -130,11 +130,6 @@ export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): 
             label: l => l.one,
             selected: addressHistory === YesNoDontKnow.yes,
             value: YesNoDontKnow.yes,
-          },
-          {
-            label: l => l.two,
-            value: YesNoDontKnow.no,
-            selected: addressHistory === YesNoDontKnow.no,
             subFields: {
               provideDetailsOfPreviousAddresses: {
                 type: 'textarea',
@@ -146,6 +141,11 @@ export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): 
                 validator: value => isTextAreaValid(value),
               },
             },
+          },
+          {
+            label: l => l.two,
+            value: YesNoDontKnow.no,
+            selected: addressHistory === YesNoDontKnow.no,
           },
           {
             label: l => l.three,
