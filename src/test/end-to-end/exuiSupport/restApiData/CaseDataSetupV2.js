@@ -43,6 +43,8 @@ const childAndOtherPeopleProcess = (eventRestObj, startDEventRes) => {
 };
 
 const submitAndPayProcess = (eventRestObj, startDEventRes) => {
+
+    console.log(JSON.stringify(startDEventRes, null,2));
     const eventDataField = startDEventRes.case_fields.find(field => {
         return field.id === 'submitAndPayDownloadApplicationLink';
     });

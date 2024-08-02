@@ -4,10 +4,12 @@ const accessCodeExtrator = require('../exuiSupport/restApiData/accessCodeExtract
 
 const dataSetupManager = require('../exuiSupport/restApiData/DataSetupManager')
 
+const xuiCaseList = require('../exuiSupport/pages/CaseList');
+const xuiCaseFlags = require('../exuiSupport/pages/CaseFlags')
 
 const applicantEvents = require('../pages/FL401ApplicantEvents');
 
-Feature('FL401 - Applicant flow @debug');
+Feature('FL401 - Applicant flow');
 
 
 let caseId = null;
@@ -89,20 +91,16 @@ Scenario('Fl401 applicant - View all documents from court', async ({ I }) => {
 }).retry({ retries: 3, minTimeout: 30000 });
 
 
+// caseId = '1722244993286219';
+Scenario('Fl401 applicant - Validate support requests in EXUI', async ({ I }) => {
+    await I.loginAsCourtAdminTSSolicitorApplication();
+    await xuiCaseList.searchForCasesWithId(caseId);
+    // await applicantEvents.verifyViewAllDocuments(['witness statements', 'position statements']);
+    await xuiCaseFlags.validateCaseFlagsDisplayed('applicantone fn respondentone ln', [
+        { name: 'A different type of chair' },
+        { name: 'Documents in a specified colour' }
+    ]);
 
-// Scenario('Fl401 applicant - Witness statement', async ({ I }) => {
-//     await I.loginAsPRLCitizen();
-//     await respondentEvents.clickRespondentLink(caseId);
-//     await respondentEvents.clickAboutYouSupportYourNeed();
-
-// }).retry({ retries: 3, minTimeout: 30000 });
-
-
-// Scenario('Fl401 applicant - Check details of your court hearings', async ({ I }) => {
-//     await I.loginAsPRLCitizen();
-//     await respondentEvents.clickRespondentLink(caseId);
-//     await respondentEvents.clickAboutYouSupportYourNeed();
-
-// }).retry({ retries: 3, minTimeout: 30000 });
+}).retry({ retries: 3, minTimeout: 30000 });
 
 

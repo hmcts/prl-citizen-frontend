@@ -22,7 +22,7 @@ class DataSetupManager {
     }
 
     async init() {
-        this.browser = await chromium.launch({ headless: true });
+        this.browser = await chromium.launch({ headless: !process.env.SHOW_BROWSER_WINDOW === 'true' });
         // if(process.env.ENABLE_DATASETUP === 'true'){
             this.run();
         // }

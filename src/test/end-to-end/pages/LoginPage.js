@@ -5,6 +5,8 @@ const retryCount = 3;
 
 // eslint-disable-next-line no-unused-vars
 const baseUrl = config.baseUrl;
+const xuiBaseUrl = config.xuiBaseUrl;
+
 
 module.exports = {
 

@@ -1,6 +1,6 @@
 const testConfig = require('../config');
 
-Feature('C100 Rebuild - Base flow');
+Feature('C100 Rebuild - Base flow @debug');
 
 Scenario('C100 Rebuild - basic journey @master @nightly', async ({ I }) => {
     await I.loginAsCitizen();

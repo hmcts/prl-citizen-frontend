@@ -2,8 +2,10 @@ const testConfig = require('../config');
 
 const CaseDataSetup = require('../exuiSupport/restApiData/CaseDataSetupV2');
 const dataSetupManager = require('../exuiSupport/restApiData/DataSetupManager')
+const xuiCaseList = require('../exuiSupport/pages/CaseList');
+const xuiCaseFlags = require('../exuiSupport/pages/CaseFlags')
 
-Feature('C100 Respondent - flow');
+Feature('C100 Respondent - flow @debug');
 
 // let caseId = '1719914949362828';
 // let accessCode = null;
@@ -37,9 +39,19 @@ Scenario('C100 Activate case as respondent @nightly', async ({ I }) => {
 
 
 
-caseId = '1719998425248205';
 Scenario('C100 Respondent - Respond to application- journey', async ({ I }) => {
   await I.loginAsCitizen();
   await I.respondentTaskList(caseId);
+}).retry({ retries: 3, minTimeout: 30000 });
+
+Scenario('C100 Respondent - Validate support requests in EXUI', async ({ I }) => {
+  await I.loginAsCourtAdminTSSolicitorApplication();
+  await xuiCaseList.searchForCasesWithId(caseId);
+  // await applicantEvents.verifyViewAllDocuments(['witness statements', 'position statements']);
+  await xuiCaseFlags.validateCaseFlagsDisplayed('respondentfn fn respondentone ln', [
+    { name: 'A different type of chair' },
+    { name: 'Documents in a specified colour' }
+  ]);
+
 }).retry({ retries: 3, minTimeout: 30000 });
 

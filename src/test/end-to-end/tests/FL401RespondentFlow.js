@@ -3,7 +3,8 @@ const DataSetup = require('../exuiSupport/restApiData/CaseDataSetupV2');
 const accessCodeExtrator = require('../exuiSupport/restApiData/accessCodeExtractor/index')
 
 const dataSetupManager = require('../exuiSupport/restApiData/DataSetupManager')
-
+const xuiCaseList = require('../exuiSupport/pages/CaseList');
+const xuiCaseFlags = require('../exuiSupport/pages/CaseFlags')
 
 const respondentEvents = require('../pages/FL401RespondentEvents');
 
@@ -78,4 +79,13 @@ Scenario('Fl401 Respondent - View all documents from court', async ({ I }) => {
 }).retry({ retries: 3, minTimeout: 30000 });
 
 
+Scenario('Fl401 Respondent - Validate support requests in EXUI', async ({ I }) => {
+    await I.loginAsCourtAdminTSSolicitorApplication();
+    await xuiCaseList.searchForCasesWithId(caseId);
+    // await applicantEvents.verifyViewAllDocuments(['witness statements', 'position statements']);
+    await xuiCaseFlags.validateCaseFlagsDisplayed('respondentone fn respondentone ln', [
+        { name: 'A different type of chair' },
+        { name: 'Documents in a specified colour' }
+    ]);
 
+}).retry({ retries: 3, minTimeout: 30000 });

@@ -18,6 +18,7 @@ module.exports = {
   },
 
   baseUrl: process.env.PRL_CITIZEN_URL || 'https://privatelaw.aat.platform.hmcts.net/',
+  xuiBaseUrl: process.env.PRL_EXUI_URL || 'https://manage-case.demo.platform.hmcts.net/',
   TestOutputDir: process.env.E2E_OUTPUT_DIR || './output',
   TestForAccessibility: process.env.TESTS_FOR_ACCESSIBILITY || true,
   TestRetryScenarios: process.env.RETRY_SCENARIO ? parseInt(process.env.RETRY_SCENARIO) : 3,
