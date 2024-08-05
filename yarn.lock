@@ -18119,7 +18119,7 @@ __metadata:
     angular: ^1.8.3
     applicationinsights: ^2.3.5
     autobind-decorator: ^2.4.0
-    axios: ^0.28.0
+    axios: ^1.7.3
     axios-debug-log: ^1.0.0
     babel-eslint: ^10.1.0
     babel-loader: ^8.2.2
