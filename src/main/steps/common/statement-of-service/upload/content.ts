@@ -63,7 +63,7 @@ const cy: typeof en = {
       uploadError: 'Document could not be uploaded',
       deleteError: 'Document could not be deleted',
       multipleFiles:
-        'You can upload only one file. If you wish to upload a new file, delete the existing file and upload a new one',
+        'Gallwch uwchlwytho un ffeil yn unig. Os ydych eisiau uwchlwytho ffeil newydd, dylech ddileu’r ffeil bresennol ac uwchlwytho ffeil newydd.',
       fileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
       fileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
     },
