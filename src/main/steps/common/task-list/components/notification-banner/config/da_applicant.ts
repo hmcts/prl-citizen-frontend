@@ -32,4 +32,8 @@ export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
       });
     },
   },
+  {
+    id: NotificationType.DA_APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
+    show: showNotification,
+  },
 ];

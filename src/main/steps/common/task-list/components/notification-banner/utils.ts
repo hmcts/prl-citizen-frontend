@@ -71,6 +71,9 @@ const NotificationTypeIDMap = {
   [NotificationType.SUMBIT_FM5]: NotificationID.SUMBIT_FM5,
   [NotificationType.ORDER_NON_PERSONAL_SERVICE]: NotificationID.ORDER_NON_PERSONAL_SERVICE,
   [NotificationType.ORDER_PERSONAL_SERVICE]: NotificationID.ORDER_PERSONAL_SERVICE,
+  [NotificationType.DA_APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE]:
+    NotificationID.DA_APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
+  [NotificationType.DA_RESPONDENT_BANNER]: NotificationID.DA_RESPONDENT_BANNER,
 };
 
 export const isApplicationPackAvailable = (caseData: Partial<CaseWithId>, partyType: PartyType): boolean => {
