@@ -2050,7 +2050,7 @@ describe('FL401 banners', () => {
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
       {
         heading: 'The court has issued your application',
-        id: 'applicationServedByCourtPersonalNonPersonalServiceDA',
+        id: 'applicationServedByCourtPersonalNonPersonalServiceToDAApplicant',
         sections: [
           {
             contents: [
@@ -2078,7 +2078,7 @@ describe('FL401 banners', () => {
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
       {
         heading: 'Mae’r llys wedi cychwyn eich cais',
-        id: 'applicationServedByCourtPersonalNonPersonalServiceDA',
+        id: 'applicationServedByCourtPersonalNonPersonalServiceToDAApplicant',
         sections: [
           {
             contents: [

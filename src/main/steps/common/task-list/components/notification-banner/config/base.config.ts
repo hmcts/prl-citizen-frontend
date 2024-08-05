@@ -106,7 +106,7 @@ export const NOTIFICATION_BASE_CONFIG = [
     show: () => false,
   },
   {
-    id: NotificationType.DA_APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
+    id: NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE_TO_DA_APPLICANT,
     content: getNotificationContent,
     show: () => false,
   },

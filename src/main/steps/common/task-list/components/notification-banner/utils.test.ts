@@ -64,7 +64,7 @@ describe('notification Banner', () => {
     NotificationType.SUMBIT_FM5,
     NotificationType.ORDER_PERSONAL_SERVICE,
     NotificationType.ORDER_NON_PERSONAL_SERVICE,
-    NotificationType.DA_APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
+    NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE_TO_DA_APPLICANT,
   ])('should have show as false by default', notification => {
     expect(NOTIFICATION_BASE_CONFIG.find(config => config.id === notification)?.show!()).toBe(false);
   });
@@ -192,7 +192,7 @@ describe('notification Banner', () => {
       expect(config).toHaveLength(3);
       expect(config[0].id).toBe('orderNonPersonalService');
       expect(config[1].id).toBe('orderPersonalService');
-      expect(config[2].id).toBe('applicationServedByCourtPersonalNonPersonalServiceDA');
+      expect(config[2].id).toBe('applicationServedByCourtPersonalNonPersonalServiceToDAApplicant');
     });
 
     test('should return correct configs for DA respondent', () => {

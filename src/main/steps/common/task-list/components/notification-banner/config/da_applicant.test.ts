@@ -7,6 +7,6 @@ describe('da_applicant', () => {
     expect(da_applicantNotifications).toHaveLength(3);
     expect(da_applicantNotifications[0].id).toBe('orderNonPersonalService');
     expect(da_applicantNotifications[1].id).toBe('orderPersonalService');
-    expect(da_applicantNotifications[2].id).toBe('applicationServedByCourtPersonalNonPersonalServiceDA');
+    expect(da_applicantNotifications[2].id).toBe('applicationServedByCourtPersonalNonPersonalServiceToDAApplicant');
   });
 });

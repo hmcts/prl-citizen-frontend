@@ -115,7 +115,7 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
-  applicationServedByCourtPersonalNonPersonalServiceDA: {
+  applicationServedByCourtPersonalNonPersonalServiceToDAApplicant: {
     heading: 'The court has issued your application',
     sections: [
       {
@@ -253,7 +253,7 @@ const cy: typeof en = {
       },
     ],
   },
-  applicationServedByCourtPersonalNonPersonalServiceDA: {
+  applicationServedByCourtPersonalNonPersonalServiceToDAApplicant: {
     heading: 'Mae’r llys wedi cychwyn eich cais',
     sections: [
       {
