@@ -7,6 +7,7 @@ import { PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { UPLOAD_STATEMENT_OF_SERVICE } from '../../../../steps/urls';
 import { handleError, removeErrors } from '../utils';
@@ -30,6 +31,15 @@ export default class SOSUploadDocumentPostController extends PostController<AnyO
 
     if (!files) {
       req.session.errors = handleError(req.session.errors, 'empty');
+      return this.redirect(req, res);
+    }
+
+    if (!isValidFileFormat({ documents: files['statementOfServiceDoc'] })) {
+      req.session.errors = handleError(req.session.errors, 'fileFormat');
+      return this.redirect(req, res);
+    }
+    if (isFileSizeGreaterThanMaxAllowed({ documents: files['statementOfServiceDoc'] })) {
+      req.session.errors = handleError(req.session.errors, 'fileSize');
       return this.redirect(req, res);
     }
 

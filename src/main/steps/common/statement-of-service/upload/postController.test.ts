@@ -20,7 +20,7 @@ describe('statement-of-service > upload > postController', () => {
   test('should upload document and redirect', async () => {
     req.body = { uploadFile: true };
     req.params = { context: 'personal-service' };
-    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.files = { statementOfServiceDoc: { name: 'test.jpg', data: '', mimetype: 'text' } };
     req.url = '/applicant/statement-of-service/upload';
 
     uploadDocumentMock.mockResolvedValue({
@@ -51,7 +51,7 @@ describe('statement-of-service > upload > postController', () => {
   test('should not upload document and add error if document already present', async () => {
     req.body = { uploadFile: true };
     req.params = { context: 'personal-service' };
-    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.files = { statementOfServiceDoc: { name: 'test.jpg', data: '', mimetype: 'text' } };
     req.url = '/applicant/statement-of-service/upload';
     req.session.userCase = {
       sos_document: {
@@ -96,7 +96,7 @@ describe('statement-of-service > upload > postController', () => {
     req.body = { uploadFile: true };
     req.params = { context: 'personal-service' };
     req.url = '/applicant/statement-of-service/upload';
-    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.files = { statementOfServiceDoc: { name: 'test.jpg', data: '', mimetype: 'text' } };
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Failure',
@@ -124,7 +124,7 @@ describe('statement-of-service > upload > postController', () => {
   test('should catch error when uploading document', async () => {
     req.body = { uploadFile: true };
     req.params = { context: 'personal-service' };
-    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.files = { statementOfServiceDoc: { name: 'test.jpg', data: '', mimetype: 'text' } };
     req.url = '/applicant/statement-of-service/upload';
 
     uploadDocumentMock.mockRejectedValue({
@@ -174,6 +174,48 @@ describe('statement-of-service > upload > postController', () => {
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'empty',
+        propertyName: 'statementOfServiceDoc',
+      },
+    ]);
+  });
+  test('should catch error when uploading non allowed document type', async () => {
+    req.body = { uploadFile: true };
+    req.params = { context: 'personal-service' };
+    req.files = { statementOfServiceDoc: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    req.url = '/applicant/statement-of-service/upload';
+
+    uploadDocumentMock.mockRejectedValue({
+      status: 'Failure',
+    });
+
+    await controller.post(req, res);
+    await new Promise(process.nextTick);
+
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/statement-of-service/upload/personal-service');
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'fileFormat',
+        propertyName: 'statementOfServiceDoc',
+      },
+    ]);
+  });
+  test('should catch error when uploading beyond allowed size document', async () => {
+    req.body = { uploadFile: true };
+    req.params = { context: 'personal-service' };
+    req.files = { statementOfServiceDoc: { name: 'test.jpg', data: '', size: '3000000000000000', mimetype: 'text' } };
+    req.url = '/applicant/statement-of-service/upload';
+
+    uploadDocumentMock.mockRejectedValue({
+      status: 'Failure',
+    });
+
+    await controller.post(req, res);
+    await new Promise(process.nextTick);
+
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/statement-of-service/upload/personal-service');
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'fileSize',
         propertyName: 'statementOfServiceDoc',
       },
     ]);
