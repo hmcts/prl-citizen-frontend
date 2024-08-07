@@ -5,6 +5,14 @@ import { findNotification, getBannerContentForRespondent, showNotification } fro
 
 export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
   {
+    id: NotificationType.APPLICANT_TO_PERSONALLY_SERVE_DA_RESPONDENT,
+    show: showNotification,
+  },
+  {
+    id: NotificationType.APPLICATION_SERVED_BY_COURT_ADMIN_BAILIFF_TO_DA_RESPONDENT,
+    show: showNotification,
+  },
+  {
     id: NotificationType.ORDER_NON_PERSONAL_SERVICE,
     show: showNotification,
     interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
@@ -34,6 +42,10 @@ export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
   },
   {
     id: NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE_TO_DA_APPLICANT,
+    show: showNotification,
+  },
+  {
+    id: NotificationType.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF_TO_DA_RESPONDENT,
     show: showNotification,
   },
 ];

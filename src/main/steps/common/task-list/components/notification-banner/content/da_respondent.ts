@@ -7,7 +7,7 @@ import { NotificationBannerContent, NotificationBannerContentConfig, Notificatio
 import { findNotification, getOrderNotificationHeading } from '../utils';
 
 const en: NotificationBannerContentConfig = {
-  daRespondentBanner: {
+  applicationServedByCourtToDARespondent: {
     heading:
       'You have been named as the respondent in a domestic abuse application and have been given instructions from the court',
     sections: [
@@ -78,7 +78,7 @@ const en: NotificationBannerContentConfig = {
 };
 
 const cy: typeof en = {
-  daRespondentBanner: {
+  applicationServedByCourtToDARespondent: {
     heading:
       'You have been named as the respondent in a domestic abuse application and have been given instructions from the court -welsh',
     sections: [

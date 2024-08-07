@@ -678,6 +678,7 @@ export interface CitizenNotification {
   final: boolean;
   multiple: boolean;
   personalService?: boolean;
+  orderTypeId?: string;
 }
 
 export enum Miam_notAttendingReasons {

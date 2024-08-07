@@ -45,11 +45,11 @@ const cy: typeof en = {
     },
     sos_respondentsServedDate: {
       required: 'Mae’n rhaid i chi nodi’r dyddiad cyflwyno',
-      invalidDate: 'Date of service is not valid - welsh',
-      incompleteDay: 'Date of service must include a day - welsh',
-      incompleteMonth: 'Date of service must include a month - welsh',
-      incompleteYear: 'Date of service must include a year - welsh',
-      invalidDateInFuture: 'Date of service must be in the past - welsh',
+      invalidDate: 'Nid yw dyddiad y gwasanaeth yn ddilys',
+      incompleteDay: 'Rhaid i’r dyddiad cyflwyno gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad cyflwyno gynnwys mis',
+      incompleteYear: 'Rhaid i’r dyddiad cyflwyno gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i ddyddiad y gwasanaeth fod yn y gorffennol',
     },
   },
 };
