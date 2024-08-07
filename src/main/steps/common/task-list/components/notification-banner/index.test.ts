@@ -281,7 +281,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
           personalService: true,
         } as CitizenNotification,
@@ -367,7 +367,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
           personalService: true,
         } as CitizenNotification,
@@ -452,7 +452,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
           personalService: true,
         } as CitizenNotification,
@@ -538,7 +538,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
           personalService: true,
         } as CitizenNotification,
@@ -686,7 +686,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CRNF3_PERS_SERV_APPLICANT',
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
           show: true,
           multiple: true,
           final: true,
@@ -734,7 +734,7 @@ describe('testcase for notification Banner', () => {
               },
               {
                 external: false,
-                href: '',
+                href: '/applicant/statement-of-service/who-was-served/order',
                 text: 'Upload the statement of service (form C9)',
               },
             ],
@@ -775,7 +775,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CRNF3_PERS_SERV_APPLICANT',
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
           show: true,
           multiple: true,
           final: true,
@@ -836,7 +836,7 @@ describe('testcase for notification Banner', () => {
               },
               {
                 external: false,
-                href: '',
+                href: '/applicant/statement-of-service/who-was-served/order',
                 text: 'Upload the statement of service (form C9)',
               },
             ],
@@ -877,7 +877,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CRNF3_PERS_SERV_APPLICANT',
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
           show: true,
           multiple: true,
           final: true,
@@ -949,7 +949,7 @@ describe('testcase for notification Banner', () => {
               },
               {
                 external: false,
-                href: '',
+                href: '/applicant/statement-of-service/who-was-served/order',
                 text: 'Upload the statement of service (form C9)',
               },
             ],
@@ -1055,7 +1055,7 @@ describe('testcase for notification Banner', () => {
       ] as unknown as CitizenApplicationPacks[],
       citizenNotifications: [
         {
-          id: 'CRNF3_PERS_SERV_APPLICANT',
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
           show: true,
           multiple: true,
           final: true,
@@ -1103,7 +1103,7 @@ describe('testcase for notification Banner', () => {
               },
               {
                 external: false,
-                href: '',
+                href: '/applicant/statement-of-service/who-was-served/order',
                 text: 'Upload the statement of service (form C9)',
               },
             ],
