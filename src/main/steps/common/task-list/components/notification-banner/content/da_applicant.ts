@@ -1,10 +1,19 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { interpolate } from '../../../../../../steps/common/string-parser';
-import { STATEMENT_OF_SERVICE_WHO_WAS_SERVED, VIEW_ALL_ORDERS,VIEW_APPLICATION_PACK_DOCUMENTS } from '../../../../../urls';
+import {
+  STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
+  VIEW_ALL_ORDERS,
+  VIEW_APPLICATION_PACK_DOCUMENTS,
+} from '../../../../../urls';
 import { applyParms } from '../../../../url-parser';
 import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from '../definitions';
-import { findNotification, getOrderNotificationHeading, isOrderWithPowerOfArrest,isApplicationPackAvailable } from '../utils';
+import {
+  findNotification,
+  getOrderNotificationHeading,
+  isApplicationPackAvailable,
+  isOrderWithPowerOfArrest,
+} from '../utils';
 
 const en: NotificationBannerContentConfig = {
   applicantToPersonallyServeDARespondent: {
@@ -170,7 +179,7 @@ const en: NotificationBannerContentConfig = {
   },
   applicationServedByCourtPersonalNonPersonalServiceToDAApplicant: {
     heading: 'The court has issued your application',
-      sections: [
+    sections: [
       {
         contents: [
           {
@@ -189,7 +198,7 @@ const en: NotificationBannerContentConfig = {
             text: 'View the application pack',
             show: (caseData: Partial<CaseWithId>): boolean => {
               return isApplicationPackAvailable(caseData, PartyType.APPLICANT);
-              },
+            },
           },
         ],
       },
@@ -379,7 +388,7 @@ const cy: typeof en = {
   },
   applicationServedByCourtPersonalNonPersonalServiceToDAApplicant: {
     heading: 'Mae’r llys wedi cychwyn eich cais',
-      sections: [
+    sections: [
       {
         contents: [
           {
@@ -398,7 +407,7 @@ const cy: typeof en = {
             text: 'Gweld y pecyn cais',
             show: (caseData: Partial<CaseWithId>): boolean => {
               return isApplicationPackAvailable(caseData, PartyType.APPLICANT);
-              },
+            },
           },
         ],
       },

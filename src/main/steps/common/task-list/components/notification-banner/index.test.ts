@@ -1921,10 +1921,11 @@ describe('FL401 banners', () => {
   test('correct banners should be added when new order added by CRNF3', () => {
     data.citizenNotifications = [
       {
-        id: 'CRNF3_PERS_SERV_APPLICANT',
+        id: 'CRNF3_PERSONAL_SERV_APPLICANT',
         show: true,
         multiple: false,
         final: false,
+        new: true,
       } as CitizenNotification,
     ];
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
@@ -1988,7 +1989,7 @@ describe('FL401 banners', () => {
       {
         heading:
           'You have been named as the respondent in a domestic abuse application and have been given instructions from the court',
-        id: 'daRespondentBanner',
+        id: 'applicationServedByCourtToDARespondent',
         sections: [
           {
             contents: [
