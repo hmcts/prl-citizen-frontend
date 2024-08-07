@@ -1,10 +1,19 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { interpolate } from '../../../../../../steps/common/string-parser';
-import { STATEMENT_OF_SERVICE_WHO_WAS_SERVED, VIEW_ALL_ORDERS } from '../../../../../urls';
+import {
+  STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
+  VIEW_ALL_ORDERS,
+  VIEW_APPLICATION_PACK_DOCUMENTS,
+} from '../../../../../urls';
 import { applyParms } from '../../../../url-parser';
 import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from '../definitions';
-import { findNotification, getOrderNotificationHeading, isOrderWithPowerOfArrest } from '../utils';
+import {
+  findNotification,
+  getOrderNotificationHeading,
+  isApplicationPackAvailable,
+  isOrderWithPowerOfArrest,
+} from '../utils';
 
 const en: NotificationBannerContentConfig = {
   applicantToPersonallyServeDARespondent: {
@@ -163,6 +172,33 @@ const en: NotificationBannerContentConfig = {
           {
             text: 'Upload the statement of service (form C9)',
             href: '',
+          },
+        ],
+      },
+    ],
+  },
+  applicationServedByCourtPersonalNonPersonalServiceToDAApplicant: {
+    heading: 'The court has issued your application',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'This means the court will give a copy of your application and other court documents to the other person in the case (the respondent).',
+          },
+          {
+            text: 'If the documents include a non-molestation order or an occupation order with a power of arrest, the court will also give a copy of the order to the police.',
+          },
+          {
+            text: 'You must not give the documents to the other person yourself.',
+          },
+        ],
+        links: [
+          {
+            href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.APPLICANT }),
+            text: 'View the application pack',
+            show: (caseData: Partial<CaseWithId>): boolean => {
+              return isApplicationPackAvailable(caseData, PartyType.APPLICANT);
+            },
           },
         ],
       },
@@ -345,6 +381,33 @@ const cy: typeof en = {
           {
             text: 'Upload the statement of service (form C9)',
             href: '',
+          },
+        ],
+      },
+    ],
+  },
+  applicationServedByCourtPersonalNonPersonalServiceToDAApplicant: {
+    heading: 'Mae’r llys wedi cychwyn eich cais',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'Mae hyn yn golygu y bydd y llys yn rhoi copi o’ch cais a’r dogfennau llys eraill i’r unigolyn arall yn yr achos (yr atebydd).',
+          },
+          {
+            text: 'Os bydd y dogfennau yn cynnwys gorchymyn rhag molestu neu orchymyn anheddu gyda phŵer i arestio, bydd y llys hefyd yn rhoi copi o’r gorchymyn i’r heddlu.',
+          },
+          {
+            text: 'Ni ddylech roi’r dogfennau i’r unigolyn arall eich hun.',
+          },
+        ],
+        links: [
+          {
+            href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.APPLICANT }),
+            text: 'Gweld y pecyn cais',
+            show: (caseData: Partial<CaseWithId>): boolean => {
+              return isApplicationPackAvailable(caseData, PartyType.APPLICANT);
+            },
           },
         ],
       },

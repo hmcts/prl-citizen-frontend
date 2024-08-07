@@ -63,6 +63,8 @@ describe('notification Banner', () => {
     NotificationType.APPLICATION_SERVED_BY_COURT_TO_RESPONDENT,
     NotificationType.SUMBIT_FM5,
     NotificationType.ORDER_PERSONAL_SERVICE,
+    NotificationType.ORDER_NON_PERSONAL_SERVICE,
+    NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE_TO_DA_APPLICANT,
   ])('should have show as false by default', notification => {
     expect(NOTIFICATION_BASE_CONFIG.find(config => config.id === notification)?.show!()).toBe(false);
   });
@@ -187,12 +189,13 @@ describe('notification Banner', () => {
     test('should return correct configs for DA applicant', () => {
       const config = getNotificationConfig('FL401' as CaseType, 'applicant' as PartyType, {} as CaseWithId);
 
-      expect(config).toHaveLength(5);
+      expect(config).toHaveLength(6);
       expect(config[0].id).toBe('applicantToPersonallyServeDARespondent');
       expect(config[1].id).toBe('applicationServedByCourtAdminBailiffToDARespondent');
       expect(config[2].id).toBe('orderNonPersonalService');
       expect(config[3].id).toBe('orderPersonalService');
-      expect(config[4].id).toBe('orderSOSPersonalServiceByCourtAdminBailiffToDARespondent');
+      expect(config[4].id).toBe('applicationServedByCourtPersonalNonPersonalServiceToDAApplicant');
+      expect(config[5].id).toBe('orderSOSPersonalServiceByCourtAdminBailiffToDARespondent');
     });
 
     test('should return correct configs for DA respondent', () => {

@@ -58,7 +58,7 @@ const en: NotificationBannerContentConfig = {
           {
             //** validate **
             text: 'View the {order} (PDF)',
-            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
             interpolateLinkText: (
               content: string,
               commonContent: NotificationBannerContent['common'],
@@ -129,7 +129,7 @@ const cy: typeof en = {
           {
             //** validate **
             text: 'View the {order} (PDF) (welsh)',
-            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
             interpolateLinkText: (
               content: string,
               commonContent: NotificationBannerContent['common'],

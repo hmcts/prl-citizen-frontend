@@ -1,6 +1,6 @@
 import { CaseWithId, CitizenNotification } from '../../../../../app/case/case';
 import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
-import { CitizenApplicationPacks } from '../../../documents/definitions';
+import { CitizenApplicationPacks, DocumentCategory } from '../../../documents/definitions';
 
 import { getNotifications } from '.';
 
@@ -1790,5 +1790,319 @@ describe('testcase for notification Banner', () => {
         },
       ]);
     });
+  });
+});
+describe('FL401 banners', () => {
+  const data = {
+    id: '123',
+    state: State.CASE_HEARING,
+    caseTypeOfApplication: CaseType.FL401,
+    respondents: [],
+    caseInvites: [
+      {
+        value: {
+          partyId: '123',
+          invitedUserId: '123',
+        },
+      },
+    ],
+  } as unknown as CaseWithId;
+
+  test('correct banners should be added when new order added by CRNF2', () => {
+    data.citizenNotifications = [
+      {
+        id: 'CRNF2_APPLICANT_RESPONDENT',
+        show: true,
+        multiple: false,
+        final: false,
+      } as CitizenNotification,
+    ];
+    expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+      {
+        heading: 'You have a new order from the court',
+        id: 'orderNonPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/respondent/documents/view/orders-from-the-court',
+                text: 'View the order (PDF)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'You have a new order from the court',
+        id: 'orderNonPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the order (PDF)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('banners should be added when multiple new orders addedby CRNF2', () => {
+    data.citizenNotifications = [
+      {
+        id: 'CRNF2_APPLICANT_RESPONDENT',
+        show: true,
+        multiple: true,
+        final: false,
+      } as CitizenNotification,
+    ];
+    expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
+      {
+        heading: 'You have new (welsh) orders (welsh) from the court (welsh)',
+        id: 'orderNonPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a decision about your case. The orders (welsh) tell (welsh) you what the court has decided. (welsh)',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/respondent/documents/view/orders-from-the-court',
+                text: 'View the orders (welsh) (PDF) (welsh)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
+      {
+        heading: 'You have new (welsh) orders (welsh) from the court (welsh)',
+        id: 'orderNonPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a decision about your case. The orders (welsh) tell (welsh) you what the court has decided. (welsh)',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the orders (welsh) (PDF) (welsh)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('correct banners should be added when new order added by CRNF3', () => {
+    data.citizenNotifications = [
+      {
+        id: 'CRNF3_PERSONAL_SERV_APPLICANT',
+        show: true,
+        multiple: false,
+        final: false,
+        new: true,
+      } as CitizenNotification,
+    ];
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'You have a new order from the court',
+        id: 'orderPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+              },
+              {
+                text: 'You will need to arrange for the  to be served. See the order for further details.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the order (PDF)',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'You must not give the order to the respondent yourself - hire a professional process server to serve the documents, or ask the court to serve the documents by filling in <a href="https://assets.publishing.service.gov.uk/media/624375648fa8f5276d1f9f20/D89_0422_save.pdf" class="govuk-link" target="_blank">form D89</a>',
+              },
+              {
+                text: 'You need to submit a statement of service after the respondent has been given the documents.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
+                text: 'Download the statement of service (form C9) (opens in a new tab)',
+              },
+              {
+                external: false,
+                href: '',
+                text: 'Upload the statement of service (form C9)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+  test('correct banners should be added when respondent recieved the application', () => {
+    data.citizenNotifications = [
+      {
+        id: 'DN3_SOA_RESPONDENT',
+        show: true,
+        multiple: false,
+        final: false,
+      } as CitizenNotification,
+    ];
+    expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+      {
+        heading:
+          'You have been named as the respondent in a domestic abuse application and have been given instructions from the court',
+        id: 'applicationServedByCourtToDARespondent',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means that the applicant has applied to a court for protection from domestic abuse.',
+              },
+              {
+                text: 'The court has considered their concerns and provided you further instructions.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: '/respondent/documents/view/application-pack-documents',
+                text: 'View the court documents',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('correct banners should be added when SOA have been done with non personal service', () => {
+    data.citizenNotifications = [
+      {
+        id: 'DN1_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
+        show: true,
+        multiple: false,
+        final: false,
+        new: false,
+        personalService: true,
+      } as CitizenNotification,
+    ];
+    data.citizenApplicationPacks = [
+      {
+        servedParty: 'Applicant',
+        partyId: '1234',
+        partyName: 'null',
+        partyType: PartyType.APPLICANT,
+        categoryId: DocumentCategory.POSITION_STATEMENTS,
+        uploadedBy: 'test user',
+        uploadedDate: '2024-01-01T16:24:33.122506',
+        reviewedDate: null,
+        applicantSoaPack: [
+          {
+            document_url: 'MOCK_DOCUMENT_URL',
+            document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+            document_hash: null,
+            category_id: DocumentCategory.POSITION_STATEMENTS,
+            document_creation_date: '01/01/2024',
+          },
+        ],
+        documentWelsh: null,
+        document: null,
+      },
+    ];
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'The court has issued your application',
+        id: 'applicationServedByCourtPersonalNonPersonalServiceToDAApplicant',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court will give a copy of your application and other court documents to the other person in the case (the respondent).',
+              },
+              {
+                text: 'If the documents include a non-molestation order or an occupation order with a power of arrest, the court will also give a copy of the order to the police.',
+              },
+              {
+                text: 'You must not give the documents to the other person yourself.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/application-pack-documents',
+                text: 'View the application pack',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
+      {
+        heading: 'Mae’r llys wedi cychwyn eich cais',
+        id: 'applicationServedByCourtPersonalNonPersonalServiceToDAApplicant',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'Mae hyn yn golygu y bydd y llys yn rhoi copi o’ch cais a’r dogfennau llys eraill i’r unigolyn arall yn yr achos (yr atebydd).',
+              },
+              {
+                text: 'Os bydd y dogfennau yn cynnwys gorchymyn rhag molestu neu orchymyn anheddu gyda phŵer i arestio, bydd y llys hefyd yn rhoi copi o’r gorchymyn i’r heddlu.',
+              },
+              {
+                text: 'Ni ddylech roi’r dogfennau i’r unigolyn arall eich hun.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/application-pack-documents',
+                text: 'Gweld y pecyn cais',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
   });
 });
