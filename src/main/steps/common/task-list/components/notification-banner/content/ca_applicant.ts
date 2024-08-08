@@ -790,7 +790,10 @@ const cy: typeof en = {
           },
           {
             text: 'Llwytho’r datganiad cyflwyno (ffurflen C9)',
-            href: '/applicant/statement-of-service/who-was-served/personal-service',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'personal-service',
+            }),
           },
         ],
       },
