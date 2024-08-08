@@ -21,6 +21,7 @@ nodejs:
     EQUALITY_URL: 'https://pcq.{{ .Values.global.environment }}.platform.hmcts.net'
     DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2332.preview.platform.hmcts.net'
     COS_URL: 'https://prl-cos-pr-2551.preview.platform.hmcts.net'
+    FACT_URL: 'http://fact-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
     REASONABLE_ADJUSTMENTS: 'https://cui-ra.{{ .Values.global.environment }}.platform.hmcts.net'
     REDIS_HOST: 'prl-citizen-frontend-secondary-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
     LAUNCH_DARKLY_OFFLINE_MODE: false
@@ -29,6 +30,7 @@ nodejs:
     ENABLE_CASE_TRAIN_TRACK: true
     ENABLE_RA_COMPONENT: true
     ENABLE_PCQ_COMPONENT: true
+    ALLOWED_COURTS: ["Swansea Civil Justice Centre"]
   keyVaults:
     prl:
       resourceGroup: prl
