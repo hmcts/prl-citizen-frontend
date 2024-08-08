@@ -99,17 +99,15 @@ const generateC7ResponseNotifications = (caseData: CaseWithId): NotificationBann
   const notifications: NotificationBannerProps[] = [];
 
   caseData.respondents?.forEach(respondent => {
-    const C7ResponseDocument = findC7ResponseDocument(caseData, respondent);
-
     notifications.push({
       id: NotificationType.VIEW_RESPONSE_TO_APPLICATION,
       interpolateContent: (content: string, commonContent: NotificationBannerContent['common']) => {
         return interpolate(content, {
-          respondent: C7ResponseDocument?.partyName ?? commonContent.theRespondent,
+          respondent: findC7ResponseDocument(caseData, respondent)?.partyName ?? commonContent.theRespondent,
         });
       },
       show: (notificationType: NotificationType): boolean => {
-        return showNotification(notificationType, caseData) && !!C7ResponseDocument;
+        return showNotification(notificationType, caseData) && !!findC7ResponseDocument(caseData, respondent);
       },
     });
   });
