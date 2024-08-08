@@ -1,4 +1,5 @@
 import { Case, CaseDate } from '../../../../app/case/case';
+import { CaseType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
@@ -64,18 +65,28 @@ export const form: FormContent = {
     return {
       sos_respondentsServed: {
         type: 'checkboxes',
-        hidden: caseData?.respondents?.length === 1,
+        hidden: !!(caseData?.caseTypeOfApplication === CaseType.FL401 || caseData?.respondents?.length === 1),
         label: l => l.whoWasServedLabel,
-        values:
-          caseData?.respondents?.map(respondent => ({
-            name: 'sos_respondentsServed',
-            value: respondent.id,
-            label: `${respondent.value.firstName} ${respondent.value.lastName}`,
-            selected:
-              caseData?.respondents?.length === 1
-                ? true
-                : caseData?.sos_respondentsServed?.includes(respondent.id) || false,
-          })) ?? [],
+        values: caseData?.respondents?.length
+          ? caseData.respondents.map(respondent => ({
+              name: 'sos_respondentsServed',
+              value: respondent.id,
+              label: `${respondent.value.firstName} ${respondent.value.lastName}`,
+              selected:
+                caseData?.respondents?.length === 1
+                  ? true
+                  : caseData?.sos_respondentsServed?.includes(respondent.id) || false,
+            }))
+          : caseData?.respondentsFL401
+          ? [
+              {
+                name: 'sos_respondentsServed',
+                value: caseData.respondentsFL401!.partyId,
+                label: `${caseData.respondentsFL401!.firstName} ${caseData.respondentsFL401!.lastName}`,
+                selected: true,
+              },
+            ]
+          : [],
         validator: atLeastOneFieldIsChecked,
       },
       sos_respondentsServedDate: {
