@@ -5,7 +5,7 @@ import { findNotification, showNotification } from '../utils';
 
 export const DA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
   {
-    id: NotificationType.DA_RESPONDENT_BANNER,
+    id: NotificationType.APPLICATION_SERVED_BY_COURT_TO_DA_RESPONDENT,
     show: showNotification,
   },
   {

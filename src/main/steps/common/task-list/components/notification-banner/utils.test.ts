@@ -56,13 +56,15 @@ describe('notification Banner', () => {
     NotificationType.APPLICATION_CLOSED,
     NotificationType.NEW_ORDER,
     NotificationType.FINAL_ORDER,
-    NotificationType.DA_RESPONDENT_BANNER,
+    NotificationType.APPLICATION_SERVED_BY_COURT_TO_DA_RESPONDENT,
     NotificationType.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT,
     NotificationType.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE,
     NotificationType.VIEW_RESPONSE_TO_APPLICATION,
     NotificationType.APPLICATION_SERVED_BY_COURT_TO_RESPONDENT,
     NotificationType.SUMBIT_FM5,
     NotificationType.ORDER_PERSONAL_SERVICE,
+    NotificationType.ORDER_NON_PERSONAL_SERVICE,
+    NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE_TO_DA_APPLICANT,
   ])('should have show as false by default', notification => {
     expect(NOTIFICATION_BASE_CONFIG.find(config => config.id === notification)?.show!()).toBe(false);
   });
@@ -187,16 +189,20 @@ describe('notification Banner', () => {
     test('should return correct configs for DA applicant', () => {
       const config = getNotificationConfig('FL401' as CaseType, 'applicant' as PartyType, {} as CaseWithId);
 
-      expect(config).toHaveLength(2);
-      expect(config[0].id).toBe('orderNonPersonalService');
-      expect(config[1].id).toBe('orderPersonalService');
+      expect(config).toHaveLength(6);
+      expect(config[0].id).toBe('applicantToPersonallyServeDARespondent');
+      expect(config[1].id).toBe('applicationServedByCourtAdminBailiffToDARespondent');
+      expect(config[2].id).toBe('orderNonPersonalService');
+      expect(config[3].id).toBe('orderPersonalService');
+      expect(config[4].id).toBe('applicationServedByCourtPersonalNonPersonalServiceToDAApplicant');
+      expect(config[5].id).toBe('orderSOSPersonalServiceByCourtAdminBailiffToDARespondent');
     });
 
     test('should return correct configs for DA respondent', () => {
       const config = getNotificationConfig('FL401' as CaseType, 'respondent' as PartyType, {} as CaseWithId);
 
       expect(config).toHaveLength(2);
-      expect(config[0].id).toBe('daRespondentBanner');
+      expect(config[0].id).toBe('applicationServedByCourtToDARespondent');
       expect(config[1].id).toBe('orderNonPersonalService');
     });
   });
@@ -298,7 +304,7 @@ describe('notification Banner', () => {
     test('should return true when personal service is present in notification', () => {
       data.citizenNotifications = [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
           personalService: true,
         },
@@ -309,7 +315,7 @@ describe('notification Banner', () => {
     test('should return false when personal service is not present in notification', () => {
       data.citizenNotifications = [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
         },
       ] as unknown as CitizenNotification[];
@@ -405,7 +411,7 @@ describe('notification Banner', () => {
     test('should return true when show is true in notification', () => {
       data.citizenNotifications = [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
         },
       ] as unknown as CitizenNotification[];
@@ -417,11 +423,11 @@ describe('notification Banner', () => {
     test('should return false when show is false in notification', () => {
       data.citizenNotifications = [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: false,
         },
       ] as unknown as CitizenNotification[];
-      expect(showNotification('CAN4_SOA_PERS_NONPERS_APPLICANT' as NotificationType, data)).toBe(false);
+      expect(showNotification('CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT' as NotificationType, data)).toBe(false);
     });
   });
 
@@ -429,12 +435,12 @@ describe('notification Banner', () => {
     test('should find correct notification details', () => {
       data.citizenNotifications = [
         {
-          id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
           show: true,
         },
       ] as unknown as CitizenNotification[];
-      expect(findNotification(data, 'CAN4_SOA_PERS_NONPERS_APPLICANT' as NotificationID)).toStrictEqual({
-        id: 'CAN4_SOA_PERS_NONPERS_APPLICANT',
+      expect(findNotification(data, 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT' as NotificationID)).toStrictEqual({
+        id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
         show: true,
       });
     });

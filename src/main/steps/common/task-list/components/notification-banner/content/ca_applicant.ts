@@ -5,6 +5,7 @@ import { interpolate } from '../../../../../../steps/common/string-parser';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   C100_WITHDRAW_CASE,
+  STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
   UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
@@ -288,7 +289,10 @@ const en: NotificationBannerContentConfig = {
           },
           {
             text: 'Upload the statement of service (form C9)',
-            href: '',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'order',
+            }),
           },
         ],
       },
@@ -348,7 +352,10 @@ const en: NotificationBannerContentConfig = {
           },
           {
             text: 'Upload the statement of service (form C9)',
-            href: '/applicant/statement-of-service/who-was-served/personal-service',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'personal-service',
+            }),
           },
         ],
       },
@@ -720,7 +727,10 @@ const cy: typeof en = {
           },
           {
             text: 'Upload the statement of service (form C9)',
-            href: '',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'order',
+            }),
           },
         ],
       },
@@ -780,7 +790,10 @@ const cy: typeof en = {
           },
           {
             text: 'Llwytho’r datganiad cyflwyno (ffurflen C9)',
-            href: '/applicant/statement-of-service/who-was-served/personal-service',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'personal-service',
+            }),
           },
         ],
       },
