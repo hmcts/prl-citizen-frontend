@@ -130,6 +130,7 @@ export const enContent = {
   tryAgain: 'and try again.',
   forRecords: 'Please note this draft is for your records. Only the completed response will be admitted in court.',
   downloadDraft: 'Download draft response',
+  downloadDraftWelsh: 'Download draft response welsh',
 };
 
 export const enInternationalContent = {
@@ -319,6 +320,7 @@ export const cyContent: typeof enContent = {
   tryAgain: 'ar eich dyfais a cheisio eto.',
   forRecords: 'Noder mai drafft yw hwn ar gyfer eich cofnodion. Dim ond yr ymateb terfynol a dderbynnir yn y llys.',
   downloadDraft: 'Lawrlwytho drafft o’r ymateb',
+  downloadDraftWelsh: 'Lawrlwytho drafft o’r ymateb cymraeg',
 };
 
 export const cyContentProceding = {
