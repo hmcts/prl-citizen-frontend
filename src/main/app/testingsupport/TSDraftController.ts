@@ -14,8 +14,7 @@ class TSDraftController {
 
   public async createTSC100Draft(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     try {
-      const newCaseId = (await req.locals.C100Api.createCaseTestingSupport()) as unknown as string;
-      req.session.userCase = (await req.locals.C100Api.retrieveCaseById(newCaseId)) as CaseWithId;
+      req.session.userCase = (await req.locals.C100Api.createCaseTestingSupport()) as unknown as CaseWithId;
       req.session.save(() => {
         res.redirect(C100_CHECK_YOUR_ANSWER);
       });

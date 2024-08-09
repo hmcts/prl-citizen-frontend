@@ -137,7 +137,7 @@ describe('respondent1Sequence', () => {
       )
     ).toBe('/case/1234');
 
-    expect(respondentCaseSequence[24].url).toBe('/:partyType/documents/view/all-documents');
+    expect(respondentCaseSequence[24].url).toBe('/:partyType/documents/view/all-categories');
     expect(respondentCaseSequence[24].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[24].getNextStep({})).toBe('/');
 
@@ -149,9 +149,7 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[26].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[26].getNextStep({})).toBe('/');
 
-    expect(respondentCaseSequence[27].url).toBe(
-      '/:partyType/documents/view/:documentCategory/:documentPartyType/:documentPartyId?'
-    );
+    expect(respondentCaseSequence[27].url).toBe('/:partyType/documents/view/:type/doc');
     expect(respondentCaseSequence[27].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[27].getNextStep({})).toBe('/');
 

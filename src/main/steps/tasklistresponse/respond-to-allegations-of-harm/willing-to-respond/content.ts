@@ -85,6 +85,7 @@ export const generateContent: TranslationFn = content => {
     aohDocumentUrl: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
       partyType: PartyType.RESPONDENT,
       documentType: 'aoh-document',
+      language: 'en',
     }),
     form,
   };

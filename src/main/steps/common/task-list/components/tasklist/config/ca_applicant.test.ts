@@ -29,7 +29,7 @@ describe('ca_applicant', () => {
     const yourApplicationTasks = CA_APPLICANT[1].tasks(data, {} as SectionContent);
 
     expect(CA_APPLICANT[1].id).toBe('yourApplication');
-    expect(yourApplicationTasks).toHaveLength(2);
+    expect(yourApplicationTasks).toHaveLength(5);
     expect(yourApplicationTasks[0].id).toBe('childArrangementApplication');
     expect(yourApplicationTasks[1].id).toBe('yourApplicationPDF');
   });

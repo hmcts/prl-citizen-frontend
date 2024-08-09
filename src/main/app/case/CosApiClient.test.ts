@@ -5,7 +5,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { UserDetails } from '../controller/AppRequest';
 
 import { CosApiClient, DocumentFileUploadRequest, UploadedFiles } from './CosApiClient';
-import { CaseWithId } from './case';
+import { CaseWithId, StatementOfServiceRequest } from './case';
 import { CaseEvent, CaseType, DocumentUploadResponse, PartyType, YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
 
@@ -241,13 +241,12 @@ describe('CosApiClient', () => {
   });
 
   test('getHearingsByCaseID', async () => {
-    const response = { id: '200', state: 'SUCCESS' };
+    const response = { id: '200', state: 'SUCCESS', data: [] };
     /* eslint-disable @typescript-eslint/no-explicit-any */
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<any>);
-    const req = mockRequest();
+    mockedAxios.post.mockReturnValueOnce(response as unknown as Promise<any>);
     const client = new CosApiClient('abc', mockLogger);
-    const actual = await client.retrieveCaseHearingsByCaseId(req.session.user, '123456');
-    expect(actual).toEqual(response);
+    const actual = await client.retrieveCaseHearingsByCaseId('123456');
+    expect(actual.hearingData).toEqual(response.data);
   });
 
   test('retrieveCaseHearingsByCaseId should throw error', async () => {
@@ -260,10 +259,9 @@ describe('CosApiClient', () => {
       },
     });
     const client = new CosApiClient('abc', mockLogger);
-    const req = mockRequest();
 
-    await expect(client.retrieveCaseHearingsByCaseId(req.session.user, '1234')).rejects.toThrow(
-      'Error occured, case could not be updated - retrieveCaseHearingsByCaseId'
+    await expect(client.retrieveCaseHearingsByCaseId('1234')).rejects.toThrow(
+      'Error occured, hearing details could not be retrieved - retrieveCaseHearingsByCaseId'
     );
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
   });
@@ -295,7 +293,7 @@ describe('CosApiClient', () => {
     expect(actual).toEqual(response);
   });
 
-  test('uploadStatementDocument should return correct response data', async () => {
+  test('uploadDocument should return correct response data', async () => {
     const response = {
       status: 200,
       document: {
@@ -319,20 +317,20 @@ describe('CosApiClient', () => {
 
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<DocumentUploadResponse>);
     const client = new CosApiClient('abc', mockLogger);
-    const result = await client.uploadStatementDocument(userDetails, req);
+    const result = await client.uploadDocument(userDetails, req);
     expect(result).toStrictEqual(response);
   });
 
-  test('uploadStatementDocument-with api error', async () => {
+  test('uploadDocument-with api error', async () => {
     mockedAxios.post.mockRejectedValueOnce;
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    await expect(client.uploadStatementDocument(req.session.user, DocumentUploadReq)).rejects.toThrow(
-      'Error occured, upload citizen statement document failed - UploadDocumentListFromCitizen'
+    await expect(client.uploadDocument(req.session.user, DocumentUploadReq)).rejects.toThrow(
+      'Error occured, upload citizen statement document failed - uploadDocument'
     );
   });
 
-  test('deleteCitizenStatementDocument-', async () => {
+  test('deleteDocument-', async () => {
     mockedAxios.delete.mockResolvedValueOnce;
     const req = mockRequest({
       session: {
@@ -353,8 +351,8 @@ describe('CosApiClient', () => {
     req.params.documentId = 'c9f56483-6e2d-43ce-9de8-72661755b87c';
     const client = new CosApiClient('abc', mockLogger);
     const docId = 'c9f56483-6e2d-43ce-9de8-72661755b87c';
-    await expect(client.deleteCitizenStatementDocument(docId)).rejects.toThrow(
-      'Error occured, document could not be deleted. - deleteCitizenStatementDocument'
+    await expect(client.deleteDocument(docId)).rejects.toThrow(
+      'Error occured, document could not be deleted. - deleteDocument'
     );
   });
   test('submitUploadedDocuments-', async () => {
@@ -580,7 +578,7 @@ describe('CosApiClientWithError', () => {
     expect(flag).toEqual(false);
   });
 
-  test('uploadStatementDocument', async () => {
+  test('uploadDocument', async () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
     const DocumentUploadReq = {
@@ -590,7 +588,7 @@ describe('CosApiClientWithError', () => {
     };
     let flag = true;
     try {
-      await client.uploadStatementDocument(req.session.user, DocumentUploadReq);
+      await client.uploadDocument(req.session.user, DocumentUploadReq);
     } catch {
       flag = false;
     }
@@ -598,12 +596,12 @@ describe('CosApiClientWithError', () => {
     expect(flag).toEqual(false);
   });
 
-  test('deleteCitizenStatementDocumentWithError', async () => {
+  test('deleteDocumentWithError', async () => {
     const client = new CosApiClient('abc', mockLogger);
     const docId = '12345';
     let flag = true;
     try {
-      await client.deleteCitizenStatementDocument(docId);
+      await client.deleteDocument(docId);
     } catch {
       flag = false;
     }
@@ -615,13 +613,13 @@ describe('CosApiClientWithError', () => {
 describe('RetrieveCaseHearingsByCaseId', () => {
   test('retrieveCaseHearingsByCaseId', async () => {
     const req = mockRequest();
-    const response = { id: '1234567' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const response = { id: '1234567', data: [] };
+    mockedAxios.post.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
     const client = new CosApiClient('abc', mockLogger);
 
-    const result = await client.retrieveCaseHearingsByCaseId(req.session.userCase, req.session.user);
+    const result = await client.retrieveCaseHearingsByCaseId(req.session.userCase.id);
 
-    expect(result).toEqual(response);
+    expect(result.hearingData).toEqual(response.data);
   });
 
   test('retrieveCaseHearingsByCaseId_Error', async () => {
@@ -635,8 +633,55 @@ describe('RetrieveCaseHearingsByCaseId', () => {
       },
     });
     const client = new CosApiClient('abc', mockLogger);
-    await expect(client.retrieveCaseHearingsByCaseId(req.session.userCase, req.session.user)).rejects.toThrow(
-      'Error occured, case could not be updated - retrieveCaseHearingsByCaseId'
+    await expect(client.retrieveCaseHearingsByCaseId(req.session.userCase.id)).rejects.toThrow(
+      'Error occured, hearing details could not be retrieved - retrieveCaseHearingsByCaseId'
     );
+  });
+
+  test('submitStatementOfService', async () => {
+    const response = {
+      status: 200,
+      document: {
+        document_url: 'abc',
+        document_binary_url: 'bcd',
+        document_filename: 'test',
+        document_hash: 'test',
+        document_creation_date: 'testDate',
+      },
+    };
+    const req = {
+      partiesServedDate: '1/1/2024',
+      partiesServed: ['1234'],
+      citizenSosDocs: {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+      isOrder: 'No',
+    } as StatementOfServiceRequest;
+
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<DocumentUploadResponse>);
+    const client = new CosApiClient('abc', mockLogger);
+    const result = await client.submitStatementOfService('1234', req);
+    expect(result.data).toStrictEqual(response);
+  });
+
+  test('submitStatementOfService should throw error', async () => {
+    mockedAxios.post.mockRejectedValueOnce({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+    const client = new CosApiClient('abc', mockLogger);
+
+    await expect(client.submitStatementOfService('1234', {} as unknown as StatementOfServiceRequest)).rejects.toThrow(
+      'Error occured, could not sumbit statement of service. - SubmitStatementOfService'
+    );
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
   });
 });

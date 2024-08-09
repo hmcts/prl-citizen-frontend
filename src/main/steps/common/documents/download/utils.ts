@@ -5,3 +5,7 @@ export const transformFileName = (fileName: string): string => {
 export const deTransformFileName = (fileName: string): string => {
   return fileName.replace(/_--_+/g, ' ');
 };
+export const enum DOCUMENT_LANGUAGE {
+  ENGLISH = 'en',
+  WELSH = 'cy',
+}

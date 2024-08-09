@@ -15,11 +15,10 @@ import {
   DETAILS_KNOWN,
   INTERNATIONAL_FACTORS_START,
   MIAM_START,
-  PARTY_YOUR_HEARINGS,
   PROCEEDINGS_START,
   PageLink,
-  //RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
+  VIEW_HEARINGS_DETAILS,
 } from '../urls';
 
 @autobind
@@ -67,7 +66,7 @@ export class TasklistGetController {
         redirectUrl = applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: getCasePartyType(userCase, user.id) });
         break;
       case EventRoutesContext.HEARINGS:
-        redirectUrl = applyParms(PARTY_YOUR_HEARINGS, { partyType: getCasePartyType(userCase, user.id) });
+        redirectUrl = applyParms(VIEW_HEARINGS_DETAILS, { partyType: getCasePartyType(userCase, user.id) });
         break;
     }
 

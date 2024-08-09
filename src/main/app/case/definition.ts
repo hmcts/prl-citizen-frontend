@@ -755,6 +755,7 @@ export interface CaseData {
   allocatedJudgeDetails: AllocatedJudgeDetails;
   miamCertificationDocumentUpload: Document;
   c1ADocument: Document;
+  c1AWelshDocument:Document;
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;
@@ -817,6 +818,7 @@ export interface CaseData {
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
+  finalWelshDocument?: Document;
   serviceType: string;
   claimNumber: string;
   caseCode: string;
@@ -884,9 +886,12 @@ export interface CaseData {
   respondentDocsList?: RespondentDocs[];
   draftOrderDoc?: Document;
   submitAndPayDownloadApplicationLink?: Document;
+  submitAndPayDownloadApplicationWelshLink?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions?: YesOrNo | null;
-  citizenDocuments?: CitizenDocuments[];
+  applicantDocuments?:CitizenDocuments[];
+  respondentDocuments?:CitizenDocuments[];
+  citizenOtherDocuments?:CitizenDocuments[];
   citizenOrders?: CitizenDocuments[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
@@ -2718,6 +2723,7 @@ export type ChildrenDetails = {
     statement: string;
   };
   liveWith?: People[];
+  mainlyLiveWith?: People;
 };
 export type Childinfo = {
   id: string;
@@ -2828,6 +2834,8 @@ export enum CaseEvent {
   CITIZEN_PCQ_UPDATE = 'pcqUpdateForCitizen',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
   CONTACT_PREFERENCE='citizenContactPreference',
+  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates",
+  UPLOAD_STATEMENT_OF_SERVICE = 'citizenStatementOfService',
   CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding",
   CITIZEN_RESPONSE_TO_AOH = 'citizenResponseToAoH'
 }

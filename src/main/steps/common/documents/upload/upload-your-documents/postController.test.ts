@@ -6,7 +6,7 @@ import { FormFields } from '../../../../../app/form/Form';
 import UploadDocumentPostController from './postController';
 
 const generateStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'generateStatementDocument');
-const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadStatementDocument');
+const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadDocument');
 const submitUploadedDocumentsMock = jest.spyOn(CosApiClient.prototype, 'submitUploadedDocuments');
 
 describe('documents > upload > upload-your-documents > postController', () => {
@@ -272,7 +272,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       ]);
     });
 
-    test('should set error when uploadStatementDocument state not success', async () => {
+    test('should set error when uploadDocument state not success', async () => {
       const req = mockRequest({
         body: {
           uploadFile: true,
@@ -322,7 +322,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       ]);
     });
 
-    test('should set error when uploadStatementDocument throws error', async () => {
+    test('should set error when uploadDocument throws error', async () => {
       const req = mockRequest({
         body: {
           uploadFile: true,

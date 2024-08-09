@@ -30,7 +30,7 @@ describe('da_applicant', () => {
     expect(DA_APPLICANT[1].id).toBe('yourApplication');
     expect(yourApplicationTasks).toHaveLength(2);
     expect(yourApplicationTasks[0].id).toBe('yourApplicationPDF');
-    expect(yourApplicationTasks[1].id).toBe('yourAapplicationWitnessStatment');
+    expect(yourApplicationTasks[1].id).toBe('yourApplicationWelshPDF');
   });
 
   test('your hearing section should contain correct ids and tasks', () => {

@@ -4,7 +4,7 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 
 import { deleteDocument } from './utils';
 
-const deleteCitizenStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteCitizenStatementDocument');
+const deleteDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteDocument');
 
 describe('documents > upload > utils', () => {
   describe('deleteDocuments', () => {
@@ -37,14 +37,14 @@ describe('documents > upload > utils', () => {
         },
       });
       const res = mockResponse();
-      deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
+      deleteDocumentMock.mockResolvedValue('SUCCESS');
 
       await deleteDocument(req, res);
       await new Promise(process.nextTick);
       expect(req.session.userCase.applicantUploadFiles).toStrictEqual(undefined);
     });
 
-    test('should add error to session when deleteCitizenStatementDocument fails', async () => {
+    test('should add error to session when deleteDocument fails', async () => {
       const req = mockRequest({
         session: {
           user: { id: '1234' },
@@ -73,7 +73,7 @@ describe('documents > upload > utils', () => {
         },
       });
       const res = mockResponse();
-      deleteCitizenStatementDocumentMock.mockRejectedValue('500');
+      deleteDocumentMock.mockRejectedValue('500');
 
       await deleteDocument(req, res);
       await new Promise(process.nextTick);

@@ -20,7 +20,7 @@ describe('documents > view > orders-from-the-court > content', () => {
             userCase: {
               citizenOrders: [
                 {
-                  createdDate: '01/01/2024',
+                  madeDate: '2024-01-01T16:24:33.122506',
                   orderType: 'ORDER',
                   document: {
                     document_url: 'DOC_URL/1234',
@@ -41,12 +41,16 @@ describe('documents > view > orders-from-the-court > content', () => {
     } as unknown as CommonContent);
     expect(content.documents).toStrictEqual([
       {
-        document_en: {
-          documentDownloadUrl: '/applicant/documents/download/1234/DOC_FILENAME',
-          documentId: '1234',
-          documentName: 'DOC_FILENAME',
-          orderMadeDate: '01 Jan 2024',
-        },
+        documentDownloadUrl: '/applicant/documents/download/1234/DOC_FILENAME',
+        documentId: '1234',
+        documentName: 'DOC_FILENAME',
+        orderMadeDate: '01 Jan 2024',
+      },
+      {
+        documentDownloadUrl: '/applicant/documents/download/1234/DOC_FILENAME',
+        documentId: '1234',
+        documentName: 'DOC_FILENAME',
+        orderMadeDate: '01 Jan 2024',
       },
     ]);
   });

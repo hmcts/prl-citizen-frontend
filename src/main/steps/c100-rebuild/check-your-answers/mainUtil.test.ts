@@ -28,7 +28,7 @@ import {
   WithoutNoticeHearing,
   getYesNoTranslation,
   reasonableAdjustment,
-  whereDoChildLive,
+  whereDoChildrenLive,
 } from './mainUtil';
 
 const sectionTitles = {
@@ -59,7 +59,8 @@ const keys = {
   applicantDetails: 'applicantDetails',
   fullName: 'fullName',
   contactDetailsOf: 'contactDetailsOf',
-  whoDoesLiveWith: 'whoDoesLiveWith',
+  childLivingArrangements: "{firstname} {lastname}'s living arrangements",
+  whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with?',
   addressDetails: 'addressDetails',
   detailsOfChildConcern: 'detailsOfChildConcern',
   reasonPermissionRequired: 'reasonPermissionRequired',
@@ -1087,7 +1088,7 @@ describe('test cases for main util', () => {
     expect(childernDetailsAdditionalObj?.title).toBe(undefined);
   });
 
-  test('whereDoChildLive', () => {
+  test('whoDoesChildMainlyLiveWith should have correct details', () => {
     const userCase = {
       id: 'id',
       state: undefined,
@@ -1096,15 +1097,79 @@ describe('test cases for main util', () => {
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           firstName: 'Bob',
           lastName: 'Silly',
+          mainlyLiveWith: {
+            id: '2',
+            firstName: 'test',
+            lastName: 'parent',
+            partyType: PartyType.RESPONDENT,
+          },
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    expect(whereDoChildLiveObj?.rows).toEqual([
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
+              text: undefined,
+              visuallyHiddenText: 'Who does Bob Silly mainly live with?',
+            },
+          ],
+        },
+        key: {
+          text: 'Who does Bob Silly mainly live with?',
+        },
+        value: {
+          html: 'test parent',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
+              text: undefined,
+              visuallyHiddenText: "Bob Silly's living arrangements",
+            },
+          ],
+        },
+        key: {
+          text: "Bob Silly's living arrangements",
+        },
+        value: {
+          html: '<ul>undefined</ul>',
+        },
+      },
+    ]);
+    expect(whereDoChildLiveObj?.title).toBe(undefined);
+  });
+
+  test('childLivingArrangements', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      cd_children: [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          firstName: 'Bob',
+          lastName: 'Silly',
+          mainlyLiveWith: {
+            id: '2',
+            firstName: 'test',
+            lastName: 'parent',
+            partyType: PartyType.RESPONDENT,
+          },
+        },
+      ],
+    } as ANYTYPE;
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
     expect(whereDoChildLiveObj?.rows).not.toBe([]);
     expect(whereDoChildLiveObj?.title).toBe(undefined);
   });
 
-  test('whereDoChildLive > alternative', () => {
+  test('childLivingArrangements > alternative', () => {
     const userCase = {
       id: 'id',
       state: undefined,
@@ -1121,23 +1186,46 @@ describe('test cases for main util', () => {
               partyType: PartyType.RESPONDENT,
             },
           ],
+          mainlyLiveWith: {
+            id: '2',
+            firstName: 'test',
+            lastName: 'parent',
+            partyType: PartyType.RESPONDENT,
+          },
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
     expect(whereDoChildLiveObj?.rows).toEqual([
       {
         actions: {
           items: [
             {
-              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with',
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
               text: undefined,
-              visuallyHiddenText: 'whoDoesLiveWith',
+              visuallyHiddenText: 'Who does Bob Silly mainly live with?',
             },
           ],
         },
         key: {
-          text: 'whoDoesLiveWith',
+          text: 'Who does Bob Silly mainly live with?',
+        },
+        value: {
+          html: 'test parent',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
+              text: undefined,
+              visuallyHiddenText: "Bob Silly's living arrangements",
+            },
+          ],
+        },
+        key: {
+          text: "Bob Silly's living arrangements",
         },
         value: {
           html: '<ul><li>test parent</li></ul>',

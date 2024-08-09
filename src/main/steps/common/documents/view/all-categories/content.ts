@@ -8,8 +8,8 @@ import { viewDocumentsSections as sections } from '../config';
 export * from './routeGuard';
 
 const languages = {
-  en: { ...en },
-  cy: { ...cy },
+  en: { ...en, categories: 'Categories', lastUpdate: 'Last update' },
+  cy: { ...cy, categories: 'Categories -welsh', lastUpdate: 'Last update -welsh' },
 };
 
 export const generateContent: TranslationFn = content => {
@@ -22,6 +22,7 @@ export const generateContent: TranslationFn = content => {
     Partial<DocumentLabelCategory>,
     string
   >;
+  const language = content.language;
   /*Object.assign(caseData, {
     citizenDocuments: [
       {
@@ -123,7 +124,7 @@ export const generateContent: TranslationFn = content => {
       .map(section => ({
         id: section.sectionId,
         title: section.sectionTitle(documentSectionTitles),
-        items: section.documentCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType),
+        items: section.documentCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType, language),
       })),
   };
 };

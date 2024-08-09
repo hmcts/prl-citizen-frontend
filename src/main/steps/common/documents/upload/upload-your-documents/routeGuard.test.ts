@@ -4,7 +4,7 @@ import { CosApiClient } from '../../../../../app/case/CosApiClient';
 
 import { routeGuard } from './routeGuard';
 
-const deleteCitizenStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteCitizenStatementDocument');
+const deleteDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteDocument');
 
 describe('documents > upload > upload-your-documents > routeGuard', () => {
   test('should delete document when documentId present as query param', async () => {
@@ -37,7 +37,7 @@ describe('documents > upload > upload-your-documents > routeGuard', () => {
     });
     const res = mockResponse();
     const next = jest.fn();
-    deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
+    deleteDocumentMock.mockResolvedValue('SUCCESS');
 
     routeGuard.get(req, res, next);
     await new Promise(process.nextTick);
