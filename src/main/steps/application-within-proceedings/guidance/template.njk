@@ -1,0 +1,27 @@
+{% extends "common/template.njk" %}
+{% extends "common/breadcrumb/template.njk" %}
+
+{% block pageTitle %}
+  {{title }} {{appName}}
+{% endblock %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-xl">
+    <span class="govuk-caption-l">{{caption}}</span>
+    {{title}}
+  </h1>
+
+  <p class="govuk-body">{{caseNumber}} #{{userCase.id}}</p>
+  <hr class="govuk-section-break govuk-section-break govuk-section-break--visible govuk-!-margin-top-6 govuk-!-margin-bottom-6">
+
+  {% for content in contents %}
+    <p class="govuk-body">{{content | safe}}</p>
+  {% endfor %}
+
+  <h1 class="govuk-heading-m">{{helpWithFees.title}}</h1>
+
+  {% for content in helpWithFees.contents %}
+    <p class="govuk-body">{{content | safe}}</p>
+  {% endfor %}
+
+{% endblock %}

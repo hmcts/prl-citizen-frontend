@@ -8,6 +8,7 @@ import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-l
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   CHOOSE_CONTACT_PREFERENCE,
   DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT_BY_TYPE,
@@ -220,6 +221,17 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
           return getInternationalFactorsStatus(respondent?.response.citizenInternationalElements);
         },
+      },
+      {
+        id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
+        href: () =>
+          applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+            partyType: PartyType.RESPONDENT,
+            pageNumber: '1',
+          }),
+        stateTag: () => StateTags.OPTIONAL,
+        show: isCaseLinked,
+        disabled: isCaseClosed,
       },
     ],
   },

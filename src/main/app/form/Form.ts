@@ -149,6 +149,11 @@ export interface FormContent {
     href?: string;
     disabled?: boolean;
   };
+  startNow?: {
+    text: Label;
+    classes?: string;
+    href?: string;
+  };
   onlyContinue?: {
     text: Label;
     isStartButton?: boolean;
