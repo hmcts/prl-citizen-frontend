@@ -115,9 +115,6 @@ const en: TaskListContent = {
           respondToTheApplication: {
             linkText: 'Respond to the application',
           },
-          respondToAOHAndViolence: {
-            linkText: 'Respond to the allegations of harm and violence',
-          },
         },
       },
       yourHearing: {
@@ -375,9 +372,6 @@ const cy: typeof en = {
         tasks: {
           respondToTheApplication: {
             linkText: "Ymateb i'r cais",
-          },
-          respondToAOHAndViolence: {
-            linkText: "Ymateb i'r honiadau o niwed a thrais",
           },
         },
       },

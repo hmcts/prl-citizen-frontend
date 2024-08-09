@@ -43,16 +43,13 @@
         {{line7}}
       </p>
       {% for downloadLink in DownloadLinks %}
-      {% if (downloadLink.isWelsh == "yes" and userCase.welshLanguageRequirement == 'Yes') %}
-      <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href=downloadLink.href>
-      {{downloadLink.text}}
-      </a>
-      <br/>
-      {% else %}
+      {% if downloadLink.isVisible %}
+      
       <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href={{downloadLink.href}}>
       {{downloadLink.text}}
       </a>
       <br/>
+      
       {% endif %}
       {% endfor %}
     </div>
