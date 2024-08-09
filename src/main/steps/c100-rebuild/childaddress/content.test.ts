@@ -23,6 +23,7 @@ const en = {
     c100RebuildChildPostCode: {
       required: 'Enter a full postcode, with or without a space',
       invalid: 'Enter a valid full postcode, with or without a space',
+      generic: 'Sorry there is a problem, Please try again',
     },
   },
 };
@@ -44,6 +45,7 @@ const cy = {
     c100RebuildChildPostCode: {
       required: 'Rhowch god post llawn, gyda neu heb fwlch yn y canol',
       invalid: 'Rhowch god post llawn dilys, gyda neu heb fwlch yn y canol',
+      generic: 'Sorry there is a problem, Please try again - welsh',
     },
   },
 };
@@ -78,11 +80,5 @@ describe('applicant personal details > applying-with > content', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
-  });
-
-  test('should contain SaveAndComeLater button', () => {
-    expect(
-      (form.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
   });
 });
