@@ -161,7 +161,7 @@ describe('notification Banner', () => {
         } as CaseWithId
       );
 
-      expect(config).toHaveLength(13);
+      expect(config).toHaveLength(14);
       expect(config[0].id).toBe('applicationNotStarted');
       expect(config[1].id).toBe('applicationInProgress');
       expect(config[2].id).toBe('applicationSubmitted');
@@ -172,9 +172,10 @@ describe('notification Banner', () => {
       expect(config[7].id).toBe('applicationServedBySolictorBailiffToRespondent');
       expect(config[8].id).toBe('applicationIssuedByCourtPersonalService');
       expect(config[9].id).toBe('submitFM5');
-      expect(config[10].id).toBe('applicationClosed');
-      expect(config[11].id).toBe('orderNonPersonalService');
-      expect(config[12].id).toBe('orderPersonalService');
+      expect(config[10].id).toBe('orderSOSPersonalServiceByCourtAdminBailiff');
+      expect(config[11].id).toBe('applicationClosed');
+      expect(config[12].id).toBe('orderNonPersonalService');
+      expect(config[13].id).toBe('orderPersonalService');
     });
 
     test('should return correct configs for CA respondent', () => {
