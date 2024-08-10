@@ -9,11 +9,6 @@ describe('testcase for tasklist', () => {
     caseNumber: 'Case number ',
     hyperlinks: [
       {
-        label: 'Add a legal representative',
-        link: '/applicant/add-legal-representative',
-        target: '',
-      },
-      {
         label: 'Know more about child arrangements',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
         target: '_blank',
@@ -131,11 +126,6 @@ describe('testcase for tasklist', () => {
     caseNumber: 'Rhif yr achos ',
     iWantTo: 'Rwyf eisiau...',
     hyperlinks: [
-      {
-        label: 'Ychwanegu cynrychiolydd cyfreithiol',
-        link: '/applicant/add-legal-representative',
-        target: '',
-      },
       {
         label: 'Gwybod mwy am drefniadau plant',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
@@ -275,15 +265,97 @@ describe('testcase for tasklist', () => {
       },
     },
   } as unknown as CommonContent;
-  test('should return correct english content', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
-  });
-  test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
-  });
-
   test('should return correct sidebar hyperlinks for c100 applicant', () => {
-    expect(generateContent(commonContent).hyperlinks).toStrictEqual([
+    const commonContent1 = {
+      language: 'en',
+      user: { id: '1234'},
+      userCase: {
+        ...mockUserCase,
+        state: State.CASE_HEARING,
+        applicants:[
+          {
+            id: '1234',
+            value: {
+              firstName: 'testuser',
+              lastName: 'citizen',
+              email: 'abc@example.net',
+              dateOfBirth: '03-20-2023',
+              phoneNumber: '7755664466',
+              placeOfBirth: 'BPP',
+              previousName: 'test',
+              isAtAddressLessThan5Years: 'No',
+              addressLivedLessThan5YearsDetails: 'Hello',
+              address: {
+                AddressLine1: 'string',
+                AddressLine2: 'string',
+                AddressLine3: 'string',
+                PostTown: 'string',
+                County: 'string',
+                PostCode: 'string',
+                Country: 'string',
+              },
+              user: {
+                idamId: '1234',
+                email: 'test@example.net',
+              },
+              response: {
+                legalRepresentation: 'No',
+              },
+            },
+          },
+        ]
+      },
+      additionalData: {
+        req: {
+          session: {
+            enableCaseTrainTrack: true,
+            user: { id: '1234' },
+            userCase: {
+              ...mockUserCase,
+              caseTypeOfApplication: 'C100',
+              state: State.CASE_HEARING,
+              applicants:[
+                {
+                  id: '1234',
+                  value: {
+                    firstName: 'testuser',
+                    lastName: 'citizen',
+                    email: 'abc@example.net',
+                    dateOfBirth: '03-20-2023',
+                    phoneNumber: '7755664466',
+                    placeOfBirth: 'BPP',
+                    previousName: 'test',
+                    isAtAddressLessThan5Years: 'No',
+                    addressLivedLessThan5YearsDetails: 'Hello',
+                    address: {
+                      AddressLine1: 'string',
+                      AddressLine2: 'string',
+                      AddressLine3: 'string',
+                      PostTown: 'string',
+                      County: 'string',
+                      PostCode: 'string',
+                      Country: 'string',
+                    },
+                    user: {
+                      idamId: '1234',
+                      email: 'test@example.net',
+                    },
+                    response: {
+                      legalRepresentation: 'No',
+                    },
+                  },
+                },
+              ]
+            },
+          },
+          params: {
+            partyType: PartyType.APPLICANT,
+          },
+          state: State.CASE_HEARING,
+        },
+      },
+    } as unknown as CommonContent;
+    expect(generateContent(commonContent1).hyperlinks).toStrictEqual([
       {
         label: 'Add a legal representative',
         link: '/applicant/add-legal-representative',
@@ -330,6 +402,12 @@ describe('testcase for tasklist', () => {
         target: '_blank',
       },
     ]);
+  });
+  test('should return correct english content', () => {
+    languageAssertions('en', en, () => generateContent(commonContent));
+  });
+  test('should return correct welsh content', () => {
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
   test('should return correct sidebar hyperlinks for FL401 applicant', () => {
@@ -519,3 +597,4 @@ describe('testcase for tasklist', () => {
       ]);
   });
 });
+
