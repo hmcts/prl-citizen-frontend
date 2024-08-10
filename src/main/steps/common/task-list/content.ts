@@ -142,7 +142,9 @@ export const generateContent: TranslationFn = content => {
   const _isRepresentedBySolicotor = isRepresentedBySolicotor(caseData, request.session.user.id);
 
   if (caseData?.caseTypeOfApplication) {
-    translations.hyperlinks = [...sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks];
+    translations.hyperlinks = [
+      ...sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks,
+    ];
   }
 
   translations.hyperlinks.forEach((hyperLink, index) => {

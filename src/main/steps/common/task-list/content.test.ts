@@ -268,11 +268,11 @@ describe('testcase for tasklist', () => {
   test('should return correct sidebar hyperlinks for c100 applicant', () => {
     const commonContent1 = {
       language: 'en',
-      user: { id: '1234'},
+      user: { id: '1234' },
       userCase: {
         ...mockUserCase,
         state: State.CASE_HEARING,
-        applicants:[
+        applicants: [
           {
             id: '1234',
             value: {
@@ -303,7 +303,7 @@ describe('testcase for tasklist', () => {
               },
             },
           },
-        ]
+        ],
       },
       additionalData: {
         req: {
@@ -314,7 +314,7 @@ describe('testcase for tasklist', () => {
               ...mockUserCase,
               caseTypeOfApplication: 'C100',
               state: State.CASE_HEARING,
-              applicants:[
+              applicants: [
                 {
                   id: '1234',
                   value: {
@@ -345,7 +345,7 @@ describe('testcase for tasklist', () => {
                     },
                   },
                 },
-              ]
+              ],
             },
           },
           params: {
@@ -597,4 +597,3 @@ describe('testcase for tasklist', () => {
       ]);
   });
 });
-
