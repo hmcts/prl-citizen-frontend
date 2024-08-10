@@ -56,6 +56,10 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
     show: showNotification,
   },
   {
+    id: NotificationType.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF,
+    show: showNotification,
+  },
+  {
     id: NotificationType.APPLICATION_CLOSED,
     show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
       return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED && !isCaseWithdrawn(caseData);

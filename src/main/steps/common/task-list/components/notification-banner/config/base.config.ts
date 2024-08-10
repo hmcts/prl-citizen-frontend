@@ -91,6 +91,11 @@ export const NOTIFICATION_BASE_CONFIG = [
     show: () => false,
   },
   {
+    id: NotificationType.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF,
+    content: getNotificationContent,
+    show: () => false,
+  },
+  {
     id: NotificationType.APPLICATION_CLOSED,
     content: getNotificationContent,
     show: () => false,

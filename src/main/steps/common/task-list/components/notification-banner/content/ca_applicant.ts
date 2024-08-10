@@ -458,6 +458,18 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
+  orderSOSPersonalServiceByCourtAdminBailiff: {
+    heading: 'The respondent has been served with the order',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'This means the respondent has now been given a copy of the order made by the court.',
+          },
+        ],
+      },
+    ],
+  },
 };
 
 const cy: typeof en = {
@@ -887,6 +899,18 @@ const cy: typeof en = {
               partyType: PartyType.APPLICANT,
               docCategory: UploadDocumentCategory.FM5_DOCUMENT,
             }),
+          },
+        ],
+      },
+    ],
+  },
+  orderSOSPersonalServiceByCourtAdminBailiff: {
+    heading: "Mae’r gorchymyn wedil cael ei gyflwyno i'r atebydd",
+    sections: [
+      {
+        contents: [
+          {
+            text: 'Mae hyn yn golygu bod yr yr atebydd bellach wedi cael copi o’r gorchymyn a wnaethpwyd gan y llys.',
           },
         ],
       },
