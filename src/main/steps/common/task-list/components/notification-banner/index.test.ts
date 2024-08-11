@@ -1189,7 +1189,7 @@ describe('testcase for notification Banner', () => {
               {
                 external: false,
                 href: '/applicant/documents/view/all-categories',
-                text: 'View the response (PDF)',
+                text: 'View the response',
               },
             ],
           },

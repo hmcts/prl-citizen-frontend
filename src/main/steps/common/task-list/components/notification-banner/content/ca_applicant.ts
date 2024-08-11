@@ -430,7 +430,43 @@ const en: NotificationBannerContentConfig = {
         ],
         links: [
           {
-            text: 'View the response (PDF)',
+            text: 'View the response',
+            href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
+  viewRespondentAOH: {
+    heading: "View the respondent's allegations of harm",
+    sections: [
+      {
+        contents: [
+          {
+            text: '{respondent} has made allegations of harm against you.',
+          },
+        ],
+        links: [
+          {
+            text: 'View allegations of harm and violence',
+            href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
+  viewRespondentResponseAOH: {
+    heading: 'View the response to your allegations of harm',
+    sections: [
+      {
+        contents: [
+          {
+            text: '{respondent} has responded to your allegations of harm.',
+          },
+        ],
+        links: [
+          {
+            text: 'View the response to the allegations of harm and violence',
             href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
           },
         ],
@@ -866,17 +902,53 @@ const cy: typeof en = {
     ],
   },
   viewResponseToApplication: {
-    heading: 'View the response to your application (welsh)',
+    heading: 'Gweld yr ymateb i’ch cais',
     sections: [
       {
         contents: [
           {
-            text: '{respondent} has responded to your application. (welsh)',
+            text: '{respondent} wedi ymateb i’ch cais.',
           },
         ],
         links: [
           {
-            text: 'View the response (PDF) (welsh)',
+            text: 'Gweld yr ymateb',
+            href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
+  viewRespondentAOH: {
+    heading: 'Gweld honiadau o niwed yr atebydd',
+    sections: [
+      {
+        contents: [
+          {
+            text: '{respondent} wedi gwneud honiadau o niwed yn eich erbyn.',
+          },
+        ],
+        links: [
+          {
+            text: 'Gweld honiadau o niwed a thrais',
+            href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
+  viewRespondentResponseAOH: {
+    heading: "Gweld yr ymateb i'ch honiadau o niwed",
+    sections: [
+      {
+        contents: [
+          {
+            text: '{respondent} wedi ymateb i’ch honiadau o niwed.',
+          },
+        ],
+        links: [
+          {
+            text: 'Gweld yr ymateb i’r honiadau o niwed a thrais',
             href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
           },
         ],

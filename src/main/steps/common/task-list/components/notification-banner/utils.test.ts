@@ -7,8 +7,10 @@ import { NOTIFICATION_BASE_CONFIG } from './config';
 import { languages as content } from './content/base.content';
 import { NotificationID, NotificationType } from './definitions';
 import {
+  findC1ADocument,
   findC7ResponseDocument,
   findNotification,
+  findResponseToC1ADocument,
   getNotificationConfig,
   getOrderNotificationHeading,
   hasMoreThanOneApplicant,
@@ -60,6 +62,8 @@ describe('notification Banner', () => {
     NotificationType.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT,
     NotificationType.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE,
     NotificationType.VIEW_RESPONSE_TO_APPLICATION,
+    NotificationType.VIEW_RESPONDENT_AOH,
+    NotificationType.VIEW_RESPONDENT_RESPONSE_AOH,
     NotificationType.APPLICATION_SERVED_BY_COURT_TO_RESPONDENT,
     NotificationType.SUMBIT_FM5,
     NotificationType.ORDER_PERSONAL_SERVICE,
@@ -161,21 +165,23 @@ describe('notification Banner', () => {
         } as CaseWithId
       );
 
-      expect(config).toHaveLength(14);
+      expect(config).toHaveLength(16);
       expect(config[0].id).toBe('applicationNotStarted');
       expect(config[1].id).toBe('applicationInProgress');
       expect(config[2].id).toBe('applicationSubmitted');
       expect(config[3].id).toBe('applicationWithdrawn');
       expect(config[4].id).toBe('applicationServedByCourtPersonalNonPersonalService');
       expect(config[5].id).toBe('viewResponseToApplication');
-      expect(config[6].id).toBe('applicantToPersonallyServeRespondent');
-      expect(config[7].id).toBe('applicationServedBySolictorBailiffToRespondent');
-      expect(config[8].id).toBe('applicationIssuedByCourtPersonalService');
-      expect(config[9].id).toBe('submitFM5');
-      expect(config[10].id).toBe('orderSOSPersonalServiceByCourtAdminBailiff');
-      expect(config[11].id).toBe('applicationClosed');
-      expect(config[12].id).toBe('orderNonPersonalService');
-      expect(config[13].id).toBe('orderPersonalService');
+      expect(config[6].id).toBe('viewRespondentAOH');
+      expect(config[7].id).toBe('viewRespondentResponseAOH');
+      expect(config[8].id).toBe('applicantToPersonallyServeRespondent');
+      expect(config[9].id).toBe('applicationServedBySolictorBailiffToRespondent');
+      expect(config[10].id).toBe('applicationIssuedByCourtPersonalService');
+      expect(config[11].id).toBe('submitFM5');
+      expect(config[12].id).toBe('orderSOSPersonalServiceByCourtAdminBailiff');
+      expect(config[13].id).toBe('applicationClosed');
+      expect(config[14].id).toBe('orderNonPersonalService');
+      expect(config[15].id).toBe('orderPersonalService');
     });
 
     test('should return correct configs for CA respondent', () => {
@@ -490,6 +496,104 @@ describe('notification Banner', () => {
         categoryId: 'respondentApplication',
         document: {
           category_id: 'respondentApplication',
+          document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+          document_creation_date: '01/01/2024',
+          document_filename: 'MOCK_FILENAME',
+          document_hash: null,
+          document_url: 'MOCK_DOCUMENT_URL',
+        },
+        documentWelsh: null,
+        partyId: '1234',
+        partyType: 'respondent',
+        reviewedDate: null,
+        uploadedBy: 'test user2',
+        uploadedDate: '2024-03-11T16:24:33.122506',
+      });
+    });
+  });
+
+  describe('findC1ADocument', () => {
+    test('should return C1A document', () => {
+      data.respondentDocuments = [
+        {
+          partyId: '1234',
+          partyType: 'respondent',
+          categoryId: 'respondentC1AResponse',
+          uploadedBy: 'test user2',
+          uploadedDate: '2024-03-11T16:24:33.122506',
+          reviewedDate: null,
+          document: {
+            document_url: 'MOCK_DOCUMENT_URL',
+            document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+            document_hash: null,
+            category_id: 'respondentC1AResponse',
+            document_creation_date: '01/01/2024',
+          },
+          documentWelsh: null,
+        },
+      ] as CitizenDocuments[];
+      expect(
+        findC1ADocument(data, {
+          value: {
+            user: {
+              idamId: '1234',
+            },
+          },
+        } as Respondent)
+      ).toStrictEqual({
+        categoryId: 'respondentC1AResponse',
+        document: {
+          category_id: 'respondentC1AResponse',
+          document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+          document_creation_date: '01/01/2024',
+          document_filename: 'MOCK_FILENAME',
+          document_hash: null,
+          document_url: 'MOCK_DOCUMENT_URL',
+        },
+        documentWelsh: null,
+        partyId: '1234',
+        partyType: 'respondent',
+        reviewedDate: null,
+        uploadedBy: 'test user2',
+        uploadedDate: '2024-03-11T16:24:33.122506',
+      });
+    });
+  });
+
+  describe('findResponseToC1ADocument', () => {
+    test('should return C1A response document', () => {
+      data.respondentDocuments = [
+        {
+          partyId: '1234',
+          partyType: 'respondent',
+          categoryId: 'respondentC1AApplication',
+          uploadedBy: 'test user2',
+          uploadedDate: '2024-03-11T16:24:33.122506',
+          reviewedDate: null,
+          document: {
+            document_url: 'MOCK_DOCUMENT_URL',
+            document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+            document_hash: null,
+            category_id: 'respondentC1AApplication',
+            document_creation_date: '01/01/2024',
+          },
+          documentWelsh: null,
+        },
+      ] as CitizenDocuments[];
+      expect(
+        findResponseToC1ADocument(data, {
+          value: {
+            user: {
+              idamId: '1234',
+            },
+          },
+        } as Respondent)
+      ).toStrictEqual({
+        categoryId: 'respondentC1AApplication',
+        document: {
+          category_id: 'respondentC1AApplication',
           document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
           document_creation_date: '01/01/2024',
           document_filename: 'MOCK_FILENAME',
