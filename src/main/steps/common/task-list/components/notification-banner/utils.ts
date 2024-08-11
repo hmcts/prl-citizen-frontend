@@ -71,6 +71,8 @@ const NotificationTypeIDMap = {
   [NotificationType.APPLICATION_SERVED_BY_COURT_TO_DA_RESPONDENT]:
     NotificationID.APPLICATION_SERVED_BY_COURT_TO_DA_RESPONDENT,
   [NotificationType.VIEW_RESPONSE_TO_APPLICATION]: NotificationID.VIEW_RESPONSE_TO_APPLICATION,
+  [NotificationType.VIEW_RESPONDENT_AOH]: NotificationID.VIEW_RESPONDENT_AOH,
+  [NotificationType.VIEW_RESPONDENT_RESPONSE_AOH]: NotificationID.VIEW_RESPONDENT_RESPONSE_AOH,
   [NotificationType.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT]: NotificationID.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT,
   [NotificationType.APPLICANT_TO_PERSONALLY_SERVE_DA_RESPONDENT]:
     NotificationID.APPLICANT_TO_PERSONALLY_SERVE_DA_RESPONDENT,
@@ -152,6 +154,25 @@ export const findC7ResponseDocument = (caseData: CaseWithId, respondent: Respond
     document =>
       (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
       document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+  );
+};
+
+export const findC1ADocument = (caseData: CaseWithId, respondent: Respondent): CitizenDocuments | undefined => {
+  return caseData?.respondentDocuments?.find(
+    document =>
+      (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
+      document.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A
+  );
+};
+
+export const findResponseToC1ADocument = (
+  caseData: CaseWithId,
+  respondent: Respondent
+): CitizenDocuments | undefined => {
+  return caseData?.respondentDocuments?.find(
+    document =>
+      (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
+      document.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION
   );
 };
 

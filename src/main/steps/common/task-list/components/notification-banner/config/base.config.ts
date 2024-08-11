@@ -61,6 +61,16 @@ export const NOTIFICATION_BASE_CONFIG = [
     show: () => false,
   },
   {
+    id: NotificationType.VIEW_RESPONDENT_AOH,
+    content: getNotificationContent,
+    show: () => false,
+  },
+  {
+    id: NotificationType.VIEW_RESPONDENT_RESPONSE_AOH,
+    content: getNotificationContent,
+    show: () => false,
+  },
+  {
     id: NotificationType.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT,
     content: getNotificationContent,
     show: () => false,

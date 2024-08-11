@@ -14,20 +14,22 @@ describe('ca_applicant', () => {
       ],
     } as CaseWithId);
 
-    expect(ca_applicantNotifications).toHaveLength(14);
+    expect(ca_applicantNotifications).toHaveLength(16);
     expect(ca_applicantNotifications[0].id).toBe('applicationNotStarted');
     expect(ca_applicantNotifications[1].id).toBe('applicationInProgress');
     expect(ca_applicantNotifications[2].id).toBe('applicationSubmitted');
     expect(ca_applicantNotifications[3].id).toBe('applicationWithdrawn');
     expect(ca_applicantNotifications[4].id).toBe('applicationServedByCourtPersonalNonPersonalService');
     expect(ca_applicantNotifications[5].id).toBe('viewResponseToApplication');
-    expect(ca_applicantNotifications[6].id).toBe('applicantToPersonallyServeRespondent');
-    expect(ca_applicantNotifications[7].id).toBe('applicationServedBySolictorBailiffToRespondent');
-    expect(ca_applicantNotifications[8].id).toBe('applicationIssuedByCourtPersonalService');
-    expect(ca_applicantNotifications[9].id).toBe('submitFM5');
-    expect(ca_applicantNotifications[10].id).toBe('orderSOSPersonalServiceByCourtAdminBailiff');
-    expect(ca_applicantNotifications[11].id).toBe('applicationClosed');
-    expect(ca_applicantNotifications[12].id).toBe('orderNonPersonalService');
-    expect(ca_applicantNotifications[13].id).toBe('orderPersonalService');
+    expect(ca_applicantNotifications[6].id).toBe('viewRespondentAOH');
+    expect(ca_applicantNotifications[7].id).toBe('viewRespondentResponseAOH');
+    expect(ca_applicantNotifications[8].id).toBe('applicantToPersonallyServeRespondent');
+    expect(ca_applicantNotifications[9].id).toBe('applicationServedBySolictorBailiffToRespondent');
+    expect(ca_applicantNotifications[10].id).toBe('applicationIssuedByCourtPersonalService');
+    expect(ca_applicantNotifications[11].id).toBe('submitFM5');
+    expect(ca_applicantNotifications[12].id).toBe('orderSOSPersonalServiceByCourtAdminBailiff');
+    expect(ca_applicantNotifications[13].id).toBe('applicationClosed');
+    expect(ca_applicantNotifications[14].id).toBe('orderNonPersonalService');
+    expect(ca_applicantNotifications[15].id).toBe('orderPersonalService');
   });
 });
