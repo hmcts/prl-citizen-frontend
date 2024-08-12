@@ -77,18 +77,21 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
         return this.redirect(req, res);
       }
 
-      if (!this.allowedCourts.includes('*')) {
+      if (_.isArray(this.allowedCourts) && !this.allowedCourts.includes('*')) {
         const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode!);
+
         if (courtDetails?.message) {
           req.session.errors = this.handleError(req.session.errors, 'invalid');
           return this.redirect(req, res);
         }
+
         courtNames = courtDetails?.courts?.length ? _.map(courtDetails.courts, 'name') : [];
       }
 
       if (
-        this.allowedCourts.includes('*') ||
-        (courtNames.length && this.allowedCourts.some(court => courtNames.includes(court)))
+        _.isArray(this.allowedCourts) &&
+        (this.allowedCourts.includes('*') ||
+          (courtNames.length && this.allowedCourts.some(court => courtNames.includes(court))))
       ) {
         if (!req.session?.userCase?.caseId) {
           await this.createCaseAndSaveDataInSession(req, client);

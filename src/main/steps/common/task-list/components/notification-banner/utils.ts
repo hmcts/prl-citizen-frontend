@@ -71,6 +71,8 @@ const NotificationTypeIDMap = {
   [NotificationType.APPLICATION_SERVED_BY_COURT_TO_DA_RESPONDENT]:
     NotificationID.APPLICATION_SERVED_BY_COURT_TO_DA_RESPONDENT,
   [NotificationType.VIEW_RESPONSE_TO_APPLICATION]: NotificationID.VIEW_RESPONSE_TO_APPLICATION,
+  [NotificationType.VIEW_RESPONDENT_AOH]: NotificationID.VIEW_RESPONDENT_AOH,
+  [NotificationType.VIEW_RESPONDENT_RESPONSE_AOH]: NotificationID.VIEW_RESPONDENT_RESPONSE_AOH,
   [NotificationType.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT]: NotificationID.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT,
   [NotificationType.APPLICANT_TO_PERSONALLY_SERVE_DA_RESPONDENT]:
     NotificationID.APPLICANT_TO_PERSONALLY_SERVE_DA_RESPONDENT,
@@ -81,6 +83,8 @@ const NotificationTypeIDMap = {
   [NotificationType.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE]:
     NotificationID.APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE,
   [NotificationType.SUMBIT_FM5]: NotificationID.SUMBIT_FM5,
+  [NotificationType.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF]:
+    NotificationID.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF,
   [NotificationType.ORDER_NON_PERSONAL_SERVICE]: NotificationID.ORDER_NON_PERSONAL_SERVICE,
   [NotificationType.ORDER_PERSONAL_SERVICE]: NotificationID.ORDER_PERSONAL_SERVICE,
   [NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE_TO_DA_APPLICANT]:
@@ -150,6 +154,25 @@ export const findC7ResponseDocument = (caseData: CaseWithId, respondent: Respond
     document =>
       (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
       document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+  );
+};
+
+export const findC1ADocument = (caseData: CaseWithId, respondent: Respondent): CitizenDocuments | undefined => {
+  return caseData?.respondentDocuments?.find(
+    document =>
+      (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
+      document.categoryId === DocumentCategory.RESPONDENT_RESPOND_TO_C1A
+  );
+};
+
+export const findResponseToC1ADocument = (
+  caseData: CaseWithId,
+  respondent: Respondent
+): CitizenDocuments | undefined => {
+  return caseData?.respondentDocuments?.find(
+    document =>
+      (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
+      document.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION
   );
 };
 

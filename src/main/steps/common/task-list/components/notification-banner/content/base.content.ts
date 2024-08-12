@@ -9,7 +9,6 @@ import { DA_RESPONDENT_CONTENT } from './da_respondent';
 const en: NotificationBannerContentBaseConfig = {
   title: 'Important',
   common: {
-    theRespondent: 'The respondent',
     final: 'final',
     a: 'a',
     new: 'new',
@@ -22,6 +21,8 @@ const en: NotificationBannerContentBaseConfig = {
     respondents: 'respondents',
     has: 'has',
     have: 'have',
+    titleRespondentName: '',
+    theRespondent: 'The respondent',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: CA_APPLICANT_CONTENT.en,
@@ -36,7 +37,6 @@ const en: NotificationBannerContentBaseConfig = {
 const cy: typeof en = {
   title: 'Pwysig',
   common: {
-    theRespondent: 'The respondent - welsh',
     final: 'final (welsh)',
     a: 'a (welsh)',
     new: 'new (welsh)',
@@ -49,6 +49,8 @@ const cy: typeof en = {
     respondents: 'respondents (welsh)',
     has: 'has (welsh)',
     have: 'have (welsh)',
+    titleRespondentName: 'Mae',
+    theRespondent: 'Mae’r atebydd',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: CA_APPLICANT_CONTENT.cy,

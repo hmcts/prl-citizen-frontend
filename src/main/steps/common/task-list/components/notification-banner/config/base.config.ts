@@ -61,6 +61,16 @@ export const NOTIFICATION_BASE_CONFIG = [
     show: () => false,
   },
   {
+    id: NotificationType.VIEW_RESPONDENT_AOH,
+    content: getNotificationContent,
+    show: () => false,
+  },
+  {
+    id: NotificationType.VIEW_RESPONDENT_RESPONSE_AOH,
+    content: getNotificationContent,
+    show: () => false,
+  },
+  {
     id: NotificationType.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT,
     content: getNotificationContent,
     show: () => false,
@@ -87,6 +97,11 @@ export const NOTIFICATION_BASE_CONFIG = [
   },
   {
     id: NotificationType.SUMBIT_FM5,
+    content: getNotificationContent,
+    show: () => false,
+  },
+  {
+    id: NotificationType.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF,
     content: getNotificationContent,
     show: () => false,
   },
