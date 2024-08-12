@@ -71,6 +71,7 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
       break;
     case 'doYouConsent':
     case 'courtPermission':
+    case 'aoh_wishToRespond':
       translationLabel = 'ydwTranslation';
       break;
     case 'miamStart':
