@@ -92,9 +92,9 @@ export const getApplicationPacksCategoryList = (
         text: getDocumentCategoryLabel(DocumentLabelCategory.YOUR_APPLICATION_PACK, documentCategoryLabels),
         url: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: loggedInUserPartyType }),
         serveDate: caseData.citizenApplicationPacks?.length
-          ? (dayjs(_.first(caseData.citizenApplicationPacks)!.uploadedDate)
+          ? dayjs(_.first(caseData.citizenApplicationPacks)!.uploadedDate)
               .locale(language ?? 'default')
-              .format('DD MMM YYYY') as string)
+              .format('DD MMM YYYY')
           : '',
       },
     });
@@ -112,9 +112,11 @@ export const getApplicationPacksCategoryList = (
           partyType: loggedInUserPartyType,
           context: 'to-be-served',
         }),
-        serveDate: dayjs(_.first(caseData.citizenApplicationPacks!)!.uploadedDate)
-          .locale(language ?? 'default')
-          .format('DD MMM YYYY') as string,
+        serveDate: caseData.citizenApplicationPacks?.length
+          ? dayjs(_.first(caseData.citizenApplicationPacks)!.uploadedDate)
+              .locale(language ?? 'default')
+              .format('DD MMM YYYY')
+          : '',
       },
     });
   }
@@ -174,7 +176,7 @@ export const getOrdersFromTheCourtCategoryList = (
           partyType: loggedInUserPartyType,
         }),
         serveDate: caseData.citizenOrders?.length
-          ? (dayjs(_.first(caseData.citizenOrders)!.madeDate).locale(language).format('DD MMM YYYY') as string)
+          ? dayjs(_.first(caseData.citizenOrders)!.madeDate).locale(language).format('DD MMM YYYY')
           : ' ',
       },
     },
@@ -220,14 +222,15 @@ export const getViewDocumentCategoryList = (
       url = VIEW_TYPE_DOCUMENT;
       type = DocumentPartyType.APPLICANT;
       date = caseData.applicantDocuments?.length
-        ? (dayjs(_.first(caseData.applicantDocuments!)!.uploadedDate).locale(language).format('DD MMM YYYY') as string)
+        ? dayjs(_.first(caseData.applicantDocuments)!.uploadedDate).locale(language).format('DD MMM YYYY')
         : '';
       break;
     case ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS:
       doclabel = DocumentLabelCategory.VIEW_RESPONDENTS_DOCUMENT;
-      (url = VIEW_TYPE_DOCUMENT), (type = DocumentPartyType.RESPONDENT);
+      url = VIEW_TYPE_DOCUMENT;
+      type = DocumentPartyType.RESPONDENT;
       date = caseData.respondentDocuments?.length
-        ? (dayjs(_.first(caseData.respondentDocuments!)!.uploadedDate).locale(language).format('DD MMM YYYY') as string)
+        ? dayjs(_.first(caseData.respondentDocuments)!.uploadedDate).locale(language).format('DD MMM YYYY')
         : '';
       break;
     case ViewDocumentsSectionId.ATTENDING_THE_HEARING:
@@ -236,9 +239,9 @@ export const getViewDocumentCategoryList = (
         caseId: caseData.id,
       });
       date = caseData?.hearingCollection?.length
-        ? (dayjs(_.first(caseData.hearingCollection!)!.lastResponseReceivedDateTime)
+        ? dayjs(_.first(caseData.hearingCollection)!.lastResponseReceivedDateTime)
             .locale(language)
-            .format('DD MMM YYYY') as string)
+            .format('DD MMM YYYY')
         : '';
       break;
     case ViewDocumentsSectionId.OTHER_DOCUMENTS:
@@ -246,9 +249,7 @@ export const getViewDocumentCategoryList = (
       url = VIEW_TYPE_DOCUMENT;
       type = DocumentPartyType.OTHER;
       date = caseData.citizenOtherDocuments?.length
-        ? (dayjs(_.first(caseData.citizenOtherDocuments!)!.uploadedDate)
-            .locale(language)
-            .format('DD MMM YYYY') as string)
+        ? dayjs(_.first(caseData.citizenOtherDocuments)!.uploadedDate).locale(language).format('DD MMM YYYY')
         : '';
       break;
     default:

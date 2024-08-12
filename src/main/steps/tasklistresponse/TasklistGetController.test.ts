@@ -18,6 +18,7 @@ const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 const token = 'authToken';
 
 const retrieveCaseAndHearingsMock = jest.spyOn(CosApiClient.prototype, 'retrieveCaseAndHearings');
+const retrieveCaseHearingsByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveCaseHearingsByCaseId');
 
 jest.mock('../../app/case/CosApiClient');
 
@@ -274,5 +275,16 @@ describe('GetCaseController', () => {
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/choose-a-contact-preference');
+  });
+  test('C100 case when error occured', async () => {
+    controller = new TasklistGetController(EventRoutesContext.HEARINGS);
+    await expect(controller.get(req, res)).rejects.toThrow('Case Data could not be retrieved.');
+  });
+  test('C100 case for respondent hearing', async () => {
+    controller = new TasklistGetController(EventRoutesContext.HEARINGS);
+    retrieveCaseHearingsByCaseIdMock.mockResolvedValue(req.session.userCase);
+    await controller.get(req, res);
+    expect(mockMyFunction).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/yourhearings/hearings');
   });
 });
