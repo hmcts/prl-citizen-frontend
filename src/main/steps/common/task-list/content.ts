@@ -143,9 +143,9 @@ export const generateContent: TranslationFn = content => {
   const partyType = request.params.partyType;
   const _isRepresentedBySolicotor = isRepresentedBySolicotor(caseData, request.session.user.id);
 
-  if (caseData?.caseTypeOfApplication) {
+  if (caseData?.caseTypeOfApplication && partyType) {
     translations.hyperlinks = [
-      ...sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks,
+      ...sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType]?.hyperlinks,
     ];
   }
 
