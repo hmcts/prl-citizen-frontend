@@ -730,7 +730,7 @@ describe('testcase for notification Banner', () => {
               {
                 external: true,
                 href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
-                text: 'Download the statement of service (form C9) (opens in a new tab)',
+                text: 'Download the statement of service (form C9)',
               },
               {
                 external: false,
@@ -832,7 +832,7 @@ describe('testcase for notification Banner', () => {
               {
                 external: true,
                 href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
-                text: 'Download the statement of service (form C9) (opens in a new tab)',
+                text: 'Download the statement of service (form C9)',
               },
               {
                 external: false,
@@ -945,7 +945,7 @@ describe('testcase for notification Banner', () => {
               {
                 external: true,
                 href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
-                text: 'Download the statement of service (form C9) (opens in a new tab)',
+                text: 'Download the statement of service (form C9)',
               },
               {
                 external: false,
@@ -1002,20 +1002,20 @@ describe('testcase for notification Banner', () => {
 
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
       {
-        heading: 'You have new (welsh) and (welsh) final (welsh) orders (welsh) from the court (welsh)',
+        heading: 'Mae gennych orchmynion newydd a gorchmynion terfynol gan y llys',
         id: 'orderNonPersonalService',
         sections: [
           {
             contents: [
               {
-                text: 'The court has made a final (welsh) decision about your case. The orders (welsh) tell (welsh) you what the court has decided. (welsh)',
+                text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
             ],
             links: [
               {
                 external: false,
                 href: '/applicant/documents/view/orders-from-the-court',
-                text: 'View the orders (welsh) (PDF) (welsh)',
+                text: 'Gweld y gorchmynion (PDF)',
               },
             ],
           },
@@ -1066,45 +1066,45 @@ describe('testcase for notification Banner', () => {
 
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
       {
-        heading: 'You have new (welsh) and (welsh) final (welsh) orders (welsh) from the court',
+        heading: 'Mae gennych orchmynion newydd a gorchmynion terfynol gan y llys',
         id: 'orderPersonalService',
         sections: [
           {
             contents: [
               {
-                text: 'The court has made a final (welsh) decision about your case. The orders (welsh) tell (welsh) you what the court has decided.',
+                text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
               {
-                text: 'You will need to arrange for the  to be served. See the orders (welsh) for further details.',
+                text: "Bydd arnoch angen trefnu i'r dogfennau gael eu cyflwyno ar yr . Gweler y gorchmynion  i gael rhagor o wybodaeth.",
               },
             ],
             links: [
               {
                 external: false,
                 href: '/applicant/documents/view/orders-from-the-court',
-                text: 'View the orders (welsh) (PDF)',
+                text: 'Gweld y gorchmynion (PDF)',
               },
             ],
           },
           {
             contents: [
               {
-                text: 'If there is more than one applicant, please agree which of you will serve the orders (welsh) on the .',
+                text: 'Os oes mwy nag un ceisydd, cytunwch pa un ohonoch fydd yn cyflwyno’r gorchmynion ar yr .',
               },
               {
-                text: 'You need to submit a statement of service after the   been given the documents.',
+                text: 'Mae arnoch angen cyflwyno datganiad cyflwyno pan fydd yr  wedi cael y dogfennau.',
               },
             ],
             links: [
               {
                 external: true,
                 href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
-                text: 'Download the statement of service (form C9) (opens in a new tab)',
+                text: "Lawrlwytho'r datganiad cyflwyno (ffurflen C9)",
               },
               {
                 external: false,
                 href: '/applicant/statement-of-service/who-was-served/order',
-                text: 'Upload the statement of service (form C9)',
+                text: 'Uwchlwytho’r datganiad cyflwyno',
               },
             ],
           },
@@ -1488,20 +1488,20 @@ describe('testcase for notification Banner', () => {
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
         {
-          heading: 'You have a (welsh) new (welsh) order (welsh) from the court (welsh)',
+          heading: 'Mae gennych orchymyn  newydd gan y llys',
           id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
                 {
-                  text: 'The court has made a decision about your case. The order (welsh) tells (welsh) you what the court has decided. (welsh)',
+                  text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchymyn yn dweud wrthych beth mae’r llys wedi penderfynu.',
                 },
               ],
               links: [
                 {
                   external: false,
                   href: '/respondent/documents/view/orders-from-the-court',
-                  text: 'View the order (welsh)(PDF) (welsh)',
+                  text: 'Gweld y gorchymyn (PDF)',
                 },
               ],
             },
@@ -1584,20 +1584,20 @@ describe('testcase for notification Banner', () => {
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
         {
-          heading: 'You have new (welsh) orders (welsh) from the court (welsh)',
+          heading: 'Mae gennych orchmynion newydd gan y llys',
           id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
                 {
-                  text: 'The court has made a decision about your case. The orders (welsh) tell (welsh) you what the court has decided. (welsh)',
+                  text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
                 },
               ],
               links: [
                 {
                   external: false,
                   href: '/respondent/documents/view/orders-from-the-court',
-                  text: 'View the orders (welsh)(PDF) (welsh)',
+                  text: 'Gweld y gorchmynion (PDF)',
                 },
               ],
             },
@@ -1874,20 +1874,20 @@ describe('FL401 banners', () => {
     ];
     expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
       {
-        heading: 'You have new (welsh) orders (welsh) from the court (welsh)',
+        heading: 'Mae gennych orchmynion newydd gan y llys',
         id: 'orderNonPersonalService',
         sections: [
           {
             contents: [
               {
-                text: 'The court has made a decision about your case. The orders (welsh) tell (welsh) you what the court has decided. (welsh)',
+                text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
             ],
             links: [
               {
                 external: false,
                 href: '/respondent/documents/view/orders-from-the-court',
-                text: 'View the orders (welsh) (PDF) (welsh)',
+                text: 'Gweld y gorchmynion (PDF)',
               },
             ],
           },
@@ -1896,20 +1896,20 @@ describe('FL401 banners', () => {
     ]);
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
       {
-        heading: 'You have new (welsh) orders (welsh) from the court (welsh)',
+        heading: 'Mae gennych orchmynion newydd gan y llys',
         id: 'orderNonPersonalService',
         sections: [
           {
             contents: [
               {
-                text: 'The court has made a decision about your case. The orders (welsh) tell (welsh) you what the court has decided. (welsh)',
+                text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
             ],
             links: [
               {
                 external: false,
                 href: '/applicant/documents/view/orders-from-the-court',
-                text: 'View the orders (welsh) (PDF) (welsh)',
+                text: 'Gweld y gorchmynion (PDF)',
               },
             ],
           },
@@ -1962,13 +1962,13 @@ describe('FL401 banners', () => {
             links: [
               {
                 external: true,
-                href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
-                text: 'Download the statement of service (form C9) (opens in a new tab)',
+                href: 'https://assets.publishing.service.gov.uk/media/5aa6b11ee5274a3e3603a80d/fl415-eng.pdf',
+                text: 'Download the statement of service (form FL415)',
               },
               {
                 external: false,
                 href: '',
-                text: 'Upload the statement of service (form C9)',
+                text: 'Upload the statement of service',
               },
             ],
           },

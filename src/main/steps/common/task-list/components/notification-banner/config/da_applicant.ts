@@ -22,6 +22,7 @@ export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
         final: notification?.final ? ` ${commonContent.final}` : '',
         order: notification?.multiple ? commonContent.orders : commonContent.order,
         tell: notification?.multiple ? commonContent.tell : commonContent.tells,
+        order1: notification?.multiple ? commonContent.orders1 : commonContent.order1,
       });
     },
   },
@@ -36,6 +37,7 @@ export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
         final: notification?.final ? ` ${commonContent.final}` : '',
         order: notification?.multiple ? commonContent.orders : commonContent.order,
         tell: notification?.multiple ? commonContent.tell : commonContent.tells,
+        order1: notification?.multiple ? commonContent.orders1 : commonContent.order1,
         respondent,
       });
     },

@@ -163,7 +163,7 @@ const en: NotificationBannerContentConfig = {
 
 const cy: typeof en = {
   orderNonPersonalService: {
-    heading: 'You have {finalOrNew} {order} from the court (welsh)',
+    heading: 'Mae gennych {order} {finalOrNew} gan y llys',
     interpolateHeading: (
       content: string,
       commonContent: NotificationBannerContent['common'],
@@ -180,13 +180,13 @@ const cy: typeof en = {
       {
         contents: [
           {
-            text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided. (welsh)',
+            text: 'Mae’r llys wedi gwneud penderfyniad{final} am eich achos. Mae’r {order1} yn dweud wrthych beth mae’r llys wedi penderfynu.',
           },
         ],
         links: [
           {
             //** validate **
-            text: 'View the {order}(PDF) (welsh)',
+            text: 'Gweld y {order} (PDF)',
             href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
             interpolateLinkText: (
               content: string,
@@ -196,7 +196,7 @@ const cy: typeof en = {
               const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
 
               return interpolate(content, {
-                order: notification?.multiple ? commonContent.orders : commonContent.order,
+                order: notification?.multiple ? commonContent.orders1 : commonContent.order1,
               });
             },
           },
