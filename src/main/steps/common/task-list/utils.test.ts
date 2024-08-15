@@ -525,4 +525,7 @@ describe('isC7ResponseReviewed', () => {
       )
     ).toBe(false);
   });
+  test('case withdrawn return false when no case data', () => {
+    expect(isCaseWithdrawn({} as CaseWithId)).toBe(false);
+  });
 });

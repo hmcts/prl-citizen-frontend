@@ -155,12 +155,9 @@ export const getYourWitnessStatementStatus = (userCase: Partial<CaseWithId>): St
 };
 
 export const getCheckAllegationOfHarmStatus = (caseData, lang): StateTags => {
-  return _.get(
-    caseData,
-    lang === DOCUMENT_LANGUAGE.ENGLISH ? 'c1ADocument.document_binary_url' : 'c1AWelshDocument.document_binary_url'
-  )
-    ? StateTags.READY_TO_VIEW
-    : StateTags.NOT_AVAILABLE_YET;
+  const document =
+    lang === DOCUMENT_LANGUAGE.ENGLISH ? 'c1ADocument.document_binary_url' : 'c1AWelshDocument.document_binary_url';
+  return _.get(caseData, document) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
 };
 
 export const getC7ApplicationResponseStatus = (caseData: Partial<CaseWithId>, userDetails: UserDetails): StateTags => {
@@ -210,12 +207,10 @@ export const getInternationalFactorsStatus = (
 };
 
 export const getFinalApplicationStatus = (caseData, lang): StateTags => {
-  return _.get(
-    caseData,
-    lang === DOCUMENT_LANGUAGE.ENGLISH ? 'finalDocument.document_binary_url' : 'finalWelshDocument.document_binary_url'
-  )
-    ? StateTags.READY_TO_VIEW
-    : StateTags.NOT_AVAILABLE_YET;
+  const document =
+    lang === DOCUMENT_LANGUAGE.ENGLISH ? 'finalDocument.document_binary_url' : 'finalWelshDocument.document_binary_url';
+
+  return _.get(caseData, document) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
 };
 export const isRespondentSubmitedResponse = (caseData: Partial<CaseWithId>) => {
   return caseData.respondentDocuments?.find(
