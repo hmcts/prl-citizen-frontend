@@ -187,8 +187,8 @@ describe('list of applications content', () => {
         },
         {
           contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX740">complete and submit form EX740</a>.',
-            'If someone has accused you,  <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX741">complete and submit form EX741</a>.',
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+            'If someone has accused you,  <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
           ],
           id: 'courtToPreventAccusations',
           links: [],
@@ -352,8 +352,8 @@ describe('list of applications content', () => {
         },
         {
           contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/respondent/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX740">complete and submit form EX740</a>.',
-            'If someone has accused you,  <a href="/respondent/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX741">complete and submit form EX741</a>.',
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/respondent/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+            'If someone has accused you,  <a href="/respondent/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
           ],
           id: 'courtToPreventAccusations',
           links: [],
@@ -696,8 +696,8 @@ describe('list of applications content', () => {
       applications: [
         {
           contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX740">complete and submit form EX740</a>.',
-            'If someone has accused you,  <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX741">complete and submit form EX741</a>.',
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+            'If someone has accused you,  <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
           ],
           id: 'courtToPreventAccusations',
           links: [],
@@ -1072,8 +1072,8 @@ describe('list of applications content', () => {
       applications: [
         {
           contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX740">complete and submit form EX740</a>.',
-            'If someone has accused you,  <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX741">complete and submit form EX741</a>.',
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+            'If someone has accused you,  <a href="/applicant/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
           ],
           id: 'courtToPreventAccusations',
           links: [],
