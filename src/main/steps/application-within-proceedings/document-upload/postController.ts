@@ -30,47 +30,45 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
     if (req.body.onlyContinue && areFilesUploaded) {
       super.redirect(req, res);
-    } else {
-      if (!this.isError(awp_application_form, req, res, isSupportingDocuments)) {
-        req.session.errors = [];
-        const formData: FormData = new FormData();
+    } else if (!this.isError(awp_application_form, req, res, isSupportingDocuments)) {
+      req.session.errors = [];
+      const formData: FormData = new FormData();
 
-        formData.append('file', awp_application_form.data, {
-          contentType: awp_application_form.mimetype,
-          filename: awp_application_form.name,
+      formData.append('file', awp_application_form.data, {
+        contentType: awp_application_form.mimetype,
+        filename: awp_application_form.name,
+      });
+
+      try {
+        const userDetails = req?.session?.user;
+        const responseBody: DocumentUploadResponse = await caseApi(userDetails, req.locals.logger).uploadDocument(
+          formData
+        );
+        const {
+          document_url,
+          document_filename,
+          document_binary_url,
+          document_hash,
+          category_id,
+          document_creation_date,
+        } = responseBody['document'];
+        const documentInfo = {
+          id: document_url.split('/')[document_url.split('/').length - 1],
+          url: document_url,
+          filename: document_filename,
+          binaryUrl: document_binary_url,
+          hash: document_hash,
+          categoryId: category_id,
+          createdDate: document_creation_date,
+        };
+
+        this.addDocsToSession(isSupportingDocuments, req, documentInfo);
+
+        req.session.save(() => {
+          res.redirect(applyParms(req.route.path, { partyType, applicationType, applicationReason }));
         });
-
-        try {
-          const userDetails = req?.session?.user;
-          const responseBody: DocumentUploadResponse = await caseApi(userDetails, req.locals.logger).uploadDocument(
-            formData
-          );
-          const {
-            document_url,
-            document_filename,
-            document_binary_url,
-            document_hash,
-            category_id,
-            document_creation_date,
-          } = responseBody['document'];
-          const documentInfo = {
-            id: document_url.split('/')[document_url.split('/').length - 1],
-            url: document_url,
-            filename: document_filename,
-            binaryUrl: document_binary_url,
-            hash: document_hash,
-            categoryId: category_id,
-            createdDate: document_creation_date,
-          };
-
-          this.addDocsToSession(isSupportingDocuments, req, documentInfo);
-
-          req.session.save(() => {
-            res.redirect(applyParms(req.route.path, { partyType, applicationType, applicationReason }));
-          });
-        } catch (error) {
-          res.json(error);
-        }
+      } catch (error) {
+        res.json(error);
       }
     }
   }
@@ -95,7 +93,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     } else {
       sessionDocs = [document];
     }
-
     return sessionDocs;
   };
 

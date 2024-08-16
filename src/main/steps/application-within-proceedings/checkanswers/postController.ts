@@ -2,8 +2,16 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { AWPApplicationReason, AWPApplicationType, PaymentErrorContext, YesOrNo } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
+import { CaseWithId } from '../../../app/case/case';
+import {
+  AWPApplicationReason,
+  AWPApplicationType,
+  FeeDetailsResponse,
+  PartyDetails,
+  PaymentErrorContext,
+  YesOrNo,
+} from '../../../app/case/definition';
+import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { PaymentAPI, PaymentResponse } from '../../../modules/payments/paymentController';
@@ -40,42 +48,18 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
       if (needHWF === YesOrNo.YES && hasHWFRefrence === YesOrNo.YES && hwfRefNumber) {
         const { id: caseId, awpFeeDetails } = caseData;
         const partyName = getPartyDetails(caseData, userDetails.id);
-        const paymentAPI = await PaymentAPI(userDetails.accessToken, appRequest.locals.logger);
-
-        return paymentAPI
-          .initiatePayment({
-            caseId,
-            returnUrl: `${appRequest.protocol}://${appRequest.headers.host}/payment-callback/awp/${applicationType}/${applicationReason}`,
-            applicantCaseName: `${partyName?.firstName} ${partyName?.lastName}-${applicationType}`,
-            hwfRefNumber,
-            feeType: awpFeeDetails!.feeType,
-            awpType: applicationType,
-            partyType: getCasePartyType(caseData, userDetails.id),
-          })
-          .then(
-            ({ response, redirectUrl }) => {
-              appRequest.session.userCase = {
-                ...appRequest.session.userCase,
-                paymentData: response as PaymentResponse,
-                awp_applicationType: applicationType,
-                awp_applicationReason: applicationReason,
-              };
-              appRequest.session.save(() => {
-                if (redirectUrl) {
-                  appResponse.redirect(redirectUrl);
-                } else {
-                  processAWPApplication(appRequest, appResponse);
-                }
-              });
-            },
-            () => {
-              appRequest.session.paymentError = {
-                hasError: true,
-                errorContext: PaymentErrorContext.PAYMENT_UNSUCCESSFUL,
-              };
-              this.handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
-            }
-          );
+        return await paymentAPIInstance(
+          userDetails,
+          appRequest,
+          caseId,
+          applicationType,
+          applicationReason,
+          partyName,
+          awpFeeDetails,
+          caseData,
+          appResponse,
+          hwfRefNumber
+        );
       }
 
       appRequest.session.save(() => {
@@ -83,28 +67,77 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
       });
     } catch (error) {
       appRequest.session.paymentError = { hasError: true, errorContext: PaymentErrorContext.DEFAULT_PAYMENT_ERROR };
-      this.handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
+      handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
     }
   }
-
-  private handleErrorAndRedirect(
-    applicationType: AWPApplicationType,
-    applicationReason: AWPApplicationReason,
-    appRequest: AppRequest<AnyObject>,
-    appResponse: Response
-  ) {
-    appRequest.session.save(() => {
-      setTimeout(() => {
-        appRequest.session.paymentError.hasError = false;
-        appRequest.session.save();
-      }, 1000);
-      appResponse.redirect(
-        applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, {
-          partyType: appRequest.params?.partyType,
-          applicationType,
-          applicationReason,
-        })
-      );
-    });
-  }
 }
+export async function paymentAPIInstance(
+  userDetails: UserDetails,
+  appRequest: AppRequest<AnyObject>,
+  caseId: string,
+  applicationType: AWPApplicationType,
+  applicationReason: AWPApplicationReason,
+  partyName: PartyDetails | undefined,
+  awpFeeDetails: FeeDetailsResponse | undefined,
+  caseData: CaseWithId,
+  appResponse: Response<any, Record<string, any>>,
+  hwfRefNumber?: string | undefined
+) {
+  const paymentAPI = await PaymentAPI(userDetails.accessToken, appRequest.locals.logger);
+
+  return paymentAPI
+    .initiatePayment({
+      caseId,
+      returnUrl: `${appRequest.protocol}://${appRequest.headers.host}/payment-callback/awp/${applicationType}/${applicationReason}`,
+      applicantCaseName: `${partyName?.firstName} ${partyName?.lastName}-${applicationType}`,
+      hwfRefNumber,
+      feeType: awpFeeDetails!.feeType,
+      awpType: applicationType,
+      partyType: getCasePartyType(caseData, userDetails.id),
+    })
+    .then(
+      ({ response, redirectUrl }) => {
+        appRequest.session.userCase = {
+          ...appRequest.session.userCase,
+          paymentData: response as PaymentResponse,
+          awp_applicationType: applicationType,
+          awp_applicationReason: applicationReason,
+        };
+        appRequest.session.save(() => {
+          if (redirectUrl) {
+            appResponse.redirect(redirectUrl);
+          } else {
+            processAWPApplication(appRequest, appResponse);
+          }
+        });
+      },
+      () => {
+        appRequest.session.paymentError = {
+          hasError: true,
+          errorContext: PaymentErrorContext.PAYMENT_UNSUCCESSFUL,
+        };
+        handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
+      }
+    );
+}
+export const handleErrorAndRedirect = (
+  applicationType: AWPApplicationType,
+  applicationReason: AWPApplicationReason,
+  appRequest: AppRequest<AnyObject>,
+  appResponse: Response
+) => {
+  delete appRequest.session.userCase.paymentData;
+  appRequest.session.save(() => {
+    setTimeout(() => {
+      appRequest.session.paymentError.hasError = false;
+      appRequest.session.save();
+    }, 1000);
+    appResponse.redirect(
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, {
+        partyType: appRequest.params?.partyType,
+        applicationType,
+        applicationReason,
+      })
+    );
+  });
+};
