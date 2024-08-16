@@ -36,7 +36,7 @@ const en = {
 
 const cy: typeof en = {
   ...commonContentCy,
-  title: 'datganiad cyflwyno',
+  title: 'Datganiad cyflwyno',
   whoWasServedLabel: 'Ar bwy y cyflwynwyd?',
   servedDateLabel: 'Pryd cawson nhw eu cyflwyno?',
   servedDateHint: 'Er enghraifft: 16 4 2021',
