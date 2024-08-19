@@ -5,7 +5,7 @@ describe('da_respondent', () => {
     const da_respondentNotifications = DA_RESPONDENT_CONFIG();
 
     expect(da_respondentNotifications).toHaveLength(2);
-    expect(da_respondentNotifications[0].id).toBe('daRespondentBanner');
+    expect(da_respondentNotifications[0].id).toBe('applicationServedByCourtToDARespondent');
     expect(da_respondentNotifications[1].id).toBe('orderNonPersonalService');
   });
 });

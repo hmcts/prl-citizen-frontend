@@ -1,4 +1,5 @@
 import { Case, CaseDate } from '../../../../app/case/case';
+import { CaseType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
@@ -35,7 +36,7 @@ const en = {
 
 const cy: typeof en = {
   ...commonContentCy,
-  title: 'datganiad cyflwyno',
+  title: 'Datganiad cyflwyno',
   whoWasServedLabel: 'Ar bwy y cyflwynwyd?',
   servedDateLabel: 'Pryd cawson nhw eu cyflwyno?',
   servedDateHint: 'Er enghraifft: 16 4 2021',
@@ -45,11 +46,11 @@ const cy: typeof en = {
     },
     sos_respondentsServedDate: {
       required: 'Mae’n rhaid i chi nodi’r dyddiad cyflwyno',
-      invalidDate: 'Date of service is not valid - welsh',
-      incompleteDay: 'Date of service must include a day - welsh',
-      incompleteMonth: 'Date of service must include a month - welsh',
-      incompleteYear: 'Date of service must include a year - welsh',
-      invalidDateInFuture: 'Date of service must be in the past - welsh',
+      invalidDate: 'Nid yw dyddiad y gwasanaeth yn ddilys',
+      incompleteDay: 'Rhaid i’r dyddiad cyflwyno gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’r dyddiad cyflwyno gynnwys mis',
+      incompleteYear: 'Rhaid i’r dyddiad cyflwyno gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i ddyddiad y gwasanaeth fod yn y gorffennol',
     },
   },
 };
@@ -64,18 +65,28 @@ export const form: FormContent = {
     return {
       sos_respondentsServed: {
         type: 'checkboxes',
-        hidden: caseData?.respondents?.length === 1,
+        hidden: !!(caseData?.caseTypeOfApplication === CaseType.FL401 || caseData?.respondents?.length === 1),
         label: l => l.whoWasServedLabel,
-        values:
-          caseData?.respondents?.map(respondent => ({
-            name: 'sos_respondentsServed',
-            value: respondent.id,
-            label: `${respondent.value.firstName} ${respondent.value.lastName}`,
-            selected:
-              caseData?.respondents?.length === 1
-                ? true
-                : caseData?.sos_respondentsServed?.includes(respondent.id) || false,
-          })) ?? [],
+        values: caseData?.respondents?.length
+          ? caseData.respondents.map(respondent => ({
+              name: 'sos_respondentsServed',
+              value: respondent.id,
+              label: `${respondent.value.firstName} ${respondent.value.lastName}`,
+              selected:
+                caseData?.respondents?.length === 1
+                  ? true
+                  : caseData?.sos_respondentsServed?.includes(respondent.id) || false,
+            }))
+          : caseData?.respondentsFL401
+          ? [
+              {
+                name: 'sos_respondentsServed',
+                value: caseData.respondentsFL401!.partyId,
+                label: `${caseData.respondentsFL401!.firstName} ${caseData.respondentsFL401!.lastName}`,
+                selected: true,
+              },
+            ]
+          : [],
         validator: atLeastOneFieldIsChecked,
       },
       sos_respondentsServedDate: {

@@ -7,7 +7,7 @@ import { NotificationBannerContent, NotificationBannerContentConfig, Notificatio
 import { findNotification, getOrderNotificationHeading } from '../utils';
 
 const en: NotificationBannerContentConfig = {
-  daRespondentBanner: {
+  applicationServedByCourtToDARespondent: {
     heading:
       'You have been named as the respondent in a domestic abuse application and have been given instructions from the court',
     sections: [
@@ -58,7 +58,7 @@ const en: NotificationBannerContentConfig = {
           {
             //** validate **
             text: 'View the {order} (PDF)',
-            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
             interpolateLinkText: (
               content: string,
               commonContent: NotificationBannerContent['common'],
@@ -78,7 +78,7 @@ const en: NotificationBannerContentConfig = {
 };
 
 const cy: typeof en = {
-  daRespondentBanner: {
+  applicationServedByCourtToDARespondent: {
     heading:
       'You have been named as the respondent in a domestic abuse application and have been given instructions from the court -welsh',
     sections: [
@@ -129,7 +129,7 @@ const cy: typeof en = {
           {
             //** validate **
             text: 'View the {order} (PDF) (welsh)',
-            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+            href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
             interpolateLinkText: (
               content: string,
               commonContent: NotificationBannerContent['common'],

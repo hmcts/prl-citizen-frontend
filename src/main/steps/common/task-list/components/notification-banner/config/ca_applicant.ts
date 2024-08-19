@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State } from '../../../../../../app/case/definition';
 import { isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
 import { interpolate } from '../../../../string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
 import {
+  findC1ADocument,
   findC7ResponseDocument,
   findNotification,
+  findResponseToC1ADocument,
   getBannerContentForRespondent,
   showNotification,
   showPreDashBoardNotification,
@@ -38,7 +42,9 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
     id: NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
     show: showNotification,
   },
-  ...generateC7ResponseNotifications(userCase),
+  ...generateRespondentRelatedNotifications(userCase, NotificationType.VIEW_RESPONSE_TO_APPLICATION),
+  ...generateRespondentRelatedNotifications(userCase, NotificationType.VIEW_RESPONDENT_AOH),
+  ...generateRespondentRelatedNotifications(userCase, NotificationType.VIEW_RESPONDENT_RESPONSE_AOH),
   {
     id: NotificationType.APPLICANT_TO_PERSONALLY_SERVE_RESPONDENT,
     show: showNotification,
@@ -53,6 +59,10 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
   },
   {
     id: NotificationType.SUMBIT_FM5,
+    show: showNotification,
+  },
+  {
+    id: NotificationType.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF,
     show: showNotification,
   },
   {
@@ -91,25 +101,39 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
   },
 ];
 
-const generateC7ResponseNotifications = (caseData: CaseWithId): NotificationBannerProps[] | [] => {
-  if (!caseData?.respondents?.length) {
+const generateRespondentRelatedNotifications = (
+  caseData: CaseWithId,
+  notificationId: NotificationType
+): NotificationBannerProps[] | [] => {
+  const responseDocumentMap = {
+    [NotificationType.VIEW_RESPONSE_TO_APPLICATION]: findC7ResponseDocument,
+    [NotificationType.VIEW_RESPONDENT_AOH]: findC1ADocument,
+    [NotificationType.VIEW_RESPONDENT_RESPONSE_AOH]: findResponseToC1ADocument,
+  };
+
+  if (!caseData?.respondents?.length || !_.isFunction(responseDocumentMap?.[notificationId])) {
     return [];
   }
 
   const notifications: NotificationBannerProps[] = [];
 
-  caseData.respondents?.forEach(respondent => {
-    const C7ResponseDocument = findC7ResponseDocument(caseData, respondent);
-
+  caseData.respondents.forEach(respondent => {
     notifications.push({
-      id: NotificationType.VIEW_RESPONSE_TO_APPLICATION,
+      id: notificationId,
       interpolateContent: (content: string, commonContent: NotificationBannerContent['common']) => {
+        const document = responseDocumentMap[notificationId](caseData, respondent);
+
         return interpolate(content, {
-          respondent: C7ResponseDocument?.partyName ?? commonContent.theRespondent,
+          respondent:
+            document && document?.partyName
+              ? `${commonContent.titleRespondentName} ${document.partyName}`.trim()
+              : commonContent.theRespondent,
         });
       },
       show: (notificationType: NotificationType): boolean => {
-        return showNotification(notificationType, caseData) && !!C7ResponseDocument;
+        return (
+          showNotification(notificationType, caseData) && !!responseDocumentMap[notificationId](caseData, respondent)
+        );
       },
     });
   });

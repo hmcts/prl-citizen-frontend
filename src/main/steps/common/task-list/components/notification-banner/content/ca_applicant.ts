@@ -5,6 +5,7 @@ import { interpolate } from '../../../../../../steps/common/string-parser';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   C100_WITHDRAW_CASE,
+  STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
   UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
@@ -288,7 +289,10 @@ const en: NotificationBannerContentConfig = {
           },
           {
             text: 'Upload the statement of service (form C9)',
-            href: '',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'order',
+            }),
           },
         ],
       },
@@ -348,7 +352,10 @@ const en: NotificationBannerContentConfig = {
           },
           {
             text: 'Upload the statement of service (form C9)',
-            href: '/applicant/statement-of-service/who-was-served/personal-service',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'personal-service',
+            }),
           },
         ],
       },
@@ -423,7 +430,43 @@ const en: NotificationBannerContentConfig = {
         ],
         links: [
           {
-            text: 'View the response (PDF)',
+            text: 'View the response',
+            href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
+  viewRespondentAOH: {
+    heading: "View the respondent's allegations of harm",
+    sections: [
+      {
+        contents: [
+          {
+            text: '{respondent} has made allegations of harm against you.',
+          },
+        ],
+        links: [
+          {
+            text: 'View allegations of harm and violence',
+            href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
+  viewRespondentResponseAOH: {
+    heading: 'View the response to your allegations of harm',
+    sections: [
+      {
+        contents: [
+          {
+            text: '{respondent} has responded to your allegations of harm.',
+          },
+        ],
+        links: [
+          {
+            text: 'View the response to the allegations of harm and violence',
             href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
           },
         ],
@@ -446,6 +489,18 @@ const en: NotificationBannerContentConfig = {
               partyType: PartyType.APPLICANT,
               docCategory: UploadDocumentCategory.FM5_DOCUMENT,
             }),
+          },
+        ],
+      },
+    ],
+  },
+  orderSOSPersonalServiceByCourtAdminBailiff: {
+    heading: 'The respondent has been served with the order',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'This means the respondent has now been given a copy of the order made by the court.',
           },
         ],
       },
@@ -720,7 +775,10 @@ const cy: typeof en = {
           },
           {
             text: 'Upload the statement of service (form C9)',
-            href: '',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'order',
+            }),
           },
         ],
       },
@@ -780,7 +838,10 @@ const cy: typeof en = {
           },
           {
             text: 'Llwytho’r datganiad cyflwyno (ffurflen C9)',
-            href: '/applicant/statement-of-service/who-was-served/personal-service',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'personal-service',
+            }),
           },
         ],
       },
@@ -841,17 +902,53 @@ const cy: typeof en = {
     ],
   },
   viewResponseToApplication: {
-    heading: 'View the response to your application (welsh)',
+    heading: 'Gweld yr ymateb i’ch cais',
     sections: [
       {
         contents: [
           {
-            text: '{respondent} has responded to your application. (welsh)',
+            text: '{respondent} wedi ymateb i’ch cais.',
           },
         ],
         links: [
           {
-            text: 'View the response (PDF) (welsh)',
+            text: 'Gweld yr ymateb',
+            href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
+  viewRespondentAOH: {
+    heading: 'Gweld honiadau o niwed yr atebydd',
+    sections: [
+      {
+        contents: [
+          {
+            text: '{respondent} wedi gwneud honiadau o niwed yn eich erbyn.',
+          },
+        ],
+        links: [
+          {
+            text: 'Gweld honiadau o niwed a thrais',
+            href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+          },
+        ],
+      },
+    ],
+  },
+  viewRespondentResponseAOH: {
+    heading: "Gweld yr ymateb i'ch honiadau o niwed",
+    sections: [
+      {
+        contents: [
+          {
+            text: '{respondent} wedi ymateb i’ch honiadau o niwed.',
+          },
+        ],
+        links: [
+          {
+            text: 'Gweld yr ymateb i’r honiadau o niwed a thrais',
             href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
           },
         ],
@@ -874,6 +971,18 @@ const cy: typeof en = {
               partyType: PartyType.APPLICANT,
               docCategory: UploadDocumentCategory.FM5_DOCUMENT,
             }),
+          },
+        ],
+      },
+    ],
+  },
+  orderSOSPersonalServiceByCourtAdminBailiff: {
+    heading: "Mae’r gorchymyn wedil cael ei gyflwyno i'r atebydd",
+    sections: [
+      {
+        contents: [
+          {
+            text: 'Mae hyn yn golygu bod yr yr atebydd bellach wedi cael copi o’r gorchymyn a wnaethpwyd gan y llys.',
           },
         ],
       },

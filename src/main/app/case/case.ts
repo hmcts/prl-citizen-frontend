@@ -666,7 +666,7 @@ export interface Case {
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
   citizenNotifications?: CitizenNotification[];
-  sos_respondentsServed?: string[];
+  sos_respondentsServed?: string[] | string;
   sos_respondentsServedDate?: CaseDate;
   sos_document?: Document;
 }
@@ -678,6 +678,7 @@ export interface CitizenNotification {
   final: boolean;
   multiple: boolean;
   personalService?: boolean;
+  orderTypeId?: string;
 }
 
 export enum Miam_notAttendingReasons {

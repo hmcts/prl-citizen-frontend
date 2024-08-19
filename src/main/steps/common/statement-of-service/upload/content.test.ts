@@ -56,12 +56,13 @@ const cy = {
   errors: {
     statementOfServiceDoc: {
       empty: 'Mae’n rhaid i chi lwytho datganiad cyflwyno',
-      uploadError: 'Document could not be uploaded',
-      deleteError: 'Document could not be deleted',
+      uploadError: "Nid oedd modd uwchlwytho'r ddogfen",
+      deleteError: "Nid oedd modd dileu'r ddogfen",
       multipleFiles:
-        'You can upload only one file. If you wish to upload a new file, delete the existing file and upload a new one',
-      fileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
-      fileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
+        'Gallwch uwchlwytho un ffeil yn unig. Os ydych eisiau uwchlwytho ffeil newydd, dylech ddileu’r ffeil bresennol ac uwchlwytho ffeil newydd',
+      fileSize: "Mae'r ffeil a uwchlwythwyd gennych yn rhy fawr. Uchafswm maint y ffeil a ganiateir yw 20MB",
+      fileFormat:
+        "Mae'r ffeil a uwchlwythwyd gennych yn y fformat anghywir. Uwchlwythwch eich ffeil eto yn y fformat cywir",
     },
   },
 };
