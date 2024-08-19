@@ -283,7 +283,7 @@ const en: NotificationBannerContentConfig = {
         ],
         links: [
           {
-            text: 'Download the statement of service (form C9) (opens in a new tab)',
+            text: 'Download the statement of service (form C9)',
             href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
             external: true,
           },
@@ -674,7 +674,7 @@ const cy: typeof en = {
     ],
   },
   orderNonPersonalService: {
-    heading: 'You have {finalOrNew} {order} from the court (welsh)',
+    heading: 'Mae gennych {order} {finalOrNew} gan y llys',
     interpolateHeading: (
       content: string,
       commonContent: NotificationBannerContent['common'],
@@ -691,13 +691,13 @@ const cy: typeof en = {
       {
         contents: [
           {
-            text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided. (welsh)',
+            text: 'Mae’r llys wedi gwneud penderfyniad{final} am eich achos. Mae’r {order1} yn dweud wrthych beth mae’r llys wedi penderfynu.',
           },
         ],
         links: [
           {
             //** validate **
-            text: 'View the {order} (PDF) (welsh)',
+            text: 'Gweld y {order} (PDF)',
             href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
             interpolateLinkText: (
               content: string,
@@ -707,7 +707,7 @@ const cy: typeof en = {
               const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
 
               return interpolate(content, {
-                order: notification?.multiple ? commonContent.orders : commonContent.order,
+                order: notification?.multiple ? commonContent.orders1 : commonContent.order1,
               });
             },
           },
@@ -716,7 +716,7 @@ const cy: typeof en = {
     ],
   },
   orderPersonalService: {
-    heading: 'You have {finalOrNew} {order} from the court',
+    heading: 'Mae gennych {order} {finalOrNew} gan y llys',
     interpolateHeading: (
       content: string,
       commonContent: NotificationBannerContent['common'],
@@ -733,16 +733,16 @@ const cy: typeof en = {
       {
         contents: [
           {
-            text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
+            text: 'Mae’r llys wedi gwneud penderfyniad{final} am eich achos. Mae’r {order1} yn dweud wrthych beth mae’r llys wedi penderfynu.',
           },
           {
-            text: 'You will need to arrange for the {respondent} to be served. See the {order} for further details.',
+            text: "Bydd arnoch angen trefnu i'r dogfennau gael eu cyflwyno ar yr {respondent}. Gweler y {order1}  i gael rhagor o wybodaeth.",
           },
         ],
         links: [
           {
             //** validate **
-            text: 'View the {order} (PDF)',
+            text: 'Gweld y {order} (PDF)',
             href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
             interpolateLinkText: (
               content: string,
@@ -752,7 +752,7 @@ const cy: typeof en = {
               const notification = findNotification(caseData, NotificationID.ORDER_PERSONAL_SERVICE);
 
               return interpolate(content, {
-                order: notification?.multiple ? commonContent.orders : commonContent.order,
+                order: notification?.multiple ? commonContent.orders1 : commonContent.order1,
               });
             },
           },
@@ -761,20 +761,20 @@ const cy: typeof en = {
       {
         contents: [
           {
-            text: 'If there is more than one applicant, please agree which of you will serve the {order} on the {respondent}.',
+            text: 'Os oes mwy nag un ceisydd, cytunwch pa un ohonoch fydd yn cyflwyno’r {order1} ar yr {respondent}.',
           },
           {
-            text: 'You need to submit a statement of service after the {respondent} {has} been given the documents.',
+            text: 'Mae arnoch angen cyflwyno datganiad cyflwyno pan fydd yr {respondent} wedi cael y dogfennau.',
           },
         ],
         links: [
           {
-            text: 'Download the statement of service (form C9) (opens in a new tab)',
+            text: "Lawrlwytho'r datganiad cyflwyno (ffurflen C9)",
             href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
             external: true,
           },
           {
-            text: 'Upload the statement of service (form C9)',
+            text: 'Uwchlwytho’r datganiad cyflwyno',
             href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
               partyType: PartyType.APPLICANT,
               context: 'order',

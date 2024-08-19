@@ -80,15 +80,15 @@ const en: NotificationBannerContentConfig = {
 const cy: typeof en = {
   applicationServedByCourtToDARespondent: {
     heading:
-      'You have been named as the respondent in a domestic abuse application and have been given instructions from the court -welsh',
+      'Rydych wedi cael eich enwi fel yr atebydd mewn cais cam-drin domestig ac wedi cael cyfarwyddiadau gan y llys',
     sections: [
       {
         contents: [
           {
-            text: 'This means that the applicant has applied to a court for protection from domestic abuse. -welsh',
+            text: 'Mae hyn yn golygu bod y ceisydd wedi gwneud cais i’r llys am orchymyn amddiffyn rhag cam-drin domestig.',
           },
           {
-            text: 'The court has considered their concerns and provided you further instructions. -welsh',
+            text: 'Mae’r llys wedi ystyried eu pryderon ac wedi rhoi cyfarwyddiadau pellach i chi.',
           },
         ],
         links: [
@@ -97,7 +97,7 @@ const cy: typeof en = {
             href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
               partyType: PartyType.RESPONDENT,
             }),
-            text: 'View the court documents -welsh',
+            text: "Gweld dogfennau'r llys",
             external: true,
           },
         ],
@@ -105,7 +105,7 @@ const cy: typeof en = {
     ],
   },
   orderNonPersonalService: {
-    heading: 'You have {finalOrNew} {order} from the court (welsh)',
+    heading: 'Mae gennych {order} {finalOrNew} gan y llys',
     interpolateHeading: (
       content: string,
       commonContent: NotificationBannerContent['common'],
@@ -122,13 +122,13 @@ const cy: typeof en = {
       {
         contents: [
           {
-            text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided. (welsh)',
+            text: 'Mae’r llys wedi gwneud penderfyniad{final} am eich achos. Mae’r {order1} yn dweud wrthych beth mae’r llys wedi penderfynu.',
           },
         ],
         links: [
           {
             //** validate **
-            text: 'View the {order} (PDF) (welsh)',
+            text: 'Gweld y {order} (PDF)',
             href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
             interpolateLinkText: (
               content: string,
@@ -138,7 +138,7 @@ const cy: typeof en = {
               const notification = findNotification(caseData, NotificationID.ORDER_NON_PERSONAL_SERVICE);
 
               return interpolate(content, {
-                order: notification?.multiple ? commonContent.orders : commonContent.order,
+                order: notification?.multiple ? commonContent.orders1 : commonContent.order1,
               });
             },
           },

@@ -81,6 +81,7 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
         final: notification?.final ? ` ${commonContent.final}` : '',
         order: notification?.multiple ? commonContent.orders : commonContent.order,
         tell: notification?.multiple ? commonContent.tell : commonContent.tells,
+        order1: notification?.multiple ? commonContent.orders1 : commonContent.order1,
       });
     },
   },
@@ -94,6 +95,7 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
         final: notification?.final ? ` ${commonContent.final}` : '',
         order: notification?.multiple ? commonContent.orders : commonContent.order,
         tell: notification?.multiple ? commonContent.tell : commonContent.tells,
+        order1: notification?.multiple ? commonContent.orders1 : commonContent.order1,
         respondent,
         has,
       });
