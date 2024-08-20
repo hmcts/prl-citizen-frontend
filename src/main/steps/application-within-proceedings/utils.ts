@@ -521,6 +521,7 @@ const handlePageRedirection = (
   appRequest.session.save(() => {
     setTimeout(() => {
       appRequest.session.paymentError.hasError = false;
+      appRequest.session.paymentError.errorContext = null;
       appRequest.session.save();
     }, 1000);
     appResponse.redirect(

@@ -71,7 +71,6 @@ export async function paymentAPIInstance(
   const partyName = getPartyDetails(caseData, userDetails.id);
   const { id: caseId, awpFeeDetails } = caseData;
   const paymentAPI = await PaymentAPI(userDetails.accessToken, appRequest.locals.logger);
-
   return paymentAPI
     .initiatePayment({
       caseId,
