@@ -6,7 +6,6 @@ import { AWPApplicationReason, AWPApplicationType, PaymentErrorContext } from '.
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { handleErrorAndRedirect, paymentAPIInstance } from '../checkanswers/postController';
 
 @autobind
@@ -20,20 +19,14 @@ export default class AWPPayAndSubmitPostController extends PostController<AnyObj
     const caseData = appRequest.session.userCase;
     const applicationType = appRequest.params.applicationType as AWPApplicationType;
     const applicationReason = appRequest.params.applicationReason as AWPApplicationReason;
-    const partyName = getPartyDetails(caseData, userDetails.id);
 
     try {
       appRequest.session.paymentError = { hasError: false, errorContext: null };
-
-      const { id: caseId, awpFeeDetails } = caseData;
       return await paymentAPIInstance(
         userDetails,
         appRequest,
-        caseId,
         applicationType,
         applicationReason,
-        partyName,
-        awpFeeDetails,
         caseData,
         appResponse
       );
@@ -42,26 +35,4 @@ export default class AWPPayAndSubmitPostController extends PostController<AnyObj
       handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
     }
   }
-
-  // private handleErrorAndRedirect(
-  //   applicationType: AWPApplicationType,
-  //   applicationReason: AWPApplicationReason,
-  //   appRequest: AppRequest<AnyObject>,
-  //   appResponse: Response
-  // ) {
-  //   delete appRequest.session.userCase.paymentData;
-  //   appRequest.session.save(() => {
-  //     setTimeout(() => {
-  //       appRequest.session.paymentError.hasError = false;
-  //       appRequest.session.save();
-  //     }, 1000);
-  //     appResponse.redirect(
-  //       applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, {
-  //         partyType: appRequest.params?.partyType,
-  //         applicationType,
-  //         applicationReason,
-  //       })
-  //     );
-  //   });
-  // }
 }

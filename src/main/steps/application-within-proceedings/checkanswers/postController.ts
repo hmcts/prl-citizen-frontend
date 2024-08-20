@@ -3,14 +3,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CaseWithId } from '../../../app/case/case';
-import {
-  AWPApplicationReason,
-  AWPApplicationType,
-  FeeDetailsResponse,
-  PartyDetails,
-  PaymentErrorContext,
-  YesOrNo,
-} from '../../../app/case/definition';
+import { AWPApplicationReason, AWPApplicationType, PaymentErrorContext, YesOrNo } from '../../../app/case/definition';
 import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
@@ -46,16 +39,11 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
       }
 
       if (needHWF === YesOrNo.YES && hasHWFRefrence === YesOrNo.YES && hwfRefNumber) {
-        const { id: caseId, awpFeeDetails } = caseData;
-        const partyName = getPartyDetails(caseData, userDetails.id);
         return await paymentAPIInstance(
           userDetails,
           appRequest,
-          caseId,
           applicationType,
           applicationReason,
-          partyName,
-          awpFeeDetails,
           caseData,
           appResponse,
           hwfRefNumber
@@ -74,15 +62,14 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
 export async function paymentAPIInstance(
   userDetails: UserDetails,
   appRequest: AppRequest<AnyObject>,
-  caseId: string,
   applicationType: AWPApplicationType,
   applicationReason: AWPApplicationReason,
-  partyName: PartyDetails | undefined,
-  awpFeeDetails: FeeDetailsResponse | undefined,
   caseData: CaseWithId,
   appResponse: Response<any, Record<string, any>>,
   hwfRefNumber?: string | undefined
-) {
+): Promise<void> {
+  const partyName = getPartyDetails(caseData, userDetails.id);
+  const { id: caseId, awpFeeDetails } = caseData;
   const paymentAPI = await PaymentAPI(userDetails.accessToken, appRequest.locals.logger);
 
   return paymentAPI
@@ -125,11 +112,12 @@ export const handleErrorAndRedirect = (
   applicationReason: AWPApplicationReason,
   appRequest: AppRequest<AnyObject>,
   appResponse: Response
-) => {
+): void => {
   delete appRequest.session.userCase.paymentData;
   appRequest.session.save(() => {
     setTimeout(() => {
       appRequest.session.paymentError.hasError = false;
+      appRequest.session.paymentError.errorContext = null;
       appRequest.session.save();
     }, 1000);
     appResponse.redirect(
