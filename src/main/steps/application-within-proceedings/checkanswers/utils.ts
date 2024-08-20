@@ -130,7 +130,7 @@ export const prepareSummaryList = (pageContent: any, content: CommonContent) => 
 const prepareDocumentNameView = (userCase: Partial<CaseWithId>): string => {
   let tempDetails = '<div class="govuk-form-group">';
   if (userCase?.awp_uploadedApplicationForms?.length) {
-    for (const doc of userCase?.awp_uploadedApplicationForms) {
+    for (const doc of userCase.awp_uploadedApplicationForms) {
       tempDetails = tempDetails + '<p>' + '<a href="" target="blank">' + doc.filename + '</a>' + '</p>';
     }
   }
