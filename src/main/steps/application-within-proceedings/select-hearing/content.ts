@@ -79,11 +79,11 @@ export const generateFormFields = (
         const futureHearings = caseHearings
           .filter(hearing => hearing?.nextHearingDate !== null)
           .map(option => {
-            const value = `${option.hearingTypeValue}-${dayjs(option.nextHearingDate).format('DD/MM/YYYY')}`;
+            const value = `${option.hearingTypeValue}--${dayjs(option.nextHearingDate).format('DD/MM/YYYY')}`;
 
             return {
               value,
-              text: `${option.hearingTypeValue}-${dayjs(option.nextHearingDate).format('DD/MM/YYYY')}`,
+              text: `${option.hearingTypeValue} - ${dayjs(option.nextHearingDate).format('DD/MM/YYYY')}`,
               selected: caseData?.awp_cancelDelayHearing === value,
             };
           });

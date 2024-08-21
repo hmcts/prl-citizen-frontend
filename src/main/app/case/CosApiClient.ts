@@ -234,7 +234,7 @@ export class CosApiClient {
           category_id: document.categoryId,
           document_creation_date: document.createdDate,
         })),
-        awp_cancelDelayHearing,
+        awp_cancelDelayHearing: awp_cancelDelayHearing?.replace(/--/, ' - '),
         awp_isThereReasonForUrgentRequest,
         awp_urgentRequestReason,
         awp_hasSupportingDocuments,
