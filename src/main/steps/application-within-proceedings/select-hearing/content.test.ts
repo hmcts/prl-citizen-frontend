@@ -90,10 +90,10 @@ describe('select hearing content', () => {
 
   const hearingOptions = [
     { selected: true, text: '-- Select a value --', value: '' },
-    { selected: false, text: 'Finding of Fact-13/07/2023', value: 'ABA5-FOF-2023-07-13T10:55:47.329703' },
-    { selected: false, text: 'Finding of Fact-14/07/2023', value: 'ABA5-FOF-2023-07-14T10:55:47.329703' },
-    { selected: false, text: 'Finding of Fact-23/07/2023', value: 'ABA5-FOF-2023-07-23T10:55:47.329703' },
-    { selected: false, text: 'Finding of Fact-01/08/2023', value: 'ABA5-FOF-2023-08-1T10:55:47.329703' },
+    { selected: false, text: 'Finding of Fact-13/07/2023', value: 'Finding of Fact-13/07/2023' },
+    { selected: false, text: 'Finding of Fact-14/07/2023', value: 'Finding of Fact-14/07/2023' },
+    { selected: false, text: 'Finding of Fact-23/07/2023', value: 'Finding of Fact-23/07/2023' },
+    { selected: false, text: 'Finding of Fact-01/08/2023', value: 'Finding of Fact-01/08/2023' },
   ];
 
   beforeEach(() => {

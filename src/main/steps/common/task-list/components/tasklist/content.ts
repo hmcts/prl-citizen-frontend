@@ -110,6 +110,9 @@ const en: TaskListContent = {
           checkAllegationsOfHarmAndViolence: {
             linkText: 'Check the allegations of harm and violence (PDF)',
           },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
+          },
         },
       },
       yourResponse: {
@@ -120,9 +123,6 @@ const en: TaskListContent = {
           },
           respondToAOHAndViolence: {
             linkText: 'Respond to the allegations of harm and violence',
-          },
-          requestToCourtAboutYourCase: {
-            linkText: 'Make a request to the court about your case',
           },
         },
       },
@@ -380,6 +380,9 @@ const cy: typeof en = {
           checkAllegationsOfHarmAndViolence: {
             linkText: 'Gwirio’r honiadau o niwed a thrais (PDF)',
           },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case -  welsh',
+          },
         },
       },
       yourResponse: {
@@ -390,9 +393,6 @@ const cy: typeof en = {
           },
           respondToAOHAndViolence: {
             linkText: "Ymateb i'r honiadau o niwed a thrais",
-          },
-          requestToCourtAboutYourCase: {
-            linkText: 'Make a request to the court about your case -  welsh',
           },
         },
       },

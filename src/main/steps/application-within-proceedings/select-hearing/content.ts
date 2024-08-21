@@ -8,6 +8,7 @@ import { FormContent, FormFields, GenerateDynamicFormFields } from '../../../app
 import { isValidOption } from '../../../app/form/validation';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { getApplicationListUrl } from '../utils';
+export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = {
@@ -78,7 +79,7 @@ export const generateFormFields = (
         const futureHearings = caseHearings
           .filter(hearing => hearing?.nextHearingDate !== null)
           .map(option => {
-            const value = `${option.hearingType}-${option.nextHearingDate}`;
+            const value = `${option.hearingTypeValue}-${dayjs(option.nextHearingDate).format('DD/MM/YYYY')}`;
 
             return {
               value,

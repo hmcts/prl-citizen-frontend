@@ -206,10 +206,12 @@ describe('list of applications config', () => {
           {
             applicationType: 'EX740',
             reason: 'prevent-questioning-in-person-accusing-someone',
+            isLinkEmbeded: true,
           },
           {
             applicationType: 'EX741',
             reason: 'prevent-questioning-in-person-someone-accusing-you',
+            isLinkEmbeded: true,
           },
         ],
       },

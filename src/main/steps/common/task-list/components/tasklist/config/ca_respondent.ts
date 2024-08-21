@@ -183,6 +183,17 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         },
         openInAnotherTab: () => true,
       },
+      {
+        id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
+        href: () =>
+          applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+            partyType: PartyType.RESPONDENT,
+            pageNumber: '1',
+          }),
+        stateTag: () => StateTags.OPTIONAL,
+        show: isCaseLinked,
+        disabled: isCaseClosed,
+      },
     ],
   },
   {
@@ -221,17 +232,6 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
           return getInternationalFactorsStatus(respondent?.response.citizenInternationalElements);
         },
-      },
-      {
-        id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
-        href: () =>
-          applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
-            partyType: PartyType.RESPONDENT,
-            pageNumber: '1',
-          }),
-        stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked,
-        disabled: isCaseClosed,
       },
     ],
   },
