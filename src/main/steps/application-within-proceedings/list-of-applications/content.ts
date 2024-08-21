@@ -226,8 +226,8 @@ const cy: typeof en = {
     sectionTitle:
       'Gofyn i’r llys atal caniatáu cwestiynu unigolyn yn bersonol pan fydd honiadau o gam-drin wedi’u gwneud',
     contents: [
-      'Os ydych wedi cyhuddo rhywun mewn achos cam-drin ac eisiau i’r llys atal caniatáu cwestiynu’r unigolyn yn bersonol, <a href="/{partyType}/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" target="_blank" aria-label="complete and submit form EX740">llenwch a chyflwynwch ffurflen EX740</a>.',
-      'Os yw rhywun wedi’ch cyhuddo chi, <a href="/{partyType}/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" target="_blank" aria-label="complete and submit form EX741">llenwch a chyflwynwch ffurflen EX741</a>.',
+      'Os ydych wedi cyhuddo rhywun mewn achos cam-drin ac eisiau i’r llys atal caniatáu cwestiynu’r unigolyn yn bersonol, <a href="/{partyType}/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX740">llenwch a chyflwynwch ffurflen EX740</a>.',
+      'Os yw rhywun wedi’ch cyhuddo chi, <a href="/{partyType}/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX741">llenwch a chyflwynwch ffurflen EX741</a>.',
     ],
   },
   authorisingSearchOrder: {
