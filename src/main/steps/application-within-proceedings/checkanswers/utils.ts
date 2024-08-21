@@ -62,11 +62,11 @@ const generateHTMLContent = (
   const userkey = userCase[config[id].value];
   if (userkey) {
     if (config[id].key === 'documentsUpload') {
-      return prepareDocumentNameView(userCase);
+      return prepareDocumentView(userCase);
     }
     if (config[id].key === 'doHaveSupportingDocuments') {
       //   //need to revisit once awp translation in place
-      return prepareSupportDocumentsNameView(language, userkey, userCase);
+      return prepareSupportingDocumentView(language, userkey, userCase);
     }
     if (config[id].key === 'doHaveAgreementForRequest') {
       //   //need to revisit once awp translation in place
@@ -127,7 +127,7 @@ export const prepareSummaryList = (pageContent: any, content: CommonContent) => 
   };
 };
 
-const prepareDocumentNameView = (userCase: Partial<CaseWithId>): string => {
+const prepareDocumentView = (userCase: Partial<CaseWithId>): string => {
   let tempDetails = '<div class="govuk-form-group">';
   if (userCase?.awp_uploadedApplicationForms?.length) {
     for (const doc of userCase.awp_uploadedApplicationForms) {
@@ -136,7 +136,7 @@ const prepareDocumentNameView = (userCase: Partial<CaseWithId>): string => {
   }
   return tempDetails + '</div>';
 };
-const prepareSupportDocumentsNameView = (
+const prepareSupportingDocumentView = (
   language: string | undefined,
   userkey: string,
   userCase: Partial<CaseWithId>

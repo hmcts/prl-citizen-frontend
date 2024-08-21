@@ -6,7 +6,7 @@ import { AWPApplicationReason, AWPApplicationType, PaymentErrorContext } from '.
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { handleErrorAndRedirect, paymentAPIInstance } from '../checkanswers/postController';
+import { handleErrorAndRedirect, processHWFApplication } from '../checkanswers/postController';
 
 @autobind
 export default class AWPPayAndSubmitPostController extends PostController<AnyObject> {
@@ -22,7 +22,7 @@ export default class AWPPayAndSubmitPostController extends PostController<AnyObj
 
     try {
       appRequest.session.paymentError = { hasError: false, errorContext: null };
-      return await paymentAPIInstance(
+      return await processHWFApplication(
         userDetails,
         appRequest,
         applicationType,

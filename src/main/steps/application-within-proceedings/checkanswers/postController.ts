@@ -39,7 +39,7 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
       }
 
       if (needHWF === YesOrNo.YES && hasHWFRefrence === YesOrNo.YES && hwfRefNumber) {
-        return await paymentAPIInstance(
+        return await processHWFApplication(
           userDetails,
           appRequest,
           applicationType,
@@ -59,7 +59,7 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
     }
   }
 }
-export async function paymentAPIInstance(
+export async function processHWFApplication(
   userDetails: UserDetails,
   appRequest: AppRequest<AnyObject>,
   applicationType: AWPApplicationType,
