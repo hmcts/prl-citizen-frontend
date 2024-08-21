@@ -61,6 +61,10 @@ const generateHTMLContent = (
 ) => {
   const userkey = userCase[config[id].value];
   if (userkey) {
+    if (config[id].key === 'whichHearing') {
+      return userkey.replace(/--/, ' - ');
+    }
+
     if (config[id].key === 'documentsUpload') {
       let tempDetails = '<div class="govuk-form-group">';
       if (userCase?.awp_uploadedApplicationForms?.length) {
