@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { applyParms } from '../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS } from '../../../steps/urls';
 
 const en = {
   title: 'Application submitted',
@@ -33,5 +35,8 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form,
+    caseOverviewUrl: applyParms(FETCH_CASE_DETAILS, {
+      caseId: content.additionalData?.req?.session?.userCase?.id ?? '',
+    }),
   };
 };
