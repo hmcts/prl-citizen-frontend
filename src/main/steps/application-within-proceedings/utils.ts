@@ -405,7 +405,7 @@ export const fetchAndSaveFeeCodeDetails = async (
       .then(feeDetails => {
         if (feeDetails?.errorRetrievingResponse) {
           return req.session.save(() => {
-            reject(feeDetails.errorRetrievingResponse);
+            reject(new Error(feeDetails.errorRetrievingResponse));
           });
         }
 
@@ -416,7 +416,7 @@ export const fetchAndSaveFeeCodeDetails = async (
         req.session.save(resolve);
       })
       .catch(error => {
-        reject(error);
+        reject(new Error(error));
       });
   });
 };

@@ -66,31 +66,11 @@ const generateHTMLContent = (
     }
 
     if (config[id].key === 'documentsUpload') {
-      let tempDetails = '<div class="govuk-form-group">';
-      if (userCase?.awp_uploadedApplicationForms?.length) {
-        for (const doc of userCase?.awp_uploadedApplicationForms) {
-          tempDetails = tempDetails + '<p>' + '<a href="" target="blank">' + doc.filename + '</a>' + '</p>';
-        }
-      }
-      return tempDetails + '</div>';
+      return prepareDocumentView(userCase);
     }
     if (config[id].key === 'doHaveSupportingDocuments') {
       //   //need to revisit once awp translation in place
-      let tempDetails =
-        '<div class="govuk-form-group">' + '<p>' + getYesNoTranslation(language, userkey, 'doTranslation') + '</p>';
-      if (userCase?.awp_supportingDocuments?.length) {
-        tempDetails = tempDetails + '<hr class="govuk-section-break govuk-section-break--visible">';
-        for (const doc in userCase?.awp_supportingDocuments) {
-          tempDetails =
-            tempDetails +
-            '<p>' +
-            '<a href="" target="blank">' +
-            userCase?.awp_supportingDocuments[doc].filename +
-            '</a>' +
-            '</p>';
-        }
-      }
-      return tempDetails + '</div>';
+      return prepareSupportingDocumentView(language, userkey, userCase);
     }
     if (config[id].key === 'doHaveAgreementForRequest') {
       //   //need to revisit once awp translation in place
@@ -102,10 +82,8 @@ const generateHTMLContent = (
     } else {
       return userkey;
     }
-  } else {
-    if (config[id].key === 'typeOfApplication') {
-      return language === 'en' ? `${applicationType} ${en.application}` : `${cy.application} ${applicationType}`;
-    }
+  } else if (config[id].key === 'typeOfApplication') {
+    return language === 'en' ? `${applicationType} ${en.application}` : `${cy.application} ${applicationType}`;
   }
 };
 
@@ -114,7 +92,7 @@ export const prepareSummaryList = (pageContent: any, content: CommonContent) => 
   const summaryData: SummaryListRow[] = [];
   const userCase = content.userCase!;
   /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-  const { partyType, applicationType, applicationReason } = content.additionalData?.req.params!;
+  const { partyType, applicationType, applicationReason } = content.additionalData?.req.params ?? {};
 
   for (const matchkey in config) {
     const row = {
@@ -151,4 +129,35 @@ export const prepareSummaryList = (pageContent: any, content: CommonContent) => 
       };
     }),
   };
+};
+
+const prepareDocumentView = (userCase: Partial<CaseWithId>): string => {
+  let tempDetails = '<div class="govuk-form-group">';
+  if (userCase?.awp_uploadedApplicationForms?.length) {
+    for (const doc of userCase.awp_uploadedApplicationForms) {
+      tempDetails = tempDetails + '<p>' + '<a href="" target="blank">' + doc.filename + '</a>' + '</p>';
+    }
+  }
+  return tempDetails + '</div>';
+};
+const prepareSupportingDocumentView = (
+  language: string | undefined,
+  userkey: string,
+  userCase: Partial<CaseWithId>
+): string => {
+  let tempDetails =
+    '<div class="govuk-form-group">' + '<p>' + getYesNoTranslation(language, userkey, 'doTranslation') + '</p>';
+  if (userCase?.awp_supportingDocuments?.length) {
+    tempDetails = tempDetails + '<hr class="govuk-section-break govuk-section-break--visible">';
+    for (const doc in userCase.awp_supportingDocuments) {
+      tempDetails =
+        tempDetails +
+        '<p>' +
+        '<a href="" target="blank">' +
+        userCase.awp_supportingDocuments[doc].filename +
+        '</a>' +
+        '</p>';
+    }
+  }
+  return tempDetails + '</div>';
 };
