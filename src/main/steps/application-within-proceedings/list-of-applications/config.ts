@@ -5,6 +5,7 @@ interface ListOfApplicationLink {
   applicationType: AWPApplicationType;
   reason: AWPApplicationReason;
   textMappingKey?: string;
+  isLinkEmbeded?: boolean;
   url?: PageLink;
 }
 export interface ListOfApplication {
@@ -182,10 +183,12 @@ export const listOfApplications: ListOfApplication[] = [
       {
         applicationType: AWPApplicationType.EX740,
         reason: AWPApplicationReason.YOU_ACCUSED_SOMEONE,
+        isLinkEmbeded: true,
       },
       {
         applicationType: AWPApplicationType.EX741,
         reason: AWPApplicationReason.ACCUSED_BY_SOMEONE,
+        isLinkEmbeded: true,
       },
     ],
   },

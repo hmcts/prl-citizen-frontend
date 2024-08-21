@@ -9,10 +9,7 @@ import * as URL from '../../urls';
 import { isValidApplicationReason } from '../utils';
 export * from './routeGuard';
 
-import {
-  APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
-  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
-} from './../../urls';
+import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from './../../urls';
 import { listOfApplications } from './config';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -106,8 +103,8 @@ const en = {
   courtToPreventAccusations: {
     sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
     contents: [
-      'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="{APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE}" class="govuk-link" aria-label="complete and submit form EX740">complete and submit form EX740</a>.',
-      'If someone has accused you,  <a href="{APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE}" class="govuk-link" aria-label="complete and submit form EX741">complete and submit form EX741</a>.',
+      'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/{partyType}/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX740">complete and submit form EX740</a>.',
+      'If someone has accused you, <a href="/{partyType}/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX741">complete and submit form EX741</a>.',
     ],
   },
   authorisingSearchOrder: {
@@ -229,8 +226,8 @@ const cy: typeof en = {
     sectionTitle:
       'Gofyn i’r llys atal caniatáu cwestiynu unigolyn yn bersonol pan fydd honiadau o gam-drin wedi’u gwneud',
     contents: [
-      'Os ydych wedi cyhuddo rhywun mewn achos cam-drin ac eisiau i’r llys atal caniatáu cwestiynu’r unigolyn yn bersonol, <a href="" class="govuk-link" target="_blank" aria-label="complete and submit form EX740">llenwch a chyflwynwch ffurflen EX740</a>.',
-      'Os yw rhywun wedi’ch cyhuddo chi, <a href="" class="govuk-link" target="_blank" aria-label="complete and submit form EX741">llenwch a chyflwynwch ffurflen EX741</a>.',
+      'Os ydych wedi cyhuddo rhywun mewn achos cam-drin ac eisiau i’r llys atal caniatáu cwestiynu’r unigolyn yn bersonol, <a href="/{partyType}/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX740">llenwch a chyflwynwch ffurflen EX740</a>.',
+      'Os yw rhywun wedi’ch cyhuddo chi, <a href="/{partyType}/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX741">llenwch a chyflwynwch ffurflen EX741</a>.',
     ],
   },
   authorisingSearchOrder: {
@@ -321,15 +318,13 @@ const generateApplicationList = (
     applicationList.push({
       id: application.contentMappingKey,
       sectionTitle: rest?.[application.contentMappingKey]?.sectionTitle,
-      contents: rest?.[application.contentMappingKey]?.contents?.map(content =>
-        interpolate(content, {
-          APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE: applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
-            partyType,
-            applicationType: link.applicationType,
-            applicationReason: link.reason,
-          }),
-        })
-      ),
+      contents: link?.isLinkEmbeded
+        ? rest?.[application.contentMappingKey]?.contents?.map(content =>
+            interpolate(content, {
+              partyType,
+            })
+          )
+        : rest?.[application.contentMappingKey]?.contents ?? [],
       links: [],
     });
 

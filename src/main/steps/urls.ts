@@ -511,6 +511,7 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   ACCESSIBILITY_STATEMENT,
   TERMS_AND_CONDITIONS,
   PIN_ACTIVATION_URL,
+  '/hearing',
   '/payment-callback',
 ];
 
