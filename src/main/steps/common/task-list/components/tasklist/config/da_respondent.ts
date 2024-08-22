@@ -2,9 +2,9 @@
 import { PartyType } from '../../../../../../app/case/definition';
 import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
-import { isDocPresent } from '../../../../../../steps/common/task-list/utils';
+import { isCaseClosed, isCaseLinked, isDocPresent } from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
-import { DOWNLOAD_DOCUMENT_BY_TYPE } from '../../../../../urls';
+import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, DOWNLOAD_DOCUMENT_BY_TYPE } from '../../../../../urls';
 import { StateTags, TaskListSection, Tasks, getContents, getFinalApplicationStatus } from '../utils';
 
 import { aboutYou, document, hearing, order } from './ca_respondent';
@@ -16,7 +16,6 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
     content: getContents.bind(null, TaskListSection.THE_APPLICATION),
     tasks: (): Task[] => [
       {
-        //** validate **
         id: Tasks.CHECK_THE_APPLICATION,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -31,7 +30,6 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
         openInAnotherTab: () => true,
       },
       {
-        //** validate **
         id: Tasks.CHECK_THE_APPLICATION_WELSH,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -47,6 +45,17 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
           );
         },
         openInAnotherTab: () => true,
+      },
+      {
+        id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
+        href: () =>
+          applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+            partyType: PartyType.RESPONDENT,
+            pageNumber: '1',
+          }),
+        stateTag: () => StateTags.OPTIONAL,
+        show: isCaseLinked,
+        disabled: isCaseClosed,
       },
     ],
   },

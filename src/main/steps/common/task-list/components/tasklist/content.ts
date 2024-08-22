@@ -34,6 +34,9 @@ const en: TaskListContent = {
           yourAOHWelshPDF: {
             linkText: 'Your allegations of harm and violence (PDF) in welsh',
           },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
+          },
         },
       },
       yourDocuments: {
@@ -122,6 +125,9 @@ const en: TaskListContent = {
           checkAllegationsOfHarmAndViolenceWelsh: {
             linkText: 'Check the allegations of harm and violence (PDF) in welsh',
           },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
+          },
         },
       },
       yourResponse: {
@@ -180,6 +186,9 @@ const en: TaskListContent = {
           },
           yourAapplicationWitnessStatmentWelsh: {
             linkText: 'Witness statement (PDF) in welsh',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
           },
         },
       },
@@ -252,6 +261,9 @@ const en: TaskListContent = {
           checkTheApplicationWelsh: {
             linkText: 'Check the application (PDF) in welsh',
           },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
+          },
         },
       },
       yourHearing: {
@@ -317,6 +329,9 @@ const cy: typeof en = {
           },
           yourAOHWelshPDF: {
             linkText: 'Your allegations of harm and violence (PDF) in welsh -welsh',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case -  welsh',
           },
         },
       },
@@ -407,6 +422,9 @@ const cy: typeof en = {
           checkAllegationsOfHarmAndViolenceWelsh: {
             linkText: 'Check the allegations of harm and violence (PDF) in welsh',
           },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case -  welsh',
+          },
         },
       },
       yourResponse: {
@@ -465,6 +483,9 @@ const cy: typeof en = {
           },
           yourAapplicationWitnessStatmentWelsh: {
             linkText: 'Witness statement (PDF) in welsh',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case -  welsh',
           },
         },
       },
@@ -538,6 +559,9 @@ const cy: typeof en = {
           },
           checkTheApplicationWelsh: {
             linkText: 'Check the application (PDF) in welsh',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case -  welsh',
           },
         },
       },

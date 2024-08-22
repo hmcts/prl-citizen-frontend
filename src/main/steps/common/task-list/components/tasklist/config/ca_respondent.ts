@@ -9,6 +9,7 @@ import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-l
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   CHOOSE_CONTACT_PREFERENCE,
   DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT_BY_TYPE,
@@ -157,7 +158,6 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
     show: isCaseLinked,
     tasks: (): Task[] => [
       {
-        //** validate **
         id: Tasks.CHECK_THE_APPLICATION,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -172,7 +172,6 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         openInAnotherTab: () => true,
       },
       {
-        //** validate **
         id: Tasks.CHECK_THE_APPLICATION_WELSH,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -190,7 +189,6 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         openInAnotherTab: () => true,
       },
       {
-        //** validate **
         id: Tasks.CHECK_AOH_AND_VIOLENCE,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -205,7 +203,6 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         openInAnotherTab: () => true,
       },
       {
-        //** validate **
         id: Tasks.CHECK_AOH_AND_VIOLENCE_WELSH,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -218,6 +215,17 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           return isDocPresent(caseData, 'c1AWelshDocument');
         },
         openInAnotherTab: () => true,
+      },
+      {
+        id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
+        href: () =>
+          applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+            partyType: PartyType.RESPONDENT,
+            pageNumber: '1',
+          }),
+        stateTag: () => StateTags.OPTIONAL,
+        show: isCaseLinked,
+        disabled: isCaseClosed,
       },
     ],
   },

@@ -29,9 +29,13 @@ describe('ca_applicant', () => {
     const yourApplicationTasks = CA_APPLICANT[1].tasks(data, {} as SectionContent);
 
     expect(CA_APPLICANT[1].id).toBe('yourApplication');
-    expect(yourApplicationTasks).toHaveLength(5);
+    expect(yourApplicationTasks).toHaveLength(6);
     expect(yourApplicationTasks[0].id).toBe('childArrangementApplication');
     expect(yourApplicationTasks[1].id).toBe('yourApplicationPDF');
+    expect(yourApplicationTasks[2].id).toBe('yourApplicationWelshPDF');
+    expect(yourApplicationTasks[3].id).toBe('yourAOHPDF');
+    expect(yourApplicationTasks[4].id).toBe('yourAOHWelshPDF');
+    expect(yourApplicationTasks[5].id).toBe('requestToCourtAboutYourCase');
   });
 
   test('your documents section should contain correct ids and tasks', () => {

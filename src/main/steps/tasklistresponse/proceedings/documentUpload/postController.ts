@@ -16,7 +16,6 @@ import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
-console.info('** FOR SONAR **');
 
 const C100OrderTypeNameMapper = {
   childArrangementOrder: 'Child Arrangements Order',

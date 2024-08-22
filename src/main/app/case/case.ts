@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { PaymentResponse } from '../../modules/payments/paymentController';
 import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
 import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders } from '../../steps/common/documents/definitions';
 import { NotificationID } from '../../steps/common/task-list/components/notification-banner/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
+  AWPApplicationReason,
+  AWPApplicationType,
   AllegationOfHarm,
   AllegationsOfHarmChildAbductionTable,
   AllegationsOfHarmDomesticAbuseTable,
@@ -35,11 +38,13 @@ import {
   CourtInvolvementEvidence,
   DateOfSubmission,
   Document,
+  DocumentInfo,
   DocumentResponse,
   DocumentUploadResponse,
   DomesticAbuseExemptions,
   DraftConsentOrderFile,
   ExistingProceedings,
+  FeeDetailsResponse,
   Fl401UploadWitnessDocuments,
   HearingUrgencyTable,
   HearingsList,
@@ -598,6 +603,7 @@ export interface Case {
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
+  citizenDocuments?: CitizenDocuments[];
   applicantDocuments?: CitizenDocuments[];
   respondentDocuments?: CitizenDocuments[];
   citizenOtherDocuments?: CitizenDocuments[];
@@ -669,6 +675,23 @@ export interface Case {
   sos_respondentsServed?: string[] | string;
   sos_respondentsServedDate?: CaseDate;
   sos_document?: Document;
+  //AWP
+  awp_need_hwf?: YesOrNo;
+  awp_have_hwfReference?: YesOrNo;
+  awp_hwf_referenceNumber?: string;
+  awp_completedForm?: YesOrNo;
+  awp_agreementForRequest?: YesOrNo;
+  awp_informOtherParties?: YesOrNo;
+  awp_reasonCantBeInformed?: string;
+  awp_uploadedApplicationForms?: DocumentInfo[];
+  awpFeeDetails?: FeeDetailsResponse;
+  awp_cancelDelayHearing?: string;
+  awp_isThereReasonForUrgentRequest?: YesOrNo;
+  awp_urgentRequestReason?: string;
+  awp_hasSupportingDocuments?: YesOrNo;
+  awp_supportingDocuments?: DocumentInfo[];
+  awp_applicationType?: AWPApplicationType;
+  awp_applicationReason?: AWPApplicationReason;
 }
 
 export interface CitizenNotification {
@@ -764,6 +787,7 @@ export interface CaseWithId extends Case {
   applicationPayOnline?: YesOrNo;
   legalRepresentativeForProceedings?: YesOrNo;
   legalRepresentativeForApplication?: YesOrNo;
+  paymentData?: PaymentResponse;
 }
 
 export enum Checkbox {

@@ -577,6 +577,18 @@ describe('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -930,6 +942,18 @@ describe('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -1259,6 +1283,18 @@ describe('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -1473,6 +1509,18 @@ describe('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--turquoise',
                 label: 'Submitted',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -1839,6 +1887,18 @@ describe('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -2119,6 +2179,18 @@ describe('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -2368,6 +2440,18 @@ describe('tasklist index', () => {
                 label: 'DOWNLOAD',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -2508,6 +2592,18 @@ describe('tasklist index', () => {
                 label: 'DOWNLOAD',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -2612,6 +2708,18 @@ describe('tasklist index', () => {
                 label: 'DOWNLOAD',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -2696,6 +2804,18 @@ describe('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--green',
                 label: 'DOWNLOAD',
+              },
+            },
+            {
+              disabled: true,
+              hintText: null,
+              href: '/applicant/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -2844,6 +2964,18 @@ describe('tasklist index', () => {
               stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
               openInAnotherTab: true,
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/respondent/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -2937,6 +3069,18 @@ describe('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/respondent/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -3139,6 +3283,18 @@ describe('c100 respondent', () => {
             linkText: 'Check the allegations of harm and violence (PDF)',
             stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
             openInAnotherTab: true,
+          },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/application-within-proceedings/list-of-applications/1',
+            id: 'requestToCourtAboutYourCase',
+            linkText: 'Make a request to the court about your case',
+            openInAnotherTab: false,
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
+            },
           },
         ],
       },
@@ -3359,6 +3515,18 @@ describe('c100 respondent', () => {
             linkText: 'Check the allegations of harm and violence (PDF)',
             stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
             openInAnotherTab: true,
+          },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/application-within-proceedings/list-of-applications/1',
+            id: 'requestToCourtAboutYourCase',
+            linkText: 'Make a request to the court about your case',
+            openInAnotherTab: false,
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
+            },
           },
         ],
       },
@@ -3651,6 +3819,18 @@ describe('c100 respondent', () => {
             stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
             openInAnotherTab: true,
           },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/application-within-proceedings/list-of-applications/1',
+            id: 'requestToCourtAboutYourCase',
+            linkText: 'Make a request to the court about your case',
+            openInAnotherTab: false,
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
+            },
+          },
         ],
       },
       {
@@ -3941,6 +4121,18 @@ describe('c100 respondent', () => {
             stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
             openInAnotherTab: true,
           },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/application-within-proceedings/list-of-applications/1',
+            id: 'requestToCourtAboutYourCase',
+            linkText: 'Make a request to the court about your case',
+            openInAnotherTab: false,
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
+            },
+          },
         ],
       },
       {
@@ -4168,6 +4360,18 @@ describe('c100 respondent', () => {
             linkText: 'Check the allegations of harm and violence (PDF)',
             stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
             openInAnotherTab: true,
+          },
+          {
+            disabled: true,
+            hintText: null,
+            href: '/respondent/application-within-proceedings/list-of-applications/1',
+            id: 'requestToCourtAboutYourCase',
+            linkText: 'Make a request to the court about your case',
+            openInAnotherTab: false,
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
+            },
           },
         ],
       },

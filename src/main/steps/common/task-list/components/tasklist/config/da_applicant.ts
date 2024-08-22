@@ -16,6 +16,7 @@ import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_YOURHEARINGS_HEARINGS,
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT_BY_TYPE,
   REASONABLE_ADJUSTMENTS_INTRO,
@@ -76,7 +77,6 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
     content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
     tasks: (): Task[] => [
       {
-        // ** validate **
         id: Tasks.YOUR_APPLICATION_PDF,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -88,7 +88,6 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
         openInAnotherTab: () => true,
       },
       {
-        // ** validate **
         id: Tasks.YOUR_APPLICATION_PDF_WELSH,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -100,6 +99,17 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
           caseData.finalWelshDocument?.document_filename ? StateTags.DOWNLOAD : StateTags.NOT_AVAILABLE_YET,
         openInAnotherTab: () => true,
         show: caseData => isDocPresent(caseData, 'finalWelshDocument'),
+      },
+      {
+        id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
+        href: () =>
+          applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+            partyType: PartyType.APPLICANT,
+            pageNumber: '1',
+          }),
+        stateTag: () => StateTags.OPTIONAL,
+        show: isCaseLinked,
+        disabled: isCaseClosed,
       },
     ],
   },

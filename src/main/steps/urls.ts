@@ -245,9 +245,12 @@ export const C100_CHILDERN_LIVING_ARRANGEMENTS: PageLink = `${C100_CHILDERN_LIVE
 export const C100_CHILDERN_MAINLY_LIVE_WITH: PageLink = `${C100_CHILDERN_LIVE_WITH}/mainly-live-with`;
 
 /** @C100  Payment Handler*/
+export const PAYMENT_BASE_URL: PageLink = '/fees-and-payment-apis';
+export const CREATE_PAYMENT: PageLink = '/create-payment';
 export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
 export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
 export const PAYMENT_RETURN_URL_CALLBACK: PageLink = `${PAYMENT_RETURN_URL}/:paymentId/:status`;
+export const GET_PAYMENT_STATUS = `${PAYMENT_BASE_URL}/retrievePaymentStatus/:paymentReference/:caseId`;
 
 /** common C1A Safety Concerns */
 export const C1A_SAFETY_CONCERNS: PageLink = '/:root/safety-concerns';
@@ -428,6 +431,30 @@ export const SCREENING_QUESTIONS = [
   SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP,
   SCREENING_QUESTION_CONTACT_LEGAL_REP,
 ];
+
+/** AWP */
+export const APPLICATION_WITHIN_PROCEEDINGS_BASE_URL: PageLink = '/:partyType/application-within-proceedings';
+export const APPLICATION_WITHIN_PROCEEDINGS: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS_BASE_URL}/:applicationType/:applicationReason`;
+export const APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS_BASE_URL}/list-of-applications/:pageNumber`;
+export const APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/guidance`;
+export const APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/upload-your-application`;
+export const APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/download-form`;
+export const APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/agreement-for-request`;
+export const APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/inform-other-parties`;
+export const APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/help-with-fees`;
+export const APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES}/reference`;
+export const APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_APPLY_FOR_HWF: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES}/apply-for-hwf`;
+export const APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/document-upload/:removeId?`;
+export const APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/select-hearing`;
+export const APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/urgent-request`;
+export const APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/supporting-documents`;
+export const APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/supporting-document-upload/:removeId?`;
+export const APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/pay-and-submit`;
+export const APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/application-submitted`;
+export const APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/checkanswers`;
+export const APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK: PageLink =
+  '/payment-callback/awp/:type/:reason/:paymentId/:status';
+
 /** Reasonable Adjustments */
 const REASONABLE_ADJUSTMENTS_BASE_URL = 'reasonable-adjustments';
 /** common component related end points */
@@ -492,6 +519,8 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   ACCESSIBILITY_STATEMENT,
   TERMS_AND_CONDITIONS,
   PIN_ACTIVATION_URL,
+  '/hearing',
+  '/payment-callback',
 ];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>

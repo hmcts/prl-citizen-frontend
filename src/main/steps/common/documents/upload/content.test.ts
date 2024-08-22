@@ -23,6 +23,7 @@ const enContent = {
       medicalRecords: 'Medical records',
       lettersFromSchool: 'Letters from school',
       tenancyMortgageAgreements: 'Tenancy and mortgage agreements',
+      sumbitAWPApplication: 'Submit an application',
       previousOrdersSubmitted: 'Previous orders submitted with application',
       medicalReports: 'Medical reports',
       paternityTestReports: 'Paternity test reports',
@@ -75,6 +76,7 @@ const cyContent = {
       medicalRecords: 'Cofnodion meddygol',
       lettersFromSchool: 'Llythyrau gan yr ysgol',
       tenancyMortgageAgreements: 'Tenantiaeth a morgais',
+      sumbitAWPApplication: 'Submit an application - welsh',
       previousOrdersSubmitted: "Gorchmynion blaenorol wedi'u cyflwyno gyda'r cais",
       medicalReports: 'Adroddiadau meddygol',
       paternityTestReports: 'Adroddiadau profion tadolaeth',
@@ -182,6 +184,13 @@ describe('documents > upload > content', () => {
         {
           id: 'applications',
           items: [
+            {
+              categoryId: 'submit-awp-application',
+              link: {
+                text: 'Submit an application',
+                url: '/applicant/application-within-proceedings/list-of-applications/1',
+              },
+            },
             {
               categoryId: 'previous-orders',
               link: {

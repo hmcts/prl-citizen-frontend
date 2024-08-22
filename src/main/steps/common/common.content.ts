@@ -7,7 +7,7 @@ import { C100_APPLICANT_TASKLIST, C100_URL, COMMON_PAGE_URLS } from '../../steps
 
 import AppSurvey from './app-survey/appSurveyController';
 import { appSurveyContents } from './app-survey/content';
-console.info('** FOR SONAR **');
+
 export const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',
@@ -129,6 +129,7 @@ export const en = {
     'If you would like to report a problem or have a suggestion to help improve this service, send an email to: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk</a>',
   contactUs4: 'This email should only be used for feedback on the digital service.',
   feedback: 'FeedBack',
+  awpErrorSummaryHeading: 'There is a problem',
   invalidDate: 'Invalid Date',
 };
 
@@ -201,7 +202,7 @@ export const cy: typeof en = {
   notSure: 'Ddim yn siŵr',
   english: 'Saesneg',
   welsh: 'Cymraeg',
-  contactUsForHelp: 'Cysylltiadau i gael gymorth',
+  contactUsForHelp: 'Cysylltu â ni i gael cymorth',
   webChat: 'Sgwrsio dros y we',
   webChatDetails: 'Gofyn cwestiwn neu gael cymorth mewn unrhyw iaith',
   sendUsAMessage: 'Ffôn',
@@ -243,6 +244,7 @@ export const cy: typeof en = {
     'Os hoffech roi gwybod inni am broblem neu os oes gennych awgrym i’n helpu ni i wella’r gwasanaeth hwn, anfonwch neges e-bost i: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk-welsh</a>',
   contactUs4: "Dim ond i roi adborth ar y gwasanaeth digidol y dylid defnyddio'r cyfeiriad e-bost hwn.",
   feedback: 'Adborth',
+  awpErrorSummaryHeading: 'Mae yna broblem',
   invalidDate: 'Dyddiad Annilys',
 };
 

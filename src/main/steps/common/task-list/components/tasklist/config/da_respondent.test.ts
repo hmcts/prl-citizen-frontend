@@ -29,8 +29,10 @@ describe('da_respondent', () => {
     const theApplicationTasks = DA_RESPONDENT[1].tasks(data, {} as SectionContent);
 
     expect(DA_RESPONDENT[1].id).toBe('theApplication');
-    expect(theApplicationTasks).toHaveLength(2);
+    expect(theApplicationTasks).toHaveLength(3);
     expect(theApplicationTasks[0].id).toBe('checkTheApplication');
+    expect(theApplicationTasks[1].id).toBe('checkTheApplicationWelsh');
+    expect(theApplicationTasks[2].id).toBe('requestToCourtAboutYourCase');
   });
 
   test('your hearing section should contain correct ids and tasks', () => {

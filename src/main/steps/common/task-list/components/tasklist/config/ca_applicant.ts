@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
@@ -8,6 +9,7 @@ import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   C100_START,
   CHOOSE_CONTACT_PREFERENCE,
   DETAILS_KNOWN,
@@ -103,7 +105,6 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.YOUR_APPLICATION_PDF_WELSH,
         href: () => {
-          //** validate **
           return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
             documentType: 'c100-application',
@@ -118,7 +119,6 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         openInAnotherTab: () => true,
       },
       {
-        //** validate **
         id: Tasks.YOUR_AOH_PDF,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -132,7 +132,6 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         openInAnotherTab: () => true,
       },
       {
-        //** validate **
         id: Tasks.YOUR_AOH_PDF_WELSH,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
@@ -144,6 +143,17 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
           isCaseLinked(caseData, userDetails) && isDocPresent(caseData, 'c1AWelshDocument'),
         openInAnotherTab: () => true,
+      },
+      {
+        id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
+        href: () =>
+          applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+            partyType: PartyType.APPLICANT,
+            pageNumber: '1',
+          }),
+        stateTag: () => StateTags.OPTIONAL,
+        show: isCaseLinked,
+        disabled: isCaseClosed,
       },
     ],
   },

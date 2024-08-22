@@ -3,7 +3,7 @@ import config = require('config');
 import toBoolean = require('to-boolean');
 
 import { LaunchDarklyClient } from '../../common/clients/launchDarklyClient';
-console.info('** FOR SONAR **');
+
 export class FeatureToggles {
   launchDarklyClient: LaunchDarklyClient;
 

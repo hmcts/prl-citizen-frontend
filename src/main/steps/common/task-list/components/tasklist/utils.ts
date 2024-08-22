@@ -33,6 +33,7 @@ export enum TaskListSection {
 export enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
   YOUR_APPLICATION_PDF = 'yourApplicationPDF',
+  MAKE_REQUEST_TO_COURT_ABOUT_CASE = 'requestToCourtAboutYourCase',
   YOUR_APPLICATION_PDF_WELSH = 'yourApplicationWelshPDF',
   YOUR_AOH_PDF = 'yourAOHPDF',
   YOUR_AOH_PDF_WELSH = 'yourAOHWelshPDF',
