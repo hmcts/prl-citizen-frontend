@@ -19,7 +19,7 @@ import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
  * @param userCase - Partial<CaseWithId>
  * @returns An object with a title and rows property.
  */
-console.info('** FOR SONAR **');
+
 
 export const SafetyConcerns = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,

@@ -3,10 +3,15 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
-import { DocumentCategory } from '../../../../../../steps/common/documents/definitions';
+import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
-import { isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../../../../steps/common/task-list/utils';
+import {
+  isCaseClosed,
+  isCaseLinked,
+  isDocPresent,
+  isRepresentedBySolicotor,
+} from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
@@ -18,7 +23,6 @@ import {
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
-  VIEW_DOCUMENTS,
 } from '../../../../../../steps/urls';
 import {
   StateTags,
@@ -27,7 +31,6 @@ import {
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getKeepYourDetailsPrivateStatus,
-  getYourWitnessStatementStatus,
   hasAnyHearing,
 } from '../utils';
 
@@ -74,23 +77,28 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
     content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
     tasks: (): Task[] => [
       {
-        // ** validate **
         id: Tasks.YOUR_APPLICATION_PDF,
         href: () =>
-          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, { partyType: PartyType.APPLICANT, documentType: 'fl401-application' }),
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'fl401-application',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
+          }),
         stateTag: () => StateTags.DOWNLOAD,
         openInAnotherTab: () => true,
       },
       {
-        // ** validate **
-        id: Tasks.YOUR_APPLICATION_WITNESS_STATEMENT,
+        id: Tasks.YOUR_APPLICATION_PDF_WELSH,
         href: () =>
-          applyParms(VIEW_DOCUMENTS, {
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
-            documentCategory: DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-            documentPartyType: PartyType.APPLICANT,
+            documentType: 'fl401-application',
+            language: DOCUMENT_LANGUAGE.WELSH,
           }),
-        stateTag: caseData => getYourWitnessStatementStatus(caseData),
+        stateTag: caseData =>
+          caseData.finalWelshDocument?.document_filename ? StateTags.DOWNLOAD : StateTags.NOT_AVAILABLE_YET,
+        openInAnotherTab: () => true,
+        show: caseData => isDocPresent(caseData, 'finalWelshDocument'),
       },
       {
         id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,

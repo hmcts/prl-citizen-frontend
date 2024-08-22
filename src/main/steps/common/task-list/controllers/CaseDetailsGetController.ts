@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import CaseDataController from '../../../../steps/common/CaseDataController';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
@@ -28,23 +27,6 @@ export default class CaseDetailsGetController {
       });
     } catch (error) {
       res.redirect(DASHBOARD_URL);
-    }
-  }
-
-  public async load(req: AppRequest, res: Response): Promise<void> {
-    try {
-      const User = req.session.user;
-      const caseID = req.session.userCase.id;
-      const caseData = req.session.userCase;
-      const cosClient = new CosApiClient(User.accessToken, req.locals.logger);
-      const hearings = await cosClient.retrieveCaseHearingsByCaseId(caseID);
-      req.session.userCase.hearingCollection = hearings.caseHearings;
-
-      req.session.save(() => {
-        res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, req.session.user.id) }));
-      });
-    } catch (error) {
-      throw new Error(error);
     }
   }
 }

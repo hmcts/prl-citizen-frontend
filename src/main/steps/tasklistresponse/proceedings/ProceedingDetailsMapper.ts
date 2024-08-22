@@ -14,7 +14,7 @@ import {
   ProceedingsOrderTypeInterface,
   ProceedingsOrderTypes,
 } from '../../../app/case/definition';
-console.info('** FOR SONAR **');
+
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const prepareProceedingDetailsRequest = (userCase: CaseWithId): CurrentOrPreviousProceedings => {

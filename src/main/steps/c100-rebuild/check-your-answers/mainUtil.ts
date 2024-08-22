@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
+
 import { CaseWithId } from '../../../app/case/case';
 import {
   C1AAbuseTypes,
@@ -9,6 +10,7 @@ import {
   YesOrNo,
 } from '../../../app/case/definition';
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
+import { interpolate } from '../../../steps/common/string-parser';
 import { proceedingSummaryData } from '../../../steps/common/summary/utils';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
@@ -40,7 +42,7 @@ import {
   getSectionSummaryList,
 } from './lib/lib';
 
-console.info('** FOR SONAR **');
+
 
 /* eslint-disable import/namespace */
 export const LocationDetails = (
@@ -1401,7 +1403,7 @@ export const HelpWithFee = (
   };
 };
 
-export const whereDoChildLive = (
+export const whereDoChildrenLive = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
@@ -1412,22 +1414,30 @@ export const whereDoChildLive = (
     const firstname = sessionChildData[child]['firstName'],
       lastname = sessionChildData[child]['lastName'],
       id = sessionChildData[child]['id'];
+    const mainlyLivesWith = sessionChildData[child]?.['mainlyLiveWith'];
     newChildDataStorage.push({
-      key: keys['whoDoesLiveWith'].split('[^childName^]').join(` ${firstname + ' ' + lastname} `),
+      key: interpolate(keys['whoDoesChildMainlyLiveWith'], { firstname, lastname }),
+      value: '',
+      valueHtml: `${mainlyLivesWith.firstName} ${mainlyLivesWith.lastName}`,
+      changeUrl: applyParms(Urls['C100_CHILDERN_MAINLY_LIVE_WITH'], { childId: id }),
+    });
+
+    newChildDataStorage.push({
+      key: interpolate(keys['childLivingArrangements'], { firstname, lastname }),
       value: '',
       valueHtml:
         HTML.UNORDER_LIST +
         sessionChildData[child]?.['liveWith']
-          ?.map(respectivechild => {
-            const { firstName, lastName } = respectivechild;
-            return HTML.LIST_ITEM + firstName + ' ' + lastName + HTML.LIST_ITEM_END;
+          ?.map(respectiveParty => {
+            const { firstName, lastName } = respectiveParty;
+            return `${HTML.LIST_ITEM}${firstName} ${lastName}${HTML.LIST_ITEM_END}`;
           })
           .toString()
           .split(',')
           .join('')
           .toString() +
         HTML.UNORDER_LIST_END,
-      changeUrl: applyParms(Urls['C100_CHILDERN_LIVE_WITH'], { childId: id }),
+      changeUrl: applyParms(Urls['C100_CHILDERN_LIVING_ARRANGEMENTS'], { childId: id }),
     });
   }
   return {

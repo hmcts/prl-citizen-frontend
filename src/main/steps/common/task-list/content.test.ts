@@ -63,7 +63,7 @@ describe('testcase for tasklist', () => {
           {
             contents: [
               {
-                text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+                text: 'You have  days to submit your application from the date you started it, or it will be deleted and you will need to start the application again. This is to keep your information secure.',
               },
               {
                 text: 'You can review all your answers before you submit your application.',
@@ -78,7 +78,6 @@ describe('testcase for tasklist', () => {
             ],
           },
         ],
-        title: 'Important',
       },
     ],
     partyName: 'undefined undefined',
@@ -185,7 +184,7 @@ describe('testcase for tasklist', () => {
           {
             contents: [
               {
-                text: 'Mae gennych caseData.noOfDaysRemainingToSubmitCase diwrnod i gyflwyno eich cais o’r dyddiad y gwnaethoch ei gychwyn, neu bydd yn cael ei ddileu a bydd rhaid i chi gychwyn y cais eto. Mae hyn er mwyn cadw eich gwybodaeth yn ddiogel.',
+                text: 'You have  days to submit your application from the date you started it, or it will be deleted and you will need to start the application again. This is to keep your information secure. -welsh',
               },
               {
                 text: 'You can review all your answers before you submit your application.-welsh',
@@ -200,7 +199,6 @@ describe('testcase for tasklist', () => {
             ],
           },
         ],
-        title: 'Pwysig',
       },
     ],
     partyName: 'undefined undefined',
@@ -342,6 +340,11 @@ describe('testcase for tasklist', () => {
     };
     expect(generateContent(commonContent).hyperlinks).toStrictEqual([
       {
+        label: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
+        link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+        target: '_blank',
+      },
+      {
         label: 'Add a legal representative',
         link: '/applicant/add-legal-representative',
       },
@@ -439,6 +442,11 @@ describe('testcase for tasklist', () => {
     };
     expect(generateContent(commonContent).hyperlinks).toStrictEqual([
       {
+        label: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
+        link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+        target: '_blank',
+      },
+      {
         label: 'Add a legal representative',
         link: '/respondent/add-legal-representative',
       },
@@ -496,6 +504,11 @@ describe('testcase for tasklist', () => {
       },
     ]),
       expect(generateContent(commonContent).hyperlinks).toStrictEqual([
+        {
+          label: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
+          link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+          target: '_blank',
+        },
         {
           label: 'Add a legal representative',
           link: '/respondent/add-legal-representative',

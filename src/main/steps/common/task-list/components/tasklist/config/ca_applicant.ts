@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { DocumentCategory } from '../../../../../../steps/common/documents/definitions';
+import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
@@ -18,11 +19,12 @@ import {
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
+  VIEW_TYPE_DOCUMENT,
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
 import { Task, TaskListConfigProps } from '../../../definitions';
-import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
-import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing } from '../utils';
+import { isCaseClosed, isCaseLinked, isDocPresent, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
+import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, isRespondentSubmitedResponse } from '../utils';
 
 export const CA_APPLICANT: TaskListConfigProps[] = [
   {
@@ -93,10 +95,53 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
             documentType: 'c100-application',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           });
         },
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+        openInAnotherTab: () => true,
+      },
+      {
+        id: Tasks.YOUR_APPLICATION_PDF_WELSH,
+        href: () => {
+          return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'c100-application',
+            language: DOCUMENT_LANGUAGE.WELSH,
+          });
+        },
+        stateTag: () => StateTags.SUBMITTED,
+        show: (caseData: Partial<CaseWithId>) =>
+          caseData &&
+          !isDraftCase(caseData) &&
+          (isDocPresent(caseData, 'finalWelshDocument') || isDocPresent(caseData, 'c100DraftDocWelsh')),
+        openInAnotherTab: () => true,
+      },
+      {
+        id: Tasks.YOUR_AOH_PDF,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'aoh-document',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
+          }),
+        stateTag: () => StateTags.SUBMITTED,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && isDocPresent(caseData, 'c1ADocument'),
+        openInAnotherTab: () => true,
+      },
+      {
+        id: Tasks.YOUR_AOH_PDF_WELSH,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'aoh-document',
+            language: DOCUMENT_LANGUAGE.WELSH,
+          }),
+        stateTag: () => StateTags.SUBMITTED,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && isDocPresent(caseData, 'c1AWelshDocument'),
         openInAnotherTab: () => true,
       },
       {
@@ -109,7 +154,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         stateTag: () => StateTags.OPTIONAL,
         show: isCaseLinked,
         disabled: isCaseClosed,
-      },
+      }
     ],
   },
   {
@@ -154,7 +199,28 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     id: TaskListSection.THE_RESPONSE,
     content: getContents.bind(null, TaskListSection.THE_RESPONSE),
     show: isCaseLinked,
-    tasks: (caseData, content): Task[] => generateTheResponseTasks(caseData, content),
+    tasks: (): Task[] => [
+      {
+        id: Tasks.THE_RESPONSE_PDF,
+        href: () =>
+          applyParms(VIEW_TYPE_DOCUMENT, {
+            partyType: PartyType.APPLICANT,
+            type: 'respondent',
+          }),
+        stateTag: (caseData: Partial<CaseWithId>) => {
+          if (
+            caseData.respondentDocuments?.find(
+              doc => doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+            )
+          ) {
+            return StateTags.READY_TO_VIEW;
+          }
+          return StateTags.NOT_AVAILABLE_YET;
+        },
+        show: isCaseLinked,
+        disabled: (caseData: Partial<CaseWithId>) => !isRespondentSubmitedResponse(caseData),
+      },
+    ],
   },
   {
     id: TaskListSection.YOUR_HEARING,

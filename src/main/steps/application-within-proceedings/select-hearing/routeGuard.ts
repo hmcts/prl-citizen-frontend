@@ -11,12 +11,12 @@ export const routeGuard = {
         return res.redirect('/error');
       }
 
-      const hearings = await new CosApiClient(
+      const { hearingData } = await new CosApiClient(
         req.session.user.accessToken,
         req.locals.logger
       ).retrieveCaseHearingsByCaseId(req.session.userCase.id);
 
-      req.session.userCase.hearingCollection = hearings.caseHearings;
+      req.session.userCase.hearingCollection = hearingData?.caseHearings ?? [];
 
       return req.session.save(next);
     } catch (error) {

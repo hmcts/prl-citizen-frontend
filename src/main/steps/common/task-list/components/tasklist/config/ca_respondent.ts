@@ -3,6 +3,7 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { applyParms } from '../../../../../../steps/common/url-parser';
@@ -19,12 +20,14 @@ import {
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
+  VIEW_TYPE_DOCUMENT,
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
 import {
   hasRespondentRespondedToC7Application,
   isCaseClosed,
   isCaseLinked,
+  isDocPresent,
   isRepresentedBySolicotor,
 } from '../../../utils';
 import {
@@ -36,7 +39,6 @@ import {
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getFinalApplicationStatus,
-  getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   hasAnyHearing,
 } from '../utils';
@@ -156,30 +158,61 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
     show: isCaseLinked,
     tasks: (): Task[] => [
       {
-        //** validate **
         id: Tasks.CHECK_THE_APPLICATION,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'cada-document',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           }),
-        stateTag: caseData => getFinalApplicationStatus(caseData),
+        stateTag: caseData => getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH),
         disabled: caseData => {
-          return getFinalApplicationStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
+          return getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH) === StateTags.NOT_AVAILABLE_YET;
         },
         openInAnotherTab: () => true,
       },
       {
-        //** validate **
+        id: Tasks.CHECK_THE_APPLICATION_WELSH,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.RESPONDENT,
+            documentType: 'cada-document',
+            language: DOCUMENT_LANGUAGE.WELSH,
+          }),
+        stateTag: caseData => getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.WELSH),
+        show: caseData => {
+          return (
+            getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.WELSH) !== StateTags.NOT_AVAILABLE_YET &&
+            isDocPresent(caseData, 'finalWelshDocument')
+          );
+        },
+        openInAnotherTab: () => true,
+      },
+      {
         id: Tasks.CHECK_AOH_AND_VIOLENCE,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'aoh-document',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           }),
-        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData),
+        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH),
         disabled: caseData => {
-          return getCheckAllegationOfHarmStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
+          return getCheckAllegationOfHarmStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH) === StateTags.NOT_AVAILABLE_YET;
+        },
+        openInAnotherTab: () => true,
+      },
+      {
+        id: Tasks.CHECK_AOH_AND_VIOLENCE_WELSH,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.RESPONDENT,
+            documentType: 'aoh-document',
+            language: DOCUMENT_LANGUAGE.WELSH,
+          }),
+        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData, DOCUMENT_LANGUAGE.WELSH),
+        show: caseData => {
+          return isDocPresent(caseData, 'c1AWelshDocument');
         },
         openInAnotherTab: () => true,
       },
@@ -209,29 +242,21 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.RESPOND_TO_THE_APPLICATION,
-        href: (caseData, userDetails) => {
-          return hasRespondentRespondedToC7Application(caseData, userDetails)
-            ? applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
-                partyType: PartyType.RESPONDENT,
-                documentType: 'c7-response-document',
-              })
-            : RESPOND_TO_APPLICATION;
-        },
+        href: () => RESPOND_TO_APPLICATION,
         stateTag: (caseData, userDetails) => {
           return getC7ApplicationResponseStatus(caseData, userDetails);
         },
-        openInAnotherTab: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
+        show: (caseData, userDetails) => !hasRespondentRespondedToC7Application(caseData, userDetails),
       },
       {
-        id: Tasks.RESPOND_TO_AOH_AND_VIOLENCE,
-        href: () => {
-          //** validate **
-          return '#';
-        },
-        stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-          return getInternationalFactorsStatus(respondent?.response.citizenInternationalElements);
-        },
+        id: Tasks.THE_RESPONSE_PDF,
+        href: () =>
+          applyParms(VIEW_TYPE_DOCUMENT, {
+            partyType: PartyType.RESPONDENT,
+            type: 'respondent',
+          }),
+        stateTag: () => StateTags.READY_TO_VIEW,
+        show: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
       },
     ],
   },

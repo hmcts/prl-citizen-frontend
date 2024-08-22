@@ -2,6 +2,7 @@
 import { PaymentResponse } from '../../modules/payments/paymentController';
 import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
 import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders } from '../../steps/common/documents/definitions';
+import { NotificationID } from '../../steps/common/task-list/components/notification-banner/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -129,6 +130,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   allocatedJudgeDetails: 'allocatedJudgeDetails',
   miamCertificationDocumentUpload: 'miamCertificationDocumentUpload',
   c1ADocument: 'c1ADocument',
+  c1AWelshDocument: 'c1AWelshDocument',
   applicantAttendedMiam: 'applicantAttendedMiam',
   caseTypeOfApplication: 'caseTypeOfApplication',
   claimingExemptionMiam: 'claimingExemptionMiam',
@@ -189,6 +191,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentName: 'respondentName',
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
+  finalWelshDocument: 'finalWelshDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
   citizenUploadedDocumentList: 'citizenUploadedDocumentList',
   serviceType: 'serviceType',
@@ -234,9 +237,12 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
   c100DraftDoc: 'submitAndPayDownloadApplicationLink',
+  c100DraftDocWelsh: 'submitAndPayDownloadApplicationWelshLink',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
-  citizenDocuments: 'citizenDocuments',
+  applicantDocuments: 'applicantDocuments',
+  respondentDocuments: 'respondentDocuments',
+  citizenOtherDocuments: 'citizenOtherDocuments',
   citizenOrders: 'citizenOrders',
   citizenApplicationPacks: 'citizenApplicationPacks',
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
@@ -304,6 +310,7 @@ export interface Case {
   claimingExemptionMiam?: string;
   miamCertificationDocumentUpload?: Document;
   c1ADocument?: Document;
+  c1AWelshDocument?: Document;
   draftConsentOrderFile?: DraftConsentOrderFile;
   otherProceedingsTable?: OtherProceedingsTable;
   allegationsOfHarmYesNo?: string;
@@ -400,6 +407,7 @@ export interface Case {
   applicantUploadFiles?: DocumentUploadResponse['document'][];
   declarationCheck?: string;
   finalDocument?: Document;
+  finalWelshDocument?: Document;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
@@ -590,27 +598,15 @@ export interface Case {
   partyContactPreference?: ContactPreference | null;
   draftOrderDoc?: Document;
   c100DraftDoc?: Document;
+  c100DraftDocWelsh?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
-  awp_need_hwf?: YesOrNo;
-  awp_have_hwfReference?: YesOrNo;
-  awp_hwf_referenceNumber?: string;
-  awp_completedForm?: YesOrNo;
-  awp_agreementForRequest?: YesOrNo;
-  awp_informOtherParties?: YesOrNo;
-  awp_reasonCantBeInformed?: string;
-  awp_uploadedApplicationForms?: DocumentInfo[];
-  awpFeeDetails?: FeeDetailsResponse;
-  awp_cancelDelayHearing?: string;
-  awp_isThereReasonForUrgentRequest?: YesOrNo;
-  awp_urgentRequestReason?: string;
-  awp_hasSupportingDocuments?: YesOrNo;
-  awp_supportingDocuments?: DocumentInfo[];
-  awp_applicationType?: AWPApplicationType;
-  awp_applicationReason?: AWPApplicationReason;
   citizenDocuments?: CitizenDocuments[];
+  applicantDocuments?: CitizenDocuments[];
+  respondentDocuments?: CitizenDocuments[];
+  citizenOtherDocuments?: CitizenDocuments[];
   citizenOrders?: CitizenOrders[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
   // RA local component
@@ -647,7 +643,6 @@ export interface Case {
   your_response_to_aoh?: string;
   aoh_wishToRespond?: YesOrNo;
   aoh_responseToAllegations?: string;
-  citizenNotifications?: CitizenNotification[];
   miam_noAppointmentAvailableDetails?: string;
   miam_unableToAttainDueToDisablityDetails?: string;
   miam_noMediatorIn15mileDetails?: string;
@@ -676,11 +671,37 @@ export interface Case {
   c1A_concernAboutRespondent?: C1AAbuseTypes[];
   c1A_concernAboutChild?: C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
+  citizenNotifications?: CitizenNotification[];
+  sos_respondentsServed?: string[] | string;
+  sos_respondentsServedDate?: CaseDate;
+  sos_document?: Document;
+  //AWP
+  awp_need_hwf?: YesOrNo;
+  awp_have_hwfReference?: YesOrNo;
+  awp_hwf_referenceNumber?: string;
+  awp_completedForm?: YesOrNo;
+  awp_agreementForRequest?: YesOrNo;
+  awp_informOtherParties?: YesOrNo;
+  awp_reasonCantBeInformed?: string;
+  awp_uploadedApplicationForms?: DocumentInfo[];
+  awpFeeDetails?: FeeDetailsResponse;
+  awp_cancelDelayHearing?: string;
+  awp_isThereReasonForUrgentRequest?: YesOrNo;
+  awp_urgentRequestReason?: string;
+  awp_hasSupportingDocuments?: YesOrNo;
+  awp_supportingDocuments?: DocumentInfo[];
+  awp_applicationType?: AWPApplicationType;
+  awp_applicationReason?: AWPApplicationReason;
 }
 
 export interface CitizenNotification {
-  id: string;
+  id: NotificationID;
   show: boolean;
+  new: boolean;
+  final: boolean;
+  multiple: boolean;
+  personalService?: boolean;
+  orderTypeId?: string;
 }
 
 export enum Miam_notAttendingReasons {
@@ -806,4 +827,10 @@ export interface HearingData {
   caseHearings: HearingsList[];
   courtTypeId: string;
   courtName: string;
+}
+export interface StatementOfServiceRequest {
+  partiesServedDate: string;
+  partiesServed: string[];
+  citizenSosDocs: Document;
+  isOrder: YesOrNo;
 }

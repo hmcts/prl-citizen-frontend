@@ -50,9 +50,13 @@ describe('Select hearing Route Guard', () => {
 
     const res = mockResponse();
     getHearings.mockResolvedValueOnce({
-      hmctsServiceCode: '',
-      caseRef: '',
-      caseHearings: hearingCollection,
+      hearingData: {
+        courtTypeId: '',
+        courtName: '',
+        hmctsServiceCode: '',
+        caseRef: '',
+        caseHearings: hearingCollection,
+      },
     });
     const next = jest.fn();
     await routeGuard.get(req, res, next);

@@ -11,6 +11,8 @@ import {
   hearingStatus,
 } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { DocumentCategory } from '../../../../../steps/common/documents/definitions';
+import { DOCUMENT_LANGUAGE } from '../../../../../steps/common/documents/download/utils';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { TaskListContent } from '../../definitions';
 
@@ -32,6 +34,9 @@ export enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
   YOUR_APPLICATION_PDF = 'yourApplicationPDF',
   MAKE_REQUEST_TO_COURT_ABOUT_CASE = 'requestToCourtAboutYourCase',
+  YOUR_APPLICATION_PDF_WELSH = 'yourApplicationWelshPDF',
+  YOUR_AOH_PDF = 'yourAOHPDF',
+  YOUR_AOH_PDF_WELSH = 'yourAOHWelshPDF',
   VIEW_ALL_DOCUMENTS = 'viewAllDocuments',
   UPLOAD_DOCUMENTS = 'uploadDocuments',
   VIEW_HEARING_DETAILS = 'viewHearingDetails',
@@ -42,11 +47,15 @@ export enum Tasks {
   SUPPORT_YOU_NEED = 'supportYouNeed',
   VIEW_ORDERS = 'viewOrders',
   YOUR_APPLICATION_WITNESS_STATEMENT = 'yourAapplicationWitnessStatment',
+  YOUR_APPLICATION_WITNESS_STATEMENT_WELSH = 'yourAapplicationWitnessStatmentWelsh',
   CHECK_THE_APPLICATION = 'checkTheApplication',
+  CHECK_THE_APPLICATION_WELSH = 'checkTheApplicationWelsh',
   CHECK_AOH_AND_VIOLENCE = 'checkAllegationsOfHarmAndViolence',
   RESPOND_TO_THE_APPLICATION = 'respondToTheApplication',
   RESPOND_TO_AOH_AND_VIOLENCE = 'respondToAOHAndViolence',
   THE_RESPONSE_PDF = 'theResponsePDF',
+  CHECK_AOH_AND_VIOLENCE_WELSH = 'checkAllegationsOfHarmAndViolenceWelsh',
+  THE_RESPONSE_PDF_WELSH = 'theResponsePDFWelsh',
 }
 
 export enum StateTags {
@@ -83,7 +92,10 @@ export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => {
     hearingStatus.AWAITING_LISTING,
     hearingStatus.EXCEPTION,
   ];
-  return !!(caseData?.hearingCollection ?? []).find(hearing => !inactiveHmcStatus.includes(hearing.hmcStatus!));
+  return (
+    !!caseData?.hearingCollection?.length &&
+    !!caseData.hearingCollection.find(hearing => !inactiveHmcStatus.includes(hearing.hmcStatus!))
+  );
 };
 
 export const getStateTagLabel = (state: StateTags, language: string): string =>
@@ -143,8 +155,10 @@ export const getYourWitnessStatementStatus = (userCase: Partial<CaseWithId>): St
     : StateTags.NOT_AVAILABLE_YET;
 };
 
-export const getCheckAllegationOfHarmStatus = (caseData): StateTags => {
-  return _.get(caseData, 'c1ADocument.document_binary_url') ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
+export const getCheckAllegationOfHarmStatus = (caseData, lang): StateTags => {
+  const document =
+    lang === DOCUMENT_LANGUAGE.ENGLISH ? 'c1ADocument.document_binary_url' : 'c1AWelshDocument.document_binary_url';
+  return _.get(caseData, document) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
 };
 
 export const getC7ApplicationResponseStatus = (caseData: Partial<CaseWithId>, userDetails: UserDetails): StateTags => {
@@ -193,6 +207,14 @@ export const getInternationalFactorsStatus = (
   return StateTags.TO_DO;
 };
 
-export const getFinalApplicationStatus = (caseData): StateTags => {
-  return _.get(caseData, 'finalDocument.document_binary_url') ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
+export const getFinalApplicationStatus = (caseData, lang): StateTags => {
+  const document =
+    lang === DOCUMENT_LANGUAGE.ENGLISH ? 'finalDocument.document_binary_url' : 'finalWelshDocument.document_binary_url';
+
+  return _.get(caseData, document) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
+};
+export const isRespondentSubmitedResponse = (caseData: Partial<CaseWithId>) => {
+  return caseData.respondentDocuments?.find(
+    doc => doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+  );
 };

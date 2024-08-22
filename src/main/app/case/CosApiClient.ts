@@ -6,7 +6,7 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
-import { CaseWithId, HearingData } from './case';
+import { CaseWithId, HearingData, StatementOfServiceRequest } from './case';
 import {
   AWPApplicationReason,
   AWPApplicationType,
@@ -17,12 +17,11 @@ import {
   Document,
   DocumentUploadResponse,
   FeeDetailsResponse,
-  HearingsList,
   PartyDetails,
   PartyType,
   UserRole,
   YesOrNo,
-} from './definition';
+} from '../../app/case/definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -301,10 +300,7 @@ export class CosApiClient {
     }
   }
 
-  public async uploadStatementDocument(
-    user: UserDetails,
-    request: DocumentFileUploadRequest
-  ): Promise<DocumentUploadResponse> {
+  public async uploadDocument(user: UserDetails, request: DocumentFileUploadRequest): Promise<DocumentUploadResponse> {
     try {
       const formData = new FormData();
 
@@ -327,17 +323,17 @@ export class CosApiClient {
       };
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, upload citizen statement document failed - UploadDocumentListFromCitizen');
+      throw new Error('Error occured, upload citizen statement document failed - uploadDocument');
     }
   }
 
-  public async deleteCitizenStatementDocument(documentId: string): Promise<string> {
+  public async deleteDocument(documentId: string): Promise<string> {
     try {
       const response = await this.client.delete(config.get('services.cos.url') + `/${documentId}/delete`);
       return response.data;
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, document could not be deleted. - deleteCitizenStatementDocument');
+      throw new Error('Error occured, document could not be deleted. - deleteDocument');
     }
   }
 
@@ -414,14 +410,15 @@ export class CosApiClient {
     }
   }
 
-  public async retrieveCaseHearingsByCaseId(caseId: CaseData['id']): Promise<CaseHearingsResponse> {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  public async retrieveCaseHearingsByCaseId(caseId: string): Promise<{ hearingData: HearingData | null }> {
     try {
       const response = await this.client.post(config.get('services.cos.url') + `/hearing/${caseId}`);
 
-      return response.data;
+      return { hearingData: response.data };
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, case could not be updated - retrieveCaseHearingsByCaseId');
+      throw new Error('Error occured, hearing details could not be retrieved - retrieveCaseHearingsByCaseId');
     }
   }
 
@@ -475,6 +472,24 @@ export class CosApiClient {
     }
   }
 
+  public async submitStatementOfService(
+    caseId: string,
+    statementOfServiceData: StatementOfServiceRequest
+  ): Promise<AxiosResponse> {
+    try {
+      const response = await this.client.post(
+        config.get('services.cos.url') +
+          `/${caseId}/${CaseEvent.UPLOAD_STATEMENT_OF_SERVICE}/save-statement-of-service-by-citizen`,
+        statementOfServiceData
+      );
+
+      return response;
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, could not sumbit statement of service. - SubmitStatementOfService');
+    }
+  }
+
   public async findCourtByPostCodeAndService(postCode: string): Promise<FindCourtByPostCodeAndServiceResponse> {
     try {
       const response = await this.client.get(
@@ -513,12 +528,6 @@ export interface SubmitUploadedDocsRequest extends DocumentUploadRequest {
   restrictDocumentDetails?: string;
   documents: DocumentUploadResponse['document'][];
 }
-
-interface CaseHearingsResponse {
-  hmctsServiceCode: string;
-  caseRef: string;
-  caseHearings: HearingsList[];
-}
 export interface UploadDocumentRequest {
   user: UserDetails;
   caseId: string;
@@ -529,12 +538,6 @@ export interface UploadDocumentRequest {
   isApplicant: string;
   files: UploadedFiles;
   documentRequestedByCourt: YesOrNo;
-}
-
-interface CaseHearingsResponse {
-  hmctsServiceCode: string;
-  caseRef: string;
-  caseHearings: HearingsList[];
 }
 
 export type UploadedFiles =
