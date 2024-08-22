@@ -237,6 +237,9 @@ const en: TaskListContent = {
           checkTheApplication: {
             linkText: 'Check the application (PDF)',
           },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
+          },
         },
       },
       yourHearing: {
@@ -508,6 +511,9 @@ const cy: typeof en = {
         tasks: {
           checkTheApplication: {
             linkText: 'Gwirio’r cais (PDF)',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case -  welsh',
           },
         },
       },
