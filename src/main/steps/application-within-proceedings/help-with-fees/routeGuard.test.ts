@@ -45,7 +45,9 @@ describe('AWP help with fees RouteGuard', () => {
     const res = mockResponse();
     const next = jest.fn();
     await routeGuard.get(req, res, next);
-    expect(next).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(
+      '/applicant/application-within-proceedings/C2/request-more-time/document-upload'
+    );
   });
 
   test('Should redirect to error page if an error is thrown', async () => {
