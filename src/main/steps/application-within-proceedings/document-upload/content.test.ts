@@ -12,7 +12,7 @@ const en = {
   title: 'Upload your application',
   fileUploadLabel: 'Upload your application form',
   uploadYourApplication:
-    'Upload your application to the case. If you are uploading a paper copy of the application, make sure this has been scanned in clearly and saved in a suitable format such as PDF.',
+    'If you are uploading a paper copy of the application, make sure this has been scanned in clearly and saved in a suitable format such as PDF.',
   uploadYourApplicationHint:
     'Give each document a file name that makes it clear what it is about. For example position-statement.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uploadDescription: 'Take a picture of a document on your phone and upload it',
@@ -42,7 +42,7 @@ const cy: typeof en = {
   title: 'Uwchlwytho eich cais',
   fileUploadLabel: 'Uwchlwytho eich ffurflen gais',
   uploadYourApplication:
-    'Uwchlwytho eich cais i’r achos. Os ydych chi’n uwchlwytho copi papur o’r cais, gwnewch yn siŵr ei fod wedi’i sganio’n glir, a’i gadw mewn fformat ffeil addas megis PDF.',
+    'Os ydych chi’n uwchlwytho copi papur o’r cais, gwnewch yn siŵr ei fod wedi’i sganio’n glir, a’i gadw mewn fformat ffeil addas megis PDF.',
   uploadYourApplicationHint:
     'Rhowch enw ffeil i bob dogfen sy’n dweud yn glir beth ydyw. Er enghraifft, datganiad-safbwynt.docx. Rhaid i’r ffeiliau fod yn ffeiliau JPG, JPEG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
   uploadDescription: 'Tynnu llun o ddogfen ar eich ffôn a’i uwchlwytho',
