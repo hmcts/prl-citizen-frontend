@@ -42,8 +42,6 @@ import {
   getSectionSummaryList,
 } from './lib/lib';
 
-
-
 /* eslint-disable import/namespace */
 export const LocationDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,

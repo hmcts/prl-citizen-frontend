@@ -10,7 +10,6 @@ import { cy, en } from './courtproceedings/content';
 import { HTML } from './htmlSelectors';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-details/content';
 
-
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order, language) => {
   const newOrders = order;

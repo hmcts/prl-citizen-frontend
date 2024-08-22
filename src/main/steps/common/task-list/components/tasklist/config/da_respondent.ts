@@ -2,8 +2,7 @@
 import { PartyType } from '../../../../../../app/case/definition';
 import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
-import { isCaseClosed, isCaseLinked } from '../../../../../../steps/common/task-list/utils';
-import { isDocPresent } from '../../../../../../steps/common/task-list/utils';
+import { isCaseClosed, isCaseLinked, isDocPresent } from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, DOWNLOAD_DOCUMENT_BY_TYPE } from '../../../../../urls';
 import { StateTags, TaskListSection, Tasks, getContents, getFinalApplicationStatus } from '../utils';

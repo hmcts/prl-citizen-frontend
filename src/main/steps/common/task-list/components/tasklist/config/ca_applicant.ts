@@ -154,7 +154,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         stateTag: () => StateTags.OPTIONAL,
         show: isCaseLinked,
         disabled: isCaseClosed,
-      }
+      },
     ],
   },
   {

@@ -796,7 +796,7 @@ describe('createAWPApplication', () => {
     } catch {
       flag = false;
     }
-    
+
     mockedAxios.get.mockRejectedValueOnce({
       response: {
         status: 500,
@@ -807,9 +807,9 @@ describe('createAWPApplication', () => {
     });
 
     expect(flag).toEqual(false);
-    await expect(new CosApiClient('abc', mockLogger).retrieveCaseHearingsByCaseId(req.session.userCase.id)).rejects.toThrow(
-      'Error occured, hearing details could not be retrieved - retrieveCaseHearingsByCaseId'
-    );
+    await expect(
+      new CosApiClient('abc', mockLogger).retrieveCaseHearingsByCaseId(req.session.userCase.id)
+    ).rejects.toThrow('Error occured, hearing details could not be retrieved - retrieveCaseHearingsByCaseId');
   });
 
   test('submitStatementOfService', async () => {

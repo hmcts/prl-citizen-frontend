@@ -24,7 +24,6 @@ import {
   //setContactDetails
 } from './ContactDetailsMapper';
 
-
 @autobind
 export class ConfirmContactDetailsPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {

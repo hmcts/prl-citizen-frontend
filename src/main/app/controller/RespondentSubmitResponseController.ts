@@ -8,7 +8,6 @@ import { CosApiClient } from '../case/CosApiClient';
 
 import type { AppRequest } from './AppRequest';
 
-
 @autobind
 export class RespondentSubmitResponseController {
   public async generateAndDownloadC7ResponseDraftDocument(req: AppRequest, res: Response): Promise<void> {

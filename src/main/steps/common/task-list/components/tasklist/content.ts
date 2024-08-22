@@ -36,7 +36,7 @@ const en: TaskListContent = {
           },
           requestToCourtAboutYourCase: {
             linkText: 'Make a request to the court about your case',
-          }
+          },
         },
       },
       yourDocuments: {
@@ -127,7 +127,7 @@ const en: TaskListContent = {
           },
           requestToCourtAboutYourCase: {
             linkText: 'Make a request to the court about your case',
-          }
+          },
         },
       },
       yourResponse: {
@@ -189,7 +189,7 @@ const en: TaskListContent = {
           },
           requestToCourtAboutYourCase: {
             linkText: 'Make a request to the court about your case',
-          }
+          },
         },
       },
       yourDocuments: {
@@ -332,7 +332,7 @@ const cy: typeof en = {
           },
           requestToCourtAboutYourCase: {
             linkText: 'Make a request to the court about your case -  welsh',
-          }
+          },
         },
       },
       yourDocuments: {
@@ -424,7 +424,7 @@ const cy: typeof en = {
           },
           requestToCourtAboutYourCase: {
             linkText: 'Make a request to the court about your case -  welsh',
-          }
+          },
         },
       },
       yourResponse: {
@@ -486,7 +486,7 @@ const cy: typeof en = {
           },
           requestToCourtAboutYourCase: {
             linkText: 'Make a request to the court about your case -  welsh',
-          }
+          },
         },
       },
       yourDocuments: {
@@ -562,7 +562,7 @@ const cy: typeof en = {
           },
           requestToCourtAboutYourCase: {
             linkText: 'Make a request to the court about your case -  welsh',
-          }
+          },
         },
       },
       yourHearing: {

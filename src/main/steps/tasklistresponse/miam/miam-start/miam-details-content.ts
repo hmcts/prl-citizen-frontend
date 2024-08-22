@@ -1,4 +1,3 @@
-
 export const miam_collapse_content_en = `<div>
             <p>A MIAM is a first meeting with a mediator.</p>
             <p>The MIAM will:

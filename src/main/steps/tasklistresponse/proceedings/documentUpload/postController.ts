@@ -17,7 +17,6 @@ import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../
 import { applyParms } from '../../../../steps/common/url-parser';
 import { OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 
-
 const C100OrderTypeNameMapper = {
   childArrangementOrder: 'Child Arrangements Order',
   emergencyProtectionOrder: 'Emergency Protection Order',

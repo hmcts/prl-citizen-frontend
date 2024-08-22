@@ -3,10 +3,6 @@ import config from 'config';
 import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import type { UserDetails } from '../controller/AppRequest';
-
-import { CaseWithId, HearingData, StatementOfServiceRequest } from './case';
 import {
   AWPApplicationReason,
   AWPApplicationType,
@@ -22,6 +18,10 @@ import {
   UserRole,
   YesOrNo,
 } from '../../app/case/definition';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import type { UserDetails } from '../controller/AppRequest';
+
+import { CaseWithId, HearingData, StatementOfServiceRequest } from './case';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {

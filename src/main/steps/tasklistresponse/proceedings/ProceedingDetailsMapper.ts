@@ -15,7 +15,6 @@ import {
   ProceedingsOrderTypes,
 } from '../../../app/case/definition';
 
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const prepareProceedingDetailsRequest = (userCase: CaseWithId): CurrentOrPreviousProceedings => {
   const currentOrPreviousProceedings: CurrentOrPreviousProceedings = {};
