@@ -36,6 +36,7 @@ export const generateContent: TranslationFn = content => {
   const caseData = request.session.userCase;
   const userDetails = request.session.user;
   const loggedInUserPartyType = getCasePartyType(caseData, userDetails.id);
+  const context = _.get(content, 'additionalData.req.params.context', '');
   const isPackToBeServed = !!(
     loggedInUserPartyType === PartyType.APPLICANT &&
     (_.first(caseData?.citizenApplicationPacks) as CitizenApplicationPacks)?.respondentSoaPack?.length
@@ -54,11 +55,12 @@ export const generateContent: TranslationFn = content => {
       },
     ],
     title: isPackToBeServed ? translations.packToBeServedTitle : translations.packServedTitle,
-    isPackToBeServed,
+    context,
+    showAdditionalNote: isPackToBeServed && !context,
     documents: getApplicationPackDocuments(
       caseData.citizenApplicationPacks,
       loggedInUserPartyType,
-      _.get(content, 'additionalData.req.params.context', ''),
+      context,
       content.language
     ),
   };
