@@ -54,7 +54,7 @@ export const generateContent: TranslationFn = content => {
         href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),
       },
     ],
-    title: isPackToBeServed ? translations.packToBeServedTitle : translations.packServedTitle,
+    title: context === 'to-be-served' ? translations.packToBeServedTitle : translations.packServedTitle,
     context,
     showAdditionalNote: isPackToBeServed && !context,
     documents: getApplicationPackDocuments(
