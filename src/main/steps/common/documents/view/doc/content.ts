@@ -12,14 +12,14 @@ const languages = {
   en: {
     ...en,
     uploadDate: 'Date',
-    file: 'file Name',
-    uploadedBy: 'Uploaded By',
+    file: 'File name',
+    uploadedBy: 'Uploaded by',
   },
   cy: {
     ...cy,
     uploadDate: 'Date - welsh',
-    file: 'file Name -welsh',
-    uploadedBy: 'Uploaded By -welsh',
+    file: 'File name -welsh',
+    uploadedBy: 'Uploaded by -welsh',
   },
 };
 
