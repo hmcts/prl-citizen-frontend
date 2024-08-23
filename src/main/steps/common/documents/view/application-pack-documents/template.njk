@@ -11,9 +11,9 @@
     {{title}}
   </h1>
 
-  {% if isPackToBeServed != true %}
-    <p class="govuk-body">{{caseNumber}}&nbsp;&nbsp;{{caseId}}</p>
+  <p class="govuk-body">{{caseNumber}}&nbsp;&nbsp;{{caseId}}</p>
 
+  {% if isPackToBeServed == true %}
     {{ govukWarningText({
         text: note,
         iconFallbackText: "Warning"

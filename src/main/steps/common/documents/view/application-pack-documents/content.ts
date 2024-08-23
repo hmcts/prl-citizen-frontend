@@ -1,8 +1,12 @@
+import _ from 'lodash';
+
+import { PartyType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getCasePartyType } from '../../../../prl-cases/dashboard/utils';
 import { FETCH_CASE_DETAILS, VIEW_ALL_DOCUMENT_TYPES } from '../../../../urls';
 import { applyParms } from '../../../url-parser';
 import { cy, en } from '../../common/content';
+import { CitizenApplicationPacks } from '../../definitions';
 import { getApplicationPackDocuments } from '../utils';
 
 const languages = {
@@ -32,8 +36,10 @@ export const generateContent: TranslationFn = content => {
   const caseData = request.session.userCase;
   const userDetails = request.session.user;
   const loggedInUserPartyType = getCasePartyType(caseData, userDetails.id);
-  const { context } = request.params;
-  const isPackToBeServed = context === 'to-be-served';
+  const isPackToBeServed = !!(
+    loggedInUserPartyType === PartyType.APPLICANT &&
+    (_.first(caseData?.citizenApplicationPacks) as CitizenApplicationPacks)?.respondentSoaPack?.length
+  );
 
   return {
     ...translations,
@@ -52,7 +58,7 @@ export const generateContent: TranslationFn = content => {
     documents: getApplicationPackDocuments(
       caseData.citizenApplicationPacks,
       loggedInUserPartyType,
-      context,
+      _.get(content, 'additionalData.req.params.context', ''),
       content.language
     ),
   };
