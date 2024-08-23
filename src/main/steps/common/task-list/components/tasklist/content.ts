@@ -331,7 +331,7 @@ const cy: typeof en = {
             linkText: 'Your allegations of harm and violence (PDF) in welsh -welsh',
           },
           requestToCourtAboutYourCase: {
-            linkText: 'Make a request to the court about your case -  welsh',
+            linkText: 'Gwneud cais i’r llys am eich achos',
           },
         },
       },
@@ -423,7 +423,7 @@ const cy: typeof en = {
             linkText: 'Check the allegations of harm and violence (PDF) in welsh',
           },
           requestToCourtAboutYourCase: {
-            linkText: 'Make a request to the court about your case -  welsh',
+            linkText: 'Gwneud cais i’r llys am eich achos',
           },
         },
       },
@@ -485,7 +485,7 @@ const cy: typeof en = {
             linkText: 'Witness statement (PDF) in welsh',
           },
           requestToCourtAboutYourCase: {
-            linkText: 'Make a request to the court about your case -  welsh',
+            linkText: 'Gwneud cais i’r llys am eich achos',
           },
         },
       },
@@ -561,7 +561,7 @@ const cy: typeof en = {
             linkText: 'Check the application (PDF) in welsh',
           },
           requestToCourtAboutYourCase: {
-            linkText: 'Make a request to the court about your case -  welsh',
+            linkText: 'Gwneud cais i’r llys am eich achos',
           },
         },
       },

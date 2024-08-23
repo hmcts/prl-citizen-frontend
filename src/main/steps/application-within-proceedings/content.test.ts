@@ -70,33 +70,36 @@ describe('application reasons content', () => {
   });
 
   test.each([
-    { value: 'delay-or-cancel-hearing-date', expected: 'Gohirio neu ganslo dyddiad gwrandawiad' },
-    { value: 'request-more-time', expected: 'Request more time to do what is required by a court order - welsh' },
+    { value: 'delay-or-cancel-hearing-date', expected: 'Gofyn i ohirio neu ganslo dyddiad gwrandawiad' },
+    {
+      value: 'request-more-time',
+      expected: 'Gofyn am ragor o amser i wneud yr hyn y mae gorchymyn llys yn eich cyfarwyddo i wneud',
+    },
     {
       value: 'child-arrangements-order-to-live-with-or-spend-time',
-      expected: 'Child arrangements live with, or spend time with, order - welsh',
+      expected: 'Gorchymyn Trefniadau Plant Byw Gyda neu Treulio Amser Gyda',
     },
-    { value: 'prohibited-steps-order', expected: 'Prohibited steps order - welsh' },
-    { value: 'specific-issue-order', expected: 'Specific issue order - welsh' },
+    { value: 'prohibited-steps-order', expected: 'Gorchymyn Camau Gwaharddedig' },
+    { value: 'specific-issue-order', expected: 'Gorchymyn Mater Penodol' },
     { value: 'enforce-a-child-arrangements-order', expected: 'Gorfodi Gorchymyn Trefniadau Plant' },
     {
       value: 'change-extend-or-cancel-non-molestation-order-or-occupation-order',
-      expected: 'Apply to change, extend or cancel a non-molestation order or occupation order - welsh',
+      expected: 'Gwneud cais i newid, ymestyn neu ganslo gorchymyn rhag molestu neu orchymyn anheddu',
     },
     {
       value: 'submit-evidence-the-court-has-not-requested',
-      expected: 'Ask to submit evidence the court has not requested - welsh',
+      expected: 'Gofyn i gael cyflwyno tystiolaeth nad yw’r llys wedi gofyn amdani',
     },
-    { value: 'share-documents-with-someone-else', expected: 'Ask to share documents with someone else - welsh' },
-    { value: 'ask-to-join-or-leave-a-case', expected: 'Ask to join or leave a case - welsh' },
-    { value: 'request-to-withdraw-an-application', expected: 'Request to withdraw an application - welsh' },
+    { value: 'share-documents-with-someone-else', expected: 'Gofyn i gael rhannu dogfennau gyda rhywun arall' },
+    { value: 'ask-to-join-or-leave-a-case', expected: 'Gofyn i gael ymuno ag achos neu adael achos' },
+    { value: 'request-to-withdraw-an-application', expected: 'Gwneud cais i dynnu cais yn ôl' },
     {
       value: 'request-to-appoint-an-expert',
-      expected: 'Ask the court to appoint an expert (such as a medical professional or a child psychologist) - welsh',
+      expected: 'Gofyn i’r llys benodi arbenigwr (megis gweithiwr iechyd proffesiynol neu seicolegydd plant)',
     },
     {
       value: 'permission-for-an-application-if-court-previously-stopped-you',
-      expected: 'Get permission for an application if the court previously stopped you - welsh',
+      expected: 'Cael caniatâd i wneud cais os yw’r llys wedi’ch atal rhag gwneud hynny yn y gorffennol',
     },
     {
       value: 'request-grant-for-parental-responsibility',
@@ -120,11 +123,13 @@ describe('application reasons content', () => {
     },
     {
       value: 'prevent-questioning-in-person-accusing-someone',
-      expected: 'Ask the court to prevent questioning in person when accusations of abuse have been made - welsh',
+      expected:
+        'Gofyn i’r llys atal caniatáu cwestiynu unigolyn yn bersonol pan fydd honiadau o gam-drin wedi’u gwneud',
     },
     {
       value: 'prevent-questioning-in-person-someone-accusing-you',
-      expected: 'Ask the court to prevent questioning in person when accusations of abuse have been made - welsh',
+      expected:
+        'Gofyn i’r llys atal caniatáu cwestiynu unigolyn yn bersonol pan fydd honiadau o gam-drin wedi’u gwneud',
     },
     {
       value: 'order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
@@ -141,7 +146,7 @@ describe('application reasons content', () => {
     },
     {
       value: 'request-the-court-issues-an-arrest-warrant',
-      expected: 'Request the court issues an arrest warrant - welsh',
+      expected: 'Gwneud cais i’r llys godi gwarant i arestio',
     },
   ])('welsh application reasons content', ({ value, expected }) => {
     expect(languages.cy[value].reasonText).toBe(expected);

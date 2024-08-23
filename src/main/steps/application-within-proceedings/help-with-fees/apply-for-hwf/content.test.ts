@@ -7,7 +7,7 @@ import { generateContent } from './content';
 
 const applicationType = 'C2';
 const enReasonText = 'ask to delay or cancel a hearing date';
-const cyReasonText = 'gohirio neu ganslo dyddiad gwrandawiad';
+const cyReasonText = 'gofyn i ohirio neu ganslo dyddiad gwrandawiad';
 
 const en = {
   title: 'Apply for help with fees',

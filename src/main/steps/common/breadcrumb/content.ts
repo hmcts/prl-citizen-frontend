@@ -11,7 +11,7 @@ const cy: typeof en = {
   caseView: 'Gweld yr achos',
   caseOverView: 'Trosolwg o’r achos',
   allDocuments: 'All documents - welsh',
-  requestTheCourtForChange: 'Request the court a change to your case - welsh',
+  requestTheCourtForChange: 'Gwneud cais i’r llys am eich achos',
 };
 
 export const language = {
