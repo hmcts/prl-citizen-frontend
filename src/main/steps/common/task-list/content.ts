@@ -7,7 +7,7 @@ import { getNotificationBannerConfig } from './components/notification-banner/.'
 import { getProgressBarConfig } from './components/progress-bar/index';
 import { languages as sideLinks } from './components/side-links/content';
 import { getTaskListConfig } from './components/tasklist/index';
-import { getPartyName, isRepresentedBySolicotor } from './utils';
+import { getPartyName, isCaseLinked, isRepresentedBySolicotor } from './utils';
 
 const en = {
   title: 'Child arrangements and family injunction cases',
@@ -142,11 +142,18 @@ export const generateContent: TranslationFn = content => {
   const _isRepresentedBySolicotor = isRepresentedBySolicotor(caseData, request.session.user.id);
 
   if (caseData?.caseTypeOfApplication) {
-    translations.hyperlinks = sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks;
+    translations.hyperlinks = [
+      ...sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks,
+    ];
   }
 
   translations.hyperlinks.forEach((hyperLink, index) => {
     if (
+      hyperLink.label.includes(translations.addLegalRepresentative) &&
+      !isCaseLinked(caseData, request.session.user)
+    ) {
+      translations.hyperlinks.splice(index, 2);
+    } else if (
       (hyperLink.label.includes(translations.addLegalRepresentative) && _isRepresentedBySolicotor) ||
       (hyperLink.label.includes(translations.removeLegalRepresentative) && !_isRepresentedBySolicotor)
     ) {
