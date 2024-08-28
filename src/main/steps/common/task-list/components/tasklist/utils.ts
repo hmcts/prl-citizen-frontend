@@ -52,7 +52,6 @@ export enum Tasks {
   CHECK_THE_APPLICATION_WELSH = 'checkTheApplicationWelsh',
   CHECK_AOH_AND_VIOLENCE = 'checkAllegationsOfHarmAndViolence',
   RESPOND_TO_THE_APPLICATION = 'respondToTheApplication',
-  RESPOND_TO_AOH_AND_VIOLENCE = 'respondToAOHAndViolence',
   THE_RESPONSE_PDF = 'theResponsePDF',
   CHECK_AOH_AND_VIOLENCE_WELSH = 'checkAllegationsOfHarmAndViolenceWelsh',
   THE_RESPONSE_PDF_WELSH = 'theResponsePDFWelsh',

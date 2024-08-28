@@ -493,7 +493,7 @@ describe('isC7ResponseReviewed', () => {
     expect(
       isC7ResponseReviewed(
         {
-          citizenDocuments: [
+          respondentDocuments: [
             {
               partyId: '1',
               partyName: null,

@@ -151,6 +151,11 @@ export const generateContent: TranslationFn = content => {
 
   translations.hyperlinks.forEach((hyperLink, index) => {
     if (
+      hyperLink.label.includes(translations.addLegalRepresentative) &&
+      !isCaseLinked(caseData, request.session.user)
+    ) {
+      translations.hyperlinks.splice(index, 2);
+    } else if (
       (hyperLink.label.includes(translations.addLegalRepresentative) && _isRepresentedBySolicotor) ||
       (hyperLink.label.includes(translations.removeLegalRepresentative) && !_isRepresentedBySolicotor) ||
       (hyperLink.label.includes(translations.whatToExpect) && !isCaseLinked(caseData, request.session.user))

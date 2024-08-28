@@ -17,7 +17,8 @@ export class RespondentSubmitResponseController {
     try {
       const draftC7ResponseDocument = await client.generateC7DraftDocument(
         req.session.userCase.id,
-        _.get(partyDetails, 'partyId', '')
+        _.get(partyDetails, 'partyId', ''),
+        req.params.language === 'cy'
       );
       req.params = {
         ...req.params,

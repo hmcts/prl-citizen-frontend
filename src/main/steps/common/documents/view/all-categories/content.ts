@@ -22,88 +22,6 @@ export const generateContent: TranslationFn = content => {
     Partial<DocumentLabelCategory>,
     string
   >;
-  const language = content.language;
-  /*Object.assign(caseData, {
-    citizenDocuments: [
-      {
-        partyId: 1,
-        partyName: null,
-        partyType: 'respondent',
-        categoryId: 'positionStatements',
-        uploadedBy: 'Vivek Sekhar',
-        uploadedDate: '2024-03-11T16:24:33.122506',
-        reviewedDate: null,
-        document: null,
-        documentWelsh: null,
-      },
-      {
-        partyId: 2,
-        partyName: null,
-        partyType: 'applicant',
-        categoryId: 'positionStatements',
-        uploadedBy: 'Patil C',
-        uploadedDate: '2024-03-11T16:24:33.122506',
-        reviewedDate: null,
-        document: null,
-        documentWelsh: null,
-      },
-      {
-        partyId: 1,
-        partyName: null,
-        partyType: 'respondent',
-        categoryId: 'positionStatements',
-        uploadedBy: 'Vivek Sekhar',
-        uploadedDate: '2024-03-11T16:24:33.122506',
-        reviewedDate: null,
-        document: null,
-        documentWelsh: null,
-      },
-      {
-        partyId: 1,
-        partyName: null,
-        partyType: 'respondent',
-        categoryId: 'witnessStatements',
-        uploadedBy: 'Vivek Sekhar',
-        uploadedDate: '2024-03-11T16:24:33.122506',
-        reviewedDate: null,
-        document: null,
-        documentWelsh: null,
-      },
-      {
-        partyId: 2,
-        partyName: null,
-        partyType: 'applicant',
-        categoryId: 'witnessStatements',
-        uploadedBy: 'Patil C',
-        uploadedDate: '2024-03-11T16:24:33.122506',
-        reviewedDate: null,
-        document: null,
-        documentWelsh: null,
-      },
-      {
-        partyId: 3,
-        partyName: null,
-        partyType: 'respondent',
-        categoryId: 'positionStatements',
-        uploadedBy: 'Hugh C',
-        uploadedDate: '2024-03-11T16:24:33.122506',
-        reviewedDate: null,
-        document: null,
-        documentWelsh: null,
-      },
-      {
-        partyId: 3,
-        partyName: null,
-        partyType: 'respondent',
-        categoryId: 'medicalRecords',
-        uploadedBy: 'Hugh C',
-        uploadedDate: '2024-03-11T16:24:33.122506',
-        reviewedDate: null,
-        document: null,
-        documentWelsh: null,
-      },
-    ],
-  });*/
   return {
     ...translations,
     breadcrumbs: [
@@ -124,7 +42,7 @@ export const generateContent: TranslationFn = content => {
       .map(section => ({
         id: section.sectionId,
         title: section.sectionTitle(documentSectionTitles),
-        items: section.documentCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType, language),
+        items: section.documentCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType, content.language),
       })),
   };
 };

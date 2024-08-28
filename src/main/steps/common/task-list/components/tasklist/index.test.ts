@@ -464,7 +464,7 @@ describe('tasklist index', () => {
           document_filename: 'c100_final_document',
           document_binary_url: 'document_url/123/binary',
         },
-        citizenDocuments: [
+        applicantDocuments: [
           {
             partyId: '123456',
             partyName: 'First Respondent',
@@ -793,7 +793,7 @@ describe('tasklist index', () => {
           document_filename: 'c1a_document',
           document_binary_url: 'document_url/123/binary',
         },
-        citizenDocuments: [
+        applicantDocuments: [
           {
             partyId: '123456',
             partyName: 'First Respondent',
@@ -1397,7 +1397,7 @@ describe('tasklist index', () => {
           document_filename: 'c100_final_document',
           document_binary_url: 'document_url/123/binary',
         },
-        citizenDocuments: [
+        applicantDocuments: [
           {
             partyId: '123456',
             partyName: 'First Respondent',
@@ -1774,7 +1774,7 @@ describe('tasklist index', () => {
           document_filename: 'c100_final_document',
           document_binary_url: 'document_url/123/binary',
         },
-        citizenDocuments: [
+        applicantDocuments: [
           {
             partyId: '123456',
             partyName: 'First Respondent',
@@ -1995,7 +1995,7 @@ describe('tasklist index', () => {
         applicants: applicant,
         respondents,
         caseTypeOfApplication: 'C100',
-        citizenDocuments: [
+        applicantDocuments: [
           {
             partyId: '123456',
             partyName: 'First Respondent',

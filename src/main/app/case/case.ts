@@ -603,7 +603,6 @@ export interface Case {
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
-  citizenDocuments?: CitizenDocuments[];
   applicantDocuments?: CitizenDocuments[];
   respondentDocuments?: CitizenDocuments[];
   citizenOtherDocuments?: CitizenDocuments[];
