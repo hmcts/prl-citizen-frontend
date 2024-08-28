@@ -4,22 +4,38 @@
 {% extends "govuk/template.njk" %}
 
 {% block head %}
-<!-- Google Tag Manager -->
+  <!-- Google Tag Manager -->
 
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NJCKLVT');</script>
-<!-- End Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer'
+          ? '&l=' + l
+          : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f
+        .parentNode
+        .insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJCKLVT');
+  </script>
+  <!-- End Google Tag Manager -->
   {% include "./webpack/css.njk" %}
 {% endblock %}
 
 {% block bodyStart %}
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJCKLVT"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJCKLVT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!-- Dynatrace RUM Script -->
+  <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/5b59108c720e8fa7_complete.js" crossorigin="anonymous"></script>
+  <!-- End Dynatrace RUM Script -->
 {% endblock %}
 
 {% block header %}
@@ -38,15 +54,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }) }}
 {% endblock %}
 
-
 {% set realtitle = ""%}
 {% if title %}
-    {% set realtitle = title%}
+  {% set realtitle = title%}
 {% else %}
-    {% set realtitle = headingTitle%}
+  {% set realtitle = headingTitle%}
 {% endif %}
 {% block pageTitle %}
-  {{realtitle }} {{appName}}
+  {{realtitle }}
+  {{appName}}
 {% endblock %}
 
 {% block beforeContent %}
@@ -78,13 +94,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         {% endblock %}
       {% endif %}
 
-      {% block page_content_under_form %}
-      {% endblock %}
+      {% block page_content_under_form %}{% endblock %}
     </div>
     <div class="govuk-grid-column-one-third">
-        {% block page_contact_us %}
-             {% include "./contact-us.njk" %}
-        {% endblock %}
+      {% block page_contact_us %}
+        {% include "./contact-us.njk" %}
+      {% endblock %}
     </div>
   </div>
 {% endblock %}
@@ -140,7 +155,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         ]
       }
     }) }}
-   {% endif %}
+  {% endif %}
 {% endblock %}
 
 {% block bodyEnd %}
