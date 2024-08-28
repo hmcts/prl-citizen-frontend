@@ -1,27 +1,42 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 
-
 {% extends "govuk/template.njk" %}
 
 {% block head %}
-<!-- Google Tag Manager -->
+  <!-- Google Tag Manager -->
 
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NJCKLVT');</script>
-<!-- End Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer'
+          ? '&l=' + l
+          : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f
+        .parentNode
+        .insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NJCKLVT');
+  </script>
+  <!-- End Google Tag Manager -->
 
   {% include "./webpack/css.njk" %}
 {% endblock %}
 
 {% block bodyStart %}
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJCKLVT"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJCKLVT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <!-- Dynatrace RUM Script -->
+  <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/5b59108c720e8fa7_complete.js" crossorigin="anonymous"></script>
+  <!-- End Dynatrace RUM Script -->
 {% endblock %}
 
 {% block header %}
@@ -40,9 +55,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }) }}
 {% endblock %}
 
-
 {% block pageTitle %}
-  {{ serviceName }} - {{ title }} {{appName}}
+  {{ serviceName }} - {{ title }}
+  {{appName}}
 {% endblock %}
 
 {% block beforeContent %}
@@ -58,9 +73,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        {% block backLink %}
-    <a href="#" class="govuk-back-link">{{ back }}</a>
-  {% endblock %}
+      {% block backLink %}
+        <a href="#" class="govuk-back-link">{{ back }}</a>
+      {% endblock %}
 
       {% block error_summary %}
         {% include "common/error/summary.njk" %}
@@ -79,24 +94,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         {% endblock %}
       {% endif %}
 
-      {% block page_content_under_form %}
-      {% endblock %}
+      {% block page_content_under_form %}{% endblock %}
     </div>
 
     <div class="govuk-grid-column-one-third">
-    {% block page_safetyConcerns %}
-
-    {% endblock %}
+      {% block page_safetyConcerns %}{% endblock %}
     </div>
 
     <div class="govuk-grid-column-one-third">
-       {% block page_contact_us %}
+      {% block page_contact_us %}
         {%if userCase.caseTypeOfApplication === "FL401" %}
           {% include "./contact-us.njk" %}
         {% else %}
           {% include "./contact-us-c100.njk" %}
         {% endif %}
-        {% endblock %}
+      {% endblock %}
     </div>
   </div>
 {% endblock %}
