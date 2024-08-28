@@ -14,6 +14,7 @@ module.exports = {
             await I.waitForText('Where do the children live?');
             await I.fillFieldWithLabel('Postcode', 'TW31JX');
             await I.clickButton('Continue');
+            I.wait('3');
             await I.waitForText('Do you have a written agreement with the other people in the case that you want the court to review?');
             await I.clickFieldWithID('sq_writtenAgreement-2');
             await I.clickButton('Continue');
@@ -97,7 +98,7 @@ module.exports = {
             const optionField = `//fieldset//label[contains(text(),'${option}')]/../input`;
             await I.checkOption(optionField);
             await I.clickButton('Continue');
-        }, 
+        },
         'Are you asking for a without notice hearing?': async (option) => {
             await I.waitForText('Are you asking for a without notice hearing?');
             const optionField = `//fieldset//label[contains(text(),'${option}')]/../input`;
@@ -363,8 +364,8 @@ module.exports = {
             await I.waitForText('Your application has been submitted');
         }
     },
-  
-  
+
+
     async createCaseC100E2E(caseDetails){
         caseDetails.applicant1_firstName = caseDetails.applicant1_firstName ? caseDetails.applicant1_firstName : 'John';
         caseDetails.applicant1_lastName = caseDetails.applicant1_lastName ? caseDetails.applicant1_lastName : 'Doe';
@@ -384,7 +385,7 @@ module.exports = {
 
         await this.pages['Is there any reason that you would need permission from the court to make this application?']('No');
         await this.pages['Are the children involved in any emergency protection, care or supervision proceedings (or have they been)?']('No');
-       
+
         await this.pages['Attending a Mediation Information and Assessment Meeting (MIAM)']();
         await this.pages['Have you attended a MIAM?']('Yes');
         await this.pages['Do you have a document signed by the mediator?']('Yes');
@@ -403,8 +404,8 @@ module.exports = {
         await this.pages['Do you or any respondents have other children who are not part of this application?']('No');
         await this.pages['Enter your name'](caseDetails);
         await this.pages['Do the other people named in this application (the respondents) know any of your contact details?']('Yes');
-        await this.pages['Keeping your contact details private for'](); 
-        await this.pages['The court will not keep your contact details private'](); 
+        await this.pages['Keeping your contact details private for']();
+        await this.pages['The court will not keep your contact details private']();
         await this.pages['Provide details for applicant']();
         await this.pages['What is applicant relationship to child']();
         await this.pages['Address of applicant']();
@@ -419,7 +420,7 @@ module.exports = {
         await this.pages['Select Address of respondent']();
         await this.pages['Have they lived at this address for more than 5 years?']();
         await this.pages['Contact details of respondent']();
-        await this.pages['Is there anyone else who should know about your application?']('No'); 
+        await this.pages['Is there anyone else who should know about your application?']('No');
         await this.pages['Who does child currently live with?'](caseDetails);
         await this.pages['Have you or the children ever been involved in court proceedings?']();
         await this.pages['Safety concerns']();
@@ -437,8 +438,8 @@ module.exports = {
         await this.pages['Equality and diversity questions']();
         await this.pages['Payment card details']();
         await this.pages['Confirm your payment']();
-        await this.pages['Your application has been submitted'](); 
-     
+        await this.pages['Your application has been submitted']();
+
     }
 
 }
