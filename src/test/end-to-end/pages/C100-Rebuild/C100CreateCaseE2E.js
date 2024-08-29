@@ -13,7 +13,8 @@ module.exports = {
         'Where do the children live?': async () => {
             await I.waitForText('Where do the children live?');
             await I.fillFieldWithLabel('Postcode', 'TW31JX');
-            await I.clickButton('Continue');
+            await I.click('//a[contains(text(),"Continue")]');
+            //await I.clickButton('Continue');
             I.wait('3');
             await I.waitForText('Do you have a written agreement with the other people in the case that you want the court to review?');
             await I.clickFieldWithID('sq_writtenAgreement-2');
