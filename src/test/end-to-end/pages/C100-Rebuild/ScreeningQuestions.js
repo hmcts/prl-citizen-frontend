@@ -22,7 +22,7 @@ module.exports = {
         explainWhyCourtDetails: '//*[@id="sq_permissionsRequest"]',
     },
     async writtenAgreementButton(agreementOption) {
-        await I.retry(retryCount).waitForText(ScreeningQuestions.writtenAgreementButtonPageTitle , 30);
+        await I.retry(retryCount).waitForText('Do you have a written agreement with the other people in the case that you want the court to review?', 30);
         await I.retry(retryCount).click(agreementOption ? this.fields.writtenAgreementYes : this.fields.writtenAgreementNo);
         await I.retry(retryCount).click('Continue');
     },
