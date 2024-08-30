@@ -426,6 +426,19 @@ describe('list of applications content', () => {
           ],
           sectionTitle: 'Make a request to order a witness to attend court',
         },
+        {
+          contents: [
+            "If you believe someone is disobeying a court order or is unfairly influencing proceedings you can complete and submit form FC600 to request the court takes action. This is also known as 'contempt of court.'",
+          ],
+          id: 'courtToActDuringDisobey',
+          links: [
+            {
+              text: 'Apply to the court using form FC600',
+              url: '/respondent/application-within-proceedings/FC600/request-court-to-act-when-someone-in-the-case-is-disobeying-court-order/guidance',
+            },
+          ],
+          sectionTitle: 'Request the court acts when someone in the case is disobeying a court order',
+        },
       ],
       breadcrumbs: [
         {
@@ -785,8 +798,11 @@ describe('list of applications content', () => {
       ],
       respondents: [
         {
-          user: {
-            idamId: '1234',
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
           },
         },
       ],
