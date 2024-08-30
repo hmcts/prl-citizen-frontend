@@ -571,7 +571,13 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
     sections = CheckYourAnswerFlow1(userCase, enContent, content.language).flat() as ANYTYPE;
   } else {
-    if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
+    if (
+      (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
+      (userCase.hasOwnProperty('miam_otherProceedings') &&
+        userCase['miam_otherProceedings'] === YesOrNo.NO &&
+        userCase.hasOwnProperty('miam_attendance') &&
+        userCase['miam_attendance'] === YesOrNo.YES)
+    ) {
       sections = CheckYourAnswerFlow2(userCase, enContent, content.language).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
@@ -597,7 +603,13 @@ export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
     sections = CheckYourAnswerFlow1(userCase, cyContent, content.language).flat() as ANYTYPE;
   } else {
-    if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
+    if (
+      (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
+      (userCase.hasOwnProperty('miam_otherProceedings') &&
+        userCase['miam_otherProceedings'] === YesOrNo.NO &&
+        userCase.hasOwnProperty('miam_attendance') &&
+        userCase['miam_attendance'] === YesOrNo.YES)
+    ) {
       sections = CheckYourAnswerFlow2(userCase, cyContent, content.language).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
