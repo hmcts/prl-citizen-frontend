@@ -17,6 +17,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
     this.allowedCourts = config.get('allowedCourts') ?? [];
+    console.info('**** C100ChildPostCodePostController - allowedCourts', this.allowedCourts);
   }
 
   private signoutAndRedirectToMOJ(req: AppRequest, res: Response): void {
@@ -88,6 +89,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
         courtNames = courtDetails?.courts?.length ? _.map(courtDetails.courts, 'name') : [];
       }
 
+      console.info('**** courtNames - ', courtNames);
       if (
         _.isArray(this.allowedCourts) &&
         (this.allowedCourts.includes('*') ||
