@@ -18,6 +18,8 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     super(fields);
     this.allowedCourts = config.get('allowedCourts') ?? [];
 
+    console.info('**** C100ChildPostCodePostController - config allowedCourts', this.allowedCourts);
+
     if (!_.isArray(this.allowedCourts)) {
       const stringArrayExp = new RegExp(/\[|\]/g);
 
