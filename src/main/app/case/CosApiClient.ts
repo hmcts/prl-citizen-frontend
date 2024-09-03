@@ -499,22 +499,14 @@ export class CosApiClient {
 
   public async findCourtByPostCodeAndService(postCode: string): Promise<FindCourtByPostCodeAndServiceResponse> {
     try {
-      console.info(
-        '*** findCourtByPostCodeAndService - ',
-        `${config.get('services.fact.url')}/search/results?postcode=${encodeURIComponent(
-          postCode
-        )}&serviceArea=childcare-arrangements`
-      );
       const response = await this.client.get(
         `${config.get('services.fact.url')}/search/results?postcode=${encodeURIComponent(
           postCode
         )}&serviceArea=childcare-arrangements`
       );
-      console.info('*** findCourtByPostCodeAndService response - ', response, response.data);
 
       return response.data;
     } catch (err) {
-      console.info('*** findCourtByPostCodeAndService error - ', err);
       this.logError(err);
       if (err?.response?.data?.message) {
         return err.response.data;

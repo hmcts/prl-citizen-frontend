@@ -83,7 +83,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
       if (_.isArray(this.allowedCourts) && !this.allowedCourts.includes('*')) {
         console.info('**** invoke findCourtByPostCodeAndService ****');
         const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode!);
-        console.info('**** courtDetails ****', courtDetails);
+
         if (courtDetails?.message) {
           req.session.errors = this.handleError(req.session.errors, 'invalid');
           return this.redirect(req, res);
