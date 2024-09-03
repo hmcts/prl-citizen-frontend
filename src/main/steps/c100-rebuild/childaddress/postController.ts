@@ -78,18 +78,21 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
         return this.redirect(req, res);
       }
 
-      if (_.isArray(this.allowedCourts) && !this.allowedCourts.includes('*')) {
-        const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode!);
+      console.info('**** _.isArray(this.allowedCourts) - ', _.isArray(this.allowedCourts));
 
+      if (_.isArray(this.allowedCourts) && !this.allowedCourts.includes('*')) {
+        console.info('**** invoke findCourtByPostCodeAndService ****');
+        const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode!);
+        console.info('**** courtDetails ****', courtDetails);
         if (courtDetails?.message) {
           req.session.errors = this.handleError(req.session.errors, 'invalid');
           return this.redirect(req, res);
         }
 
         courtNames = courtDetails?.courts?.length ? _.map(courtDetails.courts, 'name') : [];
+        console.info('**** courtNames returned - ', courtNames);
       }
 
-      console.info('**** courtNames - ', courtNames);
       if (
         _.isArray(this.allowedCourts) &&
         (this.allowedCourts.includes('*') ||
