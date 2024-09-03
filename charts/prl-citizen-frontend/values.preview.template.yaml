@@ -31,7 +31,7 @@ nodejs:
     ENABLE_RA_COMPONENT: true
     ENABLE_PCQ_COMPONENT: true
     ALLOWED_COURTS:
-      - Swansea Civil Justice Centre
+      - "Swansea Civil Justice Centre"
   keyVaults:
     prl:
       resourceGroup: prl
