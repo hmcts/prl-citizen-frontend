@@ -12,11 +12,19 @@ import { getMOJForkingScreenUrl } from '../../../steps/urls';
 
 @autobind
 export default class C100ChildPostCodePostController extends PostController<AnyObject> {
-  private readonly allowedCourts: string[];
+  private readonly allowedCourts: string[] | string;
 
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
     this.allowedCourts = config.get('allowedCourts') ?? [];
+
+    if (!_.isArray(this.allowedCourts)) {
+      const stringArrayExp = new RegExp(/\[|\]/g);
+
+      if (stringArrayExp.test(this.allowedCourts)) {
+        this.allowedCourts = this.allowedCourts.replace(stringArrayExp, '').split(',');
+      }
+    }
     console.info('**** C100ChildPostCodePostController - allowedCourts', this.allowedCourts);
     console.info('**** constructor - _.isArray(this.allowedCourts) - ', _.isArray(this.allowedCourts));
     console.info('**** constructor - allowedCourts length - ', this.allowedCourts.length);

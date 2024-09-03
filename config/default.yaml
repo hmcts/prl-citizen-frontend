@@ -60,4 +60,5 @@ featureToggles:
 launchDarkly:
   offline: false
 allowedCourts:
-  - "Swansea Civil Justice Centre"
+  - Swansea Civil Justice Centre
+  - Southampton Combined Court Centre
