@@ -18,6 +18,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     super(fields);
     this.allowedCourts = config.get('allowedCourts') ?? [];
     console.info('**** C100ChildPostCodePostController - allowedCourts', this.allowedCourts);
+    console.info('**** constructor - _.isArray(this.allowedCourts) - ', _.isArray(this.allowedCourts));
   }
 
   private signoutAndRedirectToMOJ(req: AppRequest, res: Response): void {
