@@ -5,6 +5,7 @@ import { PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../../../st
 import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
+  section: ' ',
   title: 'Check your answers',
   title2: 'Current or previous court cases',
   sectionTitles: {
@@ -102,6 +103,7 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
+  section: ' ',
   title: 'Gwirio eich atebion',
   title2: 'Achosion llys cyfredol neu flaenorol',
   sectionTitles: {

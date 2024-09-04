@@ -5,6 +5,7 @@ import { PastAndCurrentProceedings } from '../mainUtils';
 import { otherProceedingsContents } from '../proceedingUtils';
 
 export const enContent = {
+  section: '',
   title: 'Check your answers',
   change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
@@ -34,6 +35,7 @@ const en = (content: CommonContent) => {
 };
 
 export const cyContent: typeof enContent = {
+  section: '',
   title: 'Gwirio eich atebion',
   change: 'Golygu',
   topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',

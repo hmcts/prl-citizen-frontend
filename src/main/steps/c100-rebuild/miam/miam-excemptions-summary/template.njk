@@ -10,12 +10,12 @@
     </p>
     <p class="govuk-body-m">{{content2}}
     </p>
-    <h2 class="govuk-heading-m">{{content3}}
-    </h2>
+    <p class="govuk-heading-m">{{content3}}
+    </p>
 
   {% for exemption in exemptionSummary %}
   {% if exemption.title %}
-    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">{{ exemption.title }}</h3>
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-1">{{ exemption.title }}</h2>
     <ul class="govuk-list govuk-list--bullet">
       {% for abuseReasons in exemption.reasons %}
        {% if abuseReasons.reason %}

@@ -6,6 +6,7 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const enContent = {
+  section: ' ',
   title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
   one: 'Yes',
   two: 'No',
@@ -29,6 +30,7 @@ const enContent = {
 };
 
 const cyContent = {
+  section: ' ',
   title: 'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
   one: 'Gallai',
   two: 'Na allai',
@@ -68,6 +70,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.title).toEqual(
       'Could another person in the application apply for a similar order in a country outside England or Wales?'
     );
+    expect(generatedContent.section).toEqual(' ');
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -85,6 +88,7 @@ describe('citizen-home content', () => {
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
     expect((detailsKnownField.label as LanguageLookup)(generatedContent)).toBe(undefined);
+    expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
     expect((detailsKnownField.hint as Function)(generatedContent)).toBe(enContent.twoHint);
     expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
 

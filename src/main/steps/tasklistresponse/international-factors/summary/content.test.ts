@@ -8,6 +8,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Check your answers',
+  title2: 'International element',
   sectionTitles: {
     respondentAdditionalInformation: 'International elements',
   },
@@ -28,6 +29,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'Gwirio eich atebion',
+  title2: 'Elfennau rhyngwladol',
   sectionTitles: {
     respondentAdditionalInformation: 'Elfennau rhyngwladol',
   },
@@ -65,6 +67,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
+    expect(generatedContent.title2).toEqual('International element');
     expect(generatedContent.title).toEqual('Check your answers');
     expect(generatedContent.sectionTitles.respondentAdditionalInformation).toEqual('International elements');
   });
