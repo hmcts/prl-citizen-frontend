@@ -7,17 +7,17 @@
     titleText: errors.paymentError.title,
     errorList: [
       {
-        html: "<div class='govuk-heading-s hmcts-badge--red'>"+errors.paymentError[paymentError.errorContext]+"</div>"
+        html: "<h2 class='govuk-heading-s hmcts-badge--red'>"+errors.paymentError[paymentError.errorContext]+"</h2>"
       }
     ]
   }) }}
 {% endif %}
 
 {% if section %}
-    <span class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</h1>
   {% endif %}
   {% if title %}
-    <h1 class="govuk-hint">{{ title }}</h1>
+    <span class="govuk-hint">{{ title }}</span>
   {% endif %}
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset">
