@@ -5,7 +5,6 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const enContent = {
-  section: ' ',
   title: 'Check your answers',
   title2: 'Current or previous court cases',
   sectionTitles: {
@@ -91,7 +90,6 @@ const enContent = {
 };
 
 const cyContent = {
-  section: ' ',
   title: 'Gwirio eich atebion',
   title2: 'Achosion llys cyfredol neu flaenorol',
   sectionTitles: {
@@ -187,7 +185,6 @@ describe('respondent/proceedings content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Check your answers');
-    expect(generatedContent.section).toEqual(' ');
     expect(generatedContent.title2).toEqual('Current or previous court cases');
   });
 
