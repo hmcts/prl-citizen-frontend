@@ -13,7 +13,7 @@ module.exports = {
     testingText: 'Testing text area',
     day: '20',
     month: '08',
-    year: '2006',
+    year: '2022',
     firstName: 'Alice',
     surname: 'Web',
 };
