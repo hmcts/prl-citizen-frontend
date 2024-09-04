@@ -192,7 +192,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         reason: AWPApplicationReason.ENFORCE_CHILD_ARRANGEMENTS_ORDER,
         applicableCaseTypes: [CaseType.C100],
         applicablePartyType: {
-          C100: [PartyType.APPLICANT],
+          C100: [PartyType.APPLICANT, PartyType.RESPONDENT],
         },
       },
     ],
@@ -265,8 +265,8 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         reason: AWPApplicationReason.REQUEST_COURT_TO_ACT_DURING_DISOBEY,
         applicableCaseTypes: [CaseType.C100, CaseType.FL401],
         applicablePartyType: {
-          C100: [PartyType.APPLICANT],
-          FL401: [PartyType.APPLICANT],
+          C100: [PartyType.APPLICANT, PartyType.RESPONDENT],
+          FL401: [PartyType.APPLICANT, PartyType.RESPONDENT],
         },
       },
     ],
