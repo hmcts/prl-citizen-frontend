@@ -192,7 +192,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         reason: AWPApplicationReason.ENFORCE_CHILD_ARRANGEMENTS_ORDER,
         applicableCaseTypes: [CaseType.C100],
         applicablePartyType: {
-          C100: [PartyType.APPLICANT],
+          C100: [PartyType.APPLICANT, PartyType.RESPONDENT],
         },
       },
     ],

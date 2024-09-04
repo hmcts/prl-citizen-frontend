@@ -860,6 +860,19 @@ describe('list of applications content', () => {
           sectionTitle: 'Request an order relating to a child',
         },
         {
+          sectionTitle: 'Enforce a Child Arrangements Order',
+          contents: [
+            'If you want to ask the court to enforce a child arrangements order, you need to complete and submit the form C79.',
+          ],
+          id: 'enforceChildArrangementsOrder',
+          links: [
+            {
+              text: 'Apply to the court using form C79',
+              url: '/respondent/application-within-proceedings/C79/enforce-a-child-arrangements-order/guidance',
+            },
+          ],
+        },
+        {
           contents: ['You can complete form C2 to request the following:'],
           id: 'otherRequestsToCourt',
           links: [
@@ -889,17 +902,6 @@ describe('list of applications content', () => {
             },
           ],
           sectionTitle: 'Other requests to the court where you need to complete a form C2',
-        },
-        {
-          contents: ['You can apply for a parental responsibility order by completing and submitting the form C1.'],
-          id : 'requestParentalResponsibility',
-          links : [
-            {
-              text : 'Apply to the court using form C1',
-              url : '/respondent/application-within-proceedings/C1/request-grant-for-parental-responsibility/guidance',
-            },
-          ],
-          sectionTitle : 'Request the court grants you parental responsibility',
         },
       ],
       breadcrumbs: [
@@ -955,100 +957,105 @@ describe('list of applications content', () => {
     };
     commonContent.additionalData!.req.params = { pageNumber: 2 };
     expect(generateContent(commonContent)).toEqual({
-      accordionTitle: 'Select a form to make an application in your court proceedings.',
-      hideAllSectionsText: 'Hide all sections',
-      hideSectionText: 'Hide',
-      showAllSectionsText: 'Show all sections',
-      showSectionText: 'Show',
-      applications: [
-        {
-          contents: [
-            'You can ask the court to appoint a guardian for a child or end the guardian appointment by completing and submitting the form C1.',
-          ],
-          id: 'requestGuardian',
-          links: [
-            {
-              text: 'Apply to the court using form C1',
-              url: '/respondent/application-within-proceedings/C1/request-appoint-a-guardian-for-child/guidance',
-            },
-          ],
-          sectionTitle: 'Request the court appoints a guardian for the child',
-        },
-        {
-          contents: [
-            'You can ask for a court official to hand court papers to the other person in the case by completing and submitting form D89.',
-            'You can ask for this when it may not be safe for you to deliver the court papers to the other person in a domestic abuse case.',
-          ],
-          id: 'deliverPapersToOtherParty',
-          links: [
-            {
-              text: 'Apply to the court using form D89',
-              url: '/respondent/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
-            },
-          ],
-          sectionTitle: 'Ask the court to deliver papers to the other party',
-        },
-        {
-          contents: [
-            'You can ask the court to order someone to provide information on where a child is or who they are with by completing and submitting the C4 form.',
-          ],
-          id: 'orderToKnowAboutChild',
-          links: [
-            {
-              text: 'Apply to the court using form C4',
-              url: '/respondent/application-within-proceedings/C4/ask-court-to-order-someone-to-provide-child-information/guidance',
-            },
-          ],
-          sectionTitle: 'Ask the court to order someone to provide information on where a child is',
-        },
-        {
-          contents: [
-            'You can appeal or ask for permission to appeal a court order by completing and submitting and completing form N161.',
-          ],
-          id: 'appealCourtOrder',
-          links: [
-            {
-              text: 'Apply to the court using form N161',
-              url: '/respondent/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
-            },
-          ],
-          sectionTitle: 'Appeal a court order or ask for permission to appeal',
-        },
-        {
-          contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href=\"/respondent/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance\" class=\"govuk-link\" aria-label=\"complete and submit form EX740\">complete and submit form EX740</a>.',
-            'If someone has accused you, <a href=\"/respondent/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance\" class=\"govuk-link\" aria-label=\"complete and submit form EX741\">complete and submit form EX741</a>.',
-          ],
-          id: 'courtToPreventAccusations',
-          links: [],
-          sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
-        }
-      ],
+      title: "Make a request to the court about your case",
+      accordionTitle: "Select a form to make an application in your court proceedings.",
       breadcrumbs: [
         {
-          href: '/case/1234',
-          id: 'caseView',
+          id: "caseView",
+          href: "/case/1234",
         },
       ],
       form: {
-        fields: {},
+        fields: {
+        },
       },
+      hideAllSectionsText: "Hide all sections",
+      hideSectionText: "Hide",
+      showSectionText: "Show",
+      showAllSectionsText: "Show all sections",
+      applications: [
+        {
+          id: "requestParentalResponsibility",
+          sectionTitle: "Request the court grants you parental responsibility",
+          contents: [
+            "You can apply for a parental responsibility order by completing and submitting the form C1.",
+          ],
+          links: [
+            {
+              text: "Apply to the court using form C1",
+              url: "/respondent/application-within-proceedings/C1/request-grant-for-parental-responsibility/guidance",
+            },
+          ],
+        },
+        {
+          id: "requestGuardian",
+          sectionTitle: "Request the court appoints a guardian for the child",
+          contents: [
+            "You can ask the court to appoint a guardian for a child or end the guardian appointment by completing and submitting the form C1.",
+          ],
+          links: [
+            {
+              text: "Apply to the court using form C1",
+              url: "/respondent/application-within-proceedings/C1/request-appoint-a-guardian-for-child/guidance",
+            },
+          ],
+        },
+        {
+          id: "deliverPapersToOtherParty",
+          sectionTitle: "Ask the court to deliver papers to the other party",
+          contents: [
+            "You can ask for a court official to hand court papers to the other person in the case by completing and submitting form D89.",
+            "You can ask for this when it may not be safe for you to deliver the court papers to the other person in a domestic abuse case.",
+          ],
+          links: [
+            {
+              text: "Apply to the court using form D89",
+              url: "/respondent/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance",
+            },
+          ],
+        },
+        {
+          id: "orderToKnowAboutChild",
+          sectionTitle: "Ask the court to order someone to provide information on where a child is",
+          contents: [
+            "You can ask the court to order someone to provide information on where a child is or who they are with by completing and submitting the C4 form.",
+          ],
+          links: [
+            {
+              text: "Apply to the court using form C4",
+              url: "/respondent/application-within-proceedings/C4/ask-court-to-order-someone-to-provide-child-information/guidance",
+            },
+          ],
+        },
+        {
+          id: "appealCourtOrder",
+          sectionTitle: "Appeal a court order or ask for permission to appeal",
+          contents: [
+            "You can appeal or ask for permission to appeal a court order by completing and submitting and completing form N161.",
+          ],
+          links: [
+            {
+              text: "Apply to the court using form N161",
+              url: "/respondent/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance",
+            },
+          ],
+        },
+      ],
       pagination: {
         pageNumber: 2,
+        totalPages: 3,
+        show: true,
         next: {
-          href: '/respondent/application-within-proceedings/list-of-applications/3',
-          labelText: '3 of 3',
-          text: 'Next',
+          labelText: "3 of 3",
+          href: "/respondent/application-within-proceedings/list-of-applications/3",
+          text: "Next",
         },
         previous: {
-          href: '/respondent/application-within-proceedings/list-of-applications/1',
-          text: 'Previous',
-          labelText: '1 of 3',
+          labelText: "1 of 3",
+          href: "/respondent/application-within-proceedings/list-of-applications/1",
+          text: "Previous",
         },
-        show: true,
-        totalPages: 3,
       },
-      title: 'Make a request to the court about your case',
     });
   });
 
@@ -1088,6 +1095,16 @@ describe('list of applications content', () => {
       showAllSectionsText: 'Show all sections',
       showSectionText: 'Show',
       applications: [
+        {
+          sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
+
+          contents: [
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/respondent/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX740">complete and submit form EX740</a>.',
+            'If someone has accused you, <a href="/respondent/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX741">complete and submit form EX741</a>.',
+          ],
+          id: 'courtToPreventAccusations',
+          links: [],
+        },
         {
           contents: [
             'If you want to ask for an order authorising search for, taking charge of and delivery of a child, you need to complete and submit the form C3.',
