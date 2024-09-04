@@ -322,13 +322,13 @@ const cy: typeof en = {
             linkText: 'Eich cais (PDF)',
           },
           yourApplicationWelshPDF: {
-            linkText: 'Your application (PDF) in welsh',
+            linkText: 'Eich cais (PDF) yn Gymraeg',
           },
           yourAOHPDF: {
-            linkText: 'Your allegations of harm and violence (PDF)',
+            linkText: 'Eich honiadau o niwed a thrais (PDF)',
           },
           yourAOHWelshPDF: {
-            linkText: 'Your allegations of harm and violence (PDF) in welsh -welsh',
+            linkText: 'Eich honiadau o niwed a thrais (PDF) yn Gymraeg',
           },
           requestToCourtAboutYourCase: {
             linkText: 'Gwneud cais i’r llys am eich achos',
@@ -347,10 +347,10 @@ const cy: typeof en = {
         },
       },
       theResponse: {
-        heading: 'The response (welsh)',
+        heading: 'Yr ymateb',
         tasks: {
           theResponsePDF: {
-            linkText: 'The response to application -welsh',
+            linkText: 'Yr ymateb i’ch cais',
           },
         },
       },
@@ -370,7 +370,7 @@ const cy: typeof en = {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
           supportYouNeed: {
-            linkText: 'Support you need during your case - welsh',
+            linkText: 'Cymorth y mae arnoch ei angen yn ystod eich achos',
           },
           contactPreferences: {
             linkText: 'Dewisiadau cyswllt',
@@ -403,7 +403,7 @@ const cy: typeof en = {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
           supportYouNeed: {
-            linkText: 'Support you need during your case - welsh',
+            linkText: 'Cymorth y mae arnoch ei angen yn ystod eich achos',
           },
         },
       },
@@ -420,7 +420,7 @@ const cy: typeof en = {
             linkText: 'Gwirio’r honiadau o niwed a thrais (PDF)',
           },
           checkAllegationsOfHarmAndViolenceWelsh: {
-            linkText: 'Check the allegations of harm and violence (PDF) in welsh',
+            linkText: 'Gwiriwch y cais (PDF) yn Gymraeg',
           },
           requestToCourtAboutYourCase: {
             linkText: 'Gwneud cais i’r llys am eich achos',
@@ -434,7 +434,7 @@ const cy: typeof en = {
             linkText: "Ymateb i'r cais",
           },
           theResponsePDF: {
-            linkText: 'The response to application -welsh',
+            linkText: 'Yr ymateb i’ch cais',
           },
         },
       },
@@ -476,13 +476,13 @@ const cy: typeof en = {
             linkText: 'Eich cais (PDF)',
           },
           yourApplicationWelshPDF: {
-            linkText: 'Your application (PDF) in welsh',
+            linkText: 'Eich cais (PDF) yn Gymraeg',
           },
           yourAapplicationWitnessStatment: {
             linkText: 'Datganiad tyst (PDF)',
           },
           yourAapplicationWitnessStatmentWelsh: {
-            linkText: 'Witness statement (PDF) in welsh',
+            linkText: 'Datganiad tyst (PDF) yn Gymraeg',
           },
           requestToCourtAboutYourCase: {
             linkText: 'Gwneud cais i’r llys am eich achos',
@@ -523,7 +523,7 @@ const cy: typeof en = {
             linkText: 'Cadw eich manylion yn breifat',
           },
           supportYouNeed: {
-            linkText: 'Support you need during your case - welsh',
+            linkText: 'Cymorth y mae arnoch ei angen yn ystod eich achos',
           },
         },
       },
@@ -547,7 +547,7 @@ const cy: typeof en = {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
           supportYouNeed: {
-            linkText: 'Support you need during your case - welsh',
+            linkText: 'Cymorth y mae arnoch ei angen yn ystod eich achos',
           },
         },
       },
@@ -558,7 +558,7 @@ const cy: typeof en = {
             linkText: 'Gwirio’r cais (PDF)',
           },
           checkTheApplicationWelsh: {
-            linkText: 'Check the application (PDF) in welsh',
+            linkText: 'Gwiriwch y cais (PDF) yn Gymraeg',
           },
           requestToCourtAboutYourCase: {
             linkText: 'Gwneud cais i’r llys am eich achos',
