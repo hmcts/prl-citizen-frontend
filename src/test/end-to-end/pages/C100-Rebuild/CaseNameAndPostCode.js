@@ -9,7 +9,7 @@ module.exports = {
     caseName: '//*[@id="applicantCaseName"]',
     caseNameDetails: 'Test Case',
     childrenPostcodeDetails: '//*[@id="c100RebuildChildPostCode"]',
-    childPostcode: 'B1 1LS'
+    childPostcode: 'SA1 8LD'
 
   },
   async gettingStarted() {
