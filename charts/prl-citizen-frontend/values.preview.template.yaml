@@ -30,7 +30,7 @@ nodejs:
     ENABLE_CASE_TRAIN_TRACK: true
     ENABLE_RA_COMPONENT: true
     ENABLE_PCQ_COMPONENT: true
-    ALLOWED_COURTS: ['Swansea Civil Justice Centre', 'Southampton Combined Court Centre']
+    ALLOWED_COURTS: Swansea Civil Justice Centre, Southampton Combined Court Centre
   keyVaults:
     prl:
       resourceGroup: prl
