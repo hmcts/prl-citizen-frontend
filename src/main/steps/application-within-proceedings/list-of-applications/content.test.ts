@@ -957,86 +957,83 @@ describe('list of applications content', () => {
     };
     commonContent.additionalData!.req.params = { pageNumber: 2 };
     expect(generateContent(commonContent)).toEqual({
-      title: "Make a request to the court about your case",
-      accordionTitle: "Select a form to make an application in your court proceedings.",
+      title: 'Make a request to the court about your case',
+      accordionTitle: 'Select a form to make an application in your court proceedings.',
       breadcrumbs: [
         {
-          id: "caseView",
-          href: "/case/1234",
+          id: 'caseView',
+          href: '/case/1234',
         },
       ],
       form: {
-        fields: {
-        },
+        fields: {},
       },
-      hideAllSectionsText: "Hide all sections",
-      hideSectionText: "Hide",
-      showSectionText: "Show",
-      showAllSectionsText: "Show all sections",
+      hideAllSectionsText: 'Hide all sections',
+      hideSectionText: 'Hide',
+      showSectionText: 'Show',
+      showAllSectionsText: 'Show all sections',
       applications: [
         {
-          id: "requestParentalResponsibility",
-          sectionTitle: "Request the court grants you parental responsibility",
-          contents: [
-            "You can apply for a parental responsibility order by completing and submitting the form C1.",
-          ],
+          id: 'requestParentalResponsibility',
+          sectionTitle: 'Request the court grants you parental responsibility',
+          contents: ['You can apply for a parental responsibility order by completing and submitting the form C1.'],
           links: [
             {
-              text: "Apply to the court using form C1",
-              url: "/respondent/application-within-proceedings/C1/request-grant-for-parental-responsibility/guidance",
+              text: 'Apply to the court using form C1',
+              url: '/respondent/application-within-proceedings/C1/request-grant-for-parental-responsibility/guidance',
             },
           ],
         },
         {
-          id: "requestGuardian",
-          sectionTitle: "Request the court appoints a guardian for the child",
+          id: 'requestGuardian',
+          sectionTitle: 'Request the court appoints a guardian for the child',
           contents: [
-            "You can ask the court to appoint a guardian for a child or end the guardian appointment by completing and submitting the form C1.",
+            'You can ask the court to appoint a guardian for a child or end the guardian appointment by completing and submitting the form C1.',
           ],
           links: [
             {
-              text: "Apply to the court using form C1",
-              url: "/respondent/application-within-proceedings/C1/request-appoint-a-guardian-for-child/guidance",
+              text: 'Apply to the court using form C1',
+              url: '/respondent/application-within-proceedings/C1/request-appoint-a-guardian-for-child/guidance',
             },
           ],
         },
         {
-          id: "deliverPapersToOtherParty",
-          sectionTitle: "Ask the court to deliver papers to the other party",
+          id: 'deliverPapersToOtherParty',
+          sectionTitle: 'Ask the court to deliver papers to the other party',
           contents: [
-            "You can ask for a court official to hand court papers to the other person in the case by completing and submitting form D89.",
-            "You can ask for this when it may not be safe for you to deliver the court papers to the other person in a domestic abuse case.",
+            'You can ask for a court official to hand court papers to the other person in the case by completing and submitting form D89.',
+            'You can ask for this when it may not be safe for you to deliver the court papers to the other person in a domestic abuse case.',
           ],
           links: [
             {
-              text: "Apply to the court using form D89",
-              url: "/respondent/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance",
+              text: 'Apply to the court using form D89',
+              url: '/respondent/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
             },
           ],
         },
         {
-          id: "orderToKnowAboutChild",
-          sectionTitle: "Ask the court to order someone to provide information on where a child is",
+          id: 'orderToKnowAboutChild',
+          sectionTitle: 'Ask the court to order someone to provide information on where a child is',
           contents: [
-            "You can ask the court to order someone to provide information on where a child is or who they are with by completing and submitting the C4 form.",
+            'You can ask the court to order someone to provide information on where a child is or who they are with by completing and submitting the C4 form.',
           ],
           links: [
             {
-              text: "Apply to the court using form C4",
-              url: "/respondent/application-within-proceedings/C4/ask-court-to-order-someone-to-provide-child-information/guidance",
+              text: 'Apply to the court using form C4',
+              url: '/respondent/application-within-proceedings/C4/ask-court-to-order-someone-to-provide-child-information/guidance',
             },
           ],
         },
         {
-          id: "appealCourtOrder",
-          sectionTitle: "Appeal a court order or ask for permission to appeal",
+          id: 'appealCourtOrder',
+          sectionTitle: 'Appeal a court order or ask for permission to appeal',
           contents: [
-            "You can appeal or ask for permission to appeal a court order by completing and submitting and completing form N161.",
+            'You can appeal or ask for permission to appeal a court order by completing and submitting and completing form N161.',
           ],
           links: [
             {
-              text: "Apply to the court using form N161",
-              url: "/respondent/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance",
+              text: 'Apply to the court using form N161',
+              url: '/respondent/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
             },
           ],
         },
@@ -1046,14 +1043,14 @@ describe('list of applications content', () => {
         totalPages: 3,
         show: true,
         next: {
-          labelText: "3 of 3",
-          href: "/respondent/application-within-proceedings/list-of-applications/3",
-          text: "Next",
+          labelText: '3 of 3',
+          href: '/respondent/application-within-proceedings/list-of-applications/3',
+          text: 'Next',
         },
         previous: {
-          labelText: "1 of 3",
-          href: "/respondent/application-within-proceedings/list-of-applications/1",
-          text: "Previous",
+          labelText: '1 of 3',
+          href: '/respondent/application-within-proceedings/list-of-applications/1',
+          text: 'Previous',
         },
       },
     });
