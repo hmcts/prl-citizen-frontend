@@ -17,6 +17,10 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
     this.allowedCourts = config.get('allowedCourts') ?? [];
+
+    if (this.allowedCourts && !_.isArray(this.allowedCourts)) {
+      this.allowedCourts = (this.allowedCourts as string).split(',');
+    }
   }
 
   private signoutAndRedirectToMOJ(req: AppRequest, res: Response): void {
