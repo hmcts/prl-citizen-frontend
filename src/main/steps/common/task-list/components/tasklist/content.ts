@@ -414,7 +414,7 @@ const cy: typeof en = {
             linkText: 'Gwirio’r cais (PDF)',
           },
           checkTheApplicationWelsh: {
-            linkText: 'Check the application (PDF) in welsh',
+            linkText: 'Gwiriwch y cais (PDF) yn Gymraeg',
           },
           checkAllegationsOfHarmAndViolence: {
             linkText: 'Gwirio’r honiadau o niwed a thrais (PDF)',
