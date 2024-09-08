@@ -115,6 +115,9 @@ describe('checking form fields', () => {
             hint: hint => hint.firstNameHint,
             validator: isFieldFilledIn,
             labelSize: 'none',
+            attributes: {
+              autocomplete: 'off',
+            },
           },
           applicantLastName: {
             type: 'text',
@@ -122,6 +125,9 @@ describe('checking form fields', () => {
             label: label => label.lastName,
             validator: isFieldFilledIn,
             labelSize: 'none',
+            attributes: {
+              autocomplete: 'off',
+            },
           },
           addAnotherApplicant: {
             type: 'button',
@@ -168,7 +174,7 @@ describe('applicant > add-applicants > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(dummyApplicants);
+    const { errors } = generateFormFields(dummyApplicants, '');
     languageAssertions(
       'en',
       {
@@ -184,7 +190,7 @@ describe('applicant > add-applicants > content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(dummyApplicants);
+    const { errors } = generateFormFields(dummyApplicants, '');
     languageAssertions(
       'cy',
       {
@@ -232,32 +238,35 @@ describe('applicant > add-applicants > content', () => {
   });
 
   test('applicant > add-applicants > content › chekcing generated form fields', () => {
-    const formFields = generateFormFields([
-      {
-        id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
-        applicantFirstName: 'Test',
-        applicantLastName: 'Test',
-        personalDetails: {
-          haveYouChangeName: YesNoEmpty.EMPTY,
-          applPreviousName: '',
-          dateOfBirth: {
-            day: '',
-            month: '',
-            year: '',
+    const formFields = generateFormFields(
+      [
+        {
+          id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+          applicantFirstName: 'Test',
+          applicantLastName: 'Test',
+          personalDetails: {
+            haveYouChangeName: YesNoEmpty.EMPTY,
+            applPreviousName: '',
+            dateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            gender: Gender.EMPTY,
+            otherGenderDetails: '',
+            applicantPlaceOfBirth: '',
           },
-          gender: Gender.EMPTY,
-          otherGenderDetails: '',
-          applicantPlaceOfBirth: '',
+          reasonableAdjustmentsFlags: [],
         },
-        reasonableAdjustmentsFlags: [],
-      },
-    ]);
+      ],
+      'add'
+    );
     expect(formFields).not.toBe(null);
     expect(1).toBe(1);
   });
 
   test('should generate form fields correctly', () => {
-    const fields = generateFormFields(dummyApplicants).fields as FormFields;
+    const fields = generateFormFields(dummyApplicants, '').fields as FormFields;
 
     const { fieldset1: fieldset1 } = fields as Record<string, FormFields>;
     const {
