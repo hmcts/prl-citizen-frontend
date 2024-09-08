@@ -23,7 +23,7 @@
             value: true,
             preventDoubleClick: true,
             attributes: {
-              id: 'main-form-submit'
+              id: 'main-form-access-code-check'
             }
           }) if getContent(form.accessCodeCheck.text)
         }}
@@ -52,7 +52,7 @@
             disabled: true if form.submit.disabled else false,
             preventDoubleClick: true,
             attributes: {
-              id: 'main-form-submit'
+              id: 'main-form-save-and-continue'
             }
           }) if getContent(form.submit.text)
         }}
@@ -93,7 +93,7 @@
             name: "onlycontinue",
             value: true,
             attributes: {
-              id: 'main-form-save-as-draft'
+              id: 'main-form-only-continue'
             }
           }) if getContent(form.onlycontinue.text)
         }}
@@ -107,7 +107,7 @@
             name: "saveAndComeLater",
             value: true,
             attributes: {
-              id: 'main-form-save-as-draft'
+              id: 'main-form-save-and-come-back-later'
             }
           }) if getContent(form.saveAndComeLater.text)
         }}
