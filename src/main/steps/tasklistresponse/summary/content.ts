@@ -120,7 +120,7 @@ export const enContent = {
   yourResponse: 'Your response will be shared with the other people in this case.',
   confirm: 'Confirm before continuing',
   submit:
-    "<p>Once you submit your response, you cannot make any further changes. Please select 'Submit your response' to complete your online response.</p> <p>You can download a copy of your submitted response using the link below.</p>",
+    "Once you submit your response, you cannot make any further changes. Please select 'Submit your response' to complete your online response.",
   download: 'You can download a copy of your submitted response using the link below.',
   believeFacts: 'I believe that the facts stated in this response are true',
   statementOfTruthSubmission:
@@ -310,7 +310,7 @@ export const cyContent: typeof enContent = {
   yourResponse: 'Bydd eich ymateb yn cael ei rannu gyda’r bobl eraill yn yr achos hwn',
   confirm: 'Cadarnhewch cyn parhau',
   submit:
-    '<p>Unwaith y byddwch wedi cyflwyno’ch ymateb, ni allwch wneud unrhyw newidiadau pellach iddo. Dewiswch ‘Cyflwyno eich ymateb’ i gwblhau eich ymateb ar-lein.</p> <p>Gallwch ddefnyddio’r ddolen isod i lawrlwytho copi o’r ymateb rydych wedi’i gyflwyno.</p>',
+    'Unwaith y byddwch wedi cyflwyno’ch ymateb, ni allwch wneud unrhyw newidiadau pellach iddo. Dewiswch ‘Cyflwyno eich ymateb’ i gwblhau eich ymateb ar-lein.',
   download: 'Gallwch ddefnyddio’r ddolen isod i lawrlwytho copi o’r ymateb rydych wedi’i gyflwyno.',
   believeFacts: 'Credaf fod y ffeithiau a nodir yn yr ymateb hwn yn wir',
   statementOfTruthSubmission:
@@ -738,7 +738,7 @@ export const form: FormContent = {
     },
     submit: {
       type: 'inset',
-      label: l => `${l.submit}`,
+      label: l => `<p>${l.submit}</p><p>${l.download}</p>`,
     },
     statementOfTruthSubmission: {
       type: 'textAndHtml',
