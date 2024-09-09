@@ -3,6 +3,7 @@ import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../..
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
+import { HTML } from '../../../steps/c100-rebuild/check-your-answers/common/htmlSelectors';
 import { CommonContent } from '../../../steps/common/common.content';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
@@ -119,7 +120,7 @@ export const enContent = {
   yourResponse: 'Your response will be shared with the other people in this case.',
   confirm: 'Confirm before continuing',
   submit:
-    "Once you submit your response, you cannot make any further changes. Please select 'Submit your response' to complete your online response.",
+    "<p>Once you submit your response, you cannot make any further changes. Please select 'Submit your response' to complete your online response.</p> <p>You can download a copy of your submitted response using the link below.</p>",
   download: 'You can download a copy of your submitted response using the link below.',
   believeFacts: 'I believe that the facts stated in this response are true',
   statementOfTruthSubmission:
@@ -309,7 +310,7 @@ export const cyContent: typeof enContent = {
   yourResponse: 'Bydd eich ymateb yn cael ei rannu gyda’r bobl eraill yn yr achos hwn',
   confirm: 'Cadarnhewch cyn parhau',
   submit:
-    'Unwaith y byddwch wedi cyflwyno’ch ymateb, ni allwch wneud unrhyw newidiadau pellach iddo. Dewiswch ‘Cyflwyno eich ymateb’ i gwblhau eich ymateb ar-lein.',
+    '<p>Unwaith y byddwch wedi cyflwyno’ch ymateb, ni allwch wneud unrhyw newidiadau pellach iddo. Dewiswch ‘Cyflwyno eich ymateb’ i gwblhau eich ymateb ar-lein.</p> <p>Gallwch ddefnyddio’r ddolen isod i lawrlwytho copi o’r ymateb rydych wedi’i gyflwyno.</p>',
   download: 'Gallwch ddefnyddio’r ddolen isod i lawrlwytho copi o’r ymateb rydych wedi’i gyflwyno.',
   believeFacts: 'Credaf fod y ffeithiau a nodir yn yr ymateb hwn yn wir',
   statementOfTruthSubmission:
@@ -723,12 +724,32 @@ const cy: typeof en = (content: CommonContent) => {
 
 export const form: FormContent = {
   fields: {
+    statementOfTruth: {
+      type: 'textAndHtml',
+      textAndHtml: l => `${HTML.H1}${l.statementOfTruth} ${HTML.H1_CLOSE}`,
+    },
+    confirm: {
+      type: 'textAndHtml',
+      textAndHtml: l => `${HTML.STATEMENT_OF_TRUTH_H2}${l.confirm} ${HTML.STATEMENT_OF_TRUTH_H2_CLOSE}`,
+    },
+    warningText: {
+      type: 'warning',
+      label: l => `${l.warningText}`,
+    },
+    submit: {
+      type: 'inset',
+      label: l => `${l.submit}`,
+    },
+    statementOfTruthSubmission: {
+      type: 'textAndHtml',
+      label: l => `${l.statementOfTruthSubmission}`,
+    },
     declarationCheck: {
       type: 'checkboxes',
       values: [
         {
           name: 'declarationCheck',
-          label: l => l.declaration,
+          label: l => l.believeFacts,
           value: 'declaration',
         },
       ],

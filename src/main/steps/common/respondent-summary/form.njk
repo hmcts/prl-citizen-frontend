@@ -23,37 +23,9 @@
 {% block after_fields %}
    <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-              <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                <h2 class="govuk-heading-l">
-                  {{statementOfTruth}}
-                </h2>
-                <h2 class="govuk-heading-m">
-                  {{confirm}}
-                </h2>
-              </legend>
-              <div class="govuk-warning-text">
-                 <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                 <strong class="govuk-warning-text__text">
-                   <span class="govuk-warning-text__assistive">{{warning}}</span>
-                   {{warningText}}
-
-                 </strong>
-               </div>
-<div class="govuk-inset-text">
-          <p>{{submit}}</p>
-            <p>{{download}}</p>
-        </div>
+            
             <div class="govuk-!-padding-bottom-6"></div>
-            <div class="govuk-form-group">
-          <div class="govuk-checkboxes govuk-!-padding-bottom-2">
-            <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" style="background-color: white" id="declarationCheckInput" name="declarationCheck" type="checkbox" value="declaration">
-              <label class="govuk-label govuk-checkboxes__label" for="declarationCheck">
-                {{believeFacts}}
-              </label>
-            </div>
-          </div>
-        </div>
+            
             <p class="govuk-body govuk-!-padding-bottom-4">
           {{statementOfTruthSubmission}}
         </p>
