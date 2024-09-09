@@ -1,16 +1,37 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
+import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasContactPreference } from '../../../../../../steps/common/contact-preference/util';
 import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseClosed, isCaseLinked, isDocPresent } from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
-import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, DOWNLOAD_DOCUMENT_BY_TYPE } from '../../../../../urls';
+import {
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
+  CHOOSE_CONTACT_PREFERENCE,
+  DOWNLOAD_DOCUMENT_BY_TYPE,
+} from '../../../../../urls';
 import { StateTags, TaskListSection, Tasks, getContents, getFinalApplicationStatus } from '../utils';
 
 import { aboutYou, document, hearing, order } from './ca_respondent';
 
 export const DA_RESPONDENT: TaskListConfigProps[] = [
-  aboutYou,
+  {
+    ...aboutYou,
+    tasks: (): Task[] =>
+      [...aboutYou.tasks()].map(taskItem =>
+        taskItem.id === Tasks.CONTACT_PREFERENCES
+          ? {
+              id: Tasks.CONTACT_PREFERENCES,
+              href: () => applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: PartyType.RESPONDENT }),
+              disabled: isCaseClosed,
+              stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+                !hasContactPreference(caseData as CaseWithId, userDetails.id) ? StateTags.TO_DO : StateTags.COMPLETED,
+            }
+          : taskItem
+      ),
+  },
   {
     id: TaskListSection.THE_APPLICATION,
     content: getContents.bind(null, TaskListSection.THE_APPLICATION),
