@@ -4,9 +4,13 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <p class="govuk-body-m">{{legalRepresentativeInformationLine1}}</p>
   <p class="govuk-body-m">{{legalRepresentativeInformationLine2}}</p>
-  <ul class="govuk-list govuk-list--bullet govuk-!-font-weight-bold">
+  
+  <ul class="govuk-list govuk-list--bullet">
+  <h2 class="govuk-heading-s">
     <li>{{legalRepresentativeInformationLine3}}{{userCase.id}}</li>
     <li>{{legalRepresentativeInformationLine4}}{{partyName}}</li>
+      </h2>
   </ul>
+
   <p class="govuk-body-m">{{legalRepresentativeInformationLine5}}</p>
 {% endblock %}

@@ -34,7 +34,12 @@
 <form action="{{params.formPostURL}}?_csrf={{ params.csrfToken }}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="_csrf" id="csrfToken" value="{{ params.csrfToken }}">
 {% set selectedFileType = "image/jpeg,image/tiff,image/png,application/pdf,image/jpg,image/bmp,image/tif,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"%}
+{% set html %}
+   <h2 class="govuk-heading-s govuk-label-wrapper">
+     {{params.fileuploadTitle}}
+   </h2>
 
+   {% endset %}
 {{ govukFileUpload({
   id: "document",
   name: "documents",
@@ -44,9 +49,9 @@
   },
   classes: "govuk-!-margin-bottom-3",
   label: {
-    text: params.fileuploadTitle,
+    html: html
   }
-})}}
+}) }}
   {{ govukButton({
     text: params.uploadButtonText,
     type: "upload document",

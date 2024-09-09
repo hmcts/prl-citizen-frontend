@@ -1,7 +1,7 @@
 {% extends "common/respondent-summary/template.njk" %}
 {% block page_content %}
-{% if section %}
-    <h1 class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</h1>
+{% if title %}
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ title }}</h1>
   {% endif %}
       <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
@@ -11,8 +11,8 @@
         </strong>
 
     </div>
-  {% if title %}
-    <p class="govuk-body-l">{{ title }}</p>
+  {% if subTitle %}
+    <p class="govuk-body-l">{{ subTitle }}</p>
   {% endif %}
  
 {% endblock %}

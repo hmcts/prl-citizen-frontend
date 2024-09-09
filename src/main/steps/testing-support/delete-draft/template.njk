@@ -5,10 +5,11 @@
       <div class="column-two-thirds">
           <form action="/draft-controller/deleteC100Draft?_csrf={{ csrfToken }}" method="post">
             <div class="govuk-form-group govuk-!-margin-bottom-3">
-           
+           <h2 class="govuk-label-wrapper">
               <label class="govuk-label govuk-label--l" for="event-name">
                Case ID(s)
               </label>
+            </h2>
             <p class="govuk-body-m"> Please enter the case references, you want to delete coma separated eg. 123456, 23456, 89687</p>
 
             <input class="govuk-input govuk-!-width-two-thirds" id="idList" name="ids" type="text">

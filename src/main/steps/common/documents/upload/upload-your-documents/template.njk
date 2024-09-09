@@ -17,11 +17,11 @@
         method="post"
         novalidate>
           <div class="govuk-form-group">
-            <div class="govuk-label-wrapper">
+            <h2 class="govuk-label-wrapper">
               <label class="govuk-label" for="more-detail">
                 {{textAreaDocUploadText1}}
               </label>
-            </div>
+            </h2>
 
             {{ govukTextarea({
               name: "statementText",
@@ -65,9 +65,11 @@
           <div class="govuk-form-group--error">
           {% endif %}
           <div class="govuk-form-group govuk-inset-text">
-            <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+          <h2 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--s for="file-document-upload">
               {{uploadFileHeading}}
             </label>
+            </h2>
             <form
             action="?docCategory={{ docCategory }}&_csrf={{ csrfToken }}"
             method="post"
@@ -126,9 +128,9 @@
     <div class="govuk-form-group govuk-!-margin-bottom-0">
       <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-          <h3 class="govuk-heading-m">
+          <h2 class="govuk-heading-m">
             {{ statementOfTruth }}
-          </h3>
+          </h2>
         </legend>
         <div class="govuk-warning-text">
           <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
