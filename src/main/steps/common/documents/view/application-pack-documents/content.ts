@@ -22,11 +22,11 @@ const languages = {
   cy: {
     caseNumber: cy.caseNumber,
     pageCaption: cy.viewDocuments.title,
-    packServedTitle: 'Your served application pack - welsh',
-    packToBeServedTitle: 'Application pack for the respondent - welsh',
-    note: 'This is your application pack. Do not hand this to the respondent. - welsh',
+    packServedTitle: 'Eich pecyn cais a gyflwynwyd',
+    packToBeServedTitle: 'Pecyn cais ar gyfer yr atebydd',
+    note: 'Dyma eich pecyn cais. Peidiwch â rhoi hwn i’r atebydd',
     content:
-      'You should read the cover letter first as this tells you what to do next. The cover letter also gives you more information on the other documents in your pack and what you need to do with them. - welsh',
+      "Dylech ddarllen y llythyr eglurhaol yn gyntaf gan ei fod yn dweud wrthych beth i'w wneud nesaf. Mae’r llythyr eglurhaol hefyd yn rhoi mwy o wybodaeth i chi am y dogfennau eraill yn eich pecyn a beth sydd angen i chi ei wneud gyda nhw",
   },
 };
 

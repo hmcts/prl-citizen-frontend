@@ -10,7 +10,7 @@ const cy: typeof en = {
   home: 'Hafan',
   caseView: 'Gweld yr achos',
   caseOverView: 'Trosolwg o’r achos',
-  allDocuments: 'All documents - welsh',
+  allDocuments: 'Pob dogfen',
   requestTheCourtForChange: 'Gwneud cais i’r llys am eich achos',
 };
 

@@ -9,7 +9,7 @@ export * from './routeGuard';
 
 const languages = {
   en: { ...en, categories: 'Categories', lastUpdate: 'Last update' },
-  cy: { ...cy, categories: 'Categories -welsh', lastUpdate: 'Last update -welsh' },
+  cy: { ...cy, categories: 'Categorïau', lastUpdate: 'Diweddariad diwethaf' },
 };
 
 export const generateContent: TranslationFn = content => {
