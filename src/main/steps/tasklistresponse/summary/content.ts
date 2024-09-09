@@ -738,7 +738,7 @@ export const form: FormContent = {
     },
     submit: {
       type: 'inset',
-      label: l => `<p>${l.submit}</p><p>${l.download}</p>`,
+      label: l => `<p class="govuk-body">${l.submit}</p><p class="govuk-body">${l.download}</p>`,
     },
     statementOfTruthSubmission: {
       type: 'textAndHtml',
