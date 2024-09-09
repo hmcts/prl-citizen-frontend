@@ -6,7 +6,7 @@ import { summaryList } from '../../../common/summary/utils';
 import { updateContent } from './handler';
 
 export const enContent = {
- title: 'Check your answers',
+  title: 'Check your answers',
   subTitle: 'Mediation Information and Assessment Meeting (MIAM) attendance',
   sectionTitles: {
     MIAMDetails: '',

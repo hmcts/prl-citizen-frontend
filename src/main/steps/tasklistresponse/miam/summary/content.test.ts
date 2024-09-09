@@ -6,7 +6,7 @@ import { generateContent } from './content';
 
 // eslint-disable-next-line jest/no-export
 export const enContent = {
- title: 'Check your answers',
+  title: 'Check your answers',
   subTitle: 'Mediation Information and Assessment Meeting (MIAM) attendance',
   sectionTitles: {
     MIAMDetails: '',

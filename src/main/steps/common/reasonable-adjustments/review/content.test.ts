@@ -45,7 +45,7 @@ const en = {
 };
 
 const cy = {
-title: 'Gwirio eich atebion',
+  title: 'Gwirio eich atebion',
   subTitle: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
     aboutYou: 'Amdanoch chi',
