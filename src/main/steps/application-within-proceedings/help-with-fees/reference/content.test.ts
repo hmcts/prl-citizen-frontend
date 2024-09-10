@@ -102,7 +102,9 @@ describe('help with fees content', () => {
     expect((helpWithFeesReferenceFields.values[0].label as Function)(generatedContent)).toBe(en.yes);
 
     expect(referenceSubField?.type).toBe('textAndHtml');
-    expect((referenceSubField?.textAndHtml as Function)(generatedContent)).toBe("<h2 class=\"govuk-heading-s govuk-!-margin-bottom-0\">Enter your help with fees reference number</h2>");
+    expect((referenceSubField?.textAndHtml as Function)(generatedContent)).toBe(
+      '<h2 class="govuk-heading-s govuk-!-margin-bottom-0">Enter your help with fees reference number</h2>'
+    );
 
     expect(referenceNumberSubField?.type).toBe('text');
     expect((referenceNumberSubField?.label as Function)(generatedContent)).toBe(en.referenceText);
