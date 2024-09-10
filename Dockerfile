@@ -1,5 +1,5 @@
 # ---- Base image ----
-FROM hmctspublic.azurecr.io/base/node:18.20.4 as base
+FROM hmctspublic.azurecr.io/base/node:20-alpine as base
 COPY --chown=hmcts:hmcts . .
 RUN yarn install --production \
   && yarn cache clean
