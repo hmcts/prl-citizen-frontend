@@ -19,7 +19,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     this.allowedCourts = config.get('allowedCourts') ?? [];
 
     if (this.allowedCourts && !_.isArray(this.allowedCourts)) {
-      this.allowedCourts = this.allowedCourts.split(',');
+      this.allowedCourts = (this.allowedCourts as string).split(',');
     }
   }
 
