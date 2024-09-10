@@ -7,7 +7,7 @@ import { getApplicationDetails, getApplicationListUrl } from '../../utils';
 
 export const en = {
   title: 'Do you have a help with fees reference number?',
-  enterReferenceNumber: '<h2 class="govuk-heading-s">Enter your help with fees reference number</h2>',
+  enterReferenceNumber: 'Enter your help with fees reference number',
   referenceText:
     'You will have received this number when you applied for Help with Fees. This reference must not have been used for a previous application.',
   hint: 'For example, HWF-A1B-23C',
@@ -27,7 +27,7 @@ export const en = {
 
 export const cy: typeof en = {
   title: 'A oes gennych chi gyfeirnod Help i Dalu Ffioedd?',
-  enterReferenceNumber: '<h2 class="govuk-heading-s">Rhowch eich cyfeirnod Help i Dalu Ffioedd</h2>',
+  enterReferenceNumber: 'Rhowch eich cyfeirnod Help i Dalu Ffioedd',
   referenceText:
     'Byddwch wedi cael y rhif hwn pan wnaethoch gais am Help i Dalu Ffioedd. Ni ddylai’r cyfernod hwn fod wedi’i ddefnyddio ar gyfer cais blaenorol.',
   hint: 'Er enghraifft, HWF-A1B-23C',
@@ -62,7 +62,7 @@ export const form: FormContent = {
           subFields: {
             awp_hwf_referenceLabel: {
               type: 'textAndHtml',
-              textAndHtml: l => l.enterReferenceNumber,
+              textAndHtml: l => `<h2 class="govuk-heading-s govuk-!-margin-bottom-0">${l.enterReferenceNumber}</h2>`,
             },
             awp_hwf_referenceNumber: {
               type: 'text',
