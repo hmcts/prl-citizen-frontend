@@ -23,7 +23,7 @@
             value: true,
             preventDoubleClick: true,
             attributes: {
-              id: 'main-form-access-code-check'
+              id: 'main-form-submit'
             }
           }) if getContent(form.accessCodeCheck.text)
         }}
@@ -52,7 +52,7 @@
             disabled: true if form.submit.disabled else false,
             preventDoubleClick: true,
             attributes: {
-              id: 'main-form-save-and-continue'
+              id: 'main-form-submit'
             }
           }) if getContent(form.submit.text)
         }}
