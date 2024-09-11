@@ -13,6 +13,7 @@ import {
   C100_APPLICANT_ADD_APPLICANTS,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
 } from '../../../urls';
+import { setDynamicFormContext } from '../../people/util';
 // eslint-disable-next-line import/no-unresolved
 
 @autobind
@@ -73,6 +74,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       this.addAnotherApplicant(req);
       this.resetSessionTemporaryFormValues(req);
     }
+    setDynamicFormContext(req, 'add');
     return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
   }
 

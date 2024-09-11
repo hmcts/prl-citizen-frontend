@@ -55,12 +55,11 @@ export const aboutYou: TaskListConfigProps = {
   },
   tasks: (): Task[] => [
     {
-      id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
-      href: (caseData: Partial<CaseWithId>) =>
-        `${applyParms(DETAILS_KNOWN, { partyType: PartyType.RESPONDENT })}/${caseData.id}`,
-      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+      id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
+      href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
+      stateTag: (caseData, userDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-        return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
+        return getConfirmOrEditYourContactDetailsStatus(respondent);
       },
     },
     {
@@ -72,11 +71,12 @@ export const aboutYou: TaskListConfigProps = {
       show: (caseData: Partial<CaseWithId>) => caseData.caseTypeOfApplication === CaseType.C100,
     },
     {
-      id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
-      href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
-      stateTag: (caseData, userDetails) => {
+      id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
+      href: (caseData: Partial<CaseWithId>) =>
+        `${applyParms(DETAILS_KNOWN, { partyType: PartyType.RESPONDENT })}/${caseData.id}`,
+      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-        return getConfirmOrEditYourContactDetailsStatus(respondent);
+        return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
       },
     },
     {

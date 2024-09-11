@@ -3,6 +3,7 @@ import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../..
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
+import { HTML } from '../../../steps/c100-rebuild/check-your-answers/common/htmlSelectors';
 import { CommonContent } from '../../../steps/common/common.content';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
@@ -723,12 +724,32 @@ const cy: typeof en = (content: CommonContent) => {
 
 export const form: FormContent = {
   fields: {
+    statementOfTruth: {
+      type: 'textAndHtml',
+      textAndHtml: l => `${HTML.H1}${l.statementOfTruth} ${HTML.H1_CLOSE}`,
+    },
+    confirm: {
+      type: 'textAndHtml',
+      textAndHtml: l => `${HTML.STATEMENT_OF_TRUTH_H2}${l.confirm} ${HTML.STATEMENT_OF_TRUTH_H2_CLOSE}`,
+    },
+    warningText: {
+      type: 'warning',
+      label: l => `${l.warningText}`,
+    },
+    submit: {
+      type: 'inset',
+      label: l => `<p class="govuk-body">${l.submit}</p><p class="govuk-body">${l.download}</p>`,
+    },
+    statementOfTruthSubmission: {
+      type: 'textAndHtml',
+      label: l => `${l.statementOfTruthSubmission}`,
+    },
     declarationCheck: {
       type: 'checkboxes',
       values: [
         {
           name: 'declarationCheck',
-          label: l => l.declaration,
+          label: l => l.believeFacts,
           value: 'declaration',
         },
       ],
