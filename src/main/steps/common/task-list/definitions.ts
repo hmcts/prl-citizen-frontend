@@ -25,7 +25,7 @@ export type TaskListConfigProps = {
   id: TaskListSection;
   content: (caseType: CaseType, partyType: PartyType, language: string) => TaskListContent;
   show?: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => boolean;
-  tasks: (caseData: Partial<CaseWithId>, content: SectionContent) => Task[];
+  tasks: (caseData?: Partial<CaseWithId>, content?: SectionContent) => Task[];
 };
 
 export type TaskListContent = {

@@ -1416,7 +1416,7 @@ export const whereDoChildrenLive = (
     newChildDataStorage.push({
       key: interpolate(keys['whoDoesChildMainlyLiveWith'], { firstname, lastname }),
       value: '',
-      valueHtml: `${mainlyLivesWith.firstName} ${mainlyLivesWith.lastName}`,
+      valueHtml: `${mainlyLivesWith?.firstName} ${mainlyLivesWith?.lastName}`,
       changeUrl: applyParms(Urls['C100_CHILDERN_MAINLY_LIVE_WITH'], { childId: id }),
     });
 
