@@ -6,8 +6,8 @@ import { CommonContent, en as enContent, generatePageContent } from '../../commo
 import { generateContent } from './content';
 
 const en = {
-  section: 'Check your details',
-  title: 'Read the information to make sure it is correct, and add any missing details',
+  title: 'Check your details',
+  subTitle: 'Read the information to make sure it is correct, and add any missing details',
   contactdetailpriv:
     'if you do not want to share your contact details with the other person in the case,update the section',
   contactdetailprivlinktext: 'keeping your contact details private',
@@ -29,8 +29,8 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Gwiriwch eich manylion cyswllt',
-  title: 'Darllenwch yr wybodaeth i wneud yn siŵr ei bod yn gywir, ac ychwanegwch unrhyw fanylion sydd ar goll',
+  title: 'Gwiriwch eich manylion cyswllt',
+  subTitle: 'Darllenwch yr wybodaeth i wneud yn siŵr ei bod yn gywir, ac ychwanegwch unrhyw fanylion sydd ar goll',
   contactdetailpriv:
     'Os nad ydych eisiau rhannu eich manylion cyswllt gyda’r unigolyn arall yn yr achos, diweddarwch yr adran',
   contactdetailprivlinktext: 'Cadw eich manylion cyswllt yn breifat',
