@@ -27,6 +27,9 @@
       <dd class="govuk-summary-list__actions">
         <a class="govuk-link" href="{{changeLink}}">
           {{change}}
+                  <span class="govuk-visually-hidden">
+            {{ email if contactPreference === 'email' else address }}</span> 
+
         </a>
       </dd>
     </div>
