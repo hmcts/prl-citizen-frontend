@@ -1,4 +1,15 @@
 {% extends "common/template.njk" %}
 {% block page_content %}
 <h1 class="govuk-heading-xl">{{title}}</h1>
+
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% set html %}
+  <p class="govuk-notification-banner__heading">{{ applicantIdamEmailHeading }}</p>
+  <p class="govuk-body govuk-!-margin-bottom-2">{{ applicantIdamEmailContent }}</p>
+{% endset %}
+
+{{ govukNotificationBanner({
+  html: html
+}) }}
+
 {% endblock %}

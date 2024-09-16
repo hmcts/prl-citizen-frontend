@@ -3,11 +3,13 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   CHOOSE_CONTACT_PREFERENCE,
   DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT_BY_TYPE,
@@ -18,12 +20,14 @@ import {
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
+  VIEW_TYPE_DOCUMENT,
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
 import {
   hasRespondentRespondedToC7Application,
   isCaseClosed,
   isCaseLinked,
+  isDocPresent,
   isRepresentedBySolicotor,
 } from '../../../utils';
 import {
@@ -51,12 +55,11 @@ export const aboutYou: TaskListConfigProps = {
   },
   tasks: (): Task[] => [
     {
-      id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
-      href: (caseData: Partial<CaseWithId>) =>
-        `${applyParms(DETAILS_KNOWN, { partyType: PartyType.RESPONDENT })}/${caseData.id}`,
-      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+      id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
+      href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
+      stateTag: (caseData, userDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-        return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
+        return getConfirmOrEditYourContactDetailsStatus(respondent);
       },
     },
     {
@@ -68,11 +71,12 @@ export const aboutYou: TaskListConfigProps = {
       show: (caseData: Partial<CaseWithId>) => caseData.caseTypeOfApplication === CaseType.C100,
     },
     {
-      id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
-      href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
-      stateTag: (caseData, userDetails) => {
+      id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
+      href: (caseData: Partial<CaseWithId>) =>
+        `${applyParms(DETAILS_KNOWN, { partyType: PartyType.RESPONDENT })}/${caseData.id}`,
+      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-        return getConfirmOrEditYourContactDetailsStatus(respondent);
+        return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
       },
     },
     {
@@ -154,32 +158,74 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
     show: isCaseLinked,
     tasks: (): Task[] => [
       {
-        //** validate **
         id: Tasks.CHECK_THE_APPLICATION,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'cada-document',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           }),
-        stateTag: caseData => getFinalApplicationStatus(caseData),
+        stateTag: caseData => getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH),
         disabled: caseData => {
-          return getFinalApplicationStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
+          return getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH) === StateTags.NOT_AVAILABLE_YET;
         },
         openInAnotherTab: () => true,
       },
       {
-        //** validate **
+        id: Tasks.CHECK_THE_APPLICATION_WELSH,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.RESPONDENT,
+            documentType: 'cada-document',
+            language: DOCUMENT_LANGUAGE.WELSH,
+          }),
+        stateTag: caseData => getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.WELSH),
+        show: caseData => {
+          return (
+            getFinalApplicationStatus(caseData, DOCUMENT_LANGUAGE.WELSH) !== StateTags.NOT_AVAILABLE_YET &&
+            isDocPresent(caseData, 'finalWelshDocument')
+          );
+        },
+        openInAnotherTab: () => true,
+      },
+      {
         id: Tasks.CHECK_AOH_AND_VIOLENCE,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.RESPONDENT,
             documentType: 'aoh-document',
+            language: DOCUMENT_LANGUAGE.ENGLISH,
           }),
-        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData),
+        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH),
         disabled: caseData => {
-          return getCheckAllegationOfHarmStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
+          return getCheckAllegationOfHarmStatus(caseData, DOCUMENT_LANGUAGE.ENGLISH) === StateTags.NOT_AVAILABLE_YET;
         },
         openInAnotherTab: () => true,
+      },
+      {
+        id: Tasks.CHECK_AOH_AND_VIOLENCE_WELSH,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.RESPONDENT,
+            documentType: 'aoh-document',
+            language: DOCUMENT_LANGUAGE.WELSH,
+          }),
+        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData, DOCUMENT_LANGUAGE.WELSH),
+        show: caseData => {
+          return isDocPresent(caseData, 'c1AWelshDocument');
+        },
+        openInAnotherTab: () => true,
+      },
+      {
+        id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
+        href: () =>
+          applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+            partyType: PartyType.RESPONDENT,
+            pageNumber: '1',
+          }),
+        stateTag: () => StateTags.OPTIONAL,
+        show: isCaseLinked,
+        disabled: isCaseClosed,
       },
     ],
   },
@@ -196,18 +242,21 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.RESPOND_TO_THE_APPLICATION,
-        href: (caseData, userDetails) => {
-          return hasRespondentRespondedToC7Application(caseData, userDetails)
-            ? applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
-                partyType: PartyType.RESPONDENT,
-                documentType: 'c7-response-document',
-              })
-            : RESPOND_TO_APPLICATION;
-        },
+        href: () => RESPOND_TO_APPLICATION,
         stateTag: (caseData, userDetails) => {
           return getC7ApplicationResponseStatus(caseData, userDetails);
         },
-        openInAnotherTab: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
+        show: (caseData, userDetails) => !hasRespondentRespondedToC7Application(caseData, userDetails),
+      },
+      {
+        id: Tasks.THE_RESPONSE_PDF,
+        href: () =>
+          applyParms(VIEW_TYPE_DOCUMENT, {
+            partyType: PartyType.RESPONDENT,
+            type: 'respondent',
+          }),
+        stateTag: () => StateTags.READY_TO_VIEW,
+        show: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
       },
     ],
   },

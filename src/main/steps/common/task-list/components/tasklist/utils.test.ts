@@ -22,7 +22,7 @@ describe('getCheckAllegationOfHarmStatus', () => {
         document_binary_url: 'DOC_BINARY_URL',
       },
     };
-    expect(getCheckAllegationOfHarmStatus(data)).toBe('readyToView');
+    expect(getCheckAllegationOfHarmStatus(data, 'en')).toBe('readyToView');
   });
 
   test('should return correct status when c1a document not present', () => {
@@ -31,7 +31,7 @@ describe('getCheckAllegationOfHarmStatus', () => {
       state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.FL401,
     };
-    expect(getCheckAllegationOfHarmStatus(data)).toBe('notAvailableYet');
+    expect(getCheckAllegationOfHarmStatus(data, 'en')).toBe('notAvailableYet');
   });
 
   test('should return correct status when isAllegationOfHarmViewed is yes', () => {
@@ -68,7 +68,7 @@ describe('getCheckAllegationOfHarmStatus', () => {
         },
       ],
     };
-    expect(getCheckAllegationOfHarmStatus(data)).toBe('readyToView');
+    expect(getCheckAllegationOfHarmStatus(data, 'en')).toBe('readyToView');
   });
 });
 
@@ -239,7 +239,7 @@ describe('getFinalApplicationStatus', () => {
         document_binary_url: 'DOC_BINARY_URL',
       },
     };
-    expect(getFinalApplicationStatus(data)).toBe('readyToView');
+    expect(getFinalApplicationStatus(data, 'en')).toBe('readyToView');
   });
 
   test('should return correct status when finalDocument document not present', () => {
@@ -248,7 +248,7 @@ describe('getFinalApplicationStatus', () => {
       state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.FL401,
     };
-    expect(getFinalApplicationStatus(data)).toBe('notAvailableYet');
+    expect(getFinalApplicationStatus(data, 'en')).toBe('notAvailableYet');
   });
 
   test('should return correct status when isApplicationViewed is yes', () => {
@@ -285,7 +285,7 @@ describe('getFinalApplicationStatus', () => {
         },
       ],
     };
-    expect(getFinalApplicationStatus(data)).toBe('readyToView');
+    expect(getFinalApplicationStatus(data, 'en')).toBe('readyToView');
   });
 });
 

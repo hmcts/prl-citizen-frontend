@@ -185,7 +185,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     }
 
     try {
-      const response = await client.uploadStatementDocument(user, {
+      const response = await client.uploadDocument(user, {
         files: [files['uploadDocumentFileUpload']],
       });
 

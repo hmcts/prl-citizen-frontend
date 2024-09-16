@@ -2,7 +2,7 @@ import { Case } from '../../../app/case/case';
 import { C100RebuildPartyDetails, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
-  C100_CHILDERN_LIVE_WITH,
+  C100_CHILDERN_MAINLY_LIVE_WITH,
   C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_ADD,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
@@ -33,7 +33,7 @@ class OtherPersonsDetailsNavigationController {
         const hasOtherPerson = caseData.oprs_otherPersonCheck === YesOrNo.YES;
         nextUrl = hasOtherPerson
           ? C100_OTHER_PERSON_DETAILS_ADD
-          : applyParms(C100_CHILDERN_LIVE_WITH, { childId: this.childrenDetails[0].id });
+          : applyParms(C100_CHILDERN_MAINLY_LIVE_WITH, { childId: this.childrenDetails[0].id });
         break;
       }
       case C100_OTHER_PERSON_DETAILS_ADD: {
@@ -76,7 +76,7 @@ class OtherPersonsDetailsNavigationController {
           ? applyParms(C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS, {
               otherPersonId: nextPerson.id as C100RebuildPartyDetails['id'],
             })
-          : applyParms(C100_CHILDERN_LIVE_WITH, { childId: this.childrenDetails[0].id });
+          : applyParms(C100_CHILDERN_MAINLY_LIVE_WITH, { childId: this.childrenDetails[0].id });
         break;
       }
       default: {

@@ -11,6 +11,11 @@ const en = {
     [PartyType.APPLICANT]: {
       hyperlinks: [
         {
+          label: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
+          link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+          target: '_blank',
+        },
+        {
           label: 'Add a legal representative',
           link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
           target: '',
@@ -65,6 +70,11 @@ const en = {
     [PartyType.RESPONDENT]: {
       hyperlinks: [
         {
+          label: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
+          link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+          target: '_blank',
+        },
+        {
           label: 'Add a legal representative',
           link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
         },
@@ -95,6 +105,11 @@ const en = {
     [PartyType.APPLICANT]: {
       hyperlinks: [
         {
+          label: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
+          link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+          target: '_blank',
+        },
+        {
           label: 'Add a legal representative',
           link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
         },
@@ -122,6 +137,11 @@ const en = {
     },
     [PartyType.RESPONDENT]: {
       hyperlinks: [
+        {
+          label: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
+          link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+          target: '_blank',
+        },
         {
           label: 'Add a legal representative',
           link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
@@ -155,6 +175,11 @@ const cy: typeof en = {
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
       hyperlinks: [
+        {
+          label: 'Beth i’w ddisgwyl pan fyddwch yn dod i lys neu dribiwnlys – GOV.UK(www.gov.uk)',
+          link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+          target: '_blank',
+        },
         {
           label: 'Ychwanegu cynrychiolydd cyfreithiol',
           link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
@@ -210,6 +235,11 @@ const cy: typeof en = {
     [PartyType.RESPONDENT]: {
       hyperlinks: [
         {
+          label: 'Beth i’w ddisgwyl pan fyddwch yn dod i lys neu dribiwnlys – GOV.UK(www.gov.uk)',
+          link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+          target: '_blank',
+        },
+        {
           label: 'Ychwanegu cynrychiolydd cyfreithiol',
           link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
         },
@@ -240,6 +270,11 @@ const cy: typeof en = {
     [PartyType.APPLICANT]: {
       hyperlinks: [
         {
+          label: 'Beth i’w ddisgwyl pan fyddwch yn dod i lys neu dribiwnlys – GOV.UK(www.gov.uk)',
+          link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+          target: '_blank',
+        },
+        {
           label: 'Ychwanegu cynrychiolydd cyfreithiol',
           link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
         },
@@ -267,6 +302,11 @@ const cy: typeof en = {
     },
     [PartyType.RESPONDENT]: {
       hyperlinks: [
+        {
+          label: 'Beth i’w ddisgwyl pan fyddwch yn dod i lys neu dribiwnlys – GOV.UK(www.gov.uk)',
+          link: 'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal',
+          target: '_blank',
+        },
         {
           label: 'Ychwanegu cynrychiolydd cyfreithiol',
           link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,

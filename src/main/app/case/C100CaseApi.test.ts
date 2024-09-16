@@ -94,7 +94,7 @@ describe('CaseApi', () => {
     });
     const userCase = await api.createCaseTestingSupport();
 
-    expect(userCase).toBe('1234');
+    expect(userCase.caseId).toBe('1234');
     expect(mockedAxios.post).toHaveBeenCalledWith('/testing-support/create-dummy-citizen-case');
   });
 

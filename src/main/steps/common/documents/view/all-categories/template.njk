@@ -1,0 +1,102 @@
+{% extends "common/page.njk" %}
+{% from "common/breadcrumb/breadcrumb.macro.njk" import appBreadcrumb with context %}
+
+{% block backLink %}{% endblock %}
+
+{% block pageTitle %}
+  {{viewDocuments.title}} - Private law - GOV.UK
+{% endblock %}
+
+{% block page_content %}
+  {{appBreadcrumb(breadcrumbs)}}
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">
+    {{viewDocuments.title}}
+  </h1>
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <p class="govuk-body">{{caseNumber}}&nbsp;&nbsp;{{caseId}}</p>
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    </fieldset>
+  </div>
+  
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+     <dt class="govuk-summary-list__key govuk-!-width-full">
+        <p>
+          {{categories}}
+        </p>
+      </dt>
+      <dd>
+      </dd>
+      <dd class="govuk-summary-list__key govuk-!-width-one-quarter">
+      
+        <p >
+          {{lastUpdate}}
+        </p>
+      </dd>
+    </div>
+  
+  {% for section in sections %}
+     {% if section.items.length==1 %}
+       <div class="govuk-summary-list__row">
+          {% for item in section.items %}
+             
+                <dt class="govuk-summary-list__key govuk-!-width-full">
+                  {% if item.link.openInAnotherTab %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status" target="_blank">
+                    {{item.link.text}}
+                  </a>
+                {% else %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status">
+                    {{item.link.text}}
+                  </a>
+                {% endif %}
+
+                </dt>
+                <dd>
+                </dd>
+
+                <dd class="govuk-summary-list__value govuk-!-width-one-quarter">
+                  {{item.link.serveDate}}
+                </dd>
+             
+          {% endfor %}
+      </div>  
+
+      {% else %}
+      {% for item in section.items %}
+                  <div class="govuk-summary-list__row">
+          
+             
+                <dt class="govuk-summary-list__key govuk-!-width-full">
+                  {% if item.link.openInAnotherTab %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status" target="_blank">
+                    {{item.link.text}}
+                  </a>
+                {% else %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status">
+                    {{item.link.text}}
+                  </a>
+                {% endif %}
+
+                </dt>
+                <dd>
+                </dd>
+
+                <dd class="govuk-summary-list__value govuk-!-width-one-quarter">
+                  {{item.link.serveDate}}
+                </dd>
+             
+          
+      </div> 
+      {% endfor %}
+                {% endif %}
+  {% endfor %}
+     
+    
+</dl>
+      
+      
+
+{% endblock %}

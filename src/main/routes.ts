@@ -10,6 +10,8 @@ import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
+import UploadDocumentController from './steps/application-within-proceedings/document-upload/postController';
+import { processAWPApplication } from './steps/application-within-proceedings/utils';
 import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
 import { AohSequence } from './steps/common/safety-concerns/sequence';
@@ -20,6 +22,8 @@ import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetCont
 import { TasklistGetController } from './steps/tasklistresponse/TasklistGetController';
 import {
   APPLICANT_CHECK_ANSWERS,
+  APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK,
+  APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
   C100_RETRIVE_CASE,
   CA_RESPONDENT_GENERATE_C7_DRAFT,
   CONSENT_TO_APPLICATION,
@@ -131,6 +135,10 @@ export class Routes {
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
         );
+        app.post(
+          APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
+          errorHandler(new UploadDocumentController(step.form.fields).post)
+        );
       }
     }
     /**
@@ -138,6 +146,7 @@ export class Routes {
      */
     app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
+    app.get(APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK, errorHandler(processAWPApplication));
   }
 
   private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {

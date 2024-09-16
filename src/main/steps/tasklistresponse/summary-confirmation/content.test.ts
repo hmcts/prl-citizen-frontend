@@ -33,6 +33,7 @@ const en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c7-response-document',
+        language: 'en',
       }),
       isVisible: true,
     },
@@ -42,7 +43,8 @@ const en = {
       language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c7-response-document-welsh',
+        documentType: 'c7-response-document',
+        language: 'cy',
       }),
       isVisible: false,
     },
@@ -53,6 +55,7 @@ const en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-application-document',
+        language: 'en',
       }),
       isVisible: false,
     },
@@ -62,7 +65,8 @@ const en = {
       language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c1a-application-document-welsh',
+        documentType: 'c1a-application-document',
+        language: 'cy',
       }),
       isVisible: false,
     },
@@ -73,6 +77,7 @@ const en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-response-document',
+        language: 'en',
       }),
       isVisible: false,
     },
@@ -82,7 +87,8 @@ const en = {
       language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c1a-response-document-welsh',
+        documentType: 'c1a-response-document',
+        language: 'cy',
       }),
       isVisible: false,
     },
@@ -113,6 +119,7 @@ const cy: typeof en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c7-response-document',
+        language: 'en',
       }),
       isVisible: true,
     },
@@ -122,7 +129,8 @@ const cy: typeof en = {
       language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c7-response-document-welsh',
+        documentType: 'c7-response-document',
+        language: 'cy',
       }),
       isVisible: false,
     },
@@ -133,6 +141,7 @@ const cy: typeof en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-application-document',
+        language: 'en',
       }),
       isVisible: false,
     },
@@ -142,7 +151,8 @@ const cy: typeof en = {
       language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c1a-application-document-welsh',
+        documentType: 'c1a-application-document',
+        language: 'cy',
       }),
       isVisible: false,
     },
@@ -153,6 +163,7 @@ const cy: typeof en = {
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
         documentType: 'c1a-response-document',
+        language: 'en',
       }),
       isVisible: false,
     },
@@ -162,7 +173,8 @@ const cy: typeof en = {
       language: 'cy',
       href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
         partyType: PartyType.RESPONDENT,
-        documentType: 'c1a-response-document-welsh',
+        documentType: 'c1a-response-document',
+        language: 'cy',
       }),
       isVisible: false,
     },
@@ -188,7 +200,7 @@ describe('citizen-home content', () => {
     };
     // commonContent.additionalData!.req.session.user.id='123'
     commonContent.userCase = mockUserCase;
-    commonContent.userCase.citizenDocuments = [
+    commonContent.userCase.respondentDocuments = [
       {
         partyId: '123',
         partyType: PartyType.RESPONDENT,

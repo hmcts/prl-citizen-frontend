@@ -5,17 +5,9 @@ import _ from 'lodash';
 import { CaseWithId } from '../../../app/case/case';
 import { UserDetails } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
-import { DocumentCategory } from '../documents/definitions';
 
-import {
-  CaseType,
-  PartyDetails,
-  PartyType,
-  Respondent,
-  ServedParty,
-  State,
-  YesOrNo,
-} from './../../../app/case/definition';
+import { CaseType, PartyDetails, PartyType, Respondent, State, YesOrNo } from './../../../app/case/definition';
+import { findC7ResponseDocument } from './components/notification-banner/utils';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -48,7 +40,7 @@ export const getPartyName = (
   return partyDetails ? `${partyDetails.firstName} ${partyDetails.lastName}` : '';
 };
 
-export const isCaseWithdrawn = (caseData: Partial<CaseWithId>): boolean => {
+export const isCaseWithdrawn = (caseData: CaseWithId): boolean => {
   if (!caseData) {
     return false;
   }
@@ -61,7 +53,7 @@ export const isCaseWithdrawn = (caseData: Partial<CaseWithId>): boolean => {
         order.value.isWithdrawnRequestApproved === YesOrNo.YES
     );
   } else {
-    return [State.CASE_WITHDRAWN].includes(caseData.state!);
+    return [State.CASE_WITHDRAWN].includes(caseData.state);
   }
 };
 
@@ -76,6 +68,12 @@ export const isCaseClosed = (caseData: Partial<CaseWithId>): boolean =>
 
 export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
   return caseData?.state === State.CASE_DRAFT;
+};
+export const isDocPresent = (caseData: Partial<CaseWithId>, filename: string): boolean => {
+  if (caseData[filename]) {
+    return true;
+  }
+  return false;
 };
 
 export const isRepresentedBySolicotor = (caseData: CaseWithId, userId: UserDetails['id']): boolean => {
@@ -97,27 +95,6 @@ export const isC7ResponseSubmitted = (respondent: PartyDetails | undefined): boo
   return _.get(respondent, 'response.c7ResponseSubmitted', YesOrNo.NO) === YesOrNo.YES;
 };
 
-export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
-
-export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => {
-  if (
-    caseData.finalServedApplicationDetailsList?.length &&
-    caseData.finalServedApplicationDetailsList.find(list =>
-      list.value.emailNotificationDetails?.find(i => i.value?.servedParty === ServedParty.CYMRU)
-    )
-  ) {
-    return true;
-  }
-  return false;
-};
-
-export const hasResponseBeenReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
-  return !!(
-    caseData?.citizenDocuments?.length &&
-    caseData.citizenDocuments.find(
-      document =>
-        (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
-        document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
-    )
-  );
+export const isC7ResponseReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
+  return !!findC7ResponseDocument(caseData as CaseWithId, respondent);
 };

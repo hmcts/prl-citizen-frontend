@@ -83,6 +83,7 @@ export const generateContent: TranslationFn = content => {
     draftApplicationDownloadUrl: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
       partyType: PartyType.APPLICANT,
       documentType: 'c100-application',
+      language: 'en',
       forceDownload: 'forceDownload',
     }),
   };

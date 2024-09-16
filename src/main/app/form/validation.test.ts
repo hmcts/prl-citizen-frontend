@@ -25,6 +25,7 @@ import {
   isValidAccessCode,
   isValidCaseReference,
   isValidFileFormat,
+  isValidOption,
   notSureViolation,
 } from './validation';
 
@@ -432,5 +433,17 @@ describe('should return valid files', () => {
   test('Should check if value does not exist', async () => {
     const isValidFile = isValidFileFormat(files);
     expect(isValidFile).toStrictEqual(true);
+  });
+});
+
+describe('isValidOption', () => {
+  test('Should return error value if invalid option passed', () => {
+    const invalidOption = isValidOption('');
+    expect(invalidOption).toStrictEqual('notSelected');
+  });
+
+  test('Should return undefined for valid option', () => {
+    const invalidOption = isValidOption('test case');
+    expect(invalidOption).toStrictEqual(undefined);
   });
 });

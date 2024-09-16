@@ -41,6 +41,6 @@ export const generateContent: TranslationFn = content => {
       },
     ],
     title: getDocumentSectionTitle(ViewDocumentsSectionId.ORDERS_FROM_THE_COURT, documentSectionTitles),
-    documents: getOrderDocuments(caseData.citizenOrders, loggedInUserPartyType),
+    documents: getOrderDocuments(caseData.citizenOrders, loggedInUserPartyType, content.language),
   };
 };

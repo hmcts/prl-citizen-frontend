@@ -1,0 +1,44 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% extends "common/template.njk" %}
+{% from "common/fileupload/macro-v1.njk" import fileUpload with context %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">
+    {{title}}
+  </h1>
+
+  {% if fileUploadConfig.errorMessage != undefined %}
+    <div class="govuk-form-group--error">
+    {% endif %}
+
+    {{ fileUpload({
+      name: "statementOfServiceDoc",
+      uploadButtonText: fileUploadConfig.uploadButtonText,
+      labelText: fileUploadConfig.labelText,
+      hintText: fileUploadConfig.hintText,
+      allowedFileTypes: "image/jpg,image/jpeg,application/rtf,image/bmp,image/png,image/tiff,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      uploadUrl: "",
+      uploadedFiles: fileUploadConfig.uploadedFiles,
+      errorMessage: fileUploadConfig.errorMessage,
+      uploadedFilesCaption: fileUploadConfig.uploadedFilesCaption,
+      noFilesText: fileUploadConfig.noFilesText,
+      removeFileText: fileUploadConfig.removeFileText,
+      token: csrfToken
+    }) }}
+
+    {% if fileUploadConfig.errorMessage != undefined %}
+    </div>
+  {% endif %}
+
+  {% set uploadGuidelinesList = ""%}
+  {% for item in uploadGuidelines %}
+    {% set uploadGuidelinesList = uploadGuidelinesList + "<li>" + item + "</li>"%}
+  {% endfor %}
+  {% set uploadGuidelinesText = "<ol class='govuk-list govuk-list--number'>" + uploadGuidelinesList + "</ol>" %}
+
+  {{ govukDetails({
+  summaryText: uploadGuidelinesAccordionLabel,
+  text: uploadGuidelinesText  | safe
+}) }}
+
+{% endblock %}

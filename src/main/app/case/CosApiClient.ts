@@ -4,11 +4,15 @@ import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
 import {
+  AWPApplicationReason,
+  AWPApplicationType,
+  AWPFeeDetailsRequest,
   CaseData,
   CaseEvent,
   CaseType,
   Document,
   DocumentUploadResponse,
+  FeeDetailsResponse,
   PartyDetails,
   PartyType,
   UserRole,
@@ -17,7 +21,7 @@ import {
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
-import { CaseWithId, HearingData } from './case';
+import { CaseWithId, HearingData, StatementOfServiceRequest } from './case';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -182,6 +186,91 @@ export class CosApiClient {
     }
   }
 
+  public async createAWPApplication(
+    user: UserDetails,
+    caseData: CaseWithId,
+    applicationType: AWPApplicationType,
+    applicationReason: AWPApplicationReason,
+    partyType: PartyType,
+    partyDetails: Partial<PartyDetails> | undefined
+  ): Promise<CaseWithId> {
+    try {
+      const {
+        id: caseId,
+        awp_need_hwf,
+        awp_have_hwfReference,
+        awp_hwf_referenceNumber,
+        awp_completedForm,
+        awp_agreementForRequest,
+        awp_informOtherParties,
+        awp_reasonCantBeInformed,
+        awp_uploadedApplicationForms,
+        awp_cancelDelayHearing,
+        awp_isThereReasonForUrgentRequest,
+        awp_urgentRequestReason,
+        awp_hasSupportingDocuments,
+        awp_supportingDocuments,
+        awpFeeDetails,
+      } = caseData;
+      const data = {
+        awpType: applicationType,
+        awpReason: applicationReason,
+        partyId: user.id,
+        partyName: `${partyDetails?.firstName} ${partyDetails?.lastName}`,
+        partyType,
+        awp_completedForm,
+        awp_agreementForRequest,
+        awp_informOtherParties,
+        awp_reasonCantBeInformed,
+        awp_need_hwf,
+        awp_have_hwfReference,
+        awp_hwf_referenceNumber,
+        awp_uploadedApplicationForms: awp_uploadedApplicationForms?.map(document => ({
+          document_url: document.url,
+          document_filename: document.filename,
+          document_binary_url: document.binaryUrl,
+          document_hash: document.hash,
+          category_id: document.categoryId,
+          document_creation_date: document.createdDate,
+        })),
+        awp_cancelDelayHearing: awp_cancelDelayHearing?.replace(/--/, ' - '),
+        awp_isThereReasonForUrgentRequest,
+        awp_urgentRequestReason,
+        awp_hasSupportingDocuments,
+        awp_supportingDocuments: awp_supportingDocuments?.map(document => ({
+          document_url: document.url,
+          document_filename: document.filename,
+          document_binary_url: document.binaryUrl,
+          document_hash: document.hash,
+          category_id: document.categoryId,
+          document_creation_date: document.createdDate,
+        })),
+        feeType: awpFeeDetails?.feeType,
+      };
+      const response = await this.client.post(
+        config.get('services.cos.url') + `/citizen/${caseId}/save-citizen-awp-application`,
+        data
+      );
+      return response.data;
+    } catch (err) {
+      throw new Error('AWP application could not be created.');
+    }
+  }
+
+  /**  submit respondent response*/
+  public async submitRespondentResponse(caseId: string, partyId: string, data: Partial<CaseData>): Promise<CaseWithId> {
+    try {
+      const response = await this.client.post(
+        config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
+        data
+      );
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, final-c7document generation failed - submitRespondentResponse');
+    }
+  }
   /**  generate c7 draft document*/
   public async generateC7DraftDocument(
     caseId: string,
@@ -218,10 +307,7 @@ export class CosApiClient {
     }
   }
 
-  public async uploadStatementDocument(
-    user: UserDetails,
-    request: DocumentFileUploadRequest
-  ): Promise<DocumentUploadResponse> {
+  public async uploadDocument(user: UserDetails, request: DocumentFileUploadRequest): Promise<DocumentUploadResponse> {
     try {
       const formData = new FormData();
 
@@ -244,17 +330,17 @@ export class CosApiClient {
       };
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, upload citizen statement document failed - UploadDocumentListFromCitizen');
+      throw new Error('Error occured, upload citizen statement document failed - uploadDocument');
     }
   }
 
-  public async deleteCitizenStatementDocument(documentId: string): Promise<string> {
+  public async deleteDocument(documentId: string): Promise<string> {
     try {
       const response = await this.client.delete(config.get('services.cos.url') + `/${documentId}/delete`);
       return response.data;
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, document could not be deleted. - deleteCitizenStatementDocument');
+      throw new Error('Error occured, document could not be deleted. - deleteDocument');
     }
   }
 
@@ -332,14 +418,27 @@ export class CosApiClient {
   }
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  public async retrieveCaseHearingsByCaseId(user: UserDetails, caseId: string): Promise<any> {
+  public async retrieveCaseHearingsByCaseId(caseId: string): Promise<{ hearingData: HearingData | null }> {
     try {
       const response = await this.client.post(config.get('services.cos.url') + `/hearing/${caseId}`);
 
+      return { hearingData: response.data };
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, hearing details could not be retrieved - retrieveCaseHearingsByCaseId');
+    }
+  }
+
+  public async fetchAWPFeeCodeDetails(applicationDetails: AWPFeeDetailsRequest): Promise<FeeDetailsResponse> {
+    try {
+      const response = await this.client.post<FeeDetailsResponse>(
+        config.get('services.cos.url') + '/fees-and-payment-apis/getFeeCode',
+        applicationDetails
+      );
       return response.data;
     } catch (error) {
       this.logError(error);
-      throw new Error('Error occured, case could not be updated - retrieveCaseHearingsByCaseId');
+      throw new Error('Error occured, fee details could not be retrieved - fetchAWPFeeCodeDetails');
     }
   }
 
@@ -380,6 +479,24 @@ export class CosApiClient {
     }
   }
 
+  public async submitStatementOfService(
+    caseId: string,
+    statementOfServiceData: StatementOfServiceRequest
+  ): Promise<AxiosResponse> {
+    try {
+      const response = await this.client.post(
+        config.get('services.cos.url') +
+          `/${caseId}/${CaseEvent.UPLOAD_STATEMENT_OF_SERVICE}/save-statement-of-service-by-citizen`,
+        statementOfServiceData
+      );
+
+      return response;
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, could not sumbit statement of service. - SubmitStatementOfService');
+    }
+  }
+
   public async findCourtByPostCodeAndService(postCode: string): Promise<FindCourtByPostCodeAndServiceResponse> {
     try {
       const response = await this.client.get(
@@ -417,6 +534,17 @@ export interface SubmitUploadedDocsRequest extends DocumentUploadRequest {
   isRestricted?: YesOrNo;
   restrictDocumentDetails?: string;
   documents: DocumentUploadResponse['document'][];
+}
+export interface UploadDocumentRequest {
+  user: UserDetails;
+  caseId: string;
+  parentDocumentType: string;
+  documentType: string;
+  partyId: string;
+  partyName: string;
+  isApplicant: string;
+  files: UploadedFiles;
+  documentRequestedByCourt: YesOrNo;
 }
 
 export type UploadedFiles =

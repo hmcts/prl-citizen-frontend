@@ -79,11 +79,11 @@ const cy: typeof en = {
       required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
     },
     uploadDocumentFileUpload: {
-      multipleFiles: 'You can upload only one document. - welsh',
-      noFile: 'Upload a file. - welsh',
+      multipleFiles: 'Gallwch uwchlwytho un dogfen yn unig',
+      noFile: 'Uwchlwytho ffeil',
       noStatementOrFile: 'Rhowch eich datganiad neu llwythwch ffeil.',
-      uploadError: 'Document could not be uploaded. - welsh',
-      deleteError: 'Document could not be deleted. - welsh',
+      uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
+      deleteError: "Ni ellir dileu'r ddogfen",
     },
   },
 };

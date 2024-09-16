@@ -1,0 +1,17 @@
+{% extends "common/template.njk" %}
+
+{% block backLink %}{% endblock %}
+
+{% block page_content %}
+  <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-2 govuk-!-padding-7">
+    <h1 class="govuk-panel__title">
+      {{ title }}
+    </h1>
+  </div>
+  <p class="govuk-body-m govuk-!-margin-bottom-2">{{ updatesFromCourt }}<p>
+  <h3 class="govuk-heading-m">{{ next }}</h3>
+  <p class="govuk-body-m govuk-!-margin-bottom-8">{{ courtConsider }}<p>
+ <a class="govuk-button govuk-button--primary" href={{caseOverviewUrl}} data-module="govuk-button">
+        {{closeAndReturn}}
+  </a>
+{% endblock %}

@@ -5,7 +5,7 @@ import { fromApiDate } from '../../../../app/case/from-api-format';
 import { toApiDate } from '../../../../app/case/to-api-format';
 import type { AppRequest } from '../../../../app/controller/AppRequest';
 import { getFormattedDate } from '../../../common/summary/utils';
-console.info('** FOR SONAR **');
+
 export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   const request: Partial<PartyDetails> = {};
 

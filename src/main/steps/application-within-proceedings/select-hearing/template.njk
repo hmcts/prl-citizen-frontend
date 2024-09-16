@@ -1,0 +1,14 @@
+{% extends "common/template.njk" %}
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block error_summary %}
+  {% include "application-within-proceedings/error/summary.njk" %}
+{% endblock %}
+
+{% block page_content %}
+  <span class="govuk-caption-l">{{ caption }}</span>
+  {% if title %}
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% endif %}
+{% endblock %}

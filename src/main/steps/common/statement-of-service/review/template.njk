@@ -1,0 +1,26 @@
+{% extends "common/page.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block page_content %}
+
+  <h1 class="govuk-heading-l">
+    {{title}}
+  </h1>
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <p class="govuk-body">{{caseNumber}}:&nbsp;{{userCase.id}}</p>
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    </fieldset>
+  </div>
+
+  {{ govukSummaryList({
+          classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
+          rows: summaryListRows
+        })
+      }}
+
+  <h1 class="govuk-heading-m">{{ statementOfTruthHeading }}</h1>
+  <p class="govuk-body">{{ confirmation }}</p>
+
+{% endblock %}
