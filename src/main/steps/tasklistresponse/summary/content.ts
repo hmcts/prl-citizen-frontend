@@ -726,7 +726,7 @@ export const form: FormContent = {
   fields: {
     statementOfTruth: {
       type: 'textAndHtml',
-      textAndHtml: l => `${HTML.H1}${l.statementOfTruth} ${HTML.H1_CLOSE}`,
+      textAndHtml: l => `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${l.statementOfTruth} ${HTML.H2_CLOSE}`,
     },
     confirm: {
       type: 'textAndHtml',

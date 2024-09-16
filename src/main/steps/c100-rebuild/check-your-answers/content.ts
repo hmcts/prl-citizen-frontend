@@ -687,7 +687,7 @@ export const generateContent: TranslationFn = content => {
 
   form.fields['statementOftruthHeading'] = {
     type: 'textAndHtml',
-    textAndHtml: `${HTML.H1}${newContents.StatementOfTruth['title']} ${HTML.H1_CLOSE}`,
+    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${newContents.StatementOfTruth['title']} ${HTML.H2_CLOSE}`,
   };
 
   form.fields['statementOftruthSubHeading'] = {

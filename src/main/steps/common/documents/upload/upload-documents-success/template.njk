@@ -16,7 +16,7 @@
 
   {% if haveReasonForDocNotToBeShared === "No"%}
     {% set html %}
-    <h2 class="govuk-notification-banner__heading">{{ bannerTitle }}</h2>
+    <h3 class="govuk-notification-banner__heading">{{ bannerTitle }}</h3>
     {% for content in bannerContents %}
       <p class="govuk-body">{{ content | safe }}</p>
     {% endfor %}

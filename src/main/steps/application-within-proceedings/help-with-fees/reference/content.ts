@@ -62,7 +62,7 @@ export const form: FormContent = {
           subFields: {
             awp_hwf_referenceLabel: {
               type: 'textAndHtml',
-              textAndHtml: l => `<h2 class="govuk-heading-s govuk-!-margin-bottom-0">${l.enterReferenceNumber}</h2>`,
+              textAndHtml: l => `<h3 class="govuk-heading-s govuk-!-margin-bottom-0">${l.enterReferenceNumber}</h3>`,
             },
             awp_hwf_referenceNumber: {
               type: 'text',
