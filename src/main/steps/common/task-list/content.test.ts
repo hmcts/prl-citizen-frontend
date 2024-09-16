@@ -1,7 +1,6 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { PartyType, State, YesOrNo } from '../../../app/case/definition';
-import { APPLICANT_ADD_LEGAL_REPRESENTATIVE } from '../../urls';
 import { CommonContent } from '../common.content';
 import { generateContent } from '../task-list/content';
 
@@ -9,11 +8,6 @@ describe('testcase for tasklist', () => {
   const en = {
     caseNumber: 'Case number ',
     hyperlinks: [
-      {
-        label: 'Add a legal representative',
-        link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-        target: '',
-      },
       {
         label: 'Know more about child arrangements',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
@@ -131,11 +125,6 @@ describe('testcase for tasklist', () => {
     caseNumber: 'Rhif yr achos ',
     iWantTo: 'Rwyf eisiau...',
     hyperlinks: [
-      {
-        label: 'Ychwanegu cynrychiolydd cyfreithiol',
-        link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-        target: '',
-      },
       {
         label: 'Gwybod mwy am drefniadau plant',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
