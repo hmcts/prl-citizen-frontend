@@ -341,9 +341,6 @@ const createFormFileds = (
             label: l => l.no,
             value: YesNoEmpty.NO,
           },
-          {
-            value: YesNoEmpty.EMPTY,
-          },
         ],
       },
       [`orderEndDate-${count}`]: {
@@ -396,9 +393,6 @@ const createFormFileds = (
           {
             label: l => l.no,
             value: YesNoEmpty.NO,
-          },
-          {
-            value: YesNoEmpty.EMPTY,
           },
         ],
       },
