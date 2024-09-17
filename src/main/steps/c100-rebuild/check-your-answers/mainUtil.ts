@@ -225,12 +225,11 @@ export const ChildernDetails = (
   const newChildDataStorage: {
     key: string;
     keyHtml?: string;
-    spanLabel?: string;
+    visuallyHiddenText?: string;
     value: string;
     valueHtml?: string;
     changeUrl: string;
   }[] = [];
-  let count = 1;
   for (const child in sessionChildData) {
     const firstname = sessionChildData[child]['firstName'],
       lastname = sessionChildData[child]['lastName'],
@@ -259,18 +258,27 @@ export const ChildernDetails = (
       },
       {
         key: keys['fullName'],
-        spanLabel: `Child ${count} ${keys['fullName']}`,
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['fullName']}`,
         value: firstname + ' ' + lastname,
         changeUrl: Urls['C100_CHILDERN_DETAILS_ADD'],
       }
     );
 
-    populateDateOfBirth(personalDetails, newChildDataStorage, keys, language, id, true, count, 'Child');
+    populateDateOfBirth(
+      personalDetails,
+      newChildDataStorage,
+      keys,
+      language,
+      id,
+      true,
+      parseInt(child) + 1,
+      `${keys['child']}`
+    );
 
     newChildDataStorage.push(
       {
         key: keys['childGenderLabel'],
-        spanLabel: `Child ${count} ${keys['childGenderLabel']}`,
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['childGenderLabel']}`,
         value: '',
         valueHtml:
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
@@ -288,21 +296,20 @@ export const ChildernDetails = (
       },
       {
         key: keys['orderAppliedFor'],
-        spanLabel: `Child ${count} ${keys['orderAppliedFor']}`,
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['orderAppliedFor']}`,
         value: '',
         valueHtml: childResolution?.split(',').join(''),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
         key: keys['parentalResponsibility']?.split('[^^^]').join(` ${firstname} ${lastname} `),
-        spanLabel: `Child ${count} ${keys['parentalResponsibility']
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['parentalResponsibility']
           ?.split('[^^^]')
           .join(` ${firstname} ${lastname} `)}`,
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       }
     );
-    count++;
   }
   const SummaryData = newChildDataStorage;
   return {
@@ -362,7 +369,7 @@ export const OtherChildrenDetails = (
   const newChildDataStorage: {
     key: string;
     keyHtml?: string;
-    spanLabel?: string;
+    visuallyHiddenText?: string;
     value: string;
     valueHtml?: string;
     changeUrl: string;
@@ -374,7 +381,6 @@ export const OtherChildrenDetails = (
     changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
   });
   if (userCase['ocd_hasOtherChildren'] === 'Yes') {
-    let count = 1;
     for (const child in sessionChildData) {
       const firstname = sessionChildData[child]['firstName'],
         lastname = sessionChildData[child]['lastName'],
@@ -391,14 +397,23 @@ export const OtherChildrenDetails = (
         {
           key: keys['fullName'],
           value: firstname + ' ' + lastname,
-          spanLabel: `Child ${count} ${keys['fullName']}`,
+          visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['fullName']}`,
           changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
         }
       );
-      populateDateOfBirth(personalDetails, newChildDataStorage, keys, language, id, false, count, 'Other child');
+      populateDateOfBirth(
+        personalDetails,
+        newChildDataStorage,
+        keys,
+        language,
+        id,
+        false,
+        parseInt(child) + 1,
+        'Other child'
+      );
       newChildDataStorage.push({
         key: keys['childGenderLabel'],
-        spanLabel: `Child ${count} ${keys['childGenderLabel']}`,
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['childGenderLabel']}`,
         value: translation(personalDetails?.['gender'], language),
         valueHtml:
           translation(personalDetails?.['gender'], language) +
@@ -414,7 +429,6 @@ export const OtherChildrenDetails = (
             : '',
         changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
       });
-      count++;
     }
   }
 
@@ -451,12 +465,11 @@ export const ApplicantDetails = (
   const newApplicantData: {
     key: string;
     keyHtml?: string;
-    spanLabel?: string;
+    visuallyHiddenText?: string;
     value: string;
     valueHtml?: string;
     changeUrl: string;
   }[] = [];
-  let count = 1;
   for (const applicant in sessionApplicantData) {
     const fullname =
       sessionApplicantData[applicant]['applicantFirstName'] +
@@ -490,19 +503,19 @@ export const ApplicantDetails = (
       },
       {
         key: keys['fullName'],
-        spanLabel: `Applicant ${count} ${keys['fullName']}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['fullName']}`,
         value: fullname,
         changeUrl: Urls['C100_APPLICANT_ADD_APPLICANTS'],
       },
       {
         key: keys['anyOtherPeopleKnowDetails'],
-        spanLabel: `Applicant ${count} ${keys['anyOtherPeopleKnowDetails']}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['anyOtherPeopleKnowDetails']}`,
         value: getYesNoTranslation(language, sessionApplicantData[applicant]['detailsKnown'], 'ydyntTranslation'),
         changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
       },
       {
         key: keys['doYouWantToKeep'],
-        spanLabel: `Applicant ${count} ${keys['doYouWantToKeep']}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['doYouWantToKeep']}`,
         value: '',
         valueHtml:
           sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
@@ -515,14 +528,14 @@ export const ApplicantDetails = (
       },
       {
         key: keys['haveYouChangeNameLabel'],
-        spanLabel: `Applicant ${count} ${keys['haveYouChangeNameLabel']}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['haveYouChangeNameLabel']}`,
         value: '',
         valueHtml: ApplicantDetailNameParser(personalDetails, keys, language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
         key: keys['childGenderLabel'],
-        spanLabel: `Applicant ${count} ${keys['childGenderLabel']}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['childGenderLabel']}`,
         value: '',
         valueHtml:
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
@@ -540,13 +553,13 @@ export const ApplicantDetails = (
       },
       {
         key: keys['dobLabel'],
-        spanLabel: `Applicant ${count} ${keys['dobLabel']}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['dobLabel']}`,
         value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
         key: keys['respondentPlaceOfBirth'],
-        spanLabel: `Applicant ${count} ${keys['respondentPlaceOfBirth']}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['respondentPlaceOfBirth']}`,
         value: personalDetails?.['applicantPlaceOfBirth'],
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       }
@@ -559,7 +572,7 @@ export const ApplicantDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newApplicantData.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        spanLabel: `Applicant ${count} ${keys['relationshipTo'] + ' ' + childFullName}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['relationshipTo'] + ' ' + childFullName}`,
         value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
@@ -575,7 +588,7 @@ export const ApplicantDetails = (
     newApplicantData.push(
       {
         key: keys['addressDetails'],
-        spanLabel: `Applicant ${count} ${keys['addressDetails']}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['addressDetails']}`,
         value: '',
         valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys, language),
         changeUrl: applyParms(Urls['C100_APPLICANT_ADDRESS_MANUAL'], {
@@ -584,7 +597,9 @@ export const ApplicantDetails = (
       },
       {
         key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
-        spanLabel: `Applicant ${count} ${keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `)}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['contactDetailsOf']
+          .split('[^applicantName^]')
+          .join(` ${fullname} `)}`,
         value: '',
         valueHtml: applicantContactDetailsParser(sessionApplicantData[applicant].applicantContactDetail, keys),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_DETAIL'], {
@@ -593,7 +608,7 @@ export const ApplicantDetails = (
       },
       {
         key: keys['voiceMailLabel'],
-        spanLabel: `Applicant ${count} ${keys['voiceMailLabel']}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['voiceMailLabel']}`,
         value: '',
         valueHtml: applicantCourtCanLeaveVoiceMail(sessionApplicantData[applicant].applicantContactDetail, keys),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_DETAIL'], {
@@ -602,7 +617,7 @@ export const ApplicantDetails = (
       },
       {
         key: keys['contactPrefernces'],
-        spanLabel: `Applicant ${count} ${keys['contactPrefernces']}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['contactPrefernces']}`,
         value: contactTranslation(
           sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences ===
             ContactPreference.EMAIL
@@ -615,7 +630,6 @@ export const ApplicantDetails = (
         }),
       }
     );
-    count++;
   }
   return {
     title: sectionTitles['ApplicantDetails'],
@@ -1122,14 +1136,13 @@ const RespondentDetails_AddressAndPersonal = (
   keys,
   id,
   contactDetails,
-  language,
-  count
+  language
 ) => {
   const newRespondentStorage = [] as ANYTYPE;
   if (!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')) {
     newRespondentStorage.push({
       key: keys['addressDetails'],
-      spanLabel: `Respondent ${count} ${keys['addressDetails']}`,
+      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['addressDetails']}`,
       value: '',
       valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys, language),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
@@ -1141,19 +1154,23 @@ const RespondentDetails_AddressAndPersonal = (
   ) {
     newRespondentStorage.push({
       key: keys['explainNoLabel'],
-      spanLabel: `Respondent ${count} ${keys['explainNoLabel']}`,
+      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['explainNoLabel']}`,
       value: getYesNoTranslation(language, sessionRespondentData[respondent]?.['addressUnknown'], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
     });
   }
 
-  newRespondentStorage.push(respondentTelephoneEmailDetails(contactDetails, id, language, false, count));
-  newRespondentStorage.push(respondentTelephoneEmailDetails(contactDetails, id, language, true, count));
+  newRespondentStorage.push(
+    respondentTelephoneEmailDetails(contactDetails, id, language, false, parseInt(respondent) + 1, keys)
+  );
+  newRespondentStorage.push(
+    respondentTelephoneEmailDetails(contactDetails, id, language, true, parseInt(respondent) + 1, keys)
+  );
 
   return newRespondentStorage;
 };
 
-const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelephone: boolean, count: number) => {
+const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelephone: boolean, index: number, keys) => {
   const ctx: string[] = [];
   if (isTelephone) {
     ctx.push('donKnowTelephoneNumber', 'dont_know_telephone', 'telephone_number', 'telephoneNumber');
@@ -1163,14 +1180,14 @@ const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelepho
   if (contactDetails.hasOwnProperty(ctx[0]) && contactDetails[ctx[0]] === 'Yes') {
     return {
       key: getYesNoTranslation(language, ctx[1], 'personalDetails'),
-      spanLabel: `Respondent ${count} ${getYesNoTranslation(language, ctx[1], 'personalDetails')}`,
+      visuallyHiddenText: `${keys['respondents']} ${index} ${getYesNoTranslation(language, ctx[1], 'personalDetails')}`,
       value: getYesNoTranslation(language, contactDetails?.[ctx[0]], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
   } else {
     return {
       key: getYesNoTranslation(language, ctx[2], 'personalDetails'),
-      spanLabel: `Respondent ${count} ${getYesNoTranslation(language, ctx[2], 'personalDetails')}`,
+      visuallyHiddenText: `${keys['respondents']} ${index} ${getYesNoTranslation(language, ctx[2], 'personalDetails')}`,
       value: contactDetails?.[ctx[3]],
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
@@ -1187,12 +1204,11 @@ export const RespondentDetails = (
   const newRespondentStorage: {
     key: string;
     keyHtml?: string;
-    spanLabel?: string;
+    visuallyHiddenText?: string;
     value?: string;
     valueHtml?: string;
     changeUrl: string;
   }[] = [];
-  let count = 1;
   for (const respondent in sessionRespondentData) {
     const firstname = sessionRespondentData[respondent]['firstName'],
       lastname = sessionRespondentData[respondent]['lastName'],
@@ -1212,19 +1228,19 @@ export const RespondentDetails = (
       },
       {
         key: keys['fullName'],
-        spanLabel: `Respondent ${count} ${keys['fullName']}`,
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['fullName']}`,
         value: firstname + ' ' + lastname,
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADD'], {}),
       },
       {
         key: keys['hasNameChanged'],
-        spanLabel: `Respondent ${count} ${keys['hasNameChanged']}`,
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['hasNameChanged']}`,
         valueHtml: changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       },
       {
         key: keys['childGenderLabel'],
-        spanLabel: `Respondent ${count} ${keys['childGenderLabel']}`,
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
         valueHtml: childGender,
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       }
@@ -1234,13 +1250,13 @@ export const RespondentDetails = (
       newRespondentStorage.push(
         {
           key: keys['approxCheckboxLabel'],
-          spanLabel: `Respondent ${count} ${keys['approxCheckboxLabel']}`,
+          visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['approxCheckboxLabel']}`,
           value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         },
         {
           key: keys['approxDobLabel'],
-          spanLabel: `Respondent ${count} ${keys['approxDobLabel']}`,
+          visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['approxDobLabel']}`,
           value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         }
@@ -1248,7 +1264,7 @@ export const RespondentDetails = (
     } else {
       newRespondentStorage.push({
         key: keys['dobLabel'],
-        spanLabel: `Respondent ${count} ${keys['dobLabel']}`,
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['dobLabel']}`,
         value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       });
@@ -1257,14 +1273,16 @@ export const RespondentDetails = (
     if (personalDetails['respondentPlaceOfBirthUnknown'] !== 'No') {
       newRespondentStorage.push({
         key: keys['respondentPlaceOfBirthUnknown'],
-        spanLabel: `Respondent ${count} ${keys['respondentPlaceOfBirthUnknown']}`,
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${
+          keys['respondentPlaceOfBirthUnknown']
+        }`,
         value: getYesNoTranslation(language, personalDetails?.['respondentPlaceOfBirthUnknown'], 'doTranslation'),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       });
     } else {
       newRespondentStorage.push({
         key: keys['respondentPlaceOfBirth'],
-        spanLabel: `Respondent ${count} ${keys['respondentPlaceOfBirth']}`,
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['respondentPlaceOfBirth']}`,
         value: personalDetails?.['respondentPlaceOfBirth'],
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       });
@@ -1275,7 +1293,9 @@ export const RespondentDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newRespondentStorage.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        spanLabel: `Respondent ${count} ${keys['relationshipTo'] + ' ' + childFullName}`,
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${
+          keys['relationshipTo'] + ' ' + childFullName
+        }`,
         value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
@@ -1289,17 +1309,8 @@ export const RespondentDetails = (
     });
     //section 1 insertion
     newRespondentStorage.push(
-      ...RespondentDetails_AddressAndPersonal(
-        sessionRespondentData,
-        respondent,
-        keys,
-        id,
-        contactDetails,
-        language,
-        count
-      )
+      ...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails, language)
     );
-    count++;
   }
 
   const SummaryData = newRespondentStorage;
@@ -1340,12 +1351,11 @@ export const OtherPeopleDetails = (
   const newOtherPeopleStorage: {
     key: string;
     keyHtml?: string;
-    spanLabel?: string;
+    visuallyHiddenText?: string;
     value?: string;
     valueHtml?: string;
     changeUrl: string;
   }[] = [];
-  let count = 0;
   for (const respondent in sessionOtherPeopleData) {
     const firstname = sessionOtherPeopleData[respondent]['firstName'],
       lastname = sessionOtherPeopleData[respondent]['lastName'],
@@ -1365,19 +1375,19 @@ export const OtherPeopleDetails = (
       },
       {
         key: keys['fullName'],
-        spanLabel: `Other person ${count} ${keys['fullName']}`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['fullName']}`,
         value: firstname + ' ' + lastname,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADD'], { otherPersonId: id }),
       },
       {
         key: keys['hasNameChanged'],
-        spanLabel: `Other person ${count} ${keys['hasNameChanged']}`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['hasNameChanged']}`,
         valueHtml: changeNameInformation,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
       },
       {
         key: keys['childGenderLabel'],
-        spanLabel: `Other person ${count} ${keys['childGenderLabel']}`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
         valueHtml: childGender,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
       }
@@ -1387,13 +1397,13 @@ export const OtherPeopleDetails = (
       newOtherPeopleStorage.push(
         {
           key: keys['approxCheckboxLabel'],
-          spanLabel: `Other person ${count} ${keys['approxCheckboxLabel']}`,
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['approxCheckboxLabel']}`,
           value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
         },
         {
           key: keys['approxDobLabel'],
-          spanLabel: `Other person ${count} ${keys['approxDobLabel']}`,
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['approxDobLabel']}`,
           value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
         }
@@ -1401,7 +1411,7 @@ export const OtherPeopleDetails = (
     } else {
       newOtherPeopleStorage.push({
         key: keys['dobLabel'],
-        spanLabel: `Other person ${count} ${keys['dobLabel']}`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['dobLabel']}`,
         value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
       });
@@ -1414,7 +1424,9 @@ export const OtherPeopleDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newOtherPeopleStorage.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        spanLabel: `Other person ${count} ${keys['relationshipTo'] + ' ' + childFullName}`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
+          keys['relationshipTo'] + ' ' + childFullName
+        }`,
         value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
@@ -1430,7 +1442,7 @@ export const OtherPeopleDetails = (
     if (!sessionOtherPeopleData[respondent].hasOwnProperty('addressUnknown')) {
       newOtherPeopleStorage.push({
         key: keys['addressDetails'],
-        spanLabel: `Other person ${count} ${keys['addressDetails']}`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['addressDetails']}`,
         value: '',
         valueHtml: otherPeopleAddressParser(sessionOtherPeopleData[respondent].address),
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
@@ -1442,12 +1454,11 @@ export const OtherPeopleDetails = (
     ) {
       newOtherPeopleStorage.push({
         key: keys['explainNoLabel'],
-        spanLabel: `Other person ${count} ${keys['explainNoLabel']}`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['explainNoLabel']}`,
         value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['addressUnknown'], 'doTranslation'),
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
       });
     }
-    count++;
   }
 
   const SummaryData = newOtherPeopleStorage;
@@ -1659,7 +1670,7 @@ const populateDateOfBirth = (
   id: string,
   isForChild: boolean,
   count: number,
-  partyType: string,
+  partyType: string
 ): SummaryListRow[] => {
   const isDateOfBirthUnknown = isForChild
     ? personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES
@@ -1668,7 +1679,7 @@ const populateDateOfBirth = (
     newChildDataStorage.push(
       {
         key: keys['approxCheckboxLabel'],
-        spanLabel: `${partyType} ${count} ${keys['approxCheckboxLabel']}`,
+        visuallyHiddenText: `${partyType} ${count} ${keys['approxCheckboxLabel']}`,
         value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
         changeUrl: isForChild
           ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
@@ -1676,7 +1687,7 @@ const populateDateOfBirth = (
       },
       {
         key: keys['approxDobLabel'],
-        spanLabel: `${partyType} ${count} ${keys['approxDobLabel']}`,
+        visuallyHiddenText: `${partyType} ${count} ${keys['approxDobLabel']}`,
         value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
         changeUrl: isForChild
           ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
@@ -1686,7 +1697,7 @@ const populateDateOfBirth = (
   } else {
     newChildDataStorage.push({
       key: keys['dobLabel'],
-      spanLabel: `${partyType} ${count} ${keys['dobLabel']}`,
+      visuallyHiddenText: `${partyType} ${count} ${keys['dobLabel']}`,
       value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
       changeUrl: isForChild
         ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
