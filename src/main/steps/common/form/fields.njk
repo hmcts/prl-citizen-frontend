@@ -6,7 +6,8 @@
       {% call govukFieldset({
           legend: {
             text: getContent(field.label),
-            classes: field.classes
+            classes: field.classes,
+            isPageHeading: true if field.isPageHeading == true else false
           }
         }) 
       %}

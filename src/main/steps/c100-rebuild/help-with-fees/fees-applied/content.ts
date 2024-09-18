@@ -7,8 +7,8 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 const en = () => ({
   feesAppliedDetailsTitle: 'Have you already applied for help with your application fee?',
   hwfReferenceNumberLabel: 'Enter your help with fees reference number',
-  hwfReferenceNumberBody: `You received this number when you applied for help with fees.`,
-  hwfReferenceNumberHint: `For example, HWF-A1B-23C`,
+  hwfReferenceNumberBody: 'You received this number when you applied for help with fees.',
+  hwfReferenceNumberHint: 'For example, HWF-A1B-23C',
   one: 'Yes',
   two: 'No',
   errors: {
@@ -24,8 +24,8 @@ const en = () => ({
 const cy = () => ({
   feesAppliedDetailsTitle: 'A ydych chi eisoes wedi gwneud cais am help i dalu ffi’r cais?',
   hwfReferenceNumberLabel: 'Rhowch eich cyfeirnod help i dalu ffioedd',
-  hwfReferenceNumberBody: `Cawsoch y rhif hwn pan wnaethoch gais am help i dalu ffioedd.`,
-  hwfReferenceNumberHint: `Er enghraifft, HWF-A1B-23C`,
+  hwfReferenceNumberBody: 'Cawsoch y rhif hwn pan wnaethoch gais am help i dalu ffioedd.',
+  hwfReferenceNumberHint: 'Er enghraifft, HWF-A1B-23C',
   one: 'Do',
   two: 'Naddo',
   errors: {
@@ -55,7 +55,8 @@ export const form: FormContent = {
           subFields: {
             helpWithFeesReferenceLabel: {
               type: 'textAndHtml',
-              textAndHtml: l => `<h3 class="govuk-heading-m">${l.hwfReferenceNumberLabel}</h3>${l.hwfReferenceNumberBody}`,
+              textAndHtml: l =>
+                `<h3 class="govuk-heading-m">${l.hwfReferenceNumberLabel}</h3>${l.hwfReferenceNumberBody}`,
             },
             helpWithFeesReferenceNumber: {
               type: 'text',

@@ -6,7 +6,7 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Keeping your contact details private for',
-  headingTitle: 'Do the other people named in this application (the respondents) know any of your contact details?    ',
+  title: 'Do the other people named in this application (the respondents) know any of your contact details?    ',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
@@ -20,7 +20,7 @@ export const en = () => ({
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
   caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
-  headingTitle: "A yw'r bobl eraill a enwir yn y cais hwn (yr atebwyr) yn gwybod beth yw eich manylion cyswllt?",
+  title: "A yw'r bobl eraill a enwir yn y cais hwn (yr atebwyr) yn gwybod beth yw eich manylion cyswllt?",
   one: 'Ydynt',
   two: 'Nac ydynt',
   three: 'Nid wyf yn gwybod ',
