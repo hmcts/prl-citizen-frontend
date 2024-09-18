@@ -572,7 +572,9 @@ export const ApplicantDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newApplicantData.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['relationshipTo'] + ' ' + childFullName}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${
+          keys['relationshipTo'] + ' ' + childFullName
+        }`,
         value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
