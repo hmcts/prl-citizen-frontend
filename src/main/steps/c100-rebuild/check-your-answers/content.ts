@@ -199,6 +199,7 @@ export const enContent = {
     releaseFromPrisonOnLicence:
       'You have been released from prison on licence, and you have a non-contact licence condition which includes someone who is a party to the application',
     noneOfTheAbove: 'None of these',
+    applicantLabel: 'Applicant',
   },
 };
 export const cyContent = {
@@ -338,6 +339,7 @@ export const cyContent = {
     releaseFromPrisonOnLicence:
       'Rydych wedi cael eich rhyddhau o’r carchar ar drwydded, ac mae gennych amod dim cysylltu ar eich trwydded sy’n cynnwys rhywun sy’n barti i’r cais',
     noneOfTheAbove: 'Dim un o’r rhain',
+    applicantLabel: 'Ceisydd',
   },
   yesNo: {
     ydynTranslation: {

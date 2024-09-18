@@ -244,7 +244,6 @@ describe('other proceedings > order-details > content', () => {
     expect(currentOrder.values[0].value).toBe('Yes');
     expect((currentOrder.values[1].label as Function)(generatedContent)).toBe(en.no1);
     expect(currentOrder.values[1].value).toBe('No');
-    expect(currentOrder.values[2].value).toBe('');
 
     expect(orderEndDate.type).toBe('date');
     expect(orderEndDate.classes).toBe('govuk-date-input');
@@ -302,7 +301,6 @@ describe('other proceedings > order-details > content', () => {
     expect(orderCopy.values[0].value).toBe('Yes');
     expect((orderCopy.values[1].label as Function)(generatedContent)).toBe(en.no2);
     expect(orderCopy.values[1].value).toBe('No');
-    expect(orderCopy.values[2].value).toBe('');
 
     expect(addOrder.type).toBe('button');
     expect((addOrder.label as Function)(generatedContent)).toBe(en.addOrderLabel);

@@ -136,6 +136,7 @@ const enContent = {
     contactPrefernces: 'Contact preferences',
     child: 'Child',
     reasonForNotAttendingMiam: 'What are your reasons for not attending a MIAM?',
+    applicantLabel: 'Applicant',
   },
 };
 const cyContent = {
@@ -257,6 +258,7 @@ const cyContent = {
     contactPrefernces: 'Dewisiadau cyswllt',
     child: 'Plant',
     reasonForNotAttendingMiam: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
+    applicantLabel: 'Ceisydd',
   },
   yesNo: {
     ydynTranslation: {
