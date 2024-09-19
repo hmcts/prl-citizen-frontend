@@ -7,6 +7,12 @@
 
 
 {% extends "common/page.njk" %}
+
+{% block pageTitle %}
+  {{ titleList[orderType] }}
+  {{ appName }}
+{% endblock %}
+
 {% block page_content %}
 
 {% if FileErrors.length > 0 %}

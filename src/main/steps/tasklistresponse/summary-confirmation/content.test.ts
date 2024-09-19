@@ -10,7 +10,7 @@ import { DOWNLOAD_DOCUMENT_BY_TYPE } from '../../urls';
 import { generateContent } from './content';
 
 const en = {
-  success: 'Response submitted successfully',
+  title: 'Response submitted successfully',
   caseNumber: 'Case number ',
   line1: 'By submitting this response you have completed the following:',
   line2: 'Your response to the application',
@@ -97,7 +97,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  success: 'Ymateb wedi’i gyflwyno’n llwyddiannus',
+  title: 'Ymateb wedi’i gyflwyno’n llwyddiannus',
   caseNumber: 'Rhif yr achos',
   line1: 'Drwy gyflwyno’r ymateb hwn rydych wedi cwblhau’r canlynol: ',
   line2: "Eich ymateb i'r cais",
