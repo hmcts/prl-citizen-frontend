@@ -52,13 +52,21 @@ const generateDomesticAbuseAdditionalFields = (
   language: string
 ): string => {
   return (
-    HTML.RULER +
-    HTML.BOLD +
+    //'<div class="govuk-summary-list__row" style="border-bottom:1px solid #fff">' +
+   //'</div>'+
+    '<dl class="govuk-summary-list">' +
+    '<div class="govuk-summary-list__row" style="border-bottom:1px solid #fff">'+
+    '<dt class="govuk-summary-list__key">' +
     keys['domesticAbuseProvideEvidence'] +
-    HTML.BOLD_CLOSE +
-    HTML.RULER +
+    '</dt>' +
+   // '</div>'+
+   // '<div class="govuk-summary-list__row">'+
+    //'<dl class="govuk-summary-list">' +
+    '<dd class="govuk-summary-list__value">'+
     getYesNoTranslation(language, userCase.miam_canProvideDomesticAbuseEvidence, 'gallafTranslation') +
-    HTML.RULER +
+    '</dd>' +
+    '</div>'+
+    //HTML.RULER +
     HTML.BOLD +
     (userCase.miam_canProvideDomesticAbuseEvidence === YesOrNo.YES
       ? keys['domesticAbuseEvidence']
@@ -72,7 +80,9 @@ const generateDomesticAbuseAdditionalFields = (
         }) +
         HTML.UNORDER_LIST_END
       : userCase.miam_detailsOfDomesticAbuseEvidence)
-  );
+  )
+  +
+  '</dl>' ;
 };
 
 const generateNCDRAdditionalFields = (
@@ -204,7 +214,7 @@ export const miamParentAndChildFieldParser = (
       additionalFields = generateOtherExemptionAdditionalFields(userCase, keys).split(',').join('');
     }
 
-    return (mappedVals + additionalFields).split(',').join('');
+    return ('<div class="govuk-summary-list__row" style="border-bottom:1px solid #fff">'+mappedVals+'</div>' + additionalFields).split(',').join('');
   } else {
     return '';
   }

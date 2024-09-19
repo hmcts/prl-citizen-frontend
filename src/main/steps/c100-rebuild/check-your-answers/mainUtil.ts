@@ -39,6 +39,7 @@ import {
   SummaryListContent,
   SummaryListContentWithBoolean,
   SummaryListRow,
+  childSummaryList,
   getSectionSummaryList,
 } from './lib/lib';
 
@@ -572,7 +573,9 @@ export const ApplicantDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newApplicantData.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['relationshipTo'] + ' ' + childFullName}`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${
+          keys['relationshipTo'] + ' ' + childFullName
+        }`,
         value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
@@ -642,7 +645,7 @@ export const ApplicantDetails = (
 export const MiamTitle = ({ sectionTitles, keys, Yes, No, ...content }): SummaryList | undefined => {
   return {
     title: sectionTitles['Miam'],
-    rows: getSectionSummaryList([], content),
+    rows: [],
   };
 };
 
@@ -651,7 +654,7 @@ export const MiamAttendance = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
   language
-): SummaryList | undefined => {
+): childSummaryList | undefined => {
   const SummaryData = [
     {
       key: keys['childInvolvementInSupervision'],
@@ -685,7 +688,7 @@ export const MiamAttendance = (
   }
 
   return {
-    title: sectionTitles['MiamAttendance'],
+    subTitle: sectionTitles['MiamAttendance'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -694,7 +697,7 @@ export const MiamExemption = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
   language: string
-): SummaryList | undefined => {
+): childSummaryList | undefined => {
   const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys);
   const SummaryData = [
     {
@@ -705,7 +708,7 @@ export const MiamExemption = (
     ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language),
   ];
   return {
-    title: sectionTitles['MiamExemption'],
+    subTitle: sectionTitles['MiamExemption'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };

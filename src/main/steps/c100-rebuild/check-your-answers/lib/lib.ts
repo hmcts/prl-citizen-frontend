@@ -37,6 +37,10 @@ export interface SummaryList {
   title: string;
   rows: GovUkNunjucksSummary[];
 }
+export interface childSummaryList {
+  subTitle: string;
+  rows: GovUkNunjucksSummary[];
+}
 
 export type SummaryListContent = PageContent & {
   sectionTitles: Record<string, string>;

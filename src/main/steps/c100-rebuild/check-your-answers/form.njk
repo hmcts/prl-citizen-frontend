@@ -11,13 +11,18 @@
   {% if sections %}
     {% for item in sections %}
       {% if item %}
-        <h2 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h2>
-        {{ govukSummaryList({
+        {% if item.title %}
+          <h2 class="app-task-list__section">{{item.title}}</h2>
+        {% else %}
+          <h3 class="app-task-list__section">{{item.subTitle}}</h2>
+        {% endif %}
+        {% if item.rows.length%}
+          {{ govukSummaryList({
           classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
           rows: item.rows
-        })
-      }}
-    
+          })
+           }}
+        {% endif %}
       {% endif %}
     {% endfor %}
 
