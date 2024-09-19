@@ -96,6 +96,9 @@ const keys = {
   mediatorConfirmation: 'mediatorConfirmation',
   midatatorDocumentTitle: 'midatatorDocumentTitle',
   childInvolvementInSupervision: 'childInvolvementInSupervision',
+  respondents: 'respondents',
+  applicantLabel: 'Applicants',
+  otherPerson: 'Other person',
 };
 const language = 'en';
 const content = {
@@ -497,7 +500,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/add-children',
               text: undefined,
-              visuallyHiddenText: 'fullName',
+              visuallyHiddenText: 'child 1 fullName',
             },
           ],
         },
@@ -514,7 +517,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'approxCheckboxLabel',
+              visuallyHiddenText: 'child 1 approxCheckboxLabel',
             },
           ],
         },
@@ -529,7 +532,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'approxDobLabel',
+              visuallyHiddenText: 'child 1 approxDobLabel',
             },
           ],
         },
@@ -544,7 +547,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'childGenderLabel',
+              visuallyHiddenText: 'child 1 childGenderLabel',
             },
           ],
         },
@@ -561,7 +564,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/child-matters',
               text: undefined,
-              visuallyHiddenText: 'orderAppliedFor',
+              visuallyHiddenText: 'child 1 orderAppliedFor',
             },
           ],
         },
@@ -578,7 +581,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/parental-responsibility',
               text: undefined,
-              visuallyHiddenText: 'parentalResponsibility',
+              visuallyHiddenText: 'child 1 parentalResponsibility',
             },
           ],
         },
@@ -685,7 +688,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/other-children/names',
               text: undefined,
-              visuallyHiddenText: 'fullName',
+              visuallyHiddenText: 'child 1 fullName',
             },
           ],
         },
@@ -702,7 +705,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'dobLabel',
+              visuallyHiddenText: 'Other child 1 dobLabel',
             },
           ],
         },
@@ -719,7 +722,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'childGenderLabel',
+              visuallyHiddenText: 'child 1 childGenderLabel',
             },
           ],
         },
@@ -796,7 +799,7 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/names',
                 text: undefined,
-                visuallyHiddenText: 'fullName',
+                visuallyHiddenText: 'child 1 fullName',
               },
             ],
           },
@@ -813,7 +816,7 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
-                visuallyHiddenText: 'approxCheckboxLabel',
+                visuallyHiddenText: 'Other child 1 approxCheckboxLabel',
               },
             ],
           },
@@ -826,7 +829,7 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
-                visuallyHiddenText: 'approxDobLabel',
+                visuallyHiddenText: 'Other child 1 approxDobLabel',
               },
             ],
           },
@@ -843,7 +846,7 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
-                visuallyHiddenText: 'childGenderLabel',
+                visuallyHiddenText: 'child 1 childGenderLabel',
               },
             ],
           },
@@ -951,7 +954,7 @@ describe('test cases for main util', () => {
     expect(otherPeopleDetailsObj?.rows).toStrictEqual([
       {
         key: {
-          html: '<h4 class="app-task-list__section">undefined 1</h4>',
+          html: '<h4 class="app-task-list__section">Other person 1</h4>',
         },
         value: {},
       },
@@ -961,7 +964,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/add-other-persons',
               text: undefined,
-              visuallyHiddenText: 'fullName',
+              visuallyHiddenText: 'Other person 1 fullName',
             },
           ],
         },
@@ -978,7 +981,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
-              visuallyHiddenText: 'hasNameChanged',
+              visuallyHiddenText: 'Other person 1 hasNameChanged',
             },
           ],
         },
@@ -993,7 +996,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
-              visuallyHiddenText: 'childGenderLabel',
+              visuallyHiddenText: 'Other person 1 childGenderLabel',
             },
           ],
         },
@@ -1010,7 +1013,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
-              visuallyHiddenText: 'dobLabel',
+              visuallyHiddenText: 'Other person 1 dobLabel',
             },
           ],
         },
@@ -1027,7 +1030,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/relationship-to-child/39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
               text: undefined,
-              visuallyHiddenText: 'relationshipTo Nir Sin',
+              visuallyHiddenText: 'Other person 1 relationshipTo Nir Sin',
             },
           ],
         },
@@ -1044,7 +1047,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/address/manual',
               text: undefined,
-              visuallyHiddenText: 'addressDetails',
+              visuallyHiddenText: 'Other person 1 addressDetails',
             },
           ],
         },
@@ -1578,7 +1581,7 @@ describe('test cases for main util', () => {
     expect(respondentDetailsObj?.rows).toStrictEqual([
       {
         key: {
-          html: '<h4 class="app-task-list__section">undefined 1</h4>',
+          html: '<h4 class="app-task-list__section">respondents 1</h4>',
         },
         value: {},
       },
@@ -1588,7 +1591,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/add-respondents',
               text: undefined,
-              visuallyHiddenText: 'fullName',
+              visuallyHiddenText: 'respondents 1 fullName',
             },
           ],
         },
@@ -1605,7 +1608,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
-              visuallyHiddenText: 'hasNameChanged',
+              visuallyHiddenText: 'respondents 1 hasNameChanged',
             },
           ],
         },
@@ -1622,7 +1625,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
-              visuallyHiddenText: 'childGenderLabel',
+              visuallyHiddenText: 'respondents 1 childGenderLabel',
             },
           ],
         },
@@ -1639,7 +1642,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
-              visuallyHiddenText: 'approxCheckboxLabel',
+              visuallyHiddenText: 'respondents 1 approxCheckboxLabel',
             },
           ],
         },
@@ -1656,7 +1659,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
-              visuallyHiddenText: 'approxDobLabel',
+              visuallyHiddenText: 'respondents 1 approxDobLabel',
             },
           ],
         },
@@ -1671,7 +1674,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
-              visuallyHiddenText: 'respondentPlaceOfBirthUnknown',
+              visuallyHiddenText: 'respondents 1 respondentPlaceOfBirthUnknown',
             },
           ],
         },
@@ -1688,7 +1691,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/relationship-to-child/39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
               text: undefined,
-              visuallyHiddenText: 'relationshipTo Nir Sin',
+              visuallyHiddenText: 'respondents 1 relationshipTo Nir Sin',
             },
           ],
         },
@@ -1705,7 +1708,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/address/manual',
               text: undefined,
-              visuallyHiddenText: 'addressDetails',
+              visuallyHiddenText: 'respondents 1 addressDetails',
             },
           ],
         },
@@ -1722,7 +1725,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
-              visuallyHiddenText: 'E-mail',
+              visuallyHiddenText: 'respondents 1 E-mail',
             },
           ],
         },
@@ -1739,7 +1742,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
-              visuallyHiddenText: 'Telephone number',
+              visuallyHiddenText: 'respondents 1 Telephone number',
             },
           ],
         },
