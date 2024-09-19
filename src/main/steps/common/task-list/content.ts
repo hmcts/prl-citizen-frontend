@@ -150,15 +150,11 @@ export const generateContent: TranslationFn = content => {
   }
 
   translations.hyperlinks.forEach((hyperLink, index) => {
-    if (
-      hyperLink.label.includes(translations.addLegalRepresentative) &&
-      !isCaseLinked(caseData, request.session.user)
-    ) {
-      translations.hyperlinks.splice(index, 2);
+    if (hyperLink.label.includes(translations.whatToExpect) && !isCaseLinked(caseData, request.session.user)) {
+      translations.hyperlinks.splice(index, 3);
     } else if (
       (hyperLink.label.includes(translations.addLegalRepresentative) && _isRepresentedBySolicotor) ||
-      (hyperLink.label.includes(translations.removeLegalRepresentative) && !_isRepresentedBySolicotor) ||
-      (hyperLink.label.includes(translations.whatToExpect) && !isCaseLinked(caseData, request.session.user))
+      (hyperLink.label.includes(translations.removeLegalRepresentative) && !_isRepresentedBySolicotor)
     ) {
       translations.hyperlinks.splice(index, 1);
     }
