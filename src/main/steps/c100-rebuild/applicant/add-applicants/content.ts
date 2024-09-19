@@ -8,7 +8,7 @@ import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Enter your name  ',
+  title: 'Enter your name',
   subTitle:
     'You and anyone else making this application are known as the applicants. <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later.',
   applicant: 'Applicant',

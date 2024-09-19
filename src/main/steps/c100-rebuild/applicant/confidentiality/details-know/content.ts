@@ -6,7 +6,7 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Keeping your contact details private for',
-  title: 'Do the other people named in this application (the respondents) know any of your contact details?    ',
+  title: 'Do the other people named in this application (the respondents) know any of your contact details?',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
