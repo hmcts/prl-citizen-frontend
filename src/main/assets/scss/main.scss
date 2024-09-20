@@ -224,6 +224,11 @@ section {
   padding-left: 3rem;
   padding-right: 3rem;
 }
+
+li.list-style--none{
+  list-style-type: none;
+}
+
 @media screen and (min-width: 640px) {
   .app-button--l {
       font-size: 24px;

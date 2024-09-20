@@ -16,44 +16,47 @@
                 <h2 class="app-task-list__section">
                     {{section.title}}
                 </h2>
-                <ul class="app-task-list__items">
-                    {% for item in section.items %}
-                        {% if item.id %}
-                            <li class="app-task-list__item">
-                                <span class="app-task-list__task-name">
-                                    {% if item.href %}
-                                        {% if item.openInAnotherTab %}
-                                            <a id="{{item.id}}" class="govuk-link" href="{{item.href}}"  target="_blank" aria-describedby="{{item.id}}-status">
-                                                {{item.text}}
-                                            </a>
+                
+                {% if section.items and section.items.length %}
+                    <ul class="app-task-list__items">
+                        {% for item in section.items %}
+                            {% if item.id %}
+                                <li class="app-task-list__item">
+                                    <span class="app-task-list__task-name">
+                                        {% if item.href %}
+                                            {% if item.openInAnotherTab %}
+                                                <a id="{{item.id}}" class="govuk-link" href="{{item.href}}"  target="_blank" aria-describedby="{{item.id}}-status">
+                                                    {{item.text}}
+                                                </a>
+                                            {% else %}
+                                                <a id="{{item.id}}" class="govuk-link" href="{{item.href}}" aria-describedby="{{item.id}}-status">
+                                                    {{item.text}}
+                                                </a>
+                                            {% endif %}
                                         {% else %}
-                                            <a id="{{item.id}}" class="govuk-link" href="{{item.href}}" aria-describedby="{{item.id}}-status">
+                                            <p id="{{item.id}}" class="govuk-body govuk-!-margin-bottom-0" aria-describedby="{{item.id}}-status">
                                                 {{item.text}}
-                                            </a>
+                                            </p>
                                         {% endif %}
-                                    {% else %}
-                                        <p id="{{item.id}}" class="govuk-body govuk-!-margin-bottom-0" aria-describedby="{{item.id}}-status">
-                                            {{item.text}}
-                                        </p>
+                                    </span>
+
+                                    {% set statusClass = "" %}
+                                    {%if item.status == 'IN_PROGRESS' or item.status == 'READY_TO_VIEW' or item.status == 'OPTIONAL'%}
+                                        {% set statusClass = "govuk-tag--blue" %}
+                                    {% elif item.status == 'TO_DO' or item.status == 'CAN_NOT_START_YET' or item.status == 'NOT_AVAILABLE_YET' %}
+                                        {% set statusClass = "govuk-tag--grey"%}
+                                    {% elif item.status == 'COMPLETED' or item.status == 'DOWNLOAD' %}
+                                        {% set statusClass = "govuk-tag--green"%}
                                     {% endif %}
-                                </span>
+                                    <strong id="{{item.id}}-status" class="govuk-tag app-task-list__tag {{statusClass}}">{{statuses[item.status]}}</strong>
 
-                                {% set statusClass = "" %}
-                                {%if item.status == 'IN_PROGRESS' or item.status == 'READY_TO_VIEW' or item.status == 'OPTIONAL'%}
-                                    {% set statusClass = "govuk-tag--blue" %}
-                                {% elif item.status == 'TO_DO' or item.status == 'CAN_NOT_START_YET' or item.status == 'NOT_AVAILABLE_YET' %}
-                                    {% set statusClass = "govuk-tag--grey"%}
-                                {% elif item.status == 'COMPLETED' or item.status == 'DOWNLOAD' %}
-                                    {% set statusClass = "govuk-tag--green"%}
-                                {% endif %}
-                                <strong id="{{item.id}}-status" class="govuk-tag app-task-list__tag {{statusClass}}">{{statuses[item.status]}}</strong>
-
-                            </li>
-                        {% else %}
-                            <h2 class="govuk-heading-s" govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{item.text}}</h2>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
+                                </li>
+                            {% else %}
+                                <h2 class="govuk-heading-s govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{item.text}}</h2>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </li>
         {% endfor %}
     </ol>
