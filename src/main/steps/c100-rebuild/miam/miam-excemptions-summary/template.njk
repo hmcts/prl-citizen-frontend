@@ -4,36 +4,37 @@
 {% block page_content %}
   <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
     <span class="govuk-caption-l">{{caption}}</span>
-      {{title}}</h1>
+    {{title}}</h1>
 
-    <p class="govuk-body-m">{{content1}}
-    </p>
-    <p class="govuk-body-m">{{content2}}
-    </p>
-    <h2 class="govuk-heading-m">{{content3}}
-    </h2>
+  <p class="govuk-body-m">{{content1}}
+  </p>
+  <p class="govuk-body-m">{{content2}}
+  </p>
+  <h2 class="govuk-heading-m">{{content3}}
+  </h2>
 
   {% for exemption in exemptionSummary %}
-  {% if exemption.title %}
-    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">{{ exemption.title }}</h3>
-    <ul class="govuk-list govuk-list--bullet">
-      {% for abuseReasons in exemption.reasons %}
-       {% if abuseReasons.reason %}
-        <li>{{ abuseReasons.reason }}</li>
-        {% if abuseReasons.examption %}
-      <ul class="govuk-list govuk-list--bullet">  
-        {% for evidence in abuseReasons.examption %}
-          <li>{{ evidence }}</li>
+    {% if exemption.title %}
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-1">{{ exemption.title }}</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        {% for abuseReasons in exemption.reasons %}
+          {% if abuseReasons.reason %}
+            <li>{{ abuseReasons.reason }}</li>
+          {% endif %}
+          {% if abuseReasons.examption and abuseReasons.examption.length %}
+            <li class="list-style--none">
+              <ul class="govuk-list govuk-list--bullet">
+                {% for evidence in abuseReasons.examption %}
+                  <li>{{ evidence }}</li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endif %}
         {% endfor %}
-       </ul>
-       {% endif %}
-    {% endif %} 
-      {% endfor %}    
-     </ul> 
-  {% endif %}     
-  {% endfor %}      
-
+      </ul>
+    {% endif %}
+  {% endfor %}
 
 </br>
 
-  {% endblock %}
+{% endblock %}
