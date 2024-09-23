@@ -19,7 +19,6 @@ const servicesToCheck = [
     healthEndpoint: '/search/places/v1',
     externalService: true,
   },
-  { name: 'PCQ', url: config.get('services.equalityAndDiversity.url') },
 ];
 
 const checkService = async (url: string) => {

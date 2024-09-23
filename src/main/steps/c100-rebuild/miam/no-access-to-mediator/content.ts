@@ -54,7 +54,7 @@ export const cy = {
     'Ni allwch fynychu MIAM ar-lein neu drwy gyswllt fideo oherwydd ni all y cyfryngwyr y bu ichi gysylltu â nhw gynnal MIAM o fewn 15 diwrnod busnes i ddyddiad y cyswllt.',
   evidenceHint:
     'Bydd angen i chi ddarparu tystiolaeth eich bod wedi cysylltu ag o leiaf 5 cyfryngwr o fewn 15 milltir i ble rydych yn byw.',
-  giveDetails: 'Rhowch fanylion y cyfryngwr rydych wedi cysylltu ag o/â hi',
+  giveDetails: 'Rhowch fanylion y cyfryngwyr rydych wedi cysylltu â nhw',
   giveDetailsHint:
     'Dylech gynnwys enwau, cyfeiriadau, rhifau ffôn neu gyfeiriadau e-bost y cyfryngwyr a pha bryd y gwnaethoch gysylltu â nhw',
   disability:
@@ -73,13 +73,13 @@ export const cy = {
       required: 'Dewiswch pam na allwch chi gael mynediad at gyfryngwr',
     },
     miam_noAppointmentAvailableDetails: {
-      required: 'Rhowch fanylion y cyfryngwr rydych wedi cysylltu ag o/â hi',
+      required: 'Rhowch fanylion y cyfryngwyr rydych wedi cysylltu â nhw',
     },
     miam_unableToAttainDueToDisablityDetails: {
-      required: 'Rhowch fanylion y cyfryngwr rydych wedi cysylltu ag o/â hi',
+      required: 'Rhowch fanylion y cyfryngwyr rydych wedi cysylltu â nhw',
     },
     miam_noMediatorIn15mileDetails: {
-      required: 'Rhowch fanylion y cyfryngwr rydych wedi cysylltu ag o/â hi',
+      required: 'Rhowch fanylion y cyfryngwyr rydych wedi cysylltu â nhw',
     },
   },
 };

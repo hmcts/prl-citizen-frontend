@@ -63,6 +63,8 @@ module.exports = {
   async clickYourDetailsPrivate() {
     await I.wait('2');
     await I.retry(retryCount).click(this.fields.keepYourDetailsPrivate);
+    await I.runAccessibilityTest();
+
     await I.wait('2');
     await I.retry(retryCount).waitForText('Does the other person named in your application (the respondent) know any of your contact details?');
     await I.retry(retryCount).click(this.fields.yes);
@@ -95,6 +97,8 @@ module.exports = {
   async clickEditContactDetails() {
     await I.wait('5');
     await I.retry(retryCount).click('#confirm-or-edit-your-contact-details');
+    await I.runAccessibilityTest();
+
     await I.wait('5');
     await I.retry(retryCount).waitForText('Place of birth');
     await I.retry(retryCount).click('#main-form > dl > div:nth-child(3) > dd.govuk-summary-list__actions > a');

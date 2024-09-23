@@ -27,6 +27,8 @@ services:
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN
     path: '/service-endpoint'
+  fact:
+    url: FACT_URL
   reasonableAdjustments:
     url: REASONABLE_ADJUSTMENTS
   dgs:
@@ -51,3 +53,4 @@ featureToggles:
 
 launchDarkly:
   offline: LAUNCH_DARKLY_OFFLINE_MODE
+allowedCourts: ALLOWED_COURTS

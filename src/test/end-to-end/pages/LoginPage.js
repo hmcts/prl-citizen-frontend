@@ -49,6 +49,8 @@ module.exports = {
       await I.retry(retryCount).fillField(this.fields.password, config.citizenFrontEnd.PRLCitizenPassword);
     }
     I.wait('2');
-    await I.retry(retryCount).click('#authorizeCommand > div.grid-row > div.column-one-half.column--bordered > div > div.login-list > input.button');
+    await I.usePlaywrightTo('force click Sign in', async ({ page }) => {
+      await page.locator('//input[@type="submit"]').dispatchEvent('click');
+    });
   }
 };

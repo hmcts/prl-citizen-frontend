@@ -32,6 +32,9 @@ module.exports = {
     letterDAservice1: '//*[@id="miam_domesticAbuse_letterFromSupportService_subfields"]',
     indefiniteLeave: '//*[@id="miam_domesticabuse_involvement-6"]',
     evidenceFinancialAbuse: '//*[@id="miam_domesticabuse_involvement-7"]',
+    yesCanProvideEvidence: '//*[@id="miam_canProvideDomesticAbuseEvidence"]',
+    noCannotProvideEvidence: '//*[@id="miam_canProvideDomesticAbuseEvidence-2"]',
+    whyCannotProvideEvidence: '//*[@id="miam_detailsOfDomesticAbuseEvidence"]',
     //Child Protection
     childProtection1: '//*[@id="miam_childProtectionEvidence"]',
     childProtection2: '//*[@id="miam_childProtectionEvidence-2"]',
@@ -131,15 +134,6 @@ module.exports = {
     await I.retry(retryCount).waitForText(MiamContent.urgentHearingTitle , 30);
     await I.wait('2');
     await I.retry(retryCount).click(this.fields.urgentHearing1);
-    await I.retry(retryCount).click(this.fields.urgentHearing2);
-    await I.wait('2');
-    await I.retry(retryCount).click(this.fields.urgentHearing3);
-    await I.retry(retryCount).click(this.fields.urgentHearing4);
-    await I.retry(retryCount).click(this.fields.urgentHearing5);
-    await I.retry(retryCount).click(this.fields.urgentHearing6);
-    await I.retry(retryCount).click(this.fields.urgentHearing7);
-    await I.retry(retryCount).click(this.fields.urgentHearing8);
-    await I.retry(retryCount).click(this.fields.urgentHearing9);
     await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
@@ -160,40 +154,61 @@ module.exports = {
     await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
+  async provideEvidenceDa(canProvideEvidence) {
+    await I.retry(retryCount).waitForText(MiamContent.providingEvidenceDomestic , 30);
+    await I.retry(retryCount).waitForText(MiamContent.canYouProvideEvidence , 30);
+    await I.retry(retryCount).click(this.fields.yesCanProvideEvidence);
+    await I.retry(retryCount).click(this.fields.noCannotProvideEvidence);
+    await I.retry(retryCount).fillField(this.fields.whyCannotProvideEvidence, 'Reason why cannot provide domestic abuse evidence');
+    await I.retry(retryCount).click('Continue');
+  },
+  async uploadDomesticEvidence() {
+    const uploadTime = 5;
+    await I.wait('2');
+    await I.retry(retryCount).waitForText(MiamContent.uploadDomesticEvidence , 30);
+    await I.wait('1');
+    await I.retry(retryCount).attachFile('//*[@id="fileupload"]', '../resource/dummy.pdf');
+    await I.runAccessibilityTest();
+    await I.wait('5');
+    await I.retry(retryCount).wait(uploadTime);
+    await I.retry(retryCount).click('Upload file');
+    await I.retry(retryCount).wait(uploadTime);
+    await I.retry(retryCount).click('Continue');
+  },
   async evidenceChildProtection() {
     await I.retry(retryCount).waitForText(MiamContent.evidenceChildProtectionPageTitle , 30);
     await I.retry(retryCount).click(this.fields.childProtection1);
-    await I.retry(retryCount).click(this.fields.childProtection2);
-    // await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async previousAttendMiam() {
     await I.retry(retryCount).waitForText(MiamContent.previousAttendMiamPageTitle , 30);
     await I.retry(retryCount).click(this.fields.previousAttendance);
-    await I.retry(retryCount).click(this.fields.previousAttendance2);
-    await I.retry(retryCount).click(this.fields.previousAttendance3);
-    await I.retry(retryCount).click(this.fields.previousAttendance4);
-    await I.retry(retryCount).click(this.fields.previousAttendance5);
-    await I.retry(retryCount).click(this.fields.previousAttendance6);
     await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
+  async uploadEvidenceMIAM() {
+    const uploadTime = 5;
+    await I.wait('2');
+    await I.retry(retryCount).waitForText(MiamContent.evidenceAttendMIAMUpload , 30);
+    await I.wait('1');
+    await I.retry(retryCount).attachFile('//*[@id="fileupload"]', '../resource/dummy.pdf');
+    await I.runAccessibilityTest();
+    await I.wait('5');
+    await I.retry(retryCount).wait(uploadTime);
+    await I.retry(retryCount).click('Upload file');
+    await I.retry(retryCount).wait(uploadTime);
+    await I.retry(retryCount).click('Continue');
+ },
   async confirmValidReason() {
     await I.retry(retryCount).waitForText(MiamContent.confirmValidReasonPageTitle , 30);
     await I.retry(retryCount).waitForSelector(this.fields.notAttendingReason1, 30);
     await I.retry(retryCount).click(this.fields.notAttendingReason1);
-    await I.retry(retryCount).click(this.fields.notAttendingReason2);
-    await I.retry(retryCount).click(this.fields.notAttendingReason3);
-    await I.retry(retryCount).click(this.fields.notAttendingReason3Nested);
-    await I.retry(retryCount).click(this.fields.notAttendingReason4);
-    await I.retry(retryCount).click(this.fields.notAttendingReason5);
-    await I.retry(retryCount).click(this.fields.notAttendingReason6);
     await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async dontHaveToAttendMiam() {
     await I.retry(retryCount).waitForText(MiamContent.dontHaveToAttendMiamPageTitle , 30);
-    // await I.wait('2');
+    await I.retry(retryCount).waitForText(MiamContent.reasonForNotAttendingMIAM , 30);
     await I.retry(retryCount).click('Continue');
   },
   async altDontHaveToAttendMiam() {
@@ -207,12 +222,13 @@ module.exports = {
     await this.miamOtherProceedings(false);
     await this.attendingMiam();
     await this.attendedMiam(false);
-    await this.medidatorConfirmed();
     await this.validReasonsMiam();
     await this.validReasonWhat();
     await this.evidenceDomesticAbuse();
+    await this.provideEvidenceDa();
     await this.evidenceChildProtection();
     await this.previousAttendMiam();
+    await this.uploadEvidenceMIAM();
     await this.confirmValidReason();
     await this.dontHaveToAttendMiam();
   },
@@ -232,7 +248,6 @@ module.exports = {
     await this.miamOtherProceedings(false);
     await this.attendingMiam();
     await this.attendedMiam();
-    await this.medidatorConfirmed();
     await this.validReasonsMiam();
     await this.validReasonUrgent();
     await this.urgentHearingRisks();

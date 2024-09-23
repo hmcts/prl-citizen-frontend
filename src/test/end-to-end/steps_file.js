@@ -1,5 +1,7 @@
 const EnterPinPage = require('./pages/EnterPinPage');
 const Login = require('./pages/LoginPage');
+const EXUILogin = require('./exuiSupport/pages/Login');
+
 const InternationalElement = require('./pages/InternationalElement');
 const CurrentOrPreviousProceedings = require('./pages/CurrentOrPreviousProceedings');
 const ConsentToApplication = require('./pages/ConsentToApplication');
@@ -27,9 +29,59 @@ const ConsentOrder = require('./pages/C100-Rebuild/ConsentOrder');
 const CheckYourAnswersSimple = require('./pages/C100-Rebuild/CheckYourAnswersSimple');
 const RespondentEvents = require('./pages/RespondentEvents');
 const ApplicantAboutYouFL401 = require('./pages/FL-401Applicant/ApplicantAboutYouFL401.js');
+const ActivateAccessCode = require('./pages/ActivateAccessCode.js')
 
+const createCaseE2E = require('./pages/C100-Rebuild/C100CreateCaseE2E.js');
+const commonActions = require('./pages/commonActions.js')
 module.exports = () => {
   return actor({
+
+    clickCheckBoxWithLabel(label) {
+      return commonActions.clickCheckBoxWithLabel(label);
+    },
+
+    clickRadioOption(fieldName, value) {
+      return commonActions.clickRadioOption(fieldName, value);
+
+    },
+
+    selectOptionWithLabel(name, pos) {
+      return commonActions.selectOptionWithLabel(name, pos);
+
+    },
+
+    clickLink(linkText) {
+      return commonActions.clickLink(linkText);
+
+    },
+
+    clickButton(label) {
+      return commonActions.clickButton(label);
+
+    },
+
+    clickFieldWithID(id) {
+      return commonActions.clickFieldWithID(id);
+
+    },
+
+    fillFieldWithLabel(name, value) {
+      return commonActions.fillFieldWithLabel(name, value);
+
+    },
+
+    fillFieldWithId(id, value) {
+      return commonActions.fillFieldWithId(id, value);
+
+    },
+
+    enterDate(dateField, day, month, year) {
+      return commonActions.enterDate(dateField, day, month, year);
+
+    },
+    selectFile(fieldName, filePath) {
+      return commonActions.selectFile(fieldName, filePath);
+    },
 
     enterPinPageHappyPath() {
       return EnterPinPage.enterPin();
@@ -142,14 +194,61 @@ module.exports = () => {
     draftConsentOrder() {
       return ConsentOrder.draftConsentOrder();
     },
-    respondentTaskList(){
-      return RespondentEvents.respondentTaskList();
+    respondentTaskList(caseId){
+      return RespondentEvents.respondentTaskList(caseId);
     },
-    respondentAboutYou(){
-      return RespondentEvents.respondentAboutYou();
+    respondentAboutYou(caseId){
+      return RespondentEvents.respondentAboutYou(caseId);
     },
     aboutYouFL401() {
       return ApplicantAboutYouFL401.aboutYouFL401();
+    },
+    navigateToAcitivateAccessCodePage(){
+      return ActivateAccessCode.navigateToAcitivateAccessCodePage();
+    },
+    fillAndSubmitActivateAccessCode(caseNumber, accessCode){
+      return ActivateAccessCode.fillAndSubmitActivateAccessCode(caseNumber, accessCode);
+    },
+    confirmAccessCodeActivated(){
+      return ActivateAccessCode.confirmAccessCodeActivated();
+    },
+
+    // EXUI login steps
+    loginAsSolicitor() {
+      return EXUILogin.loginAsSolicitor();
+    },
+    loginAsRespondentSolicitor() {
+      return EXUILogin.loginAsRespondentSolicitor();
+    },
+    loginAsCourtAdmin() {
+      return EXUILogin.loginAsCourtAdmin();
+    },
+    loginAsCaseManager() {
+      return EXUILogin.loginAsCaseManager();
+    },
+    loginAsStokeCourtAdmin() {
+      return EXUILogin.loginAsStokeCourtAdmin();
+    },
+    loginAsSwanseaCourtAdmin() {
+      return EXUILogin.loginAsSwanseaCourtAdmin();
+    },
+    loginAsCourtAdminTSSolicitorApplication() {
+      return EXUILogin.loginAsCourtAdminTSSolicitorApplication();
+    },
+
+    loginAsJudge() {
+      return EXUILogin.loginAsJudge();
+    },
+    loginAsLegalAdviser() {
+      return EXUILogin.loginAsLegalAdviser();
+    },
+    loginAsOldCourtAdmin() {
+      return EXUILogin.loginAsOldCourtAdmin();
+    },
+    createCaseC100E2E(){
+      return createCaseE2E.createCaseC100E2E({});
     }
+
+
   });
 };

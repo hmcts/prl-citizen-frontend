@@ -93,10 +93,13 @@ export const generateContent: TranslationFn = content => {
   const { fields } = generateFormFields();
   const partyDetails = getPartyDetails(content.userCase as CaseWithId, content.userIdamId as UserDetails['id']);
 
-  if (
-    content.userCase?.partyContactPreference === ContactPreference.POST &&
-    Object.values(partyDetails?.address ?? {}).every(addressValue => addressValue === null)
-  ) {
+  const addressDetails = Object.values(partyDetails?.address ?? {}).filter(address => {
+    if (address?.trim()) {
+      return address;
+    }
+  });
+
+  if (content.userCase?.partyContactPreference === ContactPreference.POST && addressDetails.length === 0) {
     form.submit!.disabled = true;
   } else {
     delete form.submit?.disabled;
@@ -112,10 +115,6 @@ export const generateContent: TranslationFn = content => {
       content.userCase?.partyContactPreference!
     ),
     contactPreference: content.userCase?.partyContactPreference,
-    addresses: Object.values(partyDetails?.address ?? {}).filter(address => {
-      if (address?.trim()) {
-        return address;
-      }
-    }),
+    addresses: addressDetails,
   };
 };

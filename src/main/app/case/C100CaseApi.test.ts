@@ -50,7 +50,7 @@ describe('CaseApi', () => {
   test('Should create a case', async () => {
     const request = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
-      c100RebuildReturnUrl: '/c100-rebuild/childaddress',
+      c100RebuildReturnUrl: '/c100-rebuild/screening-questions/consent-agreement',
     };
 
     mockedAxios.post.mockResolvedValueOnce({

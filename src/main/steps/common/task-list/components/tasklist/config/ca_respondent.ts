@@ -35,7 +35,6 @@ import {
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getFinalApplicationStatus,
-  getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   hasAnyHearing,
 } from '../utils';
@@ -209,17 +208,6 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           return getC7ApplicationResponseStatus(caseData, userDetails);
         },
         openInAnotherTab: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
-      },
-      {
-        id: Tasks.RESPOND_TO_AOH_AND_VIOLENCE,
-        href: () => {
-          //** validate **
-          return '#';
-        },
-        stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-          return getInternationalFactorsStatus(respondent?.response.citizenInternationalElements);
-        },
       },
     ],
   },
