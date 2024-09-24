@@ -8,7 +8,7 @@ import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  pageTitle: 'Enter your name  ',
+  title: 'Enter your name',
   subTitle:
     'You and anyone else making this application are known as the applicants. <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later.',
   applicant: 'Applicant',
@@ -31,7 +31,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  pageTitle: 'Nodwch eich enw',
+  title: 'Nodwch eich enw',
   subTitle:
     'Gelwir chi ac unrhyw un arall sy’n gwneud y cais hwn yn ‘y ceiswyr’.<br> <br> Gelwir y bobl eraill sy’n derbyn y cais hwn yn ‘yr atebwyr.’ Byddwn yn gofyn am eu manylion yn nes ymlaen.',
   applicant: 'Ceisydd',
@@ -71,7 +71,7 @@ export const generateFormFields = (
   };
   const nameFieldConfig: FormInput = {
     type: 'text',
-    labelSize: 'm',
+    labelSize: 'none',
     classes: 'govuk-!-width-one-half',
     validator: value => isFieldFilledIn(value) || isFieldLetters(value),
     attributes: {
@@ -156,8 +156,8 @@ export const form: FormContent = {
       type: 'text',
       classes: 'govuk-input govuk-!-width-one-half',
       label: label => label.lastName,
-      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
       labelSize: 'none',
+      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
       attributes: {
         autocomplete: 'off',
       },

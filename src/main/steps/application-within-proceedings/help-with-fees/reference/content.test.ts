@@ -103,7 +103,7 @@ describe('help with fees content', () => {
 
     expect(referenceSubField?.type).toBe('textAndHtml');
     expect((referenceSubField?.textAndHtml as Function)(generatedContent)).toBe(
-      '<h2 class="govuk-heading-s govuk-!-margin-bottom-0">Enter your help with fees reference number</h2>'
+      '<h3 class="govuk-heading-s govuk-!-margin-bottom-0">Enter your help with fees reference number</h3>'
     );
 
     expect(referenceNumberSubField?.type).toBe('text');

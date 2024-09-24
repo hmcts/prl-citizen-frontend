@@ -5,7 +5,7 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  headingTitle: 'Have you or the children ever been involved in court proceedings?',
+  title: 'Have you or the children ever been involved in court proceedings?',
   childrenInvolvedCourtCase: 'Have the children been involved in a court case?',
   courtOrderProtection: 'Have you had a court order made for your protection?',
   one: 'Yes',
@@ -24,7 +24,7 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  headingTitle: 'Ydych chi neu’r plant erioed wedi bod ynghlwm ag achos llys?',
+  title: 'Ydych chi neu’r plant erioed wedi bod ynghlwm ag achos llys?',
   childrenInvolvedCourtCase: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
   courtOrderProtection: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
   one: 'Do',

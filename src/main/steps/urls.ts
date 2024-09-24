@@ -284,9 +284,6 @@ export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink = '/:root/sa
 export const C1A_CHILD_ABDUCTION_THREATS: PageLink = '/:root/safety-concerns/abduction/threats';
 export const C1A_SAFETY_CONCERNS_REVIEW: PageLink = '/:root/safety-concerns/review';
 
-/** @C100 Document Submission */
-export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
-
 /** @C100 MIAM */
 export const C100_MIAM: PageLink = `${C100_URL}/miam`;
 export const C100_MIAM_OTHER_PROCEEDINGS: PageLink = `${C100_MIAM}/other-proceedings`;
