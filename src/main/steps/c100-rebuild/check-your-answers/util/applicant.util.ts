@@ -13,6 +13,7 @@ import {
   en as contentDetailKnownEn,
 } from '../../applicant/confidentiality/details-know/content';
 import { cy as contentStartCy, en as contentStartEn } from '../../applicant/confidentiality/start/content';
+import { cy as refugeCy, en as refugeEn } from '../../applicant/confidentiality/staying-in-refuge/content';
 import { cy as contentContactCy, en as contentContactEn } from '../../applicant/contact-detail/content';
 import { cy as contactPreferencesCY, en as contactPreferencesEN } from '../../applicant/contact-preference/content';
 import {
@@ -53,6 +54,7 @@ export const ApplicantElements = SystemLanguage => {
         ...contentContactEn(),
         ...contentPersonalDetailsEn(),
         anyotherPersonYouwantList: opersonDetailsEn().title,
+        stayingInRefuge: refugeEn.title,
         anyOtherPeopleKnowDetails: contentDetailKnownEn().headingTitle,
         doYouWantToKeep: contentStartEn().headingTitle,
         haveLivedMore: addressManualEn().addressHistoryLabel,
@@ -76,6 +78,7 @@ export const ApplicantElements = SystemLanguage => {
         ...contentPersonalDetailsCy(),
         ...opersonDetailsCy(),
         anyotherPersonYouwantList: opersonDetailsCy().title,
+        stayingInRefuge: refugeCy.title,
         anyOtherPeopleKnowDetails: contentDetailKnownCy().headingTitle,
         doYouWantToKeep: contentStartCy().headingTitle,
         haveLivedMore: addressManualCy().addressHistoryLabel,

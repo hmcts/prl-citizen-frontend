@@ -1,0 +1,15 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+    <h1 class="govuk-heading-xl">
+        {{title}}
+    </h1>
+
+    <p class="govuk-body">{{ content1}}</p>
+
+    <p class="govuk-body">{{ content2 }}</p>
+
+    <p class="govuk-body">{{ content3}}</p>
+
+    {% endblock %}

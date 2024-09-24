@@ -9,10 +9,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
-import {
-  C100_APPLICANT_ADD_APPLICANTS,
-  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
-} from '../../../urls';
+import { C100_APPLICANT_ADD_APPLICANTS, C100_APPLICANT_STAYING_IN_REFUGE } from '../../../urls';
 // eslint-disable-next-line import/no-unresolved
 
 @autobind
@@ -130,7 +127,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       this.addAnotherApplicant(req);
       this.resetSessionTemporaryFormValues(req);
       delete req.session.userCase.applicantTemporaryFormData;
-      const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
+      const redirectURI = applyParms(C100_APPLICANT_STAYING_IN_REFUGE, {
         applicantId: req.session.userCase?.appl_allApplicants?.[0].id as string,
       });
       return super.redirect(req, res, redirectURI);
@@ -219,7 +216,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       if (errorMessageStorage.length === 0) {
         req.session.userCase.appl_allApplicants = newApplicantStorage;
         delete req.session.userCase.applicantTemporaryFormData;
-        const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
+        const redirectURI = applyParms(C100_APPLICANT_STAYING_IN_REFUGE, {
           applicantId: req.session.userCase.appl_allApplicants[0].id!,
         });
         return super.redirect(req, res, redirectURI);
