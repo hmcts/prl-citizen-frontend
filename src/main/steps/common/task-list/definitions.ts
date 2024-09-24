@@ -96,3 +96,10 @@ export type ProgressBarProps = {
   isComplete: (caseData: Partial<CaseWithId>, UserDetails: UserDetails) => boolean;
   isInProgress: (caseData: Partial<CaseWithId>, UserDetails: UserDetails) => boolean;
 };
+
+export type QuickLinksProps = {
+  id: string;
+  label: string;
+  link: string;
+  target?: '_blank' | '_self';
+};
