@@ -4,10 +4,10 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 const en = {
-  title: 'Have you lived at this address for more than 5 years?',
+  title: 'Have you lived at this address for less than 5 years?',
   one: 'Yes',
   two: 'No',
-  explainNoLabel:
+  explainYesLabel:
     'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
   continue: 'Continue',
   errors: {
