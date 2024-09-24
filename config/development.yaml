@@ -21,9 +21,9 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2334.preview.platform.hmcts.net'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2223.preview.platform.hmcts.net'
   cos:
-    url: 'https://prl-cos-pr-2554.preview.platform.hmcts.net'
+    url: 'https://prl-cos-pr-2502.preview.platform.hmcts.net'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2334.preview.platform.hmcts.net'
   reasonableAdjustments:
@@ -56,4 +56,4 @@ featureToggles:
 
 launchDarkly:
   offline: true
-allowedCourts: ["Swansea Civil Justice Centre"]
+allowedCourts: Swansea Civil Justice Centre
