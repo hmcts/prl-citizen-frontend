@@ -8,7 +8,7 @@ import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } fro
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import * as Urls from '../../urls';
 
-console.info('** FOR SONAR **');
+
 /* eslint-disable import/namespace */
 export const PastAndCurrentProceedings = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,

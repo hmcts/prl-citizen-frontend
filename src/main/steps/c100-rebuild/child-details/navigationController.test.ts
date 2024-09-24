@@ -4,7 +4,8 @@ import {
   C100_CHILDERN_DETAILS_CHILD_MATTERS,
   C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
   C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
-  C100_CHILDERN_LIVE_WITH,
+  C100_CHILDERN_LIVING_ARRANGEMENTS,
+  C100_CHILDERN_MAINLY_LIVE_WITH,
 } from '../../urls';
 
 import ChildrenDetailsNavigationController from './navigationController';
@@ -214,18 +215,26 @@ describe('ChildrenDetailsNavigationController', () => {
     ).toBe('/c100-rebuild/child-details/further-information');
   });
 
-  test('From the first child liveWith screen -> navigate to child liveWith screen for all children -> navigate to C1A saftey concerns guidance screen when no more child is left', async () => {
+  test('From the first child livingArrangements screen -> navigate to child liveWith screen for all children -> navigate to C1A saftey concerns guidance screen when no more child is left', async () => {
     expect(
-      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, mock.session.userCase, mock.params)
-    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925635/live-with');
+      ChildrenDetailsNavigationController.getNextUrl(
+        C100_CHILDERN_LIVING_ARRANGEMENTS,
+        mock.session.userCase,
+        mock.params
+      )
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925635/live-with/mainly-live-with');
     mock.params.childId = '7483640e-0817-4ddc-b709-6723f7925635';
 
     expect(
-      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, mock.session.userCase, mock.params)
-    ).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_MAINLY_LIVE_WITH, mock.session.userCase, mock.params)
+    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925635/live-with/living-arrangements');
 
     expect(
-      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVE_WITH, mockTwo.session.userCase, mockTwo.params)
+      ChildrenDetailsNavigationController.getNextUrl(
+        C100_CHILDERN_LIVING_ARRANGEMENTS,
+        mockTwo.session.userCase,
+        mockTwo.params
+      )
     ).toBe('/c100-rebuild/safety-concerns/concern-guidance');
   });
 

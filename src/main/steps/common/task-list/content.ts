@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { applyParms } from '../url-parser';
 
 import { APPLICANT_ADD_LEGAL_REPRESENTATIVE, DASHBOARD_URL, REMOVE_LEGAL_REPRESENTATIVE_START } from './../../urls';
-import { getNotificationBannerConfig } from './components/notification-banner/.';
+import { getNotifications } from './components/notification-banner/index';
 import { getProgressBarConfig } from './components/progress-bar/index';
 import { languages as sideLinks } from './components/side-links/content';
 import { getTaskListConfig } from './components/tasklist/index';
@@ -67,6 +67,7 @@ const en = {
   ],
   addLegalRepresentative: 'Add a legal representative',
   removeLegalRepresentative: 'Remove a legal representative',
+  whatToExpect: 'What to expect coming to a court or tribunal - GOV.UK (www.gov.uk)',
 };
 
 const cy = {
@@ -127,6 +128,7 @@ const cy = {
   ],
   addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
   removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
+  whatToExpect: 'Beth i’w ddisgwyl pan fyddwch yn dod i lys neu dribiwnlys – GOV.UK(www.gov.uk)',
 };
 
 export const languages = {
@@ -141,18 +143,15 @@ export const generateContent: TranslationFn = content => {
   const partyType = request.params.partyType;
   const _isRepresentedBySolicotor = isRepresentedBySolicotor(caseData, request.session.user.id);
 
-  if (caseData?.caseTypeOfApplication) {
+  if (caseData?.caseTypeOfApplication && partyType) {
     translations.hyperlinks = [
-      ...sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks,
+      ...sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType]?.hyperlinks,
     ];
   }
 
   translations.hyperlinks.forEach((hyperLink, index) => {
-    if (
-      hyperLink.label.includes(translations.addLegalRepresentative) &&
-      !isCaseLinked(caseData, request.session.user)
-    ) {
-      translations.hyperlinks.splice(index, 2);
+    if (hyperLink.label.includes(translations.whatToExpect) && !isCaseLinked(caseData, request.session.user)) {
+      translations.hyperlinks.splice(index, 3);
     } else if (
       (hyperLink.label.includes(translations.addLegalRepresentative) && _isRepresentedBySolicotor) ||
       (hyperLink.label.includes(translations.removeLegalRepresentative) && !_isRepresentedBySolicotor)
@@ -173,7 +172,7 @@ export const generateContent: TranslationFn = content => {
     progressBar: request.session.enableCaseTrainTrack
       ? getProgressBarConfig(caseData, partyType, content.language, request.session.user)
       : [],
-    notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),
+    notifications: getNotifications(caseData, request.session.user, partyType, content.language),
     taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language),
   };
 };

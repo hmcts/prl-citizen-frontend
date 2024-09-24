@@ -1,13 +1,27 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import axios from 'axios';
 import { LoggerInstance } from 'winston';
+
+const logger = {
+  info: jest.fn(),
+  error: jest.fn(),
+};
+Logger.getLogger.mockReturnValue(logger);
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import mockUserCase from '../../../test/unit/utils/mockUserCase';
 import { CaseApi as C100Api } from '../../app/case/C100CaseApi';
-import { C100_CASE_EVENT } from '../../app/case/definition';
+import { AWPApplicationType, C100_CASE_EVENT, PartyType } from '../../app/case/definition';
+import { UserDetails } from '../../app/controller/AppRequest';
 
-import { PaymentHandler, PaymentValidationHandler, submitCase } from './paymentController';
+import {
+  PaymentAPI,
+  PaymentController,
+  PaymentHandler,
+  PaymentValidationHandler,
+  submitCase,
+} from './paymentController';
 
 const mockToken = 'authToken';
 
@@ -230,7 +244,7 @@ describe('PaymentValidationHandler', () => {
         status: 'Failed',
       },
     });
-    mockedAxios.get.mockResolvedValueOnce({
+    mockedAxios.get.mockResolvedValue({
       data: {
         ...paymentDetails,
         status: 'Failed',
@@ -294,5 +308,171 @@ describe('PaymentValidationHandler', () => {
       C100_CASE_EVENT.CASE_SUBMIT
     );
     expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'applicationNotSubmitted' });
+  });
+});
+
+describe('PaymentController', () => {
+  const userDetails: UserDetails = {
+    accessToken: '123',
+    email: 'billy@bob.com',
+    givenName: 'billy',
+    familyName: 'bob',
+    id: '1234',
+  };
+
+  const paymentController = new PaymentController(mockedAxios, Logger);
+
+  describe('getPaymentStatus', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test('getPaymentStatus success', async () => {
+      mockedAxios.get.mockResolvedValueOnce({ data: { status: 'Success' } });
+
+      expect(await PaymentController.getPaymentStatus(userDetails, '123', 'MOCK_REFERENCE')).toStrictEqual({
+        status: 'success',
+        response: { status: 'Success' },
+      });
+    });
+
+    test('getPaymentStatus throws error', async () => {
+      mockedAxios.get.mockRejectedValueOnce({ data: { status: 'reject' } });
+      let flag;
+      try {
+        await PaymentController.getPaymentStatus(userDetails, '123', 'MOCK_REFERENCE');
+      } catch {
+        flag = false;
+      }
+      expect(flag).toEqual(false);
+    });
+  });
+
+  describe('initiatePayment', () => {
+    let paymentResponse;
+    let paymentData;
+
+    beforeEach(() => {
+      paymentResponse = {
+        payment_reference: 'MOCK_REFERENCE',
+        date_created: 'MOCK_DATE',
+        external_reference: 'MOCK_REFERENCE',
+        next_url: 'MOCK_URL',
+        status: 'Success',
+        serviceRequestReference: 'MOCK_REFERENCE',
+      };
+
+      paymentData = {
+        caseId: '1234',
+        returnUrl: 'MOCK_URL',
+        applicantCaseName: 'MOCK_CASE_NAME',
+        feeType: 'MOCK_FEE_TYPE',
+        awpType: 'C2' as AWPApplicationType,
+        partyType: 'applicant' as PartyType,
+      };
+    });
+
+    test('initiatePayment when hwf reference exists', async () => {
+      mockedAxios.post.mockResolvedValueOnce({
+        data: paymentResponse,
+      });
+
+      paymentData = { ...paymentData, hwfRefNumber: 'MOCK_REF_NUMBER' };
+
+      expect(await paymentController.initiatePayment(paymentData)).toStrictEqual({
+        context: 'PAYMENT_SUCCESS_HWF',
+        response: {
+          paymentReference: 'MOCK_REFERENCE',
+          paymentDate: 'MOCK_DATE',
+          externalReference: 'MOCK_REFERENCE',
+          nextActionUrl: 'MOCK_URL',
+          paymentStatus: 'Success',
+          paymentServiceRequestReference: 'MOCK_REFERENCE',
+        },
+      });
+    });
+
+    test('initiatePayment when hwf reference doesnt exist', async () => {
+      mockedAxios.post.mockResolvedValueOnce({
+        data: paymentResponse,
+      });
+
+      expect(await paymentController.initiatePayment(paymentData)).toStrictEqual({
+        context: 'PAYMENT_SUCCESS',
+        response: {
+          paymentReference: 'MOCK_REFERENCE',
+          paymentDate: 'MOCK_DATE',
+          externalReference: 'MOCK_REFERENCE',
+          nextActionUrl: 'MOCK_URL',
+          paymentStatus: 'Success',
+          paymentServiceRequestReference: 'MOCK_REFERENCE',
+        },
+      });
+    });
+
+    test('initiatePayment payment redirect', async () => {
+      mockedAxios.post.mockResolvedValueOnce({
+        data: paymentResponse,
+      });
+
+      delete paymentResponse.serviceRequestReference;
+
+      expect(await paymentController.initiatePayment(paymentData)).toStrictEqual({
+        context: 'PAYMENT_REDIRECT',
+        response: {
+          paymentReference: 'MOCK_REFERENCE',
+          paymentDate: 'MOCK_DATE',
+          externalReference: 'MOCK_REFERENCE',
+          nextActionUrl: 'MOCK_URL',
+          paymentServiceRequestReference: undefined,
+          paymentStatus: 'Success',
+        },
+        redirectUrl: 'MOCK_URL',
+      });
+    });
+
+    test('initiatePayment payment error from lack of details', async () => {
+      mockedAxios.post.mockResolvedValueOnce({
+        data: paymentResponse,
+      });
+      delete paymentResponse.next_url;
+      delete paymentResponse.serviceRequestReference;
+
+      let flag;
+      try {
+        await paymentController.initiatePayment(paymentData);
+      } catch {
+        flag = false;
+      }
+      expect(flag).toEqual(false);
+    });
+
+    test('initiatePayment other payment error', async () => {
+      mockedAxios.post.mockRejectedValue({
+        data: paymentResponse,
+      });
+      delete paymentResponse.next_url;
+      delete paymentResponse.serviceRequestReference;
+
+      let flag;
+      try {
+        await paymentController.initiatePayment(paymentData);
+      } catch {
+        flag = false;
+      }
+      expect(flag).toEqual(false);
+    });
+  });
+
+  describe('PaymentAPI', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    test('PaymentAPI success', async () => {
+      mockedAxios.get.mockResolvedValueOnce({ data: { status: 'Success' } });
+
+      expect(await PaymentAPI(userDetails.accessToken, Logger)).toBeInstanceOf(PaymentController);
+    });
   });
 });

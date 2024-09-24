@@ -1,3 +1,4 @@
+// eslint-disable sort-imports
 import { CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -42,7 +43,7 @@ import {
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
-  VIEW_DOCUMENTS,
+  VIEW_TYPE_DOCUMENT,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -197,7 +198,7 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => '/',
   },
   {
-    url: VIEW_DOCUMENTS,
+    url: VIEW_TYPE_DOCUMENT,
     showInSection: Sections.AboutRespondentCase,
     subDir: '/common',
     getNextStep: () => '/',

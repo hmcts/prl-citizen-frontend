@@ -1,8 +1,8 @@
-import { CaseWithId } from '../../../../../app/case/case';
-import { CaseInvite, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
-import { CitizenApplicationPacks, CitizenOrders } from '../../../documents/definitions';
+import { CaseWithId, CitizenNotification } from '../../../../../app/case/case';
+import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
+import { CitizenApplicationPacks, DocumentCategory } from '../../../documents/definitions';
 
-import { getNotificationBannerConfig } from '.';
+import { getNotifications } from '.';
 
 const userDetails = {
   id: '123',
@@ -144,19 +144,18 @@ const applicant = [
 ];
 
 describe('testcase for notification Banner', () => {
-  test('when casetype not mentioned', () => {
+  test('when application submitted', () => {
     const data = {
       id: '12',
       state: State.CASE_SUBMITTED_NOT_PAID,
-    };
+    } as unknown as CaseWithId;
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'Your application is in progress',
         id: 'applicationSubmitted',
-        title: 'Important',
         sections: [
           {
             contents: [
@@ -176,23 +175,26 @@ describe('testcase for notification Banner', () => {
       },
     ]);
   });
+
   test('when case is not started', () => {
-    const data = {};
+    const data = {} as unknown as CaseWithId;
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([]);
+    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([]);
   });
-  test('when casetype c100 and state is draft', () => {
+
+  test('when casetype c100 and application in progress', () => {
     const data = {
       id: '12',
       state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.C100,
-    };
+      noOfDaysRemainingToSubmitCase: '2',
+    } as unknown as CaseWithId;
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'You have not finished your application',
         id: 'applicationInProgress',
@@ -200,7 +202,7 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+                text: 'You have 2 days to submit your application from the date you started it, or it will be deleted and you will need to start the application again. This is to keep your information secure.',
               },
               {
                 text: 'You can review all your answers before you submit your application.',
@@ -215,20 +217,20 @@ describe('testcase for notification Banner', () => {
             ],
           },
         ],
-        title: 'Important',
       },
     ]);
   });
+
   test('when case is withdrawn', () => {
     const data = {
       id: '12',
       state: State.CASE_WITHDRAWN,
       caseTypeOfApplication: CaseType.C100,
-    };
+    } as unknown as CaseWithId;
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
       {
         sections: [
           {
@@ -237,160 +239,16 @@ describe('testcase for notification Banner', () => {
                 text: 'You can still access all documents related to the case',
               },
             ],
-            links: null,
+            links: [],
           },
         ],
         heading: 'This case has now been withdrawn',
         id: 'applicationWithdrawn',
-        title: 'Important',
       },
     ]);
   });
-  test('withdrawn is rejected', () => {
-    const data = {
-      id: '12',
-      state: State.Submitted,
-      orderCollection: [
-        {
-          id: '',
-          value: {
-            dateCreated: '',
-            orderType: '',
-            orderDocument: {
-              document_url: '',
-              document_filename: '',
-              document_binary_url: '',
-            },
-            orderDocumentWelsh: {
-              document_url: '',
-              document_filename: '',
-              document_binary_url: '',
-            },
-            otherDetails: {
-              createdBy: '',
-              orderCreatedDate: '',
-              orderMadeDate: '',
-              orderRecipients: '',
-            },
-            orderTypeId: 'blankOrderOrDirectionsWithdraw',
-            isWithdrawnRequestApproved: YesOrNo.NO,
-            withdrawnRequestType: 'Withdrawn application',
-          },
-        },
-      ],
-      citizenOrders: [
-        {
-          dateCreated: 'MOCK_DATE',
-          orderType: 'ORDER',
-          document: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-          documentWelsh: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-        },
-      ],
-    };
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-    expect(getNotificationBannerConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
-      {
-        heading: 'Your withdrawal request was rejected',
-        id: 'withdrawalRequestRejected',
-        title: 'Important',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'The court rejected your request to withdraw this application. The application will continue to progress.',
-              },
-            ],
-            links: null,
-          },
-        ],
-      },
-      {
-        heading: 'You have a new order from the court',
-        id: 'newOrder',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'The court has made a decision about your case. The order tells you what the court has decided.',
-              },
-            ],
-            links: [
-              {
-                href: '/applicant/documents/view/orders-from-the-court',
-                text: 'View the order (PDF)',
-                external: false,
-              },
-            ],
-          },
-        ],
-        title: 'Important',
-      },
-    ]);
-  });
-  test('when case is issue to local court', () => {
-    const data = {
-      id: '12',
-      state: State.CASE_ISSUED_TO_LOCAL_COURT,
-      caseTypeOfApplication: CaseType.C100,
-    };
-    const party = PartyType.APPLICANT;
-    const language = 'en';
 
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
-      {
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Your application is being reviewed and you will be contacted with next steps.',
-              },
-            ],
-            links: null,
-          },
-        ],
-        heading: 'Your application is in progress',
-        id: 'applicationSentToLocalCourt',
-        title: 'Important',
-      },
-    ]);
-  });
-  test('when case is in gate keeping state', () => {
-    const data = {
-      id: '12',
-      state: State.CASE_GATE_KEEPING,
-      caseTypeOfApplication: CaseType.C100,
-    };
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
-      {
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Your application is being reviewed and you will be contacted with next steps.',
-              },
-            ],
-            links: null,
-          },
-        ],
-        heading: 'Your application is in progress',
-        id: 'applicationSentToGateKeeping',
-        title: 'Important',
-      },
-    ]);
-  });
-  test('when case is in served and linked by admin', () => {
+  test('when application is being served personally by court and cafcass is served', () => {
     const data = {
       id: '12',
       state: State.CASE_SERVED,
@@ -408,6 +266,7 @@ describe('testcase for notification Banner', () => {
       citizenApplicationPacks: [
         {
           partyId: '123',
+          wasCafcassServed: true,
           applicantSoaPack: [
             {
               document_url: 'MOCK_DOCUMENT_URL',
@@ -420,11 +279,18 @@ describe('testcase for notification Banner', () => {
           ],
         },
       ] as unknown as CitizenApplicationPacks[],
-    };
+      citizenNotifications: [
+        {
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
+          show: true,
+          personalService: true,
+        } as CitizenNotification,
+      ],
+    } as unknown as CaseWithId;
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotificationBannerConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
+    expect(getNotifications(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
       {
         sections: [
           {
@@ -435,20 +301,296 @@ describe('testcase for notification Banner', () => {
               {
                 text: 'We will let you know when the other people in the case have been given your application and case documents.',
               },
+            ],
+            links: [
               {
-                text: '<a href="/applicant/documents/view/application-pack-documents" class="govuk-link">View your application pack</a>',
+                external: false,
+                href: '/applicant/documents/view/application-pack-documents',
+                text: 'View your application pack',
               },
             ],
-            links: [],
+          },
+          {
+            contents: [
+              {
+                text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
+              },
+              {
+                text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+                text: 'Find out about Cafcass',
+              },
+            ],
           },
         ],
         heading: 'The court has issued your application',
-        id: 'applicationServedAndLinked',
-        title: 'Important',
+        id: 'applicationServedByCourtPersonalNonPersonalService',
       },
     ]);
   });
-  test('when case is in served and linked by court bailiff', () => {
+
+  test('correct welsh banners when application is being served personally by court and cafcass is served', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court admin',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          wasCafcassServed: true,
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
+          show: true,
+          personalService: true,
+        } as CitizenNotification,
+      ],
+    } as unknown as CaseWithId;
+    const party = PartyType.APPLICANT;
+
+    expect(getNotifications(data as unknown as CaseWithId, userDetails, party, 'cy')).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: "Mae hyn yn golygu y bydd y llys yn rhoi eich cais i'r bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i'r hyn yr ydych wedi'i ddweud.  Bydd y cais yn symud yn ei flaen p’un a fyddant yn ymateb neu beidio.",
+              },
+              {
+                text: "Byddwn yn rhoi gwybod i chi pan fydd y bobl eraill yn yr achos wedi cael eich cais a'ch dogfennau achos.",
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/application-pack-documents',
+                text: 'Gweld eich pecyn cais',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: '<p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
+              },
+              {
+                text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+                text: 'Gwybodaeth am Cafcass',
+              },
+            ],
+          },
+        ],
+        heading: "Mae'r llys wedi cychwyn eich cais",
+        id: 'applicationServedByCourtPersonalNonPersonalService',
+      },
+    ]);
+  });
+
+  test('when application is being served personally by court and cafcass cymru is served', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court admin',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          wasCafcassCymruServed: true,
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
+          show: true,
+          personalService: true,
+        } as CitizenNotification,
+      ],
+    } as unknown as CaseWithId;
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getNotifications(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+              },
+              {
+                text: 'We will let you know when the other people in the case have been given your application and case documents.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/application-pack-documents',
+                text: 'View your application pack',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: '<p class="govuk-notification-banner__heading">Cafcass Cymru will contact you</p>',
+              },
+              {
+                text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+                text: 'Find out about Cafcass Cymru',
+              },
+            ],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedByCourtPersonalNonPersonalService',
+      },
+    ]);
+  });
+
+  test('correct welsh banners when application is being served personally by court and cafcass cymru is served', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court admin',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          wasCafcassCymruServed: true,
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CAN4_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
+          show: true,
+          personalService: true,
+        } as CitizenNotification,
+      ],
+    } as unknown as CaseWithId;
+    const party = PartyType.APPLICANT;
+
+    expect(getNotifications(data as unknown as CaseWithId, userDetails, party, 'cy')).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: "Mae hyn yn golygu y bydd y llys yn rhoi eich cais i'r bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i'r hyn yr ydych wedi'i ddweud.  Bydd y cais yn symud yn ei flaen p’un a fyddant yn ymateb neu beidio.",
+              },
+              {
+                text: "Byddwn yn rhoi gwybod i chi pan fydd y bobl eraill yn yr achos wedi cael eich cais a'ch dogfennau achos.",
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/application-pack-documents',
+                text: 'Gweld eich pecyn cais',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: '<p class="govuk-notification-banner__heading">Bydd Cafcass Cymru yn cysylltu â chi </p>',
+              },
+              {
+                text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+                text: 'Gwybodaeth am Cafcass Cymru',
+              },
+            ],
+          },
+        ],
+        heading: "Mae'r llys wedi cychwyn eich cais",
+        id: 'applicationServedByCourtPersonalNonPersonalService',
+      },
+    ]);
+  });
+
+  test('banners should be added when new and final orders added', () => {
     const data = {
       id: '12',
       state: State.CASE_SERVED,
@@ -478,30 +620,495 @@ describe('testcase for notification Banner', () => {
           ],
         },
       ] as unknown as CitizenApplicationPacks[],
-    };
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-    expect(getNotificationBannerConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
+      citizenNotifications: [
+        {
+          id: 'CRNF2_APPLICANT_RESPONDENT',
+          show: true,
+          multiple: true,
+          final: true,
+          new: true,
+        },
+      ],
+    } as unknown as CaseWithId;
+
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
       {
+        heading: 'You have new and final orders from the court',
+        id: 'orderNonPersonalService',
         sections: [
           {
             contents: [
               {
-                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
-              },
-              {
-                text: 'We will let you know when the other people in the case have been given your application and case documents.',
-              },
-              {
-                text: '<a href="/applicant/documents/view/application-pack-documents" class="govuk-link">View your application pack</a>',
+                text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
               },
             ],
-            links: [],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the orders (PDF)',
+              },
+            ],
           },
         ],
-        heading: 'The court has issued your application',
-        id: 'applicationServedAndLinked',
-        title: 'Important',
+      },
+    ]);
+  });
+  test('banners should be added when new and final orders added LIP personal service zero respondent', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
+          show: true,
+          multiple: true,
+          final: true,
+          new: true,
+        },
+      ],
+    } as unknown as CaseWithId;
+
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'You have new and final orders from the court',
+        id: 'orderPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
+              },
+              {
+                text: 'You will need to arrange for the  to be served. See the orders for further details.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the orders (PDF)',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'If there is more than one applicant, please agree which of you will serve the orders on the .',
+              },
+              {
+                text: 'You need to submit a statement of service after the   been given the documents.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
+                text: 'Download the statement of service (form C9)',
+              },
+              {
+                external: false,
+                href: '/applicant/statement-of-service/who-was-served/order',
+                text: 'Upload the statement of service (form C9)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+  test('banners should be added when new and final orders added LIP personal service one respondent', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
+          show: true,
+          multiple: true,
+          final: true,
+          new: true,
+        },
+      ],
+    } as unknown as CaseWithId;
+    data.respondents = [
+      {
+        id: '123',
+        value: {
+          user: {
+            idamId: '123',
+          },
+          response: {
+            citizenFlags: {},
+          },
+        },
+      } as unknown as Respondent,
+    ];
+
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'You have new and final orders from the court',
+        id: 'orderPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
+              },
+              {
+                text: 'You will need to arrange for the respondent to be served. See the orders for further details.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the orders (PDF)',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'If there is more than one applicant, please agree which of you will serve the orders on the respondent.',
+              },
+              {
+                text: 'You need to submit a statement of service after the respondent has been given the documents.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
+                text: 'Download the statement of service (form C9)',
+              },
+              {
+                external: false,
+                href: '/applicant/statement-of-service/who-was-served/order',
+                text: 'Upload the statement of service (form C9)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+  test('banners should be added when new and final orders added LIP personal service multiple respondent', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
+          show: true,
+          multiple: true,
+          final: true,
+          new: true,
+        },
+      ],
+    } as unknown as CaseWithId;
+    data.respondents = [
+      {
+        id: '123',
+        value: {
+          user: {
+            idamId: '123',
+          },
+          response: {
+            citizenFlags: {},
+          },
+        },
+      } as unknown as Respondent,
+      {
+        id: '1231',
+        value: {
+          user: {
+            idamId: '1231',
+          },
+          response: {
+            citizenFlags: {},
+          },
+        },
+      } as unknown as Respondent,
+    ];
+
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'You have new and final orders from the court',
+        id: 'orderPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
+              },
+              {
+                text: 'You will need to arrange for the respondents to be served. See the orders for further details.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the orders (PDF)',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'If there is more than one applicant, please agree which of you will serve the orders on the respondents.',
+              },
+              {
+                text: 'You need to submit a statement of service after the respondents have been given the documents.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/601aaf95d3bf7f70b66fb558/c9-bil.pdf',
+                text: 'Download the statement of service (form C9)',
+              },
+              {
+                external: false,
+                href: '/applicant/statement-of-service/who-was-served/order',
+                text: 'Upload the statement of service (form C9)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('correct welsh banners should be added when new and final orders added', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CRNF2_APPLICANT_RESPONDENT',
+          show: true,
+          multiple: true,
+          final: true,
+          new: true,
+        },
+      ],
+    } as unknown as CaseWithId;
+
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
+      {
+        heading: 'Mae gennych orchmynion newydd a gorchmynion terfynol gan y llys',
+        id: 'orderNonPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'Gweld y gorchmynion (PDF)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+  test('correct welsh banners should be added when new and final orders added LIP personal service', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
+      citizenNotifications: [
+        {
+          id: 'CRNF3_PERSONAL_SERV_APPLICANT',
+          show: true,
+          multiple: true,
+          final: true,
+          new: true,
+        },
+      ],
+    } as unknown as CaseWithId;
+
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
+      {
+        heading: 'Mae gennych orchmynion newydd a gorchmynion terfynol gan y llys',
+        id: 'orderPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
+              },
+              {
+                text: "Bydd arnoch angen trefnu i'r dogfennau gael eu cyflwyno ar yr . Gweler y gorchmynion  i gael rhagor o wybodaeth.",
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'Gweld y gorchmynion (PDF)',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'Os oes mwy nag un ceisydd, cytunwch pa un ohonoch fydd yn cyflwyno’r gorchmynion ar yr .',
+              },
+              {
+                text: 'Mae arnoch angen cyflwyno datganiad cyflwyno pan fydd yr  wedi cael y dogfennau.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
+                text: "Lawrlwytho'r datganiad cyflwyno (ffurflen C9)",
+              },
+              {
+                external: false,
+                href: '/applicant/statement-of-service/who-was-served/order',
+                text: 'Uwchlwytho’r datganiad cyflwyno',
+              },
+            ],
+          },
+        ],
       },
     ]);
   });
@@ -538,7 +1145,7 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-      citizenDocuments: [
+      respondentDocuments: [
         {
           partyId: '1234',
           partyName: null,
@@ -558,45 +1165,35 @@ describe('testcase for notification Banner', () => {
           documentWelsh: null,
         },
       ],
+      citizenNotifications: [
+        {
+          id: 'CAN6_VIEW_RESPONSE_APPLICANT',
+          show: true,
+        },
+      ],
     } as unknown as CaseWithId;
     const party = PartyType.APPLICANT;
     const language = 'en';
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
-      {
-        sections: [
-          {
-            contents: [
-              {
-                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
-              },
-            ],
-            links: [],
-          },
-        ],
-        heading: 'The court has issued your application',
-        id: 'applicationServedAndLinked',
-        title: 'Important',
-      },
+    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'View the response to your application',
-        id: 'responseSubmitted',
+        id: 'viewResponseToApplication',
         sections: [
           {
             contents: [
               {
-                text: 'The other person in the case (the respondent) has responded to your application.',
+                text: 'The respondent has responded to your application.',
               },
             ],
             links: [
               {
                 external: false,
-                href: '/applicant/documents/view/all-documents',
-                text: 'View the response (PDF)',
+                href: '/applicant/documents/view/all-categories',
+                text: 'View the response',
               },
             ],
           },
         ],
-        title: 'Important',
       },
     ]);
   });
@@ -634,19 +1231,29 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-    } as unknown as Partial<CaseWithId>;
+      citizenNotifications: [
+        {
+          id: 'CAN7_SOA_PERSONAL_APPLICANT',
+          show: true,
+          multiple: false,
+          final: false,
+        } as CitizenNotification,
+      ],
+    } as unknown as CaseWithId;
     const party = PartyType.APPLICANT;
     const language = 'en';
-
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'You must give the respondent their documents',
-        id: 'giveRespondentTheirDocuments',
+        id: 'applicantToPersonallyServeRespondent',
         sections: [
           {
             contents: [
               {
                 text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to the other people in the case (the respondents).',
+              },
+              {
+                text: 'As there is more than one applicant, please agree who will serve the order on the respondent.',
               },
               {
                 text: 'You must give the following documents to the respondent:',
@@ -656,7 +1263,6 @@ describe('testcase for notification Banner', () => {
               {
                 external: false,
                 href: '/applicant/documents/view/application-pack-documents/to-be-served?',
-                show: expect.any(Function),
                 text: "View the respondent's documents",
               },
             ],
@@ -667,7 +1273,7 @@ describe('testcase for notification Banner', () => {
                 text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party (such as a process server or court bailiff). More information about court bailiffs can be found on GOV.UK.',
               },
               {
-                text: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
+                text: '<a class="govuk-link" href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
               },
               {
                 text: '<br/><p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
@@ -684,13 +1290,12 @@ describe('testcase for notification Banner', () => {
               },
               {
                 external: false,
-                href: '',
+                href: '/applicant/statement-of-service/who-was-served/personal-service',
                 text: 'Upload the statement of service (form C9)',
               },
             ],
           },
         ],
-        title: 'Important',
       },
     ]);
   });
@@ -734,14 +1339,20 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-    } as unknown as Partial<CaseWithId>;
+      citizenNotifications: [
+        {
+          id: 'CAN9_SOA_PERSONAL_APPLICANT',
+          show: true,
+        },
+      ],
+    } as unknown as CaseWithId;
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotificationBannerConfig(data, { ...userDetails, id: '1234' }, party, language)).toStrictEqual([
+    expect(getNotifications(data, { ...userDetails, id: '1234' }, party, language)).toStrictEqual([
       {
         heading: 'The court has issued your application',
-        id: 'caPersonalService',
+        id: 'applicationIssuedByCourtPersonalService',
         sections: [
           {
             contents: [
@@ -753,13 +1364,11 @@ describe('testcase for notification Banner', () => {
               {
                 external: false,
                 href: '/applicant/documents/view/application-pack-documents',
-                show: expect.any(Function),
                 text: 'View your application pack',
               },
             ],
           },
         ],
-        title: 'Important',
       },
     ]);
   });
@@ -768,10 +1377,10 @@ describe('testcase for notification Banner', () => {
     const data = {
       id: '12',
       state: State.ALL_FINAL_ORDERS_ISSUED,
-    };
+    } as unknown as CaseWithId;
     const party = PartyType.APPLICANT;
     const language = 'en';
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
       {
         sections: [
           {
@@ -780,12 +1389,11 @@ describe('testcase for notification Banner', () => {
                 text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided.',
               },
             ],
-            links: null,
+            links: [],
           },
         ],
         heading: 'You have a final order',
         id: 'applicationClosed',
-        title: 'Important',
       },
     ]);
   });
@@ -806,7 +1414,7 @@ describe('testcase for notification Banner', () => {
       ],
     } as unknown as CaseWithId;
 
-    test('banners should be added when new order added', () => {
+    test('correct banners should be added when new order added', () => {
       data.respondents = [
         {
           id: '123',
@@ -821,27 +1429,19 @@ describe('testcase for notification Banner', () => {
         } as unknown as Respondent,
       ];
       data.state = State.Draft;
-      data.citizenOrders = [
+      data.caseTypeOfApplication = 'C100';
+      data.citizenNotifications = [
         {
-          dateCreated: 'MOCK_DATE',
-          orderType: 'ORDER',
-          document: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-          documentWelsh: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-        } as unknown as CitizenOrders,
+          id: 'CRNF2_APPLICANT_RESPONDENT',
+          show: true,
+          multiple: false,
+          final: false,
+        } as CitizenNotification,
       ];
-      expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+      expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have a new order from the court',
-          id: 'newOrder',
-
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
@@ -858,7 +1458,150 @@ describe('testcase for notification Banner', () => {
               ],
             },
           ],
-          title: 'Important',
+        },
+      ]);
+    });
+
+    test('correct welsh banners should be added when new order added', () => {
+      data.respondents = [
+        {
+          id: '123',
+          value: {
+            user: {
+              idamId: '123',
+            },
+            response: {
+              citizenFlags: {},
+            },
+          },
+        } as unknown as Respondent,
+      ];
+      data.state = State.Draft;
+      data.caseTypeOfApplication = 'C100';
+      data.citizenNotifications = [
+        {
+          id: 'CRNF2_APPLICANT_RESPONDENT',
+          show: true,
+          multiple: false,
+          final: false,
+        } as CitizenNotification,
+      ];
+      expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
+        {
+          heading: 'Mae gennych orchymyn  newydd gan y llys',
+          id: 'orderNonPersonalService',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchymyn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/documents/view/orders-from-the-court',
+                  text: 'Gweld y gorchymyn (PDF)',
+                },
+              ],
+            },
+          ],
+        },
+      ]);
+    });
+
+    test('banners should be added when multiple new orders added', () => {
+      data.respondents = [
+        {
+          id: '123',
+          value: {
+            user: {
+              idamId: '123',
+            },
+            response: {
+              citizenFlags: {},
+            },
+          },
+        } as unknown as Respondent,
+      ];
+      data.caseTypeOfApplication = 'C100';
+      data.state = State.Draft;
+      data.citizenNotifications = [
+        {
+          id: 'CRNF2_APPLICANT_RESPONDENT',
+          show: true,
+          multiple: true,
+          final: false,
+        } as CitizenNotification,
+      ];
+      expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+        {
+          heading: 'You have new orders from the court',
+          id: 'orderNonPersonalService',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The court has made a decision about your case. The orders tell you what the court has decided.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/documents/view/orders-from-the-court',
+                  text: 'View the orders (PDF)',
+                },
+              ],
+            },
+          ],
+        },
+      ]);
+    });
+
+    test('correct welsh banners should be added when multiple new orders added', () => {
+      data.respondents = [
+        {
+          id: '123',
+          value: {
+            user: {
+              idamId: '123',
+            },
+            response: {
+              citizenFlags: {},
+            },
+          },
+        } as unknown as Respondent,
+      ];
+      data.caseTypeOfApplication = 'C100';
+      data.state = State.Draft;
+      data.citizenNotifications = [
+        {
+          id: 'CRNF2_APPLICANT_RESPONDENT',
+          show: true,
+          multiple: true,
+          final: false,
+        } as CitizenNotification,
+      ];
+      expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
+        {
+          heading: 'Mae gennych orchmynion newydd gan y llys',
+          id: 'orderNonPersonalService',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/documents/view/orders-from-the-court',
+                  text: 'Gweld y gorchmynion (PDF)',
+                },
+              ],
+            },
+          ],
         },
       ]);
     });
@@ -894,70 +1637,17 @@ describe('testcase for notification Banner', () => {
         },
       ] as unknown as CitizenApplicationPacks[];
       data.state = State.Draft;
-      data.orderCollection = [
+      data.citizenNotifications = [
         {
-          id: '1234',
-          value: {
-            dateCreated: 'MOCK_DATE',
-            orderType: 'ORDER',
-            orderDocument: {
-              document_url: 'DOC_URL',
-              document_filename: 'DOC_FILENAME',
-              document_binary_url: 'DOC_BINARY_URL',
-            },
-            orderDocumentWelsh: {
-              document_url: 'DOC_URL',
-              document_filename: 'DOC_FILENAME',
-              document_binary_url: 'DOC_BINARY_URL',
-            },
-            otherDetails: {
-              createdBy: '1234',
-              orderCreatedDate: 'MOCK_DATE',
-              orderMadeDate: 'MOCK_DATE',
-              orderRecipients: 'RECIPIENTS',
-            },
-          },
-        },
+          id: 'CAN5_SOA_RESPONDENT',
+          show: true,
+        } as CitizenNotification,
       ];
-      data.caseInvites = [
-        {
-          id: '123',
-          value: {
-            partyId: '123',
-            caseInviteEmail: '',
-            accessCode: '',
-            invitedUserId: '123',
-            expiryDate: '',
-          },
-        },
-      ] as unknown as CaseInvite[];
       data.caseTypeOfApplication = 'C100';
-      // data.citizenApplicationPacks = [{ partyId: '123' } as unknown as CitizenApplicationPacks];
-      expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
-        {
-          heading: 'You have a new order from the court',
-          id: 'newOrder',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'The court has made a decision about your case. The order tells you what the court has decided.',
-                },
-              ],
-              links: [
-                {
-                  external: false,
-                  href: '/respondent/documents/view/orders-from-the-court',
-                  text: 'View the order (PDF)',
-                },
-              ],
-            },
-          ],
-          title: 'Important',
-        },
+      expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'Respond to an application about a child',
-          id: 'caRespondentServed',
+          id: 'applicationServedByCourtToRespondent',
           sections: [
             {
               contents: [
@@ -970,7 +1660,6 @@ describe('testcase for notification Banner', () => {
                 {
                   external: false,
                   href: '/respondent/documents/view/application-pack-documents',
-                  show: expect.any(Function),
                   text: 'View the application pack',
                 },
                 {
@@ -982,7 +1671,75 @@ describe('testcase for notification Banner', () => {
             },
             { contents: [], links: [] },
           ],
-          title: 'Important',
+        },
+      ]);
+    });
+
+    test('correct welsh banners should be added when respondent has been served', () => {
+      data.respondents = [
+        {
+          id: '123',
+          value: {
+            user: {
+              email: 'abc',
+              idamId: '123',
+            },
+            response: {
+              citizenFlags: {},
+            },
+          },
+        } as unknown as Respondent,
+      ];
+      data.citizenApplicationPacks = [
+        {
+          partyId: '123',
+          respondentSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[];
+      data.state = State.Draft;
+      data.citizenNotifications = [
+        {
+          id: 'CAN5_SOA_RESPONDENT',
+          show: true,
+        } as CitizenNotification,
+      ];
+      data.caseTypeOfApplication = 'C100';
+      expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
+        {
+          heading: 'Ymateb i gais ynghylch plentyn',
+          id: 'applicationServedByCourtToRespondent',
+          sections: [
+            {
+              contents: [
+                { text: 'Mae person arall (y ceisydd) wedi gwneud cais i’r llys wneud penderfyniad ynghylch plentyn.' },
+                {
+                  text: 'Dylech ymateb o fewn 14 diwrnod o dderbyn y cais oni bai bod y llys wedi gofyn i chi ymateb yn gynt.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/documents/view/application-pack-documents',
+                  text: 'Gweld y cais',
+                },
+                {
+                  external: false,
+                  href: '/tasklistresponse/start',
+                  text: "Ymateb i'r cais",
+                },
+              ],
+            },
+            { contents: [], links: [] },
+          ],
         },
       ]);
     });
@@ -1002,31 +1759,23 @@ describe('testcase for notification Banner', () => {
         } as unknown as Respondent,
       ];
       data.state = State.ALL_FINAL_ORDERS_ISSUED;
-      data.citizenOrders = [
+      data.citizenNotifications = [
         {
-          dateCreated: 'MOCK_DATE',
-          orderType: 'ORDER',
-          document: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-          documentWelsh: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-        } as unknown as CitizenOrders,
+          id: 'CRNF2_APPLICANT_RESPONDENT',
+          show: true,
+          multiple: false,
+          final: true,
+        } as CitizenNotification,
       ];
-      expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+      expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
-          heading: 'You have a final order',
-          id: 'finalOrder',
+          heading: 'You have a final order from the court',
+          id: 'orderNonPersonalService',
           sections: [
             {
               contents: [
                 {
-                  text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+                  text: 'The court has made a final decision about your case. The order tells you what the court has decided.',
                 },
               ],
               links: [
@@ -1038,10 +1787,322 @@ describe('testcase for notification Banner', () => {
               ],
             },
           ],
-
-          title: 'Important',
         },
       ]);
     });
+  });
+});
+describe('FL401 banners', () => {
+  const data = {
+    id: '123',
+    state: State.CASE_HEARING,
+    caseTypeOfApplication: CaseType.FL401,
+    respondents: [],
+    caseInvites: [
+      {
+        value: {
+          partyId: '123',
+          invitedUserId: '123',
+        },
+      },
+    ],
+  } as unknown as CaseWithId;
+
+  test('correct banners should be added when new order added by CRNF2', () => {
+    data.citizenNotifications = [
+      {
+        id: 'CRNF2_APPLICANT_RESPONDENT',
+        show: true,
+        multiple: false,
+        final: false,
+      } as CitizenNotification,
+    ];
+    expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+      {
+        heading: 'You have a new order from the court',
+        id: 'orderNonPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/respondent/documents/view/orders-from-the-court',
+                text: 'View the order (PDF)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'You have a new order from the court',
+        id: 'orderNonPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the order (PDF)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('banners should be added when multiple new orders addedby CRNF2', () => {
+    data.citizenNotifications = [
+      {
+        id: 'CRNF2_APPLICANT_RESPONDENT',
+        show: true,
+        multiple: true,
+        final: false,
+      } as CitizenNotification,
+    ];
+    expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
+      {
+        heading: 'Mae gennych orchmynion newydd gan y llys',
+        id: 'orderNonPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/respondent/documents/view/orders-from-the-court',
+                text: 'Gweld y gorchmynion (PDF)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
+      {
+        heading: 'Mae gennych orchmynion newydd gan y llys',
+        id: 'orderNonPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'Gweld y gorchmynion (PDF)',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('correct banners should be added when new order added by CRNF3', () => {
+    data.citizenNotifications = [
+      {
+        id: 'CRNF3_PERSONAL_SERV_APPLICANT',
+        show: true,
+        multiple: false,
+        final: false,
+        new: true,
+      } as CitizenNotification,
+    ];
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'You have a new order from the court',
+        id: 'orderPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+              },
+              {
+                text: 'You will need to arrange for the  to be served. See the order for further details.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/orders-from-the-court',
+                text: 'View the order (PDF)',
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'You must not give the order to the respondent yourself - hire a professional process server to serve the documents, or ask the court to serve the documents by filling in <a href="https://assets.publishing.service.gov.uk/media/624375648fa8f5276d1f9f20/D89_0422_save.pdf" class="govuk-link" target="_blank">form D89</a>',
+              },
+              {
+                text: 'You need to submit a statement of service after the respondent has been given the documents.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/5aa6b11ee5274a3e3603a80d/fl415-eng.pdf',
+                text: 'Download the statement of service (form FL415)',
+              },
+              {
+                external: false,
+                href: '',
+                text: 'Upload the statement of service',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+  test('correct banners should be added when respondent recieved the application', () => {
+    data.citizenNotifications = [
+      {
+        id: 'DN3_SOA_RESPONDENT',
+        show: true,
+        multiple: false,
+        final: false,
+      } as CitizenNotification,
+    ];
+    expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+      {
+        heading:
+          'You have been named as the respondent in a domestic abuse application and have been given instructions from the court',
+        id: 'applicationServedByCourtToDARespondent',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means that the applicant has applied to a court for protection from domestic abuse.',
+              },
+              {
+                text: 'The court has considered their concerns and provided you further instructions.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: '/respondent/documents/view/application-pack-documents',
+                text: 'View the court documents',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('correct banners should be added when SOA have been done with non personal service', () => {
+    data.citizenNotifications = [
+      {
+        id: 'DN1_SOA_PERSONAL_NON_PERSONAL_APPLICANT',
+        show: true,
+        multiple: false,
+        final: false,
+        new: false,
+        personalService: true,
+      } as CitizenNotification,
+    ];
+    data.citizenApplicationPacks = [
+      {
+        servedParty: 'Applicant',
+        partyId: '1234',
+        partyName: 'null',
+        partyType: PartyType.APPLICANT,
+        categoryId: DocumentCategory.POSITION_STATEMENTS,
+        uploadedBy: 'test user',
+        uploadedDate: '2024-01-01T16:24:33.122506',
+        reviewedDate: null,
+        applicantSoaPack: [
+          {
+            document_url: 'MOCK_DOCUMENT_URL',
+            document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+            document_hash: null,
+            category_id: DocumentCategory.POSITION_STATEMENTS,
+            document_creation_date: '01/01/2024',
+          },
+        ],
+        documentWelsh: null,
+        document: null,
+      },
+    ];
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
+      {
+        heading: 'The court has issued your application',
+        id: 'applicationServedByCourtPersonalNonPersonalServiceToDAApplicant',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court will give a copy of your application and other court documents to the other person in the case (the respondent).',
+              },
+              {
+                text: 'If the documents include a non-molestation order or an occupation order with a power of arrest, the court will also give a copy of the order to the police.',
+              },
+              {
+                text: 'You must not give the documents to the other person yourself.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/application-pack-documents',
+                text: 'View the application pack',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+    expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'cy')).toStrictEqual([
+      {
+        heading: 'Mae’r llys wedi cychwyn eich cais',
+        id: 'applicationServedByCourtPersonalNonPersonalServiceToDAApplicant',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'Mae hyn yn golygu y bydd y llys yn rhoi copi o’ch cais a’r dogfennau llys eraill i’r unigolyn arall yn yr achos (yr atebydd).',
+              },
+              {
+                text: 'Os bydd y dogfennau yn cynnwys gorchymyn rhag molestu neu orchymyn anheddu gyda phŵer i arestio, bydd y llys hefyd yn rhoi copi o’r gorchymyn i’r heddlu.',
+              },
+              {
+                text: 'Ni ddylech roi’r dogfennau i’r unigolyn arall eich hun.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/application-pack-documents',
+                text: 'Gweld y pecyn cais',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
   });
 });

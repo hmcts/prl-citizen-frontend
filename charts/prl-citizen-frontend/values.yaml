@@ -48,6 +48,7 @@ nodejs:
         - citizen-upload-docs-email
         - redis-access-key
         - prl-pcq-token-key
+        - prl-allowed-courts
 
 idam-pr:
   enabled: false
