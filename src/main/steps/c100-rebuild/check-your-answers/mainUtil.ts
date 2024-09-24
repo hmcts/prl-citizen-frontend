@@ -1094,7 +1094,7 @@ const RespondentDetails_AddressAndPersonal = (
     sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES
   ) {
     newRespondentStorage.push({
-      key: keys['explainNoLabel'],
+      key: keys['explainYesLabel'],
       value: getYesNoTranslation(language, sessionRespondentData[respondent]?.['addressUnknown'], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
     });
@@ -1362,7 +1362,7 @@ export const OtherPeopleDetails = (
       sessionOtherPeopleData[respondent]['addressUnknown'] === YesOrNo.YES
     ) {
       newOtherPeopleStorage.push({
-        key: keys['explainNoLabel'],
+        key: keys['explainYesLabel'],
         value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['addressUnknown'], 'doTranslation'),
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
       });
