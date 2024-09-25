@@ -7,11 +7,6 @@
 
 {% extends "common/page.njk" %}
 
-{% block pageTitle %}
-  {{ titleList[orderType] }}
-  {{ appName }}
-{% endblock %}
-
 {% block page_content %}
 
 {% if FileErrors.length > 0 %}
@@ -21,7 +16,7 @@
 }) }}
 {%endif%}
 
-  <h1 class="govuk-heading-xl">{{titleList[orderType]}}
+  <h1 class="govuk-heading-xl">{{title}}
  {% if orderId == '1' %}
   {{''}}
   {% else %}
