@@ -83,7 +83,7 @@ const keys = {
   selectSupervisionAgreementLabel: 'selectSupervisionAgreementLabel',
   supervisionAgreementOtherWaysLabel: 'supervisionAgreementOtherWaysLabel',
   relationshipTo: 'relationshipTo',
-  explainNoLabel: 'explainNoLabel',
+  explainYesLabel: 'explainYesLabel',
   hasNameChanged: 'hasNameChanged',
   otherGender: 'otherGender',
   respondentPlaceOfBirthUnknown: 'respondentPlaceOfBirthUnknown',
