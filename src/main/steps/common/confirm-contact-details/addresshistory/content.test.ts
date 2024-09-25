@@ -28,7 +28,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Ydych chi wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
+  title: 'A ydych wedi byw yn y cyfeiriad hwn am lai na 5 mlynedd?',
   one: 'Ydw',
   two: 'Nac ydw',
   explainYesLabel:
