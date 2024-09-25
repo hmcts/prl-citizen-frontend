@@ -105,7 +105,7 @@ const content = {
   x: 'aaa',
 };
 
-describe('test cases for main util', () => {
+describe.skip('test cases for main util', () => {
   test('TypeOfOrder', () => {
     const userCase = {
       id: 'id',

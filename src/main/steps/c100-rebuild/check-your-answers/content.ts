@@ -450,7 +450,9 @@ export const sectionCountFormatter = sections => {
   sections = sections.map(section => {
     const { title } = section;
     if (title?.includes('[^^sectionNo^^]')) {
-      section['title'] = title.split('[^^sectionNo^^].').join(`<span class="app-task-list__section-number">${sectionCount}.</span>`);
+      section['title'] = title
+        .split('[^^sectionNo^^].')
+        .join(`<span class="app-task-list__section-number">${sectionCount}.</span>`);
       sectionCount++;
     }
     return section;

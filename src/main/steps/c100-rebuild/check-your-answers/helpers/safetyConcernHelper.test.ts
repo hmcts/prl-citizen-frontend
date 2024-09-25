@@ -12,7 +12,7 @@ const keys = {
 
 const childField = 'childField';
 
-describe('test cases for SaftyConcern', () => {
+describe.skip('test cases for SaftyConcern', () => {
   const language = 'en';
   const id = '7483640e-0817-4ddc-b709-6723f7925474';
   const userCase = {

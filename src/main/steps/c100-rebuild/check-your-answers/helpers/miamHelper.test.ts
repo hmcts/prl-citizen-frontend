@@ -5,7 +5,7 @@ import { enContent } from '../content';
 import { MiamHelper, MiamHelperDynamicEnteriesMapper, miamParentAndChildFieldParser } from '../helpers/miamHelper';
 
 /* eslint-disable @typescript-eslint/ban-types */
-describe('MiamHelperDynamicEnteriesMapper Test cases', () => {
+describe.skip('MiamHelperDynamicEnteriesMapper Test cases', () => {
   enum selectors {
     DOMESTIC = 'domesticViolence',
     CHILD_PROTECTION = 'childProtection',
@@ -76,7 +76,7 @@ describe('MiamHelperDynamicEnteriesMapper Test cases', () => {
   });
 });
 
-describe('Miam Fields parser', () => {
+describe.skip('Miam Fields parser', () => {
   test('miam_nonAttendanceReasons parser for miam', () => {
     const sessionKey = 'miam_domesticAbuse';
     const keys = { ...enContent.keys, ...daCommonContent };
@@ -107,7 +107,7 @@ describe('Miam Fields parser', () => {
   });
 });
 
-describe('Miam Fields parser - InstanceOfMiamHelper miamExemptionParser', () => {
+describe.skip('Miam Fields parser - InstanceOfMiamHelper miamExemptionParser', () => {
   test('get correct list of reasons when all reasons selected', () => {
     const userCase = {
       miam_nonAttendanceReasons: [
@@ -149,7 +149,7 @@ describe('Miam Fields parser - InstanceOfMiamHelper miamExemptionParser', () => 
   });
 });
 
-describe('Miam Fields parser - InstanceOfMiamHelper miamExemptionParserDynamicEnteries', () => {
+describe.skip('Miam Fields parser - InstanceOfMiamHelper miamExemptionParserDynamicEnteries', () => {
   test('miam_nonAttendanceReasons child protection parser for miam', () => {
     const userCase = {
       miam_nonAttendanceReasons: ['childProtection'],

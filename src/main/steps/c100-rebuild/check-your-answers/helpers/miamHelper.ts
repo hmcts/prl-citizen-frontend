@@ -52,7 +52,7 @@ const generateDomesticAbuseAdditionalFields = (
   language: string
 ): string => {
   return (
-    HTML.NEW_ROW_START+
+    HTML.NEW_ROW_START +
     HTML.DESCRIPTION_TERM_ELEMENT +
     keys['domesticAbuseProvideEvidence'] +
     HTML.DESCRIPTION_TERM_ELEMENT_END +
@@ -62,7 +62,7 @@ const generateDomesticAbuseAdditionalFields = (
     getYesNoTranslation(language, userCase.miam_canProvideDomesticAbuseEvidence, 'gallafTranslation') +
     HTML.DESCRIPTION_TERM_DETAIL_END +
     HTML.ROW_END +
-   HTML.NEW_ROW_START_NO_BORDER+
+    HTML.NEW_ROW_START_NO_BORDER +
     HTML.DESCRIPTION_TERM_ELEMENT +
     (userCase.miam_canProvideDomesticAbuseEvidence === YesOrNo.YES
       ? keys['domesticAbuseEvidence']
@@ -90,30 +90,29 @@ const generateNCDRAdditionalFields = (
 
   if (userCase.miam_previousAttendance === Miam_previousAttendance.miamExamptionApplied) {
     additionalFields +=
-    HTML.NEW_ROW_START+
-    HTML.DESCRIPTION_TERM_ELEMENT +
+      HTML.NEW_ROW_START +
+      HTML.DESCRIPTION_TERM_ELEMENT +
       keys['haveDocSignedByMediatorForPrevAttendance'] +
       HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END +
       HTML.NEW_ROW_START +
       HTML.DESCRIPTION_TERM_DETAIL +
       getYesNoTranslation(language, userCase.miam_haveDocSignedByMediatorForPrevAttendance, 'oesTranslation') +
-      HTML.DESCRIPTION_TERM_DETAIL_END 
-     
+      HTML.DESCRIPTION_TERM_DETAIL_END;
   }
 
   if (userCase.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.NO) {
     additionalFields +=
-    HTML.ROW_END +
-    HTML.NEW_ROW_START +
-    HTML.DESCRIPTION_TERM_ELEMENT +
+      HTML.ROW_END +
+      HTML.NEW_ROW_START +
+      HTML.DESCRIPTION_TERM_ELEMENT +
       keys['detailsOfPrevMiamEvidence'] +
       HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END +
       HTML.NEW_ROW_START +
       HTML.DESCRIPTION_TERM_DETAIL +
       userCase.miam_detailsOfEvidence +
-      HTML.DESCRIPTION_TERM_DETAIL_END  
+      HTML.DESCRIPTION_TERM_DETAIL_END;
   }
 
   if (
@@ -129,9 +128,8 @@ const generateNCDRAdditionalFields = (
       HTML.ROW_END +
       HTML.NEW_ROW_START +
       HTML.DESCRIPTION_TERM_DETAIL +
-      userCase.miam_previousAttendanceEvidenceDoc?.document_filename
-      HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END ;
+      userCase.miam_previousAttendanceEvidenceDoc?.document_filename;
+    HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
   }
 
   return additionalFields;
@@ -144,59 +142,56 @@ const generateOtherExemptionAdditionalFields = (
   let additionalFields = '';
   if (userCase.miam_notAttendingReasons === Miam_notAttendingReasons.canNotAccessMediator) {
     additionalFields +=
-    HTML.NEW_ROW_START+
-    HTML.DESCRIPTION_TERM_ELEMENT +
+      HTML.NEW_ROW_START +
+      HTML.DESCRIPTION_TERM_ELEMENT +
       keys['whyCantAccessMediator'] +
-    HTML.DESCRIPTION_TERM_ELEMENT_END +
-    HTML.ROW_END +
-    HTML.NEW_ROW_START +
-    HTML.DESCRIPTION_TERM_DETAIL +
-      keys[userCase.miam_noMediatorReasons!]
-      HTML.DESCRIPTION_TERM_ELEMENT_END ;
+      HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END +
+      HTML.NEW_ROW_START +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      keys[userCase.miam_noMediatorReasons!];
+    HTML.DESCRIPTION_TERM_ELEMENT_END;
 
     if (userCase.miam_noMediatorReasons === Miam_noMediatorReasons.noAppointmentAvailable) {
       additionalFields +=
-    HTML.ROW_END+
-      HTML.NEW_ROW_START +
-      HTML.DESCRIPTION_TERM_ELEMENT +
+        HTML.ROW_END +
+        HTML.NEW_ROW_START +
+        HTML.DESCRIPTION_TERM_ELEMENT +
         keys['giveDetailsOfMediators'] +
         HTML.DESCRIPTION_TERM_ELEMENT_END +
         HTML.ROW_END +
         HTML.NEW_ROW_START +
         HTML.DESCRIPTION_TERM_DETAIL +
-        userCase.miam_noAppointmentAvailableDetails
-        HTML.DESCRIPTION_TERM_ELEMENT_END +
-    HTML.ROW_END ;
+        userCase.miam_noAppointmentAvailableDetails;
+      HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
     }
 
     if (userCase.miam_noMediatorReasons === Miam_noMediatorReasons.disability) {
       additionalFields +=
-      HTML.ROW_END+
-      HTML.NEW_ROW_START +
-      HTML.DESCRIPTION_TERM_ELEMENT +
+        HTML.ROW_END +
+        HTML.NEW_ROW_START +
+        HTML.DESCRIPTION_TERM_ELEMENT +
         keys['giveDetailsOfMediators'] +
         HTML.DESCRIPTION_TERM_ELEMENT_END +
         HTML.ROW_END +
         HTML.NEW_ROW_START +
         HTML.DESCRIPTION_TERM_DETAIL +
-        userCase.miam_unableToAttainDueToDisablityDetails
-        HTML.DESCRIPTION_TERM_ELEMENT_END +
-    HTML.ROW_END ;
+        userCase.miam_unableToAttainDueToDisablityDetails;
+      HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
     }
 
     if (userCase.miam_noMediatorReasons === Miam_noMediatorReasons.noMediatorIn15mile) {
       additionalFields +=
-      HTML.ROW_END+
-      HTML.NEW_ROW_START +
-      HTML.DESCRIPTION_TERM_ELEMENT +
+        HTML.ROW_END +
+        HTML.NEW_ROW_START +
+        HTML.DESCRIPTION_TERM_ELEMENT +
         keys['giveDetailsOfMediators'] +
         HTML.DESCRIPTION_TERM_ELEMENT_END +
         HTML.ROW_END +
         HTML.NEW_ROW_START +
         HTML.DESCRIPTION_TERM_DETAIL +
-        userCase.miam_noMediatorIn15mileDetails
-        HTML.DESCRIPTION_TERM_ELEMENT_END +
-    HTML.ROW_END ;
+        userCase.miam_noMediatorIn15mileDetails;
+      HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
     }
   }
 
@@ -243,7 +238,16 @@ export const miamParentAndChildFieldParser = (
       additionalFields = generateOtherExemptionAdditionalFields(userCase, keys).split(',').join('');
     }
 
-    return (HTML.DESCRIPTION_LIST+'<div class="govuk-summary-list__row" style="border-bottom:1px solid #fff">'+mappedVals+'</div>' + additionalFields+HTML.DESCRIPTION_LIST_END).split(',').join('');
+    return (
+      HTML.DESCRIPTION_LIST +
+      '<div class="govuk-summary-list__row" style="border-bottom:1px solid #fff">' +
+      mappedVals +
+      '</div>' +
+      additionalFields +
+      HTML.DESCRIPTION_LIST_END
+    )
+      .split(',')
+      .join('');
   } else {
     return '';
   }
@@ -275,10 +279,14 @@ export const MiamHelperDynamicEnteriesMapper = (
     [MiamNonAttendReason.PREV_MIAM]: {
       key: keys['previousMIAMOrExemptHeading'],
       valueHtml:
-      HTML.DESCRIPTION_LIST +HTML.NEW_ROW_START+ keys[userCase.miam_previousAttendance!] + HTML.ROW_END +
+        HTML.DESCRIPTION_LIST +
+        HTML.NEW_ROW_START +
+        keys[userCase.miam_previousAttendance!] +
+        HTML.ROW_END +
         (userCase.miam_previousAttendance !== Miam_previousAttendance.none
           ? generateNCDRAdditionalFields(userCase, keys, language).split(',').join('')
-          : '') + HTML.DESCRIPTION_LIST_END,
+          : '') +
+        HTML.DESCRIPTION_LIST_END,
       changeUrl: C100_MIAM_PREVIOUS_ATTENDANCE,
     },
     [MiamNonAttendReason.EXEMPT]: {

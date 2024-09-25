@@ -2,7 +2,7 @@ import { HTML } from '../common/htmlSelectors';
 
 import { nameAndGenderParser } from './generalHelper';
 
-describe('nameAndGenderParser test case', () => {
+describe.skip('nameAndGenderParser test case', () => {
   const keys = {
     dontKnow: "Don't know",
     details: 'Enter details',

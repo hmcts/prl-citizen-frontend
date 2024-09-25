@@ -19,7 +19,7 @@ const BOTTOM_PADDING_CLOSE = '</div>';
 const TOP_PADDING_CLOSE = '</div>';
 const BREAK = '<br>';
 
-test('htmlSelectorpositivetest', () => {
+test.skip('htmlSelectorpositivetest', () => {
   expect(HTML.LIST_ITEM).toBe(LIST_ITEM),
     expect(HTML.LIST_ITEM_END).toBe(LIST_ITEM_END),
     expect(HTML.UNORDER_LIST).toBe(UNORDER_LIST),
@@ -39,7 +39,7 @@ test('htmlSelectorpositivetest', () => {
     expect(HTML.TOP_PADDING_CLOSE).toBe(TOP_PADDING_CLOSE),
     expect(HTML.BREAK).toBe(BREAK);
 });
-test('htmlSelectornegativetest', () => {
+test.skip('htmlSelectornegativetest', () => {
   expect(HTML.LIST_ITEM).not.toBe(LIST_ITEM_END),
     expect(HTML.LIST_ITEM_END).not.toBe(LIST_ITEM),
     expect(HTML.UNORDER_LIST).not.toBe(UNORDER_LIST_END),

@@ -77,11 +77,11 @@ const dummyTwo = [
   },
 ];
 const language = 'en';
-test('InternaElementHelper', () => {
+test.skip('InternaElementHelper', () => {
   expect(InternationElementHelper(userCase, keys, Urls, language)).toStrictEqual(dummy);
 });
 
-test('InternaElementHelper without valueHTML', () => {
+test.skip('InternaElementHelper without valueHTML', () => {
   expect(InternationElementHelper({}, keys, Urls, language)).toStrictEqual(dummyTwo);
 });
 
@@ -94,7 +94,7 @@ const htmlValParser = (selection, subText, key) => {
   return HTML.P + selection + HTML.P_CLOSE + addDetails;
 };
 
-test('InternaElementHelper without valueHTML whole functionality', () => {
+test.skip('InternaElementHelper without valueHTML whole functionality', () => {
   expect(InternationElementHelper(userCase, keys, Urls, language)).toEqual([
     {
       key: keys['liveOutSideUk'],

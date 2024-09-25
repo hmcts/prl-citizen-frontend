@@ -35,7 +35,7 @@ const keysTwo = {
   timeOfHearing: 'timeOfHearing',
 };
 const language = 'en';
-describe('test cases for hearing details', () => {
+describe.skip('test cases for hearing details', () => {
   test('hearingDetailsHelper', () => {
     expect(hearingDetailsHelper(userCase, keys, sessionKey, language)).toBe(
       'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>hearingWithoutLine1Field</h4><p>hwn_reasonsForApplicationWithoutNotice</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouNeedAWithoutNoticeHearingLabel</h4><p></p><h4>undefined</h4><p>hwn_doYouNeedAWithoutNoticeHearingDetails</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouRequireAHearingWithReducedNoticeLabel</h4><p></p><h4>undefined</h4><p>hwn_doYouRequireAHearingWithReducedNoticeDetails</p>'

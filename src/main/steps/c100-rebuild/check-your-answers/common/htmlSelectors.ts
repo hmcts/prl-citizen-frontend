@@ -36,6 +36,5 @@ export enum HTML {
   ROW_END = '</div>',
   DESCRIPTION_TERM_DETAIL = '<dd class="govuk-summary-list__value">',
   DESCRIPTION_TERM_DETAIL_LIST = '<dd class="govuk-summary-list__key">',
-  DESCRIPTION_TERM_DETAIL_END = '</dd>'
-
+  DESCRIPTION_TERM_DETAIL_END = '</dd>',
 }
