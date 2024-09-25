@@ -35,23 +35,23 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
   Object.entries(newOrders).forEach((entry, index) => {
     const key = entry[0];
     const value = entry[1];
-    const rulerForLastElement = Object.entries(newOrders).length > index + 1 ? HTML.RULER : '<br>';
+   // const rulerForLastElement = Object.entries(newOrders).length > index + 1 ? HTML.RULER : '<br>';
     if (key !== 'id' && key !== 'orderDocument') {
       if (typeof entry[1] === 'object' && entry[1] !== null) {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + DATE_FORMATTOR(value, language) + HTML.P_CLOSE;
-        Val += keyDetails + valueDetails + rulerForLastElement;
+        const keyDetails = HTML.DESCRIPTION_LIST+HTML.NEW_ROW_START+HTML.DESCRIPTION_TERM_ELEMENT + Mapper[key]?.question + HTML.DESCRIPTION_TERM_ELEMENT_END+HTML.ROW_END;
+        const valueDetails = HTML.NEW_ROW_START+HTML.DESCRIPTION_TERM_DETAIL+ DATE_FORMATTOR(value, language) + HTML.DESCRIPTION_TERM_DETAIL_END+HTML.ROW_END;
+        Val += keyDetails + valueDetails+HTML.DESCRIPTION_LIST_END ;
       } else {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const keyDetails = HTML.DESCRIPTION_LIST+HTML.NEW_ROW_START+HTML.DESCRIPTION_TERM_ELEMENT + Mapper[key]?.question + HTML.DESCRIPTION_TERM_ELEMENT_END+HTML.ROW_END;
         let valueDetails = '';
         if (key === 'currentOrder') {
-          valueDetails = HTML.P + getYesNoTranslation(language, value, 'ieTranslation') + HTML.P_CLOSE;
+          valueDetails = HTML.NEW_ROW_START+HTML.DESCRIPTION_TERM_DETAIL+ getYesNoTranslation(language, value, 'ieTranslation') + HTML.DESCRIPTION_TERM_DETAIL_END+HTML.ROW_END;
         } else if (key === 'orderCopy') {
-          valueDetails = HTML.P + getYesNoTranslation(language, value, 'oesTranslation') + HTML.P_CLOSE;
+          valueDetails = HTML.NEW_ROW_START+HTML.DESCRIPTION_TERM_DETAIL+ getYesNoTranslation(language, value, 'oesTranslation') + HTML.DESCRIPTION_TERM_DETAIL_END+HTML.ROW_END;
         } else {
-          valueDetails = HTML.P + value + HTML.P_CLOSE;
+          valueDetails = HTML.NEW_ROW_START+HTML.DESCRIPTION_TERM_DETAIL + value + HTML.DESCRIPTION_TERM_DETAIL_END+HTML.ROW_END;
         }
-        Val += keyDetails + valueDetails + rulerForLastElement;
+        Val += keyDetails + valueDetails+HTML.DESCRIPTION_LIST_END ;
       }
     }
   });

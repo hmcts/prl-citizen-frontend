@@ -11,8 +11,8 @@
   {% if sections %}
     {% for item in sections %}
       {% if item %}
-        {% if item.title %}
-          <h2 class="app-task-list__section">{{item.title}}</h2>
+        {% if item.title and item.title!=''%}
+          <h2 class="app-task-list__section">{{item.title | safe}}</h2>
         {% else %}
           <h3 class="app-task-list__section">{{item.subTitle}}</h2>
         {% endif %}

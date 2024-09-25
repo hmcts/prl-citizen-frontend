@@ -6,9 +6,10 @@ const htmlValParser = (selection, subText, keys) => {
   selection = selection || '';
   subText = subText || '';
   const addDetails = subText
-    ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.P + subText + HTML.P_CLOSE
+    ?  HTML.NEW_ROW_START_NO_BORDER+HTML.DESCRIPTION_TERM_ELEMENT+ keys['details'] + HTML.DESCRIPTION_TERM_ELEMENT_END+HTML.ROW_END + HTML.NEW_ROW_START_NO_BORDER+HTML.DESCRIPTION_TERM_DETAIL + subText + HTML.DESCRIPTION_TERM_DETAIL_END+HTML.ROW_END
     : '';
-  return HTML.P + selection + HTML.P_CLOSE + addDetails;
+  const lineStart=  !subText? HTML.NEW_ROW_START_NO_BORDER:HTML.NEW_ROW_START
+  return HTML.DESCRIPTION_LIST+lineStart + selection + HTML.ROW_END + addDetails;
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const getValueUrlByKey = (key: string, userCase: any, language: any, Urls: any, keys: any) => {
