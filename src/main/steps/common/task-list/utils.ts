@@ -69,6 +69,11 @@ export const isCaseClosed = (caseData: Partial<CaseWithId>): boolean =>
 export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
   return caseData?.state === State.CASE_DRAFT;
 };
+
+export const isCaseSubmitted = (caseData: Partial<CaseWithId>): boolean => {
+  return caseData?.state ? [State.CASE_SUBMITTED_PAID, State.CASE_SUBMITTED_NOT_PAID].includes(caseData.state) : false;
+};
+
 export const isDocPresent = (caseData: Partial<CaseWithId>, filename: string): boolean => {
   if (caseData[filename]) {
     return true;
