@@ -22,7 +22,7 @@ const en: NotificationBannerContentConfig = {
       {
         contents: [
           {
-            text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to the respondent.',
+            text: 'The court has issued your application. This means a <a class="govuk-link" href="/applicant/documents/view/all-categories" target="_self">copy of your application and other court documents</a> are ready to give to the respondent.',
           },
           {
             text: 'You must not give the documents to the other person yourself.',
@@ -231,7 +231,7 @@ const cy: typeof en = {
       {
         contents: [
           {
-            text: 'Mae’r llys wedi cychwyn eich cais Mae hyn yn golygu bod copi o’ch cais a’r dogfennau llys eraill yn barod i’w rhoi i’r atebydd.',
+            text: 'Mae’r llys wedi cychwyn eich cais Mae hyn yn golygu bod <a class="govuk-link" href="/applicant/documents/view/all-categories" target="_self">copi o’ch cais a’r dogfennau llys eraill<a/> yn barod i’w rhoi i’r atebydd.',
           },
           {
             text: 'Ni ddylech roi’r dogfennau i’r unigolyn arall eich hun.',
