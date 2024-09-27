@@ -249,7 +249,7 @@ const cy: typeof en = {
         links: [
           {
             text: 'Lawrlwythwch y datganiad cyflwyno (ffurflen FL415) (agor mewn tab newydd)',
-            href: 'https://assets.publishing.service.gov.uk/media/5aa6b11ee5274a3e3603a80d/fl415-eng.pdf',
+            href: 'https://assets.publishing.service.gov.uk/media/5aa6b12040f0b66b5fb4b59d/fl415-bil.pdf',
             external: true,
           },
           {
