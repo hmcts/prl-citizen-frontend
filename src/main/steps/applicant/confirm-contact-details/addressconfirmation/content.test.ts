@@ -7,7 +7,7 @@ const en = {
   title: 'Your Address',
   citizenUserAddress1: 'Building and street',
   citizenUserAddressTown: 'Town or city',
-  citizenUserAddressCounty: 'County',
+  citizenUserAddressCounty: 'Country',
   citizenUserAddressPostcode: 'Postcode',
   errors: {
     citizenUserAddress1: {

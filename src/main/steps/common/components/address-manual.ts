@@ -5,7 +5,7 @@ import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation
 const en = () => ({
   citizenUserManualAddress1: 'Building and street',
   citizenUserManualAddressTown: 'Town or city',
-  citizenUserManualAddressCounty: 'County',
+  citizenUserManualAddressCounty: 'Country',
   citizenUserManualAddressPostcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
   errors: {
@@ -24,7 +24,7 @@ const en = () => ({
 const cy = () => ({
   citizenUserManualAddress1: 'Adeilad a stryd',
   citizenUserManualAddressTown: 'Tref neu ddinas',
-  citizenUserManualAddressCounty: 'Sir',
+  citizenUserManualAddressCounty: 'Gwlad',
   citizenUserManualAddressPostcode: 'Cod post',
   enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
   errors: {

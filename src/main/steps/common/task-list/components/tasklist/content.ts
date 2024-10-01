@@ -247,6 +247,9 @@ const en: TaskListContent = {
           editYouContactDetails: {
             linkText: 'Confirm or edit your contact details',
           },
+          contactPreferences: {
+            linkText: 'Contact preferences',
+          },
           supportYouNeed: {
             linkText: 'Support you need during your case',
           },
@@ -542,6 +545,9 @@ const cy: typeof en = {
         tasks: {
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
+          },
+          contactPreferences: {
+            linkText: 'Dewisiadau cyswllt',
           },
           editYouContactDetails: {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
