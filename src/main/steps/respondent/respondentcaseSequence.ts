@@ -1,6 +1,6 @@
 // eslint-disable sort-imports
 import { CaseWithId } from '../../app/case/case';
-import { YesOrNo } from '../../app/case/definition';
+import { CaseType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
@@ -123,12 +123,14 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_ADDRESS_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ADDRESS_HISTORY,
+    getNextStep: caseData =>
+      caseData?.caseTypeOfApplication === CaseType.FL401 ? RESPONDENT_CHECK_ANSWERS : RESPONDENT_ADDRESS_HISTORY,
   },
   {
     url: RESPONDENT_ADDRESS_MANUAL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ADDRESS_HISTORY,
+    getNextStep: caseData =>
+      caseData?.caseTypeOfApplication === CaseType.FL401 ? RESPONDENT_CHECK_ANSWERS : RESPONDENT_ADDRESS_HISTORY,
   },
   {
     url: RESPONDENT_ADDRESS_HISTORY,

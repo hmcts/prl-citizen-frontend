@@ -1,5 +1,10 @@
+import { CaseWithId } from '../../../../app/case/case';
+import { CaseType, PartyType } from '../../../../app/case/definition';
+import { UserDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { SummaryListContent } from '../../../../steps/c100-rebuild/check-your-answers/lib/lib';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
 
@@ -38,10 +43,19 @@ const en = (content: CommonContent) => {
   } else {
     urls.citizenUserAddressText = 'addressdetails';
   }
+
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, '', content.language)],
+    sections: [
+      summaryList(
+        removeFields(userCase, content.additionalData?.req.session.user, enContent),
+        userCase,
+        urls,
+        '',
+        content.language
+      ),
+    ],
   };
 };
 
@@ -94,7 +108,15 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', content.language)],
+    sections: [
+      summaryList(
+        removeFields(userCase, content.additionalData?.req.session.user, cyContent),
+        userCase,
+        urls,
+        '',
+        content.language
+      ),
+    ],
   };
 };
 
@@ -116,4 +138,25 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     form,
   };
+};
+
+export const removeFields = (
+  caseData: Partial<CaseWithId>,
+  userDetails: UserDetails,
+  content: SummaryListContent
+): SummaryListContent => {
+  const keys = { ...content.keys };
+
+  if (caseData?.caseTypeOfApplication === CaseType.FL401) {
+    delete keys.citizenUserPlaceOfBirthText;
+    delete keys.citizenUserAddressHistory;
+
+    if (getCasePartyType(caseData, userDetails.id) === PartyType.RESPONDENT) {
+      delete keys.citizenUserSafeToCall;
+    }
+  } else {
+    delete keys.citizenUserSafeToCall;
+  }
+
+  return { ...content, keys };
 };
