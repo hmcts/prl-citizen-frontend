@@ -14,6 +14,7 @@ import {
   C100_APPLICANT_CONTACT_DETAIL,
   C100_APPLICANT_CONTACT_PREFERENCES,
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+  C100_REFUGE,
   C100_RESPONDENT_DETAILS_ADD,
   PageLink,
 } from '../../urls';
@@ -89,14 +90,21 @@ class ApplicantNavigationController {
       }
       case C100_APPLICANT_RELATIONSHIP_TO_CHILD: {
         const nextChild = this.getNextChild();
-        nextUrl = nextChild
+        (nextUrl = nextChild
           ? applyParms(C100_APPLICANT_RELATIONSHIP_TO_CHILD, {
               applicantId: this.applicantId,
               childId: nextChild?.id,
             })
-          : applyParms(C100_APPLICANT_ADDRESS_LOOKUP, {
-              applicantId: this.applicantId,
-            });
+          : applyParms(C100_REFUGE)),
+          {
+            applicantId: this.applicantId,
+          };
+        break;
+      }
+      case C100_REFUGE: {
+        nextUrl = applyParms(C100_APPLICANT_ADDRESS_LOOKUP, {
+          applicantId: this.applicantId,
+        });
         break;
       }
       case C100_APPLICANT_ADDRESS_LOOKUP: {
