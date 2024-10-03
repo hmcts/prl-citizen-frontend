@@ -9,7 +9,7 @@ jest.mock('../../../app/form/validation');
 const enContent = {
   addressLine1: 'Building and street',
   town: 'Town or city',
-  county: 'Country',
+  county: 'County',
   postcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
   errors: {
@@ -28,7 +28,7 @@ const enContent = {
 const cyContent = {
   addressLine1: 'Adeilad a stryd',
   town: 'Tref neu ddinas',
-  county: 'Gwlad',
+  county: 'Sir',
   postcode: 'Cod post',
   enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
   errors: {

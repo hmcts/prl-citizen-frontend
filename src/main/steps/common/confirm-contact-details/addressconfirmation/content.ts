@@ -6,7 +6,7 @@ const en = {
   title: 'Your Address',
   citizenUserAddress1: 'Building and street',
   citizenUserAddressTown: 'Town or city',
-  citizenUserAddressCounty: 'Country',
+  citizenUserAddressCounty: 'County',
   citizenUserAddressPostcode: 'Postcode',
   errors: {
     citizenUserAddress1: {
@@ -26,7 +26,7 @@ const cy: typeof en = {
   title: 'Beth yw eich cyfeiriad?',
   citizenUserAddress1: 'Adeilad a stryd',
   citizenUserAddressTown: 'Tref neu ddinas',
-  citizenUserAddressCounty: 'Gwlad',
+  citizenUserAddressCounty: 'Sir',
   citizenUserAddressPostcode: 'Cod post',
   errors: {
     citizenUserAddress1: {
