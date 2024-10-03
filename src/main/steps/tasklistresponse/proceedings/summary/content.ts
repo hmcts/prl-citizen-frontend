@@ -6,6 +6,7 @@ import { otherProceedingsContents } from '../proceedingUtils';
 
 export const enContent = {
   title: 'Check your answers',
+  otherProceedings: 'Current or previous proceedings',
   change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
   makingSure: 'Please review your answers before you finish your application.',
@@ -14,7 +15,7 @@ export const enContent = {
   No: 'No ',
   errors: {},
   sectionTitles: {
-    otherProceedings: 'Current or previous proceedings',
+    otherProceedings: '',
   },
   keys: {
     proceedingsStart: 'Have the children been involved in a court case?',
@@ -35,6 +36,7 @@ const en = (content: CommonContent) => {
 
 export const cyContent: typeof enContent = {
   title: 'Gwirio eich atebion',
+  otherProceedings: 'Achos cyfredol neu flaenorol',
   change: 'Golygu',
   topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
   makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',
@@ -43,7 +45,7 @@ export const cyContent: typeof enContent = {
   No: 'No  -welsh ',
   errors: {},
   sectionTitles: {
-    otherProceedings: 'Achos cyfredol neu flaenorol',
+    otherProceedings: '',
   },
   keys: {
     proceedingsStart: "Ydy'r plant wedi bod yn rhan o achos llys?",

@@ -2,7 +2,7 @@
 import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
-import { getYesNoTranslation } from '../mainUtil';
+import { getYesNoTranslation, isBorderPresent } from '../mainUtil';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const childNameFormatter = (childId, userCase) => {
@@ -18,13 +18,13 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
   bodyHtml += HTML.DESCRIPTION_LIST;
   if (typeOfUser === 'child') {
     bodyHtml +=
-      HTML.NEW_ROW_START_NO_BORDER +
+      HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_ELEMENT +
       keys['childrenConcernedAboutLabel'] +
       HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END;
     if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
-      bodyHtml += HTML.NEW_ROW_START + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
+      bodyHtml += HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + HTML.UNORDER_LIST;
       if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
         bodyHtml += FoundElement['childrenConcernedAbout']
           ?.map(childId => childNameFormatter(childId, userCase))
@@ -33,81 +33,77 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
           .join('');
       } else {
         bodyHtml +=
-          HTML.NEW_ROW_START +
-          HTML.DESCRIPTION_TERM_DETAIL +
+          HTML.ROW_START +
+          HTML.DESCRIPTION_TERM_DETAIL_KEY +
           childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
       }
       bodyHtml += HTML.UNORDER_LIST_END + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
     }
   }
   bodyHtml +=
-    HTML.NEW_ROW_START_NO_BORDER +
+    HTML.ROW_START_NO_BORDER +
     HTML.DESCRIPTION_TERM_ELEMENT +
     keys['behaviourDetailsLabel'] +
     HTML.DESCRIPTION_TERM_ELEMENT_END +
     HTML.ROW_END;
   bodyHtml += FoundElement.hasOwnProperty('behaviourDetails')
-    ? HTML.NEW_ROW_START +
-      HTML.DESCRIPTION_TERM_DETAIL +
+    ? HTML.ROW_START +
+      HTML.DESCRIPTION_TERM_DETAIL_KEY +
       FoundElement['behaviourDetails'] +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END
-    : HTML.NEW_ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+    : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
   bodyHtml +=
-    HTML.NEW_ROW_START_NO_BORDER +
+    HTML.ROW_START_NO_BORDER +
     HTML.DESCRIPTION_TERM_ELEMENT +
     keys['behaviourStartDateLabel'] +
     HTML.DESCRIPTION_TERM_ELEMENT_END +
     HTML.ROW_END;
   bodyHtml +=
     FoundElement.hasOwnProperty('behaviourStartDate') && FoundElement['behaviourStartDate']
-      ? HTML.NEW_ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL +
+      ? HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL_KEY +
         FoundElement['behaviourStartDate'] +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END
-      : HTML.NEW_ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL +
-        FoundElement['behaviourStartDate'] +
-        HTML.DESCRIPTION_TERM_DETAIL_END +
-        HTML.ROW_END;
+      : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
   bodyHtml +=
-    HTML.NEW_ROW_START_NO_BORDER +
+    HTML.ROW_START_NO_BORDER +
     HTML.DESCRIPTION_TERM_ELEMENT +
     keys['isOngoingBehaviourLabel'] +
     HTML.DESCRIPTION_TERM_ELEMENT_END +
     HTML.ROW_END;
   bodyHtml += FoundElement.hasOwnProperty('isOngoingBehaviour')
-    ? HTML.NEW_ROW_START +
-      HTML.DESCRIPTION_TERM_DETAIL +
+    ? HTML.ROW_START +
+      HTML.DESCRIPTION_TERM_DETAIL_KEY +
       getYesNoTranslation(language, FoundElement['isOngoingBehaviour'], 'ydyTranslation') +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END
-    : HTML.NEW_ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+    : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
   bodyHtml +=
-    HTML.NEW_ROW_START_NO_BORDER +
+    HTML.ROW_START_NO_BORDER +
     HTML.DESCRIPTION_TERM_ELEMENT +
     keys['seekHelpFromPersonOrAgencyLabel'] +
     HTML.DESCRIPTION_TERM_ELEMENT_END +
     HTML.ROW_END;
-  bodyHtml += FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency')
-    ? HTML.NEW_ROW_START +
-      HTML.DESCRIPTION_TERM_DETAIL +
-      getYesNoTranslation(language, FoundElement?.['seekHelpFromPersonOrAgency'], 'doTranslation') +
-      HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END
-    : HTML.NEW_ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+  bodyHtml += isBorderPresent(FoundElement?.['seekHelpFromPersonOrAgency'], 'Yes');
+  bodyHtml +=
+    HTML.DESCRIPTION_TERM_DETAIL_KEY +
+    getYesNoTranslation(language, FoundElement?.['seekHelpFromPersonOrAgency'], 'doTranslation') +
+    HTML.DESCRIPTION_TERM_DETAIL_END +
+    HTML.ROW_END;
+
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpDetails') &&
     FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes' &&
     FoundElement?.['seekHelpDetails']
-      ? HTML.NEW_ROW_START_NO_BORDER +
+      ? HTML.ROW_START_NO_BORDER +
         HTML.DESCRIPTION_TERM_ELEMENT +
         keys['details'] +
         HTML.DESCRIPTION_TERM_ELEMENT_END +
         HTML.ROW_END +
-        HTML.NEW_ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL_KEY +
         FoundElement?.['seekHelpDetails'] +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END

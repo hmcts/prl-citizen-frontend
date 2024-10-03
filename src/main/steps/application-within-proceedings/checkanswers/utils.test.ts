@@ -143,7 +143,7 @@ describe('awp> checkAnswer > utils', () => {
               text: 'Document uploaded',
             },
             value: {
-              html: '<div class="govuk-form-group"><p><a href="" target="blank">file_example_TIFF_1MB.tiff</a></p></div>',
+              html: '<div class="govuk-form-group"><p>file_example_TIFF_1MB.tiff</p></div>',
             },
           },
           {
@@ -160,7 +160,7 @@ describe('awp> checkAnswer > utils', () => {
               text: 'Do you have supporting documents to upload?',
             },
             value: {
-              html: '<div class="govuk-form-group"><p>Yes</p><hr class="govuk-section-break govuk-section-break--visible"><p><a href="" target="blank">file_example_TIFF.tiff</a></p></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><p>Yes</p></div><div class="govuk-summary-list__row border-bottom--none"><p>file_example_TIFF.tiff</p></div></dl>',
             },
           },
           {

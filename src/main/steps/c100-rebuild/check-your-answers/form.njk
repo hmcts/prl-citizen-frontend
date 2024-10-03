@@ -14,7 +14,7 @@
         {% if item.title and item.title!=''%}
           <h2 class="app-task-list__section">{{item.title | safe}}</h2>
         {% else %}
-          <h3 class="app-task-list__section">{{item.subTitle}}</h2>
+          <h3 class="app-task-list__section">{{item.subTitle}}</h3>
         {% endif %}
         {% if item.rows.length%}
           {{ govukSummaryList({

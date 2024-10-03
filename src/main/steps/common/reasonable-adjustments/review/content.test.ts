@@ -123,7 +123,7 @@ describe('RA > review > content', () => {
 
   test('should generate correct summary list', () => {
     expect(
-      summaryList('mockContext', 'en', {
+      summaryList('C7ConsolidatedReview', 'en', {
         ra_typeOfHearing: ['languageNeeds'],
         ra_noVideoAndPhoneHearing_subfield: 'ra_noVideoAndPhoneHearing_subfield',
       })
@@ -160,13 +160,14 @@ describe('RA > review > content', () => {
           },
         },
       ],
-      title: 'Support you need during your case',
+      subTitle: 'Support you need during your case',
+      title: '',
     });
   });
 
   test('should generate correct summary list for welsh', () => {
     expect(
-      summaryList('mockContext', 'cy', {
+      summaryList('C7ConsolidatedReview', 'cy', {
         ra_typeOfHearing: ['languageNeeds'],
       })
     ).toStrictEqual({
@@ -185,7 +186,8 @@ describe('RA > review > content', () => {
           value: { text: 'undefined' },
         },
       ],
-      title: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
+      title: '',
+      subTitle: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
     });
   });
 
@@ -193,6 +195,7 @@ describe('RA > review > content', () => {
     expect(summaryList('mockContext', 'en', {})).toStrictEqual({
       rows: [],
       title: '',
+      subTitle: '',
     });
   });
 });

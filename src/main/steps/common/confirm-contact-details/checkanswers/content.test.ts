@@ -91,6 +91,7 @@ describe('address confirmation > content', () => {
           },
         ],
         title: '',
+        subTitle: '',
       },
     ]);
   });
@@ -122,6 +123,7 @@ describe('address confirmation > content', () => {
           },
         ],
         title: '',
+        subTitle: '',
       },
     ]);
   });

@@ -13,8 +13,9 @@ import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
   title: 'Check your answers',
+  respondentAdditionalInformation: 'International elements',
   sectionTitles: {
-    respondentAdditionalInformation: 'International elements',
+    respondentAdditionalInformation: '',
   },
   keys: {
     start: "Are the children's lives mainly based outside of England and Wales?",
@@ -45,8 +46,9 @@ const en = (content: CommonContent) => {
 
 const cyContent: typeof enContent = {
   title: 'Gwirio eich atebion',
+  respondentAdditionalInformation: 'Elfennau rhyngwladol',
   sectionTitles: {
-    respondentAdditionalInformation: 'Elfennau rhyngwladol',
+    respondentAdditionalInformation: '',
   },
   keys: {
     start: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',

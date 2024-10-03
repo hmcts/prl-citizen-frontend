@@ -283,20 +283,20 @@ export const ChildernDetails = (
         valueHtml:
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
             ? HTML.DESCRIPTION_LIST +
-              HTML.NEW_ROW_START +
+              HTML.ROW_START +
               translation(personalDetails?.['gender'], language) +
               HTML.ROW_END +
-              HTML.NEW_ROW_START_NO_BORDER +
+              HTML.ROW_START_NO_BORDER +
               keys['otherGender'] +
               HTML.ROW_END +
-              HTML.NEW_ROW_START_NO_BORDER +
+              HTML.ROW_START_NO_BORDER +
               HTML.DESCRIPTION_TERM_ELEMENT +
               keys['details'] +
               HTML.DESCRIPTION_TERM_ELEMENT_END +
               HTML.ROW_END +
               HTML.BREAK +
-              HTML.NEW_ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_DETAIL +
+              HTML.ROW_START_NO_BORDER +
+              HTML.DESCRIPTION_TERM_DETAIL_KEY +
               personalDetails['otherGenderDetails'] +
               HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
@@ -336,7 +336,7 @@ export const ChildernDetailsAdditional = (
   language
 ): SummaryList | undefined => {
   let htmlForAdditionalText = userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
-    ? HTML.DESCRIPTION_LIST + HTML.NEW_ROW_START
+    ? HTML.DESCRIPTION_LIST + HTML.ROW_START
     : '';
   htmlForAdditionalText += getYesNoTranslation(
     language,
@@ -346,14 +346,14 @@ export const ChildernDetailsAdditional = (
   htmlForAdditionalText += userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
     ? HTML.ROW_END +
       HTML.BREAK +
-      HTML.NEW_ROW_START_NO_BORDER +
+      HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_ELEMENT +
       keys['details'] +
       HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END +
       HTML.BREAK +
-      HTML.NEW_ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_DETAIL +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL_KEY +
       userCase['cd_childrenKnownToSocialServicesDetails'] +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END +
@@ -439,22 +439,22 @@ export const OtherChildrenDetails = (
         valueHtml:
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
             ? HTML.DESCRIPTION_LIST +
-              HTML.NEW_ROW_START +
+              HTML.ROW_START +
               translation(personalDetails?.['gender'], language) +
               ' ' +
               HTML.BREAK +
               HTML.ROW_END +
-              HTML.NEW_ROW_START_NO_BORDER +
+              HTML.ROW_START_NO_BORDER +
               keys['otherGender'] +
               HTML.ROW_END +
-              HTML.NEW_ROW_START_NO_BORDER +
+              HTML.ROW_START_NO_BORDER +
               HTML.DESCRIPTION_TERM_ELEMENT +
               keys['details'] +
               HTML.DESCRIPTION_TERM_ELEMENT_END +
               HTML.ROW_END +
               HTML.BREAK +
-              HTML.NEW_ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_DETAIL +
+              HTML.ROW_START_NO_BORDER +
+              HTML.DESCRIPTION_TERM_DETAIL_KEY +
               personalDetails['otherGenderDetails'] +
               HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
@@ -475,15 +475,14 @@ export const OtherChildrenDetails = (
 
 export const ApplicantDetailNameParser = (personalDetails, keys, language): string => {
   let changeNameInformation = '';
-  changeNameInformation +=
-    personalDetails['haveYouChangeName'] === 'Yes' ? HTML.DESCRIPTION_LIST + HTML.NEW_ROW_START : '';
+  changeNameInformation += personalDetails['haveYouChangeName'] === 'Yes' ? HTML.DESCRIPTION_LIST + HTML.ROW_START : '';
   changeNameInformation += getYesNoTranslation(language, personalDetails['haveYouChangeName'], 'doTranslation');
   if (personalDetails['haveYouChangeName'] === 'Yes') {
     const changedName = personalDetails['applPreviousName'];
-    changeNameInformation += HTML.ROW_END + HTML.NEW_ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
+    changeNameInformation += HTML.ROW_END + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
     changeNameInformation += keys['details'];
     changeNameInformation += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-    changeNameInformation += HTML.BREAK + HTML.NEW_ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL;
+    changeNameInformation += HTML.BREAK + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL_KEY;
     changeNameInformation += changedName;
     changeNameInformation += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
   }
@@ -516,15 +515,15 @@ export const ApplicantDetails = (
       let html = '';
       html +=
         HTML.DESCRIPTION_LIST +
-        HTML.NEW_ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL +
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL_KEY +
         getYesNoTranslation(language, sessionApplicantData[applicant][key], 'ydwTranslation') +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
       if (sessionApplicantData[applicant][keyArray].length > 0) {
         html +=
-          HTML.NEW_ROW_START_NO_BORDER +
-          HTML.DESCRIPTION_TERM_DETAIL +
+          HTML.ROW_START_NO_BORDER +
+          HTML.DESCRIPTION_TERM_DETAIL_KEY +
           HTML.UNORDER_LIST +
           sessionApplicantData[applicant][keyArray]
             ?.map(item => HTML.LIST_ITEM + translation(item, language) + HTML.LIST_ITEM_END)
@@ -583,21 +582,21 @@ export const ApplicantDetails = (
         valueHtml:
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
             ? HTML.DESCRIPTION_LIST +
-              HTML.NEW_ROW_START +
+              HTML.ROW_START +
               translation(personalDetails?.['gender'], language) +
               HTML.BREAK +
               HTML.ROW_END +
-              HTML.NEW_ROW_START_NO_BORDER +
+              HTML.ROW_START_NO_BORDER +
               keys['otherGender'] +
               HTML.ROW_END +
-              HTML.NEW_ROW_START_NO_BORDER +
+              HTML.ROW_START_NO_BORDER +
               HTML.DESCRIPTION_TERM_ELEMENT +
               keys['details'] +
               HTML.DESCRIPTION_TERM_ELEMENT_END +
               HTML.ROW_END +
               HTML.BREAK +
-              HTML.NEW_ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_DETAIL +
+              HTML.ROW_START_NO_BORDER +
+              HTML.DESCRIPTION_TERM_DETAIL_KEY +
               personalDetails['otherGenderDetails'] +
               HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
@@ -933,48 +932,46 @@ export const SafetyConcerns_child = (
    * @policeOrInvestigatorsOtherDetails session Values
    */
   let policeOrInvestigatorsOtherDetailsHTML = HTML.DESCRIPTION_LIST as string;
-  policeOrInvestigatorsOtherDetailsHTML += userCase.c1A_policeOrInvestigatorOtherDetails
-    ? HTML.NEW_ROW_START
-    : HTML.NEW_ROW_START_NO_BORDER;
+  policeOrInvestigatorsOtherDetailsHTML += isBorderPresent(userCase['c1A_policeOrInvestigatorInvolved'], YesOrNo.YES);
   policeOrInvestigatorsOtherDetailsHTML +=
     getYesNoTranslation(language, userCase['c1A_policeOrInvestigatorInvolved'], 'oeddTranslation') + HTML.ROW_END;
   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
-    ? HTML.NEW_ROW_START_NO_BORDER +
+    ? HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_ELEMENT +
       keys['details'] +
       HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END +
-      HTML.NEW_ROW_START +
-      HTML.DESCRIPTION_TERM_DETAIL +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL_KEY +
       userCase['c1A_policeOrInvestigatorOtherDetails'] +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END
-    : HTML.NEW_ROW_START_NO_BORDER + '' + HTML.ROW_END;
+    : HTML.ROW_START_NO_BORDER + '' + HTML.ROW_END;
   policeOrInvestigatorsOtherDetailsHTML += HTML.DESCRIPTION_LIST_END;
 
   /**
    * @c1A_childAbductedBefore session Values
    */
   let c1A_childAbductedBefore = HTML.DESCRIPTION_LIST as string;
-  c1A_childAbductedBefore += userCase.c1A_passportOffice === 'Yes' ? HTML.NEW_ROW_START : HTML.NEW_ROW_START_NO_BORDER;
+  c1A_childAbductedBefore += isBorderPresent(userCase.c1A_passportOffice, 'Yes');
   c1A_childAbductedBefore +=
-    HTML.DESCRIPTION_TERM_DETAIL +
+    HTML.DESCRIPTION_TERM_DETAIL_KEY +
     getYesNoTranslation(language, userCase?.['c1A_passportOffice'], 'oesTranslation') +
     HTML.DESCRIPTION_TERM_DETAIL_END +
     HTML.ROW_END;
   if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
-    c1A_childAbductedBefore += HTML.NEW_ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
+    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
     c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
     c1A_childAbductedBefore +=
-      HTML.NEW_ROW_START +
-      HTML.DESCRIPTION_TERM_DETAIL +
+      HTML.ROW_START +
+      HTML.DESCRIPTION_TERM_DETAIL_KEY +
       getYesNoTranslation(language, userCase['c1A_childrenMoreThanOnePassport'], 'oesTranslation');
     c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
-    c1A_childAbductedBefore += HTML.NEW_ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
+    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
     c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-    c1A_childAbductedBefore += HTML.NEW_ROW_START + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
+    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL_KEY + HTML.UNORDER_LIST;
 
     if (userCase['c1A_possessionChildrenPassport']) {
       c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
@@ -1142,16 +1139,16 @@ export const SafetyConcerns_others = (
   language
 ): SummaryList | undefined => {
   const fieldParser = (field, fieldDescription?) => {
-    let html = fieldDescription !== undefined ? HTML.DESCRIPTION_LIST + HTML.NEW_ROW_START : '';
+    let html = fieldDescription !== undefined ? HTML.DESCRIPTION_LIST + HTML.ROW_START : '';
     if (field !== undefined) {
       html += field;
     }
     if (fieldDescription !== undefined) {
-      html += HTML.ROW_END + HTML.NEW_ROW_START_NO_BORDER;
+      html += HTML.ROW_END + HTML.ROW_START_NO_BORDER;
       html += HTML.DESCRIPTION_TERM_ELEMENT;
       html += keys['details'];
       html += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-      html += HTML.NEW_ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL;
+      html += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL_KEY;
       html += fieldDescription;
       html += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
     }
@@ -1783,4 +1780,7 @@ const populateDateOfBirth = (
     });
   }
   return newChildDataStorage;
+};
+export const isBorderPresent = (data: YesOrNo | undefined, condition: string): HTML => {
+  return data === condition ? HTML.ROW_START : HTML.ROW_START_NO_BORDER;
 };
