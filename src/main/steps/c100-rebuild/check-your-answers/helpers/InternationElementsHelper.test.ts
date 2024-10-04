@@ -1,6 +1,3 @@
-import { HTML } from '../common/htmlSelectors';
-import { getYesNoTranslation } from '../mainUtil';
-
 import { InternationElementHelper } from './InternationElementsHelper';
 const userCase = {
   ie_internationalStart: 'ie_internationalStart',
@@ -32,25 +29,25 @@ const dummy = [
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_START',
     key: 'liveOutSideUk',
     valueHtml:
-      '<p></p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsStart</p>',
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsStart</dd></div>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_PARENTS',
     key: 'basedOutSideEnglandOrWales',
     valueHtml:
-      '<p></p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsParents</p>',
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsParents</dd></div>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_JURISDICTION',
     key: 'anotherPersonSameOrder',
     valueHtml:
-      '<p></p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsJurisdiction</p>',
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsJurisdiction</dd></div>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_REQUEST',
     key: 'otherCountryRequestInfo',
     valueHtml:
-      '<p></p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><p>ie_provideDetailsRequest</p>',
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsRequest</dd></div>',
   },
 ];
 
@@ -58,78 +55,57 @@ const dummyTwo = [
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_START',
     key: 'liveOutSideUk',
-    valueHtml: '<p></p>',
+    valueHtml: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_PARENTS',
     key: 'basedOutSideEnglandOrWales',
-    valueHtml: '<p></p>',
+    valueHtml: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_JURISDICTION',
     key: 'anotherPersonSameOrder',
-    valueHtml: '<p></p>',
+    valueHtml: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_REQUEST',
     key: 'otherCountryRequestInfo',
-    valueHtml: '<p></p>',
+    valueHtml: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
   },
 ];
 const language = 'en';
-test.skip('InternaElementHelper', () => {
+test('InternaElementHelper', () => {
   expect(InternationElementHelper(userCase, keys, Urls, language)).toStrictEqual(dummy);
 });
 
-test.skip('InternaElementHelper without valueHTML', () => {
+test('InternaElementHelper without valueHTML', () => {
   expect(InternationElementHelper({}, keys, Urls, language)).toStrictEqual(dummyTwo);
 });
 
-const htmlValParser = (selection, subText, key) => {
-  selection = selection || '';
-  subText = subText || '';
-  const addDetails = subText
-    ? HTML.RULER + HTML.H4 + key['details'] + HTML.H4_CLOSE + HTML.P + subText + HTML.P_CLOSE
-    : '';
-  return HTML.P + selection + HTML.P_CLOSE + addDetails;
-};
-
-test.skip('InternaElementHelper without valueHTML whole functionality', () => {
+test('InternaElementHelper without valueHTML whole functionality', () => {
   expect(InternationElementHelper(userCase, keys, Urls, language)).toEqual([
     {
       key: keys['liveOutSideUk'],
-      valueHtml: htmlValParser(
-        getYesNoTranslation(language, userCase['ie_internationalStart'], 'ydyntTranslation'),
-        userCase['ie_provideDetailsStart'],
-        keys
-      ),
+      valueHtml:
+        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsStart</dd></div>',
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_START'],
     },
     {
       key: keys['basedOutSideEnglandOrWales'],
-      valueHtml: htmlValParser(
-        getYesNoTranslation(language, userCase['ie_internationalParents'], 'ydyntTranslation'),
-        userCase['ie_provideDetailsParents'],
-        keys
-      ),
+      valueHtml:
+        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsParents</dd></div>',
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_PARENTS'],
     },
     {
       key: keys['anotherPersonSameOrder'],
-      valueHtml: htmlValParser(
-        getYesNoTranslation(language, userCase['ie_internationalJurisdiction'], 'gallaiTranslation'),
-        userCase['ie_provideDetailsJurisdiction'],
-        keys
-      ),
+      valueHtml:
+        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsJurisdiction</dd></div>',
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_JURISDICTION'],
     },
     {
       key: keys['otherCountryRequestInfo'],
-      valueHtml: htmlValParser(
-        getYesNoTranslation(language, userCase['ie_internationalRequest'], 'oesTranslation'),
-        userCase['ie_provideDetailsRequest'],
-        keys
-      ),
+      valueHtml:
+        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsRequest</dd></div>',
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_REQUEST'],
     },
   ]);

@@ -35,10 +35,10 @@ const keysTwo = {
   timeOfHearing: 'timeOfHearing',
 };
 const language = 'en';
-describe.skip('test cases for hearing details', () => {
+describe('test cases for hearing details', () => {
   test('hearingDetailsHelper', () => {
     expect(hearingDetailsHelper(userCase, keys, sessionKey, language)).toBe(
-      'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>hearingWithoutLine1Field</h4><p>hwn_reasonsForApplicationWithoutNotice</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouNeedAWithoutNoticeHearingLabel</h4><p></p><h4>undefined</h4><p>hwn_doYouNeedAWithoutNoticeHearingDetails</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouRequireAHearingWithReducedNoticeLabel</h4><p></p><h4>undefined</h4><p>hwn_doYouRequireAHearingWithReducedNoticeDetails</p>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><p>Yes</p></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">hearingWithoutLine1Field</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">hwn_reasonsForApplicationWithoutNotice</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">doYouNeedAWithoutNoticeHearingLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">hwn_doYouNeedAWithoutNoticeHearingDetails</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">doYouRequireAHearingWithReducedNoticeLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">hwn_doYouRequireAHearingWithReducedNoticeDetails</dd></div></dl>'
     );
   });
 
@@ -56,13 +56,13 @@ describe.skip('test cases for hearing details', () => {
         language
       )
     ).toBe(
-      'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>hearingWithoutLine1Field</h4><p>hwn_reasonsForApplicationWithoutNotice</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouNeedAWithoutNoticeHearingLabel</h4><p></p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>doYouRequireAHearingWithReducedNoticeLabel</h4><p></p>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><p>Yes</p></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">hearingWithoutLine1Field</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">hwn_reasonsForApplicationWithoutNotice</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">doYouNeedAWithoutNoticeHearingLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">doYouRequireAHearingWithReducedNoticeLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>'
     );
   });
 
   test('hearingDetailsQualifyForFirstHearingHelper > Alternatice useCase', () => {
     expect(hearingDetailsQualifyForFirstHearingHelper(userCaseTwo, keysTwo, sessionKey, language)).toBe(
-      'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>reasonForUrgentHearing</h4><ul><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>giveDetailsOtherRisks</h4><p>hu_otherRiskDetails</p><h4>timeOfHearing</h4><p>hu_timeOfHearingDetails</p><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>undefined</h4><p>Yes</p><h4>undefined</h4><p>hu_hearingWithNext48HrsMsg</p>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><p>Yes</p></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">reasonForUrgentHearing</dt></div><div class="govuk-summary-list__row"><ul class="govuk-list govuk-list--bullet"><li>undefined</li><li>undefined</li><li>undefined</li><li>undefined</li></ul></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">giveDetailsOtherRisks</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">hu_otherRiskDetails</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">timeOfHearing</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">hu_timeOfHearingDetails</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">hu_hearingWithNext48HrsMsg</dd></div></dl>'
     );
   });
 
@@ -80,7 +80,7 @@ describe.skip('test cases for hearing details', () => {
         sessionKey,
         language
       )
-    ).toBe('No');
+    ).toBe('<div class="govuk-summary-list__row border-bottom--none"><p>No</p></div>');
   });
 
   test('hearingDetailsQualifyForFirstHearingHelper > values undefined > alternative', () => {
@@ -97,7 +97,7 @@ describe.skip('test cases for hearing details', () => {
         language
       )
     ).toBe(
-      'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>reasonForUrgentHearing</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>giveDetailsOtherRisks</h4><p>hu_otherRiskDetails</p><h4>timeOfHearing</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>undefined</h4><p>No</p>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><p>Yes</p></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">reasonForUrgentHearing</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">giveDetailsOtherRisks</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">hu_otherRiskDetails</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">timeOfHearing</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">No</dd></div></dl>'
     );
   });
 });

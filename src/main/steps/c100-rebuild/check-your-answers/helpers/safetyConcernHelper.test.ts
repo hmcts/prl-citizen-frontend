@@ -12,7 +12,7 @@ const keys = {
 
 const childField = 'childField';
 
-describe.skip('test cases for SaftyConcern', () => {
+describe('test cases for SaftyConcern', () => {
   const language = 'en';
   const id = '7483640e-0817-4ddc-b709-6723f7925474';
   const userCase = {
@@ -74,7 +74,7 @@ describe.skip('test cases for SaftyConcern', () => {
     const sessionKey = 'sessionKey';
     const typeOfUser = 'children';
     expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser, language)).toBe(
-      '<h4>childrenConcernedAboutLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">childrenConcernedAboutLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">behaviourDetailsLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">behaviourStartDateLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">isOngoingBehaviourLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">seekHelpFromPersonOrAgencyLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>'
     );
   });
 
@@ -92,7 +92,7 @@ describe.skip('test cases for SaftyConcern', () => {
     };
     const typeOfUser = 'child';
     expect(HTMLParser(keys, FoundElement, bodyHtml, userCase, typeOfUser, language)).toBe(
-      '<h4>childrenConcernedAboutLabel</h4><ul><li>undefined undefined</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">childrenConcernedAboutLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"><li>undefined undefined</li></ul></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">behaviourDetailsLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">behaviourStartDateLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">test</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">isOngoingBehaviourLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">seekHelpFromPersonOrAgencyLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>'
     );
   });
 
@@ -106,7 +106,7 @@ describe.skip('test cases for SaftyConcern', () => {
     };
     const typeOfUser = 'child';
     expect(HTMLParser(keys, FoundElement, bodyHtml, userCase, typeOfUser, language)).toBe(
-      '<h4>childrenConcernedAboutLabel</h4><ul><li>undefined undefined</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">childrenConcernedAboutLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><li>undefined undefined</li></ul></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">behaviourDetailsLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">behaviourStartDateLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">test</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">isOngoingBehaviourLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">seekHelpFromPersonOrAgencyLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>'
     );
   });
 });
