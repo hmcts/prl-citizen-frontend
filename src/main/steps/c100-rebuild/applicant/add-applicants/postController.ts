@@ -152,6 +152,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       applicantFirstName,
       applicantLastName,
       detailsKnown: '',
+      applicantLivesInRefuge: YesNoEmpty.EMPTY,
       startAlternative: '',
       start: '',
       contactDetailsPrivate: [] as [],

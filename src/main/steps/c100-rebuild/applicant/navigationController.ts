@@ -1,5 +1,5 @@
 import { Case } from '../../../app/case/case';
-import { C100Applicant, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
+import { C100Applicant, ChildrenDetails, YesNoEmpty, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_APPLICANTS_PERSONAL_DETAILS,
@@ -13,8 +13,9 @@ import {
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
   C100_APPLICANT_CONTACT_DETAIL,
   C100_APPLICANT_CONTACT_PREFERENCES,
+  C100_APPLICANT_REFUGE,
+  C100_APPLICANT_REFUGE_UPLOAD,
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
-  C100_REFUGE,
   C100_RESPONDENT_DETAILS_ADD,
   PageLink,
 } from '../../urls';
@@ -90,19 +91,30 @@ class ApplicantNavigationController {
       }
       case C100_APPLICANT_RELATIONSHIP_TO_CHILD: {
         const nextChild = this.getNextChild();
-        (nextUrl = nextChild
+        nextUrl = nextChild
           ? applyParms(C100_APPLICANT_RELATIONSHIP_TO_CHILD, {
               applicantId: this.applicantId,
               childId: nextChild?.id,
             })
-          : applyParms(C100_REFUGE)),
-          {
-            applicantId: this.applicantId,
-          };
+          : applyParms(C100_APPLICANT_REFUGE, {
+              applicantId: this.applicantId,
+            });
         break;
       }
-      case C100_REFUGE: {
-        nextUrl = applyParms(C100_APPLICANT_ADDRESS_LOOKUP, {
+      case C100_APPLICANT_REFUGE: {
+        const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
+        nextUrl = applyParms(
+          applicantData.applicantLivesInRefuge === YesNoEmpty.YES
+            ? C100_APPLICANT_REFUGE_UPLOAD
+            : C100_APPLICANT_ADDRESS_LOOKUP,
+          {
+            applicantId: this.applicantId,
+          }
+        );
+        break;
+      }
+      case C100_APPLICANT_REFUGE_UPLOAD: {
+        nextUrl = applyParms(C100_APPLICANT_CONTACT_DETAIL, {
           applicantId: this.applicantId,
         });
         break;
