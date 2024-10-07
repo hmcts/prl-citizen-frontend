@@ -35,10 +35,6 @@ export default class DocumentUpload extends GetController {
     try {
       await req.locals.C100Api.deleteDocument(documentId);
 
-      if (req.session.userCase?.refuge_certificate) {
-        req.session.userCase.refuge_certificate = undefined;
-      }
-
       req.session.save(error => {
         if (error) {
           throw error;

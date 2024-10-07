@@ -2,11 +2,11 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
 const en = () => ({
-  title: 'Upload a c8 form',
+  title: 'Upload a c8 form with refuge address',
   titleForFile: 'Select documents to upload',
-  uploadGuidance: 'Please upload a c8 form.',
+  uploadGuidance:
+    'You can download the form. The address, email address and contact number will be kept condfidential.',
   uploadButton: 'Upload file',
-  remove: 'Remove',
   errors: {
     document: {
       required: 'Please choose a file.',

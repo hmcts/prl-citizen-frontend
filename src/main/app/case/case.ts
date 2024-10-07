@@ -560,7 +560,6 @@ export interface Case {
   sq_legalRepresentationApplication?: YesOrNo;
   sq_courtPermissionRequired?: YesOrNo;
 
-  refuge_certificate?: C100DocumentInfo;
   co_certificate?: C100DocumentInfo;
   too_courtOrder?: string[];
   too_stopOtherPeopleDoingSomethingSubField?: string[];
