@@ -8,6 +8,7 @@ import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { hasApplicationPacks } from '../../../../../steps/common/documents/view/utils';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { CitizenDocuments, DocumentCategory } from '../../../documents/definitions';
+import { isCaseSubmitted, isDraftCase } from '../../utils';
 
 import { CaseWithId, CitizenNotification } from './../../../../../app/case/case';
 import { CaseType, PartyType, Respondent, State } from './../../../../../app/case/definition';
@@ -126,10 +127,10 @@ export function showPreDashBoardNotification(notificationType: NotificationType,
       allowNotification = !caseData;
       break;
     case NotificationType.APPLICATION_IN_PROGRESS:
-      allowNotification = caseData?.state === State.CASE_DRAFT;
+      allowNotification = isDraftCase(caseData);
       break;
     case NotificationType.APPLICATION_SUBMITTED:
-      allowNotification = [State.CASE_SUBMITTED_PAID, State.CASE_SUBMITTED_NOT_PAID].includes(caseData?.state);
+      allowNotification = isCaseSubmitted(caseData);
       break;
     case NotificationType.APPLICATION_WITHDRAWN:
       allowNotification = caseData?.state === State.CASE_WITHDRAWN;
@@ -218,6 +219,8 @@ export const isOrderWithPowerOfArrest = (caseData: CaseWithId): boolean => {
   )?.orderTypeId as OrderTypeId | undefined;
 
   return orderTypeId
-    ? [OrderTypeId.POWER_OF_ARREST, OrderTypeId.OCCUPATION_WITH_POWER_OF_ARREST].includes(orderTypeId)
+    ? [OrderTypeId.POWER_OF_ARREST, OrderTypeId.OCCUPATION_WITH_POWER_OF_ARREST, OrderTypeId.NON_MOLESTATION].includes(
+        orderTypeId
+      )
     : false;
 };

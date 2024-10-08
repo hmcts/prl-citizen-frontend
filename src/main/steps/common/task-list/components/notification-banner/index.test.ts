@@ -1939,7 +1939,7 @@ describe('FL401 banners', () => {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
               },
               {
-                text: 'You will need to arrange for the  to be served. See the order for further details.',
+                text: 'You will need to arrange for the respondent to be served. See the order for further details.',
               },
             ],
             links: [
