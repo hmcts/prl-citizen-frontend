@@ -731,7 +731,7 @@ describe('test cases for main util', () => {
           text: 'childGenderLabel',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row">Male <br></div><div class="govuk-summary-list__row border-bottom--none">otherGender</div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><br><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">otherGenderDetails</dd></div></dl>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Male</dd></div><div class="govuk-summary-list__row border-bottom--none">otherGender</div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><br><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">otherGenderDetails</dd></div></dl>',
           text: 'Male',
         },
       },
@@ -1007,7 +1007,7 @@ describe('test cases for main util', () => {
           text: 'childGenderLabel',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none">otherGender</div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><br><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">undefined</dd></div></dl>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">otherGender</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><br><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">undefined</dd></div></dl>',
         },
       },
       {
@@ -1058,7 +1058,7 @@ describe('test cases for main util', () => {
           text: 'addressDetails',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none">addressLine1<br>addressLine2<br>postTown<br>county<br><br></dl>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">addressLine1<br>addressLine2<br>postTown<br>county<br><br></dd></div></dl>',
         },
       },
     ]);
@@ -1481,7 +1481,7 @@ describe('test cases for main util', () => {
           text: 'c1A_policeOrInvestigatorInvolved',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_policeOrInvestigatorOtherDetails</dd></div></dl>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_policeOrInvestigatorOtherDetails</dd></div></dl>',
         },
       },
     ]);
@@ -1719,7 +1719,7 @@ describe('test cases for main util', () => {
           text: 'addressDetails',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row">dsadas<br>ILFORD<br>United Kingdom</div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">Don\'t know</dd></div></dl>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">dsadas<br>ILFORD<br>United Kingdom</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">Don\'t know</dd></div></dl>',
         },
       },
       {
@@ -1998,7 +1998,7 @@ describe('test cases for main util', () => {
           text: 'childDrugAbuse',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_otherConcernsDrugsDetails</dd></div></dl>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_otherConcernsDrugsDetails</dd></div></dl>',
         },
       },
       {
@@ -2015,7 +2015,7 @@ describe('test cases for main util', () => {
           text: 'otherWellBeingIssues',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_childSafetyConcernsDetails</dd></div></dl>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_childSafetyConcernsDetails</dd></div></dl>',
         },
       },
       {

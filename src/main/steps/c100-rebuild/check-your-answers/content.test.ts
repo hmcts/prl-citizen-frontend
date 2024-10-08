@@ -1017,7 +1017,7 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's lives mainly based outside of England and Wales?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -1035,7 +1035,7 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -1053,7 +1053,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -1071,7 +1071,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Has another country asked (or been asked) for information or help for the children?',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
         ],
@@ -1511,7 +1511,7 @@ describe('Content.ts toggle test cases', () => {
             },
             key: { text: "Are the children's lives mainly based outside of England and Wales?" },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -1529,7 +1529,7 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -1547,7 +1547,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -1563,7 +1563,7 @@ describe('Content.ts toggle test cases', () => {
             },
             key: { text: 'Has another country asked (or been asked) for information or help for the children?' },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
         ],
@@ -1983,7 +1983,7 @@ describe('Content.ts toggle test cases', () => {
             },
             key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -2001,7 +2001,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -2019,7 +2019,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -2037,7 +2037,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
         ],
@@ -2369,7 +2369,7 @@ describe('Content.ts toggle test cases', () => {
             },
             key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -2387,7 +2387,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -2405,7 +2405,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -2423,7 +2423,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
         ],
@@ -2822,7 +2822,7 @@ describe('Content.ts toggle test cases', () => {
             },
             key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -2840,7 +2840,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -2858,7 +2858,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -2876,7 +2876,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
         ],
@@ -3295,7 +3295,7 @@ describe('Content.ts toggle test cases', () => {
             },
             key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -3313,7 +3313,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -3331,7 +3331,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -3349,7 +3349,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
         ],

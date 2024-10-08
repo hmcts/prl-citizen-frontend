@@ -34,11 +34,11 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
     HTML.ROW_END;
   bodyHtml += FoundElement.hasOwnProperty('behaviourDetails')
     ? HTML.ROW_START +
-      HTML.DESCRIPTION_TERM_DETAIL_KEY +
+      HTML.DESCRIPTION_TERM_DETAIL +
       FoundElement['behaviourDetails'] +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END
-    : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+    : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
 
   bodyHtml +=
     HTML.ROW_START_NO_BORDER +
@@ -49,11 +49,11 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
   bodyHtml +=
     FoundElement.hasOwnProperty('behaviourStartDate') && FoundElement['behaviourStartDate']
       ? HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         FoundElement['behaviourStartDate'] +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END
-      : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+      : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
 
   bodyHtml +=
     HTML.ROW_START_NO_BORDER +
@@ -64,11 +64,11 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
   bodyHtml +=
     FoundElement.hasOwnProperty('isOngoingBehaviour') && FoundElement.isOngoingBehaviour
       ? HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         getYesNoTranslation(language, FoundElement['isOngoingBehaviour'], 'ydyTranslation') +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END
-      : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+      : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
 
   bodyHtml +=
     HTML.ROW_START_NO_BORDER +
@@ -79,20 +79,16 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency') && FoundElement.seekHelpFromPersonOrAgency
       ? HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         translationForSeekHelpFromPersonOrAgency(FoundElement, language) +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END
-      : HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
-        '' +
-        HTML.DESCRIPTION_TERM_DETAIL_END +
-        HTML.ROW_END;
+      : HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
 
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpDetails') && FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes'
       ? HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         FoundElement?.['seekHelpDetails'] +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END
@@ -131,7 +127,7 @@ const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, lan
     HTML.DESCRIPTION_TERM_ELEMENT_END +
     HTML.ROW_END;
   if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
-    bodyHtml += HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + HTML.UNORDER_LIST;
+    bodyHtml += HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
     if (
       Array.isArray(FoundElement['childrenConcernedAbout']) &&
       FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
@@ -146,7 +142,7 @@ const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, lan
     } else {
       bodyHtml +=
         HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
     }
 

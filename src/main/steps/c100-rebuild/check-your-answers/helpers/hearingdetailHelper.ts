@@ -7,14 +7,12 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
   if (userCase.hasOwnProperty(sessionKey)) {
     let html =
       userCase.hasOwnProperty('hwn_hearingPart1') && userCase['hwn_hearingPart1'] === 'Yes'
-        ? HTML.DESCRIPTION_LIST + HTML.ROW_START
+        ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
         : HTML.ROW_START_NO_BORDER;
-    html +=
-      HTML.P +
-      getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation') +
-      HTML.P_CLOSE +
-      HTML.ROW_END;
+    html += getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation');
     if (userCase.hasOwnProperty('hwn_hearingPart1') && userCase['hwn_hearingPart1'] === 'Yes') {
+      html += HTML.DESCRIPTION_TERM_DETAIL_END;
+      html += HTML.ROW_END;
       html += HTML.ROW_START_NO_BORDER;
       html +=
         HTML.DESCRIPTION_TERM_ELEMENT +
@@ -23,7 +21,7 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
         HTML.ROW_END;
       html +=
         HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         userCase?.['hwn_reasonsForApplicationWithoutNotice'] +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
@@ -35,7 +33,7 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
         HTML.ROW_END;
       html +=
         HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         getYesNoTranslation(language, userCase?.['hwn_doYouNeedAWithoutNoticeHearing'], 'ydwTranslation') +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
@@ -47,7 +45,7 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
             HTML.DESCRIPTION_TERM_ELEMENT_END +
             HTML.ROW_END +
             HTML.ROW_START +
-            HTML.DESCRIPTION_TERM_DETAIL_KEY +
+            HTML.DESCRIPTION_TERM_DETAIL +
             userCase?.['hwn_doYouNeedAWithoutNoticeHearingDetails'] +
             HTML.DESCRIPTION_TERM_DETAIL_END +
             HTML.ROW_END
@@ -61,7 +59,7 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
         HTML.ROW_END;
       html +=
         HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         getYesNoTranslation(language, userCase?.['hwn_doYouRequireAHearingWithReducedNotice'], 'ydwTranslation') +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
@@ -73,12 +71,14 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
             HTML.DESCRIPTION_TERM_ELEMENT_END +
             HTML.ROW_END +
             HTML.ROW_START_NO_BORDER +
-            HTML.DESCRIPTION_TERM_DETAIL_KEY +
+            HTML.DESCRIPTION_TERM_DETAIL +
             userCase?.['hwn_doYouRequireAHearingWithReducedNoticeDetails'] +
             HTML.DESCRIPTION_TERM_DETAIL_END +
             HTML.ROW_END
           : '';
       html += HTML.DESCRIPTION_LIST_END;
+    } else {
+      html += HTML.ROW_END;
     }
     return html;
   }
@@ -88,14 +88,12 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
   if (userCase.hasOwnProperty(sessionKey)) {
     let html =
       userCase.hasOwnProperty('hu_urgentHearingReasons') && userCase['hu_urgentHearingReasons'] === 'Yes'
-        ? HTML.DESCRIPTION_LIST + HTML.ROW_START
+        ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
         : HTML.ROW_START_NO_BORDER;
-    html +=
-      HTML.P +
-      getYesNoTranslation(language, userCase['hu_urgentHearingReasons'], 'oesTranslation') +
-      HTML.P_CLOSE +
-      HTML.ROW_END;
+    html += getYesNoTranslation(language, userCase['hu_urgentHearingReasons'], 'oesTranslation');
     if (userCase.hasOwnProperty('hu_urgentHearingReasons') && userCase['hu_urgentHearingReasons'] === 'Yes') {
+      html += HTML.DESCRIPTION_TERM_DETAIL_END;
+      html += HTML.ROW_END;
       html += HTML.ROW_START_NO_BORDER;
       html +=
         HTML.DESCRIPTION_TERM_ELEMENT +
@@ -114,7 +112,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
           )
             .split(',')
             .join('')
-        : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+        : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
       html += HTML.ROW_START_NO_BORDER;
       html +=
         HTML.DESCRIPTION_TERM_ELEMENT +
@@ -123,7 +121,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
         HTML.ROW_END;
       html +=
         HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         userCase?.['hu_otherRiskDetails'] +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
@@ -136,17 +134,17 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
       html +=
         userCase['hu_timeOfHearingDetails'] !== undefined
           ? HTML.ROW_START +
-            HTML.DESCRIPTION_TERM_DETAIL_KEY +
+            HTML.DESCRIPTION_TERM_DETAIL +
             userCase?.['hu_timeOfHearingDetails'] +
             HTML.DESCRIPTION_TERM_DETAIL_END +
             HTML.ROW_END
-          : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+          : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
       html += HTML.ROW_START_NO_BORDER;
       html +=
         HTML.DESCRIPTION_TERM_ELEMENT + keys['hearingWithNext48Hrs'] + HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
       html +=
         HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         getYesNoTranslation(language, userCase?.['hu_hearingWithNext48HrsDetails'], 'doTranslation') +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
@@ -162,12 +160,14 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
           HTML.ROW_END;
         html +=
           HTML.ROW_START_NO_BORDER +
-          HTML.DESCRIPTION_TERM_DETAIL_KEY +
+          HTML.DESCRIPTION_TERM_DETAIL +
           userCase['hu_hearingWithNext48HrsMsg'] +
           HTML.DESCRIPTION_TERM_DETAIL_END +
           HTML.ROW_END;
       }
       html += HTML.DESCRIPTION_LIST_END;
+    } else {
+      html += HTML.ROW_END;
     }
     return html;
   }

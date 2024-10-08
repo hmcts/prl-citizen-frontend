@@ -160,7 +160,7 @@ describe('awp> checkAnswer > utils', () => {
               text: 'Do you have supporting documents to upload?',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><p>Yes</p></div><div class="govuk-summary-list__row border-bottom--none"><p>file_example_TIFF.tiff</p></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">file_example_TIFF.tiff</dd></div></dl>',
             },
           },
           {

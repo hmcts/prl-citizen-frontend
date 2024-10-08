@@ -29,25 +29,25 @@ const dummy = [
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_START',
     key: 'liveOutSideUk',
     valueHtml:
-      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsStart</dd></div>',
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsStart</dd></div></dl>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_PARENTS',
     key: 'basedOutSideEnglandOrWales',
     valueHtml:
-      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsParents</dd></div>',
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsParents</dd></div></dl>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_JURISDICTION',
     key: 'anotherPersonSameOrder',
     valueHtml:
-      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsJurisdiction</dd></div>',
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsJurisdiction</dd></div></dl>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_REQUEST',
     key: 'otherCountryRequestInfo',
     valueHtml:
-      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsRequest</dd></div>',
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsRequest</dd></div></dl>',
   },
 ];
 
@@ -55,22 +55,26 @@ const dummyTwo = [
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_START',
     key: 'liveOutSideUk',
-    valueHtml: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+    valueHtml:
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_PARENTS',
     key: 'basedOutSideEnglandOrWales',
-    valueHtml: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+    valueHtml:
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_JURISDICTION',
     key: 'anotherPersonSameOrder',
-    valueHtml: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+    valueHtml:
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
   },
   {
     changeUrl: 'C100_INTERNATIONAL_ELEMENTS_REQUEST',
     key: 'otherCountryRequestInfo',
-    valueHtml: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></div>',
+    valueHtml:
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
   },
 ];
 const language = 'en';
@@ -87,25 +91,25 @@ test('InternaElementHelper without valueHTML whole functionality', () => {
     {
       key: keys['liveOutSideUk'],
       valueHtml:
-        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsStart</dd></div>',
+        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsStart</dd></div></dl>',
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_START'],
     },
     {
       key: keys['basedOutSideEnglandOrWales'],
       valueHtml:
-        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsParents</dd></div>',
+        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsParents</dd></div></dl>',
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_PARENTS'],
     },
     {
       key: keys['anotherPersonSameOrder'],
       valueHtml:
-        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsJurisdiction</dd></div>',
+        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsJurisdiction</dd></div></dl>',
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_JURISDICTION'],
     },
     {
       key: keys['otherCountryRequestInfo'],
       valueHtml:
-        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsRequest</dd></div>',
+        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">ie_provideDetailsRequest</dd></div></dl>',
       changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_REQUEST'],
     },
   ]);

@@ -45,7 +45,7 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
           HTML.ROW_END;
         const valueDetails =
           HTML.ROW_START +
-          HTML.DESCRIPTION_TERM_DETAIL_KEY +
+          HTML.DESCRIPTION_TERM_DETAIL +
           DATE_FORMATTOR(value, language) +
           HTML.DESCRIPTION_TERM_DETAIL_END +
           HTML.ROW_END;
@@ -61,20 +61,20 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
         if (key === 'currentOrder') {
           valueDetails =
             HTML.ROW_START +
-            HTML.DESCRIPTION_TERM_DETAIL_KEY +
+            HTML.DESCRIPTION_TERM_DETAIL +
             getYesNoTranslation(language, value, 'ieTranslation') +
             HTML.DESCRIPTION_TERM_DETAIL_END +
             HTML.ROW_END;
         } else if (key === 'orderCopy') {
           valueDetails =
             HTML.ROW_START_NO_BORDER +
-            HTML.DESCRIPTION_TERM_DETAIL_KEY +
+            HTML.DESCRIPTION_TERM_DETAIL +
             getYesNoTranslation(language, value, 'oesTranslation') +
             HTML.DESCRIPTION_TERM_DETAIL_END +
             HTML.ROW_END;
         } else {
           valueDetails =
-            HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL_KEY + value + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+            HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + value + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
         }
         Val += keyDetails + valueDetails;
       }

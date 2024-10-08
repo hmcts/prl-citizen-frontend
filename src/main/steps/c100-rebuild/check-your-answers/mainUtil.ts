@@ -284,10 +284,14 @@ export const ChildernDetails = (
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
             ? HTML.DESCRIPTION_LIST +
               HTML.ROW_START +
+              HTML.DESCRIPTION_TERM_DETAIL +
               translation(personalDetails?.['gender'], language) +
+              HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
               HTML.ROW_START_NO_BORDER +
+              HTML.DESCRIPTION_TERM_DETAIL +
               keys['otherGender'] +
+              HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
               HTML.ROW_START_NO_BORDER +
               HTML.DESCRIPTION_TERM_ELEMENT +
@@ -296,7 +300,7 @@ export const ChildernDetails = (
               HTML.ROW_END +
               HTML.BREAK +
               HTML.ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_DETAIL_KEY +
+              HTML.DESCRIPTION_TERM_DETAIL +
               personalDetails['otherGenderDetails'] +
               HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
@@ -336,7 +340,7 @@ export const ChildernDetailsAdditional = (
   language
 ): SummaryList | undefined => {
   let htmlForAdditionalText = userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
-    ? HTML.DESCRIPTION_LIST + HTML.ROW_START
+    ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
     : '';
   htmlForAdditionalText += getYesNoTranslation(
     language,
@@ -344,7 +348,8 @@ export const ChildernDetailsAdditional = (
     'ydynTranslation'
   );
   htmlForAdditionalText += userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
-    ? HTML.ROW_END +
+    ? HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END +
       HTML.BREAK +
       HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_ELEMENT +
@@ -353,7 +358,7 @@ export const ChildernDetailsAdditional = (
       HTML.ROW_END +
       HTML.BREAK +
       HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_DETAIL_KEY +
+      HTML.DESCRIPTION_TERM_DETAIL +
       userCase['cd_childrenKnownToSocialServicesDetails'] +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END +
@@ -440,9 +445,9 @@ export const OtherChildrenDetails = (
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
             ? HTML.DESCRIPTION_LIST +
               HTML.ROW_START +
+              HTML.DESCRIPTION_TERM_DETAIL +
               translation(personalDetails?.['gender'], language) +
-              ' ' +
-              HTML.BREAK +
+              HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
               HTML.ROW_START_NO_BORDER +
               keys['otherGender'] +
@@ -454,7 +459,7 @@ export const OtherChildrenDetails = (
               HTML.ROW_END +
               HTML.BREAK +
               HTML.ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_DETAIL_KEY +
+              HTML.DESCRIPTION_TERM_DETAIL +
               personalDetails['otherGenderDetails'] +
               HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
@@ -475,14 +480,18 @@ export const OtherChildrenDetails = (
 
 export const ApplicantDetailNameParser = (personalDetails, keys, language): string => {
   let changeNameInformation = '';
-  changeNameInformation += personalDetails['haveYouChangeName'] === 'Yes' ? HTML.DESCRIPTION_LIST + HTML.ROW_START : '';
+  changeNameInformation +=
+    personalDetails['haveYouChangeName'] === 'Yes'
+      ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
+      : '';
   changeNameInformation += getYesNoTranslation(language, personalDetails['haveYouChangeName'], 'doTranslation');
   if (personalDetails['haveYouChangeName'] === 'Yes') {
     const changedName = personalDetails['applPreviousName'];
-    changeNameInformation += HTML.ROW_END + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
+    changeNameInformation +=
+      HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
     changeNameInformation += keys['details'];
     changeNameInformation += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-    changeNameInformation += HTML.BREAK + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL_KEY;
+    changeNameInformation += HTML.BREAK + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL;
     changeNameInformation += changedName;
     changeNameInformation += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
   }
@@ -516,14 +525,14 @@ export const ApplicantDetails = (
       html +=
         HTML.DESCRIPTION_LIST +
         HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL_KEY +
+        HTML.DESCRIPTION_TERM_DETAIL +
         getYesNoTranslation(language, sessionApplicantData[applicant][key], 'ydwTranslation') +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
       if (sessionApplicantData[applicant][keyArray].length > 0) {
         html +=
           HTML.ROW_START_NO_BORDER +
-          HTML.DESCRIPTION_TERM_DETAIL_KEY +
+          HTML.DESCRIPTION_TERM_DETAIL +
           HTML.UNORDER_LIST +
           sessionApplicantData[applicant][keyArray]
             ?.map(item => HTML.LIST_ITEM + translation(item, language) + HTML.LIST_ITEM_END)
@@ -583,8 +592,9 @@ export const ApplicantDetails = (
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
             ? HTML.DESCRIPTION_LIST +
               HTML.ROW_START +
+              HTML.DESCRIPTION_TERM_DETAIL +
               translation(personalDetails?.['gender'], language) +
-              HTML.BREAK +
+              HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
               HTML.ROW_START_NO_BORDER +
               keys['otherGender'] +
@@ -596,7 +606,7 @@ export const ApplicantDetails = (
               HTML.ROW_END +
               HTML.BREAK +
               HTML.ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_DETAIL_KEY +
+              HTML.DESCRIPTION_TERM_DETAIL +
               personalDetails['otherGenderDetails'] +
               HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
@@ -931,23 +941,29 @@ export const SafetyConcerns_child = (
   /**
    * @policeOrInvestigatorsOtherDetails session Values
    */
-  let policeOrInvestigatorsOtherDetailsHTML = HTML.DESCRIPTION_LIST as string;
-  policeOrInvestigatorsOtherDetailsHTML += isBorderPresent(userCase['c1A_policeOrInvestigatorInvolved'], YesOrNo.YES);
-  policeOrInvestigatorsOtherDetailsHTML +=
-    getYesNoTranslation(language, userCase['c1A_policeOrInvestigatorInvolved'], 'oeddTranslation') + HTML.ROW_END;
+  let policeOrInvestigatorsOtherDetailsHTML = userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
+    ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
+    : '';
+  policeOrInvestigatorsOtherDetailsHTML += getYesNoTranslation(
+    language,
+    userCase['c1A_policeOrInvestigatorInvolved'],
+    'oeddTranslation'
+  );
   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
-    ? HTML.ROW_START_NO_BORDER +
+    ? HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END +
+      HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_ELEMENT +
       keys['details'] +
       HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END +
       HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_DETAIL_KEY +
+      HTML.DESCRIPTION_TERM_DETAIL +
       userCase['c1A_policeOrInvestigatorOtherDetails'] +
       HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END
-    : HTML.ROW_START_NO_BORDER + '' + HTML.ROW_END;
-  policeOrInvestigatorsOtherDetailsHTML += HTML.DESCRIPTION_LIST_END;
+      HTML.ROW_END +
+      HTML.DESCRIPTION_LIST_END
+    : '';
 
   /**
    * @c1A_childAbductedBefore session Values
@@ -955,7 +971,7 @@ export const SafetyConcerns_child = (
   let c1A_childAbductedBefore = HTML.DESCRIPTION_LIST as string;
   c1A_childAbductedBefore += isBorderPresent(userCase.c1A_passportOffice, 'Yes');
   c1A_childAbductedBefore +=
-    HTML.DESCRIPTION_TERM_DETAIL_KEY +
+    HTML.DESCRIPTION_TERM_DETAIL +
     getYesNoTranslation(language, userCase?.['c1A_passportOffice'], 'oesTranslation') +
     HTML.DESCRIPTION_TERM_DETAIL_END +
     HTML.ROW_END;
@@ -965,13 +981,13 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
     c1A_childAbductedBefore +=
       HTML.ROW_START +
-      HTML.DESCRIPTION_TERM_DETAIL_KEY +
+      HTML.DESCRIPTION_TERM_DETAIL +
       getYesNoTranslation(language, userCase['c1A_childrenMoreThanOnePassport'], 'oesTranslation');
     c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
     c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
     c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL_KEY + HTML.UNORDER_LIST;
+    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
 
     if (userCase['c1A_possessionChildrenPassport']) {
       c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
@@ -1139,16 +1155,19 @@ export const SafetyConcerns_others = (
   language
 ): SummaryList | undefined => {
   const fieldParser = (field, fieldDescription?) => {
-    let html = fieldDescription !== undefined ? HTML.DESCRIPTION_LIST + HTML.ROW_START : '';
+    let html =
+      fieldDescription !== undefined ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL : '';
     if (field !== undefined) {
       html += field;
     }
     if (fieldDescription !== undefined) {
-      html += HTML.ROW_END + HTML.ROW_START_NO_BORDER;
+      html += HTML.DESCRIPTION_TERM_DETAIL_END;
+      html += HTML.ROW_END;
+      html += HTML.ROW_START_NO_BORDER;
       html += HTML.DESCRIPTION_TERM_ELEMENT;
       html += keys['details'];
       html += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-      html += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL_KEY;
+      html += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL;
       html += fieldDescription;
       html += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
     }

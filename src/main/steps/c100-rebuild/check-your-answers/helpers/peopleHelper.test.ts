@@ -45,13 +45,13 @@ describe('test cases for peopleHelper', () => {
 
   test('applicantAddressParser returns correct address details', () => {
     expect(applicantAddressParser(userCase, keys, language)).toBe(
-      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row">MOCK_ADDRESS_1<br>MOCK_ADDRESS_2<br>MOCK_ADDRESS_TOWN<br>MOCK_ADRESS_COUNTY<br><br>MOCK_POSTCODE</div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">haveLivedMoreLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">No</dd></div></dl>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">MOCK_ADDRESS_1<br>MOCK_ADDRESS_2<br>MOCK_ADDRESS_TOWN<br>MOCK_ADRESS_COUNTY<br><br>MOCK_POSTCODE</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">haveLivedMoreLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">No</dd></div></dl>'
     );
   });
 
   test('applicantAddressParser returns correct values when address doesnt exist', () => {
     expect(applicantAddressParser({}, keys, language)).toBe(
-      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></dl>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div></dl>'
     );
   });
 
@@ -75,13 +75,13 @@ describe('test cases for peopleHelper', () => {
 
   test('applicantAddressParserForRespondents should return correctly for address values', () => {
     expect(applicantAddressParserForRespondents(userCase, keys, language)).toBe(
-      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row">MOCK_ADDRESS_1<br>MOCK_ADDRESS_2<br>MOCK_ADDRESS_TOWN<br>MOCK_ADRESS_COUNTY<br><br>MOCK_POSTCODE<br>MOCK_COUNTRY</div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">respondentAddressLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">No</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">previousAddressLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">Previous adresses</dd></div></dl>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">MOCK_ADDRESS_1<br>MOCK_ADDRESS_2<br>MOCK_ADDRESS_TOWN<br>MOCK_ADRESS_COUNTY<br><br>MOCK_POSTCODE<br>MOCK_COUNTRY</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">respondentAddressLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">No</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">previousAddressLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">Previous adresses</dd></div></dl>'
     );
   });
 
   test('applicantAddressParserForRespondents should return correctly when no address values', () => {
     expect(applicantAddressParserForRespondents({}, keys, language)).toBe(
-      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"></dl>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div></dl>'
     );
   });
 
@@ -119,13 +119,13 @@ describe('test cases for peopleHelper', () => {
 
   test('otherPeopleAddressParser should return correct HTML for address values', () => {
     expect(otherPeopleAddressParser(userCase)).toBe(
-      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none">MOCK_ADDRESS_1<br>MOCK_ADDRESS_2<br>MOCK_ADDRESS_TOWN<br>MOCK_ADRESS_COUNTY<br><br>MOCK_POSTCODE<br>MOCK_COUNTRY</div></dl>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">MOCK_ADDRESS_1<br>MOCK_ADDRESS_2<br>MOCK_ADDRESS_TOWN<br>MOCK_ADRESS_COUNTY<br><br>MOCK_POSTCODE<br>MOCK_COUNTRY</dd></div></dl>'
     );
   });
 
   test('otherPeopleAddressParser should return correct HTML when address values not present', () => {
     expect(otherPeopleAddressParser({})).toBe(
-      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"></dl>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>'
     );
   });
 });

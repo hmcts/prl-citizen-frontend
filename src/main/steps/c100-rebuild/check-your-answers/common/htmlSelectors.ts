@@ -34,7 +34,6 @@ export enum HTML {
   ROW_START = '<div class="govuk-summary-list__row">',
   ROW_START_NO_BORDER = '<div class="govuk-summary-list__row border-bottom--none">',
   ROW_END = '</div>',
-  DESCRIPTION_TERM_DETAIL_KEY = '<dd class="govuk-summary-list__value">',
-  DESCRIPTION_TERM_DETAIL_VALUE = '<dd class="govuk-summary-list__key">',
+  DESCRIPTION_TERM_DETAIL = '<dd class="govuk-summary-list__value">',
   DESCRIPTION_TERM_DETAIL_END = '</dd>',
 }

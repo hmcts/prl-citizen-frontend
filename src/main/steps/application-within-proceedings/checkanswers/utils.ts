@@ -147,15 +147,24 @@ const prepareSupportingDocumentView = (
   userCase: Partial<CaseWithId>
 ): string => {
   let tempDetails = userCase?.awp_supportingDocuments?.length
-    ? HTML.DESCRIPTION_LIST + HTML.ROW_START
+    ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
     : HTML.ROW_START_NO_BORDER;
-  tempDetails += HTML.P + getYesNoTranslation(language, userkey, 'doTranslation') + HTML.P_CLOSE + HTML.ROW_END;
+  tempDetails += getYesNoTranslation(language, userkey, 'doTranslation');
   if (userCase?.awp_supportingDocuments?.length) {
-    tempDetails += HTML.ROW_START_NO_BORDER;
+    tempDetails += HTML.DESCRIPTION_TERM_DETAIL_END;
+    tempDetails += HTML.ROW_END;
     for (const doc in userCase.awp_supportingDocuments) {
-      tempDetails = tempDetails + '<p>' + userCase.awp_supportingDocuments[doc].filename + '</p>';
+      tempDetails =
+        tempDetails +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        userCase.awp_supportingDocuments[doc].filename +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END;
     }
-    tempDetails += HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
+    tempDetails += HTML.DESCRIPTION_LIST_END;
+  } else {
+    tempDetails += HTML.ROW_END;
   }
   return tempDetails;
 };

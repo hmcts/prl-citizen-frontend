@@ -12,13 +12,22 @@ const htmlValParser = (selection, subText, keys) => {
       HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END +
       HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_DETAIL_KEY +
+      HTML.DESCRIPTION_TERM_DETAIL +
       subText +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END
     : '';
   const lastRow = !subText ? HTML.ROW_START_NO_BORDER : HTML.ROW_START;
-  return HTML.DESCRIPTION_LIST + lastRow + selection + HTML.ROW_END + addDetails;
+  return (
+    HTML.DESCRIPTION_LIST +
+    lastRow +
+    HTML.DESCRIPTION_TERM_DETAIL +
+    selection +
+    HTML.DESCRIPTION_TERM_DETAIL_END +
+    HTML.ROW_END +
+    addDetails +
+    HTML.DESCRIPTION_LIST_END
+  );
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const getValueUrlByKey = (key: string, userCase: any, language: any, Urls: any, keys: any) => {

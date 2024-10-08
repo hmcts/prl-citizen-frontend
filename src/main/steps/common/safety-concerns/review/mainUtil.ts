@@ -238,7 +238,9 @@ export const SafetyConcerns_others = (
     let html = '';
     if (field !== undefined) {
       if(fieldDescription !== undefined && field!== YesOrNo.NO){
-      html += HTML.DESCRIPTION_LIST+HTML.ROW_START+field+HTML.P+HTML.P_CLOSE+HTML.ROW_END;
+      html += HTML.DESCRIPTION_LIST+HTML.ROW_START+HTML.DESCRIPTION_TERM_DETAIL+field+
+      HTML.DESCRIPTION_TERM_DETAIL_END+
+      HTML.ROW_END;
       }else{
         html +=HTML.ROW_START_NO_BORDER+field+HTML.ROW_END;
       }
@@ -250,7 +252,7 @@ export const SafetyConcerns_others = (
       html += HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END +
       HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_DETAIL_KEY ;
+      HTML.DESCRIPTION_TERM_DETAIL ;
       html += fieldDescription;
       html += HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END+HTML.DESCRIPTION_LIST_END;
@@ -297,14 +299,16 @@ export const SafetyConcerns_others = (
 const preparePoliceInvesitigationData=(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>)=> {
   let policeOrInvestigatorsOtherDetailsHTML = HTML.DESCRIPTION_LIST as string;
   policeOrInvestigatorsOtherDetailsHTML += isBorderPresent(userCase['c1A_policeOrInvestigatorInvolved'],YesOrNo.YES);
-  policeOrInvestigatorsOtherDetailsHTML += getYesNoTranslation(language, userCase['c1A_policeOrInvestigatorInvolved'], 'oeddTranslation') + HTML.P+HTML.P_CLOSE+HTML.ROW_END;
+  policeOrInvestigatorsOtherDetailsHTML += HTML.DESCRIPTION_TERM_DETAIL+getYesNoTranslation(language, userCase['c1A_policeOrInvestigatorInvolved'], 'oeddTranslation') +
+   HTML.DESCRIPTION_TERM_DETAIL_END+
+   HTML.ROW_END;
   if(userCase['c1A_policeOrInvestigatorInvolved'] === YesOrNo.YES){
   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
     ? HTML.ROW_START_NO_BORDER +
     HTML.DESCRIPTION_TERM_ELEMENT + keys['details'] + HTML.DESCRIPTION_TERM_ELEMENT_END +
     HTML.ROW_END +
     HTML.ROW_START_NO_BORDER +
-    HTML.DESCRIPTION_TERM_DETAIL_KEY + userCase['c1A_policeOrInvestigatorOtherDetails']+
+    HTML.DESCRIPTION_TERM_DETAIL + userCase['c1A_policeOrInvestigatorOtherDetails']+
     HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END
     : HTML.ROW_START_NO_BORDER + '' + HTML.ROW_END;}
@@ -312,24 +316,34 @@ const preparePoliceInvesitigationData=(userCase: Partial<CaseWithId>, language: 
 };
 
 const prepareChildAbductionData=(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>)=> {
-  let c1A_childAbductedBefore = userCase.c1A_passportOffice === 'Yes' ?HTML.DESCRIPTION_LIST+HTML.ROW_START : HTML.ROW_START_NO_BORDER as string;
-  c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_DETAIL_KEY + getYesNoTranslation(language, userCase?.['c1A_passportOffice'], 'oesTranslation')+HTML.DESCRIPTION_TERM_DETAIL_END +
-  HTML.ROW_END ;
+  let c1A_childAbductedBefore = userCase.c1A_passportOffice === 'Yes' ?HTML.DESCRIPTION_LIST+HTML.ROW_START+HTML.DESCRIPTION_TERM_DETAIL : '' as string;
+  c1A_childAbductedBefore +=  getYesNoTranslation(language, userCase?.['c1A_passportOffice'], 'oesTranslation');
   const relativesTranslation = (relative) => {
     relative = relative === passportPossessionRelative.MOTHER && language === 'cy' ? cy().option1 : relative;
     relative = relative === passportPossessionRelative.FATHER && language === 'cy' ? cy().option2 : relative;
     return relative;
   };
   if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
-    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
+    c1A_childAbductedBefore +=HTML.DESCRIPTION_TERM_DETAIL_END +
+    HTML.ROW_END+
+     HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
-    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-    c1A_childAbductedBefore += HTML.ROW_START +
-    HTML.DESCRIPTION_TERM_DETAIL_KEY + getYesNoTranslation(language, userCase?.['c1A_childrenMoreThanOnePassport'], 'oesTranslation') + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
-    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
+    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END+
+     HTML.ROW_START +
+    HTML.DESCRIPTION_TERM_DETAIL +
+     getYesNoTranslation(language, userCase?.['c1A_childrenMoreThanOnePassport'], 'oesTranslation') +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+       HTML.ROW_END+
+     HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
-    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL_KEY + HTML.UNORDER_LIST;
+    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + 
+    HTML.ROW_END+
+     HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL +
+       HTML.UNORDER_LIST;
     c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']!
       .filter(element => element !== passportPossessionRelative.OTHER)
       .map(relatives => HTML.LIST_ITEM + relativesTranslation(relatives) + HTML.LIST_ITEM_END)
