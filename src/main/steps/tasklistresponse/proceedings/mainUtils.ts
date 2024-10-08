@@ -37,7 +37,8 @@ export const PastAndCurrentProceedings = (
     ];
   }
   return {
-    title: sectionTitles['otherProceedings'],
+    title: sectionTitles['otherProceedings']??'',
+    subTitle: sectionTitles['title']??'',
     rows: getSectionSummaryList(SummaryData, content),
   };
 };

@@ -5,7 +5,6 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const enContent = {
-  section: '',
   title: 'Safety concerns',
   line1: 'The court needs to know if anyone who spends time with the children poses a risk to their safety or yours.',
   line2:
@@ -38,7 +37,6 @@ const enContent = {
 };
 
 const cyContent = {
-  section: '',
   title: 'Pryderon diogelwch',
   line1:
     'The court needs to know if anyone who spends time with the children poses a risk to their safety or yours. -welsh',
@@ -83,7 +81,6 @@ describe('doemstic_abuse_risk content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.section).toEqual('');
     expect(generatedContent.title).toEqual('Safety concerns');
     expect(generatedContent.line1).toEqual(
       'The court needs to know if anyone who spends time with the children poses a risk to their safety or yours.'

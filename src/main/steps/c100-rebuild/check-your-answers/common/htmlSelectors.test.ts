@@ -2,9 +2,9 @@ import { HTML } from './htmlSelectors';
 
 const LIST_ITEM = '<li>';
 const LIST_ITEM_END = '</li>';
-const UNORDER_LIST = '<ul>';
+const UNORDER_LIST = '<ul class="govuk-list govuk-list--bullet">';
 const UNORDER_LIST_END = '</ul>';
-const NESTED_LIST_ITEM = '<li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">';
+const NESTED_LIST_ITEM = '<li>';
 const NESTED_LIST_ITEM_END = '</li>';
 const H4 = '<h4>';
 const H3 = '<h3>';

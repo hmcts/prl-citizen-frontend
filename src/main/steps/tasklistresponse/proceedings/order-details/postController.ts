@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { Case } from '../../../../app/case/case';
 import {
@@ -11,6 +12,7 @@ import {
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { setDynamicFormContext } from '../../../c100-rebuild/people/util';
 
 import { getFormFields, getOrderSessionDataShape } from './content';
 
@@ -23,7 +25,10 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const orderType = req.params.orderType as ProceedingsOrderTypes;
     const orderTypeCaseKey = ProceedingsOrderTypeKeyMapper[orderType];
-    const form = new Form(getFormFields().fields as FormFields);
+    const form = new Form(
+      getFormFields(req.session.userCase, orderType, _.get(req, 'session.applicationSettings.dynamicForm.context'))
+        .fields as FormFields
+    );
     const { addOrder, onlyContinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const newData: Partial<Case> = {
@@ -59,6 +64,7 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
           id: String(orders.length + 1),
         },
       ];
+      setDynamicFormContext(req, 'add');
       super.redirect(req, res, req.originalUrl);
     } else if (onlyContinue) {
       super.redirect(req, res);

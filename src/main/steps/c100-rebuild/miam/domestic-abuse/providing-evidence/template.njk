@@ -12,14 +12,16 @@
   <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-1">
     {% for abuseReason in listOfAbuseReasons %}
       <li>{{ abuseReason.abuseEvidenceType }}</li>
-      {% if abuseReason.abuseEvidenceReasons %}
-        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-2">
-          {% for evidence in abuseReason.abuseEvidenceReasons %}
-            <li>{{ evidence }}</li>
-          {% endfor %}
-        </ul>
+      {% if abuseReason.abuseEvidenceReasons and abuseReason.abuseEvidenceReasons.length %}
+        <li class="list-style--none">
+          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-2">
+            {% for evidence in abuseReason.abuseEvidenceReasons %}
+              <li>{{ evidence }}</li>
+            {% endfor %}
+          </ul>
+        </li>
       {% endif %}
     {% endfor %}
   </ul>
-<br/>
+  <br/>
 {% endblock %}

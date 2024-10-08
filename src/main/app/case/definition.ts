@@ -2730,6 +2730,7 @@ export type ChildrenDetails = {
   };
   liveWith?: People[];
   mainlyLiveWith?: People;
+  autofocus?: boolean;
 };
 export type Childinfo = {
   id: string;

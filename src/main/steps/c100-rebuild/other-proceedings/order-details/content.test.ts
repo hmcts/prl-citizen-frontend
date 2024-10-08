@@ -10,7 +10,7 @@ import { generateContent, generateFormFields, getOrderSessionDataShape } from '.
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  pageTitle: 'Provide details of court cases you or the children have been involved in',
+  title: 'Provide details of court cases you or the children have been involved in',
   additionalNote:
     'If you do not have the specific details, you can skip this section and proceed with the application.',
   emergencyProtectionOrderLabel: 'Emergency Protection Order',
@@ -63,7 +63,7 @@ const en = {
 };
 
 const cy = {
-  pageTitle: 'Darparu manylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy',
+  title: 'Darparu manylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy',
   additionalNote: "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a pharhau â'r cais.",
   emergencyProtectionOrderLabel: 'Gorchymyn Diogelu Brys',
   childArrangementOrderLabel: 'Gorchymyn Trefniadau Plant',
@@ -135,7 +135,7 @@ describe('other proceedings > order-details > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(C100OrderTypes.CARE_ORDER, [getOrderSessionDataShape()]);
+    const { errors } = generateFormFields(C100OrderTypes.CARE_ORDER, [getOrderSessionDataShape()], '');
     languageAssertions(
       'en',
       {
@@ -151,7 +151,7 @@ describe('other proceedings > order-details > content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(C100OrderTypes.EMERGENCY_PROTECTION_ORDER, [getOrderSessionDataShape()]);
+    const { errors } = generateFormFields(C100OrderTypes.EMERGENCY_PROTECTION_ORDER, [getOrderSessionDataShape()], '');
     languageAssertions(
       'cy',
       {
@@ -244,7 +244,6 @@ describe('other proceedings > order-details > content', () => {
     expect(currentOrder.values[0].value).toBe('Yes');
     expect((currentOrder.values[1].label as Function)(generatedContent)).toBe(en.no1);
     expect(currentOrder.values[1].value).toBe('No');
-    expect(currentOrder.values[2].value).toBe('');
 
     expect(orderEndDate.type).toBe('date');
     expect(orderEndDate.classes).toBe('govuk-date-input');
@@ -302,7 +301,6 @@ describe('other proceedings > order-details > content', () => {
     expect(orderCopy.values[0].value).toBe('Yes');
     expect((orderCopy.values[1].label as Function)(generatedContent)).toBe(en.no2);
     expect(orderCopy.values[1].value).toBe('No');
-    expect(orderCopy.values[2].value).toBe('');
 
     expect(addOrder.type).toBe('button');
     expect((addOrder.label as Function)(generatedContent)).toBe(en.addOrderLabel);

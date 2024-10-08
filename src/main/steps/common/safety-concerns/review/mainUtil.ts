@@ -2,13 +2,13 @@
 /* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, RootContext, YesOrNo, passportPossessionRelative } from '../../../../app/case/definition';
+import { HTML } from '../../../c100-rebuild/check-your-answers/common/htmlSelectors';
 import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from '../../../c100-rebuild/check-your-answers/lib/lib';
-import { getYesNoTranslation } from '../../../c100-rebuild/check-your-answers/mainUtil';
+import { getYesNoTranslation, isBorderPresent } from '../../../c100-rebuild/check-your-answers/mainUtil';
 import * as Urls from '../../../urls';
 import { applyParms } from '../../url-parser';
 import { cy } from '../abduction/passport-amount/content';
 
-import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 /* eslint-disable import/namespace */
@@ -159,7 +159,8 @@ export const SafetyConcerns_child = (
     SummaryData.push(...abdutionScreenData);
   }
   return {
-    title: sectionTitles['childSafetyConcerns'],
+    title:'',
+    subTitle: sectionTitles['childSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -215,7 +216,8 @@ export const SafetyConcerns_yours = (
     SummaryData.push(...subFields);
   }
   return {
-    title: sectionTitles['yourSafetyConcerns'],
+    title:'',
+    subTitle: sectionTitles['yourSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -235,16 +237,25 @@ export const SafetyConcerns_others = (
   const fieldParser = (field, fieldDescription?) => {
     let html = '';
     if (field !== undefined) {
-      html += field;
+      if(fieldDescription !== undefined && field!== YesOrNo.NO){
+      html += HTML.DESCRIPTION_LIST+HTML.ROW_START+HTML.DESCRIPTION_TERM_DETAIL+field+
+      HTML.DESCRIPTION_TERM_DETAIL_END+
+      HTML.ROW_END;
+      }else{
+        html +=HTML.ROW_START_NO_BORDER+field+HTML.ROW_END;
+      }
     }
     if (fieldDescription !== undefined && field!== YesOrNo.NO){
-      html += HTML.RULER;
-      html += HTML.H4;
+      html += HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT ;
       html += keys['details'];
-      html += HTML.H4_CLOSE;
-      html += HTML.BOTTOM_PADDING_3;
+      html += HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL ;
       html += fieldDescription;
-      html += HTML.BOTTOM_PADDING_CLOSE;
+      html += HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END+HTML.DESCRIPTION_LIST_END;
     }
     return html;
   };
@@ -277,7 +288,8 @@ export const SafetyConcerns_others = (
     },
   ];
   return {
-    title: sectionTitles['otherSafetyConcerns'],
+    title: '',
+    subTitle:sectionTitles['otherSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -285,34 +297,53 @@ export const SafetyConcerns_others = (
 
 
 const preparePoliceInvesitigationData=(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>)=> {
-  let policeOrInvestigatorsOtherDetailsHTML = '';
-  policeOrInvestigatorsOtherDetailsHTML += (userCase['c1A_policeOrInvestigatorInvolved'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oeddTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oeddTranslation'));
+  let policeOrInvestigatorsOtherDetailsHTML = HTML.DESCRIPTION_LIST as string;
+  policeOrInvestigatorsOtherDetailsHTML += isBorderPresent(userCase['c1A_policeOrInvestigatorInvolved'],YesOrNo.YES);
+  policeOrInvestigatorsOtherDetailsHTML += HTML.DESCRIPTION_TERM_DETAIL+getYesNoTranslation(language, userCase['c1A_policeOrInvestigatorInvolved'], 'oeddTranslation') +
+   HTML.DESCRIPTION_TERM_DETAIL_END+
+   HTML.ROW_END;
   if(userCase['c1A_policeOrInvestigatorInvolved'] === YesOrNo.YES){
   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
-    ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails']
-    : '';}
-  return policeOrInvestigatorsOtherDetailsHTML;
+    ? HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT + keys['details'] + HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END +
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_DETAIL + userCase['c1A_policeOrInvestigatorOtherDetails']+
+    HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END
+    : HTML.ROW_START_NO_BORDER + '' + HTML.ROW_END;}
+  return policeOrInvestigatorsOtherDetailsHTML+HTML.DESCRIPTION_LIST_END;
 };
 
 const prepareChildAbductionData=(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>)=> {
-  let c1A_childAbductedBefore = '';
-  c1A_childAbductedBefore += (userCase?.['c1A_passportOffice'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'));
+  let c1A_childAbductedBefore = userCase.c1A_passportOffice === 'Yes' ?HTML.DESCRIPTION_LIST+HTML.ROW_START+HTML.DESCRIPTION_TERM_DETAIL : '' as string;
+  c1A_childAbductedBefore +=  getYesNoTranslation(language, userCase?.['c1A_passportOffice'], 'oesTranslation');
   const relativesTranslation = (relative) => {
     relative = relative === passportPossessionRelative.MOTHER && language === 'cy' ? cy().option1 : relative;
     relative = relative === passportPossessionRelative.FATHER && language === 'cy' ? cy().option2 : relative;
     return relative;
   };
   if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
-    c1A_childAbductedBefore += HTML.RULER;
-    c1A_childAbductedBefore += HTML.H4;
+    c1A_childAbductedBefore +=HTML.DESCRIPTION_TERM_DETAIL_END +
+    HTML.ROW_END+
+     HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
-    c1A_childAbductedBefore += HTML.H4_CLOSE;
-    c1A_childAbductedBefore += (userCase['c1A_childrenMoreThanOnePassport'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'));
-    c1A_childAbductedBefore += HTML.RULER;
-    c1A_childAbductedBefore += HTML.H4;
+    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END+
+     HTML.ROW_START +
+    HTML.DESCRIPTION_TERM_DETAIL +
+     getYesNoTranslation(language, userCase?.['c1A_childrenMoreThanOnePassport'], 'oesTranslation') +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+       HTML.ROW_END+
+     HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
-    c1A_childAbductedBefore += HTML.H4_CLOSE;
-    c1A_childAbductedBefore += HTML.UNORDER_LIST;
+    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + 
+    HTML.ROW_END+
+     HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL +
+       HTML.UNORDER_LIST;
     c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']!
       .filter(element => element !== passportPossessionRelative.OTHER)
       .map(relatives => HTML.LIST_ITEM + relativesTranslation(relatives) + HTML.LIST_ITEM_END)
@@ -322,7 +353,7 @@ const prepareChildAbductionData=(userCase: Partial<CaseWithId>, language: string
     if (userCase['c1A_possessionChildrenPassport']!.some(element => element === passportPossessionRelative.OTHER)) {
       c1A_childAbductedBefore += HTML.LIST_ITEM + userCase['c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
     }
-    c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
+    c1A_childAbductedBefore +=  HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.UNORDER_LIST_END+HTML.DESCRIPTION_LIST_END;
   }
   return c1A_childAbductedBefore;
 };

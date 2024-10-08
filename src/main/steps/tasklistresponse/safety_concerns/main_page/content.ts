@@ -2,7 +2,6 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
 const en = {
-  section: '',
   title: 'Safety concerns',
   line1: 'The court needs to know if anyone who spends time with the children poses a risk to their safety or yours.',
   line2:
@@ -35,7 +34,6 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: '',
   title: 'Pryderon diogelwch',
   line1:
     'The court needs to know if anyone who spends time with the children poses a risk to their safety or yours. -welsh',

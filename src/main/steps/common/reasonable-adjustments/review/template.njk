@@ -2,10 +2,10 @@
 {% extends "common/summary/template.njk" %}
 
 {% block page_content %}
-{% if section %}
-    <span class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</span>
+{% if title %}
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ title }}</h1>
   {% endif %}
-  {% if title %}
-    <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% if subTitle %}
+    <h2 class="govuk-heading-l">{{ subTitle }}</h2>
   {% endif %}
 {% endblock %}
