@@ -25,13 +25,13 @@ export default class DocumentUpload extends GetController {
     }
 
     if (req.query.hasOwnProperty('removeId')) {
-      this.removeExistingConsentDocument(req.query.removeId as string, req, res);
+      this.removeExistingRefugeC8(req.query.removeId as string, req, res);
     } else {
       super.get(req, res);
     }
   }
 
-  public removeExistingConsentDocument = async (documentId: string, req: AppRequest, res: Response): Promise<void> => {
+  public removeExistingRefugeC8 = async (documentId: string, req: AppRequest, res: Response): Promise<void> => {
     try {
       await req.locals.C100Api.deleteDocument(documentId);
 
