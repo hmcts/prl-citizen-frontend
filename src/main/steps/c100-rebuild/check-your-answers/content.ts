@@ -88,6 +88,7 @@ export const enContent = {
   telephone_number: 'Telephone number',
   dont_know_email_address: 'I dont know their email address',
   dont_know_telephone: 'I dont know their telephone number',
+  dontKnow: "Don't know",
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -450,7 +451,9 @@ export const sectionCountFormatter = sections => {
   sections = sections.map(section => {
     const { title } = section;
     if (title?.includes('[^^sectionNo^^]')) {
-      section['title'] = title.split('[^^sectionNo^^]').join(sectionCount);
+      section['title'] = title
+        .split('[^^sectionNo^^].')
+        .join(`<span class="app-task-list__section-number">${sectionCount}.</span>`);
       sectionCount++;
     }
     return section;
@@ -694,7 +697,7 @@ export const generateContent: TranslationFn = content => {
 
   form.fields['statementOftruthSubHeading'] = {
     type: 'textAndHtml',
-    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_H2}${newContents.StatementOfTruth['heading']} ${HTML.STATEMENT_OF_TRUTH_H2_CLOSE}`,
+    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_H3}${newContents.StatementOfTruth['heading']} ${HTML.STATEMENT_OF_TRUTH_H3_CLOSE}`,
   };
 
   form.fields['statementOftruthWarning'] = {

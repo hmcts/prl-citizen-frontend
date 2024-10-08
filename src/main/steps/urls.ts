@@ -518,6 +518,9 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   PIN_ACTIVATION_URL,
   '/hearing',
   '/payment-callback',
+  STATEMENT_OF_SERVICE_REVIEW,
+  STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
+  UPLOAD_STATEMENT_OF_SERVICE,
 ];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>

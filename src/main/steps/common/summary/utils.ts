@@ -105,7 +105,8 @@ export const summaryList = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   urls: any,
   sectionTitle?: string,
-  language?: string
+  language?: string,
+  sectionHeading?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {
@@ -128,7 +129,8 @@ export const summaryList = (
   }
 
   return {
-    title: sectionTitle ?? '',
+    title: sectionHeading ?? '',
+    subTitle: sectionTitle ?? '',
     rows: getSectionSummaryList(summaryData, content, language),
   };
 };

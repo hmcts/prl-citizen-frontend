@@ -8,8 +8,9 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Check your answers',
+  respondentAdditionalInformation: 'International elements',
   sectionTitles: {
-    respondentAdditionalInformation: 'International elements',
+    respondentAdditionalInformation: '',
   },
   keys: {
     start: "Are the children's lives mainly based outside of England and Wales?",
@@ -28,8 +29,9 @@ const en = {
 
 const cy: typeof en = {
   title: 'Gwirio eich atebion',
+  respondentAdditionalInformation: 'Elfennau rhyngwladol',
   sectionTitles: {
-    respondentAdditionalInformation: 'Elfennau rhyngwladol',
+    respondentAdditionalInformation: '',
   },
   keys: {
     start: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',
@@ -66,7 +68,7 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Check your answers');
-    expect(generatedContent.sectionTitles.respondentAdditionalInformation).toEqual('International elements');
+    expect(generatedContent.sectionTitles.respondentAdditionalInformation).toEqual('');
   });
 
   // eslint-disable-next-line jest/expect-expect

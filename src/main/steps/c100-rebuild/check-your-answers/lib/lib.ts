@@ -35,6 +35,7 @@ export interface SummaryListRow {
 
 export interface SummaryList {
   title: string;
+  subTitle?: string;
   rows: GovUkNunjucksSummary[];
 }
 

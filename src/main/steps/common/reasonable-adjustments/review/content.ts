@@ -296,10 +296,11 @@ export const summaryList = (
   }
 
   return {
-    title: isReasonableAdjustmentsNeedsPresent
-      ? context === 'C7Review'
-        ? contents.sectionTitles.aboutYou
-        : contents.sectionTitles.supportYouNeed
+    title: isReasonableAdjustmentsNeedsPresent ? (context === 'C7Review' ? contents.sectionTitles.aboutYou : '') : '',
+    subTitle: isReasonableAdjustmentsNeedsPresent
+      ? context === 'C7ConsolidatedReview'
+        ? contents.sectionTitles.supportYouNeed
+        : ''
       : '',
     rows: isReasonableAdjustmentsNeedsPresent ? getSectionSummaryList(summaryData, language) : [],
   };
