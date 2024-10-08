@@ -6,6 +6,7 @@ import {
   C1ASafteyConcernsAbout,
   ContactPreference,
   RootContext,
+  YesNoEmpty,
   YesOrNo,
 } from '../../../app/case/definition';
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
@@ -533,15 +534,33 @@ export const ApplicantDetails = (
       });
     });
 
-    newApplicantData.push(
-      {
+    if (
+      sessionApplicantData[applicant].hasOwnProperty('applicantLivesInRefuge') &&
+      sessionApplicantData[applicant]['applicantLivesInRefuge'] === YesNoEmpty.YES
+    ) {
+      newApplicantData.push({
+        key: keys['refuge'],
+        value: getYesNoTranslation(
+          language,
+          sessionApplicantData[applicant]['applicantLivesInRefuge'],
+          'ydynTranslation'
+        ),
+        changeUrl: applyParms(Urls['C100_APPLICANT_REFUGE'], {
+          applicantId: sessionApplicantData[applicant]['id'],
+        }),
+      });
+    } else {
+      newApplicantData.push({
         key: keys['addressDetails'],
         value: '',
         valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys, language),
         changeUrl: applyParms(Urls['C100_APPLICANT_ADDRESS_MANUAL'], {
           applicantId: sessionApplicantData[applicant]['id'],
         }),
-      },
+      });
+    }
+
+    newApplicantData.push(
       {
         key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
         value: '',
