@@ -219,6 +219,8 @@ export const isOrderWithPowerOfArrest = (caseData: CaseWithId): boolean => {
   )?.orderTypeId as OrderTypeId | undefined;
 
   return orderTypeId
-    ? [OrderTypeId.POWER_OF_ARREST, OrderTypeId.OCCUPATION_WITH_POWER_OF_ARREST].includes(orderTypeId)
+    ? [OrderTypeId.POWER_OF_ARREST, OrderTypeId.OCCUPATION_WITH_POWER_OF_ARREST, OrderTypeId.NON_MOLESTATION].includes(
+        orderTypeId
+      )
     : false;
 };

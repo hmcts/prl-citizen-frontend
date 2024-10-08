@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../app/case/case';
-import { PartyType, YesOrNo } from '../../app/case/definition';
+import { CaseType, PartyType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { UploadDocumentCategory } from '../../steps/common/documents/definitions';
 import { applyParms } from '../../steps/common/url-parser';
@@ -117,12 +117,14 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_ADDRESS_CONFIRMATION,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_ADDRESS_HISTORY,
+    getNextStep: caseData =>
+      caseData?.caseTypeOfApplication === CaseType.FL401 ? APPLICANT_CHECK_ANSWERS : APPLICANT_ADDRESS_HISTORY,
   },
   {
     url: APPLICANT_MANUAL_ADDRESS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_ADDRESS_HISTORY,
+    getNextStep: caseData =>
+      caseData?.caseTypeOfApplication === CaseType.FL401 ? APPLICANT_CHECK_ANSWERS : APPLICANT_ADDRESS_HISTORY,
   },
   {
     url: APPLICANT_ADDRESS_HISTORY,

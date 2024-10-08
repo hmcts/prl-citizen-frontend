@@ -2960,7 +2960,7 @@ describe('tasklist index', () => {
             },
             {
               id: 'contactPreferences',
-              linkText: undefined,
+              linkText: 'Contact preferences',
               href: '/respondent/contact-preference/choose-a-contact-preference',
               disabled: false,
               stateTag: {

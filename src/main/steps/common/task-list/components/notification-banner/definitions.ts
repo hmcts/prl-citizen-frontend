@@ -146,4 +146,5 @@ export enum NotificationID {
 export enum OrderTypeId {
   POWER_OF_ARREST = 'powerOfArrest',
   OCCUPATION_WITH_POWER_OF_ARREST = 'occupation_powerOfArrest',
+  NON_MOLESTATION = 'nonMolestation',
 }

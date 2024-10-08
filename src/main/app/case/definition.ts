@@ -2227,9 +2227,9 @@ export interface OrderInterface {
 }
 
 export const enum CONFIDENTIAL_DETAILS {
-  PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
+  PUBLIC = 'If this information was provided by the applicant it should not be requested to be kept confidential.',
   PRIVATE = 'This information will be kept confidential',
-  PUBLIC_CY = "Darparwyd yr wybodaeth hon gan y ceisydd felly ni ellir ei chadw'n gyfrinachol.",
+  PUBLIC_CY = "Os darparwyd y wybodaeth hon gan yr ymgeisydd ni ddylid gofyn am ei chadw'n gyfrinachol.",
   PRIVATE_CY = 'Bydd yr wybodaeth hon yn cael ei chadw’n gyfrinachol',
 }
 
