@@ -6,7 +6,6 @@ import {
   C1ASafteyConcernsAbout,
   ContactPreference,
   RootContext,
-  YesNoEmpty,
   YesOrNo,
 } from '../../../app/case/definition';
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
@@ -536,7 +535,7 @@ export const ApplicantDetails = (
 
     if (
       sessionApplicantData[applicant].hasOwnProperty('applicantLivesInRefuge') &&
-      sessionApplicantData[applicant]['applicantLivesInRefuge'] === YesNoEmpty.YES
+      sessionApplicantData[applicant]['applicantLivesInRefuge'] === YesOrNo.YES
     ) {
       newApplicantData.push({
         key: keys['refuge'],

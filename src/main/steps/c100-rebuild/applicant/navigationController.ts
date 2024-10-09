@@ -1,5 +1,5 @@
 import { Case } from '../../../app/case/case';
-import { C100Applicant, ChildrenDetails, YesNoEmpty, YesOrNo } from '../../../app/case/definition';
+import { C100Applicant, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_APPLICANTS_PERSONAL_DETAILS,
@@ -104,7 +104,7 @@ class ApplicantNavigationController {
       case C100_APPLICANT_REFUGE: {
         const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
         nextUrl = applyParms(
-          applicantData.applicantLivesInRefuge === YesNoEmpty.YES
+          applicantData.applicantLivesInRefuge === YesOrNo.YES
             ? C100_APPLICANT_REFUGE_UPLOAD
             : C100_APPLICANT_ADDRESS_LOOKUP,
           {

@@ -7,7 +7,6 @@ export const getDataShape = (): C100Applicant => ({
   id: uuidv4(),
   applicantFirstName: '',
   applicantLastName: '',
-  applicantLivesInRefuge: YesNoEmpty.EMPTY,
   personalDetails: {
     haveYouChangeName: YesNoEmpty.EMPTY,
     applPreviousName: '',

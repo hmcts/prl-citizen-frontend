@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../app/case/case';
-import { C100Applicant, YesNoEmpty } from '../../../../app/case/definition';
+import { C100Applicant, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
@@ -69,14 +69,14 @@ export const generateFormFields = (data: C100Applicant['applicantLivesInRefuge']
         {
           name: 'applicantLivesInRefuge',
           label: l => l.yes,
-          selected: data === YesNoEmpty.YES,
-          value: YesNoEmpty.YES,
+          selected: data === YesOrNo.YES,
+          value: YesOrNo.YES,
         },
         {
           name: 'applicantLivesInRefuge',
           label: l => l.no,
-          selected: data === YesNoEmpty.NO,
-          value: YesNoEmpty.NO,
+          selected: data === YesOrNo.NO,
+          value: YesOrNo.NO,
         },
       ],
       validator: isFieldFilledIn,
