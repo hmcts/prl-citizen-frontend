@@ -9,6 +9,10 @@ import { getApplicantDetails } from '../util';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Staying in a refuge',
+  refugeExplanation:
+    'A refuge is a secure place for people and their children to stay when they are escaping domestic abuse. It provides a space to feel safe and supported.',
+  refugeShelter:
+    "Find out more about refuges at <a href='https://www.citizensadvice.org.uk/' class='govuk-link' target='_blank' rel='external'>Citizen's Advice</a>.",
   refugeLabel: 'Does ',
   refugeLabel2: ' currently live in a refuge?',
   labelYes: 'Yes',
@@ -22,6 +26,8 @@ export const en = () => ({
 
 export const cy = () => ({
   title: '',
+  refugeContent: '',
+  refugeShelter: '',
   refugeLabel: '',
   refugeLabel2: '',
   labelYes: '',
