@@ -114,7 +114,7 @@ class ApplicantNavigationController {
         break;
       }
       case C100_APPLICANT_REFUGE_UPLOAD: {
-        nextUrl = applyParms(C100_APPLICANT_CONTACT_DETAIL, {
+        nextUrl = applyParms(C100_APPLICANT_ADDRESS_LOOKUP, {
           applicantId: this.applicantId,
         });
         break;
