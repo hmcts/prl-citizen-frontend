@@ -54,12 +54,15 @@ export const form: FormContent = {
           value: YesOrNo.YES,
           subFields: {
             helpWithFeesReferenceLabel: {
-              type: 'textAndHtml',
-              textAndHtml: l =>
-                `<h3 class="govuk-heading-m">${l.hwfReferenceNumberLabel}</h3>${l.hwfReferenceNumberBody}`,
+              type: 'textAndHtml', // create new html type
+              labelSize: null,
+              textAndHtml: l => `<h3 class="govuk-heading-m">${l.hwfReferenceNumberLabel}</h3>`,
+              hint: l => l.hwfReferenceNumberLabel,
             },
             helpWithFeesReferenceNumber: {
               type: 'text',
+              label: l => l.hwfReferenceNumberBody,
+              labelSize: 'xs',
               hint: l => l.hwfReferenceNumberHint,
               classes: 'govuk-input--width-10',
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),

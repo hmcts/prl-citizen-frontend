@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormInput, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
@@ -69,9 +69,17 @@ describe('help with fess > fees applied', () => {
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+
+    const hwfReferenceLabel = applyingWithField.values[0].subFields!.helpWithFeesReferenceLabel as FormInput;
+    expect(hwfReferenceLabel.type).toBe('textAndHtml');
+    expect((hwfReferenceLabel.textAndHtml as LanguageLookup)(generatedContent)).toBe(
+      `<h3 class="govuk-heading-m">${en.hwfReferenceNumberLabel}</h3>`
+    );
+
     const applyTextField = applyingWithField.values[0].subFields!.helpWithFeesReferenceNumber;
     expect(applyTextField.type).toBe('text');
     expect((applyTextField.hint as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberHint);
+    expect((applyTextField.label as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberBody);
     (applyTextField.validator as Function)('test text');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text');

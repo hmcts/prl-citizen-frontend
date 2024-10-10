@@ -78,8 +78,8 @@ export const form: FormContent = {
           subFields: {
             cd_childrenKnownToSocialServicesDetails: {
               type: 'textarea',
-              hint: l => l.childrenKnownToSocialServicesHint,
-              labelSize: null,
+              label: l => l.childrenKnownToSocialServicesHint,
+              labelSize: 'xs',
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
