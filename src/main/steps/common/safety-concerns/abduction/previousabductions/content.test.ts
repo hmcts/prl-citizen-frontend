@@ -96,6 +96,7 @@ describe('safetyconcerns > abduction > previous abductions > content', () => {
     expect((previousAbductionsShortDescField.hint as LanguageLookup)(generatedContent)).toBe(
       en.c1A_previousAbductionsShortDescHint
     );
+    expect((previousAbductionsShortDescField.label as LanguageLookup)(generatedContent)).toBe(en.line1);
     (previousAbductionsShortDescField.validator as Function)('test text');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text');

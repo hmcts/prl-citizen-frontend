@@ -38,6 +38,9 @@ const cy = {
   },
 };
 
+const interpolatedParentalResponsibility =
+  'State everyone who has parental responsibility for Bob Silly and how they have parental responsibility.';
+
 /* eslint-disable @typescript-eslint/ban-types */
 describe('child details > parental responsibility', () => {
   const commonContent = {
@@ -97,6 +100,7 @@ describe('child details > parental responsibility', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        parentalResponsibility: interpolatedParentalResponsibility,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -129,6 +133,8 @@ describe('child details > parental responsibility', () => {
     const { statement } = fields as Record<string, FormFields>;
 
     expect(statement.type).toBe('text');
+    expect((statement.label as Function)(generatedContent)).toBe(interpolatedParentalResponsibility);
+    expect((statement.hint as Function)(generatedContent)).toBe(en.bodyHint);
     (statement.validator as Function)('Parental responsibility for Bob Silly');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Parental responsibility for Bob Silly');
   });

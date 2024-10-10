@@ -95,6 +95,7 @@ const languages = {
 export const form: FormContent = {
   fields: {
     hwn_reasonsForApplicationWithoutNotice: {
+      label: l => l.subTitle,
       type: 'textarea',
       hint: l => l.hint,
       validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
