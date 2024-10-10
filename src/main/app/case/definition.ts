@@ -673,6 +673,8 @@ export type C100Applicant = {
   applicantAddressTown?: string;
   applicantAddressCounty?: string;
   country?: string;
+  applicantLivesInRefuge?: YesOrNo;
+  refuge_certificate?: C100DocumentInfo;
   applicantAddressHistory?: YesOrNo;
   applicantProvideDetailsOfPreviousAddresses?: string;
   personalDetails: {
