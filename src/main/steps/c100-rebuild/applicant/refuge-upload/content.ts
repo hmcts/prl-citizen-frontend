@@ -2,10 +2,10 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
 const en = () => ({
-  title: 'Upload a C8 form with refuge address',
+  title: 'Upload a C8 form with the refuge address',
   titleForFile: 'Select documents to upload',
   uploadGuidance:
-    'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external">here</a>. The address, email address and contact number entered for this party will be kept confidential',
+    'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external">here</a>. The address, email address and contact number entered for this party will be kept confidential.',
   uploadButton: 'Upload file',
   errors: {
     document: {
