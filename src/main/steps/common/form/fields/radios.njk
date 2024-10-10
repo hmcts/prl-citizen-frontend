@@ -8,7 +8,7 @@
     fieldset: {
       legend: {
         text: getContent(field.label),
-        isPageHeading: true if not title,
+        isPageHeading: true if field.legend.isPageHeading == true else false,
         classes: "hidden" if field.labelHidden else legendClasses
       }
     },
@@ -18,6 +18,9 @@
     items: formItems(field.values, userCase[fieldName]),
     errorMessage: getError(fieldName),
     formGroup: {
-      classes: "hidden " + field.id if field.hidden else field.id
+      classes: "hidden " + field.id if field.hidden else field.id,
+      beforeInputs: {
+        html: field.textAndHtml
+      }
     }
   }) }}

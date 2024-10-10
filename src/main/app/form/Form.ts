@@ -210,6 +210,10 @@ export interface FormOptions {
   parser?: Parser;
   disabled?: boolean;
   rows?: SummaryListContent;
+  legend?: {
+    isPageHeading:boolean
+  },
+  textAndHtml?:Label
 }
 
 export interface FormInput {
