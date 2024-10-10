@@ -78,8 +78,8 @@ const keys = {
   respondent: 'Yourself',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
-  seekHelpDetailsYesHint:
-    '<p class="govuk-body">Indicate who you sought help from, and what they did to help (optional). </p><p class="govuk-body">Do not include personal details such as names and addresses.</p>',
+  seekHelpDetailsYesLabel: 'Indicate who you sought help from, and what they did to help (optional).',
+  seekHelpDetailsYesHint: '<p class="govuk-body">Do not include personal details such as names and addresses.</p>',
   seekHelpFromPersonOrAgencyHintText: 'For example, speaking to your local GP.',
   seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
   select_all_relevant: 'Select all options that are relevant to you.',
