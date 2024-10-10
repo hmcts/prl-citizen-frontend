@@ -13,7 +13,7 @@
 {%endif%}
 
 <h1 class="govuk-heading-xl">{{title}} </h1>
-<p class="govuk-body-l">{{ uploadGuidance }}</p>
+<p class="govuk-body">{{ uploadGuidance | safe }}</p>
 
 {% for error in sessionErrors %}
     {%- if  error.propertyName === 'document'  %}<div class="govuk-form-group--error">  {% endif %}
