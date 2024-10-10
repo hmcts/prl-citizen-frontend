@@ -47,8 +47,15 @@ const languages = {
 export const form: FormContent = {
   fields: {
     sq_writtenAgreement: {
-      type: 'radios',
+      
       classes: 'govuk-radios',
+      label:l=>l.title,
+      labelSize:'xl',
+      legend: {
+      isPageHeading:true,
+      },
+     // textAndHtml:l=>`<div class="govuk-!-padding-bottom-4"></div><p class="govuk-body">${l.writtenAgreementDetails}</p><p class="govuk-body">${l.approvalDetails}</p><p class="govuk-body"><a href="https://helpwithchildarrangements.service.justice.gov.uk/" class="govuk-link govuk-body-m" rel="external" target="_blank">${l.findOut}</a></p><div class="govuk-!-padding-bottom-4"></div>`,
+      hint:l=>`<div class="govuk-!-padding-bottom-4"></div><p class="govuk-body">${l.writtenAgreementDetails}</p><p class="govuk-body">${l.approvalDetails}</p><p class="govuk-body"><a href="https://helpwithchildarrangements.service.justice.gov.uk/" class="govuk-link govuk-body-m" rel="external" target="_blank">${l.findOut}</a></p><div class="govuk-!-padding-bottom-4"></div>`,
       values: [
         {
           label: l => l.one,
