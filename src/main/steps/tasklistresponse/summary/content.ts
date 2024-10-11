@@ -5,6 +5,7 @@ import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { HTML } from '../../../steps/c100-rebuild/check-your-answers/common/htmlSelectors';
 import { CommonContent } from '../../../steps/common/common.content';
+import { removeFields } from '../../../steps/common/confirm-contact-details/checkanswers/content';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
   CONSENT_TO_APPLICATION,
@@ -631,7 +632,7 @@ const en = (content: CommonContent) => {
       content.language
     ),
     summaryList(
-      enConfirmYourDetailsContent,
+      removeFields(userCase, content.additionalData?.req?.session?.user, enConfirmYourDetailsContent),
       userCase,
       urls,
       enConfirmYourDetailsContent.sectionTitles.title,
@@ -698,7 +699,7 @@ const cy: typeof en = (content: CommonContent) => {
       content.language
     ),
     summaryList(
-      cyConfirmYourDetailsContent,
+      removeFields(userCase, content.additionalData?.req?.session?.user, cyConfirmYourDetailsContent),
       userCase,
       urls,
       cyConfirmYourDetailsContent.sectionTitles.title,
