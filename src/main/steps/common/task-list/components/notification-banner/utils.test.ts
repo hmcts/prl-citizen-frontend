@@ -55,7 +55,6 @@ describe('notification Banner', () => {
     NotificationType.APPLICATION_SUBMITTED,
     NotificationType.APPLICATION_WITHDRAWN,
     NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
-    NotificationType.APPLICATION_CLOSED,
     NotificationType.NEW_ORDER,
     NotificationType.FINAL_ORDER,
     NotificationType.APPLICATION_SERVED_BY_COURT_TO_DA_RESPONDENT,
@@ -165,7 +164,7 @@ describe('notification Banner', () => {
         } as CaseWithId
       );
 
-      expect(config).toHaveLength(16);
+      expect(config).toHaveLength(15);
       expect(config[0].id).toBe('applicationNotStarted');
       expect(config[1].id).toBe('applicationInProgress');
       expect(config[2].id).toBe('applicationSubmitted');
@@ -179,9 +178,8 @@ describe('notification Banner', () => {
       expect(config[10].id).toBe('applicationIssuedByCourtPersonalService');
       expect(config[11].id).toBe('submitFM5');
       expect(config[12].id).toBe('orderSOSPersonalServiceByCourtAdminBailiff');
-      expect(config[13].id).toBe('applicationClosed');
-      expect(config[14].id).toBe('orderNonPersonalService');
-      expect(config[15].id).toBe('orderPersonalService');
+      expect(config[13].id).toBe('orderNonPersonalService');
+      expect(config[14].id).toBe('orderPersonalService');
     });
 
     test('should return correct configs for CA respondent', () => {

@@ -2,8 +2,6 @@
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../../../../app/case/case';
-import { State } from '../../../../../../app/case/definition';
-import { isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
 import { interpolate } from '../../../../string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
 import {
@@ -64,12 +62,6 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
   {
     id: NotificationType.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF,
     show: showNotification,
-  },
-  {
-    id: NotificationType.APPLICATION_CLOSED,
-    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
-      return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED && !isCaseWithdrawn(caseData);
-    },
   },
   {
     id: NotificationType.ORDER_NON_PERSONAL_SERVICE,

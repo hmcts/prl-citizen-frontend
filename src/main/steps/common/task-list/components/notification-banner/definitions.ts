@@ -25,7 +25,6 @@ export enum NotificationType {
   APPLICATION_ISSUED_BY_COURT_PERSONAL_SERVICE = 'applicationIssuedByCourtPersonalService',
   SUMBIT_FM5 = 'submitFM5',
   ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF = 'orderSOSPersonalServiceByCourtAdminBailiff',
-  APPLICATION_CLOSED = 'applicationClosed',
   NEW_ORDER = 'newOrder',
   NEW_DOCUMENT = 'newDocument',
   FINAL_ORDER = 'finalOrder',

@@ -175,18 +175,6 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
-  applicationClosed: {
-    heading: 'You have a final order',
-    sections: [
-      {
-        contents: [
-          {
-            text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided.',
-          },
-        ],
-      },
-    ],
-  },
   orderNonPersonalService: {
     heading: 'You have {finalOrNew} {order} from the court',
     interpolateHeading: (
@@ -656,18 +644,6 @@ const cy: typeof en = {
               return isCafcassCymruServed(caseData);
             },
             external: true,
-          },
-        ],
-      },
-    ],
-  },
-  applicationClosed: {
-    heading: 'Mae gennych orchymyn terfynol',
-    sections: [
-      {
-        contents: [
-          {
-            text: 'Mae eich achos wedi cau. Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchymyn yn dweud wrthych beth mae’r llys wedi penderfynu',
           },
         ],
       },

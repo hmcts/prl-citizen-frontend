@@ -1373,31 +1373,6 @@ describe('testcase for notification Banner', () => {
     ]);
   });
 
-  test('when case is closed', () => {
-    const data = {
-      id: '12',
-      state: State.ALL_FINAL_ORDERS_ISSUED,
-    } as unknown as CaseWithId;
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
-      {
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided.',
-              },
-            ],
-            links: [],
-          },
-        ],
-        heading: 'You have a final order',
-        id: 'applicationClosed',
-      },
-    ]);
-  });
-
   describe('c100 respondent banners', () => {
     const data = {
       id: '123',
