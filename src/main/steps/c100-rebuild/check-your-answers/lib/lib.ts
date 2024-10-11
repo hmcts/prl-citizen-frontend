@@ -25,6 +25,7 @@ export interface GovUkNunjucksSummary {
 export interface SummaryListRow {
   key?: string;
   keyHtml?: string;
+  visuallyHiddenText?: string;
   value?: string;
   valueHtml?: string;
   changeUrl?: string;
@@ -34,6 +35,7 @@ export interface SummaryListRow {
 
 export interface SummaryList {
   title: string;
+  subTitle?: string;
   rows: GovUkNunjucksSummary[];
 }
 
@@ -54,6 +56,7 @@ export type SummaryListContentWithBoolean = PageContent & {
 export const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
   return rows.map(item => {
     const changeUrl = item.changeUrl;
+    const visuallyHiddenText = item.visuallyHiddenText;
     return {
       key: { ...(item.key ? { text: item.key } : {}), ...(item.keyHtml ? { html: item.keyHtml } : {}) },
       value: { ...(item.value ? { text: item.value } : {}), ...(item.valueHtml ? { html: item.valueHtml } : {}) },
@@ -64,7 +67,7 @@ export const getSectionSummaryList = (rows: SummaryListRow[], content: PageConte
                 {
                   href: changeUrl, //
                   text: content.change as string,
-                  visuallyHiddenText: `${item.key}`,
+                  visuallyHiddenText: visuallyHiddenText || `${item.key}`,
                 },
               ],
             },

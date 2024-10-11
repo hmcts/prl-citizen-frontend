@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { CaseWithId } from '../../../app/case/case';
+import { HTML } from '../../c100-rebuild/check-your-answers/common/htmlSelectors';
 import { SummaryListRow } from '../../c100-rebuild/check-your-answers/lib/lib';
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import { CommonContent } from '../../common/common.content';
@@ -135,7 +136,7 @@ const prepareDocumentView = (userCase: Partial<CaseWithId>): string => {
   let tempDetails = '<div class="govuk-form-group">';
   if (userCase?.awp_uploadedApplicationForms?.length) {
     for (const doc of userCase.awp_uploadedApplicationForms) {
-      tempDetails = tempDetails + '<p>' + '<a href="" target="blank">' + doc.filename + '</a>' + '</p>';
+      tempDetails = tempDetails + '<p>' + doc.filename + '</p>';
     }
   }
   return tempDetails + '</div>';
@@ -145,19 +146,25 @@ const prepareSupportingDocumentView = (
   userkey: string,
   userCase: Partial<CaseWithId>
 ): string => {
-  let tempDetails =
-    '<div class="govuk-form-group">' + '<p>' + getYesNoTranslation(language, userkey, 'doTranslation') + '</p>';
+  let tempDetails = userCase?.awp_supportingDocuments?.length
+    ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
+    : HTML.ROW_START_NO_BORDER;
+  tempDetails += getYesNoTranslation(language, userkey, 'doTranslation');
   if (userCase?.awp_supportingDocuments?.length) {
-    tempDetails = tempDetails + '<hr class="govuk-section-break govuk-section-break--visible">';
+    tempDetails += HTML.DESCRIPTION_TERM_DETAIL_END;
+    tempDetails += HTML.ROW_END;
     for (const doc in userCase.awp_supportingDocuments) {
       tempDetails =
         tempDetails +
-        '<p>' +
-        '<a href="" target="blank">' +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL +
         userCase.awp_supportingDocuments[doc].filename +
-        '</a>' +
-        '</p>';
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END;
     }
+    tempDetails += HTML.DESCRIPTION_LIST_END;
+  } else {
+    tempDetails += HTML.ROW_END;
   }
-  return tempDetails + '</div>';
+  return tempDetails;
 };

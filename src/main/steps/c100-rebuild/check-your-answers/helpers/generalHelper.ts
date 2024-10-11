@@ -10,14 +10,24 @@ export const nameAndGenderParser = (personalDetails, keys, HTML, language) => {
       break;
     }
     case 'yes': {
-      changeNameInformation += getYesNoTranslation(language, hasNameChanged, 'doTranslation');
-      changeNameInformation += HTML.RULER;
-      changeNameInformation += HTML.H4;
+      changeNameInformation +=
+        HTML.DESCRIPTION_LIST +
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        getYesNoTranslation(language, hasNameChanged, 'doTranslation') +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_ELEMENT;
       changeNameInformation += keys['details'];
-      changeNameInformation += HTML.H4_CLOSE;
-      changeNameInformation += HTML.BOTTOM_PADDING_3;
+      changeNameInformation +=
+        HTML.DESCRIPTION_TERM_ELEMENT_END +
+        HTML.ROW_END +
+        HTML.BREAK +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL;
       changeNameInformation += personalDetails['previousFullName'];
-      changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
+      changeNameInformation += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
       break;
     }
     case 'no': {
@@ -25,18 +35,32 @@ export const nameAndGenderParser = (personalDetails, keys, HTML, language) => {
       break;
     }
   }
-  let childGender = '';
+  let childGender =
+    personalDetails['otherGenderDetails'] !== ''
+      ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
+      : '';
   childGender += translation(personalDetails['gender'], language);
   if (personalDetails['otherGenderDetails'] !== '') {
     childGender +=
-      HTML.BREAK +
-      HTML.RULER +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL +
       keys['otherGender'] +
-      HTML.H4 +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT +
       keys['details'] +
-      HTML.H4_CLOSE +
+      HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END +
       HTML.BREAK +
-      personalDetails['otherGenderDetails'];
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      personalDetails['otherGenderDetails'] +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END +
+      HTML.DESCRIPTION_LIST_END;
   }
 
   return { changeNameInformation, childGender };

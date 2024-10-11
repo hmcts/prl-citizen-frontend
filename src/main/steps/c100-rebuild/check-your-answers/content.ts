@@ -88,6 +88,7 @@ export const enContent = {
   telephone_number: 'Telephone number',
   dont_know_email_address: 'I dont know their email address',
   dont_know_telephone: 'I dont know their telephone number',
+  dontKnow: "Don't know",
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -199,6 +200,7 @@ export const enContent = {
     releaseFromPrisonOnLicence:
       'You have been released from prison on licence, and you have a non-contact licence condition which includes someone who is a party to the application',
     noneOfTheAbove: 'None of these',
+    applicantLabel: 'Applicant',
   },
 };
 export const cyContent = {
@@ -338,6 +340,7 @@ export const cyContent = {
     releaseFromPrisonOnLicence:
       'Rydych wedi cael eich rhyddhau o’r carchar ar drwydded, ac mae gennych amod dim cysylltu ar eich trwydded sy’n cynnwys rhywun sy’n barti i’r cais',
     noneOfTheAbove: 'Dim un o’r rhain',
+    applicantLabel: 'Ceisydd',
   },
   yesNo: {
     ydynTranslation: {
@@ -448,7 +451,9 @@ export const sectionCountFormatter = sections => {
   sections = sections.map(section => {
     const { title } = section;
     if (title?.includes('[^^sectionNo^^]')) {
-      section['title'] = title.split('[^^sectionNo^^]').join(sectionCount);
+      section['title'] = title
+        .split('[^^sectionNo^^].')
+        .join(`<span class="app-task-list__section-number">${sectionCount}.</span>`);
       sectionCount++;
     }
     return section;
@@ -687,12 +692,12 @@ export const generateContent: TranslationFn = content => {
 
   form.fields['statementOftruthHeading'] = {
     type: 'textAndHtml',
-    textAndHtml: `${HTML.H1}${newContents.StatementOfTruth['title']} ${HTML.H1_CLOSE}`,
+    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${newContents.StatementOfTruth['title']} ${HTML.H2_CLOSE}`,
   };
 
   form.fields['statementOftruthSubHeading'] = {
     type: 'textAndHtml',
-    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_H2}${newContents.StatementOfTruth['heading']} ${HTML.STATEMENT_OF_TRUTH_H2_CLOSE}`,
+    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_H3}${newContents.StatementOfTruth['heading']} ${HTML.STATEMENT_OF_TRUTH_H3_CLOSE}`,
   };
 
   form.fields['statementOftruthWarning'] = {

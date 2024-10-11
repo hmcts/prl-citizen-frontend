@@ -15,8 +15,8 @@ const urls = {
 };
 
 export const enContent = {
-  section: 'Check your answers',
-  title: 'Your consent to the application',
+  title: 'Check your answers',
+  subTitle: 'Your consent to the application',
   sectionTitles: {
     consentDetails: '',
   },
@@ -40,8 +40,8 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Gwirio eich atebion',
-  title: 'Cydsynio i’r cais',
+  title: 'Gwirio eich atebion',
+  subTitle: 'Cydsynio i’r cais',
   sectionTitles: {
     consentDetails: '',
   },

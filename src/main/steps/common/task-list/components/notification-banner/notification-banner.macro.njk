@@ -4,9 +4,9 @@
   {% for notification in notifications %}
     {% set html %}
     {% if notification.heading %}
-      <p class="govuk-notification-banner__heading">
+      <h3 class="govuk-notification-banner__heading">
         {{ notification.heading }}
-      </p>
+      </h3>
     {% endif %}
 
     {% for section in notification.sections %}

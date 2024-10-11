@@ -1,12 +1,14 @@
+import _ from 'lodash';
+
 import { C100ListOfApplicants } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
+import { FormContent, FormInput, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn, isFieldLetters } from '../../../../app/form/validation';
 import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  pageTitle: 'Enter your name  ',
+  title: 'Enter your name',
   subTitle:
     'You and anyone else making this application are known as the applicants. <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later.',
   applicant: 'Applicant',
@@ -29,7 +31,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  pageTitle: 'Nodwch eich enw',
+  title: 'Nodwch eich enw',
   subTitle:
     'Gelwir chi ac unrhyw un arall sy’n gwneud y cais hwn yn ‘y ceiswyr’.<br> <br> Gelwir y bobl eraill sy’n derbyn y cais hwn yn ‘yr atebwyr.’ Byddwn yn gofyn am eu manylion yn nes ymlaen.',
   applicant: 'Ceisydd',
@@ -58,15 +60,36 @@ const languages = {
   cy,
 };
 
-export const generateFormFields = (applicantData: C100ListOfApplicants): GenerateDynamicFormFields => {
+export const generateFormFields = (
+  applicantData: C100ListOfApplicants,
+  context: string | undefined
+): GenerateDynamicFormFields => {
   const fields = {};
   const errors = {
     en: {},
     cy: {},
   };
+  const nameFieldConfig: FormInput = {
+    type: 'text',
+    labelSize: 'none',
+    classes: 'govuk-!-width-one-half',
+    validator: value => isFieldFilledIn(value) || isFieldLetters(value),
+    attributes: {
+      autocomplete: 'off',
+    },
+  };
+
   for (let index = 0; index < applicantData.length; index++) {
     const count = index + 1;
     const key = `fieldset${count}`;
+    const inputFieldConfig = { ...nameFieldConfig };
+
+    if ((context === 'add' && count === applicantData.length) || (context === 'remove' && count === 1)) {
+      inputFieldConfig.attributes = {
+        ...inputFieldConfig.attributes,
+        autofocus: true,
+      };
+    }
 
     fields[key] = {
       type: 'fieldset',
@@ -76,21 +99,14 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
       classes: 'govuk-fieldset__legend--m',
       subFields: {
         [`ApplicantFirstName-${count}`]: {
-          type: 'text',
-          value: applicantData[index].applicantFirstName,
-          labelSize: 'none',
-          classes: 'govuk-input govuk-!-width-one-half',
+          ...inputFieldConfig,
           label: l => l.firstName,
-          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
+          value: applicantData[index].applicantFirstName,
         },
         [`ApplicantLastName-${count}`]: {
-          type: 'text',
+          ...inputFieldConfig,
           label: l => l.lastName,
           value: applicantData[index].applicantLastName,
-          classes: 'govuk-input govuk-!-width-one-half',
-          hint: h => h.caseNumberHint,
-          labelSize: 'none',
-          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
         },
         removeApplicant: {
           type: 'link',
@@ -132,13 +148,19 @@ export const form: FormContent = {
       hint: hint => hint.firstNameHint,
       validator: value => isFieldFilledIn(value) || isFieldLetters(value),
       labelSize: 'none',
+      attributes: {
+        autocomplete: 'off',
+      },
     },
     applicantLastName: {
       type: 'text',
       classes: 'govuk-input govuk-!-width-one-half',
       label: label => label.lastName,
-      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
       labelSize: 'none',
+      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
+      attributes: {
+        autocomplete: 'off',
+      },
     },
     addAnotherApplicant: {
       type: 'button',
@@ -190,7 +212,10 @@ export const generateContent: TranslationFn = content => {
       : ([] as C100ListOfApplicants);
   const translations = languages[content.language]();
 
-  const { fields, errors } = generateFormFields(applicantData);
+  const { fields, errors } = generateFormFields(
+    applicantData,
+    _.get(content, 'additionalData.req.session.applicationSettings.dynamicForm.context')
+  );
 
   translations.errors = {
     ...translations.errors,

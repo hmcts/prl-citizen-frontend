@@ -4,7 +4,6 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
-  section: ' ',
   title: "Are the children's lives mainly based outside of England and Wales?",
   one: 'Yes',
   two: 'No',
@@ -27,7 +26,6 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: ' ',
   title: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',
   one: 'Ydy',
   two: 'Nac ydy',

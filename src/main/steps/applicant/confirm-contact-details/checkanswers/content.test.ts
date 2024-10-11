@@ -4,8 +4,8 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 const en = {
-  section: 'Check your details',
-  title: 'Read the information to make sure it is correct, and add any missing details',
+  title: 'Check your details',
+  subTitle: 'Read the information to make sure it is correct, and add any missing details',
   sectionTitles: {
     applicationDetails: 'Application details',
   },

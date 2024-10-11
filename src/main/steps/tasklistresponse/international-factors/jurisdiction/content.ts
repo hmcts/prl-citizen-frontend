@@ -4,7 +4,6 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
-  section: ' ',
   title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
   one: 'Yes',
   two: 'No',
@@ -28,7 +27,6 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: ' ',
   title: 'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
   one: 'Gallai',
   two: 'Na allai',

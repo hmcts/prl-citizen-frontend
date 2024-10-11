@@ -71,13 +71,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    co_upload: {
-      type: 'hidden',
-      labelHidden: true,
-      value: 'true',
-    },
-  },
+  fields: {},
   submit: {
     text: l => l.onlycontinue,
   },

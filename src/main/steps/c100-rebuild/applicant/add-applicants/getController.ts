@@ -6,6 +6,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
 import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
+import { setDynamicFormContext } from '../../people/util';
 
 @autobind
 export default class AddApplicants extends GetController {
@@ -73,6 +74,7 @@ export default class AddApplicants extends GetController {
             if (err) {
               console.log(err);
             }
+            setDynamicFormContext(req, 'remove');
             res.redirect(C100_APPLICANT_ADD_APPLICANTS);
           });
         }

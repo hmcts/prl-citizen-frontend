@@ -3,6 +3,7 @@ import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../..
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
+import { HTML } from '../../../steps/c100-rebuild/check-your-answers/common/htmlSelectors';
 import { CommonContent } from '../../../steps/common/common.content';
 import { removeFields } from '../../../steps/common/confirm-contact-details/checkanswers/content';
 import { applyParms } from '../../../steps/common/url-parser';
@@ -100,8 +101,8 @@ export const enConfirmYourDetailsContent = {
 };
 
 export const enContent = {
-  section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
+  title: 'Check your answers',
+  subTitle: 'Please review your answers before you complete your response.',
   title2: 'Current or previous court cases',
   sectionTitles: {
     title: 'Current or previous proceeding',
@@ -171,7 +172,7 @@ export const enContentProceding = {
   No: 'No ',
   errors: {},
   sectionTitles: {
-    otherProceedings: 'Current or previous proceedings',
+    title: 'Current or previous proceedings',
   },
   keys: {
     childrenInvolvedCourtCase: 'Have the children been involved in a court case?',
@@ -290,8 +291,8 @@ export const enResponseToAOH = {
 };
 
 export const cyContent: typeof enContent = {
-  section: 'Gwirio eich atebion',
-  title: 'Edrychwch dros eich atebion cyn i chi gyflwyno eich ymateb',
+  title: 'Gwirio eich atebion',
+  subTitle: 'Edrychwch dros eich atebion cyn i chi gyflwyno eich ymateb',
   title2: 'Achosion llys cyfredol neu flaenorol',
   sectionTitles: {
     title: 'Achos cyfredol neu flaenorol',
@@ -335,7 +336,7 @@ export const cyContentProceding = {
   No: 'No  -welsh',
   errors: {},
   sectionTitles: {
-    otherProceedings: 'Achos cyfredol neu flaenorol',
+    title: 'Achos cyfredol neu flaenorol',
   },
   keys: {
     childrenInvolvedCourtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
@@ -617,11 +618,12 @@ const en = (content: CommonContent) => {
       enlegalRepresntationContent,
       userCase,
       urls,
-      enlegalRepresntationContent.sectionTitles.title,
-      content.language
+      '',
+      content.language,
+      enlegalRepresntationContent.sectionTitles.title
     ),
-    summaryList(enConsentContent, userCase, urls, enConsentContent.sectionTitles.title, content.language),
-    summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title2, content.language),
+    summaryList(enConsentContent, userCase, urls, '', content.language, enConsentContent.sectionTitles.title),
+    summaryList(enDummyContent, userCase, '', '', content.language, enDummyContent.sectionTitles.title2),
     summaryList(
       enKeepYourDetailsContent,
       userCase,
@@ -637,10 +639,10 @@ const en = (content: CommonContent) => {
       content.language
     ),
     prepareRASummaryList('C7ConsolidatedReview', 'en', userCase),
-    summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title3, content.language),
+    summaryList(enDummyContent, userCase, '', '', content.language, enDummyContent.sectionTitles.title3),
     summaryList(enContentMiam, userCase, urls, enContentMiam.sectionTitles.title, content.language),
     PastAndCurrentProceedings(enContentProceding, userCase, content.language),
-    summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title4, content.language),
+    summaryList(enDummyContent, userCase, '', '', content.language, enDummyContent.sectionTitles.title4),
     SafetyConcerns(enSaftyConcern, userCase, content.language)
   );
 
@@ -653,10 +655,19 @@ const en = (content: CommonContent) => {
   }
 
   sections.push(
-    summaryList(enInternationalContent, userCase, urls, enInternationalContent.sectionTitles.title, content.language)
+    summaryList(
+      enInternationalContent,
+      userCase,
+      urls,
+      '',
+      content.language,
+      enInternationalContent.sectionTitles.title
+    )
   );
   if (userCase.aoh_wishToRespond) {
-    sections.push(summaryList(enResponseToAOH, userCase, urls, enResponseToAOH.sectionTitles.title, content.language));
+    sections.push(
+      summaryList(enResponseToAOH, userCase, urls, '', content.language, enResponseToAOH.sectionTitles.title)
+    );
   }
   return {
     ...enContent,
@@ -674,11 +685,12 @@ const cy: typeof en = (content: CommonContent) => {
       cylegalRepresntationContent,
       userCase,
       urls,
-      cylegalRepresntationContent.sectionTitles.title,
-      content.language
+      '',
+      content.language,
+      cylegalRepresntationContent.sectionTitles.title
     ),
-    summaryList(cyConsentContent, userCase, urls, cyConsentContent.sectionTitles.title, content.language),
-    summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title2, content.language),
+    summaryList(cyConsentContent, userCase, urls, '', content.language, cyConsentContent.sectionTitles.title),
+    summaryList(cyDummyContent, userCase, '', '', content.language, cyDummyContent.sectionTitles.title2),
     summaryList(
       cyKeepYourDetailsContent,
       userCase,
@@ -694,10 +706,10 @@ const cy: typeof en = (content: CommonContent) => {
       content.language
     ),
     prepareRASummaryList('C7ConsolidatedReview', 'cy', userCase),
-    summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title3, content.language),
+    summaryList(cyDummyContent, userCase, '', '', content.language, cyDummyContent.sectionTitles.title3),
     summaryList(cyContentMiam, userCase, urls, cyContentMiam.sectionTitles.title, content.language),
     PastAndCurrentProceedings(cyContentProceding, userCase, content.language),
-    summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title4, content.language),
+    summaryList(cyDummyContent, userCase, '', '', content.language, cyDummyContent.sectionTitles.title4),
     SafetyConcerns(cySaftyConcern, userCase, content.language)
   );
 
@@ -710,10 +722,19 @@ const cy: typeof en = (content: CommonContent) => {
   }
 
   sections.push(
-    summaryList(cyInternationalContent, userCase, urls, cyInternationalContent.sectionTitles.title, content.language)
+    summaryList(
+      cyInternationalContent,
+      userCase,
+      urls,
+      '',
+      content.language,
+      cyInternationalContent.sectionTitles.title
+    )
   );
   if (userCase.aoh_wishToRespond) {
-    sections.push(summaryList(cyResponseToAOH, userCase, urls, cyResponseToAOH.sectionTitles.title, content.language));
+    sections.push(
+      summaryList(cyResponseToAOH, userCase, urls, '', content.language, cyResponseToAOH.sectionTitles.title)
+    );
   }
   return {
     ...cyContent,
@@ -724,12 +745,32 @@ const cy: typeof en = (content: CommonContent) => {
 
 export const form: FormContent = {
   fields: {
+    statementOfTruth: {
+      type: 'textAndHtml',
+      textAndHtml: l => `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${l.statementOfTruth} ${HTML.H2_CLOSE}`,
+    },
+    confirm: {
+      type: 'textAndHtml',
+      textAndHtml: l => `${HTML.STATEMENT_OF_TRUTH_H3}${l.confirm} ${HTML.STATEMENT_OF_TRUTH_H3_CLOSE}`,
+    },
+    warningText: {
+      type: 'warning',
+      label: l => `${l.warningText}`,
+    },
+    submit: {
+      type: 'inset',
+      label: l => `<p class="govuk-body">${l.submit}</p><p class="govuk-body">${l.download}</p>`,
+    },
+    statementOfTruthSubmission: {
+      type: 'textAndHtml',
+      label: l => `${l.statementOfTruthSubmission}`,
+    },
     declarationCheck: {
       type: 'checkboxes',
       values: [
         {
           name: 'declarationCheck',
-          label: l => l.declaration,
+          label: l => l.believeFacts,
           value: 'declaration',
         },
       ],
