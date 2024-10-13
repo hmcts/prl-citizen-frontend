@@ -48,7 +48,6 @@ export class ReasonableAdjustementsController {
             partyDetails.user.idamId,
             userDetails.accessToken
           );
-          console.info(existingRAFlags);
 
           if (!existingRAFlags) {
             return ReasonableAdjustementsController.handleError('RA - partyExistingRAFlags not available', res);
@@ -83,7 +82,6 @@ export class ReasonableAdjustementsController {
 
   async fetchData(req: AppRequest, res: Response): Promise<void> {
     const externalRefId = req.params.id;
-    console.info(externalRefId);
     const caseData = req.session.userCase;
 
     if (!caseData) {
@@ -99,7 +97,6 @@ export class ReasonableAdjustementsController {
 
     try {
       const response = await RAProvider.service.retrievePartyRAFlagsFromCommonComponent(externalRefId);
-      console.info('**** response ****', JSON.stringify(response, null, 4));
 
       if (!response.correlationId) {
         return ReasonableAdjustementsController.handleError('RA - no correlation ID present', res);

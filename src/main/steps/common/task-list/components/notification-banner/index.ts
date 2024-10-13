@@ -1,116 +1,68 @@
-import _ from 'lodash';
+import _, { isFunction } from 'lodash';
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
-import { applyParms } from '../../../../../steps/common/url-parser';
-import { interpolate } from '../../../string-parser';
-import { NotificationBannerConfig, NotificationBannerProps, NotificationSection } from '../../definitions';
-import { hasResponseBeenReviewed, isC7ResponseSubmitted, isCaseLinked } from '../../utils';
 
 import { CaseType, PartyType } from './../../../../../app/case/definition';
-import { C100_WITHDRAW_CASE } from './../../../../urls';
-import notifConfig from './config/index';
-import { BannerNotification, notificationBanner } from './utils';
+import { NotificationBannerProps, NotificationContent, NotificationSection } from './definitions';
+import { getNotificationConfig } from './utils';
 
-const notificationBannerConfig = (caseData): NotificationBannerConfig => {
-  return {
-    [CaseType.C100]: {
-      [PartyType.APPLICANT]: notifConfig.CA_APPLICANT(caseData),
-      [PartyType.RESPONDENT]: notifConfig.CA_RESPONDENT,
-    },
-    [CaseType.FL401]: {
-      [PartyType.APPLICANT]: notifConfig.DA_APPLICANT,
-      [PartyType.RESPONDENT]: notifConfig.DA_RESPONDENT,
-    },
-  };
-};
-
-export const getNotificationBannerConfig = (
-  caseData: Partial<CaseWithId>,
+export const getNotifications = (
+  caseData: CaseWithId,
   userDetails: UserDetails,
   partyType: PartyType,
   language: string
-): NotificationBannerProps[] => {
-  let caseType = caseData?.caseTypeOfApplication;
+): NotificationContent[] | [] => {
+  let caseType = caseData?.caseTypeOfApplication as CaseType;
 
   if (!caseType && partyType === PartyType.APPLICANT) {
     caseType = CaseType.C100;
   }
 
-  const notificationConfig = notificationBannerConfig(caseData);
+  return getNotificationConfig(caseType, partyType, caseData)
+    .map(config => {
+      const { id, show, content: getContent, interpolateContent } = config as NotificationBannerProps;
 
-  return notificationConfig &&
-    caseType &&
-    notificationConfig.hasOwnProperty(caseType) &&
-    notificationConfig[caseType].hasOwnProperty(partyType)
-    ? notificationConfig[caseType][partyType]
-        .map(config => {
-          const { id, show } = config;
+      if (_.isFunction(show) && show(id, caseData, userDetails) && _.isFunction(getContent)) {
+        const content = getContent(id, caseType, language, partyType);
+        const sections: NotificationSection[] = [];
 
-          if (show(caseData, userDetails)) {
-            const _content = config.content(caseType, language, partyType);
-            const sections: NotificationSection[] = [];
+        content.sections.forEach(section => {
+          const contents = section?.contents
+            ?.filter(_content => (_.isFunction(_content?.show) ? _content.show(caseData) : true))
+            ?.map(_content => ({
+              text: isFunction(interpolateContent)
+                ? interpolateContent(_content.text, content.common, caseData, userDetails)
+                : _content.text,
+            }));
 
-            _content.sections.forEach(section => {
-              const contents = section?.contents
-                ?.filter(content => (_.isFunction(content?.show) ? content.show(caseData, userDetails) : true))
-                ?.map(content => ({
-                  text: interpolate(content.text, {
-                    noOfDaysRemainingToSubmitCase:
-                      caseData?.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
-                  }),
-                }));
+          const links = section?.links?.length
+            ? section.links
+                .filter(_content => (_.isFunction(_content?.show) ? _content.show(caseData) : true))
+                ?.map(link => ({
+                  text: isFunction(link?.interpolateLinkText)
+                    ? link.interpolateLinkText(link.text, content.common, caseData)
+                    : link.text,
+                  href: isFunction(link?.interpolateHref) ? link.interpolateHref(link.href!, caseData) : link.href,
+                  external: link?.external ?? false,
+                }))
+            : [];
 
-              const links = section?.links?.length
-                ? section.links
-                    .filter(content => (_.isFunction(content?.show) ? content.show(caseData, userDetails) : true))
-                    ?.map(link => ({
-                      ...link,
-                      external: link?.external ?? false,
-                      href: interpolate(link.href, {
-                        c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
-                        withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
-                      }),
-                    }))
-                : null;
+          sections.push({ contents, links });
+        });
 
-              sections.push({ contents, links });
-            });
+        return {
+          id,
+          heading: _.isFunction(content?.interpolateHeading)
+            ? content.interpolateHeading(content.heading, content.common, caseData, userDetails)
+            : content.heading,
+          sections,
+        };
+      }
 
-            return {
-              id,
-              ..._content,
-              sections,
-            };
-          }
-
-          return null;
-        })
-        .filter(config => {
-          return config !== null;
-        })
-    : [];
-};
-
-export const generateResponseNotifications = (caseData: Partial<CaseWithId>): NotificationBannerProps[] => {
-  const notifications: NotificationBannerProps[] = [];
-
-  if (!caseData?.respondents?.length) {
-    return notifications;
-  }
-
-  caseData.respondents?.forEach(respondent => {
-    notifications.push({
-      ...notificationBanner[BannerNotification.RESPONSE_SUBMITTED],
-      show: (caseDataShow: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-        return (
-          isCaseLinked(caseDataShow, userDetails) &&
-          isC7ResponseSubmitted(respondent.value) &&
-          hasResponseBeenReviewed(caseData, respondent)
-        );
-      },
-    });
-  });
-
-  return notifications;
+      return null;
+    })
+    .filter(config => {
+      return config !== null;
+    }) as NotificationContent[] | [];
 };

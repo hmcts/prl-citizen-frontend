@@ -22,6 +22,7 @@ module.exports = {
     //address look up
     addressList: '//*[@id="selectAddress"]',
     addressHistoryYes: '//*[@id="addressHistory"]',
+    addressHistoryNo: '//*[@id="addressHistory-2"]',
     canProvideEmailButton: '//*[@id="canProvideEmail"]', 
     emailAddressField: '//*[@id="emailAddress"]', 
     canProvideTelNumButton: '//*[@id="canProvideTelephoneNumber"]', 
@@ -96,7 +97,7 @@ module.exports = {
     async confirmAddress() {
     await I.retry(retryCount).waitForText(ApplicantDetails.confirmAddressPageTitle , 30);
     await I.retry(retryCount).waitForText(ApplicantDetails.confirmAddressSubHeading , 30);
-    await I.retry(retryCount).click(this.fields.addressHistoryYes);
+    await I.retry(retryCount).click(this.fields.addressHistoryNo);
     await I.retry(retryCount).click('Continue');
   },
     async contactDetails() {
