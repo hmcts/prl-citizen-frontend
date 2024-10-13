@@ -158,7 +158,7 @@ module.exports = {
      await I.runAccessibilityTest();
 
      await I.click(this.fields.continueButton);
-     await I.waitForText('Have you lived at this address for more than 5 years?');
+     await I.waitForText('Have you lived at this address for less than 5 years?');
      await I.checkOption('#isAtAddressLessThan5Years');
      await I.click(this.fields.continueButton);
      await I.waitForText('Check your details');

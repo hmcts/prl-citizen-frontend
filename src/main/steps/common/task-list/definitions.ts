@@ -3,7 +3,6 @@ import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType } from '../../../app/case/definition';
 import { UserDetails } from '../../../app/controller/AppRequest';
 
-import { BannerNotification } from './components/notification-banner/utils';
 import { CaseProgressionStage } from './components/progress-bar/utils';
 import { StateTags, TaskListSection, Tasks } from './components/tasklist/utils';
 
@@ -26,7 +25,7 @@ export type TaskListConfigProps = {
   id: TaskListSection;
   content: (caseType: CaseType, partyType: PartyType, language: string) => TaskListContent;
   show?: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => boolean;
-  tasks: (caseData: Partial<CaseWithId>, content: SectionContent) => Task[];
+  tasks: (caseData?: Partial<CaseWithId>, content?: SectionContent) => Task[];
 };
 
 export type TaskListContent = {
@@ -84,48 +83,6 @@ type PreparedStateTag = {
   className: string;
 };
 
-export type NotificationBannerConfig = {
-  [key in CaseType]: {
-    [key in PartyType]?: NotificationBannerProps[];
-  };
-};
-
-export type NotificationBannerProps = {
-  id: BannerNotification;
-  content?: (caseType: CaseType, language: string, partyType: PartyType) => NotificationBannerContent;
-  show?: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => boolean;
-};
-
-export type NotificationBannerContent = {
-  title: string;
-} & {
-  [key in CaseType]: {
-    [key in PartyType]?: {
-      notifications: {
-        [key in BannerNotification]?: NotificationContent;
-      };
-    };
-  };
-};
-
-type NotificationContent = {
-  heading: string;
-  sections: NotificationSection[];
-};
-
-export type NotificationSection = {
-  contents: {
-    text: string;
-    show?: (caseData: Partial<CaseWithId>) => boolean;
-  }[];
-  links?: {
-    text: string;
-    href?: string;
-    show?: (caseData: Partial<CaseWithId>) => boolean;
-    external?: boolean;
-  }[];
-};
-
 export type ProgressBarConfig = {
   [key in CaseType]: {
     [key in PartyType]?: ProgressBarProps[];
@@ -138,4 +95,11 @@ export type ProgressBarProps = {
   ariaLabel: (caseType: CaseType, language: string) => string;
   isComplete: (caseData: Partial<CaseWithId>, UserDetails: UserDetails) => boolean;
   isInProgress: (caseData: Partial<CaseWithId>, UserDetails: UserDetails) => boolean;
+};
+
+export type QuickLinksProps = {
+  id: string;
+  label: string;
+  link: string;
+  target?: '_blank' | '_self';
 };

@@ -25,7 +25,7 @@ import {
 } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
-console.info('** FOR SONAR **');
+
 export class CaseApi {
   constructor(
     private readonly axios: AxiosInstance,

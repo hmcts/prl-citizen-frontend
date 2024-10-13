@@ -3,9 +3,6 @@ import _ from 'lodash';
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
-import { DocumentCategory } from '../../../../../steps/common/documents/definitions';
-import { getDownloadDocUrl } from '../../../../../steps/common/documents/view/utils';
-import { interpolate } from '../../../../../steps/common/string-parser';
 import {
   HintConfig,
   HyperLinkConfig,
@@ -16,10 +13,9 @@ import {
   TaskListConfig,
   TaskListConfigProps,
 } from '../../definitions';
-import { hasResponseBeenReviewed, isC7ResponseSubmitted, isDraftCase } from '../../utils';
 
 import tasklistConfig from './config/index';
-import { StateTags, Tasks, getStateTagLabel } from './utils';
+import { StateTags, getStateTagLabel } from './utils';
 
 const stateTagsConfig: StateTagsConfig = {
   [StateTags.NOT_STARTED_YET]: {
@@ -178,40 +174,4 @@ const prepareHyperLinkConfig = (
       ? task.openInAnotherTab(caseData, userDetails)
       : task.openInAnotherTab ?? false,
   };
-};
-
-export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content: SectionContent): Task[] => {
-  const tasks: Task[] = [];
-
-  caseData.respondents?.forEach((respondent, index) => {
-    tasks.push({
-      id: Tasks.THE_RESPONSE_PDF,
-      linkText: interpolate(_.get(content, 'tasks.theResponsePDF.linkText', ''), {
-        respondentPosition: `${index + 1}`,
-      }),
-      href: () => {
-        if (!isC7ResponseSubmitted(respondent.value) || !hasResponseBeenReviewed(caseData, respondent)) {
-          return '#';
-        }
-        const c7Document = caseData.citizenDocuments?.find(
-          doc =>
-            (doc.partyId === respondent.value.user.idamId || doc.solicitorRepresentedPartyId === respondent.id) &&
-            doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
-        );
-        return getDownloadDocUrl(c7Document!, PartyType.APPLICANT);
-      },
-      stateTag: () => {
-        return isC7ResponseSubmitted(respondent.value) && hasResponseBeenReviewed(caseData, respondent)
-          ? StateTags.READY_TO_VIEW
-          : StateTags.NOT_AVAILABLE_YET;
-      },
-      show: () => caseData && !isDraftCase(caseData),
-      disabled: () => {
-        return !isC7ResponseSubmitted(respondent.value) || !hasResponseBeenReviewed(caseData, respondent);
-      },
-      openInAnotherTab: () => true,
-    });
-  });
-
-  return tasks;
 };

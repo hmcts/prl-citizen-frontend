@@ -11,14 +11,16 @@
     {{title}}
   </h1>
 
-  {% if isPackToBeServed != true %}
-    <p class="govuk-body">{{caseNumber}}&nbsp;&nbsp;{{caseId}}</p>
+  <p class="govuk-body">{{caseNumber}}&nbsp;&nbsp;{{caseId}}</p>
 
+  {% if showAdditionalNote == true %}
     {{ govukWarningText({
         text: note,
         iconFallbackText: "Warning"
       }) }}
+  {% endif %}
 
+  {% if context != 'to-be-served' %}
     <p class="govuk-body">
       {{content}}
     </p>
