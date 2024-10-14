@@ -316,10 +316,11 @@ export const ChildernDetails = (
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
-        key: keys['parentalResponsibility']?.split('[^^^]').join(` ${firstname} ${lastname} `),
-        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['parentalResponsibility']
-          ?.split('[^^^]')
-          .join(` ${firstname} ${lastname} `)}`,
+        key: interpolate(keys['parentalResponsibility'], { firstname, lastname }),
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${interpolate(keys['parentalResponsibility'], {
+          firstname,
+          lastname,
+        })}`,
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       }
