@@ -20,6 +20,10 @@ export const en = () => ({
   voiceMailYesLabel: 'Yes, the court can leave me a voicemail',
   voiceMailNoLabel: 'No, the court cannot leave me a voicemail',
   canNotProvideTelephoneNumberReasonLabel: 'Please tell us why you cannot provide telephone number',
+  applicantIdamEmailHeading:
+    "If you're the applicant, enter the same email address that you used to register your GOV.UK account.",
+  applicantIdamEmailContent:
+    "If you decide to use a different email address, you'll need to complete further authorisation at a later stage.",
   errors: {
     canProvideEmail: {
       required: 'Please select email option',
@@ -59,6 +63,10 @@ export const cy = () => ({
   voiceMailYesLabel: "Ydy, mae hi'n iawn i'r llys adael neges llais i mi",
   voiceMailNoLabel: "Nac ydy, tydi hi ddim yn iawn i'r llys adael neges llais i mi",
   canNotProvideTelephoneNumberReason: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
+  applicantIdamEmailHeading:
+    "If you're the applicant, enter the same email address that you used to register your GOV.UK account. - Welsh",
+  applicantIdamEmailContent:
+    "If you decide to use a different email address, you'll need to complete further authorisation at a later stage. - Welsh",
   errors: {
     canProvideEmail: {
       required: ' Dewiswch opsiwn ar gyfer e-bost',

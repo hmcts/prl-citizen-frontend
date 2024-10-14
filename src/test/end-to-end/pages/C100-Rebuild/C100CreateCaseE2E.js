@@ -186,9 +186,9 @@ module.exports = {
             await I.selectOption('Select an address', '2');
             await I.clickButton('Continue');
         },
-        'Have you lived at this address for more than 5 years?': async () => {
-            await I.waitForText('Have you lived at this address for more than 5 years?');
-            await I.clickRadioOption('Have you lived at this address for more than 5 years?', 'Yes');
+        'Have you lived at this address for less than 5 years?': async () => {
+            await I.waitForText('Have you lived at this address for less than 5 years?');
+            await I.clickRadioOption('Have you lived at this address for less than 5 years?', 'No');
             await I.clickButton('Continue');
         },
         'Contact details of applicant': async () => {
@@ -236,9 +236,9 @@ module.exports = {
             await I.selectOption('Select an address', '2');
             await I.clickButton('Continue');
         },
-        'Have they lived at this address for more than 5 years?': async () => {
-            await I.waitForText('Have they lived at this address for more than 5 years?');
-            await I.clickRadioOption('Have they lived at this address for more than 5 years?', 'Yes');
+        'Have they lived at this address for less than 5 years?': async () => {
+            await I.waitForText('Have they lived at this address for less than 5 years?');
+            await I.clickRadioOption('Have they lived at this address for less than 5 years?', 'No');
             await I.clickButton('Continue');
         },
         'Contact details of respondent': async () => {
@@ -409,7 +409,7 @@ module.exports = {
         await this.pages['What is applicant relationship to child']();
         await this.pages['Address of applicant']();
         await this.pages['Select Address of applicant']();
-        await this.pages['Have you lived at this address for more than 5 years?']();
+        await this.pages['Have you lived at this address for less than 5 years?']();
         await this.pages['Contact details of applicant']();
         await this.pages['Contact Preferences for applicant']();
         await this.pages['Enter the respondents name']();
@@ -417,7 +417,7 @@ module.exports = {
         await this.pages['relationship to respondent']();
         await this.pages['Address of respondent']();
         await this.pages['Select Address of respondent']();
-        await this.pages['Have they lived at this address for more than 5 years?']();
+        await this.pages['Have they lived at this address for less than 5 years?']();
         await this.pages['Contact details of respondent']();
         await this.pages['Is there anyone else who should know about your application?']('No'); 
         await this.pages['Who does child currently live with?'](caseDetails);

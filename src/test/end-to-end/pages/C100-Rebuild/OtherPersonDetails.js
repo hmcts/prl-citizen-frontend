@@ -15,7 +15,8 @@ module.exports = {
     grandparentOptionButton: '//*[@id="relationshipType-5"]', 
     otherPersonPostCodeField: '//*[@id="PostCode"]', 
     addressList: '//*[@id="selectAddress"]',
-    liveWithFirstOptionButton: '//*[@id="liveWith"]', 
+    liveWithFirstOptionButton: '//*[@id="mainlyLiveWith"]',
+    livingArrangementsSecondOptionButton: '//*[@id="liveWith-2"]',
   },
    async otherPerson(otherPersonOption) {
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonPageTitle , 30);
@@ -65,6 +66,12 @@ module.exports = {
     await I.retry(retryCount).waitForText(OtherPersonDetails.currentlyLiveWithPageTitle , 30);
     await I.retry(retryCount).waitForSelector(this.fields.liveWithFirstOptionButton, 30);
     await I.retry(retryCount).click(this.fields.liveWithFirstOptionButton);
+    await I.retry(retryCount).click('Continue');
+
+    await I.wait('15');
+    await I.retry(retryCount).waitForText(OtherPersonDetails.opLivingArrangements , 30);
+    await I.retry(retryCount).waitForSelector(this.fields.livingArrangementsSecondOptionButton, 60);
+    await I.retry(retryCount).click(this.fields.livingArrangementsSecondOptionButton);
     await I.retry(retryCount).click('Continue');
   },
 

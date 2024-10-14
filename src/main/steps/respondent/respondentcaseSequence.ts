@@ -1,5 +1,6 @@
+// eslint-disable sort-imports
 import { CaseWithId } from '../../app/case/case';
-import { YesOrNo } from '../../app/case/definition';
+import { CaseType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
@@ -42,7 +43,7 @@ import {
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
-  VIEW_DOCUMENTS,
+  VIEW_TYPE_DOCUMENT,
 } from '../urls';
 
 export const respondentCaseSequence: Step[] = [
@@ -122,12 +123,14 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_ADDRESS_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ADDRESS_HISTORY,
+    getNextStep: caseData =>
+      caseData?.caseTypeOfApplication === CaseType.FL401 ? RESPONDENT_CHECK_ANSWERS : RESPONDENT_ADDRESS_HISTORY,
   },
   {
     url: RESPONDENT_ADDRESS_MANUAL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ADDRESS_HISTORY,
+    getNextStep: caseData =>
+      caseData?.caseTypeOfApplication === CaseType.FL401 ? RESPONDENT_CHECK_ANSWERS : RESPONDENT_ADDRESS_HISTORY,
   },
   {
     url: RESPONDENT_ADDRESS_HISTORY,
@@ -197,7 +200,7 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => '/',
   },
   {
-    url: VIEW_DOCUMENTS,
+    url: VIEW_TYPE_DOCUMENT,
     showInSection: Sections.AboutRespondentCase,
     subDir: '/common',
     getNextStep: () => '/',

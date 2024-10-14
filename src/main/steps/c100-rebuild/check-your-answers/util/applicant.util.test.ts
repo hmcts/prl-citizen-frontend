@@ -21,11 +21,11 @@ import {
   cy as constentAgreementCy,
   en as constentAgreementEn,
 } from '../../screening-questions/consent-agreement/content';
+import { cy as contentLRCy, en as contentLREn } from '../../screening-questions/legal-representation/content';
 import {
   cy as contentLRACy,
   en as contentLRAEn,
 } from '../../screening-questions/legal-representation-application/content';
-import { cy as contentLRCy, en as contentLREn } from '../../screening-questions/legal-representation/content';
 import { cy as contentPermissionCy, en as contentPermissionEn } from '../../screening-questions/permission/content';
 import { cy as contentPRCy, en as contentPREn } from '../../screening-questions/permissions-request/content';
 import {
@@ -58,7 +58,7 @@ const ApplicantTestElements = SystemLanguage => {
         whyCourtGrantSubmittingPermission: contentPREn().title,
         reasonPermissionRequired: contentPermissionEn().title,
         whyPermissionRequiredFromCourt: contentPermissionWhyEn().title,
-        explainNoLabel: peopleEN().explainNoLabel,
+        explainYesLabel: peopleEN().explainYesLabel,
         Digital: contactPreferencesEN().labelDigital,
         Post: contactPreferencesEN().labelPost,
         errors: '',
@@ -81,7 +81,7 @@ const ApplicantTestElements = SystemLanguage => {
         whyCourtGrantSubmittingPermission: contentPRCy().title,
         reasonPermissionRequired: contentPermissionCy().title,
         whyPermissionRequiredFromCourt: contentPermissionWhyCy().title,
-        explainNoLabel: peopleCY().explainNoLabel,
+        explainYesLabel: peopleCY().explainYesLabel,
         Digital: contactPreferencesCY().labelDigital,
         Post: contactPreferencesCY().labelPost,
         errors: '',

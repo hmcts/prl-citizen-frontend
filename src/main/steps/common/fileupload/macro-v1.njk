@@ -12,23 +12,29 @@
   {% if params.uploadedFiles.length > 0%}
     {% for file in params.uploadedFiles %}
       {% set removeDocumentLinkHtml %}
-        <a href="{{file.fileremoveUrl}}" class="govuk-link--no-visited-state float-right">{{ params.removeFileText }}</a>
+      <a href="{{file.fileremoveUrl}}" class="govuk-link--no-visited-state float-right">{{ params.removeFileText }}</a>
       {% endset %}
       {% set tableRows = (tableRows.push([
         {
           text: file.filename
-        },{
+        }, {
           html: removeDocumentLinkHtml
         }
       ]), tableRows) %}
     {% endfor %}
   {% else %}
-    {% set tableRows = (tableRows.push([{text: params.noFilesText}]), tableRows) %}
+    {% set tableRows = (tableRows.push([
+      {
+        text: params.noFilesText
+      }
+    ]), tableRows) %}
   {% endif %}
+
   {{ govukTable({
-          rows: tableRows
-        }) 
-      }}
+      caption: params.uploadedFilesCaption if params.uploadedFilesCaption,
+      rows: tableRows
+    }) 
+  }}
   {% endset %}
 
   <div class="govuk-form-group govuk-inset-text">

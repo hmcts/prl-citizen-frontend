@@ -2,7 +2,7 @@ import { CaseWithId } from '../app/case/case';
 import { AppRequest } from '../app/controller/AppRequest';
 
 import { PageLink } from './urls';
-console.info('** FOR SONAR **');
+
 export enum Sections {
   AboutEdgeCase = 'aboutEdgeCase',
   AboutRespondentCase = 'aboutRespondentCase',
@@ -10,6 +10,7 @@ export enum Sections {
   AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
   C100 = 'c100',
   Screening = 'screening',
+  ApplicationWithinProceedings = 'applicationWithinProceedings',
   RA = 'cuira',
 }
 

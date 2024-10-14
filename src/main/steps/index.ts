@@ -11,6 +11,7 @@ import { Form, FormContent } from '../app/form/Form';
 import { RASequence } from '../modules/reasonable-adjustments/sequence';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
+import { applicationWithinProceedingsSequence } from './applicationWithinProceedingsSequence';
 import { C100Sequence } from './c100-rebuild/c100sequence';
 import { AohSequence } from './common/safety-concerns/sequence';
 import { parseUrl } from './common/url-parser';
@@ -51,6 +52,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...responseCaseSequence,
     ...C100Sequence,
     ...screeningQuestionsSequence,
+    ...applicationWithinProceedingsSequence,
     ...AohSequence.getSequence(),
     ...RASequence.getSequence(),
   ].find(s => s.url === path);
@@ -125,6 +127,7 @@ export const stepsWithContentApplicant = getStepsWithContent(applicantCaseSequen
 export const stepsWithContentC7response = getStepsWithContent(responseCaseSequence);
 export const c100CaseSequence = getStepsWithContent(C100Sequence, C100_URL);
 export const screeningSequence = getStepsWithContent(screeningQuestionsSequence);
+export const awpSequence = getStepsWithContent(applicationWithinProceedingsSequence);
 
 export const stepsWithContent = [
   ...stepsWithContentEdgecase,
@@ -133,6 +136,7 @@ export const stepsWithContent = [
   ...stepsWithContentC7response,
   ...c100CaseSequence,
   ...screeningSequence,
+  ...awpSequence,
 ];
 
 const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryString: string } => {

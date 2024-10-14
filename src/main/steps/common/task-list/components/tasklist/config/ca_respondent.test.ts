@@ -19,9 +19,9 @@ describe('ca_respondent', () => {
 
     expect(CA_RESPONDENT[0].id).toBe('aboutYou');
     expect(aboutYouTasks).toHaveLength(4);
-    expect(aboutYouTasks[0].id).toBe('keepYourDetailsPrivate');
+    expect(aboutYouTasks[0].id).toBe('editYouContactDetails');
     expect(aboutYouTasks[1].id).toBe('contactPreferences');
-    expect(aboutYouTasks[2].id).toBe('editYouContactDetails');
+    expect(aboutYouTasks[2].id).toBe('keepYourDetailsPrivate');
     expect(aboutYouTasks[3].id).toBe('supportYouNeed');
   });
 
@@ -29,17 +29,21 @@ describe('ca_respondent', () => {
     const theApplicationTasks = CA_RESPONDENT[1].tasks(data, {} as SectionContent);
 
     expect(CA_RESPONDENT[1].id).toBe('theApplication');
-    expect(theApplicationTasks).toHaveLength(2);
+    expect(theApplicationTasks).toHaveLength(5);
     expect(theApplicationTasks[0].id).toBe('checkTheApplication');
-    expect(theApplicationTasks[1].id).toBe('checkAllegationsOfHarmAndViolence');
+    expect(theApplicationTasks[1].id).toBe('checkTheApplicationWelsh');
+    expect(theApplicationTasks[2].id).toBe('checkAllegationsOfHarmAndViolence');
+    expect(theApplicationTasks[3].id).toBe('checkAllegationsOfHarmAndViolenceWelsh');
+    expect(theApplicationTasks[4].id).toBe('requestToCourtAboutYourCase');
   });
 
   test('your response section should contain correct ids and tasks', () => {
     const yourResponseTasks = CA_RESPONDENT[2].tasks(data, {} as SectionContent);
 
     expect(CA_RESPONDENT[2].id).toBe('yourResponse');
-    expect(yourResponseTasks).toHaveLength(1);
+    expect(yourResponseTasks).toHaveLength(2);
     expect(yourResponseTasks[0].id).toBe('respondToTheApplication');
+    expect(yourResponseTasks[1].id).toBe('theResponsePDF');
   });
 
   test('your hearing section should contain correct ids and tasks', () => {
