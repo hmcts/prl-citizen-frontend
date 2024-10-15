@@ -97,7 +97,7 @@ describe('handler', () => {
     data.isAtAddressLessThan5Years = 'Yes';
     populateSummaryData(data, '123');
 
-    expect(data.citizenUserAddressHistory).toEqual('');
+    expect(data.citizenUserAddressHistory).toEqual(undefined);
   });
   test('no address detail', () => {
     data.citizenUserAddress1 = undefined;
