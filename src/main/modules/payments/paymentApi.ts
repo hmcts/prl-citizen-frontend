@@ -59,6 +59,7 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
   protected caseId: string;
   protected returnUrl: string;
   protected hwfRefNumber: string;
+  protected feeType: string;
 
   constructor(
     PaymentURL: string,
@@ -66,12 +67,14 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
     serviceAuthToken: string,
     caseId: string,
     returnUrl: string,
-    hwfRefNumber: string
+    hwfRefNumber: string,
+    feeType: string
   ) {
     super(PaymentURL, userSystemAuthToken, serviceAuthToken);
     this.caseId = caseId;
     this.returnUrl = returnUrl;
     this.hwfRefNumber = hwfRefNumber;
+    this.feeType = feeType;
   }
 
   async getPaymentCredentails(): Promise<PaymentRetrivalDataType> {
@@ -79,6 +82,7 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
       caseId: this.caseId,
       returnUrl: this.returnUrl,
       hwfRefNumber: this.hwfRefNumber,
+      feeType: this.feeType,
     };
     try {
       const requestPaymentUpdate = await super.Instance().post('', paymentDetailsRequestBody);

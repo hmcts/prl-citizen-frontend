@@ -211,7 +211,6 @@ class ReasonableAdjustmentsProvider {
   trySettlingRequest(req: AppRequest, correlationId: string, action: RAData['action']): Promise<any> {
     return new Promise((resolve, reject) => {
       const _correlationId = this.getCorrelationId(req);
-      console.info('**** correlationId ****', _correlationId);
 
       (async () => {
         await this.resetCorrelationId(req);
@@ -256,7 +255,6 @@ class ReasonableAdjustmentsProvider {
   }
 
   resetData(req: AppRequest): Promise<void> {
-    console.info('**** RA-resetData ****');
     return new Promise(resolve => {
       delete req.session?.applicationSettings?.reasonableAdjustments;
       delete req.session?.userCase?.ra_existingFlags;
@@ -266,7 +264,6 @@ class ReasonableAdjustmentsProvider {
   }
 
   async destroy(req: AppRequest): Promise<void> {
-    console.info('**** RA-destroy ****');
     this.appBaseUrl = '';
     this.client = null;
     await this.resetData(req);

@@ -34,4 +34,5 @@ export default class DashboardGetController extends GetController {
 
 function clean(session) {
   delete session.userCase;
+  delete session.applicationSettings;
 }

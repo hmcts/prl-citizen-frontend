@@ -53,6 +53,7 @@ export const getDataShape = (context: PartyType): People => {
         statement: '',
       },
       liveWith: [],
+      mainlyLiveWith: [],
     });
   } else if (context === PartyType.RESPONDENT || context === PartyType.OTHER_PERSON) {
     Object.assign(shape, {

@@ -56,6 +56,11 @@ export const uploadDocumentSections: UploadDocumentSectionsProps[] = [
       getDocumentSectionTitle(UploadDocumentSectionId.APPLICATIONS, documentSectionTitles),
     documentCategoryList: [
       {
+        categoryId: UploadDocumentCategory.SUBMIT_AWP_APPLICATION,
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.SUBMIT_AWP_APPLICATION, documentCategoryLabels),
+      },
+      {
         categoryId: UploadDocumentCategory.PREVIOUS_ORDERS_SUBMITTED,
         documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
           getDocumentCategoryLabel(DocumentLabelCategory.PREVIOUS_ORDERS_SUBMITTED, documentCategoryLabels),

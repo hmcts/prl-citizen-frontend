@@ -1,0 +1,20 @@
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% extends "common/template.njk" %}
+
+{% block pageTitle %}
+  {{ bannerTitle }}
+  {{ appName }}
+{% endblock %}
+
+{% block page_content %}
+  {% block backLink %}{% endblock %}
+
+  {{ govukPanel({
+    titleText: bannerTitle
+}) }}
+
+  <h1 class="govuk-heading-m">{{heading}}</h1>
+  <p class="govuk-body">{{content1}}</p>
+  <p class="govuk-body">{{content2}}</p>
+
+{% endblock %}

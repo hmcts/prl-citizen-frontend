@@ -12,7 +12,7 @@ export const en = () => ({
   country: 'Country',
   postcode: 'Postcode',
   enterInternationalAddress: 'Enter an international address',
-  explainNoLabel: 'I dont know where they currently live',
+  explainYesLabel: 'I dont know where they currently live',
 });
 
 export const cy = () => ({
@@ -22,7 +22,7 @@ export const cy = () => ({
   country: 'Gwlad',
   postcode: 'Cod post',
   enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
-  explainNoLabel: 'Nid wyf yn gwybod lle maen nhw’n byw ar hyn o bryd',
+  explainYesLabel: 'Nid wyf yn gwybod lle maen nhw’n byw ar hyn o bryd',
 });
 
 export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent => {
@@ -89,7 +89,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
       values: [
         {
           name: 'addressUnknown',
-          label: l => l.explainNoLabel,
+          label: l => l.explainYesLabel,
           value: YesOrNo.YES,
         },
       ],

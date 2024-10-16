@@ -14,7 +14,7 @@ import { applyParms } from './url-parser';
 
 @autobind
 export default class CaseDataController {
-  constructor(protected readonly fetchDataFor = ['hearingDetails']) {}
+  constructor(protected readonly fetchDataFor = ['caseAndHearingDetails']) {}
 
   private isDataRequired(fetchDataFor: string): boolean {
     return this.fetchDataFor.includes(fetchDataFor);
@@ -31,7 +31,7 @@ export default class CaseDataController {
 
     req.session.userCaseList = [];
 
-    if (this.isDataRequired('hearingDetails')) {
+    if (this.isDataRequired('caseAndHearingDetails') || this.isDataRequired('hearingDetails')) {
       if (hearingData?.caseHearings) {
         Object.assign(hearingCollection, {
           hearingCollection: hearingData.caseHearings,
@@ -68,15 +68,20 @@ export default class CaseDataController {
     }
 
     try {
-      const { caseData, hearingData } = await client.retrieveCaseAndHearings(
+      const response = await client.retrieveCaseAndHearings(
         caseId,
-        this.isDataRequired('hearingDetails') ? YesOrNo.YES : YesOrNo.NO
+        this.isDataRequired('caseAndHearingDetails') ? YesOrNo.YES : YesOrNo.NO
       );
 
-      await this.saveDataInSession(req, caseData, hearingData);
+      if (this.isDataRequired('hearingDetails')) {
+        response.hearingData = (await client.retrieveCaseHearingsByCaseId(caseId)).hearingData;
+      }
+
+      await this.saveDataInSession(req, response.caseData, response.hearingData);
+
       return Promise.resolve({
-        caseData,
-        hearingData,
+        caseData: response.caseData,
+        hearingData: response.hearingData,
       });
     } catch (error) {
       throw new Error('FetchCaseDataController: Data could not be retrieved.');
