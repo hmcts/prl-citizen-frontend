@@ -16,6 +16,7 @@ const en = {
   },
   keys: {
     citizenUserFullName: 'Name',
+    citizenUserLivingInRefuge: 'Living in refuge',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
     citizenUserAddressText: 'Address',
@@ -39,6 +40,7 @@ const cy: typeof en = {
   },
   keys: {
     citizenUserFullName: 'Enw',
+    citizenUserLivingInRefuge: 'Living in refuge (welsh)',
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
     citizenUserAddressText: 'Cyfeiriad',

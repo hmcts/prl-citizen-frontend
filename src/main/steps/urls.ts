@@ -494,6 +494,12 @@ export const UPLOAD_STATEMENT_OF_SERVICE: PageLink = `${STATEMENT_OF_SERVICE}/up
 export const STATEMENT_OF_SERVICE_REVIEW: PageLink = `${STATEMENT_OF_SERVICE}/review/:context`;
 export const STATEMENT_OF_SERVICE_SUCCESS: PageLink = `${STATEMENT_OF_SERVICE}/success`;
 
+const REFUGE_BASE_URL = 'refuge';
+export const STAYING_IN_REFUGE: PageLink = `/:root/${REFUGE_BASE_URL}/staying-in-refuge`;
+export const REFUGE_KEEPING_SAFE: PageLink = `/:root/${REFUGE_BASE_URL}/keeping-details-safe`;
+export const REFUGE_UPLOAD_DOC: PageLink = `/:root/${REFUGE_BASE_URL}/upload-refuge-doc/:removeFileId?`;
+export const REFUGE_DOC_ALREADY_UPLOADED: PageLink = `/:root/${REFUGE_BASE_URL}/c8-already-uploaded`;
+
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
 export const COMMON_PAGE_URLS = [
   DASHBOARD_URL,

@@ -25,6 +25,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
     citizenUserAddressPostcode,
     isAtAddressLessThan5Years,
     citizenUserAddressHistory,
+    citizenUserLivingInRefuge,
   } = userCase;
 
   Object.assign(request, {
@@ -47,6 +48,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
       County: citizenUserAddressCounty,
       PostCode: citizenUserAddressPostcode,
     },
+    livingInRefuge: citizenUserLivingInRefuge,
   });
   //data clean up
 
@@ -83,6 +85,7 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     isAtAddressLessThan5Years,
     addressLivedLessThan5YearsDetails,
     address,
+    livingInRefuge,
     ...rest
   } = partyDetails;
   let fullName;
@@ -111,6 +114,7 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     citizenUserAddressTown: address.PostTown,
     citizenUserAddressCounty: address.County,
     citizenUserAddressPostcode: address.PostCode,
+    citizenUserLivingInRefuge: livingInRefuge,
     ...rest,
   });
   if (isAtAddressLessThan5Years === YesOrNo.NO) {

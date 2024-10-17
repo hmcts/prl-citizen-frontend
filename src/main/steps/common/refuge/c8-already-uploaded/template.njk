@@ -1,0 +1,15 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-xl">{{title}}</h1>
+  <p class="govuk-body">{{previouslyUploaded}}</p>
+
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__value">
+        <a href={{c8Document.href}} target="_blank">{{ c8Document.fileName }}</a><br>
+      </dt>
+    </div>
+  </dl>
+
+{% endblock %}
