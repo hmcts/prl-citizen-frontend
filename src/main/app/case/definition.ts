@@ -113,6 +113,7 @@ export interface PartyDetails {
   contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
   partyId: string;
+  livingInRefuge: string;
 }
 
 export interface User {
@@ -672,6 +673,8 @@ export type C100Applicant = {
   applicantAddressTown?: string;
   applicantAddressCounty?: string;
   country?: string;
+  applicantLivesInRefuge?: YesOrNo;
+  refuge_certificate?: C100DocumentInfo;
   applicantAddressHistory?: YesOrNo;
   applicantProvideDetailsOfPreviousAddresses?: string;
   personalDetails: {
@@ -856,6 +859,7 @@ export interface CaseData {
   citizenUserManualAddressCounty?: string;
   c100Applicants?: C100Applicant;
   citizenUserManualAddressPostcode?: string;
+  citizenUserLivingInRefuge?: string;
   accessCode: string;
   caseInvites: CaseInvite[];
   detailsKnown?: string;
@@ -895,6 +899,7 @@ export interface CaseData {
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
   citizenNotifications?: CitizenNotification[];
+  livingInRefuge?: string;
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -2974,6 +2979,7 @@ export enum PaymentErrorContext {
 export enum RootContext {
   C100_REBUILD = 'c100-rebuild',
   RESPONDENT = 'respondent',
+  APPLICANT = 'applicant'
 }
 
 export enum DomesticAbuseExemptions {

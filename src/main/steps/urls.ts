@@ -342,6 +342,8 @@ export const C100_APPLICANT_RELATIONSHIP_TO_CHILD: PageLink = `${C100_URL}/appli
 export const C100_APPLICANTS_PERSONAL_DETAILS: PageLink = `${C100_URL}/applicant/:applicantId/personal-details`;
 
 /**@C100 applicant address and contact detail*/
+export const C100_APPLICANT_REFUGE: PageLink = `${C100_URL}/applicant/:applicantId/refuge`;
+export const C100_APPLICANT_REFUGE_UPLOAD: PageLink = `${C100_URL}/applicant/:applicantId/refuge-upload`;
 export const C100_APPLICANT_ADDRESS: PageLink = `${C100_URL}/applicant/:applicantId/address`;
 export const C100_APPLICANT_ADDRESS_LOOKUP: PageLink = `${C100_APPLICANT_ADDRESS}/lookup`;
 export const C100_APPLICANT_ADDRESS_SELECT: PageLink = `${C100_APPLICANT_ADDRESS}/select`;
@@ -491,6 +493,12 @@ export const STATEMENT_OF_SERVICE_WHO_WAS_SERVED: PageLink = `${STATEMENT_OF_SER
 export const UPLOAD_STATEMENT_OF_SERVICE: PageLink = `${STATEMENT_OF_SERVICE}/upload/:context/:removeFileId?`;
 export const STATEMENT_OF_SERVICE_REVIEW: PageLink = `${STATEMENT_OF_SERVICE}/review/:context`;
 export const STATEMENT_OF_SERVICE_SUCCESS: PageLink = `${STATEMENT_OF_SERVICE}/success`;
+
+const REFUGE_BASE_URL = 'refuge';
+export const STAYING_IN_REFUGE: PageLink = `/:root/${REFUGE_BASE_URL}/staying-in-refuge`;
+export const REFUGE_KEEPING_SAFE: PageLink = `/:root/${REFUGE_BASE_URL}/keeping-details-safe`;
+export const REFUGE_UPLOAD_DOC: PageLink = `/:root/${REFUGE_BASE_URL}/upload-refuge-doc/:removeFileId?`;
+export const REFUGE_DOC_ALREADY_UPLOADED: PageLink = `/:root/${REFUGE_BASE_URL}/c8-already-uploaded`;
 
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
 export const COMMON_PAGE_URLS = [
