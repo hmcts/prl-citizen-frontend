@@ -11,7 +11,7 @@ const en = {
   title: 'Upload a C8 form',
   uploadFileHeading: 'Upload a document',
   uploadGuidance:
-    'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external">here</a>. Your address, email address and contact number will be kept confidential.',
+    'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">here</a>. Your address, email address and contact number will be kept confidential.',
   uplodFileHint:
     'When uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
   uploadButtonLabel: 'Upload file',
@@ -81,11 +81,6 @@ export const form: FormContent = {
   fields: {},
   onlyContinue: {
     text: l => l.onlycontinue,
-  },
-  link: {
-    classes: 'govuk-!-margin-left-3',
-    href: '#',
-    text: l => l.cancel,
   },
 };
 

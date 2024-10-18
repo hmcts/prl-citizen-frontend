@@ -92,6 +92,8 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         );
       }
       break;
+    case 'c8_refuge_document':
+      return userCase[key]?.document_filename;
     default:
       return userkey;
   }
@@ -120,7 +122,7 @@ export const summaryList = (
           : setkey(userCase, key, language)!,
       changeUrl: urls[key],
     };
-    if (row.value || key === 'citizenUserAddressHistory') {
+    if (row.value || key === 'citizenUserAddressHistory' || key === 'citizenUserLivingInRefuge') {
       if (key !== 'citizenUserSafeToCall') {
         summaryData.push(row);
       }

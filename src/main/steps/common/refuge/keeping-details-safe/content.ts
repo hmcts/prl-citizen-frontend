@@ -35,11 +35,6 @@ export const form: FormContent = {
   onlyContinue: {
     text: l => l.continue,
   },
-  link: {
-    classes: 'govuk-!-margin-left-3',
-    href: '#',
-    text: l => l.cancel,
-  },
 };
 
 export const generateContent = (content: CommonContent): PageContent => {

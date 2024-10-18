@@ -1,15 +1,19 @@
 {% extends "common/template.njk" %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block page_content %}
   <h1 class="govuk-heading-xl">{{title}}</h1>
-  <p class="govuk-body">{{previouslyUploaded}}</p>
 
-  <dl class="govuk-summary-list">
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__value">
-        <a href={{c8Document.href}} target="_blank">{{ c8Document.fileName }}</a><br>
-      </dt>
-    </div>
-  </dl>
+  {% set html %}
+  <h2 class="govuk-notification-banner__heading">{{previouslyUploaded}}</h2>
+  <p class="govuk-body">{{canView}}
+    <a href={{c8Document.href}} target="_blank" aria-label="{{ previouslyUploaded }}">{{ viewDoc | safe }}</a>
+  </p>
+  {% endset %}
+
+  {{ govukNotificationBanner({
+  html: html,
+  type: 'success'
+}) }}
 
 {% endblock %}

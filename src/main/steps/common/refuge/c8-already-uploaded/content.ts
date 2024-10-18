@@ -10,8 +10,10 @@ import { applyParms } from '../../url-parser';
 
 const en = {
   title: 'Uploading a new C8 form',
-  previouslyUploaded: 'You have previously uploaded a C8 form. You can view this below:',
-  uploadC8Label: 'Do you want to upload a new C8 form?',
+  previouslyUploaded: 'You have previously uploaded a C8 form.',
+  canView: 'You can view the document',
+  viewDoc: 'here (opens in a new tab).',
+  uploadC8Label: 'Do you still want to upload a new C8 form?',
   one: 'Yes',
   two: 'No',
   continue: 'Continue',
@@ -24,8 +26,10 @@ const en = {
 
 const cy: typeof en = {
   title: 'Uploading a new C8 form (welsh)',
-  previouslyUploaded: 'You have previously uploaded a C8 form. You can view this below: (welsh)',
-  uploadC8Label: 'Do you want to upload a new C8 form? (welsh)',
+  previouslyUploaded: 'You have previously uploaded a C8 form.',
+  canView: 'You can view this',
+  viewDoc: 'here (opens in a new tab)',
+  uploadC8Label: 'Do you still want to upload a new C8 form?',
   one: 'Yes (welsh)',
   two: 'No (welsh)',
   continue: 'Continue (welsh)',
@@ -63,11 +67,6 @@ export const form: FormContent = {
   },
   onlyContinue: {
     text: l => l.continue,
-  },
-  link: {
-    classes: 'govuk-!-margin-left-3',
-    href: '#',
-    text: l => l.cancel,
   },
 };
 

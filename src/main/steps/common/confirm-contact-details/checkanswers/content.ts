@@ -20,9 +20,10 @@ export const enContent = {
   },
   keys: {
     citizenUserFullName: 'Name',
-    citizenUserLivingInRefuge: 'Living in refuge',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
+    citizenUserLivingInRefuge: 'Living in refuge',
+    c8_refuge_document: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
@@ -73,6 +74,7 @@ export const cyContent: typeof enContent = {
   keys: {
     citizenUserFullName: 'Enw',
     citizenUserLivingInRefuge: 'Living in refuge (welsh)',
+    c8_refuge_document: 'C8 refuge document',
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
     citizenUserAddressText: 'Cyfeiriad',
@@ -87,9 +89,10 @@ export const cyContent: typeof enContent = {
 
 const urls = {
   citizenUserFullName: 'personaldetails',
-  citizenUserLivingInRefuge: '../refuge/staying-in-refuge',
   citizenUserDateOfBirthText: 'personaldetails',
   citizenUserPlaceOfBirthText: 'personaldetails',
+  citizenUserLivingInRefuge: '../refuge/staying-in-refuge',
+  c8_refuge_document: '../refuge/upload-refuge-doc',
   citizenUserAddressText: 'addressdetails',
   citizenUserAddressHistory: 'addresshistory',
   citizenUserPhoneNumberText: 'contactdetails',
