@@ -6,7 +6,8 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import {
   APPLICANT_ADDRESS_DETAILS,
-  C100_APPLICANT_ADDRESS,
+  C100_APPLICANT_ADDRESS_LOOKUP,
+  C100_REFUGE_UPLOAD_DOC,
   C100_URL,
   PageLink,
   REFUGE_DOC_ALREADY_UPLOADED,
@@ -25,24 +26,34 @@ class RefugeNavigationController {
     const partyRootContext = partyType === PartyType.RESPONDENT ? RootContext.RESPONDENT : RootContext.APPLICANT;
     const partyAddressDetails =
       partyType === PartyType.RESPONDENT ? RESPONDENT_ADDRESS_DETAILS : APPLICANT_ADDRESS_DETAILS;
+    // const { applicantId } = req.params;
     const addressDetails = C100rebuildJourney
-      ? (applyParms(C100_APPLICANT_ADDRESS, { root: RootContext.C100_REBUILD }) as PageLink)
+      ? (applyParms(C100_APPLICANT_ADDRESS_LOOKUP, { applicantId: req.params.applicantId }) as PageLink)
       : partyAddressDetails;
 
     switch (currentPageUrl) {
       case STAYING_IN_REFUGE: {
         const nextUrl = C100rebuildJourney
-          ? (applyParms(REFUGE_KEEPING_SAFE, { root: RootContext.C100_REBUILD }) as PageLink)
+          ? (applyParms(REFUGE_KEEPING_SAFE, {
+              root: RootContext.C100_REBUILD,
+              applicantId: req.params.applicantId,
+            }) as PageLink)
           : (applyParms(REFUGE_KEEPING_SAFE, { root: partyRootContext }) as PageLink);
         url = caseData.citizenUserLivingInRefuge === YesOrNo.YES ? nextUrl : addressDetails;
         break;
       }
       case REFUGE_KEEPING_SAFE: {
         const alreadyUploadedDocUrl = C100rebuildJourney
-          ? (applyParms(REFUGE_DOC_ALREADY_UPLOADED, { root: RootContext.C100_REBUILD }) as PageLink)
+          ? (applyParms(REFUGE_DOC_ALREADY_UPLOADED, {
+              root: RootContext.C100_REBUILD,
+              applicantId: req.params.applicantId,
+            }) as PageLink)
           : (applyParms(REFUGE_DOC_ALREADY_UPLOADED, { root: partyRootContext }) as PageLink);
         const uploadDocUrl = C100rebuildJourney
-          ? (applyParms(REFUGE_UPLOAD_DOC, { root: RootContext.C100_REBUILD }) as PageLink)
+          ? (applyParms(C100_REFUGE_UPLOAD_DOC, {
+              root: RootContext.C100_REBUILD,
+              applicantId: req.params.applicantId,
+            }) as PageLink)
           : (applyParms(REFUGE_UPLOAD_DOC, { root: partyRootContext }) as PageLink);
         url = !_.isEmpty(caseData.c8_refuge_document) ? alreadyUploadedDocUrl : uploadDocUrl;
         break;
@@ -53,12 +64,12 @@ class RefugeNavigationController {
       }
       case REFUGE_DOC_ALREADY_UPLOADED: {
         const uploadDocUrl = C100rebuildJourney
-          ? (applyParms(REFUGE_UPLOAD_DOC, { root: RootContext.C100_REBUILD }) as PageLink)
+          ? (applyParms(C100_REFUGE_UPLOAD_DOC, {
+              root: RootContext.C100_REBUILD,
+              applicantId: req.params.applicantId,
+            }) as PageLink)
           : (applyParms(REFUGE_UPLOAD_DOC, { root: partyRootContext }) as PageLink);
-        url =
-          caseData.uploadC8Again === YesOrNo.YES
-            ? (applyParms(uploadDocUrl, { partyType }) as PageLink)
-            : addressDetails;
+        url = caseData.uploadC8Again === YesOrNo.YES ? uploadDocUrl : addressDetails;
         break;
       }
       default: {

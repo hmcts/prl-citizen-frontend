@@ -1,8 +1,14 @@
+import { CaseWithId } from '../../../../app/case/case';
 import { YesOrNo } from '../../../../app/case/definition';
+import { AppRequest } from '../../../../app/controller/AppRequest';
 import { PageContent } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
+import { FormContent, FormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
+import { getPeople } from '../../../../steps/c100-rebuild/child-details/live-with/utils';
+import { interpolate } from '../../../../steps/common/string-parser';
+import { C100_URL } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
+import { generateContentForLocalComponent } from '../utils';
 
 const en = {
   title: 'Staying in a refuge',
@@ -11,6 +17,7 @@ const en = {
   citizensAdvice:
     'Find out more about refuges at <a href="https://www.citizensadvice.org.uk/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Citizen\'s Advice">Citizen\'s Advice (opens in a new tab).</a>',
   refugeLabel: 'Do you currently live in a refuge?',
+  C100RefugeLabel: 'Does {firstName} {lastName} currently live in a refuge?',
   one: 'Yes',
   two: 'No',
   continue: 'Continue',
@@ -28,6 +35,7 @@ const cy: typeof en = {
   citizensAdvice:
     'Find out more about refuges at <a href="https://www.citizensadvice.org.uk/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Citizen\'s Advice">Citizen\'s Advice (opens in a new tab).</a> (welsh)',
   refugeLabel: 'Do you currently live in a refuge? (welsh)',
+  C100RefugeLabel: 'Does {firstName} {lastName} currently live in a refuge?',
   one: 'Yes (welsh)',
   two: 'No (welsh)',
   continue: 'Continue (welsh)',
@@ -44,24 +52,31 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    citizenUserLivingInRefuge: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.refugeLabel,
-      labelSize: 'm',
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-        },
-        {
-          label: l => l.two,
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
+  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
+    const c100Person = getPeople(userCase).find(person => person.id === req.params.applicantId)!;
+    return {
+      citizenUserLivingInRefuge: {
+        type: 'radios',
+        classes: 'govuk-radios',
+        label: l =>
+          C100rebuildJourney
+            ? interpolate(l.C100RefugeLabel, { firstName: c100Person?.firstName, lastName: c100Person?.lastName })
+            : l.refugeLabel,
+        labelSize: 'm',
+        values: [
+          {
+            label: l => l.one,
+            value: YesOrNo.YES,
+          },
+          {
+            label: l => l.two,
+            value: YesOrNo.NO,
+          },
+        ],
+        validator: isFieldFilledIn,
+      },
+    };
   },
   onlyContinue: {
     text: l => l.continue,
@@ -70,8 +85,10 @@ export const form: FormContent = {
 
 export const generateContent = (content: CommonContent): PageContent => {
   const translations = languages[content.language];
-  return {
-    ...translations,
-    form,
-  };
+  return generateContentForLocalComponent(content, translations, form);
+  // const translations = languages[content.language];
+  // return {
+  //   ...translations,
+  //   form,
+  // };
 };

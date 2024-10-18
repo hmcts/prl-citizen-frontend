@@ -58,7 +58,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (data: C100Applicant['applicantLivesInRefuge']): GenerateDynamicFormFields => {
+export const generateFormFields = (data: C100Applicant['liveInRefuge']): GenerateDynamicFormFields => {
   const errors = {
     en: {},
     cy: {},
@@ -104,7 +104,7 @@ export const form: FormContent = {
 
 export const getUpdatedForm = (caseData: Partial<CaseWithId>, applicantId: C100Applicant['id']): FormContent => {
   const applicantDetails = getApplicantDetails(caseData.appl_allApplicants ?? [], applicantId);
-  return updateFormFields(form, generateFormFields(applicantDetails?.applicantLivesInRefuge).fields);
+  return updateFormFields(form, generateFormFields(applicantDetails?.liveInRefuge).fields);
 };
 
 export const generateContent: TranslationFn = content => {
@@ -112,7 +112,7 @@ export const generateContent: TranslationFn = content => {
   const applicantId = content?.additionalData?.req?.params!.applicantId;
   const applicantData = content.userCase?.appl_allApplicants!.find(i => i.id === applicantId) as C100Applicant;
   const { applicantFirstName, applicantLastName } = applicantData;
-  const { fields } = generateFormFields(applicantData.applicantLivesInRefuge);
+  const { fields } = generateFormFields(applicantData.liveInRefuge);
 
   return {
     ...translations,

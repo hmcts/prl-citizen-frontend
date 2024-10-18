@@ -5,15 +5,14 @@
   <h1 class="govuk-heading-xl">{{title}}</h1>
 
   {% set html %}
-  <h2 class="govuk-notification-banner__heading">{{previouslyUploaded}}</h2>
+  <h3 class="govuk-notification-banner__heading">{{previouslyUploaded}}</h2>
   <p class="govuk-body">{{canView}}
     <a href={{c8Document.href}} target="_blank" aria-label="{{ previouslyUploaded }}">{{ viewDoc | safe }}</a>
   </p>
   {% endset %}
 
   {{ govukNotificationBanner({
-  html: html,
-  type: 'success'
+  html: html
 }) }}
 
 {% endblock %}

@@ -24,7 +24,7 @@ export default class RefugePostController extends PostController<AnyObject> {
     req.session.userCase.appl_allApplicants = updatePartyDetails(
       {
         ...(getPartyDetails(applicantId, req.session.userCase.appl_allApplicants) as C100Applicant),
-        applicantLivesInRefuge: formData['applicantLivesInRefuge'],
+        liveInRefuge: formData['liveInRefuge'],
       },
       req.session.userCase.appl_allApplicants
     ) as C100Applicant[];

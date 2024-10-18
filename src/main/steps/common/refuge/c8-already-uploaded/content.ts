@@ -9,10 +9,10 @@ import { transformFileName } from '../../documents/download/utils';
 import { applyParms } from '../../url-parser';
 
 const en = {
-  title: 'Uploading a new C8 form',
+  title: 'Reuploading a C8 form',
   previouslyUploaded: 'You have previously uploaded a C8 form.',
-  canView: 'You can view the document',
-  viewDoc: 'here (opens in a new tab).',
+  canView: 'You can view the uploaded document',
+  viewDoc: 'here (opens in a new tab)',
   uploadC8Label: 'Do you still want to upload a new C8 form?',
   one: 'Yes',
   two: 'No',

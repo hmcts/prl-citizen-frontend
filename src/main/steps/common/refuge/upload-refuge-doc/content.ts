@@ -1,9 +1,10 @@
 import _ from 'lodash';
 
+import { RootContext } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
-import { REFUGE_UPLOAD_DOC } from '../../../urls';
+import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../../urls';
 import { applyParms } from '../../url-parser';
 export * from './routeGuard';
 
@@ -90,6 +91,7 @@ export const generateContent: TranslationFn = content => {
   const uploadDocError = session?.errors?.find(error => error.propertyName === 'c8RefugeDocument') ?? null;
   const uploadedDocument = session?.userCase?.c8_refuge_document;
   const partyType = getCasePartyType(session.userCase, session.user.id);
+  const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
 
   return {
     ...translations,
@@ -106,10 +108,16 @@ export const generateContent: TranslationFn = content => {
         ? [
             {
               filename: uploadedDocument.document_filename,
-              fileremoveUrl: applyParms(REFUGE_UPLOAD_DOC, {
-                root: partyType,
-                removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
-              }),
+              fileremoveUrl: C100rebuildJourney
+                ? applyParms(C100_REFUGE_UPLOAD_DOC, {
+                    root: RootContext.C100_REBUILD,
+                    applicantId: content.additionalData?.req.params.applicantId,
+                    removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
+                  })
+                : applyParms(REFUGE_UPLOAD_DOC, {
+                    root: partyType,
+                    removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
+                  }),
             },
           ]
         : [],

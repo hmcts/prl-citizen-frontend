@@ -1,5 +1,5 @@
 import { Case } from '../../../app/case/case';
-import { C100Applicant, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
+import { C100Applicant, ChildrenDetails, RootContext, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_APPLICANTS_PERSONAL_DETAILS,
@@ -13,11 +13,12 @@ import {
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
   C100_APPLICANT_CONTACT_DETAIL,
   C100_APPLICANT_CONTACT_PREFERENCES,
-  C100_APPLICANT_REFUGE,
-  C100_APPLICANT_REFUGE_UPLOAD,
+  // C100_APPLICANT_REFUGE,
+  // C100_APPLICANT_REFUGE_UPLOAD,
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
   C100_RESPONDENT_DETAILS_ADD,
   PageLink,
+  STAYING_IN_REFUGE,
 } from '../../urls';
 import { getPartyDetails } from '../people/util';
 
@@ -96,29 +97,30 @@ class ApplicantNavigationController {
               applicantId: this.applicantId,
               childId: nextChild?.id,
             })
-          : applyParms(C100_APPLICANT_REFUGE, {
+          : applyParms(STAYING_IN_REFUGE, {
+              root: RootContext.C100_REBUILD,
               applicantId: this.applicantId,
             });
         break;
       }
-      case C100_APPLICANT_REFUGE: {
-        const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
-        nextUrl = applyParms(
-          applicantData.applicantLivesInRefuge === YesOrNo.YES
-            ? C100_APPLICANT_REFUGE_UPLOAD
-            : C100_APPLICANT_ADDRESS_LOOKUP,
-          {
-            applicantId: this.applicantId,
-          }
-        );
-        break;
-      }
-      case C100_APPLICANT_REFUGE_UPLOAD: {
-        nextUrl = applyParms(C100_APPLICANT_ADDRESS_LOOKUP, {
-          applicantId: this.applicantId,
-        });
-        break;
-      }
+      // case C100_APPLICANT_REFUGE: {
+      //   const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
+      //   nextUrl = applyParms(
+      //     applicantData.applicantLivesInRefuge === YesOrNo.YES
+      //       ? C100_APPLICANT_REFUGE_UPLOAD
+      //       : C100_APPLICANT_ADDRESS_LOOKUP,
+      //     {
+      //       applicantId: this.applicantId,
+      //     }
+      //   );
+      //   break;
+      // }
+      // case C100_APPLICANT_REFUGE_UPLOAD: {
+      //   nextUrl = applyParms(C100_APPLICANT_ADDRESS_LOOKUP, {
+      //     applicantId: this.applicantId,
+      //   });
+      //   break;
+      // }
       case C100_APPLICANT_ADDRESS_LOOKUP: {
         nextUrl = applyParms(C100_APPLICANT_ADDRESS_SELECT, {
           applicantId: this.applicantId,

@@ -3,12 +3,13 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { RootContext } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
-import { REFUGE_UPLOAD_DOC } from '../../../../steps/urls';
+import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../../../steps/urls';
 import { applyParms } from '../../url-parser';
 import { handleError, removeErrors } from '../utils';
 
@@ -21,10 +22,16 @@ export default class C8RefugeploadDocumentPostController extends PostController<
   private async uploadDocument(req: AppRequest, res: Response): Promise<void> {
     const { session, files } = req;
     const { user, userCase: caseData } = session;
+    const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
 
-    req.url = applyParms(REFUGE_UPLOAD_DOC, {
-      root: getCasePartyType(caseData, req.session.user.id),
-    });
+    req.url = C100rebuildJourney
+      ? applyParms(C100_REFUGE_UPLOAD_DOC, {
+          root: RootContext.C100_REBUILD,
+          applicantId: req.params.applicantId!,
+        })
+      : applyParms(REFUGE_UPLOAD_DOC, {
+          root: getCasePartyType(caseData, req.session.user.id),
+        });
 
     if (caseData?.c8_refuge_document?.document_binary_url) {
       req.session.errors = handleError(req.session.errors, 'multipleFiles');

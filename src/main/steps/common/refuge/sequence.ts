@@ -1,5 +1,6 @@
 import { Sections, Step } from '../../../steps/constants';
 import {
+  C100_REFUGE_UPLOAD_DOC,
   REFUGE_DOC_ALREADY_UPLOADED,
   REFUGE_KEEPING_SAFE,
   REFUGE_UPLOAD_DOC,
@@ -27,6 +28,13 @@ export class RefugeSequence {
       },
       {
         url: REFUGE_UPLOAD_DOC,
+        showInSection: Sections.C100,
+        getNextStep: (caseData, req) => {
+          return RefugeNavigationController.getNextPageUrl(REFUGE_UPLOAD_DOC, caseData, req!);
+        },
+      },
+      {
+        url: C100_REFUGE_UPLOAD_DOC,
         showInSection: Sections.C100,
         getNextStep: (caseData, req) => {
           return RefugeNavigationController.getNextPageUrl(REFUGE_UPLOAD_DOC, caseData, req!);
