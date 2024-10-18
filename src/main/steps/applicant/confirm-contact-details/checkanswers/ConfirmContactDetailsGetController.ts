@@ -13,7 +13,7 @@ import {
 export default class ConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const redirect = false;
-    Object.assign(req.session.userCase, setTextFields(req));
+    Object.assign(req.session.userCase, setTextFields(req, res));
     getConfidentialData(req);
     validateDataCompletion(req);
     const callback = redirect ? undefined : () => super.get(req, res);
