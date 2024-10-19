@@ -51,6 +51,7 @@ describe('CaseApi', () => {
     const request = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
       c100RebuildReturnUrl: '/c100-rebuild/screening-questions/consent-agreement',
+      c100RebuildChildPostCode: 'SA11AA',
     };
 
     mockedAxios.post.mockResolvedValueOnce({
@@ -61,7 +62,15 @@ describe('CaseApi', () => {
         noOfDaysRemainingToSubmitCase: '28',
       },
     });
-    const userCase = await api.createCase();
+    const req = mockRequest({
+      session: {
+        userCase: {
+          id: '1234',
+          c100RebuildChildPostCode: 'SA11AA',
+        },
+      },
+    });
+    const userCase = await api.createCase(req);
 
     expect(userCase).toStrictEqual({
       id: '1234',
@@ -94,7 +103,7 @@ describe('CaseApi', () => {
     });
     const userCase = await api.createCaseTestingSupport();
 
-    expect(userCase).toBe('1234');
+    expect(userCase.caseId).toBe('1234');
     expect(mockedAxios.post).toHaveBeenCalledWith('/testing-support/create-dummy-citizen-case');
   });
 

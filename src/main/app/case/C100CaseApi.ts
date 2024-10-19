@@ -7,11 +7,11 @@ import { LoggerInstance } from 'winston';
 
 import { C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { AppSession, UserDetails } from '../controller/AppRequest';
+import { AppRequest, AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
-console.info('** FOR SONAR **');
+
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
@@ -28,27 +28,41 @@ export class CaseApi {
     }
   }
 
-  public async createCase(): Promise<CreateCaseResponse> {
+  public async createCase(req: AppRequest<Partial<Case>>): Promise<CreateCaseResponse> {
     const data = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
       c100RebuildReturnUrl: C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT, //added to handle deafult returnURL incase save & come back is not invoked at all
+      c100RebuildChildPostCode: req?.session?.userCase?.c100RebuildChildPostCode,
     };
 
     try {
       const response = await this.axios.post<CreateCaseResponse>('/case/create', data);
-      const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } =
-        response?.data ?? {};
-      return { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase };
+      const {
+        id,
+        caseTypeOfApplication,
+        c100RebuildReturnUrl,
+        state,
+        noOfDaysRemainingToSubmitCase,
+        c100RebuildChildPostCode,
+      } = response?.data ?? {};
+      return {
+        id,
+        caseTypeOfApplication,
+        c100RebuildReturnUrl,
+        state,
+        noOfDaysRemainingToSubmitCase,
+        c100RebuildChildPostCode,
+      };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
     }
   }
 
-  public async createCaseTestingSupport(): Promise<UpdateCaseResponse> {
+  public async createCaseTestingSupport(): Promise<RetreiveDraftCase> {
     try {
-      const response = await this.axios.post<UpdateCaseResponse>('/testing-support/create-dummy-citizen-case');
-      return response.data.id;
+      const response = await this.axios.post<RetreiveDraftCase>('/testing-support/create-dummy-citizen-case');
+      return detransformCaseData(response.data);
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -293,6 +307,7 @@ interface CreateCaseResponse {
   c100RebuildReturnUrl: string;
   state: State;
   noOfDaysRemainingToSubmitCase: string;
+  c100RebuildChildPostCode: string;
 }
 interface UpdateCaseResponse {
   [key: string]: any;

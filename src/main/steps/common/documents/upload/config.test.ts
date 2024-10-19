@@ -24,8 +24,9 @@ describe('documents > upload > config', () => {
 
     test('applications should have correct document categories', () => {
       const applicationsCategoryList = uploadDocumentSections[1].documentCategoryList;
-      expect(applicationsCategoryList).toHaveLength(1);
-      expect(applicationsCategoryList[0].categoryId).toBe('previous-orders');
+      expect(applicationsCategoryList).toHaveLength(2);
+      expect(applicationsCategoryList[0].categoryId).toBe('submit-awp-application');
+      expect(applicationsCategoryList[1].categoryId).toBe('previous-orders');
     });
 
     test('expertReports should have correct document categories', () => {

@@ -21,7 +21,7 @@ import {
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import { OPotherProceedingsSessionParserUtil } from '../../c100-rebuild/check-your-answers/util/otherProceeding.util';
 import { cy, en } from '../common.content';
-console.info('** FOR SONAR **');
+
 export const getSectionSummaryList = (
   rows: SummaryListRow[],
   content: PageContent,
