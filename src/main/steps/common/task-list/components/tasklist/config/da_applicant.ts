@@ -52,7 +52,7 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
         stateTag: (caseData: Partial<CaseWithId>) =>
-          getConfirmOrEditYourContactDetailsStatus(caseData?.applicantsFL401),
+          getConfirmOrEditYourContactDetailsStatus(caseData, caseData?.applicantsFL401),
       },
       {
         id: Tasks.CONTACT_PREFERENCES,
