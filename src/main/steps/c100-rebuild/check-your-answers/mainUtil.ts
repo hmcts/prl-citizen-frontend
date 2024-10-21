@@ -533,15 +533,36 @@ export const ApplicantDetails = (
       });
     });
 
-    newApplicantData.push(
-      {
-        key: keys['addressDetails'],
-        value: '',
-        valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys, language),
-        changeUrl: applyParms(Urls['C100_APPLICANT_ADDRESS_MANUAL'], {
+    newApplicantData.push({
+      key: keys['refuge'],
+      value: getYesNoTranslation(language, sessionApplicantData[applicant]['liveInRefuge'], 'ydynTranslation'),
+      changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
+        root: RootContext.C100_REBUILD,
+        applicantId: sessionApplicantData[applicant]['id'],
+      }),
+    });
+
+    if (sessionApplicantData[applicant]['liveInRefuge'] === YesOrNo.YES) {
+      newApplicantData.push({
+        key: keys['c8RefugeDocument'],
+        value: sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename'],
+        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
+          root: RootContext.C100_REBUILD,
           applicantId: sessionApplicantData[applicant]['id'],
         }),
-      },
+      });
+    }
+
+    newApplicantData.push({
+      key: keys['addressDetails'],
+      value: '',
+      valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys, language),
+      changeUrl: applyParms(Urls['C100_APPLICANT_ADDRESS_MANUAL'], {
+        applicantId: sessionApplicantData[applicant]['id'],
+      }),
+    });
+
+    newApplicantData.push(
       {
         key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
         value: '',

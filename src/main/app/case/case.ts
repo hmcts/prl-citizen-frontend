@@ -248,6 +248,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
   newChildDetails: 'newChildDetails',
   citizenNotifications: 'citizenNotifications',
+  citizenUserLivingInRefuge: 'citizenUserLivingInRefuge',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -475,6 +476,7 @@ export interface Case {
   citizenUserManualAddressTown?: string;
   citizenUserManualAddressCounty?: string;
   citizenUserManualAddressPostcode?: string;
+  citizenUserLivingInRefuge?: string;
 
   //applicant1LanguagePreference?: LanguagePreference;
   //support you need during the case
@@ -691,6 +693,8 @@ export interface Case {
   awp_supportingDocuments?: DocumentInfo[];
   awp_applicationType?: AWPApplicationType;
   awp_applicationReason?: AWPApplicationReason;
+  c8_refuge_document?: Document;
+  uploadC8Again?: string;
 }
 
 export interface CitizenNotification {
