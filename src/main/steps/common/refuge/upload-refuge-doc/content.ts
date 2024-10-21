@@ -3,9 +3,12 @@ import _ from 'lodash';
 import { RootContext } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { getPeople } from '../../../../steps/c100-rebuild/child-details/live-with/utils';
+import { interpolate } from '../../../../steps/common/string-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../../urls';
 import { applyParms } from '../../url-parser';
+import { getC8DocumentForC100 } from '../utils';
 export * from './routeGuard';
 
 const en = {
@@ -13,6 +16,8 @@ const en = {
   uploadFileHeading: 'Upload a document',
   uploadGuidance:
     'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">here</a>. Your address, email address and contact number will be kept confidential.',
+  c100uploadGuidance:
+    'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">here</a>. {name}\'s address, email address and contact number will be kept confidential.',
   uplodFileHint:
     'When uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
   uploadButtonLabel: 'Upload file',
@@ -44,6 +49,8 @@ const cy: typeof en = {
   title: 'Llwytho’r datganiad cyflwyno',
   uploadGuidance:
     'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external">here</a>. The address, email address and contact number entered for this party will be kept confidential.',
+  c100uploadGuidance:
+    'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">here</a>. {name}\'s address, email address and contact number will be kept confidential.',
   uploadFileHeading: 'Llwytho dogfen',
   uplodFileHint:
     'Pan fyddwch yn llwytho dogfennau, gwnewch yn siŵr eich bod yn enwi’r ffeiliau yn glir.  Er enghraifft, datganiad-safbwynt.doc. Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
@@ -89,12 +96,32 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const { session } = content.additionalData?.req;
   const uploadDocError = session?.errors?.find(error => error.propertyName === 'c8RefugeDocument') ?? null;
-  const uploadedDocument = session?.userCase?.c8_refuge_document;
+  let uploadedDocument = session?.userCase?.c8_refuge_document;
   const partyType = getCasePartyType(session.userCase, session.user.id);
   const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
+  const applicantId = content.additionalData?.req.params.applicantId
+    ? content.additionalData?.req.params.applicantId
+    : content.additionalData?.req.params.removeFileId;
+  const c100Person = getPeople(content.userCase!).find(person => person.id === applicantId)!;
+
+  delete form.saveAndComeLater;
+  if (C100rebuildJourney) {
+    Object.assign(form, {
+      saveAndComeLater: {
+        text: l => l.saveAndComeLater,
+      },
+    });
+
+    uploadedDocument = getC8DocumentForC100(applicantId, session.userCase, c100Person);
+  }
 
   return {
     ...translations,
+    uploadGuidance: C100rebuildJourney
+      ? interpolate(translations.c100uploadGuidance, {
+          name: `${c100Person.firstName} ${c100Person.lastName}`,
+        })
+      : translations.uploadGuidance,
     form,
     fileUploadConfig: {
       labelText: translations.uploadFileHeading,
@@ -111,7 +138,7 @@ export const generateContent: TranslationFn = content => {
               fileremoveUrl: C100rebuildJourney
                 ? applyParms(C100_REFUGE_UPLOAD_DOC, {
                     root: RootContext.C100_REBUILD,
-                    applicantId: content.additionalData?.req.params.applicantId,
+                    applicantId,
                     removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
                   })
                 : applyParms(REFUGE_UPLOAD_DOC, {

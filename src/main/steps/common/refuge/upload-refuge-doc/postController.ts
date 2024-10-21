@@ -3,15 +3,17 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { RootContext } from '../../../../app/case/definition';
+import { C100Applicant, PartyType, RootContext } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
+import { getApplicantDetails, updateApplicantDetails } from '../../../../steps/c100-rebuild/applicant/util';
+import { getPeople } from '../../../../steps/c100-rebuild/child-details/live-with/utils';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../../../steps/urls';
 import { applyParms } from '../../url-parser';
-import { handleError, removeErrors } from '../utils';
+import { getC8DocumentForC100, handleError, removeErrors } from '../utils';
 
 @autobind
 export default class C8RefugeploadDocumentPostController extends PostController<AnyObject> {
@@ -23,11 +25,13 @@ export default class C8RefugeploadDocumentPostController extends PostController<
     const { session, files } = req;
     const { user, userCase: caseData } = session;
     const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
+    const applicantId = req.params.applicantId ? req.params.applicantId : req.params.removeFileId;
+    const c100Person = getPeople(caseData).find(person => person.id === applicantId)!;
 
     req.url = C100rebuildJourney
       ? applyParms(C100_REFUGE_UPLOAD_DOC, {
           root: RootContext.C100_REBUILD,
-          applicantId: req.params.applicantId!,
+          applicantId,
         })
       : applyParms(REFUGE_UPLOAD_DOC, {
           root: getCasePartyType(caseData, req.session.user.id),
@@ -62,8 +66,18 @@ export default class C8RefugeploadDocumentPostController extends PostController<
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
       }
-
-      req.session.userCase.c8_refuge_document = response.document;
+      if (C100rebuildJourney) {
+        if (c100Person.partyType === PartyType.APPLICANT) {
+          const applicantPersonDetails = getApplicantDetails(
+            req.session.userCase.appl_allApplicants!,
+            applicantId
+          ) as C100Applicant;
+          Object.assign(applicantPersonDetails, { refugeConfidentialityC8Form: response.document });
+          updateApplicantDetails(req.session.userCase.appl_allApplicants!, applicantPersonDetails);
+        }
+      } else {
+        req.session.userCase.c8_refuge_document = response.document;
+      }
       req.session.errors = removeErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
@@ -75,7 +89,16 @@ export default class C8RefugeploadDocumentPostController extends PostController<
   private async onContinue(req: AppRequest, res: Response): Promise<void> {
     const { userCase: caseData } = req.session;
 
-    if (!caseData?.c8_refuge_document?.document_binary_url) {
+    const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
+    const applicantId = req.params.applicantId ? req.params.applicantId : req.params.removeFileId;
+    const c100Person = getPeople(caseData).find(person => person.id === applicantId)!;
+    let uploadedDocument = caseData?.c8_refuge_document;
+
+    if (C100rebuildJourney) {
+      uploadedDocument = getC8DocumentForC100(applicantId, caseData, c100Person);
+    }
+
+    if (!uploadedDocument?.document_binary_url) {
       req.session.errors = handleError(req.session.errors, 'empty', true);
     }
 

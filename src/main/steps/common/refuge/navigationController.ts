@@ -1,8 +1,17 @@
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../app/case/case';
-import { PartyType, RootContext, YesOrNo } from '../../../app/case/definition';
+import {
+  C100Applicant,
+  C100RebuildPartyDetails,
+  PartyType,
+  People,
+  RootContext,
+  YesOrNo,
+} from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import { getPeople } from '../../../steps/c100-rebuild/child-details/live-with/utils';
+import { getPartyDetails } from '../../../steps/c100-rebuild/people/util';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import {
   APPLICANT_ADDRESS_DETAILS,
@@ -18,6 +27,8 @@ import {
 } from '../../urls';
 import { applyParms } from '../url-parser';
 
+import { getC8DocumentForC100 } from './utils';
+
 class RefugeNavigationController {
   public getNextPageUrl(currentPageUrl: PageLink, caseData: Partial<CaseWithId>, req: AppRequest) {
     const partyType = getCasePartyType(caseData, req.session.user.id);
@@ -26,10 +37,26 @@ class RefugeNavigationController {
     const partyRootContext = partyType === PartyType.RESPONDENT ? RootContext.RESPONDENT : RootContext.APPLICANT;
     const partyAddressDetails =
       partyType === PartyType.RESPONDENT ? RESPONDENT_ADDRESS_DETAILS : APPLICANT_ADDRESS_DETAILS;
-    // const { applicantId } = req.params;
+    const applicantId = req.params.applicantId ? req.params.applicantId : req.params.removeFileId;
     const addressDetails = C100rebuildJourney
-      ? (applyParms(C100_APPLICANT_ADDRESS_LOOKUP, { applicantId: req.params.applicantId }) as PageLink)
+      ? (applyParms(C100_APPLICANT_ADDRESS_LOOKUP, { applicantId }) as PageLink)
       : partyAddressDetails;
+    const isDocumentUploaded = !_.isEmpty(
+      C100rebuildJourney
+        ? getC8DocumentForC100(
+            applicantId,
+            req.session.userCase,
+            getPeople(req.session.userCase).find(person => person.id === applicantId)!
+          )
+        : caseData.c8_refuge_document
+    );
+    const isPersonLivingInRefuge = C100rebuildJourney
+      ? this.isC100PersonLivingInRefuge(
+          req.session.userCase,
+          applicantId,
+          getPeople(req.session.userCase).find(person => person.id === applicantId)!
+        )
+      : caseData.citizenUserLivingInRefuge === YesOrNo.YES;
 
     switch (currentPageUrl) {
       case STAYING_IN_REFUGE: {
@@ -39,7 +66,7 @@ class RefugeNavigationController {
               applicantId: req.params.applicantId,
             }) as PageLink)
           : (applyParms(REFUGE_KEEPING_SAFE, { root: partyRootContext }) as PageLink);
-        url = caseData.citizenUserLivingInRefuge === YesOrNo.YES ? nextUrl : addressDetails;
+        url = isPersonLivingInRefuge ? nextUrl : addressDetails;
         break;
       }
       case REFUGE_KEEPING_SAFE: {
@@ -55,10 +82,14 @@ class RefugeNavigationController {
               applicantId: req.params.applicantId,
             }) as PageLink)
           : (applyParms(REFUGE_UPLOAD_DOC, { root: partyRootContext }) as PageLink);
-        url = !_.isEmpty(caseData.c8_refuge_document) ? alreadyUploadedDocUrl : uploadDocUrl;
+        url = isDocumentUploaded ? alreadyUploadedDocUrl : uploadDocUrl;
         break;
       }
       case REFUGE_UPLOAD_DOC: {
+        url = addressDetails;
+        break;
+      }
+      case C100_REFUGE_UPLOAD_DOC: {
         url = addressDetails;
         break;
       }
@@ -78,6 +109,16 @@ class RefugeNavigationController {
       }
     }
     return url;
+  }
+
+  private isC100PersonLivingInRefuge(caseData: CaseWithId, id: string, person: People): boolean {
+    if (person.partyType === PartyType.APPLICANT) {
+      const applicantDetails = getPartyDetails(id, caseData.appl_allApplicants) as C100Applicant;
+      return applicantDetails.liveInRefuge! === YesOrNo.YES;
+    } else {
+      const otherPersonDetails = getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails;
+      return otherPersonDetails.liveInRefuge! === YesOrNo.YES;
+    }
   }
 }
 

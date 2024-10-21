@@ -9,6 +9,7 @@ import { interpolate } from '../../../../steps/common/string-parser';
 import { C100_URL } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
 import { generateContentForLocalComponent } from '../utils';
+export * from './routeGuard';
 
 const en = {
   title: 'Staying in a refuge',

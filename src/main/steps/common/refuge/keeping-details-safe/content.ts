@@ -6,37 +6,49 @@ import { C100_URL } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
 
 const en = {
-  title: 'Keeping {name} details safe',
-  understandSafety:
-    'We understand how important it is to feel safe, and know that {name} details will be kept private.',
-  detailsKeptConfidential:
-    '{name} details will be kept confidential and will only be used by the court, as well as by Cafcass or Cafcass Cymru. They will not be shared with anyone else.',
-  helpKeepDetailsPrivate:
-    'To help us to keep {name} details safe, do not include {details} in any other communications during the case.',
+  c100: {
+    title: "Keeping {name}'s details safe",
+    understandSafety:
+      "We understand how important it is to feel safe, and know that {name}'s details will be kept private.",
+    detailsKeptConfidential:
+      "{name}'s details will be kept confidential and will only be used by the court, as well as by Cafcass or Cafcass Cymru. They will not be shared with anyone else.",
+    helpKeepDetailsPrivate:
+      "To help us to keep {name}'s details safe, do not include their details in any other communications during the case.",
+  },
+  applicantRespondent: {
+    title: 'Keeping your details safe',
+    understandSafety:
+      'We understand how important it is to feel safe, and know that your details will be kept private.',
+    detailsKeptConfidential:
+      'Your details will be kept confidential and will only be used by the court, as well as by Cafcass or Cafcass Cymru. They will not be shared with anyone else.',
+    helpKeepDetailsPrivate:
+      'To help us to keep your details safe, do not include them in any other communications during the case.',
+  },
   continue: 'Continue',
   cancel: 'Cancel',
-  plural: "'s",
-  your: 'your',
-  capitalYour: 'Your',
-  details: 'their details',
-  them: 'them',
 };
 
 const cy: typeof en = {
-  title: 'Keeping your details safe (welsh)',
-  understandSafety:
-    'We understand how important it is to feel safe, and know that your details will be kept private. (welsh)',
-  detailsKeptConfidential:
-    'Your details will be kept confidential and will only be used by the court, as well as by Cafcass or Cafcass Cymru. They will not be shared with anyone else. (welsh)',
-  helpKeepDetailsPrivate:
-    'To help us to keep your details safe, do not include them in any other communications during the case. (welsh)',
+  c100: {
+    title: "Keeping {name}'s details safe (welsh)",
+    understandSafety:
+      "We understand how important it is to feel safe, and know that {name}'s details will be kept private. (welsh)",
+    detailsKeptConfidential:
+      "{name}'s details will be kept confidential and will only be used by the court, as well as by Cafcass or Cafcass Cymru. They will not be shared with anyone else. (welsh)",
+    helpKeepDetailsPrivate:
+      "To help us to keep {name}'s details safe, do not include their details in any other communications during the case. (welsh)",
+  },
+  applicantRespondent: {
+    title: 'Keeping your details safe (welsh)',
+    understandSafety:
+      'We understand how important it is to feel safe, and know that your details will be kept private. (welsh)',
+    detailsKeptConfidential:
+      'Your details will be kept confidential and will only be used by the court, as well as by Cafcass or Cafcass Cymru. They will not be shared with anyone else. (welsh)',
+    helpKeepDetailsPrivate:
+      'To help us to keep your details safe, do not include them in any other communications during the case. (welsh)',
+  },
   continue: 'Continue',
   cancel: 'Canslo',
-  plural: "'s",
-  your: 'your',
-  capitalYour: 'Your',
-  details: 'their details',
-  them: 'them',
 };
 
 const languages = {
@@ -58,6 +70,7 @@ export const generateContent = (content: CommonContent): PageContent => {
   )!;
   const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
 
+  delete form.saveAndComeLater;
   if (C100rebuildJourney) {
     Object.assign(form, {
       saveAndComeLater: {
@@ -68,27 +81,26 @@ export const generateContent = (content: CommonContent): PageContent => {
 
   return {
     ...translations,
-    title: interpolate(translations.title, {
-      name: C100rebuildJourney
-        ? `${c100Person.firstName} ${c100Person.lastName}${translations.plural}`
-        : translations.your,
-    }),
-    understandSafety: interpolate(translations.understandSafety, {
-      name: C100rebuildJourney
-        ? `${c100Person.firstName} ${c100Person.lastName}${translations.plural}`
-        : translations.your,
-    }),
-    detailsKeptConfidential: interpolate(translations.detailsKeptConfidential, {
-      name: C100rebuildJourney
-        ? `${c100Person.firstName} ${c100Person.lastName}${translations.plural}`
-        : translations.capitalYour,
-    }),
-    helpKeepDetailsPrivate: interpolate(translations.helpKeepDetailsPrivate, {
-      name: C100rebuildJourney
-        ? `${c100Person.firstName} ${c100Person.lastName}${translations.plural}`
-        : translations.your,
-      details: C100rebuildJourney ? translations.details : translations.them,
-    }),
+    title: C100rebuildJourney
+      ? interpolate(translations.c100.title, {
+          name: `${c100Person.firstName} ${c100Person.lastName}`,
+        })
+      : translations.applicantRespondent.title,
+    understandSafety: C100rebuildJourney
+      ? interpolate(translations.c100.understandSafety, {
+          name: `${c100Person.firstName} ${c100Person.lastName}`,
+        })
+      : translations.applicantRespondent.understandSafety,
+    detailsKeptConfidential: C100rebuildJourney
+      ? interpolate(translations.c100.detailsKeptConfidential, {
+          name: `${c100Person.firstName} ${c100Person.lastName}`,
+        })
+      : translations.applicantRespondent.detailsKeptConfidential,
+    helpKeepDetailsPrivate: C100rebuildJourney
+      ? interpolate(translations.c100.helpKeepDetailsPrivate, {
+          name: `${c100Person.firstName} ${c100Person.lastName}`,
+        })
+      : translations.applicantRespondent.helpKeepDetailsPrivate,
     form,
   };
 };

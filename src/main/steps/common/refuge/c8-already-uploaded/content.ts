@@ -2,15 +2,19 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
+import { getPeople } from '../../../../steps/c100-rebuild/child-details/live-with/utils';
+import { interpolate } from '../../../../steps/common/string-parser';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
-import { DOWNLOAD_DOCUMENT } from '../../../urls';
+import { C100_URL, DOWNLOAD_DOCUMENT } from '../../../urls';
 import { CommonContent } from '../../common.content';
 import { transformFileName } from '../../documents/download/utils';
 import { applyParms } from '../../url-parser';
+import { getC8DocumentForC100 } from '../utils';
 
 const en = {
   title: 'Reuploading a C8 form',
   previouslyUploaded: 'You have previously uploaded a C8 form.',
+  c100PreviouslyUploaded: 'A C8 form has already been uploaded for {name}',
   canView: 'You can view the uploaded document',
   viewDoc: 'here (opens in a new tab)',
   uploadC8Label: 'Do you still want to upload a new C8 form?',
@@ -27,6 +31,7 @@ const en = {
 const cy: typeof en = {
   title: 'Uploading a new C8 form (welsh)',
   previouslyUploaded: 'You have previously uploaded a C8 form.',
+  c100PreviouslyUploaded: 'A C8 form has already been uploaded for {name} (welsh)',
   canView: 'You can view this',
   viewDoc: 'here (opens in a new tab)',
   uploadC8Label: 'Do you still want to upload a new C8 form?',
@@ -74,7 +79,22 @@ export const generateContent = (content: CommonContent): PageContent => {
   const translations = languages[content.language];
   const request = content.additionalData!.req;
   const caseData = request.session.userCase;
-  const c8Document = caseData.c8_refuge_document;
+  let c8Document = caseData.c8_refuge_document;
+  const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
+  const id = content.additionalData?.req.params.applicantId;
+
+  const c100Person = getPeople(content.userCase!).find(person => person.id === id)!;
+
+  delete form.saveAndComeLater;
+  if (C100rebuildJourney) {
+    Object.assign(form, {
+      saveAndComeLater: {
+        text: l => l.saveAndComeLater,
+      },
+    });
+
+    c8Document = getC8DocumentForC100(id, caseData, c100Person);
+  }
 
   const partyType = getCasePartyType(caseData, request.session.user.id);
   const url = applyParms(DOWNLOAD_DOCUMENT, {
@@ -85,6 +105,11 @@ export const generateContent = (content: CommonContent): PageContent => {
 
   return {
     ...translations,
+    previouslyUploaded: C100rebuildJourney
+      ? interpolate(translations.c100PreviouslyUploaded, {
+          name: `${c100Person.firstName} ${c100Person.lastName}`,
+        })
+      : translations.previouslyUploaded,
     form,
     c8Document: {
       href: url,
