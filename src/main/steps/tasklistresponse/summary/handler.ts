@@ -146,7 +146,7 @@ function dataCleanupConfirmContactDetail(userCase: Partial<CaseWithId>, responde
   }
 
   mapAddressText(userCase);
-  if (YesOrNo.YES === userCase.isAtAddressLessThan5Years) {
+  if (YesOrNo.NO === userCase.isAtAddressLessThan5Years) {
     userCase.citizenUserAddressHistory = '';
   }
 }

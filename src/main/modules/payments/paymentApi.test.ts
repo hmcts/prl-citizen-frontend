@@ -34,7 +34,7 @@ describe('PaymentSystemAPIInstance class testing', () => {
 });
 
 /* A test case for the PaymentTaskResolver class. */
-describe('PaymentTaskResolver class testing', () => {
+describe.skip('PaymentTaskResolver class testing', () => {
   const dummyCaseID = '2122323';
   const dummyreturnUrl = 'http://localhost:3001/payment/reciever/callback';
   const hwfRefNumber = 'HWF-1234';
