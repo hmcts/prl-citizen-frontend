@@ -153,7 +153,7 @@ const en: TaskListContent = {
         heading: 'Your documents',
         tasks: {
           uploadDocuments: {
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
           },
           viewAllDocuments: {
             linkText: 'View all documents',
@@ -196,7 +196,7 @@ const en: TaskListContent = {
         heading: 'Your documents',
         tasks: {
           uploadDocuments: {
-            linkText: ' Upload documents',
+            linkText: 'Upload documents, applications and statements',
           },
           viewAllDocuments: {
             linkText: 'View all documents',
@@ -284,7 +284,7 @@ const en: TaskListContent = {
             linkText: 'View all documents',
           },
           uploadDocuments: {
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
           },
         },
       },
@@ -453,7 +453,7 @@ const cy: typeof en = {
         heading: 'Eich dogfennau',
         tasks: {
           uploadDocuments: {
-            linkText: 'Llwytho dogfennau Dewisol',
+            linkText: 'Llwytho dogfennau, ceisiadau a datganiadau',
           },
           viewAllDocuments: {
             linkText: 'Eich diogelwch',
@@ -496,7 +496,7 @@ const cy: typeof en = {
         heading: 'Eich dogfennau',
         tasks: {
           uploadDocuments: {
-            linkText: 'Llwytho dogfennau',
+            linkText: 'Llwytho dogfennau, ceisiadau a datganiadau',
           },
           viewAllDocuments: {
             linkText: 'Gweld yr holl ddogfennau',
@@ -586,7 +586,7 @@ const cy: typeof en = {
             linkText: 'Eich diogelwch',
           },
           uploadDocuments: {
-            linkText: 'Llwytho dogfennau Dewisol',
+            linkText: 'Llwytho dogfennau, ceisiadau a datganiadau',
           },
         },
       },

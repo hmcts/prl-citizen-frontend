@@ -2490,7 +2490,7 @@ describe('tasklist index', () => {
           tasks: [
             {
               id: 'uploadDocuments',
-              linkText: ' Upload documents',
+              linkText: 'Upload documents, applications and statements',
               href: '/applicant/documents/upload',
               disabled: false,
               stateTag: {
@@ -2653,7 +2653,7 @@ describe('tasklist index', () => {
           tasks: [
             {
               id: 'uploadDocuments',
-              linkText: ' Upload documents',
+              linkText: 'Upload documents, applications and statements',
               href: '/applicant/documents/upload',
               disabled: false,
               stateTag: {
@@ -3050,7 +3050,7 @@ describe('tasklist index', () => {
           tasks: [
             {
               id: 'uploadDocuments',
-              linkText: 'Upload Documents',
+              linkText: 'Upload documents, applications and statements',
               href: '/respondent/documents/upload',
               disabled: false,
               stateTag: {
@@ -3416,7 +3416,7 @@ describe('c100 respondent', () => {
         tasks: [
           {
             id: 'uploadDocuments',
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
@@ -3679,7 +3679,7 @@ describe('c100 respondent', () => {
         tasks: [
           {
             id: 'uploadDocuments',
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
@@ -4013,7 +4013,7 @@ describe('c100 respondent', () => {
         tasks: [
           {
             id: 'uploadDocuments',
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
@@ -4346,7 +4346,7 @@ describe('c100 respondent', () => {
         tasks: [
           {
             id: 'uploadDocuments',
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
