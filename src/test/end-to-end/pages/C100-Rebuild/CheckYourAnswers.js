@@ -114,7 +114,7 @@ module.exports = {
     async checkAnswersAndPay() {
         await this.checkYourAnswersAndPay();
         await this.selectNoPCQOption();
-        //await this.payByCard();
-        //await this.applicationSubmitted();
+        await this.payByCard();
+        await this.applicationSubmitted();
     }
 };

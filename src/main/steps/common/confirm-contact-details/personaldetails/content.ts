@@ -152,7 +152,9 @@ export const form: FormContent = {
         label: l => l.citizenUserPlaceOfBirth,
         labelSize: null,
         hidden: caseData?.caseTypeOfApplication === CaseType.FL401,
-        validator: value => isFieldFilledIn(value),
+        validator: value => {
+          return !(caseData?.caseTypeOfApplication === CaseType.FL401) ? isFieldFilledIn(value) : undefined;
+        },
       },
     };
   },
