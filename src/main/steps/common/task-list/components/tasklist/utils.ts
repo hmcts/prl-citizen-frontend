@@ -6,6 +6,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import {
   CaseType,
   CitizenInternationalElements,
+  PartyDetails,
   PartyType,
   YesOrNo,
   hearingStatus,
@@ -116,23 +117,38 @@ export const getKeepYourDetailsPrivateStatus = keepDetailsPrivate => {
   }
   return status;
 };
-export const getConfirmOrEditYourContactDetailsStatus = party => {
+export const getConfirmOrEditYourContactDetailsStatus = (
+  caseData: Partial<CaseWithId>,
+  partyDetails: PartyDetails | undefined
+) => {
   const status = StateTags.TO_DO;
+
+  if (!partyDetails) {
+    return status;
+  }
+
   const summaryField = [
-    party.firstName,
-    party.lastName,
-    party.placeOfBirth,
-    party.address?.AddressLine1,
-    party.phoneNumber,
-    party.email,
-    party.dateOfBirth,
+    partyDetails.firstName,
+    partyDetails.lastName,
+    partyDetails.placeOfBirth,
+    partyDetails.address?.AddressLine1,
+    partyDetails.phoneNumber,
+    partyDetails.email,
+    partyDetails.dateOfBirth,
   ];
+
+  if (caseData?.caseTypeOfApplication === CaseType.FL401) {
+    summaryField.splice(2, 1);
+  }
+
   if (summaryField.every(currentValue => currentValue)) {
     return StateTags.COMPLETED;
   }
+
   if (summaryField.some(currentValue => currentValue)) {
     return StateTags.IN_PROGRESS;
   }
+
   return status;
 };
 export const getSupportYourNeedsDetailsStatus = (userCase: Partial<CaseWithId>): StateTags => {

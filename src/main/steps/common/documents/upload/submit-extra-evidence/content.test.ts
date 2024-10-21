@@ -36,6 +36,9 @@ describe('documents > upload > submit-extra-evidence > content', () => {
             id: '123',
             caseTypeOfApplication: 'C100',
           },
+          user: {
+            id: 'user123',
+          },
         },
       },
     },
