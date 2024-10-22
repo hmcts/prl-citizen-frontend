@@ -10,6 +10,7 @@ import { CommonContent } from '../../common.content';
 import { transformFileName } from '../../documents/download/utils';
 import { applyParms } from '../../url-parser';
 import { getC8DocumentForC100 } from '../utils';
+export * from './routeGuard';
 
 const en = {
   title: 'Reuploading a C8 form',
