@@ -65,9 +65,7 @@ export const form: FormContent = {
 
 export const generateContent = (content: CommonContent): PageContent => {
   const translations = languages[content.language];
-  const c100Person = getPeople(content.userCase!).find(
-    person => person.id === content.additionalData?.req.params.applicantId
-  )!;
+  const c100Person = getPeople(content.userCase!).find(person => person.id === content.additionalData?.req.params.id)!;
   const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
 
   delete form.saveAndComeLater;

@@ -99,10 +99,10 @@ export const generateContent: TranslationFn = content => {
   let uploadedDocument = session?.userCase?.c8_refuge_document;
   const partyType = getCasePartyType(session.userCase, session.user.id);
   const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
-  const applicantId = content.additionalData?.req.params.applicantId
-    ? content.additionalData?.req.params.applicantId
+  const id = content.additionalData?.req.params.id
+    ? content.additionalData?.req.params.id
     : content.additionalData?.req.params.removeFileId;
-  const c100Person = getPeople(content.userCase!).find(person => person.id === applicantId)!;
+  const c100Person = getPeople(content.userCase!).find(person => person.id === id)!;
 
   delete form.saveAndComeLater;
   if (C100rebuildJourney) {
@@ -112,7 +112,7 @@ export const generateContent: TranslationFn = content => {
       },
     });
 
-    uploadedDocument = getC8DocumentForC100(applicantId, session.userCase, c100Person);
+    uploadedDocument = getC8DocumentForC100(id, session.userCase, c100Person);
   }
 
   return {
@@ -138,7 +138,7 @@ export const generateContent: TranslationFn = content => {
               fileremoveUrl: C100rebuildJourney
                 ? applyParms(C100_REFUGE_UPLOAD_DOC, {
                     root: RootContext.C100_REBUILD,
-                    applicantId,
+                    id,
                     removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
                   })
                 : applyParms(REFUGE_UPLOAD_DOC, {

@@ -10,7 +10,7 @@ export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   get: async (req: AppRequest, res: Response, next: NextFunction) => {
     const userCase = req.session.userCase;
-    const id = req.params.applicantId;
+    const id = req.params.id;
 
     if (req?.originalUrl?.startsWith(C100_URL)) {
       const c100Person = getPeople(userCase).find(person => person.id === id)!;

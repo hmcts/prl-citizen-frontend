@@ -99,7 +99,7 @@ class ApplicantNavigationController {
             })
           : applyParms(STAYING_IN_REFUGE, {
               root: RootContext.C100_REBUILD,
-              applicantId: this.applicantId,
+              id: this.applicantId,
             });
         break;
       }

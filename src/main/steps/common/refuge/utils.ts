@@ -62,7 +62,7 @@ export const deleteDocument = async (req: AppRequest, res: Response, id?: string
       const redirectUrl = C100rebuildJourney
         ? applyParms(C100_REFUGE_UPLOAD_DOC, {
             root: RootContext.C100_REBUILD,
-            applicantId: id!,
+            id: id!,
           })
         : applyParms(REFUGE_UPLOAD_DOC, {
             root: partyType,

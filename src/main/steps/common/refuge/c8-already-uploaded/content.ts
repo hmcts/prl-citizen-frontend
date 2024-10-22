@@ -81,7 +81,7 @@ export const generateContent = (content: CommonContent): PageContent => {
   const caseData = request.session.userCase;
   let c8Document = caseData.c8_refuge_document;
   const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
-  const id = content.additionalData?.req.params.applicantId;
+  const id = content.additionalData?.req.params.id;
 
   const c100Person = getPeople(content.userCase!).find(person => person.id === id)!;
 

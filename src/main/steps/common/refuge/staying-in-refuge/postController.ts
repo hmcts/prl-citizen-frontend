@@ -20,7 +20,7 @@ export default class StayingInRefugeController extends PostController<AnyObject>
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { onlyContinue, saveAndComeLater, ...formFields } = req.body;
     const userCase = req.session.userCase;
-    const id = req.params.applicantId;
+    const id = req.params.id;
     const { citizenUserLivingInRefuge } = formFields;
 
     if (req?.originalUrl?.startsWith(C100_URL)) {

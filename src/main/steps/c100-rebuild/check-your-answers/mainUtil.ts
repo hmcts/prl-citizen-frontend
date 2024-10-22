@@ -538,7 +538,7 @@ export const ApplicantDetails = (
       value: getYesNoTranslation(language, sessionApplicantData[applicant]['liveInRefuge'], 'ydynTranslation'),
       changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
         root: RootContext.C100_REBUILD,
-        applicantId: sessionApplicantData[applicant]['id'],
+        id: sessionApplicantData[applicant]['id'],
       }),
     });
 
@@ -548,7 +548,7 @@ export const ApplicantDetails = (
         value: sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename'],
         changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
           root: RootContext.C100_REBUILD,
-          applicantId: sessionApplicantData[applicant]['id'],
+          id: sessionApplicantData[applicant]['id'],
         }),
       });
     }
@@ -1369,6 +1369,26 @@ export const OtherPeopleDetails = (
         }),
       });
     });
+
+    newOtherPeopleStorage.push({
+      key: keys['refuge'],
+      value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['liveInRefuge'], 'ydynTranslation'),
+      changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
+        root: RootContext.C100_REBUILD,
+        id: sessionOtherPeopleData[respondent]['id'],
+      }),
+    });
+
+    if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
+      newOtherPeopleStorage.push({
+        key: keys['c8RefugeDocument'],
+        value: sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form']?.['document_filename'],
+        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
+          root: RootContext.C100_REBUILD,
+          id: sessionOtherPeopleData[respondent]['id'],
+        }),
+      });
+    }
 
     if (!sessionOtherPeopleData[respondent].hasOwnProperty('addressUnknown')) {
       newOtherPeopleStorage.push({

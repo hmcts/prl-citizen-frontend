@@ -55,7 +55,7 @@ const languages = {
 export const form: FormContent = {
   fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
     const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
-    const c100Person = getPeople(userCase).find(person => person.id === req.params.applicantId)!;
+    const c100Person = getPeople(userCase).find(person => person.id === req.params.id)!;
     return {
       citizenUserLivingInRefuge: {
         type: 'radios',
