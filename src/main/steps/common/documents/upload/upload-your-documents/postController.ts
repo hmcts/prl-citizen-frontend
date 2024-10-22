@@ -70,10 +70,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
         documentCategory = UploadDocumentAPICategory.EMAIL_IMAGES_MEDIA;
         break;
       case UploadDocumentCategory.LETTERS_FROM_SCHOOL:
-        documentCategory =
-          partyType === PartyType.APPLICANT
-            ? UploadDocumentAPICategory.LETTERS_FROM_SCHOOL_APPLICANT
-            : UploadDocumentAPICategory.LETTERS_FROM_SCHOOL_RESPONDENT;
+        documentCategory = UploadDocumentAPICategory.LETTERS_FROM_SCHOOL;
         break;
       case UploadDocumentCategory.TENANCY_AND_MORTGAGE_AGREEMENTS:
         documentCategory = UploadDocumentAPICategory.TENANCY_AND_MORTGAGE_AGREEMENTS;
