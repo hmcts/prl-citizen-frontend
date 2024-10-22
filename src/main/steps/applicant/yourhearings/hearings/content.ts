@@ -1,8 +1,13 @@
-import { HearingOrders, PartyType } from '../../../../app/case/definition';
+import { AWPApplicationReason, AWPApplicationType, HearingOrders, PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { transformFileName } from '../../../../steps/common/documents/download/utils';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { DOWNLOAD_DOCUMENT, FETCH_CASE_DETAILS, REASONABLE_ADJUSTMENTS_INTRO } from '../../../../steps/urls';
+import {
+  APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
+  DOWNLOAD_DOCUMENT,
+  FETCH_CASE_DETAILS,
+  REASONABLE_ADJUSTMENTS_INTRO,
+} from '../../../../steps/urls';
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
 
 export { form } from '../../../common/yourhearings/hearings/content';
@@ -14,6 +19,12 @@ export const generateContent: TranslationFn = content => {
   hearingsContent.linkforsupport = applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
     partyType: PartyType.APPLICANT,
   });
+  hearingsContent.linkfordelayorcancel = applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+    partyType: PartyType.APPLICANT,
+    applicationType: AWPApplicationType.C2,
+    applicationReason: AWPApplicationReason.DELAY_CANCEL_HEARING_DATE,
+  });
+
   const hearingOrders: HearingOrders[] = [];
   //** validate **
   for (const doc of request.session.userCase?.orderCollection || []) {

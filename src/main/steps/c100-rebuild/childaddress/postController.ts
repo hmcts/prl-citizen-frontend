@@ -48,7 +48,8 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
         caseTypeOfApplication,
         state,
         noOfDaysRemainingToSubmitCase,
-      } = await req.locals.C100Api.createCase();
+        c100RebuildChildPostCode,
+      } = await req.locals.C100Api.createCase(req);
 
       req.session.userCaseList = [];
       req.session.userCase = {
@@ -56,6 +57,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
         caseTypeOfApplication,
         state,
         noOfDaysRemainingToSubmitCase,
+        c100RebuildChildPostCode,
       } as CaseWithId;
     } catch (error) {
       client.logError(error);
