@@ -199,9 +199,13 @@ export const prepareCaseView = (
         let caseApplicantName = rest.applicantName;
 
         if (!caseApplicantName) {
-          caseApplicantName = rest?.applicants?.length
-            ? `${rest.applicants[0].value.firstName} ${rest.applicants[0].value.lastName}`
-            : '';
+          if (rest?.applicants?.length) {
+            caseApplicantName = `${rest.applicants[0].value.firstName} ${rest.applicants[0].value.lastName}`;
+          } else if (rest?.applicantsFL401?.firstName) {
+            caseApplicantName = `${rest.applicantsFL401.firstName} ${rest.applicantsFL401.lastName}`;
+          } else {
+            caseApplicantName = '';
+          }
         }
 
         if (_tabs[tab]) {

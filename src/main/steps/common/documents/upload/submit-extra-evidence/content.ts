@@ -1,7 +1,9 @@
+import { AWPApplicationReason, AWPApplicationType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { applyParms } from '../../../../../steps/common/url-parser';
-import { FETCH_CASE_DETAILS } from '../../../../urls';
+import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
+import { APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, FETCH_CASE_DETAILS } from '../../../../urls';
 
 const en = () => ({
   section: 'Upload documents',
@@ -51,6 +53,11 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
+    c2FormLink: applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+      partyType: getCasePartyType(userCase, request.session.user.id),
+      applicationType: AWPApplicationType.C2,
+      applicationReason: AWPApplicationReason.SUBMIT_EVIDENCE_COURT_NOT_REQUESTED,
+    }),
     form,
   };
 };
