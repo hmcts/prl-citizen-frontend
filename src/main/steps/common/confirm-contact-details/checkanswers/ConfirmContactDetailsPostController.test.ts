@@ -59,7 +59,7 @@ describe('ConfirmContactDetailsPostController', () => {
             idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
             email: 'test@example.net',
           },
-          livingInRefuge: 'No',
+          liveInRefuge: 'No',
         },
       },
     ];
@@ -152,7 +152,7 @@ describe('ConfirmContactDetailsPostController', () => {
       placeOfBirth: 'london',
       previousName: 'Johnny Smith',
       response: { safeToCallOption: '4 pm' },
-      livingInRefuge: 'No',
+      liveInRefuge: 'No',
     };
 
     updated = {
@@ -176,7 +176,7 @@ describe('ConfirmContactDetailsPostController', () => {
         idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
         email: 'test@example.net',
       },
-      livingInRefuge: 'No',
+      liveInRefuge: 'No',
     };
 
     retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);

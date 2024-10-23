@@ -16,9 +16,10 @@ const en = {
   },
   keys: {
     citizenUserFullName: 'Name',
-    citizenUserLivingInRefuge: 'Living in refuge',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
+    citizenUserLivingInRefugeText: 'Living in refuge',
+    c8_refuge_document: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
@@ -40,9 +41,10 @@ const cy: typeof en = {
   },
   keys: {
     citizenUserFullName: 'Enw',
-    citizenUserLivingInRefuge: 'Living in refuge (welsh)',
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
+    citizenUserLivingInRefugeText: 'Living in refuge (welsh)',
+    c8_refuge_document: 'C8 refuge document (welsh)',
     citizenUserAddressText: 'Cyfeiriad',
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',

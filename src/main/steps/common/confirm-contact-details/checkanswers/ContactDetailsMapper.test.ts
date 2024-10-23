@@ -1,4 +1,5 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 
 import { mapConfirmContactDetails, prepareRequest, setTextFields } from './ContactDetailsMapper';
 
@@ -6,6 +7,7 @@ let respondents;
 
 describe('ContactDetailsMapper', () => {
   let req = mockRequest();
+  const res = mockResponse();
   beforeEach(() => {
     req.session.userCase = {
       citizenUserFirstNames: 'John',
@@ -224,7 +226,7 @@ describe('ContactDetailsMapper', () => {
       },
     });
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase = setTextFields(req);
+    req.session.userCase = setTextFields(req, res);
 
     expect(req.session.userCase).toEqual(
       expect.objectContaining({
@@ -277,7 +279,7 @@ describe('ContactDetailsMapper', () => {
       },
     });
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase = setTextFields(req);
+    req.session.userCase = setTextFields(req, res);
 
     expect(req.session.userCase).toEqual(
       expect.objectContaining({

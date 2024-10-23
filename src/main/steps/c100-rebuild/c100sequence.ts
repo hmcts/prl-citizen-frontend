@@ -88,8 +88,6 @@ import {
   C100_APPLICANT_ADDRESS_SELECT,
   C100_APPLICANT_ADDRESS_MANUAL,
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
-  C100_APPLICANT_REFUGE,
-  C100_APPLICANT_REFUGE_UPLOAD,
 
   /** @C100 Other children in people section */
   C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
@@ -801,18 +799,6 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       ApplicantNavigationController.getNextUrl(C100_APPLICANT_RELATIONSHIP_TO_CHILD, caseData, req?.params),
-  },
-  {
-    url: C100_APPLICANT_REFUGE,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_APPLICANT_REFUGE, caseData, req?.params),
-  },
-  {
-    url: C100_APPLICANT_REFUGE_UPLOAD,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_APPLICANT_REFUGE_UPLOAD, caseData, req?.params),
   },
   {
     url: C100_APPLICANT_CONTACT_DETAIL,
