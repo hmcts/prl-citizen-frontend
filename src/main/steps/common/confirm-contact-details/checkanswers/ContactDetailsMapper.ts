@@ -192,6 +192,11 @@ export const setTextFields = (req: AppRequest, res: Response): Partial<CaseWithI
   } else {
     req.session.userCase.citizenUserEmailAddressText = req.session.userCase.citizenUserEmailAddress;
   }
+  if (!req.session.userCase.citizenUserLivingInRefuge) {
+    req.session.userCase.citizenUserLivingInRefugeText = '';
+  } else {
+    req.session.userCase.citizenUserLivingInRefugeText = req.session.userCase.citizenUserLivingInRefuge;
+  }
 
   if (req.session.userCase.citizenUserLivingInRefuge === YesOrNo.NO) {
     deleteDocument(req, res);

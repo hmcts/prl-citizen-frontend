@@ -53,7 +53,7 @@ export class ConfirmContactDetailsGetController extends GetController {
 
 const fieldsArray: string[] = [
   'citizenUserFullName',
-  'citizenUserLivingInRefuge',
+  'citizenUserLivingInRefugeText',
   'citizenUserPlaceOfBirthText',
   'citizenUserAddressText',
   'citizenUserPhoneNumberText',
