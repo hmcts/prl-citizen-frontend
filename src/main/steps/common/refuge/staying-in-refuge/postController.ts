@@ -4,7 +4,8 @@ import { Response } from 'express';
 import _ from 'lodash';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { C100Applicant, C100RebuildPartyDetails, PartyType, YesOrNo } from '../../../../app/case/definition';
+import { CaseWithId } from '../../../../app/case/case';
+import { C100Applicant, C100RebuildPartyDetails, PartyType, People, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -45,16 +46,7 @@ export default class StayingInRefugeController extends PostController<AnyObject>
           ) as C100RebuildPartyDetails[];
         }
 
-        const uploadedDocument = getC8DocumentForC100(id, userCase, c100Person);
-        if (citizenUserLivingInRefuge === YesOrNo.NO && !_.isEmpty(uploadedDocument)) {
-          try {
-            const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
-            await client.deleteDocument(_.toString(_.last(uploadedDocument.document_url.split('/'))));
-            deleteC100RefugeDoc(req, userCase, id);
-          } catch (e) {
-            throw new Error('Error occured, document could not be deleted. - deleteDocument');
-          }
-        }
+        await this.deleteC8RefugeDocument(req, id, userCase, c100Person, citizenUserLivingInRefuge as YesOrNo);
       } else {
         userCase.citizenUserLivingInRefuge = citizenUserLivingInRefuge as YesOrNo;
       }
@@ -71,6 +63,25 @@ export default class StayingInRefugeController extends PostController<AnyObject>
         appl_allApplicants: req.session.userCase.appl_allApplicants,
         oprs_otherPersons: req.session.userCase.oprs_otherPersons,
       });
+    }
+  }
+
+  private async deleteC8RefugeDocument(
+    req: AppRequest,
+    id: string,
+    userCase: CaseWithId,
+    c100Person: People,
+    livingInRefuge: YesOrNo
+  ): Promise<void> {
+    const uploadedDocument = getC8DocumentForC100(id, userCase, c100Person);
+    if (livingInRefuge === YesOrNo.NO && !_.isEmpty(uploadedDocument)) {
+      try {
+        const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+        await client.deleteDocument(_.toString(_.last(uploadedDocument.document_url.split('/'))));
+        deleteC100RefugeDoc(req, userCase, id);
+      } catch (e) {
+        throw new Error('Error occured, document could not be deleted. - deleteDocument');
+      }
     }
   }
 }

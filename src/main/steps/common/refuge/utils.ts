@@ -11,30 +11,12 @@ import {
   RootContext,
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { FormError } from '../../../app/form/Form';
 import { getPeople } from '../../../steps/c100-rebuild/child-details/live-with/utils';
 import { getPartyDetails, updatePartyDetails } from '../../../steps/c100-rebuild/people/util';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../urls';
+import { handleError, removeErrors } from '../statement-of-service/utils';
 import { applyParms } from '../url-parser';
-
-export const removeErrors = (errors: FormError[] | undefined): FormError[] => {
-  return errors?.length ? errors.filter(error => error.propertyName !== 'c8RefugeDocument') : [];
-};
-
-export const handleError = (
-  errors: FormError[] | undefined,
-  errorType: string,
-  omitOtherErrors?: boolean
-): FormError[] => {
-  let _errors: FormError[] = errors?.length ? errors : [];
-
-  if (omitOtherErrors) {
-    _errors = [...removeErrors(_errors)];
-  }
-
-  return [..._errors, { errorType, propertyName: 'c8RefugeDocument' }];
-};
 
 export const deleteDocument = async (req: AppRequest, res: Response, id?: string): Promise<void> => {
   const { params, session } = req;
@@ -54,7 +36,7 @@ export const deleteDocument = async (req: AppRequest, res: Response, id?: string
 
     req.session.errors = removeErrors(req.session.errors);
   } catch (e) {
-    req.session.errors = handleError(req.session.errors, 'deleteError', true);
+    req.session.errors = handleError(req.session.errors, 'deleteError', 'c8RefugeDocument', true);
   } finally {
     if (!req.url.includes('checkanswers')) {
       const redirectUrl = C100rebuildJourney
