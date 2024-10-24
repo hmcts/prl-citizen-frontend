@@ -72,7 +72,7 @@ export default class StayingInRefugeController extends PostController<AnyObject>
     userCase: CaseWithId,
     c100Person: People,
     livingInRefuge: YesOrNo
-  ) {
+  ): Promise<void> {
     const uploadedDocument = getC8DocumentForC100(id, userCase, c100Person);
     if (livingInRefuge === YesOrNo.NO && !_.isEmpty(uploadedDocument)) {
       try {

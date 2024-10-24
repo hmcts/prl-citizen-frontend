@@ -117,7 +117,7 @@ class RefugeNavigationController {
     caseData: CaseWithId
   ): PageLink {
     const isDocumentUploaded = !_.isEmpty(
-      C100rebuildJourney ? getC8DocumentForC100(id, req.session.userCase, c100Person!) : caseData.c8_refuge_document
+      C100rebuildJourney ? getC8DocumentForC100(id, req.session.userCase, c100Person) : caseData.c8_refuge_document
     );
 
     const alreadyUploadedDocUrl = C100rebuildJourney

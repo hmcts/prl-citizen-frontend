@@ -25,21 +25,21 @@ export default class SOSUploadDocumentPostController extends PostController<AnyO
     req.url = applyParms(UPLOAD_STATEMENT_OF_SERVICE, { partyType: PartyType.APPLICANT, context: req.params.context });
 
     if (caseData?.sos_document?.document_binary_url) {
-      req.session.errors = handleError(req.session.errors, 'multipleFiles');
+      req.session.errors = handleError(req.session.errors, 'multipleFiles', 'statementOfServiceDoc');
       return this.redirect(req, res);
     }
 
     if (!files) {
-      req.session.errors = handleError(req.session.errors, 'empty');
+      req.session.errors = handleError(req.session.errors, 'empty', 'statementOfServiceDoc');
       return this.redirect(req, res);
     }
 
     if (!isValidFileFormat({ documents: files['statementOfServiceDoc'] })) {
-      req.session.errors = handleError(req.session.errors, 'fileFormat');
+      req.session.errors = handleError(req.session.errors, 'fileFormat', 'statementOfServiceDoc');
       return this.redirect(req, res);
     }
     if (isFileSizeGreaterThanMaxAllowed({ documents: files['statementOfServiceDoc'] })) {
-      req.session.errors = handleError(req.session.errors, 'fileSize');
+      req.session.errors = handleError(req.session.errors, 'fileSize', 'statementOfServiceDoc');
       return this.redirect(req, res);
     }
 
@@ -50,14 +50,14 @@ export default class SOSUploadDocumentPostController extends PostController<AnyO
       });
 
       if (response.status !== 'Success') {
-        req.session.errors = handleError(req.session.errors, 'uploadError', true);
+        req.session.errors = handleError(req.session.errors, 'uploadError', 'statementOfServiceDoc', true);
         return;
       }
 
       req.session.userCase.sos_document = response.document;
       req.session.errors = removeErrors(req.session.errors);
     } catch (e) {
-      req.session.errors = handleError(req.session.errors, 'uploadError', true);
+      req.session.errors = handleError(req.session.errors, 'uploadError', 'statementOfServiceDoc', true);
     } finally {
       this.redirect(req, res, req.url);
     }
@@ -67,7 +67,7 @@ export default class SOSUploadDocumentPostController extends PostController<AnyO
     const { userCase: caseData } = req.session;
 
     if (!caseData?.sos_document?.document_binary_url) {
-      req.session.errors = handleError(req.session.errors, 'empty', true);
+      req.session.errors = handleError(req.session.errors, 'empty', 'statementOfServiceDoc', true);
     }
 
     this.redirect(req, res);

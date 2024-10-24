@@ -14,12 +14,18 @@ import { STATEMENT_OF_SERVICE_WHO_WAS_SERVED, UPLOAD_STATEMENT_OF_SERVICE } from
 import { applyParms } from '../url-parser';
 
 export const removeErrors = (errors: FormError[] | undefined): FormError[] => {
-  return errors?.length ? errors.filter(error => error.propertyName !== 'statementOfServiceDoc') : [];
+  return errors?.length
+    ? errors.filter(
+        (error => error.propertyName !== 'statementOfServiceDoc') ||
+          (error => error.propertyName !== 'c8RefugeDocument')
+      )
+    : [];
 };
 
 export const handleError = (
   errors: FormError[] | undefined,
   errorType: string,
+  propertyName: string,
   omitOtherErrors?: boolean
 ): FormError[] => {
   let _errors: FormError[] = errors?.length ? errors : [];
@@ -28,7 +34,7 @@ export const handleError = (
     _errors = [...removeErrors(_errors)];
   }
 
-  return [..._errors, { errorType, propertyName: 'statementOfServiceDoc' }];
+  return [..._errors, { errorType, propertyName }];
 };
 
 export const deleteDocument = async (req: AppRequest, res: Response): Promise<void> => {
@@ -46,7 +52,7 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
 
     req.session.errors = removeErrors(req.session.errors);
   } catch (e) {
-    req.session.errors = handleError(req.session.errors, 'deleteError', true);
+    req.session.errors = handleError(req.session.errors, 'deleteError', 'statementOfServiceDoc', true);
   } finally {
     req.session.save(() => {
       res.redirect(
