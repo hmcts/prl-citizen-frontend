@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { UPLOAD_STATEMENT_OF_SERVICE } from '../../../../steps/urls';
-import { handleError, removeErrors } from '../utils';
+import { getUploadedDocumentErrorType, handleError, removeErrors } from '../utils';
 
 @autobind
 export default class SOSUploadDocumentPostController extends PostController<AnyObject> {
@@ -24,29 +24,16 @@ export default class SOSUploadDocumentPostController extends PostController<AnyO
 
     req.url = applyParms(UPLOAD_STATEMENT_OF_SERVICE, { partyType: PartyType.APPLICANT, context: req.params.context });
 
-    if (caseData?.sos_document?.document_binary_url) {
-      req.session.errors = handleError(req.session.errors, 'multipleFiles', 'statementOfServiceDoc');
-      return this.redirect(req, res);
-    }
-
-    if (!files) {
-      req.session.errors = handleError(req.session.errors, 'empty', 'statementOfServiceDoc');
-      return this.redirect(req, res);
-    }
-
-    if (!isValidFileFormat({ documents: files['statementOfServiceDoc'] })) {
-      req.session.errors = handleError(req.session.errors, 'fileFormat', 'statementOfServiceDoc');
-      return this.redirect(req, res);
-    }
-    if (isFileSizeGreaterThanMaxAllowed({ documents: files['statementOfServiceDoc'] })) {
-      req.session.errors = handleError(req.session.errors, 'fileSize', 'statementOfServiceDoc');
+    const errorType = getUploadedDocumentErrorType(caseData?.sos_document, 'statementOfServiceDoc', files);
+    if (!_.isEmpty(errorType)) {
+      req.session.errors = handleError(req.session.errors, errorType, 'statementOfServiceDoc');
       return this.redirect(req, res);
     }
 
     try {
       const client = new CosApiClient(user.accessToken, req.locals.logger);
       const response = await client.uploadDocument(user, {
-        files: [files['statementOfServiceDoc']],
+        files: [files?.['statementOfServiceDoc']],
       });
 
       if (response.status !== 'Success') {

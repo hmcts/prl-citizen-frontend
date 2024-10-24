@@ -5,9 +5,10 @@ import _ from 'lodash';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
-import { PartyType } from '../../../app/case/definition';
+import { Document, PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { FormError } from '../../../app/form/Form';
+import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../app/form/validation';
 import { GovUkNunjucksSummary } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { STATEMENT_OF_SERVICE_WHO_WAS_SERVED, UPLOAD_STATEMENT_OF_SERVICE } from '../../../steps/urls';
@@ -16,8 +17,7 @@ import { applyParms } from '../url-parser';
 export const removeErrors = (errors: FormError[] | undefined): FormError[] => {
   return errors?.length
     ? errors.filter(
-        (error => error.propertyName !== 'statementOfServiceDoc') ||
-          (error => error.propertyName !== 'c8RefugeDocument')
+        error => error.propertyName !== 'statementOfServiceDoc' && error.propertyName !== 'c8RefugeDocument'
       )
     : [];
 };
@@ -135,4 +135,28 @@ export const prepareSummaryList = (
   });
 
   return summaryList;
+};
+
+export const getUploadedDocumentErrorType = (
+  uploadedDocument: Document | undefined,
+  errorPropertyName: string,
+  files:
+    | {
+        [fieldname: string]: Express.Multer.File[];
+      }
+    | Express.Multer.File[]
+    | undefined
+): string => {
+  let errorType;
+  if (uploadedDocument?.document_binary_url) {
+    errorType = 'multipleFiles';
+  } else if (!files) {
+    errorType = 'empty';
+  } else if (!isValidFileFormat({ documents: files[errorPropertyName] })) {
+    errorType = 'fileFormat';
+  } else if (isFileSizeGreaterThanMaxAllowed({ documents: files[errorPropertyName] })) {
+    errorType = 'fileSize';
+  }
+
+  return errorType;
 };
