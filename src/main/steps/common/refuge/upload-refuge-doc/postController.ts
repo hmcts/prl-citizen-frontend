@@ -37,19 +37,9 @@ export default class C8RefugeploadDocumentPostController extends PostController<
           root: getCasePartyType(caseData, req.session.user.id),
         });
 
-    let existingDocument = caseData?.c8_refuge_document;
-    if (C100rebuildJourney) {
-      if (c100Person.partyType === PartyType.APPLICANT) {
-        const applicantPersonDetails = getPartyDetails(id, req.session.userCase.appl_allApplicants) as C100Applicant;
-        existingDocument = applicantPersonDetails?.refugeConfidentialityC8Form;
-      } else {
-        const otherPersonDetails = getPartyDetails(
-          id,
-          req.session.userCase.oprs_otherPersons
-        ) as C100RebuildPartyDetails;
-        existingDocument = otherPersonDetails?.refugeConfidentialityC8Form;
-      }
-    }
+    const existingDocument = C100rebuildJourney
+      ? getC8DocumentForC100(id, caseData, c100Person)
+      : caseData?.c8_refuge_document;
 
     if (existingDocument?.document_binary_url) {
       req.session.errors = handleError(req.session.errors, 'multipleFiles');
