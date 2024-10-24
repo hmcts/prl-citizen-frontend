@@ -135,4 +135,9 @@ export const NOTIFICATION_BASE_CONFIG = [
     content: getNotificationContent,
     show: () => false,
   },
+  {
+    id: NotificationType.SERVE_DOCUMENTS,
+    content: getNotificationContent,
+    show: () => false,
+  },
 ];

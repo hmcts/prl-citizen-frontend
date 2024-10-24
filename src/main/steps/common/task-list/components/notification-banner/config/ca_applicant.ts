@@ -93,6 +93,10 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
       });
     },
   },
+  {
+    id: NotificationType.SERVE_DOCUMENTS,
+    show: showNotification,
+  },
 ];
 
 const generateRespondentRelatedNotifications = (

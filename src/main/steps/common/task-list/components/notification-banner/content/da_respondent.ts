@@ -1,7 +1,8 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
+import { DocumentPartyType } from '../../../../../../steps/common/documents/definitions';
 import { interpolate } from '../../../../../../steps/common/string-parser';
-import { VIEW_ALL_ORDERS, VIEW_APPLICATION_PACK_DOCUMENTS } from '../../../../../urls';
+import { VIEW_ALL_ORDERS, VIEW_APPLICATION_PACK_DOCUMENTS, VIEW_TYPE_DOCUMENT } from '../../../../../urls';
 import { applyParms } from '../../../../url-parser';
 import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from '../definitions';
 import { findNotification, getOrderNotificationHeading } from '../utils';
@@ -75,6 +76,27 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
+  serveDocuments: {
+    heading: 'You have new document(s) to view',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'New document(s) has been added to your case.',
+          },
+        ],
+        links: [
+          {
+            text: 'Link to the new document(s)',
+            href: applyParms(VIEW_TYPE_DOCUMENT, {
+              partyType: PartyType.RESPONDENT,
+              type: DocumentPartyType.OTHER,
+            }),
+          },
+        ],
+      },
+    ],
+  },
 };
 
 const cy: typeof en = {
@@ -141,6 +163,27 @@ const cy: typeof en = {
                 order: notification?.multiple ? commonContent.orders1 : commonContent.order1,
               });
             },
+          },
+        ],
+      },
+    ],
+  },
+  serveDocuments: {
+    heading: 'Mae genncyh ddogfen(nau) newydd i’w gweld',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'Mae ddogfen(nau) newydd wedi’u hychwanegu at eich achos',
+          },
+        ],
+        links: [
+          {
+            text: 'Dolen i’r ddogfen(nau) newydd',
+            href: applyParms(VIEW_TYPE_DOCUMENT, {
+              partyType: PartyType.RESPONDENT,
+              type: DocumentPartyType.OTHER,
+            }),
           },
         ],
       },

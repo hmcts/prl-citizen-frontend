@@ -7,8 +7,9 @@ import {
   UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
+  VIEW_TYPE_DOCUMENT,
 } from '../../../../../urls';
-import { UploadDocumentCategory } from '../../../../documents/definitions';
+import { DocumentPartyType, UploadDocumentCategory } from '../../../../documents/definitions';
 import { interpolate } from '../../../../string-parser';
 import { applyParms } from '../../../../url-parser';
 import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from '../definitions';
@@ -159,6 +160,27 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
+  serveDocuments: {
+    heading: 'You have new document(s) to view',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'New document(s) has been added to your case.',
+          },
+        ],
+        links: [
+          {
+            text: 'Link to the new document(s)',
+            href: applyParms(VIEW_TYPE_DOCUMENT, {
+              partyType: PartyType.RESPONDENT,
+              type: DocumentPartyType.OTHER,
+            }),
+          },
+        ],
+      },
+    ],
+  },
 };
 
 const cy: typeof en = {
@@ -294,6 +316,27 @@ const cy: typeof en = {
             href: applyParms(UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS, {
               partyType: PartyType.APPLICANT,
               docCategory: UploadDocumentCategory.FM5_DOCUMENT,
+            }),
+          },
+        ],
+      },
+    ],
+  },
+  serveDocuments: {
+    heading: 'Mae genncyh ddogfen(nau) newydd i’w gweld',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'Mae ddogfen(nau) newydd wedi’u hychwanegu at eich achos',
+          },
+        ],
+        links: [
+          {
+            text: 'Dolen i’r ddogfen(nau) newydd',
+            href: applyParms(VIEW_TYPE_DOCUMENT, {
+              partyType: PartyType.RESPONDENT,
+              type: DocumentPartyType.OTHER,
             }),
           },
         ],
