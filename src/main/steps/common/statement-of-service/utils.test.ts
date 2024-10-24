@@ -32,7 +32,12 @@ describe('statement-of-service > utils', () => {
   describe('handleError', () => {
     test('should return existing statementOfServiceDoc and add new error if omitOtherErrors false', () => {
       expect(
-        handleError([{ errorType: 'uploadError', propertyName: 'statementOfServiceDoc' }], 'multipleFiles', false)
+        handleError(
+          [{ errorType: 'uploadError', propertyName: 'statementOfServiceDoc' }],
+          'multipleFiles',
+          'statementOfServiceDoc',
+          false
+        )
       ).toStrictEqual([
         { errorType: 'uploadError', propertyName: 'statementOfServiceDoc' },
         {
@@ -44,7 +49,12 @@ describe('statement-of-service > utils', () => {
 
     test('should remmove existing statementOfServiceDoc errors and add new error if omitOtherErrors true', () => {
       expect(
-        handleError([{ errorType: 'uploadError', propertyName: 'statementOfServiceDoc' }], 'multipleFiles', true)
+        handleError(
+          [{ errorType: 'uploadError', propertyName: 'statementOfServiceDoc' }],
+          'multipleFiles',
+          'statementOfServiceDoc',
+          true
+        )
       ).toStrictEqual([
         {
           errorType: 'multipleFiles',

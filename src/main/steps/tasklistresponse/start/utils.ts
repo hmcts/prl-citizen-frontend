@@ -58,6 +58,7 @@ export const getConfirmOrEditYourContactDetails = (
     resp.phoneNumber,
     resp.email,
     resp.dateOfBirth,
+    resp.liveInRefuge,
   ];
   if (summaryField.every(currentValue => currentValue)) {
     return SectionStatus.COMPLETED;
