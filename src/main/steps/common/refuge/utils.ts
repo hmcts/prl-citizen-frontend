@@ -11,13 +11,11 @@ import {
   RootContext,
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { PageContent } from '../../../app/controller/GetController';
-import { FormContent, FormError, FormFieldsFn } from '../../../app/form/Form';
+import { FormError } from '../../../app/form/Form';
 import { getPeople } from '../../../steps/c100-rebuild/child-details/live-with/utils';
 import { getPartyDetails, updatePartyDetails } from '../../../steps/c100-rebuild/people/util';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../urls';
-import { CommonContent } from '../common.content';
 import { applyParms } from '../url-parser';
 
 export const removeErrors = (errors: FormError[] | undefined): FormError[] => {
@@ -96,29 +94,6 @@ export const deleteC100RefugeDoc = (req: AppRequest, caseData: CaseWithId, id: s
       ) as C100RebuildPartyDetails[];
     }
   }
-};
-
-export const generateContentForLocalComponent = (
-  content: CommonContent,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  translations: Record<string, any>,
-  form: FormContent
-): PageContent => {
-  const request = content.additionalData?.req;
-
-  delete form.saveAndComeLater;
-  if (request.originalUrl?.startsWith(C100_URL)) {
-    Object.assign(form, {
-      saveAndComeLater: {
-        text: l => l.saveAndComeLater,
-      },
-    });
-  }
-
-  return {
-    ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
-  };
 };
 
 export const getC8DocumentForC100 = (id: string, caseData: CaseWithId, person: People): Document => {

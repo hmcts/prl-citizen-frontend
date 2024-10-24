@@ -11,7 +11,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../app/form/validation';
-import { C100_APPLICANT_REFUGE_UPLOAD, C100_CONSENT_ORDER_UPLOAD, C100_MIAM_UPLOAD } from '../urls';
+import { C100_CONSENT_ORDER_UPLOAD, C100_MIAM_UPLOAD } from '../urls';
 
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
@@ -39,9 +39,6 @@ export default class UploadDocumentController {
     } else if (req.url.includes(C100_CONSENT_ORDER_UPLOAD)) {
       paramCert = 'co_certificate';
       fileNamePrefix = 'applicant__consent_order_draft__';
-    } else if (req.url.includes(C100_APPLICANT_REFUGE_UPLOAD)) {
-      paramCert = 'refuge_certificate';
-      fileNamePrefix = 'refuge_c8__';
     }
 
     const certificate = req.session.userCase?.[paramCert] as C100DocumentInfo;

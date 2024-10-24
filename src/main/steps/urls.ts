@@ -342,8 +342,6 @@ export const C100_APPLICANT_RELATIONSHIP_TO_CHILD: PageLink = `${C100_URL}/appli
 export const C100_APPLICANTS_PERSONAL_DETAILS: PageLink = `${C100_URL}/applicant/:applicantId/personal-details`;
 
 /**@C100 applicant address and contact detail*/
-export const C100_APPLICANT_REFUGE: PageLink = `${C100_URL}/applicant/:applicantId/refuge`;
-export const C100_APPLICANT_REFUGE_UPLOAD: PageLink = `${C100_URL}/applicant/:applicantId/refuge-upload`;
 export const C100_APPLICANT_ADDRESS: PageLink = `${C100_URL}/applicant/:applicantId/address`;
 export const C100_APPLICANT_ADDRESS_LOOKUP: PageLink = `${C100_APPLICANT_ADDRESS}/lookup`;
 export const C100_APPLICANT_ADDRESS_SELECT: PageLink = `${C100_APPLICANT_ADDRESS}/select`;
