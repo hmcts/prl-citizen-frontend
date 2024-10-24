@@ -32,6 +32,7 @@ export enum NotificationType {
   ORDER_NON_PERSONAL_SERVICE = 'orderNonPersonalService',
   ORDER_PERSONAL_SERVICE = 'orderPersonalService',
   ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF_TO_DA_RESPONDENT = 'orderSOSPersonalServiceByCourtAdminBailiffToDARespondent',
+  SERVE_DOCUMENTS = 'serveDocuments',
 }
 
 export type NotificationBannerProps = {
@@ -140,6 +141,7 @@ export enum NotificationID {
   ORDER_NON_PERSONAL_SERVICE = 'CRNF2_APPLICANT_RESPONDENT',
   ORDER_PERSONAL_SERVICE = 'CRNF3_PERSONAL_SERV_APPLICANT',
   ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF_TO_DA_RESPONDENT = 'DN6_ORDER_SOS_CA_CB',
+  SERVE_DOCUMENTS = 'CRNF6_SOD_APPLICANT_RESPONDENT',
 }
 
 export enum OrderTypeId {
