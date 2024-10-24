@@ -171,7 +171,7 @@ export const enContent = {
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
-    refuge: 'Lives in refuge',
+    refuge: 'Living in refuge',
     c8RefugeDocument: 'C8 refuge document',
     doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
     courtOrderPrevent:
@@ -313,7 +313,7 @@ export const cyContent = {
     otherPerson: 'Rhywun arall',
     contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
     addressDetails: 'Manylion cyfeiriad',
-    refuge: 'Lives in refuge (welsh)',
+    refuge: 'Living in refuge (welsh)',
     c8RefugeDocument: 'C8 refuge document (welsh)',
     doNotHaveParentalResponsibility: 'Nid oes gennyf gyfrifoldeb rhiant dros y plant',
     courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',

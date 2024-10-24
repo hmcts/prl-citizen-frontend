@@ -80,6 +80,7 @@ export default class C8RefugeploadDocumentPostController extends PostController<
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
       }
+
       if (C100rebuildJourney) {
         if (c100Person.partyType === PartyType.APPLICANT) {
           const applicantPersonDetails = getPartyDetails(id, req.session.userCase.appl_allApplicants) as C100Applicant;

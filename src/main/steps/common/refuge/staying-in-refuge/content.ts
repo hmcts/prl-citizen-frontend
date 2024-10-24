@@ -2,13 +2,12 @@ import { CaseWithId } from '../../../../app/case/case';
 import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { PageContent } from '../../../../app/controller/GetController';
-import { FormContent, FormFields } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { getPeople } from '../../../../steps/c100-rebuild/child-details/live-with/utils';
 import { interpolate } from '../../../../steps/common/string-parser';
 import { C100_URL } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
-import { generateContentForLocalComponent } from '../utils';
 export * from './routeGuard';
 
 const en = {
@@ -86,10 +85,19 @@ export const form: FormContent = {
 
 export const generateContent = (content: CommonContent): PageContent => {
   const translations = languages[content.language];
-  return generateContentForLocalComponent(content, translations, form);
-  // const translations = languages[content.language];
-  // return {
-  //   ...translations,
-  //   form,
-  // };
+  const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
+
+  delete form.saveAndComeLater;
+  if (C100rebuildJourney) {
+    Object.assign(form, {
+      saveAndComeLater: {
+        text: l => l.saveAndComeLater,
+      },
+    });
+  }
+
+  return {
+    ...translations,
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
+  };
 };

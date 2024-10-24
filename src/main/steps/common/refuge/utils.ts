@@ -78,7 +78,7 @@ export const deleteDocument = async (req: AppRequest, res: Response, id?: string
 export const deleteC100RefugeDoc = (req: AppRequest, caseData: CaseWithId, id: string): void => {
   const c100Person = getPeople(caseData).find(person => person.id === id)!;
   if (c100Person.partyType === PartyType.APPLICANT) {
-    const applicantDetails = getPartyDetails(id!, caseData.appl_allApplicants) as C100Applicant;
+    const applicantDetails = getPartyDetails(id, caseData.appl_allApplicants) as C100Applicant;
     if (applicantDetails.hasOwnProperty('refugeConfidentialityC8Form')) {
       delete applicantDetails.refugeConfidentialityC8Form;
       req.session.userCase.appl_allApplicants = updatePartyDetails(
@@ -87,7 +87,7 @@ export const deleteC100RefugeDoc = (req: AppRequest, caseData: CaseWithId, id: s
       ) as C100Applicant[];
     }
   } else {
-    const otherPersonDetails = getPartyDetails(id!, caseData.oprs_otherPersons) as C100RebuildPartyDetails;
+    const otherPersonDetails = getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails;
     if (otherPersonDetails.hasOwnProperty('refugeConfidentialityC8Form')) {
       delete otherPersonDetails.refugeConfidentialityC8Form;
       req.session.userCase.oprs_otherPersons = updatePartyDetails(

@@ -46,7 +46,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Llwytho’r datganiad cyflwyno',
+  title: 'Upload a C8 form (welsh)',
   uploadGuidance:
     'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external">here</a>. The address, email address and contact number entered for this party will be kept confidential.',
   c100uploadGuidance:
@@ -68,7 +68,7 @@ const cy: typeof en = {
   ],
   errors: {
     c8RefugeDocument: {
-      empty: 'Mae’n rhaid i chi lwytho datganiad cyflwyno',
+      empty: 'You must upload a C8 document (welsh)',
       uploadError: "Nid oedd modd uwchlwytho'r ddogfen",
       deleteError: "Nid oedd modd dileu'r ddogfen",
       multipleFiles:
@@ -94,7 +94,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const { session } = content.additionalData?.req;
+  const { session } = content.additionalData?.req ?? {};
   const uploadDocError = session?.errors?.find(error => error.propertyName === 'c8RefugeDocument') ?? null;
   let uploadedDocument = session?.userCase?.c8_refuge_document;
   const partyType = getCasePartyType(session.userCase, session.user.id);
@@ -102,7 +102,7 @@ export const generateContent: TranslationFn = content => {
   const id = content.additionalData?.req.params.id
     ? content.additionalData?.req.params.id
     : content.additionalData?.req.params.removeFileId;
-  const c100Person = getPeople(content.userCase!).find(person => person.id === id)!;
+  const c100Person = getPeople(session.userCase).find(person => person.id === id)!;
 
   delete form.saveAndComeLater;
   if (C100rebuildJourney) {

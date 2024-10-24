@@ -78,13 +78,13 @@ export const form: FormContent = {
 
 export const generateContent = (content: CommonContent): PageContent => {
   const translations = languages[content.language];
-  const request = content.additionalData!.req;
-  const caseData = request.session.userCase;
+  const request = content.additionalData?.req;
+  const caseData = request.session?.userCase;
   let c8Document = caseData.c8_refuge_document;
-  const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
-  const id = content.additionalData?.req.params.id;
+  const C100rebuildJourney = request.originalUrl?.startsWith(C100_URL);
+  const id = request.params.id;
 
-  const c100Person = getPeople(content.userCase!).find(person => person.id === id)!;
+  const c100Person = getPeople(caseData).find(person => person.id === id)!;
 
   delete form.saveAndComeLater;
   if (C100rebuildJourney) {
@@ -97,7 +97,7 @@ export const generateContent = (content: CommonContent): PageContent => {
     c8Document = getC8DocumentForC100(id, caseData, c100Person);
   }
 
-  const partyType = getCasePartyType(caseData, request.session.user.id);
+  const partyType = getCasePartyType(caseData, request.session?.user.id);
   const url = applyParms(DOWNLOAD_DOCUMENT, {
     partyType,
     documentId: c8Document.document_url.substring(c8Document.document_url.lastIndexOf('/') + 1),

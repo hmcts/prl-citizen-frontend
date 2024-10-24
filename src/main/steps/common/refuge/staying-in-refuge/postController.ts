@@ -3,6 +3,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import _ from 'lodash';
 
+import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { C100Applicant, C100RebuildPartyDetails, PartyType, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
@@ -10,7 +11,7 @@ import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { getPeople } from '../../../../steps/c100-rebuild/child-details/live-with/utils';
 import { getPartyDetails, updatePartyDetails } from '../../../../steps/c100-rebuild/people/util';
 import { C100_URL } from '../../../../steps/urls';
-import { deleteC100RefugeDoc, getC8DocumentForC100, handleError } from '../utils';
+import { deleteC100RefugeDoc, getC8DocumentForC100 } from '../utils';
 
 import { form as refugeForm } from './content';
 @autobind
@@ -44,11 +45,14 @@ export default class StayingInRefugeController extends PostController<AnyObject>
           ) as C100RebuildPartyDetails[];
         }
 
-        if (citizenUserLivingInRefuge === YesOrNo.NO && !_.isEmpty(getC8DocumentForC100(id, userCase, c100Person))) {
+        const uploadedDocument = getC8DocumentForC100(id, userCase, c100Person);
+        if (citizenUserLivingInRefuge === YesOrNo.NO && !_.isEmpty(uploadedDocument)) {
           try {
+            const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+            await client.deleteDocument(_.toString(_.last(uploadedDocument.document_url.split('/'))));
             deleteC100RefugeDoc(req, userCase, id);
           } catch (e) {
-            req.session.errors = handleError(req.session.errors, 'deleteError', true);
+            throw new Error('Error occured, document could not be deleted. - deleteDocument');
           }
         }
       } else {
