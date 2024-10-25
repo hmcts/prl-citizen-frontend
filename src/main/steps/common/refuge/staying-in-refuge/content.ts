@@ -29,19 +29,19 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Staying in a refuge (welsh)',
+  title: 'Aros mewn lloches',
   refuge:
-    'A refuge is a secure place for people and their children to stay when they are escaping domestic abuse. It provides a space to feel safe and supported. (welsh)',
+    'Mae lloches yn lle diogel i bobl a’u plant aros pan fyddant yn dianc rhag cam-drin domestig. Mae’n darparu lle i deimlo’n ddiogel a chael cefnogaeth.',
   citizensAdvice:
-    'Find out more about refuges at <a href="https://www.citizensadvice.org.uk/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Citizen\'s Advice">Citizen\'s Advice (opens in a new tab).</a> (welsh)',
-  refugeLabel: 'Do you currently live in a refuge? (welsh)',
-  C100RefugeLabel: 'Does {firstName} {lastName} currently live in a refuge?',
-  one: 'Yes (welsh)',
-  two: 'No (welsh)',
-  continue: 'Continue (welsh)',
+    'Dysgwch fwy am lochesau yn <a href="https://www.citizensadvice.org.uk/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Citizen\'s Advice">Cyngor ar Bopeth (yn agor mewn tab newydd).</a>',
+  refugeLabel: 'Ydych chi’n byw mewn lloches ar hyn o bryd?',
+  C100RefugeLabel: 'A yw {firstName} {lastName} yn byw mewn lloches ar hyn o bryd?',
+  one: 'Ydw',
+  two: 'Nac ydw',
+  continue: 'Parhau',
   errors: {
     citizenUserLivingInRefuge: {
-      required: 'Select yes if you currently live in a refuge (welsh)',
+      required: "Dewiswch ydw os ydych chi'n byw mewn lloches ar hyn o bryd",
     },
   },
 };

@@ -22,6 +22,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   continue: 'Continue',
+  bannerHeading: 'Important',
   errors: {
     uploadC8Again: {
       required: 'Select if you want to upload a new C8 form',
@@ -30,18 +31,19 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Uploading a new C8 form (welsh)',
-  previouslyUploaded: 'You have previously uploaded a C8 form.',
-  c100PreviouslyUploaded: 'A C8 form has already been uploaded for {name} (welsh)',
-  canView: 'You can view this',
-  viewDoc: 'here (opens in a new tab)',
-  uploadC8Label: 'Do you still want to upload a new C8 form?',
-  one: 'Yes (welsh)',
-  two: 'No (welsh)',
-  continue: 'Continue (welsh)',
+  title: 'Uwchlwytho ffurflen C8 newydd',
+  previouslyUploaded: 'Rydych eisoes wedi uwchlwytho ffurflen C8.',
+  c100PreviouslyUploaded: 'Mae ffurflen C8 eisoes wedi’i huwchlwytho ar gyfer {name}',
+  canView: 'Gallwch weld hon',
+  viewDoc: 'yma (yn agor mewn tab newydd)',
+  uploadC8Label: 'Ydych chi dal eisiau uwchlwytho ffurflen C8 newydd?',
+  one: 'Ydw',
+  two: 'Nac ydw',
+  continue: 'Parhau',
+  bannerHeading: 'Pwysig',
   errors: {
     uploadC8Again: {
-      required: 'Select if you want to upload a new C8 form (welsh)',
+      required: 'Dewiswch a ydych chi eisiau uwchlwytho ffurflen C8 newydd',
     },
   },
 };

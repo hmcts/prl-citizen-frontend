@@ -46,11 +46,11 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Upload a C8 form (welsh)',
+  title: 'Uwchlwytho ffurflen C8',
   uploadGuidance:
-    'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external">here</a>. The address, email address and contact number entered for this party will be kept confidential.',
+    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external">yma</a>. Bydd eich cyfeiriad, cyfeiriad e-bost a rhif cyswllt yn cael eu cadw\'n gyfrinachol.',
   c100uploadGuidance:
-    'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">here</a>. {name}\'s address, email address and contact number will be kept confidential.',
+    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">yma</a>. Bydd cyfeiriad, cyfeiriad e-bost a rhif cyswllt {name} yn cael eu cadw’n gyfrinachol.',
   uploadFileHeading: 'Llwytho dogfen',
   uplodFileHint:
     'Pan fyddwch yn llwytho dogfennau, gwnewch yn siŵr eich bod yn enwi’r ffeiliau yn glir.  Er enghraifft, datganiad-safbwynt.doc. Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
@@ -68,7 +68,7 @@ const cy: typeof en = {
   ],
   errors: {
     c8RefugeDocument: {
-      empty: 'You must upload a C8 document (welsh)',
+      empty: 'Mae’n rhaid i chi uwchlwytho dogfen C8',
       uploadError: "Nid oedd modd uwchlwytho'r ddogfen",
       deleteError: "Nid oedd modd dileu'r ddogfen",
       multipleFiles:
@@ -102,7 +102,7 @@ export const generateContent: TranslationFn = content => {
   const id = content.additionalData?.req.params.id
     ? content.additionalData?.req.params.id
     : content.additionalData?.req.params.removeFileId;
-  const c100Person = getPeople(session.userCase).find(person => person.id === id)!;
+  const c100Person = getPeople(session.userCase).find(person => person.id === id);
 
   delete form.saveAndComeLater;
   if (C100rebuildJourney) {
@@ -112,14 +112,14 @@ export const generateContent: TranslationFn = content => {
       },
     });
 
-    uploadedDocument = getC8DocumentForC100(id, session.userCase, c100Person);
+    uploadedDocument = getC8DocumentForC100(id, session.userCase, c100Person!);
   }
 
   return {
     ...translations,
     uploadGuidance: C100rebuildJourney
       ? interpolate(translations.c100uploadGuidance, {
-          name: `${c100Person.firstName} ${c100Person.lastName}`,
+          name: `${c100Person?.firstName} ${c100Person?.lastName}`,
         })
       : translations.uploadGuidance,
     form,

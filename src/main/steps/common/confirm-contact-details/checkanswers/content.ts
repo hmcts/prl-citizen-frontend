@@ -73,10 +73,10 @@ export const cyContent: typeof enContent = {
   },
   keys: {
     citizenUserFullName: 'Enw',
-    citizenUserLivingInRefugeText: 'Living in refuge (welsh)',
-    c8_refuge_document: 'C8 refuge document (welsh)',
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
+    citizenUserLivingInRefugeText: 'Byw mewn lloches',
+    c8_refuge_document: 'Dogfen lloches C8',
     citizenUserAddressText: 'Cyfeiriad',
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',

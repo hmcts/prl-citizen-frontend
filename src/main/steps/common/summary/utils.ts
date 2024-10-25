@@ -92,6 +92,13 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         );
       }
       break;
+    case 'citizenUserLivingInRefugeText':
+      if (!userCase.citizenUserLivingInRefuge) {
+        return userCase.citizenUserLivingInRefugeText;
+      } else {
+        translationLabel = 'ydwTranslation';
+      }
+      break;
     case 'c8_refuge_document':
       return userCase[key]?.document_filename;
     default:

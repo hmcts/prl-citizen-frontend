@@ -30,24 +30,24 @@ const en = {
 
 const cy: typeof en = {
   c100: {
-    title: "Keeping {name}'s details safe (welsh)",
+    title: 'Cadw manylion {name} yn ddiogel',
     understandSafety:
-      "We understand how important it is to feel safe, and know that {name}'s details will be kept private. (welsh)",
+      'Rydym yn deall pa mor bwysig yw hi i deimlo’n ddiogel, a gwybod y bydd manylion {name} yn cael eu cadw’n breifat.',
     detailsKeptConfidential:
-      "{name}'s details will be kept confidential and will only be used by the court, as well as by Cafcass or Cafcass Cymru. They will not be shared with anyone else. (welsh)",
+      'Bydd manylion {name} yn cael eu cadw’n gyfrinachol a dim ond y llys yn ogystal â Cafcass neu Cafcass Cymru fydd yn eu defnyddio. Ni fyddant yn cael eu rhannu ag unrhyw un arall.',
     helpKeepDetailsPrivate:
-      "To help us to keep {name}'s details safe, do not include their details in any other communications during the case. (welsh)",
+      'Er mwyn ein helpu ni i gadw manylion {name} yn ddiogel, peidiwch â chynnwys eu manylion mewn unrhyw gyfathrebiadau eraill yn ystod yr achos.',
   },
   applicantRespondent: {
-    title: 'Keeping your details safe (welsh)',
+    title: 'Cadw eich manylion yn ddiogel',
     understandSafety:
-      'We understand how important it is to feel safe, and know that your details will be kept private. (welsh)',
+      'Rydym yn deall pa mor bwysig yw hi i deimlo’n ddiogel, a gwybod y bydd eich manylion yn cael eu cadw’n breifat.',
     detailsKeptConfidential:
-      'Your details will be kept confidential and will only be used by the court, as well as by Cafcass or Cafcass Cymru. They will not be shared with anyone else. (welsh)',
+      'Bydd eich manylion yn cael eu cadw’n gyfrinachol a dim ond y llys yn ogystal â Cafcass neu Cafcass Cymru fydd yn eu defnyddio. Ni fyddant yn cael eu rhannu ag unrhyw un arall.',
     helpKeepDetailsPrivate:
-      'To help us to keep your details safe, do not include them in any other communications during the case. (welsh)',
+      "Er mwyn ein helpu ni i gadw eich manylion yn ddiogel, peidiwch â'u cynnwys mewn unrhyw gyfathrebiadau eraill yn ystod yr achos.",
   },
-  continue: 'Continue',
+  continue: 'Parhau',
   cancel: 'Canslo',
 };
 

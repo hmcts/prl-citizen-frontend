@@ -145,6 +145,10 @@ function dataCleanupConfirmContactDetail(userCase: Partial<CaseWithId>, responde
     userCase.citizenUserAddressHistory = respondent?.value.addressLivedLessThan5YearsDetails;
   }
 
+  userCase.citizenUserLivingInRefugeText = !userCase.citizenUserLivingInRefuge
+    ? ''
+    : userCase.citizenUserLivingInRefuge;
+
   mapAddressText(userCase);
   if (YesOrNo.NO === userCase.isAtAddressLessThan5Years) {
     userCase.citizenUserAddressHistory = '';

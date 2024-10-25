@@ -535,7 +535,7 @@ export const ApplicantDetails = (
 
     newApplicantData.push({
       key: keys['refuge'],
-      value: getYesNoTranslation(language, sessionApplicantData[applicant]['liveInRefuge'], 'ydynTranslation'),
+      value: getYesNoTranslation(language, sessionApplicantData[applicant]['liveInRefuge'], 'ydwTranslation'),
       changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
         root: RootContext.C100_REBUILD,
         id: sessionApplicantData[applicant]['id'],
@@ -1372,7 +1372,7 @@ export const OtherPeopleDetails = (
 
     newOtherPeopleStorage.push({
       key: keys['refuge'],
-      value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['liveInRefuge'], 'ydynTranslation'),
+      value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['liveInRefuge'], 'ydwTranslation'),
       changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
         root: RootContext.C100_REBUILD,
         id: sessionOtherPeopleData[respondent]['id'],
