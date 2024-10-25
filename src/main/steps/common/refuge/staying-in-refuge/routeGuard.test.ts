@@ -4,7 +4,7 @@ import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { routeGuard } from './routeGuard';
 
 describe('C8 Refuge > staying in refuge > routeGuard', () => {
-  test('Should set citizenUserLivingInRefuge for c100 applicant', async () => {
+  test('Should set isCitizenLivingInRefuge for c100 applicant', async () => {
     const req = mockRequest({
       params: {
         id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
@@ -27,10 +27,10 @@ describe('C8 Refuge > staying in refuge > routeGuard', () => {
     const next = jest.fn();
     routeGuard.get(req, res, next);
     expect(next).toHaveBeenCalled();
-    expect(req.session.userCase.citizenUserLivingInRefuge).toBe('Yes');
+    expect(req.session.userCase.isCitizenLivingInRefuge).toBe('Yes');
   });
 
-  test('Should set citizenUserLivingInRefuge for c100 other people', async () => {
+  test('Should set isCitizenLivingInRefuge for c100 other people', async () => {
     const req = mockRequest({
       params: {
         id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
@@ -53,7 +53,7 @@ describe('C8 Refuge > staying in refuge > routeGuard', () => {
     const next = jest.fn();
     routeGuard.get(req, res, next);
     expect(next).toHaveBeenCalled();
-    expect(req.session.userCase.citizenUserLivingInRefuge).toBe('Yes');
+    expect(req.session.userCase.isCitizenLivingInRefuge).toBe('Yes');
   });
 
   test('Should call next when not c100', async () => {

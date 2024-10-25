@@ -8,17 +8,13 @@ import { C100Applicant, C100RebuildPartyDetails, PartyType, RootContext } from '
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { getPeople } from '../../../../steps/c100-rebuild/child-details/live-with/utils';
-import { getPartyDetails, updatePartyDetails } from '../../../../steps/c100-rebuild/people/util';
-import {
-  getUploadedDocumentErrorType,
-  handleError,
-  removeErrors,
-} from '../../../../steps/common/statement-of-service/utils';
-import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
-import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../../../steps/urls';
+import { getPeople } from '../../../c100-rebuild/child-details/live-with/utils';
+import { getPartyDetails } from '../../../c100-rebuild/people/util';
+import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
+import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../../urls';
 import { applyParms } from '../../url-parser';
-import { getC8DocumentForC100 } from '../utils';
+import { getUploadedDocumentErrorType, handleError, removeErrors } from '../../utils';
+import { getC8DocumentForC100, updateApplicantOtherPersonDetails } from '../utils';
 
 @autobind
 export default class C8RefugeploadDocumentPostController extends PostController<AnyObject> {
@@ -31,7 +27,7 @@ export default class C8RefugeploadDocumentPostController extends PostController<
     const { user, userCase: caseData } = session;
     const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
     const id = req.params.id ? req.params.id : req.params.removeFileId;
-    const c100Person = getPeople(caseData).find(person => person.id === id)!;
+    const c100Person = getPeople(caseData).find(person => person.id === id);
 
     req.url = C100rebuildJourney
       ? applyParms(C100_REFUGE_UPLOAD_DOC, {
@@ -43,8 +39,8 @@ export default class C8RefugeploadDocumentPostController extends PostController<
         });
 
     const existingDocument = C100rebuildJourney
-      ? getC8DocumentForC100(id, caseData, c100Person)
-      : caseData?.c8_refuge_document;
+      ? getC8DocumentForC100(id, caseData, c100Person!)
+      : caseData?.refugeDocument;
 
     const errorType = getUploadedDocumentErrorType(existingDocument, 'c8RefugeDocument', files);
     if (!_.isEmpty(errorType)) {
@@ -64,26 +60,18 @@ export default class C8RefugeploadDocumentPostController extends PostController<
       }
 
       if (C100rebuildJourney) {
-        if (c100Person.partyType === PartyType.APPLICANT) {
-          const applicantPersonDetails = getPartyDetails(id, req.session.userCase.appl_allApplicants) as C100Applicant;
-          Object.assign(applicantPersonDetails, { refugeConfidentialityC8Form: response.document });
-          req.session.userCase.appl_allApplicants = updatePartyDetails(
-            applicantPersonDetails,
-            req.session.userCase.appl_allApplicants
-          ) as C100Applicant[];
-        } else {
-          const otherPersonDetails = getPartyDetails(
-            id,
-            req.session.userCase.oprs_otherPersons
-          ) as C100RebuildPartyDetails;
-          Object.assign(otherPersonDetails, { refugeConfidentialityC8Form: response.document });
-          req.session.userCase.oprs_otherPersons = updatePartyDetails(
-            otherPersonDetails,
-            req.session.userCase.oprs_otherPersons
-          ) as C100RebuildPartyDetails[];
-        }
+        const isApplicant = c100Person?.partyType === PartyType.APPLICANT;
+        const partyDetailsList = isApplicant ? caseData.appl_allApplicants : caseData.oprs_otherPersons;
+        const partyDetails = getPartyDetails(id, partyDetailsList) as C100Applicant | C100RebuildPartyDetails;
+        Object.assign(partyDetails, { refugeConfidentialityC8Form: response.document });
+        req.session.userCase = updateApplicantOtherPersonDetails(
+          caseData,
+          partyDetails,
+          partyDetailsList!,
+          isApplicant
+        );
       } else {
-        req.session.userCase.c8_refuge_document = response.document;
+        req.session.userCase.refugeDocument = response.document;
       }
       req.session.errors = removeErrors(req.session.errors);
     } catch (e) {
@@ -98,11 +86,11 @@ export default class C8RefugeploadDocumentPostController extends PostController<
 
     const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
     const id = req.params.id ? req.params.id : req.params.removeFileId;
-    const c100Person = getPeople(caseData).find(person => person.id === id)!;
-    let uploadedDocument = caseData?.c8_refuge_document;
+    const c100Person = getPeople(caseData).find(person => person.id === id);
+    let uploadedDocument = caseData?.refugeDocument;
 
     if (C100rebuildJourney) {
-      uploadedDocument = getC8DocumentForC100(id, caseData, c100Person);
+      uploadedDocument = getC8DocumentForC100(id, caseData, c100Person!);
     }
 
     if (!uploadedDocument?.document_binary_url) {
@@ -113,12 +101,17 @@ export default class C8RefugeploadDocumentPostController extends PostController<
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { onlyContinue, uploadFile } = req.body;
+    const { onlyContinue, uploadFile, saveAndComeLater } = req.body;
 
     if (uploadFile) {
       this.uploadDocument(req, res);
     } else if (onlyContinue) {
       this.onContinue(req, res);
+    } else if (saveAndComeLater) {
+      super.saveAndComeLater(req, res, {
+        appl_allApplicants: req.session.userCase.appl_allApplicants,
+        oprs_otherPersons: req.session.userCase.oprs_otherPersons,
+      });
     }
   }
 }

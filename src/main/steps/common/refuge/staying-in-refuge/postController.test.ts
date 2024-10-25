@@ -50,7 +50,7 @@ describe('C8 refuge > staying in refuge > postController', () => {
         },
         body: {
           onlyContinue: true,
-          citizenUserLivingInRefuge: 'Yes',
+          isCitizenLivingInRefuge: 'Yes',
         },
         session: {
           lang: language,
@@ -80,7 +80,7 @@ describe('C8 refuge > staying in refuge > postController', () => {
         },
         body: {
           onlyContinue: true,
-          citizenUserLivingInRefuge: 'No',
+          isCitizenLivingInRefuge: 'No',
         },
         session: {
           lang: language,
@@ -127,7 +127,7 @@ describe('C8 refuge > staying in refuge > postController', () => {
         },
         body: {
           onlyContinue: true,
-          citizenUserLivingInRefuge: 'Yes',
+          isCitizenLivingInRefuge: 'Yes',
         },
         session: {
           lang: language,
@@ -157,7 +157,7 @@ describe('C8 refuge > staying in refuge > postController', () => {
         },
         body: {
           onlyContinue: true,
-          citizenUserLivingInRefuge: 'No',
+          isCitizenLivingInRefuge: 'No',
         },
         session: {
           lang: language,
@@ -202,7 +202,7 @@ describe('C8 refuge > staying in refuge > postController', () => {
         },
         body: {
           onlyContinue: true,
-          citizenUserLivingInRefuge: 'No',
+          isCitizenLivingInRefuge: 'No',
         },
         session: {
           lang: language,
@@ -253,7 +253,7 @@ describe('C8 refuge > staying in refuge > postController', () => {
         params: {},
         body: {
           onlyContinue: true,
-          citizenUserLivingInRefuge: 'Yes',
+          isCitizenLivingInRefuge: 'Yes',
         },
         session: {
           lang: language,
@@ -267,7 +267,7 @@ describe('C8 refuge > staying in refuge > postController', () => {
       await controller.post(req, res);
 
       expect(res.redirect).toHaveBeenCalled;
-      expect(req.session.userCase.citizenUserLivingInRefuge).toBe('Yes');
+      expect(req.session.userCase.isCitizenLivingInRefuge).toBe('Yes');
     });
   });
 

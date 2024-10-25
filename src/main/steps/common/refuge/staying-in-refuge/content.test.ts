@@ -22,7 +22,7 @@ const en = {
   two: 'No',
   continue: 'Continue',
   errors: {
-    citizenUserLivingInRefuge: {
+    isCitizenLivingInRefuge: {
       required: 'Select yes if you currently live in a refuge',
     },
   },
@@ -33,14 +33,14 @@ const cy = {
   refuge:
     'Mae lloches yn lle diogel i bobl a’u plant aros pan fyddant yn dianc rhag cam-drin domestig. Mae’n darparu lle i deimlo’n ddiogel a chael cefnogaeth.',
   citizensAdvice:
-    'Dysgwch fwy am lochesau yn <a href="https://www.citizensadvice.org.uk/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Citizen\'s Advice">Cyngor ar Bopeth (yn agor mewn tab newydd).</a>',
+    'Dysgwch fwy am lochesau yn <a href="https://www.citizensadvice.org.uk/" class="govuk-link" target="_blank" aria-label="Dysgwch fwy am lochesau yn Cyngor ar Bopeth (yn agor mewn tab newydd).">Cyngor ar Bopeth (yn agor mewn tab newydd).</a>',
   refugeLabel: 'Ydych chi’n byw mewn lloches ar hyn o bryd?',
   C100RefugeLabel: 'A yw {firstName} {lastName} yn byw mewn lloches ar hyn o bryd?',
   one: 'Ydw',
   two: 'Nac ydw',
   continue: 'Parhau',
   errors: {
-    citizenUserLivingInRefuge: {
+    isCitizenLivingInRefuge: {
       required: "Dewiswch ydw os ydych chi'n byw mewn lloches ar hyn o bryd",
     },
   },
@@ -111,18 +111,18 @@ describe('C8 Refuge > staying in refuge > content', () => {
     });
 
     test('should contain correct fields', () => {
-      const citizenUserLivingInRefugeField = fields.citizenUserLivingInRefuge as FormOptions;
-      expect(citizenUserLivingInRefugeField.type).toBe('radios');
-      expect(citizenUserLivingInRefugeField.classes).toBe('govuk-radios');
-      expect((citizenUserLivingInRefugeField.label as Function)(generatedContent)).toBe(
+      const isCitizenLivingInRefugeField = fields.isCitizenLivingInRefuge as FormOptions;
+      expect(isCitizenLivingInRefugeField.type).toBe('radios');
+      expect(isCitizenLivingInRefugeField.classes).toBe('govuk-radios');
+      expect((isCitizenLivingInRefugeField.label as Function)(generatedContent)).toBe(
         interpolate(en.C100RefugeLabel, { firstName: 'Test', lastName: 'Test' })
       );
-      expect((citizenUserLivingInRefugeField.values[0].label as Function)(generatedContent)).toBe(en.one);
-      expect(citizenUserLivingInRefugeField.values[0].value).toBe(YesOrNo.YES);
-      expect((citizenUserLivingInRefugeField.values[1].label as Function)(generatedContent)).toBe(en.two);
-      expect(citizenUserLivingInRefugeField.values[1].value).toBe(YesOrNo.NO);
-      (citizenUserLivingInRefugeField.validator as Validator)('test value');
-      expect(citizenUserLivingInRefugeField.validator).toBe(isFieldFilledIn);
+      expect((isCitizenLivingInRefugeField.values[0].label as Function)(generatedContent)).toBe(en.one);
+      expect(isCitizenLivingInRefugeField.values[0].value).toBe(YesOrNo.YES);
+      expect((isCitizenLivingInRefugeField.values[1].label as Function)(generatedContent)).toBe(en.two);
+      expect(isCitizenLivingInRefugeField.values[1].value).toBe(YesOrNo.NO);
+      (isCitizenLivingInRefugeField.validator as Validator)('test value');
+      expect(isCitizenLivingInRefugeField.validator).toBe(isFieldFilledIn);
     });
   });
 
@@ -165,16 +165,16 @@ describe('C8 Refuge > staying in refuge > content', () => {
     });
 
     test('should contain correct fields', () => {
-      const citizenUserLivingInRefugeField = fields.citizenUserLivingInRefuge as FormOptions;
-      expect(citizenUserLivingInRefugeField.type).toBe('radios');
-      expect(citizenUserLivingInRefugeField.classes).toBe('govuk-radios');
-      expect((citizenUserLivingInRefugeField.label as Function)(generatedContent)).toBe(en.refugeLabel);
-      expect((citizenUserLivingInRefugeField.values[0].label as Function)(generatedContent)).toBe(en.one);
-      expect(citizenUserLivingInRefugeField.values[0].value).toBe(YesOrNo.YES);
-      expect((citizenUserLivingInRefugeField.values[1].label as Function)(generatedContent)).toBe(en.two);
-      expect(citizenUserLivingInRefugeField.values[1].value).toBe(YesOrNo.NO);
-      (citizenUserLivingInRefugeField.validator as Validator)('test value');
-      expect(citizenUserLivingInRefugeField.validator).toBe(isFieldFilledIn);
+      const isCitizenLivingInRefugeField = fields.isCitizenLivingInRefuge as FormOptions;
+      expect(isCitizenLivingInRefugeField.type).toBe('radios');
+      expect(isCitizenLivingInRefugeField.classes).toBe('govuk-radios');
+      expect((isCitizenLivingInRefugeField.label as Function)(generatedContent)).toBe(en.refugeLabel);
+      expect((isCitizenLivingInRefugeField.values[0].label as Function)(generatedContent)).toBe(en.one);
+      expect(isCitizenLivingInRefugeField.values[0].value).toBe(YesOrNo.YES);
+      expect((isCitizenLivingInRefugeField.values[1].label as Function)(generatedContent)).toBe(en.two);
+      expect(isCitizenLivingInRefugeField.values[1].value).toBe(YesOrNo.NO);
+      (isCitizenLivingInRefugeField.validator as Validator)('test value');
+      expect(isCitizenLivingInRefugeField.validator).toBe(isFieldFilledIn);
     });
 
     test('should contain continue button', () => {

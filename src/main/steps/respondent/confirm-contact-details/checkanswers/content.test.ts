@@ -12,7 +12,7 @@ const en = {
   keys: {
     citizenUserFullName: 'Name',
     citizenUserLivingInRefugeText: 'Living in refuge',
-    c8_refuge_document: 'C8 refuge document',
+    refugeDocument: 'C8 refuge document',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
     citizenUserAddressText: 'Address',

@@ -20,7 +20,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
   test('should upload document and redirect', async () => {
     req.body = { uploadFile: true };
     req.files = { c8RefugeDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
-    req.url = '/applicant/refuge/upload-refuge-doc';
+    req.url = '/applicant/refuge/upload-refuge-document';
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
@@ -36,14 +36,14 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
     await controller.post(req, res);
     await new Promise(process.nextTick);
 
-    expect(req.session.userCase.c8_refuge_document).toStrictEqual({
+    expect(req.session.userCase.refugeDocument).toStrictEqual({
       document_url: 'test2/1234',
       document_binary_url: 'binary/test2/1234',
       document_filename: 'test_document_2',
       document_hash: '1234',
       document_creation_date: '1/1/2024',
     });
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-doc');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
     expect(req.session.errors).toStrictEqual([]);
   });
 
@@ -66,7 +66,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
       },
     };
     req.files = { c8RefugeDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
-    req.originalUrl = '/c100-rebuild/refuge/upload-refuge-doc/6b792169-84df-4e9a-8299-c2c77c9b7e58';
+    req.originalUrl = '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58';
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
@@ -90,7 +90,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
       document_creation_date: '1/1/2024',
     });
     expect(res.redirect).toHaveBeenCalledWith(
-      '/c100-rebuild/refuge/upload-refuge-doc/6b792169-84df-4e9a-8299-c2c77c9b7e58'
+      '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58'
     );
     expect(req.session.errors).toStrictEqual([]);
   });
@@ -114,7 +114,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
       },
     };
     req.files = { c8RefugeDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
-    req.originalUrl = '/c100-rebuild/refuge/upload-refuge-doc/6b792169-84df-4e9a-8299-c2c77c9b7e58';
+    req.originalUrl = '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58';
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
@@ -138,7 +138,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
       document_creation_date: '1/1/2024',
     });
     expect(res.redirect).toHaveBeenCalledWith(
-      '/c100-rebuild/refuge/upload-refuge-doc/6b792169-84df-4e9a-8299-c2c77c9b7e58'
+      '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58'
     );
     expect(req.session.errors).toStrictEqual([]);
   });
@@ -146,9 +146,9 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
   test('should not upload document and add error if document already present', async () => {
     req.body = { uploadFile: true };
     req.files = { c8RefugeDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
-    req.url = '/applicant/refuge/upload-refuge-doc';
+    req.url = '/applicant/refuge/upload-refuge-document';
     req.session.userCase = {
-      c8_refuge_document: {
+      refugeDocument: {
         document_url: 'test2/1234',
         document_binary_url: 'binary/test2/1234',
         document_filename: 'test_document_2',
@@ -160,7 +160,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
     await controller.post(req, res);
     await new Promise(process.nextTick);
 
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-doc');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'multipleFiles',
@@ -171,12 +171,12 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
 
   test('should not upload document and add error if no file present', async () => {
     req.body = { uploadFile: true };
-    req.url = '/applicant/refuge/upload-refuge-doc';
+    req.url = '/applicant/refuge/upload-refuge-document';
 
     await controller.post(req, res);
     await new Promise(process.nextTick);
 
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-doc');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'empty',
@@ -187,7 +187,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
 
   test('should set error when document upload status is not Success', async () => {
     req.body = { uploadFile: true };
-    req.url = '/applicant/refuge/upload-refuge-doc';
+    req.url = '/applicant/refuge/upload-refuge-document';
     req.files = { c8RefugeDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
 
     uploadDocumentMock.mockResolvedValue({
@@ -204,7 +204,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
     await controller.post(req, res);
     await new Promise(process.nextTick);
 
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-doc');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'uploadError',
@@ -216,7 +216,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
   test('should catch error when uploading document', async () => {
     req.body = { uploadFile: true };
     req.files = { c8RefugeDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
-    req.url = '/applicant/refuge/upload-refuge-doc';
+    req.url = '/applicant/refuge/upload-refuge-document';
 
     uploadDocumentMock.mockRejectedValue({
       status: 'Failure',
@@ -225,7 +225,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
     await controller.post(req, res);
     await new Promise(process.nextTick);
 
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-doc');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'uploadError',
@@ -237,7 +237,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
   test('should redirect without error when onlyContinue is true and document is present', async () => {
     req.body = { onlyContinue: true };
     req.session.userCase = {
-      c8_refuge_document: {
+      refugeDocument: {
         document_url: 'test2/1234',
         document_binary_url: 'binary/test2/1234',
         document_filename: 'test_document_2',
@@ -245,7 +245,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
         document_creation_date: '1/1/2024',
       },
     };
-    req.url = '/applicant/refuge/upload-refuge-doc';
+    req.url = '/applicant/refuge/upload-refuge-document';
 
     await controller.post(req, res);
     await new Promise(process.nextTick);
@@ -277,7 +277,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
         id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
       },
     };
-    req.originalUrl = '/c100-rebuild/refuge/upload-refuge-doc/6b792169-84df-4e9a-8299-c2c77c9b7e58';
+    req.originalUrl = '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58';
 
     await controller.post(req, res);
     await new Promise(process.nextTick);
@@ -288,12 +288,12 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
 
   test('should redirect with error when onlyContinue is true and document is not present', async () => {
     req.body = { onlyContinue: true };
-    req.url = '/applicant/refuge/upload-refuge-doc';
+    req.url = '/applicant/refuge/upload-refuge-document';
 
     await controller.post(req, res);
     await new Promise(process.nextTick);
 
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-doc');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'empty',
@@ -305,7 +305,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
   test('should catch error when uploading non allowed document type', async () => {
     req.body = { uploadFile: true };
     req.files = { c8RefugeDocument: { name: 'test.rtf', data: '', mimetype: 'text' } };
-    req.url = '/applicant/refuge/upload-refuge-doc';
+    req.url = '/applicant/refuge/upload-refuge-document';
 
     uploadDocumentMock.mockRejectedValue({
       status: 'Failure',
@@ -314,7 +314,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
     await controller.post(req, res);
     await new Promise(process.nextTick);
 
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-doc');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'fileFormat',
@@ -326,7 +326,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
   test('should catch error when uploading beyond allowed size document', async () => {
     req.body = { uploadFile: true };
     req.files = { c8RefugeDocument: { name: 'test.jpg', data: '', size: '3000000000000000', mimetype: 'text' } };
-    req.url = '/applicant/refuge/upload-refuge-doc';
+    req.url = '/applicant/refuge/upload-refuge-document';
 
     uploadDocumentMock.mockRejectedValue({
       status: 'Failure',
@@ -335,7 +335,7 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
     await controller.post(req, res);
     await new Promise(process.nextTick);
 
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-doc');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'fileSize',

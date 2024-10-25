@@ -1067,7 +1067,7 @@ describe('test cases for main util', () => {
         actions: {
           items: [
             {
-              href: '/c100-rebuild/refuge/upload-refuge-doc/3b32bc4f-7417-443b-ba94-5eacfcee04c4',
+              href: '/c100-rebuild/refuge/upload-refuge-document/3b32bc4f-7417-443b-ba94-5eacfcee04c4',
               text: undefined,
               visuallyHiddenText: 'c8RefugeDocument',
             },

@@ -22,7 +22,7 @@ const en = {
   two: 'No',
   continue: 'Continue',
   errors: {
-    citizenUserLivingInRefuge: {
+    isCitizenLivingInRefuge: {
       required: 'Select yes if you currently live in a refuge',
     },
   },
@@ -33,14 +33,14 @@ const cy: typeof en = {
   refuge:
     'Mae lloches yn lle diogel i bobl a’u plant aros pan fyddant yn dianc rhag cam-drin domestig. Mae’n darparu lle i deimlo’n ddiogel a chael cefnogaeth.',
   citizensAdvice:
-    'Dysgwch fwy am lochesau yn <a href="https://www.citizensadvice.org.uk/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Citizen\'s Advice">Cyngor ar Bopeth (yn agor mewn tab newydd).</a>',
+    'Dysgwch fwy am lochesau yn <a href="https://www.citizensadvice.org.uk/" class="govuk-link" target="_blank" aria-label="Dysgwch fwy am lochesau yn Cyngor ar Bopeth (yn agor mewn tab newydd).">Cyngor ar Bopeth (yn agor mewn tab newydd).</a>',
   refugeLabel: 'Ydych chi’n byw mewn lloches ar hyn o bryd?',
   C100RefugeLabel: 'A yw {firstName} {lastName} yn byw mewn lloches ar hyn o bryd?',
   one: 'Ydw',
   two: 'Nac ydw',
   continue: 'Parhau',
   errors: {
-    citizenUserLivingInRefuge: {
+    isCitizenLivingInRefuge: {
       required: "Dewiswch ydw os ydych chi'n byw mewn lloches ar hyn o bryd",
     },
   },
@@ -56,7 +56,7 @@ export const form: FormContent = {
     const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
     const c100Person = getPeople(userCase).find(person => person.id === req.params.id)!;
     return {
-      citizenUserLivingInRefuge: {
+      isCitizenLivingInRefuge: {
         type: 'radios',
         classes: 'govuk-radios',
         label: l =>

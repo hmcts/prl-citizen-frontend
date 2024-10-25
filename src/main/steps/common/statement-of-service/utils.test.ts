@@ -5,65 +5,12 @@ import { CaseWithId } from '../../../app/case/case';
 import { en as commonContentEn } from '../common.content';
 
 import { languages as uploadSOSLang } from './upload/content';
-import { deleteDocument, handleError, prepareSummaryList, removeErrors } from './utils';
+import { deleteDocument, prepareSummaryList } from './utils';
 import { languages as whoWasServedLang } from './who-was-served/content';
 
 const deleteDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteDocument');
 
 describe('statement-of-service > utils', () => {
-  describe('removeErrors', () => {
-    test('should not return statementOfServiceDoc errors', () => {
-      expect(
-        removeErrors([
-          {
-            errorType: 'multipleFiles',
-            propertyName: 'statementOfServiceDoc',
-          },
-          {
-            errorType: 'uploadError',
-            propertyName: 'statementOfServiceDoc',
-          },
-          { errorType: 'required', propertyName: 'needsResolution' },
-        ])
-      ).toStrictEqual([{ errorType: 'required', propertyName: 'needsResolution' }]);
-    });
-  });
-
-  describe('handleError', () => {
-    test('should return existing statementOfServiceDoc and add new error if omitOtherErrors false', () => {
-      expect(
-        handleError(
-          [{ errorType: 'uploadError', propertyName: 'statementOfServiceDoc' }],
-          'multipleFiles',
-          'statementOfServiceDoc',
-          false
-        )
-      ).toStrictEqual([
-        { errorType: 'uploadError', propertyName: 'statementOfServiceDoc' },
-        {
-          errorType: 'multipleFiles',
-          propertyName: 'statementOfServiceDoc',
-        },
-      ]);
-    });
-
-    test('should remmove existing statementOfServiceDoc errors and add new error if omitOtherErrors true', () => {
-      expect(
-        handleError(
-          [{ errorType: 'uploadError', propertyName: 'statementOfServiceDoc' }],
-          'multipleFiles',
-          'statementOfServiceDoc',
-          true
-        )
-      ).toStrictEqual([
-        {
-          errorType: 'multipleFiles',
-          propertyName: 'statementOfServiceDoc',
-        },
-      ]);
-    });
-  });
-
   describe('deleteDocument', () => {
     let req;
     let res;

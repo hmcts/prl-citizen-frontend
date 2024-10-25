@@ -13,14 +13,11 @@ export const routeGuard = {
     const id = req.params.id;
 
     if (req?.originalUrl?.startsWith(C100_URL)) {
-      const c100Person = getPeople(userCase).find(person => person.id === id)!;
-      if (c100Person.partyType === PartyType.APPLICANT) {
-        const applicantDetails = getPartyDetails(id, userCase.appl_allApplicants) as C100Applicant;
-        userCase.citizenUserLivingInRefuge = applicantDetails.liveInRefuge;
-      } else {
-        const otherPersonDetails = getPartyDetails(id, userCase.oprs_otherPersons) as C100RebuildPartyDetails;
-        userCase.citizenUserLivingInRefuge = otherPersonDetails.liveInRefuge;
-      }
+      const c100Person = getPeople(userCase).find(person => person.id === id);
+      const partyDetailsList =
+        c100Person?.partyType === PartyType.APPLICANT ? userCase.appl_allApplicants : userCase.oprs_otherPersons;
+      const partyDetails = getPartyDetails(id, partyDetailsList) as C100Applicant | C100RebuildPartyDetails;
+      userCase.isCitizenLivingInRefuge = partyDetails.liveInRefuge;
 
       return req.session.save(next);
     }

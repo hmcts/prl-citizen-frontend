@@ -28,8 +28,8 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
     citizenUserAddressPostcode,
     isAtAddressLessThan5Years,
     citizenUserAddressHistory,
-    citizenUserLivingInRefuge,
-    c8_refuge_document,
+    isCitizenLivingInRefuge,
+    refugeDocument,
   } = userCase;
 
   Object.assign(request, {
@@ -52,8 +52,8 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
       County: citizenUserAddressCounty,
       PostCode: citizenUserAddressPostcode,
     },
-    liveInRefuge: citizenUserLivingInRefuge,
-    refugeConfidentialityC8Form: c8_refuge_document,
+    liveInRefuge: isCitizenLivingInRefuge,
+    refugeConfidentialityC8Form: refugeDocument,
   });
   //data clean up
 
@@ -65,7 +65,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
     request.addressLivedLessThan5YearsDetails = '';
   }
 
-  if (citizenUserLivingInRefuge === YesOrNo.NO) {
+  if (isCitizenLivingInRefuge === YesOrNo.NO) {
     delete request.refugeConfidentialityC8Form;
   }
 
@@ -124,15 +124,15 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     citizenUserAddressTown: address.PostTown,
     citizenUserAddressCounty: address.County,
     citizenUserAddressPostcode: address.PostCode,
-    citizenUserLivingInRefuge: liveInRefuge,
-    c8_refuge_document: refugeConfidentialityC8Form,
+    isCitizenLivingInRefuge: liveInRefuge,
+    refugeDocument: refugeConfidentialityC8Form,
     ...rest,
   });
   if (isAtAddressLessThan5Years === YesOrNo.NO) {
     delete contactDetail.citizenUserAddressHistory;
   }
   if (liveInRefuge === YesOrNo.NO) {
-    delete contactDetail.c8_refuge_document;
+    delete contactDetail.refugeDocument;
   }
   return contactDetail;
 };
@@ -192,15 +192,15 @@ export const setTextFields = (req: AppRequest, res: Response): Partial<CaseWithI
   } else {
     req.session.userCase.citizenUserEmailAddressText = req.session.userCase.citizenUserEmailAddress;
   }
-  if (!req.session.userCase.citizenUserLivingInRefuge) {
+  if (!req.session.userCase.isCitizenLivingInRefuge) {
     req.session.userCase.citizenUserLivingInRefugeText = '';
   } else {
-    req.session.userCase.citizenUserLivingInRefugeText = req.session.userCase.citizenUserLivingInRefuge;
+    req.session.userCase.citizenUserLivingInRefugeText = req.session.userCase.isCitizenLivingInRefuge;
   }
 
-  if (req.session.userCase.citizenUserLivingInRefuge === YesOrNo.NO) {
+  if (req.session.userCase.isCitizenLivingInRefuge === YesOrNo.NO) {
     deleteDocument(req, res);
-    delete req.session.userCase.c8_refuge_document;
+    delete req.session.userCase.refugeDocument;
   }
 
   setAddressFields(req);

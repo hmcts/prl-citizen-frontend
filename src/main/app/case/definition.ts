@@ -113,7 +113,7 @@ export interface PartyDetails {
   contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
   partyId: string;
-  liveInRefuge: string;
+  liveInRefuge: YesOrNo;
   refugeConfidentialityC8Form?: Document;
 }
 
@@ -674,7 +674,7 @@ export type C100Applicant = {
   applicantAddressTown?: string;
   applicantAddressCounty?: string;
   country?: string;
-  liveInRefuge?: string;
+  liveInRefuge?: YesOrNo;
   refugeConfidentialityC8Form?: Document;
   applicantAddressHistory?: YesOrNo;
   applicantProvideDetailsOfPreviousAddresses?: string;
@@ -860,7 +860,6 @@ export interface CaseData {
   citizenUserManualAddressCounty?: string;
   c100Applicants?: C100Applicant;
   citizenUserManualAddressPostcode?: string;
-  citizenUserLivingInRefuge?: string;
   accessCode: string;
   caseInvites: CaseInvite[];
   detailsKnown?: string;
@@ -900,7 +899,6 @@ export interface CaseData {
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
   citizenNotifications?: CitizenNotification[];
-  livingInRefuge?: string;
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -2782,7 +2780,7 @@ export type C100RebuildPartyDetails = {
     donKnowTelephoneNumber?: YesOrNo;
   };
   addressUnknown?: YesOrNo;
-  liveInRefuge?: string;
+  liveInRefuge?: YesOrNo;
   refugeConfidentialityC8Form?: Document;
 };
 

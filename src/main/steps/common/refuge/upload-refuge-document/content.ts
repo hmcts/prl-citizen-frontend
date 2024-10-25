@@ -3,10 +3,10 @@ import _ from 'lodash';
 import { RootContext } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { getPeople } from '../../../../steps/c100-rebuild/child-details/live-with/utils';
-import { interpolate } from '../../../../steps/common/string-parser';
-import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
+import { getPeople } from '../../../c100-rebuild/child-details/live-with/utils';
+import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../../urls';
+import { interpolate } from '../../string-parser';
 import { applyParms } from '../../url-parser';
 import { getC8DocumentForC100 } from '../utils';
 export * from './routeGuard';
@@ -48,9 +48,9 @@ const en = {
 const cy: typeof en = {
   title: 'Uwchlwytho ffurflen C8',
   uploadGuidance:
-    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external">yma</a>. Bydd eich cyfeiriad, cyfeiriad e-bost a rhif cyswllt yn cael eu cadw\'n gyfrinachol.',
+    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Gallwch lawrlwytho\'r C8 ffurflen yma">yma</a>. Bydd eich cyfeiriad, cyfeiriad e-bost a rhif cyswllt yn cael eu cadw\'n gyfrinachol.',
   c100uploadGuidance:
-    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">yma</a>. Bydd cyfeiriad, cyfeiriad e-bost a rhif cyswllt {name} yn cael eu cadw’n gyfrinachol.',
+    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Gallwch lawrlwytho\'r C8 ffurflen yma">yma</a>. Bydd cyfeiriad, cyfeiriad e-bost a rhif cyswllt {name} yn cael eu cadw’n gyfrinachol.',
   uploadFileHeading: 'Llwytho dogfen',
   uplodFileHint:
     'Pan fyddwch yn llwytho dogfennau, gwnewch yn siŵr eich bod yn enwi’r ffeiliau yn glir.  Er enghraifft, datganiad-safbwynt.doc. Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
@@ -96,7 +96,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const { session } = content.additionalData?.req ?? {};
   const uploadDocError = session?.errors?.find(error => error.propertyName === 'c8RefugeDocument') ?? null;
-  let uploadedDocument = session?.userCase?.c8_refuge_document;
+  let uploadedDocument = session?.userCase?.refugeDocument;
   const partyType = getCasePartyType(session.userCase, session.user.id);
   const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
   const id = content.additionalData?.req.params.id

@@ -2,12 +2,12 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-import { getPeople } from '../../../../steps/c100-rebuild/child-details/live-with/utils';
-import { interpolate } from '../../../../steps/common/string-parser';
+import { getPeople } from '../../../c100-rebuild/child-details/live-with/utils';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { C100_URL, DOWNLOAD_DOCUMENT } from '../../../urls';
 import { CommonContent } from '../../common.content';
 import { transformFileName } from '../../documents/download/utils';
+import { interpolate } from '../../string-parser';
 import { applyParms } from '../../url-parser';
 import { getC8DocumentForC100 } from '../utils';
 export * from './routeGuard';
@@ -24,7 +24,7 @@ const en = {
   continue: 'Continue',
   bannerHeading: 'Important',
   errors: {
-    uploadC8Again: {
+    reUploadRefugeDocument: {
       required: 'Select if you want to upload a new C8 form',
     },
   },
@@ -42,7 +42,7 @@ const cy: typeof en = {
   continue: 'Parhau',
   bannerHeading: 'Pwysig',
   errors: {
-    uploadC8Again: {
+    reUploadRefugeDocument: {
       required: 'Dewiswch a ydych chi eisiau uwchlwytho ffurflen C8 newydd',
     },
   },
@@ -55,7 +55,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    uploadC8Again: {
+    reUploadRefugeDocument: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.uploadC8Label,
@@ -82,11 +82,11 @@ export const generateContent = (content: CommonContent): PageContent => {
   const translations = languages[content.language];
   const request = content.additionalData?.req;
   const caseData = request.session?.userCase;
-  let c8Document = caseData.c8_refuge_document;
+  let c8Document = caseData.refugeDocument;
   const C100rebuildJourney = request.originalUrl?.startsWith(C100_URL);
   const id = request.params.id;
 
-  const c100Person = getPeople(caseData).find(person => person.id === id)!;
+  const c100Person = getPeople(caseData).find(person => person.id === id);
 
   delete form.saveAndComeLater;
   if (C100rebuildJourney) {
@@ -96,21 +96,21 @@ export const generateContent = (content: CommonContent): PageContent => {
       },
     });
 
-    c8Document = getC8DocumentForC100(id, caseData, c100Person);
+    c8Document = getC8DocumentForC100(id, caseData, c100Person!);
   }
 
   const partyType = getCasePartyType(caseData, request.session?.user.id);
   const url = applyParms(DOWNLOAD_DOCUMENT, {
     partyType,
-    documentId: c8Document.document_url.substring(c8Document.document_url.lastIndexOf('/') + 1),
-    documentName: transformFileName(c8Document.document_filename),
+    documentId: c8Document?.document_url.substring(c8Document.document_url.lastIndexOf('/') + 1),
+    documentName: transformFileName(c8Document?.document_filename),
   });
 
   return {
     ...translations,
     previouslyUploaded: C100rebuildJourney
       ? interpolate(translations.c100PreviouslyUploaded, {
-          name: `${c100Person.firstName} ${c100Person.lastName}`,
+          name: `${c100Person?.firstName} ${c100Person?.lastName}`,
         })
       : translations.previouslyUploaded,
     form,

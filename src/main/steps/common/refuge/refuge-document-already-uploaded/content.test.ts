@@ -3,7 +3,7 @@ import { CaseWithId } from '../../../../app/case/case';
 import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
-import { CommonContent, generatePageContent } from '../../../common/common.content';
+import { CommonContent, generatePageContent } from '../../common.content';
 import { interpolate } from '../../string-parser';
 
 import { generateContent } from './content';
@@ -22,7 +22,7 @@ const en = {
   continue: 'Continue',
   bannerHeading: 'Important',
   errors: {
-    uploadC8Again: {
+    reUploadRefugeDocument: {
       required: 'Select if you want to upload a new C8 form',
     },
   },
@@ -40,7 +40,7 @@ const cy = {
   continue: 'Parhau',
   bannerHeading: 'Pwysig',
   errors: {
-    uploadC8Again: {
+    reUploadRefugeDocument: {
       required: 'Dewiswch a ydych chi eisiau uwchlwytho ffurflen C8 newydd',
     },
   },
@@ -122,16 +122,16 @@ describe('C8 Refuge > C8 already uploaded > content', () => {
     });
 
     test('should contain correct fields', () => {
-      const uploadC8AgainField = fields.uploadC8Again as FormOptions;
-      expect(uploadC8AgainField.type).toBe('radios');
-      expect(uploadC8AgainField.classes).toBe('govuk-radios');
-      expect((uploadC8AgainField.label as Function)(generatedContent)).toBe(en.uploadC8Label);
-      expect((uploadC8AgainField.values[0].label as Function)(generatedContent)).toBe(en.one);
-      expect(uploadC8AgainField.values[0].value).toBe(YesOrNo.YES);
-      expect((uploadC8AgainField.values[1].label as Function)(generatedContent)).toBe(en.two);
-      expect(uploadC8AgainField.values[1].value).toBe(YesOrNo.NO);
-      (uploadC8AgainField.validator as Validator)('test value');
-      expect(uploadC8AgainField.validator).toBe(isFieldFilledIn);
+      const reUploadRefugeDocumentField = fields.reUploadRefugeDocument as FormOptions;
+      expect(reUploadRefugeDocumentField.type).toBe('radios');
+      expect(reUploadRefugeDocumentField.classes).toBe('govuk-radios');
+      expect((reUploadRefugeDocumentField.label as Function)(generatedContent)).toBe(en.uploadC8Label);
+      expect((reUploadRefugeDocumentField.values[0].label as Function)(generatedContent)).toBe(en.one);
+      expect(reUploadRefugeDocumentField.values[0].value).toBe(YesOrNo.YES);
+      expect((reUploadRefugeDocumentField.values[1].label as Function)(generatedContent)).toBe(en.two);
+      expect(reUploadRefugeDocumentField.values[1].value).toBe(YesOrNo.NO);
+      (reUploadRefugeDocumentField.validator as Validator)('test value');
+      expect(reUploadRefugeDocumentField.validator).toBe(isFieldFilledIn);
     });
   });
 
@@ -141,7 +141,7 @@ describe('C8 Refuge > C8 already uploaded > content', () => {
         params: {},
         session: {
           userCase: {
-            c8_refuge_document: {
+            refugeDocument: {
               document_url: 'MOCK_URL',
               document_binary_url: 'MOCK_BINARY_URL',
               document_filename: 'MOCK_FILENAME',

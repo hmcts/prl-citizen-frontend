@@ -10,9 +10,9 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { getPeople } from '../../../../steps/c100-rebuild/child-details/live-with/utils';
-import { getPartyDetails, updatePartyDetails } from '../../../../steps/c100-rebuild/people/util';
+import { getPartyDetails } from '../../../../steps/c100-rebuild/people/util';
 import { C100_URL } from '../../../../steps/urls';
-import { deleteC100RefugeDoc, getC8DocumentForC100 } from '../utils';
+import { deleteC100RefugeDoc, getC8DocumentForC100, updateApplicantOtherPersonDetails } from '../utils';
 
 import { form as refugeForm } from './content';
 @autobind
@@ -25,30 +25,26 @@ export default class StayingInRefugeController extends PostController<AnyObject>
     const { onlyContinue, saveAndComeLater, ...formFields } = req.body;
     const userCase = req.session.userCase;
     const id = req.params.id;
-    const { citizenUserLivingInRefuge } = formFields;
+    const { isCitizenLivingInRefuge } = formFields;
 
-    if (!_.isEmpty(citizenUserLivingInRefuge)) {
+    if (!_.isEmpty(isCitizenLivingInRefuge)) {
       if (req?.originalUrl?.startsWith(C100_URL)) {
-        const c100Person = getPeople(userCase).find(person => person.id === id)!;
-        if (c100Person.partyType === PartyType.APPLICANT) {
-          const applicantDetails = getPartyDetails(id, userCase.appl_allApplicants) as C100Applicant;
-          Object.assign(applicantDetails, { liveInRefuge: citizenUserLivingInRefuge });
-          req.session.userCase.appl_allApplicants = updatePartyDetails(
-            applicantDetails,
-            req.session.userCase.appl_allApplicants
-          ) as C100Applicant[];
-        } else {
-          const otherPersonDetails = getPartyDetails(id, userCase.oprs_otherPersons) as C100RebuildPartyDetails;
-          Object.assign(otherPersonDetails, { liveInRefuge: citizenUserLivingInRefuge });
-          req.session.userCase.oprs_otherPersons = updatePartyDetails(
-            otherPersonDetails,
-            req.session.userCase.oprs_otherPersons
-          ) as C100RebuildPartyDetails[];
-        }
+        const c100Person = getPeople(userCase).find(person => person.id === id);
+        const isApplicant = c100Person?.partyType === PartyType.APPLICANT;
+        const partyDetailsList = isApplicant ? userCase.appl_allApplicants : userCase.oprs_otherPersons;
+        const partyDetails = getPartyDetails(id, partyDetailsList) as C100Applicant | C100RebuildPartyDetails;
+        Object.assign(partyDetails, { liveInRefuge: isCitizenLivingInRefuge });
 
-        await this.deleteC8RefugeDocument(req, id, userCase, c100Person, citizenUserLivingInRefuge as YesOrNo);
+        req.session.userCase = updateApplicantOtherPersonDetails(
+          userCase,
+          partyDetails,
+          partyDetailsList!,
+          isApplicant
+        );
+
+        await this.deleteC8RefugeDocument(req, id, userCase, c100Person!, isCitizenLivingInRefuge as YesOrNo);
       } else {
-        userCase.citizenUserLivingInRefuge = citizenUserLivingInRefuge as YesOrNo;
+        userCase.isCitizenLivingInRefuge = isCitizenLivingInRefuge as YesOrNo;
       }
     }
 

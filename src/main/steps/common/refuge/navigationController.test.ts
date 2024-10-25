@@ -75,7 +75,7 @@ describe('C8 refuge > navigationController', () => {
     req.originalUrl = '/applicant';
     req.session.userCase = {
       ...req.session.userCase,
-      citizenUserLivingInRefuge: 'Yes',
+      isCitizenLivingInRefuge: 'Yes',
     };
     expect(RefugeNavigationController.getNextPageUrl(STAYING_IN_REFUGE, req.session.userCase, req)).toBe(
       '/applicant/refuge/keeping-details-safe'
@@ -86,7 +86,7 @@ describe('C8 refuge > navigationController', () => {
     req.originalUrl = '/applicant';
     req.session.userCase = {
       ...req.session.userCase,
-      citizenUserLivingInRefuge: 'No',
+      isCitizenLivingInRefuge: 'No',
     };
     expect(RefugeNavigationController.getNextPageUrl(STAYING_IN_REFUGE, req.session.userCase, req)).toBe(
       '/applicant/confirm-contact-details/addressdetails'
@@ -112,7 +112,7 @@ describe('C8 refuge > navigationController', () => {
       ],
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_KEEPING_SAFE, req.session.userCase, req)).toBe(
-      '/c100-rebuild/refuge/c8-already-uploaded/7483640e-0817-4ddc-b709-6723f7925474?'
+      '/c100-rebuild/refuge/refuge-document-already-uploaded/7483640e-0817-4ddc-b709-6723f7925474?'
     );
   });
 
@@ -130,7 +130,7 @@ describe('C8 refuge > navigationController', () => {
       ],
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_KEEPING_SAFE, req.session.userCase, req)).toBe(
-      '/c100-rebuild/refuge/upload-refuge-doc/7483640e-0817-4ddc-b709-6723f7925474'
+      '/c100-rebuild/refuge/upload-refuge-document/7483640e-0817-4ddc-b709-6723f7925474'
     );
   });
 
@@ -138,15 +138,15 @@ describe('C8 refuge > navigationController', () => {
     req.originalUrl = '/applicant';
     req.session.userCase = {
       ...req.session.userCase,
-      citizenUserLivingInRefuge: 'Yes',
-      c8_refuge_document: {
+      isCitizenLivingInRefuge: 'Yes',
+      refugeDocument: {
         document_url: 'MOCK_URL',
         document_binary_url: 'MOCK_BINARY_URL',
         document_filename: 'MOCK_FILENAME',
       },
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_KEEPING_SAFE, req.session.userCase, req)).toBe(
-      '/applicant/refuge/c8-already-uploaded'
+      '/applicant/refuge/refuge-document-already-uploaded'
     );
   });
 
@@ -154,11 +154,11 @@ describe('C8 refuge > navigationController', () => {
     req.originalUrl = '/applicant';
     req.session.userCase = {
       ...req.session.userCase,
-      citizenUserLivingInRefuge: 'Yes',
-      c8_refuge_document: undefined,
+      isCitizenLivingInRefuge: 'Yes',
+      refugeDocument: undefined,
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_KEEPING_SAFE, req.session.userCase, req)).toBe(
-      '/applicant/refuge/upload-refuge-doc'
+      '/applicant/refuge/upload-refuge-document'
     );
   });
 
@@ -180,7 +180,7 @@ describe('C8 refuge > navigationController', () => {
     req.originalUrl = '/c100-rebuild';
     req.session.userCase = {
       ...req.session.userCase,
-      uploadC8Again: 'Yes',
+      reUploadRefugeDocument: 'Yes',
       oprs_otherPersons: [
         {
           id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
@@ -199,7 +199,7 @@ describe('C8 refuge > navigationController', () => {
       id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_DOC_ALREADY_UPLOADED, req.session.userCase, req)).toBe(
-      '/c100-rebuild/refuge/upload-refuge-doc/6b792169-84df-4e9a-8299-c2c77c9b7e58'
+      '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58'
     );
   });
 
@@ -207,7 +207,7 @@ describe('C8 refuge > navigationController', () => {
     req.originalUrl = '/c100-rebuild';
     req.session.userCase = {
       ...req.session.userCase,
-      uploadC8Again: 'No',
+      reUploadRefugeDocument: 'No',
       appl_allApplicants: [
         {
           id: '7483640e-0817-4ddc-b709-6723f7925474',
@@ -234,16 +234,16 @@ describe('C8 refuge > navigationController', () => {
     req.originalUrl = '/applicant';
     req.session.userCase = {
       ...req.session.userCase,
-      uploadC8Again: 'Yes',
-      citizenUserLivingInRefuge: 'Yes',
-      c8_refuge_document: {
+      reUploadRefugeDocument: 'Yes',
+      isCitizenLivingInRefuge: 'Yes',
+      refugeDocument: {
         document_url: 'MOCK_URL',
         document_binary_url: 'MOCK_BINARY_URL',
         document_filename: 'MOCK_FILENAME',
       },
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_DOC_ALREADY_UPLOADED, req.session.userCase, req)).toBe(
-      '/applicant/refuge/upload-refuge-doc'
+      '/applicant/refuge/upload-refuge-document'
     );
   });
 
@@ -251,9 +251,9 @@ describe('C8 refuge > navigationController', () => {
     req.originalUrl = '/respondent';
     req.session.userCase = {
       ...req.session.userCase,
-      uploadC8Again: 'No',
-      citizenUserLivingInRefuge: 'Yes',
-      c8_refuge_document: {
+      reUploadRefugeDocument: 'No',
+      isCitizenLivingInRefuge: 'Yes',
+      refugeDocument: {
         document_url: 'MOCK_URL',
         document_binary_url: 'MOCK_BINARY_URL',
         document_filename: 'MOCK_FILENAME',

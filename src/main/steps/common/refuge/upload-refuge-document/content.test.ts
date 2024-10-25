@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { CaseWithId } from '../../../../app/case/case';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../../common/common.content';
+import { CommonContent, generatePageContent } from '../../common.content';
 import { interpolate } from '../../string-parser';
 
 import { generateContent } from './content';
@@ -45,9 +45,9 @@ const en = {
 const cy = {
   title: 'Uwchlwytho ffurflen C8',
   uploadGuidance:
-    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external">yma</a>. Bydd eich cyfeiriad, cyfeiriad e-bost a rhif cyswllt yn cael eu cadw\'n gyfrinachol.',
+    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Gallwch lawrlwytho\'r C8 ffurflen yma">yma</a>. Bydd eich cyfeiriad, cyfeiriad e-bost a rhif cyswllt yn cael eu cadw\'n gyfrinachol.',
   c100uploadGuidance:
-    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">yma</a>. Bydd cyfeiriad, cyfeiriad e-bost a rhif cyswllt {name} yn cael eu cadw’n gyfrinachol.',
+    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Gallwch lawrlwytho\'r C8 ffurflen yma">yma</a>. Bydd cyfeiriad, cyfeiriad e-bost a rhif cyswllt {name} yn cael eu cadw’n gyfrinachol.',
   uploadFileHeading: 'Llwytho dogfen',
   uplodFileHint:
     'Pan fyddwch yn llwytho dogfennau, gwnewch yn siŵr eich bod yn enwi’r ffeiliau yn glir.  Er enghraifft, datganiad-safbwynt.doc. Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
@@ -177,7 +177,7 @@ describe('C8 Refuge > upload refuge doc > content', () => {
       expect(generatedContent.fileUploadConfig.uploadedFiles).toStrictEqual([
         {
           filename: 'MOCK_FILENAME',
-          fileremoveUrl: '/c100-rebuild/refuge/upload-refuge-doc/6b792169-84df-4e9a-8299-c2c77c9b7e58/1234?',
+          fileremoveUrl: '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58/1234?',
         },
       ]);
     });
@@ -235,7 +235,7 @@ describe('C8 Refuge > upload refuge doc > content', () => {
             session: {
               ...applicantRespondentAdditionalData.req.session,
               userCase: {
-                c8_refuge_document: {
+                refugeDocument: {
                   document_url: 'MOCK_URL/1234',
                   document_binary_url: 'MOCK_BINARY_URL',
                   document_filename: 'MOCK_FILENAME',
@@ -249,7 +249,7 @@ describe('C8 Refuge > upload refuge doc > content', () => {
       expect(generatedContent.fileUploadConfig.uploadedFiles).toStrictEqual([
         {
           filename: 'MOCK_FILENAME',
-          fileremoveUrl: '/applicant/refuge/upload-refuge-doc/1234?',
+          fileremoveUrl: '/applicant/refuge/upload-refuge-document/1234?',
         },
       ]);
     });

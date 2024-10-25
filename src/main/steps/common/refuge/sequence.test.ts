@@ -25,22 +25,22 @@ describe('C8 refuge > sequence', () => {
     expect(sequence[1].url).toBe('/:root/refuge/keeping-details-safe/:id?');
     expect(sequence[1].showInSection).toBe('c100');
     expect(sequence[1].getNextStep(refugeMockData.session.userCase, refugeMockData)).toBe(
-      '/applicant/refuge/upload-refuge-doc'
+      '/applicant/refuge/upload-refuge-document'
     );
 
-    expect(sequence[2].url).toBe('/:root/refuge/upload-refuge-doc/:removeFileId?');
+    expect(sequence[2].url).toBe('/:root/refuge/upload-refuge-document/:removeFileId?');
     expect(sequence[2].showInSection).toBe('c100');
     expect(sequence[2].getNextStep(refugeMockData.session.userCase, refugeMockData)).toBe(
       '/applicant/confirm-contact-details/addressdetails'
     );
 
-    expect(sequence[3].url).toBe('/:root/refuge/upload-refuge-doc/:id/:removeFileId?');
+    expect(sequence[3].url).toBe('/:root/refuge/upload-refuge-document/:id/:removeFileId?');
     expect(sequence[3].showInSection).toBe('c100');
     expect(sequence[3].getNextStep(refugeMockData.session.userCase, refugeMockData)).toBe(
       '/applicant/confirm-contact-details/addressdetails'
     );
 
-    expect(sequence[4].url).toBe('/:root/refuge/c8-already-uploaded/:id?');
+    expect(sequence[4].url).toBe('/:root/refuge/refuge-document-already-uploaded/:id?');
     expect(sequence[4].showInSection).toBe('c100');
     expect(sequence[4].getNextStep(refugeMockData.session.userCase, refugeMockData)).toBe(
       '/applicant/confirm-contact-details/addressdetails'

@@ -48,7 +48,7 @@ class RefugeNavigationController {
     const addressDetails = C100rebuildJourney ? c100AddressDetails : partyAddressDetails;
     const isPersonLivingInRefuge = C100rebuildJourney
       ? this.isC100PersonLivingInRefuge(req.session.userCase, id, c100Person!)
-      : caseData.citizenUserLivingInRefuge === YesOrNo.YES;
+      : caseData.isCitizenLivingInRefuge === YesOrNo.YES;
 
     switch (currentPageUrl) {
       case STAYING_IN_REFUGE: {
@@ -87,7 +87,7 @@ class RefugeNavigationController {
               id,
             }) as PageLink)
           : (applyParms(REFUGE_UPLOAD_DOC, { root: partyRootContext }) as PageLink);
-        url = caseData.uploadC8Again === YesOrNo.YES ? uploadDocUrl : addressDetails;
+        url = caseData.reUploadRefugeDocument === YesOrNo.YES ? uploadDocUrl : addressDetails;
         break;
       }
       default: {
@@ -117,7 +117,7 @@ class RefugeNavigationController {
     caseData: CaseWithId
   ): PageLink {
     const isDocumentUploaded = !_.isEmpty(
-      C100rebuildJourney ? getC8DocumentForC100(id, req.session.userCase, c100Person) : caseData.c8_refuge_document
+      C100rebuildJourney ? getC8DocumentForC100(id, req.session.userCase, c100Person) : caseData.refugeDocument
     );
 
     const alreadyUploadedDocUrl = C100rebuildJourney

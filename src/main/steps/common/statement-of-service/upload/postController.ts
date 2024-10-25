@@ -10,7 +10,7 @@ import { AnyObject, PostController } from '../../../../app/controller/PostContro
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { UPLOAD_STATEMENT_OF_SERVICE } from '../../../../steps/urls';
-import { getUploadedDocumentErrorType, handleError, removeErrors } from '../utils';
+import { getUploadedDocumentErrorType, handleError, removeErrors } from '../../utils';
 
 @autobind
 export default class SOSUploadDocumentPostController extends PostController<AnyObject> {

@@ -125,9 +125,7 @@ export class ReasonableAdjustementsNavigationController {
 
     const partyType = getCasePartyType(caseData, req.session.user.id);
     const isC100Journey = currentPageUrl.startsWith(C100_URL);
-    const currentPageUrlPartsWithoutToken = currentPageUrl.split('?');
-    currentPageUrlPartsWithoutToken.splice(1, 1);
-    const currentPageUrlParts = currentPageUrlPartsWithoutToken[0].split('/');
+    const currentPageUrlParts = currentPageUrl.split('/');
     currentPageUrlParts.splice(1, 1).unshift('');
     const currentPage = currentPageUrlParts.join('/') as PageLink;
 

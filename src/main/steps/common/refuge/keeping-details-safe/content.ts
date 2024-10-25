@@ -65,7 +65,7 @@ export const form: FormContent = {
 
 export const generateContent = (content: CommonContent): PageContent => {
   const translations = languages[content.language];
-  const c100Person = getPeople(content.userCase!).find(person => person.id === content.additionalData?.req.params.id)!;
+  const c100Person = getPeople(content.userCase!).find(person => person.id === content.additionalData?.req.params.id);
   const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
 
   delete form.saveAndComeLater;
@@ -81,22 +81,22 @@ export const generateContent = (content: CommonContent): PageContent => {
     ...translations,
     title: C100rebuildJourney
       ? interpolate(translations.c100.title, {
-          name: `${c100Person.firstName} ${c100Person.lastName}`,
+          name: `${c100Person?.firstName} ${c100Person?.lastName}`,
         })
       : translations.applicantRespondent.title,
     understandSafety: C100rebuildJourney
       ? interpolate(translations.c100.understandSafety, {
-          name: `${c100Person.firstName} ${c100Person.lastName}`,
+          name: `${c100Person?.firstName} ${c100Person?.lastName}`,
         })
       : translations.applicantRespondent.understandSafety,
     detailsKeptConfidential: C100rebuildJourney
       ? interpolate(translations.c100.detailsKeptConfidential, {
-          name: `${c100Person.firstName} ${c100Person.lastName}`,
+          name: `${c100Person?.firstName} ${c100Person?.lastName}`,
         })
       : translations.applicantRespondent.detailsKeptConfidential,
     helpKeepDetailsPrivate: C100rebuildJourney
       ? interpolate(translations.c100.helpKeepDetailsPrivate, {
-          name: `${c100Person.firstName} ${c100Person.lastName}`,
+          name: `${c100Person?.firstName} ${c100Person?.lastName}`,
         })
       : translations.applicantRespondent.helpKeepDetailsPrivate,
     form,
