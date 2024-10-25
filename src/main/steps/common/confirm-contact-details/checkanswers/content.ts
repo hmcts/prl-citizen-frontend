@@ -92,7 +92,7 @@ const urls = {
   citizenUserDateOfBirthText: 'personaldetails',
   citizenUserPlaceOfBirthText: 'personaldetails',
   citizenUserLivingInRefugeText: '../refuge/staying-in-refuge',
-  refugeDocument: '../refuge/upload-refuge-doc',
+  refugeDocument: '../refuge/upload-refuge-document',
   citizenUserAddressText: 'addressdetails',
   citizenUserAddressHistory: 'addresshistory',
   citizenUserPhoneNumberText: 'contactdetails',
