@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { CaseWithId } from '../../../../app/case/case';
 import { ContactPreference, PartyDetails, YesOrNo } from '../../../../app/case/definition';
@@ -199,7 +200,7 @@ export const setTextFields = (req: AppRequest, res: Response): Partial<CaseWithI
   }
 
   if (req.session.userCase.isCitizenLivingInRefuge === YesOrNo.NO) {
-    deleteDocument(req, res);
+    deleteDocument(req, res, _.toString(_.last(req.session.userCase.refugeDocument?.document_url.split('/'))));
     delete req.session.userCase.refugeDocument;
   }
 

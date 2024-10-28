@@ -18,15 +18,20 @@ import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../urls'
 import { applyParms } from '../url-parser';
 import { handleError, removeErrors } from '../utils';
 
-export const deleteDocument = async (req: AppRequest, res: Response, id?: string): Promise<void> => {
-  const { params, session } = req;
+export const deleteDocument = async (
+  req: AppRequest,
+  res: Response,
+  removeFileId: string,
+  id?: string
+): Promise<void> => {
+  const { session } = req;
   const { user: userDetails, userCase: caseData } = session;
   const partyType = getCasePartyType(caseData, userDetails.id);
   const client = new CosApiClient(userDetails.accessToken, req.locals.logger);
   const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
 
   try {
-    await client.deleteDocument(params.removeFileId);
+    await client.deleteDocument(removeFileId);
 
     if (C100rebuildJourney) {
       deleteC100RefugeDoc(req, caseData, id!);

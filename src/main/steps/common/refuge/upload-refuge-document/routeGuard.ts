@@ -14,7 +14,7 @@ export const routeGuard = {
         userCase.oprs_otherPersons?.find(person => person.id === req.params?.removeFileId)
       )
     ) {
-      await deleteDocument(req, res, req.params?.id);
+      await deleteDocument(req, res, req.params?.removeFileId, req.params?.id);
       return;
     }
 

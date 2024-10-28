@@ -29,7 +29,7 @@ describe('C8 refuge > utils', () => {
       };
       deleteDocumentMock.mockResolvedValue('SUCCESS');
 
-      await deleteDocument(req, res);
+      await deleteDocument(req, res, '1234');
 
       expect(req.session.save).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
@@ -55,7 +55,7 @@ describe('C8 refuge > utils', () => {
       ];
       deleteDocumentMock.mockResolvedValue('SUCCESS');
 
-      await deleteDocument(req, res, '7483640e-0817-4ddc-b709-6723f7925474');
+      await deleteDocument(req, res, '1234', '7483640e-0817-4ddc-b709-6723f7925474');
 
       expect(req.session.save).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith(
@@ -83,7 +83,7 @@ describe('C8 refuge > utils', () => {
       ];
       deleteDocumentMock.mockResolvedValue('SUCCESS');
 
-      await deleteDocument(req, res, '6b792169-84df-4e9a-8299-c2c77c9b7e58');
+      await deleteDocument(req, res, '1234', '6b792169-84df-4e9a-8299-c2c77c9b7e58');
 
       expect(req.session.save).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith(
@@ -104,7 +104,7 @@ describe('C8 refuge > utils', () => {
       };
       deleteDocumentMock.mockRejectedValue('Failure');
 
-      await deleteDocument(req, res);
+      await deleteDocument(req, res, '1234');
 
       expect(req.session.save).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
