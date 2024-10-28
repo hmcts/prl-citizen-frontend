@@ -135,6 +135,7 @@ export const getConfirmOrEditYourContactDetailsStatus = (
     partyDetails.phoneNumber,
     partyDetails.email,
     partyDetails.dateOfBirth,
+    partyDetails.liveInRefuge,
   ];
 
   if (caseData?.caseTypeOfApplication === CaseType.FL401) {

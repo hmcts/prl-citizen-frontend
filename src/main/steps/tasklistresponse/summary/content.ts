@@ -18,6 +18,7 @@ import {
   MIAM_START,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
+  REFUGE_UPLOAD_DOC,
   RESPONDENT_ADDRESS_DETAILS,
   RESPONDENT_ADDRESS_HISTORY,
   RESPONDENT_CONTACT_DETAILS,
@@ -25,6 +26,7 @@ import {
   RESPOND_TO_AOH,
   RESPONSE_TO_AOH,
   START_ALTERNATIVE,
+  STAYING_IN_REFUGE,
 } from '../../../steps/urls';
 import { summaryList as prepareRASummaryList } from '../../common/reasonable-adjustments/review/content';
 import {
@@ -91,6 +93,8 @@ export const enConfirmYourDetailsContent = {
     citizenUserFullName: 'Name',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
+    citizenUserLivingInRefugeText: 'Living in refuge',
+    refugeDocument: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
@@ -421,6 +425,8 @@ export const cyConfirmYourDetailsContent = {
     citizenUserFullName: 'Enw',
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
+    citizenUserLivingInRefugeText: 'Byw mewn lloches',
+    refugeDocument: 'Dogfen lloches C8',
     citizenUserAddressText: 'Cyfeiriad',
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',
@@ -576,6 +582,8 @@ const urls = {
   citizenUserAddressHistory: RESPONDENT_ADDRESS_HISTORY,
   citizenUserPhoneNumberText: RESPONDENT_CONTACT_DETAILS,
   citizenUserEmailAddressText: RESPONDENT_CONTACT_DETAILS,
+  citizenUserLivingInRefugeText: applyParms(STAYING_IN_REFUGE, { root: PartyType.RESPONDENT }),
+  refugeDocument: applyParms(REFUGE_UPLOAD_DOC, { root: PartyType.RESPONDENT }),
   start: INTERNATIONAL_FACTORS_START,
   iFactorsStartProvideDetails: INTERNATIONAL_FACTORS_START,
   parents: INTERNATIONAL_FACTORS_PARENTS,

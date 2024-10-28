@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { Response } from 'express';
+
 import { CaseWithId } from '../../../../app/case/case';
 import { ContactPreference, PartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { fromApiDate } from '../../../../app/case/from-api-format';
 import { toApiDate } from '../../../../app/case/to-api-format';
 import type { AppRequest } from '../../../../app/controller/AppRequest';
+import { deleteDocument } from '../../../../steps/common/refuge/utils';
 import { getFormattedDate } from '../../../common/summary/utils';
 
 export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
@@ -25,6 +28,8 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
     citizenUserAddressPostcode,
     isAtAddressLessThan5Years,
     citizenUserAddressHistory,
+    isCitizenLivingInRefuge,
+    refugeDocument,
   } = userCase;
 
   Object.assign(request, {
@@ -47,6 +52,8 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
       County: citizenUserAddressCounty,
       PostCode: citizenUserAddressPostcode,
     },
+    liveInRefuge: isCitizenLivingInRefuge,
+    refugeConfidentialityC8Form: refugeDocument,
   });
   //data clean up
 
@@ -56,6 +63,10 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
 
   if (isAtAddressLessThan5Years === YesOrNo.NO) {
     request.addressLivedLessThan5YearsDetails = '';
+  }
+
+  if (isCitizenLivingInRefuge === YesOrNo.NO) {
+    delete request.refugeConfidentialityC8Form;
   }
 
   if (userCase.partyContactPreference) {
@@ -83,6 +94,8 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     isAtAddressLessThan5Years,
     addressLivedLessThan5YearsDetails,
     address,
+    liveInRefuge,
+    refugeConfidentialityC8Form,
     ...rest
   } = partyDetails;
   let fullName;
@@ -111,10 +124,15 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     citizenUserAddressTown: address.PostTown,
     citizenUserAddressCounty: address.County,
     citizenUserAddressPostcode: address.PostCode,
+    isCitizenLivingInRefuge: liveInRefuge,
+    refugeDocument: refugeConfidentialityC8Form,
     ...rest,
   });
   if (isAtAddressLessThan5Years === YesOrNo.NO) {
     delete contactDetail.citizenUserAddressHistory;
+  }
+  if (liveInRefuge === YesOrNo.NO) {
+    delete contactDetail.refugeDocument;
   }
   return contactDetail;
 };
@@ -149,7 +167,7 @@ export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
   return req.session.userCase;
 }
 
-export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
+export const setTextFields = (req: AppRequest, res: Response): Partial<CaseWithId> => {
   if (req.session.userCase.citizenUserFirstNames && req.session.userCase.citizenUserLastNames) {
     req.session.userCase.citizenUserFullName =
       req.session.userCase.citizenUserFirstNames + ' ' + req.session.userCase.citizenUserLastNames;
@@ -174,6 +192,17 @@ export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
   } else {
     req.session.userCase.citizenUserEmailAddressText = req.session.userCase.citizenUserEmailAddress;
   }
+  if (!req.session.userCase.isCitizenLivingInRefuge) {
+    req.session.userCase.citizenUserLivingInRefugeText = '';
+  } else {
+    req.session.userCase.citizenUserLivingInRefugeText = req.session.userCase.isCitizenLivingInRefuge;
+  }
+
+  if (req.session.userCase.isCitizenLivingInRefuge === YesOrNo.NO) {
+    deleteDocument(req, res);
+    delete req.session.userCase.refugeDocument;
+  }
+
   setAddressFields(req);
   return req.session.userCase;
 };

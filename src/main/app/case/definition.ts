@@ -113,6 +113,8 @@ export interface PartyDetails {
   contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
   partyId: string;
+  liveInRefuge: YesOrNo;
+  refugeConfidentialityC8Form?: Document;
 }
 
 export interface User {
@@ -672,6 +674,8 @@ export type C100Applicant = {
   applicantAddressTown?: string;
   applicantAddressCounty?: string;
   country?: string;
+  liveInRefuge?: YesOrNo;
+  refugeConfidentialityC8Form?: Document;
   applicantAddressHistory?: YesOrNo;
   applicantProvideDetailsOfPreviousAddresses?: string;
   personalDetails: {
@@ -2776,6 +2780,8 @@ export type C100RebuildPartyDetails = {
     donKnowTelephoneNumber?: YesOrNo;
   };
   addressUnknown?: YesOrNo;
+  liveInRefuge?: YesOrNo;
+  refugeConfidentialityC8Form?: Document;
 };
 
 export interface RelationshipToChildren {
@@ -2974,6 +2980,7 @@ export enum PaymentErrorContext {
 export enum RootContext {
   C100_REBUILD = 'c100-rebuild',
   RESPONDENT = 'respondent',
+  APPLICANT = 'applicant'
 }
 
 export enum DomesticAbuseExemptions {

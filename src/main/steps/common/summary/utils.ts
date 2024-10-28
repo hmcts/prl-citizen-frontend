@@ -92,6 +92,15 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         );
       }
       break;
+    case 'citizenUserLivingInRefugeText':
+      if (!userCase.isCitizenLivingInRefuge) {
+        return userCase.citizenUserLivingInRefugeText;
+      } else {
+        translationLabel = 'ydwTranslation';
+      }
+      break;
+    case 'refugeDocument':
+      return userCase[key]?.document_filename;
     default:
       return userkey;
   }
@@ -120,7 +129,7 @@ export const summaryList = (
           : setkey(userCase, key, language)!,
       changeUrl: urls[key],
     };
-    if (row.value || key === 'citizenUserAddressHistory') {
+    if (row.value || key === 'citizenUserAddressHistory' || key === 'isCitizenLivingInRefuge') {
       if (key !== 'citizenUserSafeToCall') {
         summaryData.push(row);
       }

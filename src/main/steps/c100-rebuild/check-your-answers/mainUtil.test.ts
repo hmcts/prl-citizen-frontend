@@ -96,6 +96,8 @@ const keys = {
   mediatorConfirmation: 'mediatorConfirmation',
   midatatorDocumentTitle: 'midatatorDocumentTitle',
   childInvolvementInSupervision: 'childInvolvementInSupervision',
+  refuge: 'refuge',
+  c8RefugeDocument: 'c8RefugeDocument',
 };
 const language = 'en';
 const content = {
@@ -937,6 +939,12 @@ describe('test cases for main util', () => {
             PostTown: 'postTown',
             County: 'county',
           },
+          liveInRefuge: 'Yes',
+          refugeConfidentialityC8Form: {
+            document_url: 'DUMMY_URL',
+            document_binary_url: 'DUMMY_BINARY_URL',
+            document_filename: 'filename.docx',
+          },
         },
       ],
       cd_children: [
@@ -1036,6 +1044,40 @@ describe('test cases for main util', () => {
         },
         value: {
           text: 'Other',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/refuge/staying-in-refuge/3b32bc4f-7417-443b-ba94-5eacfcee04c4?',
+              text: undefined,
+              visuallyHiddenText: 'refuge',
+            },
+          ],
+        },
+        key: {
+          text: 'refuge',
+        },
+        value: {
+          text: 'Yes',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/refuge/upload-refuge-document/3b32bc4f-7417-443b-ba94-5eacfcee04c4',
+              text: undefined,
+              visuallyHiddenText: 'c8RefugeDocument',
+            },
+          ],
+        },
+        key: {
+          text: 'c8RefugeDocument',
+        },
+        value: {
+          text: 'filename.docx',
         },
       },
       {

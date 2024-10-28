@@ -11,6 +11,8 @@ const en = {
   },
   keys: {
     citizenUserFullName: 'Name',
+    citizenUserLivingInRefugeText: 'Living in refuge',
+    refugeDocument: 'C8 refuge document',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
     citizenUserAddressText: 'Address',

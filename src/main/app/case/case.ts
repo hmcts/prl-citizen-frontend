@@ -456,6 +456,7 @@ export interface Case {
   citizenUserPhoneNumberText?: string;
   citizenUserDateOfBirth?: CaseDate;
   citizenUserDateOfBirthText?: string;
+  citizenUserLivingInRefugeText?: string;
   applicant1Occupation?: string;
   citizenUserSelectAddress?: string;
   citizenUserPlaceOfBirth?: string;
@@ -475,6 +476,7 @@ export interface Case {
   citizenUserManualAddressTown?: string;
   citizenUserManualAddressCounty?: string;
   citizenUserManualAddressPostcode?: string;
+  isCitizenLivingInRefuge?: YesOrNo;
 
   //applicant1LanguagePreference?: LanguagePreference;
   //support you need during the case
@@ -691,6 +693,8 @@ export interface Case {
   awp_supportingDocuments?: DocumentInfo[];
   awp_applicationType?: AWPApplicationType;
   awp_applicationReason?: AWPApplicationReason;
+  refugeDocument?: Document;
+  reUploadRefugeDocument?: YesOrNo;
 }
 
 export interface CitizenNotification {
