@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Case } from '../../../../app/case/case';
+import { Case, CaseWithId } from '../../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../../app/case/definition';
 
 export const prepareRequest = (caseData: Partial<Case>): string => {
@@ -114,41 +114,31 @@ const dataCleanUpForRespondentAbuse = (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
     !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.PHYSICAL_ABUSE)
   ) {
-    if (data.c1A_safteyConcerns?.respondent?.physicalAbuse) {
-      data.c1A_safteyConcerns.respondent.physicalAbuse = undefined;
-    }
+    deleteAbuseData(data, 'physicalAbuse', 'respondent');
   }
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
     !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.PSYCHOLOGICAL_ABUSE)
   ) {
-    if (data.c1A_safteyConcerns?.respondent?.psychologicalAbuse) {
-      data.c1A_safteyConcerns.respondent.psychologicalAbuse = undefined;
-    }
+    deleteAbuseData(data, 'psychologicalAbuse', 'respondent');
   }
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
     !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.EMOTIONAL_ABUSE)
   ) {
-    if (data.c1A_safteyConcerns?.respondent?.emotionalAbuse) {
-      data.c1A_safteyConcerns.respondent.emotionalAbuse = undefined;
-    }
+    deleteAbuseData(data, 'emotionalAbuse', 'respondent');
   }
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
     !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.FINANCIAL_ABUSE)
   ) {
-    if (data.c1A_safteyConcerns?.respondent?.financialAbuse) {
-      data.c1A_safteyConcerns.respondent.financialAbuse = undefined;
-    }
+    deleteAbuseData(data, 'financialAbuse', 'respondent');
   }
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
     !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.SEXUAL_ABUSE)
   ) {
-    if (data.c1A_safteyConcerns?.respondent?.sexualAbuse) {
-      data.c1A_safteyConcerns.respondent.sexualAbuse = undefined;
-    }
+    deleteAbuseData(data, 'sexualAbuse', 'respondent');
   }
 };
 
@@ -161,41 +151,31 @@ const dataCleanUpForChildAbuse = (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
     !c1A_concernAboutChild?.includes(C1AAbuseTypes.PHYSICAL_ABUSE)
   ) {
-    if (data.c1A_safteyConcerns?.child?.physicalAbuse) {
-      data.c1A_safteyConcerns.child.physicalAbuse = undefined;
-    }
+    deleteAbuseData(data, 'physicalAbuse', 'child');
   }
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
     !c1A_concernAboutChild?.includes(C1AAbuseTypes.PSYCHOLOGICAL_ABUSE)
   ) {
-    if (data.c1A_safteyConcerns?.child?.psychologicalAbuse) {
-      data.c1A_safteyConcerns.child.psychologicalAbuse = undefined;
-    }
+    deleteAbuseData(data, 'psychologicalAbuse', 'child');
   }
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
     !c1A_concernAboutChild?.includes(C1AAbuseTypes.EMOTIONAL_ABUSE)
   ) {
-    if (data.c1A_safteyConcerns?.child?.emotionalAbuse) {
-      data.c1A_safteyConcerns.child.emotionalAbuse = undefined;
-    }
+    deleteAbuseData(data, 'emotionalAbuse', 'child');
   }
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
     !c1A_concernAboutChild?.includes(C1AAbuseTypes.FINANCIAL_ABUSE)
   ) {
-    if (data.c1A_safteyConcerns?.child?.financialAbuse) {
-      data.c1A_safteyConcerns.child.financialAbuse = undefined;
-    }
+    deleteAbuseData(data, 'financialAbuse', 'child');
   }
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
     !c1A_concernAboutChild?.includes(C1AAbuseTypes.SEXUAL_ABUSE)
   ) {
-    if (data.c1A_safteyConcerns?.child?.sexualAbuse) {
-      data.c1A_safteyConcerns.child.sexualAbuse = undefined;
-    }
+    deleteAbuseData(data, 'sexualAbuse', 'child');
   }
 };
 
@@ -260,5 +240,11 @@ const dataCleanupForNoSafetyConcern = (c1A_haveSafetyConcerns: YesOrNo | undefin
     data.c1A_policeOrInvestigatorOtherDetails = '';
     data.c1A_childAbductedBefore = undefined;
     data.c1A_safteyConcerns = {};
+  }
+};
+
+const deleteAbuseData = (data: Partial<CaseWithId>, abuse: string, party: string): void => {
+  if (data.c1A_safteyConcerns && data.c1A_safteyConcerns[party] && data.c1A_safteyConcerns?.[party][abuse]) {
+    data.c1A_safteyConcerns[party][abuse] = undefined;
   }
 };

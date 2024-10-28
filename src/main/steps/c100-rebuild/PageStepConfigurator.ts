@@ -11,7 +11,7 @@ interface FlattenedPageSteps {
 }
 
 class PageStepConfigurator {
-  private pageConfig;
+  private readonly pageConfig;
   private pageSteps;
   constructor(pageConfig: PageSteps[]) {
     this.pageConfig = pageConfig;

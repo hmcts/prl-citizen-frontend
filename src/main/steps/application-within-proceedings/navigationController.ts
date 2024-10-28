@@ -65,7 +65,7 @@ class ApplicationWithinProceedingsNavigationController {
     return url;
   }
 
-  private getUploadApplicationNextStep = (
+  private readonly getUploadApplicationNextStep = (
     partyType,
     completedForm,
     applicationType,
@@ -108,7 +108,7 @@ class ApplicationWithinProceedingsNavigationController {
     return completedForm === YesOrNo.NO ? noNextStep : yesNextStep;
   };
 
-  private getAgreementForRequestNextStep = (
+  private readonly getAgreementForRequestNextStep = (
     partyType,
     agreementForRequest,
     applicationType,
@@ -144,7 +144,12 @@ class ApplicationWithinProceedingsNavigationController {
     return applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE ? delayOrCancelStep : otherC2NextStep;
   };
 
-  private getSupportingDocumentsNextStep = (partyType, supportingDocuments, applicationType, applicationReason) => {
+  private readonly getSupportingDocumentsNextStep = (
+    partyType,
+    supportingDocuments,
+    applicationType,
+    applicationReason
+  ) => {
     const noNextStep =
       applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, {

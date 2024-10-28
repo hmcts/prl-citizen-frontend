@@ -70,7 +70,7 @@ describe('C100ChildPostCodePostController', () => {
     req.locals.C100Api.createCase.mockResolvedValueOnce({
       id: '1234',
       caseTypeOfApplication: 'C100',
-      state: State.Draft,
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
       noOfDaysRemainingToSubmitCase: '3',
     });
     when(config.get).calledWith('allowedCourts').mockReturnValue(['Swansea Civil Justice Centre']);
@@ -101,7 +101,7 @@ describe('C100ChildPostCodePostController', () => {
     req.locals.C100Api.createCase.mockResolvedValueOnce({
       id: '1234',
       caseTypeOfApplication: 'C100',
-      state: State.Draft,
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
       noOfDaysRemainingToSubmitCase: '3',
     });
     when(config.get).calledWith('allowedCourts').mockReturnValue(['Swansea Civil Justice Centre']);
@@ -115,7 +115,7 @@ describe('C100ChildPostCodePostController', () => {
     expect(req.session.userCase).toEqual({
       caseId: '1234',
       caseTypeOfApplication: 'C100',
-      state: State.Draft,
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
       noOfDaysRemainingToSubmitCase: '3',
     });
     expect(res.redirect).toHaveBeenCalled();
@@ -125,7 +125,7 @@ describe('C100ChildPostCodePostController', () => {
     req.locals.C100Api.createCase.mockResolvedValueOnce({
       id: '1234',
       caseTypeOfApplication: 'C100',
-      state: State.Draft,
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
       noOfDaysRemainingToSubmitCase: '3',
     });
     when(config.get).calledWith('allowedCourts').mockReturnValue(['*']);
@@ -141,7 +141,7 @@ describe('C100ChildPostCodePostController', () => {
     expect(req.session.userCase).toEqual({
       caseId: '1234',
       caseTypeOfApplication: 'C100',
-      state: State.Draft,
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
       noOfDaysRemainingToSubmitCase: '3',
     });
     expect(res.redirect).toHaveBeenCalled();
