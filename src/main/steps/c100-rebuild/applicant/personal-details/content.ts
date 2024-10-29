@@ -226,16 +226,14 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          //label: l => l.dateFormat['month'],
-          label: l => l.month,
+          label: l => l.dateFormat['month'],
           name: 'month',
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
         {
-          //label: l => l.dateFormat['year'],
-          label: l => l.year,
+          label: l => l.dateFormat['year'],
           name: 'year',
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',
