@@ -5,9 +5,7 @@ import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { C100_MIAM_UPLOAD } from '../../../urls';
-export type URL_OF_FILE_UPLOAD = string;
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnyType = any;
 
 @autobind
 export default class DocumentUpload extends GetController {

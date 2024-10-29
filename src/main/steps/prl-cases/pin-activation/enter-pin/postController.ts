@@ -13,7 +13,7 @@ export default class LinkCaseToAccountPostController extends PostController<AnyO
     super(fields);
   }
 
-  private removeErrors = (req: AppRequest): FormError[] => {
+  private readonly removeErrors = (req: AppRequest): FormError[] => {
     return req.session.errors?.length
       ? req.session.errors.filter(error => !['caseCode', 'accessCode'].includes(error.propertyName))
       : [];

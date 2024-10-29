@@ -17,7 +17,7 @@ import { C100_CONSENT_ORDER_UPLOAD, C100_MIAM_UPLOAD } from '../urls';
 PostDocumentUploader method */
 @autobind
 export default class UploadDocumentController {
-  private parent;
+  private readonly parent;
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     this.parent = new PostController(fields);
   }
