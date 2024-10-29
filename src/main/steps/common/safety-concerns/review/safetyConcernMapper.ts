@@ -244,7 +244,7 @@ const dataCleanupForNoSafetyConcern = (c1A_haveSafetyConcerns: YesOrNo | undefin
 };
 
 const deleteAbuseData = (data: Partial<CaseWithId>, abuse: string, party: string): void => {
-  if (data.c1A_safteyConcerns && data.c1A_safteyConcerns[party] && data.c1A_safteyConcerns?.[party][abuse]) {
-    data.c1A_safteyConcerns[party][abuse] = undefined;
+  if (data?.c1A_safteyConcerns?.[party]?.[abuse]) {
+    data.c1A_safteyConcerns[party][abuse] = null;
   }
 };

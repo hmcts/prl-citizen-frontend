@@ -139,4 +139,37 @@ describe('SafetyConcernsMapper', () => {
       '{"c1A_haveSafetyConcerns":"Yes","c1A_safetyConernAbout":["children"],"c1A_concernAboutChild":["physicalAbuse","abduction"],"c1A_concernAboutRespondent":[],"c1A_keepingSafeStatement":"safe statement","c1A_supervisionAgreementDetails":"Yes, but I prefer that it is supervised","c1A_agreementOtherWaysDetails":"Yes","c1A_otherConcernsDrugs":"Yes","c1A_otherConcernsDrugsDetails":"drugs extra info","c1A_childSafetyConcerns":"Yes","c1A_childSafetyConcernsDetails":"other issues","c1A_abductionReasonOutsideUk":"adb other loc","c1A_childsCurrentLocation":"adb other loc","c1A_childrenMoreThanOnePassport":null,"c1A_possessionChildrenPassport":[],"c1A_provideOtherDetails":"other","c1A_passportOffice":"No","c1A_abductionPassportOfficeNotified":null,"c1A_previousAbductionsShortDesc":"prev abd","c1A_policeOrInvestigatorInvolved":"Yes","c1A_policeOrInvestigatorOtherDetails":"prev abd","c1A_childAbductedBefore":"Yes","c1A_safteyConcerns":{"child":{"physicalAbuse":{"behaviourDetails":"pa","behaviourStartDate":"pa","isOngoingBehaviour":"Yes","seekHelpFromPersonOrAgency":"Yes","seekHelpDetails":"pa extra","childrenConcernedAbout":["ec6e380e-5cad-4ee4-ae84-954864789916"]}},"respondent":null}}'
     );
   });
+  test('data clen up for child and respondent', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase = {
+      ...req.session.userCase,
+      c1A_safetyConernAbout: ['children', 'respondent'],
+      c1A_haveSafetyConcerns: 'Yes',
+      c1A_concernAboutRespondent: [],
+      c1A_concernAboutChild: [],
+      c1A_passportOffice: 'No',
+    };
+    req.session.userCase.c1A_concernAboutRespondent = [];
+    respondents[0].value.response.respondingCitizenAoH = await prepareRequest(req.session.userCase);
+    expect(respondents[0].value.response.respondingCitizenAoH).toEqual(
+      '{"c1A_haveSafetyConcerns":"Yes","c1A_safetyConernAbout":["children","respondent"],"c1A_concernAboutChild":[],"c1A_concernAboutRespondent":[],"c1A_keepingSafeStatement":"safe statement","c1A_supervisionAgreementDetails":"Yes, but I prefer that it is supervised","c1A_agreementOtherWaysDetails":"Yes","c1A_otherConcernsDrugs":"Yes","c1A_otherConcernsDrugsDetails":"drugs extra info","c1A_childSafetyConcerns":"Yes","c1A_childSafetyConcernsDetails":"other issues","c1A_abductionReasonOutsideUk":"","c1A_childsCurrentLocation":"","c1A_childrenMoreThanOnePassport":null,"c1A_possessionChildrenPassport":[],"c1A_provideOtherDetails":"","c1A_passportOffice":null,"c1A_abductionPassportOfficeNotified":null,"c1A_previousAbductionsShortDesc":"","c1A_policeOrInvestigatorInvolved":null,"c1A_policeOrInvestigatorOtherDetails":"","c1A_childAbductedBefore":null,"c1A_safteyConcerns":{"child":{"physicalAbuse":null},"respondent":{"financialAbuse":null,"somethingElse":{"behaviourDetails":"se","behaviourStartDate":"se","isOngoingBehaviour":"No","seekHelpFromPersonOrAgency":"No","seekHelpDetails":"","childrenConcernedAbout":null}}}}'
+    );
+  });
+  test('data clen up for drug and c1A_childSafetyConcerns', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase = {
+      ...req.session.userCase,
+      c1A_safetyConernAbout: ['children', 'respondent'],
+      c1A_otherConcernsDrugs: 'No',
+      c1A_haveSafetyConcerns: 'Yes',
+      c1A_childSafetyConcerns: 'No',
+      c1A_concernAboutChild: [],
+      c1A_passportOffice: 'No',
+    };
+    req.session.userCase.c1A_concernAboutRespondent = [];
+    respondents[0].value.response.respondingCitizenAoH = await prepareRequest(req.session.userCase);
+    expect(respondents[0].value.response.respondingCitizenAoH).toEqual(
+      '{"c1A_haveSafetyConcerns":"Yes","c1A_safetyConernAbout":["children","respondent"],"c1A_concernAboutChild":[],"c1A_concernAboutRespondent":[],"c1A_keepingSafeStatement":"safe statement","c1A_supervisionAgreementDetails":"Yes, but I prefer that it is supervised","c1A_agreementOtherWaysDetails":"Yes","c1A_otherConcernsDrugs":"No","c1A_otherConcernsDrugsDetails":null,"c1A_childSafetyConcerns":"No","c1A_childSafetyConcernsDetails":null,"c1A_abductionReasonOutsideUk":"","c1A_childsCurrentLocation":"","c1A_childrenMoreThanOnePassport":null,"c1A_possessionChildrenPassport":[],"c1A_provideOtherDetails":"","c1A_passportOffice":null,"c1A_abductionPassportOfficeNotified":null,"c1A_previousAbductionsShortDesc":"","c1A_policeOrInvestigatorInvolved":null,"c1A_policeOrInvestigatorOtherDetails":"","c1A_childAbductedBefore":null,"c1A_safteyConcerns":{"child":{"physicalAbuse":null},"respondent":{"financialAbuse":null,"somethingElse":{"behaviourDetails":"se","behaviourStartDate":"se","isOngoingBehaviour":"No","seekHelpFromPersonOrAgency":"No","seekHelpDetails":"","childrenConcernedAbout":null}}}}'
+    );
+  });
 });
