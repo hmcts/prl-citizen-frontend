@@ -135,4 +135,77 @@ describe('address confirmation > content', () => {
     const form = generatedContent.form as FormContent;
     expect((form.submit?.text as Function)(enContent)).toBe('Save and continue');
   });
+
+  test('should generate correct summary list when isCitizenLivingInRefuge is Yes', () => {
+    expect(
+      generateContent({
+        ...commonContent,
+        userCase: {
+          isCitizenLivingInRefuge: 'Yes',
+          citizenUserLivingInRefugeText: 'Yes',
+          refugeDocument: {
+            document_url: 'MOCK_URL',
+            document_binary_url: 'MOCK_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+          },
+        },
+        language: 'en',
+      } as unknown as CommonContent).sections
+    ).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '../refuge/staying-in-refuge',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Living in refuge',
+                },
+              ],
+            },
+            key: {
+              text: 'Living in refuge',
+            },
+            value: {
+              html: 'Yes',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '../refuge/upload-refuge-document',
+                  text: 'Edit',
+                  visuallyHiddenText: 'C8 refuge document',
+                },
+              ],
+            },
+            key: {
+              text: 'C8 refuge document',
+            },
+            value: {
+              html: 'MOCK_FILENAME',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: 'addresshistory',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Address history',
+                },
+              ],
+            },
+            key: {
+              text: 'Address history',
+            },
+            value: {},
+          },
+        ],
+        title: '',
+      },
+    ]);
+  });
 });

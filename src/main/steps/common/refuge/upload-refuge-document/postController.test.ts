@@ -1,10 +1,12 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
+import { CaseApi } from '../../../../app/case/C100CaseApi';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 
 import C8RefugeploadDocumentPostController from './postController';
 
 const uploadDocumentMock = jest.spyOn(CosApiClient.prototype, 'uploadDocument');
+const saveC100DraftApplicationMock = jest.spyOn(CaseApi.prototype, 'saveC100DraftApplication');
 
 describe('C8 Refuge > upload refuge doc > postController', () => {
   let controller;
@@ -342,5 +344,33 @@ describe('C8 Refuge > upload refuge doc > postController', () => {
         propertyName: 'c8RefugeDocument',
       },
     ]);
+  });
+
+  test('should redirect without error when saveAndComeLater is true', async () => {
+    req.body = { saveAndComeLater: true };
+    req.session.userCase = {
+      refugeDocument: {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    };
+    req.locals.C100Api.saveC100DraftApplication = jest.fn();
+    req.url = '/applicant/refuge/upload-refuge-document';
+    req.originalUrl = '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58';
+    req.path = '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58';
+    saveC100DraftApplicationMock.mockResolvedValue(req.session.userCase);
+
+    await controller.post(req, res);
+    await new Promise(process.nextTick);
+
+    expect(res.redirect).toHaveBeenCalledWith('/task-list/applicant');
+    expect(req.session.userCase.c100RebuildReturnUrl).toBe(
+      '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58'
+    );
+    expect(req.session.save).toHaveBeenCalled();
+    expect(req.session.errors).toStrictEqual([]);
   });
 });

@@ -429,6 +429,12 @@ describe('test cases for main util', () => {
           applicantAddressHistory: 'Yes',
           applicantProvideDetailsOfPreviousAddresses: '',
           country: 'United Kingdom',
+          liveInRefuge: 'Yes',
+          refugeConfidentialityC8Form: {
+            document_url: 'DUMMY_URL',
+            document_binary_url: 'DUMMY_BINARY_URL',
+            document_filename: 'filename.docx',
+          },
         },
       ],
     } as ANYTYPE;

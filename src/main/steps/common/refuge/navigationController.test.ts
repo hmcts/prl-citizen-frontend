@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { CaseType } from '../../../app/case/definition';
 import {
   C100_REFUGE_UPLOAD_DOC,
+  DASHBOARD_URL,
   REFUGE_DOC_ALREADY_UPLOADED,
   REFUGE_KEEPING_SAFE,
   REFUGE_UPLOAD_DOC,
@@ -282,5 +283,9 @@ describe('C8 refuge > navigationController', () => {
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_DOC_ALREADY_UPLOADED, req.session.userCase, req)).toBe(
       '/respondent/confirm-contact-details/addressdetails'
     );
+  });
+
+  test('should return current url by default', () => {
+    expect(RefugeNavigationController.getNextPageUrl(DASHBOARD_URL, req.session.userCase, req)).toBe('/dashboard');
   });
 });
