@@ -91,13 +91,11 @@ class PreProcessCaseData {
     if (fieldValue.includes(valueConfig.value)) {
       // if form data value matches with the field values config value
       Object.assign(_caseData, this.removeEmptyValues(formData, valueConfig.subFields));
-    } else {
+    } else if (valueConfig.subFields) {
       // if the field values config value is not present in form data then clean up other subfield data from caseData for the fields that has subfields
-      if (valueConfig.subFields) {
-        Object.keys(valueConfig.subFields).forEach(subField => {
-          delete _caseData[subField];
-        });
-      }
+      Object.keys(valueConfig.subFields).forEach(subField => {
+        delete _caseData[subField];
+      });
     }
   }
 }

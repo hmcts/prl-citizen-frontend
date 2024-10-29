@@ -3,7 +3,7 @@ import { Applicant } from '../../../app/case/definition';
 
 export const getApplicantAllegationsOfHarmAndViolence = (userCase: CaseWithId): boolean => {
   let flag = false;
-  if (userCase && userCase.allegationsOfHarmYesNo) {
+  if (userCase?.allegationsOfHarmYesNo) {
     flag = true;
   }
   return flag;

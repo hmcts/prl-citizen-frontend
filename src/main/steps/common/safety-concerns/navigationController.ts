@@ -32,7 +32,7 @@ class SafteyConcernsNavigationController {
   private applicantConcerns: C1AAbuseTypes[] = [];
   private respondentConcerns: C1AAbuseTypes[] = [];
 
-  private pages: Record<C1ASafteyConcernsAbout, Record<string, any>> = {
+  private readonly pages: Record<C1ASafteyConcernsAbout, Record<string, any>> = {
     [C1ASafteyConcernsAbout.CHILDREN]: {
       dataReference: () => this.childConcerns,
       url: C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
@@ -296,19 +296,11 @@ class SafteyConcernsNavigationController {
           Flow-2: If there is no page left to navigate for applicant, then the next page url should be child guidelines selection page.
           Flow-3: If there is no page left to navigate for applicant, then the next page url should be other concerns page.
           */
+    const urlParam =
+      params?.root === RootContext.C100_REBUILD ? C1ASafteyConcernsAbout.APPLICANT : C1ASafteyConcernsAbout.RESPONDENT;
     const returnUrl =
-      this.getNextPageUrl(
-        params?.root === RootContext.C100_REBUILD
-          ? C1ASafteyConcernsAbout.APPLICANT
-          : C1ASafteyConcernsAbout.RESPONDENT,
-        params?.abuseType
-      ) ??
-      (this.checkForConcerns(
-        params?.root === RootContext.C100_REBUILD
-          ? C1ASafteyConcernsAbout.APPLICANT
-          : C1ASafteyConcernsAbout.RESPONDENT,
-        true
-      )
+      this.getNextPageUrl(urlParam, params?.abuseType) ??
+      (this.checkForConcerns(urlParam, true)
         ? this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, undefined, 'guidelines')
         : this.getPageUrl(C1ASafteyConcernsAbout.OTHER));
 

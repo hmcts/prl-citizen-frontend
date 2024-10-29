@@ -172,18 +172,16 @@ export const generateHearingScheduleDisplayText = (
   const lang = preference === 'cy' ? cy : en;
   if (durationInDayOrHours >= 5) {
     return `1 ${lang.smallDay}`;
-  } else {
-    if (minutes > 0) {
-      if (durationInDayOrHours > 0) {
-        const hourText = generateHearingHourDisplayText(durationInDayOrHours, preference);
-        const minuteText = generateHearingMinuteDisplayText(minutes, preference);
-        return `${hourText} ${minuteText}`;
-      } else {
-        return generateHearingMinuteDisplayText(minutes, preference);
-      }
+  } else if (minutes > 0) {
+    if (durationInDayOrHours > 0) {
+      const hourText = generateHearingHourDisplayText(durationInDayOrHours, preference);
+      const minuteText = generateHearingMinuteDisplayText(minutes, preference);
+      return `${hourText} ${minuteText}`;
     } else {
-      return generateHearingHourDisplayText(durationInDayOrHours, preference);
+      return generateHearingMinuteDisplayText(minutes, preference);
     }
+  } else {
+    return generateHearingHourDisplayText(durationInDayOrHours, preference);
   }
 };
 export const generateHearingMinuteDisplayText = (minutes: number, preference: string | undefined): string => {

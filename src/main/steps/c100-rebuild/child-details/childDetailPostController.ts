@@ -17,8 +17,8 @@ type ContextReference = { formRef: (caseData: Partial<CaseWithId>, childId: Chil
 type FeatureContext = { [key: string]: ContextReference };
 @autobind
 export default class ChildDetailsPostController {
-  private parent;
-  private featureContext: FeatureContext;
+  private readonly parent;
+  private readonly featureContext: FeatureContext;
   private contextReference: ContextReference;
 
   constructor(protected readonly fields: FormFields | FormFieldsFn) {

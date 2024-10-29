@@ -3,6 +3,7 @@
 import { YesOrNo } from '../../../app/case/definition';
 import { PROCEEDINGS_ORDER_DETAILS } from '../../../steps/urls';
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
+import { Mapper } from '../../c100-rebuild/check-your-answers/util/otherProceeding.util';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 
@@ -13,29 +14,6 @@ import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-de
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order, language) => {
   const newOrders = order;
-  const Mapper = {
-    ['orderDetail']: {
-      question: keys['courtIssuedLabel'],
-    },
-    ['caseNo']: {
-      question: keys['caseNumberLabel'],
-    },
-    ['orderDate']: {
-      question: keys['orderDateLabel'],
-    },
-    ['currentOrder']: {
-      question: keys['isCurrentOrderLabel'],
-    },
-    ['orderCopy']: {
-      question: keys['copyOfOrderLabel'],
-    },
-    ['orderEndDate']: {
-      question: keys['orderEndDateLabel'],
-    },
-    ['orderDocument']: {
-      question: keys['copy'],
-    },
-  };
   let Val = '';
   Object.entries(newOrders).forEach((entry, index) => {
     const key = entry[0];
@@ -43,11 +21,11 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
     const rulerForLastElement = Object.entries(newOrders).length > index + 1 ? HTML.RULER : '<br>';
     if (key !== 'id' && key !== 'orderDocument') {
       if (typeof entry[1] === 'object' && entry[1] !== null) {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
         const valueDetails = HTML.P + DATE_FORMATTOR(value, language) + HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       } else {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
         const valueDetails =
           HTML.P +
           (value === YesOrNo.YES
@@ -58,11 +36,11 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
       }
     } else if (key === 'orderDocument') {
       if (value !== 'undefined') {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
         const valueDetails = HTML.P + getYesNoTranslation(language, YesOrNo.YES, 'doTranslation') + HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       } else {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
         const valueDetails = HTML.P + getYesNoTranslation(language, YesOrNo.NO, 'doTranslation') + HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       }
