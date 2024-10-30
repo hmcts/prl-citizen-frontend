@@ -153,6 +153,7 @@ describe('ConfirmContactDetailsPostController', () => {
       previousName: 'Johnny Smith',
       response: { safeToCallOption: '4 pm' },
       liveInRefuge: 'No',
+      refugeConfidentialityC8Form: null,
     };
 
     updated = {

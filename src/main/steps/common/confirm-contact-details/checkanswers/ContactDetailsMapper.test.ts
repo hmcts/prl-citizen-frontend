@@ -230,7 +230,7 @@ describe('ContactDetailsMapper', () => {
       },
     });
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase = setTextFields(req, res);
+    req.session.userCase = await setTextFields(req, res);
 
     expect(req.session.userCase).toEqual(
       expect.objectContaining({
@@ -284,7 +284,7 @@ describe('ContactDetailsMapper', () => {
       },
     });
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase = setTextFields(req, res);
+    req.session.userCase = await setTextFields(req, res);
 
     expect(req.session.userCase).toEqual(
       expect.objectContaining({

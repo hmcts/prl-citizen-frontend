@@ -67,7 +67,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   }
 
   if (isCitizenLivingInRefuge === YesOrNo.NO) {
-    delete request.refugeConfidentialityC8Form;
+    request.refugeConfidentialityC8Form = null;
   }
 
   if (userCase.partyContactPreference) {
@@ -138,7 +138,7 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
   return contactDetail;
 };
 
-export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
+export async function setAddressFields(req: AppRequest): Promise<Partial<CaseWithId>> {
   if (
     !req.session.userCase.citizenUserAddress1 &&
     !req.session.userCase.citizenUserAddressTown &&
@@ -168,7 +168,7 @@ export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
   return req.session.userCase;
 }
 
-export const setTextFields = (req: AppRequest, res: Response): Partial<CaseWithId> => {
+export const setTextFields = async (req: AppRequest, res: Response): Promise<Partial<CaseWithId>> => {
   if (req.session.userCase.citizenUserFirstNames && req.session.userCase.citizenUserLastNames) {
     req.session.userCase.citizenUserFullName =
       req.session.userCase.citizenUserFirstNames + ' ' + req.session.userCase.citizenUserLastNames;
@@ -199,11 +199,10 @@ export const setTextFields = (req: AppRequest, res: Response): Partial<CaseWithI
     req.session.userCase.citizenUserLivingInRefugeText = req.session.userCase.isCitizenLivingInRefuge;
   }
 
-  if (req.session.userCase.isCitizenLivingInRefuge === YesOrNo.NO) {
-    deleteDocument(req, res, _.toString(_.last(req.session.userCase.refugeDocument?.document_url.split('/'))));
-    delete req.session.userCase.refugeDocument;
+  if (req.session.userCase.isCitizenLivingInRefuge === YesOrNo.NO && !_.isEmpty(req.session.userCase.refugeDocument)) {
+    await deleteDocument(req, res, _.toString(_.last(req.session.userCase.refugeDocument?.document_url.split('/'))));
   }
 
-  setAddressFields(req);
+  await setAddressFields(req);
   return req.session.userCase;
 };

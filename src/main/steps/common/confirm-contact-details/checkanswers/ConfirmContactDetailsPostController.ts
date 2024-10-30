@@ -95,7 +95,7 @@ export const saveAndRedirectContactDetailsAndPreference = async (
           : CaseEvent.CONFIRM_YOUR_DETAILS
       );
       mapDataInSession(req.session.userCase, user.id);
-      req.session.userCase.citizenUserAddressText = setAddressFields(req).citizenUserAddressText;
+      req.session.userCase.citizenUserAddressText = (await setAddressFields(req)).citizenUserAddressText;
       req.session.save(() => {
         const redirectUrl = getRedirectUrl(partyType, req);
         res.redirect(redirectUrl);

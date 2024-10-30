@@ -114,7 +114,7 @@ export interface PartyDetails {
   isRemoveLegalRepresentativeRequested?: YesOrNo;
   partyId: string;
   liveInRefuge: YesOrNo;
-  refugeConfidentialityC8Form?: Document;
+  refugeConfidentialityC8Form?: Document | null;
 }
 
 export interface User {
