@@ -1403,7 +1403,7 @@ describe('testcase for notification Banner', () => {
           },
         } as unknown as Respondent,
       ];
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.caseTypeOfApplication = 'C100';
       data.citizenNotifications = [
         {
@@ -1451,7 +1451,7 @@ describe('testcase for notification Banner', () => {
           },
         } as unknown as Respondent,
       ];
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.caseTypeOfApplication = 'C100';
       data.citizenNotifications = [
         {
@@ -1500,7 +1500,7 @@ describe('testcase for notification Banner', () => {
         } as unknown as Respondent,
       ];
       data.caseTypeOfApplication = 'C100';
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.citizenNotifications = [
         {
           id: 'CRNF2_APPLICANT_RESPONDENT',
@@ -1548,7 +1548,7 @@ describe('testcase for notification Banner', () => {
         } as unknown as Respondent,
       ];
       data.caseTypeOfApplication = 'C100';
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.citizenNotifications = [
         {
           id: 'CRNF2_APPLICANT_RESPONDENT',
@@ -1611,7 +1611,7 @@ describe('testcase for notification Banner', () => {
           ],
         },
       ] as unknown as CitizenApplicationPacks[];
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.citizenNotifications = [
         {
           id: 'CAN5_SOA_RESPONDENT',
@@ -1680,7 +1680,7 @@ describe('testcase for notification Banner', () => {
           ],
         },
       ] as unknown as CitizenApplicationPacks[];
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.citizenNotifications = [
         {
           id: 'CAN5_SOA_RESPONDENT',

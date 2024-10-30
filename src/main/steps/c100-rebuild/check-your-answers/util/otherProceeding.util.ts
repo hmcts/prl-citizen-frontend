@@ -9,28 +9,26 @@ import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+export const Mapper = (key, keys) => {
+  switch (key) {
+    case 'orderDetail':
+      return keys['courtIssuedLabel'];
+    case 'caseNo':
+      return keys['caseNumberLabel'];
+    case 'orderDate':
+      return keys['orderDateLabel'];
+    case 'currentOrder':
+      return keys['isCurrentOrderLabel'];
+    case 'orderCopy':
+      return keys['copyOfOrderLabel'];
+    case 'orderEndDate':
+      return keys['orderEndDateLabel'];
+    case 'orderDocument':
+      return keys['copy'];
+  }
+};
 export const IndividualOrderFieldsParser = (keys, order, language) => {
   const newOrders = order;
-  const Mapper = {
-    ['orderDetail']: {
-      question: keys['courtIssuedLabel'],
-    },
-    ['caseNo']: {
-      question: keys['caseNumberLabel'],
-    },
-    ['orderDate']: {
-      question: keys['orderDateLabel'],
-    },
-    ['currentOrder']: {
-      question: keys['isCurrentOrderLabel'],
-    },
-    ['orderCopy']: {
-      question: keys['copyOfOrderLabel'],
-    },
-    ['orderEndDate']: {
-      question: keys['orderEndDateLabel'],
-    },
-  };
   let Val = '';
   Object.entries(newOrders).forEach((entry, index) => {
     const key = entry[0];
@@ -38,11 +36,11 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
     const rulerForLastElement = Object.entries(newOrders).length > index + 1 ? HTML.RULER : '<br>';
     if (key !== 'id' && key !== 'orderDocument') {
       if (typeof entry[1] === 'object' && entry[1] !== null) {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
         const valueDetails = HTML.P + DATE_FORMATTOR(value, language) + HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       } else {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
         let valueDetails = '';
         if (key === 'currentOrder') {
           valueDetails = HTML.P + getYesNoTranslation(language, value, 'ieTranslation') + HTML.P_CLOSE;

@@ -744,9 +744,7 @@ export const SafetyConcerns = (
   language
 ): SummaryList | undefined => {
   const dataForConcerns = userCase.hasOwnProperty('c1A_safetyConernAbout')
-    ? userCase['c1A_safetyConernAbout']?.map(
-        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
-      )
+    ? userCase['c1A_safetyConernAbout']?.map(concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
     : '';
   const SummaryData = [
     {
@@ -786,9 +784,7 @@ export const SafetyConcerns_child = (
   language
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutChild')
-    ? userCase['c1A_concernAboutChild']?.map(
-        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
-      )
+    ? userCase['c1A_concernAboutChild']?.map(concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
     : '';
   let subFields = userCase['c1A_concernAboutChild'] as ANYTYPE;
   subFields = subFields
@@ -962,9 +958,7 @@ export const SafetyConcerns_yours = (
   language
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutApplicant')
-    ? userCase['c1A_concernAboutApplicant']?.map(
-        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.NESTED_LIST_ITEM_END
-      )
+    ? userCase['c1A_concernAboutApplicant']?.map(concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
     : '';
   let subFields = userCase?.['c1A_concernAboutApplicant'] as ANYTYPE;
   subFields = subFields

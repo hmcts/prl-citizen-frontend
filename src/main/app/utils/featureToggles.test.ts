@@ -31,6 +31,17 @@ describe('FeatureToggles', () => {
     it('should throw an error if toggle does not exist', () => {
       expect(() => FeatureToggles.hasAnyAuthorisedFeature([])).to.throw(Error);
     });
+    it('should not throw an error feature names are provided', () => {
+      expect(FeatureToggles.hasAnyAuthorisedFeature([], ...['c100Rebuild'])).equal(false);
+    });
+    it('should not throw an error feature names are provided -diffent array object', () => {
+      expect(() => FeatureToggles.hasAnyAuthorisedFeature(['c100Rebuild'], ...['testingSupport'])).not.to.throw(Error);
+    });
+    it('should not throw an error feature names are provided -some matching array object', () => {
+      expect(() =>
+        FeatureToggles.hasAnyAuthorisedFeature(['c100Rebuild', 'testingSupport'], ...['testingSupport'])
+      ).not.to.throw(Error);
+    });
   });
 
   describe('isEnabled', () => {

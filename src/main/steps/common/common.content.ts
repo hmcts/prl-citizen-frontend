@@ -134,7 +134,6 @@ export const en = {
 };
 
 export const cy: typeof en = {
-  ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
   applyForChildArrangements: 'Cyfraith breifat',
   applyForDissolution: 'Cyfraith breifat',
@@ -246,6 +245,18 @@ export const cy: typeof en = {
   feedback: 'Adborth',
   awpErrorSummaryHeading: 'Mae yna broblem',
   invalidDate: 'Dyddiad Annilys',
+  next: 'Next',
+  errorSendingInvite:
+    'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
+  habitualResidentHelpText1:
+    'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
+  habitualResidentHelpText2:
+    'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+  save: 'Save',
+  cookiesSaved: 'Your cookie settings were saved',
+  additionalCookies:
+    'Government services may set additional cookies and, if so, will have their own cookie policy and banner.',
+  goToHomepage: 'Go to homepage',
 };
 
 export const generatePageContent = ({

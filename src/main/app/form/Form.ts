@@ -56,13 +56,13 @@ export class Form {
 
     // if there are checkboxes or options, check them for errors
     if (isFormOptions(field)) {
-      const valuesErrors = field.values.flatMap(value => this.getErrorsFromField(body, value.name || id, value));
+      const valuesErrors = field.values.flatMap(value => this.getErrorsFromField(body, value.name ?? id, value));
 
       errors.push(...valuesErrors);
     }
     // if there are subfields and the current field is selected then check for errors in the subfields
     else if (field.subFields) {
-      if (body[id] === field.value || (body[id] && body[id].includes(field.value))) {
+      if (body[id] === field.value || body[id]?.includes(field.value)) {
         const subFields = Object.entries(field.subFields);
         const subFieldErrors = subFields.flatMap(([subId, subField]) => this.getErrorsFromField(body, subId, subField));
 
@@ -122,14 +122,12 @@ export type LanguageLookup = (lang: Record<string, never>) => string;
 type Parser = (value: Record<string, unknown> | string[]) => void;
 
 export type LabelFormFormatter = {
-  text?: string | never;
+  text?: string;
   classes?: string;
   isPageHeading?: boolean;
 };
 
 type Label = LabelFormFormatter | string | LanguageLookup;
-
-type Warning = Label;
 
 export type ValidationCheck = (
   value: string | string[] | CaseDate | undefined,
@@ -228,7 +226,7 @@ export interface FormInput {
   attributes?: Partial<HTMLInputElement | HTMLTextAreaElement>;
   validator?: ValidationCheck;
   parser?: Parser;
-  warning?: Warning;
+  warning?: Label;
   conditionalText?: Label;
   subFields?: Record<string, FormField>;
   open?: boolean;
