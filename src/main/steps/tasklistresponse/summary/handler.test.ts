@@ -121,15 +121,17 @@ describe('handler', () => {
     data.citizenUserDateOfBirth = '';
     data.citizenUserPhoneNumber = '';
     data.citizenUserEmailAddress = '';
+    data.isCitizenLivingInRefuge = '';
     populateSummaryData(data, '123');
 
     expect(data.citizenUserPlaceOfBirthText).toEqual('');
     expect(data.citizenUserDateOfBirthText).toEqual('');
     expect(data.citizenUserPhoneNumberText).toEqual('');
     expect(data.citizenUserEmailAddressText).toEqual('');
+    expect(data.isCitizenLivingInRefuge).toEqual('');
   });
   test('detail', () => {
-    data.citizenUserPlaceOfBirth = '';
+    data.citizenUserPlaceOfBirth = 'London';
     data.citizenUserDateOfBirth = {
       year: '2023',
       month: '12',
@@ -137,12 +139,14 @@ describe('handler', () => {
     };
     data.citizenUserPhoneNumber = '9876';
     data.citizenUserEmailAddress = 'abc';
+    data.isCitizenLivingInRefuge = 'Yes';
     populateSummaryData(data, '123');
 
-    expect(data.citizenUserPlaceOfBirthText).toEqual('');
+    expect(data.citizenUserPlaceOfBirthText).toEqual('London');
     expect(data.citizenUserDateOfBirthText).toEqual('25 December 2023');
     expect(data.citizenUserPhoneNumberText).toEqual('9876');
     expect(data.citizenUserEmailAddressText).toEqual('abc');
+    expect(data.isCitizenLivingInRefuge).toBe('Yes');
   });
   test('address', () => {
     data.respondents[0].value.address = {
