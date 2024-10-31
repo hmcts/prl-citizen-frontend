@@ -149,3 +149,96 @@ describe('respondent > address > lookup > SelectAddressPostController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 });
+
+test('should call super constructor with no params', async () => {
+  const mockFormContent = {
+    fields: {},
+  } as unknown as FormContent;
+  const controller = new SelectAddressPostController(mockFormContent.fields);
+  const language = 'en';
+
+  const req = mockRequest({
+    params: {
+      respondentId: undefined,
+    },
+    body: {
+      firstName: 'Dummy ',
+      id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+      lastName: 'Test1',
+      selectAddress: '0',
+      address: {
+        AddressLine1: 'UK',
+        AddressLine2: 'UK1',
+        PostTown: 'London',
+        County: 'UK',
+        PostCode: 'AG11NB',
+        addressHistory: 'Yes',
+        provideDetailsOfPreviousAddresses: 'NA',
+        selectedAddress: 2,
+      },
+      addresses: [
+        {
+          fullAddress: 'FLAT 20, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
+          street1: 'FLAT 20, THAMES VIEW, AXON PLACE',
+          street2: 'CENTREWAY APARTMENTS',
+          town: 'ILFORD',
+          county: 'REDBRIDGE',
+          postcode: 'IG1 1NB',
+        },
+        {
+          fullAddress: 'FLAT 21, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
+          street1: 'FLAT 21, THAMES VIEW, AXON PLACE',
+          street2: 'CENTREWAY APARTMENTS',
+          town: 'ILFORD',
+          county: 'REDBRIDGE',
+          postcode: 'IG1 1NB',
+        },
+      ],
+      onlycontinue: true,
+    },
+    session: {
+      lang: language,
+      addresses: [
+        {
+          fullAddress: 'FLAT 20, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
+          street1: 'FLAT 20, THAMES VIEW, AXON PLACE',
+          street2: 'CENTREWAY APARTMENTS',
+          town: 'ILFORD',
+          county: 'REDBRIDGE',
+          postcode: 'IG1 1NB',
+        },
+        {
+          fullAddress: 'FLAT 21, THAMES VIEW, CENTREWAY APARTMENTS, AXON PLACE, ILFORD, IG1 1NB',
+          street1: 'FLAT 21, THAMES VIEW, AXON PLACE',
+          street2: 'CENTREWAY APARTMENTS',
+          town: 'ILFORD',
+          county: 'REDBRIDGE',
+          postcode: 'IG1 1NB',
+        },
+      ],
+      userCase: {
+        resp_Respondents: [
+          {
+            firstName: 'Dummy ',
+            id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+            lastName: 'Test1',
+            address: {
+              AddressLine1: 'UK',
+              AddressLine2: 'UK1',
+              PostTown: 'London',
+              County: 'UK',
+              PostCode: 'AG11NB',
+              addressHistory: 'Yes',
+              provideDetailsOfPreviousAddresses: 'NA',
+              selectedAddress: 2,
+            },
+          },
+        ],
+      },
+    },
+  });
+  delete req.params;
+  const res = mockResponse();
+  await controller.post(req, res);
+  expect(res.redirect).toHaveBeenCalled();
+});

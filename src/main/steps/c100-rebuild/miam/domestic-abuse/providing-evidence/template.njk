@@ -11,7 +11,7 @@
 
   <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-1">
     {% for abuseReason in listOfAbuseReasons %}
-      <li>{{ abuseReason.abuseEvidenceType }}</li>
+      <li>{{ abuseReason.abuseEvidenceType }}
       {% if abuseReason.abuseEvidenceReasons %}
         <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-2">
           {% for evidence in abuseReason.abuseEvidenceReasons %}
@@ -19,6 +19,7 @@
           {% endfor %}
         </ul>
       {% endif %}
+      </li>
     {% endfor %}
   </ul>
 <br/>

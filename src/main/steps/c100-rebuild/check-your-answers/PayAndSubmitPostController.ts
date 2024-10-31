@@ -26,7 +26,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
         const form = new Form(fields);
         const { ...formData } = form.getParsedBody(req.body);
         req.session.errors = form.getErrors(formData);
-        if (req.session.errors && req.session.errors.length) {
+        if (req.session.errors?.length) {
           return super.redirect(req, res, C100_CHECK_YOUR_ANSWER);
         }
 
