@@ -12,9 +12,9 @@ const en = {
   title: 'Upload a C8 form',
   uploadFileHeading: 'Upload a document',
   uploadGuidance:
-    'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">here</a>. Your address, email address and contact number will be kept confidential.',
+    'You can download the form <a href="https://www.gov.uk/government/publications/form-c8-confidential-contact-details-family-procedure-rules-2010-rule-291" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">here</a>. Your address, email address and contact number will be kept confidential.',
   c100uploadGuidance:
-    'You can download the form <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">here</a>. {name}\'s address, email address and contact number will be kept confidential.',
+    'You can download the form <a href="https://www.gov.uk/government/publications/form-c8-confidential-contact-details-family-procedure-rules-2010-rule-291" class="govuk-link" target="_blank" rel="external" aria-label="Download the C8 form">here</a>. {name}\'s address, email address and contact number will be kept confidential.',
   uplodFileHint:
     'When uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
   uploadButtonLabel: 'Upload file',
@@ -45,9 +45,9 @@ const en = {
 const cy = {
   title: 'Uwchlwytho ffurflen C8',
   uploadGuidance:
-    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Gallwch lawrlwytho\'r C8 ffurflen yma">yma</a>. Bydd eich cyfeiriad, cyfeiriad e-bost a rhif cyswllt yn cael eu cadw\'n gyfrinachol.',
+    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/government/publications/form-c8-confidential-contact-details-family-procedure-rules-2010-rule-291" class="govuk-link" target="_blank" rel="external" aria-label="Gallwch lawrlwytho\'r C8 ffurflen yma">yma</a>. Bydd eich cyfeiriad, cyfeiriad e-bost a rhif cyswllt yn cael eu cadw\'n gyfrinachol.',
   c100uploadGuidance:
-    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/" class="govuk-link" target="_blank" rel="external" aria-label="Gallwch lawrlwytho\'r C8 ffurflen yma">yma</a>. Bydd cyfeiriad, cyfeiriad e-bost a rhif cyswllt {name} yn cael eu cadw’n gyfrinachol.',
+    'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/government/publications/form-c8-confidential-contact-details-family-procedure-rules-2010-rule-291" class="govuk-link" target="_blank" rel="external" aria-label="Gallwch lawrlwytho\'r C8 ffurflen yma">yma</a>. Bydd cyfeiriad, cyfeiriad e-bost a rhif cyswllt {name} yn cael eu cadw’n gyfrinachol.',
   uploadFileHeading: 'Llwytho dogfen',
   uplodFileHint:
     'Pan fyddwch yn llwytho dogfennau, gwnewch yn siŵr eich bod yn enwi’r ffeiliau yn glir.  Er enghraifft, datganiad-safbwynt.doc. Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
