@@ -92,6 +92,7 @@ const NotificationTypeIDMap = {
     NotificationID.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE_TO_DA_APPLICANT,
   [NotificationType.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF_TO_DA_RESPONDENT]:
     NotificationID.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF_TO_DA_RESPONDENT,
+  [NotificationType.SERVE_DOCUMENTS]: NotificationID.SERVE_DOCUMENTS,
 };
 
 export const isApplicationPackAvailable = (caseData: Partial<CaseWithId>, partyType: PartyType): boolean => {
