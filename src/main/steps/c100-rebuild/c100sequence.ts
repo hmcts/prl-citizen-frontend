@@ -135,7 +135,7 @@ import ChildrenDetailsNavigationController from './child-details/navigationContr
 import OtherChildrenDetailsNavigationController from './child-details/other-children/navigationController';
 import MIAMNavigationController from './miam/navigationController';
 import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
-import OtherProceedingsNavigationController from './other-proceedings/navigationController';
+import PreviousProceedingsNavigationController from './other-proceedings/navigationController';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
@@ -321,18 +321,19 @@ export const C100Sequence: Step[] = [
     url: C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     showInSection: Sections.C100,
     getNextStep: caseData =>
-      OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS, caseData),
+      PreviousProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS, caseData),
   },
   {
     url: C100_OTHER_PROCEEDINGS_DETAILS,
     showInSection: Sections.C100,
-    getNextStep: caseData => OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DETAILS, caseData),
+    getNextStep: caseData =>
+      PreviousProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DETAILS, caseData),
   },
   {
     url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
     showInSection: Sections.C100,
     getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
-      return OtherProceedingsNavigationController.getNextUrl(
+      return PreviousProceedingsNavigationController.getNextUrl(
         C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
         caseData,
         req!.params
@@ -343,7 +344,7 @@ export const C100Sequence: Step[] = [
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
     showInSection: Sections.C100,
     getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
-      return OtherProceedingsNavigationController.getNextUrl(
+      return PreviousProceedingsNavigationController.getNextUrl(
         C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
         caseData,
         req!.params
@@ -354,7 +355,7 @@ export const C100Sequence: Step[] = [
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
     getNextStep: caseData =>
-      OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY, caseData),
+      PreviousProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY, caseData),
   },
   {
     url: C100_CHILD_ADDRESS,

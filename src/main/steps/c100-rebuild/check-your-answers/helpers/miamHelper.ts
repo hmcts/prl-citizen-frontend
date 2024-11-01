@@ -32,7 +32,7 @@ type MiamSection = {
   changeUrl: string;
 };
 
-InstanceOfMiamHelper.__proto__.miamExemptionParser = (userCase, keys) => {
+Object.getPrototypeOf(InstanceOfMiamHelper).miamExemptionParser = (userCase, keys) => {
   if (userCase.hasOwnProperty('miam_nonAttendanceReasons')) {
     const nonAttenDanceReaseons = userCase['miam_nonAttendanceReasons']
       .flatMap(reason => keys[`${reason}Head`])
@@ -182,7 +182,7 @@ export const miamParentAndChildFieldParser = (
               userCase[`${sessionKey}_${nonAttendance}_subfields`]
                 .filter(field => field !== '')
                 .map(item => {
-                  return HTML.NESTED_LIST_ITEM + keys[`${nonAttendance}_subFields`][item] + HTML.NESTED_LIST_ITEM_END;
+                  return HTML.NESTED_LIST_ITEM + keys[`${nonAttendance}_subFields`][item] + HTML.LIST_ITEM_END;
                 }) +
               HTML.UNORDER_LIST_END
             )
@@ -256,7 +256,7 @@ export const MiamHelperDynamicEnteriesMapper = (
   return mapper[key];
 };
 
-InstanceOfMiamHelper.__proto__.miamExemptionParserDynamicEnteries = (
+Object.getPrototypeOf(InstanceOfMiamHelper).miamExemptionParserDynamicEnteries = (
   userCase: Partial<CaseWithId>,
   keys: Record<string, string>,
   language: string

@@ -77,7 +77,7 @@ export class GetController {
       ...content,
       sessionErrors,
       htmlLang: language,
-      caseId: req.session.userCase?.caseId || req.session.userCase?.id,
+      caseId: req.session.userCase?.caseId ?? req.session.userCase?.id,
       paymentError: req.session.paymentError,
       document_type,
       breadcrumbs: BreadcrumbController.get(req.session, language),
@@ -105,7 +105,7 @@ export class GetController {
 
     // Browsers default language
     const negotiator = new Negotiator(req);
-    return negotiator.language(LanguageToggle.supportedLanguages) || 'en';
+    return negotiator.language(LanguageToggle.supportedLanguages) ?? 'en';
   }
 
   private getCaption(req: AppRequest) {

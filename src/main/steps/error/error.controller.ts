@@ -31,7 +31,7 @@ export class ErrorController {
       response = (error as AxiosError).response?.data as AxiosResponse<string | Record<string, unknown>>;
     }
 
-    req.locals.logger.error(`${stack || message || 'Internal Server Error'}`, response);
+    req.locals.logger.error(`${stack ?? message ?? 'Internal Server Error'}`, response);
 
     res.statusCode = (error as HTTPError)?.status || StatusCodes.INTERNAL_SERVER_ERROR;
     this.render(req, res);
@@ -54,7 +54,7 @@ export class ErrorController {
       return;
     }
 
-    const language = (req.session?.lang || 'en') as Language;
+    const language = (req.session?.lang ?? 'en') as Language;
     const errorText =
       errorContent[language][res.statusCode] || errorContent[language][StatusCodes.INTERNAL_SERVER_ERROR];
     const commonContent = generatePageContent({

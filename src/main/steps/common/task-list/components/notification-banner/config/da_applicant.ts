@@ -50,4 +50,8 @@ export const DA_APPLICANT_CONFIG = (): NotificationBannerProps[] => [
     id: NotificationType.ORDER_SOS_PERSONAL_SERVICE_BY_COURT_ADMIN_BAILIFF_TO_DA_RESPONDENT,
     show: showNotification,
   },
+  {
+    id: NotificationType.SERVE_DOCUMENTS,
+    show: showNotification,
+  },
 ];

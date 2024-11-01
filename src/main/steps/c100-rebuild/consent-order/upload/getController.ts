@@ -7,7 +7,6 @@ import { GetController, TranslationFn } from '../../../../app/controller/GetCont
 import { C100_CONSENT_ORDER_UPLOAD } from '../../../urls';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnyType = any;
 
 @autobind
 export default class DocumentUpload extends GetController {

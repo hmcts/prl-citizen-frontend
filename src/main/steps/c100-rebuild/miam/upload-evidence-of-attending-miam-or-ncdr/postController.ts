@@ -63,7 +63,6 @@ export default class MIAMAttendanceEvidenceUploadController extends PostControll
 
     try {
       const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
-
       if (response.status !== 'Success') {
         handleEvidenceDocError('uploadError', req, 'miam_previousAttendanceEvidenceDoc');
         return super.redirect(req, res);

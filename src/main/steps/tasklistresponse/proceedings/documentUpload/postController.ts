@@ -15,7 +15,7 @@ import { AnyObject, PostController } from '../../../../app/controller/PostContro
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
+import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 
 const C100OrderTypeNameMapper = {
   childArrangementOrder: 'Child Arrangements Order',
@@ -37,7 +37,6 @@ const C100OrderTypeNameMapper = {
 };
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnyType = any;
 
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
@@ -57,12 +56,12 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { orderType, orderId } = requ.params;
     const req: AppRequest<AnyObject> = requ;
     const courtOrderType = orderType as ProceedingsOrderTypes;
-    const courtOrderId: AnyType | undefined = orderId;
+    const courtOrderId: string | undefined = orderId;
 
     const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
       ProceedingsOrderTypeKeyMapper[courtOrderType]
     ] as ProceedingsOrderInterface[];
-    const orderSessionDataById = orderSessionData[courtOrderId - 1];
+    const orderSessionDataById = orderSessionData[(courtOrderId as unknown as number) - 1];
 
     if (req.body.onlyContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
       return super.redirect(req, res);
@@ -88,32 +87,17 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     return false;
   };
   /* eslint-disable @typescript-eslint/no-explicit-any*/
-  private async processNewDocument(
+  async processNewDocument(
     files: { [fieldname: string]: Express.Multer.File[] } | Express.Multer.File[] | undefined,
-    req: AppRequest<AnyObject>,
-    res: Response<any, Record<string, any>>,
+    req: AppRequest,
+    res: Response,
     orderType: string,
     orderId: string,
     courtOrderType: ProceedingsOrderTypes,
-    courtOrderId: any
-  ) {
-    if (isNull(files) || files === undefined) {
-      this.uploadFileError(req, res, orderType, orderId, {
-        propertyName: 'document',
-        errorType: 'required',
-      });
-    } else if (!isValidFileFormat(files)) {
-      this.uploadFileError(req, res, orderType, orderId, {
-        propertyName: 'document',
-        errorType: 'fileFormat',
-      });
-    } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-      this.uploadFileError(req, res, orderType, orderId, {
-        propertyName: 'document',
-        errorType: 'fileSize',
-      });
-    } else {
-      const { documents }: AnyType = files;
+    courtOrderId: string
+  ): Promise<void> {
+    if (validate(files, req, res, orderType, orderId, true)) {
+      const { documents }: any = files;
 
       const formData: FormData = new FormData();
 
@@ -145,11 +129,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
         if (
           req.session.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[courtOrderType]][
-            courtOrderId - 1
+            (courtOrderId as unknown as number) - 1
           ]
         ) {
           req.session.userCase.otherProceedings.order[ProceedingsOrderTypeKeyMapper[courtOrderType]][
-            courtOrderId - 1
+            (courtOrderId as unknown as number) - 1
           ].orderDocument = documentInfo;
         }
 
@@ -165,31 +149,82 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   public buildOrderTypeName(courtOrderType: ProceedingsOrderTypes): string {
     return C100OrderTypeNameMapper[courtOrderType].split(' ').join('_').toLowerCase();
   }
-
-  /**
-   * It's a function that handles errors that occur during the upload process
-   * @param req - AppRequest<AnyObject>
-   * @param res - Response<AnyType, Record<string, AnyType>>
-   * @param {string} [errorMessage] - The error message to be displayed.
-   */
-
-  private uploadFileError(
-    req: AppRequest<AnyObject>,
-    res: Response<AnyType, Record<string, AnyType>>,
-    orderType: string,
-    orderId: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    errObj: any
-  ) {
-    /**
-     * @Insert @Error @here
-     */
-    req.session.errors = [errObj];
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
-    });
-  }
 }
+export const validate = (
+  files: Express.Multer.File[] | { [fieldname: string]: Express.Multer.File[] } | undefined,
+  req: AppRequest<AnyObject>,
+  res: Response<any, Record<string, any>>,
+  orderType: string,
+  orderId: string,
+  isResponseJourney: boolean
+): boolean | void => {
+  if (isNull(files) || files === undefined) {
+    return uploadFileError(
+      req,
+      res,
+      orderType,
+      orderId,
+      {
+        propertyName: 'document',
+        errorType: 'required',
+      },
+      isResponseJourney
+    );
+  } else if (!isValidFileFormat(files)) {
+    return uploadFileError(
+      req,
+      res,
+      orderType,
+      orderId,
+      {
+        propertyName: 'document',
+        errorType: 'fileFormat',
+      },
+      isResponseJourney
+    );
+  } else if (isFileSizeGreaterThanMaxAllowed(files)) {
+    return uploadFileError(
+      req,
+      res,
+      orderType,
+      orderId,
+      {
+        propertyName: 'document',
+        errorType: 'fileSize',
+      },
+      isResponseJourney
+    );
+  } else {
+    return true;
+  }
+};
+/**
+ * It's a function that handles errors that occur during the upload process
+ * @param req - AppRequest<AnyObject>
+ * @param res - Response<AnyType, Record<string, AnyType>>
+ * @param {string} [errorMessage] - The error message to be displayed.
+ */
+const uploadFileError = (
+  req: AppRequest<AnyObject>,
+  res: Response,
+  orderType: string,
+  orderId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  errObj: any,
+  isResponseJourney: boolean
+) => {
+  /**
+   * @Insert @Error @here
+   */
+  req.session.errors = [errObj];
+  req.session.save(err => {
+    if (err) {
+      throw err;
+    }
+    res.redirect(
+      isResponseJourney
+        ? applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId })
+        : applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId })
+    );
+  });
+};
