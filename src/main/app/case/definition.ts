@@ -700,12 +700,12 @@ export interface RelationshipToChildren {
 }
 
 export interface ContactDetail {
-  canProvideEmail?: YesNoEmpty;
+  canProvideEmail?: YesOrNo | null;
   emailAddress?: string;
-  canProvideTelephoneNumber?: YesNoEmpty;
+  canProvideTelephoneNumber?: YesOrNo | null;
   telephoneNumber?: string;
   canNotProvideTelephoneNumberReason?: string;
-  canLeaveVoiceMail?: YesNoEmpty;
+  canLeaveVoiceMail?: YesOrNo | null;
   applicantContactPreferences?: string;
 }
 
