@@ -14,7 +14,7 @@ describe('ca_applicant', () => {
       ],
     } as CaseWithId);
 
-    expect(ca_applicantNotifications).toHaveLength(15);
+    expect(ca_applicantNotifications).toHaveLength(16);
     expect(ca_applicantNotifications[0].id).toBe('applicationNotStarted');
     expect(ca_applicantNotifications[1].id).toBe('applicationInProgress');
     expect(ca_applicantNotifications[2].id).toBe('applicationSubmitted');
@@ -30,5 +30,6 @@ describe('ca_applicant', () => {
     expect(ca_applicantNotifications[12].id).toBe('orderSOSPersonalServiceByCourtAdminBailiff');
     expect(ca_applicantNotifications[13].id).toBe('orderNonPersonalService');
     expect(ca_applicantNotifications[14].id).toBe('orderPersonalService');
+    expect(ca_applicantNotifications[15].id).toBe('serveDocuments');
   });
 });

@@ -26,4 +26,8 @@ export const CA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
       });
     },
   },
+  {
+    id: NotificationType.SERVE_DOCUMENTS,
+    show: showNotification,
+  },
 ];

@@ -1,6 +1,6 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
-import { UploadDocumentCategory } from '../../../../../../steps/common/documents/definitions';
+import { DocumentPartyType, UploadDocumentCategory } from '../../../../../../steps/common/documents/definitions';
 import { interpolate } from '../../../../../../steps/common/string-parser';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
@@ -10,6 +10,7 @@ import {
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
+  VIEW_TYPE_DOCUMENT,
 } from '../../../../../../steps/urls';
 import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from '../definitions';
 import {
@@ -494,6 +495,27 @@ const en: NotificationBannerContentConfig = {
       },
     ],
   },
+  serveDocuments: {
+    heading: 'You have new document(s) to view',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'New document(s) has been added to your case.',
+          },
+        ],
+        links: [
+          {
+            text: 'Link to the new document(s)',
+            href: applyParms(VIEW_TYPE_DOCUMENT, {
+              partyType: PartyType.APPLICANT,
+              type: DocumentPartyType.OTHER,
+            }),
+          },
+        ],
+      },
+    ],
+  },
 };
 
 const cy: typeof en = {
@@ -959,6 +981,27 @@ const cy: typeof en = {
         contents: [
           {
             text: 'Mae hyn yn golygu bod yr yr atebydd bellach wedi cael copi o’r gorchymyn a wnaethpwyd gan y llys.',
+          },
+        ],
+      },
+    ],
+  },
+  serveDocuments: {
+    heading: 'Mae genncyh ddogfen(nau) newydd i’w gweld',
+    sections: [
+      {
+        contents: [
+          {
+            text: 'Mae ddogfen(nau) newydd wedi’u hychwanegu at eich achos',
+          },
+        ],
+        links: [
+          {
+            text: 'Dolen i’r ddogfen(nau) newydd',
+            href: applyParms(VIEW_TYPE_DOCUMENT, {
+              partyType: PartyType.APPLICANT,
+              type: DocumentPartyType.OTHER,
+            }),
           },
         ],
       },

@@ -22,4 +22,8 @@ export const DA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
       });
     },
   },
+  {
+    id: NotificationType.SERVE_DOCUMENTS,
+    show: showNotification,
+  },
 ];
