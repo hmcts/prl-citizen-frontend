@@ -63,7 +63,7 @@ export const ordinalNumberMapEn = new Map<number, string>([
   [20, 'Twentieth'],
 ]);
 
-export const ordinalNumberMapCy = new Map<number, string>([
+export const ordinalNumberMapCy: typeof ordinalNumberMapEn = new Map<number, string>([
   [1, 'Cyntaf'],
   [2, 'Ail'],
   [3, 'Trydydd'],

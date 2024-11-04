@@ -9,7 +9,7 @@ import { DocumentUploadResponse } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { AnyType, isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../app/form/validation';
+import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../app/form/validation';
 import { applyParms } from '../../../steps/common/url-parser';
 import { APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD } from '../../../steps/urls';
 
@@ -87,7 +87,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
   }
 
-  private addDocument = (sessionDocs, document) => {
+  private readonly addDocument = (sessionDocs, document) => {
     if (sessionDocs && sessionDocs.length > 0) {
       sessionDocs.push(document);
     } else {
@@ -120,7 +120,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
   private handleError(
     req: AppRequest<AnyObject>,
-    res: Response<AnyType, Record<string, AnyType>>,
+    res: Response,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     errObj: any
   ) {
