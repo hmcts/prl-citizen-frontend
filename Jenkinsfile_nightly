@@ -61,31 +61,15 @@ withNightlyPipeline(type, product, component) {
   env.TEST_URL = "https://privatelaw.aat.platform.hmcts.net/"
   env.PRL_CITIZEN_URL = params.FRONTEND_URL
   loadVaultSecrets(secrets)
+  // Tests disabled here as they run in prl-e2e-tests instead
   // enableMutationTest()
-  enableFortifyScan()
-  enableFullFunctionalTest(200)
-  enableCrossBrowserTest(60)
+  //enableFullFunctionalTest(200)
+  //enableCrossBrowserTest(60)
   enableFortifyScan()
   enableSecurityScan()
 
   afterAlways('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
-  }
-
-  before('crossBrowserTest') {
-  }
-
-  afterAlways('crossBrowserTest') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('fullFunctionalTest') {
-    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
-  }
-
-  afterAlways('fullFunctionalTest') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/**/*'
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
   afterAlways('fortify-scan') {
