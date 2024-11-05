@@ -38,7 +38,7 @@ const en = {
       uploadError: 'Document could not be uploaded',
       deleteError: 'Document could not be deleted',
       multipleFiles:
-        'You can upload only one file. If you wish to upload a new file, delete the existing file and upload a new one',
+        'You can upload only one file. If you wish to upload a new file, remove the existing file and upload a new one',
       fileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
       fileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
     },
