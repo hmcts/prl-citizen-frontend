@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { CosApiClient } from '../../app/case/CosApiClient';
 import { CaseWithId } from '../../app/case/case';
 import {
   AWPApplicationReason,
@@ -11,6 +12,7 @@ import {
   CaseType,
   FeeDetailsResponse,
   PartyType,
+  YesOrNo,
 } from '../../app/case/definition';
 import { AppSession, UserDetails } from '../../app/controller/AppRequest';
 
@@ -25,6 +27,7 @@ import {
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
+const createAWPApplicationMock = jest.spyOn(CosApiClient.prototype, 'createAWPApplication');
 
 describe('AWP utils', () => {
   let req;
@@ -41,13 +44,81 @@ describe('AWP utils', () => {
         userCase: {
           id: '1234',
           caseTypeOfApplication: 'FL401',
-          caseInvites: [],
-          respondents: '',
-          respondentsFL401: '',
+          caseInvites: [
+            {
+              value: {
+                partyId: '123',
+                invitedUserId: '1234',
+                isApplicant: YesOrNo.YES,
+              },
+            },
+          ],
           awpFeeDetails: {
             feeAmount: 167,
             feeAmountText: '167',
             feeType: 'MOCK_TYPE',
+          },
+          applicantsFL401: {
+            email: 'string',
+            gender: 'string',
+            address: {
+              AddressLine1: 'string',
+              AddressLine2: 'string',
+              PostTown: 'string',
+              County: 'string',
+              PostCode: 'string',
+            },
+            dxNumber: 'string',
+            landline: 'string',
+            lastName: 'string',
+            firstName: 'string',
+            dateOfBirth: 'string',
+            otherGender: 'string',
+            phoneNumber: 'string',
+            placeOfBirth: 'string',
+            previousName: 'string',
+            solicitorOrg: {
+              OrganisationID: 'string',
+              OrganisationName: 'string',
+            },
+            sendSignUpLink: 'string',
+            solicitorEmail: 'string',
+            isAddressUnknown: 'string',
+            solicitorAddress: {
+              County: '',
+              Country: '',
+              PostCode: '',
+              PostTown: '',
+              AddressLine1: '',
+              AddressLine2: '',
+              AddressLine3: '',
+            },
+            isDateOfBirthKnown: 'string',
+            solicitorReference: 'string',
+            solicitorTelephone: 'string',
+            isPlaceOfBirthKnown: 'string',
+            isDateOfBirthUnknown: 'string',
+            isAddressConfidential: 'string',
+            isCurrentAddressKnown: 'string',
+            relationshipToChildren: 'string',
+            representativeLastName: 'string',
+            representativeFirstName: 'string',
+            canYouProvidePhoneNumber: 'string',
+            canYouProvideEmailAddress: 'string',
+            isAtAddressLessThan5Years: 'string',
+            isPhoneNumberConfidential: 'string',
+            isEmailAddressConfidential: 'string',
+            respondentLivedWithApplicant: 'string',
+            doTheyHaveLegalRepresentation: 'string',
+            addressLivedLessThan5YearsDetails: 'string',
+            otherPersonRelationshipToChildren: [],
+            isAtAddressLessThan5YearsWithDontKnow: 'string',
+            response: {},
+            partyId: '123',
+            user: {
+              email: 'string',
+              idamId: '1234',
+            },
           },
         },
         user: {
@@ -66,6 +137,7 @@ describe('AWP utils', () => {
           },
         },
         userCase: {
+          ...req.session.userCase,
           awpFeeDetails: {
             feeAmount: 167,
             feeAmountText: '167',
@@ -231,7 +303,8 @@ describe('AWP utils', () => {
   test('should reset AWP app data', () => {
     resetAWPApplicationData(awpRequest);
     expect(awpRequest.session.applicationSettings).toStrictEqual({});
-    expect(awpRequest.session.userCase).toStrictEqual({});
+    delete req.session.userCase.awpFeeDetails;
+    expect(awpRequest.session.userCase).toStrictEqual(req.session.userCase);
   });
 
   test('should fetch and save fee details', async () => {
@@ -351,9 +424,7 @@ describe('AWP utils', () => {
           },
         ],
       };
-
-      mockedAxios.post.mockResolvedValue(response as unknown as Promise<CaseWithId>);
-
+      createAWPApplicationMock.mockResolvedValueOnce(response as unknown as Promise<CaseWithId>);
       await processAWPApplication(awpRequest, res);
 
       expect(res.redirect).toHaveBeenCalledWith(
@@ -386,9 +457,7 @@ describe('AWP utils', () => {
           },
         },
       };
-
-      mockedAxios.post.mockResolvedValue(undefined);
-
+      createAWPApplicationMock.mockRejectedValueOnce({ status: '500' });
       await processAWPApplication(awpRequest, res);
 
       expect(awpRequest.session.paymentError.hasError).toBe(true);
