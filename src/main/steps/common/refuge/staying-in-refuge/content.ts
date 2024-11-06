@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../../app/case/case';
-import { YesOrNo } from '../../../../app/case/definition';
+import { PartyType, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -20,10 +20,12 @@ const en = {
   C100RefugeLabel: 'Does {firstName} {lastName} currently live in a refuge?',
   one: 'Yes',
   two: 'No',
+  you: 'you',
+  they: 'they',
   continue: 'Continue',
   errors: {
     isCitizenLivingInRefuge: {
-      required: 'Select yes if you currently live in a refuge',
+      required: 'Select yes if {youOrThey} currently live in a refuge',
     },
   },
 };
@@ -38,10 +40,12 @@ const cy: typeof en = {
   C100RefugeLabel: 'A yw {firstName} {lastName} yn byw mewn lloches ar hyn o bryd?',
   one: 'Ydw',
   two: 'Nac ydw',
+  you: "ydych chi'n",
+  they: 'ydynt yn',
   continue: 'Parhau',
   errors: {
     isCitizenLivingInRefuge: {
-      required: "Dewiswch ydw os ydych chi'n byw mewn lloches ar hyn o bryd",
+      required: 'Dewiswch ydw os {youOrThey} byw mewn lloches ar hyn o bryd',
     },
   },
 };
@@ -86,6 +90,10 @@ export const form: FormContent = {
 export const generateContent = (content: CommonContent): PageContent => {
   const translations = languages[content.language];
   const C100rebuildJourney = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
+  const request = content.additionalData?.req;
+  const caseData = request.session?.userCase;
+  const id = request.params.id;
+  const c100Person = getPeople(caseData).find(person => person.id === id);
 
   delete form.saveAndComeLater;
   if (C100rebuildJourney) {
@@ -99,5 +107,14 @@ export const generateContent = (content: CommonContent): PageContent => {
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
+    errors: {
+      ...translations.errors,
+      isCitizenLivingInRefuge: {
+        ...translations.errors.isCitizenLivingInRefuge,
+        required: interpolate(translations.errors.isCitizenLivingInRefuge.required, {
+          youOrThey: c100Person?.partyType === PartyType.OTHER_PERSON ? translations.they : translations.you,
+        }),
+      },
+    },
   };
 };

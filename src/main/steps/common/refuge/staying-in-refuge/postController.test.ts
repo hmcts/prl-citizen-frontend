@@ -30,6 +30,24 @@ describe('C8 refuge > staying in refuge > postController', () => {
     },
     additionalData: {
       req: {
+        session: {
+          userCase: {
+            appl_allApplicants: [
+              {
+                id: '7483640e-0817-4ddc-b709-6723f7925474',
+                applicantFirstName: 'dummy',
+                applicantLastName: 'Test',
+              },
+            ],
+            oprs_otherPersons: [
+              {
+                id: '7483640e-0817-4ddc-b709-6723f7925475',
+                firstName: 'dummy',
+                lastName: 'Test',
+              },
+            ],
+          },
+        },
         params: {
           applicantId: '7483640e-0817-4ddc-b709-6723f7925474',
         },

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { CaseWithId } from '../../../../app/case/case';
 import { YesOrNo } from '../../../../app/case/definition';
@@ -20,6 +21,8 @@ const en = {
   C100RefugeLabel: 'Does {firstName} {lastName} currently live in a refuge?',
   one: 'Yes',
   two: 'No',
+  you: 'you',
+  they: 'they',
   continue: 'Continue',
   errors: {
     isCitizenLivingInRefuge: {
@@ -38,6 +41,8 @@ const cy = {
   C100RefugeLabel: 'A yw {firstName} {lastName} yn byw mewn lloches ar hyn o bryd?',
   one: 'Ydw',
   two: 'Nac ydw',
+  you: "ydych chi'n",
+  they: 'ydynt yn',
   continue: 'Parhau',
   errors: {
     isCitizenLivingInRefuge: {
@@ -100,6 +105,91 @@ describe('C8 Refuge > staying in refuge > content', () => {
 
     test('should contain continue button', () => {
       expect((form.onlyContinue?.text as Function)(generatedContent)).toBe(en.continue);
+    });
+
+    test('should have correct error text for otherPerson', () => {
+      const generatedOtherPersonContent = generateContent({
+        ...commonContent,
+        additionalData: {
+          req: {
+            originalUrl: '/c100-rebuild/',
+            params: {
+              root: 'c100-rebuild',
+              id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+            },
+            session: {
+              userCase: {
+                oprs_otherPersons: [
+                  {
+                    id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+                    firstName: 'Test',
+                    lastName: 'Test',
+                  },
+                ],
+              },
+              user: {
+                id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+              },
+            },
+          },
+        },
+        userCase: {
+          oprs_otherPersons: [
+            {
+              id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+              firstName: 'Test',
+              lastName: 'Test',
+            },
+          ],
+        } as unknown as CaseWithId,
+      }) as any;
+
+      expect(generatedOtherPersonContent.errors.isCitizenLivingInRefuge.required).toBe(
+        'Select yes if they currently live in a refuge'
+      );
+    });
+
+    test('should have correct welsh error text for otherPerson', () => {
+      const generatedOtherPersonContent = generateContent({
+        ...commonContent,
+        additionalData: {
+          req: {
+            originalUrl: '/c100-rebuild/',
+            params: {
+              root: 'c100-rebuild',
+              id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+            },
+            session: {
+              userCase: {
+                oprs_otherPersons: [
+                  {
+                    id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+                    firstName: 'Test',
+                    lastName: 'Test',
+                  },
+                ],
+              },
+              user: {
+                id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+              },
+            },
+          },
+        },
+        userCase: {
+          oprs_otherPersons: [
+            {
+              id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+              firstName: 'Test',
+              lastName: 'Test',
+            },
+          ],
+        } as unknown as CaseWithId,
+        language: 'cy',
+      }) as any;
+
+      expect(generatedOtherPersonContent.errors.isCitizenLivingInRefuge.required).toBe(
+        'Dewiswch ydw os ydynt yn byw mewn lloches ar hyn o bryd'
+      );
     });
 
     test('should contain saveAndComeLater button', () => {
