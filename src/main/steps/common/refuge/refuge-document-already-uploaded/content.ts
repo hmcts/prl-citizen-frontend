@@ -13,7 +13,7 @@ import { getC8DocumentForC100 } from '../utils';
 export * from './routeGuard';
 
 const en = {
-  title: 'Reuploading a C8 form',
+  title: 'Upload a new C8 form',
   previouslyUploaded: 'You have previously uploaded a C8 form.',
   c100PreviouslyUploaded: 'A C8 form has already been uploaded for {name}',
   canView: 'You can view the uploaded document',
