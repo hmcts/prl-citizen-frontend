@@ -94,27 +94,42 @@ describe('C8 refuge > utils', () => {
     });
 
     test('should catch error when deleting document', async () => {
-      req.params = { removeFileId: '1234' };
-      req.session.userCase.refugeDocument = {
-        document_url: 'test2/1234',
-        document_binary_url: 'binary/test2/1234',
-        document_filename: 'test_document_2',
-        document_hash: '1234',
-        document_creation_date: '1/1/2024',
-      };
+      req.params = { id: '6b792169-84df-4e9a-8299-c2c77c9b7e58', removeFileId: '1234' };
+      req.originalUrl = '/c100-rebuild';
+      req.session.userCase.oprs_otherPersons = [
+        {
+          id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+          firstName: 'Test',
+          lastName: 'Test',
+          liveInRefuge: 'Yes',
+          refugeConfidentialityC8Form: {
+            document_url: 'MOCK_URL',
+            document_binary_url: 'MOCK_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+          },
+        },
+      ];
       deleteDocumentMock.mockRejectedValue('Failure');
 
-      await deleteDocument(req, res, '1234');
+      await deleteDocument(req, res, '1234', '6b792169-84df-4e9a-8299-c2c77c9b7e58');
 
       expect(req.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/applicant/refuge/upload-refuge-document');
-      expect(req.session.userCase.refugeDocument).toStrictEqual({
-        document_binary_url: 'binary/test2/1234',
-        document_creation_date: '1/1/2024',
-        document_filename: 'test_document_2',
-        document_hash: '1234',
-        document_url: 'test2/1234',
-      });
+      expect(res.redirect).toHaveBeenCalledWith(
+        '/c100-rebuild/refuge/upload-refuge-document/6b792169-84df-4e9a-8299-c2c77c9b7e58'
+      );
+      expect(req.session.userCase.oprs_otherPersons).toStrictEqual([
+        {
+          id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+          firstName: 'Test',
+          lastName: 'Test',
+          liveInRefuge: 'Yes',
+          refugeConfidentialityC8Form: {
+            document_url: 'MOCK_URL',
+            document_binary_url: 'MOCK_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+          },
+        },
+      ]);
       expect(req.session.errors).toStrictEqual([
         {
           errorType: 'deleteError',

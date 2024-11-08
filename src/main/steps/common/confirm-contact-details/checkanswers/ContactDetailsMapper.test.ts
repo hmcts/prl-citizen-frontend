@@ -1,5 +1,4 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 
 import { mapConfirmContactDetails, prepareRequest, setTextFields } from './ContactDetailsMapper';
@@ -10,7 +9,6 @@ const deleteDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteDocument');
 
 describe('ContactDetailsMapper', () => {
   let req = mockRequest();
-  const res = mockResponse();
   beforeEach(() => {
     req.session.userCase = {
       citizenUserFirstNames: 'John',
@@ -230,7 +228,7 @@ describe('ContactDetailsMapper', () => {
       },
     });
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase = await setTextFields(req, res);
+    req.session.userCase = setTextFields(req);
 
     expect(req.session.userCase).toEqual(
       expect.objectContaining({
@@ -284,7 +282,7 @@ describe('ContactDetailsMapper', () => {
       },
     });
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase = await setTextFields(req, res);
+    req.session.userCase = setTextFields(req);
 
     expect(req.session.userCase).toEqual(
       expect.objectContaining({
@@ -326,7 +324,7 @@ describe('ContactDetailsMapper', () => {
       },
     });
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase = setTextFields(req, res);
+    req.session.userCase = setTextFields(req);
     deleteDocumentMock.mockResolvedValue('SUCCESS');
 
     expect(req.session.userCase.refugeDocument).toBe(undefined);

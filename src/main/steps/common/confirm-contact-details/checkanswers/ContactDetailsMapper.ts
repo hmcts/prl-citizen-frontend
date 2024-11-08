@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Response } from 'express';
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../../app/case/case';
@@ -7,7 +6,6 @@ import { ContactPreference, PartyDetails, YesOrNo } from '../../../../app/case/d
 import { fromApiDate } from '../../../../app/case/from-api-format';
 import { toApiDate } from '../../../../app/case/to-api-format';
 import type { AppRequest } from '../../../../app/controller/AppRequest';
-import { deleteDocument } from '../../../../steps/common/refuge/utils';
 import { getFormattedDate } from '../../../common/summary/utils';
 
 export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
@@ -138,7 +136,7 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
   return contactDetail;
 };
 
-export async function setAddressFields(req: AppRequest): Promise<Partial<CaseWithId>> {
+export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
   if (
     !req.session.userCase.citizenUserAddress1 &&
     !req.session.userCase.citizenUserAddressTown &&
@@ -168,7 +166,7 @@ export async function setAddressFields(req: AppRequest): Promise<Partial<CaseWit
   return req.session.userCase;
 }
 
-export const setTextFields = async (req: AppRequest, res: Response): Promise<Partial<CaseWithId>> => {
+export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
   if (req.session.userCase.citizenUserFirstNames && req.session.userCase.citizenUserLastNames) {
     req.session.userCase.citizenUserFullName =
       req.session.userCase.citizenUserFirstNames + ' ' + req.session.userCase.citizenUserLastNames;
@@ -200,9 +198,9 @@ export const setTextFields = async (req: AppRequest, res: Response): Promise<Par
   }
 
   if (req.session.userCase.isCitizenLivingInRefuge === YesOrNo.NO && !_.isEmpty(req.session.userCase.refugeDocument)) {
-    await deleteDocument(req, res, _.toString(_.last(req.session.userCase.refugeDocument?.document_url.split('/'))));
+    delete req.session.userCase.refugeDocument;
   }
 
-  await setAddressFields(req);
+  setAddressFields(req);
   return req.session.userCase;
 };

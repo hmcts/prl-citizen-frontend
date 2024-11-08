@@ -31,9 +31,8 @@ export const deleteDocument = async (
   const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
 
   try {
-    await client.deleteDocument(removeFileId);
-
     if (C100rebuildJourney) {
+      await client.deleteDocument(removeFileId);
       deleteC100RefugeDoc(req, caseData, id!);
     } else if (req.session.userCase.hasOwnProperty('refugeDocument')) {
       delete req.session.userCase.refugeDocument;

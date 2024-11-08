@@ -13,7 +13,7 @@ import { setTextFields } from '../../../../steps/common/confirm-contact-details/
 export default class ConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const redirect = false;
-    Object.assign(req.session.userCase, await setTextFields(req, res));
+    Object.assign(req.session.userCase, setTextFields(req));
     validateDataCompletion(req);
     getConfidentialData(req);
     const callback = redirect ? undefined : () => super.get(req, res);
