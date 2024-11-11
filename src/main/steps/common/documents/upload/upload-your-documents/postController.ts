@@ -150,6 +150,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
         return;
       }
       req.session.userCase?.[getUploadedFilesDataReference(partyType)]?.push(response.document);
+      req.session.applicationSettings = {
+        ...req.session.applicationSettings,
+        isDocumentGeneratedAndUplaoded: true,
+      };
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
@@ -248,6 +252,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       }
 
       req.session.errors = removeUploadDocErrors(req.session.errors);
+      delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
     } catch (error) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
     } finally {

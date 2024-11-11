@@ -131,25 +131,25 @@ const en: NotificationBannerContentConfig = {
       {
         contents: [
           {
-            text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
+            text: '<p class="govuk-notification-banner__heading">Cafcass may contact you</p>',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassServed(caseData);
             },
           },
           {
-            text: '<p class="govuk-notification-banner__heading">Cafcass Cymru will contact you</p>',
+            text: '<p class="govuk-notification-banner__heading">Cafcass Cymru may contact you</p>',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassCymruServed(caseData);
             },
           },
           {
-            text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
+            text: 'The Children and Family Court Advisory and Support Service (Cafcass) may contact you to consider the needs of the children.',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassServed(caseData);
             },
           },
           {
-            text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
+            text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) may contact you to consider the needs of the children.',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassCymruServed(caseData);
             },
@@ -626,25 +626,25 @@ const cy: typeof en = {
       {
         contents: [
           {
-            text: '<p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
+            text: '<p class="govuk-notification-banner__heading">Gall Cafcass gysylltu â chi</p>',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassServed(caseData);
             },
           },
           {
-            text: '<p class="govuk-notification-banner__heading">Bydd Cafcass Cymru yn cysylltu â chi </p>',
+            text: '<p class="govuk-notification-banner__heading">Efallai y bydd Cafcass Cymru yn cysylltu â chi</p>',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassCymruServed(caseData);
             },
           },
           {
-            text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
+            text: 'Efallai y bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassServed(caseData);
             },
           },
           {
-            text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
+            text: 'Efallai y bydd Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassCymruServed(caseData);
             },
