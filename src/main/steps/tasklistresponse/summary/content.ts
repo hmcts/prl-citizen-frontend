@@ -1,4 +1,7 @@
 /* eslint-disable import/no-unresolved */
+import _ from 'lodash';
+
+import { CaseWithId } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -94,7 +97,7 @@ export const enConfirmYourDetailsContent = {
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
     citizenUserLivingInRefugeText: 'Living in refuge',
-    refugeDocument: 'C8 refuge document',
+    refugeDocumentText: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
@@ -136,6 +139,7 @@ export const enContent = {
   forRecords: 'Please note this draft is for your records. Only the completed response will be admitted in court.',
   downloadDraft: 'Download draft response',
   downloadDraftWelsh: 'Download draft response welsh',
+  completeSectionError: '<span class="govuk-error-message">Complete this section</span>',
 };
 
 export const enInternationalContent = {
@@ -326,6 +330,7 @@ export const cyContent: typeof enContent = {
   forRecords: 'Noder mai drafft yw hwn ar gyfer eich cofnodion. Dim ond yr ymateb terfynol a dderbynnir yn y llys.',
   downloadDraft: 'Lawrlwytho drafft o’r ymateb',
   downloadDraftWelsh: 'Lawrlwytho drafft o’r ymateb cymraeg',
+  completeSectionError: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
 };
 
 export const cyContentProceding = {
@@ -426,7 +431,7 @@ export const cyConfirmYourDetailsContent = {
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
     citizenUserLivingInRefugeText: 'Byw mewn lloches',
-    refugeDocument: 'Dogfen lloches C8',
+    refugeDocumentText: 'Dogfen lloches C8',
     citizenUserAddressText: 'Cyfeiriad',
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',
@@ -583,7 +588,7 @@ const urls = {
   citizenUserPhoneNumberText: RESPONDENT_CONTACT_DETAILS,
   citizenUserEmailAddressText: RESPONDENT_CONTACT_DETAILS,
   citizenUserLivingInRefugeText: applyParms(STAYING_IN_REFUGE, { root: PartyType.RESPONDENT }),
-  refugeDocument: applyParms(REFUGE_UPLOAD_DOC, { root: PartyType.RESPONDENT }),
+  refugeDocumentText: applyParms(REFUGE_UPLOAD_DOC, { root: PartyType.RESPONDENT }),
   start: INTERNATIONAL_FACTORS_START,
   iFactorsStartProvideDetails: INTERNATIONAL_FACTORS_START,
   parents: INTERNATIONAL_FACTORS_PARENTS,
@@ -617,8 +622,12 @@ const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childCo
 
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  populateSummaryData(content.userCase, content.userIdamId);
   const userCase = content.userCase!;
+  userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
+    ? userCase.refugeDocument.document_filename
+    : enContent.completeSectionError;
+  populateSummaryData(userCase, content.userIdamId);
+
   const sections = [] as ANYTYPE;
   sections.push(
     summaryList(
@@ -674,8 +683,12 @@ const en = (content: CommonContent) => {
 };
 
 const cy: typeof en = (content: CommonContent) => {
-  populateSummaryData(content.userCase, content.userIdamId);
   const userCase = content.userCase!;
+  userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
+    ? userCase.refugeDocument.document_filename
+    : cyContent.completeSectionError;
+  populateSummaryData(userCase, content.userIdamId);
+
   const sections = [] as ANYTYPE;
   sections.push(
     summaryList(
@@ -746,6 +759,7 @@ export const form: FormContent = {
   },
   onlyContinue: {
     text: l => l.continue,
+    disabled: true,
   },
 };
 
@@ -756,6 +770,8 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const caseData = content.userCase as CaseWithId;
+  form.onlyContinue!.disabled = caseData.isCitizenLivingInRefuge === YesOrNo.YES && _.isEmpty(caseData.refugeDocument);
 
   return {
     ...translations,

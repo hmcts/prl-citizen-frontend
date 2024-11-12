@@ -25,7 +25,7 @@ services:
   cos:
     url: 'https://prl-cos-pr-2740.preview.platform.hmcts.net'
   documentManagement:
-    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2429.preview.platform.hmcts.net'
   fact:
     url: 'http://fact-api-aat.service.core-compute-aat.internal'
   reasonableAdjustments:

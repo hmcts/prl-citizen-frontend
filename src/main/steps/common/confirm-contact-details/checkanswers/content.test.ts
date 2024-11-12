@@ -19,7 +19,7 @@ const en = {
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
     citizenUserLivingInRefugeText: 'Living in refuge',
-    refugeDocument: 'C8 refuge document',
+    refugeDocumentText: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
@@ -44,7 +44,7 @@ const cy: typeof en = {
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
     citizenUserLivingInRefugeText: 'Byw mewn lloches',
-    refugeDocument: 'Dogfen lloches C8',
+    refugeDocumentText: 'Dogfen lloches C8',
     citizenUserAddressText: 'Cyfeiriad',
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',
@@ -143,6 +143,7 @@ describe('address confirmation > content', () => {
         userCase: {
           isCitizenLivingInRefuge: 'Yes',
           citizenUserLivingInRefugeText: 'Yes',
+          refugeDocumentText: 'MOCK_FILENAME',
           refugeDocument: {
             document_url: 'MOCK_URL',
             document_binary_url: 'MOCK_BINARY_URL',

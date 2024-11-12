@@ -59,7 +59,11 @@ export const getConfirmOrEditYourContactDetails = (
     resp.email,
     resp.dateOfBirth,
     resp.liveInRefuge,
+    resp.refugeConfidentialityC8Form?.document_filename,
   ];
+  if (resp.liveInRefuge === YesOrNo.NO) {
+    summaryField.splice(8, 1);
+  }
   if (summaryField.every(currentValue => currentValue)) {
     return SectionStatus.COMPLETED;
   }

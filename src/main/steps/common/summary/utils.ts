@@ -99,8 +99,8 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         translationLabel = 'ydwTranslation';
       }
       break;
-    case 'refugeDocument':
-      return userCase[key]?.document_filename;
+    case 'refugeDocumentText':
+      return userCase.refugeDocumentText;
     default:
       return userkey;
   }

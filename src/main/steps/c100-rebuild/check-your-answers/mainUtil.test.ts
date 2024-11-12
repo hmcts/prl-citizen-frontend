@@ -26,6 +26,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  areRefugeDocumentsPresent,
   getYesNoTranslation,
   reasonableAdjustment,
   whereDoChildrenLive,
@@ -1083,7 +1084,7 @@ describe('test cases for main util', () => {
           text: 'c8RefugeDocument',
         },
         value: {
-          text: 'filename.docx',
+          html: 'filename.docx',
         },
       },
       {
@@ -2116,5 +2117,57 @@ describe('test cases for main util', () => {
 
   test('getYesNoTranslation should return correct welsh translation', () => {
     expect(getYesNoTranslation('cy', 'Yes', 'oesTranslation')).toBe('Oes');
+  });
+
+  describe('areRefugeDocumentsPresent', () => {
+    test('should return true if refuge document not present for applicant', () => {
+      expect(areRefugeDocumentsPresent({ appl_allApplicants: [{ liveInRefuge: 'Yes' }] } as CaseWithId)).toBe(true);
+    });
+
+    test('should return false if refuge is no for applicant', () => {
+      expect(areRefugeDocumentsPresent({ appl_allApplicants: [{ liveInRefuge: 'No' }] } as CaseWithId)).toBe(false);
+    });
+
+    test('should return false if refuge document is present for applicant', () => {
+      expect(
+        areRefugeDocumentsPresent({
+          appl_allApplicants: [
+            {
+              liveInRefuge: 'Yes',
+              refugeConfidentialityC8Form: {
+                document_url: 'MOCK_URL',
+                document_binary_url: 'MOCK_BINARY_URL',
+                document_filename: 'MOCK_FILENAME',
+              },
+            },
+          ],
+        } as CaseWithId)
+      ).toBe(false);
+    });
+
+    test('should return true if refuge document not present for other person', () => {
+      expect(areRefugeDocumentsPresent({ oprs_otherPersons: [{ liveInRefuge: 'Yes' }] } as CaseWithId)).toBe(true);
+    });
+
+    test('should return false if refuge is no other person', () => {
+      expect(areRefugeDocumentsPresent({ oprs_otherPersons: [{ liveInRefuge: 'No' }] } as CaseWithId)).toBe(false);
+    });
+
+    test('should return false if refuge document is present for other person', () => {
+      expect(
+        areRefugeDocumentsPresent({
+          oprs_otherPersons: [
+            {
+              liveInRefuge: 'Yes',
+              refugeConfidentialityC8Form: {
+                document_url: 'MOCK_URL',
+                document_binary_url: 'MOCK_BINARY_URL',
+                document_filename: 'MOCK_FILENAME',
+              },
+            },
+          ],
+        } as CaseWithId)
+      ).toBe(false);
+    });
   });
 });

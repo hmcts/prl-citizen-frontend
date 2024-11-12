@@ -90,6 +90,7 @@ describe('ConfirmContactDetailsPostController', () => {
       citizenUserPlaceOfBirth: 'london',
       citizenUserAdditionalName: 'Johnny Smith',
       citizenUserSafeToCall: '4 pm',
+      isCitizenLivingInRefuge: 'No',
       respondents: [
         {
           id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
@@ -323,5 +324,14 @@ describe('ConfirmContactDetailsPostController', () => {
     await expect(controller.post(req, res)).rejects.toThrow(
       'ConfirmContactDetailsPostController - error when saving contact details and redirecting'
     );
+  });
+
+  test('Should not update the userCase when contact details status is not COMPLETED', async () => {
+    req.session.userCase.isCitizenLivingInRefuge = 'Yes';
+    await controller.post(req, res);
+    expect(req.session.save).not.toBeCalled;
+    expect(retrieveByCaseIdMock).not.toBeCalled;
+    expect(updateCaserMock).not.toBeCalled;
+    expect(res.redirect).toHaveBeenCalledWith('/task-list/applicant');
   });
 });

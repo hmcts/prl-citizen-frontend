@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../app/case/case';
 import {
   C1AAbuseTypes,
@@ -545,7 +547,10 @@ export const ApplicantDetails = (
     if (sessionApplicantData[applicant]['liveInRefuge'] === YesOrNo.YES) {
       newApplicantData.push({
         key: keys['c8RefugeDocument'],
-        value: sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename'],
+        value: '',
+        valueHtml: !_.isEmpty(sessionApplicantData[applicant]['refugeConfidentialityC8Form'])
+          ? sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename']
+          : translation('completeSectionError', language),
         changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
           root: RootContext.C100_REBUILD,
           id: sessionApplicantData[applicant]['id'],
@@ -1376,7 +1381,10 @@ export const OtherPeopleDetails = (
     if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
       newOtherPeopleStorage.push({
         key: keys['c8RefugeDocument'],
-        value: sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form']?.['document_filename'],
+        value: '',
+        valueHtml: !_.isEmpty(sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form'])
+          ? sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form']?.['document_filename']
+          : translation('completeSectionError', language),
         changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
           root: RootContext.C100_REBUILD,
           id: sessionOtherPeopleData[respondent]['id'],
@@ -1643,4 +1651,15 @@ const populateDateOfBirth = (
     });
   }
   return newChildDataStorage;
+};
+
+export const areRefugeDocumentsPresent = (caseData: Partial<CaseWithId>): boolean => {
+  return !!(
+    caseData.appl_allApplicants?.find(
+      applicant => applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)
+    ) ||
+    caseData.oprs_otherPersons?.find(
+      otherPerson => otherPerson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherPerson.refugeConfidentialityC8Form)
+    )
+  );
 };

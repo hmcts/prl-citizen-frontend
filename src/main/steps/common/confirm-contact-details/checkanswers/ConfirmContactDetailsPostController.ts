@@ -7,13 +7,19 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { prepareContactPreferenceRequest } from '../../../../steps/common/contact-preference/ContactPreferencesMapper';
+import {
+  StateTags,
+  getConfirmOrEditYourContactDetailsStatus,
+} from '../../../../steps/common/task-list/components/tasklist/utils';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 import {
+  APPLICANT_CHECK_ANSWERS,
   CONTACT_PREFERENCE_CONFIRMATION,
   PARTY_TASKLIST,
   PageLink,
+  RESPONDENT_CHECK_ANSWERS,
   RESPOND_TO_APPLICATION,
 } from '../../../../steps/urls';
 
@@ -84,24 +90,28 @@ export const saveAndRedirectContactDetailsAndPreference = async (
       },
     });
 
-    try {
-      req.session.userCase = await client.updateCaseData(
-        userCase.id,
-        partyDetails,
-        partyType,
-        userCase.caseTypeOfApplication as CaseType,
-        req.session.applicationSettings?.navFromContactPreferences
-          ? CaseEvent.CONTACT_PREFERENCE
-          : CaseEvent.CONFIRM_YOUR_DETAILS
-      );
-      mapDataInSession(req.session.userCase, user.id);
-      req.session.userCase.citizenUserAddressText = (await setAddressFields(req)).citizenUserAddressText;
-      req.session.save(() => {
-        const redirectUrl = getRedirectUrl(partyType, req);
-        res.redirect(redirectUrl);
-      });
-    } catch (error) {
-      throw new Error('ConfirmContactDetailsPostController - Case could not be updated.');
+    if (getConfirmOrEditYourContactDetailsStatus(userCase, partyDetails) !== StateTags.COMPLETED) {
+      res.redirect(partyType === PartyType.RESPONDENT ? RESPONDENT_CHECK_ANSWERS : APPLICANT_CHECK_ANSWERS);
+    } else {
+      try {
+        req.session.userCase = await client.updateCaseData(
+          userCase.id,
+          partyDetails,
+          partyType,
+          userCase.caseTypeOfApplication as CaseType,
+          req.session.applicationSettings?.navFromContactPreferences
+            ? CaseEvent.CONTACT_PREFERENCE
+            : CaseEvent.CONFIRM_YOUR_DETAILS
+        );
+        mapDataInSession(req.session.userCase, user.id);
+        req.session.userCase.citizenUserAddressText = setAddressFields(req).citizenUserAddressText;
+        req.session.save(() => {
+          const redirectUrl = getRedirectUrl(partyType, req);
+          res.redirect(redirectUrl);
+        });
+      } catch (error) {
+        throw new Error('ConfirmContactDetailsPostController - Case could not be updated.');
+      }
     }
   }
 };

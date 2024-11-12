@@ -37,6 +37,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  areRefugeDocumentsPresent,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -88,6 +89,7 @@ export const enContent = {
   telephone_number: 'Telephone number',
   dont_know_email_address: 'I dont know their email address',
   dont_know_telephone: 'I dont know their telephone number',
+  completeSectionError: '<span class="govuk-error-message">Complete this section</span>',
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -229,6 +231,7 @@ export const cyContent = {
   email: 'E-bost',
   Male: 'Gwryw',
   Female: 'Benyw',
+  completeSectionError: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
   StatementOfTruth: {
     title: 'Datganiad Gwirionedd',
     heading: 'Cadarnhau cyn ichi gyflwyno’r cais',
@@ -660,6 +663,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.onlycontinue,
+    disabled: true,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
@@ -734,6 +738,7 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
+  form.submit.disabled = areRefugeDocumentsPresent(content.userCase!);
   return {
     ...translations,
     form,
