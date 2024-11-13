@@ -426,8 +426,14 @@ export const ApplicantDetails = (
   language
 ): SummaryList | undefined => {
   const sessionApplicantData = userCase['appl_allApplicants'];
-  const newApplicantData: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
-    [];
+  const newApplicantData: {
+    key: string;
+    keyName?: string;
+    keyHtml?: string;
+    value: string;
+    valueHtml?: string;
+    changeUrl: string;
+  }[] = [];
   for (const applicant in sessionApplicantData) {
     const fullname =
       sessionApplicantData[applicant]['applicantFirstName'] +
@@ -547,6 +553,7 @@ export const ApplicantDetails = (
     if (sessionApplicantData[applicant]['liveInRefuge'] === YesOrNo.YES) {
       newApplicantData.push({
         key: keys['c8RefugeDocument'],
+        keyName: `${sessionApplicantData[applicant]['applicantFirstName']}${sessionApplicantData[applicant]['applicantLastName']}c8RefugeDocument`,
         value: '',
         valueHtml: !_.isEmpty(sessionApplicantData[applicant]['refugeConfidentialityC8Form'])
           ? sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename']
@@ -1290,6 +1297,7 @@ export const OtherPeopleDetails = (
   const sessionOtherPeopleData = userCase['oprs_otherPersons'];
   const newOtherPeopleStorage: {
     key: string;
+    keyName?: string;
     keyHtml?: string;
     value?: string;
     valueHtml?: string;
@@ -1381,6 +1389,7 @@ export const OtherPeopleDetails = (
     if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
       newOtherPeopleStorage.push({
         key: keys['c8RefugeDocument'],
+        keyName: `${sessionOtherPeopleData[respondent]['firstName']}${sessionOtherPeopleData[respondent]['lastName']}c8RefugeDocument`,
         value: '',
         valueHtml: !_.isEmpty(sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form'])
           ? sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form']?.['document_filename']
@@ -1653,7 +1662,7 @@ const populateDateOfBirth = (
   return newChildDataStorage;
 };
 
-export const areRefugeDocumentsPresent = (caseData: Partial<CaseWithId>): boolean => {
+export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId>): boolean => {
   return !!(
     caseData.appl_allApplicants?.find(
       applicant => applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)

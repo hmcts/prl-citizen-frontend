@@ -16,6 +16,9 @@ export interface GovUkNunjucksSummary {
         href: string;
         text: string;
         visuallyHiddenText: string;
+        attributes?: {
+          id: string;
+        };
       }
     ];
   };
@@ -24,6 +27,7 @@ export interface GovUkNunjucksSummary {
 
 export interface SummaryListRow {
   key?: string;
+  keyName?: string;
   keyHtml?: string;
   value?: string;
   valueHtml?: string;
@@ -65,6 +69,9 @@ export const getSectionSummaryList = (rows: SummaryListRow[], content: PageConte
                   href: changeUrl, //
                   text: content.change as string,
                   visuallyHiddenText: `${item.key}`,
+                  attributes: {
+                    id: item.keyName ? item.keyName : '',
+                  },
                 },
               ],
             },

@@ -1,5 +1,7 @@
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../app/case/case';
-import { CaseType, PartyType } from '../../../../app/case/definition';
+import { CaseType, PartyType, YesOrNo } from '../../../../app/case/definition';
 import { UserDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
@@ -130,6 +132,7 @@ export const form: FormContent = {
   fields: {},
   submit: {
     text: l => l.continue,
+    disabled: true,
   },
 };
 
@@ -140,6 +143,8 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  form.submit!.disabled =
+    content.userCase?.isCitizenLivingInRefuge === YesOrNo.YES && _.isEmpty(content.userCase?.refugeDocument);
   return {
     ...translations,
     form,
@@ -162,6 +167,10 @@ export const removeFields = (
     }
   } else {
     delete keys.citizenUserSafeToCall;
+  }
+
+  if (caseData.isCitizenLivingInRefuge === YesOrNo.NO || caseData.isCitizenLivingInRefuge === null) {
+    delete keys.refugeDocumentText;
   }
 
   return { ...content, keys };

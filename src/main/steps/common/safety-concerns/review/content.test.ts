@@ -229,6 +229,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concerns-for-safety',
                     text: 'Edit',
                     visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -256,6 +259,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concerns-for-safety',
                     text: 'Edit',
                     visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -273,6 +279,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concern-about',
                     text: 'Edit',
                     visuallyHiddenText: 'Who are you concerned about?',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -296,6 +305,9 @@ describe('Content.ts test cases', () => {
                     text: 'Edit',
                     visuallyHiddenText:
                       'What type of behaviour have the children experienced or are at risk of experiencing?',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -318,6 +330,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/other-concerns/drugs',
                     text: 'Edit',
                     visuallyHiddenText: 'Have the children been impacted by drug, alcohol or substance abuse?',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -335,6 +350,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/other-concerns/other-issues',
                     text: 'Edit',
                     visuallyHiddenText: 'Do you have any other concerns about the children’s safety and wellbeing?',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -352,6 +370,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/orders-required/court-action',
                     text: 'Edit',
                     visuallyHiddenText: 'What do you want the court to do to keep you and the children safe?',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -368,6 +389,9 @@ describe('Content.ts test cases', () => {
                     text: 'Edit',
                     visuallyHiddenText:
                       'Do you agree to the children spending time with the other people in this application?',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -384,6 +408,9 @@ describe('Content.ts test cases', () => {
                     text: 'Edit',
                     visuallyHiddenText:
                       'Do you agree to the other people in this application being in touch with the children in other ways?',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -425,6 +452,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concerns-for-safety',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -450,6 +480,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concerns-for-safety',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -465,6 +498,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concern-about',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -485,6 +521,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/child/concerns-about',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -505,6 +544,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/other-concerns/drugs',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -520,6 +562,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/other-concerns/other-issues',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -535,6 +580,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/orders-required/court-action',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -548,6 +596,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/orders-required/unsupervised',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },
@@ -561,6 +612,9 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/orders-required/unsupervised',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {
+                      id: '',
+                    },
                   },
                 ],
               },

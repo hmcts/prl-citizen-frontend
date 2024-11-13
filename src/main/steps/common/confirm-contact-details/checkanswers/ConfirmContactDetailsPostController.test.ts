@@ -326,7 +326,7 @@ describe('ConfirmContactDetailsPostController', () => {
     );
   });
 
-  test('Should not update the userCase when contact details status is not COMPLETED', async () => {
+  test('Should not update the userCase when refuge is yes and no refuge document present', async () => {
     req.session.userCase.isCitizenLivingInRefuge = 'Yes';
     await controller.post(req, res);
     expect(req.session.save).not.toBeCalled;

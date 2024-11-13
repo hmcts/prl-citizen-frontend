@@ -37,7 +37,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
-  areRefugeDocumentsPresent,
+  areRefugeDocumentsNotPresent,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -115,6 +115,9 @@ export const enContent = {
       defaultPaymentError: 'Your application is not submitted. Please try again',
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application',
       paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
+    },
+    refugeDocumentText: {
+      required: 'You must upload a C8 document',
     },
   },
   sectionTitles: {
@@ -258,6 +261,9 @@ export const cyContent = {
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application (welsh)',
       paymentUnsuccessful:
         'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
+    },
+    refugeDocumentText: {
+      required: 'Mae’n rhaid i chi uwchlwytho dogfen C8',
     },
   },
   sectionTitles: {
@@ -738,9 +744,25 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
-  form.submit.disabled = areRefugeDocumentsPresent(content.userCase!);
+  form.submit.disabled = areRefugeDocumentsNotPresent(content.userCase!);
+  const refugeErrors = {};
+
+  content.userCase?.appl_allApplicants?.forEach(applicant => {
+    refugeErrors[`${applicant.applicantFirstName}${applicant.applicantLastName}c8RefugeDocument`] =
+      translations.errors.refugeDocumentText;
+  });
+
+  content.userCase?.oprs_otherPersons?.forEach(otherPerson => {
+    refugeErrors[`${otherPerson.firstName}${otherPerson.lastName}c8RefugeDocument`] =
+      translations.errors.refugeDocumentText;
+  });
+
   return {
     ...translations,
     form,
+    errors: {
+      ...translations.errors,
+      ...refugeErrors,
+    },
   };
 };

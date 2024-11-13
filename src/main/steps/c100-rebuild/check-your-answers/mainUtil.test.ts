@@ -26,7 +26,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
-  areRefugeDocumentsPresent,
+  areRefugeDocumentsNotPresent,
   getYesNoTranslation,
   reasonableAdjustment,
   whereDoChildrenLive,
@@ -120,6 +120,9 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/typeoforder/select-courtorder',
                 text: undefined,
                 visuallyHiddenText: 'whatAreYouAsking',
+                attributes: {
+                  id: '',
+                },
               },
             ],
           },
@@ -135,6 +138,9 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/typeoforder/shortstatement',
                 text: undefined,
                 visuallyHiddenText: 'wantingCourtToDo',
+                attributes: {
+                  id: '',
+                },
               },
             ],
           },
@@ -161,6 +167,9 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/hearing-urgency/urgent',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
+                attributes: {
+                  id: '',
+                },
               },
             ],
           },
@@ -174,6 +183,9 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
+                attributes: {
+                  id: '',
+                },
               },
             ],
           },
@@ -270,6 +282,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/screening-questions/permission',
               text: undefined,
               visuallyHiddenText: 'reasonPermissionRequired',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -285,6 +300,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/screening-questions/permissions-why',
               text: undefined,
               visuallyHiddenText: 'whyPermissionRequiredFromCourt',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -300,6 +318,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/screening-questions/permissions-request',
               text: undefined,
               visuallyHiddenText: 'whyCourtGrantSubmittingPermission',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -507,6 +528,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/add-children',
               text: undefined,
               visuallyHiddenText: 'fullName',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -524,6 +548,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
               visuallyHiddenText: 'approxCheckboxLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -539,6 +566,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
               visuallyHiddenText: 'approxDobLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -554,6 +584,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
               visuallyHiddenText: 'childGenderLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -571,6 +604,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/child-matters',
               text: undefined,
               visuallyHiddenText: 'orderAppliedFor',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -588,6 +624,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/parental-responsibility',
               text: undefined,
               visuallyHiddenText: 'parentalResponsibility',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -674,6 +713,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/has-other-children',
               text: undefined,
               visuallyHiddenText: 'undefined',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -695,6 +737,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/other-children/names',
               text: undefined,
               visuallyHiddenText: 'fullName',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -712,6 +757,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
               visuallyHiddenText: 'dobLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -729,6 +777,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
               visuallyHiddenText: 'childGenderLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -785,6 +836,9 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/has-other-children',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
+                attributes: {
+                  id: '',
+                },
               },
             ],
           },
@@ -806,6 +860,9 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/other-children/names',
                 text: undefined,
                 visuallyHiddenText: 'fullName',
+                attributes: {
+                  id: '',
+                },
               },
             ],
           },
@@ -823,6 +880,9 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
                 visuallyHiddenText: 'approxCheckboxLabel',
+                attributes: {
+                  id: '',
+                },
               },
             ],
           },
@@ -836,6 +896,9 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
                 visuallyHiddenText: 'approxDobLabel',
+                attributes: {
+                  id: '',
+                },
               },
             ],
           },
@@ -853,6 +916,9 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
                 visuallyHiddenText: 'childGenderLabel',
+                attributes: {
+                  id: '',
+                },
               },
             ],
           },
@@ -977,6 +1043,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/add-other-persons',
               text: undefined,
               visuallyHiddenText: 'fullName',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -994,6 +1063,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
               visuallyHiddenText: 'hasNameChanged',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1009,6 +1081,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
               visuallyHiddenText: 'childGenderLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1026,6 +1101,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
               visuallyHiddenText: 'dobLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1043,6 +1121,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/relationship-to-child/39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
               text: undefined,
               visuallyHiddenText: 'relationshipTo Nir Sin',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1060,6 +1141,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/refuge/staying-in-refuge/3b32bc4f-7417-443b-ba94-5eacfcee04c4?',
               text: undefined,
               visuallyHiddenText: 'refuge',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1077,6 +1161,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/refuge/upload-refuge-document/3b32bc4f-7417-443b-ba94-5eacfcee04c4',
               text: undefined,
               visuallyHiddenText: 'c8RefugeDocument',
+              attributes: {
+                id: 'RespondentFirstPagec8RefugeDocument',
+              },
             },
           ],
         },
@@ -1094,6 +1181,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/address/manual',
               text: undefined,
               visuallyHiddenText: 'addressDetails',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1164,6 +1254,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
               text: undefined,
               visuallyHiddenText: 'Who does Bob Silly mainly live with?',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1181,6 +1274,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
               text: undefined,
               visuallyHiddenText: "Bob Silly's living arrangements",
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1253,6 +1349,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
               text: undefined,
               visuallyHiddenText: 'Who does Bob Silly mainly live with?',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1270,6 +1369,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
               text: undefined,
               visuallyHiddenText: "Bob Silly's living arrangements",
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1387,6 +1489,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/concerns-about',
               text: undefined,
               visuallyHiddenText: 'undefined',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1402,6 +1507,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/report-abuse/physicalAbuse',
               text: undefined,
               visuallyHiddenText: 'detailsOfChildConcern',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1417,6 +1525,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/report-abuse/psychologicalAbuse',
               text: undefined,
               visuallyHiddenText: 'detailsOfChildConcern',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1433,6 +1544,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/child-location',
               text: undefined,
               visuallyHiddenText: 'undefined',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1446,6 +1560,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/child-location',
               text: undefined,
               visuallyHiddenText: 'undefined',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1459,6 +1576,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/passport-office',
               text: undefined,
               visuallyHiddenText: 'undefined',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1474,6 +1594,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/passport-office-notified',
               text: undefined,
               visuallyHiddenText: 'undefined',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1487,6 +1610,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/threats',
               text: undefined,
               visuallyHiddenText: 'undefined',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1502,6 +1628,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/previousabductions',
               text: undefined,
               visuallyHiddenText: 'detailsofAbduction',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1517,6 +1646,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/previousabductions',
               text: undefined,
               visuallyHiddenText: 'c1A_policeOrInvestigatorInvolved',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1551,6 +1683,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/concerns-about',
               text: undefined,
               visuallyHiddenText: 'undefined',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1638,6 +1773,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/add-respondents',
               text: undefined,
               visuallyHiddenText: 'fullName',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1655,6 +1793,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'hasNameChanged',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1672,6 +1813,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'childGenderLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1689,6 +1833,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'approxCheckboxLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1706,6 +1853,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'approxDobLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1721,6 +1871,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondentPlaceOfBirthUnknown',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1738,6 +1891,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/relationship-to-child/39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
               text: undefined,
               visuallyHiddenText: 'relationshipTo Nir Sin',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1755,6 +1911,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/address/manual',
               text: undefined,
               visuallyHiddenText: 'addressDetails',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1772,6 +1931,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
               visuallyHiddenText: 'E-mail',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1789,6 +1951,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
               visuallyHiddenText: 'Telephone number',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1871,6 +2036,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/miam/other-proceedings',
               text: undefined,
               visuallyHiddenText: 'childInvolvementInSupervision',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1888,6 +2056,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/miam/attendance',
               text: undefined,
               visuallyHiddenText: 'attendedMiamMidiation',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1905,6 +2076,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/miam/valid-reason',
               text: undefined,
               visuallyHiddenText: 'undefined',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1964,6 +2138,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
               text: undefined,
               visuallyHiddenText: 'childrenInvolvedCourtCase',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1981,6 +2158,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
               text: undefined,
               visuallyHiddenText: 'courtOrderProtection',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -1996,6 +2176,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-proceedings/proceeding-details',
               text: undefined,
               visuallyHiddenText: 'optitle',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -2034,6 +2217,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/other-concerns/drugs',
               text: undefined,
               visuallyHiddenText: 'childDrugAbuse',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -2051,6 +2237,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/other-concerns/other-issues',
               text: undefined,
               visuallyHiddenText: 'otherWellBeingIssues',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -2068,6 +2257,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/orders-required/court-action',
               text: undefined,
               visuallyHiddenText: 'doWantCourtToAction',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -2085,6 +2277,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
               text: undefined,
               visuallyHiddenText: 'selectSupervisionAgreementLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -2100,6 +2295,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
               text: undefined,
               visuallyHiddenText: 'supervisionAgreementOtherWaysLabel',
+              attributes: {
+                id: '',
+              },
             },
           ],
         },
@@ -2119,18 +2317,18 @@ describe('test cases for main util', () => {
     expect(getYesNoTranslation('cy', 'Yes', 'oesTranslation')).toBe('Oes');
   });
 
-  describe('areRefugeDocumentsPresent', () => {
+  describe('areRefugeDocumentsNotPresent', () => {
     test('should return true if refuge document not present for applicant', () => {
-      expect(areRefugeDocumentsPresent({ appl_allApplicants: [{ liveInRefuge: 'Yes' }] } as CaseWithId)).toBe(true);
+      expect(areRefugeDocumentsNotPresent({ appl_allApplicants: [{ liveInRefuge: 'Yes' }] } as CaseWithId)).toBe(true);
     });
 
     test('should return false if refuge is no for applicant', () => {
-      expect(areRefugeDocumentsPresent({ appl_allApplicants: [{ liveInRefuge: 'No' }] } as CaseWithId)).toBe(false);
+      expect(areRefugeDocumentsNotPresent({ appl_allApplicants: [{ liveInRefuge: 'No' }] } as CaseWithId)).toBe(false);
     });
 
     test('should return false if refuge document is present for applicant', () => {
       expect(
-        areRefugeDocumentsPresent({
+        areRefugeDocumentsNotPresent({
           appl_allApplicants: [
             {
               liveInRefuge: 'Yes',
@@ -2146,16 +2344,16 @@ describe('test cases for main util', () => {
     });
 
     test('should return true if refuge document not present for other person', () => {
-      expect(areRefugeDocumentsPresent({ oprs_otherPersons: [{ liveInRefuge: 'Yes' }] } as CaseWithId)).toBe(true);
+      expect(areRefugeDocumentsNotPresent({ oprs_otherPersons: [{ liveInRefuge: 'Yes' }] } as CaseWithId)).toBe(true);
     });
 
     test('should return false if refuge is no other person', () => {
-      expect(areRefugeDocumentsPresent({ oprs_otherPersons: [{ liveInRefuge: 'No' }] } as CaseWithId)).toBe(false);
+      expect(areRefugeDocumentsNotPresent({ oprs_otherPersons: [{ liveInRefuge: 'No' }] } as CaseWithId)).toBe(false);
     });
 
     test('should return false if refuge document is present for other person', () => {
       expect(
-        areRefugeDocumentsPresent({
+        areRefugeDocumentsNotPresent({
           oprs_otherPersons: [
             {
               liveInRefuge: 'Yes',

@@ -1,16 +1,13 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
+import _ from 'lodash';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { CaseEvent, CaseType, PartyDetails, PartyType } from '../../../../app/case/definition';
+import { CaseEvent, CaseType, PartyDetails, PartyType, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { prepareContactPreferenceRequest } from '../../../../steps/common/contact-preference/ContactPreferencesMapper';
-import {
-  StateTags,
-  getConfirmOrEditYourContactDetailsStatus,
-} from '../../../../steps/common/task-list/components/tasklist/utils';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../../steps/tasklistresponse/utils';
@@ -90,7 +87,7 @@ export const saveAndRedirectContactDetailsAndPreference = async (
       },
     });
 
-    if (getConfirmOrEditYourContactDetailsStatus(userCase, partyDetails) !== StateTags.COMPLETED) {
+    if (userCase?.isCitizenLivingInRefuge === YesOrNo.YES && _.isEmpty(userCase?.refugeDocument)) {
       res.redirect(partyType === PartyType.RESPONDENT ? RESPONDENT_CHECK_ANSWERS : APPLICANT_CHECK_ANSWERS);
     } else {
       try {

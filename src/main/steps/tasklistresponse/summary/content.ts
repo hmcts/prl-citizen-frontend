@@ -44,6 +44,8 @@ import { PastAndCurrentProceedings } from '../proceedings/mainUtils';
 import { ANYTYPE } from './common/index';
 import { populateSummaryData } from './handler';
 
+export * from './routeGuard';
+
 export const enlegalRepresntationContent = {
   sectionTitles: {
     title: '1. Legal representation',
@@ -120,6 +122,9 @@ export const enContent = {
   errors: {
     declarationCheck: {
       required: 'Please confirm the declaration',
+    },
+    refugeDocumentText: {
+      required: 'You must upload a C8 document',
     },
   },
   continue: 'Submit your response',
@@ -311,6 +316,9 @@ export const cyContent: typeof enContent = {
   errors: {
     declarationCheck: {
       required: 'Cadarnhewch y datganiad',
+    },
+    refugeDocumentText: {
+      required: 'Mae’n rhaid i chi uwchlwytho dogfen C8',
     },
   },
   continue: 'Cyflwyno eich ymateb',

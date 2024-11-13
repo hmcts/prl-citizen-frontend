@@ -85,6 +85,9 @@ describe('address confirmation > content', () => {
                   href: 'addresshistory',
                   text: 'Edit',
                   visuallyHiddenText: 'Address history',
+                  attributes: {
+                    id: 'citizenUserAddressHistory',
+                  },
                 },
               ],
             },
@@ -116,6 +119,9 @@ describe('address confirmation > content', () => {
                   href: 'addresshistory',
                   text: 'Golygu',
                   visuallyHiddenText: 'Hanes cyfeiriad',
+                  attributes: {
+                    id: 'citizenUserAddressHistory',
+                  },
                 },
               ],
             },
@@ -162,6 +168,9 @@ describe('address confirmation > content', () => {
                   href: '../refuge/staying-in-refuge',
                   text: 'Edit',
                   visuallyHiddenText: 'Living in refuge',
+                  attributes: {
+                    id: 'citizenUserLivingInRefugeText',
+                  },
                 },
               ],
             },
@@ -179,6 +188,9 @@ describe('address confirmation > content', () => {
                   href: '../refuge/upload-refuge-document',
                   text: 'Edit',
                   visuallyHiddenText: 'C8 refuge document',
+                  attributes: {
+                    id: 'refugeDocumentText',
+                  },
                 },
               ],
             },
@@ -196,6 +208,9 @@ describe('address confirmation > content', () => {
                   href: 'addresshistory',
                   text: 'Edit',
                   visuallyHiddenText: 'Address history',
+                  attributes: {
+                    id: 'citizenUserAddressHistory',
+                  },
                 },
               ],
             },

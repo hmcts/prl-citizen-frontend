@@ -40,6 +40,9 @@ export const getSectionSummaryList = (
                   href: changeUrl,
                   text: language === 'en' ? en.edit : cy.edit,
                   visuallyHiddenText: `${item.key}`,
+                  attributes: {
+                    id: item.keyName ? item.keyName : '',
+                  },
                 },
               ],
             },
@@ -121,6 +124,7 @@ export const summaryList = (
     const keyLabel = keys[key];
     const row = {
       key: keyLabel,
+      keyName: key,
       value:
         userCase[key]?.hasOwnProperty('day') &&
         userCase[key].hasOwnProperty('month') &&
