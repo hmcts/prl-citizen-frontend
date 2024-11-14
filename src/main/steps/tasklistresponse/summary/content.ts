@@ -6,8 +6,10 @@ import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../..
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
+import { HTML } from '../../../steps/c100-rebuild/check-your-answers/common/htmlSelectors';
 import { CommonContent } from '../../../steps/common/common.content';
 import { removeFields } from '../../../steps/common/confirm-contact-details/checkanswers/content';
+import { isMandatoryFieldsFilled } from '../../../steps/common/confirm-contact-details/checkanswers/utils';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
   CONSENT_TO_APPLICATION,
@@ -144,7 +146,7 @@ export const enContent = {
   forRecords: 'Please note this draft is for your records. Only the completed response will be admitted in court.',
   downloadDraft: 'Download draft response',
   downloadDraftWelsh: 'Download draft response welsh',
-  completeSectionError: '<span class="govuk-error-message">Complete this section</span>',
+  completeSectionError: 'Complete this section',
 };
 
 export const enInternationalContent = {
@@ -338,7 +340,7 @@ export const cyContent: typeof enContent = {
   forRecords: 'Noder mai drafft yw hwn ar gyfer eich cofnodion. Dim ond yr ymateb terfynol a dderbynnir yn y llys.',
   downloadDraft: 'Lawrlwytho drafft o’r ymateb',
   downloadDraftWelsh: 'Lawrlwytho drafft o’r ymateb cymraeg',
-  completeSectionError: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+  completeSectionError: 'Llenwch yr adran hon',
 };
 
 export const cyContentProceding = {
@@ -633,7 +635,7 @@ const en = (content: CommonContent) => {
   const userCase = content.userCase!;
   userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
     ? userCase.refugeDocument.document_filename
-    : enContent.completeSectionError;
+    : HTML.ERROR_MESSAGE_SPAN + enContent.completeSectionError + HTML.SPAN_CLOSE;
   populateSummaryData(userCase, content.userIdamId);
 
   const sections = [] as ANYTYPE;
@@ -694,7 +696,7 @@ const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
     ? userCase.refugeDocument.document_filename
-    : cyContent.completeSectionError;
+    : HTML.ERROR_MESSAGE_SPAN + cyContent.completeSectionError + HTML.SPAN_CLOSE;
   populateSummaryData(userCase, content.userIdamId);
 
   const sections = [] as ANYTYPE;
@@ -767,7 +769,7 @@ export const form: FormContent = {
   },
   onlyContinue: {
     text: l => l.continue,
-    disabled: true,
+    disabled: false,
   },
 };
 
@@ -779,7 +781,7 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
   const caseData = content.userCase as CaseWithId;
-  form.onlyContinue!.disabled = caseData.isCitizenLivingInRefuge === YesOrNo.YES && _.isEmpty(caseData.refugeDocument);
+  form.onlyContinue!.disabled = !isMandatoryFieldsFilled(caseData);
 
   return {
     ...translations,

@@ -1,14 +1,13 @@
 import { NextFunction, Response } from 'express';
-import _ from 'lodash';
 
-import { YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import { isMandatoryFieldsFilled } from '../../../steps/common/confirm-contact-details/checkanswers/utils';
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   get: (req: AppRequest, res: Response, next: NextFunction) => {
     const caseData = req.session.userCase;
-    if (caseData.isCitizenLivingInRefuge === YesOrNo.YES && _.isEmpty(caseData.refugeDocument)) {
+    if (!isMandatoryFieldsFilled(caseData)) {
       req.session.errors = [
         {
           propertyName: 'refugeDocumentText',

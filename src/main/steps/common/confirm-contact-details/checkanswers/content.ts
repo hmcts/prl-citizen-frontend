@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { CaseWithId } from '../../../../app/case/case';
 import { CaseType, PartyType, YesOrNo } from '../../../../app/case/definition';
 import { UserDetails } from '../../../../app/controller/AppRequest';
@@ -9,6 +7,8 @@ import { SummaryListContent } from '../../../../steps/c100-rebuild/check-your-an
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
+
+import { isMandatoryFieldsFilled } from './utils';
 
 export const enContent = {
   section: 'Check your details',
@@ -132,7 +132,7 @@ export const form: FormContent = {
   fields: {},
   submit: {
     text: l => l.continue,
-    disabled: true,
+    disabled: false,
   },
 };
 
@@ -143,8 +143,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  form.submit!.disabled =
-    content.userCase?.isCitizenLivingInRefuge === YesOrNo.YES && _.isEmpty(content.userCase?.refugeDocument);
+  form.submit!.disabled = !isMandatoryFieldsFilled(content.userCase!);
   return {
     ...translations,
     form,

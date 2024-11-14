@@ -58,9 +58,7 @@ describe('test cases for main util', () => {
                 href: '/tasklistresponse/proceedings/start',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {
-                  id: '',
-                },
+                attributes: {},
               },
             ],
           },
@@ -74,9 +72,7 @@ describe('test cases for main util', () => {
                 href: '/tasklistresponse/proceedings/start',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {
-                  id: '',
-                },
+                attributes: {},
               },
             ],
           },
@@ -90,9 +86,7 @@ describe('test cases for main util', () => {
                 href: '/tasklistresponse/proceedings/courtproceedings',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {
-                  id: '',
-                },
+                attributes: {},
               },
             ],
           },

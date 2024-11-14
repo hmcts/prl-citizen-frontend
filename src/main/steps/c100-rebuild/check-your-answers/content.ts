@@ -37,7 +37,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
-  areRefugeDocumentsNotPresent,
+  isMandatoryFieldsFilled,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -89,7 +89,7 @@ export const enContent = {
   telephone_number: 'Telephone number',
   dont_know_email_address: 'I dont know their email address',
   dont_know_telephone: 'I dont know their telephone number',
-  completeSectionError: '<span class="govuk-error-message">Complete this section</span>',
+  completeSectionError: 'Complete this section',
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -234,7 +234,7 @@ export const cyContent = {
   email: 'E-bost',
   Male: 'Gwryw',
   Female: 'Benyw',
-  completeSectionError: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+  completeSectionError: 'Llenwch yr adran hon',
   StatementOfTruth: {
     title: 'Datganiad Gwirionedd',
     heading: 'Cadarnhau cyn ichi gyflwyno’r cais',
@@ -669,7 +669,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.onlycontinue,
-    disabled: true,
+    disabled: false,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
@@ -744,16 +744,16 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
-  form.submit.disabled = areRefugeDocumentsNotPresent(content.userCase!);
+  form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!);
   const refugeErrors = {};
 
   content.userCase?.appl_allApplicants?.forEach(applicant => {
-    refugeErrors[`${applicant.applicantFirstName}${applicant.applicantLastName}c8RefugeDocument`] =
+    refugeErrors[`c8RefugeDocument-applicant-${content.userCase?.appl_allApplicants?.indexOf(applicant)}`] =
       translations.errors.refugeDocumentText;
   });
 
   content.userCase?.oprs_otherPersons?.forEach(otherPerson => {
-    refugeErrors[`${otherPerson.firstName}${otherPerson.lastName}c8RefugeDocument`] =
+    refugeErrors[`c8RefugeDocument-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`] =
       translations.errors.refugeDocumentText;
   });
 

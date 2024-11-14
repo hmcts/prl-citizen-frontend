@@ -1,9 +1,8 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
-import _ from 'lodash';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { CaseEvent, CaseType, PartyDetails, PartyType, YesOrNo } from '../../../../app/case/definition';
+import { CaseEvent, CaseType, PartyDetails, PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -26,6 +25,7 @@ import {
   setAddressFields,
   //setContactDetails
 } from './ContactDetailsMapper';
+import { isMandatoryFieldsFilled } from './utils';
 
 @autobind
 export class ConfirmContactDetailsPostController extends PostController<AnyObject> {
@@ -87,7 +87,7 @@ export const saveAndRedirectContactDetailsAndPreference = async (
       },
     });
 
-    if (userCase?.isCitizenLivingInRefuge === YesOrNo.YES && _.isEmpty(userCase?.refugeDocument)) {
+    if (!isMandatoryFieldsFilled(userCase)) {
       res.redirect(partyType === PartyType.RESPONDENT ? RESPONDENT_CHECK_ANSWERS : APPLICANT_CHECK_ANSWERS);
     } else {
       try {

@@ -518,9 +518,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/childaddress',
                   text: 'Edit',
                   visuallyHiddenText: 'Where do the children live?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -542,9 +540,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you have a written agreement with the other people in the case that you want the court to review?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -565,9 +561,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/screening-questions/legal-representation',
                   text: 'Edit',
                   visuallyHiddenText: 'Will you be using a legal representative in these proceedings?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -589,9 +583,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Is there any reason that you would need permission from the court to make this application?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -617,9 +609,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -642,9 +632,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: 'Edit',
                   visuallyHiddenText: 'Have the children been involved in a court case?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -660,9 +648,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: 'Edit',
                   visuallyHiddenText: 'Have you had a court order made for your protection?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -683,9 +669,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: 'Edit',
                   visuallyHiddenText: 'What are you asking the court to do?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -702,9 +686,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Describe what you want the court to do regarding the children in this application',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -725,9 +707,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: 'Edit',
                   visuallyHiddenText: 'Does your situation qualify for an urgent first hearing?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -743,9 +723,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: 'Edit',
                   visuallyHiddenText: 'Are you asking for a without notice hearing?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -774,9 +752,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/child-details/further-information',
                   text: 'Edit',
                   visuallyHiddenText: 'Are any of the children known to social services?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -794,9 +770,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/child-details/further-information',
                   text: 'Edit',
                   visuallyHiddenText: 'Are any of the children the subject of a child protection plan?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -818,9 +792,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you or any respondents have other children who are not part of this application?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -849,9 +821,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: 'Edit',
                   visuallyHiddenText: 'Is there anyone else who should know about your application?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -877,9 +847,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -897,9 +865,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/safety-concerns/concern-about',
                   text: 'Edit',
                   visuallyHiddenText: 'Who are you concerned about?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -923,9 +889,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'What type of behaviour have the children experienced or are at risk of experiencing?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -949,9 +913,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'What type of behaviour have the children experienced or are at risk of experiencing?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -974,9 +936,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/safety-concerns/other-concerns/drugs',
                   text: 'Edit',
                   visuallyHiddenText: 'Have the children been impacted by drug, alcohol or substance abuse?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -992,9 +952,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/safety-concerns/other-concerns/other-issues',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have any other concerns about the children’s safety and wellbeing?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1010,9 +968,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/safety-concerns/orders-required/court-action',
                   text: 'Edit',
                   visuallyHiddenText: 'What do you want the court to do to keep you and the children safe?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1029,9 +985,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you agree to the children spending time with the other people in this application?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1048,9 +1002,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you agree to the other people in this application being in touch with the children in other ways?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1071,9 +1023,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/international-elements/start',
                   text: 'Edit',
                   visuallyHiddenText: "Are the children's lives mainly based outside of England and Wales?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1092,9 +1042,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1113,9 +1061,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Could another person in the application apply for a similar order in a country outside England or Wales?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1134,9 +1080,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Has another country asked (or been asked) for information or help for the children?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1159,9 +1103,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: 'Edit',
                   visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1179,9 +1121,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have any language requirements?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1199,9 +1139,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you or the children need special arrangements at court?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1220,9 +1158,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -1245,9 +1181,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you need help with paying the fee for this application?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2191,9 +2125,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/childaddress',
                   text: ' Golygu',
                   visuallyHiddenText: "Ble mae'r plant yn byw?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2213,9 +2145,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2236,9 +2166,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: ' Golygu',
                   visuallyHiddenText: "Beth ydych chi'n gofyn i'r llys ei wneud?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2253,9 +2181,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2274,9 +2200,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: ' Golygu',
                   visuallyHiddenText: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2290,9 +2214,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: ' Golygu',
                   visuallyHiddenText: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2313,9 +2235,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/child-details/further-information',
                   text: ' Golygu',
                   visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2329,9 +2249,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/child-details/further-information',
                   text: ' Golygu',
                   visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2351,9 +2269,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2374,9 +2290,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes unrhyw un arall y dylai wybod am eich cais?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2397,9 +2311,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2413,9 +2325,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2434,9 +2344,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2455,9 +2363,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/international-elements/start',
                   text: ' Golygu',
                   visuallyHiddenText: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2472,9 +2378,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2491,9 +2395,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2510,9 +2412,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2533,9 +2433,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: ' Golygu',
                   visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2549,9 +2447,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2565,9 +2461,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: ' Golygu',
                   visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2582,9 +2476,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2605,9 +2497,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: ' Golygu',
                   visuallyHiddenText: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2639,9 +2529,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/childaddress',
                   text: ' Golygu',
                   visuallyHiddenText: "Ble mae'r plant yn byw?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2661,9 +2549,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2684,9 +2570,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/screening-questions/legal-representation',
                   text: ' Golygu',
                   visuallyHiddenText: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2706,9 +2590,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2729,9 +2611,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2752,9 +2632,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2768,9 +2646,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2789,9 +2665,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: ' Golygu',
                   visuallyHiddenText: "Beth ydych chi'n gofyn i'r llys ei wneud?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2806,9 +2680,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2827,9 +2699,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: ' Golygu',
                   visuallyHiddenText: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2843,9 +2713,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: ' Golygu',
                   visuallyHiddenText: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2866,9 +2734,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/child-details/further-information',
                   text: ' Golygu',
                   visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2882,9 +2748,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/child-details/further-information',
                   text: ' Golygu',
                   visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2904,9 +2768,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2927,9 +2789,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes unrhyw un arall y dylai wybod am eich cais?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2950,9 +2810,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2971,9 +2829,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/international-elements/start',
                   text: ' Golygu',
                   visuallyHiddenText: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -2988,9 +2844,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3007,9 +2861,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3026,9 +2878,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3049,9 +2899,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: ' Golygu',
                   visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3065,9 +2913,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3081,9 +2927,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: ' Golygu',
                   visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3098,9 +2942,7 @@ describe('Content.ts toggle test cases', () => {
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3121,9 +2963,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: ' Golygu',
                   visuallyHiddenText: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3613,9 +3453,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/childaddress',
                   text: 'Edit',
                   visuallyHiddenText: 'Where do the children live?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3637,9 +3475,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you have a written agreement with the other people in the case that you want the court to review?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3660,9 +3496,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/screening-questions/legal-representation',
                   text: 'Edit',
                   visuallyHiddenText: 'Will you be using a legal representative in these proceedings?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3684,9 +3518,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Is there any reason that you would need permission from the court to make this application?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3712,9 +3544,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3732,9 +3562,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/miam/attendance',
                   text: 'Edit',
                   visuallyHiddenText: 'Have you attended a MIAM?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3752,9 +3580,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/miam/mediator-document',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have a document signed by the mediator?  ',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3775,9 +3601,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: 'Edit',
                   visuallyHiddenText: 'Have the children been involved in a court case?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3793,9 +3617,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: 'Edit',
                   visuallyHiddenText: 'Have you had a court order made for your protection?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3816,9 +3638,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: 'Edit',
                   visuallyHiddenText: 'What are you asking the court to do?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3835,9 +3655,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Describe what you want the court to do regarding the children in this application',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3858,9 +3676,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: 'Edit',
                   visuallyHiddenText: 'Does your situation qualify for an urgent first hearing?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3876,9 +3692,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: 'Edit',
                   visuallyHiddenText: 'Are you asking for a without notice hearing?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3907,9 +3721,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/child-details/further-information',
                   text: 'Edit',
                   visuallyHiddenText: 'Are any of the children known to social services?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3927,9 +3739,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/child-details/further-information',
                   text: 'Edit',
                   visuallyHiddenText: 'Are any of the children the subject of a child protection plan?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3951,9 +3761,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you or any respondents have other children who are not part of this application?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -3982,9 +3790,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: 'Edit',
                   visuallyHiddenText: 'Is there anyone else who should know about your application?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4010,9 +3816,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4033,9 +3837,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/international-elements/start',
                   text: 'Edit',
                   visuallyHiddenText: "Are the children's lives mainly based outside of England and Wales?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4054,9 +3856,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4075,9 +3875,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Could another person in the application apply for a similar order in a country outside England or Wales?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4096,9 +3894,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Has another country asked (or been asked) for information or help for the children?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4121,9 +3917,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: 'Edit',
                   visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4141,9 +3935,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have any language requirements?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4161,9 +3953,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you or the children need special arrangements at court?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4182,9 +3972,7 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4207,9 +3995,7 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you need help with paying the fee for this application?',
-                  attributes: {
-                    id: '',
-                  },
+                  attributes: {},
                 },
               ],
             },
@@ -4391,10 +4177,10 @@ describe('Content.ts toggle test cases', () => {
       } as unknown as CaseWithId,
     });
 
-    expect(generatedRefugeErrorsContent.errors?.['TestApplicantc8RefugeDocument']).toStrictEqual({
+    expect(generatedRefugeErrorsContent.errors?.['c8RefugeDocument-applicant-0']).toStrictEqual({
       required: 'You must upload a C8 document',
     });
-    expect(generatedRefugeErrorsContent.errors?.['RespondentFirstPagec8RefugeDocument']).toStrictEqual({
+    expect(generatedRefugeErrorsContent.errors?.['c8RefugeDocument-otherPerson-0']).toStrictEqual({
       required: 'You must upload a C8 document',
     });
   });

@@ -428,7 +428,7 @@ export const ApplicantDetails = (
   const sessionApplicantData = userCase['appl_allApplicants'];
   const newApplicantData: {
     key: string;
-    keyName?: string;
+    anchorReference?: string;
     keyHtml?: string;
     value: string;
     valueHtml?: string;
@@ -553,11 +553,11 @@ export const ApplicantDetails = (
     if (sessionApplicantData[applicant]['liveInRefuge'] === YesOrNo.YES) {
       newApplicantData.push({
         key: keys['c8RefugeDocument'],
-        keyName: `${sessionApplicantData[applicant]['applicantFirstName']}${sessionApplicantData[applicant]['applicantLastName']}c8RefugeDocument`,
+        anchorReference: `c8RefugeDocument-applicant-${applicant}`,
         value: '',
         valueHtml: !_.isEmpty(sessionApplicantData[applicant]['refugeConfidentialityC8Form'])
           ? sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename']
-          : translation('completeSectionError', language),
+          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
         changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
           root: RootContext.C100_REBUILD,
           id: sessionApplicantData[applicant]['id'],
@@ -1297,7 +1297,7 @@ export const OtherPeopleDetails = (
   const sessionOtherPeopleData = userCase['oprs_otherPersons'];
   const newOtherPeopleStorage: {
     key: string;
-    keyName?: string;
+    anchorReference?: string;
     keyHtml?: string;
     value?: string;
     valueHtml?: string;
@@ -1389,11 +1389,11 @@ export const OtherPeopleDetails = (
     if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
       newOtherPeopleStorage.push({
         key: keys['c8RefugeDocument'],
-        keyName: `${sessionOtherPeopleData[respondent]['firstName']}${sessionOtherPeopleData[respondent]['lastName']}c8RefugeDocument`,
+        anchorReference: `c8RefugeDocument-otherPerson-${respondent}`,
         value: '',
         valueHtml: !_.isEmpty(sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form'])
           ? sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form']?.['document_filename']
-          : translation('completeSectionError', language),
+          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
         changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
           root: RootContext.C100_REBUILD,
           id: sessionOtherPeopleData[respondent]['id'],
@@ -1671,4 +1671,8 @@ export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId>): boo
       otherPerson => otherPerson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherPerson.refugeConfidentialityC8Form)
     )
   );
+};
+
+export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>): boolean => {
+  return !areRefugeDocumentsNotPresent(caseData);
 };
