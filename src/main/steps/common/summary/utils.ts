@@ -40,6 +40,11 @@ export const getSectionSummaryList = (
                   href: changeUrl,
                   text: language === 'en' ? en.edit : cy.edit,
                   visuallyHiddenText: `${item.key}`,
+                  attributes: item.anchorReference
+                    ? {
+                        id: item.anchorReference,
+                      }
+                    : {},
                 },
               ],
             },
@@ -99,8 +104,8 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         translationLabel = 'ydwTranslation';
       }
       break;
-    case 'refugeDocument':
-      return userCase[key]?.document_filename;
+    case 'refugeDocumentText':
+      return userCase.refugeDocumentText;
     default:
       return userkey;
   }
@@ -121,6 +126,7 @@ export const summaryList = (
     const keyLabel = keys[key];
     const row = {
       key: keyLabel,
+      anchorReference: key,
       value:
         userCase[key]?.hasOwnProperty('day') &&
         userCase[key].hasOwnProperty('month') &&

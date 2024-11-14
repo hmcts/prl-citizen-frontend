@@ -19,7 +19,7 @@ const en = {
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
     citizenUserLivingInRefugeText: 'Living in refuge',
-    refugeDocument: 'C8 refuge document',
+    refugeDocumentText: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
@@ -44,7 +44,7 @@ const cy: typeof en = {
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
     citizenUserLivingInRefugeText: 'Byw mewn lloches',
-    refugeDocument: 'Dogfen lloches C8',
+    refugeDocumentText: 'Dogfen lloches C8',
     citizenUserAddressText: 'Cyfeiriad',
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',
@@ -85,6 +85,9 @@ describe('address confirmation > content', () => {
                   href: 'addresshistory',
                   text: 'Edit',
                   visuallyHiddenText: 'Address history',
+                  attributes: {
+                    id: 'citizenUserAddressHistory',
+                  },
                 },
               ],
             },
@@ -116,6 +119,9 @@ describe('address confirmation > content', () => {
                   href: 'addresshistory',
                   text: 'Golygu',
                   visuallyHiddenText: 'Hanes cyfeiriad',
+                  attributes: {
+                    id: 'citizenUserAddressHistory',
+                  },
                 },
               ],
             },
@@ -143,6 +149,7 @@ describe('address confirmation > content', () => {
         userCase: {
           isCitizenLivingInRefuge: 'Yes',
           citizenUserLivingInRefugeText: 'Yes',
+          refugeDocumentText: 'MOCK_FILENAME',
           refugeDocument: {
             document_url: 'MOCK_URL',
             document_binary_url: 'MOCK_BINARY_URL',
@@ -161,6 +168,9 @@ describe('address confirmation > content', () => {
                   href: '../refuge/staying-in-refuge',
                   text: 'Edit',
                   visuallyHiddenText: 'Living in refuge',
+                  attributes: {
+                    id: 'citizenUserLivingInRefugeText',
+                  },
                 },
               ],
             },
@@ -178,6 +188,9 @@ describe('address confirmation > content', () => {
                   href: '../refuge/upload-refuge-document',
                   text: 'Edit',
                   visuallyHiddenText: 'C8 refuge document',
+                  attributes: {
+                    id: 'refugeDocumentText',
+                  },
                 },
               ],
             },
@@ -195,6 +208,9 @@ describe('address confirmation > content', () => {
                   href: 'addresshistory',
                   text: 'Edit',
                   visuallyHiddenText: 'Address history',
+                  attributes: {
+                    id: 'citizenUserAddressHistory',
+                  },
                 },
               ],
             },

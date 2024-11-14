@@ -37,6 +37,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  isMandatoryFieldsFilled,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -88,6 +89,7 @@ export const enContent = {
   telephone_number: 'Telephone number',
   dont_know_email_address: 'I dont know their email address',
   dont_know_telephone: 'I dont know their telephone number',
+  completeSectionError: 'Complete this section',
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -113,6 +115,9 @@ export const enContent = {
       defaultPaymentError: 'Your application is not submitted. Please try again',
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application',
       paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
+    },
+    refugeDocumentText: {
+      required: 'You must upload a C8 document',
     },
   },
   sectionTitles: {
@@ -229,6 +234,7 @@ export const cyContent = {
   email: 'E-bost',
   Male: 'Gwryw',
   Female: 'Benyw',
+  completeSectionError: 'Llenwch yr adran hon',
   StatementOfTruth: {
     title: 'Datganiad Gwirionedd',
     heading: 'Cadarnhau cyn ichi gyflwyno’r cais',
@@ -255,6 +261,9 @@ export const cyContent = {
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application (welsh)',
       paymentUnsuccessful:
         'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
+    },
+    refugeDocumentText: {
+      required: 'Mae’n rhaid i chi uwchlwytho dogfen C8',
     },
   },
   sectionTitles: {
@@ -660,6 +669,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.onlycontinue,
+    disabled: false,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
@@ -734,8 +744,25 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
+  form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!);
+  const refugeErrors = {};
+
+  content.userCase?.appl_allApplicants?.forEach(applicant => {
+    refugeErrors[`c8RefugeDocument-applicant-${content.userCase?.appl_allApplicants?.indexOf(applicant)}`] =
+      translations.errors.refugeDocumentText;
+  });
+
+  content.userCase?.oprs_otherPersons?.forEach(otherPerson => {
+    refugeErrors[`c8RefugeDocument-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`] =
+      translations.errors.refugeDocumentText;
+  });
+
   return {
     ...translations,
     form,
+    errors: {
+      ...translations.errors,
+      ...refugeErrors,
+    },
   };
 };

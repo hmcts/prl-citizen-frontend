@@ -136,7 +136,12 @@ export const getConfirmOrEditYourContactDetailsStatus = (
     partyDetails.email,
     partyDetails.dateOfBirth,
     partyDetails.liveInRefuge,
+    partyDetails.refugeConfidentialityC8Form?.document_filename,
   ];
+
+  if (partyDetails.liveInRefuge === YesOrNo.NO) {
+    summaryField.splice(8, 1);
+  }
 
   if (caseData?.caseTypeOfApplication === CaseType.FL401) {
     summaryField.splice(2, 1);

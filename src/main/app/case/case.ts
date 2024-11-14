@@ -457,6 +457,7 @@ export interface Case {
   citizenUserDateOfBirth?: CaseDate;
   citizenUserDateOfBirthText?: string;
   citizenUserLivingInRefugeText?: string;
+  refugeDocumentText?: string;
   applicant1Occupation?: string;
   citizenUserSelectAddress?: string;
   citizenUserPlaceOfBirth?: string;

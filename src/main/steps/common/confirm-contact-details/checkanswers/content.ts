@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../../app/case/case';
-import { CaseType, PartyType } from '../../../../app/case/definition';
+import { CaseType, PartyType, YesOrNo } from '../../../../app/case/definition';
 import { UserDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
@@ -7,6 +7,8 @@ import { SummaryListContent } from '../../../../steps/c100-rebuild/check-your-an
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
+
+import { isMandatoryFieldsFilled } from './utils';
 
 export const enContent = {
   section: 'Check your details',
@@ -23,7 +25,7 @@ export const enContent = {
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
     citizenUserLivingInRefugeText: 'Living in refuge',
-    refugeDocument: 'C8 refuge document',
+    refugeDocumentText: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
@@ -76,7 +78,7 @@ export const cyContent: typeof enContent = {
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
     citizenUserLivingInRefugeText: 'Byw mewn lloches',
-    refugeDocument: 'Dogfen lloches C8',
+    refugeDocumentText: 'Dogfen lloches C8',
     citizenUserAddressText: 'Cyfeiriad',
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',
@@ -92,7 +94,7 @@ const urls = {
   citizenUserDateOfBirthText: 'personaldetails',
   citizenUserPlaceOfBirthText: 'personaldetails',
   citizenUserLivingInRefugeText: '../refuge/staying-in-refuge',
-  refugeDocument: '../refuge/upload-refuge-document',
+  refugeDocumentText: '../refuge/upload-refuge-document',
   citizenUserAddressText: 'addressdetails',
   citizenUserAddressHistory: 'addresshistory',
   citizenUserPhoneNumberText: 'contactdetails',
@@ -130,6 +132,7 @@ export const form: FormContent = {
   fields: {},
   submit: {
     text: l => l.continue,
+    disabled: false,
   },
 };
 
@@ -140,6 +143,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  form.submit!.disabled = !isMandatoryFieldsFilled(content.userCase!);
   return {
     ...translations,
     form,
@@ -162,6 +166,10 @@ export const removeFields = (
     }
   } else {
     delete keys.citizenUserSafeToCall;
+  }
+
+  if (caseData.isCitizenLivingInRefuge === YesOrNo.NO || caseData.isCitizenLivingInRefuge === null) {
+    delete keys.refugeDocumentText;
   }
 
   return { ...content, keys };

@@ -59,6 +59,7 @@ const fieldsArray: string[] = [
   'citizenUserPhoneNumberText',
   'citizenUserEmailAddressText',
   'citizenUserDateOfBirthText',
+  'refugeDocumentText',
 ];
 
 function setRedirectUrl(req: AppRequest<Partial<Case>>) {

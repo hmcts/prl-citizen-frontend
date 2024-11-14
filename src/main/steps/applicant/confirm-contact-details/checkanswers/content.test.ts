@@ -14,7 +14,7 @@ const en = {
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
     citizenUserLivingInRefugeText: 'Living in refuge',
-    refugeDocument: 'C8 refuge document',
+    refugeDocumentText: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
