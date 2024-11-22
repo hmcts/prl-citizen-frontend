@@ -327,6 +327,17 @@ describe('testcase for notification Banner', () => {
               },
             ],
           },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
+          },
         ],
         heading: 'The court has issued your application',
         id: 'applicationServedByCourtPersonalNonPersonalService',
@@ -411,6 +422,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Gwybodaeth am Cafcass',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+              },
+              {
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
         heading: "Mae'r llys wedi cychwyn eich cais",
@@ -498,6 +520,17 @@ describe('testcase for notification Banner', () => {
               },
             ],
           },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
+          },
         ],
         heading: 'The court has issued your application',
         id: 'applicationServedByCourtPersonalNonPersonalService',
@@ -582,6 +615,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Gwybodaeth am Cafcass Cymru',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+              },
+              {
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
         heading: "Mae'r llys wedi cychwyn eich cais",
@@ -1360,6 +1404,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Upload the statement of service (form C9)',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
