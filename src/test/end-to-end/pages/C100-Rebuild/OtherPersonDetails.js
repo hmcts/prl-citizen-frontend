@@ -12,7 +12,10 @@ module.exports = {
     dayDOB: '//*[@id="dateOfBirth-day"]',
     monthDOB: '//*[@id="dateOfBirth-month"]',
     yearDOB: '//*[@id="dateOfBirth-year"]', 
-    grandparentOptionButton: '//*[@id="relationshipType-5"]', 
+    grandparentOptionButton: '//*[@id="relationshipType-5"]',
+    livesInRefugeYes: '//*[@id="isCitizenLivingInRefuge"]',
+    livesInRefugeNo: '//*[@id="isCitizenLivingInRefuge-2"]',
+    fileUploadInput:'#fileupload',
     otherPersonPostCodeField: '//*[@id="PostCode"]', 
     addressList: '//*[@id="selectAddress"]',
     liveWithFirstOptionButton: '//*[@id="mainlyLiveWith"]',
@@ -75,12 +78,33 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
 
+  async refugeDetailsOfOtherPerson() {
+    await I.retry(retryCount).waitForText(OtherPersonDetails.stayingInRefugePageTitle , 30);
+
+    await I.retry(retryCount).click(this.fields.livesInRefugeYes);
+    await I.retry(retryCount).click('Continue');
+
+    await I.retry(retryCount).waitForText(OtherPersonDetails.keepingDetailsSafePageTitle , 30);
+    await I.retry(retryCount).click('Continue');
+
+    await I.retry(retryCount).waitForText(OtherPersonDetails.uploadC8FormPageTitle , 30);
+    await I.retry(retryCount).waitForText('Upload a C8 form');
+    await I.attachFile(this.fields.fileUploadInput, '../resource/dummy.pdf')
+    await I.wait('1');
+    await I.retry(retryCount).click('Upload file');
+    await I.wait('5');
+    await I.retry(retryCount).dontSee('No files uploaded');
+
+    await I.retry(retryCount).click('Continue');
+  },
+
   //With Other Person
   async otherPersonDetails() {
     await this.otherPerson(true);
     await this.otherPersonName();
     await this.otherPersonDetailsInfo();
     await this.otherPersonRelationship();
+    await this.refugeDetailsOfOtherPerson();
     await this.addressOfOtherPerson();
     await this.addressLookUpPage();
     await this.confirmAddress();
