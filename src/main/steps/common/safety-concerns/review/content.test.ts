@@ -34,7 +34,7 @@ const keys = {
   childDrugAbuse: 'Have the children been impacted by drug, alcohol or substance abuse?',
   childLocation: 'Why do you think the children may be abducted or kept outside the UK without your consent?',
   children: 'The children in this application',
-  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+  childrenConcernedAboutLabel: 'Which children are you concerned about?',
   childrenMoreThanOnePassport: 'Do the children have more than one passport?',
   childsCurrentLocationText: 'Where are the children now?',
   concerns: 'concerns',
