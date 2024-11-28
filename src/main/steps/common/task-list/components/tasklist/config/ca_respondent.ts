@@ -137,7 +137,7 @@ export const document: TaskListConfigProps = {
     {
       id: Tasks.UPLOAD_DOCUMENTS,
       href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.RESPONDENT }),
-      stateTag: () => StateTags.TO_DO,
+      stateTag: () => StateTags.OPTIONAL,
       show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
         return !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
       },

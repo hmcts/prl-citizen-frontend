@@ -2494,8 +2494,8 @@ describe('tasklist index', () => {
               href: '/applicant/documents/upload',
               disabled: false,
               stateTag: {
-                label: 'TO DO',
-                className: 'govuk-tag--grey',
+                label: 'Optional',
+                className: 'govuk-tag--blue',
               },
               hintText: null,
               openInAnotherTab: false,
@@ -2657,8 +2657,8 @@ describe('tasklist index', () => {
               href: '/applicant/documents/upload',
               disabled: false,
               stateTag: {
-                label: 'TO DO',
-                className: 'govuk-tag--grey',
+                label: 'Optional',
+                className: 'govuk-tag--blue',
               },
               hintText: null,
               openInAnotherTab: false,
@@ -2873,8 +2873,8 @@ describe('tasklist index', () => {
               linkText: 'Upload documents, applications and statements',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'TO DO',
+                label: 'Optional',
+                className: 'govuk-tag--blue',
               },
             },
             {
@@ -3066,8 +3066,8 @@ describe('tasklist index', () => {
               href: '/respondent/documents/upload',
               disabled: false,
               stateTag: {
-                label: 'TO DO',
-                className: 'govuk-tag--grey',
+                label: 'Optional',
+                className: 'govuk-tag--blue',
               },
               hintText: null,
               openInAnotherTab: false,
@@ -3432,8 +3432,8 @@ describe('c100 respondent', () => {
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -3695,8 +3695,8 @@ describe('c100 respondent', () => {
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -4029,8 +4029,8 @@ describe('c100 respondent', () => {
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -4362,8 +4362,8 @@ describe('c100 respondent', () => {
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -4595,8 +4595,8 @@ describe('c100 respondent', () => {
             linkText: 'Upload documents, applications and statements',
             openInAnotherTab: false,
             stateTag: {
-              className: 'govuk-tag--grey',
-              label: 'TO DO',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
           },
           {
