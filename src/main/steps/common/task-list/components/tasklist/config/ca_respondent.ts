@@ -139,7 +139,7 @@ export const document: TaskListConfigProps = {
       href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.RESPONDENT }),
       stateTag: () => StateTags.TO_DO,
       show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-        return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+        return !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
       },
     },
     {
@@ -224,8 +224,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked,
-        disabled: isCaseClosed,
+        show: isCaseLinked
       },
     ],
   },

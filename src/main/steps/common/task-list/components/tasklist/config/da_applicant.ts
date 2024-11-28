@@ -117,8 +117,7 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked,
-        disabled: isCaseClosed,
+        show: isCaseLinked
       },
     ],
   },
@@ -151,7 +150,7 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
         href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),
         stateTag: () => StateTags.TO_DO,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+          return !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
         },
       },
       {
