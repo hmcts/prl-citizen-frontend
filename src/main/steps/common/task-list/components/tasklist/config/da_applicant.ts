@@ -117,7 +117,7 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked
+        show: isCaseLinked,
       },
     ],
   },

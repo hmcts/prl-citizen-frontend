@@ -2866,15 +2866,15 @@ describe('tasklist index', () => {
           id: 'yourDocuments',
           tasks: [
             {
-            disabled: false,
-            hintText: null,
-            href: "/applicant/documents/upload",
-            id: "uploadDocuments",
-            linkText: "Upload documents, applications and statements",
-            openInAnotherTab: false,
-            stateTag:{
-            className: "govuk-tag--grey",
-            label: "TO DO",
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/upload',
+              id: 'uploadDocuments',
+              linkText: 'Upload documents, applications and statements',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -4590,14 +4590,14 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: "/respondent/documents/upload",
-            id: "uploadDocuments",
-            linkText: "Upload documents, applications and statements",
+            href: '/respondent/documents/upload',
+            id: 'uploadDocuments',
+            linkText: 'Upload documents, applications and statements',
             openInAnotherTab: false,
-            stateTag:{
-            className: "govuk-tag--grey",
-            label: "TO DO",
-              },
+            stateTag: {
+              className: 'govuk-tag--grey',
+              label: 'TO DO',
+            },
           },
           {
             disabled: false,

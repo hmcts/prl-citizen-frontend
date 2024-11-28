@@ -152,7 +152,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked
+        show: isCaseLinked,
       },
     ],
   },
