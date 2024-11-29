@@ -1,10 +1,12 @@
-import { Case } from '../../../app/case/case';
+import { Case, CaseWithId } from '../../../app/case/case';
 import {
   C100OrderInterface,
   C100OrderTypeInterface,
   C100OrderTypeKeyMapper,
   C100OrderTypes,
+  ProceedingsOrderTypeKeyMapper,
   YesNoEmpty,
+  YesOrNo,
 } from '../../../app/case/definition';
 
 interface C100AllOrdersInterface extends C100OrderInterface {
@@ -44,4 +46,30 @@ export const getAllOrderDocuments = (
   orders: C100OrderTypeInterface | Record<string, never> = {}
 ): C100OrderInterface[] | [] => {
   return getAllOrders(orders).filter(order => order.orderDocument?.id);
+};
+
+export const cleanCurrentPreviousProceedings = (
+  caseData: CaseWithId,
+  childrenInvolvedCourtCase: YesOrNo | undefined,
+  courtOrderProtection: YesOrNo | undefined
+): CaseWithId => {
+  if (childrenInvolvedCourtCase === YesOrNo.NO && courtOrderProtection === YesOrNo.NO) {
+    delete caseData.op_otherProceedings;
+    delete caseData.op_courtProceedingsOrders;
+  }
+
+  return caseData;
+};
+
+export const cleanProceedingDetails = (
+  caseData: CaseWithId,
+  courtProceedingsOrders: C100OrderTypes[] | undefined
+): CaseWithId => {
+  Object.values(C100OrderTypes).forEach(order => {
+    if (!courtProceedingsOrders?.includes(order)) {
+      delete caseData.op_otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[`${order}`]];
+    }
+  });
+
+  return caseData;
 };
