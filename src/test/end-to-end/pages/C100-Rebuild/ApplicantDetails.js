@@ -17,7 +17,10 @@ module.exports = {
     monthDOB: '//*[@id="dateOfBirth-month"]',
     yearDOB: '//*[@id="dateOfBirth-year"]',
     applicantPlaceOfBirth: '//*[@id="applicantPlaceOfBirth"]', 
-    fatherOption: '//*[@id="relationshipType-2"]', 
+    fatherOption: '//*[@id="relationshipType-2"]',
+    livesInRefugeYes: '//*[@id="isCitizenLivingInRefuge"]',
+    livesInRefugeNo: '//*[@id="isCitizenLivingInRefuge-2"]',
+    fileUploadInput:'#fileupload',
     addressPostcode: '//*[@id="addressPostcode"]', 
     //address look up
     addressList: '//*[@id="selectAddress"]',
@@ -116,13 +119,33 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.postOption);
     await I.retry(retryCount).click('Continue');
   },
+  async refugeDetailsOfApplicant() {
+    await I.retry(retryCount).waitForText(ApplicantDetails.stayingInRefugePageTitle , 30);
+
+    await I.retry(retryCount).click(this.fields.livesInRefugeYes);
+    await I.retry(retryCount).click('Continue');
+
+    await I.retry(retryCount).waitForText(ApplicantDetails.keepingDetailsSafePageTitle , 30);
+    await I.retry(retryCount).click('Continue');
+
+    await I.retry(retryCount).waitForText(ApplicantDetails.uploadC8FormPageTitle , 30);
+    await I.retry(retryCount).waitForText('Upload a C8 form');
+    await I.attachFile(this.fields.fileUploadInput, '../resource/dummy.pdf')
+    await I.wait('1');
+    await I.retry(retryCount).click('Upload file');
+    await I.wait('5');
+    await I.retry(retryCount).dontSee('No files uploaded');
+    await I.retry(retryCount).click('Continue');
+  },
   async applicantDetails() {
+    // Dummy comment - To be removed before check-in
     await this.fillApplicantDetails();
     await this.confidentiality();
     await this.keepingConfidentialContact();
     await this.confidentialitySummary();
     await this.provideDetailsPage();
     await this.relationshipToChild();
+    await this.refugeDetailsOfApplicant();
     await this.addressDetailsOfApplicant();
     await this.addressLookUp();
     await this.confirmAddress();

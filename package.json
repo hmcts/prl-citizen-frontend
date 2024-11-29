@@ -14,7 +14,7 @@
     "start:watch": "concurrently --handle-input \"nodemon --config nodemon.express.json\" \"nodemon --config nodemon.assets.json\"",
     "lint": "tsc --noEmit -p tsconfig.eslint.json && eslint . --ext .js,.ts",
     "build": "webpack --config webpack.config.js",
-    "build:prod": "NODE_ENV=production webpack --mode production --config webpack.config.js",
+    "build:prod": "NODE_ENV=production webpack --mode production --config webpack.config.js --stats-error-details",
     "test": "jest",
     "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
     "test:coverage": "jest --coverage",
