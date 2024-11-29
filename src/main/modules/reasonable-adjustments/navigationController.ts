@@ -127,7 +127,7 @@ export class ReasonableAdjustementsNavigationController {
     const isC100Journey = currentPageUrl.startsWith(C100_URL);
     const currentPageUrlParts = currentPageUrl.split('/');
     currentPageUrlParts.splice(1, 1).unshift('');
-    const currentPage = parseUrl(currentPageUrlParts.join('/')).url as PageLink;
+    const currentPage = currentPageUrlParts.join('/') as PageLink;
 
     switch (currentPage) {
       case parseUrl(REASONABLE_ADJUSTMENTS_ATTENDING_COURT).url: {

@@ -759,6 +759,7 @@ describe('createAWPApplication', () => {
     const partyDetails = { firstName: 'MOCK_FIRST_NAME', lastName: 'MOCK_LAST_NAME' } as PartyDetails;
 
     const actual = await client.createAWPApplication(
+      req.session.user,
       userCase,
       'C2' as AWPApplicationType,
       'request-more-time' as AWPApplicationReason,
@@ -785,6 +786,7 @@ describe('createAWPApplication', () => {
     req.session.user = {};
     try {
       await new CosApiClient('abc', req.locals.logger).createAWPApplication(
+        req.session.user,
         userCase,
         'C2' as AWPApplicationType,
         'request-more-time' as AWPApplicationReason,

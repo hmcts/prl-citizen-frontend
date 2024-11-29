@@ -453,6 +453,7 @@ const createAWPApplication = async (
   appRequest.session.paymentError = { hasError: false, errorContext: null };
   try {
     await new CosApiClient(userDetails.accessToken, appRequest.locals.logger).createAWPApplication(
+      userDetails,
       caseData,
       applicationType,
       applicationReason,
