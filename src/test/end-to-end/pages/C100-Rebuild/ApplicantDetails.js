@@ -135,7 +135,6 @@ module.exports = {
     await I.retry(retryCount).click('Upload file');
     await I.wait('5');
     await I.retry(retryCount).dontSee('No files uploaded');
-
     await I.retry(retryCount).click('Continue');
   },
   async applicantDetails() {
