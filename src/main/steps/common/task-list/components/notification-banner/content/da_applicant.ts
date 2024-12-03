@@ -91,6 +91,9 @@ const en: NotificationBannerContentConfig = {
           {
             text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
           },
+          {
+            text: 'Order made date - {orderMadeDate}',
+          },
         ],
         links: [
           {
@@ -132,6 +135,9 @@ const en: NotificationBannerContentConfig = {
         contents: [
           {
             text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
+          },
+          {
+            text: 'Order made date - {orderMadeDate}',
           },
           {
             text: 'You will need to arrange for the respondent to be served. See the {order} for further details.',
@@ -321,6 +327,9 @@ const cy: typeof en = {
           {
             text: 'Mae’r llys wedi gwneud penderfyniad{final} am eich achos. Mae’r {order1} yn dweud wrthych beth mae’r llys wedi penderfynu.',
           },
+          {
+            text: 'Dyddiad gwneud archeb - {orderMadeDate}',
+          },
         ],
         links: [
           {
@@ -362,6 +371,9 @@ const cy: typeof en = {
         contents: [
           {
             text: 'Mae’r llys wedi gwneud penderfyniad{final} am eich achos. Mae’r {order1} yn dweud wrthych beth mae’r llys wedi penderfynu.',
+          },
+          {
+            text: 'Dyddiad gwneud archeb - {orderMadeDate}',
           },
           {
             text: "Bydd arnoch angen trefnu i'r dogfennau gael eu cyflwyno ar yr atebydd. Gweler y {order1}  i gael rhagor o wybodaeth.",
