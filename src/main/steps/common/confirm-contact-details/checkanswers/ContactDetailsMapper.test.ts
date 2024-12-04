@@ -1,8 +1,11 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
+import { CosApiClient } from '../../../../app/case/CosApiClient';
 
 import { mapConfirmContactDetails, prepareRequest, setTextFields } from './ContactDetailsMapper';
 
 let respondents;
+
+const deleteDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteDocument');
 
 describe('ContactDetailsMapper', () => {
   let req = mockRequest();
@@ -220,6 +223,7 @@ describe('ContactDetailsMapper', () => {
           citizenUserAddressPostcode: 'SW13ND',
           isAtAddressLessThan5Years: 'Yes',
           citizenUserAddressHistory: "Don't want to state",
+          isCitizenLivingInRefuge: 'Yes',
         },
       },
     });
@@ -252,6 +256,7 @@ describe('ContactDetailsMapper', () => {
         isAtAddressLessThan5Years: 'Yes',
         citizenUserAddressHistory: "Don't want to state",
         citizenUserPlaceOfBirthText: 'london',
+        citizenUserLivingInRefugeText: 'Yes',
       })
     );
   });
@@ -303,5 +308,25 @@ describe('ContactDetailsMapper', () => {
         citizenUserPlaceOfBirthText: '',
       })
     );
+  });
+
+  test('Should delete c8 document when isCitizenLivingInRefuge is no', async () => {
+    req = mockRequest({
+      session: {
+        userCase: {
+          isCitizenLivingInRefuge: 'No',
+          refugeDocument: {
+            document_url: 'MOCK_URL',
+            document_binary_url: 'MOCK_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+          },
+        },
+      },
+    });
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase = setTextFields(req);
+    deleteDocumentMock.mockResolvedValue('SUCCESS');
+
+    expect(req.session.userCase.refugeDocument).toBe(undefined);
   });
 });

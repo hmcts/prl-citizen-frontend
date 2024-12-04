@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../app/case/case';
-import { C100Applicant, YesNoEmpty } from '../../../../app/case/definition';
+import { C100Applicant, YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isAlphaNumeric, isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
@@ -133,8 +133,8 @@ export const generateFormFields = (
       values: [
         {
           label: l => l.canProvideEmailLabel,
-          selected: canProvideEmail === YesNoEmpty.YES,
-          value: YesNoEmpty.YES,
+          selected: canProvideEmail === YesOrNo.YES,
+          value: YesOrNo.YES,
           subFields: {
             emailAddress: {
               type: 'text',
@@ -147,8 +147,8 @@ export const generateFormFields = (
         },
         {
           label: l => l.canNotProvideEmailLabel,
-          selected: canProvideEmail === YesNoEmpty.NO,
-          value: YesNoEmpty.NO,
+          selected: canProvideEmail === YesOrNo.NO,
+          value: YesOrNo.NO,
         },
       ],
       validator: isFieldFilledIn,
@@ -159,8 +159,8 @@ export const generateFormFields = (
       values: [
         {
           label: l => l.canProvideTelephoneNumberLabel,
-          selected: canProvideTelephoneNumber === YesNoEmpty.YES,
-          value: YesNoEmpty.YES,
+          selected: canProvideTelephoneNumber === YesOrNo.YES,
+          value: YesOrNo.YES,
           subFields: {
             telephoneNumber: {
               type: 'text',
@@ -173,8 +173,8 @@ export const generateFormFields = (
         },
         {
           label: l => l.canNotProvideTelephoneNumberLabel,
-          selected: canProvideTelephoneNumber === YesNoEmpty.NO,
-          value: YesNoEmpty.NO,
+          selected: canProvideTelephoneNumber === YesOrNo.NO,
+          value: YesOrNo.NO,
           subFields: {
             canNotProvideTelephoneNumberReason: {
               type: 'text',
@@ -197,13 +197,13 @@ export const generateFormFields = (
       values: [
         {
           label: l => l.voiceMailYesLabel,
-          selected: canLeaveVoiceMail === YesNoEmpty.YES,
-          value: YesNoEmpty.YES,
+          selected: canLeaveVoiceMail === YesOrNo.YES,
+          value: YesOrNo.YES,
         },
         {
           label: l => l.voiceMailNoLabel,
-          selected: canLeaveVoiceMail === YesNoEmpty.NO,
-          value: YesNoEmpty.NO,
+          selected: canLeaveVoiceMail === YesOrNo.NO,
+          value: YesOrNo.NO,
         },
       ],
       validator: isFieldFilledIn,
