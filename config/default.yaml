@@ -25,7 +25,7 @@ services:
   cos:
     url: 'http://prl-cos-aat.service.core-compute-aat.internal'
   documentManagement:
-    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
+    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
   fact:
     url: 'http://fact-api-aat.service.core-compute-perftest.internal'
   reasonableAdjustments:
