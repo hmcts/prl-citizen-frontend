@@ -123,6 +123,7 @@ import {
   C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
   C100_MIAM_PROVIDING_DA_EVIDENCE,
   C100_MIAM_UPLOAD_DA_EVIDENCE,
+  C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -842,5 +843,15 @@ export const C100Sequence: Step[] = [
     url: C100_WITHDRAW_CASE_CONFIRMATION,
     showInSection: Sections.C100,
     getNextStep: () => '/',
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+        caseData,
+        req?.params
+      ),
   },
 ];

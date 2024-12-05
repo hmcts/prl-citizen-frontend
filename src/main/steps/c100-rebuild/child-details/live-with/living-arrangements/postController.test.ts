@@ -365,4 +365,49 @@ describe('PersonaldetailsPostController Post Controller', () => {
 
     expect(res.redirect).toHaveBeenCalled();
   });
+
+  test('Should delete isOtherPersonConfidential if live with removed for other person', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
+      body: {
+        liveWith: [
+          {
+            id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+            firstName: 'Dummy',
+            lastName: 'Test1',
+            partyType: PartyType.APPLICANT,
+          },
+        ],
+        saveAndComeLater: true,
+      },
+      session: {
+        lang: language,
+        userCase: {
+          ...commonContent.userCase,
+          oprs_otherPersons: [
+            {
+              id: '7483640e-0817-4ddc-b709-6723f7925476',
+              firstName: 'test',
+              lastName: 'other',
+              isOtherPersonAddressConfidential: true,
+            },
+          ],
+        },
+      },
+    });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalled();
+    expect(req.session.userCase.oprs_otherPersons).toEqual([
+      { id: '7483640e-0817-4ddc-b709-6723f7925476', firstName: 'test', lastName: 'other' },
+    ]);
+  });
 });

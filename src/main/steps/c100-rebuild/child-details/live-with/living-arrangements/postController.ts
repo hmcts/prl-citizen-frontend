@@ -37,6 +37,12 @@ export default class ChildLivingArrangementsPostController extends PostControlle
       req.session.userCase.cd_children
     ) as ChildrenDetails[];
 
+    req.session.userCase.oprs_otherPersons?.forEach(person => {
+      if (!liveWith?.includes(person.id)) {
+        delete person.isOtherPersonAddressConfidential;
+      }
+    });
+
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
       return super.redirect(req, res);
