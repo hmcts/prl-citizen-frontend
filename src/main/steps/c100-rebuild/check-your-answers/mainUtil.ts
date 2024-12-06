@@ -1438,6 +1438,41 @@ export const whereDoChildrenLive = (
   };
 };
 
+export const otherPersonConfidentiality = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>,
+  language
+): SummaryList | undefined => {
+  const sessionOtherPeopleData = userCase['oprs_otherPersons'];
+  const newOtherPeopleStorage: {
+    key: string;
+    keyHtml?: string;
+    value?: string;
+    valueHtml?: string;
+    changeUrl: string;
+  }[] = [];
+
+  for (const otherPerson in sessionOtherPeopleData) {
+    const firstName = sessionOtherPeopleData[otherPerson]['firstName'],
+      lastName = sessionOtherPeopleData[otherPerson]['lastName'],
+      id = sessionOtherPeopleData[otherPerson]['id'];
+    const isOtherPersonAddressConfidential = sessionOtherPeopleData[otherPerson]?.['isOtherPersonAddressConfidential'];
+
+    if (isOtherPersonAddressConfidential !== undefined) {
+      newOtherPeopleStorage.push({
+        key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
+        value: getYesNoTranslation(language, isOtherPersonAddressConfidential, 'oesTranslation'), //temp translation
+        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY'], { otherPersonId: id }),
+      });
+    }
+  }
+
+  return {
+    title: sectionTitles['otherPeopleConfidentiality'],
+    rows: getSectionSummaryList(newOtherPeopleStorage, content),
+  };
+};
+
 export const reasonableAdjustment = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>

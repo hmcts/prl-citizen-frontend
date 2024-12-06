@@ -2767,6 +2767,7 @@ export type C100RebuildPartyDetails = {
     donKnowTelephoneNumber?: YesOrNo;
   };
   addressUnknown?: YesOrNo;
+  isOtherPersonAddressConfidential?: YesOrNo;
 };
 
 export interface RelationshipToChildren {
