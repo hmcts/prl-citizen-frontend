@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import dayjs from 'dayjs';
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../../../../app/case/case';
@@ -74,6 +75,7 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
         order: notification?.multiple ? commonContent.orders : commonContent.order,
         tell: notification?.multiple ? commonContent.tell : commonContent.tells,
         order1: notification?.multiple ? commonContent.orders1 : commonContent.order1,
+        orderMadeDate: notification?.orderMadeDate ? dayjs(notification.orderMadeDate).format('DD/MM/YYYY') : '',
       });
     },
   },
@@ -90,6 +92,7 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
         order1: notification?.multiple ? commonContent.orders1 : commonContent.order1,
         respondent,
         has,
+        orderMadeDate: notification?.orderMadeDate ? dayjs(notification.orderMadeDate).format('DD/MM/YYYY') : '',
       });
     },
   },

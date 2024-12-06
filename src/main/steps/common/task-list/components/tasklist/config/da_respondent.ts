@@ -76,7 +76,6 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
           }),
         stateTag: () => StateTags.OPTIONAL,
         show: isCaseLinked,
-        disabled: isCaseClosed,
       },
     ],
   },

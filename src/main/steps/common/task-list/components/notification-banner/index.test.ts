@@ -685,6 +685,9 @@ describe('testcase for notification Banner', () => {
               {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
               },
+              {
+                text: 'Order made date - ',
+              },
             ],
             links: [
               {
@@ -759,6 +762,9 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
+              },
+              {
+                text: 'Order made date - ',
               },
               {
                 text: 'You will need to arrange for the  to be served. See the orders for further details.',
@@ -872,6 +878,9 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
+              },
+              {
+                text: 'Order made date - ',
               },
               {
                 text: 'You will need to arrange for the respondent to be served. See the orders for further details.',
@@ -998,6 +1007,9 @@ describe('testcase for notification Banner', () => {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
               },
               {
+                text: 'Order made date - ',
+              },
+              {
                 text: 'You will need to arrange for the respondents to be served. See the orders for further details.',
               },
             ],
@@ -1098,6 +1110,9 @@ describe('testcase for notification Banner', () => {
               {
                 text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
+              {
+                text: 'Dyddiad gwneud archeb - ',
+              },
             ],
             links: [
               {
@@ -1172,6 +1187,9 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
+              },
+              {
+                text: 'Dyddiad gwneud archeb - ',
               },
               {
                 text: "Bydd arnoch angen trefnu i'r dogfennau gael eu cyflwyno ar yr . Gweler y gorchmynion  i gael rhagor o wybodaeth.",
@@ -1544,6 +1562,9 @@ describe('testcase for notification Banner', () => {
                 {
                   text: 'The court has made a decision about your case. The order tells you what the court has decided.',
                 },
+                {
+                  text: 'Order made date - {orderMadeDate}',
+                },
               ],
               links: [
                 {
@@ -1602,6 +1623,9 @@ describe('testcase for notification Banner', () => {
               contents: [
                 {
                   text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchymyn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+                },
+                {
+                  text: 'Dyddiad gwneud archeb - {orderMadeDate}',
                 },
               ],
               links: [
@@ -1662,6 +1686,9 @@ describe('testcase for notification Banner', () => {
                 {
                   text: 'The court has made a decision about your case. The orders tell you what the court has decided.',
                 },
+                {
+                  text: 'Order made date - {orderMadeDate}',
+                },
               ],
               links: [
                 {
@@ -1720,6 +1747,9 @@ describe('testcase for notification Banner', () => {
               contents: [
                 {
                   text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
+                },
+                {
+                  text: 'Dyddiad gwneud archeb - {orderMadeDate}',
                 },
               ],
               links: [
@@ -1939,6 +1969,9 @@ describe('testcase for notification Banner', () => {
                 {
                   text: 'The court has made a final decision about your case. The order tells you what the court has decided.',
                 },
+                {
+                  text: 'Order made date - {orderMadeDate}',
+                },
               ],
               links: [
                 {
@@ -2000,6 +2033,9 @@ describe('FL401 banners', () => {
               {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
               },
+              {
+                text: 'Order made date - {orderMadeDate}',
+              },
             ],
             links: [
               {
@@ -2032,6 +2068,9 @@ describe('FL401 banners', () => {
             contents: [
               {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+              },
+              {
+                text: 'Order made date - {orderMadeDate}',
               },
             ],
             links: [
@@ -2077,6 +2116,9 @@ describe('FL401 banners', () => {
               {
                 text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
+              {
+                text: 'Dyddiad gwneud archeb - {orderMadeDate}',
+              },
             ],
             links: [
               {
@@ -2109,6 +2151,9 @@ describe('FL401 banners', () => {
             contents: [
               {
                 text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
+              },
+              {
+                text: 'Dyddiad gwneud archeb - {orderMadeDate}',
               },
             ],
             links: [
@@ -2154,6 +2199,9 @@ describe('FL401 banners', () => {
             contents: [
               {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+              },
+              {
+                text: 'Order made date - {orderMadeDate}',
               },
               {
                 text: 'You will need to arrange for the respondent to be served. See the order for further details.',
