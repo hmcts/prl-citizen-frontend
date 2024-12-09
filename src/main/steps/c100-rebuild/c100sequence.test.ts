@@ -11,7 +11,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(103);
+    expect(C100Sequence).toHaveLength(104);
 
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
@@ -536,9 +536,9 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[93].url).toBe('/c100-rebuild/child-details/:childId/live-with/living-arrangements');
     expect(C100Sequence[93].showInSection).toBe('c100');
-    expect(C100Sequence[93].getNextStep(childrenMockData.session.userCase, childrenMockData)).toBe(
-      '/c100-rebuild/other-proceedings/current-previous-proceedings'
-    );
+    expect(
+      C100Sequence[93].getNextStep({ ...childrenMockData.session.userCase, oprs_otherPersons: [] }, childrenMockData)
+    ).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
 
     expect(C100Sequence[94].url).toBe('/c100-rebuild/applicant/:applicantId/personal-details');
     expect(C100Sequence[94].showInSection).toBe('c100');
@@ -569,5 +569,11 @@ describe('C100Sequence', () => {
     expect(C100Sequence[99].url).toBe('/c100-rebuild/check-your-answers');
     expect(C100Sequence[99].showInSection).toBe('c100');
     expect(C100Sequence[99].getNextStep({})).toBe('/c100-rebuild/check-your-answers');
+
+    expect(C100Sequence[103].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/confidentiality');
+    expect(C100Sequence[103].showInSection).toBe('c100');
+    expect(C100Sequence[103].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
+      '/c100-rebuild/other-proceedings/current-previous-proceedings'
+    );
   });
 });

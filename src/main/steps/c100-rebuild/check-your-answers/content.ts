@@ -37,6 +37,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  otherPersonConfidentiality,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -51,6 +52,8 @@ import { ReasonableAdjustmentElement } from './util/reasonableAdjustmentContent.
 import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
+import { getOtherPeopleLivingWithChildren } from '../../c100-rebuild/other-person-details/utils';
+import { SummaryList } from './lib/lib';
 
 export const enContent = {
   section: '',
@@ -139,6 +142,7 @@ export const enContent = {
     detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '[^^sectionNo^^]. Help with Fees', //section 13
     whereTheChildrenLive: 'Where the children live',
+    otherPeopleConfidentiality: 'Confidential details of the other people',
     detailofOtherPeople: 'Details of the other people in the application',
     reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
   },
@@ -168,6 +172,8 @@ export const enContent = {
     relationshipTo: 'Relationship to',
     childLivingArrangements: "{firstname} {lastname}'s living arrangements",
     whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with?',
+    isOtherPersonAddressConfidential:
+      'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
@@ -279,6 +285,7 @@ export const cyContent = {
     detailsOfRespondent: 'Manylion yr atebwyr',
     helpWithFee: '[^^sectionNo^^].  Help i dalu ffioedd', //section 13
     whereTheChildrenLive: 'Ble mae’r plant yn byw',
+    otherPeopleConfidentiality: 'Confidential details of the other people (welsh)',
     detailofOtherPeople: 'Manylion y bobl eraill yn y cais',
     reasonAbleAdjustment: '[^^sectionNo^^]. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos', //section 12
   },
@@ -308,6 +315,8 @@ export const cyContent = {
     relationshipTo: 'Perthynas â',
     childLivingArrangements: "{firstname} {lastname}'s living arrangements (welsh)",
     whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with? (welsh)',
+    isOtherPersonAddressConfidential:
+      'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)? (welsh)',
     otherPerson: 'Rhywun arall',
     contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
     addressDetails: 'Manylion cyfeiriad',
@@ -456,10 +465,16 @@ export const sectionCountFormatter = sections => {
   return sections;
 };
 export const peopleSections = (userCase, contentLanguage, language) => {
-  const otherPeopleSection =
-    userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES
-      ? OtherPeopleDetails(contentLanguage, userCase, language)
-      : [];
+  let otherPeopleSection: [] | SummaryList | undefined = [];
+  let otherPeopleConfidentialitySection: [] | SummaryList | undefined = [];
+
+  if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
+    otherPeopleSection = OtherPeopleDetails(contentLanguage, userCase, language);
+    if (getOtherPeopleLivingWithChildren(userCase).length > 0) {
+      otherPeopleConfidentialitySection = otherPersonConfidentiality(contentLanguage, userCase, language);
+    }
+  }
+
   return [
     PeopleDetails(contentLanguage),
     ChildernDetails(contentLanguage, userCase, language),
@@ -470,6 +485,7 @@ export const peopleSections = (userCase, contentLanguage, language) => {
     OtherPeopleDetailsTitle(contentLanguage, userCase, language),
     otherPeopleSection,
     whereDoChildrenLive(contentLanguage, userCase),
+    otherPeopleConfidentialitySection,
   ];
 };
 

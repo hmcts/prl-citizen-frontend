@@ -1,5 +1,6 @@
-import { Case } from '../../../app/case/case';
+import { Case, CaseWithId } from '../../../app/case/case';
 import { ChildrenDetails, RootContext, YesOrNo } from '../../../app/case/definition';
+import { getOtherPeopleLivingWithChildren } from '../../c100-rebuild/other-person-details/utils';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_CHILDERN_DETAILS_ADD,
@@ -9,6 +10,7 @@ import {
   C100_CHILDERN_FURTHER_INFORMATION,
   C100_CHILDERN_LIVING_ARRANGEMENTS,
   C100_CHILDERN_MAINLY_LIVE_WITH,
+  C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
   C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   PageLink,
@@ -52,9 +54,14 @@ class ChildrenDetailsNavigationController {
       }
       case C100_CHILDERN_LIVING_ARRANGEMENTS: {
         const nextChild = getNextPerson(this.childrenDetails, this.childId);
+        const otherPeopleLivingWithChildren = getOtherPeopleLivingWithChildren(caseData as CaseWithId);
 
         if (nextChild) {
           nextUrl = applyParms(C100_CHILDERN_MAINLY_LIVE_WITH, { childId: nextChild.id as ChildrenDetails['id'] });
+        } else if (otherPeopleLivingWithChildren.length > 0) {
+          nextUrl = applyParms(C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, {
+            otherPersonId: otherPeopleLivingWithChildren[0],
+          }) as PageLink;
         } else if (caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES) {
           nextUrl = applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink;
         } else {
