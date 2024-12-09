@@ -7,6 +7,7 @@ import { ChildrenDetails } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { doesAnyChildLiveWithOtherPerson } from '../../../other-person-details/utils';
 import { getPartyDetails, updatePartyDetails } from '../../../people/util';
 import { getPeople } from '../utils';
 
@@ -38,7 +39,7 @@ export default class ChildLivingArrangementsPostController extends PostControlle
     ) as ChildrenDetails[];
 
     req.session.userCase.oprs_otherPersons?.forEach(person => {
-      if (!liveWith?.includes(person.id)) {
+      if (!liveWith?.includes(person.id) && !doesAnyChildLiveWithOtherPerson(req.session.userCase, person.id)) {
         delete person.isOtherPersonAddressConfidential;
       }
     });
