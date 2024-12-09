@@ -131,25 +131,25 @@ const en: NotificationBannerContentConfig = {
       {
         contents: [
           {
-            text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
+            text: '<p class="govuk-notification-banner__heading">Cafcass may contact you</p>',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassServed(caseData);
             },
           },
           {
-            text: '<p class="govuk-notification-banner__heading">Cafcass Cymru will contact you</p>',
+            text: '<p class="govuk-notification-banner__heading">Cafcass Cymru may contact you</p>',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassCymruServed(caseData);
             },
           },
           {
-            text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
+            text: 'The Children and Family Court Advisory and Support Service (Cafcass) may contact you to consider the needs of the children.',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassServed(caseData);
             },
           },
           {
-            text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
+            text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) may contact you to consider the needs of the children.',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassCymruServed(caseData);
             },
@@ -171,6 +171,16 @@ const en: NotificationBannerContentConfig = {
               return isCafcassCymruServed(caseData);
             },
             external: true,
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+          },
+          {
+            text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
           },
         ],
       },
@@ -213,6 +223,16 @@ const en: NotificationBannerContentConfig = {
                 order: notification?.multiple ? commonContent.orders : commonContent.order,
               });
             },
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+          },
+          {
+            text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
           },
         ],
       },
@@ -285,6 +305,16 @@ const en: NotificationBannerContentConfig = {
           },
         ],
       },
+      {
+        contents: [
+          {
+            text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+          },
+          {
+            text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+          },
+        ],
+      },
     ],
   },
   applicantToPersonallyServeRespondent: {
@@ -345,6 +375,16 @@ const en: NotificationBannerContentConfig = {
               partyType: PartyType.APPLICANT,
               context: 'personal-service',
             }),
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+          },
+          {
+            text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
           },
         ],
       },
@@ -506,11 +546,21 @@ const en: NotificationBannerContentConfig = {
         ],
         links: [
           {
-            text: 'Link to the new document(s)',
+            text: 'View your documents',
             href: applyParms(VIEW_TYPE_DOCUMENT, {
               partyType: PartyType.APPLICANT,
               type: DocumentPartyType.OTHER,
             }),
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+          },
+          {
+            text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
           },
         ],
       },
@@ -626,25 +676,25 @@ const cy: typeof en = {
       {
         contents: [
           {
-            text: '<p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
+            text: '<p class="govuk-notification-banner__heading">Gall Cafcass gysylltu â chi</p>',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassServed(caseData);
             },
           },
           {
-            text: '<p class="govuk-notification-banner__heading">Bydd Cafcass Cymru yn cysylltu â chi </p>',
+            text: '<p class="govuk-notification-banner__heading">Efallai y bydd Cafcass Cymru yn cysylltu â chi</p>',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassCymruServed(caseData);
             },
           },
           {
-            text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
+            text: 'Efallai y bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassServed(caseData);
             },
           },
           {
-            text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
+            text: 'Efallai y bydd Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
             show: (caseData: CaseWithId): boolean => {
               return isCafcassCymruServed(caseData);
             },
@@ -666,6 +716,16 @@ const cy: typeof en = {
               return isCafcassCymruServed(caseData);
             },
             external: true,
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+          },
+          {
+            text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
           },
         ],
       },
@@ -708,6 +768,16 @@ const cy: typeof en = {
                 order: notification?.multiple ? commonContent.orders1 : commonContent.order1,
               });
             },
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+          },
+          {
+            text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
           },
         ],
       },
@@ -780,6 +850,16 @@ const cy: typeof en = {
           },
         ],
       },
+      {
+        contents: [
+          {
+            text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+          },
+          {
+            text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+          },
+        ],
+      },
     ],
   },
   applicantToPersonallyServeRespondent: {
@@ -840,6 +920,16 @@ const cy: typeof en = {
               partyType: PartyType.APPLICANT,
               context: 'personal-service',
             }),
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+          },
+          {
+            text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
           },
         ],
       },
@@ -997,11 +1087,21 @@ const cy: typeof en = {
         ],
         links: [
           {
-            text: 'Dolen i’r ddogfen(nau) newydd',
+            text: 'Gweld eich dogfen(nau)',
             href: applyParms(VIEW_TYPE_DOCUMENT, {
               partyType: PartyType.APPLICANT,
               type: DocumentPartyType.OTHER,
             }),
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+          },
+          {
+            text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
           },
         ],
       },

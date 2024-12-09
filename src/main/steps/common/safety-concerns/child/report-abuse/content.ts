@@ -9,7 +9,7 @@ import {
 } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
-import { isTextAreaValid } from '../../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isTextAreaValid } from '../../../../../app/form/validation';
 import { C100_URL } from '../../../../../steps/urls';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
@@ -27,7 +27,7 @@ export const en = () => ({
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately.</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
-  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+  childrenConcernedAboutLabel: 'Which children are you concerned about?',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -47,6 +47,9 @@ export const en = () => ({
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
   errors: {
+    childrenConcernedAbout: {
+      required: 'You must select atleast one child you are concerned about.',
+    },
     behaviourDetails: {
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -82,7 +85,7 @@ export const cy = () => ({
               <p class="govuk-body ">Gallwch<a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank"> wneud cais am waharddeb cam-drin domestig</a> ar wahân</p>`,
   warningText:
     "Byddwn yn rhannu'r wybodaeth y byddwch yn ei rhoi yn yr adran hon gyda'r unigolyn arall yn yr achos er mwyn iddo allu ymateb i'r hyn rydych chi wedi'i ddweud.",
-  childrenConcernedAboutLabel: "Pa blant ydych chi'n poeni amdanyn nhw? (dewisol)",
+  childrenConcernedAboutLabel: "Pa blant ydych chi'n poeni amdanyn nhw?",
   behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt. (dewisol)",
   behaviourDetailsHintText:
     "Cadwch eich ateb yn fyr. Bydd cyfle i chi roi mwy o fanylion i'r llys yn ddiweddarach yn yr achos.",
@@ -103,6 +106,9 @@ export const cy = () => ({
   seekHelpDetailsNoHint:
     '<p class="govuk-body">Gweler <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">cyfarwyddyd NSPCC</a>os nad ydych yn siŵr sut i gael help.</p>',
   errors: {
+    childrenConcernedAbout: {
+      required: 'Rhaid i chi ddewis o leiaf un plentyn yr ydych yn pryderu yn ei gylch.',
+    },
     behaviourDetails: {
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
@@ -150,15 +156,16 @@ export const generateFormFields = (
       classes: 'govuk-checkboxes',
       labelSize: 's',
       label: l => l.childrenConcernedAboutLabel,
-      values: [
-        ...childrenData.map(childObj => {
-          return {
+      validator: atLeastOneFieldIsChecked,
+      values: childrenData.length
+        ? childrenData.map(childObj => ({
             name: 'childrenConcernedAbout',
             label: `${childObj.firstName} ${childObj.lastName}`,
-            value: `${childObj.id}`,
-          };
-        }),
-      ],
+            value: childObj.id,
+            selected: childrenData.length === 1 || data.childrenConcernedAbout?.includes(childObj.id),
+            disabled: childrenData.length === 1,
+          }))
+        : [],
     },
     behaviourDetails: {
       type: 'textarea',
@@ -192,10 +199,12 @@ export const generateFormFields = (
           label: l => l.YesOptionLabel,
           value: YesNoEmpty.YES,
           conditionalText: l => l.isOngoingBehaviourHint,
+          selected: data.isOngoingBehaviour === YesNoEmpty.YES,
         },
         {
           label: l => l.NoOptionLabel,
           value: YesNoEmpty.NO,
+          selected: data.isOngoingBehaviour === YesNoEmpty.NO,
         },
       ],
     },
@@ -209,6 +218,7 @@ export const generateFormFields = (
         {
           label: l => l.YesOptionLabel1,
           value: YesNoEmpty.YES,
+          selected: data.seekHelpFromPersonOrAgency === YesNoEmpty.YES,
           subFields: {
             seekHelpDetails: {
               type: 'textarea',
@@ -221,6 +231,7 @@ export const generateFormFields = (
         {
           label: l => l.NoOptionLabel1,
           value: YesNoEmpty.NO,
+          selected: data.seekHelpFromPersonOrAgency === YesNoEmpty.NO,
           conditionalText: l => l.seekHelpDetailsNoHint,
         },
       ],
@@ -231,21 +242,6 @@ export const generateFormFields = (
     en: {},
     cy: {},
   };
-
-  // mark the selection for the radio buttons based on the option chosen
-
-  fields.isOngoingBehaviour.values = fields.isOngoingBehaviour.values.map(config =>
-    config.value === data.isOngoingBehaviour ? { ...config, selected: true } : config
-  );
-  fields.seekHelpFromPersonOrAgency.values = fields.seekHelpFromPersonOrAgency.values.map(config =>
-    config.value === data.seekHelpFromPersonOrAgency ? { ...config, selected: true } : config
-  );
-
-  // mark the selection for the children checkboxes based on the option chosen
-  fields.childrenConcernedAbout.values = fields.childrenConcernedAbout.values.map(config =>
-    // Checking if the data.childrenConcernedAbout has been prefilled, if YES, data will be fetched from userCase. If NOT, checkboxes are made fresh and untouched
-    data.childrenConcernedAbout?.includes(config.value) ? { ...config, selected: true } : config
-  );
 
   return { fields, errors };
 };
@@ -321,6 +317,7 @@ export const generateContent: TranslationFn = content => {
     C100RebuildJourney ? c100ChildrenDetails : CARespChildrenDetails
   );
 
+  delete form.saveAndComeLater;
   if (C100RebuildJourney) {
     Object.assign(form, {
       saveAndComeLater: {
@@ -328,6 +325,7 @@ export const generateContent: TranslationFn = content => {
       },
     });
   }
+
   return {
     ...translations,
     ...commonContent(content),

@@ -56,6 +56,7 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
       );
 
       if (req.session.userCase?.[uploadedFilesDataReference]?.length === 0) {
+        delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
         delete req.session.userCase[uploadedFilesDataReference];
       }
     }
@@ -106,4 +107,5 @@ export const resetUploadDocumentSessionData = (req: AppRequest): void => {
   req.session.userCase.applicantUploadFiles = [];
   req.session.userCase.respondentUploadFiles = [];
   delete req.session.userCase.declarationCheck;
+  delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
 };
