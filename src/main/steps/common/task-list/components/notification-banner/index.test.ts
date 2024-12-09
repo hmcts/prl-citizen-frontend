@@ -671,6 +671,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -686,7 +687,7 @@ describe('testcase for notification Banner', () => {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
               },
               {
-                text: 'Order made date - ',
+                text: 'Order made date - 01/12/2024',
               },
             ],
             links: [
@@ -749,6 +750,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -764,7 +766,7 @@ describe('testcase for notification Banner', () => {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
               },
               {
-                text: 'Order made date - ',
+                text: 'Order made date - 01/12/2024',
               },
               {
                 text: 'You will need to arrange for the  to be served. See the orders for further details.',
@@ -852,6 +854,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -880,7 +883,7 @@ describe('testcase for notification Banner', () => {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
               },
               {
-                text: 'Order made date - ',
+                text: 'Order made date - 01/12/2024',
               },
               {
                 text: 'You will need to arrange for the respondent to be served. See the orders for further details.',
@@ -968,6 +971,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -1007,7 +1011,7 @@ describe('testcase for notification Banner', () => {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
               },
               {
-                text: 'Order made date - ',
+                text: 'Order made date - 01/12/2024',
               },
               {
                 text: 'You will need to arrange for the respondents to be served. See the orders for further details.',
@@ -1096,6 +1100,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -1111,7 +1116,7 @@ describe('testcase for notification Banner', () => {
                 text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
               {
-                text: 'Dyddiad gwneud archeb - ',
+                text: 'Dyddiad gwneud archeb - 01/12/2024',
               },
             ],
             links: [
@@ -1174,6 +1179,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -1189,7 +1195,7 @@ describe('testcase for notification Banner', () => {
                 text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
               {
-                text: 'Dyddiad gwneud archeb - ',
+                text: 'Dyddiad gwneud archeb - 01/12/2024',
               },
               {
                 text: "Bydd arnoch angen trefnu i'r dogfennau gael eu cyflwyno ar yr . Gweler y gorchmynion  i gael rhagor o wybodaeth.",
@@ -1550,6 +1556,7 @@ describe('testcase for notification Banner', () => {
           show: true,
           multiple: false,
           final: false,
+          orderMadeDate: '2024-12-01',
         } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
@@ -1563,7 +1570,7 @@ describe('testcase for notification Banner', () => {
                   text: 'The court has made a decision about your case. The order tells you what the court has decided.',
                 },
                 {
-                  text: 'Order made date - {orderMadeDate}',
+                  text: 'Order made date - 01/12/2024',
                 },
               ],
               links: [
@@ -1612,6 +1619,7 @@ describe('testcase for notification Banner', () => {
           show: true,
           multiple: false,
           final: false,
+          orderMadeDate: '2024-12-01',
         } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
@@ -1625,7 +1633,7 @@ describe('testcase for notification Banner', () => {
                   text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchymyn yn dweud wrthych beth mae’r llys wedi penderfynu.',
                 },
                 {
-                  text: 'Dyddiad gwneud archeb - {orderMadeDate}',
+                  text: 'Dyddiad gwneud archeb - 01/12/2024',
                 },
               ],
               links: [
@@ -1674,6 +1682,7 @@ describe('testcase for notification Banner', () => {
           show: true,
           multiple: true,
           final: false,
+          orderMadeDate: '2024-12-01',
         } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
@@ -1687,7 +1696,7 @@ describe('testcase for notification Banner', () => {
                   text: 'The court has made a decision about your case. The orders tell you what the court has decided.',
                 },
                 {
-                  text: 'Order made date - {orderMadeDate}',
+                  text: 'Order made date - 01/12/2024',
                 },
               ],
               links: [
@@ -1736,6 +1745,7 @@ describe('testcase for notification Banner', () => {
           show: true,
           multiple: true,
           final: false,
+          orderMadeDate: '2024-12-01',
         } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
@@ -1749,7 +1759,7 @@ describe('testcase for notification Banner', () => {
                   text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
                 },
                 {
-                  text: 'Dyddiad gwneud archeb - {orderMadeDate}',
+                  text: 'Dyddiad gwneud archeb - 01/12/2024',
                 },
               ],
               links: [
@@ -1957,6 +1967,7 @@ describe('testcase for notification Banner', () => {
           show: true,
           multiple: false,
           final: true,
+          orderMadeDate: '2024-12-01',
         } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
@@ -1970,7 +1981,7 @@ describe('testcase for notification Banner', () => {
                   text: 'The court has made a final decision about your case. The order tells you what the court has decided.',
                 },
                 {
-                  text: 'Order made date - {orderMadeDate}',
+                  text: 'Order made date - 01/12/2024',
                 },
               ],
               links: [
@@ -2021,6 +2032,7 @@ describe('FL401 banners', () => {
         show: true,
         multiple: false,
         final: false,
+        orderMadeDate: '2024-12-01',
       } as CitizenNotification,
     ];
     expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
@@ -2034,7 +2046,7 @@ describe('FL401 banners', () => {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
               },
               {
-                text: 'Order made date - {orderMadeDate}',
+                text: 'Order made date - 01/12/2024',
               },
             ],
             links: [
@@ -2070,7 +2082,7 @@ describe('FL401 banners', () => {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
               },
               {
-                text: 'Order made date - {orderMadeDate}',
+                text: 'Order made date - 01/12/2024',
               },
             ],
             links: [
@@ -2104,6 +2116,7 @@ describe('FL401 banners', () => {
         show: true,
         multiple: true,
         final: false,
+        orderMadeDate: '2024-12-01',
       } as CitizenNotification,
     ];
     expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
@@ -2117,7 +2130,7 @@ describe('FL401 banners', () => {
                 text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
               {
-                text: 'Dyddiad gwneud archeb - {orderMadeDate}',
+                text: 'Dyddiad gwneud archeb - 01/12/2024',
               },
             ],
             links: [
@@ -2153,7 +2166,7 @@ describe('FL401 banners', () => {
                 text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
               {
-                text: 'Dyddiad gwneud archeb - {orderMadeDate}',
+                text: 'Dyddiad gwneud archeb - 01/12/2024',
               },
             ],
             links: [
@@ -2188,6 +2201,7 @@ describe('FL401 banners', () => {
         multiple: false,
         final: false,
         new: true,
+        orderMadeDate: '2024-12-01',
       } as CitizenNotification,
     ];
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
@@ -2201,7 +2215,7 @@ describe('FL401 banners', () => {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
               },
               {
-                text: 'Order made date - {orderMadeDate}',
+                text: 'Order made date - 01/12/2024',
               },
               {
                 text: 'You will need to arrange for the respondent to be served. See the order for further details.',
