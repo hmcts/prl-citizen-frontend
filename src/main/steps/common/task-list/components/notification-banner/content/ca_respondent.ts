@@ -42,6 +42,9 @@ const en: NotificationBannerContentConfig = {
           {
             text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
           },
+          {
+            text: 'Order made date - {orderMadeDate}',
+          },
         ],
         links: [
           {
@@ -233,6 +236,9 @@ const cy: typeof en = {
         contents: [
           {
             text: 'Mae’r llys wedi gwneud penderfyniad{final} am eich achos. Mae’r {order1} yn dweud wrthych beth mae’r llys wedi penderfynu.',
+          },
+          {
+            text: 'Dyddiad gwneud archeb - {orderMadeDate}',
           },
         ],
         links: [
