@@ -91,6 +91,31 @@ describe('DocumentUpload Get Controller', () => {
   //   expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'defaultPaymentError' });
   // });
 
+  test('should save errors when child lives with other person but confidentiality not selected', async () => {
+    req.session.userCase = {
+      ...req.session.userCase,
+      cd_children: [
+        {
+          id: '123',
+          liveWith: [{ id: '6b792169-84df-4e9a-8299-c2c77c9b7e58' }],
+        },
+      ],
+      oprs_otherPersons: [
+        {
+          id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+          firstName: 'Test',
+          lastName: 'Other',
+          isOtherPersonAddressConfidential: null,
+        },
+      ],
+    };
+    req.locals.C100Api.saveC100DraftApplication = jest.fn();
+    updateCaserMock.mockResolvedValue(req.session.userCase);
+
+    await controller.get(req, res);
+    expect(req.session.save).toHaveBeenCalled();
+  });
+
   test('should catch errors and set payment error for successful payment', async () => {
     req.session.userCase.paymentSuccessDetails = {
       amount: 'MOCK_AMOUNT',
@@ -104,7 +129,7 @@ describe('DocumentUpload Get Controller', () => {
       payment_group_reference: 'PAYMENT_GROUP_REFERENCE',
     };
     req.session.paymentError = { hasError: false, errorContext: null };
-    req.locals.C100Api.updateCase.mockImplementation(() => {
+    req.locals.C100Api.saveC100DraftApplication.mockImplementation(() => {
       throw new Error();
     });
 

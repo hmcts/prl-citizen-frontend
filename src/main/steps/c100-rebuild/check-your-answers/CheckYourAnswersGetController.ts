@@ -1,10 +1,14 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { FieldPrefix } from '../../../app/case/case';
 import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
+import { doesAnyChildLiveWithOtherPerson } from '../../c100-rebuild/other-person-details/utils';
+
+import { isMandatoryFieldsFilled } from './mainUtil';
 
 @autobind
 export default class CheckYourAnswersGetController extends GetController {
@@ -35,7 +39,28 @@ export default class CheckYourAnswersGetController extends GetController {
         req.session.paymentError = { hasError: false, errorContext: null };
         req.session.save();
       }, 1000);
-      super.get(req, res);
+      if (!isMandatoryFieldsFilled(req.session.userCase)) {
+        req.session.errors = [];
+        req.session.userCase?.oprs_otherPersons?.forEach(otherPerson => {
+          if (
+            doesAnyChildLiveWithOtherPerson(req.session.userCase, otherPerson.id) &&
+            _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
+          ) {
+            req.session.errors?.push({
+              propertyName: `otherPersonConfidentiality-otherPerson-${req.session.userCase?.oprs_otherPersons?.indexOf(
+                otherPerson
+              )}`,
+              errorType: 'required',
+            });
+          }
+        });
+
+        req.session.save(() => {
+          super.get(req, res);
+        });
+      } else {
+        super.get(req, res);
+      }
     } catch (error) {
       req.locals.logger.error('error in update case', error);
 

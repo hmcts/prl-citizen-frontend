@@ -55,7 +55,6 @@ featureToggles:
   enableCaseTrainTrack: true  
   enableRAComponent: true
   enablePcqComponent: true
-  enableC100CaseProgressionTrainTrack: true
 
 launchDarkly:
   offline: true
