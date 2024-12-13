@@ -268,7 +268,7 @@ export const cyContent = {
         'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
     },
     otherPersonConfidentiality: {
-      required: 'Select yes if you want to keep {firstName} {lastName}’s details private (welsh)',
+      required: 'Dewiswch ydw os ydych eisiau cadw {firstName} {lastName} manylion yn gyfrinachol',
     },
   },
   sectionTitles: {
@@ -295,7 +295,7 @@ export const cyContent = {
     detailsOfRespondent: 'Manylion yr atebwyr',
     helpWithFee: '[^^sectionNo^^].  Help i dalu ffioedd', //section 13
     whereTheChildrenLive: 'Ble mae’r plant yn byw',
-    otherPeopleConfidentiality: 'Confidential details of the other people (welsh)',
+    otherPeopleConfidentiality: 'Manylion cyfrinachol y bobl eraill',
     detailofOtherPeople: 'Manylion y bobl eraill yn y cais',
     reasonAbleAdjustment: '[^^sectionNo^^]. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos', //section 12
   },
@@ -326,7 +326,7 @@ export const cyContent = {
     childLivingArrangements: "{firstname} {lastname}'s living arrangements (welsh)",
     whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with? (welsh)',
     isOtherPersonAddressConfidential:
-      'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)? (welsh)',
+      'Ydych chi eisiau cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol oddi wrth yr unigolyn arall a enwir yn y cais(yr atebydd)',
     otherPerson: 'Rhywun arall',
     contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
     addressDetails: 'Manylion cyfeiriad',

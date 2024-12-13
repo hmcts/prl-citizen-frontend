@@ -22,16 +22,16 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Keeping {firstName} {lastName}’s details private (welsh)',
+  title: 'Cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol',
   answersWillBeShared:
-    'The answers you give in your response will be shared with other people named in this application (the respondents). This will include your contact details. (welsh)',
+    'Bydd yr atebion a roddwch yn eich ymateb yn cael eu rhannu â’r bobl eraill a enwir yn y cais hwn(yr atebydd), bydd hyn yn cynnwys eich manylion cyswllt',
   keepDetailsPrivate:
-    'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)? (welsh)',
-  yes: 'Yes (welsh)',
-  no: 'No (welsh)',
+    'Ydych chi eisiau cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol oddi wrth yr unigolyn arall a enwir yn y cais(yr atebydd)',
+  yes: 'Oes',
+  no: 'Nac oes',
   errors: {
     confidentiality: {
-      required: 'Select yes if you want to keep {firstName} {lastName}’s details private (welsh)',
+      required: 'Dewiswch ydw os ydych eisiau cadw {firstName} {lastName} manylion yn gyfrinachol',
     },
   },
 };
