@@ -37,6 +37,8 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  isMandatoryFieldsFilled,
+  otherPersonConfidentiality,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -51,6 +53,9 @@ import { ReasonableAdjustmentElement } from './util/reasonableAdjustmentContent.
 import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
+import { getOtherPeopleLivingWithChildren } from '../../c100-rebuild/other-person-details/utils';
+import { SummaryList } from './lib/lib';
+import { interpolate } from '../../../steps/common/string-parser';
 
 export const enContent = {
   section: '',
@@ -88,6 +93,7 @@ export const enContent = {
   telephone_number: 'Telephone number',
   dont_know_email_address: 'I dont know their email address',
   dont_know_telephone: 'I dont know their telephone number',
+  completeSectionError: 'Complete this section',
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -114,6 +120,9 @@ export const enContent = {
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application',
       paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
     },
+    otherPersonConfidentiality: {
+      required: 'Select yes if you want to keep {firstName} {lastName}’s details private',
+    },
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -139,6 +148,7 @@ export const enContent = {
     detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '[^^sectionNo^^]. Help with Fees', //section 13
     whereTheChildrenLive: 'Where the children live',
+    otherPeopleConfidentiality: 'Confidential details of the other people',
     detailofOtherPeople: 'Details of the other people in the application',
     reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
   },
@@ -168,6 +178,8 @@ export const enContent = {
     relationshipTo: 'Relationship to',
     childLivingArrangements: "{firstname} {lastname}'s living arrangements",
     whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with?',
+    isOtherPersonAddressConfidential:
+      'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
@@ -227,6 +239,7 @@ export const cyContent = {
   email: 'E-bost',
   Male: 'Gwryw',
   Female: 'Benyw',
+  completeSectionError: 'Llenwch yr adran hon',
   StatementOfTruth: {
     title: 'Datganiad Gwirionedd',
     heading: 'Cadarnhau cyn ichi gyflwyno’r cais',
@@ -254,6 +267,9 @@ export const cyContent = {
       paymentUnsuccessful:
         'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
     },
+    otherPersonConfidentiality: {
+      required: 'Dewiswch ydw os ydych eisiau cadw {firstName} {lastName} manylion yn gyfrinachol',
+    },
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1
@@ -279,6 +295,7 @@ export const cyContent = {
     detailsOfRespondent: 'Manylion yr atebwyr',
     helpWithFee: '[^^sectionNo^^].  Help i dalu ffioedd', //section 13
     whereTheChildrenLive: 'Ble mae’r plant yn byw',
+    otherPeopleConfidentiality: 'Manylion cyfrinachol y bobl eraill',
     detailofOtherPeople: 'Manylion y bobl eraill yn y cais',
     reasonAbleAdjustment: '[^^sectionNo^^]. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos', //section 12
   },
@@ -308,6 +325,8 @@ export const cyContent = {
     relationshipTo: 'Perthynas â',
     childLivingArrangements: "{firstname} {lastname}'s living arrangements (welsh)",
     whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with? (welsh)',
+    isOtherPersonAddressConfidential:
+      'Ydych chi eisiau cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol oddi wrth yr unigolyn arall a enwir yn y cais(yr atebydd)',
     otherPerson: 'Rhywun arall',
     contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
     addressDetails: 'Manylion cyfeiriad',
@@ -456,10 +475,16 @@ export const sectionCountFormatter = sections => {
   return sections;
 };
 export const peopleSections = (userCase, contentLanguage, language) => {
-  const otherPeopleSection =
-    userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES
-      ? OtherPeopleDetails(contentLanguage, userCase, language)
-      : [];
+  let otherPeopleSection: [] | SummaryList = [];
+  let otherPeopleConfidentialitySection: [] | SummaryList = [];
+
+  if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
+    otherPeopleSection = OtherPeopleDetails(contentLanguage, userCase, language);
+    if (getOtherPeopleLivingWithChildren(userCase).length > 0) {
+      otherPeopleConfidentialitySection = otherPersonConfidentiality(contentLanguage, userCase, language);
+    }
+  }
+
   return [
     PeopleDetails(contentLanguage),
     ChildernDetails(contentLanguage, userCase, language),
@@ -470,6 +495,7 @@ export const peopleSections = (userCase, contentLanguage, language) => {
     OtherPeopleDetailsTitle(contentLanguage, userCase, language),
     otherPeopleSection,
     whereDoChildrenLive(contentLanguage, userCase),
+    otherPeopleConfidentialitySection,
   ];
 };
 
@@ -656,6 +682,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.onlycontinue,
+    disabled: false,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
@@ -730,8 +757,26 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
+  form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!);
+  const otherPersonConfidentialityErrors = {};
+
+  content.userCase?.oprs_otherPersons?.forEach(otherPerson => {
+    otherPersonConfidentialityErrors[
+      `otherPersonConfidentiality-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`
+    ] = {
+      required: interpolate(translations.errors.otherPersonConfidentiality.required, {
+        firstName: otherPerson.firstName,
+        lastName: otherPerson.lastName,
+      }),
+    };
+  });
+
   return {
     ...translations,
     form,
+    errors: {
+      ...translations.errors,
+      ...otherPersonConfidentialityErrors,
+    },
   };
 };

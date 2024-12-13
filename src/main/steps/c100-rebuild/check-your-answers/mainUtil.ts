@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../app/case/case';
 import {
   C1AAbuseTypes,
@@ -12,6 +14,7 @@ import {
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
 import { interpolate } from '../../../steps/common/string-parser';
 import { proceedingSummaryData } from '../../../steps/common/summary/utils';
+import { doesAnyChildLiveWithOtherPerson } from '../../c100-rebuild/other-person-details/utils';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
@@ -1260,7 +1263,7 @@ export const OtherPeopleDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
   language
-): SummaryList | undefined => {
+): SummaryList => {
   const sessionOtherPeopleData = userCase['oprs_otherPersons'];
   const newOtherPeopleStorage: {
     key: string;
@@ -1438,6 +1441,43 @@ export const whereDoChildrenLive = (
   };
 };
 
+export const otherPersonConfidentiality = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>,
+  language
+): SummaryList => {
+  const sessionOtherPeopleData = userCase['oprs_otherPersons'];
+  const newOtherPeopleStorage: {
+    key: string;
+    anchorReference?: string;
+    keyHtml?: string;
+    value?: string;
+    valueHtml?: string;
+    changeUrl: string;
+  }[] = [];
+
+  for (const otherPerson in sessionOtherPeopleData) {
+    const firstName = sessionOtherPeopleData[otherPerson]['firstName'],
+      lastName = sessionOtherPeopleData[otherPerson]['lastName'],
+      id = sessionOtherPeopleData[otherPerson]['id'];
+    const isOtherPersonAddressConfidential = sessionOtherPeopleData[otherPerson]?.['isOtherPersonAddressConfidential'];
+
+    newOtherPeopleStorage.push({
+      key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
+      anchorReference: `otherPersonConfidentiality-otherPerson-${otherPerson}`,
+      valueHtml: !_.isEmpty(isOtherPersonAddressConfidential)
+        ? getYesNoTranslation(language, isOtherPersonAddressConfidential, 'oesTranslation')
+        : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+      changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY'], { otherPersonId: id }),
+    });
+  }
+
+  return {
+    title: sectionTitles['otherPeopleConfidentiality'],
+    rows: getSectionSummaryList(newOtherPeopleStorage, content),
+  };
+};
+
 export const reasonableAdjustment = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>
@@ -1602,4 +1642,16 @@ const populateDateOfBirth = (
     });
   }
   return newChildDataStorage;
+};
+
+const areOtherPeopleConfidentialDetailsValid = (caseData: Partial<CaseWithId>): boolean => {
+  return !!caseData.oprs_otherPersons?.find(
+    otherPerson =>
+      doesAnyChildLiveWithOtherPerson(caseData as CaseWithId, otherPerson.id) &&
+      _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
+  );
+};
+
+export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>): boolean => {
+  return !areOtherPeopleConfidentialDetailsValid(caseData);
 };
