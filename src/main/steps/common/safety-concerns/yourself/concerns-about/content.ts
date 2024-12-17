@@ -8,6 +8,8 @@ import { C100_URL } from '../../../../urls';
 import { generateContentForLocalComponent } from '../../util';
 import { generateContent as parentContent } from '../content';
 
+export * from './routeGuard';
+
 const en = () => ({
   caption: 'Safety concerns',
   title: 'What type of behaviour have you experienced or are at risk of experiencing?',

@@ -3,6 +3,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
+export * from './routeGuard';
+
 const en = {
   caption: 'MIAM exemptions',
   title: 'Previous MIAM attendance or NCDR',
