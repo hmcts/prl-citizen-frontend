@@ -63,3 +63,4 @@ allowedCourts: Swansea Civil Justice Centre
 maxDocumentLimits:
   DEFAULT: 20
   OTHER_DOCUMENTS: 100
+  SUPPORT_DOCUMENTS: 100

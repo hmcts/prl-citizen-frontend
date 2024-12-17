@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
+import config from 'config';
 import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
@@ -102,6 +103,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         propertyName: isSupportingDocuments ? 'awpUploadSupportingDocuments' : 'awpUploadApplicationForm',
         errorType: 'required',
       });
+    } else if (this.isExceedingMaxApplicationForms(isSupportingDocuments, req)) {
+      this.handleError(req, res, {
+        propertyName: isSupportingDocuments ? 'awpUploadSupportingDocuments' : 'awpUploadApplicationForm',
+        errorType: 'maxDocumentsReached',
+      });
     } else if (!isValidFileFormat({ documents: uploadedDocuments })) {
       this.handleError(req, res, {
         propertyName: isSupportingDocuments ? 'awpUploadSupportingDocuments' : 'awpUploadApplicationForm',
@@ -116,6 +122,16 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       return false;
     }
     return true;
+  }
+
+  private isExceedingMaxApplicationForms(isSupportingDocuments: any, req: any) {
+    const maxDocumentLimits: { [key: string]: number } = config.get('maxDocumentLimits');
+    const totalDocumentsLength = isSupportingDocuments
+      ? req.session.userCase.awp_supportingDocuments?.length
+      : req.session.userCase.awp_uploadedApplicationForms?.length;
+    return (
+      totalDocumentsLength >= (isSupportingDocuments ? maxDocumentLimits.SUPPORT_DOCUMENTS : maxDocumentLimits.DEFAULT)
+    );
   }
 
   private handleError(
