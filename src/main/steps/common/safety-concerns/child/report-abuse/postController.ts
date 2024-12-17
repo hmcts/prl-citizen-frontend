@@ -20,8 +20,15 @@ export default class SafteyConcernsAbusePostController extends PostController<An
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const abuseType = req.params.abuseType as C1AAbuseTypes;
     const C100RebuildJourney = req.originalUrl.startsWith(C100_URL);
-    const form = new Form(getFormFields(req.session.userCase, abuseType, C100RebuildJourney).fields as FormFields);
+    const caseData = req.session.userCase;
+    const form = new Form(getFormFields(caseData, abuseType, C100RebuildJourney).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const childDetails = C100RebuildJourney ? caseData?.cd_children : caseData?.newChildDetails;
+
+    if (childDetails?.length === 1) {
+      Object.assign(formFields, { childrenConcernedAbout: [childDetails[0].id] });
+    }
+
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
     if (req.body['seekHelpFromPersonOrAgency'] === YesOrNo.NO) {
@@ -38,6 +45,7 @@ export default class SafteyConcernsAbusePostController extends PostController<An
       },
     };
 
+    req.session.errors = form.getErrors(formData);
     req.session.userCase = {
       ...(req.session?.userCase ?? {}),
       ...childAbuseData,
