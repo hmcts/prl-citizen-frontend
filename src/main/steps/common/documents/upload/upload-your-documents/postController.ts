@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
+import config from 'config';
 import { Response } from 'express';
 import _ from 'lodash';
 
@@ -169,6 +170,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     const redirectUrl = this.setRedirectUrl(partyType, req);
+    const maxLimit = this.getMaxLimit(docCategory);
 
     req.url = redirectUrl;
     this.initializeData(caseData);
@@ -182,6 +184,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
     if (docCategory === UploadDocumentCategory.FM5_DOCUMENT && caseData[documentDataRef].length) {
       req.session.errors = handleError(req.session.errors, 'multipleFiles');
+      return this.redirect(req, res, redirectUrl);
+    }
+    if (caseData[documentDataRef].length >= maxLimit) {
+      req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
       return this.redirect(req, res, redirectUrl);
     }
 
@@ -202,6 +208,11 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     } finally {
       this.redirect(req, res, redirectUrl);
     }
+  }
+
+  private getMaxLimit(category: string): number {
+    const maxDocumentLimits: { [key: string]: number } = config.get('maxDocumentLimits');
+    return maxDocumentLimits[category] || maxDocumentLimits.DEFAULT;
   }
 
   private getEmptyFileErrorType(docCategory: UploadDocumentCategory): string {

@@ -60,3 +60,6 @@ featureToggles:
 launchDarkly:
   offline: false
 allowedCourts: Swansea Civil Justice Centre
+maxDocumentLimits:
+  DEFAULT: 20
+  OTHER_DOCUMENTS: 100
