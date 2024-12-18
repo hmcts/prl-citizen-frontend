@@ -3,7 +3,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate } from '../case/case';
-import { AllowedFileExtentionList, C100MaxFileSize, OtherName } from '../case/definition';
+import { AllowedFileExtentionList, C100MaxFileSize, MAX_DOCUMENT_LIMITS, OtherName } from '../case/definition';
 
 dayjs.extend(customParseFormat);
 
@@ -258,6 +258,11 @@ export const isValidFileFormat = (files: any): boolean => {
   const { documents } = files;
   const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
   return AllowedFileExtentionList.indexOf(extension) > -1;
+};
+
+export const isExceedingMaxDocuments = (categoryKey: string, totalDocumentsLength: number): boolean => {
+  const maxLimit = MAX_DOCUMENT_LIMITS[categoryKey] || MAX_DOCUMENT_LIMITS.DEFAULT;
+  return totalDocumentsLength >= maxLimit;
 };
 
 export const isValidOption: Validator = value => {

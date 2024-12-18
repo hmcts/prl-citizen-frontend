@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
-import config from 'config';
 import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
@@ -10,7 +9,11 @@ import { DocumentUploadResponse } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../app/form/validation';
+import {
+  isExceedingMaxDocuments,
+  isFileSizeGreaterThanMaxAllowed,
+  isValidFileFormat,
+} from '../../../app/form/validation';
 import { applyParms } from '../../../steps/common/url-parser';
 import { APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD } from '../../../steps/urls';
 
@@ -103,7 +106,14 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         propertyName: isSupportingDocuments ? 'awpUploadSupportingDocuments' : 'awpUploadApplicationForm',
         errorType: 'required',
       });
-    } else if (this.isExceedingMaxApplicationForms(isSupportingDocuments, req)) {
+    } else if (
+      isExceedingMaxDocuments(
+        isSupportingDocuments ? 'SUPPORT_DOCUMENTS' : 'DEFAULT',
+        isSupportingDocuments
+          ? req.session.userCase.awp_supportingDocuments?.length
+          : req.session.userCase.awp_uploadedApplicationForms?.length
+      )
+    ) {
       this.handleError(req, res, {
         propertyName: isSupportingDocuments ? 'awpUploadSupportingDocuments' : 'awpUploadApplicationForm',
         errorType: 'maxDocumentsReached',
@@ -122,16 +132,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       return false;
     }
     return true;
-  }
-
-  private isExceedingMaxApplicationForms(isSupportingDocuments: any, req: any) {
-    const maxDocumentLimits: { [key: string]: number } = config.get('maxDocumentLimits');
-    const totalDocumentsLength = isSupportingDocuments
-      ? req.session.userCase.awp_supportingDocuments?.length
-      : req.session.userCase.awp_uploadedApplicationForms?.length;
-    return (
-      totalDocumentsLength >= (isSupportingDocuments ? maxDocumentLimits.SUPPORT_DOCUMENTS : maxDocumentLimits.DEFAULT)
-    );
   }
 
   private handleError(

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
-import config from 'config';
 import { Response } from 'express';
 import _ from 'lodash';
 
@@ -10,6 +9,7 @@ import { PartyType, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { isExceedingMaxDocuments } from '../../../../../app/form/validation';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
 import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
@@ -170,8 +170,6 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     const redirectUrl = this.setRedirectUrl(partyType, req);
-    const maxLimit = this.getMaxLimit(docCategory);
-
     req.url = redirectUrl;
     this.initializeData(caseData);
 
@@ -186,7 +184,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       req.session.errors = handleError(req.session.errors, 'multipleFiles');
       return this.redirect(req, res, redirectUrl);
     }
-    if (caseData[documentDataRef].length >= maxLimit) {
+    if (isExceedingMaxDocuments(docCategory, caseData[documentDataRef]?.length)) {
       req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
       return this.redirect(req, res, redirectUrl);
     }
@@ -208,11 +206,6 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     } finally {
       this.redirect(req, res, redirectUrl);
     }
-  }
-
-  private getMaxLimit(category: string): number {
-    const maxDocumentLimits: { [key: string]: number } = config.get('maxDocumentLimits');
-    return maxDocumentLimits[category] || maxDocumentLimits.DEFAULT;
   }
 
   private getEmptyFileErrorType(docCategory: UploadDocumentCategory): string {
