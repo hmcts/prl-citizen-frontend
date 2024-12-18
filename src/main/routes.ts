@@ -1,6 +1,9 @@
 import fs from 'fs';
 
 import { Application } from 'express';
+import _ from 'lodash';
+import { strip } from 'node-emoji';
+import sanitizeHtml from 'sanitize-html';
 
 import { EventRoutesContext } from './app/case/definition';
 import { GetController } from './app/controller/GetController';
@@ -131,6 +134,7 @@ export class Routes {
           : step.postController ?? PostController;
         app.post(
           step.url,
+          this.sanitizeRequestBody.bind(this),
           // eslint-disable-next-line prettier/prettier
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
@@ -155,5 +159,31 @@ export class Routes {
     } else {
       next();
     }
+  }
+
+  private readonly keysNotToSanitize = [
+    '_csrf',
+    'onlyContinue',
+    'saveAndComeLater',
+    'onlycontinue',
+    'accessCodeCheck',
+    'submit',
+    'startNow',
+    'goBack',
+    'link',
+  ];
+
+  private sanitizeRequestBody(req, res, next) {
+    for (const key in req.body) {
+      if (!this.keysNotToSanitize.includes(key)) {
+        if (typeof req.body[key] === 'object' && req.body[key].length !== 0) {
+          req.body[key] = (req.body[key] as []).map(item => _.unescape(sanitizeHtml(strip(item))).trim());
+        } else if (typeof req.body[key] === 'string') {
+          req.body[key] = _.unescape(sanitizeHtml(strip(req.body[key]))).trim();
+        }
+      }
+    }
+
+    next();
   }
 }
