@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
@@ -23,7 +25,8 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const request = content.additionalData?.req;
   const caseData = request.session?.userCase;
-  const loggedInUserPartyType = getCasePartyType(caseData, request.session.user.id);
+  const userDetails = request.session?.user;
+  const loggedInUserPartyType = getCasePartyType(caseData, userDetails.id);
   const documentSectionTitles = translations.uploadDocuments.documentSectionTitles as Record<DocumentSectionId, string>;
   const documentCategoryLabels = translations.uploadDocuments.documentCategoryLabels as Record<
     Partial<DocumentLabelCategory>,
@@ -45,32 +48,36 @@ export const generateContent: TranslationFn = content => {
     sections: sections.map(section => ({
       id: section.sectionId,
       title: section.sectionTitle(documentSectionTitles),
-      items: section.documentCategoryList.map(documentCategory => {
-        let url = applyParms(UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT, {
-          partyType: loggedInUserPartyType,
-          docCategory: documentCategory.categoryId,
-        });
-
-        if (documentCategory.categoryId === UploadDocumentCategory.FM5_DOCUMENT) {
-          url = applyParms(UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS, {
+      items: section.documentCategoryList
+        .filter(documentCategory =>
+          _.isFunction(documentCategory.show) ? documentCategory.show(caseData, userDetails) : true
+        )
+        .map(documentCategory => {
+          let url = applyParms(UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT, {
             partyType: loggedInUserPartyType,
             docCategory: documentCategory.categoryId,
           });
-        } else if (documentCategory.categoryId === UploadDocumentCategory.SUBMIT_AWP_APPLICATION) {
-          url = applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
-            partyType: loggedInUserPartyType,
-            pageNumber: '1',
-          });
-        }
 
-        return {
-          categoryId: documentCategory.categoryId,
-          link: {
-            text: documentCategory.documentCategoryLabel(documentCategoryLabels),
-            url,
-          },
-        };
-      }),
+          if (documentCategory.categoryId === UploadDocumentCategory.FM5_DOCUMENT) {
+            url = applyParms(UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS, {
+              partyType: loggedInUserPartyType,
+              docCategory: documentCategory.categoryId,
+            });
+          } else if (documentCategory.categoryId === UploadDocumentCategory.SUBMIT_AWP_APPLICATION) {
+            url = applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+              partyType: loggedInUserPartyType,
+              pageNumber: '1',
+            });
+          }
+
+          return {
+            categoryId: documentCategory.categoryId,
+            link: {
+              text: documentCategory.documentCategoryLabel(documentCategoryLabels),
+              url,
+            },
+          };
+        }),
     })),
   };
 };

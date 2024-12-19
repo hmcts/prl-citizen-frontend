@@ -224,7 +224,8 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id),
       },
     ],
   },
