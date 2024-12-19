@@ -42,6 +42,9 @@ const en: NotificationBannerContentConfig = {
           {
             text: 'The court has made a{final} decision about your case. The {order} {tell} you what the court has decided.',
           },
+          {
+            text: 'Order made date - {orderMadeDate}',
+          },
         ],
         links: [
           {
@@ -59,6 +62,16 @@ const en: NotificationBannerContentConfig = {
                 order: notification?.multiple ? commonContent.orders : commonContent.order,
               });
             },
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+          },
+          {
+            text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
           },
         ],
       },
@@ -137,6 +150,16 @@ const en: NotificationBannerContentConfig = {
           },
         ],
       },
+      {
+        contents: [
+          {
+            text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+          },
+          {
+            text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+          },
+        ],
+      },
     ],
   },
   submitFM5: {
@@ -171,11 +194,21 @@ const en: NotificationBannerContentConfig = {
         ],
         links: [
           {
-            text: 'Link to the new document(s)',
+            text: 'View your documents',
             href: applyParms(VIEW_TYPE_DOCUMENT, {
               partyType: PartyType.RESPONDENT,
               type: DocumentPartyType.OTHER,
             }),
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+          },
+          {
+            text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
           },
         ],
       },
@@ -204,6 +237,9 @@ const cy: typeof en = {
           {
             text: 'Mae’r llys wedi gwneud penderfyniad{final} am eich achos. Mae’r {order1} yn dweud wrthych beth mae’r llys wedi penderfynu.',
           },
+          {
+            text: 'Dyddiad gwneud archeb - {orderMadeDate}',
+          },
         ],
         links: [
           {
@@ -221,6 +257,16 @@ const cy: typeof en = {
                 order: notification?.multiple ? commonContent.orders1 : commonContent.order1,
               });
             },
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+          },
+          {
+            text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
           },
         ],
       },
@@ -299,6 +345,16 @@ const cy: typeof en = {
           },
         ],
       },
+      {
+        contents: [
+          {
+            text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+          },
+          {
+            text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+          },
+        ],
+      },
     ],
   },
   submitFM5: {
@@ -333,11 +389,21 @@ const cy: typeof en = {
         ],
         links: [
           {
-            text: 'Dolen i’r ddogfen(nau) newydd',
+            text: 'Gweld eich dogfen(nau)',
             href: applyParms(VIEW_TYPE_DOCUMENT, {
               partyType: PartyType.RESPONDENT,
               type: DocumentPartyType.OTHER,
             }),
+          },
+        ],
+      },
+      {
+        contents: [
+          {
+            text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+          },
+          {
+            text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
           },
         ],
       },

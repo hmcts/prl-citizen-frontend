@@ -1,16 +1,21 @@
+import _ from 'lodash';
+
 import { PartyType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
+import { interpolate } from '../../../../../steps/common/string-parser';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../../steps/urls';
 import { UploadDocumentCategory } from '../../definitions';
 import { getUploadDocumentCategoryDetails } from '../../upload/utils';
+
 export * from './routeGuard';
 
 const en = {
   positionStatements: 'Position statement',
   witnessStatements: 'Witness statement',
+  documentAvailableText: 'A new {docCategory} is generated/uploaded',
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   submitButtonText: 'Submit',
@@ -50,6 +55,7 @@ const en = {
 const cy: typeof en = {
   positionStatements: 'Datganiadau safbwynt',
   witnessStatements: 'Datganiadau tyst',
+  documentAvailableText: 'Mae {docCategory} newydd yn cael ei gynhyrchu/llwytho i fyny',
   declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
   consent:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth.',
@@ -136,7 +142,7 @@ export const generateContent: TranslationFn = content => {
   const userCase = request.session.userCase;
   const uploadedFilesDataReference =
     partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles';
-  let title;
+  let title: string;
 
   if (docCategory === UploadDocumentCategory.POSITION_STATEMENTS) {
     title = translations.positionStatements;
@@ -154,6 +160,8 @@ export const generateContent: TranslationFn = content => {
     caption: sectionTitle,
     title,
     ...translations,
+    isDocumentGeneratedAndUploded: _.get(request.session, 'applicationSettings.isDocumentGeneratedAndUplaoded', false),
+    documentAvailableText: interpolate(translations.documentAvailableText, { docCategory: title.toLowerCase() }),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, request) },
     filesUploaded:
       content.userCase?.[uploadedFilesDataReference]?.map(file => ({

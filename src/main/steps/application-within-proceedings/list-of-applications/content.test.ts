@@ -352,12 +352,16 @@ describe('list of applications content', () => {
         },
         {
           contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/respondent/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX740">complete and submit form EX740</a>.',
-            'If someone has accused you, <a href="/respondent/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX741">complete and submit form EX741</a>.',
+            'You can appeal or ask for permission to appeal a court order by completing and submitting and completing form N161.',
           ],
-          id: 'courtToPreventAccusations',
-          links: [],
-          sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
+          id: 'appealCourtOrder',
+          links: [
+            {
+              text: 'Apply to the court using form N161',
+              url: '/respondent/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
+            },
+          ],
+          sectionTitle: 'Appeal a court order or ask for permission to appeal',
         },
       ],
       breadcrumbs: [
@@ -413,6 +417,15 @@ describe('list of applications content', () => {
       showAllSectionsText: 'Show all sections',
       showSectionText: 'Show',
       applications: [
+        {
+          contents: [
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/respondent/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX740">complete and submit form EX740</a>.',
+            'If someone has accused you, <a href="/respondent/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX741">complete and submit form EX741</a>.',
+          ],
+          id: 'courtToPreventAccusations',
+          links: [],
+          sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
+        },
         {
           contents: [
             'You can ask the court to order a witness to attend or bring in documents by completing and submitting the form FP25.',
