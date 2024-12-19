@@ -223,7 +223,15 @@ describe('AWP utils', () => {
         'en',
         req.session as unknown as AppSession
       )
-    ).toBe(undefined);
+    ).toStrictEqual({
+      applicationType: 'N161',
+      applicationReason: 'appeal-a-order-or-ask-permission-to-appeal',
+      reasonText: 'Appeal a court order or ask for permission to appeal',
+      applicationFee: '167',
+      applicationFeeAmount: 167,
+      applicationFormUrl:
+        'https://www.gov.uk/government/publications/form-n161-appellants-notice-all-appeals-except-small-claims-track-appeals-and-appeals-to-the-family-division-of-the-high-court',
+    });
   });
 
   test('Should return appSettings details if correct values present', async () => {

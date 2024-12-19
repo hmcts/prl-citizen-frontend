@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import { CaseWithId } from '../../../../../../app/case/case';
 import { interpolate } from '../../../../../../steps/common/string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
@@ -19,6 +21,7 @@ export const DA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
         order: notification?.multiple ? commonContent.orders : commonContent.order,
         tell: notification?.multiple ? commonContent.tell : commonContent.tells,
         order1: notification?.multiple ? commonContent.orders1 : commonContent.order1,
+        orderMadeDate: notification?.orderMadeDate ? dayjs(notification.orderMadeDate).format('DD/MM/YYYY') : '',
       });
     },
   },

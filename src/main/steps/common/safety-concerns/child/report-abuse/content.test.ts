@@ -17,7 +17,7 @@ const en = {
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately.</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
-  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+  childrenConcernedAboutLabel: 'Which children are you concerned about?',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -55,7 +55,7 @@ const cy = () => ({
               <p class="govuk-body ">Gallwch<a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank"> wneud cais am waharddeb cam-drin domestig</a> ar wahân</p>`,
   warningText:
     "Byddwn yn rhannu'r wybodaeth y byddwch yn ei rhoi yn yr adran hon gyda'r unigolyn arall yn yr achos er mwyn iddo allu ymateb i'r hyn rydych chi wedi'i ddweud.",
-  childrenConcernedAboutLabel: "Pa blant ydych chi'n poeni amdanyn nhw? (dewisol)",
+  childrenConcernedAboutLabel: "Pa blant ydych chi'n poeni amdanyn nhw?",
   behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt. (dewisol)",
   behaviourDetailsHintText:
     "Cadwch eich ateb yn fyr. Bydd cyfle i chi roi mwy o fanylion i'r llys yn ddiweddarach yn yr achos.",
