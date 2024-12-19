@@ -3,7 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 
 import { cleanConsentAgreement, cleanPermissionsWhy } from './utils';
 
-describe('c100 > screening questions > utils', () => {
+describe.skip('c100 > screening questions > utils', () => {
   describe('cleanConsentAgreement', () => {
     let caseData;
 

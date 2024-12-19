@@ -3,7 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 
 export const cleanHearingUrgency = (caseData: CaseWithId, urgentHearingReasons: YesOrNo | undefined): CaseWithId => {
   if (urgentHearingReasons === YesOrNo.NO) {
-    caseData.hu_reasonOfUrgentHearing = [];
+    delete caseData.hu_reasonOfUrgentHearing;
     delete caseData.hu_otherRiskDetails;
     delete caseData.hu_timeOfHearingDetails;
     delete caseData.hu_hearingWithNext48HrsDetails;

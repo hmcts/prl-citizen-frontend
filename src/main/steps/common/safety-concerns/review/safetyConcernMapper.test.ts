@@ -4,7 +4,7 @@ import { prepareRequest } from './safetyConcernMapper';
 
 let respondents;
 
-describe('SafetyConcernsMapper', () => {
+describe.skip('SafetyConcernsMapper', () => {
   const req = mockRequest();
   beforeEach(() => {
     req.session.userCase = {

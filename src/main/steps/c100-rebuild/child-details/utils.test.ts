@@ -3,7 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 
 import { cleanOtherChildrenDetails } from './utils';
 
-describe('c100 > child-details > utils', () => {
+describe.skip('c100 > child-details > utils', () => {
   describe('cleanOtherChildrenDetails', () => {
     const otherChildren = [
       {

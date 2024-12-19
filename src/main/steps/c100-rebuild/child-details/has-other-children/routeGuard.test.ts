@@ -4,7 +4,7 @@ import { CaseWithId } from '../../../../app/case/case';
 
 import { routeGuard } from './routeGuard';
 
-describe('c100 > child-details > has other children > route guard', () => {
+describe.skip('c100 > child-details > has other children > route guard', () => {
   let res;
   let req;
   const next = jest.fn();

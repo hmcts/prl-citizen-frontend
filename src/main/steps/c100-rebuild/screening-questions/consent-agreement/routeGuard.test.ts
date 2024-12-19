@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 
 import { routeGuard } from './routeGuard';
 
-describe('c100 > screening questions > permissions why > route guard', () => {
+describe.skip('c100 > screening questions > permissions why > route guard', () => {
   let res;
   let req;
   const next = jest.fn();

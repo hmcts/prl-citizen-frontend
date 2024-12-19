@@ -7,7 +7,7 @@ export const cleanOtherPeopleDetails = (caseData: CaseWithId, otherPersonCheck: 
     caseData.oprs_otherPersons?.forEach(otherPerson => {
       caseData = cleanLiveWithData(caseData, otherPerson.id);
     });
-    caseData.oprs_otherPersons = [];
+    delete caseData.oprs_otherPersons;
   }
   return caseData;
 };

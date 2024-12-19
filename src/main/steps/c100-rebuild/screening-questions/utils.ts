@@ -19,7 +19,7 @@ export const cleanConsentAgreement = (caseData: CaseWithId, writtenAgreement: Ye
 
 export const cleanPermissions = (caseData: CaseWithId): CaseWithId => {
   delete caseData.sq_permissionsRequest;
-  caseData.sq_permissionsWhy = []; //delete lists
+  delete caseData.sq_permissionsWhy;
   delete caseData.sq_doNotHaveParentalResponsibility_subfield;
   delete caseData.sq_courtOrderPrevent_subfield;
   delete caseData.sq_anotherReason_subfield;

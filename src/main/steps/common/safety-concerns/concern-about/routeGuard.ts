@@ -19,6 +19,7 @@ export const routeGuard = {
     const partyType = req.originalUrl.startsWith(C100_URL)
       ? C1ASafteyConcernsAbout.APPLICANT
       : C1ASafteyConcernsAbout.RESPONDENT;
+
     if (!req.body.c1A_safetyConernAbout?.includes(partyType)) {
       Object.values(C1AAbuseTypes).forEach(abuseType => {
         deleteAbuseData(req.session.userCase, abuseType, partyType);

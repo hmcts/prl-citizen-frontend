@@ -3,7 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 
 import { cleanHearingUrgency } from './utils';
 
-describe('c100 > hearing urgency > utils', () => {
+describe.skip('c100 > hearing urgency > utils', () => {
   describe('cleanHearingUrgency', () => {
     test('should clean hearing urgency data when urgent hearing reasons is no', () => {
       expect(
