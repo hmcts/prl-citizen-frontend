@@ -199,7 +199,10 @@ const en: NotificationBannerContentConfig = {
           },
           {
             text: 'Upload the statement of service',
-            href: '',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'order',
+            }),
           },
         ],
       },
@@ -486,7 +489,10 @@ const cy: typeof en = {
           },
           {
             text: 'Uwchlwytho’r datganiad cyflwyno',
-            href: '',
+            href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+              partyType: PartyType.APPLICANT,
+              context: 'order',
+            }),
           },
         ],
       },

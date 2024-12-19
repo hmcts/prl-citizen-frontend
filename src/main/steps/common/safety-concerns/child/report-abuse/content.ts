@@ -48,7 +48,7 @@ export const en = () => ({
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
   errors: {
     childrenConcernedAbout: {
-      required: 'You must select atleast one child you are concerned about.',
+      required: 'You must select at least one child you are concerned about.',
     },
     behaviourDetails: {
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
