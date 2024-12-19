@@ -9,6 +9,7 @@ import { RespondentSubmitResponseController } from './app/controller/RespondentS
 import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
+import { SanitizeRequest } from './modules/sanitize-request';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import UploadDocumentController from './steps/application-within-proceedings/document-upload/postController';
 import { processAWPApplication } from './steps/application-within-proceedings/utils';
@@ -131,6 +132,7 @@ export class Routes {
           : step.postController ?? PostController;
         app.post(
           step.url,
+          this.sanitizeRequestBody.bind(this),
           // eslint-disable-next-line prettier/prettier
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
@@ -155,5 +157,9 @@ export class Routes {
     } else {
       next();
     }
+  }
+
+  private sanitizeRequestBody(req, res, next) {
+    new SanitizeRequest().sanitizeRequestBody(req, next);
   }
 }
