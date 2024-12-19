@@ -51,18 +51,4 @@ describe('Routes', () => {
 
     expect(req.body).toEqual({ too_shortStatement: 'test' });
   });
-
-  test('should sanitize request body for arrays', () => {
-    const req = mockRequest({
-      body: { courtProceedingsOrders: ['childArrangementOrder', 'supervisionOrder<img src""> ☕️'] },
-    });
-    const res = mockResponse();
-    const mockNext = jest.fn();
-    const routes = new Routes();
-
-    routes.enableFor(appMock);
-    routes['sanitizeRequestBody'](req, res, mockNext);
-
-    expect(req.body).toEqual({ courtProceedingsOrders: ['childArrangementOrder', 'supervisionOrder'] });
-  });
 });

@@ -1,9 +1,6 @@
 import fs from 'fs';
 
 import { Application } from 'express';
-import _ from 'lodash';
-import { strip } from 'node-emoji';
-import sanitizeHtml from 'sanitize-html';
 
 import { EventRoutesContext } from './app/case/definition';
 import { GetController } from './app/controller/GetController';
@@ -12,6 +9,7 @@ import { RespondentSubmitResponseController } from './app/controller/RespondentS
 import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
+import { SanitizeRequest } from './modules/sanitize-request';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import UploadDocumentController from './steps/application-within-proceedings/document-upload/postController';
 import { processAWPApplication } from './steps/application-within-proceedings/utils';
@@ -161,29 +159,7 @@ export class Routes {
     }
   }
 
-  private readonly keysNotToSanitize = [
-    '_csrf',
-    'onlyContinue',
-    'saveAndComeLater',
-    'onlycontinue',
-    'accessCodeCheck',
-    'submit',
-    'startNow',
-    'goBack',
-    'link',
-  ];
-
   private sanitizeRequestBody(req, res, next) {
-    for (const key in req.body) {
-      if (!this.keysNotToSanitize.includes(key)) {
-        if (typeof req.body[key] === 'object' && req.body[key].length !== 0) {
-          req.body[key] = (req.body[key] as []).map(item => _.unescape(sanitizeHtml(strip(item))).trim());
-        } else if (typeof req.body[key] === 'string') {
-          req.body[key] = _.unescape(sanitizeHtml(strip(req.body[key]))).trim();
-        }
-      }
-    }
-
-    next();
+    new SanitizeRequest().sanitizeRequestBody(req, next);
   }
 }
