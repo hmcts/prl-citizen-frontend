@@ -53,11 +53,13 @@ export class ConfirmContactDetailsGetController extends GetController {
 
 const fieldsArray: string[] = [
   'citizenUserFullName',
+  'citizenUserLivingInRefugeText',
   'citizenUserPlaceOfBirthText',
   'citizenUserAddressText',
   'citizenUserPhoneNumberText',
   'citizenUserEmailAddressText',
   'citizenUserDateOfBirthText',
+  'refugeDocumentText',
 ];
 
 function setRedirectUrl(req: AppRequest<Partial<Case>>) {

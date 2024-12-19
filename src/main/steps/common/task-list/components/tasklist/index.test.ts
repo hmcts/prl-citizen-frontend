@@ -265,6 +265,7 @@ describe('tasklist index', () => {
     otherPersonRelationshipToChildren: [],
     isAtAddressLessThan5YearsWithDontKnow: 'string',
     response: {},
+    liveInRefuge: 'No',
     user: {
       email: 'string',
       idamId: '123',

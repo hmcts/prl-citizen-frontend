@@ -40,6 +40,11 @@ export const getSectionSummaryList = (
                   href: changeUrl,
                   text: language === 'en' ? en.edit : cy.edit,
                   visuallyHiddenText: `${item.key}`,
+                  attributes: item.anchorReference
+                    ? {
+                        id: item.anchorReference,
+                      }
+                    : {},
                 },
               ],
             },
@@ -92,6 +97,15 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         );
       }
       break;
+    case 'citizenUserLivingInRefugeText':
+      if (!userCase.isCitizenLivingInRefuge) {
+        return userCase.citizenUserLivingInRefugeText;
+      } else {
+        translationLabel = 'ydwTranslation';
+      }
+      break;
+    case 'refugeDocumentText':
+      return userCase.refugeDocumentText;
     default:
       return userkey;
   }
@@ -112,6 +126,7 @@ export const summaryList = (
     const keyLabel = keys[key];
     const row = {
       key: keyLabel,
+      anchorReference: key,
       value:
         userCase[key]?.hasOwnProperty('day') &&
         userCase[key].hasOwnProperty('month') &&
@@ -120,7 +135,7 @@ export const summaryList = (
           : setkey(userCase, key, language)!,
       changeUrl: urls[key],
     };
-    if (row.value || key === 'citizenUserAddressHistory') {
+    if (row.value || key === 'citizenUserAddressHistory' || key === 'isCitizenLivingInRefuge') {
       if (key !== 'citizenUserSafeToCall') {
         summaryData.push(row);
       }
