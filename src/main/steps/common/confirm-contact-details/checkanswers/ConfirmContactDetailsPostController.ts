@@ -10,12 +10,7 @@ import { prepareContactPreferenceRequest } from '../../../../steps/common/contac
 import { applyParms } from '../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../../steps/tasklistresponse/utils';
-import {
-  CONTACT_PREFERENCE_CONFIRMATION,
-  PARTY_TASKLIST,
-  PageLink,
-  RESPOND_TO_APPLICATION,
-} from '../../../../steps/urls';
+import { PARTY_TASKLIST, PageLink, RESPOND_TO_APPLICATION, REVIEW_CONTACT_PREFERENCE } from '../../../../steps/urls';
 
 import {
   mapConfirmContactDetails,
@@ -42,7 +37,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
 const getRedirectUrl = (partyType: PartyType, req: AppRequest<AnyObject>): PageLink => {
   let redirectUrl;
   if (req.session.applicationSettings?.navFromContactPreferences) {
-    redirectUrl = applyParms(CONTACT_PREFERENCE_CONFIRMATION, { partyType });
+    redirectUrl = applyParms(REVIEW_CONTACT_PREFERENCE, { partyType }) as PageLink;
   } else if (req.session.applicationSettings?.navfromRespondToApplication) {
     redirectUrl = RESPOND_TO_APPLICATION;
   } else {

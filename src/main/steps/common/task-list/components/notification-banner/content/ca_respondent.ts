@@ -175,7 +175,7 @@ const en: NotificationBannerContentConfig = {
           {
             text: 'Upload the statement of position on NCDR (form FM5) (opens in a new tab)',
             href: applyParms(UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS, {
-              partyType: PartyType.APPLICANT,
+              partyType: PartyType.RESPONDENT,
               docCategory: UploadDocumentCategory.FM5_DOCUMENT,
             }),
           },
@@ -370,7 +370,7 @@ const cy: typeof en = {
           {
             text: 'Upload the statement of position on NCDR (form FM5) (opens in a new tab) - welsh',
             href: applyParms(UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS, {
-              partyType: PartyType.APPLICANT,
+              partyType: PartyType.RESPONDENT,
               docCategory: UploadDocumentCategory.FM5_DOCUMENT,
             }),
           },

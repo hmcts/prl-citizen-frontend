@@ -13,7 +13,7 @@ export const enContent = {
   title: 'Read the information to make sure it is correct, and add any missing details',
   contactdetailpriv:
     'if you do not want to share your contact details with the other person in the case,update the section',
-  contactdetailprivlinktext: 'keeping your contact details private',
+  contactdetailprivlinktext: 'keep your details private',
   link: '',
   sectionTitles: {
     applicationDetails: 'Application details',
@@ -64,7 +64,7 @@ export const cyContent: typeof enContent = {
   title: 'Darllenwch yr wybodaeth i wneud yn siŵr ei bod yn gywir, ac ychwanegwch unrhyw fanylion sydd ar goll',
   contactdetailpriv:
     'Os nad ydych eisiau rhannu eich manylion cyswllt gyda’r unigolyn arall yn yr achos, diweddarwch yr adran',
-  contactdetailprivlinktext: 'Cadw eich manylion cyswllt yn breifat',
+  contactdetailprivlinktext: 'Cadw eich manylion yn breifat',
   link: '',
   sectionTitles: {
     applicationDetails: 'Manylion y cais',
