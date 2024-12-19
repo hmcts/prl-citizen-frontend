@@ -22,4 +22,5 @@ Scenario('C100 Rebuild - basic journey @master @nightly', async ({ I }) => {
     await I.reasonableAdjustments();
     await I.withoutHelpWithFees();
     await I.checkAnswersAndPay();
-  }).retry(testConfig.TestRetryScenarios);
+  }).tag('@pavi');
+  // .retry(testConfig.TestRetryScenarios);

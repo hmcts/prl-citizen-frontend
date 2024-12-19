@@ -138,7 +138,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
   async applicantDetails() {
-    // Dummy comment - To be removed before check-in
     await this.fillApplicantDetails();
     await this.confidentiality();
     await this.keepingConfidentialContact();
