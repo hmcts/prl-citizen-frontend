@@ -60,6 +60,7 @@ describe('utils', () => {
       };
       partyDetails[0].value.email = 'dummy';
       partyDetails[0].value.phoneNumber = 'dummy';
+      partyDetails[0].value.liveInRefuge = 'No';
 
       userCase.respondents = partyDetails;
       expect(getConfirmOrEditYourContactDetails(userCase, '0c09b130-2eba-4ca8-a910-1f001bac01e6')).toBe(
