@@ -9,6 +9,9 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateContentForLocalComponent } from '../../util';
 import { generateContent as parentContent } from '../content';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
+export * from './routeGuard';
+
 export const en = () => ({
   title: 'Do any of the children have a passport?',
   caption: 'Safety concerns',

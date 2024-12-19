@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { Case } from '../../../../../app/case/case';
-import { C1AAbuseTypes, C1ASafteyConcerns } from '../../../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcerns, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -23,6 +23,11 @@ export default class SafteyConcernsApplicantAbusePostController extends PostCont
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const C100RebuildJourney = req.originalUrl.startsWith(C100_URL);
+
+    if (req.body['seekHelpFromPersonOrAgency'] === YesOrNo.NO) {
+      delete formData['seekHelpDetails'];
+    }
+
     if (C100RebuildJourney) {
       const applicantAbuseData: Partial<Case> = {
         c1A_safteyConcerns: {

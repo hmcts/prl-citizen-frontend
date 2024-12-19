@@ -17,7 +17,7 @@ import { getFormFields as getAddOtherPersonFormFields } from '../other-person-de
 import { getFormFields as getAddRespondentsFormFields } from '../respondent-details/add-respondents/content';
 
 import { CaseWithId } from './../../../app/case/case';
-import { getDataShape, transformAddPeople } from './util';
+import { cleanChildRelationshipDetails, cleanLiveWithData, getDataShape, transformAddPeople } from './util';
 
 type ContextReference = {
   dataReference: string;
@@ -89,6 +89,15 @@ export default class AddPersonPostController {
       req.session.userCase[dataReference] = req.session.userCase[dataReference]?.filter(
         person => person.id !== removePersonId
       );
+
+      if (context === PartyType.CHILDREN) {
+        req.session.userCase = cleanChildRelationshipDetails(req.session.userCase, removePersonId as string);
+      }
+
+      if (context === PartyType.OTHER_PERSON || context === PartyType.RESPONDENT) {
+        req.session.userCase = cleanLiveWithData(req.session.userCase, removePersonId as string);
+      }
+
       return this.parent.redirect(req, res, req.originalUrl);
     }
 

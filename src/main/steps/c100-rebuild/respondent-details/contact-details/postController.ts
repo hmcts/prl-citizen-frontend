@@ -2,7 +2,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100RebuildPartyDetails } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -31,8 +31,8 @@ export default class ContactDetailsPostController extends PostController<AnyObje
     ) as C100RebuildPartyDetails;
     respondentContactDetails.contactDetails = {
       donKnowEmailAddress,
-      emailAddress,
-      telephoneNumber,
+      emailAddress: donKnowEmailAddress === YesOrNo.YES ? '' : emailAddress,
+      telephoneNumber: donKnowTelephoneNumber === YesOrNo.YES ? '' : telephoneNumber,
       donKnowTelephoneNumber,
     };
     req.session.userCase.resp_Respondents = updatePartyDetails(

@@ -4,6 +4,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
+export * from './routeGuard';
+
 export const en = {
   title: 'Do you have a document signed by the mediator?  ',
   docSigned:

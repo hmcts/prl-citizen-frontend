@@ -6,7 +6,7 @@ import { C100RebuildPartyDetails } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { getPartyDetails, updatePartyDetails } from '../../people/util';
+import { cleanOtherRelationshipDetails, getPartyDetails, updatePartyDetails } from '../../people/util';
 
 import { getFormFields } from './content';
 
@@ -28,6 +28,8 @@ export default class RespondentsRelationshipToChildPostController extends PostCo
       req.session.userCase.resp_Respondents
     ) as C100RebuildPartyDetails;
 
+    const otherRelationshipDetails = cleanOtherRelationshipDetails(relationshipType, otherRelationshipTypeDetails);
+
     if (respondentDetails.relationshipDetails.relationshipToChildren.length) {
       const matchingChildRelationshipIndex = respondentDetails.relationshipDetails.relationshipToChildren.findIndex(
         relationshipToChildObject => relationshipToChildObject.childId === childId
@@ -37,13 +39,13 @@ export default class RespondentsRelationshipToChildPostController extends PostCo
         respondentDetails.relationshipDetails.relationshipToChildren[matchingChildRelationshipIndex] = {
           childId,
           relationshipType,
-          otherRelationshipTypeDetails,
+          otherRelationshipTypeDetails: otherRelationshipDetails,
         };
       } else {
-        pushRelationshipDataToRespondent(respondentDetails, childId, relationshipType, otherRelationshipTypeDetails);
+        pushRelationshipDataToRespondent(respondentDetails, childId, relationshipType, otherRelationshipDetails);
       }
     } else {
-      pushRelationshipDataToRespondent(respondentDetails, childId, relationshipType, otherRelationshipTypeDetails);
+      pushRelationshipDataToRespondent(respondentDetails, childId, relationshipType, otherRelationshipDetails);
     }
 
     req.session.userCase.resp_Respondents = updatePartyDetails(
