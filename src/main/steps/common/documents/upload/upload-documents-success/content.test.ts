@@ -7,10 +7,9 @@ import { generateContent } from './content';
 const en = {
   pageTitle: 'Document submitted',
   bannerHeading: 'Important',
-  bannerTitle: 'You must serve the documents',
+  bannerTitle: 'You must serve the document',
   fm5DocumentBannerTitle: 'You must give the document to the other party',
   bannerContents: [
-    'You must serve the document.',
     'If the party has a legal representative, you must send the document to them.',
     'If the party does not have legal representation, you must send the document directly to them.',
     '<strong>If you are prevented by law from communicating with the other party or there is a very good reason why you are unable to do so, for example, safety concerns, do not serve the party directly and tell the court why you cannot do so.</strong>',
@@ -28,10 +27,9 @@ const en = {
 const cy: typeof en = {
   pageTitle: 'Cyflwynwyd y ddogfen',
   bannerHeading: 'Pwysig',
-  bannerTitle: "Rhaid i chi gyflwyno'r dogfennau",
+  bannerTitle: 'You must serve the document.-welsh',
   fm5DocumentBannerTitle: 'Mae’n rhaid i chi roi’r ddogfen i’r parti arall',
   bannerContents: [
-    'You must serve the document.-welsh',
     'If the party has a legal representative, you must send the document to them.-welsh',
     'If the party does not have legal representation, you must send the document directly to them.-welsh',
     '<strong>If you are prevented by law from communicating with the other party or there is a very good reason why you are unable to do so, for example, safety concerns, do not serve the party directly and tell the court why you cannot do so.-welsh</strong>',
