@@ -6,7 +6,7 @@ import { UploadDocumentCategory } from '../../definitions';
 const en = {
   pageTitle: 'Document submitted',
   bannerHeading: 'Important',
-  bannerTitle: 'You must serve the document',
+  bannerTitle: 'You must serve the document.',
   fm5DocumentBannerTitle: 'You must give the document to the other party',
   bannerContents: [
     'If the party has a legal representative, you must send the document to them.',
