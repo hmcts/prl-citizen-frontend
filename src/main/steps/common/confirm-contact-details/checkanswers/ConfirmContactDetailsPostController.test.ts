@@ -247,7 +247,7 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(retrieveByCaseIdMock).toBeCalled;
     expect(updateCaserMock).toBeCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/confirmation');
+    expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/review');
   });
   test('Should redirect C100 applicant after choosing digital preference', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
@@ -260,7 +260,7 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(retrieveByCaseIdMock).toBeCalled;
     expect(updateCaserMock).toBeCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/confirmation');
+    expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/review');
   });
 
   test('Should redirect C100 respondent after choosing post preference', async () => {
@@ -288,7 +288,7 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(retrieveByCaseIdMock).toBeCalled;
     expect(updateCaserMock).toBeCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toHaveBeenLastCalledWith('/respondent/contact-preference/confirmation');
+    expect(res.redirect).toHaveBeenLastCalledWith('/respondent/contact-preference/review');
   });
 
   test('Should redirect C100 respondent after choosing digital preference', async () => {
@@ -316,7 +316,7 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(retrieveByCaseIdMock).toBeCalled;
     expect(updateCaserMock).toBeCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toHaveBeenLastCalledWith('/respondent/contact-preference/confirmation');
+    expect(res.redirect).toHaveBeenLastCalledWith('/respondent/contact-preference/review');
   });
 
   test('Should not update the userCase for safety concerns when updateCaseData API is throwing error', async () => {

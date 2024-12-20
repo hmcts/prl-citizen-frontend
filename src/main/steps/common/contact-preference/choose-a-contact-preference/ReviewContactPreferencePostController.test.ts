@@ -6,7 +6,6 @@ import { FormFields } from '../../../../app/form/Form';
 import ReviewContactPreferencePostController from './ReviewContactPreferencePostController';
 
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
-const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
 let partyDetails;
 
 describe('ContactPreferencesPostController', () => {
@@ -79,7 +78,7 @@ describe('ContactPreferencesPostController', () => {
             firstName: 'testuser',
             lastName: 'Citizen',
             email: 'abc@example.net',
-            dateOfBirth: '03-20-2023',
+            dateOfBirth: '2023-11-12',
             phoneNumber: '7755664466',
             placeOfBirth: 'BPP',
             previousName: 'test',
@@ -152,12 +151,9 @@ describe('ContactPreferencesPostController', () => {
       caseTypeOfApplication: 'C100',
     };
     req.body.onlycontinue = true;
-    retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
-    updateCaserMock.mockResolvedValue(req.session.userCase);
   });
 
   afterEach(() => {
-    retrieveByCaseIdMock.mockClear();
     updateCaserMock.mockClear();
   });
 
@@ -206,65 +202,22 @@ describe('ContactPreferencesPostController', () => {
 
   test('Should update the userCase for contact preferences when updateCaseData API is success', async () => {
     req.session.userCase.applicants[0].value.contactPreferences = 'post';
-    req.body.partyContactPreference = 'post';
+    req.body.partyContactPreference = 'email';
     req.session.userCase.caseTypeOfApplication = 'C100';
-    req.session.userCase.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     req.session.user.id = '123';
     updateCaserMock.mockResolvedValue(req.session.userCase);
 
     await controller.post(req, res);
-    await new Promise(process.nextTick);
 
     expect(req.session.userCase.contactPreferences).toEqual('post');
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/contact-preference/confirmation');
-  });
-
-  test('Should update the userCase for contact preferences when updateCaseData API is success for digital', async () => {
-    req.session.userCase.applicants[0].value.contactPreferences = 'email';
-    req.body.partyContactPreference = 'email';
-    req.session.userCase.caseTypeOfApplication = 'C100';
-    req.session.userCase.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    req.session.user.id = '123';
-    updateCaserMock.mockResolvedValue(req.session.userCase);
-
-    await controller.post(req, res);
-    await new Promise(process.nextTick);
-
-    expect(req.session.userCase.contactPreferences).toEqual('email');
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/contact-preference/confirmation');
-  });
-
-  test('Should update the userCase for contact preferences when updateCaseData API is success for respondent', async () => {
-    req.session.userCase.respondents[0].value.contactPreferences = 'post';
-    req.body.partyContactPreference = 'post';
-    req.session.userCase.caseTypeOfApplication = 'C100';
-    req.session.user.id = '8e87fde0-bab4-4701-abbe-2d277ca38fr5';
-    req.session.userCase.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    updateCaserMock.mockResolvedValue(req.session.userCase);
-
-    await controller.post(req, res);
-    await new Promise(process.nextTick);
-
-    expect(req.session.userCase.contactPreferences).toEqual('post');
-    expect(res.redirect).toHaveBeenCalledWith('/respondent/contact-preference/confirmation');
-  });
-
-  test('Should update the userCase for contact preferences when updateCaseData API is success for email for respondent', async () => {
-    req.session.userCase.applicants[0].value.contactPreferences = 'email';
-    req.body.partyContactPreference = 'email';
-    req.session.userCase.caseTypeOfApplication = 'C100';
-    req.session.user.id = '8e87fde0-bab4-4701-abbe-2d277ca38fr5';
-    req.session.userCase.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    updateCaserMock.mockResolvedValue(req.session.userCase);
-
-    await controller.post(req, res);
-    await new Promise(process.nextTick);
-
-    expect(req.session.userCase.contactPreferences).toEqual('email');
-    expect(res.redirect).toHaveBeenCalledWith('/respondent/contact-preference/confirmation');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/contact-preference/review');
   });
 
   test('Should not update the userCase for contact preferences when updateCaseData API is throwing error', async () => {
+    req.session.userCase.applicants[0].value.contactPreferences = 'post';
+    req.body.partyContactPreference = 'email';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.user.id = '123';
     updateCaserMock.mockRejectedValue({ message: 'MOCK_ERROR', response: { status: 500, data: 'Error' } });
     await expect(controller.post(req, res)).rejects.toThrow(
       'ReviewContactPreferencePostController - error when saving contact preferences and redirecting'

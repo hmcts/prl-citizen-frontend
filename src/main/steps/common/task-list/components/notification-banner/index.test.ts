@@ -1,6 +1,8 @@
 import { CaseWithId, CitizenNotification } from '../../../../../app/case/case';
 import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
+import { STATEMENT_OF_SERVICE_WHO_WAS_SERVED } from '../../../../urls';
 import { CitizenApplicationPacks, DocumentCategory } from '../../../documents/definitions';
+import { applyParms } from '../../../url-parser';
 
 import { getNotifications } from '.';
 
@@ -2246,7 +2248,10 @@ describe('FL401 banners', () => {
               },
               {
                 external: false,
-                href: '',
+                href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+                  partyType: PartyType.APPLICANT,
+                  context: 'order',
+                }),
                 text: 'Upload the statement of service',
               },
             ],

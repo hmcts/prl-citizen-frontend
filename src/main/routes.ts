@@ -11,6 +11,7 @@ import { PaymentHandler, PaymentValidationHandler } from './modules/payments/pay
 import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import UploadDocumentController from './steps/application-within-proceedings/document-upload/postController';
+import { routeGuard } from './steps/application-within-proceedings/routeGuard';
 import { processAWPApplication } from './steps/application-within-proceedings/utils';
 import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
@@ -25,6 +26,7 @@ import {
   APPLICANT_CHECK_ANSWERS,
   APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK,
   APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
+  AWP,
   C100_RETRIVE_CASE,
   CA_RESPONDENT_GENERATE_C7_DRAFT,
   CONSENT_TO_APPLICATION,
@@ -100,7 +102,7 @@ export class Routes {
     );
     app.get(DOWNLOAD_DOCUMENT_BY_TYPE, errorHandler(new DownloadDocumentController().download));
     app.get(DOWNLOAD_DOCUMENT, errorHandler(new DownloadDocumentController().download));
-
+    app.get(`*/${AWP}/*`, errorHandler(routeGuard.get));
     //C100 related routes
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));

@@ -12,11 +12,11 @@ import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 import {
   APPLICANT_CHECK_ANSWERS,
-  CONTACT_PREFERENCE_CONFIRMATION,
   PARTY_TASKLIST,
   PageLink,
   RESPONDENT_CHECK_ANSWERS,
   RESPOND_TO_APPLICATION,
+  REVIEW_CONTACT_PREFERENCE,
 } from '../../../../steps/urls';
 
 import {
@@ -45,7 +45,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
 const getRedirectUrl = (partyType: PartyType, req: AppRequest<AnyObject>): PageLink => {
   let redirectUrl;
   if (req.session.applicationSettings?.navFromContactPreferences) {
-    redirectUrl = applyParms(CONTACT_PREFERENCE_CONFIRMATION, { partyType });
+    redirectUrl = applyParms(REVIEW_CONTACT_PREFERENCE, { partyType }) as PageLink;
   } else if (req.session.applicationSettings?.navfromRespondToApplication) {
     redirectUrl = RESPOND_TO_APPLICATION;
   } else {

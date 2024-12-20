@@ -2732,18 +2732,6 @@ describe('tasklist index', () => {
                 label: 'DOWNLOAD',
               },
             },
-            {
-              disabled: false,
-              hintText: null,
-              href: '/applicant/application-within-proceedings/list-of-applications/1',
-              id: 'requestToCourtAboutYourCase',
-              linkText: 'Make a request to the court about your case',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--blue',
-                label: 'Optional',
-              },
-            },
           ],
         },
         {
@@ -3139,18 +3127,6 @@ describe('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
-              },
-            },
-            {
-              disabled: false,
-              hintText: null,
-              href: '/respondent/application-within-proceedings/list-of-applications/1',
-              id: 'requestToCourtAboutYourCase',
-              linkText: 'Make a request to the court about your case',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--blue',
-                label: 'Optional',
               },
             },
           ],
