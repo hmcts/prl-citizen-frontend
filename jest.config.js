@@ -2,6 +2,7 @@ module.exports = {
   roots: ['<rootDir>/src/main'],
   testRegex: '(/src/test/.*|\\.test)\\.(ts|js)$',
   testEnvironment: 'node',
+  preset: "ts-jest/presets/js-with-ts",
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
@@ -13,4 +14,5 @@ module.exports = {
   coverageThreshold: {
   },
   verbose: true,
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!node-emoji)'],
 };
