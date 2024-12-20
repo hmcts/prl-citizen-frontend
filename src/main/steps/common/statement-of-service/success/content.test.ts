@@ -24,18 +24,18 @@ const cy: typeof en = {
 
 describe('statement-of-service > success > content', () => {
   let commonContent = { language: 'en' } as unknown as CommonContent;
-  commonContent={
+  commonContent = {
     ...commonContent,
-    additionalData:{
-      req:{
-        session:{
-          userCase:{
-            caseTypeOfApplication:CaseType.C100
-          }
-          }
-        }
-      }
-    }
+    additionalData: {
+      req: {
+        session: {
+          userCase: {
+            caseTypeOfApplication: CaseType.C100,
+          },
+        },
+      },
+    },
+  };
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -53,21 +53,21 @@ describe('statement-of-service > success > content', () => {
   });
 
   test('should return correct english content for FL401 case', () => {
-  commonContent={
-    ...commonContent,
-    additionalData:{
-      req:{
-        session:{
-          userCase:{
-            caseTypeOfApplication:CaseType.FL401
-          }
-          }
-        }
-      }
-    }
-  // eslint-disable-next-line jest/expect-expect
-  en.content2=''
-  
+    commonContent = {
+      ...commonContent,
+      additionalData: {
+        req: {
+          session: {
+            userCase: {
+              caseTypeOfApplication: CaseType.FL401,
+            },
+          },
+        },
+      },
+    };
+    // eslint-disable-next-line jest/expect-expect
+    en.content2 = '';
+
     languageAssertions('en', en, () => generateContent(commonContent));
   });
 });
