@@ -6,8 +6,7 @@ describe('sanitize request > index', () => {
   describe('sanitizeRequestBody', () => {
     test('should sanitize request body', () => {
       const req = mockRequest({ body: { too_shortStatement: 'test<img src""> ☕️' } });
-      const mockNext = jest.fn();
-      new SanitizeRequest().sanitizeRequestBody(req, mockNext);
+      new SanitizeRequest().sanitizeRequestBody(req);
       expect(req.body).toEqual({ too_shortStatement: 'test' });
     });
 
@@ -15,8 +14,7 @@ describe('sanitize request > index', () => {
       const req = mockRequest({
         body: { courtProceedingsOrders: ['childArrangementOrder', 'supervisionOrder<img src""> ☕️'] },
       });
-      const mockNext = jest.fn();
-      new SanitizeRequest().sanitizeRequestBody(req, mockNext);
+      new SanitizeRequest().sanitizeRequestBody(req);
       expect(req.body).toEqual({ courtProceedingsOrders: ['childArrangementOrder', 'supervisionOrder'] });
     });
   });

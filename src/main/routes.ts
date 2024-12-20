@@ -9,7 +9,7 @@ import { RespondentSubmitResponseController } from './app/controller/RespondentS
 import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
-import { SanitizeRequest } from './modules/sanitize-request';
+import { RequestSanitizer } from './modules/sanitize-request';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import UploadDocumentController from './steps/application-within-proceedings/document-upload/postController';
 import { processAWPApplication } from './steps/application-within-proceedings/utils';
@@ -160,6 +160,7 @@ export class Routes {
   }
 
   private sanitizeRequestBody(req, res, next) {
-    new SanitizeRequest().sanitizeRequestBody(req, next);
+    RequestSanitizer.sanitizeRequestBody(req);
+    next();
   }
 }
