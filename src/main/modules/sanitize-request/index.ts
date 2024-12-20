@@ -4,7 +4,7 @@ import sanitizeHtml from 'sanitize-html';
 
 import { AppRequest } from '../../app/controller/AppRequest';
 
-export class SanitizeRequest {
+class SanitizeRequest {
   private readonly formInputsToOmit = [
     '_csrf',
     'onlyContinue',
