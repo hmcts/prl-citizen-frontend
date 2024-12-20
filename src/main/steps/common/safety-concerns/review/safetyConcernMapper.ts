@@ -257,6 +257,7 @@ export const deleteDataForPassports = (caseData: Partial<CaseWithId>): void => {
   delete caseData.c1A_childrenMoreThanOnePassport;
   delete caseData.c1A_possessionChildrenPassport;
   delete caseData.c1A_abductionPassportOfficeNotified;
+  delete caseData.c1A_provideOtherDetails;
 };
 
 export const deleteAbuseData = (data: Partial<CaseWithId>, abuse: string, party: string): void => {
