@@ -141,7 +141,8 @@ export const transformPartyDetails = (
         (fieldName === 'approxDateOfBirth' && formData.isDateOfBirthUnknown !== YesNoEmpty.YES) ||
         (fieldName === 'otherGenderDetails' && formData.gender !== Gender.OTHER) ||
         (fieldName === 'provideDetailsOfPreviousAddresses' && formData.addressHistory !== YesNoDontKnow.yes) ||
-        (fieldName === 'previousFullName' && formData.hasNameChanged !== YesNoDontKnow.yes)
+        (fieldName === 'previousFullName' && formData.hasNameChanged !== YesNoDontKnow.yes) ||
+        (fieldName === 'respondentPlaceOfBirth' && formData.respondentPlaceOfBirthUnknown === YesOrNo.YES)
       ) {
         formData[fieldName] = defaultValue;
       }
