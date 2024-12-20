@@ -124,6 +124,7 @@ describe('generateRespondentTaskList', () => {
           otherPersonRelationshipToChildren: [],
           isAtAddressLessThan5YearsWithDontKnow: '',
           partyId: '1234',
+          liveInRefuge: '' as YesOrNo,
         },
       },
     ];

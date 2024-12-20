@@ -18,6 +18,8 @@ const en = {
     citizenUserFullName: 'Name',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
+    citizenUserLivingInRefugeText: 'Living in refuge',
+    refugeDocumentText: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
@@ -41,6 +43,8 @@ const cy: typeof en = {
     citizenUserFullName: 'Enw',
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
+    citizenUserLivingInRefugeText: 'Byw mewn lloches',
+    refugeDocumentText: 'Dogfen lloches C8',
     citizenUserAddressText: 'Cyfeiriad',
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',
@@ -81,6 +85,9 @@ describe('address confirmation > content', () => {
                   href: 'addresshistory',
                   text: 'Edit',
                   visuallyHiddenText: 'Address history',
+                  attributes: {
+                    id: 'citizenUserAddressHistory',
+                  },
                 },
               ],
             },
@@ -112,6 +119,9 @@ describe('address confirmation > content', () => {
                   href: 'addresshistory',
                   text: 'Golygu',
                   visuallyHiddenText: 'Hanes cyfeiriad',
+                  attributes: {
+                    id: 'citizenUserAddressHistory',
+                  },
                 },
               ],
             },
@@ -130,5 +140,88 @@ describe('address confirmation > content', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
     expect((form.submit?.text as Function)(enContent)).toBe('Save and continue');
+  });
+
+  test('should generate correct summary list when isCitizenLivingInRefuge is Yes', () => {
+    expect(
+      generateContent({
+        ...commonContent,
+        userCase: {
+          isCitizenLivingInRefuge: 'Yes',
+          citizenUserLivingInRefugeText: 'Yes',
+          refugeDocumentText: 'MOCK_FILENAME',
+          refugeDocument: {
+            document_url: 'MOCK_URL',
+            document_binary_url: 'MOCK_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+          },
+        },
+        language: 'en',
+      } as unknown as CommonContent).sections
+    ).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '../refuge/staying-in-refuge',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Living in refuge',
+                  attributes: {
+                    id: 'citizenUserLivingInRefugeText',
+                  },
+                },
+              ],
+            },
+            key: {
+              text: 'Living in refuge',
+            },
+            value: {
+              html: 'Yes',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '../refuge/upload-refuge-document',
+                  text: 'Edit',
+                  visuallyHiddenText: 'C8 refuge document',
+                  attributes: {
+                    id: 'refugeDocumentText',
+                  },
+                },
+              ],
+            },
+            key: {
+              text: 'C8 refuge document',
+            },
+            value: {
+              html: 'MOCK_FILENAME',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: 'addresshistory',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Address history',
+                  attributes: {
+                    id: 'citizenUserAddressHistory',
+                  },
+                },
+              ],
+            },
+            key: {
+              text: 'Address history',
+            },
+            value: {},
+          },
+        ],
+        title: '',
+      },
+    ]);
   });
 });

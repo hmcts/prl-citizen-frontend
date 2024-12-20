@@ -22,4 +22,6 @@ export enum HTML {
   STATEMENT_OF_TRUTH_H2_CLOSE = '</h2>',
   BOLD = '<b>',
   BOLD_CLOSE = '</b>',
+  ERROR_MESSAGE_SPAN = '<span class="govuk-error-message">',
+  SPAN_CLOSE = '</span>',
 }

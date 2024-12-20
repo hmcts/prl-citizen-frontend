@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../app/case/case';
 import {
   C1AAbuseTypes,
@@ -424,8 +426,14 @@ export const ApplicantDetails = (
   language
 ): SummaryList | undefined => {
   const sessionApplicantData = userCase['appl_allApplicants'];
-  const newApplicantData: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
-    [];
+  const newApplicantData: {
+    key: string;
+    anchorReference?: string;
+    keyHtml?: string;
+    value: string;
+    valueHtml?: string;
+    changeUrl: string;
+  }[] = [];
   for (const applicant in sessionApplicantData) {
     const fullname =
       sessionApplicantData[applicant]['applicantFirstName'] +
@@ -533,15 +541,40 @@ export const ApplicantDetails = (
       });
     });
 
-    newApplicantData.push(
-      {
-        key: keys['addressDetails'],
+    newApplicantData.push({
+      key: keys['refuge'],
+      value: getYesNoTranslation(language, sessionApplicantData[applicant]['liveInRefuge'], 'ydwTranslation'),
+      changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
+        root: RootContext.C100_REBUILD,
+        id: sessionApplicantData[applicant]['id'],
+      }),
+    });
+
+    if (sessionApplicantData[applicant]['liveInRefuge'] === YesOrNo.YES) {
+      newApplicantData.push({
+        key: keys['c8RefugeDocument'],
+        anchorReference: `c8RefugeDocument-applicant-${applicant}`,
         value: '',
-        valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys, language),
-        changeUrl: applyParms(Urls['C100_APPLICANT_ADDRESS_MANUAL'], {
-          applicantId: sessionApplicantData[applicant]['id'],
+        valueHtml: !_.isEmpty(sessionApplicantData[applicant]['refugeConfidentialityC8Form'])
+          ? sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename']
+          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
+          root: RootContext.C100_REBUILD,
+          id: sessionApplicantData[applicant]['id'],
         }),
-      },
+      });
+    }
+
+    newApplicantData.push({
+      key: keys['addressDetails'],
+      value: '',
+      valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys, language),
+      changeUrl: applyParms(Urls['C100_APPLICANT_ADDRESS_MANUAL'], {
+        applicantId: sessionApplicantData[applicant]['id'],
+      }),
+    });
+
+    newApplicantData.push(
       {
         key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
         value: '',
@@ -1264,6 +1297,7 @@ export const OtherPeopleDetails = (
   const sessionOtherPeopleData = userCase['oprs_otherPersons'];
   const newOtherPeopleStorage: {
     key: string;
+    anchorReference?: string;
     keyHtml?: string;
     value?: string;
     valueHtml?: string;
@@ -1342,6 +1376,30 @@ export const OtherPeopleDetails = (
         }),
       });
     });
+
+    newOtherPeopleStorage.push({
+      key: keys['refuge'],
+      value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['liveInRefuge'], 'ydwTranslation'),
+      changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
+        root: RootContext.C100_REBUILD,
+        id: sessionOtherPeopleData[respondent]['id'],
+      }),
+    });
+
+    if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
+      newOtherPeopleStorage.push({
+        key: keys['c8RefugeDocument'],
+        anchorReference: `c8RefugeDocument-otherPerson-${respondent}`,
+        value: '',
+        valueHtml: !_.isEmpty(sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form'])
+          ? sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form']?.['document_filename']
+          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
+          root: RootContext.C100_REBUILD,
+          id: sessionOtherPeopleData[respondent]['id'],
+        }),
+      });
+    }
 
     if (!sessionOtherPeopleData[respondent].hasOwnProperty('addressUnknown')) {
       newOtherPeopleStorage.push({
@@ -1602,4 +1660,19 @@ const populateDateOfBirth = (
     });
   }
   return newChildDataStorage;
+};
+
+export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId>): boolean => {
+  return !!(
+    caseData.appl_allApplicants?.find(
+      applicant => applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)
+    ) ||
+    caseData.oprs_otherPersons?.find(
+      otherPerson => otherPerson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherPerson.refugeConfidentialityC8Form)
+    )
+  );
+};
+
+export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>): boolean => {
+  return !areRefugeDocumentsNotPresent(caseData);
 };
