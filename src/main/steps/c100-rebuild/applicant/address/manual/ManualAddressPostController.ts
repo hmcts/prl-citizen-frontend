@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100Applicant } from '../../../../../app/case/definition';
+import { C100Applicant, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -30,7 +30,8 @@ export default class ManualAddressPostController extends PostController<AnyObjec
         applicantAddressTown: formData['addressTown'],
         applicantAddressCounty: formData['addressCounty'],
         applicantAddressHistory: formData['addressHistory'],
-        applicantProvideDetailsOfPreviousAddresses: formData['provideDetailsOfPreviousAddresses'],
+        applicantProvideDetailsOfPreviousAddresses:
+          formData['addressHistory'] === YesOrNo.NO ? '' : formData['provideDetailsOfPreviousAddresses'],
         country: formData['country'],
       },
       req.session.userCase.appl_allApplicants

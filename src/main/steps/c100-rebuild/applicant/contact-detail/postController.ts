@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100Applicant, YesNoEmpty } from '../../../../app/case/definition';
+import { C100Applicant, ContactPreference, YesNoEmpty } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -27,9 +27,20 @@ export default class ContactDetailPostController extends PostController<AnyObjec
       canProvideEmail: req.body['canProvideEmail'] as YesNoEmpty,
       emailAddress: formData['canProvideEmail'] === YesNoEmpty.NO ? '' : (req.body['emailAddress'] as string),
       canProvideTelephoneNumber: req.body['canProvideTelephoneNumber'] as YesNoEmpty,
-      telephoneNumber: req.body['telephoneNumber'] as string,
-      canNotProvideTelephoneNumberReason: req.body['canNotProvideTelephoneNumberReason'] as YesNoEmpty,
+      telephoneNumber:
+        req.body['canProvideTelephoneNumber'] === YesNoEmpty.NO ? '' : (req.body['telephoneNumber'] as string),
+      canNotProvideTelephoneNumberReason:
+        req.body['canProvideTelephoneNumber'] === YesNoEmpty.YES
+          ? ''
+          : (req.body['canNotProvideTelephoneNumberReason'] as YesNoEmpty),
       canLeaveVoiceMail: req.body['canLeaveVoiceMail'] as YesNoEmpty,
+      applicantContactPreferences:
+        formData['canProvideEmail'] === YesNoEmpty.NO &&
+        req.session.userCase.appl_allApplicants![applicantIndex].applicantContactDetail?.applicantContactPreferences ===
+          ContactPreference.EMAIL
+          ? ''
+          : req.session.userCase.appl_allApplicants![applicantIndex].applicantContactDetail
+              ?.applicantContactPreferences,
     };
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);

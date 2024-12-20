@@ -8,6 +8,8 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { C100_URL } from '../../../../steps/urls';
 import { generateContentForLocalComponent } from '../util';
 
+export * from './routeGuard';
+
 export const en = () => ({
   caption: 'Safety concerns',
   headingTitle: 'Who are you concerned about?',
