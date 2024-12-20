@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { CaseType } from '../../../../app/case/definition';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
@@ -22,7 +23,19 @@ const cy: typeof en = {
 };
 
 describe('statement-of-service > success > content', () => {
-  const commonContent = { language: 'en', userCase: {} } as unknown as CommonContent;
+  let commonContent = { language: 'en' } as unknown as CommonContent;
+  commonContent={
+    ...commonContent,
+    additionalData:{
+      req:{
+        session:{
+          userCase:{
+            caseTypeOfApplication:CaseType.C100
+          }
+          }
+        }
+      }
+    }
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -37,5 +50,24 @@ describe('statement-of-service > success > content', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
     expect((form?.onlyContinue?.text as Function)(generatedContent)).toBe(en.returnToCaseOverview);
+  });
+
+  test('should return correct english content for FL401 case', () => {
+  commonContent={
+    ...commonContent,
+    additionalData:{
+      req:{
+        session:{
+          userCase:{
+            caseTypeOfApplication:CaseType.FL401
+          }
+          }
+        }
+      }
+    }
+  // eslint-disable-next-line jest/expect-expect
+  en.content2=''
+  
+    languageAssertions('en', en, () => generateContent(commonContent));
   });
 });
