@@ -26,7 +26,7 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
   private hasError(uploadedDocument: Record<string, any>, req: AppRequest<AnyObject>): string | undefined {
     let errorType;
 
-    if (isExceedingMaxDocuments('DEFAULT', req.session.userCase.miam_domesticAbuseEvidenceDocs?.length ?? 0)) {
+    if (isExceedingMaxDocuments(req.session.userCase.miam_domesticAbuseEvidenceDocs?.length ?? 0)) {
       errorType = 'maxDocumentsReached';
     } else if (!isValidFileFormat({ documents: uploadedDocument })) {
       errorType = 'invalidFileFormat';

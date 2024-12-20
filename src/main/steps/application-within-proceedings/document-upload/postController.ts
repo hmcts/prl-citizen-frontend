@@ -108,10 +108,10 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       });
     } else if (
       isExceedingMaxDocuments(
-        isSupportingDocuments ? 'SUPPORT_DOCUMENTS' : 'DEFAULT',
         isSupportingDocuments
           ? req.session.userCase.awp_supportingDocuments?.length
-          : req.session.userCase.awp_uploadedApplicationForms?.length
+          : req.session.userCase.awp_uploadedApplicationForms?.length,
+        isSupportingDocuments ? 'SUPPORT_DOCUMENTS' : 'DEFAULT'
       )
     ) {
       this.handleError(req, res, {

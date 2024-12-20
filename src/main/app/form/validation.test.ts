@@ -454,35 +454,35 @@ describe('isExceedingMaxDocuments', () => {
   test('should return true if totalDocumentsLength exceeds the max limit for SUPPORT_DOCUMENTS', () => {
     const categoryKey = 'SUPPORT_DOCUMENTS';
     const totalDocumentsLength = MAX_DOCUMENT_LIMITS.SUPPORT_DOCUMENTS + 1;
-    const result = isExceedingMaxDocuments(categoryKey, totalDocumentsLength);
+    const result = isExceedingMaxDocuments(totalDocumentsLength, categoryKey);
     expect(result).toStrictEqual(true);
   });
 
   test('should return false if totalDocumentsLength does not exceed the max limit for SUPPORT_DOCUMENTS', () => {
     const categoryKey = 'SUPPORT_DOCUMENTS';
     const totalDocumentsLength = MAX_DOCUMENT_LIMITS.SUPPORT_DOCUMENTS - 1;
-    const result = isExceedingMaxDocuments(categoryKey, totalDocumentsLength);
+    const result = isExceedingMaxDocuments(totalDocumentsLength, categoryKey);
     expect(result).toStrictEqual(false);
   });
 
   test('should return true if totalDocumentsLength exceeds the default max limit when categoryKey is unknown', () => {
     const categoryKey = 'UNKNOWN_CATEGORY';
     const totalDocumentsLength = MAX_DOCUMENT_LIMITS.DEFAULT + 1;
-    const result = isExceedingMaxDocuments(categoryKey, totalDocumentsLength);
+    const result = isExceedingMaxDocuments(totalDocumentsLength, categoryKey);
     expect(result).toStrictEqual(true);
   });
 
   test('should return false if totalDocumentsLength does not exceed the default max limit when categoryKey is unknown', () => {
     const categoryKey = 'UNKNOWN_CATEGORY';
     const totalDocumentsLength = MAX_DOCUMENT_LIMITS.DEFAULT - 1;
-    const result = isExceedingMaxDocuments(categoryKey, totalDocumentsLength);
+    const result = isExceedingMaxDocuments(totalDocumentsLength, categoryKey);
     expect(result).toStrictEqual(false);
   });
 
   test('should return false if totalDocumentsLength does not exceed the default max limit when categoryKey is default', () => {
     const categoryKey = 'DEFAULT';
     const totalDocumentsLength = MAX_DOCUMENT_LIMITS.DEFAULT - 1;
-    const result = isExceedingMaxDocuments(categoryKey, totalDocumentsLength);
+    const result = isExceedingMaxDocuments(totalDocumentsLength, categoryKey);
     expect(result).toStrictEqual(false);
   });
 });

@@ -184,7 +184,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       req.session.errors = handleError(req.session.errors, 'multipleFiles');
       return this.redirect(req, res, redirectUrl);
     }
-    if (isExceedingMaxDocuments(docCategory, caseData[documentDataRef]?.length)) {
+    if (isExceedingMaxDocuments(caseData[documentDataRef]?.length, docCategory)) {
       req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
       return this.redirect(req, res, redirectUrl);
     }

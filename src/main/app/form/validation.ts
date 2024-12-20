@@ -260,7 +260,7 @@ export const isValidFileFormat = (files: any): boolean => {
   return AllowedFileExtentionList.indexOf(extension) > -1;
 };
 
-export const isExceedingMaxDocuments = (categoryKey: string, totalDocumentsLength: number): boolean => {
+export const isExceedingMaxDocuments = (totalDocumentsLength: number, categoryKey = 'DEFAULT'): boolean => {
   const maxLimit = MAX_DOCUMENT_LIMITS[categoryKey] || MAX_DOCUMENT_LIMITS.DEFAULT;
   return totalDocumentsLength >= maxLimit;
 };

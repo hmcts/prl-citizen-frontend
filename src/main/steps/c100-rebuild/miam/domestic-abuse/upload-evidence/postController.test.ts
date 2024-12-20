@@ -191,7 +191,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     });
     await controller.post(req, res);
 
-    expect(isExceedingMaxDocuments('DEFAULT', req.session.userCase.miam_domesticAbuseEvidenceDocs.length)).toBe(false);
+    expect(isExceedingMaxDocuments(req.session.userCase.miam_domesticAbuseEvidenceDocs.length)).toBe(false);
     expect(res.redirect).toHaveBeenCalledWith('/dashboard');
     expect(req.session.errors).toStrictEqual([]);
   });
@@ -219,7 +219,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     });
     await controller.post(req, res);
 
-    expect(isExceedingMaxDocuments('DEFAULT', req.session.userCase.miam_domesticAbuseEvidenceDocs.length)).toBe(true);
+    expect(isExceedingMaxDocuments(req.session.userCase.miam_domesticAbuseEvidenceDocs.length)).toBe(true);
     expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toContainEqual({
       propertyName: 'miam_domesticAbuseEvidenceDocs',
