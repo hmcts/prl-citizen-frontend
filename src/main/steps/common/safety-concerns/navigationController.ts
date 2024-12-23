@@ -277,16 +277,16 @@ class SafteyConcernsNavigationController {
       if (!returnUrl || returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE)) {
         returnUrl = this.getPageUrl(yourself);
       }
-    } else {
+    }  
       //Flow-1 or Flow-2
       /* 
     Flow-1 or Flow-2: If there is no page left to navigate for child, then the next page url should be other concerns page.
     Flow-2: If the next page url is applicant abuse selection page, then the next page url url should be other concerns page.
     */
-      if (!returnUrl || (this.checkForConcerns(yourself, true) && returnUrl === this.getPageUrl(yourself))) {
+    else if (!returnUrl || (this.checkForConcerns(yourself, true) && returnUrl === this.getPageUrl(yourself))) {
         returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
       }
-    }
+    
 
     return returnUrl;
   }
