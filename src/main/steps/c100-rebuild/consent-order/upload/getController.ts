@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { caseApi } from '../../../../app/case/CaseApi';
 import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
@@ -32,7 +33,7 @@ export default class DocumentUpload extends GetController {
 
   public removeExistingConsentDocument = async (documentId: string, req: AppRequest, res: Response): Promise<void> => {
     try {
-      await req.locals.C100Api.deleteDocument(documentId);
+      await caseApi(req?.session?.user, req.locals.logger).deleteDocument(documentId);
 
       if (req.session.userCase?.co_certificate) {
         req.session.userCase.co_certificate = undefined;

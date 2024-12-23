@@ -6,6 +6,7 @@ import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 import { DocumentUploadResponse } from '../../app/case/C100CaseApi';
+import { caseApi } from '../../app/case/CaseApi';
 import { C100DocumentInfo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
@@ -155,7 +156,9 @@ export default class UploadDocumentController {
         filename: `${fileNamePrefix}${dateOfSystem}.${extensionType}`,
       });
       try {
-        const responseBody: DocumentUploadResponse = await req.locals.C100Api.uploadDocument(formData);
+        const responseBody: DocumentUploadResponse = await caseApi(req.session.user, req.locals.logger).uploadDocument(
+          formData
+        );
         const { document_url, document_filename, document_binary_url } = responseBody['document'];
         req.session.userCase[paramCert] = {
           id: document_url.split('/')[document_url.split('/').length - 1],

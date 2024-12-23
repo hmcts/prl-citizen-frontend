@@ -2,7 +2,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { caseApi as C100Api } from '../../../app/case/C100CaseApi';
 import { caseApi } from '../../../app/case/CaseApi';
 import { FieldPrefix } from '../../../app/case/case';
 import {
@@ -115,9 +114,8 @@ export default class OtherProceedingsGetController extends GetController {
   ): Promise<void> => {
     try {
       const userDetails = req?.session?.user;
-      req.originalUrl.startsWith(C100_URL)
-        ? await C100Api(userDetails, req.locals.logger).deleteDocument(docId)
-        : await caseApi(userDetails, req.locals.logger).deleteDocument(docId);
+
+      await caseApi(userDetails, req.locals.logger).deleteDocument(docId);
 
       const courtOrderType: any = orderType;
       const courtOrderId: any = orderId;

@@ -27,7 +27,7 @@ export const Mapper = (key, keys) => {
       return keys['copy'];
   }
 };
-export const IndividualOrderFieldsParser = (keys, order, language) => {
+export const IndividualC100OrderFieldsParser = (keys, order, language) => {
   const newOrders = order;
   let Val = '';
   Object.entries(newOrders).forEach((entry, index) => {
@@ -94,7 +94,7 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, 
           const IndexNumber = index > 0 ? index + 1 : '';
           orderSessionStorage.push({
             key: `${keys[order + 'Label']} ${IndexNumber}`,
-            valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
+            valueHtml: IndividualC100OrderFieldsParser(keys, nestedOrder, language),
             changeUrl: applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: order }),
           });
         });

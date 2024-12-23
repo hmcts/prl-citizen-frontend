@@ -23,32 +23,33 @@ import { isAnyOrderWithOrderCopy } from './util';
 class PreviousProceedingsNavigationController {
   private selectedOrderTypes: C100OrderTypes[] | [] = [];
   private orders: C100OrderInterface[] | [] = [];
-  private orderType = '';
-  private orderId: number | undefined = undefined;
+  private C100orderType = '';
+  private C100orderId: number | undefined = undefined;
 
-  private getOrderId(): string | undefined {
+  private getC100OrderId(): string | undefined {
     return this.orders.find(order => order.orderCopy === YesNoEmpty.YES)?.id;
   }
-  private getNextOrderId(): string | undefined {
-    return this.orders.find(order => Number(order.id) > Number(this.orderId) && order.orderCopy === YesNoEmpty.YES)?.id;
+  private getc100NextOrderId(): string | undefined {
+    return this.orders.find(order => Number(order.id) > Number(this.C100orderId) && order.orderCopy === YesNoEmpty.YES)
+      ?.id;
   }
-  private getCurrentOrderTypeIndex(): number {
-    return this.selectedOrderTypes.findIndex(_orderType => _orderType === this.orderType);
+  private getC100CurrentOrderTypeIndex(): number {
+    return this.selectedOrderTypes.findIndex(_orderType => _orderType === this.C100orderType);
   }
   private getNextOrderType(): C100OrderTypes | '' {
-    const currentSelectedOrderIndex = this.getCurrentOrderTypeIndex();
+    const currentSelectedOrderIndex = this.getC100CurrentOrderTypeIndex();
     return this.selectedOrderTypes[currentSelectedOrderIndex + 1] ?? '';
   }
 
   private getOrdersByType(caseData): C100OrderInterface[] | [] {
-    return caseData?.op_otherProceedings?.order[C100OrderTypeKeyMapper[this.orderType]] ?? [];
+    return caseData?.op_otherProceedings?.order[C100OrderTypeKeyMapper[this.C100orderType]] ?? [];
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getNextUrl(currentPage: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
     this.selectedOrderTypes = caseData?.op_courtProceedingsOrders ?? [];
-    this.orderType = params?.orderType as C100OrderTypes;
-    this.orderId = params?.orderId;
+    this.C100orderType = params?.orderType as C100OrderTypes;
+    this.C100orderId = params?.orderId;
     this.orders = this.getOrdersByType(caseData);
     let nextUrl;
 
@@ -92,10 +93,10 @@ class PreviousProceedingsNavigationController {
 
   private getNextUrlOtherProceedingDetails(caseData) {
     let url;
-    const orderId = this.getOrderId();
+    const orderId = this.getC100OrderId();
     if (orderId) {
       // if any order has order copy to be uploaded
-      url = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
+      url = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.C100orderType, orderId });
     } else {
       // none of the orders in the current order type have order copy to be uploaded
       const nextOrderType = this.getNextOrderType();
@@ -115,12 +116,12 @@ class PreviousProceedingsNavigationController {
   }
 
   private getNextUrlOtherProceedingDocument() {
-    const nextOrderId = this.getNextOrderId();
+    const nextOrderId = this.getc100NextOrderId();
     let url;
     if (nextOrderId) {
       // if there are any more orders with order copy
       url = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
-        orderType: this.orderType,
+        orderType: this.C100orderType,
         orderId: nextOrderId,
       });
     } else {

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
+import { CaseApi } from '../../../../app/case/CaseApi';
 import { FieldPrefix } from '../../../../app/case/case';
 
 import ConsentOrderDocumentUpload from './getController';
@@ -9,7 +10,7 @@ import ConsentOrderDocumentUpload from './getController';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
-
+const deleteDocumentMock = jest.spyOn(CaseApi.prototype, 'deleteDocument');
 const CO_CERTIFICATE = {
   co_certificate: {
     id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
@@ -156,8 +157,8 @@ describe('DocumentUpload Get Controller', () => {
       });
 
       await controller.get(req, res);
-
-      expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/consent-order/upload');
+      deleteDocumentMock.mockRejectedValueOnce;
+      expect(req.session.userCase.co_certificate).toBe(undefined);
     });
   });
 });

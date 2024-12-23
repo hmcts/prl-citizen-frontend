@@ -2,7 +2,6 @@
 
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
-import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
 import { C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT } from '../../steps/urls';
@@ -145,7 +144,6 @@ export class CaseApi {
   }
 
   /**
-   * TODO: Alok need to double check on this API call - what to do with old case data
    * Delete Case
    * State: DELETED
    * Event: C100_CASE_EVENT.DELETE_CASE
@@ -165,31 +163,6 @@ export class CaseApi {
     } catch (err) {
       this.logError(err);
       throw new Error('Error occured, case could not be deleted.');
-    }
-  }
-
-  public async uploadDocument(formdata: FormData): Promise<DocumentUploadResponse> {
-    try {
-      const response = await this.axios.post<DocumentUploadResponse>('/upload-citizen-document', formdata, {
-        headers: {
-          ...formdata.getHeaders(),
-        },
-        maxContentLength: Infinity,
-        maxBodyLength: Infinity,
-      });
-      return { document: response.data.document, status: response.data.status };
-    } catch (err) {
-      this.logError(err);
-      throw new Error('Document could not be uploaded.');
-    }
-  }
-
-  public async deleteDocument(docId: string): Promise<void> {
-    try {
-      await this.axios.delete<void>(`/${docId}/delete`);
-    } catch (err) {
-      this.logError(err);
-      throw new Error('Document could not be deleted.');
     }
   }
 
