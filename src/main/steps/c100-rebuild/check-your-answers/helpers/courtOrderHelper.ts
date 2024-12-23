@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { HTML } from '../common/htmlSelectors';
+import { translation } from '../mainUtil';
 
 export const courtOrderSubFieldParser = (userCase, keys, userKey, originalListItem) => {
   if (userCase.hasOwnProperty(userKey)) {
@@ -34,7 +35,7 @@ export const courtOrderParentAndChildFieldParser = (userCase, keys, sessionKey) 
   }
 };
 
-export const courtTypeOfOrder = (userCase, keys, sessionKey) => {
+export const courtTypeOfOrder = (userCase, keys, sessionKey,language) => {
   if (userCase.hasOwnProperty(sessionKey)) {
     const mappedVals = userCase[sessionKey]
       .filter(val => val !== '')
@@ -52,10 +53,11 @@ export const courtTypeOfOrder = (userCase, keys, sessionKey) => {
       });
     return (HTML.UNORDER_LIST + mappedVals + HTML.UNORDER_LIST_END).split(',').join('');
   }
+  else return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE
 };
 
-export const courtTypeOfOrderHelper = (userCase, keys, sessionKey) => {
-  return courtTypeOfOrder(userCase, keys, sessionKey);
+export const courtTypeOfOrderHelper = (userCase, keys, sessionKey,language) => {
+  return courtTypeOfOrder(userCase, keys, sessionKey,language);
 };
 
 export const CourtOrderParserHelper = (userCase, keys, sessionKey) => {

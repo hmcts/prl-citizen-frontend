@@ -19,7 +19,7 @@ import {
 } from '../../../../steps/urls';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
-import { getYesNoTranslation } from '../mainUtil';
+import { getYesNoTranslation, populateError } from '../mainUtil';
 
 class MiamHelperDataParser<T> {
   [x: string]: T;
@@ -57,7 +57,7 @@ const generateDomesticAbuseAdditionalFields = (
     keys['domesticAbuseProvideEvidence'] +
     HTML.BOLD_CLOSE +
     HTML.RULER +
-    getYesNoTranslation(language, userCase.miam_canProvideDomesticAbuseEvidence, 'gallafTranslation') +
+    populateError(userCase.miam_canProvideDomesticAbuseEvidence,getYesNoTranslation(language, userCase.miam_canProvideDomesticAbuseEvidence, 'gallafTranslation'),language) +
     HTML.RULER +
     HTML.BOLD +
     (userCase.miam_canProvideDomesticAbuseEvidence === YesOrNo.YES
@@ -68,10 +68,10 @@ const generateDomesticAbuseAdditionalFields = (
     (userCase.miam_canProvideDomesticAbuseEvidence === YesOrNo.YES
       ? HTML.UNORDER_LIST +
         userCase.miam_domesticAbuseEvidenceDocs?.map(doc => {
-          return HTML.LIST_ITEM + doc.document_filename + HTML.LIST_ITEM_END;
+          return HTML.LIST_ITEM + populateError(doc.document_filename,doc.document_filename,language) + HTML.LIST_ITEM_END;
         }) +
         HTML.UNORDER_LIST_END
-      : userCase.miam_detailsOfDomesticAbuseEvidence)
+      : populateError(userCase.miam_detailsOfDomesticAbuseEvidence,userCase.miam_detailsOfDomesticAbuseEvidence,language))
   );
 };
 
@@ -89,7 +89,7 @@ const generateNCDRAdditionalFields = (
       keys['haveDocSignedByMediatorForPrevAttendance'] +
       HTML.BOLD_CLOSE +
       HTML.RULER +
-      getYesNoTranslation(language, userCase.miam_haveDocSignedByMediatorForPrevAttendance, 'oesTranslation');
+      populateError(userCase.miam_haveDocSignedByMediatorForPrevAttendance,getYesNoTranslation(language, userCase.miam_haveDocSignedByMediatorForPrevAttendance, 'oesTranslation'),language);
   }
 
   if (userCase.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.NO) {
@@ -99,7 +99,7 @@ const generateNCDRAdditionalFields = (
       keys['detailsOfPrevMiamEvidence'] +
       HTML.BOLD_CLOSE +
       HTML.RULER +
-      userCase.miam_detailsOfEvidence;
+      populateError(userCase.miam_detailsOfEvidence,userCase.miam_detailsOfEvidence,language);
   }
 
   if (
@@ -112,7 +112,7 @@ const generateNCDRAdditionalFields = (
       keys['prevMiamEvidence'] +
       HTML.BOLD_CLOSE +
       HTML.RULER +
-      userCase.miam_previousAttendanceEvidenceDoc?.document_filename;
+      populateError(userCase.miam_previousAttendanceEvidenceDoc?.document_filename,userCase.miam_previousAttendanceEvidenceDoc?.document_filename,language);
   }
 
   return additionalFields;
@@ -120,7 +120,8 @@ const generateNCDRAdditionalFields = (
 
 const generateOtherExemptionAdditionalFields = (
   userCase: Partial<CaseWithId>,
-  keys: Record<string, string>
+  keys: Record<string, string>,
+  language:string
 ): string => {
   let additionalFields = '';
   if (userCase.miam_notAttendingReasons === Miam_notAttendingReasons.canNotAccessMediator) {
@@ -139,7 +140,7 @@ const generateOtherExemptionAdditionalFields = (
         keys['giveDetailsOfMediators'] +
         HTML.BOLD_CLOSE +
         HTML.RULER +
-        userCase.miam_noAppointmentAvailableDetails;
+       populateError(userCase.miam_noAppointmentAvailableDetails,userCase.miam_noAppointmentAvailableDetails,language);
     }
 
     if (userCase.miam_noMediatorReasons === Miam_noMediatorReasons.disability) {
@@ -149,7 +150,7 @@ const generateOtherExemptionAdditionalFields = (
         keys['giveDetailsOfMediators'] +
         HTML.BOLD_CLOSE +
         HTML.RULER +
-        userCase.miam_unableToAttainDueToDisablityDetails;
+        populateError(userCase.miam_unableToAttainDueToDisablityDetails,userCase.miam_unableToAttainDueToDisablityDetails,language);
     }
 
     if (userCase.miam_noMediatorReasons === Miam_noMediatorReasons.noMediatorIn15mile) {
@@ -159,7 +160,7 @@ const generateOtherExemptionAdditionalFields = (
         keys['giveDetailsOfMediators'] +
         HTML.BOLD_CLOSE +
         HTML.RULER +
-        userCase.miam_noMediatorIn15mileDetails;
+        populateError(userCase.miam_noMediatorIn15mileDetails,userCase.miam_noMediatorIn15mileDetails,language);
     }
   }
 
@@ -201,7 +202,7 @@ export const miamParentAndChildFieldParser = (
       sessionKey === 'miam_notAttendingReasons' &&
       userCase.miam_notAttendingReasons !== Miam_notAttendingReasons.none
     ) {
-      additionalFields = generateOtherExemptionAdditionalFields(userCase, keys).split(',').join('');
+      additionalFields = generateOtherExemptionAdditionalFields(userCase, keys,language).split(',').join('');
     }
 
     return (mappedVals + additionalFields).split(',').join('');

@@ -1,26 +1,33 @@
 /* eslint-disable prettier/prettier */
+import _ from 'lodash';
 import { HTML } from '../common/htmlSelectors';
-import { getYesNoTranslation } from '../mainUtil';
+import { getYesNoTranslation, populateError, translation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const applicantAddressParser = (sessionApplicantData, keys,language) => {
   let html = '' as string;
+if(!_.isEmpty(sessionApplicantData['applicantAddress1']) && 
+  !_.isEmpty(sessionApplicantData['applicantAddressTown']) && 
+  !_.isEmpty(sessionApplicantData['applicantAddressCounty']) && 
+  !_.isEmpty(sessionApplicantData['applicantAddressPostcode'])
+){
   html+= sessionApplicantData.hasOwnProperty('applicantAddress1') && sessionApplicantData['applicantAddress1'] !==  '' ?  sessionApplicantData['applicantAddress1'] + HTML.BREAK  : '';
   html+= sessionApplicantData.hasOwnProperty('applicantAddress2') &&  sessionApplicantData['applicantAddress2'] !==  '' ?  sessionApplicantData['applicantAddress2'] + HTML.BREAK  : '';
   html+= sessionApplicantData.hasOwnProperty('applicantAddressTown') &&  sessionApplicantData['applicantAddressTown'] !==  '' ?  sessionApplicantData['applicantAddressTown'] + HTML.BREAK: '';
   html+= sessionApplicantData.hasOwnProperty('applicantAddressCounty') &&  sessionApplicantData['applicantAddressCounty'] !==  '' ?  sessionApplicantData['applicantAddressCounty'] + HTML.BREAK + HTML.BREAK : '';
   html+= sessionApplicantData.hasOwnProperty('applicantAddressPostcode') &&  sessionApplicantData['applicantAddressPostcode'] !==  '' ?   sessionApplicantData['applicantAddressPostcode']+ HTML.RULER : '';
-  if(sessionApplicantData.hasOwnProperty('applicantAddressHistory')){
+}else
+html+= HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+  
     html += HTML.H4 + keys['haveLivedMore'] + HTML.H4_CLOSE;
-    html += getYesNoTranslation(language,sessionApplicantData?.['applicantAddressHistory'],'doTranslation');
+    html += populateError(sessionApplicantData?.['applicantAddressHistory'],getYesNoTranslation(language,sessionApplicantData?.['applicantAddressHistory'],'doTranslation'),language);
     if(sessionApplicantData['applicantAddressHistory'] === 'No'){
       html += HTML.RULER;
       html += HTML.H4 + keys['previousAddress'] + HTML.H4_CLOSE + HTML.BOTTOM_PADDING_3;
-      sessionApplicantData.hasOwnProperty('applicantProvideDetailsOfPreviousAddresses')&& (html += sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'] );
+      populateError(sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'] , sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'],language);
       html += HTML.BOTTOM_PADDING_CLOSE;
     }
 
-  }
  return html;
 };
 
@@ -53,11 +60,11 @@ export const applicantAddressParserForRespondents = (sessionApplicantData, keys,
  return html;
 };
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const applicantContactDetailsParser = (sessionApplicantData, keys): string => {
+export const applicantContactDetailsParser = (sessionApplicantData, keys,language): string => {
   let html = '' as string;
   if(sessionApplicantData['canProvideEmail'] === 'Yes'){
     html += HTML.H4 + keys['canProvideEmailLabel'] + HTML.H4_CLOSE;
-    html += sessionApplicantData['emailAddress'];
+    html += populateError(sessionApplicantData['emailAddress'],sessionApplicantData['emailAddress'],language);
   }
   if(sessionApplicantData['canProvideEmail'] === 'No'){
     html += HTML.H4 +  keys['canNotProvideEmailLabel'] + HTML.H4_CLOSE;
@@ -66,13 +73,13 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys): strin
   if(sessionApplicantData['canProvideTelephoneNumber'] === 'Yes'){
     html +=  HTML.H4  + keys['canProvideTelephoneNumberLabel'] + HTML.H4_CLOSE;
     html +=  HTML.BOTTOM_PADDING_3;
-    html += sessionApplicantData['telephoneNumber'];
+    html += populateError(sessionApplicantData['telephoneNumber'],sessionApplicantData['telephoneNumber'],language);
     html += HTML.BOTTOM_PADDING_CLOSE;
   }
   if(sessionApplicantData['canProvideTelephoneNumber'] === 'No'){
     html += HTML.H4 + keys['canNotProvideTelephoneNumberLabel'] + HTML.H4_CLOSE;
     html +=  HTML.BOTTOM_PADDING_3;
-    html += sessionApplicantData['canNotProvideTelephoneNumberReason'];
+    html += populateError(sessionApplicantData['canNotProvideTelephoneNumberReason'],sessionApplicantData['canNotProvideTelephoneNumberReason'],language);
     html += HTML.BOTTOM_PADDING_CLOSE;
     //canNotProvideMobileNumberReason
   }
@@ -81,14 +88,14 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys): strin
 
 
 
-export const applicantCourtCanLeaveVoiceMail = (sessionApplicantData, keys) => {
+export const applicantCourtCanLeaveVoiceMail = (sessionApplicantData, keys,language) => {
   let html = '' as string;
   if(sessionApplicantData['canLeaveVoiceMail'] === 'Yes'){
     html +=  keys['voiceMailYesLabel'];
-  }
-  if(sessionApplicantData['canLeaveVoiceMail'] === 'No'){
+  }else if(sessionApplicantData['canLeaveVoiceMail'] === 'No'){
     html += keys['voiceMailNoLabel'];
-  }
+  }else
+  html+=HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
  return html;
 };
 

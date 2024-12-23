@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../../main/app/case/definition';
 import { HTML } from '../common/htmlSelectors';
-import { getYesNoTranslation } from '../mainUtil';
+import { getYesNoTranslation, populateError } from '../mainUtil';
 
 export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
   if (userCase.hasOwnProperty(sessionKey)) {
@@ -49,7 +49,7 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
 export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessionKey, language) => {
   if (userCase.hasOwnProperty(sessionKey)) {
     let html = '';
-    html += getYesNoTranslation(language, userCase['hu_urgentHearingReasons'], 'oesTranslation');
+    html += populateError( userCase['hu_urgentHearingReasons'],getYesNoTranslation(language, userCase['hu_urgentHearingReasons'], 'oesTranslation'),language);
     if (userCase.hasOwnProperty('hu_urgentHearingReasons') && userCase['hu_urgentHearingReasons'] === 'Yes') {
       html += HTML.RULER;
       html += HTML.H4 + keys['reasonForUrgentHearing'] + HTML.H4_CLOSE;
