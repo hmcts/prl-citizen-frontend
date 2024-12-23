@@ -489,7 +489,7 @@ const safteyConcenFilledSection = (userCase, contentLanguage, language) => {
 export const commonSectionsForContentLoader = (contentLanguage, userCase, language) => {
   return {
     PostCodeAndTypeOfApplication: [
-      LocationDetails(contentLanguage, userCase),
+      LocationDetails(contentLanguage, userCase,language),
       TypeOfApplication(contentLanguage, userCase, language),
     ],
     ScreeingQuestions: [
@@ -507,7 +507,7 @@ export const commonSectionsForContentLoader = (contentLanguage, userCase, langua
 export const CheckYourAnswerFlow1 = (userCase, contentLanguage, language) => {
   return [
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
-    TypeOfOrder(contentLanguage, userCase),
+    TypeOfOrder(contentLanguage, userCase,language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
     peopleSections(userCase, contentLanguage, language),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
@@ -524,7 +524,7 @@ export const CheckYourAnswerFlow2 = (userCase, contentLanguage, language) => {
     MiamTitle(contentLanguage),
     MiamAttendance(contentLanguage, userCase, language),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
-    TypeOfOrder(contentLanguage, userCase),
+    TypeOfOrder(contentLanguage, userCase,language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
     peopleSections(userCase, contentLanguage, language),
     SafetyConcerns(contentLanguage, userCase, language),
@@ -540,7 +540,7 @@ export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents, lan
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
     MiamExemption(newContents, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
-    TypeOfOrder(contentLanguage, userCase),
+    TypeOfOrder(contentLanguage, userCase,language),
     peopleSections(userCase, contentLanguage, language),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
     SafetyConcerns(contentLanguage, userCase, language),
@@ -555,7 +555,7 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, lan
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
     MiamExemption(newContents, userCase, language),
-    TypeOfOrder(contentLanguage, userCase),
+    TypeOfOrder(contentLanguage, userCase,language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
     peopleSections(userCase, contentLanguage, language),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
@@ -594,7 +594,7 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   return {
     ...enContent,
     language: content.language,
-    sections,
+    sections
   };
 };
 
@@ -627,7 +627,7 @@ export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
   return {
     ...cyContent,
     language: content.language,
-    sections,
+    sections
   };
 };
 

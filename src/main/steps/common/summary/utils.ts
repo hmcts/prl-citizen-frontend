@@ -18,9 +18,10 @@ import {
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
 } from '../../../steps/urls';
-import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
+import { getYesNoTranslation, populateError, translation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import { OPotherProceedingsSessionParserUtil } from '../../c100-rebuild/check-your-answers/util/otherProceeding.util';
 import { cy, en } from '../common.content';
+import { HTML } from '../../c100-rebuild/check-your-answers/common/htmlSelectors';
 
 export const getSectionSummaryList = (
   rows: SummaryListRow[],
@@ -170,35 +171,43 @@ export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
 };
 export const proceedingSummaryData = (
   keys: Record<string, string>,
-  language: string | undefined,
+  language: string | 'en',
   userCase: Partial<CaseWithId>,
   courtOrderDetails: string,
-  isRespondent: boolean
+  isRespondent: boolean,
 ) => {
   return [
     {
       key: keys['childrenInvolvedCourtCase'],
-      value: getYesNoTranslation(
+      value:isRespondent ? getYesNoTranslation(
         language,
-        isRespondent ? userCase['proceedingsStart'] : userCase['op_childrenInvolvedCourtCase'],
+         userCase['proceedingsStart'],
         'doTranslation'
-      ),
+      ):populateError(userCase['op_childrenInvolvedCourtCase'],getYesNoTranslation(
+        language,
+        userCase['op_childrenInvolvedCourtCase'],
+        'doTranslation'
+      ),language),
       changeUrl: isRespondent ? PROCEEDINGS_START : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     },
     {
       key: keys['courtOrderProtection'],
-      value: getYesNoTranslation(
+      value: isRespondent ?getYesNoTranslation(
         language,
-        isRespondent ? userCase['proceedingsStartOrder'] : userCase['op_courtOrderProtection'],
+         userCase['proceedingsStartOrder'],
         'oesTranslation'
-      ),
+      ):populateError(userCase['op_courtOrderProtection'],getYesNoTranslation(
+        language,
+        userCase['op_courtOrderProtection'],
+        'oesTranslation'
+      ),language),
       changeUrl: isRespondent ? PROCEEDINGS_START : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     },
     {
       key: keys['optitle'],
       valueHtml: isRespondent
         ? respondentOrderDetails(userCase, courtOrderDetails)
-        : applicantOrderDetails(userCase, courtOrderDetails),
+        : applicantOrderDetails(userCase, courtOrderDetails,language),
       changeUrl: isRespondent ? PROCEEDINGS_COURT_PROCEEDINGS : C100_OTHER_PROCEEDINGS_DETAILS,
     },
     ...(isRespondent
@@ -207,8 +216,8 @@ export const proceedingSummaryData = (
   ];
 };
 
-const applicantOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string): string => {
-  return userCase.hasOwnProperty('op_courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '';
+const applicantOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string,language:string): string => {
+  return userCase.hasOwnProperty('op_courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 };
 
 const respondentOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string): string => {

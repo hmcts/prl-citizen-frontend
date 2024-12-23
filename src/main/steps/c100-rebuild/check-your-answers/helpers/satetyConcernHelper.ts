@@ -2,7 +2,7 @@
 import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
-import { getYesNoTranslation } from '../mainUtil';
+import { getYesNoTranslation, translation } from '../mainUtil';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const childNameFormatter = (childId, userCase) => {
@@ -75,5 +75,5 @@ export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typ
     }
     return html;
   }
-  return '';
+  return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 };

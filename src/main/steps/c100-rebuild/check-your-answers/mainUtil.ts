@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 
+import _ from 'lodash';
 import { CaseWithId } from '../../../app/case/case';
 import {
   C1AAbuseTypes,
@@ -45,12 +46,13 @@ import {
 /* eslint-disable import/namespace */
 export const LocationDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
-  userCase: Partial<CaseWithId>
+  userCase: Partial<CaseWithId>,
+  language,
 ): SummaryList | undefined => {
   const SummaryData = [
     {
       key: keys['whereDoChildLive'],
-      value: userCase['c100RebuildChildPostCode'],
+      valueHtml:populateError(userCase['c100RebuildChildPostCode'],userCase['c100RebuildChildPostCode'],language),
       changeUrl: Urls['C100_CHILD_ADDRESS'],
     },
   ];
@@ -69,7 +71,7 @@ export const TypeOfApplication = (
   const SummaryData = [
     {
       key: keys['writtenAgreement'],
-      value: getYesNoTranslation(language, userCase['sq_writtenAgreement'], 'oesTranslation'),
+      valueHtml: populateError(userCase['sq_writtenAgreement'],getYesNoTranslation(language, userCase['sq_writtenAgreement'], 'oesTranslation'),language),
       changeUrl: Urls['C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT'],
     },
   ];
@@ -87,14 +89,14 @@ export const LegalRepresentativeDetails = (
   const SummaryData = [
     {
       key: keys['willYoubeUsingLegalRespresentator'],
-      value: getYesNoTranslation(language, userCase['sq_legalRepresentation'], 'byddafTranslation'),
+      valueHtml: populateError(userCase['sq_legalRepresentation'],getYesNoTranslation(language, userCase['sq_legalRepresentation'], 'byddafTranslation'),language),
       changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION'],
     },
   ];
   if (userCase.hasOwnProperty('sq_legalRepresentation') && userCase['sq_legalRepresentation'] === YesOrNo.YES) {
     SummaryData.push({
       key: keys['doyouWantLegalRespresentatorToCompleteApplication'],
-      value: getYesNoTranslation(language, userCase['sq_legalRepresentationApplication'], 'doTranslation'),
+      valueHtml: populateError(userCase['sq_legalRepresentationApplication'],getYesNoTranslation(language, userCase['sq_legalRepresentationApplication'], 'doTranslation'),language),
       changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION'],
     });
   }
@@ -119,13 +121,13 @@ export const PermissionForApplication = (
       )
         .split(',')
         .join('')
-    : '';
+    : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE;
   let SummaryData;
   if (userCase['sq_courtPermissionRequired'] === YesOrNo.YES) {
     SummaryData = [
       {
         key: keys['reasonPermissionRequired'],
-        value: getYesNoTranslation(language, userCase['sq_courtPermissionRequired'], 'oesTranslation'),
+        valueHtml:populateError(userCase['sq_courtPermissionRequired'], getYesNoTranslation(language, userCase['sq_courtPermissionRequired'], 'oesTranslation'),language),
         changeUrl: Urls['C100_SCREENING_QUESTIONS_COURT_PERMISSION'],
       },
       {
@@ -135,7 +137,7 @@ export const PermissionForApplication = (
       },
       {
         key: keys['whyCourtGrantSubmittingPermission'],
-        value: userCase['sq_permissionsRequest'],
+        valueHtml: populateError(userCase['sq_permissionsRequest'],userCase['sq_permissionsRequest'],language),
         changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST'],
       },
     ];
@@ -143,7 +145,7 @@ export const PermissionForApplication = (
     SummaryData = [
       {
         key: keys['reasonPermissionRequired'],
-        value: getYesNoTranslation(language, userCase['sq_courtPermissionRequired'], 'oesTranslation'),
+        valueHtml: populateError(userCase['sq_courtPermissionRequired'],getYesNoTranslation(language, userCase['sq_courtPermissionRequired'], 'oesTranslation'),language),
         changeUrl: Urls['C100_SCREENING_QUESTIONS_COURT_PERMISSION'],
       },
     ];
@@ -158,18 +160,19 @@ export const PermissionForApplication = (
 /* eslint-disable import/namespace */
 export const TypeOfOrder = (
   { sectionTitles, keys, ...content }: SummaryListContent,
-  userCase: Partial<CaseWithId>
+  userCase: Partial<CaseWithId>,
+  language:string
 ): SummaryList | undefined => {
   const SummaryData = [
     {
       key: keys['whatAreYouAsking'],
       value: '',
-      valueHtml: courtTypeOfOrderHelper(userCase, keys, 'too_courtOrder'),
+      valueHtml: courtTypeOfOrderHelper(userCase, keys, 'too_courtOrder',language),//:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
       changeUrl: Urls['C100_TYPE_ORDER_SELECT_COURT_ORDER'],
     },
     {
       key: keys['wantingCourtToDo'],
-      value: userCase['too_shortStatement'],
+      valueHtml: populateError(userCase['too_shortStatement'],userCase['too_shortStatement'],language),
       changeUrl: Urls['C100_TYPE_ORDER_SHORT_STATEMENT'],
     },
   ];
@@ -188,13 +191,13 @@ export const WithoutNoticeHearing = (
   const SummaryData = [
     {
       key: keys['qualifyForUrgentHearing'],
-      valueHtml: hearingDetailsQualifyForFirstHearingHelper(userCase, keys, 'hu_urgentHearingReasons', language),
+      valueHtml: hearingDetailsQualifyForFirstHearingHelper(userCase, keys, 'hu_urgentHearingReasons', language),//:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
       changeUrl: Urls['C100_HEARING_URGENCY_URGENT'],
     },
     {
       key: keys['askingNoHearing'],
-      value: getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation'),
-      valueHtml: hearingDetailsHelper(userCase, keys, 'hwn_reasonsForApplicationWithoutNotice', language),
+      value: getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation'),//:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
+      valueHtml: hearingDetailsHelper(userCase, keys, 'hwn_reasonsForApplicationWithoutNotice', language),//:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
       changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
     },
   ];
@@ -252,7 +255,7 @@ export const ChildernDetails = (
       },
       {
         key: keys['fullName'],
-        value: firstname + ' ' + lastname,
+        value: firstname + ' ' + lastname,//error check not need
         changeUrl: Urls['C100_CHILDERN_DETAILS_ADD'],
       }
     );
@@ -273,8 +276,8 @@ export const ChildernDetails = (
               keys['details'] +
               HTML.H4_CLOSE +
               HTML.BREAK +
-              personalDetails['otherGenderDetails']
-            : translation(personalDetails?.['gender'], language),
+              populateError(personalDetails['otherGenderDetails'],personalDetails['otherGenderDetails'],language)
+            : populateError(personalDetails?.['gender'],translation(personalDetails?.['gender'], language),language),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
@@ -304,11 +307,11 @@ export const ChildernDetailsAdditional = (
   language
 ): SummaryList | undefined => {
   let htmlForAdditionalText = '';
-  htmlForAdditionalText = getYesNoTranslation(
+  htmlForAdditionalText = populateError( userCase?.['cd_childrenKnownToSocialServices'],getYesNoTranslation(
     language,
     userCase?.['cd_childrenKnownToSocialServices'],
     'ydynTranslation'
-  );
+  ),language);
   htmlForAdditionalText += HTML.BREAK;
   htmlForAdditionalText += userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
     ? HTML.RULER +
@@ -316,7 +319,7 @@ export const ChildernDetailsAdditional = (
       keys['details'] +
       HTML.H4_CLOSE +
       HTML.BREAK +
-      userCase['cd_childrenKnownToSocialServicesDetails']
+      populateError(userCase['cd_childrenKnownToSocialServicesDetails'],userCase['cd_childrenKnownToSocialServicesDetails'],language)
     : '';
 
   const SummaryData = [
@@ -328,7 +331,7 @@ export const ChildernDetailsAdditional = (
     },
     {
       key: keys['childrenSubjectOfProtectionPlanLabel'],
-      value: getYesNoTranslation(language, userCase['cd_childrenSubjectOfProtectionPlan'], 'ydynTranslation'),
+      valueHtml: populateError(userCase['cd_childrenSubjectOfProtectionPlan'],getYesNoTranslation(language, userCase['cd_childrenSubjectOfProtectionPlan'], 'ydynTranslation'),language),
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
   ];
@@ -345,12 +348,12 @@ export const OtherChildrenDetails = (
   language
 ): SummaryList | undefined => {
   const sessionChildData = userCase['ocd_otherChildren'];
-  const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
+  const newChildDataStorage: { key: string; keyHtml?: string; value?: string; valueHtml?: string; changeUrl: string }[] =
     [];
 
   newChildDataStorage.push({
     key: keys['hasOtherChildren'],
-    value: getYesNoTranslation(language, userCase['ocd_hasOtherChildren'], 'oesTranslation'),
+    valueHtml: populateError(userCase['ocd_hasOtherChildren'],getYesNoTranslation(language, userCase['ocd_hasOtherChildren'], 'oesTranslation'),language),
     changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
   });
   if (userCase['ocd_hasOtherChildren'] === 'Yes') {
@@ -369,7 +372,7 @@ export const OtherChildrenDetails = (
         },
         {
           key: keys['fullName'],
-          value: firstname + ' ' + lastname,
+          value: firstname + ' ' + lastname,//error check not needed
           changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
         }
       );
@@ -378,7 +381,7 @@ export const OtherChildrenDetails = (
         key: keys['childGenderLabel'],
         value: translation(personalDetails?.['gender'], language),
         valueHtml:
-          translation(personalDetails?.['gender'], language) +
+          populateError(personalDetails?.['gender'],translation(personalDetails?.['gender'], language),language) +
             ' ' +
             personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
             ? HTML.BREAK +
@@ -387,7 +390,7 @@ export const OtherChildrenDetails = (
               HTML.H4 +
               keys['details'] +
               HTML.H4_CLOSE +
-              personalDetails['otherGenderDetails']
+              populateError(personalDetails['otherGenderDetails'],personalDetails['otherGenderDetails'],language)
             : '',
         changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
       });
@@ -403,10 +406,10 @@ export const OtherChildrenDetails = (
 
 export const ApplicantDetailNameParser = (personalDetails, keys, language): string => {
   let changeNameInformation = '';
-  const hasNameChanged = getYesNoTranslation(language, personalDetails['haveYouChangeName'], 'doTranslation');
+  const hasNameChanged = populateError(personalDetails['haveYouChangeName'],getYesNoTranslation(language, personalDetails['haveYouChangeName'], 'doTranslation'),language);
   changeNameInformation += hasNameChanged;
   if (personalDetails['haveYouChangeName'] === 'Yes') {
-    const changedName = personalDetails['applPreviousName'];
+    const changedName = populateError(personalDetails['applPreviousName'],personalDetails['applPreviousName'],language);
     changeNameInformation += HTML.RULER;
     changeNameInformation += HTML.H4;
     changeNameInformation += keys['details'];
@@ -424,8 +427,14 @@ export const ApplicantDetails = (
   language
 ): SummaryList | undefined => {
   const sessionApplicantData = userCase['appl_allApplicants'];
-  const newApplicantData: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
-    [];
+  const newApplicantData: {
+    key: string;
+    anchorReference?: string;
+    keyHtml?: string;
+    value?: string;
+    valueHtml?: string;
+    changeUrl: string;
+  }[] = [];
   for (const applicant in sessionApplicantData) {
     const fullname =
       sessionApplicantData[applicant]['applicantFirstName'] +
@@ -436,7 +445,7 @@ export const ApplicantDetails = (
     const applicantId = sessionApplicantData[applicant]['id'];
     const parseStartAndStartAlternativeSubFields = (key, keyArray) => {
       let html = '';
-      html += getYesNoTranslation(language, sessionApplicantData[applicant][key], 'ydwTranslation');
+      html += populateError(sessionApplicantData[applicant][key],getYesNoTranslation(language, sessionApplicantData[applicant][key], 'ydwTranslation'),language);
       if (sessionApplicantData[applicant][keyArray].length > 0) {
         html +=
           HTML.RULER +
@@ -459,12 +468,12 @@ export const ApplicantDetails = (
       },
       {
         key: keys['fullName'],
-        value: fullname,
+        value: fullname, //error check not needed
         changeUrl: Urls['C100_APPLICANT_ADD_APPLICANTS'],
       },
       {
         key: keys['anyOtherPeopleKnowDetails'],
-        value: getYesNoTranslation(language, sessionApplicantData[applicant]['detailsKnown'], 'ydyntTranslation'),
+        valueHtml: populateError( sessionApplicantData[applicant]['detailsKnown'],getYesNoTranslation(language, sessionApplicantData[applicant]['detailsKnown'], 'ydyntTranslation'),language),
         changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
       },
       {
@@ -499,17 +508,17 @@ export const ApplicantDetails = (
               HTML.H4_CLOSE +
               HTML.BREAK +
               personalDetails['otherGenderDetails']
-            : translation(personalDetails?.['gender'], language),
+            : populateError(personalDetails?.['gender'],translation(personalDetails?.['gender'], language),language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
         key: keys['dobLabel'],
-        value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+        valueHtml: populateError(personalDetails['dateOfBirth'],DATE_FORMATTOR(personalDetails['dateOfBirth'], language),language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
         key: keys['respondentPlaceOfBirth'],
-        value: personalDetails?.['applicantPlaceOfBirth'],
+        valueHtml: populateError(personalDetails?.['applicantPlaceOfBirth'],personalDetails?.['applicantPlaceOfBirth'],language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       }
     );
@@ -525,7 +534,7 @@ export const ApplicantDetails = (
         valueHtml:
           element['relationshipType'] === 'Other'
             ? element['otherRelationshipTypeDetails']
-            : translation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+            : populateError(element['relationshipType'],translation(element['relationshipType'], language),language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
         changeUrl: applyParms(Urls['C100_APPLICANT_RELATIONSHIP_TO_CHILD'], {
           applicantId: id,
           childId: element['childId'],
@@ -545,7 +554,7 @@ export const ApplicantDetails = (
       {
         key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
         value: '',
-        valueHtml: applicantContactDetailsParser(sessionApplicantData[applicant].applicantContactDetail, keys),
+        valueHtml: applicantContactDetailsParser(sessionApplicantData[applicant].applicantContactDetail, keys,language),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_DETAIL'], {
           applicantId: sessionApplicantData[applicant]['id'],
         }),
@@ -553,20 +562,20 @@ export const ApplicantDetails = (
       {
         key: keys['voiceMailLabel'],
         value: '',
-        valueHtml: applicantCourtCanLeaveVoiceMail(sessionApplicantData[applicant].applicantContactDetail, keys),
+        valueHtml: applicantCourtCanLeaveVoiceMail(sessionApplicantData[applicant].applicantContactDetail, keys,language),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_DETAIL'], {
           applicantId: sessionApplicantData[applicant]['id'],
         }),
       },
       {
         key: keys['contactPrefernces'],
-        value: contactTranslation(
+        valueHtml:populateError( sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences,contactTranslation(
           sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences ===
             ContactPreference.EMAIL
             ? DIGITAL
             : ContactPreference.POST,
           language
-        ),
+        ),language),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_PREFERENCES'], {
           applicantId: sessionApplicantData[applicant]['id'],
         }),
@@ -597,7 +606,7 @@ export const MiamAttendance = (
   const SummaryData = [
     {
       key: keys['childInvolvementInSupervision'],
-      value: getYesNoTranslation(language, userCase['miam_otherProceedings'], 'ydynTranslation'),
+      valueHtml: populateError(userCase['miam_otherProceedings'],getYesNoTranslation(language, userCase['miam_otherProceedings'], 'ydynTranslation'),language),
       changeUrl: Urls['C100_MIAM_OTHER_PROCEEDINGS'],
     },
   ];
@@ -605,7 +614,7 @@ export const MiamAttendance = (
   if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.NO) {
     SummaryData.push({
       key: keys['attendedMiamMidiation'],
-      value: getYesNoTranslation(language, userCase['miam_attendance'], 'doTranslation'),
+      valueHtml: populateError(userCase['miam_attendance'],getYesNoTranslation(language, userCase['miam_attendance'], 'doTranslation'),language),
       changeUrl: Urls['C100_MIAM_ATTENDANCE'],
     });
 
@@ -613,13 +622,13 @@ export const MiamAttendance = (
       if (userCase['miam_attendance'] === YesOrNo.YES) {
         SummaryData.push({
           key: keys['midatatorDocumentTitle'],
-          value: getYesNoTranslation(language, userCase['miam_haveDocSigned'], 'oesTranslation'),
+          valueHtml: populateError(userCase['miam_haveDocSigned'],getYesNoTranslation(language, userCase['miam_haveDocSigned'], 'oesTranslation'),language),
           changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
         });
       } else {
         SummaryData.push({
           key: keys['reasonForNotAttendingMiam'],
-          value: getYesNoTranslation(language, userCase['miam_validReason'], 'ydynTranslation'),
+          valueHtml: populateError( userCase['miam_validReason'],getYesNoTranslation(language, userCase['miam_validReason'], 'ydynTranslation'),language),
           changeUrl: Urls['C100_MIAM_VALID_REASON'],
         });
       }
@@ -637,14 +646,14 @@ export const MiamExemption = (
   userCase: Partial<CaseWithId>,
   language: string
 ): SummaryList | undefined => {
-  const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys);
+  const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys);//
   const SummaryData = [
     {
       key: keys['generalReasonTitle'],
       valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },
-    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language),
+    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language),//
   ];
   return {
     title: sectionTitles['MiamExemption'],
@@ -695,12 +704,12 @@ export const PastAndCurrentProceedings = (
     SummaryData = [
       {
         key: keys['childrenInvolvedCourtCase'],
-        value: getYesNoTranslation(language, userCase['op_childrenInvolvedCourtCase'], 'doTranslation'),
+        valueHtml: populateError(userCase['op_childrenInvolvedCourtCase'],getYesNoTranslation(language, userCase['op_childrenInvolvedCourtCase'], 'doTranslation'),language),
         changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
       },
       {
         key: keys['courtOrderProtection'],
-        value: getYesNoTranslation(language, userCase['op_courtOrderProtection'], 'oesTranslation'),
+        valueHtml: populateError(userCase['op_courtOrderProtection'],getYesNoTranslation(language, userCase['op_courtOrderProtection'], 'oesTranslation'),language),
         changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
       },
     ];
@@ -728,7 +737,7 @@ export const SafetyConcerns = (
   const SummaryData = [
     {
       key: keys['doYouHaveSafetyConcerns'],
-      value: getYesNoTranslation(language, userCase['c1A_haveSafetyConcerns'], 'oesTranslation'),
+      value: populateError(userCase['c1A_haveSafetyConcerns'],getYesNoTranslation(language, userCase['c1A_haveSafetyConcerns'], 'oesTranslation'),language),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
@@ -738,7 +747,7 @@ export const SafetyConcerns = (
   if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
     SummaryData.push({
       key: keys['whoAreConcernsAbout'],
-      valueHtml: HTML.UNORDER_LIST + dataForConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
+      valueHtml: populateError(dataForConcerns,HTML.UNORDER_LIST + dataForConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,language),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_CONCERN_ABOUT'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
@@ -799,7 +808,7 @@ export const SafetyConcerns_child = (
   const SummaryData = [
     {
       key: keys['childConcerns'],
-      valueHtml: HTML.UNORDER_LIST + childSafetyConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
+      valueHtml: populateError(childSafetyConcerns,HTML.UNORDER_LIST + childSafetyConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,language),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
@@ -812,11 +821,11 @@ export const SafetyConcerns_child = (
    * @policeOrInvestigatorsOtherDetails session Values
    */
   let policeOrInvestigatorsOtherDetailsHTML = '';
-  policeOrInvestigatorsOtherDetailsHTML += getYesNoTranslation(
+  policeOrInvestigatorsOtherDetailsHTML += populateError(userCase['c1A_policeOrInvestigatorInvolved'],getYesNoTranslation(
     language,
     userCase['c1A_policeOrInvestigatorInvolved'],
     'oeddTranslation'
-  );
+  ),language);
   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
     ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails']
     : '';
@@ -824,17 +833,17 @@ export const SafetyConcerns_child = (
    * @c1A_childAbductedBefore session Values
    */
   let c1A_childAbductedBefore = '';
-  c1A_childAbductedBefore += getYesNoTranslation(language, userCase?.['c1A_passportOffice'], 'oesTranslation');
+  c1A_childAbductedBefore += populateError(userCase?.['c1A_passportOffice'],getYesNoTranslation(language, userCase?.['c1A_passportOffice'], 'oesTranslation'),language);
   if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
     c1A_childAbductedBefore += HTML.H4_CLOSE;
-    c1A_childAbductedBefore += getYesNoTranslation(
+    c1A_childAbductedBefore += populateError(userCase['c1A_childrenMoreThanOnePassport'],getYesNoTranslation(
       language,
       userCase['c1A_childrenMoreThanOnePassport'],
       'oesTranslation'
-    );
+    ),language);
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
@@ -1155,12 +1164,12 @@ export const RespondentDetails = (
       },
       {
         key: keys['fullName'],
-        value: firstname + ' ' + lastname,
+        value: firstname + ' ' + lastname,//error needed?
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADD'], {}),
       },
       {
         key: keys['hasNameChanged'],
-        valueHtml: changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1),
+        valueHtml: changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1),//error needed?
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       },
       {
@@ -1378,14 +1387,14 @@ export const HelpWithFee = (
   const SummaryData: ANYTYPE = [
     {
       key: keys['doRequireHelpwithFee'],
-      value: getYesNoTranslation(language, userCase['hwf_needHelpWithFees'], 'oesSpecial'),
+      valueHtml: populateError(userCase['hwf_needHelpWithFees'],getYesNoTranslation(language, userCase['hwf_needHelpWithFees'], 'oesSpecial'),language),
       changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'],
     },
   ];
   if (userCase.hasOwnProperty('hwf_needHelpWithFees') && userCase['hwf_needHelpWithFees'] === YesOrNo.YES) {
     SummaryData.push({
       key: keys['hwfApplication'],
-      valueHtml: userCase['helpWithFeesReferenceNumber'],
+      valueHtml: populateError(userCase['helpWithFeesReferenceNumber'],userCase['helpWithFeesReferenceNumber'],language),
       changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'],
     });
   }
@@ -1579,14 +1588,14 @@ const populateDateOfBirth = (
     newChildDataStorage.push(
       {
         key: keys['approxCheckboxLabel'],
-        value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
+        valueHtml: populateError(personalDetails['isDateOfBirthUnknown'],getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),language),
         changeUrl: isForChild
           ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
           : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
       },
       {
         key: keys['approxDobLabel'],
-        value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+        valueHtml: populateError(personalDetails['approxDateOfBirth'],DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),language),
         changeUrl: isForChild
           ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
           : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
@@ -1595,11 +1604,20 @@ const populateDateOfBirth = (
   } else {
     newChildDataStorage.push({
       key: keys['dobLabel'],
-      value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+      valueHtml: populateError(personalDetails['dateOfBirth'],DATE_FORMATTOR(personalDetails['dateOfBirth'], language),language),
       changeUrl: isForChild
         ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
         : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
     });
   }
   return newChildDataStorage;
+};
+
+
+export const populateError = (value, truethyValue,language): string => {
+  if(!_.isEmpty(value)){
+    return truethyValue
+  }
+  
+  return  HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 };
