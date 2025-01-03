@@ -8,6 +8,8 @@ import { FormContent, FormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { generateContentForLocalComponent } from '../util';
 
+export * from './routeGuard';
+
 export const en = () => ({
   title: 'Safety Concerns',
   headingTitle: 'Do you have any concerns for your safety or the safety of the children?',

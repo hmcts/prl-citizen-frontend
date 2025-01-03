@@ -225,7 +225,7 @@ export const form: FormContent = {
 export const getFormFields = (req: AppRequest, abuseType: C1AAbuseTypes): FormContent => {
   const C100RebuildJourney = req.originalUrl.startsWith(C100_URL);
   const sessionData: C1ASafteyConcernsAbuse = C100RebuildJourney
-    ? req.session.userCase.c1A_safteyConcerns?.applicant?.[abuseType]
+    ? req.session.userCase?.c1A_safteyConcerns?.applicant?.[abuseType]
     : req.session.userCase?.c1A_safteyConcerns?.respondent?.[abuseType];
 
   return updateFormFields(form, generateFormFields(sessionData ?? getDataShape().abuse).fields);

@@ -105,10 +105,10 @@ const updateCaseDataMapper = {
   c1A: 'respondingCitizenAoH',
 };
 
-const dataCleanUpForRespondentAbuse = (
+export const dataCleanUpForRespondentAbuse = (
   c1A_safetyConernAbout: C1ASafteyConcernsAbout[] | undefined,
   c1A_concernAboutRespondent: C1AAbuseTypes[] | undefined,
-  data
+  data: Partial<CaseWithId>
 ): void => {
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
@@ -142,10 +142,10 @@ const dataCleanUpForRespondentAbuse = (
   }
 };
 
-const dataCleanUpForChildAbuse = (
+export const dataCleanUpForChildAbuse = (
   c1A_safetyConernAbout: C1ASafteyConcernsAbout[] | undefined,
   c1A_concernAboutChild: C1AAbuseTypes[] | undefined,
-  data
+  data: Partial<CaseWithId>
 ): void => {
   if (
     c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.CHILDREN) &&
@@ -187,64 +187,81 @@ const dataCleanUpForAbduction = (
   c1A_passportOffice: YesOrNo | undefined
 ): void => {
   if (!c1A_concernAboutChild?.includes(C1AAbuseTypes.ABDUCTION)) {
-    data.c1A_abductionReasonOutsideUk = '';
-    data.c1A_childsCurrentLocation = '';
-    data.c1A_childrenMoreThanOnePassport = undefined;
-    data.c1A_possessionChildrenPassport = [];
-    data.c1A_provideOtherDetails = '';
-    data.c1A_passportOffice = undefined;
-    data.c1A_abductionPassportOfficeNotified = undefined;
-    data.c1A_previousAbductionsShortDesc = '';
-    data.c1A_policeOrInvestigatorInvolved = undefined;
-    data.c1A_policeOrInvestigatorOtherDetails = '';
-    data.c1A_childAbductedBefore = undefined;
+    deleteDataForAbduction(data);
   }
   if (!c1A_possessionChildrenPassport?.includes('otherPerson')) {
     data.c1A_provideOtherDetails = '';
   }
 
   if (c1A_childAbductedBefore === YesOrNo.NO) {
-    data.c1A_previousAbductionsShortDesc = '';
-    data.c1A_policeOrInvestigatorInvolved = undefined;
-    data.c1A_policeOrInvestigatorOtherDetails = '';
+    deleteDataForPreviousAbductions(data);
   }
 
   if (c1A_passportOffice === YesOrNo.NO) {
-    data.c1A_childrenMoreThanOnePassport = undefined;
-    data.c1A_possessionChildrenPassport = [];
-    data.c1A_abductionPassportOfficeNotified = undefined;
+    deleteDataForPassports(data);
   }
 };
 
 const dataCleanupForNoSafetyConcern = (c1A_haveSafetyConcerns: YesOrNo | undefined, data): void => {
   if (c1A_haveSafetyConcerns === YesOrNo.NO) {
-    data.c1A_safetyConernAbout = [];
-    data.c1A_concernAboutChild = [];
-    data.c1A_concernAboutRespondent = [];
-    data.c1A_keepingSafeStatement = '';
-    data.c1A_supervisionAgreementDetails = '';
-    data.c1A_agreementOtherWaysDetails = undefined;
-    data.c1A_otherConcernsDrugs = undefined;
-    data.c1A_otherConcernsDrugsDetails = '';
-    data.c1A_childSafetyConcerns = undefined;
-    data.c1A_childSafetyConcernsDetails = '';
-    data.c1A_abductionReasonOutsideUk = '';
-    data.c1A_childsCurrentLocation = '';
-    data.c1A_childrenMoreThanOnePassport = undefined;
-    data.c1A_possessionChildrenPassport = [];
-    data.c1A_provideOtherDetails = '';
-    data.c1A_passportOffice = undefined;
-    data.c1A_abductionPassportOfficeNotified = undefined;
-    data.c1A_previousAbductionsShortDesc = '';
-    data.c1A_policeOrInvestigatorInvolved = undefined;
-    data.c1A_policeOrInvestigatorOtherDetails = '';
-    data.c1A_childAbductedBefore = undefined;
-    data.c1A_safteyConcerns = {};
+    deleteDataForNoSafetyConcerns(data);
   }
 };
 
-const deleteAbuseData = (data: Partial<CaseWithId>, abuse: string, party: string): void => {
+export const deleteDataForNoSafetyConcerns = (caseData: Partial<CaseWithId>): void => {
+  delete caseData.c1A_safetyConernAbout;
+  delete caseData.c1A_concernAboutChild;
+  delete caseData.c1A_concernAboutRespondent;
+  delete caseData.c1A_keepingSafeStatement;
+  delete caseData.c1A_supervisionAgreementDetails;
+  delete caseData.c1A_agreementOtherWaysDetails;
+  delete caseData.c1A_otherConcernsDrugs;
+  delete caseData.c1A_otherConcernsDrugsDetails;
+  delete caseData.c1A_childSafetyConcerns;
+  delete caseData.c1A_childSafetyConcernsDetails;
+  delete caseData.c1A_abductionReasonOutsideUk;
+  delete caseData.c1A_childsCurrentLocation;
+  delete caseData.c1A_childrenMoreThanOnePassport;
+  delete caseData.c1A_possessionChildrenPassport;
+  delete caseData.c1A_provideOtherDetails;
+  delete caseData.c1A_passportOffice;
+  delete caseData.c1A_abductionPassportOfficeNotified;
+  delete caseData.c1A_previousAbductionsShortDesc;
+  delete caseData.c1A_policeOrInvestigatorInvolved;
+  delete caseData.c1A_policeOrInvestigatorOtherDetails;
+  delete caseData.c1A_childAbductedBefore;
+  delete caseData.c1A_safteyConcerns;
+};
+
+export const deleteDataForAbduction = (caseData: Partial<CaseWithId>): void => {
+  delete caseData.c1A_abductionReasonOutsideUk;
+  delete caseData.c1A_childsCurrentLocation;
+  delete caseData.c1A_childrenMoreThanOnePassport;
+  delete caseData.c1A_possessionChildrenPassport;
+  delete caseData.c1A_provideOtherDetails;
+  delete caseData.c1A_passportOffice;
+  delete caseData.c1A_abductionPassportOfficeNotified;
+  delete caseData.c1A_previousAbductionsShortDesc;
+  delete caseData.c1A_policeOrInvestigatorInvolved;
+  delete caseData.c1A_policeOrInvestigatorOtherDetails;
+  delete caseData.c1A_childAbductedBefore;
+};
+
+export const deleteDataForPreviousAbductions = (caseData: Partial<CaseWithId>): void => {
+  delete caseData.c1A_previousAbductionsShortDesc;
+  delete caseData.c1A_policeOrInvestigatorInvolved;
+  delete caseData.c1A_policeOrInvestigatorOtherDetails;
+};
+
+export const deleteDataForPassports = (caseData: Partial<CaseWithId>): void => {
+  delete caseData.c1A_childrenMoreThanOnePassport;
+  delete caseData.c1A_possessionChildrenPassport;
+  delete caseData.c1A_abductionPassportOfficeNotified;
+  delete caseData.c1A_provideOtherDetails;
+};
+
+export const deleteAbuseData = (data: Partial<CaseWithId>, abuse: string, party: string): void => {
   if (data?.c1A_safteyConcerns?.[party]?.[abuse]) {
-    data.c1A_safteyConcerns[party][abuse] = null;
+    delete data.c1A_safteyConcerns[party][abuse];
   }
 };
