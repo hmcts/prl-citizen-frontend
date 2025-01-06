@@ -2494,8 +2494,8 @@ describe('tasklist index', () => {
               href: '/applicant/documents/upload',
               disabled: false,
               stateTag: {
-                label: 'TO DO',
-                className: 'govuk-tag--grey',
+                label: 'Optional',
+                className: 'govuk-tag--blue',
               },
               hintText: null,
               openInAnotherTab: false,
@@ -2657,8 +2657,8 @@ describe('tasklist index', () => {
               href: '/applicant/documents/upload',
               disabled: false,
               stateTag: {
-                label: 'TO DO',
-                className: 'govuk-tag--grey',
+                label: 'Optional',
+                className: 'govuk-tag--blue',
               },
               hintText: null,
               openInAnotherTab: false,
@@ -2729,18 +2729,6 @@ describe('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--green',
                 label: 'DOWNLOAD',
-              },
-            },
-            {
-              disabled: false,
-              hintText: null,
-              href: '/applicant/application-within-proceedings/list-of-applications/1',
-              id: 'requestToCourtAboutYourCase',
-              linkText: 'Make a request to the court about your case',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--blue',
-                label: 'Optional',
               },
             },
           ],
@@ -2830,7 +2818,7 @@ describe('tasklist index', () => {
               },
             },
             {
-              disabled: true,
+              disabled: false,
               hintText: null,
               href: '/applicant/application-within-proceedings/list-of-applications/1',
               id: 'requestToCourtAboutYourCase',
@@ -2865,6 +2853,18 @@ describe('tasklist index', () => {
           heading: 'Your documents',
           id: 'yourDocuments',
           tasks: [
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/upload',
+              id: 'uploadDocuments',
+              linkText: 'Upload documents, applications and statements',
+              openInAnotherTab: false,
+              stateTag: {
+                label: 'Optional',
+                className: 'govuk-tag--blue',
+              },
+            },
             {
               disabled: false,
               hintText: null,
@@ -3054,8 +3054,8 @@ describe('tasklist index', () => {
               href: '/respondent/documents/upload',
               disabled: false,
               stateTag: {
-                label: 'TO DO',
-                className: 'govuk-tag--grey',
+                label: 'Optional',
+                className: 'govuk-tag--blue',
               },
               hintText: null,
               openInAnotherTab: false,
@@ -3126,18 +3126,6 @@ describe('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
-              },
-            },
-            {
-              disabled: false,
-              hintText: null,
-              href: '/respondent/application-within-proceedings/list-of-applications/1',
-              id: 'requestToCourtAboutYourCase',
-              linkText: 'Make a request to the court about your case',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--blue',
-                label: 'Optional',
               },
             },
           ],
@@ -3420,8 +3408,8 @@ describe('c100 respondent', () => {
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -3683,8 +3671,8 @@ describe('c100 respondent', () => {
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -4017,8 +4005,8 @@ describe('c100 respondent', () => {
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -4350,8 +4338,8 @@ describe('c100 respondent', () => {
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -4543,7 +4531,7 @@ describe('c100 respondent', () => {
             openInAnotherTab: true,
           },
           {
-            disabled: true,
+            disabled: false,
             hintText: null,
             href: '/respondent/application-within-proceedings/list-of-applications/1',
             id: 'requestToCourtAboutYourCase',
@@ -4575,6 +4563,18 @@ describe('c100 respondent', () => {
         heading: 'Your documents',
         id: 'yourDocuments',
         tasks: [
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/documents/upload',
+            id: 'uploadDocuments',
+            linkText: 'Upload documents, applications and statements',
+            openInAnotherTab: false,
+            stateTag: {
+              label: 'Optional',
+              className: 'govuk-tag--blue',
+            },
+          },
           {
             disabled: false,
             hintText: null,

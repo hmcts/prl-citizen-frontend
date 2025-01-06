@@ -152,8 +152,8 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked,
-        disabled: isCaseClosed,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id),
       },
     ],
   },
@@ -166,7 +166,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+          return !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
         },
         stateTag: () => StateTags.OPTIONAL,
       },

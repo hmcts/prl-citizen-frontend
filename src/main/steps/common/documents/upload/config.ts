@@ -1,3 +1,6 @@
+import { CaseWithId } from '../../../../app/case/case';
+import { UserDetails } from '../../../../app/controller/AppRequest';
+import { isRepresentedBySolicotor } from '../../../../steps/common/task-list/utils';
 import {
   DocumentLabelCategory,
   DocumentSectionId,
@@ -59,6 +62,9 @@ export const uploadDocumentSections: UploadDocumentSectionsProps[] = [
         categoryId: UploadDocumentCategory.SUBMIT_AWP_APPLICATION,
         documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
           getDocumentCategoryLabel(DocumentLabelCategory.SUBMIT_AWP_APPLICATION, documentCategoryLabels),
+        show: (caseData: CaseWithId, userDetails: UserDetails): boolean => {
+          return !isRepresentedBySolicotor(caseData, userDetails.id);
+        },
       },
       {
         categoryId: UploadDocumentCategory.PREVIOUS_ORDERS_SUBMITTED,
