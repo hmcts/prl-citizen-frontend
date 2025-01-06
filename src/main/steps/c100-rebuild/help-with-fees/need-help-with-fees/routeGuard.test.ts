@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
+import { CaseWithId } from '../../../../app/case/case';
 
 import { routeGuard } from './routeGuard';
 jest.mock('axios');
@@ -73,6 +74,24 @@ describe('c100ApplicationFees Route Guard', () => {
     const next = jest.fn();
     await routeGuard.get(req, res, next);
     expect(req.session.userCase).toEqual(oldUserCase);
+    expect(next).toHaveBeenCalled();
+  });
+
+  test('post should clean help with fees fields and call next when help with fees is not required', async () => {
+    const req = mockRequest();
+    const res = mockResponse();
+    const next = jest.fn();
+
+    req.body.hwf_needHelpWithFees = 'No';
+    req.session.userCase = {
+      hwf_feesAppliedDetails: 'Yes',
+      helpWithFeesReferenceNumber: '1234',
+    } as unknown as CaseWithId;
+
+    await routeGuard.post(req, res, next);
+
+    expect(req.session.userCase).toStrictEqual({});
+    expect(req.session.save).toHaveBeenCalled();
     expect(next).toHaveBeenCalled();
   });
 });
