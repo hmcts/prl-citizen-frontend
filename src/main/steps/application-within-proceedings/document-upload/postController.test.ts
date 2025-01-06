@@ -649,6 +649,105 @@ describe('Document upload controller', () => {
     expect(req.session.errors).toEqual(errors);
   });
 
+  test('Should throw error if max documents limit is reached', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({
+      params: {
+        partyType: 'applicant',
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+      },
+      session: {
+        userCase: {
+          awp_supportingDocuments: new Array(101).fill({}),
+        },
+      },
+    });
+    req.files = {
+      awp_application_form: { name: 'file_example_TIFF.tiff', size: '100', data: '', mimetype: 'text' },
+    };
+    req.route.path =
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+    const res = mockResponse();
+
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith('/request');
+    expect(req.session.errors).toEqual([
+      { errorType: 'maxDocumentsReached', propertyName: 'awpUploadSupportingDocuments' },
+    ]);
+  });
+
+  test('Should not throw error if max documents limit not reached', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({
+      params: {
+        partyType: 'applicant',
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+      },
+      session: {
+        userCase: {
+          awp_supportingDocuments: new Array(15).fill({}),
+        },
+      },
+    });
+    req.files = {
+      awp_application_form: { name: 'file_example_TIFF.tiff', size: '100', data: '', mimetype: 'text' },
+    };
+    req.route.path =
+      '/:partyType/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+    const res = mockResponse();
+    mockedAxios.post.mockImplementation(url => {
+      switch (url) {
+        case '/upload-citizen-document':
+          return Promise.resolve({
+            data: {
+              status: 'Success',
+              document: {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_filename: 'file_example_TIFF_1MB.tiff',
+                document_binary_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+              },
+            },
+          });
+        default:
+          return Promise.reject(new Error('not found'));
+      }
+    });
+
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(
+      '/applicant/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
+    );
+    expect(req.session.errors).toEqual([]);
+  });
+
   test('should redirect to correct page when continue pressed and file already uploaded', async () => {
     const mockForm = {
       fields: {
