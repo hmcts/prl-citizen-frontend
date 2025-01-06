@@ -189,7 +189,7 @@ export const isEmailValid: Validator = value => {
 };
 
 export const isFieldLetters: Validator = value => {
-  const matcher = new RegExp(/^[\p{L}'’\-\s]*$/gu);
+  const matcher = new RegExp(/^[\p{sc=Latin}'’\-\s]*$/gu);
   if (!matcher.test(value as string)) {
     return 'invalid';
   }
