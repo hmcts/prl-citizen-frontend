@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
-import { CommonContent } from '../../../common/common.content';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -15,7 +15,6 @@ const en = {
   caseNumberHintText: 'This is a 16-digit number',
   accessCodeLabel: 'Enter your access code',
   accessCodeHintText: 'This has 8 characters',
-  saveAndContinue: 'Save and continue',
   errors: {
     caseCode: {
       required: 'Enter your case code',
@@ -40,7 +39,6 @@ const cy = {
   caseNumberHintText: 'Mae’r rhif hwn yn cynnwys 16 digid',
   accessCodeLabel: 'Nodwch eich cod mynediad',
   accessCodeHintText: 'Mae hwn yn cynnwys 8 nod',
-  saveAndContinue: 'Cadw a pharhau',
   errors: {
     caseCode: {
       required: 'Rhowch eich cod achos',
@@ -57,16 +55,18 @@ const cy = {
   },
 };
 /* eslint-disable @typescript-eslint/ban-types */
-describe('Enter pin content', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+describe('pin-activation > enter-pin > content', () => {
+  const commonContent = { language: 'en', userCase: {} } as unknown as CommonContent;
   let generatedContent;
   let form;
   let fields;
+
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
     fields = form.fields as FormFields;
   });
+
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -76,23 +76,26 @@ describe('Enter pin content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test('should contain  field', () => {
+
+  test('should contain caseCode field', () => {
     const caseCodeField = fields.caseCode as FormOptions;
     expect(caseCodeField.type).toBe('text');
     expect((caseCodeField.label as Function)(generatedContent)).toBe(en.caseNumberLabel);
     expect((caseCodeField.hint as Function)(generatedContent)).toBe(en.caseNumberHintText);
-    //expect(caseCodeField.labelSize as string).toBe('s');
     (caseCodeField.validator as Validator)('caseCode');
     expect(isFieldFilledIn).toHaveBeenCalledWith('caseCode');
+  });
+
+  test('should contain accessCode field', () => {
     const accessCodeField = fields.accessCode as FormOptions;
     expect(accessCodeField.type).toBe('text');
     expect((accessCodeField.label as Function)(generatedContent)).toBe(en.accessCodeLabel);
     expect((accessCodeField.hint as Function)(generatedContent)).toBe(en.accessCodeHintText);
-    //expect(accessCodeField.labelSize as string).toBe('s');
     (accessCodeField.validator as Validator)('accessCodeField');
     expect(isFieldFilledIn).toHaveBeenCalledWith('accessCodeField');
   });
-  test('should contain submit button', () => {
-    expect((form.accessCodeCheck.text as Function)(generatedContent)).toBe('Save and continue');
+
+  test('should contain save and continue button', () => {
+    expect((form.onlyContinue.text as Function)(generatePageContent({ language: 'en' }))).toBe('Save and continue');
   });
 });

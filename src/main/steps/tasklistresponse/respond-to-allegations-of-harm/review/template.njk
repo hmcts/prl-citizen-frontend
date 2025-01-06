@@ -1,0 +1,18 @@
+{% extends "common/page.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block page_content %}
+
+  <h1 class="govuk-heading-l">
+    <span class="govuk-caption-l">{{caption}}</span>
+    {{title}}
+  </h1>
+
+  <p class="govuk-body">{{content1}}&nbsp;{{userCase.id}}</p>
+
+  {{ govukSummaryList({
+          classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
+          rows: itemsToReview
+  })
+      }}
+{% endblock %}

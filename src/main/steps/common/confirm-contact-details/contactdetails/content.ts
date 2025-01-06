@@ -1,6 +1,10 @@
+import { CaseWithId } from '../../../../app/case/case';
+import { CaseType, PartyType } from '../../../../app/case/definition';
+import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { isAlphaNumeric, isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 
 const en = {
   title: 'Your contact details',
@@ -52,29 +56,35 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    citizenUserPhoneNumber: {
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      label: l => l.citizenUserPhoneNumber,
-      labelSize: null,
-      validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
-    },
-    citizenUserEmailAddress: {
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      label: l => l.citizenUserEmailAddress,
-      labelSize: null,
-      validator: value => isFieldFilledIn(value) || isEmailValid(value),
-    },
-    citizenUserSafeToCall: {
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      hint: l => l.safeToCallHint,
-      label: l => l.citizenUserSafeToCall,
-      labelSize: null,
-      validator: value => isAlphaNumeric(value),
-    },
+  fields: (caseData: Partial<CaseWithId>, request: AppRequest) => {
+    return {
+      citizenUserPhoneNumber: {
+        type: 'text',
+        classes: 'govuk-input--width-20',
+        label: l => l.citizenUserPhoneNumber,
+        labelSize: null,
+        validator: value => isFieldFilledIn(value) || isPhoneNoValid(value),
+      },
+      citizenUserEmailAddress: {
+        type: 'text',
+        classes: 'govuk-input--width-20',
+        label: l => l.citizenUserEmailAddress,
+        labelSize: null,
+        validator: value => isFieldFilledIn(value) || isEmailValid(value),
+      },
+      citizenUserSafeToCall: {
+        type: 'text',
+        classes: 'govuk-input--width-20',
+        hidden: !(
+          caseData?.caseTypeOfApplication === CaseType.FL401 &&
+          getCasePartyType(caseData, request.session.user.id) === PartyType.APPLICANT
+        ),
+        hint: l => l.safeToCallHint,
+        label: l => l.citizenUserSafeToCall,
+        labelSize: null,
+        validator: value => isAlphaNumeric(value),
+      },
+    };
   },
   submit: {
     text: l => l.continue,
@@ -85,6 +95,9 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
-    form,
+    form: {
+      ...form,
+      fields: (form.fields as FormFieldsFn)(content?.userCase || {}, content?.additionalData?.req),
+    },
   };
 };

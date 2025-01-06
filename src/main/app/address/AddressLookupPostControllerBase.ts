@@ -19,15 +19,16 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
 
     let addresses;
 
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
 
     req.session.errors = form.getErrors(formData);
 
     Object.assign(req.session.userCase, formData);
 
     const redirectUrl = this.setRedirectUrl();
+    const matcher = new RegExp(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i);
 
     if (!req.body.citizenUserAddressPostcode) {
       req.session.errors = [];
@@ -36,7 +37,7 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
         errorType: 'required',
       });
       req.session.save(() => res.redirect(redirectUrl));
-    } else if (!(req.body.citizenUserAddressPostcode as string).match(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i)) {
+    } else if (!matcher.test(req.body.citizenUserAddressPostcode as string)) {
       req.session.errors = [];
       req.session.errors?.push({
         propertyName: 'citizenUserAddressPostcode',

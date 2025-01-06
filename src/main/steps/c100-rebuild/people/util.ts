@@ -53,6 +53,7 @@ export const getDataShape = (context: PartyType): People => {
         statement: '',
       },
       liveWith: [],
+      mainlyLiveWith: [],
     });
   } else if (context === PartyType.RESPONDENT || context === PartyType.OTHER_PERSON) {
     Object.assign(shape, {
@@ -145,4 +146,12 @@ export const transformPartyDetails = (
 
     return transformedData;
   }, {});
+};
+
+export const dobUnknown = (formData: Record<string, any>): string => {
+  const isExactDobDataPresent =
+    formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
+      ? 'cannotHaveBothApproxAndExact'
+      : '';
+  return formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '';
 };

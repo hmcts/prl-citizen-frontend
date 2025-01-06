@@ -1,20 +1,35 @@
-import { CA_APPLICANT } from './ca_applicant';
+import { CaseWithId } from '../../../../../../app/case/case';
+import { PartyDetails } from '../../../../../../app/case/definition';
+
+import { CA_APPLICANT_CONFIG } from './ca_applicant';
 
 describe('ca_applicant', () => {
   test('should have correct notification ids', () => {
-    expect(CA_APPLICANT).toHaveLength(13);
-    expect(CA_APPLICANT[0].id).toBe('newDocument');
-    expect(CA_APPLICANT[1].id).toBe('applicationNotStarted');
-    expect(CA_APPLICANT[2].id).toBe('applicationInProgress');
-    expect(CA_APPLICANT[3].id).toBe('applicationSubmitted');
-    expect(CA_APPLICANT[4].id).toBe('applicationWithdrawn');
-    expect(CA_APPLICANT[5].id).toBe('withdrawalRequestRejected');
-    expect(CA_APPLICANT[6].id).toBe('applicationSentToLocalCourt');
-    expect(CA_APPLICANT[7].id).toBe('applicationSentToGateKeeping');
-    expect(CA_APPLICANT[8].id).toBe('applicationServedAndLinked');
-    expect(CA_APPLICANT[9].id).toBe('applicationClosed');
-    expect(CA_APPLICANT[10].id).toBe('newOrder');
-    expect(CA_APPLICANT[11].id).toBe('giveRespondentTheirDocuments');
-    expect(CA_APPLICANT[12].id).toBe('caPersonalService');
+    const ca_applicantNotifications = CA_APPLICANT_CONFIG({
+      respondents: [
+        {
+          id: '1',
+          value: {} as PartyDetails,
+        },
+      ],
+    } as CaseWithId);
+
+    expect(ca_applicantNotifications).toHaveLength(16);
+    expect(ca_applicantNotifications[0].id).toBe('applicationNotStarted');
+    expect(ca_applicantNotifications[1].id).toBe('applicationInProgress');
+    expect(ca_applicantNotifications[2].id).toBe('applicationSubmitted');
+    expect(ca_applicantNotifications[3].id).toBe('applicationWithdrawn');
+    expect(ca_applicantNotifications[4].id).toBe('applicationServedByCourtPersonalNonPersonalService');
+    expect(ca_applicantNotifications[5].id).toBe('viewResponseToApplication');
+    expect(ca_applicantNotifications[6].id).toBe('viewRespondentAOH');
+    expect(ca_applicantNotifications[7].id).toBe('viewRespondentResponseAOH');
+    expect(ca_applicantNotifications[8].id).toBe('applicantToPersonallyServeRespondent');
+    expect(ca_applicantNotifications[9].id).toBe('applicationServedBySolictorBailiffToRespondent');
+    expect(ca_applicantNotifications[10].id).toBe('applicationIssuedByCourtPersonalService');
+    expect(ca_applicantNotifications[11].id).toBe('submitFM5');
+    expect(ca_applicantNotifications[12].id).toBe('orderSOSPersonalServiceByCourtAdminBailiff');
+    expect(ca_applicantNotifications[13].id).toBe('orderNonPersonalService');
+    expect(ca_applicantNotifications[14].id).toBe('orderPersonalService');
+    expect(ca_applicantNotifications[15].id).toBe('serveDocuments');
   });
 });

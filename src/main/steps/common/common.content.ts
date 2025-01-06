@@ -129,11 +129,11 @@ export const en = {
     'If you would like to report a problem or have a suggestion to help improve this service, send an email to: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk</a>',
   contactUs4: 'This email should only be used for feedback on the digital service.',
   feedback: 'FeedBack',
+  awpErrorSummaryHeading: 'There is a problem',
   invalidDate: 'Invalid Date',
 };
 
 export const cy: typeof en = {
-  ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
   applyForChildArrangements: 'Cyfraith breifat',
   applyForDissolution: 'Cyfraith breifat',
@@ -201,7 +201,7 @@ export const cy: typeof en = {
   notSure: 'Ddim yn siŵr',
   english: 'Saesneg',
   welsh: 'Cymraeg',
-  contactUsForHelp: 'Cysylltiadau i gael gymorth',
+  contactUsForHelp: 'Cysylltu â ni i gael cymorth',
   webChat: 'Sgwrsio dros y we',
   webChatDetails: 'Gofyn cwestiwn neu gael cymorth mewn unrhyw iaith',
   sendUsAMessage: 'Ffôn',
@@ -243,7 +243,20 @@ export const cy: typeof en = {
     'Os hoffech roi gwybod inni am broblem neu os oes gennych awgrym i’n helpu ni i wella’r gwasanaeth hwn, anfonwch neges e-bost i: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk-welsh</a>',
   contactUs4: "Dim ond i roi adborth ar y gwasanaeth digidol y dylid defnyddio'r cyfeiriad e-bost hwn.",
   feedback: 'Adborth',
+  awpErrorSummaryHeading: 'Mae yna broblem',
   invalidDate: 'Dyddiad Annilys',
+  next: 'Next',
+  errorSendingInvite:
+    'Sorry, we’re having technical problems sending your application for review. Please try again in a few minutes.',
+  habitualResidentHelpText1:
+    'This may include working, owning property, having children in school, and your main family life taking place in England or Wales.',
+  habitualResidentHelpText2:
+    'The examples above aren’t a complete list of what makes up habitual residence, and just because some of them apply to you doesn’t mean you’re habitually resident. If you’re not sure, you should get legal advice.',
+  save: 'Save',
+  cookiesSaved: 'Your cookie settings were saved',
+  additionalCookies:
+    'Government services may set additional cookies and, if so, will have their own cookie policy and banner.',
+  goToHomepage: 'Go to homepage',
 };
 
 export const generatePageContent = ({
@@ -273,7 +286,7 @@ export const generatePageContent = ({
   byApplicant?: string;
   userIdamId?: string;
   additionalData?: CommonContentAdditionalData;
-  userId?: string | undefined;
+  userId?: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const url = additionalData?.req?.path;
@@ -352,7 +365,7 @@ export type CommonContent = typeof en & {
   addresses?: any[];
   byApplicant?: string;
   additionalData?: CommonContentAdditionalData;
-  userId?: string | undefined;
+  userId?: string;
   userIdamId?: string;
 };
 

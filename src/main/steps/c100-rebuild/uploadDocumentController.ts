@@ -17,7 +17,7 @@ import { C100_CONSENT_ORDER_UPLOAD, C100_MIAM_UPLOAD } from '../urls';
 PostDocumentUploader method */
 @autobind
 export default class UploadDocumentController {
-  private parent;
+  private readonly parent;
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     this.parent = new PostController(fields);
   }
@@ -46,7 +46,7 @@ export default class UploadDocumentController {
     if (req.body.saveAndComeLater) {
       this.parent.post(req, res);
     } else if (this.checkSaveandContinueDocumentExist(req, certificate)) {
-      this.parent.redirect(req, res, '');
+      this.parent.redirect(req, res);
     } else {
       this.checkFileCondition(certificate, req, res, req.originalUrl, files, fileNamePrefix, paramCert);
     }

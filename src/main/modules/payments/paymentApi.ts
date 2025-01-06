@@ -13,14 +13,11 @@ interface PaymentApi {
   getPaymentCredentails(): Promise<PaymentRetrivalDataType>;
 }
 
-//const token = 'INSERT_TOKEN_HERE';
-
 /* This class is used to create an instance of the axios library with the required headers for the
 PaymentSystemAPI */
 export class PaymentSystemAPIInstance {
   protected AxiosAJAXInstance: AxiosInstance;
   constructor(PaymentURL: string, userSystemAuthToken: string, serviceAuthToken: string) {
-    //userSystemAuthToken = token;
     this.AxiosAJAXInstance = axios.create({
       baseURL: PaymentURL,
       headers: {
@@ -39,7 +36,6 @@ PaymentSystemAPI */
 export class CheckPaymentStatusApi {
   protected AxiosAJAXInstance: AxiosInstance;
   constructor(PaymentURL: string, userSystemAuthToken: string, serviceAuthToken: string) {
-    //userSystemAuthToken = token;
     this.AxiosAJAXInstance = axios.create({
       baseURL: PaymentURL,
       headers: {
@@ -62,8 +58,8 @@ RequestPaymentInformation that is async and returns a promise */
 export class PaymentTaskResolver extends PaymentSystemAPIInstance implements PaymentApi {
   protected caseId: string;
   protected returnUrl: string;
-  protected applicantCaseName: string;
   protected hwfRefNumber: string;
+  protected feeType: string;
 
   constructor(
     PaymentURL: string,
@@ -71,22 +67,22 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
     serviceAuthToken: string,
     caseId: string,
     returnUrl: string,
-    applicantCaseName: string,
-    hwfRefNumber: string
+    hwfRefNumber: string,
+    feeType: string
   ) {
     super(PaymentURL, userSystemAuthToken, serviceAuthToken);
     this.caseId = caseId;
     this.returnUrl = returnUrl;
-    this.applicantCaseName = applicantCaseName;
     this.hwfRefNumber = hwfRefNumber;
+    this.feeType = feeType;
   }
 
   async getPaymentCredentails(): Promise<PaymentRetrivalDataType> {
     const paymentDetailsRequestBody = {
       caseId: this.caseId,
       returnUrl: this.returnUrl,
-      applicantCaseName: this.applicantCaseName,
       hwfRefNumber: this.hwfRefNumber,
+      feeType: this.feeType,
     };
     try {
       const requestPaymentUpdate = await super.Instance().post('', paymentDetailsRequestBody);

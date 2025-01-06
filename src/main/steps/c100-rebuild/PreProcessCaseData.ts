@@ -1,4 +1,5 @@
 import { Case, CaseWithId } from '../../app/case/case';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { FormField, FormFields, FormFieldsFn } from '../../app/form/Form';
 
 class PreProcessCaseData {
@@ -47,6 +48,7 @@ class PreProcessCaseData {
 
   public clean(
     fields: FormFields | FormFieldsFn,
+    req: AppRequest,
     formData: Partial<Case>,
     caseData: Partial<CaseWithId>,
     byPass?: boolean
@@ -58,7 +60,7 @@ class PreProcessCaseData {
       } as CaseWithId;
     }
 
-    return Object.entries(typeof fields === 'function' ? fields(caseData) : (fields as FormField)).reduce(
+    return Object.entries(typeof fields === 'function' ? fields(caseData, req) : (fields as FormField)).reduce(
       (_caseData: Partial<CaseWithId>, [field, fieldConfig]) => {
         const { type: fieldType, values: fieldValues } = fieldConfig;
         const formFieldValue = formData[field];
@@ -89,13 +91,11 @@ class PreProcessCaseData {
     if (fieldValue.includes(valueConfig.value)) {
       // if form data value matches with the field values config value
       Object.assign(_caseData, this.removeEmptyValues(formData, valueConfig.subFields));
-    } else {
+    } else if (valueConfig.subFields) {
       // if the field values config value is not present in form data then clean up other subfield data from caseData for the fields that has subfields
-      if (valueConfig.subFields) {
-        Object.keys(valueConfig.subFields).forEach(subField => {
-          delete _caseData[subField];
-        });
-      }
+      Object.keys(valueConfig.subFields).forEach(subField => {
+        delete _caseData[subField];
+      });
     }
   }
 }

@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Case } from '../../../../app/case/case';
-import { C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
+import { C100Applicant, C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -30,10 +30,10 @@ export default class AddApplicantPostController extends PostController<AnyObject
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { applicantFirstName, applicantLastName } = req.body;
     req.session.userCase.applicantTemporaryFormData = {
-      TempFirstName: applicantFirstName,
-      TempLastName: applicantLastName,
+      TempFirstName: applicantFirstName as string,
+      TempLastName: applicantLastName as string,
     };
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
     const { _csrf, ...formData } = form.getParsedBody(req.body);
     const saveAndContinueChecked = req['body']['saveAndContinue'];
@@ -46,23 +46,21 @@ export default class AddApplicantPostController extends PostController<AnyObject
     if (saveAndComeBackToggled) {
       req.session.save();
       return super.saveAndComeLater(req, res, req.session.userCase);
+    } else if (saveAndContinueChecked) {
+      const toggleCheckIfApplicantFieldIsFilled = applicantFirstName !== '' || applicantLastName !== '';
+      this.checkIfApplicantLengthLessAndFormError(
+        req,
+        res,
+        checkIfApplicantLengthLessAndFormError,
+        toggleCheckIfApplicantFieldIsFilled,
+        saveAndComeBackToggled,
+        formData,
+        form
+      );
     } else {
-      if (saveAndContinueChecked) {
-        const toggleCheckIfApplicantFieldIsFilled = applicantFirstName !== '' || applicantLastName !== '';
-        this.checkIfApplicantLengthLessAndFormError(
-          req,
-          res,
-          checkIfApplicantLengthLessAndFormError,
-          toggleCheckIfApplicantFieldIsFilled,
-          saveAndComeBackToggled,
-          formData,
-          form
-        );
-      } else {
-        this.errorsAndRedirect(req, res, formData, form);
-        if (req.session.errors && !req.session.errors.length) {
-          return this.addButtonWithNoError(req, res);
-        }
+      this.errorsAndRedirect(req, res, formData, form);
+      if (req.session.errors && !req.session.errors.length) {
+        return this.addButtonWithNoError(req, res);
       }
     }
   }
@@ -111,12 +109,10 @@ export default class AddApplicantPostController extends PostController<AnyObject
     if (toggleCheckIfApplicantFieldIsFilled) {
       this.errorsAndRedirect(req, res, formData, form);
       this.checkSessionErrors(req, res);
+    } else if (checkIfApplicantLengthLessAndFormError) {
+      return this.redirectToSamePageWithError(req, form, formData, res);
     } else {
-      if (checkIfApplicantLengthLessAndFormError) {
-        return this.redirectToSamePageWithError(req, form, formData, res);
-      } else {
-        return this.mapEnteriesToValuesAfterContinuing(req, res);
-      }
+      return this.mapEnteriesToValuesAfterContinuing(req, res);
     }
   }
 
@@ -179,7 +175,8 @@ export default class AddApplicantPostController extends PostController<AnyObject
         canNotProvideTelephoneNumberReason: '',
         canLeaveVoiceMail: YesNoEmpty.EMPTY,
       },
-    };
+      reasonableAdjustmentsFlags: [],
+    } as C100Applicant;
     let applicantInSession: C100ListOfApplicants = [];
     if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {
       applicantInSession = req.session.userCase.appl_allApplicants;
@@ -242,6 +239,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
         applicantFirstName,
         applicantLastName,
       };
+
       newApplicantStorage.push(applicantObject);
     }
   }

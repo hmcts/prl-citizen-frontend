@@ -9,6 +9,7 @@ module.exports = {
 
   async consentToApplication() {
     I.wait('2');
+    await I.runAccessibilityTest();
     await I.retry(retryCount).click('#consent-to-the-application');
     I.wait('2');
 
@@ -26,6 +27,8 @@ module.exports = {
 
     I.wait('3');
     await I.retry(retryCount).waitForText('Check your answers');
+    await I.runAccessibilityTest();
+
     await I.retry(retryCount).click('Save and continue');
   },
 

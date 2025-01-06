@@ -76,7 +76,6 @@ module.exports = {
     async describePhysicalAbuseChild() {
         await I.retry(retryCount).waitForText(SafetyConcerns.describePhysicalAbuseTitle , 30);
         await I.retry(retryCount).waitForText(SafetyConcerns.whichChildren , 30);
-        await I.retry(retryCount).click(this.fields.childOne);
         await I.retry(retryCount).waitForSelector(this.fields.behaviourDetails, 30);
         await I.retry(retryCount).fillField(this.fields.behaviourDetails, SafetyConcerns.testingText);
         await I.retry(retryCount).waitForSelector(this.fields.behaviourStartDate, 30);

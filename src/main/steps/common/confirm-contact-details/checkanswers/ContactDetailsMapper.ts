@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../app/case/case';
-import { PartyDetails, YesOrNo } from '../../../../app/case/definition';
+import { ContactPreference, PartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { fromApiDate } from '../../../../app/case/from-api-format';
 import { toApiDate } from '../../../../app/case/to-api-format';
 import type { AppRequest } from '../../../../app/controller/AppRequest';
@@ -54,9 +54,19 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
     delete request.response!.safeToCallOption;
   }
 
-  if (isAtAddressLessThan5Years === YesOrNo.YES) {
+  if (isAtAddressLessThan5Years === YesOrNo.NO) {
     request.addressLivedLessThan5YearsDetails = '';
   }
+
+  if (userCase.partyContactPreference) {
+    if (userCase.partyContactPreference === ContactPreference.EMAIL && !request?.email?.trim()) {
+      request.contactPreferences = null;
+    }
+    if (userCase.partyContactPreference === ContactPreference.POST && !request?.address?.AddressLine1?.trim()) {
+      request.contactPreferences = null;
+    }
+  }
+
   return request;
 };
 export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
@@ -103,7 +113,7 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     citizenUserAddressPostcode: address.PostCode,
     ...rest,
   });
-  if (isAtAddressLessThan5Years === YesOrNo.YES) {
+  if (isAtAddressLessThan5Years === YesOrNo.NO) {
     delete contactDetail.citizenUserAddressHistory;
   }
   return contactDetail;
@@ -132,7 +142,7 @@ export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
     }
   }
 
-  if (req.session.userCase.isAtAddressLessThan5Years === YesOrNo.YES) {
+  if (req.session.userCase.isAtAddressLessThan5Years === YesOrNo.NO) {
     req.session.userCase.citizenUserAddressHistory = '';
   }
 

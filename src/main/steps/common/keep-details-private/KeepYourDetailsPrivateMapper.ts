@@ -2,8 +2,8 @@
 import { CaseWithId } from '../../../app/case/case';
 import { ConfidentialityList, KeepDetailsPrivate, PartyDetails, YesOrNo } from '../../../app/case/definition';
 
-export const prepareKeepDetailsPrivateRequest = (req: CaseWithId): KeepDetailsPrivate => {
-  const { startAlternative, contactDetailsPrivate, detailsKnown } = req;
+export const prepareKeepDetailsPrivateRequest = (caseData: CaseWithId): KeepDetailsPrivate => {
+  const { startAlternative, contactDetailsPrivate, detailsKnown } = caseData;
   const request: KeepDetailsPrivate = {};
 
   const confidentialityList: ConfidentialityList[] = [];

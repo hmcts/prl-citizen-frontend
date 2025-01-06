@@ -44,7 +44,13 @@ def secrets = [
     secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PW'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
     secret('citizen-password', 'CITIZEN_PW'),
+    secret('pact-broker-username', 'PACT_BROKER_YAML_USERNAME'),
     secret('pact-broker-password', 'PACT_BROKER_YAML_PW'),
+    secret('prl-pcq-token-key', 'PCQ_TOKEN'),
+    secret('ccd-datastore-client-id', 'CCD_DATASTORE_client_id'),
+    secret('ccd-datastore-client-secret', 'CCD_DATASTORE_client_secret'),
+    secret('ccd-datastore-username', 'CCD_DATASTORE_username'),
+    secret('ccd-datastore-password', 'CCD_DATASTORE_password')
   ]
 ]
 
@@ -55,31 +61,15 @@ withNightlyPipeline(type, product, component) {
   env.TEST_URL = "https://privatelaw.aat.platform.hmcts.net/"
   env.PRL_CITIZEN_URL = params.FRONTEND_URL
   loadVaultSecrets(secrets)
+  // Tests disabled here as they run in prl-e2e-tests instead
   // enableMutationTest()
-  enableFortifyScan()
-  enableFullFunctionalTest(200)
-  enableCrossBrowserTest(60)
+  //enableFullFunctionalTest(200)
+  //enableCrossBrowserTest(60)
   enableFortifyScan()
   enableSecurityScan()
 
   afterAlways('test') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
-  }
-
-  before('crossBrowserTest') {
-  }
-
-  afterAlways('crossBrowserTest') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('fullFunctionalTest') {
-    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
-  }
-
-  afterAlways('fullFunctionalTest') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/**/*'
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
   afterAlways('fortify-scan') {

@@ -2,15 +2,14 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import FormData from 'form-data';
-import { isNull } from 'lodash';
 
 import { DocumentUploadResponse, caseApi } from '../../../../app/case/C100CaseApi';
 import { C100OrderInterface, C100OrderTypeKeyMapper, C100OrderTypes } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
+import { validate } from '../../../../steps/tasklistresponse/proceedings/documentUpload/postController';
 import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 
 const C100OrderTypeNameMapper = {
@@ -63,7 +62,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     if (req.body.saveAndComeLater) {
       super.post(req, res);
     } else if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
-      super.redirect(req, res, '');
+      super.redirect(req, res);
     } else {
       this.ifContinueIsClicked(req, res, orderSessionDataById, files, orderType, orderId, courtOrder);
     }
@@ -96,22 +95,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   }
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async validateFileAndUpload(files, req, res, orderType, orderId, courtOrderType, courtOrderId): Promise<void> {
-    if (isNull(files) || files === undefined) {
-      this.uploadFileError(req, res, orderType, orderId, {
-        propertyName: 'document',
-        errorType: 'required',
-      });
-    } else if (!isValidFileFormat(files)) {
-      this.uploadFileError(req, res, orderType, orderId, {
-        propertyName: 'document',
-        errorType: 'fileFormat',
-      });
-    } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-      this.uploadFileError(req, res, orderType, orderId, {
-        propertyName: 'document',
-        errorType: 'fileSize',
-      });
-    } else {
+    if (validate(files, req, res, orderType, orderId, false)) {
       req.session.errors = [];
       const { documents }: any = files;
 
@@ -190,32 +174,5 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
   public buildOrderTypeName(courtOrderType: C100OrderTypes): string {
     return C100OrderTypeNameMapper[courtOrderType].split(' ').join('_').toLowerCase();
-  }
-
-  /**
-   * It's a function that handles errors that occur during the upload process
-   * @param req - AppRequest<AnyObject>
-   * @param res - Response<any, Record<string, any>>
-   * @param {string} [errorMessage] - The error message to be displayed.
-   */
-
-  private uploadFileError(
-    req: AppRequest<AnyObject>,
-    res: Response<any, Record<string, any>>,
-    orderType: string,
-    orderId: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    errObj: any
-  ) {
-    /**
-     * @Insert @Error @here
-     */
-    req.session.errors = [errObj];
-    req.session.save(err => {
-      if (err) {
-        throw err;
-      }
-      res.redirect(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
-    });
   }
 }

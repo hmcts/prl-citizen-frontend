@@ -60,7 +60,7 @@
 //     const results = {
 //       data: {
 //         id: '1234',
-//         state: State.Draft,
+//         state: State.AWAITING_SUBMISSION_TO_HMCTS,
 //         data: {},
 //       },
 //     };
@@ -71,7 +71,7 @@
 
 //     expect(userCase).toStrictEqual({
 //       id: '1234',
-//       state: State.Draft,
+//       state: State.AWAITING_SUBMISSION_TO_HMCTS,
 //     });
 //   });
 
@@ -103,12 +103,12 @@
 //   test('Should retrieve the first case if two cases found', async () => {
 //     const firstMockCase = {
 //       id: '1',
-//       state: State.Draft,
+//       state: State.AWAITING_SUBMISSION_TO_HMCTS,
 //       case_data: {},
 //     };
 //     // const secondMockCase = {
 //     //   id: '2',
-//     //   state: State.Draft,
+//     //   state: State.AWAITING_SUBMISSION_TO_HMCTS,
 //     //   case_data: {},
 //     // };
 
@@ -120,7 +120,7 @@
 
 //     expect(userCase).toStrictEqual({
 //       id: '1',
-//       state: State.Draft,
+//       state: State.AWAITING_SUBMISSION_TO_HMCTS,
 //     });
 //   });
 
@@ -191,7 +191,7 @@
 //     mockedAxios.get.mockResolvedValue({
 //       data: {
 //         id: '1234',
-//         state: State.Draft,
+//         state: State.AWAITING_SUBMISSION_TO_HMCTS,
 //         data: {},
 //       },
 //     });

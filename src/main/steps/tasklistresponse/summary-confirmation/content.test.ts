@@ -1,7 +1,11 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
+import { PartyType } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
+import { DocumentCategory } from '../../common/documents/definitions';
+import { applyParms } from '../../common/url-parser';
+import { DOWNLOAD_DOCUMENT_BY_TYPE } from '../../urls';
 
 import { generateContent } from './content';
 
@@ -20,8 +24,75 @@ const en = {
   line6: `If you cannot open the PDF file on your device, download and install
   <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> and try again.`,
   line7: 'A copy of your submitted application will be in your personal dashboard.',
-  downloadLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Download your response</a>',
+
+  DownloadLinks: [
+    {
+      id: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+      text: 'Download your response',
+      language: 'en',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document',
+        language: 'en',
+      }),
+      isVisible: true,
+    },
+    {
+      id: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+      text: 'Download your response in Welsh',
+      language: 'cy',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document',
+        language: 'cy',
+      }),
+      isVisible: false,
+    },
+    {
+      id: DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION,
+      text: 'Download your allegations of harm',
+      language: 'en',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-application-document',
+        language: 'en',
+      }),
+      isVisible: false,
+    },
+    {
+      id: DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION,
+      text: 'Download your allegations of harm in Welsh',
+      language: 'cy',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-application-document',
+        language: 'cy',
+      }),
+      isVisible: false,
+    },
+    {
+      id: DocumentCategory.RESPONDENT_RESPOND_TO_C1A,
+      text: 'Download your response to the applicant’s allegations',
+      language: 'en',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-response-document',
+        language: 'en',
+      }),
+      isVisible: false,
+    },
+    {
+      id: DocumentCategory.RESPONDENT_RESPOND_TO_C1A,
+      text: 'Download your response to the applicant’s allegations in Welsh',
+      language: 'cy',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-response-document',
+        language: 'cy',
+      }),
+      isVisible: false,
+    },
+  ],
   saveAndContinue: 'Continue',
 };
 
@@ -40,8 +111,74 @@ const cy: typeof en = {
   line6: `Os na allwch agor y ffeil PDF ar eich dyfais, llwythwch a gosodwch
   <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> ar eich dyfais a cheisio eto.`,
   line7: 'Bydd copi o’r cais a gyflwynwyd ar eich dangosfwrdd personol',
-  downloadLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Lawrlwytho eich ymateb</a>',
+  DownloadLinks: [
+    {
+      id: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+      text: 'Download your response',
+      language: 'en',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document',
+        language: 'en',
+      }),
+      isVisible: true,
+    },
+    {
+      id: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+      text: 'Download your response in Welsh',
+      language: 'cy',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c7-response-document',
+        language: 'cy',
+      }),
+      isVisible: false,
+    },
+    {
+      id: DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION,
+      text: 'Download your allegations of harm',
+      language: 'en',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-application-document',
+        language: 'en',
+      }),
+      isVisible: false,
+    },
+    {
+      id: DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION,
+      text: 'Download your allegations of harm in Welsh',
+      language: 'cy',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-application-document',
+        language: 'cy',
+      }),
+      isVisible: false,
+    },
+    {
+      id: DocumentCategory.RESPONDENT_RESPOND_TO_C1A,
+      text: 'Download your response to the applicant’s allegations',
+      language: 'en',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-response-document',
+        language: 'en',
+      }),
+      isVisible: false,
+    },
+    {
+      id: DocumentCategory.RESPONDENT_RESPOND_TO_C1A,
+      text: 'Download your response to the applicant’s allegations in Welsh',
+      language: 'cy',
+      href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+        partyType: PartyType.RESPONDENT,
+        documentType: 'c1a-response-document',
+        language: 'cy',
+      }),
+      isVisible: false,
+    },
+  ],
   saveAndContinue: 'Parhau',
 };
 
@@ -52,7 +189,39 @@ describe('citizen-home content', () => {
   let generatedContent;
   let form;
   beforeEach(() => {
+    commonContent.additionalData = {
+      req: {
+        session: {
+          user: {
+            id: '123',
+          },
+        },
+      },
+    };
+    // commonContent.additionalData!.req.session.user.id='123'
     commonContent.userCase = mockUserCase;
+    commonContent.userCase.respondentDocuments = [
+      {
+        partyId: '123',
+        partyType: PartyType.RESPONDENT,
+        partyName: 'string',
+        categoryId: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+        uploadedBy: 'string',
+        uploadedDate: 'string',
+        reviewedDate: 'string',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: '',
+          document_hash: '',
+          category_id: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+          document_creation_date: 'string',
+          document_id: 'string',
+        },
+        documentWelsh: null,
+        documentLanguage: 'en',
+      },
+    ];
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
   });

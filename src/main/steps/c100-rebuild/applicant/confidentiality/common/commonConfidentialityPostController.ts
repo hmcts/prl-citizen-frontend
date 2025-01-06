@@ -1,17 +1,17 @@
 /* eslint-disable import/no-unresolved */
-import { YesOrNo } from 'app/case/definition';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { C100Applicant, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 
 @autobind
 export default class ApplicantCommonConfidentialityController {
-  private parent;
+  private readonly parent;
   private request: AppRequest<AnyObject>;
-  private contextNavigators;
+  private readonly contextNavigators;
   private applicantData;
 
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -49,7 +49,7 @@ export default class ApplicantCommonConfidentialityController {
       }
     }
     this.request.session.userCase.appl_allApplicants = this.applicantData;
-    if (this.request.session.errors && this.request.session.errors.length) {
+    if (this.request.session.errors?.length) {
       return this.parent.redirect(this.request, res, this.request.originalUrl);
     }
     if (this.request.body.saveAndComeLater) {
@@ -59,29 +59,27 @@ export default class ApplicantCommonConfidentialityController {
     }
   }
 
-  private CofidentialityStartDataUpdate = (applicantId: string): [] => {
+  private readonly CofidentialityStartDataUpdate = (applicantId: string): [] => {
     return this.request.session.userCase.appl_allApplicants?.map(applicant => {
-      const applicantInformation = applicant;
+      const applicantInformation: C100Applicant = applicant;
       if (applicant['id'] === applicantId) {
         applicantInformation['contactDetailsPrivateAlternative'] = [];
-        applicantInformation['start'] = this.request['body']['start'];
+        applicantInformation['start'] = this.request['body']['start'] as C100Applicant['start'];
         if (this.request.body['start'] === YesOrNo.NO) {
           applicantInformation['contactDetailsPrivate'] = [];
-        } else {
-          if (
-            (this.request['body']['contactDetailsPrivate'] as []) &&
-            this.request.body['contactDetailsPrivate'] !== ''
-          ) {
-            const contactDetailSelection = this.request['body']['contactDetailsPrivate'] as [];
-            applicantInformation['contactDetailsPrivate'] = contactDetailSelection.filter(details => details !== '');
-          }
+        } else if (
+          (this.request['body']['contactDetailsPrivate'] as []) &&
+          this.request.body['contactDetailsPrivate'] !== ''
+        ) {
+          const contactDetailSelection = this.request['body']['contactDetailsPrivate'] as [];
+          applicantInformation['contactDetailsPrivate'] = contactDetailSelection.filter(details => details !== '');
         }
       }
       return applicantInformation;
     }) as [];
   };
 
-  private CofidentialityStartAlternativeDataUpdate = (applicantId: string): [] => {
+  private readonly CofidentialityStartAlternativeDataUpdate = (applicantId: string): [] => {
     return this.request.session.userCase.appl_allApplicants?.map(applicant => {
       const applicantInformation = applicant;
       if (applicant['id'] === applicantId) {
@@ -89,23 +87,21 @@ export default class ApplicantCommonConfidentialityController {
         applicantInformation['contactDetailsPrivate'] = [] as string[];
         if (this.request.body['startAlternative'] === YesOrNo.NO) {
           applicantInformation['contactDetailsPrivateAlternative'] = [] as [];
-        } else {
-          if (
-            (this.request['body']['contactDetailsPrivateAlternative'] as []) &&
-            this.request.body['contactDetailsPrivateAlternative'] !== ''
-          ) {
-            const contactDetailSelection = this.request['body']['contactDetailsPrivateAlternative'] as [];
-            applicantInformation['contactDetailsPrivateAlternative'] = contactDetailSelection.filter(
-              details => details !== ''
-            );
-          }
+        } else if (
+          (this.request['body']['contactDetailsPrivateAlternative'] as []) &&
+          this.request.body['contactDetailsPrivateAlternative'] !== ''
+        ) {
+          const contactDetailSelection = this.request['body']['contactDetailsPrivateAlternative'] as [];
+          applicantInformation['contactDetailsPrivateAlternative'] = contactDetailSelection.filter(
+            details => details !== ''
+          );
         }
       }
       return applicantInformation;
     }) as [];
   };
 
-  private CofidentialityDetailKnownDataUpdate = (applicantId: string): [] => {
+  private readonly CofidentialityDetailKnownDataUpdate = (applicantId: string): [] => {
     return this.request.session.userCase.appl_allApplicants?.map(applicant => {
       const applicantInformation = applicant;
       if (applicant['id'] === applicantId) {

@@ -4,6 +4,7 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
+import { generateDetailsKnownYesField } from '../common/utils';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -84,16 +85,6 @@ export const form: FormContent = {
     text: l => l.saveAndComeLater,
   },
 };
-type FieldLabel = {
-  name: string;
-  label: string;
-  value: string;
-  attributes: {
-    checked: boolean;
-  };
-};
-
-type FieldLabelArray = FieldLabel[];
 
 export const generateContent: TranslationFn = content => {
   const applicantId = content.additionalData?.req.params?.applicantId ?? '';
@@ -102,7 +93,7 @@ export const generateContent: TranslationFn = content => {
   const contactDetailsPrivate = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0]?.[
     'contactDetailsPrivate'
   ] as [];
-  let detailKnownFormField = form.fields['start']['values']!;
+  let detailKnownFormField;
 
   const formFieldValues = [
     {
@@ -147,27 +138,8 @@ export const generateContent: TranslationFn = content => {
 
   switch (startOption) {
     case YesOrNo.YES:
-      // eslint-disable-next-line no-case-declarations
-      let subFieldValueStorage: FieldLabelArray = [];
       detailKnownFormField = formFieldValues.map(fieldSet => {
-        const { value } = fieldSet;
-        if (value === YesOrNo.YES) {
-          fieldSet['attributes'] = { checked: true };
-          const subFields = fieldSet['subFields']?.['contactDetailsPrivate']['values'] as [];
-          for (const subValue of subFields) {
-            for (const bodyVal of contactDetailsPrivate) {
-              const field: FieldLabel = subValue;
-              if (subValue['value'] === bodyVal) {
-                field['attributes'] = { checked: true };
-              }
-              subFieldValueStorage = [
-                ...subFieldValueStorage.filter(item => item.value !== field['value']),
-                field as FieldLabel,
-              ];
-            }
-          }
-        }
-        return fieldSet;
+        return generateDetailsKnownYesField(fieldSet, contactDetailsPrivate, false);
       });
       break;
 

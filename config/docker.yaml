@@ -11,3 +11,4 @@ services:
     url: 'http://localhost:4401'
   equalityAndDiversity:
     url: 'http://localhost:4000'
+    tokenKey: PCQ_TOKEN

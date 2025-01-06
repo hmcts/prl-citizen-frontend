@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { C100_OTHER_PROCEEDINGS_ORDER_DETAILS } from '../../../../steps/urls';
 import { DATE_FORMATTOR } from '../../../common/dateformatter';
 import { applyParms } from '../../../common/url-parser';
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
@@ -8,28 +9,26 @@ import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+export const Mapper = (key, keys) => {
+  switch (key) {
+    case 'orderDetail':
+      return keys['courtIssuedLabel'];
+    case 'caseNo':
+      return keys['caseNumberLabel'];
+    case 'orderDate':
+      return keys['orderDateLabel'];
+    case 'currentOrder':
+      return keys['isCurrentOrderLabel'];
+    case 'orderCopy':
+      return keys['copyOfOrderLabel'];
+    case 'orderEndDate':
+      return keys['orderEndDateLabel'];
+    case 'orderDocument':
+      return keys['copy'];
+  }
+};
 export const IndividualOrderFieldsParser = (keys, order, language) => {
   const newOrders = order;
-  const Mapper = {
-    ['orderDetail']: {
-      question: keys['courtIssuedLabel'],
-    },
-    ['caseNo']: {
-      question: keys['caseNumberLabel'],
-    },
-    ['orderDate']: {
-      question: keys['orderDateLabel'],
-    },
-    ['currentOrder']: {
-      question: keys['isCurrentOrderLabel'],
-    },
-    ['orderCopy']: {
-      question: keys['copyOfOrderLabel'],
-    },
-    ['orderEndDate']: {
-      question: keys['orderEndDateLabel'],
-    },
-  };
   let Val = '';
   Object.entries(newOrders).forEach((entry, index) => {
     const key = entry[0];
@@ -37,11 +36,11 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
     const rulerForLastElement = Object.entries(newOrders).length > index + 1 ? HTML.RULER : '<br>';
     if (key !== 'id' && key !== 'orderDocument') {
       if (typeof entry[1] === 'object' && entry[1] !== null) {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
         const valueDetails = HTML.P + DATE_FORMATTOR(value, language) + HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       } else {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
         let valueDetails = '';
         if (key === 'currentOrder') {
           valueDetails = HTML.P + getYesNoTranslation(language, value, 'ieTranslation') + HTML.P_CLOSE;
@@ -70,18 +69,33 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
  *   changeUrl: string
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessionKey, language) => {
+export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, language) => {
   if (UserCase.hasOwnProperty(sessionKey)) {
     const orderSessionStorage = [] as { key: string; valueHtml: string; changeUrl: string }[];
     UserCase[sessionKey].forEach(order => {
-      if (UserCase['op_otherProceedings']?.['order'].hasOwnProperty(`${order}s`)) {
-        const orderDetails = UserCase['op_otherProceedings']?.['order'][`${order}s`];
+      if (
+        UserCase['op_otherProceedings']?.['order'].hasOwnProperty(`${order}s`) ||
+        UserCase['op_otherProceedings']?.['order'].hasOwnProperty('contactOrdersForDivorce') ||
+        UserCase['op_otherProceedings']?.['order'].hasOwnProperty('contactOrdersForAdoption')
+      ) {
+        let orderDetails;
+        switch (order) {
+          case 'contactOrderForDivorce':
+            orderDetails = UserCase['op_otherProceedings']?.['order']['contactOrdersForDivorce'];
+            break;
+          case 'contactOrderForAdoption':
+            orderDetails = UserCase['op_otherProceedings']?.['order']['contactOrdersForAdoption'];
+            break;
+          default:
+            orderDetails = UserCase['op_otherProceedings']?.['order'][`${order}s`];
+            break;
+        }
         orderDetails.forEach((nestedOrder, index) => {
           const IndexNumber = index > 0 ? index + 1 : '';
           orderSessionStorage.push({
             key: `${keys[order + 'Label']} ${IndexNumber}`,
             valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
-            changeUrl: applyParms(URLS['C100_OTHER_PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
+            changeUrl: applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: order }),
           });
         });
       }

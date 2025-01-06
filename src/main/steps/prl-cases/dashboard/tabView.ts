@@ -15,7 +15,7 @@ const tabGroup = {
   [State.CASE_SUBMITTED_PAID]: 'draft',
   [State.CASE_ISSUED_TO_LOCAL_COURT]: 'draft',
   [State.CASE_GATE_KEEPING]: 'draft',
-  [State.CASE_CLOSED]: 'closed',
+  [State.ALL_FINAL_ORDERS_ISSUED]: 'closed',
   [State.CASE_WITHDRAWN]: 'closed',
   '*': 'active',
 };
@@ -199,9 +199,13 @@ export const prepareCaseView = (
         let caseApplicantName = rest.applicantName;
 
         if (!caseApplicantName) {
-          caseApplicantName = rest?.applicants?.length
-            ? `${rest.applicants[0].value.firstName} ${rest.applicants[0].value.lastName}`
-            : '';
+          if (rest?.applicants?.length) {
+            caseApplicantName = `${rest.applicants[0].value.firstName} ${rest.applicants[0].value.lastName}`;
+          } else if (rest?.applicantsFL401?.firstName) {
+            caseApplicantName = `${rest.applicantsFL401.firstName} ${rest.applicantsFL401.lastName}`;
+          } else {
+            caseApplicantName = '';
+          }
         }
 
         if (_tabs[tab]) {
@@ -236,7 +240,6 @@ export const prepareCaseView = (
 
   return tabs;
 };
-
 const getCaseTabGrouping = (
   caseData: Partial<CaseWithId>,
   userDetails: UserDetails,
@@ -244,7 +247,6 @@ const getCaseTabGrouping = (
 ): string => {
   const { state, caseTypeOfApplication } = caseData;
   const tab = tabGroup[state as string] ?? tabGroup['*'];
-
   if (
     tab === 'active' &&
     caseTypeOfApplication === CaseType.C100 &&

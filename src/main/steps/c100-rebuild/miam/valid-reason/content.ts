@@ -5,37 +5,31 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const en = () => ({
-  title: 'Do you have valid reasons for not attending a MIAM?',
-  paragraph1: 'You must attend a MIAM before making an application unless you have valid reasons not to attend.',
-  applyForVrLink:
-    'If you\'re unsure, you can check the <a href="https://www.justice.gov.uk/courts/procedure-rules/family/practice_directions/pd_part_03a" class="govuk-link" target="_blank" aria-label="list of valid reasons">list of valid reasons</a>.',
-  paragraph2:
-    "If you're claiming that you have valid reasons not to attend a MIAM, the court will need more information from you.",
-  one: 'Yes',
-  two: 'No',
+export const en = {
+  title: 'Do you have a valid reason for not attending a MIAM?',
+  content:
+    '<a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank">Check the list of valid reasons for not attending a MIAM (opens in a new tab)</a> if you’re not sure.',
+  yes: 'Yes',
+  no: 'No',
   errors: {
     miam_validReason: {
-      required: 'Select yes if you have valid reasons for not attending a MIAM',
+      required: 'Select yes if you have a valid reason for not attending a MIAM',
     },
   },
-});
+};
 
-export const cy = () => ({
-  title: 'A oes gennych chi resymau dilys dros beidio â mynychu MIAM?',
-  paragraph1: 'Rhaid i chi fynychu MIAM cyn gwneud cais oni bai bod gennych resymau dilys dros beidio â mynychu.',
-  applyForVrLink:
-    'Os ydych yn ansicr, gallwch <a href="https://www.justice.gov.uk/courts/procedure-rules/family/practice_directions/pd_part_03a" class="govuk-link" target="_blank" aria-label="list of valid reasons">wirio’r rhestr o resymau dilys</a>.',
-  paragraph2:
-    'Os ydych chi’n honni bod gennych resymau dilys dros beidio â mynychu MIAM, bydd y llys angen mwy o wybodaeth gennych',
-  one: 'Oes',
-  two: 'Nac oes',
+export const cy = {
+  title: 'A oes gennych chi reswm dilys dros beidio â mynychu MIAM?',
+  content:
+    '<a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank">Gwiriwch y rhestr o resymau dilys dros beidio â mynychu MIAM (yn agor mewn tab newydd)</a> os nad ydych yn siŵr.',
+  yes: 'Oes',
+  no: 'Nac oes',
   errors: {
     miam_validReason: {
-      required: 'Dewiswch oes os oes gennych resymau dilys dros beidio â mynychu MIAM',
+      required: 'Dewiswch ‘Oes’ os oes gennych chi resymau dilys dros beidio â mynychu MIAM',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -49,11 +43,11 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       values: [
         {
-          label: l => l.one,
+          label: l => l.yes,
           value: YesOrNo.YES,
         },
         {
-          label: l => l.two,
+          label: l => l.no,
           value: YesOrNo.NO,
         },
       ],
@@ -69,7 +63,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   return {
     ...translations,
     form,

@@ -56,15 +56,13 @@ describe('TSDraftController', () => {
   });
 
   test('Should save and redirect for createC100Draft', async () => {
-    mockedAxios.post.mockResolvedValueOnce({ data: { id: '1234' } });
-    mockedAxios.get.mockResolvedValueOnce({ data: req.session.userCase });
+    mockedAxios.post.mockResolvedValueOnce({ data: req.session.userCase });
     const mockApi = new CaseApi(mockedAxios, mockLogger);
     req.locals.C100Api = mockApi;
     await TSDraftController.createTSC100Draft(req, res);
 
     expect(req.session.userCase).toStrictEqual({
       caseId: '1234',
-      applicantCaseName: 'MOCK_CASE_NAME',
       caseTypeOfApplication: 'C100',
       c100RebuildChildPostCode: undefined,
       c100RebuildReturnUrl: undefined,

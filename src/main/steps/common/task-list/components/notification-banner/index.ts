@@ -1,75 +1,61 @@
-import _ from 'lodash';
+import _, { isFunction } from 'lodash';
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
-import { applyParms } from '../../../../../steps/common/url-parser';
-import { interpolate } from '../../../string-parser';
-import { NotificationBannerConfig, NotificationBannerProps, NotificationSection } from '../../definitions';
 
 import { CaseType, PartyType } from './../../../../../app/case/definition';
-import { C100_WITHDRAW_CASE } from './../../../../urls';
-import notifConfig from './config/index';
+import { NotificationBannerProps, NotificationContent, NotificationSection } from './definitions';
+import { getNotificationConfig } from './utils';
 
-const notificationBannerConfig: NotificationBannerConfig = {
-  [CaseType.C100]: {
-    [PartyType.APPLICANT]: notifConfig.CA_APPLICANT,
-    [PartyType.RESPONDENT]: notifConfig.CA_RESPONDENT,
-  },
-  [CaseType.FL401]: {
-    [PartyType.APPLICANT]: notifConfig.DA_APPLICANT,
-    [PartyType.RESPONDENT]: notifConfig.DA_RESPONDENT,
-  },
-};
-
-export const getNotificationBannerConfig = (
-  caseData: Partial<CaseWithId>,
+export const getNotifications = (
+  caseData: CaseWithId,
   userDetails: UserDetails,
   partyType: PartyType,
   language: string
-): NotificationBannerProps[] => {
-  let caseType = caseData?.caseTypeOfApplication;
+): NotificationContent[] | [] => {
+  let caseType = caseData?.caseTypeOfApplication as CaseType;
 
   if (!caseType && partyType === PartyType.APPLICANT) {
     caseType = CaseType.C100;
   }
 
-  return notificationBannerConfig[caseType!][partyType]
+  return getNotificationConfig(caseType, partyType, caseData)
     .map(config => {
-      const { id, show } = config;
+      const { id, show, content: getContent, interpolateContent } = config as NotificationBannerProps;
 
-      if (show(caseData, userDetails)) {
-        const _content = config.content(caseType, language, partyType);
+      if (_.isFunction(show) && show(id, caseData, userDetails) && _.isFunction(getContent)) {
+        const content = getContent(id, caseType, language, partyType);
         const sections: NotificationSection[] = [];
 
-        _content.sections.forEach(section => {
+        content.sections.forEach(section => {
           const contents = section?.contents
-            ?.filter(content => (_.isFunction(content?.show) ? content.show(caseData, userDetails) : true))
-            ?.map(content => ({
-              text: interpolate(content.text, {
-                noOfDaysRemainingToSubmitCase:
-                  caseData?.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
-              }),
+            ?.filter(_content => (_.isFunction(_content?.show) ? _content.show(caseData) : true))
+            ?.map(_content => ({
+              text: isFunction(interpolateContent)
+                ? interpolateContent(_content.text, content.common, caseData, userDetails)
+                : _content.text,
             }));
 
           const links = section?.links?.length
             ? section.links
-                .filter(content => (_.isFunction(content?.show) ? content.show(caseData, userDetails) : true))
+                .filter(_content => (_.isFunction(_content?.show) ? _content.show(caseData) : true))
                 ?.map(link => ({
-                  ...link,
+                  text: isFunction(link?.interpolateLinkText)
+                    ? link.interpolateLinkText(link.text, content.common, caseData)
+                    : link.text,
+                  href: isFunction(link?.interpolateHref) ? link.interpolateHref(link.href!, caseData) : link.href,
                   external: link?.external ?? false,
-                  href: interpolate(link.href, {
-                    c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
-                    withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
-                  }),
                 }))
-            : null;
+            : [];
 
           sections.push({ contents, links });
         });
 
         return {
           id,
-          ..._content,
+          heading: _.isFunction(content?.interpolateHeading)
+            ? content.interpolateHeading(content.heading, content.common, caseData, userDetails)
+            : content.heading,
           sections,
         };
       }
@@ -78,5 +64,5 @@ export const getNotificationBannerConfig = (
     })
     .filter(config => {
       return config !== null;
-    });
+    }) as NotificationContent[] | [];
 };

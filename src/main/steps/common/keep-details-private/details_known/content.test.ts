@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { PartyType } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
@@ -16,6 +17,14 @@ const enContent = {
       required: 'Enter your details known',
     },
   },
+  [PartyType.APPLICANT]: {
+    title: 'Does the other person named in your application (the respondent) know any of your contact details?',
+    line2:
+      'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
+  },
+  [PartyType.RESPONDENT]: {
+    title: 'Do the other people named in this application (the applicants) know any of your contact details?',
+  },
 };
 
 const cyContent = {
@@ -30,12 +39,35 @@ const cyContent = {
       required: 'Rhowch eich manylion hysbys',
     },
   },
+  [PartyType.APPLICANT]: {
+    title:
+      'Ydych chi eisiau cadw eich manylion cyswllt yn breifat oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',
+    line2:
+      "Bydd eich cais yn cael ei rannu gyda'r unigolyn arall yn yr achos (yr atebydd). Mae hyn yn cynnwys eich manylion cyswllt, oni bai eich bod yn gofyn i'r llys beidio â rhannu'r manylion hyn.",
+  },
+  [PartyType.RESPONDENT]: {
+    title: 'A yw’r unigolyn a wnaeth gais i’r llys (y ceisydd) yn gwybod unrhyw rai o’ch manylion cyswllt?',
+  },
 };
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userIdamId: '123',
+    userCase: {
+      applicants: [
+        {
+          value: {
+            user: {
+              idamId: '123',
+            },
+          },
+        },
+      ],
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
   let fields;
@@ -45,21 +77,16 @@ describe('citizen-home content', () => {
     fields = form.fields as FormFields;
   });
 
-  test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual(
-      'Do the other people named in this application (the applicants) know any of your contact details?'
-    );
-    expect(generatedContent.section).toEqual('Keeping your contact details private');
-  });
-
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content Data', () => {
-    languageAssertions('en', enContent, () => generateContent(commonContent));
+    languageAssertions('en', { ...enContent, ...enContent['applicant'] }, () => generateContent(commonContent));
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
+    languageAssertions('cy', { ...cyContent, ...cyContent['applicant'] }, () =>
+      generateContent({ ...commonContent, language: 'cy' })
+    );
   });
 
   test('should contain detailsKnown field', () => {

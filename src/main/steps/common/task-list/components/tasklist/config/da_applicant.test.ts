@@ -18,19 +18,20 @@ describe('da_applicant', () => {
     const aboutYouTasks = DA_APPLICANT[0].tasks(data, {} as SectionContent);
 
     expect(DA_APPLICANT[0].id).toBe('aboutYou');
-    expect(aboutYouTasks).toHaveLength(3);
-    expect(aboutYouTasks[0].id).toBe('keepYourDetailsPrivate');
-    expect(aboutYouTasks[1].id).toBe('editYouContactDetails');
-    expect(aboutYouTasks[2].id).toBe('yourSupport');
+    expect(aboutYouTasks).toHaveLength(4);
+    expect(aboutYouTasks[0].id).toBe('editYouContactDetails');
+    expect(aboutYouTasks[1].id).toBe('contactPreferences');
+    expect(aboutYouTasks[2].id).toBe('keepYourDetailsPrivate');
+    expect(aboutYouTasks[3].id).toBe('supportYouNeed');
   });
 
   test('your application section should contain correct ids and tasks', () => {
     const yourApplicationTasks = DA_APPLICANT[1].tasks(data, {} as SectionContent);
 
-    expect(DA_APPLICANT[1].id).toBe('yourApplication');
-    expect(yourApplicationTasks).toHaveLength(2);
+    expect(yourApplicationTasks).toHaveLength(3);
     expect(yourApplicationTasks[0].id).toBe('yourApplicationPDF');
-    expect(yourApplicationTasks[1].id).toBe('yourAapplicationWitnessStatment');
+    expect(yourApplicationTasks[1].id).toBe('yourApplicationWelshPDF');
+    expect(yourApplicationTasks[2].id).toBe('requestToCourtAboutYourCase');
   });
 
   test('your hearing section should contain correct ids and tasks', () => {

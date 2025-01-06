@@ -28,8 +28,8 @@ const enContent = {
   previousHearings: 'Previous hearings',
   supportDuringCaselinktext: 'Support you need during your hearing',
   delayorcancellinktext: 'Ask to delay or cancel a hearing date',
-  linkforsupport: '/respondent/hearing-needs/support-help',
-  linkfordelayorcancel: '#',
+  linkforsupport: '/respondent/reasonable-adjustments/intro',
+  linkfordelayorcancel: '/respondent/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
   hearingOutcome: 'Hearing outcome',
   hearing: 'Hearing',
   hearingid: 'Hearing Id',
@@ -68,8 +68,8 @@ const cyContent: typeof enContent = {
   previousHearings: 'Previous hearings - welsh',
   supportDuringCaselinktext: 'Support you need during your hearing - welsh',
   delayorcancellinktext: 'Ask to delay or cancel a hearing date - welsh',
-  linkforsupport: '/respondent/hearing-needs/support-help',
-  linkfordelayorcancel: '#',
+  linkforsupport: '/respondent/reasonable-adjustments/intro',
+  linkfordelayorcancel: '/respondent/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
   hearingOutcome: 'Hearing outcome - welsh',
   hearing: 'Hearing - welsh',
   hearingid: 'Hearing Id - welsh',
@@ -379,7 +379,7 @@ describe('citizen-home yourhearings hearings content', () => {
   test('orders should be added to hearing orders', () => {
     expect(generatedContent.hearingOrders).toStrictEqual([
       {
-        href: '/respondent/yourdocuments/alldocuments/orders/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        href: '/respondent/documents/download/c9f56483-6e2d-43ce-9de8-72661755b87c/finalDocument.pdf',
         createdDate: '1/1/2020',
         fileName: 'finalDocument.pdf',
         id: 1,

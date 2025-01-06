@@ -23,7 +23,9 @@
 
       <div class="govuk-grid-column-two-thirds">
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-        {{buildProgressBar(progressBar)}}
+        {% if progressBar.length %}
+          {{buildProgressBar(progressBar)}}
+        {% endif %}
         <div class="govuk-!-padding-bottom-4"></div>
         {{buildNotificationBanners(notifications)}}
         <ol class="app-task-list">
@@ -35,13 +37,17 @@
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!">
         {% block oneThird %}
           <h2 class="govuk-heading-m">{{iWantTo}}</h2>
-          <ul class="govuk-list">
-            {% for hyperlink in hyperlinks %}
-              <li>
-                <a href="{{hyperlink.link}}" target="{{hyperlink.target}}" class="govuk-link">{{hyperlink.label}}</a>
-              </li>
-            {% endfor %}
-          </ul class="govuk-list">
+
+          {%if quickLinks.length %}
+            <ul class="govuk-list">
+              {% for link in quickLinks %}
+                <li class="govuk-!-padding-bottom-2">
+                  <a class="govuk-link" href="{{link.linkHref}}" target="{{link.target}}">{{link.linkText}}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
           {%if userCase.caseTypeOfApplication === "FL401" %}
             {% include "../contact-us.njk" %}
           {% else %}

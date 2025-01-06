@@ -20,10 +20,7 @@ export class FeatureToggles {
       throw new Error('At least one feature name has to be provided');
     }
 
-    return features.some(
-      feature =>
-        FeatureToggles.isEnabled(feature) && authorisedFeatures !== undefined && authorisedFeatures.includes(feature)
-    );
+    return features.some(feature => FeatureToggles.isEnabled(feature) && authorisedFeatures?.includes(feature));
   }
 
   static isAnyEnabled(...featureNames: string[]): boolean {
@@ -47,6 +44,31 @@ export class FeatureToggles {
       toBoolean(config.get<boolean>('featureToggles.testingSupport'))
     );
     return isTestingSupportEnabled;
+  }
+
+  async isCaseTrainTrackEnabled(): Promise<boolean> {
+    return this.launchDarklyClient.serviceVariation(
+      'citizen-train-track-feature',
+      toBoolean(config.get<boolean>('featureToggles.enableCaseTrainTrack'))
+    );
+  }
+  async isRAComponentEnabled(): Promise<boolean> {
+    if (this.launchDarklyClient) {
+      return this.launchDarklyClient.serviceVariation(
+        'enable-ra-component',
+        toBoolean(config.get<boolean>('featureToggles.enableRAComponent'))
+      );
+    }
+    return toBoolean(config.get<boolean>('featureToggles.enableRAComponent'));
+  }
+  async isPcqComponentEnabled(): Promise<boolean> {
+    if (this.launchDarklyClient) {
+      return this.launchDarklyClient.serviceVariation(
+        'enable-pcq-component',
+        toBoolean(config.get<boolean>('featureToggles.enablePcqComponent'))
+      );
+    }
+    return toBoolean(config.get<boolean>('featureToggles.enablePcqComponent'));
   }
 }
 

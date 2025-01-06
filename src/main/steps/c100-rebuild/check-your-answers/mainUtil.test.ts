@@ -5,7 +5,6 @@ import { PartyType, YesOrNo } from '../../../app/case/definition';
 import { ANYTYPE } from './common/index';
 import {
   ApplicantDetails,
-  CaseName,
   ChildernDetails,
   ChildernDetailsAdditional,
   HelpWithFee,
@@ -29,7 +28,7 @@ import {
   WithoutNoticeHearing,
   getYesNoTranslation,
   reasonableAdjustment,
-  whereDoChildLive,
+  whereDoChildrenLive,
 } from './mainUtil';
 
 const sectionTitles = {
@@ -60,7 +59,8 @@ const keys = {
   applicantDetails: 'applicantDetails',
   fullName: 'fullName',
   contactDetailsOf: 'contactDetailsOf',
-  whoDoesLiveWith: 'whoDoesLiveWith',
+  childLivingArrangements: "{firstname} {lastname}'s living arrangements",
+  whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with?',
   addressDetails: 'addressDetails',
   detailsOfChildConcern: 'detailsOfChildConcern',
   reasonPermissionRequired: 'reasonPermissionRequired',
@@ -75,7 +75,7 @@ const keys = {
   childGenderLabel: 'childGenderLabel',
   orderAppliedFor: 'orderAppliedFor',
   parentalResponsibility: 'parentalResponsibility',
-  previousAbduction: 'previousAbduction',
+  detailsofAbduction: 'detailsofAbduction',
   c1A_policeOrInvestigatorInvolved: 'c1A_policeOrInvestigatorInvolved',
   childDrugAbuse: 'childDrugAbuse',
   otherWellBeingIssues: 'otherWellBeingIssues',
@@ -83,7 +83,7 @@ const keys = {
   selectSupervisionAgreementLabel: 'selectSupervisionAgreementLabel',
   supervisionAgreementOtherWaysLabel: 'supervisionAgreementOtherWaysLabel',
   relationshipTo: 'relationshipTo',
-  explainNoLabel: 'explainNoLabel',
+  explainYesLabel: 'explainYesLabel',
   hasNameChanged: 'hasNameChanged',
   otherGender: 'otherGender',
   respondentPlaceOfBirthUnknown: 'respondentPlaceOfBirthUnknown',
@@ -1088,7 +1088,7 @@ describe('test cases for main util', () => {
     expect(childernDetailsAdditionalObj?.title).toBe(undefined);
   });
 
-  test('whereDoChildLive', () => {
+  test('whoDoesChildMainlyLiveWith should have correct details', () => {
     const userCase = {
       id: 'id',
       state: undefined,
@@ -1097,15 +1097,79 @@ describe('test cases for main util', () => {
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           firstName: 'Bob',
           lastName: 'Silly',
+          mainlyLiveWith: {
+            id: '2',
+            firstName: 'test',
+            lastName: 'parent',
+            partyType: PartyType.RESPONDENT,
+          },
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    expect(whereDoChildLiveObj?.rows).toEqual([
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
+              text: undefined,
+              visuallyHiddenText: 'Who does Bob Silly mainly live with?',
+            },
+          ],
+        },
+        key: {
+          text: 'Who does Bob Silly mainly live with?',
+        },
+        value: {
+          html: 'test parent',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
+              text: undefined,
+              visuallyHiddenText: "Bob Silly's living arrangements",
+            },
+          ],
+        },
+        key: {
+          text: "Bob Silly's living arrangements",
+        },
+        value: {
+          html: '<ul>undefined</ul>',
+        },
+      },
+    ]);
+    expect(whereDoChildLiveObj?.title).toBe(undefined);
+  });
+
+  test('childLivingArrangements', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      cd_children: [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          firstName: 'Bob',
+          lastName: 'Silly',
+          mainlyLiveWith: {
+            id: '2',
+            firstName: 'test',
+            lastName: 'parent',
+            partyType: PartyType.RESPONDENT,
+          },
+        },
+      ],
+    } as ANYTYPE;
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
     expect(whereDoChildLiveObj?.rows).not.toBe([]);
     expect(whereDoChildLiveObj?.title).toBe(undefined);
   });
 
-  test('whereDoChildLive > alternative', () => {
+  test('childLivingArrangements > alternative', () => {
     const userCase = {
       id: 'id',
       state: undefined,
@@ -1122,23 +1186,46 @@ describe('test cases for main util', () => {
               partyType: PartyType.RESPONDENT,
             },
           ],
+          mainlyLiveWith: {
+            id: '2',
+            firstName: 'test',
+            lastName: 'parent',
+            partyType: PartyType.RESPONDENT,
+          },
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
     expect(whereDoChildLiveObj?.rows).toEqual([
       {
         actions: {
           items: [
             {
-              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with',
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
               text: undefined,
-              visuallyHiddenText: 'whoDoesLiveWith',
+              visuallyHiddenText: 'Who does Bob Silly mainly live with?',
             },
           ],
         },
         key: {
-          text: 'whoDoesLiveWith',
+          text: 'Who does Bob Silly mainly live with?',
+        },
+        value: {
+          html: 'test parent',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
+              text: undefined,
+              visuallyHiddenText: "Bob Silly's living arrangements",
+            },
+          ],
+        },
+        key: {
+          text: "Bob Silly's living arrangements",
         },
         value: {
           html: '<ul><li>test parent</li></ul>',
@@ -1198,6 +1285,8 @@ describe('test cases for main util', () => {
           contactDetails: {
             emailAddress: 'abc@gmail.com',
             telephoneNumber: '+447205308786',
+            donKnowEmailAddress: 'Yes',
+            donKnowTelephoneNumber: 'Yes',
           },
         },
       ],
@@ -1363,12 +1452,12 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/safety-concerns/abduction/previousabductions',
               text: undefined,
-              visuallyHiddenText: 'previousAbduction',
+              visuallyHiddenText: 'detailsofAbduction',
             },
           ],
         },
         key: {
-          text: 'previousAbduction',
+          text: 'detailsofAbduction',
         },
         value: {},
       },
@@ -1633,12 +1722,12 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
-              visuallyHiddenText: 'Email',
+              visuallyHiddenText: 'E-mail',
             },
           ],
         },
         key: {
-          text: 'Email',
+          text: 'E-mail',
         },
         value: {
           text: 'abc@gmail.com',
@@ -1680,23 +1769,6 @@ describe('test cases for main util', () => {
     expect(safetyConcerns_yoursObj?.rows).not.toBe([]);
     expect(safetyConcerns_yoursObj?.title).toBe(undefined);
   });
-
-  test('CaseName - util', () => {
-    const userCase = {
-      id: 'id',
-      state: undefined,
-      applicantCaseName: 'test',
-    } as ANYTYPE;
-    const CaseName_fun = CaseName({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
-    expect(CaseName_fun?.rows).not.toBe([]);
-    expect(CaseName_fun?.title).toBe(undefined);
-  });
-
-  /**
-   *   InternationalElement,
-  PastAndCurrentProceedings
-   */
-
   test('MiamAttendance - util', () => {
     const userCase = {
       id: 'id',
@@ -1739,6 +1811,7 @@ describe('test cases for main util', () => {
       miam_otherProceedings: YesOrNo.NO,
       miam_attendance: YesOrNo.NO,
       miam_mediatorDocument: YesOrNo.YES,
+      miam_validReason: YesOrNo.YES,
     } as ANYTYPE;
     const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).toStrictEqual([
@@ -1780,33 +1853,16 @@ describe('test cases for main util', () => {
         actions: {
           items: [
             {
-              href: '/c100-rebuild/miam/mediator-confirmation',
+              href: '/c100-rebuild/miam/valid-reason',
               text: undefined,
-              visuallyHiddenText: 'mediatorConfirmation',
+              visuallyHiddenText: 'undefined',
             },
           ],
         },
-        key: {
-          text: 'mediatorConfirmation',
-        },
+        key: {},
         value: {
           text: 'Yes',
         },
-      },
-      {
-        actions: {
-          items: [
-            {
-              href: '/c100-rebuild/miam/mediator-document',
-              text: undefined,
-              visuallyHiddenText: 'midatatorDocumentTitle',
-            },
-          ],
-        },
-        key: {
-          text: 'midatatorDocumentTitle',
-        },
-        value: {},
       },
     ]);
     expect(CaseName_fun?.title).toBe('MiamAttendance');

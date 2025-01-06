@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -5,6 +7,7 @@ import { FormContent } from '../../../app/form/Form';
 import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
+export * from './routeGuard';
 
 const en = () => ({
   title: 'Respond to the application',
@@ -14,6 +17,7 @@ const en = () => ({
     [SectionStatus.TO_DO]: 'To Do',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.OPTIONAL]: 'Optional',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
@@ -31,6 +35,7 @@ const cy = () => ({
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
+    [SectionStatus.OPTIONAL]: 'Dewisol',
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
@@ -47,20 +52,29 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
-    text: l => l.continue,
+  onlyContinue: {
+    text: l => l.respondToApplication,
+    disabled: true,
   },
 };
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const tasklistSections = generateRespondentTaskList(
+    translations.sectionTitles,
+    translations.taskListItems,
+    content.userCase,
+    content.userIdamId
+  );
+
+  if (tasklistSections.length > 1) {
+    form.onlyContinue!.disabled = !_.every(tasklistSections, section => {
+      return _.every(section.items, item => [SectionStatus.OPTIONAL, SectionStatus.COMPLETED].includes(item.status));
+    });
+  }
+
   return {
     ...translations,
-    sections: generateRespondentTaskList(
-      translations.sectionTitles,
-      translations.taskListItems,
-      content.userCase,
-      content.userIdamId
-    ),
+    sections: tasklistSections,
     form,
   };
 };

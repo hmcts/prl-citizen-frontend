@@ -11,7 +11,7 @@ export const miamMockData = mockRequest({
         'validExemption',
       ],
       miam_domesticAbuse: ['none'],
-      miam_childProtectionEvidence: ['none'],
+      miam_childProtectionEvidence: 'none',
       miam_urgency: ['none'],
       miam_previousAttendance: ['none'],
       miam_notAttendingReasons: ['none'],

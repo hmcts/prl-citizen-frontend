@@ -1,0 +1,43 @@
+{% extends "common/page.njk" %}
+{% from "common/breadcrumb/breadcrumb.macro.njk" import appBreadcrumb with context %}
+
+{% block backLink %}{% endblock %}
+
+{% block pageTitle %}
+    {{uploadDocuments.pageCaption}} - Private law - GOV.UK
+{% endblock %}
+
+{% block page_content %}
+    {{appBreadcrumb(breadcrumbs)}}
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-5">
+        <span class="govuk-caption-l">{{uploadDocuments.pageCaption}}</span>
+        {{uploadDocuments.title}}
+    </h1>
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <p class="govuk-body">{{uploadDocuments.content}}</p>
+
+    <ol class="app-task-list">
+        {% for section in sections %}
+            <li>
+                <h3 class="app-task-list__section">
+                    {{section.title}}
+                </h3>
+                <ul class="app-task-list__items">
+                    {% for item in section.items %}
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">
+                                <a id="{{item.id}}" class="govuk-link govuk-link--no-visited-state" href="{{item.link.url}}" aria-describedby="{{item.id}}-status">
+                                    {{item.link.text}}
+                                </a>
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ol>
+
+{% endblock %}

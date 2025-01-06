@@ -9,7 +9,7 @@ import {
 } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+const en = {
   title: 'Access your case',
   paragraph:
     'Access and manage your case using your case number and access code. These will be in the letter, email or pack sent by the court.',
@@ -17,7 +17,6 @@ const en = () => ({
   caseNumberHintText: 'This is a 16-digit number',
   accessCodeLabel: 'Enter your access code',
   accessCodeHintText: 'This has 8 characters',
-  saveAndContinue: 'Save and continue',
   errors: {
     caseCode: {
       required: 'Enter your case code',
@@ -32,9 +31,9 @@ const en = () => ({
       invalidAccessCode: 'Enter your access code',
     },
   },
-});
+};
 
-const cy = () => ({
+const cy = {
   title: 'Cael mynediad i’ch achos',
   paragraph:
     'Defnyddiwch eich rhif achos a’ch cod mynediad i gael mynediad i’ch achos a’i reoli. Bydd y rhain wedi’u nodi yn y llythyr, yr e-bost neu’r pecyn a anfonwyd gan y llys',
@@ -42,7 +41,6 @@ const cy = () => ({
   caseNumberHintText: 'Mae’r rhif hwn yn cynnwys 16 digid',
   accessCodeLabel: 'Nodwch eich cod mynediad',
   accessCodeHintText: 'Mae hwn yn cynnwys 8 nod',
-  saveAndContinue: 'Cadw a pharhau',
   errors: {
     caseCode: {
       required: 'Rhowch eich cod achos',
@@ -57,7 +55,7 @@ const cy = () => ({
       invalidAccessCode: 'Nodwch eich cod mynediad',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -71,23 +69,24 @@ export const form: FormContent = {
       label: l => l.caseNumberLabel,
       hint: l => l.caseNumberHintText,
       labelSize: 's',
-      validator: value => isFieldFilledIn(value) || isCaseCodeValid(value) || isNumeric(value),
+      validator: value => isFieldFilledIn(value) || isNumeric(value) || isCaseCodeValid(value),
     },
     accessCode: {
       type: 'text',
       label: l => l.accessCodeLabel,
       hint: l => l.accessCodeHintText,
       labelSize: 's',
-      validator: value => isFieldFilledIn(value) || isAccessCodeValid(value) || isAlphaNumeric(value),
+      validator: value => isFieldFilledIn(value) || isAlphaNumeric(value) || isAccessCodeValid(value),
     },
   },
-  accessCodeCheck: {
-    text: l => l.saveAndContinue,
+  onlyContinue: {
+    text: l => l.continue,
   },
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
+
   return {
     ...translations,
     form,

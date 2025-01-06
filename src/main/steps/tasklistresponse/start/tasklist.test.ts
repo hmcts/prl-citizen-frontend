@@ -123,6 +123,7 @@ describe('generateRespondentTaskList', () => {
           addressLivedLessThan5YearsDetails: '',
           otherPersonRelationshipToChildren: [],
           isAtAddressLessThan5YearsWithDontKnow: '',
+          partyId: '1234',
         },
       },
     ];
@@ -158,15 +159,21 @@ describe('generateRespondentTaskList', () => {
             text: 'Keep your details private',
           },
           {
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'confirm-or-edit-your-contact-details',
             status: 'IN_PROGRESS',
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/tasklistresponse/support-you-need-during-case/attending-the-court/1234',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
-            status: 'TO_DO',
+            status: 'OPTIONAL',
             text: 'Support you need during your case',
           },
         ],
@@ -192,10 +199,10 @@ describe('generateRespondentTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
+            href: '/respondent/safety-concerns/concern-guidance',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
-            text: 'Allegations of harm and violence',
+            text: 'Make allegations of harm and violence',
           },
         ],
         title: '5. Safety concerns',
@@ -206,7 +213,7 @@ describe('generateRespondentTaskList', () => {
             href: '/tasklistresponse/international-factors/start/1234',
             id: 'international-factors',
             status: 'TO_DO',
-            text: 'International element',
+            text: 'International elements',
           },
         ],
         title: '6. Additional information',
@@ -294,15 +301,21 @@ describe('getRemainingTaskList', () => {
             text: 'Keep your details private',
           },
           {
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'confirm-or-edit-your-contact-details',
             status: 'IN_PROGRESS',
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/tasklistresponse/support-you-need-during-case/attending-the-court/1234',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
-            status: 'TO_DO',
+            status: 'OPTIONAL',
             text: 'Support you need during your case',
           },
         ],
@@ -328,10 +341,10 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
+            href: '/respondent/safety-concerns/concern-guidance',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
-            text: 'Allegations of harm and violence',
+            text: 'Make allegations of harm and violence',
           },
         ],
         title: '5. Safety concerns',
@@ -342,7 +355,7 @@ describe('getRemainingTaskList', () => {
             href: '/tasklistresponse/international-factors/start/1234',
             id: 'international-factors',
             status: 'TO_DO',
-            text: 'International element',
+            text: 'International elements',
           },
         ],
         title: '6. Additional information',
@@ -404,15 +417,21 @@ describe('getRemainingTaskList', () => {
             text: 'Keep your details private',
           },
           {
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'confirm-or-edit-your-contact-details',
             status: 'IN_PROGRESS',
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/tasklistresponse/support-you-need-during-case/attending-the-court/1234',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
-            status: 'TO_DO',
+            status: 'OPTIONAL',
             text: 'Support you need during your case',
           },
         ],
@@ -438,10 +457,10 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
+            href: '/respondent/safety-concerns/concern-guidance',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
-            text: 'Allegations of harm and violence',
+            text: 'Make allegations of harm and violence',
           },
         ],
         title: '5. Safety concerns',
@@ -452,7 +471,7 @@ describe('getRemainingTaskList', () => {
             href: '/tasklistresponse/international-factors/start/1234',
             id: 'international-factors',
             status: 'TO_DO',
-            text: 'International element',
+            text: 'International elements',
           },
         ],
         title: '6. Additional information',
@@ -502,15 +521,21 @@ describe('getRemainingTaskList', () => {
             text: 'Keep your details private',
           },
           {
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'confirm-or-edit-your-contact-details',
             status: 'IN_PROGRESS',
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/tasklistresponse/support-you-need-during-case/attending-the-court/1234',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
-            status: 'TO_DO',
+            status: 'OPTIONAL',
             text: 'Support you need during your case',
           },
         ],
@@ -536,10 +561,10 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
+            href: '/respondent/safety-concerns/concern-guidance',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
-            text: 'Allegations of harm and violence',
+            text: 'Make allegations of harm and violence',
           },
         ],
         title: '5. Safety concerns',
@@ -550,7 +575,7 @@ describe('getRemainingTaskList', () => {
             href: '/tasklistresponse/international-factors/start/1234',
             id: 'international-factors',
             status: 'TO_DO',
-            text: 'International element',
+            text: 'International elements',
           },
         ],
         title: '6. Additional information',

@@ -20,8 +20,8 @@ type FeatureContext = { [key: string]: ContextReference };
 
 @autobind
 export default class LookupAndManualAddressPostController {
-  private parent;
-  private featureContext: FeatureContext;
+  private readonly parent;
+  private readonly featureContext: FeatureContext;
   private contextReference: ContextReference;
 
   constructor(protected readonly fields: FormFields | FormFieldsFn) {

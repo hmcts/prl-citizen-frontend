@@ -1,11 +1,9 @@
 {% extends "common/template.njk" %}
+
 {% block page_content %}
-<span class="govuk-caption-l">{{caption}}</span>
-<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{title}}</h1>
-      <div class="govuk-inset-text">
-            <p class="govuk-body-m">{{line1}}</p>  
-            <p class="govuk-body-m">{{line2}}</p>  
-      </div>
-<p class="govuk-body-m">{{paragraph1}}</p>
-<p class="govuk-body-m">{{paragraph2}}</p>
+      <h1 class="govuk-heading-l">
+            <span class="govuk-caption-m">{{caption}}</span>
+            {{title}}</h1>
+      <p class="govuk-body">{{content1}}</p>
+      <p class="govuk-body">{{content2}}</p>
 {% endblock %}

@@ -1,10 +1,12 @@
-import { CA_RESPONDENT } from './ca_respondent';
+import { CA_RESPONDENT_CONFIG } from './ca_respondent';
 
 describe('ca_respondent', () => {
   test('should have correct notification ids', () => {
-    expect(CA_RESPONDENT).toHaveLength(3);
-    expect(CA_RESPONDENT[0].id).toBe('newDocument');
-    expect(CA_RESPONDENT[1].id).toBe('newOrder');
-    expect(CA_RESPONDENT[2].id).toBe('finalOrder');
+    const ca_respondentNotifications = CA_RESPONDENT_CONFIG();
+    expect(ca_respondentNotifications).toHaveLength(4);
+    expect(ca_respondentNotifications[0].id).toBe('applicationServedByCourtToRespondent');
+    expect(ca_respondentNotifications[1].id).toBe('submitFM5');
+    expect(ca_respondentNotifications[2].id).toBe('orderNonPersonalService');
+    expect(ca_respondentNotifications[3].id).toBe('serveDocuments');
   });
 });

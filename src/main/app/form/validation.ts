@@ -13,7 +13,6 @@ export type Validator = (
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-export type AnyType = any;
 export const enum ValidationError {
   REQUIRED = 'required',
   NOT_SELECTED = 'notSelected',
@@ -141,9 +140,9 @@ export const isInvalidHelpWithFeesRef: Validator = value => {
   if (fieldNotFilledIn) {
     return fieldNotFilledIn;
   }
-
+  const matcher = new RegExp(/^HWF-[A-Z0-9]{3}-[A-Z0-9]{3}$/i);
   if (typeof value === 'string') {
-    if (!value.match(/^HWF-[A-Z0-9]{3}-[A-Z0-9]{3}$/i)) {
+    if (!matcher.test(value)) {
       return 'invalid';
     }
 
@@ -158,26 +157,29 @@ export const isInvalidPostcode: Validator = value => {
   if (fieldNotFilledIn) {
     return fieldNotFilledIn;
   }
-
-  if (!(value as string).match(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i)) {
+  const matcher = new RegExp(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i);
+  if (!matcher.test(value as string)) {
     return 'invalid';
   }
 };
 
 export const isPhoneNoValid: Validator = value => {
   if (typeof value === 'string') {
-    return !value.match(/^$|^[0-9 +().-]{11,}$/) ? 'invalid' : undefined;
+    const matcher = new RegExp(/^$|^[0-9 +().-]{11,}$/);
+    return !matcher.test(value) ? 'invalid' : undefined;
   }
 };
 
 export const isAlphaNumeric: Validator = value => {
   if (typeof value === 'string') {
-    return !value.match(/^[a-zA-Z0-9_\s]*$/) ? 'invalid' : undefined;
+    const matcher = new RegExp(/^[a-zA-Z0-9_\s]*$/);
+    return !matcher.test(value) ? 'invalid' : undefined;
   }
 };
 export const isAlphaNumericWithApostrophe: Validator = value => {
   if (typeof value === 'string') {
-    return !value.match(/^[a-zA-Z0-9'_\s]*$/) ? 'invalid' : undefined;
+    const matcher = new RegExp(/^[a-zA-Z0-9'_\s]*$/);
+    return !matcher.test(value) ? 'invalid' : undefined;
   }
 };
 export const isEmailValid: Validator = value => {
@@ -187,13 +189,16 @@ export const isEmailValid: Validator = value => {
 };
 
 export const isFieldLetters: Validator = value => {
-  if (!(value as string).match(/^[\p{Script=Latin}'’\-\s]*$/gu)) {
+  const matcher = new RegExp(/^[\p{Script=Latin}'’\-\s]*$/gu);
+  if (!matcher.test(value as string)) {
     return 'invalid';
   }
 };
 
 export const isValidCaseReference: Validator = value => {
-  if (!(value as string).match(/^\d{16}$/) && !(value as string).match(/^\d{4}-\d{4}-\d{4}-\d{4}$/)) {
+  const matcher = new RegExp(/^\d{4}-\d{4}-\d{4}-\d{4}$/);
+  const matcher1 = new RegExp(/^\d{16}$/);
+  if (!matcher1.test(value as string) && !matcher.test(value as string)) {
     return 'invalid';
   }
 };
@@ -236,20 +241,27 @@ export const isAccessCodeValid: Validator = value => {
 };
 
 export const isNumeric: Validator = value => {
-  if (value && !(value as string).match(/^\d+$/)) {
+  const matcher = new RegExp(/^\d+$/);
+  if (value && !matcher.test(value as string)) {
     return ValidationError.NOT_NUMERIC;
   }
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 export const isFileSizeGreaterThanMaxAllowed = (files: any): boolean => {
-  const { documents }: AnyType = files;
+  const { documents } = files;
   return documents.size > C100MaxFileSize;
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 export const isValidFileFormat = (files: any): boolean => {
-  const { documents }: AnyType = files;
+  const { documents } = files;
   const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
   return AllowedFileExtentionList.indexOf(extension) > -1;
+};
+
+export const isValidOption: Validator = value => {
+  if ((value as string)?.trim() === '') {
+    return ValidationError.NOT_SELECTED;
+  }
 };

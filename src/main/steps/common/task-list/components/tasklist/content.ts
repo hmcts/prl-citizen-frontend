@@ -25,13 +25,25 @@ const en: TaskListContent = {
           yourApplicationPDF: {
             linkText: 'Your application (PDF)',
           },
+          yourApplicationWelshPDF: {
+            linkText: 'Your application (PDF) in welsh',
+          },
+          yourAOHPDF: {
+            linkText: 'Your allegations of harm and violence (PDF)',
+          },
+          yourAOHWelshPDF: {
+            linkText: 'Your allegations of harm and violence (PDF) in welsh',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
+          },
         },
       },
       yourDocuments: {
         heading: 'Your documents',
         tasks: {
           uploadDocuments: {
-            linkText: ' Upload documents',
+            linkText: 'Upload documents, applications and statements',
           },
           viewAllDocuments: {
             linkText: 'View all documents',
@@ -42,7 +54,7 @@ const en: TaskListContent = {
         heading: 'The response',
         tasks: {
           theResponsePDF: {
-            linkText: 'Response {respondentPosition} to your application',
+            linkText: 'The response to application',
           },
         },
       },
@@ -60,14 +72,14 @@ const en: TaskListContent = {
           editYouContactDetails: {
             linkText: 'Confirm or edit your contact details',
           },
+          supportYouNeed: {
+            linkText: 'Support you need during your case',
+          },
           contactPreferences: {
             linkText: 'Contact preferences',
           },
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
-          },
-          yourSupport: {
-            linkText: 'Your Support',
           },
         },
       },
@@ -87,11 +99,14 @@ const en: TaskListContent = {
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
           },
+          contactPreferences: {
+            linkText: 'Contact preferences',
+          },
           editYouContactDetails: {
             linkText: 'Confirm or edit your contact details',
           },
-          yourSupport: {
-            linkText: 'Your Support',
+          supportYouNeed: {
+            linkText: 'Support you need during your case',
           },
         },
       },
@@ -101,8 +116,17 @@ const en: TaskListContent = {
           checkTheApplication: {
             linkText: 'Check the application (PDF)',
           },
+          checkTheApplicationWelsh: {
+            linkText: 'Check the application (PDF) in welsh',
+          },
           checkAllegationsOfHarmAndViolence: {
             linkText: 'Check the allegations of harm and violence (PDF)',
+          },
+          checkAllegationsOfHarmAndViolenceWelsh: {
+            linkText: 'Check the allegations of harm and violence (PDF) in welsh',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
           },
         },
       },
@@ -111,11 +135,9 @@ const en: TaskListContent = {
         tasks: {
           respondToTheApplication: {
             linkText: 'Respond to the application',
-            hintText: 'Go to view all documents to check the response.',
           },
-          respondToAOHAndViolence: {
-            linkText: 'Respond to the allegations of harm and violence',
-            hintText: 'Go to view all documents to check the response.',
+          theResponsePDF: {
+            linkText: 'The response to application',
           },
         },
       },
@@ -131,7 +153,7 @@ const en: TaskListContent = {
         heading: 'Your documents',
         tasks: {
           uploadDocuments: {
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
           },
           viewAllDocuments: {
             linkText: 'View all documents',
@@ -156,8 +178,17 @@ const en: TaskListContent = {
           yourApplicationPDF: {
             linkText: 'Your application (PDF)',
           },
+          yourApplicationWelshPDF: {
+            linkText: 'Your application (PDF) in welsh',
+          },
           yourAapplicationWitnessStatment: {
             linkText: 'Witness statement (PDF)',
+          },
+          yourAapplicationWitnessStatmentWelsh: {
+            linkText: 'Witness statement (PDF) in welsh',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
           },
         },
       },
@@ -165,7 +196,7 @@ const en: TaskListContent = {
         heading: 'Your documents',
         tasks: {
           uploadDocuments: {
-            linkText: ' Upload documents',
+            linkText: 'Upload documents, applications and statements',
           },
           viewAllDocuments: {
             linkText: 'View all documents',
@@ -192,8 +223,8 @@ const en: TaskListContent = {
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
           },
-          yourSupport: {
-            linkText: 'Your Support',
+          supportYouNeed: {
+            linkText: 'Support you need during your case',
           },
         },
       },
@@ -216,8 +247,11 @@ const en: TaskListContent = {
           editYouContactDetails: {
             linkText: 'Confirm or edit your contact details',
           },
-          yourSupport: {
-            linkText: 'Your Support',
+          contactPreferences: {
+            linkText: 'Contact preferences',
+          },
+          supportYouNeed: {
+            linkText: 'Support you need during your case',
           },
         },
       },
@@ -226,6 +260,12 @@ const en: TaskListContent = {
         tasks: {
           checkTheApplication: {
             linkText: 'Check the application (PDF)',
+          },
+          checkTheApplicationWelsh: {
+            linkText: 'Check the application (PDF) in welsh',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
           },
         },
       },
@@ -244,7 +284,7 @@ const en: TaskListContent = {
             linkText: 'View all documents',
           },
           uploadDocuments: {
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
           },
         },
       },
@@ -284,13 +324,25 @@ const cy: typeof en = {
           yourApplicationPDF: {
             linkText: 'Eich cais (PDF)',
           },
+          yourApplicationWelshPDF: {
+            linkText: 'Eich cais (PDF) yn Gymraeg',
+          },
+          yourAOHPDF: {
+            linkText: 'Eich honiadau o niwed a thrais (PDF)',
+          },
+          yourAOHWelshPDF: {
+            linkText: 'Eich honiadau o niwed a thrais (PDF) yn Gymraeg',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Gwneud cais i’r llys am eich achos',
+          },
         },
       },
       yourDocuments: {
         heading: 'Eich dogfennau',
         tasks: {
           uploadDocuments: {
-            linkText: 'Llwytho dogfennau',
+            linkText: 'Llwytho dogfennau, ceisiadau a datganiadau',
           },
           viewAllDocuments: {
             linkText: 'Gweld yr holl ddogfennau',
@@ -298,10 +350,10 @@ const cy: typeof en = {
         },
       },
       theResponse: {
-        heading: 'The response (welsh)',
+        heading: 'Yr ymateb',
         tasks: {
           theResponsePDF: {
-            linkText: 'Response {respondentPosition} to your application (welsh)',
+            linkText: 'Yr ymateb i’ch cais',
           },
         },
       },
@@ -320,14 +372,14 @@ const cy: typeof en = {
           editYouContactDetails: {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
+          supportYouNeed: {
+            linkText: 'Cymorth y mae arnoch ei angen yn ystod eich achos',
+          },
           contactPreferences: {
             linkText: 'Dewisiadau cyswllt',
           },
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
-          },
-          yourSupport: {
-            linkText: 'Your Support -welsh',
           },
         },
       },
@@ -347,11 +399,14 @@ const cy: typeof en = {
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
           },
+          contactPreferences: {
+            linkText: 'Dewisiadau cyswllt',
+          },
           editYouContactDetails: {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
-          yourSupport: {
-            linkText: 'Your Support -welsh',
+          supportYouNeed: {
+            linkText: 'Cymorth y mae arnoch ei angen yn ystod eich achos',
           },
         },
       },
@@ -361,8 +416,17 @@ const cy: typeof en = {
           checkTheApplication: {
             linkText: 'Gwirio’r cais (PDF)',
           },
+          checkTheApplicationWelsh: {
+            linkText: 'Gwiriwch y cais (PDF) yn Gymraeg',
+          },
           checkAllegationsOfHarmAndViolence: {
             linkText: 'Gwirio’r honiadau o niwed a thrais (PDF)',
+          },
+          checkAllegationsOfHarmAndViolenceWelsh: {
+            linkText: 'Gwiriwch y cais (PDF) yn Gymraeg',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Gwneud cais i’r llys am eich achos',
           },
         },
       },
@@ -371,11 +435,9 @@ const cy: typeof en = {
         tasks: {
           respondToTheApplication: {
             linkText: "Ymateb i'r cais",
-            hintText: 'Ewch i gweld yr holl ddogfennau i wirio’r ymateb',
           },
-          respondToAOHAndViolence: {
-            linkText: "Ymateb i'r honiadau o niwed a thrais",
-            hintText: 'Ewch i gweld yr holl ddogfennau i wirio’r ymateb',
+          theResponsePDF: {
+            linkText: 'Yr ymateb i’ch cais',
           },
         },
       },
@@ -391,7 +453,7 @@ const cy: typeof en = {
         heading: 'Eich dogfennau',
         tasks: {
           uploadDocuments: {
-            linkText: 'Llwytho dogfennau Dewisol',
+            linkText: 'Llwytho dogfennau, ceisiadau a datganiadau',
           },
           viewAllDocuments: {
             linkText: 'Eich diogelwch',
@@ -416,8 +478,17 @@ const cy: typeof en = {
           yourApplicationPDF: {
             linkText: 'Eich cais (PDF)',
           },
+          yourApplicationWelshPDF: {
+            linkText: 'Eich cais (PDF) yn Gymraeg',
+          },
           yourAapplicationWitnessStatment: {
             linkText: 'Datganiad tyst (PDF)',
+          },
+          yourAapplicationWitnessStatmentWelsh: {
+            linkText: 'Datganiad tyst (PDF) yn Gymraeg',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Gwneud cais i’r llys am eich achos',
           },
         },
       },
@@ -425,7 +496,7 @@ const cy: typeof en = {
         heading: 'Eich dogfennau',
         tasks: {
           uploadDocuments: {
-            linkText: 'Llwytho dogfennau',
+            linkText: 'Llwytho dogfennau, ceisiadau a datganiadau',
           },
           viewAllDocuments: {
             linkText: 'Gweld yr holl ddogfennau',
@@ -454,8 +525,8 @@ const cy: typeof en = {
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
           },
-          yourSupport: {
-            linkText: 'Your Support -welsh',
+          supportYouNeed: {
+            linkText: 'Cymorth y mae arnoch ei angen yn ystod eich achos',
           },
         },
       },
@@ -475,11 +546,14 @@ const cy: typeof en = {
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
           },
+          contactPreferences: {
+            linkText: 'Dewisiadau cyswllt',
+          },
           editYouContactDetails: {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
-          yourSupport: {
-            linkText: 'Your Support -welsh',
+          supportYouNeed: {
+            linkText: 'Cymorth y mae arnoch ei angen yn ystod eich achos',
           },
         },
       },
@@ -488,6 +562,12 @@ const cy: typeof en = {
         tasks: {
           checkTheApplication: {
             linkText: 'Gwirio’r cais (PDF)',
+          },
+          checkTheApplicationWelsh: {
+            linkText: 'Gwiriwch y cais (PDF) yn Gymraeg',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Gwneud cais i’r llys am eich achos',
           },
         },
       },
@@ -506,7 +586,7 @@ const cy: typeof en = {
             linkText: 'Eich diogelwch',
           },
           uploadDocuments: {
-            linkText: 'Llwytho dogfennau Dewisol',
+            linkText: 'Llwytho dogfennau, ceisiadau a datganiadau',
           },
         },
       },

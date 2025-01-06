@@ -5,7 +5,7 @@ import { LoggerInstance } from 'winston';
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
 import { UserDetails } from '../controller/AppRequest';
 
-export const getFeesForC100ApplicationSubmission = async (
+export const getC100ApplicationFee = async (
   userDetails: UserDetails,
   logger: LoggerInstance
 ): Promise<FeesResponse> => {
@@ -21,7 +21,7 @@ export const getFeesForC100ApplicationSubmission = async (
     return response.data;
   } catch (err) {
     logger.error(err.message);
-    throw new Error('Fee could not be fetched.');
+    throw new Error('Error occured, C100 application fee could not be fetched. - getC100ApplicationFee');
   }
 };
 

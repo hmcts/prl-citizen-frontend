@@ -70,7 +70,7 @@ describe('Document upload controller', () => {
     expect(req.session.errors).toEqual(errors);
   });
 
-  test('Should redirect back to the next page when document already exists while clicking save and continue', async () => {
+  test('Should redirect back to the next page when document already exists while clicking onlyContinue', async () => {
     const mockForm = {
       fields: {
         field: {
@@ -88,7 +88,7 @@ describe('Document upload controller', () => {
         orderId: '1',
       },
       body: {
-        saveAndContinue: true,
+        onlyContinue: true,
       },
       files: { documents: { name: 'test.rtf', data: '', mimetype: 'text' } },
       session: {
@@ -121,7 +121,7 @@ describe('Document upload controller', () => {
       orderId: '1',
     });
 
-    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should upload document and redirect back to current page', async () => {
@@ -164,7 +164,6 @@ describe('Document upload controller', () => {
         orderType: 'otherOrder',
         orderId: '1',
       },
-      files: { documents: { name: 'test.rtf', data: '', mimetype: 'text' } },
       session: {
         userCase: {
           otherProceedings: {
@@ -186,6 +185,7 @@ describe('Document upload controller', () => {
         },
       },
     });
+    req.files = { documents: { name: 'test.docx', data: '', mimetype: 'text' } };
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -233,7 +233,6 @@ describe('Document upload controller', () => {
         orderType: 'otherOrder',
         orderId: '2',
       },
-      files: { documents: { name: 'test.rtf', size: '812300', data: '', mimetype: 'text' } },
       session: {
         userCase: {
           otherProceedings: {
@@ -255,6 +254,8 @@ describe('Document upload controller', () => {
         },
       },
     });
+    req.files = { documents: { name: 'test.docx', data: '', mimetype: 'text' } };
+
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -302,7 +303,6 @@ describe('Document upload controller', () => {
         orderType: 'otherOrder',
         orderId: '1',
       },
-      files: { documents: { name: 'test.png', size: '812300', data: '', mimetype: 'text' } },
       session: {
         userCase: {
           otherProceedings: {
@@ -324,6 +324,7 @@ describe('Document upload controller', () => {
         },
       },
     });
+    req.files = { documents: { name: 'test.docx', data: '', mimetype: 'text' } };
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -331,8 +332,306 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
   });
 
+  test('Should throw error if invalid file format for document', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    mockedAxios.post.mockImplementation(url => {
+      switch (url) {
+        case 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/testing-support/lease':
+          return Promise.resolve({ data: 'Test S2S Token' });
+        case '/upload-citizen-document':
+          return Promise.resolve({
+            data: {
+              status: 'Success',
+              document: {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_filename: 'applicant_emergency_protection_order10_12092022.rtf',
+                document_binary_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+              },
+            },
+          });
+        default:
+          return Promise.reject(new Error('not found'));
+      }
+    });
+
+    const req = mockRequest({
+      params: {
+        orderType: 'otherOrder',
+        orderId: '1',
+      },
+      session: {
+        userCase: {
+          otherProceedings: {
+            order: {
+              otherOrders: [
+                {
+                  orderDetail: 'OtherOrder1',
+                  orderCopy: 'Yes',
+                  orderDocument: {
+                    id: '',
+                    url: '',
+                    filename: '',
+                    binaryUrl: '',
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    });
+    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
+    const errors = [{ errorType: 'fileFormat', propertyName: 'document' }];
+    const res = mockResponse();
+
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
+
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
+    expect(req.session.errors).toEqual(errors);
+  });
+
+  test('Should throw error if invalid file size for document', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    mockedAxios.post.mockImplementation(url => {
+      switch (url) {
+        case 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/testing-support/lease':
+          return Promise.resolve({ data: 'Test S2S Token' });
+        case '/upload-citizen-document':
+          return Promise.resolve({
+            data: {
+              status: 'Success',
+              document: {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_filename: 'applicant_emergency_protection_order10_12092022.rtf',
+                document_binary_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+              },
+            },
+          });
+        default:
+          return Promise.reject(new Error('not found'));
+      }
+    });
+
+    const req = mockRequest({
+      params: {
+        orderType: 'otherOrder',
+        orderId: '1',
+      },
+      session: {
+        userCase: {
+          otherProceedings: {
+            order: {
+              otherOrders: [
+                {
+                  orderDetail: 'OtherOrder1',
+                  orderCopy: 'Yes',
+                  orderDocument: {
+                    id: '',
+                    url: '',
+                    filename: '',
+                    binaryUrl: '',
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    });
+    req.files = { documents: { name: 'test.docx', size: '812300', data: '', mimetype: 'text' } };
+    const errors = [{ errorType: 'fileSize', propertyName: 'document' }];
+    const res = mockResponse();
+
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
+
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/proceedings/otherOrder/1/documentUpload');
+    expect(req.session.errors).toEqual(errors);
+  });
+
   describe('when there is an error in saving session', () => {
     test('should throw an error', async () => {
+      const mockForm = {
+        fields: {
+          field: {
+            type: 'file',
+          },
+        },
+        submit: {
+          text: l => l.continue,
+        },
+      };
+      const controller = new UploadDocumentController(mockForm.fields);
+
+      mockedAxios.post.mockImplementation(url => {
+        switch (url) {
+          case 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/testing-support/lease':
+            return Promise.resolve({ data: 'Test S2S Token' });
+          case '/upload-citizen-document':
+            return Promise.resolve({
+              data: {
+                status: 'Success',
+                document: {
+                  document_url:
+                    'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                  document_filename: 'applicant_emergency_protection_order10_12092022.rtf',
+                  document_binary_url:
+                    'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+                },
+              },
+            });
+          default:
+            return Promise.reject(new Error('not found'));
+        }
+      });
+
+      const req = mockRequest({
+        params: {
+          orderType: 'otherOrder',
+          orderId: '1',
+        },
+        session: {
+          save: undefined,
+          userCase: {
+            otherProceedings: {
+              order: {
+                otherOrders: [
+                  {
+                    orderDetail: 'OtherOrder1',
+                    orderCopy: 'Yes',
+                    orderDocument: {
+                      id: '',
+                      url: '',
+                      filename: '',
+                      binaryUrl: '',
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      });
+      req.files = { documents: { name: 'test.docx', data: '', mimetype: 'text' } };
+      const res = mockResponse();
+
+      try {
+        await controller.post(req, res);
+      } catch (err) {
+        //eslint-disable-next-line jest/no-conditional-expect
+        expect(err).toBe('MOCK_ERROR');
+      }
+    });
+
+    test('should throw an error if document already exists', async () => {
+      const mockForm = {
+        fields: {
+          field: {
+            type: 'file',
+          },
+        },
+        submit: {
+          text: l => l.continue,
+        },
+      };
+      const controller = new UploadDocumentController(mockForm.fields);
+
+      mockedAxios.post.mockImplementation(url => {
+        switch (url) {
+          case 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/testing-support/lease':
+            return Promise.resolve({ data: 'Test S2S Token' });
+          case '/upload-citizen-document':
+            return Promise.resolve({
+              data: {
+                status: 'Success',
+                document: {
+                  document_url:
+                    'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                  document_filename: 'applicant_emergency_protection_order10_12092022.rtf',
+                  document_binary_url:
+                    'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+                },
+              },
+            });
+          default:
+            return Promise.reject(new Error('not found'));
+        }
+      });
+
+      const req = mockRequest({
+        params: {
+          orderType: 'otherOrder',
+          orderId: '1',
+        },
+        session: {
+          save: jest.fn(done => done('MOCK_ERROR')),
+          userCase: {
+            otherProceedings: {
+              order: {
+                otherOrders: [
+                  {
+                    orderDetail: 'OtherOrder1',
+                    orderCopy: 'Yes',
+                    orderDocument: {
+                      id: '1',
+                      url: '',
+                      filename: '',
+                      binaryUrl: '',
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      });
+      req.files = { documents: { name: 'test.docx', data: '', mimetype: 'text' } };
+      const res = mockResponse();
+
+      try {
+        await controller.post(req, res);
+      } catch (err) {
+        //eslint-disable-next-line jest/no-conditional-expect
+        expect(err).toBe('MOCK_ERROR');
+      }
+    });
+
+    test('should throw an error after upload document error', async () => {
       const controller = new UploadDocumentController({});
       const res = mockResponse();
       const req = mockRequest({

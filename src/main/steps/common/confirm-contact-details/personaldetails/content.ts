@@ -1,6 +1,7 @@
-import { CaseDate } from '../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
+import { CaseType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
+import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
 import {
   areDateFieldsFilledIn,
@@ -91,66 +92,71 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    citizenUserFirstNames: {
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      label: l => l.citizenUserFirstNames,
-      labelSize: null,
-      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
-    },
-    citizenUserLastNames: {
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      label: l => l.citizenUserLastNames,
-      labelSize: null,
-      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
-    },
-    citizenUserAdditionalName: {
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      label: l => l.previousName,
-      labelSize: null,
-      validator: value => isFieldLetters(value),
-    },
-    citizenUserDateOfBirth: {
-      type: 'date',
-      classes: 'govuk-date-input',
-      label: l => l.citizenUserDateOfBirth,
-      hint: l => l.hintDateOfBirth,
-      values: [
-        {
-          label: l => l.dateFormat['day'],
-          name: 'day',
-          classes: 'govuk-input--width-2',
-          attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+  fields: (caseData: Partial<CaseWithId>) => {
+    return {
+      citizenUserFirstNames: {
+        type: 'text',
+        classes: 'govuk-input--width-20',
+        label: l => l.citizenUserFirstNames,
+        labelSize: null,
+        validator: value => isFieldFilledIn(value) || isFieldLetters(value),
+      },
+      citizenUserLastNames: {
+        type: 'text',
+        classes: 'govuk-input--width-20',
+        label: l => l.citizenUserLastNames,
+        labelSize: null,
+        validator: value => isFieldFilledIn(value) || isFieldLetters(value),
+      },
+      citizenUserAdditionalName: {
+        type: 'text',
+        classes: 'govuk-input--width-20',
+        label: l => l.previousName,
+        labelSize: null,
+        validator: value => isFieldLetters(value),
+      },
+      citizenUserDateOfBirth: {
+        type: 'date',
+        classes: 'govuk-date-input',
+        label: l => l.citizenUserDateOfBirth,
+        hint: l => l.hintDateOfBirth,
+        values: [
+          {
+            label: l => l.dateFormat['day'],
+            name: 'day',
+            classes: 'govuk-input--width-2',
+            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+          {
+            label: l => l.dateFormat['month'],
+            name: 'month',
+            classes: 'govuk-input--width-2',
+            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+          {
+            label: l => l.dateFormat['year'],
+            name: 'year',
+            classes: 'govuk-input--width-4',
+            attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+        ],
+        parser: body => covertToDateObject('citizenUserDateOfBirth', body as Record<string, unknown>),
+        validator: value =>
+          areDateFieldsFilledIn(value as CaseDate) ||
+          isDateInputInvalid(value as CaseDate) ||
+          isFutureDate(value as CaseDate),
+      },
+      citizenUserPlaceOfBirth: {
+        type: 'text',
+        classes: 'govuk-input--width-20',
+        label: l => l.citizenUserPlaceOfBirth,
+        labelSize: null,
+        hidden: caseData?.caseTypeOfApplication === CaseType.FL401,
+        validator: value => {
+          return !(caseData?.caseTypeOfApplication === CaseType.FL401) ? isFieldFilledIn(value) : undefined;
         },
-        {
-          label: l => l.dateFormat['month'],
-          name: 'month',
-          classes: 'govuk-input--width-2',
-          attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-        {
-          label: l => l.dateFormat['year'],
-          name: 'year',
-          classes: 'govuk-input--width-4',
-          attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-      ],
-      parser: body => covertToDateObject('citizenUserDateOfBirth', body as Record<string, unknown>),
-      validator: value =>
-        areDateFieldsFilledIn(value as CaseDate) ||
-        isDateInputInvalid(value as CaseDate) ||
-        isFutureDate(value as CaseDate),
-    },
-    citizenUserPlaceOfBirth: {
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      label: l => l.citizenUserPlaceOfBirth,
-      labelSize: null,
-      validator: value => isFieldFilledIn(value),
-    },
+      },
+    };
   },
   submit: {
     text: l => l.continue,
@@ -161,6 +167,9 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
-    form,
+    form: {
+      ...form,
+      fields: (form.fields as FormFieldsFn)(content?.userCase || {}, content?.additionalData?.req),
+    },
   };
 };

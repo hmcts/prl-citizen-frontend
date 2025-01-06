@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
-import { C100_CHILD_ADDRESS } from '../../steps/urls';
+import { C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { AppSession, UserDetails } from '../controller/AppRequest';
+import { AppRequest, AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
+
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
@@ -26,26 +28,41 @@ export class CaseApi {
     }
   }
 
-  public async createCase(): Promise<CreateCaseResponse> {
+  public async createCase(req: AppRequest<Partial<Case>>): Promise<CreateCaseResponse> {
     const data = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
-      c100RebuildReturnUrl: C100_CHILD_ADDRESS, //added to handle deafult returnURL incase save & come back is not invoked at all
+      c100RebuildReturnUrl: C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT, //added to handle deafult returnURL incase save & come back is not invoked at all
+      c100RebuildChildPostCode: req?.session?.userCase?.c100RebuildChildPostCode,
     };
 
     try {
       const response = await this.axios.post<CreateCaseResponse>('/case/create', data);
-      const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response?.data;
-      return { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase };
+      const {
+        id,
+        caseTypeOfApplication,
+        c100RebuildReturnUrl,
+        state,
+        noOfDaysRemainingToSubmitCase,
+        c100RebuildChildPostCode,
+      } = response?.data ?? {};
+      return {
+        id,
+        caseTypeOfApplication,
+        c100RebuildReturnUrl,
+        state,
+        noOfDaysRemainingToSubmitCase,
+        c100RebuildChildPostCode,
+      };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
     }
   }
 
-  public async createCaseTestingSupport(): Promise<UpdateCaseResponse> {
+  public async createCaseTestingSupport(): Promise<RetreiveDraftCase> {
     try {
-      const response = await this.axios.post<UpdateCaseResponse>('/testing-support/create-dummy-citizen-case');
-      return response.data.id;
+      const response = await this.axios.post<RetreiveDraftCase>('/testing-support/create-dummy-citizen-case');
+      return detransformCaseData(response.data);
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -64,14 +81,14 @@ export class CaseApi {
     caseId: string,
     caseData: Partial<CaseWithId>,
     returnUrl: string,
-    caseEvent: C100_CASE_EVENT
+    caseEvent: C100_CASE_EVENT,
+    additionalData: Record<string, any> | undefined
   ): Promise<UpdateCaseResponse> {
-    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
-      caseData;
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
+      applicantPcqId: additionalData?.pcqId,
       caseTypeOfApplication: caseTypeOfApplication as string,
-      applicantCaseName,
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
@@ -104,12 +121,10 @@ export class CaseApi {
     caseData: Partial<CaseWithId>,
     returnUrl: string
   ): Promise<UpdateCaseResponse> {
-    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
-      caseData;
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
       caseTypeOfApplication: caseTypeOfApplication as string,
-      applicantCaseName,
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
@@ -178,7 +193,7 @@ export class CaseApi {
     }
   }
 
-  public async downloadDraftApplication(docId: string): Promise<void> {
+  public async downloadC100Application(docId: string): Promise<void> {
     try {
       const response = await this.axios.get(`/${docId}/download`, {
         responseType: 'arraybuffer',
@@ -186,7 +201,7 @@ export class CaseApi {
       return response.data;
     } catch (err) {
       this.logError(err);
-      throw new Error('Draft application could not be downloaded.');
+      throw new Error('Error occured, C100 application document could not be downloaded.');
     }
   }
 
@@ -216,10 +231,10 @@ export class CaseApi {
 
   private logError(error: AxiosError) {
     if (error.response) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
       this.logger.info('Response: ', error.response.data);
     } else if (error.request) {
-      this.logger.error(`API Error ${error.config.method} ${error.config.url}`);
+      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
     } else {
       this.logger.error('API Error', error.message);
     }
@@ -268,7 +283,6 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
 const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => {
   let detransformedCaseData = {
     caseId: caseData.id,
-    applicantCaseName: caseData.applicantCaseName,
     caseTypeOfApplication: caseData.caseTypeOfApplication,
     c100RebuildChildPostCode: caseData.c100RebuildChildPostCode,
     helpWithFeesReferenceNumber: caseData.helpWithFeesReferenceNumber,
@@ -293,6 +307,7 @@ interface CreateCaseResponse {
   c100RebuildReturnUrl: string;
   state: State;
   noOfDaysRemainingToSubmitCase: string;
+  c100RebuildChildPostCode: string;
 }
 interface UpdateCaseResponse {
   [key: string]: any;
@@ -326,11 +341,11 @@ interface UpdateCase {
 
 interface UpdateCaseRequest extends UpdateCase {
   caseTypeOfApplication: string;
-  applicantCaseName?: string;
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
   id: string;
+  applicantPcqId?: string;
   paymentServiceRequestReferenceNumber?: string;
   paymentReferenceNumber?: string;
 }

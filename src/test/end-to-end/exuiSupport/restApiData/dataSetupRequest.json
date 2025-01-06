@@ -1,0 +1,19 @@
+
+{
+    "C100" : [
+        {
+            "scenario": "C100_RESP_FLOW"
+        },
+        {
+            "scenario": "C100_RESP_ABOUT_YOU"
+        }
+    ],
+    "FL401" : [
+        {
+            "scenario": "FL401_APPLICANT_RESPONDENT_FLOW_1"
+        },
+        {
+            "scenario": "FL401_APPLICANT_RESPONDENT_FLOW_2"
+        }
+    ]
+}

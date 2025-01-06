@@ -1,0 +1,47 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "common/fileupload/macro-v1.njk" import fileUpload with context %}
+
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">
+    <span class="govuk-caption-m">{{caption}}</span>
+    {{title}}
+  </h1>
+
+  {% if fileUploadConfig.errorMessage != undefined %}
+    <div class="govuk-form-group--error">
+  {% endif %}
+
+  {{ fileUpload({
+    name: "miam_domesticAbuseEvidenceDocs",
+    uploadButtonText: fileUploadConfig.uploadButtonText,
+    labelText: fileUploadConfig.labelText,
+    hintText: fileUploadConfig.hintText,
+    allowedFileTypes: "image/jpg,image/jpeg,image/bmp,image/png,image/tiff,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    uploadUrl: "",
+    uploadedFiles: fileUploadConfig.uploadedFiles,
+    errorMessage: fileUploadConfig.errorMessage,
+    noFilesText: fileUploadConfig.noFilesText,
+    removeFileText: fileUploadConfig.removeFileText,
+    token: csrfToken
+  }) }}
+    
+  {% if fileUploadConfig.errorMessage != undefined %}
+    </div>
+  {% endif %}
+
+  {% set uploadReqSteps %}
+    <ol class="govuk-list govuk-list--number">
+      {% for item in uploadEvidenceRequirements %}
+        <li>{{ item | safe}}</li>
+      {% endfor %}
+    </ol>
+  {% endset %}
+
+  {{ govukDetails({
+    summaryText: uploadEvidencePanelTitle,
+    html: uploadReqSteps
+  }) }}
+
+{% endblock %}

@@ -134,7 +134,7 @@ describe('ConfirmContactDetailsGetController', () => {
     ];
     req.url = 'applicant';
     await controller.get(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/confirm-contact-details/checkanswers?byApplicant=applicant');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/confirm-contact-details/checkanswers');
   });
   test('should redirect with FL401  applicant case', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';

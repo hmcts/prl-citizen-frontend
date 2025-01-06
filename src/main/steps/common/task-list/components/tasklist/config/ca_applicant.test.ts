@@ -22,16 +22,20 @@ describe('ca_applicant', () => {
     expect(aboutYouTasks[0].id).toBe('editYouContactDetails');
     expect(aboutYouTasks[1].id).toBe('contactPreferences');
     expect(aboutYouTasks[2].id).toBe('keepYourDetailsPrivate');
-    expect(aboutYouTasks[3].id).toBe('yourSupport');
+    expect(aboutYouTasks[3].id).toBe('supportYouNeed');
   });
 
   test('your application section should contain correct ids and tasks', () => {
     const yourApplicationTasks = CA_APPLICANT[1].tasks(data, {} as SectionContent);
 
     expect(CA_APPLICANT[1].id).toBe('yourApplication');
-    expect(yourApplicationTasks).toHaveLength(2);
+    expect(yourApplicationTasks).toHaveLength(6);
     expect(yourApplicationTasks[0].id).toBe('childArrangementApplication');
     expect(yourApplicationTasks[1].id).toBe('yourApplicationPDF');
+    expect(yourApplicationTasks[2].id).toBe('yourApplicationWelshPDF');
+    expect(yourApplicationTasks[3].id).toBe('yourAOHPDF');
+    expect(yourApplicationTasks[4].id).toBe('yourAOHWelshPDF');
+    expect(yourApplicationTasks[5].id).toBe('requestToCourtAboutYourCase');
   });
 
   test('your documents section should contain correct ids and tasks', () => {

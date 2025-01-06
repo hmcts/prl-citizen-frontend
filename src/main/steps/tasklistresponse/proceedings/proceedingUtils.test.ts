@@ -1,4 +1,3 @@
-import * as Urls from '../../urls';
 import { cy, en } from '../proceedings/courtproceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../proceedings/order-details/content';
 import { OPotherProceedingsSessionParserUtil, otherProceedingsContents } from '../proceedings/proceedingUtils';
@@ -29,9 +28,8 @@ describe('test cases for otherProceedingsContents', () => {
   test('OPotherProceedingsSessionParserUtil', () => {
     const UserCase = {};
     const keys = {};
-    const URLS = {};
     const sessionKey = '';
-    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey, 'en')).not.toBe([]);
+    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, sessionKey, 'en')).not.toBe([]);
   });
 
   test('OPotherProceedingsSessionParserUtil with some content', () => {
@@ -185,8 +183,7 @@ describe('test cases for otherProceedingsContents', () => {
       },
     };
     const keys = {};
-    const URLS = Urls;
     const sessionKey = 'op_courtProceedingsOrders';
-    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey, 'en')).not.toBe([]);
+    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, sessionKey, 'en')).not.toBe([]);
   });
 });
