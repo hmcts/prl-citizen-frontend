@@ -20,7 +20,9 @@
       "routes/*": ["routes/*"],
       "@c100/*": ["steps/c100-rebuild/*"]
     },
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"],
+    "allowJs": true,
+    "moduleDetection": "force",
   },
   "exclude": ["**/*.test.ts", "**/codecept.conf.ts", "**/__mocks__/*"]
 }
