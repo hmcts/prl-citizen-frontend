@@ -3,7 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 
 import { cleanConsentAgreement, cleanPermissionsWhy } from './utils';
 
-describe.skip('c100 > screening questions > utils', () => {
+describe('c100 > screening questions > utils', () => {
   describe('cleanConsentAgreement', () => {
     let caseData;
 
@@ -83,7 +83,6 @@ describe.skip('c100 > screening questions > utils', () => {
         miam_domesticAbuse_letterOfBeingVictim_subfields: [],
         miam_domesticAbuse_policeInvolvement_subfields: [],
         miam_nonAttendanceReasons: [],
-        sq_permissionsWhy: [],
         co_certificate: {
           id: '1234',
           url: 'MOCK_URL',

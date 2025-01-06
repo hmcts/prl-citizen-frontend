@@ -3,7 +3,7 @@ import { YesOrNo } from '../../../app/case/definition';
 
 import { cleanOtherChildrenDetails } from './utils';
 
-describe.skip('c100 > child-details > utils', () => {
+describe('c100 > child-details > utils', () => {
   describe('cleanOtherChildrenDetails', () => {
     const otherChildren = [
       {
@@ -35,9 +35,7 @@ describe.skip('c100 > child-details > utils', () => {
     test('should remove other children if has other children is no', () => {
       expect(
         cleanOtherChildrenDetails({ ocd_otherChildren: otherChildren } as unknown as CaseWithId, YesOrNo.NO)
-      ).toStrictEqual({
-        ocd_otherChildren: [],
-      });
+      ).toStrictEqual({});
     });
 
     test('should not remove other children if has other children is yes', () => {

@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 
 import { routeGuard } from './routeGuard';
 
-describe.skip('c100 > screening questions > permissions why > route guard', () => {
+describe('c100 > screening questions > permissions why > route guard', () => {
   let res;
   let req;
   const next = jest.fn();
@@ -91,7 +91,6 @@ describe.skip('c100 > screening questions > permissions why > route guard', () =
       miam_domesticAbuse_letterOfBeingVictim_subfields: [],
       miam_domesticAbuse_policeInvolvement_subfields: [],
       miam_nonAttendanceReasons: [],
-      sq_permissionsWhy: [],
       co_certificate: {
         id: '1234',
         url: 'MOCK_URL',

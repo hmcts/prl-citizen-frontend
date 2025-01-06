@@ -4,7 +4,7 @@ import { CaseWithId } from '../../../../app/case/case';
 
 import { routeGuard } from './routeGuard';
 
-describe.skip('c100 > child-details > has other children > route guard', () => {
+describe('c100 > child-details > has other children > route guard', () => {
   let res;
   let req;
   const next = jest.fn();
@@ -48,7 +48,7 @@ describe.skip('c100 > child-details > has other children > route guard', () => {
 
     await routeGuard.post(req, res, next);
 
-    expect(req.session.userCase).toStrictEqual({ ocd_otherChildren: [] });
+    expect(req.session.userCase).toStrictEqual({});
     expect(req.session.save).toHaveBeenCalled();
     expect(next).toHaveBeenCalled();
   });
