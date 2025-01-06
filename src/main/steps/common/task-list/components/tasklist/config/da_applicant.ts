@@ -117,7 +117,8 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id),
       },
     ],
   },
