@@ -1,0 +1,11 @@
+<!-- Set Dynatrace RUM Script for environment -->
+{% if currentHost and "aat" in currentHost %}
+    <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/17472274602522b6_complete.js" crossorigin="anonymous"></script>
+{% endif %}
+{% if currentHost and "demo" in currentHost %}
+    <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/5b59108c720e8fa7_complete.js" crossorigin="anonymous"></script>
+{% endif %}
+{% if currentHost and "apply-to-court-about-child-arrangements" in currentHost %}
+    <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/17177a07246/bf00910jpo/27c0328dc8005ff1_complete.js" crossorigin="anonymous"></script>
+{% endif %}
+<!-- End Dynatrace RUM Script -->
