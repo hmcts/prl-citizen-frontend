@@ -134,6 +134,9 @@ export const form: FormContent = {
           hint: hint => hint.firstNameHint,
           labelSize: 'none',
           validator: value => isFieldFilledIn(value) || isFieldLetters(value),
+          attributes: {
+            autocomplete: 'off',
+          },
         },
         c100TempLastName: {
           type: 'text',
@@ -141,6 +144,9 @@ export const form: FormContent = {
           label: l => l.lastNameLabel,
           labelSize: 'none',
           validator: value => isFieldFilledIn(value) || isFieldLetters(value),
+          attributes: {
+            autocomplete: 'off',
+          },
         },
         add: {
           type: 'button',

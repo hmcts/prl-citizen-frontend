@@ -144,6 +144,9 @@ export const form: FormContent = {
           label: l => l.lastNameLabel,
           labelSize: 'none',
           validator: value => isFieldFilledIn(value) || isFieldLetters(value),
+          attributes: {
+            autocomplete: 'off',
+          },
         },
         add: {
           type: 'button',
