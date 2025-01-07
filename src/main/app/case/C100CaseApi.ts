@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import Axios, { AxiosError, AxiosInstance } from 'axios';
+import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
 import { LoggerInstance } from 'winston';
 
@@ -10,6 +10,7 @@ import { AppRequest, AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
+import { logError } from './utils';
 
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
@@ -22,7 +23,7 @@ export class CaseApi {
       const response = await this.axios.get<RetreiveDraftCase>(`${config.get('services.cos.url')}/${caseId}`);
       return detransformCaseData(response.data);
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be retreived');
     }
   }
@@ -53,7 +54,7 @@ export class CaseApi {
         c100RebuildChildPostCode,
       };
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be created.');
     }
   }
@@ -63,7 +64,7 @@ export class CaseApi {
       const response = await this.axios.post<RetreiveDraftCase>('/testing-support/create-dummy-citizen-case');
       return detransformCaseData(response.data);
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be created.');
     }
   }
@@ -102,7 +103,7 @@ export class CaseApi {
       );
       return { data: response.data };
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be updated.');
     }
   }
@@ -138,7 +139,7 @@ export class CaseApi {
       );
       return { data: response.data };
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be updated.');
     }
   }
@@ -161,7 +162,7 @@ export class CaseApi {
       session.userCase = {} as CaseWithId;
       session.save();
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Error occured, case could not be deleted.');
     }
   }
@@ -173,7 +174,7 @@ export class CaseApi {
       });
       return response.data;
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Error occured, C100 application document could not be downloaded.');
     }
   }
@@ -197,19 +198,8 @@ export class CaseApi {
         },
       });
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Error occured, case could not be withdrawn.');
-    }
-  }
-
-  private logError(error: AxiosError) {
-    if (error.response) {
-      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
-      this.logger.info('Response: ', error.response.data);
-    } else if (error.request) {
-      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
-    } else {
-      this.logger.error('API Error', error.message);
     }
   }
 }

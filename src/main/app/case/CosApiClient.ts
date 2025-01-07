@@ -23,6 +23,7 @@ import type { UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId, HearingData, StatementOfServiceRequest } from './case';
 import { fromApiFormat } from './from-api-format';
+import { logError } from './utils';
 
 export class CosApiClient {
   client: AxiosInstance;
@@ -40,14 +41,7 @@ export class CosApiClient {
   }
 
   public logError(error: AxiosError): void {
-    if (error.response) {
-      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
-      this.logger.info('Response: ', error.response.data);
-    } else if (error.request) {
-      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
-    } else {
-      this.logger.error('API Error', error.message);
-    }
+    logError(error, this.logger);
   }
 
   /**
