@@ -1163,7 +1163,7 @@ describe('Content.ts toggle test cases', () => {
     ]);
   });
 
-  test.skip('en should generate sections properly for miam urgency', () => {
+  test('en should generate sections properly for miam urgency', () => {
     const generatedEnContent = generateContent({
       ...commonContent,
       userCase: {
@@ -1619,7 +1619,7 @@ describe('Content.ts toggle test cases', () => {
     ]);
   });
 
-  test.skip('cy should generate sections properly for miam urgency', () => {
+  test('cy should generate sections properly for miam urgency', () => {
     const generatedCyContent = generateContent({
       ...commonContent,
       userCase: {
@@ -2888,7 +2888,7 @@ describe('Content.ts toggle test cases', () => {
     ]);
   });
 
-  test.skip('cy should generate sections properly for other scenarios', () => {
+  test('cy should generate sections properly for other scenarios', () => {
     const generatedEnContent = generateContent({
       ...commonContent,
       language: 'cy',
@@ -3933,7 +3933,7 @@ describe('Content.ts toggle test cases', () => {
     );
   });
 
-  test.skip('generateContent with hwf conditions', () => {
+  test('generateContent with hwf conditions', () => {
     generatedContent = generateContent({
       ...commonContent,
       userCase: {
