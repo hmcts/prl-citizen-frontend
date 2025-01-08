@@ -73,7 +73,7 @@ module.exports = {
     },
     async selectNoPCQOption() {
         await I.wait(5);
-        await I.retry(3).click("I don't want to answer these questions");
+        await I.retry(3).click("I don\'t want to answer these questions");
     },
     async payByCard() {
         await I.wait(15);
