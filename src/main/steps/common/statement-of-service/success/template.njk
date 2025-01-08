@@ -15,6 +15,8 @@
 
   <h1 class="govuk-heading-m">{{heading}}</h1>
   <p class="govuk-body">{{content1}}</p>
-  <p class="govuk-body">{{content2}}</p>
+  {% if content2 !== '' %}
+    <p class="govuk-body">{{content2}}</p>
+  {% endif %}
 
 {% endblock %}

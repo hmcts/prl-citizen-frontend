@@ -70,10 +70,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
         documentCategory = UploadDocumentAPICategory.EMAIL_IMAGES_MEDIA;
         break;
       case UploadDocumentCategory.LETTERS_FROM_SCHOOL:
-        documentCategory =
-          partyType === PartyType.APPLICANT
-            ? UploadDocumentAPICategory.LETTERS_FROM_SCHOOL_APPLICANT
-            : UploadDocumentAPICategory.LETTERS_FROM_SCHOOL_RESPONDENT;
+        documentCategory = UploadDocumentAPICategory.LETTERS_FROM_SCHOOL;
         break;
       case UploadDocumentCategory.TENANCY_AND_MORTGAGE_AGREEMENTS:
         documentCategory = UploadDocumentAPICategory.TENANCY_AND_MORTGAGE_AGREEMENTS;
@@ -141,7 +138,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     try {
       const response = await client.generateStatementDocument({
         caseId: caseData.id,
-        categoryId: this.getDocumentCategory(docCategory as UploadDocumentCategory, partyType),
+        categoryId: this.getDocumentCategory(docCategory, partyType),
         partyId: user.id,
         partyName: getPartyName(caseData, partyType, user),
         partyType,
@@ -153,6 +150,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
         return;
       }
       req.session.userCase?.[getUploadedFilesDataReference(partyType)]?.push(response.document);
+      req.session.applicationSettings = {
+        ...req.session.applicationSettings,
+        isDocumentGeneratedAndUplaoded: true,
+      };
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
@@ -229,7 +230,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       return this.redirect(req, res);
     }
 
-    const categoryId = this.getDocumentCategory(docCategory as UploadDocumentCategory, partyType);
+    const categoryId = this.getDocumentCategory(docCategory, partyType);
 
     try {
       const client = new CosApiClient(user.accessToken, req.locals.logger);
@@ -251,6 +252,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       }
 
       req.session.errors = removeUploadDocErrors(req.session.errors);
+      delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
     } catch (error) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
     } finally {

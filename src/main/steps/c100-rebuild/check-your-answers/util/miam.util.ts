@@ -17,7 +17,7 @@ import {
 import { cy as UrgentHearingContentCy, en as UrgentHearingContentEn } from '../../miam/urgency/content';
 import { cy as validReasonCy, en as validReasonEn } from '../../miam/valid-reason/content';
 export class CommonDataLoader {
-  static DataFormatter = (args, storage) => {
+  static readonly DataFormatter = (args, storage) => {
     let mappedData = {};
     storage.forEach(element => {
       if (element.split('_').length > 1) {
@@ -29,7 +29,7 @@ export class CommonDataLoader {
     return mappedData;
   };
 
-  static SessionToFieldGenerator = (key: string, userCase: CaseWithId): string[] => {
+  static readonly SessionToFieldGenerator = (key: string, userCase: CaseWithId): string[] => {
     const storage: string[] = [];
     if (_.isArray(userCase[key])) {
       userCase[key].forEach(element => {

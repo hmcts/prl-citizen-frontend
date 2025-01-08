@@ -244,8 +244,6 @@ export const generateContent: TranslationFn = content => {
     ...errors[content.language],
   };
 
-  console.log(updateFormFields(form, fields));
-
   return {
     ...translations,
     form: updateFormFields(form, fields),

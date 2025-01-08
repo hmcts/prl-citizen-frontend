@@ -29,7 +29,7 @@ import {
 class MIAMNavigationController {
   protected selectedPages: MiamNonAttendReason[] = [];
 
-  private pages: Record<MiamNonAttendReason, Record<string, any>> = {
+  private readonly pages: Record<MiamNonAttendReason, Record<string, any>> = {
     [MiamNonAttendReason.DOMESTIC]: {
       url: C100_MIAM_MIAM_DOMESTIC_ABUSE,
       dataReference: 'miam_domesticAbuse',
@@ -102,12 +102,7 @@ class MIAMNavigationController {
         break;
       }
       case C100_MIAM_OTHER: {
-        url =
-          caseData.miam_notAttendingReasons === Miam_notAttendingReasons.canNotAccessMediator
-            ? C100_MIAM_NO_ACCESS_MEDIATOR
-            : this.checkForAnyValidReason(caseData)
-            ? C100_MIAM_EXCEMPTION_SUMMARY
-            : C100_MIAM_GET_MEDIATOR;
+        url = this.navigationFromOtherScreen(caseData);
         break;
       }
       case C100_MIAM_NO_ACCESS_MEDIATOR: {
@@ -118,15 +113,7 @@ class MIAMNavigationController {
         break;
       }
       case C100_MIAM_PREVIOUS_ATTENDANCE: {
-        if (caseData.miam_previousAttendance === Miam_previousAttendance.fourMonthsPriorAttended) {
-          url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
-        } else if (caseData.miam_previousAttendance === Miam_previousAttendance.miamExamptionApplied) {
-          url = C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR;
-        } else {
-          url =
-            this.getNextPageUrl(C100_MIAM_PREVIOUS_ATTENDANCE) ||
-            (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
-        }
+        url = this.navigationFromPreviousAttendance(caseData);
         break;
       }
       case C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR: {
@@ -142,23 +129,11 @@ class MIAMNavigationController {
         break;
       }
       case C100_MIAM_MIAM_DOMESTIC_ABUSE: {
-        if (!caseData.miam_domesticAbuse?.includes(DomesticAbuseExemptions.NONE)) {
-          url = applyParms(C100_MIAM_PROVIDING_DA_EVIDENCE) as PageLink;
-        } else {
-          url =
-            this.getNextPageUrl(currentPageUrl) ??
-            (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
-        }
+        url = this.navigationFromDomesticAbuseScreen(caseData, currentPageUrl);
         break;
       }
       case C100_MIAM_PROVIDING_DA_EVIDENCE: {
-        if (caseData.miam_canProvideDomesticAbuseEvidence === YesOrNo.YES) {
-          url = applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE) as PageLink;
-        } else {
-          url =
-            this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??
-            (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
-        }
+        url = this.navigationFromProvidingDAEvidence(caseData);
         break;
       }
       case C100_MIAM_UPLOAD_DA_EVIDENCE: {
@@ -170,7 +145,7 @@ class MIAMNavigationController {
       }
       default: {
         url =
-          this.getNextPageUrl(currentPageUrl) ||
+          this.getNextPageUrl(currentPageUrl) ??
           (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
         break;
       }
@@ -179,13 +154,59 @@ class MIAMNavigationController {
     return url;
   }
 
+  private navigationFromDomesticAbuseScreen(caseData: Partial<Case>, currentPageUrl: PageLink): PageLink {
+    let url: PageLink;
+    if (!caseData.miam_domesticAbuse?.includes(DomesticAbuseExemptions.NONE)) {
+      url = applyParms(C100_MIAM_PROVIDING_DA_EVIDENCE) as PageLink;
+    } else {
+      url =
+        this.getNextPageUrl(currentPageUrl) ??
+        (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
+    }
+    return url;
+  }
+
+  private navigationFromProvidingDAEvidence(caseData: Partial<Case>): PageLink {
+    let url: PageLink;
+    if (caseData.miam_canProvideDomesticAbuseEvidence === YesOrNo.YES) {
+      url = applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE) as PageLink;
+    } else {
+      url =
+        this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??
+        (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
+    }
+    return url;
+  }
+
+  private navigationFromPreviousAttendance(caseData: Partial<Case>): PageLink {
+    let url: PageLink;
+    if (caseData.miam_previousAttendance === Miam_previousAttendance.fourMonthsPriorAttended) {
+      url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
+    } else if (caseData.miam_previousAttendance === Miam_previousAttendance.miamExamptionApplied) {
+      url = C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR;
+    } else {
+      url =
+        this.getNextPageUrl(C100_MIAM_PREVIOUS_ATTENDANCE) ??
+        (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
+    }
+    return url;
+  }
+
+  private navigationFromOtherScreen(caseData: Partial<Case>): PageLink {
+    if (caseData.miam_notAttendingReasons === Miam_notAttendingReasons.canNotAccessMediator) {
+      return C100_MIAM_NO_ACCESS_MEDIATOR;
+    } else {
+      return this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR;
+    }
+  }
+
   private checkForOtherExemption(caseData: Partial<Case>, currentPageUrl: PageLink): PageLink {
     let url: PageLink;
     if (caseData?.miam_nonAttendanceReasons?.includes(MiamNonAttendReason.EXEMPT)) {
       url = C100_MIAM_OTHER;
     } else {
       url =
-        this.getNextPageUrl(currentPageUrl) ||
+        this.getNextPageUrl(currentPageUrl) ??
         (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
     }
     return url;

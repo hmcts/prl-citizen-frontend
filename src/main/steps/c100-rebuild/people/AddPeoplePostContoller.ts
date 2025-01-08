@@ -29,9 +29,9 @@ type FeatureContext = { [key: string]: ContextReference };
 
 @autobind
 export default class AddPersonPostController {
-  private parent;
+  private readonly parent;
   private request: AppRequest<AnyObject>;
-  private featureContext: FeatureContext;
+  private readonly featureContext: FeatureContext;
   private contextReference: ContextReference;
 
   constructor(protected readonly fields: FormFields | FormFieldsFn) {

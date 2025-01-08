@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import dayjs from 'dayjs';
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../../../../app/case/case';
-import { State } from '../../../../../../app/case/definition';
-import { isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
 import { interpolate } from '../../../../string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
 import {
@@ -66,12 +65,6 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
     show: showNotification,
   },
   {
-    id: NotificationType.APPLICATION_CLOSED,
-    show: (notificationType: NotificationType, caseData: CaseWithId): boolean => {
-      return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED && !isCaseWithdrawn(caseData);
-    },
-  },
-  {
     id: NotificationType.ORDER_NON_PERSONAL_SERVICE,
     show: showNotification,
     interpolateContent: (content: string, commonContent: NotificationBannerContent['common'], caseData: CaseWithId) => {
@@ -82,6 +75,7 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
         order: notification?.multiple ? commonContent.orders : commonContent.order,
         tell: notification?.multiple ? commonContent.tell : commonContent.tells,
         order1: notification?.multiple ? commonContent.orders1 : commonContent.order1,
+        orderMadeDate: notification?.orderMadeDate ? dayjs(notification.orderMadeDate).format('DD/MM/YYYY') : '',
       });
     },
   },
@@ -98,8 +92,13 @@ export const CA_APPLICANT_CONFIG = (userCase: CaseWithId): NotificationBannerPro
         order1: notification?.multiple ? commonContent.orders1 : commonContent.order1,
         respondent,
         has,
+        orderMadeDate: notification?.orderMadeDate ? dayjs(notification.orderMadeDate).format('DD/MM/YYYY') : '',
       });
     },
+  },
+  {
+    id: NotificationType.SERVE_DOCUMENTS,
+    show: showNotification,
   },
 ];
 

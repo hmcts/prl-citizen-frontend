@@ -281,7 +281,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         applicableCaseTypes: [CaseType.C100, CaseType.FL401],
         applicablePartyType: {
           C100: [PartyType.APPLICANT, PartyType.RESPONDENT],
-          FL401: [PartyType.APPLICANT],
+          FL401: [PartyType.APPLICANT, PartyType.RESPONDENT],
         },
       },
     ],
@@ -453,7 +453,6 @@ const createAWPApplication = async (
   appRequest.session.paymentError = { hasError: false, errorContext: null };
   try {
     await new CosApiClient(userDetails.accessToken, appRequest.locals.logger).createAWPApplication(
-      userDetails,
       caseData,
       applicationType,
       applicationReason,

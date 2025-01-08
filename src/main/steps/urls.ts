@@ -430,7 +430,8 @@ export const SCREENING_QUESTIONS = [
 ];
 
 /** AWP */
-export const APPLICATION_WITHIN_PROCEEDINGS_BASE_URL: PageLink = '/:partyType/application-within-proceedings';
+export const AWP = 'application-within-proceedings';
+export const APPLICATION_WITHIN_PROCEEDINGS_BASE_URL: PageLink = `/:partyType/${AWP}`;
 export const APPLICATION_WITHIN_PROCEEDINGS: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS_BASE_URL}/:applicationType/:applicationReason`;
 export const APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS_BASE_URL}/list-of-applications/:pageNumber`;
 export const APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE: PageLink = `${APPLICATION_WITHIN_PROCEEDINGS}/guidance`;
@@ -518,9 +519,6 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   PIN_ACTIVATION_URL,
   '/hearing',
   '/payment-callback',
-  STATEMENT_OF_SERVICE_REVIEW,
-  STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
-  UPLOAD_STATEMENT_OF_SERVICE,
 ];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>

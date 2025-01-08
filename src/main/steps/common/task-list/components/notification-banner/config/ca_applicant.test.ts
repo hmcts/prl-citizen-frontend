@@ -28,8 +28,8 @@ describe('ca_applicant', () => {
     expect(ca_applicantNotifications[10].id).toBe('applicationIssuedByCourtPersonalService');
     expect(ca_applicantNotifications[11].id).toBe('submitFM5');
     expect(ca_applicantNotifications[12].id).toBe('orderSOSPersonalServiceByCourtAdminBailiff');
-    expect(ca_applicantNotifications[13].id).toBe('applicationClosed');
-    expect(ca_applicantNotifications[14].id).toBe('orderNonPersonalService');
-    expect(ca_applicantNotifications[15].id).toBe('orderPersonalService');
+    expect(ca_applicantNotifications[13].id).toBe('orderNonPersonalService');
+    expect(ca_applicantNotifications[14].id).toBe('orderPersonalService');
+    expect(ca_applicantNotifications[15].id).toBe('serveDocuments');
   });
 });

@@ -1,4 +1,3 @@
-//import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { YesOrNo } from '../../../app/case/definition';
 import {
   CommonContent,

@@ -1,6 +1,8 @@
 import { CaseWithId, CitizenNotification } from '../../../../../app/case/case';
 import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
+import { STATEMENT_OF_SERVICE_WHO_WAS_SERVED } from '../../../../urls';
 import { CitizenApplicationPacks, DocumentCategory } from '../../../documents/definitions';
+import { applyParms } from '../../../url-parser';
 
 import { getNotifications } from '.';
 
@@ -313,10 +315,10 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
+                text: '<p class="govuk-notification-banner__heading">Cafcass may contact you</p>',
               },
               {
-                text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
+                text: 'The Children and Family Court Advisory and Support Service (Cafcass) may contact you to consider the needs of the children.',
               },
             ],
             links: [
@@ -326,6 +328,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Find out about Cafcass',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
         heading: 'The court has issued your application',
@@ -398,10 +411,10 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: '<p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
+                text: '<p class="govuk-notification-banner__heading">Gall Cafcass gysylltu â chi</p>',
               },
               {
-                text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
+                text: 'Efallai y bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
               },
             ],
             links: [
@@ -411,6 +424,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Gwybodaeth am Cafcass',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+              },
+              {
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
         heading: "Mae'r llys wedi cychwyn eich cais",
@@ -484,10 +508,10 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: '<p class="govuk-notification-banner__heading">Cafcass Cymru will contact you</p>',
+                text: '<p class="govuk-notification-banner__heading">Cafcass Cymru may contact you</p>',
               },
               {
-                text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
+                text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) may contact you to consider the needs of the children.',
               },
             ],
             links: [
@@ -497,6 +521,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Find out about Cafcass Cymru',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
         heading: 'The court has issued your application',
@@ -569,10 +604,10 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: '<p class="govuk-notification-banner__heading">Bydd Cafcass Cymru yn cysylltu â chi </p>',
+                text: '<p class="govuk-notification-banner__heading">Efallai y bydd Cafcass Cymru yn cysylltu â chi</p>',
               },
               {
-                text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
+                text: 'Efallai y bydd Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
               },
             ],
             links: [
@@ -582,6 +617,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Gwybodaeth am Cafcass Cymru',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+              },
+              {
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
         heading: "Mae'r llys wedi cychwyn eich cais",
@@ -627,6 +673,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -641,6 +688,9 @@ describe('testcase for notification Banner', () => {
               {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
               },
+              {
+                text: 'Order made date - 01/12/2024',
+              },
             ],
             links: [
               {
@@ -649,6 +699,17 @@ describe('testcase for notification Banner', () => {
                 text: 'View the orders (PDF)',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -691,6 +752,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -704,6 +766,9 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
+              },
+              {
+                text: 'Order made date - 01/12/2024',
               },
               {
                 text: 'You will need to arrange for the  to be served. See the orders for further details.',
@@ -738,6 +803,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Upload the statement of service (form C9)',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -780,6 +856,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -806,6 +883,9 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
+              },
+              {
+                text: 'Order made date - 01/12/2024',
               },
               {
                 text: 'You will need to arrange for the respondent to be served. See the orders for further details.',
@@ -840,6 +920,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Upload the statement of service (form C9)',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -882,6 +973,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -921,6 +1013,9 @@ describe('testcase for notification Banner', () => {
                 text: 'The court has made a final decision about your case. The orders tell you what the court has decided.',
               },
               {
+                text: 'Order made date - 01/12/2024',
+              },
+              {
                 text: 'You will need to arrange for the respondents to be served. See the orders for further details.',
               },
             ],
@@ -953,6 +1048,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Upload the statement of service (form C9)',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -996,6 +1102,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -1010,6 +1117,9 @@ describe('testcase for notification Banner', () => {
               {
                 text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
+              {
+                text: 'Dyddiad gwneud archeb - 01/12/2024',
+              },
             ],
             links: [
               {
@@ -1018,6 +1128,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Gweld y gorchmynion (PDF)',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+              },
+              {
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -1060,6 +1181,7 @@ describe('testcase for notification Banner', () => {
           multiple: true,
           final: true,
           new: true,
+          orderMadeDate: '2024-12-01',
         },
       ],
     } as unknown as CaseWithId;
@@ -1073,6 +1195,9 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
+              },
+              {
+                text: 'Dyddiad gwneud archeb - 01/12/2024',
               },
               {
                 text: "Bydd arnoch angen trefnu i'r dogfennau gael eu cyflwyno ar yr . Gweler y gorchmynion  i gael rhagor o wybodaeth.",
@@ -1107,6 +1232,17 @@ describe('testcase for notification Banner', () => {
                 text: 'Uwchlwytho’r datganiad cyflwyno',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+              },
+              {
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -1295,6 +1431,17 @@ describe('testcase for notification Banner', () => {
               },
             ],
           },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
+          },
         ],
       },
     ]);
@@ -1373,31 +1520,6 @@ describe('testcase for notification Banner', () => {
     ]);
   });
 
-  test('when case is closed', () => {
-    const data = {
-      id: '12',
-      state: State.ALL_FINAL_ORDERS_ISSUED,
-    } as unknown as CaseWithId;
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
-      {
-        sections: [
-          {
-            contents: [
-              {
-                text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided.',
-              },
-            ],
-            links: [],
-          },
-        ],
-        heading: 'You have a final order',
-        id: 'applicationClosed',
-      },
-    ]);
-  });
-
   describe('c100 respondent banners', () => {
     const data = {
       id: '123',
@@ -1428,7 +1550,7 @@ describe('testcase for notification Banner', () => {
           },
         } as unknown as Respondent,
       ];
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.caseTypeOfApplication = 'C100';
       data.citizenNotifications = [
         {
@@ -1436,6 +1558,7 @@ describe('testcase for notification Banner', () => {
           show: true,
           multiple: false,
           final: false,
+          orderMadeDate: '2024-12-01',
         } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
@@ -1448,6 +1571,9 @@ describe('testcase for notification Banner', () => {
                 {
                   text: 'The court has made a decision about your case. The order tells you what the court has decided.',
                 },
+                {
+                  text: 'Order made date - 01/12/2024',
+                },
               ],
               links: [
                 {
@@ -1456,6 +1582,17 @@ describe('testcase for notification Banner', () => {
                   text: 'View the order (PDF)',
                 },
               ],
+            },
+            {
+              contents: [
+                {
+                  text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+                },
+                {
+                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                },
+              ],
+              links: [],
             },
           ],
         },
@@ -1476,7 +1613,7 @@ describe('testcase for notification Banner', () => {
           },
         } as unknown as Respondent,
       ];
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.caseTypeOfApplication = 'C100';
       data.citizenNotifications = [
         {
@@ -1484,6 +1621,7 @@ describe('testcase for notification Banner', () => {
           show: true,
           multiple: false,
           final: false,
+          orderMadeDate: '2024-12-01',
         } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
@@ -1496,6 +1634,9 @@ describe('testcase for notification Banner', () => {
                 {
                   text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchymyn yn dweud wrthych beth mae’r llys wedi penderfynu.',
                 },
+                {
+                  text: 'Dyddiad gwneud archeb - 01/12/2024',
+                },
               ],
               links: [
                 {
@@ -1504,6 +1645,17 @@ describe('testcase for notification Banner', () => {
                   text: 'Gweld y gorchymyn (PDF)',
                 },
               ],
+            },
+            {
+              contents: [
+                {
+                  text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                },
+                {
+                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                },
+              ],
+              links: [],
             },
           ],
         },
@@ -1525,13 +1677,14 @@ describe('testcase for notification Banner', () => {
         } as unknown as Respondent,
       ];
       data.caseTypeOfApplication = 'C100';
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.citizenNotifications = [
         {
           id: 'CRNF2_APPLICANT_RESPONDENT',
           show: true,
           multiple: true,
           final: false,
+          orderMadeDate: '2024-12-01',
         } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
@@ -1544,6 +1697,9 @@ describe('testcase for notification Banner', () => {
                 {
                   text: 'The court has made a decision about your case. The orders tell you what the court has decided.',
                 },
+                {
+                  text: 'Order made date - 01/12/2024',
+                },
               ],
               links: [
                 {
@@ -1552,6 +1708,17 @@ describe('testcase for notification Banner', () => {
                   text: 'View the orders (PDF)',
                 },
               ],
+            },
+            {
+              contents: [
+                {
+                  text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+                },
+                {
+                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                },
+              ],
+              links: [],
             },
           ],
         },
@@ -1573,13 +1740,14 @@ describe('testcase for notification Banner', () => {
         } as unknown as Respondent,
       ];
       data.caseTypeOfApplication = 'C100';
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.citizenNotifications = [
         {
           id: 'CRNF2_APPLICANT_RESPONDENT',
           show: true,
           multiple: true,
           final: false,
+          orderMadeDate: '2024-12-01',
         } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
@@ -1592,6 +1760,9 @@ describe('testcase for notification Banner', () => {
                 {
                   text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
                 },
+                {
+                  text: 'Dyddiad gwneud archeb - 01/12/2024',
+                },
               ],
               links: [
                 {
@@ -1600,6 +1771,17 @@ describe('testcase for notification Banner', () => {
                   text: 'Gweld y gorchmynion (PDF)',
                 },
               ],
+            },
+            {
+              contents: [
+                {
+                  text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                },
+                {
+                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                },
+              ],
+              links: [],
             },
           ],
         },
@@ -1636,7 +1818,7 @@ describe('testcase for notification Banner', () => {
           ],
         },
       ] as unknown as CitizenApplicationPacks[];
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.citizenNotifications = [
         {
           id: 'CAN5_SOA_RESPONDENT',
@@ -1670,6 +1852,17 @@ describe('testcase for notification Banner', () => {
               ],
             },
             { contents: [], links: [] },
+            {
+              contents: [
+                {
+                  text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+                },
+                {
+                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                },
+              ],
+              links: [],
+            },
           ],
         },
       ]);
@@ -1705,7 +1898,7 @@ describe('testcase for notification Banner', () => {
           ],
         },
       ] as unknown as CitizenApplicationPacks[];
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.citizenNotifications = [
         {
           id: 'CAN5_SOA_RESPONDENT',
@@ -1739,6 +1932,17 @@ describe('testcase for notification Banner', () => {
               ],
             },
             { contents: [], links: [] },
+            {
+              contents: [
+                {
+                  text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                },
+                {
+                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                },
+              ],
+              links: [],
+            },
           ],
         },
       ]);
@@ -1765,6 +1969,7 @@ describe('testcase for notification Banner', () => {
           show: true,
           multiple: false,
           final: true,
+          orderMadeDate: '2024-12-01',
         } as CitizenNotification,
       ];
       expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
@@ -1777,6 +1982,9 @@ describe('testcase for notification Banner', () => {
                 {
                   text: 'The court has made a final decision about your case. The order tells you what the court has decided.',
                 },
+                {
+                  text: 'Order made date - 01/12/2024',
+                },
               ],
               links: [
                 {
@@ -1785,6 +1993,17 @@ describe('testcase for notification Banner', () => {
                   text: 'View the order (PDF)',
                 },
               ],
+            },
+            {
+              contents: [
+                {
+                  text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+                },
+                {
+                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                },
+              ],
+              links: [],
             },
           ],
         },
@@ -1815,6 +2034,7 @@ describe('FL401 banners', () => {
         show: true,
         multiple: false,
         final: false,
+        orderMadeDate: '2024-12-01',
       } as CitizenNotification,
     ];
     expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
@@ -1827,6 +2047,9 @@ describe('FL401 banners', () => {
               {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
               },
+              {
+                text: 'Order made date - 01/12/2024',
+              },
             ],
             links: [
               {
@@ -1835,6 +2058,17 @@ describe('FL401 banners', () => {
                 text: 'View the order (PDF)',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -1849,6 +2083,9 @@ describe('FL401 banners', () => {
               {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
               },
+              {
+                text: 'Order made date - 01/12/2024',
+              },
             ],
             links: [
               {
@@ -1857,6 +2094,17 @@ describe('FL401 banners', () => {
                 text: 'View the order (PDF)',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -1870,6 +2118,7 @@ describe('FL401 banners', () => {
         show: true,
         multiple: true,
         final: false,
+        orderMadeDate: '2024-12-01',
       } as CitizenNotification,
     ];
     expect(getNotifications(data, userDetails, PartyType.RESPONDENT, 'cy')).toStrictEqual([
@@ -1882,6 +2131,9 @@ describe('FL401 banners', () => {
               {
                 text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
+              {
+                text: 'Dyddiad gwneud archeb - 01/12/2024',
+              },
             ],
             links: [
               {
@@ -1890,6 +2142,17 @@ describe('FL401 banners', () => {
                 text: 'Gweld y gorchmynion (PDF)',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+              },
+              {
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -1904,6 +2167,9 @@ describe('FL401 banners', () => {
               {
                 text: 'Mae’r llys wedi gwneud penderfyniad am eich achos. Mae’r gorchmynion yn dweud wrthych beth mae’r llys wedi penderfynu.',
               },
+              {
+                text: 'Dyddiad gwneud archeb - 01/12/2024',
+              },
             ],
             links: [
               {
@@ -1912,6 +2178,17 @@ describe('FL401 banners', () => {
                 text: 'Gweld y gorchmynion (PDF)',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+              },
+              {
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -1926,6 +2203,7 @@ describe('FL401 banners', () => {
         multiple: false,
         final: false,
         new: true,
+        orderMadeDate: '2024-12-01',
       } as CitizenNotification,
     ];
     expect(getNotifications(data, userDetails, PartyType.APPLICANT, 'en')).toStrictEqual([
@@ -1937,6 +2215,9 @@ describe('FL401 banners', () => {
             contents: [
               {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+              },
+              {
+                text: 'Order made date - 01/12/2024',
               },
               {
                 text: 'You will need to arrange for the respondent to be served. See the order for further details.',
@@ -1967,10 +2248,24 @@ describe('FL401 banners', () => {
               },
               {
                 external: false,
-                href: '',
+                href: applyParms(STATEMENT_OF_SERVICE_WHO_WAS_SERVED, {
+                  partyType: PartyType.APPLICANT,
+                  context: 'order',
+                }),
                 text: 'Upload the statement of service',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },
@@ -2073,6 +2368,17 @@ describe('FL401 banners', () => {
               },
             ],
           },
+          {
+            contents: [
+              {
+                text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
+              },
+              {
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+              },
+            ],
+            links: [],
+          },
         ],
       },
     ]);
@@ -2100,6 +2406,17 @@ describe('FL401 banners', () => {
                 text: 'Gweld y pecyn cais',
               },
             ],
+          },
+          {
+            contents: [
+              {
+                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+              },
+              {
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+              },
+            ],
+            links: [],
           },
         ],
       },

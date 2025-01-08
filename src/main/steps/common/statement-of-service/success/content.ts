@@ -1,3 +1,6 @@
+import _ from 'lodash';
+
+import { CaseType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
@@ -31,9 +34,14 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  const content2 =
+    _.get(content, 'additionalData.req.session.userCase.caseTypeOfApplication') === CaseType.C100
+      ? translations.content2
+      : '';
 
   return {
     ...translations,
+    content2,
     form,
   };
 };

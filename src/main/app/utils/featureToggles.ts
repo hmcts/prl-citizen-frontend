@@ -20,10 +20,7 @@ export class FeatureToggles {
       throw new Error('At least one feature name has to be provided');
     }
 
-    return features.some(
-      feature =>
-        FeatureToggles.isEnabled(feature) && authorisedFeatures !== undefined && authorisedFeatures.includes(feature)
-    );
+    return features.some(feature => FeatureToggles.isEnabled(feature) && authorisedFeatures?.includes(feature));
   }
 
   static isAnyEnabled(...featureNames: string[]): boolean {

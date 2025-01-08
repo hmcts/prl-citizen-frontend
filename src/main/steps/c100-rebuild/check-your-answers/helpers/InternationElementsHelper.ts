@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { YesOrNo } from '../../../../app/case/definition';
 import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation } from '../mainUtil';
 
@@ -31,44 +32,35 @@ const htmlValParser = (selection, subText, keys) => {
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const getValueUrlByKey = (key: string, userCase: any, language: any, Urls: any, keys: any) => {
+  let caseDataYesNo: YesOrNo | undefined;
+  let caseDataDetail: string | undefined;
+  let url: any;
   switch (key) {
     case 'liveOutSideUk':
-      return {
-        valueHtml: htmlValParser(
-          getYesNoTranslation(language, userCase['ie_internationalStart'], 'ydyntTranslation'),
-          userCase['ie_provideDetailsStart'],
-          keys
-        ),
-        changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_START'],
-      };
+      caseDataYesNo = userCase['ie_internationalStart'];
+      caseDataDetail = userCase['ie_provideDetailsStart'];
+      url = Urls['C100_INTERNATIONAL_ELEMENTS_START'];
+      break;
     case 'basedOutSideEnglandOrWales':
-      return {
-        valueHtml: htmlValParser(
-          getYesNoTranslation(language, userCase['ie_internationalParents'], 'ydyntTranslation'),
-          userCase['ie_provideDetailsParents'],
-          keys
-        ),
-        changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_PARENTS'],
-      };
+      caseDataYesNo = userCase['ie_internationalParents'];
+      caseDataDetail = userCase['ie_provideDetailsParents'];
+      url = Urls['C100_INTERNATIONAL_ELEMENTS_PARENTS'];
+      break;
     case 'anotherPersonSameOrder':
-      return {
-        valueHtml: htmlValParser(
-          getYesNoTranslation(language, userCase['ie_internationalJurisdiction'], 'gallaiTranslation'),
-          userCase['ie_provideDetailsJurisdiction'],
-          keys
-        ),
-        changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_JURISDICTION'],
-      };
+      caseDataYesNo = userCase['ie_internationalJurisdiction'];
+      caseDataDetail = userCase['ie_provideDetailsJurisdiction'];
+      url = Urls['C100_INTERNATIONAL_ELEMENTS_JURISDICTION'];
+      break;
     case 'otherCountryRequestInfo':
-      return {
-        valueHtml: htmlValParser(
-          getYesNoTranslation(language, userCase['ie_internationalRequest'], 'oesTranslation'),
-          userCase['ie_provideDetailsRequest'],
-          keys
-        ),
-        changeUrl: Urls['C100_INTERNATIONAL_ELEMENTS_REQUEST'],
-      };
+      caseDataYesNo = userCase['ie_internationalRequest'];
+      caseDataDetail = userCase['ie_provideDetailsRequest'];
+      url = Urls['C100_INTERNATIONAL_ELEMENTS_REQUEST'];
+      break;
   }
+  return {
+    valueHtml: htmlValParser(getYesNoTranslation(language, caseDataYesNo, 'ydyntTranslation'), caseDataDetail, keys),
+    changeUrl: url,
+  };
 };
 export const InternationElementHelper = (userCase, keys, Urls, language) => {
   const summaryData = [

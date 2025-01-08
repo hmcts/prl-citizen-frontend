@@ -701,6 +701,7 @@ export interface CitizenNotification {
   multiple: boolean;
   personalService?: boolean;
   orderTypeId?: string;
+  orderMadeDate?: string;
 }
 
 export enum Miam_notAttendingReasons {
@@ -780,8 +781,8 @@ export interface CaseWithId extends Case {
   id: string;
   state: State;
   applicantTemporaryFormData?: {
-    TempFirstName?: string | unknown;
-    TempLastName?: string | unknown;
+    TempFirstName?: string;
+    TempLastName?: string;
   };
   applicationPayOnline?: YesOrNo;
   legalRepresentativeForProceedings?: YesOrNo;

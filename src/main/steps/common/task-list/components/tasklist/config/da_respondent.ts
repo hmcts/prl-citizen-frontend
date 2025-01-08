@@ -5,7 +5,12 @@ import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { hasContactPreference } from '../../../../../../steps/common/contact-preference/util';
 import { DOCUMENT_LANGUAGE } from '../../../../../../steps/common/documents/download/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
-import { isCaseClosed, isCaseLinked, isDocPresent } from '../../../../../../steps/common/task-list/utils';
+import {
+  isCaseClosed,
+  isCaseLinked,
+  isDocPresent,
+  isRepresentedBySolicotor,
+} from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
@@ -75,8 +80,8 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked,
-        disabled: isCaseClosed,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id),
       },
     ],
   },

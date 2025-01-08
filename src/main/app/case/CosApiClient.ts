@@ -187,7 +187,6 @@ export class CosApiClient {
   }
 
   public async createAWPApplication(
-    user: UserDetails,
     caseData: CaseWithId,
     applicationType: AWPApplicationType,
     applicationReason: AWPApplicationReason,
@@ -215,7 +214,7 @@ export class CosApiClient {
       const data = {
         awpType: applicationType,
         awpReason: applicationReason,
-        partyId: user.id,
+        partyId: partyDetails!.partyId,
         partyName: `${partyDetails?.firstName} ${partyDetails?.lastName}`,
         partyType,
         awp_completedForm,

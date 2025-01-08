@@ -3,6 +3,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 <div class="govuk-form-group">
   {% block page_content %}
@@ -12,6 +13,14 @@
         {{title}}
       </h1>
       {% if allowGenerateDocs %}
+
+        {% if isDocumentGeneratedAndUploded %}
+          {{ govukWarningText({
+          text: documentAvailableText,
+          iconFallbackText: "Warning"
+        }) }}
+        {% endif %}
+
         <form
         action="?docCategory={{ docCategory }}&_csrf={{ csrfToken }}"
         method="post"

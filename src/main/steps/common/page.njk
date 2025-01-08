@@ -4,39 +4,13 @@
 {% extends "govuk/template.njk" %}
 
 {% block head %}
-  <!-- Google Tag Manager -->
-
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != 'dataLayer'
-          ? '&l=' + l
-          : '';
-      j.async = true;
-      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-      f
-        .parentNode
-        .insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-NJCKLVT');
-  </script>
-  <!-- End Google Tag Manager -->
-
   {% include "./webpack/css.njk" %}
+  {% include "./views/includes/script-ga_tag_manager.njk" %}
 {% endblock %}
 
 {% block bodyStart %}
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJCKLVT"
-height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <!-- Dynatrace RUM Script -->
-  <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/5b59108c720e8fa7_complete.js" crossorigin="anonymous"></script>
-  <!-- End Dynatrace RUM Script -->
+  {% include "./views/includes/script-ga_tag_manager_2.njk" %}
+  {% include "./views/includes/script-dt_rum.njk" %}
 {% endblock %}
 
 {% block header %}

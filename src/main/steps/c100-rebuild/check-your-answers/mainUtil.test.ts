@@ -1234,6 +1234,23 @@ describe('test cases for main util', () => {
           text: "Bob Silly's living arrangements",
         },
         value: {
+          html: 'test parent',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
+              text: undefined,
+              visuallyHiddenText: "Bob Silly's living arrangements",
+            },
+          ],
+        },
+        key: {
+          text: "Bob Silly's living arrangements",
+        },
+        value: {
           html: '<ul class="govuk-list govuk-list--bullet"><li>test parent</li></ul>',
         },
       },

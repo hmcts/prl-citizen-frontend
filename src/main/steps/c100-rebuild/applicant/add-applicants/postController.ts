@@ -31,8 +31,8 @@ export default class AddApplicantPostController extends PostController<AnyObject
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { applicantFirstName, applicantLastName } = req.body;
     req.session.userCase.applicantTemporaryFormData = {
-      TempFirstName: applicantFirstName,
-      TempLastName: applicantLastName,
+      TempFirstName: applicantFirstName as string,
+      TempLastName: applicantLastName as string,
     };
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
@@ -47,23 +47,21 @@ export default class AddApplicantPostController extends PostController<AnyObject
     if (saveAndComeBackToggled) {
       req.session.save();
       return super.saveAndComeLater(req, res, req.session.userCase);
+    } else if (saveAndContinueChecked) {
+      const toggleCheckIfApplicantFieldIsFilled = applicantFirstName !== '' || applicantLastName !== '';
+      this.checkIfApplicantLengthLessAndFormError(
+        req,
+        res,
+        checkIfApplicantLengthLessAndFormError,
+        toggleCheckIfApplicantFieldIsFilled,
+        saveAndComeBackToggled,
+        formData,
+        form
+      );
     } else {
-      if (saveAndContinueChecked) {
-        const toggleCheckIfApplicantFieldIsFilled = applicantFirstName !== '' || applicantLastName !== '';
-        this.checkIfApplicantLengthLessAndFormError(
-          req,
-          res,
-          checkIfApplicantLengthLessAndFormError,
-          toggleCheckIfApplicantFieldIsFilled,
-          saveAndComeBackToggled,
-          formData,
-          form
-        );
-      } else {
-        this.errorsAndRedirect(req, res, formData, form);
-        if (req.session.errors && !req.session.errors.length) {
-          return this.addButtonWithNoError(req, res);
-        }
+      this.errorsAndRedirect(req, res, formData, form);
+      if (req.session.errors && !req.session.errors.length) {
+        return this.addButtonWithNoError(req, res);
       }
     }
   }
@@ -113,12 +111,10 @@ export default class AddApplicantPostController extends PostController<AnyObject
     if (toggleCheckIfApplicantFieldIsFilled) {
       this.errorsAndRedirect(req, res, formData, form);
       this.checkSessionErrors(req, res);
+    } else if (checkIfApplicantLengthLessAndFormError) {
+      return this.redirectToSamePageWithError(req, form, formData, res);
     } else {
-      if (checkIfApplicantLengthLessAndFormError) {
-        return this.redirectToSamePageWithError(req, form, formData, res);
-      } else {
-        return this.mapEnteriesToValuesAfterContinuing(req, res);
-      }
+      return this.mapEnteriesToValuesAfterContinuing(req, res);
     }
   }
 

@@ -28,6 +28,7 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
     Object.assign(req.session.userCase, formData);
 
     const redirectUrl = this.setRedirectUrl();
+    const matcher = new RegExp(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i);
 
     if (!req.body.citizenUserAddressPostcode) {
       req.session.errors = [];
@@ -36,7 +37,7 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
         errorType: 'required',
       });
       req.session.save(() => res.redirect(redirectUrl));
-    } else if (!(req.body.citizenUserAddressPostcode as string).match(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i)) {
+    } else if (!matcher.test(req.body.citizenUserAddressPostcode as string)) {
       req.session.errors = [];
       req.session.errors?.push({
         propertyName: 'citizenUserAddressPostcode',

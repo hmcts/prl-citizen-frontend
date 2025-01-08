@@ -2653,15 +2653,6 @@ export interface C1ASafteyConcernsAbuse {
   childrenConcernedAbout?: string[];
 }
 
-export interface PRL_C1ASafteyConcernsAbuse {
-  behaviourDetails?: string;
-  behaviourStartDate?: string;
-  isOngoingBehaviour?: YesNoEmpty;
-  seekHelpFromPersonOrAgency?: YesNoEmpty;
-  seekHelpDetails?: string;
-  childrenConcernedAbout?: string[];
-}
-
 export interface C1ASafteyConcerns {
   child?: {
     physicalAbuse?: C1ASafteyConcernsAbuse;
@@ -2730,7 +2721,6 @@ export type ChildrenDetails = {
   };
   liveWith?: People[];
   mainlyLiveWith?: People;
-  autofocus?: boolean;
 };
 export type Childinfo = {
   id: string;

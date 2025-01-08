@@ -6,7 +6,7 @@ module.exports = {
     concernAboutWho: 'Who are you concerned about?',
     whatBehaviourChildren: 'What type of behaviour have the children experienced or are at risk of experiencing?',
     describePhysicalAbuseTitle: 'Briefly describe the physical abuse against the children if you feel able to',
-    whichChildren: 'Which children are you concerned about? (optional)',
+    whichChildren: 'Which children are you concerned about?',
     seekHelpYesText: 'Contact 999 if there is an emergency.',
     whyChildAbduction: 'Why do you think the children may be abducted or kept outside the UK without your consent?',
     doChildrenHavePassport: 'Do any of the children have a passport?',

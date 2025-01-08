@@ -1,5 +1,6 @@
 import { CaseWithId } from '../../../app/case/case';
 import { PartyType } from '../../../app/case/definition';
+import { UserDetails } from '../../../app/controller/AppRequest';
 
 export const enum ViewDocumentsSectionId {
   APPLICATION_PACKS = 'applicationPacks',
@@ -37,7 +38,7 @@ export type UploadDocumentCategoryListProps = {
     documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
     uploadedByPartyName?: string
   ) => string;
-  show?: (caseData: CaseWithId) => boolean;
+  show?: (caseData: CaseWithId, userDetails: UserDetails) => boolean;
 };
 
 export type UploadDocumentSectionsProps = {
@@ -69,8 +70,7 @@ export const enum UploadDocumentAPICategory {
   MEDICAL_REPORTS = 'MEDICAL_REPORTS',
   MEDICAL_RECORDS = 'MEDICAL_RECORDS',
   EMAIL_IMAGES_MEDIA = 'MAIL_SCREENSHOTS_MEDIA_FILES',
-  LETTERS_FROM_SCHOOL_APPLICANT = 'LETTERS_FROM_SCHOOL_APPLICANT',
-  LETTERS_FROM_SCHOOL_RESPONDENT = 'LETTERS_FROM_SCHOOL_RESPONDENT',
+  LETTERS_FROM_SCHOOL = 'LETTERS_FROM_SCHOOL',
   TENANCY_AND_MORTGAGE_AGREEMENTS = 'TENANCY_MORTGAGE_AGREEMENTS',
   PREVIOUS_ORDERS_SUBMITTED_APPLICANT = 'PREVIOUS_ORDERS_SUBMITTED_APPLICANT',
   PREVIOUS_ORDERS_SUBMITTED_RESPONDENT = 'PREVIOUS_ORDERS_SUBMITTED_RESPONDENT',

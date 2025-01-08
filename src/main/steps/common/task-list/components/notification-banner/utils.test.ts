@@ -55,7 +55,6 @@ describe('notification Banner', () => {
     NotificationType.APPLICATION_SUBMITTED,
     NotificationType.APPLICATION_WITHDRAWN,
     NotificationType.APPLICATION_SERVED_BY_COURT_PERSONAL_NONPERSONAL_SERVICE,
-    NotificationType.APPLICATION_CLOSED,
     NotificationType.NEW_ORDER,
     NotificationType.FINAL_ORDER,
     NotificationType.APPLICATION_SERVED_BY_COURT_TO_DA_RESPONDENT,
@@ -179,38 +178,41 @@ describe('notification Banner', () => {
       expect(config[10].id).toBe('applicationIssuedByCourtPersonalService');
       expect(config[11].id).toBe('submitFM5');
       expect(config[12].id).toBe('orderSOSPersonalServiceByCourtAdminBailiff');
-      expect(config[13].id).toBe('applicationClosed');
-      expect(config[14].id).toBe('orderNonPersonalService');
-      expect(config[15].id).toBe('orderPersonalService');
+      expect(config[13].id).toBe('orderNonPersonalService');
+      expect(config[14].id).toBe('orderPersonalService');
+      expect(config[15].id).toBe('serveDocuments');
     });
 
     test('should return correct configs for CA respondent', () => {
       const config = getNotificationConfig('C100' as CaseType, 'respondent' as PartyType, {} as CaseWithId);
 
-      expect(config).toHaveLength(3);
+      expect(config).toHaveLength(4);
       expect(config[0].id).toBe('applicationServedByCourtToRespondent');
       expect(config[1].id).toBe('submitFM5');
       expect(config[2].id).toBe('orderNonPersonalService');
+      expect(config[3].id).toBe('serveDocuments');
     });
 
     test('should return correct configs for DA applicant', () => {
       const config = getNotificationConfig('FL401' as CaseType, 'applicant' as PartyType, {} as CaseWithId);
 
-      expect(config).toHaveLength(6);
+      expect(config).toHaveLength(7);
       expect(config[0].id).toBe('applicantToPersonallyServeDARespondent');
       expect(config[1].id).toBe('applicationServedByCourtAdminBailiffToDARespondent');
       expect(config[2].id).toBe('orderNonPersonalService');
       expect(config[3].id).toBe('orderPersonalService');
       expect(config[4].id).toBe('applicationServedByCourtPersonalNonPersonalServiceToDAApplicant');
       expect(config[5].id).toBe('orderSOSPersonalServiceByCourtAdminBailiffToDARespondent');
+      expect(config[6].id).toBe('serveDocuments');
     });
 
     test('should return correct configs for DA respondent', () => {
       const config = getNotificationConfig('FL401' as CaseType, 'respondent' as PartyType, {} as CaseWithId);
 
-      expect(config).toHaveLength(2);
+      expect(config).toHaveLength(3);
       expect(config[0].id).toBe('applicationServedByCourtToDARespondent');
       expect(config[1].id).toBe('orderNonPersonalService');
+      expect(config[2].id).toBe('serveDocuments');
     });
   });
 

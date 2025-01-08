@@ -9,28 +9,26 @@ import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+export const Mapper = (key, keys) => {
+  switch (key) {
+    case 'orderDetail':
+      return keys['courtIssuedLabel'];
+    case 'caseNo':
+      return keys['caseNumberLabel'];
+    case 'orderDate':
+      return keys['orderDateLabel'];
+    case 'currentOrder':
+      return keys['isCurrentOrderLabel'];
+    case 'orderCopy':
+      return keys['copyOfOrderLabel'];
+    case 'orderEndDate':
+      return keys['orderEndDateLabel'];
+    case 'orderDocument':
+      return keys['copy'];
+  }
+};
 export const IndividualOrderFieldsParser = (keys, order, language) => {
   const newOrders = order;
-  const Mapper = {
-    ['orderDetail']: {
-      question: keys['courtIssuedLabel'],
-    },
-    ['caseNo']: {
-      question: keys['caseNumberLabel'],
-    },
-    ['orderDate']: {
-      question: keys['orderDateLabel'],
-    },
-    ['currentOrder']: {
-      question: keys['isCurrentOrderLabel'],
-    },
-    ['orderCopy']: {
-      question: keys['copyOfOrderLabel'],
-    },
-    ['orderEndDate']: {
-      question: keys['orderEndDateLabel'],
-    },
-  };
   let Val = '';
   Object.entries(newOrders).forEach((entry, index) => {
     const key = entry[0];

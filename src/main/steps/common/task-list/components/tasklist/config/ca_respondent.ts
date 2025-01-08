@@ -57,9 +57,9 @@ export const aboutYou: TaskListConfigProps = {
     {
       id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
       href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
-      stateTag: (caseData, userDetails) => {
+      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-        return getConfirmOrEditYourContactDetailsStatus(respondent);
+        return getConfirmOrEditYourContactDetailsStatus(caseData, respondent);
       },
     },
     {
@@ -76,7 +76,7 @@ export const aboutYou: TaskListConfigProps = {
         `${applyParms(DETAILS_KNOWN, { partyType: PartyType.RESPONDENT })}/${caseData.id}`,
       stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-        return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
+        return getKeepYourDetailsPrivateStatus(respondent?.response?.keepDetailsPrivate);
       },
     },
     {
@@ -137,9 +137,9 @@ export const document: TaskListConfigProps = {
     {
       id: Tasks.UPLOAD_DOCUMENTS,
       href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.RESPONDENT }),
-      stateTag: () => StateTags.TO_DO,
+      stateTag: () => StateTags.OPTIONAL,
       show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-        return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+        return !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
       },
     },
     {
@@ -224,8 +224,8 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked,
-        disabled: isCaseClosed,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id),
       },
     ],
   },

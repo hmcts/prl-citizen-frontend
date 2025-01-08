@@ -2473,7 +2473,7 @@ describe('tasklist index', () => {
             {
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               disabled: false,
               stateTag: {
                 label: 'Ready to view',
@@ -2490,12 +2490,12 @@ describe('tasklist index', () => {
           tasks: [
             {
               id: 'uploadDocuments',
-              linkText: ' Upload documents',
+              linkText: 'Upload documents, applications and statements',
               href: '/applicant/documents/upload',
               disabled: false,
               stateTag: {
-                label: 'TO DO',
-                className: 'govuk-tag--grey',
+                label: 'Optional',
+                className: 'govuk-tag--blue',
               },
               hintText: null,
               openInAnotherTab: false,
@@ -2636,7 +2636,7 @@ describe('tasklist index', () => {
             {
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
-              href: '#',
+              href: '/applicant/hearings/12',
               disabled: true,
               stateTag: {
                 label: 'Not available yet',
@@ -2653,12 +2653,12 @@ describe('tasklist index', () => {
           tasks: [
             {
               id: 'uploadDocuments',
-              linkText: ' Upload documents',
+              linkText: 'Upload documents, applications and statements',
               href: '/applicant/documents/upload',
               disabled: false,
               stateTag: {
-                label: 'TO DO',
-                className: 'govuk-tag--grey',
+                label: 'Optional',
+                className: 'govuk-tag--blue',
               },
               hintText: null,
               openInAnotherTab: false,
@@ -2731,18 +2731,6 @@ describe('tasklist index', () => {
                 label: 'DOWNLOAD',
               },
             },
-            {
-              disabled: false,
-              hintText: null,
-              href: '/applicant/application-within-proceedings/list-of-applications/1',
-              id: 'requestToCourtAboutYourCase',
-              linkText: 'Make a request to the court about your case',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--blue',
-                label: 'Optional',
-              },
-            },
           ],
         },
         {
@@ -2752,7 +2740,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '#',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -2850,7 +2838,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '#',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -2865,6 +2853,18 @@ describe('tasklist index', () => {
           heading: 'Your documents',
           id: 'yourDocuments',
           tasks: [
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/upload',
+              id: 'uploadDocuments',
+              linkText: 'Upload documents, applications and statements',
+              openInAnotherTab: false,
+              stateTag: {
+                label: 'Optional',
+                className: 'govuk-tag--blue',
+              },
+            },
             {
               disabled: false,
               hintText: null,
@@ -3050,12 +3050,12 @@ describe('tasklist index', () => {
           tasks: [
             {
               id: 'uploadDocuments',
-              linkText: 'Upload Documents',
+              linkText: 'Upload documents, applications and statements',
               href: '/respondent/documents/upload',
               disabled: false,
               stateTag: {
-                label: 'TO DO',
-                className: 'govuk-tag--grey',
+                label: 'Optional',
+                className: 'govuk-tag--blue',
               },
               hintText: null,
               openInAnotherTab: false,
@@ -3416,12 +3416,12 @@ describe('c100 respondent', () => {
         tasks: [
           {
             id: 'uploadDocuments',
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -3679,12 +3679,12 @@ describe('c100 respondent', () => {
         tasks: [
           {
             id: 'uploadDocuments',
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -4013,12 +4013,12 @@ describe('c100 respondent', () => {
         tasks: [
           {
             id: 'uploadDocuments',
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -4346,12 +4346,12 @@ describe('c100 respondent', () => {
         tasks: [
           {
             id: 'uploadDocuments',
-            linkText: 'Upload Documents',
+            linkText: 'Upload documents, applications and statements',
             href: '/respondent/documents/upload',
             disabled: false,
             stateTag: {
-              label: 'TO DO',
-              className: 'govuk-tag--grey',
+              label: 'Optional',
+              className: 'govuk-tag--blue',
             },
             hintText: null,
             openInAnotherTab: false,
@@ -4543,7 +4543,7 @@ describe('c100 respondent', () => {
             openInAnotherTab: true,
           },
           {
-            disabled: true,
+            disabled: false,
             hintText: null,
             href: '/respondent/application-within-proceedings/list-of-applications/1',
             id: 'requestToCourtAboutYourCase',
@@ -4575,6 +4575,18 @@ describe('c100 respondent', () => {
         heading: 'Your documents',
         id: 'yourDocuments',
         tasks: [
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/documents/upload',
+            id: 'uploadDocuments',
+            linkText: 'Upload documents, applications and statements',
+            openInAnotherTab: false,
+            stateTag: {
+              label: 'Optional',
+              className: 'govuk-tag--blue',
+            },
+          },
           {
             disabled: false,
             hintText: null,

@@ -15,7 +15,8 @@ module.exports = {
     respondentPostCode: '//*[@id="PostCode"]', 
     addressList: '//*[@id="selectAddress"]',
     addressHistoryNoButton: '//*[@id="addressHistory-2"]', 
-    provideDetailsOfPreviousAddressesField: '//*[@id="provideDetailsOfPreviousAddresses"]', 
+    addressHistoryYesButton: '//*[@id="addressHistory"]', 
+    provideDetailsOfPreviousAddressesField: '//*[@id="provideDetailsOfPreviousAddresses"]',
     donKnowEmailAddressButton: '//*[@id="donKnowEmailAddress"]', 
     donKnowTelephoneNumberButton: '//*[@id="donKnowTelephoneNumber"]', 
   },
@@ -60,8 +61,8 @@ module.exports = {
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsPageTitle , 30);
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsTextBoxText , 30);
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsSubHeading , 30);
-    await I.retry(retryCount).waitForSelector(this.fields.addressHistoryNoButton, 30);
-    await I.retry(retryCount).click(this.fields.addressHistoryNoButton);
+    await I.retry(retryCount).waitForSelector(this.fields.addressHistoryYesButton, 30);
+    await I.retry(retryCount).click(this.fields.addressHistoryYesButton);
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsNoHintText , 30);
     await I.retry(retryCount).fillField(this.fields.provideDetailsOfPreviousAddressesField, RespondentDetails.previousAddressPostCode);
     await I.retry(retryCount).click('Continue');

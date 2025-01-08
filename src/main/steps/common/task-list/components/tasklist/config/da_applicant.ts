@@ -16,11 +16,11 @@ import {
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
-  APPLICANT_YOURHEARINGS_HEARINGS,
   APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   CHOOSE_CONTACT_PREFERENCE,
   DETAILS_KNOWN,
   DOWNLOAD_DOCUMENT_BY_TYPE,
+  FETCH_HEARING_DETAILS,
   REASONABLE_ADJUSTMENTS_INTRO,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
@@ -52,7 +52,7 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
         stateTag: (caseData: Partial<CaseWithId>) =>
-          getConfirmOrEditYourContactDetailsStatus(caseData?.applicantsFL401),
+          getConfirmOrEditYourContactDetailsStatus(caseData, caseData?.applicantsFL401),
       },
       {
         id: Tasks.CONTACT_PREFERENCES,
@@ -117,8 +117,8 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked,
-        disabled: isCaseClosed,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id),
       },
     ],
   },
@@ -130,7 +130,7 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.VIEW_HEARING_DETAILS,
         href: (caseData: Partial<CaseWithId>) =>
-          hasAnyHearing(caseData) ? `${APPLICANT_YOURHEARINGS_HEARINGS}/${caseData.id}` : '#',
+          applyParms(FETCH_HEARING_DETAILS, { partyType: PartyType.APPLICANT, caseId: caseData.id as string }),
         stateTag: (caseData: Partial<CaseWithId>) => {
           if (hasAnyHearing(caseData)) {
             return StateTags.READY_TO_VIEW;
@@ -149,9 +149,9 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),
-        stateTag: () => StateTags.TO_DO,
+        stateTag: () => StateTags.OPTIONAL,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+          return !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
         },
       },
       {

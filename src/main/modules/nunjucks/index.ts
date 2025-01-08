@@ -66,47 +66,57 @@ export class Nunjucks {
     });
 
     env.addGlobal('formItems', function (items: FormInput[], userAnswer: string | Record<string, string>) {
-      return items.map(i => ({
-        id: i.id,
-        text: this.env.globals.getContent.call(this, i.label),
-        name: i.name,
-        classes: i.classes,
-        disabled: i.disabled,
-        value: i.value ?? userAnswer?.[i.name as string] ?? (userAnswer as string),
-        attributes: i.attributes,
-        checked: i.selected ?? userAnswer?.[i.name as string]?.includes(i.value as string) ?? i.value === userAnswer,
-        hint: i.hint && {
-          html: this.env.globals.getContent.call(this, i.hint),
-        },
-        //divider: this.env.globals.getContent.call(this, i.divider),
-        divider:
-          typeof i.divider === 'function' ? this.env.globals.getContent.call(this, i.divider) : i.divider && 'or',
-        behaviour: (i.exclusive && 'exclusive') || this.env.globals.getContent.call(this, i.behaviour),
-        open: i.open,
-        conditional: (() => {
-          if (i.warning) {
-            return {
-              html: env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
-                message: this.env.globals.getContent.call(this, i.warning),
-                warning: this.ctx.warning,
-              }),
-            };
-          } else if (i.conditionalText) {
-            return {
-              html: this.env.globals.getContent.call(this, i.conditionalText),
-            };
-          } else if (i.subFields) {
-            return {
-              html: env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
-                ...this.ctx,
-                form: { fields: i.subFields },
-              }),
-            };
-          } else {
-            return undefined;
-          }
-        })(),
-      }));
+      return items.map(i => {
+        const itemConfig = {
+          id: i.id,
+          text: this.env.globals.getContent.call(this, i.label),
+          name: i.name,
+          classes: i.classes,
+          disabled: i.disabled,
+          value: i.value ?? userAnswer?.[i.name as string] ?? (userAnswer as string),
+          attributes: i.attributes,
+          checked: i.selected ?? userAnswer?.[i.name as string]?.includes(i.value as string) ?? i.value === userAnswer,
+          hint: i.hint && {
+            html: this.env.globals.getContent.call(this, i.hint),
+          },
+          //divider: this.env.globals.getContent.call(this, i.divider),
+          divider:
+            typeof i.divider === 'function' ? this.env.globals.getContent.call(this, i.divider) : i.divider && 'or',
+          behaviour: (i.exclusive && 'exclusive') || this.env.globals.getContent.call(this, i.behaviour),
+          open: i.open,
+          conditional: (() => {
+            if (i.warning) {
+              return {
+                html: env.render(`${__dirname}/../../steps/common/error/warning.njk`, {
+                  message: this.env.globals.getContent.call(this, i.warning),
+                  warning: this.ctx.warning,
+                }),
+              };
+            } else if (i.conditionalText) {
+              return {
+                html: this.env.globals.getContent.call(this, i.conditionalText),
+              };
+            } else if (i.subFields) {
+              return {
+                html: env.render(`${__dirname}/../../steps/common/form/fields.njk`, {
+                  ...this.ctx,
+                  form: { fields: i.subFields },
+                }),
+              };
+            } else {
+              return undefined;
+            }
+          })(),
+        };
+
+        if (i.name && ['day', 'month', 'year'].includes(i.name)) {
+          Object.assign(itemConfig, {
+            label: this.env.globals.getContent.call(this, i.label),
+          });
+        }
+
+        return itemConfig;
+      });
     });
 
     env.addGlobal('summaryDetailsHtml', function (subFields: FormInput) {
@@ -145,6 +155,7 @@ export class Nunjucks {
       res.locals.host = req.headers['x-forwarded-host'] || req.hostname;
       res.locals.pagePath = req.path;
       res.locals.serviceType = 'PRLAPPS';
+      env.addGlobal('currentHost', req.headers?.host?.toLowerCase());
       next();
     });
   }

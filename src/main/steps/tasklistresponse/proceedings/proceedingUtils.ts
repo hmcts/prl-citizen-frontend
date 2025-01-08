@@ -4,6 +4,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { PROCEEDINGS_ORDER_DETAILS } from '../../../steps/urls';
 import { HTML } from '../../c100-rebuild/check-your-answers/common/htmlSelectors';
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
+import { Mapper } from '../../c100-rebuild/check-your-answers/util/otherProceeding.util';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 
@@ -13,29 +14,6 @@ import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-de
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order, language) => {
   const newOrders = order;
-  const Mapper = {
-    ['orderDetail']: {
-      question: keys['courtIssuedLabel'],
-    },
-    ['caseNo']: {
-      question: keys['caseNumberLabel'],
-    },
-    ['orderDate']: {
-      question: keys['orderDateLabel'],
-    },
-    ['currentOrder']: {
-      question: keys['isCurrentOrderLabel'],
-    },
-    ['orderCopy']: {
-      question: keys['copyOfOrderLabel'],
-    },
-    ['orderEndDate']: {
-      question: keys['orderEndDateLabel'],
-    },
-    ['orderDocument']: {
-      question: keys['copy'],
-    },
-  };
   let Val = '';
   if (newOrders?.['orderDocument']) {
     Object.entries(newOrders).forEach((entry, index) => {
