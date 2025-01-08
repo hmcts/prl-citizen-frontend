@@ -3722,9 +3722,7 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'Are any of the children known to social services?',
             },
-            value: {
-              html: '<br>',
-            },
+            value: {},
           },
           {
             actions: {
@@ -3742,7 +3740,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Additional details about the children',
+        subTitle: 'Additional details about the children',
+        title: '',
       },
       {
         rows: [
@@ -3763,15 +3762,18 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Other Children details',
+        subTitle: 'Other Children details',
+        title: '',
       },
       {
         rows: [],
-        title: 'Details of the applicants',
+        subTitle: 'Details of the applicants',
+        title: '',
       },
       {
         rows: [],
-        title: 'Details of the respondents',
+        subTitle: 'Details of the respondents',
+        title: '',
       },
       {
         rows: [
