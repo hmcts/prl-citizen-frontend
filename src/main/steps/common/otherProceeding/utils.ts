@@ -3,6 +3,22 @@ import { ProceedingsOrderInterface, RootContext, YesOrNo } from '../../../app/ca
 import { HTML } from '../../../steps/c100-rebuild/check-your-answers/common/htmlSelectors';
 import { Mapper } from '../../../steps/c100-rebuild/check-your-answers/util/otherProceeding.util';
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
+import {
+  cy as c100CyContent,
+  en as c100EnContent,
+} from '../../c100-rebuild/other-proceedings/current-previous-proceedings/content';
+import {
+  cy as C100OpDetailsCyContents,
+  en as C100OpDetailsEnContents,
+} from '../../c100-rebuild/other-proceedings/order-details/content';
+import {
+  cy as respondentCyContent,
+  en as respondentEnContent,
+} from '../../tasklistresponse/proceedings/courtproceedings/content';
+import {
+  cy as respondentOpDetailsCyContents,
+  en as respondentOpDetailsEnContents,
+} from '../../tasklistresponse/proceedings/order-details/content';
 import { DATE_FORMATTOR } from '../dateformatter';
 
 export const IndividualOrderFieldsParser = (
@@ -109,3 +125,26 @@ const prepareNonOrderDocumentFields = (entry, value, keyDetails, language, conte
 
 const isValueNo = (value, language) =>
   value === YesOrNo.NO ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation') : value;
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const otherProceedingsContents = (SystemLanguage, context: string) => {
+  const opContents = {
+    en: () => {
+      const en = context === RootContext.RESPONDENT ? respondentEnContent : c100EnContent;
+      const opDetailsEnContents =
+        context === RootContext.RESPONDENT ? respondentOpDetailsEnContents : C100OpDetailsEnContents;
+      delete en['errors'];
+      delete opDetailsEnContents['errors'];
+      return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().title };
+    },
+    cy: () => {
+      const cy = context === RootContext.RESPONDENT ? respondentCyContent : c100CyContent;
+      const opDetailsCyContents =
+        context === RootContext.RESPONDENT ? respondentOpDetailsCyContents : C100OpDetailsCyContents;
+      delete cy['errors'];
+      delete opDetailsCyContents['errors'];
+      return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().title };
+    },
+  };
+  return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
+};

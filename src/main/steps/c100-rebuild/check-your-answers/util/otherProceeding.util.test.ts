@@ -1,9 +1,9 @@
 import { ProceedingsOrderInterface } from '../../../../app/case/definition';
-import { IndividualOrderFieldsParser } from '../../../common/otherProceeding/utils';
+import { IndividualOrderFieldsParser, otherProceedingsContents } from '../../../common/otherProceeding/utils';
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
 
-import { OPotherProceedingsSessionParserUtil, otherProceedingsContents } from './otherProceeding.util';
+import { OPotherProceedingsSessionParserUtil } from './otherProceeding.util';
 
 describe('test cases for otherProceedingsContents', () => {
   const language = 'en';
@@ -24,10 +24,10 @@ describe('test cases for otherProceedingsContents', () => {
   };
 
   test('english contents', () => {
-    expect(otherProceedingsContents('en')).toStrictEqual(contentLoaders('en'));
+    expect(otherProceedingsContents('en', 'c100-rebuild')).toStrictEqual(contentLoaders('en'));
   });
   test('Welsh contents', () => {
-    expect(otherProceedingsContents('cy')).toStrictEqual(contentLoaders('cy'));
+    expect(otherProceedingsContents('cy', 'c100-rebuild')).toStrictEqual(contentLoaders('cy'));
   });
 
   test('OPotherProceedingsSessionParserUtil', () => {

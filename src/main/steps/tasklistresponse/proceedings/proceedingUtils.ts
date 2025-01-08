@@ -5,9 +5,6 @@ import { IndividualOrderFieldsParser } from '../../../steps/common/otherProceedi
 import { PROCEEDINGS_ORDER_DETAILS } from '../../../steps/urls';
 import { applyParms } from '../../common/url-parser';
 
-import { cy, en } from './courtproceedings/content';
-import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-details/content';
-
 /**
  * It takes in a UserCase object, a keys object, a URLS object and a sessionKey string. It returns an
  * array of objects with keys key, valueHtml and changeUrl
@@ -43,22 +40,6 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, 
  * depending on the language selected
  * @returns A function that returns an object.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const otherProceedingsContents = SystemLanguage => {
-  const opContents = {
-    en: () => {
-      delete en['errors'];
-      delete opDetailsEnContents['errors'];
-      return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().title };
-    },
-    cy: () => {
-      delete cy['errors'];
-      delete opDetailsCyContents['errors'];
-      return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().title };
-    },
-  };
-  return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
-};
 /* eslint-disable @typescript-eslint/no-explicit-any*/
 function prepareOrderDetail(
   order: any,

@@ -67,7 +67,7 @@ export const getSectionSummaryList = (rows: SummaryListRow[], content: PageConte
                 {
                   href: changeUrl, //
                   text: content.change as string,
-                  visuallyHiddenText: visuallyHiddenText || `${item.key}`,
+                  visuallyHiddenText: visuallyHiddenText ?? `${item.key}`,
                 },
               ],
             },

@@ -1,8 +1,9 @@
+import { RootContext } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
+import { otherProceedingsContents } from '../../../common/otherProceeding/utils';
 import { PastAndCurrentProceedings } from '../mainUtils';
-import { otherProceedingsContents } from '../proceedingUtils';
 
 export const enContent = {
   title: 'Check your answers',
@@ -79,7 +80,7 @@ export const generateContent: TranslationFn = content => {
   const newContents = content['language'] === 'en' ? enContent : cyContent;
   newContents['keys'] = {
     ...newContents.keys,
-    ...otherProceedingsContents(content['language']),
+    ...otherProceedingsContents(content['language'], RootContext.RESPONDENT),
   };
   const translations = languages[content.language](content);
   return {

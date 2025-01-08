@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../../main/app/case/definition';
+import { CaseWithId } from '../../../../app/case/case';
 import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation } from '../mainUtil';
 
 export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
   if (userCase.hasOwnProperty(sessionKey)) {
-    let html =
-      userCase.hasOwnProperty('hwn_hearingPart1') && userCase['hwn_hearingPart1'] === 'Yes'
-        ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
-        : HTML.ROW_START_NO_BORDER;
+    let html = generateStartBorderHtml(userCase, 'hwn_hearingPart1');
     html += getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation');
     if (userCase.hasOwnProperty('hwn_hearingPart1') && userCase['hwn_hearingPart1'] === 'Yes') {
       html += HTML.DESCRIPTION_TERM_DETAIL_END;
@@ -86,10 +84,7 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
 
 export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessionKey, language) => {
   if (userCase.hasOwnProperty(sessionKey)) {
-    let html =
-      userCase.hasOwnProperty('hu_urgentHearingReasons') && userCase['hu_urgentHearingReasons'] === 'Yes'
-        ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
-        : HTML.ROW_START_NO_BORDER;
+    let html = generateStartBorderHtml(userCase, 'hu_urgentHearingReasons');
     html += getYesNoTranslation(language, userCase['hu_urgentHearingReasons'], 'oesTranslation');
     if (userCase.hasOwnProperty('hu_urgentHearingReasons') && userCase['hu_urgentHearingReasons'] === 'Yes') {
       html += HTML.DESCRIPTION_TERM_DETAIL_END;
@@ -171,4 +166,10 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
     }
     return html;
   }
+};
+
+const generateStartBorderHtml = (userCase: CaseWithId, field: string) => {
+  return userCase.hasOwnProperty(field) && userCase[field] === 'Yes'
+    ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
+    : HTML.ROW_START_NO_BORDER;
 };

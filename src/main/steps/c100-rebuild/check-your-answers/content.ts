@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
-import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout, RootContext, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
@@ -46,7 +46,7 @@ import { childDetailsContents } from './util/childDetails.util';
 import { hearingDetailsContents } from './util/hearingwithout.util';
 import { HelpWithFeeContent } from './util/helpWithFee.util';
 import { MiamFieldsLoader } from './util/miam.util';
-import { otherProceedingsContents } from './util/otherProceeding.util';
+import { otherProceedingsContents } from '../../common/otherProceeding/utils';
 import { ReasonableAdjustmentElement } from './util/reasonableAdjustmentContent.util';
 import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
@@ -687,7 +687,7 @@ export const generateContent: TranslationFn = content => {
   newContents['keys'] = {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
-    ...otherProceedingsContents(content['language']),
+    ...otherProceedingsContents(content['language'], RootContext.C100_REBUILD),
     ...hearingDetailsContents(content['language']),
     ...typeOfCourtOrderContents(content['language']),
     ...hearingDetailsContents(content['language']),

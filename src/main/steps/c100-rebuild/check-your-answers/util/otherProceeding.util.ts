@@ -4,8 +4,6 @@ import { RootContext } from '../../../../app/case/definition';
 import { IndividualOrderFieldsParser } from '../../../../steps/common/otherProceeding/utils';
 import { C100_OTHER_PROCEEDINGS_ORDER_DETAILS } from '../../../../steps/urls';
 import { applyParms } from '../../../common/url-parser';
-import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
-import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const Mapper = (key, keys) => {
@@ -74,25 +72,4 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, 
     return orderSessionStorage;
   }
   return [{}];
-};
-
-/**
- * It returns an object containing the contents of the English and Welsh versions of the page,
- * depending on the language selected
- * @returns A function that returns an object.
- */
-export const otherProceedingsContents = SystemLanguage => {
-  const opContents = {
-    en: () => {
-      delete en['errors'];
-      delete opDetailsEnContents['errors'];
-      return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().title };
-    },
-    cy: () => {
-      delete cy['errors'];
-      delete opDetailsCyContents['errors'];
-      return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().title };
-    },
-  };
-  return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
 };
