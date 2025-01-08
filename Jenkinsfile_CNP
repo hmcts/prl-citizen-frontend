@@ -62,17 +62,17 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
-  before('functionalTest:preview') {
+  before('smoketest:preview') {
     env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
     build job: 'HMCTS_j_to_z/prl-e2e-tests/master', wait: true, propogate: true, parameters: [booleanParam(name: "skipManageCasesTests", value: true), string(name: "CITIZEN_FRONTEND_BASE_URL", value: env.PRL_CITIZEN_URL)]
   }
-  afterAlways('functionalTest:preview') {
+  afterAlways('smoketest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
-  before('functionalTest:aat') {
+  before('smoketest:aat') {
     build job: 'HMCTS_j_to_z/prl-e2e-tests/master', wait: true, propogate: true, parameters: [booleanParam(name: "skipManageCasesTests", value: true)]
   }
-  afterAlways('functionalTest:aat') {
+  afterAlways('smoketest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }
