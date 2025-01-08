@@ -17,6 +17,7 @@
     "build:prod": "NODE_ENV=production webpack --mode production --config webpack.config.js",
     "test": "jest",
     "test:smoke": "echo 'Smoke test running in prl-e2e-test pipeline' && exit 0",
+    "test:functional": "echo 'Smoke test running in prl-e2e-test pipeline' && exit 0",
     "fortifyScan": "./test/java/gradlew -p test/java fortifyScan",
     "test:coverage": "jest --coverage",
     "test:a11y": "echo 'a11y tests will be executed after functional tests' && exit 0",
