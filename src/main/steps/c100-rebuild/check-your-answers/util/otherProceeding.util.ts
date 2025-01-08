@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { RootContext } from '../../../../app/case/definition';
+import { IndividualOrderFieldsParser } from '../../../../steps/common/otherProceeding/utils';
 import { C100_OTHER_PROCEEDINGS_ORDER_DETAILS } from '../../../../steps/urls';
-import { DATE_FORMATTOR } from '../../../common/dateformatter';
 import { applyParms } from '../../../common/url-parser';
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
-import { HTML } from '../common/htmlSelectors';
-import { getYesNoTranslation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const Mapper = (key, keys) => {
@@ -26,59 +25,6 @@ export const Mapper = (key, keys) => {
     case 'orderDocument':
       return keys['copy'];
   }
-};
-export const IndividualOrderFieldsParser = (keys, order, language) => {
-  const newOrders = order;
-  let Val = '';
-  Object.entries(newOrders).forEach((entry, index) => {
-    const key = entry[0];
-    const value = entry[1];
-    if (key !== 'id' && key !== 'orderDocument') {
-      if (typeof entry[1] === 'object' && entry[1] !== null) {
-        const keyDetails =
-          HTML.ROW_START_NO_BORDER +
-          HTML.DESCRIPTION_TERM_ELEMENT +
-          Mapper[key]?.question +
-          HTML.DESCRIPTION_TERM_ELEMENT_END +
-          HTML.ROW_END;
-        const valueDetails =
-          HTML.ROW_START +
-          HTML.DESCRIPTION_TERM_DETAIL +
-          DATE_FORMATTOR(value, language) +
-          HTML.DESCRIPTION_TERM_DETAIL_END +
-          HTML.ROW_END;
-        Val += keyDetails + valueDetails;
-      } else {
-        const keyDetails =
-          HTML.ROW_START_NO_BORDER +
-          HTML.DESCRIPTION_TERM_ELEMENT +
-          Mapper[key]?.question +
-          HTML.DESCRIPTION_TERM_ELEMENT_END +
-          HTML.ROW_END;
-        let valueDetails = '';
-        if (key === 'currentOrder') {
-          valueDetails =
-            HTML.ROW_START +
-            HTML.DESCRIPTION_TERM_DETAIL +
-            getYesNoTranslation(language, value, 'ieTranslation') +
-            HTML.DESCRIPTION_TERM_DETAIL_END +
-            HTML.ROW_END;
-        } else if (key === 'orderCopy') {
-          valueDetails =
-            HTML.ROW_START_NO_BORDER +
-            HTML.DESCRIPTION_TERM_DETAIL +
-            getYesNoTranslation(language, value, 'oesTranslation') +
-            HTML.DESCRIPTION_TERM_DETAIL_END +
-            HTML.ROW_END;
-        } else {
-          valueDetails =
-            HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + value + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
-        }
-        Val += keyDetails + valueDetails;
-      }
-    }
-  });
-  return HTML.DESCRIPTION_LIST + Val + HTML.DESCRIPTION_LIST_END;
 };
 
 /**
@@ -119,7 +65,7 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, 
           const IndexNumber = index > 0 ? index + 1 : '';
           orderSessionStorage.push({
             key: `${keys[order + 'Label']} ${IndexNumber}`,
-            valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
+            valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language, RootContext.C100_REBUILD),
             changeUrl: applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: order }),
           });
         });

@@ -751,7 +751,7 @@ export const form: FormContent = {
     },
     confirm: {
       type: 'textAndHtml',
-      textAndHtml: l => `${HTML.STATEMENT_OF_TRUTH_H3}${l.confirm} ${HTML.STATEMENT_OF_TRUTH_H3_CLOSE}`,
+      textAndHtml: l => `${HTML.STATEMENT_OF_TRUTH_H3}${l.confirm} ${HTML.H3_CLOSE}`,
     },
     warningText: {
       type: 'warning',

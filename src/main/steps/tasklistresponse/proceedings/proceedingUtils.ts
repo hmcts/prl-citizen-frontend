@@ -1,133 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { YesOrNo } from '../../../app/case/definition';
+import { RootContext } from '../../../app/case/definition';
+import { IndividualOrderFieldsParser } from '../../../steps/common/otherProceeding/utils';
 import { PROCEEDINGS_ORDER_DETAILS } from '../../../steps/urls';
-import { HTML } from '../../c100-rebuild/check-your-answers/common/htmlSelectors';
-import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
-import { Mapper } from '../../c100-rebuild/check-your-answers/util/otherProceeding.util';
-import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 
 import { cy, en } from './courtproceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-details/content';
-
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const IndividualOrderFieldsParser = (keys, order, language) => {
-  const newOrders = order;
-  let Val = '';
-  if (newOrders?.['orderDocument']) {
-    Object.entries(newOrders).forEach((entry, index) => {
-      const key = entry[0];
-      const value = entry[1];
-
-      if (key !== 'id' && key !== 'orderDocument') {
-        if (typeof entry[1] === 'object' && entry[1] !== null) {
-          const keyDetails =
-            HTML.ROW_START_NO_BORDER +
-            HTML.DESCRIPTION_TERM_ELEMENT +
-            Mapper[key]?.question +
-            HTML.DESCRIPTION_TERM_ELEMENT_END +
-            HTML.ROW_END;
-          const valueDetails =
-            HTML.ROW_START +
-            HTML.DESCRIPTION_TERM_DETAIL +
-            DATE_FORMATTOR(value, language) +
-            HTML.DESCRIPTION_TERM_DETAIL_END +
-            HTML.ROW_END;
-          Val += keyDetails + valueDetails;
-        } else {
-          const keyDetails =
-            HTML.ROW_START_NO_BORDER +
-            HTML.DESCRIPTION_TERM_ELEMENT +
-            Mapper[key]?.question +
-            HTML.DESCRIPTION_TERM_ELEMENT_END +
-            HTML.ROW_END;
-          const valueDetails =
-            HTML.ROW_START +
-            HTML.DESCRIPTION_TERM_DETAIL +
-            (value === YesOrNo.YES
-              ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
-              : isValueNo(value, language)) +
-            HTML.DESCRIPTION_TERM_DETAIL_END +
-            HTML.ROW_END;
-          Val += keyDetails + valueDetails;
-        }
-      } else if (key === 'orderDocument') {
-        const displayValue = value?.['filename'] ? YesOrNo.YES : YesOrNo.NO;
-        const keyDetails =
-          HTML.ROW_START_NO_BORDER +
-          HTML.DESCRIPTION_TERM_ELEMENT +
-          Mapper[key]?.question +
-          HTML.DESCRIPTION_TERM_ELEMENT_END +
-          HTML.ROW_END;
-        const valueDetails =
-          HTML.ROW_START_NO_BORDER +
-          HTML.DESCRIPTION_TERM_DETAIL +
-          getYesNoTranslation(language, displayValue, 'doTranslation') +
-          HTML.DESCRIPTION_TERM_DETAIL_END +
-          HTML.ROW_END;
-        Val += keyDetails + valueDetails;
-      }
-    });
-  } else {
-    Object.entries(newOrders).forEach((entry, index) => {
-      const key = entry[0];
-      const value = entry[1];
-
-      if (key !== 'id' && key !== 'orderDetail') {
-        if (typeof entry[1] === 'object' && entry[1] !== null) {
-          const keyDetails =
-            HTML.ROW_START_NO_BORDER +
-            HTML.DESCRIPTION_TERM_ELEMENT +
-            Mapper[key]?.question +
-            HTML.DESCRIPTION_TERM_ELEMENT_END +
-            HTML.ROW_END;
-          const valueDetails =
-            HTML.ROW_START +
-            HTML.DESCRIPTION_TERM_DETAIL +
-            DATE_FORMATTOR(value, language) +
-            HTML.DESCRIPTION_TERM_DETAIL_END +
-            HTML.ROW_END;
-          Val += keyDetails + valueDetails;
-        } else {
-          const keyDetails =
-            HTML.ROW_START_NO_BORDER +
-            HTML.DESCRIPTION_TERM_ELEMENT +
-            Mapper[key]?.question +
-            HTML.DESCRIPTION_TERM_ELEMENT_END +
-            HTML.ROW_END;
-          const valueDetails =
-            HTML.ROW_START +
-            HTML.DESCRIPTION_TERM_DETAIL +
-            (value === YesOrNo.YES
-              ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
-              : isValueNo(value, language)) +
-            HTML.DESCRIPTION_TERM_DETAIL_END +
-            HTML.ROW_END;
-          Val += keyDetails + valueDetails;
-        }
-      } else if (key === 'orderDetail') {
-        const keyDetails =
-          HTML.ROW_START_NO_BORDER +
-          HTML.DESCRIPTION_TERM_ELEMENT +
-          Mapper[key]?.question +
-          HTML.DESCRIPTION_TERM_ELEMENT_END +
-          HTML.ROW_END;
-        const valueDetails =
-          HTML.ROW_START_NO_BORDER +
-          HTML.DESCRIPTION_TERM_DETAIL +
-          value +
-          HTML.DESCRIPTION_TERM_DETAIL_END +
-          HTML.ROW_END;
-        Val += keyDetails + valueDetails;
-      }
-    });
-  }
-  return HTML.DESCRIPTION_LIST + Val + HTML.DESCRIPTION_LIST_END;
-};
-
-const isValueNo = (value, language) =>
-  value === YesOrNo.NO ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation') : value;
 
 /**
  * It takes in a UserCase object, a keys object, a URLS object and a sessionKey string. It returns an
@@ -164,6 +43,7 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, 
  * depending on the language selected
  * @returns A function that returns an object.
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const otherProceedingsContents = SystemLanguage => {
   const opContents = {
     en: () => {
@@ -199,7 +79,7 @@ function prepareOrderDetail(
     const IndexNumber = index > 0 ? index + 1 : '';
     orderSessionStorage.push({
       key: `${keys[order + 'Label']} ${IndexNumber}`,
-      valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
+      valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language, RootContext.RESPONDENT),
       changeUrl: applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: order }),
     });
   });

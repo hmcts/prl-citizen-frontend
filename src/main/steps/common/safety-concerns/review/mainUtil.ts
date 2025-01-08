@@ -28,7 +28,7 @@ export const SafetyConcerns = (
 ): SummaryList | undefined => {
   const dataForConcerns = userCase.hasOwnProperty('c1A_safetyConernAbout')
     ? userCase['c1A_safetyConernAbout']?.map(
-        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END
+        concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END
       )
     : '';
   const SummaryData = [
@@ -68,7 +68,7 @@ export const SafetyConcerns_child = (
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutChild')
     ? userCase['c1A_concernAboutChild']?.map(
-        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END
+        concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END
       )
     : '';
   let subFields = userCase['c1A_concernAboutChild'] as ANYTYPE;
@@ -179,7 +179,7 @@ export const SafetyConcerns_yours = (
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutRespondent')
     ? userCase['c1A_concernAboutRespondent']?.map(
-        concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END
+        concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END
       )
     : '';
   let subFields = userCase?.['c1A_concernAboutRespondent'] as ANYTYPE;

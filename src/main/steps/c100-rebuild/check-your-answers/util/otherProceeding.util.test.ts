@@ -1,11 +1,9 @@
+import { ProceedingsOrderInterface } from '../../../../app/case/definition';
+import { IndividualOrderFieldsParser } from '../../../common/otherProceeding/utils';
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
 
-import {
-  IndividualOrderFieldsParser,
-  OPotherProceedingsSessionParserUtil,
-  otherProceedingsContents,
-} from './otherProceeding.util';
+import { OPotherProceedingsSessionParserUtil, otherProceedingsContents } from './otherProceeding.util';
 
 describe('test cases for otherProceedingsContents', () => {
   const language = 'en';
@@ -147,7 +145,7 @@ describe('test cases for otherProceedingsContents', () => {
   });
 
   test('IndividualOrderFieldsParser', () => {
-    const order = {};
+    const order = {} as ProceedingsOrderInterface;
     const keys = {
       courtIssuedLabel: '',
       caseNumberLabel: '',
@@ -156,6 +154,6 @@ describe('test cases for otherProceedingsContents', () => {
       copyOfOrderLabel: '',
       orderEndDate: '',
     };
-    expect(IndividualOrderFieldsParser(keys, order, language)).not.toBe([]);
+    expect(IndividualOrderFieldsParser(keys, order, language, 'c100-rebuild')).not.toBe([]);
   });
 });

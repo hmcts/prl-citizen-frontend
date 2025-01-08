@@ -222,14 +222,7 @@ export const ChildernDetails = (
   language
 ): SummaryList | undefined => {
   const sessionChildData = userCase['cd_children'];
-  const newChildDataStorage: {
-    key: string;
-    keyHtml?: string;
-    visuallyHiddenText?: string;
-    value: string;
-    valueHtml?: string;
-    changeUrl: string;
-  }[] = [];
+  let newChildDataStorage: SummaryListRow[] = [];
   for (const child in sessionChildData) {
     const firstname = sessionChildData[child]['firstName'],
       lastname = sessionChildData[child]['lastName'],
@@ -264,17 +257,11 @@ export const ChildernDetails = (
       }
     );
 
-    populateDateOfBirth(
-      personalDetails,
-      newChildDataStorage,
-      keys,
-      language,
-      id,
-      true,
-      parseInt(child) + 1,
-      `${keys['child']}`
+    newChildDataStorage = newChildDataStorage.concat(
+      populateDateOfBirth(personalDetails, keys, language, id, true, parseInt(child) + 1, `${keys['child']}`)
     );
 
+    const childName = ` ${firstname} ${lastname} `;
     newChildDataStorage.push(
       {
         key: keys['childGenderLabel'],
@@ -316,10 +303,10 @@ export const ChildernDetails = (
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
-        key: keys['parentalResponsibility']?.split('[^^^]').join(` ${firstname} ${lastname} `),
+        key: keys['parentalResponsibility']?.split('[^^^]').join(childName),
         visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['parentalResponsibility']
           ?.split('[^^^]')
-          .join(` ${firstname} ${lastname} `)}`,
+          .join(childName)}`,
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       }
@@ -392,14 +379,7 @@ export const OtherChildrenDetails = (
   language
 ): SummaryList | undefined => {
   const sessionChildData = userCase['ocd_otherChildren'];
-  const newChildDataStorage: {
-    key: string;
-    keyHtml?: string;
-    visuallyHiddenText?: string;
-    value: string;
-    valueHtml?: string;
-    changeUrl: string;
-  }[] = [];
+  let newChildDataStorage: SummaryListRow[] = [];
 
   newChildDataStorage.push({
     key: keys['hasOtherChildren'],
@@ -427,44 +407,14 @@ export const OtherChildrenDetails = (
           changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
         }
       );
-      populateDateOfBirth(
-        personalDetails,
-        newChildDataStorage,
-        keys,
-        language,
-        id,
-        false,
-        parseInt(child) + 1,
-        'Other child'
+      newChildDataStorage = newChildDataStorage.concat(
+        populateDateOfBirth(personalDetails, keys, language, id, false, parseInt(child) + 1, 'Other child')
       );
       newChildDataStorage.push({
         key: keys['childGenderLabel'],
         visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['childGenderLabel']}`,
         value: translation(personalDetails?.['gender'], language),
-        valueHtml:
-          personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
-            ? HTML.DESCRIPTION_LIST +
-              HTML.ROW_START +
-              HTML.DESCRIPTION_TERM_DETAIL +
-              translation(personalDetails?.['gender'], language) +
-              HTML.DESCRIPTION_TERM_DETAIL_END +
-              HTML.ROW_END +
-              HTML.ROW_START_NO_BORDER +
-              keys['otherGender'] +
-              HTML.ROW_END +
-              HTML.ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_ELEMENT +
-              keys['details'] +
-              HTML.DESCRIPTION_TERM_ELEMENT_END +
-              HTML.ROW_END +
-              HTML.BREAK +
-              HTML.ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_DETAIL +
-              personalDetails['otherGenderDetails'] +
-              HTML.DESCRIPTION_TERM_DETAIL_END +
-              HTML.ROW_END +
-              HTML.DESCRIPTION_LIST_END
-            : translation(personalDetails?.['gender'], language) + ' ',
+        valueHtml: generateGenderHtml(personalDetails, keys, language),
         changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
       });
     }
@@ -476,6 +426,32 @@ export const OtherChildrenDetails = (
     subTitle: sectionTitles['otherChildernDetails'],
     rows: getSectionSummaryList(SummaryData, content),
   };
+};
+
+const generateGenderHtml = (personalDetails, keys: Record<string, string>, language: string): string => {
+  return personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
+    ? HTML.DESCRIPTION_LIST +
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        translation(personalDetails?.['gender'], language) +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END +
+        HTML.ROW_START_NO_BORDER +
+        keys['otherGender'] +
+        HTML.ROW_END +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_ELEMENT +
+        keys['details'] +
+        HTML.DESCRIPTION_TERM_ELEMENT_END +
+        HTML.ROW_END +
+        HTML.BREAK +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        personalDetails['otherGenderDetails'] +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END +
+        HTML.DESCRIPTION_LIST_END
+    : translation(personalDetails?.['gender'], language) + ' ';
 };
 
 export const ApplicantDetailNameParser = (personalDetails, keys, language): string => {
@@ -588,30 +564,7 @@ export const ApplicantDetails = (
         key: keys['childGenderLabel'],
         visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['childGenderLabel']}`,
         value: '',
-        valueHtml:
-          personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
-            ? HTML.DESCRIPTION_LIST +
-              HTML.ROW_START +
-              HTML.DESCRIPTION_TERM_DETAIL +
-              translation(personalDetails?.['gender'], language) +
-              HTML.DESCRIPTION_TERM_DETAIL_END +
-              HTML.ROW_END +
-              HTML.ROW_START_NO_BORDER +
-              keys['otherGender'] +
-              HTML.ROW_END +
-              HTML.ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_ELEMENT +
-              keys['details'] +
-              HTML.DESCRIPTION_TERM_ELEMENT_END +
-              HTML.ROW_END +
-              HTML.BREAK +
-              HTML.ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_DETAIL +
-              personalDetails['otherGenderDetails'] +
-              HTML.DESCRIPTION_TERM_DETAIL_END +
-              HTML.ROW_END +
-              HTML.DESCRIPTION_LIST_END
-            : translation(personalDetails?.['gender'], language),
+        valueHtml: generateGenderHtml(personalDetails, keys, language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
@@ -650,6 +603,7 @@ export const ApplicantDetails = (
       });
     });
 
+    const applicantFullName = ` ${fullname} `;
     newApplicantData.push(
       {
         key: keys['addressDetails'],
@@ -661,10 +615,10 @@ export const ApplicantDetails = (
         }),
       },
       {
-        key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
+        key: keys['contactDetailsOf'].split('[^applicantName^]').join(applicantFullName),
         visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['contactDetailsOf']
           .split('[^applicantName^]')
-          .join(` ${fullname} `)}`,
+          .join(applicantFullName)}`,
         value: '',
         valueHtml: applicantContactDetailsParser(sessionApplicantData[applicant].applicantContactDetail, keys),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_DETAIL'], {
@@ -849,7 +803,7 @@ export const SafetyConcerns = (
   language
 ): SummaryList | undefined => {
   const dataForConcerns = userCase.hasOwnProperty('c1A_safetyConernAbout')
-    ? userCase['c1A_safetyConernAbout']?.map(concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
+    ? userCase['c1A_safetyConernAbout']?.map(concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
     : '';
   const SummaryData = [
     {
@@ -889,7 +843,7 @@ export const SafetyConcerns_child = (
   language
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutChild')
-    ? userCase['c1A_concernAboutChild']?.map(concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
+    ? userCase['c1A_concernAboutChild']?.map(concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
     : '';
   let subFields = userCase['c1A_concernAboutChild'] as ANYTYPE;
   subFields = subFields
@@ -1082,7 +1036,7 @@ export const SafetyConcerns_yours = (
   language
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutApplicant')
-    ? userCase['c1A_concernAboutApplicant']?.map(concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
+    ? userCase['c1A_concernAboutApplicant']?.map(concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
     : '';
   let subFields = userCase?.['c1A_concernAboutApplicant'] as ANYTYPE;
   subFields = subFields
@@ -1752,7 +1706,6 @@ const DIGITAL = 'digital';
 
 const populateDateOfBirth = (
   personalDetails: object,
-  newChildDataStorage: SummaryListRow[],
   keys: Record<string, string>,
   language: string,
   id: string,
@@ -1763,8 +1716,9 @@ const populateDateOfBirth = (
   const isDateOfBirthUnknown = isForChild
     ? personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES
     : personalDetails['isDateOfBirthUnknown'] !== '';
+  const dateOfBirthSections: SummaryListRow[] = [];
   if (isDateOfBirthUnknown) {
-    newChildDataStorage.push(
+    dateOfBirthSections.push(
       {
         key: keys['approxCheckboxLabel'],
         visuallyHiddenText: `${partyType} ${count} ${keys['approxCheckboxLabel']}`,
@@ -1783,7 +1737,7 @@ const populateDateOfBirth = (
       }
     );
   } else {
-    newChildDataStorage.push({
+    dateOfBirthSections.push({
       key: keys['dobLabel'],
       visuallyHiddenText: `${partyType} ${count} ${keys['dobLabel']}`,
       value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
@@ -1792,7 +1746,7 @@ const populateDateOfBirth = (
         : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
     });
   }
-  return newChildDataStorage;
+  return dateOfBirthSections;
 };
 export const isBorderPresent = (data: YesOrNo | undefined, condition: string): HTML => {
   return data === condition ? HTML.ROW_START : HTML.ROW_START_NO_BORDER;

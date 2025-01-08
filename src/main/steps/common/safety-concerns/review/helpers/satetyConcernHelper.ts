@@ -26,41 +26,7 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
   if (typeOfUser === 'child') {
     bodyHtml = prepapeHTMLForChildren(bodyHtml, keys, FoundElement, language, userCase);
   }
-  bodyHtml +=
-    HTML.ROW_START_NO_BORDER +
-    HTML.DESCRIPTION_TERM_ELEMENT +
-    keys['behaviourDetailsLabel'] +
-    HTML.DESCRIPTION_TERM_ELEMENT_END +
-    HTML.ROW_END;
-  bodyHtml += FoundElement.hasOwnProperty('behaviourDetails')
-    ? HTML.ROW_START +
-      HTML.DESCRIPTION_TERM_DETAIL +
-      FoundElement['behaviourDetails'] +
-      HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END
-    : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
-
-  bodyHtml +=
-    HTML.ROW_START_NO_BORDER +
-    HTML.DESCRIPTION_TERM_ELEMENT +
-    keys['behaviourStartDateLabel'] +
-    HTML.DESCRIPTION_TERM_ELEMENT_END +
-    HTML.ROW_END;
-  bodyHtml +=
-    FoundElement.hasOwnProperty('behaviourStartDate') && FoundElement['behaviourStartDate']
-      ? HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL +
-        FoundElement['behaviourStartDate'] +
-        HTML.DESCRIPTION_TERM_DETAIL_END +
-        HTML.ROW_END
-      : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
-
-  bodyHtml +=
-    HTML.ROW_START_NO_BORDER +
-    HTML.DESCRIPTION_TERM_ELEMENT +
-    keys['isOngoingBehaviourLabel'] +
-    HTML.DESCRIPTION_TERM_ELEMENT_END +
-    HTML.ROW_END;
+  bodyHtml += generateBehaviourDetailsHtml(keys, FoundElement);
   bodyHtml +=
     FoundElement.hasOwnProperty('isOngoingBehaviour') && FoundElement.isOngoingBehaviour
       ? HTML.ROW_START +
@@ -148,5 +114,45 @@ const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, lan
 
     bodyHtml += HTML.UNORDER_LIST_END + HTML.ROW_END;
   }
+  return bodyHtml;
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const generateBehaviourDetailsHtml = (keys: Record<string, string>, FoundElement): string => {
+  let bodyHtml = '';
+  bodyHtml +=
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['behaviourDetailsLabel'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END;
+  bodyHtml += FoundElement.hasOwnProperty('behaviourDetails')
+    ? HTML.ROW_START +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      FoundElement['behaviourDetails'] +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END
+    : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+  bodyHtml +=
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['behaviourStartDateLabel'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END;
+  bodyHtml +=
+    FoundElement.hasOwnProperty('behaviourStartDate') && FoundElement['behaviourStartDate']
+      ? HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        FoundElement['behaviourStartDate'] +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END
+      : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+  bodyHtml +=
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['isOngoingBehaviourLabel'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END;
+
   return bodyHtml;
 };

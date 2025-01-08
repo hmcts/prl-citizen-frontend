@@ -37,7 +37,7 @@ Object.getPrototypeOf(InstanceOfMiamHelper).miamExemptionParser = (userCase, key
     const nonAttenDanceReaseons = userCase['miam_nonAttendanceReasons']
       .flatMap(reason => keys[`${reason}Head`])
       .map(element => {
-        return HTML.NESTED_LIST_ITEM + element + HTML.LIST_ITEM_END;
+        return HTML.LIST_ITEM + element + HTML.LIST_ITEM_END;
       });
     const listOfReasons = (HTML.UNORDER_LIST + nonAttenDanceReaseons + HTML.UNORDER_LIST_END).split(',').join(' ');
     return { listOfReasons };
@@ -219,7 +219,7 @@ export const miamParentAndChildFieldParser = (
               userCase[`${sessionKey}_${nonAttendance}_subfields`]
                 .filter(field => field !== '')
                 .map(item => {
-                  return HTML.NESTED_LIST_ITEM + keys[`${nonAttendance}_subFields`][item] + HTML.LIST_ITEM_END;
+                  return HTML.LIST_ITEM + keys[`${nonAttendance}_subFields`][item] + HTML.LIST_ITEM_END;
                 }) +
               HTML.UNORDER_LIST_END
             )
