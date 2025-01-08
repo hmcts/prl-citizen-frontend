@@ -1,5 +1,5 @@
 import { Case } from '../../../app/case/case';
-import { C100Applicant, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
+import { C100Applicant, ChildrenDetails, RootContext, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_APPLICANTS_PERSONAL_DETAILS,
@@ -16,6 +16,7 @@ import {
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
   C100_RESPONDENT_DETAILS_ADD,
   PageLink,
+  STAYING_IN_REFUGE,
 } from '../../urls';
 import { getPartyDetails } from '../people/util';
 
@@ -94,8 +95,9 @@ class ApplicantNavigationController {
               applicantId: this.applicantId,
               childId: nextChild?.id,
             })
-          : applyParms(C100_APPLICANT_ADDRESS_LOOKUP, {
-              applicantId: this.applicantId,
+          : applyParms(STAYING_IN_REFUGE, {
+              root: RootContext.C100_REBUILD,
+              id: this.applicantId,
             });
         break;
       }
