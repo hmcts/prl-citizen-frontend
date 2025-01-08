@@ -144,7 +144,7 @@ module.exports = {
     await this.confidentialitySummary();
     await this.provideDetailsPage();
     await this.relationshipToChild();
-    await this.refugeDetailsOfApplicant();
+    // await this.refugeDetailsOfApplicant();
     await this.addressDetailsOfApplicant();
     await this.addressLookUp();
     await this.confirmAddress();
