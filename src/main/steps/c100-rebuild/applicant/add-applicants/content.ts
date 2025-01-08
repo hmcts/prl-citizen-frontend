@@ -132,6 +132,9 @@ export const form: FormContent = {
       hint: hint => hint.firstNameHint,
       validator: value => isFieldFilledIn(value) || isFieldLetters(value),
       labelSize: 'none',
+      attributes: {
+        autocomplete: 'off',
+      },
     },
     applicantLastName: {
       type: 'text',
@@ -139,6 +142,9 @@ export const form: FormContent = {
       label: label => label.lastName,
       validator: value => isFieldFilledIn(value) || isFieldLetters(value),
       labelSize: 'none',
+      attributes: {
+        autocomplete: 'off',
+      },
     },
     addAnotherApplicant: {
       type: 'button',

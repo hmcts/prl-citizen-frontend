@@ -115,6 +115,9 @@ describe('checking form fields', () => {
             hint: hint => hint.firstNameHint,
             validator: isFieldFilledIn,
             labelSize: 'none',
+            attributes: {
+              autocomplete: 'off',
+            },
           },
           applicantLastName: {
             type: 'text',
@@ -122,6 +125,9 @@ describe('checking form fields', () => {
             label: label => label.lastName,
             validator: isFieldFilledIn,
             labelSize: 'none',
+            attributes: {
+              autocomplete: 'off',
+            },
           },
           addAnotherApplicant: {
             type: 'button',
