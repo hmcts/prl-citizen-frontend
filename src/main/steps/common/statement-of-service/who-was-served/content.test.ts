@@ -2,7 +2,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { Validator, atLeastOneFieldIsChecked, isFutureDate } from '../../../../app/form/validation';
-import { CommonContent } from '../../common.content';
+import { CommonContent, generatePageContent } from '../../common.content';
 
 import { generateContent } from './content';
 
@@ -187,9 +187,21 @@ describe('statement-of-service > who-was-served > content', () => {
     expect(sos_partiesServedField.values[1].selected).toBe(false);
   });
 
-  test.skip('should contain onlyContinue button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent;
-    expect((form?.onlyContinue?.text as Function)(generatedContent)).toBe(commonContent.onlyContinue);
+  describe('links', () => {
+    let form;
+    let generatedContent;
+
+    beforeEach(() => {
+      generatedContent = generateContent(commonContent);
+      form = generatedContent.form as FormContent;
+    });
+
+    test('should contain onlyContinue button', () => {
+      expect((form?.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+    });
+
+    test('should contain cancel link', () => {
+      expect(form.link?.text(generatePageContent({ language: 'en' }))).toBe('Cancel');
+    });
   });
 });

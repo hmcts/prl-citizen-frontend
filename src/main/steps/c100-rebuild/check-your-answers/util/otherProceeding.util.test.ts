@@ -2,7 +2,7 @@ import { cy, en } from '../../other-proceedings/current-previous-proceedings/con
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
 
 import {
-  IndividualOrderFieldsParser,
+  IndividualC100OrderFieldsParser,
   OPotherProceedingsSessionParserUtil,
   otherProceedingsContents,
 } from './otherProceeding.util';
@@ -156,6 +156,6 @@ describe('test cases for otherProceedingsContents', () => {
       copyOfOrderLabel: '',
       orderEndDate: '',
     };
-    expect(IndividualOrderFieldsParser(keys, order, language)).not.toBe([]);
+    expect(IndividualC100OrderFieldsParser(keys, order, language)).not.toBe([]);
   });
 });

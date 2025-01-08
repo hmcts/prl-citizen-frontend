@@ -16,10 +16,11 @@ describe('RespondentSubmitResponseController', () => {
   const downloadDocumentDocumenteMock = jest.spyOn(CosApiClient.prototype, 'downloadDocument');
   let partyDetails;
   const document = {
-    status: 1,
-    documentId:
+    document_binary_url:
       'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
-    documentName: 'MOCK_FILENAME',
+    document_filename: 'MOCK_FILENAME',
+    document_url:
+      'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
   };
   beforeEach(() => {
     submitRespondentResponseMock.mockResolvedValue(req.session.userCase);
@@ -34,11 +35,11 @@ describe('RespondentSubmitResponseController', () => {
     generateC7DraftDocumenteMock.mockClear();
   });
 
-  test.skip('generateAndDownloadC7ResponseDraftDocument', async () => {
+  test('generateAndDownloadC7ResponseDraftDocument', async () => {
     req.session.userCase.id = '12234567890';
     req.session.userCase.caseTypeOfApplication = CaseType.C100;
     req.session.user.id = '12234567890';
-    (req.session.userCase.caseInvites = [
+    req.session.userCase.caseInvites = [
       {
         id: 'string',
         value: {
@@ -50,33 +51,33 @@ describe('RespondentSubmitResponseController', () => {
           isApplicant: 'Yes',
         },
       },
-    ]),
-      (partyDetails = [
-        {
-          id: '12234567890',
-          value: {
-            address: {
-              AddressLine1: 'Flatc1',
-              AddressLine2: 'Unkonwn lane',
-              County: 'Dummy County',
-              PostCode: 'SW13ND',
-              PostTown: 'Dummy Town',
-            },
-            dateOfBirth: '2000-11-14',
-            email: 'a.b@test.com',
-            firstName: 'John',
-            isAtAddressLessThan5Years: 'Yes',
+    ];
+    partyDetails = [
+      {
+        id: '12234567890',
+        value: {
+          address: {
+            AddressLine1: 'Flatc1',
+            AddressLine2: 'Unkonwn lane',
+            County: 'Dummy County',
+            PostCode: 'SW13ND',
+            PostTown: 'Dummy Town',
+          },
+          dateOfBirth: '2000-11-14',
+          email: 'a.b@test.com',
+          firstName: 'John',
+          isAtAddressLessThan5Years: 'Yes',
 
-            phoneNumber: '0987654321',
-            placeOfBirth: 'london',
-            previousName: 'Johnny Smith',
-            user: {
-              idamId: '12234567890',
-              email: '',
-            },
+          phoneNumber: '0987654321',
+          placeOfBirth: 'london',
+          previousName: 'Johnny Smith',
+          user: {
+            idamId: '12234567890',
+            email: '',
           },
         },
-      ]);
+      },
+    ];
     req.session.userCase.respondents = partyDetails;
     await controller.generateAndDownloadC7ResponseDraftDocument(req, res);
     expect(res.end).toHaveBeenCalled();

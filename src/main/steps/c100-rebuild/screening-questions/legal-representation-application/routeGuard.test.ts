@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 
 import { routeGuard } from './routeGuard';
 
-describe('c100 > screening questions > permissions why > route guard', () => {
+describe('c100 > screening questions > legal representation application > route guard', () => {
   let res;
   let req;
   const next = jest.fn();
@@ -67,43 +67,14 @@ describe('c100 > screening questions > permissions why > route guard', () => {
           miam_noMediatorReasons: 'noAppointmentAvailable',
           miam_noAppointmentAvailableDetails: 'test',
           miam_unableToAttainDueToDisablityDetails: 'test',
-          co_certificate: {
-            id: '1234',
-            url: 'MOCK_URL',
-            filename: 'MOCK_FILENAME',
-            binaryUrl: 'MOCK_BINARY_URL',
-          },
         },
       },
     });
     res = mockResponse();
   });
 
-  test('should clean fields for consent agreement yes and call next', async () => {
-    req.body.sq_writtenAgreement = 'Yes';
-    await routeGuard.post(req, res, next);
-    expect(req.session.userCase).toStrictEqual({
-      miam_domesticAbuse: [],
-      miam_domesticAbuseEvidenceDocs: [],
-      miam_domesticAbuse_courtInvolvement_subfields: [],
-      miam_domesticAbuse_letterFromAuthority_subfields: [],
-      miam_domesticAbuse_letterFromSupportService_subfields: [],
-      miam_domesticAbuse_letterOfBeingVictim_subfields: [],
-      miam_domesticAbuse_policeInvolvement_subfields: [],
-      miam_nonAttendanceReasons: [],
-      co_certificate: {
-        id: '1234',
-        url: 'MOCK_URL',
-        filename: 'MOCK_FILENAME',
-        binaryUrl: 'MOCK_BINARY_URL',
-      },
-    });
-    expect(req.session.save).toHaveBeenCalled();
-    expect(next).toHaveBeenCalled();
-  });
-
-  test('should clean fields for consent agreement no and call next', async () => {
-    req.body.sq_writtenAgreement = 'No';
+  test('should not clean fields when legal rep application is no', async () => {
+    req.body.sq_legalRepresentationApplication = 'No';
     await routeGuard.post(req, res, next);
     expect(req.session.userCase).toStrictEqual({
       sq_legalRepresentation: 'Yes',
@@ -161,6 +132,25 @@ describe('c100 > screening questions > permissions why > route guard', () => {
       miam_noMediatorReasons: 'noAppointmentAvailable',
       miam_noAppointmentAvailableDetails: 'test',
       miam_unableToAttainDueToDisablityDetails: 'test',
+    });
+    expect(req.session.save).toHaveBeenCalled();
+    expect(next).toHaveBeenCalled();
+  });
+
+  test('should clean permissions and miam fields for when legal rep application is yes', async () => {
+    req.body.sq_legalRepresentationApplication = 'Yes';
+    await routeGuard.post(req, res, next);
+    expect(req.session.userCase).toStrictEqual({
+      miam_domesticAbuse: [],
+      miam_domesticAbuseEvidenceDocs: [],
+      miam_domesticAbuse_courtInvolvement_subfields: [],
+      miam_domesticAbuse_letterFromAuthority_subfields: [],
+      miam_domesticAbuse_letterFromSupportService_subfields: [],
+      miam_domesticAbuse_letterOfBeingVictim_subfields: [],
+      miam_domesticAbuse_policeInvolvement_subfields: [],
+      miam_nonAttendanceReasons: [],
+      sq_legalRepresentation: 'Yes',
+      sq_legalRepresentationApplication: 'Yes',
     });
     expect(req.session.save).toHaveBeenCalled();
     expect(next).toHaveBeenCalled();

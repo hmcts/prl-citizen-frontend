@@ -229,6 +229,114 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
+  test('Should add relationship if there is no existing child relationship', async () => {
+    const testData = {
+      ...dummyData,
+      userCase: {
+        ...dummyData.userCase,
+        resp_Respondents: [
+          {
+            id: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+            firstName: 'Amy',
+            lastName: 'Root',
+            personalDetails: {
+              dateOfBirth: {
+                day: '',
+                month: '',
+                year: '',
+              },
+              isDateOfBirthUnknown: '',
+              approxDateOfBirth: {
+                day: '',
+                month: '',
+                year: '',
+              },
+              gender: '',
+              otherGenderDetails: '',
+            },
+            relationshipDetails: {
+              relationshipToChildren: [],
+            },
+          },
+        ],
+      },
+    };
+    const mockFields = {
+      fields: {},
+    } as unknown as FormContent;
+    const req = mockRequest(testData);
+    req.body = {
+      relationshipType: RelationshipType.MOTHER,
+      onlycontinue: true,
+    };
+    const controller = new RespondentsRelationshipToChildPostController(mockFields.fields);
+    const res = mockResponse();
+    generateContent(dummyData);
+    await controller.post(req, res);
+    expect(req.session.userCase).toStrictEqual({
+      cd_children: [
+        {
+          childMatters: {
+            needsResolution: [],
+          },
+          firstName: 'Bob',
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          lastName: 'Silly',
+          parentialResponsibility: {
+            statement: 'test stmt',
+          },
+          personalDetails: {
+            approxDateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            dateOfBirth: {
+              day: '12',
+              month: '12',
+              year: '1987',
+            },
+            gender: 'Male',
+            isDateOfBirthUnknown: '',
+          },
+        },
+      ],
+      id: '1234',
+      resp_Respondents: [
+        {
+          firstName: 'Amy',
+          id: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+          lastName: 'Root',
+          personalDetails: {
+            approxDateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            dateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            gender: '',
+            isDateOfBirthUnknown: '',
+            otherGenderDetails: '',
+          },
+          relationshipDetails: {
+            relationshipToChildren: [
+              {
+                childId: '7483640e-0817-4ddc-b709-6723f7925474',
+                otherRelationshipTypeDetails: '',
+                relationshipType: 'Mother',
+              },
+            ],
+          },
+        },
+      ],
+    });
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
+  });
+
   test('Should call saveAndComeLater when saveAndComeLater is called', async () => {
     const testData = {
       ...dummyData,
