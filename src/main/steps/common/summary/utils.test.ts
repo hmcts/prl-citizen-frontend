@@ -114,7 +114,8 @@ describe('common > summary > utils', () => {
               },
             },
           ],
-          title: 'applicationDetails',
+          title: '',
+          subTitle: 'applicationDetails',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {

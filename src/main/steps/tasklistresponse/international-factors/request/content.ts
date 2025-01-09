@@ -4,7 +4,6 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
-  section: ' ',
   title: 'Has another country asked (or been asked) for information or help for the children?',
   one: 'Yes',
   two: 'No',
@@ -27,7 +26,6 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: ' ',
   title: "A oes gwlad arall wedi gofyn (neu wedi cael cais) am wybodaeth neu gymorth i'r plant?",
   one: 'Oes',
   two: 'Nac oes',

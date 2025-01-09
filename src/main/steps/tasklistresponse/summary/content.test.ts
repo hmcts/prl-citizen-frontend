@@ -32,8 +32,8 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('Please review your answers before you complete your response.');
-    expect(generatedContent.section).toEqual('Check your answers');
+    expect(generatedContent.subTitle).toEqual('Please review your answers before you complete your response.');
+    expect(generatedContent.title).toEqual('Check your answers');
     expect(generatedContent).not.toEqual('');
   });
 
@@ -66,8 +66,8 @@ describe('citizen-home content', () => {
       c1A_safetyConernAbout: [C1ASafteyConcernsAbout.RESPONDENT],
     };
     const generatedContent1 = generateContent(commonContent1);
-    expect(generatedContent1.title).toEqual('Please review your answers before you complete your response.');
-    expect(generatedContent1.section).toEqual('Check your answers');
+    expect(generatedContent1.subTitle).toEqual('Please review your answers before you complete your response.');
+    expect(generatedContent1.title).toEqual('Check your answers');
     expect(generatedContent1).not.toEqual('');
   });
 

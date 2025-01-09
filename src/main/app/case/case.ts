@@ -793,6 +793,7 @@ export interface CaseWithId extends Case {
   legalRepresentativeForProceedings?: YesOrNo;
   legalRepresentativeForApplication?: YesOrNo;
   paymentData?: PaymentResponse;
+  dynamicForm?: Record<string, any>;
 }
 
 export enum Checkbox {

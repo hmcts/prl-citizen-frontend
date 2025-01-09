@@ -7,7 +7,7 @@ export * from './routeGuard';
 import { prepareSummaryList } from './utils';
 
 export const en = {
-  section: 'Check your answers',
+  title: 'Check your answers',
   caseNumber: 'Case number',
   application: 'application',
   sectionTitles: {},
@@ -34,7 +34,7 @@ export const en = {
 };
 
 export const cy = {
-  section: 'Gwirio eich atebion',
+  title: 'Gwirio eich atebion',
   caseNumber: 'Rhif yr achos ',
   application: 'Cais',
   sectionTitles: {},
