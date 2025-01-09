@@ -1,5 +1,5 @@
 import { Case } from '../../../app/case/case';
-import { C100RebuildPartyDetails, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
+import { C100RebuildPartyDetails, ChildrenDetails, RootContext, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_CHILDERN_MAINLY_LIVE_WITH,
@@ -11,6 +11,7 @@ import {
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
   PageLink,
+  STAYING_IN_REFUGE,
 } from '../../urls';
 import { getNextPerson } from '../people/util';
 
@@ -57,8 +58,9 @@ class OtherPersonsDetailsNavigationController {
               otherPersonId: this.otherPersonId,
               childId: nextChild.id as ChildrenDetails['id'],
             })
-          : applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, {
-              otherPersonId: this.otherPersonId,
+          : applyParms(STAYING_IN_REFUGE, {
+              root: RootContext.C100_REBUILD,
+              id: this.otherPersonId,
             });
         break;
       }
