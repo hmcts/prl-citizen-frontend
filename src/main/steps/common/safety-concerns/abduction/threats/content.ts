@@ -9,6 +9,8 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateContentForLocalComponent } from '../../util';
 import { generateContent as parentContent } from '../content';
 
+export * from './routeGuard';
+
 export const en = () => ({
   caption: 'Safety concerns',
   title: 'Have the children been abducted or kept outside the UK without your consent before?',

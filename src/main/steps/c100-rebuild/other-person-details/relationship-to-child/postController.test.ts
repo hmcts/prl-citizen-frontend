@@ -123,6 +123,118 @@ describe('OtherPersonsRelationshipToChildPostController Post Controller', () => 
     expect(res.redirect).toHaveBeenCalled();
   });
 
+  test('Should add relationship if there is no existing child relationship', async () => {
+    const mockFields = {
+      fields: {},
+    } as unknown as FormContent;
+    const req = mockRequest({
+      ...commonContent,
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+        otherPersonId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+      },
+      userCase: {
+        ...commonContent.userCase,
+        oprs_otherPersons: [
+          {
+            id: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+            firstName: 'Amy',
+            lastName: 'Root',
+            personalDetails: {
+              dateOfBirth: {
+                day: '',
+                month: '',
+                year: '',
+              },
+              isDateOfBirthUnknown: '',
+              approxDateOfBirth: {
+                day: '',
+                month: '',
+                year: '',
+              },
+              gender: '',
+              otherGenderDetails: '',
+            },
+            relationshipDetails: {
+              relationshipToChildren: [],
+            },
+          },
+        ],
+      },
+    });
+    req.body = {
+      relationshipType: RelationshipType.MOTHER,
+      onlycontinue: true,
+    };
+    const controller = new OtherPersonsRelationshipToChildPostController(mockFields.fields);
+    // req.session.userCase = ;
+    const res = mockResponse();
+    generateContent(commonContent);
+    await controller.post(req, res);
+    expect(req.session.userCase).toStrictEqual({
+      cd_children: [
+        {
+          childMatters: {
+            needsResolution: [],
+          },
+          firstName: 'Bob',
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          lastName: 'Silly',
+          parentialResponsibility: {
+            statement: 'fgfdgfg',
+          },
+          personalDetails: {
+            approxDateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            dateOfBirth: {
+              day: '12',
+              month: '12',
+              year: '1987',
+            },
+            gender: 'Male',
+            isDateOfBirthUnknown: '',
+          },
+        },
+      ],
+      id: '1234',
+      oprs_otherPersons: [
+        {
+          firstName: 'Amy',
+          id: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+          lastName: 'Root',
+          personalDetails: {
+            approxDateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            dateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            gender: '',
+            isDateOfBirthUnknown: '',
+            otherGenderDetails: '',
+          },
+          relationshipDetails: {
+            relationshipToChildren: [
+              {
+                childId: '7483640e-0817-4ddc-b709-6723f7925474',
+                otherRelationshipTypeDetails: '',
+                relationshipType: 'Mother',
+              },
+            ],
+          },
+        },
+      ],
+    });
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
+  });
+
   test('Should update case when save and come back button is clicked', async () => {
     const mockFormContent = {
       fields: {},

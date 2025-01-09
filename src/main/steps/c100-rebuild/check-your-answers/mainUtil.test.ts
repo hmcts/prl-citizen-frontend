@@ -1235,6 +1235,64 @@ describe('test cases for main util', () => {
     expect(whereDoChildLiveObj?.title).toBe(undefined);
   });
 
+  test('whoDoesChildMainlyLiveWith should have correct details when mainly live with name not present', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      cd_children: [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          firstName: 'Bob',
+          lastName: 'Silly',
+          mainlyLiveWith: {
+            id: '2',
+            partyType: PartyType.RESPONDENT,
+          },
+        },
+      ],
+    } as ANYTYPE;
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    expect(whereDoChildLiveObj?.rows).toEqual([
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
+              text: undefined,
+              visuallyHiddenText: 'Who does Bob Silly mainly live with?',
+              attributes: {},
+            },
+          ],
+        },
+        key: {
+          text: 'Who does Bob Silly mainly live with?',
+        },
+        value: {
+          html: ' ',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
+              text: undefined,
+              visuallyHiddenText: "Bob Silly's living arrangements",
+              attributes: {},
+            },
+          ],
+        },
+        key: {
+          text: "Bob Silly's living arrangements",
+        },
+        value: {
+          html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+        },
+      },
+    ]);
+    expect(whereDoChildLiveObj?.title).toBe(undefined);
+  });
+
   test('childLivingArrangements', () => {
     const userCase = {
       id: 'id',

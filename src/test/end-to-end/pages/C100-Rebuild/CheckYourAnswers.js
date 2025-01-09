@@ -72,8 +72,11 @@ module.exports = {
         await I.retry(retryCount).click(this.fields.submitApplication);
     },
     async selectNoPCQOption() {
-        await I.wait(5);
-        await I.retry(3).click("I don't want to answer these questions");
+        await I.wait(15);
+        let url = await I.grabCurrentUrl();
+        if (url.includes('pcq')) {
+            await I.retry(3).click('I don\'t want to answer these questions');
+        }
     },
     async payByCard() {
         await I.wait(15);

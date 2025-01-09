@@ -1852,7 +1852,6 @@ export const enum State {
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',
   ConditionalOrderRefused = 'ConditionalOrderRefused',
   Disputed = 'Disputed',
-  Draft = 'Draft',
   FinalOrderComplete = 'FinalOrderComplete',
   IssuedToBailiff = 'IssuedToBailiff',
   AwaitingPronouncement = 'AwaitingPronouncement',

@@ -3,7 +3,8 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import FormData from 'form-data';
 
-import { DocumentUploadResponse, caseApi } from '../../../../app/case/C100CaseApi';
+import { DocumentUploadResponse } from '../../../../app/case/C100CaseApi';
+import { caseApi } from '../../../../app/case/CaseApi';
 import { C100OrderInterface, C100OrderTypeKeyMapper, C100OrderTypes } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
