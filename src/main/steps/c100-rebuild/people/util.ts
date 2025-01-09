@@ -14,7 +14,7 @@ import {
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 
-type People = ChildrenDetails | OtherChildrenDetails | C100RebuildPartyDetails | C100Applicant;
+export type People = ChildrenDetails | OtherChildrenDetails | C100RebuildPartyDetails | C100Applicant;
 
 export enum PartyDetailsVariant {
   PERSONAL_DETAILS = 'personalDetails',

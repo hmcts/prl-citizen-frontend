@@ -521,7 +521,7 @@ describe('C100Sequence', () => {
     );
     expect(C100Sequence[90].showInSection).toBe('c100');
     expect(C100Sequence[90].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/address/lookup'
+      '/c100-rebuild/refuge/staying-in-refuge/7228444b-ef3f-4202-a1e7-cdcd2316e1f6?'
     );
 
     expect(C100Sequence[91].url).toBe('/c100-rebuild/child-details/:childId/live-with/mainly-live-with');
@@ -565,5 +565,19 @@ describe('C100Sequence', () => {
     expect(C100Sequence[98].url).toBe('/c100-rebuild/check-your-answers');
     expect(C100Sequence[98].showInSection).toBe('c100');
     expect(C100Sequence[98].getNextStep({})).toBe('/c100-rebuild/check-your-answers');
+
+    expect(C100Sequence[99].url).toBe('/c100-rebuild/applicant/:applicantId/contact-preference');
+    expect(C100Sequence[99].showInSection).toBe('c100');
+    expect(C100Sequence[99].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
+      '/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/details-know'
+    );
+
+    expect(C100Sequence[100].url).toBe('/c100-rebuild/:caseId/withdraw');
+    expect(C100Sequence[100].showInSection).toBe('c100');
+    expect(C100Sequence[100].getNextStep({})).toBe('/task-list/applicant');
+
+    expect(C100Sequence[101].url).toBe('/c100-rebuild/withdraw/confirmation');
+    expect(C100Sequence[101].showInSection).toBe('c100');
+    expect(C100Sequence[101].getNextStep({})).toBe('/');
   });
 });

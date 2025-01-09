@@ -31,4 +31,6 @@ export enum HTML {
   ROW_END = '</div>',
   DESCRIPTION_TERM_DETAIL = '<dd class="govuk-summary-list__value">',
   DESCRIPTION_TERM_DETAIL_END = '</dd>',
+  ERROR_MESSAGE_SPAN = '<span class="govuk-error-message">',
+  SPAN_CLOSE = '</span>',
 }
