@@ -6,7 +6,7 @@ import { C100RebuildPartyDetails } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { getPartyDetails, updatePartyDetails } from '../../people/util';
+import { cleanOtherRelationshipDetails, getPartyDetails, updatePartyDetails } from '../../people/util';
 
 import { getFormFields } from './content';
 
@@ -28,6 +28,8 @@ export default class OtherPersonsRelationshipToChildPostController extends PostC
       req.session.userCase.oprs_otherPersons
     ) as C100RebuildPartyDetails;
 
+    const otherRelationshipDetails = cleanOtherRelationshipDetails(relationshipType, otherRelationshipTypeDetails);
+
     if (otherPersonDetails.relationshipDetails.relationshipToChildren.length) {
       const matchingChildRelationshipIndex = otherPersonDetails.relationshipDetails.relationshipToChildren.findIndex(
         relationshipToChildObject => relationshipToChildObject.childId === childId
@@ -37,13 +39,13 @@ export default class OtherPersonsRelationshipToChildPostController extends PostC
         otherPersonDetails.relationshipDetails.relationshipToChildren[matchingChildRelationshipIndex] = {
           childId,
           relationshipType,
-          otherRelationshipTypeDetails,
+          otherRelationshipTypeDetails: otherRelationshipDetails,
         };
       } else {
-        pushRelationshipDataToOtherPerson(otherPersonDetails, childId, relationshipType, otherRelationshipTypeDetails);
+        pushRelationshipDataToOtherPerson(otherPersonDetails, childId, relationshipType, otherRelationshipDetails);
       }
     } else {
-      pushRelationshipDataToOtherPerson(otherPersonDetails, childId, relationshipType, otherRelationshipTypeDetails);
+      pushRelationshipDataToOtherPerson(otherPersonDetails, childId, relationshipType, otherRelationshipDetails);
     }
 
     req.session.userCase.oprs_otherPersons = updatePartyDetails(

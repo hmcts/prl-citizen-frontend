@@ -7,6 +7,7 @@ import { C100_APPLICANT_TASKLIST, C100_URL, COMMON_PAGE_URLS } from '../../steps
 
 import AppSurvey from './app-survey/appSurveyController';
 import { appSurveyContents } from './app-survey/content';
+import { interpolate } from './string-parser';
 
 export const en = {
   phase: 'Beta',
@@ -15,7 +16,7 @@ export const en = {
   commonServiceName: 'Child arrangements and family injunctions',
   c100ServiceName: 'Child arrangements',
   fl401ServiceName: 'Family Injunctions',
-  languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
+  languageToggle: '<a lang="{lang}" {href} class="govuk-link language">{language}</a>',
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Save and continue',
@@ -133,7 +134,7 @@ export const cy: typeof en = {
   commonServiceName: 'Trefniadau plant a gwaharddebau teulu',
   c100ServiceName: 'Trefniadau plant',
   fl401ServiceName: 'Gwaharddeb Teulu',
-  languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
+  languageToggle: '<a lang="{lang}" {href} class="govuk-link language">{language}</a>',
   govUk: 'GOV.UK',
   back: 'Yn ôl',
   continue: 'Cadw a pharhau',
@@ -299,6 +300,11 @@ export const generatePageContent = ({
     additionalData,
     userId,
     inPageSurveyContent,
+    languageToggle: interpolate(commonTranslations.languageToggle, {
+      lang: language === 'en' ? 'cy' : 'en',
+      href: `href="?lng=${language === 'en' ? 'cy' : 'en'}"`,
+      language: language === 'en' ? 'Cymraeg' : 'English',
+    }),
   };
 
   if (pageContent !== null && pageContent !== undefined) {

@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../../app/case/case';
-import { CaseType, PartyType } from '../../../../app/case/definition';
+import { CaseType, PartyType, YesOrNo } from '../../../../app/case/definition';
 import { UserDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
@@ -8,9 +8,11 @@ import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
 
+import { isMandatoryFieldsFilled } from './utils';
+
 export const enContent = {
-  section: 'Check your details',
-  title: 'Read the information to make sure it is correct, and add any missing details',
+  title: 'Check your details',
+  subTitle: 'Read the information to make sure it is correct, and add any missing details',
   contactdetailpriv:
     'if you do not want to share your contact details with the other person in the case,update the section',
   contactdetailprivlinktext: 'keep your details private',
@@ -22,6 +24,8 @@ export const enContent = {
     citizenUserFullName: 'Name',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
+    citizenUserLivingInRefugeText: 'Living in refuge',
+    refugeDocumentText: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
@@ -60,8 +64,8 @@ const en = (content: CommonContent) => {
 };
 
 export const cyContent: typeof enContent = {
-  section: 'Gwiriwch eich manylion cyswllt',
-  title: 'Darllenwch yr wybodaeth i wneud yn siŵr ei bod yn gywir, ac ychwanegwch unrhyw fanylion sydd ar goll',
+  title: 'Gwiriwch eich manylion cyswllt',
+  subTitle: 'Darllenwch yr wybodaeth i wneud yn siŵr ei bod yn gywir, ac ychwanegwch unrhyw fanylion sydd ar goll',
   contactdetailpriv:
     'Os nad ydych eisiau rhannu eich manylion cyswllt gyda’r unigolyn arall yn yr achos, diweddarwch yr adran',
   contactdetailprivlinktext: 'Cadw eich manylion yn breifat',
@@ -73,6 +77,8 @@ export const cyContent: typeof enContent = {
     citizenUserFullName: 'Enw',
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
+    citizenUserLivingInRefugeText: 'Byw mewn lloches',
+    refugeDocumentText: 'Dogfen lloches C8',
     citizenUserAddressText: 'Cyfeiriad',
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',
@@ -87,6 +93,8 @@ const urls = {
   citizenUserFullName: 'personaldetails',
   citizenUserDateOfBirthText: 'personaldetails',
   citizenUserPlaceOfBirthText: 'personaldetails',
+  citizenUserLivingInRefugeText: '../refuge/staying-in-refuge',
+  refugeDocumentText: '../refuge/upload-refuge-document',
   citizenUserAddressText: 'addressdetails',
   citizenUserAddressHistory: 'addresshistory',
   citizenUserPhoneNumberText: 'contactdetails',
@@ -124,6 +132,7 @@ export const form: FormContent = {
   fields: {},
   submit: {
     text: l => l.continue,
+    disabled: false,
   },
 };
 
@@ -134,6 +143,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  form.submit!.disabled = !isMandatoryFieldsFilled(content.userCase!);
   return {
     ...translations,
     form,
@@ -156,6 +166,10 @@ export const removeFields = (
     }
   } else {
     delete keys.citizenUserSafeToCall;
+  }
+
+  if (caseData.isCitizenLivingInRefuge === YesOrNo.NO || caseData.isCitizenLivingInRefuge === null) {
+    delete keys.refugeDocumentText;
   }
 
   return { ...content, keys };
