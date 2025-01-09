@@ -66,6 +66,6 @@ module.exports = {
 
   bxuiBseUrl: process.env.URL || 'https://manage-case.aat.platform.hmcts.net/cases',
   runningEnv: process.env.ENVIRONMENT,
-  pcqEnabled: process.env.ENABLE_PCQ_COMPONENT || true,
+  pcqEnabled: process.env.ENABLE_PCQ_COMPONENT !== undefined ? process.env.ENABLE_PCQ_COMPONENT === "true" : true,
   // eslint-disable-next-line no-magic-numbers
 };
