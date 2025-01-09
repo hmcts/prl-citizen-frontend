@@ -37,6 +37,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  isMandatoryFieldsFilled,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -88,6 +89,7 @@ export const enContent = {
   telephone_number: 'Telephone number',
   dont_know_email_address: 'I dont know their email address',
   dont_know_telephone: 'I dont know their telephone number',
+  completeSectionError: 'Complete this section',
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -113,6 +115,9 @@ export const enContent = {
       defaultPaymentError: 'Your application is not submitted. Please try again',
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application',
       paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
+    },
+    refugeDocumentText: {
+      required: 'You must upload a C8 document',
     },
   },
   sectionTitles: {
@@ -171,6 +176,8 @@ export const enContent = {
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
+    refuge: 'Living in refuge',
+    c8RefugeDocument: 'C8 refuge document',
     doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
     courtOrderPrevent:
       'There is a court order preventing me from making an application without first getting the permission of the court',
@@ -227,6 +234,7 @@ export const cyContent = {
   email: 'E-bost',
   Male: 'Gwryw',
   Female: 'Benyw',
+  completeSectionError: 'Llenwch yr adran hon',
   StatementOfTruth: {
     title: 'Datganiad Gwirionedd',
     heading: 'Cadarnhau cyn ichi gyflwyno’r cais',
@@ -253,6 +261,9 @@ export const cyContent = {
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application (welsh)',
       paymentUnsuccessful:
         'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
+    },
+    refugeDocumentText: {
+      required: 'Mae’n rhaid i chi uwchlwytho dogfen C8',
     },
   },
   sectionTitles: {
@@ -311,6 +322,8 @@ export const cyContent = {
     otherPerson: 'Rhywun arall',
     contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
     addressDetails: 'Manylion cyfeiriad',
+    refuge: 'Byw mewn lloches',
+    c8RefugeDocument: 'Dogfen lloches C8',
     doNotHaveParentalResponsibility: 'Nid oes gennyf gyfrifoldeb rhiant dros y plant',
     courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',
     anotherReason: 'Rheswm arall',
@@ -656,6 +669,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.onlycontinue,
+    disabled: false,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
@@ -730,8 +744,25 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
+  form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!);
+  const refugeErrors = {};
+
+  content.userCase?.appl_allApplicants?.forEach(applicant => {
+    refugeErrors[`c8RefugeDocument-applicant-${content.userCase?.appl_allApplicants?.indexOf(applicant)}`] =
+      translations.errors.refugeDocumentText;
+  });
+
+  content.userCase?.oprs_otherPersons?.forEach(otherPerson => {
+    refugeErrors[`c8RefugeDocument-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`] =
+      translations.errors.refugeDocumentText;
+  });
+
   return {
     ...translations,
     form,
+    errors: {
+      ...translations.errors,
+      ...refugeErrors,
+    },
   };
 };

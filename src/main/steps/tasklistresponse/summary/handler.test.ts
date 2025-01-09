@@ -121,15 +121,17 @@ describe('handler', () => {
     data.citizenUserDateOfBirth = '';
     data.citizenUserPhoneNumber = '';
     data.citizenUserEmailAddress = '';
+    data.isCitizenLivingInRefuge = '';
     populateSummaryData(data, '123');
 
     expect(data.citizenUserPlaceOfBirthText).toEqual('');
     expect(data.citizenUserDateOfBirthText).toEqual('');
     expect(data.citizenUserPhoneNumberText).toEqual('');
     expect(data.citizenUserEmailAddressText).toEqual('');
+    expect(data.citizenUserLivingInRefugeText).toEqual('');
   });
   test('detail', () => {
-    data.citizenUserPlaceOfBirth = '';
+    data.citizenUserPlaceOfBirth = 'London';
     data.citizenUserDateOfBirth = {
       year: '2023',
       month: '12',
@@ -137,13 +139,36 @@ describe('handler', () => {
     };
     data.citizenUserPhoneNumber = '9876';
     data.citizenUserEmailAddress = 'abc';
+    data.isCitizenLivingInRefuge = 'Yes';
+    data.refugeDocument = {
+      document_binary_url: 'MOCK_BINARY_URL',
+      document_filename: 'MOCK_FILENAME',
+      document_url: 'MOCK_URL',
+    };
     populateSummaryData(data, '123');
 
-    expect(data.citizenUserPlaceOfBirthText).toEqual('');
+    expect(data.citizenUserPlaceOfBirthText).toEqual('London');
     expect(data.citizenUserDateOfBirthText).toEqual('25 December 2023');
     expect(data.citizenUserPhoneNumberText).toEqual('9876');
     expect(data.citizenUserEmailAddressText).toEqual('abc');
+    expect(data.citizenUserLivingInRefugeText).toBe('Yes');
+    expect(data.refugeDocumentText).toBe('MOCK_FILENAME');
   });
+
+  test('should delete refuge documents when refuge is no', () => {
+    data.isCitizenLivingInRefuge = 'No';
+    data.refugeDocument = {
+      document_binary_url: 'MOCK_BINARY_URL',
+      document_filename: 'MOCK_FILENAME',
+      document_url: 'MOCK_URL',
+    };
+    populateSummaryData(data, '123');
+
+    expect(data.citizenUserLivingInRefugeText).toBe('No');
+    expect(data.refugeDocumentText).toBe(undefined);
+    expect(data.refugeDocument).toBe(undefined);
+  });
+
   test('address', () => {
     data.respondents[0].value.address = {
       AddressLine1: '1',

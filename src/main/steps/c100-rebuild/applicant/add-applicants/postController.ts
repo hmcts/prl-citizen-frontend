@@ -168,12 +168,12 @@ export default class AddApplicantPostController extends PostController<AnyObject
         applicantPlaceOfBirth: '',
       },
       applicantContactDetail: {
-        canProvideEmail: YesNoEmpty.EMPTY,
+        canProvideEmail: null,
         emailAddress: '',
-        canProvideTelephoneNumber: YesNoEmpty.EMPTY,
+        canProvideTelephoneNumber: null,
         telephoneNumber: '',
         canNotProvideTelephoneNumberReason: '',
-        canLeaveVoiceMail: YesNoEmpty.EMPTY,
+        canLeaveVoiceMail: null,
       },
       reasonableAdjustmentsFlags: [],
     } as C100Applicant;

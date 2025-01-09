@@ -1,0 +1,7 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-xl">{{title}}</h1>
+  <p class="govuk-body">{{refuge}}</p>
+  <p class="govuk-body">{{citizensAdvice | safe}}</p>
+{% endblock %}

@@ -1,10 +1,15 @@
 /* eslint-disable import/no-unresolved */
+import _ from 'lodash';
+
+import { CaseWithId } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
+import { HTML } from '../../../steps/c100-rebuild/check-your-answers/common/htmlSelectors';
 import { CommonContent } from '../../../steps/common/common.content';
 import { removeFields } from '../../../steps/common/confirm-contact-details/checkanswers/content';
+import { isMandatoryFieldsFilled } from '../../../steps/common/confirm-contact-details/checkanswers/utils';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
   CONSENT_TO_APPLICATION,
@@ -18,6 +23,7 @@ import {
   MIAM_START,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
+  REFUGE_UPLOAD_DOC,
   RESPONDENT_ADDRESS_DETAILS,
   RESPONDENT_ADDRESS_HISTORY,
   RESPONDENT_CONTACT_DETAILS,
@@ -25,6 +31,7 @@ import {
   RESPOND_TO_AOH,
   RESPONSE_TO_AOH,
   START_ALTERNATIVE,
+  STAYING_IN_REFUGE,
 } from '../../../steps/urls';
 import { summaryList as prepareRASummaryList } from '../../common/reasonable-adjustments/review/content';
 import {
@@ -38,6 +45,8 @@ import { PastAndCurrentProceedings } from '../proceedings/mainUtils';
 
 import { ANYTYPE } from './common/index';
 import { populateSummaryData } from './handler';
+
+export * from './routeGuard';
 
 export const enlegalRepresntationContent = {
   sectionTitles: {
@@ -91,6 +100,8 @@ export const enConfirmYourDetailsContent = {
     citizenUserFullName: 'Name',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
+    citizenUserLivingInRefugeText: 'Living in refuge',
+    refugeDocumentText: 'C8 refuge document',
     citizenUserAddressText: 'Address',
     citizenUserAddressHistory: 'Address history',
     citizenUserPhoneNumberText: 'Phone number',
@@ -114,6 +125,9 @@ export const enContent = {
     declarationCheck: {
       required: 'Please confirm the declaration',
     },
+    refugeDocumentText: {
+      required: 'You must upload a C8 document',
+    },
   },
   continue: 'Submit your response',
   warning1: 'Warning',
@@ -132,6 +146,7 @@ export const enContent = {
   forRecords: 'Please note this draft is for your records. Only the completed response will be admitted in court.',
   downloadDraft: 'Download draft response',
   downloadDraftWelsh: 'Download draft response welsh',
+  completeSectionError: 'Complete this section',
 };
 
 export const enInternationalContent = {
@@ -304,6 +319,9 @@ export const cyContent: typeof enContent = {
     declarationCheck: {
       required: 'Cadarnhewch y datganiad',
     },
+    refugeDocumentText: {
+      required: 'Mae’n rhaid i chi uwchlwytho dogfen C8',
+    },
   },
   continue: 'Cyflwyno eich ymateb',
   warning1: 'Rhybudd',
@@ -322,6 +340,7 @@ export const cyContent: typeof enContent = {
   forRecords: 'Noder mai drafft yw hwn ar gyfer eich cofnodion. Dim ond yr ymateb terfynol a dderbynnir yn y llys.',
   downloadDraft: 'Lawrlwytho drafft o’r ymateb',
   downloadDraftWelsh: 'Lawrlwytho drafft o’r ymateb cymraeg',
+  completeSectionError: 'Llenwch yr adran hon',
 };
 
 export const cyContentProceding = {
@@ -421,6 +440,8 @@ export const cyConfirmYourDetailsContent = {
     citizenUserFullName: 'Enw',
     citizenUserDateOfBirthText: 'Dyddiad geni',
     citizenUserPlaceOfBirthText: 'Lleoliad geni',
+    citizenUserLivingInRefugeText: 'Byw mewn lloches',
+    refugeDocumentText: 'Dogfen lloches C8',
     citizenUserAddressText: 'Cyfeiriad',
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',
@@ -576,6 +597,8 @@ const urls = {
   citizenUserAddressHistory: RESPONDENT_ADDRESS_HISTORY,
   citizenUserPhoneNumberText: RESPONDENT_CONTACT_DETAILS,
   citizenUserEmailAddressText: RESPONDENT_CONTACT_DETAILS,
+  citizenUserLivingInRefugeText: applyParms(STAYING_IN_REFUGE, { root: PartyType.RESPONDENT }),
+  refugeDocumentText: applyParms(REFUGE_UPLOAD_DOC, { root: PartyType.RESPONDENT }),
   start: INTERNATIONAL_FACTORS_START,
   iFactorsStartProvideDetails: INTERNATIONAL_FACTORS_START,
   parents: INTERNATIONAL_FACTORS_PARENTS,
@@ -609,8 +632,12 @@ const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childCo
 
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  populateSummaryData(content.userCase, content.userIdamId);
   const userCase = content.userCase!;
+  userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
+    ? userCase.refugeDocument.document_filename
+    : HTML.ERROR_MESSAGE_SPAN + enContent.completeSectionError + HTML.SPAN_CLOSE;
+  populateSummaryData(userCase, content.userIdamId);
+
   const sections = [] as ANYTYPE;
   sections.push(
     summaryList(
@@ -666,8 +693,12 @@ const en = (content: CommonContent) => {
 };
 
 const cy: typeof en = (content: CommonContent) => {
-  populateSummaryData(content.userCase, content.userIdamId);
   const userCase = content.userCase!;
+  userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
+    ? userCase.refugeDocument.document_filename
+    : HTML.ERROR_MESSAGE_SPAN + cyContent.completeSectionError + HTML.SPAN_CLOSE;
+  populateSummaryData(userCase, content.userIdamId);
+
   const sections = [] as ANYTYPE;
   sections.push(
     summaryList(
@@ -738,6 +769,7 @@ export const form: FormContent = {
   },
   onlyContinue: {
     text: l => l.continue,
+    disabled: false,
   },
 };
 
@@ -748,6 +780,8 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const caseData = content.userCase as CaseWithId;
+  form.onlyContinue!.disabled = !isMandatoryFieldsFilled(caseData);
 
   return {
     ...translations,
