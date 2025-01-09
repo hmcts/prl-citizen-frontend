@@ -15,7 +15,7 @@ import {
   YesOrNo,
 } from '../../../app/case/definition';
 
-type People = ChildrenDetails | OtherChildrenDetails | C100RebuildPartyDetails | C100Applicant;
+export type People = ChildrenDetails | OtherChildrenDetails | C100RebuildPartyDetails | C100Applicant;
 
 export enum PartyDetailsVariant {
   PERSONAL_DETAILS = 'personalDetails',
