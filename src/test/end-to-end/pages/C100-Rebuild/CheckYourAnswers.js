@@ -2,6 +2,7 @@ const CYA = require("../../contents/CheckYourAnswers-content");
 const ApplicantDetails = require("../../contents/ApplicantDetails-content");
 const { I } = inject();
 const retryCount = 3;
+const testConfig = require('../../config');
 
 module.exports = {
     fields: {
@@ -113,7 +114,9 @@ module.exports = {
 
     async checkAnswersAndPay() {
         await this.checkYourAnswersAndPay();
-        await this.selectNoPCQOption();
+        if(testConfig.pcqEnabled) {
+            await this.selectNoPCQOption();
+        }
         await this.payByCard();
         await this.applicationSubmitted();
     }

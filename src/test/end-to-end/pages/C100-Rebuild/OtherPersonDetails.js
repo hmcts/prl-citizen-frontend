@@ -104,7 +104,7 @@ module.exports = {
     await this.otherPersonName();
     await this.otherPersonDetailsInfo();
     await this.otherPersonRelationship();
-    // await this.refugeDetailsOfOtherPerson();
+    await this.refugeDetailsOfOtherPerson();
     await this.addressOfOtherPerson();
     await this.addressLookUpPage();
     await this.confirmAddress();
