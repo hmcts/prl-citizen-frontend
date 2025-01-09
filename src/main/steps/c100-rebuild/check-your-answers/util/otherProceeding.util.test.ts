@@ -1,11 +1,9 @@
+import { ProceedingsOrderInterface } from '../../../../app/case/definition';
+import { IndividualOrderFieldsParser, otherProceedingsContents } from '../../../common/otherProceeding/utils';
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
 
-import {
-  IndividualC100OrderFieldsParser,
-  OPotherProceedingsSessionParserUtil,
-  otherProceedingsContents,
-} from './otherProceeding.util';
+import { OPotherProceedingsSessionParserUtil } from './otherProceeding.util';
 
 describe('test cases for otherProceedingsContents', () => {
   const language = 'en';
@@ -14,22 +12,22 @@ describe('test cases for otherProceedingsContents', () => {
       en: () => {
         delete en['errors'];
         delete opDetailsEnContents['errors'];
-        return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().pageTitle };
+        return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().title };
       },
       cy: () => {
         delete cy['errors'];
         delete opDetailsCyContents['errors'];
-        return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().pageTitle };
+        return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().title };
       },
     };
     return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
   };
 
   test('english contents', () => {
-    expect(otherProceedingsContents('en')).toStrictEqual(contentLoaders('en'));
+    expect(otherProceedingsContents('en', 'c100-rebuild')).toStrictEqual(contentLoaders('en'));
   });
   test('Welsh contents', () => {
-    expect(otherProceedingsContents('cy')).toStrictEqual(contentLoaders('cy'));
+    expect(otherProceedingsContents('cy', 'c100-rebuild')).toStrictEqual(contentLoaders('cy'));
   });
 
   test('OPotherProceedingsSessionParserUtil', () => {
@@ -147,7 +145,7 @@ describe('test cases for otherProceedingsContents', () => {
   });
 
   test('IndividualOrderFieldsParser', () => {
-    const order = {};
+    const order = {} as ProceedingsOrderInterface;
     const keys = {
       courtIssuedLabel: '',
       caseNumberLabel: '',
@@ -156,6 +154,6 @@ describe('test cases for otherProceedingsContents', () => {
       copyOfOrderLabel: '',
       orderEndDate: '',
     };
-    expect(IndividualC100OrderFieldsParser(keys, order, language)).not.toBe([]);
+    expect(IndividualOrderFieldsParser(keys, order, language, 'c100-rebuild')).not.toBe([]);
   });
 });

@@ -12,11 +12,10 @@ import {
 import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
-  section: ' ',
   title: 'Check your answers',
-  title2: 'International element',
+  respondentAdditionalInformation: 'International elements',
   sectionTitles: {
-    respondentAdditionalInformation: 'International elements',
+    respondentAdditionalInformation: '',
   },
   keys: {
     start: "Are the children's lives mainly based outside of England and Wales?",
@@ -46,11 +45,10 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: ' ',
   title: 'Gwirio eich atebion',
-  title2: 'Elfennau rhyngwladol',
+  respondentAdditionalInformation: 'Elfennau rhyngwladol',
   sectionTitles: {
-    respondentAdditionalInformation: 'Elfennau rhyngwladol',
+    respondentAdditionalInformation: '',
   },
   keys: {
     start: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',

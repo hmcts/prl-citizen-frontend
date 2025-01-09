@@ -1,7 +1,9 @@
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../app/case/case';
 import { C100RebuildPartyDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
+import { FormContent, FormInput, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn, isFieldLetters } from '../../../../app/form/validation';
 
 let updatedForm: FormContent;
@@ -68,39 +70,45 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (respondents: C100RebuildPartyDetails[]): GenerateDynamicFormFields => {
+export const generateFormFields = (
+  respondents: C100RebuildPartyDetails[],
+  context: string | undefined
+): GenerateDynamicFormFields => {
   const fields = {};
   const errors = {
     en: {},
     cy: {},
+  };
+  const nameFieldConfig: FormInput = {
+    type: 'text',
+    labelSize: 'm',
+    classes: 'govuk-!-width-one-half',
+    validator: value => isFieldFilledIn(value) || isFieldLetters(value),
+    attributes: {
+      autocomplete: 'off',
+    },
   };
 
   for (let index = 0; index < respondents.length; index++) {
     const count = index + 1;
     const key = `fieldset${count}`;
     const { id, firstName = '', lastName = '' } = respondents[index];
+    const inputFieldConfig = { ...nameFieldConfig };
+
+    if ((context === 'add' && count === respondents.length) || (context === 'remove' && count === 1)) {
+      inputFieldConfig.attributes = {
+        ...inputFieldConfig.attributes,
+        autofocus: true,
+      };
+    }
 
     fields[key] = {
       type: 'fieldset',
       label: l => `${l.Respondent} ${count}`,
       classes: 'govuk-fieldset__legend--m',
       subFields: {
-        [`firstName-${count}`]: {
-          type: 'text',
-          value: firstName,
-          labelSize: 'm',
-          classes: 'govuk-!-width-one-half',
-          label: l => l.firstNameLabel,
-          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
-        },
-        [`lastName-${count}`]: {
-          type: 'text',
-          label: l => l.lastNameLabel,
-          value: lastName,
-          classes: 'govuk-!-width-one-half',
-          labelSize: 'm',
-          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
-        },
+        [`firstName-${count}`]: { ...inputFieldConfig, label: l => l.firstNameLabel, value: firstName },
+        [`lastName-${count}`]: { ...inputFieldConfig, label: l => l.lastNameLabel, value: lastName },
         remove: {
           type: 'button',
           label: l => `${l.removeRespondentLabel} ${count}`,
@@ -170,15 +178,18 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
-  return updateFormFields(form, generateFormFields(caseData?.resp_Respondents ?? []).fields);
+export const getFormFields = (caseData: Partial<CaseWithId>, context: string): FormContent => {
+  return updateFormFields(form, generateFormFields(caseData?.resp_Respondents ?? [], context).fields);
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const sessionData = content?.userCase?.resp_Respondents;
 
-  const { fields, errors } = generateFormFields(sessionData ?? []);
+  const { fields, errors } = generateFormFields(
+    sessionData ?? [],
+    _.get(content, 'additionalData.req.session.applicationSettings.dynamicForm.context')
+  );
 
   translations.errors = {
     ...translations.errors,

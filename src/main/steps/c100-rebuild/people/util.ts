@@ -14,6 +14,7 @@ import {
   YesNoEmpty,
   YesOrNo,
 } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 
 export type People = ChildrenDetails | OtherChildrenDetails | C100RebuildPartyDetails | C100Applicant;
 
@@ -159,6 +160,19 @@ export const dobUnknown = (formData: Record<string, any>): string => {
       ? 'cannotHaveBothApproxAndExact'
       : '';
   return formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '';
+};
+
+export const setDynamicFormContext = (req: AppRequest, context: string): void => {
+  req.session.applicationSettings = {
+    ...req.session.applicationSettings,
+    dynamicForm: {
+      context,
+    },
+  };
+  setTimeout(() => {
+    delete req.session?.applicationSettings?.dynamicForm;
+    req.session.save();
+  }, 5000);
 };
 
 export const cleanLiveWithData = (caseData: CaseWithId, id: string): CaseWithId => {

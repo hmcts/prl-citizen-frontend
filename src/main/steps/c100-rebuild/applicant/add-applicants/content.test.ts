@@ -12,7 +12,7 @@ import { form, generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  pageTitle: 'Enter your name  ',
+  title: 'Enter your name',
   subTitle:
     'You and anyone else making this application are known as the applicants. <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later.',
   applicant: 'Applicant',
@@ -35,7 +35,7 @@ const en = {
 };
 
 const cy = {
-  pageTitle: 'Nodwch eich enw',
+  title: 'Nodwch eich enw',
   subTitle:
     'Gelwir chi ac unrhyw un arall sy’n gwneud y cais hwn yn ‘y ceiswyr’.<br> <br> Gelwir y bobl eraill sy’n derbyn y cais hwn yn ‘yr atebwyr.’ Byddwn yn gofyn am eu manylion yn nes ymlaen.',
   applicant: 'Ceisydd',
@@ -174,7 +174,7 @@ describe('applicant > add-applicants > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(dummyApplicants);
+    const { errors } = generateFormFields(dummyApplicants, '');
     languageAssertions(
       'en',
       {
@@ -190,7 +190,7 @@ describe('applicant > add-applicants > content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(dummyApplicants);
+    const { errors } = generateFormFields(dummyApplicants, '');
     languageAssertions(
       'cy',
       {
@@ -238,32 +238,35 @@ describe('applicant > add-applicants > content', () => {
   });
 
   test('applicant > add-applicants > content › chekcing generated form fields', () => {
-    const formFields = generateFormFields([
-      {
-        id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
-        applicantFirstName: 'Test',
-        applicantLastName: 'Test',
-        personalDetails: {
-          haveYouChangeName: YesNoEmpty.EMPTY,
-          applPreviousName: '',
-          dateOfBirth: {
-            day: '',
-            month: '',
-            year: '',
+    const formFields = generateFormFields(
+      [
+        {
+          id: '6b792169-84df-4e9a-8299-c2c77c9b7e58',
+          applicantFirstName: 'Test',
+          applicantLastName: 'Test',
+          personalDetails: {
+            haveYouChangeName: YesNoEmpty.EMPTY,
+            applPreviousName: '',
+            dateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            gender: Gender.EMPTY,
+            otherGenderDetails: '',
+            applicantPlaceOfBirth: '',
           },
-          gender: Gender.EMPTY,
-          otherGenderDetails: '',
-          applicantPlaceOfBirth: '',
+          reasonableAdjustmentsFlags: [],
         },
-        reasonableAdjustmentsFlags: [],
-      },
-    ]);
+      ],
+      'add'
+    );
     expect(formFields).not.toBe(null);
     expect(1).toBe(1);
   });
 
   test('should generate form fields correctly', () => {
-    const fields = generateFormFields(dummyApplicants).fields as FormFields;
+    const fields = generateFormFields(dummyApplicants, '').fields as FormFields;
 
     const { fieldset1: fieldset1 } = fields as Record<string, FormFields>;
     const {

@@ -106,7 +106,6 @@ const keys = {
 };
 
 const enContent = {
-  section: '',
   title: 'Check your Answers',
   change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
@@ -133,7 +132,6 @@ const enContent = {
 };
 
 const cyContent = {
-  section: '',
   title: 'Gwirio eich atebion',
   change: 'Golygu',
   topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
@@ -283,13 +281,14 @@ describe('Content.ts test cases', () => {
                 text: 'Who are you concerned about?',
               },
               value: {
-                html: '<ul></ul>',
+                html: '<ul class="govuk-list govuk-list--bullet"></ul>',
               },
             },
           ],
         },
         {
-          title: 'Safety concerns: the children in the application ',
+          title: '',
+          subTitle: 'Safety concerns: the children in the application ',
           rows: [
             {
               actions: {
@@ -307,13 +306,14 @@ describe('Content.ts test cases', () => {
                 text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
               },
               value: {
-                html: '<ul></ul>',
+                html: '<ul class="govuk-list govuk-list--bullet"></ul>',
               },
             },
           ],
         },
         {
-          title: 'Safety concern: other concerns that you have',
+          title: '',
+          subTitle: 'Safety concern: other concerns that you have',
           rows: [
             {
               actions: {
@@ -330,7 +330,7 @@ describe('Content.ts test cases', () => {
                 text: 'Have the children been impacted by drug, alcohol or substance abuse?',
               },
               value: {
-                html: 'No',
+                html: '<div class="govuk-summary-list__row border-bottom--none">No</div>',
               },
             },
             {
@@ -348,7 +348,7 @@ describe('Content.ts test cases', () => {
                 text: 'Do you have any other concerns about the children’s safety and wellbeing?',
               },
               value: {
-                html: 'No',
+                html: '<div class="govuk-summary-list__row border-bottom--none">No</div>',
               },
             },
             {
@@ -482,13 +482,14 @@ describe('Content.ts test cases', () => {
               },
               key: {},
               value: {
-                html: '<ul></ul>',
+                html: '<ul class="govuk-list govuk-list--bullet"></ul>',
               },
             },
           ],
         },
         {
-          title: 'Pryderon am ddiogelwch: y plant yn y cais',
+          title: '',
+          subTitle: 'Pryderon am ddiogelwch: y plant yn y cais',
           rows: [
             {
               actions: {
@@ -503,13 +504,14 @@ describe('Content.ts test cases', () => {
               },
               key: {},
               value: {
-                html: '<ul></ul>',
+                html: '<ul class="govuk-list govuk-list--bullet"></ul>',
               },
             },
           ],
         },
         {
-          title: 'Pryderon am ddiogelwch: pryderon eraill sydd gennych',
+          title: '',
+          subTitle: 'Pryderon am ddiogelwch: pryderon eraill sydd gennych',
           rows: [
             {
               actions: {
@@ -524,7 +526,7 @@ describe('Content.ts test cases', () => {
               },
               key: {},
               value: {
-                html: 'No',
+                html: '<div class="govuk-summary-list__row border-bottom--none">No</div>',
               },
             },
             {
@@ -540,7 +542,7 @@ describe('Content.ts test cases', () => {
               },
               key: {},
               value: {
-                html: 'No',
+                html: '<div class="govuk-summary-list__row border-bottom--none">No</div>',
               },
             },
             {

@@ -98,7 +98,7 @@ const enContent = {
     reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
   },
   keys: {
-    wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
+    wantingCourtToDo: 'describe what you want the court to do regarding the children in this application',
     qualifyForUrgentHearing: 'Does your situation qualify for an urgent first hearing?',
     askingNoHearing: 'Are you asking for a without notice hearing?',
     phoneNumber: 'Phone number',
@@ -136,6 +136,7 @@ const enContent = {
     contactPrefernces: 'Contact preferences',
     child: 'Child',
     reasonForNotAttendingMiam: 'What are your reasons for not attending a MIAM?',
+    applicantLabel: 'Applicant',
   },
 };
 const cyContent = {
@@ -257,6 +258,7 @@ const cyContent = {
     contactPrefernces: 'Dewisiadau cyswllt',
     child: 'Plant',
     reasonForNotAttendingMiam: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
+    applicantLabel: 'Ceisydd',
   },
   yesNo: {
     ydynTranslation: {
@@ -528,7 +530,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '1. Location details',
+        title: '<span class="app-task-list__section-number">1.</span> Location details',
       },
       {
         rows: [
@@ -550,7 +552,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '2. Type of application',
+        title: '<span class="app-task-list__section-number">2.</span> Type of application',
       },
       {
         rows: [
@@ -571,7 +573,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '3. Legal representative details',
+        title: '<span class="app-task-list__section-number">3.</span> Legal representative details',
       },
       {
         rows: [
@@ -593,11 +595,12 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '4. Permission to make the application',
+        title: '<span class="app-task-list__section-number">4.</span> Permission to make the application',
       },
       {
         rows: [],
-        title: '5. MIAM: Mediation Information and Assessment Meeting',
+        title:
+          '<span class="app-task-list__section-number">5.</span> MIAM: Mediation Information and Assessment Meeting',
       },
       {
         rows: [
@@ -621,7 +624,8 @@ describe('Content.ts toggle test cases', () => {
             },
           },
         ],
-        title: 'MIAM attendance',
+        title: '',
+        subTitle: 'MIAM attendance',
       },
       {
         rows: [
@@ -658,7 +662,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '6. Past and current proceeding',
+        title: '<span class="app-task-list__section-number">6.</span> Past and current proceeding',
       },
       {
         rows: [
@@ -696,7 +700,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: "7. What you're asking the court to decide",
+        title: '<span class="app-task-list__section-number">7.</span> What you\'re asking the court to decide',
       },
       {
         rows: [
@@ -733,15 +737,16 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '8. Hearing details',
+        title: '<span class="app-task-list__section-number">8.</span> Hearing details',
       },
       {
         rows: [],
-        title: '9. Details of the people in the application ',
+        title: '<span class="app-task-list__section-number">9.</span> Details of the people in the application ',
       },
       {
         rows: [],
-        title: "Children's details",
+        title: '',
+        subTitle: "Children's details",
       },
       {
         rows: [
@@ -759,9 +764,7 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'Are any of the children known to social services?',
             },
-            value: {
-              html: '<br>',
-            },
+            value: {},
           },
           {
             actions: {
@@ -780,7 +783,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Additional details about the children',
+        title: '',
+        subTitle: 'Additional details about the children',
       },
       {
         rows: [
@@ -802,15 +806,18 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Other Children details',
+        title: '',
+        subTitle: 'Other Children details',
       },
       {
         rows: [],
-        title: 'Details of the applicants',
+        title: '',
+        subTitle: 'Details of the applicants',
       },
       {
         rows: [],
-        title: 'Details of the respondents',
+        title: '',
+        subTitle: 'Details of the respondents',
       },
       {
         rows: [
@@ -831,7 +838,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Details of the other people in the application',
+        title: '',
+        subTitle: 'Details of the other people in the application',
       },
       [],
       {
@@ -873,11 +881,11 @@ describe('Content.ts toggle test cases', () => {
               text: 'Who are you concerned about?',
             },
             value: {
-              html: '<ul><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">Yourself</li></ul>',
+              html: '<ul class="govuk-list govuk-list--bullet"><li>Yourself</li></ul>',
             },
           },
         ],
-        title: '10. Safety concerns',
+        title: '<span class="app-task-list__section-number">10.</span> Safety concerns',
       },
       {
         rows: [
@@ -897,11 +905,12 @@ describe('Content.ts toggle test cases', () => {
               text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
             },
             value: {
-              html: '<ul></ul>',
+              html: '<ul class="govuk-list govuk-list--bullet"></ul>',
             },
           },
         ],
-        title: 'Safety concerns: the children in the application ',
+        title: '',
+        subTitle: 'Safety concerns: the children in the application ',
       },
       {
         rows: [
@@ -921,11 +930,12 @@ describe('Content.ts toggle test cases', () => {
               text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
             },
             value: {
-              html: '<ul><ul>',
+              html: '<ul class="govuk-list govuk-list--bullet"><ul class="govuk-list govuk-list--bullet">',
             },
           },
         ],
-        title: 'Safety concern: your safety',
+        title: '',
+        subTitle: 'Safety concern: your safety',
       },
       {
         rows: [
@@ -1012,7 +1022,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Safety concern: other concerns that you have',
+        title: '',
+        subTitle: 'Safety concern: other concerns that you have',
       },
       {
         rows: [
@@ -1031,7 +1042,7 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's lives mainly based outside of England and Wales?",
             },
             value: {
-              html: '<p></p>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -1050,7 +1061,7 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
             },
             value: {
-              html: '<p></p>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -1069,7 +1080,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
             },
             value: {
-              html: '<p></p>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -1088,11 +1099,11 @@ describe('Content.ts toggle test cases', () => {
               text: 'Has another country asked (or been asked) for information or help for the children?',
             },
             value: {
-              html: '<p></p>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
         ],
-        title: '11. International elements',
+        title: '<span class="app-task-list__section-number">11.</span> International elements',
       },
       {
         rows: [
@@ -1111,7 +1122,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Would you be able to take part in hearings by video and phone?',
             },
             value: {
-              html: '<ul>undefined</ul>',
+              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
             },
           },
           {
@@ -1129,7 +1140,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you have any language requirements?',
             },
             value: {
-              html: '<ul>undefined</ul>',
+              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
             },
           },
           {
@@ -1147,7 +1158,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you or the children need special arrangements at court?',
             },
             value: {
-              html: '<ul>undefined</ul>',
+              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
             },
           },
           {
@@ -1166,11 +1177,11 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
             },
             value: {
-              html: '<ul>undefined</ul>',
+              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
             },
           },
         ],
-        title: '12. Support you need during your case',
+        title: '<span class="app-task-list__section-number">12.</span> Support you need during your case',
       },
       {
         rows: [
@@ -1191,7 +1202,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '13. Help with Fees',
+        title: '<span class="app-task-list__section-number">13.</span> Help with Fees',
       },
     ]);
   });
@@ -1224,7 +1235,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '1. Location details',
+        title: '<span class="app-task-list__section-number">1.</span> Location details',
       },
       {
         rows: [
@@ -1246,7 +1257,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '2. Type of application',
+        title: '<span class="app-task-list__section-number">2.</span> Type of application',
       },
       {
         rows: [
@@ -1265,7 +1276,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '3. Legal representative details',
+        title: '<span class="app-task-list__section-number">3.</span> Legal representative details',
       },
       {
         rows: [
@@ -1287,9 +1298,13 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '4. Permission to make the application',
+        title: '<span class="app-task-list__section-number">4.</span> Permission to make the application',
       },
-      { rows: [], title: '5. MIAM: Mediation Information and Assessment Meeting' },
+      {
+        rows: [],
+        title:
+          '<span class="app-task-list__section-number">5.</span> MIAM: Mediation Information and Assessment Meeting',
+      },
       {
         rows: [
           {
@@ -1310,7 +1325,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'MIAM attendance',
+        title: '',
+        subTitle: 'MIAM attendance',
       },
       {
         rows: [
@@ -1329,7 +1345,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'MIAM exemption',
+        title: '',
+        subTitle: 'MIAM exemption',
       },
       {
         rows: [
@@ -1362,7 +1379,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '6. Hearing details',
+        title: '<span class="app-task-list__section-number">6.</span> Hearing details',
       },
       {
         rows: [
@@ -1396,10 +1413,13 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: "7. What you're asking the court to decide",
+        title: '<span class="app-task-list__section-number">7.</span> What you\'re asking the court to decide',
       },
-      { rows: [], title: '8. Details of the people in the application ' },
-      { rows: [], title: "Children's details" },
+      {
+        rows: [],
+        title: '<span class="app-task-list__section-number">8.</span> Details of the people in the application ',
+      },
+      { rows: [], title: '', subTitle: "Children's details" },
       {
         rows: [
           {
@@ -1414,7 +1434,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'Are any of the children known to social services?' },
-            value: { html: '<br>' },
+            value: {},
           },
           {
             actions: {
@@ -1431,7 +1451,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Additional details about the children',
+        title: '',
+        subTitle: 'Additional details about the children',
       },
       {
         rows: [
@@ -1451,10 +1472,11 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Other Children details',
+        title: '',
+        subTitle: 'Other Children details',
       },
-      { rows: [], title: 'Details of the applicants' },
-      { rows: [], title: 'Details of the respondents' },
+      { rows: [], title: '', subTitle: 'Details of the applicants' },
+      { rows: [], title: '', subTitle: 'Details of the respondents' },
       {
         rows: [
           {
@@ -1472,7 +1494,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Details of the other people in the application',
+        title: '',
+        subTitle: 'Details of the other people in the application',
       },
       [],
       { rows: [], title: 'Where the children live' },
@@ -1507,7 +1530,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '9. Past and current proceeding',
+        title: '<span class="app-task-list__section-number">9.</span> Past and current proceeding',
       },
       {
         rows: [
@@ -1526,7 +1549,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '10. Safety concerns',
+        title: '<span class="app-task-list__section-number">10.</span> Safety concerns',
       },
       {
         rows: [
@@ -1542,7 +1565,9 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: "Are the children's lives mainly based outside of England and Wales?" },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -1559,7 +1584,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -1576,7 +1603,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -1591,10 +1620,12 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'Has another country asked (or been asked) for information or help for the children?' },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
         ],
-        title: '11. International elements',
+        title: '<span class="app-task-list__section-number">11.</span> International elements',
       },
       {
         rows: [
@@ -1610,7 +1641,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'Would you be able to take part in hearings by video and phone?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -1624,7 +1655,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'Do you have any language requirements?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -1638,7 +1669,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'Do you or the children need special arrangements at court?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -1655,10 +1686,10 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
             },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
         ],
-        title: '12. Support you need during your case',
+        title: '<span class="app-task-list__section-number">12.</span> Support you need during your case',
       },
       {
         rows: [
@@ -1677,7 +1708,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '13. Help with Fees',
+        title: '<span class="app-task-list__section-number">13.</span> Help with Fees',
       },
     ]);
   });
@@ -1712,7 +1743,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '1. Manylion lleoliad',
+        title: '<span class="app-task-list__section-number">1.</span> Manylion lleoliad',
       },
       {
         rows: [
@@ -1734,7 +1765,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '2. Math o gais',
+        title: '<span class="app-task-list__section-number">2.</span> Math o gais',
       },
       {
         rows: [
@@ -1753,7 +1784,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '3. Manylion cynrychiolydd cyfreithiol',
+        title: '<span class="app-task-list__section-number">3.</span> Manylion cynrychiolydd cyfreithiol',
       },
       {
         rows: [
@@ -1773,9 +1804,12 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '4. Caniatâd i wneud cais',
+        title: '<span class="app-task-list__section-number">4.</span> Caniatâd i wneud cais',
       },
-      { rows: [], title: '5. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu' },
+      {
+        rows: [],
+        title: '<span class="app-task-list__section-number">5.</span> MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu',
+      },
       {
         rows: [
           {
@@ -1796,7 +1830,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Mynychu MIAM',
+        title: '',
+        subTitle: 'Mynychu MIAM',
       },
       {
         rows: [
@@ -1815,7 +1850,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Esemptiad MIAM',
+        title: '',
+        subTitle: 'Esemptiad MIAM',
       },
       {
         rows: [
@@ -1848,7 +1884,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '6.  Manylion y gwrandawiad',
+        title: '<span class="app-task-list__section-number">6.</span>  Manylion y gwrandawiad',
       },
       {
         rows: [
@@ -1882,10 +1918,10 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '7. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
+        title: '<span class="app-task-list__section-number">7.</span> Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
       },
-      { rows: [], title: '8. Manylion y bobl yn y cais' },
-      { rows: [], title: 'Manylion y plant' },
+      { rows: [], title: '<span class="app-task-list__section-number">8.</span> Manylion y bobl yn y cais' },
+      { rows: [], title: '', subTitle: 'Manylion y plant' },
       {
         rows: [
           {
@@ -1900,7 +1936,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
-            value: { html: '<br>' },
+            value: {},
           },
           {
             actions: {
@@ -1917,7 +1953,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion ychwanegol am y plant',
+        title: '',
+        subTitle: 'Manylion ychwanegol am y plant',
       },
       {
         rows: [
@@ -1937,10 +1974,11 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion plant eraill',
+        title: '',
+        subTitle: 'Manylion plant eraill',
       },
-      { rows: [], title: 'Manylion y ceiswyr' },
-      { rows: [], title: 'Manylion yr atebwyr' },
+      { rows: [], title: '', subTitle: 'Manylion y ceiswyr' },
+      { rows: [], title: '', subTitle: 'Manylion yr atebwyr' },
       {
         rows: [
           {
@@ -1958,7 +1996,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion y bobl eraill yn y cais',
+        title: '',
+        subTitle: 'Manylion y bobl eraill yn y cais',
       },
       [],
       { rows: [], title: 'Ble mae’r plant yn byw' },
@@ -1993,7 +2032,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '9. Achosion yn y gorffennol ac achosion cyfredol',
+        title: '<span class="app-task-list__section-number">9.</span> Achosion yn y gorffennol ac achosion cyfredol',
       },
       {
         rows: [
@@ -2012,7 +2051,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '10. Pryderon am ddiogelwch',
+        title: '<span class="app-task-list__section-number">10.</span> Pryderon am ddiogelwch',
       },
       {
         rows: [
@@ -2028,7 +2067,9 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -2045,7 +2086,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -2062,7 +2105,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -2079,10 +2124,12 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
         ],
-        title: '11. Elfennau rhyngwladol',
+        title: '<span class="app-task-list__section-number">11.</span> Elfennau rhyngwladol',
       },
       {
         rows: [
@@ -2098,7 +2145,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -2112,7 +2159,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -2126,7 +2173,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -2143,10 +2190,11 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
             },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
         ],
-        title: '12. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
+        title:
+          '<span class="app-task-list__section-number">12.</span> Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
       },
       {
         rows: [
@@ -2165,7 +2213,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '13.  Help i dalu ffioedd',
+        title: '<span class="app-task-list__section-number">13.</span>  Help i dalu ffioedd',
       },
     ]);
   });
@@ -2193,7 +2241,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '1. Manylion lleoliad',
+        title: '<span class="app-task-list__section-number">1.</span> Manylion lleoliad',
       },
       {
         rows: [
@@ -2215,7 +2263,7 @@ describe('Content.ts toggle test cases', () => {
             value: { text: 'Oes' },
           },
         ],
-        title: '2. Math o gais',
+        title: '<span class="app-task-list__section-number">2.</span> Math o gais',
       },
       {
         rows: [
@@ -2249,7 +2297,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '3. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
+        title: '<span class="app-task-list__section-number">3.</span> Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
       },
       {
         rows: [
@@ -2282,10 +2330,10 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '4.  Manylion y gwrandawiad',
+        title: '<span class="app-task-list__section-number">4.</span>  Manylion y gwrandawiad',
       },
-      { rows: [], title: '5. Manylion y bobl yn y cais' },
-      { rows: [], title: 'Manylion y plant' },
+      { rows: [], title: '<span class="app-task-list__section-number">5.</span> Manylion y bobl yn y cais' },
+      { rows: [], title: '', subTitle: 'Manylion y plant' },
       {
         rows: [
           {
@@ -2300,7 +2348,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
-            value: { html: '<br>' },
+            value: {},
           },
           {
             actions: {
@@ -2317,7 +2365,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion ychwanegol am y plant',
+        title: '',
+        subTitle: 'Manylion ychwanegol am y plant',
       },
       {
         rows: [
@@ -2337,10 +2386,11 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion plant eraill',
+        title: '',
+        subTitle: 'Manylion plant eraill',
       },
-      { rows: [], title: 'Manylion y ceiswyr' },
-      { rows: [], title: 'Manylion yr atebwyr' },
+      { rows: [], title: '', subTitle: 'Manylion y ceiswyr' },
+      { rows: [], title: '', subTitle: 'Manylion yr atebwyr' },
       {
         rows: [
           {
@@ -2358,7 +2408,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion y bobl eraill yn y cais',
+        title: '',
+        subTitle: 'Manylion y bobl eraill yn y cais',
       },
       [],
       { rows: [], title: 'Ble mae’r plant yn byw' },
@@ -2393,7 +2444,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '6. Achosion yn y gorffennol ac achosion cyfredol',
+        title: '<span class="app-task-list__section-number">6.</span> Achosion yn y gorffennol ac achosion cyfredol',
       },
       {
         rows: [
@@ -2412,7 +2463,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '7. Pryderon am ddiogelwch',
+        title: '<span class="app-task-list__section-number">7.</span> Pryderon am ddiogelwch',
       },
       {
         rows: [
@@ -2428,7 +2479,9 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -2445,7 +2498,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -2462,7 +2517,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -2479,10 +2536,12 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
         ],
-        title: '8. Elfennau rhyngwladol',
+        title: '<span class="app-task-list__section-number">8.</span> Elfennau rhyngwladol',
       },
       {
         rows: [
@@ -2498,7 +2557,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -2512,7 +2571,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -2526,7 +2585,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -2543,10 +2602,11 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
             },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
         ],
-        title: '9. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
+        title:
+          '<span class="app-task-list__section-number">9.</span> Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
       },
       {
         rows: [
@@ -2565,7 +2625,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '10.  Help i dalu ffioedd',
+        title: '<span class="app-task-list__section-number">10.</span>  Help i dalu ffioedd',
       },
     ]);
   });
@@ -2597,7 +2657,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '1. Manylion lleoliad',
+        title: '<span class="app-task-list__section-number">1.</span> Manylion lleoliad',
       },
       {
         rows: [
@@ -2619,7 +2679,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '2. Math o gais',
+        title: '<span class="app-task-list__section-number">2.</span> Math o gais',
       },
       {
         rows: [
@@ -2638,7 +2698,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '3. Manylion cynrychiolydd cyfreithiol',
+        title: '<span class="app-task-list__section-number">3.</span> Manylion cynrychiolydd cyfreithiol',
       },
       {
         rows: [
@@ -2658,9 +2718,12 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '4. Caniatâd i wneud cais',
+        title: '<span class="app-task-list__section-number">4.</span> Caniatâd i wneud cais',
       },
-      { rows: [], title: '5. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu' },
+      {
+        rows: [],
+        title: '<span class="app-task-list__section-number">5.</span> MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu',
+      },
       {
         rows: [
           {
@@ -2681,7 +2744,8 @@ describe('Content.ts toggle test cases', () => {
             value: { text: 'Ydyn' },
           },
         ],
-        title: 'Mynychu MIAM',
+        title: '',
+        subTitle: 'Mynychu MIAM',
       },
       {
         rows: [
@@ -2714,7 +2778,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '6. Achosion yn y gorffennol ac achosion cyfredol',
+        title: '<span class="app-task-list__section-number">6.</span> Achosion yn y gorffennol ac achosion cyfredol',
       },
       {
         rows: [
@@ -2748,7 +2812,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '7. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
+        title: '<span class="app-task-list__section-number">7.</span> Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
       },
       {
         rows: [
@@ -2781,10 +2845,10 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '8.  Manylion y gwrandawiad',
+        title: '<span class="app-task-list__section-number">8.</span>  Manylion y gwrandawiad',
       },
-      { rows: [], title: '9. Manylion y bobl yn y cais' },
-      { rows: [], title: 'Manylion y plant' },
+      { rows: [], title: '<span class="app-task-list__section-number">9.</span> Manylion y bobl yn y cais' },
+      { rows: [], title: '', subTitle: 'Manylion y plant' },
       {
         rows: [
           {
@@ -2799,7 +2863,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
-            value: { html: '<br>' },
+            value: {},
           },
           {
             actions: {
@@ -2816,7 +2880,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion ychwanegol am y plant',
+        title: '',
+        subTitle: 'Manylion ychwanegol am y plant',
       },
       {
         rows: [
@@ -2836,10 +2901,11 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion plant eraill',
+        title: '',
+        subTitle: 'Manylion plant eraill',
       },
-      { rows: [], title: 'Manylion y ceiswyr' },
-      { rows: [], title: 'Manylion yr atebwyr' },
+      { rows: [], title: '', subTitle: 'Manylion y ceiswyr' },
+      { rows: [], title: '', subTitle: 'Manylion yr atebwyr' },
       {
         rows: [
           {
@@ -2857,7 +2923,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion y bobl eraill yn y cais',
+        title: '',
+        subTitle: 'Manylion y bobl eraill yn y cais',
       },
       [],
       { rows: [], title: 'Ble mae’r plant yn byw' },
@@ -2878,7 +2945,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '10. Pryderon am ddiogelwch',
+        title: '<span class="app-task-list__section-number">10.</span> Pryderon am ddiogelwch',
       },
       {
         rows: [
@@ -2894,7 +2961,9 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -2911,7 +2980,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -2928,7 +2999,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -2945,10 +3018,12 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
         ],
-        title: '11. Elfennau rhyngwladol',
+        title: '<span class="app-task-list__section-number">11.</span> Elfennau rhyngwladol',
       },
       {
         rows: [
@@ -2964,7 +3039,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -2978,7 +3053,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -2992,7 +3067,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -3009,10 +3084,11 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
             },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
         ],
-        title: '12. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
+        title:
+          '<span class="app-task-list__section-number">12.</span> Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
       },
       {
         rows: [
@@ -3031,7 +3107,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '13.  Help i dalu ffioedd',
+        title: '<span class="app-task-list__section-number">13.</span>  Help i dalu ffioedd',
       },
     ]);
   });
@@ -3064,7 +3140,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '1. Manylion lleoliad',
+        title: '<span class="app-task-list__section-number">1.</span> Manylion lleoliad',
       },
       {
         rows: [
@@ -3086,7 +3162,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '2. Math o gais',
+        title: '<span class="app-task-list__section-number">2.</span> Math o gais',
       },
       {
         rows: [
@@ -3105,7 +3181,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '3. Manylion cynrychiolydd cyfreithiol',
+        title: '<span class="app-task-list__section-number">3.</span> Manylion cynrychiolydd cyfreithiol',
       },
       {
         rows: [
@@ -3125,9 +3201,12 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '4. Caniatâd i wneud cais',
+        title: '<span class="app-task-list__section-number">4.</span> Caniatâd i wneud cais',
       },
-      { rows: [], title: '5. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu' },
+      {
+        rows: [],
+        title: '<span class="app-task-list__section-number">5.</span> MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu',
+      },
       {
         rows: [
           {
@@ -3148,7 +3227,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Mynychu MIAM',
+        title: '',
+        subTitle: 'Mynychu MIAM',
       },
       {
         rows: [
@@ -3167,7 +3247,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Esemptiad MIAM',
+        title: '',
+        subTitle: 'Esemptiad MIAM',
       },
       {
         rows: [
@@ -3201,7 +3282,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '6. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
+        title: '<span class="app-task-list__section-number">6.</span> Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
       },
       {
         rows: [
@@ -3234,10 +3315,10 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '7.  Manylion y gwrandawiad',
+        title: '<span class="app-task-list__section-number">7.</span>  Manylion y gwrandawiad',
       },
-      { rows: [], title: '8. Manylion y bobl yn y cais' },
-      { rows: [], title: 'Manylion y plant' },
+      { rows: [], title: '<span class="app-task-list__section-number">8.</span> Manylion y bobl yn y cais' },
+      { rows: [], title: '', subTitle: 'Manylion y plant' },
       {
         rows: [
           {
@@ -3252,7 +3333,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
-            value: { html: '<br>' },
+            value: {},
           },
           {
             actions: {
@@ -3269,7 +3350,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion ychwanegol am y plant',
+        title: '',
+        subTitle: 'Manylion ychwanegol am y plant',
       },
       {
         rows: [
@@ -3289,10 +3371,11 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion plant eraill',
+        title: '',
+        subTitle: 'Manylion plant eraill',
       },
-      { rows: [], title: 'Manylion y ceiswyr' },
-      { rows: [], title: 'Manylion yr atebwyr' },
+      { rows: [], title: '', subTitle: 'Manylion y ceiswyr' },
+      { rows: [], title: '', subTitle: 'Manylion yr atebwyr' },
       {
         rows: [
           {
@@ -3310,7 +3393,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Manylion y bobl eraill yn y cais',
+        title: '',
+        subTitle: 'Manylion y bobl eraill yn y cais',
       },
       [],
       { rows: [], title: 'Ble mae’r plant yn byw' },
@@ -3345,7 +3429,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '9. Achosion yn y gorffennol ac achosion cyfredol',
+        title: '<span class="app-task-list__section-number">9.</span> Achosion yn y gorffennol ac achosion cyfredol',
       },
       {
         rows: [
@@ -3364,7 +3448,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '10. Pryderon am ddiogelwch',
+        title: '<span class="app-task-list__section-number">10.</span> Pryderon am ddiogelwch',
       },
       {
         rows: [
@@ -3380,7 +3464,9 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -3397,7 +3483,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -3414,7 +3502,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
           {
             actions: {
@@ -3431,10 +3521,12 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
-            value: { html: '<p></p>' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
           },
         ],
-        title: '11. Elfennau rhyngwladol',
+        title: '<span class="app-task-list__section-number">11.</span> Elfennau rhyngwladol',
       },
       {
         rows: [
@@ -3450,7 +3542,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -3464,7 +3556,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -3478,7 +3570,7 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
           {
             actions: {
@@ -3495,10 +3587,11 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
             },
-            value: { html: '<ul>undefined</ul>' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
           },
         ],
-        title: '12. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
+        title:
+          '<span class="app-task-list__section-number">12.</span> Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
       },
       {
         rows: [
@@ -3517,7 +3610,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '13.  Help i dalu ffioedd',
+        title: '<span class="app-task-list__section-number">13.</span>  Help i dalu ffioedd',
       },
     ]);
   });
@@ -3553,7 +3646,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '1. Location details',
+        title: '<span class="app-task-list__section-number">1.</span> Location details',
       },
       {
         rows: [
@@ -3575,7 +3668,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '2. Type of application',
+        title: '<span class="app-task-list__section-number">2.</span> Type of application',
       },
       {
         rows: [
@@ -3596,7 +3689,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '3. Legal representative details',
+        title: '<span class="app-task-list__section-number">3.</span> Legal representative details',
       },
       {
         rows: [
@@ -3618,11 +3711,12 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '4. Permission to make the application',
+        title: '<span class="app-task-list__section-number">4.</span> Permission to make the application',
       },
       {
         rows: [],
-        title: '5. MIAM: Mediation Information and Assessment Meeting',
+        title:
+          '<span class="app-task-list__section-number">5.</span> MIAM: Mediation Information and Assessment Meeting',
       },
       {
         rows: [
@@ -3680,7 +3774,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'MIAM attendance',
+        subTitle: 'MIAM attendance',
+        title: '',
       },
       {
         rows: [
@@ -3717,7 +3812,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '6. Past and current proceeding',
+        title: '<span class="app-task-list__section-number">6.</span> Past and current proceeding',
       },
       {
         rows: [
@@ -3755,7 +3850,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: "7. What you're asking the court to decide",
+        title: '<span class="app-task-list__section-number">7.</span> What you\'re asking the court to decide',
       },
       {
         rows: [
@@ -3792,15 +3887,16 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '8. Hearing details',
+        title: '<span class="app-task-list__section-number">8.</span> Hearing details',
       },
       {
         rows: [],
-        title: '9. Details of the people in the application ',
+        title: '<span class="app-task-list__section-number">9.</span> Details of the people in the application ',
       },
       {
         rows: [],
-        title: "Children's details",
+        title: '',
+        subTitle: "Children's details",
       },
       {
         rows: [
@@ -3818,9 +3914,7 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'Are any of the children known to social services?',
             },
-            value: {
-              html: '<br>',
-            },
+            value: {},
           },
           {
             actions: {
@@ -3839,7 +3933,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Additional details about the children',
+        subTitle: 'Additional details about the children',
+        title: '',
       },
       {
         rows: [
@@ -3861,15 +3956,18 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Other Children details',
+        subTitle: 'Other Children details',
+        title: '',
       },
       {
         rows: [],
-        title: 'Details of the applicants',
+        subTitle: 'Details of the applicants',
+        title: '',
       },
       {
         rows: [],
-        title: 'Details of the respondents',
+        subTitle: 'Details of the respondents',
+        title: '',
       },
       {
         rows: [
@@ -3890,7 +3988,8 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: 'Details of the other people in the application',
+        subTitle: 'Details of the other people in the application',
+        title: '',
       },
       [],
       {
@@ -3916,7 +4015,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '10. Safety concerns',
+        title: '<span class="app-task-list__section-number">10.</span> Safety concerns',
       },
       {
         rows: [
@@ -3935,7 +4034,7 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's lives mainly based outside of England and Wales?",
             },
             value: {
-              html: '<p></p>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -3954,7 +4053,7 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
             },
             value: {
-              html: '<p></p>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -3973,7 +4072,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
             },
             value: {
-              html: '<p></p>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
           {
@@ -3992,11 +4091,11 @@ describe('Content.ts toggle test cases', () => {
               text: 'Has another country asked (or been asked) for information or help for the children?',
             },
             value: {
-              html: '<p></p>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
             },
           },
         ],
-        title: '11. International elements',
+        title: '<span class="app-task-list__section-number">11.</span> International elements',
       },
       {
         rows: [
@@ -4015,7 +4114,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Would you be able to take part in hearings by video and phone?',
             },
             value: {
-              html: '<ul>undefined</ul>',
+              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
             },
           },
           {
@@ -4033,7 +4132,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you have any language requirements?',
             },
             value: {
-              html: '<ul>undefined</ul>',
+              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
             },
           },
           {
@@ -4051,7 +4150,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you or the children need special arrangements at court?',
             },
             value: {
-              html: '<ul>undefined</ul>',
+              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
             },
           },
           {
@@ -4070,11 +4169,11 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
             },
             value: {
-              html: '<ul>undefined</ul>',
+              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
             },
           },
         ],
-        title: '12. Support you need during your case',
+        title: '<span class="app-task-list__section-number">12.</span> Support you need during your case',
       },
       {
         rows: [
@@ -4095,7 +4194,7 @@ describe('Content.ts toggle test cases', () => {
             value: {},
           },
         ],
-        title: '13. Help with Fees',
+        title: '<span class="app-task-list__section-number">13.</span> Help with Fees',
       },
     ]);
   });
@@ -4115,11 +4214,13 @@ describe('Content.ts toggle test cases', () => {
 
   test('generateContent without hwf conditions', () => {
     expect(fields.statementOftruthHeading.type).toBe('textAndHtml');
-    expect(fields.statementOftruthHeading.textAndHtml).toBe('<h1>Statement of Truth </h1>');
+    expect(fields.statementOftruthHeading.textAndHtml).toBe(
+      "<h2 class='govuk-heading-l govuk-!-padding-bottom-3 govuk-!-padding-top-2'>Statement of Truth </h2>"
+    );
 
     expect(fields.statementOftruthSubHeading.type).toBe('textAndHtml');
     expect(fields.statementOftruthSubHeading.textAndHtml).toBe(
-      "<h2 class='govuk-heading-m govuk-!-padding-bottom-4'>Confirm before you submit the application </h2>"
+      "<h3 class='govuk-heading-m govuk-!-padding-bottom-4'>Confirm before you submit the application </h3>"
     );
 
     expect(fields.statementOftruthWarning.type).toBe('warning');
@@ -4148,11 +4249,13 @@ describe('Content.ts toggle test cases', () => {
     });
 
     expect(fields.statementOftruthHeading.type).toBe('textAndHtml');
-    expect(fields.statementOftruthHeading.textAndHtml).toBe('<h1>Statement of Truth </h1>');
+    expect(fields.statementOftruthHeading.textAndHtml).toBe(
+      "<h2 class='govuk-heading-l govuk-!-padding-bottom-3 govuk-!-padding-top-2'>Statement of Truth </h2>"
+    );
 
     expect(fields.statementOftruthSubHeading.type).toBe('textAndHtml');
     expect(fields.statementOftruthSubHeading.textAndHtml).toBe(
-      "<h2 class='govuk-heading-m govuk-!-padding-bottom-4'>Confirm before you submit the application </h2>"
+      "<h3 class='govuk-heading-m govuk-!-padding-bottom-4'>Confirm before you submit the application </h3>"
     );
 
     expect(fields.statementOftruthWarning.type).toBe('warning');
