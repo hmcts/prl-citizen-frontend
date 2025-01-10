@@ -113,6 +113,8 @@ export interface PartyDetails {
   contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
   partyId: string;
+  liveInRefuge: YesOrNo;
+  refugeConfidentialityC8Form?: Document | null;
 }
 
 export interface User {
@@ -672,6 +674,8 @@ export type C100Applicant = {
   applicantAddressTown?: string;
   applicantAddressCounty?: string;
   country?: string;
+  liveInRefuge?: YesOrNo;
+  refugeConfidentialityC8Form?: Document;
   applicantAddressHistory?: YesOrNo;
   applicantProvideDetailsOfPreviousAddresses?: string;
   personalDetails: {
@@ -696,12 +700,12 @@ export interface RelationshipToChildren {
 }
 
 export interface ContactDetail {
-  canProvideEmail?: YesNoEmpty;
+  canProvideEmail?: YesOrNo | null;
   emailAddress?: string;
-  canProvideTelephoneNumber?: YesNoEmpty;
+  canProvideTelephoneNumber?: YesOrNo | null;
   telephoneNumber?: string;
   canNotProvideTelephoneNumberReason?: string;
-  canLeaveVoiceMail?: YesNoEmpty;
+  canLeaveVoiceMail?: YesOrNo | null;
   applicantContactPreferences?: string;
 }
 
@@ -1848,7 +1852,6 @@ export const enum State {
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',
   ConditionalOrderRefused = 'ConditionalOrderRefused',
   Disputed = 'Disputed',
-  Draft = 'Draft',
   FinalOrderComplete = 'FinalOrderComplete',
   IssuedToBailiff = 'IssuedToBailiff',
   AwaitingPronouncement = 'AwaitingPronouncement',
@@ -2772,6 +2775,8 @@ export type C100RebuildPartyDetails = {
     donKnowTelephoneNumber?: YesOrNo;
   };
   addressUnknown?: YesOrNo;
+  liveInRefuge?: YesOrNo;
+  refugeConfidentialityC8Form?: Document;
 };
 
 export interface RelationshipToChildren {
@@ -2970,6 +2975,7 @@ export enum PaymentErrorContext {
 export enum RootContext {
   C100_REBUILD = 'c100-rebuild',
   RESPONDENT = 'respondent',
+  APPLICANT = 'applicant'
 }
 
 export enum DomesticAbuseExemptions {

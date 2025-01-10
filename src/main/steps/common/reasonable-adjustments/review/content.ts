@@ -26,8 +26,8 @@ import {
 import { CommonContent } from '../../../common/common.content';
 
 export const enContent = {
-  section: 'Check your answers ',
-  title: 'Your hearing needs and requirments',
+  title: 'Check your answers ',
+  subTitle: 'Your hearing needs and requirments',
   sectionTitles: {
     aboutYou: 'About you',
     supportYouNeed: 'Support you need during your case',
@@ -66,8 +66,8 @@ export const enContent = {
 };
 
 export const cyContent: typeof enContent = {
-  section: 'Gwirio eich atebion',
-  title: 'Eich anghenion a gofynion o ran clywed',
+  title: 'Gwirio eich atebion',
+  subTitle: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
     aboutYou: 'Amdanoch chi',
     supportYouNeed: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
@@ -296,10 +296,11 @@ export const summaryList = (
   }
 
   return {
-    title: isReasonableAdjustmentsNeedsPresent
-      ? context === 'C7Review'
-        ? contents.sectionTitles.aboutYou
-        : contents.sectionTitles.supportYouNeed
+    title: isReasonableAdjustmentsNeedsPresent ? (context === 'C7Review' ? contents.sectionTitles.aboutYou : '') : '',
+    subTitle: isReasonableAdjustmentsNeedsPresent
+      ? context === 'C7ConsolidatedReview'
+        ? contents.sectionTitles.supportYouNeed
+        : ''
       : '',
     rows: isReasonableAdjustmentsNeedsPresent ? getSectionSummaryList(summaryData, language) : [],
   };

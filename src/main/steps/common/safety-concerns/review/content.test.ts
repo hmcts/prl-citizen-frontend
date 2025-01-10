@@ -106,7 +106,6 @@ const keys = {
 };
 
 const enContent = {
-  section: '',
   title: 'Check your Answers',
   change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
@@ -133,7 +132,6 @@ const enContent = {
 };
 
 const cyContent = {
-  section: '',
   title: 'Gwirio eich atebion',
   change: 'Golygu',
   topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
@@ -229,6 +227,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concerns-for-safety',
                     text: 'Edit',
                     visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
+                    attributes: {},
                   },
                 ],
               },
@@ -256,6 +255,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concerns-for-safety',
                     text: 'Edit',
                     visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
+                    attributes: {},
                   },
                 ],
               },
@@ -273,6 +273,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concern-about',
                     text: 'Edit',
                     visuallyHiddenText: 'Who are you concerned about?',
+                    attributes: {},
                   },
                 ],
               },
@@ -280,13 +281,14 @@ describe('Content.ts test cases', () => {
                 text: 'Who are you concerned about?',
               },
               value: {
-                html: '<ul></ul>',
+                html: '<ul class="govuk-list govuk-list--bullet"></ul>',
               },
             },
           ],
         },
         {
-          title: 'Safety concerns: the children in the application ',
+          title: '',
+          subTitle: 'Safety concerns: the children in the application ',
           rows: [
             {
               actions: {
@@ -296,6 +298,7 @@ describe('Content.ts test cases', () => {
                     text: 'Edit',
                     visuallyHiddenText:
                       'What type of behaviour have the children experienced or are at risk of experiencing?',
+                    attributes: {},
                   },
                 ],
               },
@@ -303,13 +306,14 @@ describe('Content.ts test cases', () => {
                 text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
               },
               value: {
-                html: '<ul></ul>',
+                html: '<ul class="govuk-list govuk-list--bullet"></ul>',
               },
             },
           ],
         },
         {
-          title: 'Safety concern: other concerns that you have',
+          title: '',
+          subTitle: 'Safety concern: other concerns that you have',
           rows: [
             {
               actions: {
@@ -318,6 +322,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/other-concerns/drugs',
                     text: 'Edit',
                     visuallyHiddenText: 'Have the children been impacted by drug, alcohol or substance abuse?',
+                    attributes: {},
                   },
                 ],
               },
@@ -325,7 +330,7 @@ describe('Content.ts test cases', () => {
                 text: 'Have the children been impacted by drug, alcohol or substance abuse?',
               },
               value: {
-                html: 'No',
+                html: '<div class="govuk-summary-list__row border-bottom--none">No</div>',
               },
             },
             {
@@ -335,6 +340,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/other-concerns/other-issues',
                     text: 'Edit',
                     visuallyHiddenText: 'Do you have any other concerns about the children’s safety and wellbeing?',
+                    attributes: {},
                   },
                 ],
               },
@@ -342,7 +348,7 @@ describe('Content.ts test cases', () => {
                 text: 'Do you have any other concerns about the children’s safety and wellbeing?',
               },
               value: {
-                html: 'No',
+                html: '<div class="govuk-summary-list__row border-bottom--none">No</div>',
               },
             },
             {
@@ -352,6 +358,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/orders-required/court-action',
                     text: 'Edit',
                     visuallyHiddenText: 'What do you want the court to do to keep you and the children safe?',
+                    attributes: {},
                   },
                 ],
               },
@@ -368,6 +375,7 @@ describe('Content.ts test cases', () => {
                     text: 'Edit',
                     visuallyHiddenText:
                       'Do you agree to the children spending time with the other people in this application?',
+                    attributes: {},
                   },
                 ],
               },
@@ -384,6 +392,7 @@ describe('Content.ts test cases', () => {
                     text: 'Edit',
                     visuallyHiddenText:
                       'Do you agree to the other people in this application being in touch with the children in other ways?',
+                    attributes: {},
                   },
                 ],
               },
@@ -425,6 +434,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concerns-for-safety',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {},
                   },
                 ],
               },
@@ -450,6 +460,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concerns-for-safety',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {},
                   },
                 ],
               },
@@ -465,18 +476,20 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/concern-about',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {},
                   },
                 ],
               },
               key: {},
               value: {
-                html: '<ul></ul>',
+                html: '<ul class="govuk-list govuk-list--bullet"></ul>',
               },
             },
           ],
         },
         {
-          title: 'Pryderon am ddiogelwch: y plant yn y cais',
+          title: '',
+          subTitle: 'Pryderon am ddiogelwch: y plant yn y cais',
           rows: [
             {
               actions: {
@@ -485,18 +498,20 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/child/concerns-about',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {},
                   },
                 ],
               },
               key: {},
               value: {
-                html: '<ul></ul>',
+                html: '<ul class="govuk-list govuk-list--bullet"></ul>',
               },
             },
           ],
         },
         {
-          title: 'Pryderon am ddiogelwch: pryderon eraill sydd gennych',
+          title: '',
+          subTitle: 'Pryderon am ddiogelwch: pryderon eraill sydd gennych',
           rows: [
             {
               actions: {
@@ -505,12 +520,13 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/other-concerns/drugs',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {},
                   },
                 ],
               },
               key: {},
               value: {
-                html: 'No',
+                html: '<div class="govuk-summary-list__row border-bottom--none">No</div>',
               },
             },
             {
@@ -520,12 +536,13 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/other-concerns/other-issues',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {},
                   },
                 ],
               },
               key: {},
               value: {
-                html: 'No',
+                html: '<div class="govuk-summary-list__row border-bottom--none">No</div>',
               },
             },
             {
@@ -535,6 +552,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/orders-required/court-action',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {},
                   },
                 ],
               },
@@ -548,6 +566,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/orders-required/unsupervised',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {},
                   },
                 ],
               },
@@ -561,6 +580,7 @@ describe('Content.ts test cases', () => {
                     href: '/respondent/safety-concerns/orders-required/unsupervised',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
+                    attributes: {},
                   },
                 ],
               },
@@ -657,7 +677,6 @@ describe('Content.ts test cases', () => {
     welsh: '',
     contactUsForHelp: '',
     webChat: '',
-    webChatDetails: '',
     sendUsAMessage: '',
     sendUsAMessageDetails: '',
     telephone: '',

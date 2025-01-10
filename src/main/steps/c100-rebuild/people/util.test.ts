@@ -1,8 +1,12 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { ChildrenDetails, PartyType } from '../../../app/case/definition';
+import { CaseWithId } from '../../../app/case/case';
+import { ChildrenDetails, PartyType, RelationshipType } from '../../../app/case/definition';
 
 import {
   PartyDetailsVariant,
+  cleanChildRelationshipDetails,
+  cleanLiveWithData,
+  cleanOtherRelationshipDetails,
   dobUnknown,
   getDataShape,
   getNextPerson,
@@ -253,6 +257,246 @@ describe('people util', () => {
     test('should return correct value when date of birth is known', () => {
       formData.isDateOfBirthUnknown = 'No';
       expect(dobUnknown(formData)).toBe('');
+    });
+  });
+
+  describe('cleanLiveWithData', () => {
+    test('should clean child liveWith and mainlyLiveWith for given id', () => {
+      const caseData = {
+        cd_children: [
+          {
+            id: '7483640e-0817-4ddc-b709-6723f7925474',
+            firstName: 'Bob',
+            lastName: 'Silly',
+            personalDetails: {
+              dateOfBirth: {
+                year: '',
+                month: '',
+                day: '',
+              },
+              isDateOfBirthUnknown: 'Yes',
+              approxDateOfBirth: {
+                year: '1987',
+                month: '12',
+                day: '12',
+              },
+              gender: 'Male',
+              otherGenderDetails: '',
+            },
+            childMatters: {
+              needsResolution: [],
+            },
+            parentialResponsibility: {
+              statement: 'test',
+            },
+            liveWith: [
+              {
+                id: '1234',
+                firstName: 'first',
+                lastName: 'applicant',
+                partyType: 'applicant',
+              },
+              {
+                id: '12345',
+                firstName: 'second',
+                lastName: 'applicant',
+                partyType: 'applicant',
+              },
+            ],
+            mainlyLiveWith: {
+              id: '1234',
+              firstName: 'first',
+              lastName: 'applicant',
+              partyType: 'applicant',
+            },
+          },
+          {
+            id: '7483640e-0817-4ddc-b709-6723f7925324',
+            firstName: 'Sam',
+            lastName: 'Daniel',
+            personalDetails: {
+              dateOfBirth: {
+                year: '',
+                month: '',
+                day: '',
+              },
+              isDateOfBirthUnknown: 'Yes',
+              approxDateOfBirth: {
+                year: '1987',
+                month: '12',
+                day: '12',
+              },
+              gender: 'Male',
+              otherGenderDetails: '',
+            },
+            childMatters: {
+              needsResolution: [],
+            },
+            parentialResponsibility: {
+              statement: '',
+            },
+            liveWith: [
+              {
+                id: '1234',
+                firstName: 'first',
+                lastName: 'applicant',
+                partyType: 'applicant',
+              },
+              {
+                id: '12345',
+                firstName: 'second',
+                lastName: 'applicant',
+                partyType: 'applicant',
+              },
+            ],
+            mainlyLiveWith: {
+              id: '12345',
+              firstName: 'second',
+              lastName: 'applicant',
+              partyType: 'applicant',
+            },
+          },
+        ],
+      } as unknown as CaseWithId;
+      expect(cleanLiveWithData(caseData, '1234')).toStrictEqual({
+        cd_children: [
+          {
+            id: '7483640e-0817-4ddc-b709-6723f7925474',
+            firstName: 'Bob',
+            lastName: 'Silly',
+            personalDetails: {
+              dateOfBirth: {
+                year: '',
+                month: '',
+                day: '',
+              },
+              isDateOfBirthUnknown: 'Yes',
+              approxDateOfBirth: {
+                year: '1987',
+                month: '12',
+                day: '12',
+              },
+              gender: 'Male',
+              otherGenderDetails: '',
+            },
+            childMatters: {
+              needsResolution: [],
+            },
+            parentialResponsibility: {
+              statement: 'test',
+            },
+            liveWith: [
+              {
+                id: '12345',
+                firstName: 'second',
+                lastName: 'applicant',
+                partyType: 'applicant',
+              },
+            ],
+          },
+          {
+            id: '7483640e-0817-4ddc-b709-6723f7925324',
+            firstName: 'Sam',
+            lastName: 'Daniel',
+            personalDetails: {
+              dateOfBirth: {
+                year: '',
+                month: '',
+                day: '',
+              },
+              isDateOfBirthUnknown: 'Yes',
+              approxDateOfBirth: {
+                year: '1987',
+                month: '12',
+                day: '12',
+              },
+              gender: 'Male',
+              otherGenderDetails: '',
+            },
+            childMatters: {
+              needsResolution: [],
+            },
+            parentialResponsibility: {
+              statement: '',
+            },
+            liveWith: [
+              {
+                id: '12345',
+                firstName: 'second',
+                lastName: 'applicant',
+                partyType: 'applicant',
+              },
+            ],
+            mainlyLiveWith: {
+              id: '12345',
+              firstName: 'second',
+              lastName: 'applicant',
+              partyType: 'applicant',
+            },
+          },
+        ],
+      });
+    });
+  });
+
+  describe('cleanChildRelationshipDetails', () => {
+    test('should clean relationship details for given child id', () => {
+      const caseData = {
+        appl_allApplicants: [
+          {
+            id: '12345',
+            relationshipDetails: { relationshipToChildren: [{ RelationshipType: 'Mother', childId: '1234' }] },
+          },
+        ],
+        resp_Respondents: [
+          {
+            id: '12347',
+            relationshipDetails: { relationshipToChildren: [{ RelationshipType: 'Mother', childId: '1234' }] },
+          },
+        ],
+        oprs_otherPersons: [
+          {
+            id: '12346',
+            relationshipDetails: { relationshipToChildren: [{ RelationshipType: 'Mother', childId: '1234' }] },
+          },
+        ],
+      } as unknown as CaseWithId;
+      expect(cleanChildRelationshipDetails(caseData, '1234')).toStrictEqual({
+        appl_allApplicants: [
+          {
+            id: '12345',
+            relationshipDetails: {
+              relationshipToChildren: [],
+            },
+          },
+        ],
+        resp_Respondents: [
+          {
+            id: '12347',
+            relationshipDetails: {
+              relationshipToChildren: [],
+            },
+          },
+        ],
+        oprs_otherPersons: [
+          {
+            id: '12346',
+            relationshipDetails: {
+              relationshipToChildren: [],
+            },
+          },
+        ],
+      });
+    });
+  });
+
+  describe('cleanOtherRelationshipDetails', () => {
+    test('should return empty string if relationsipType is not other', () => {
+      expect(cleanOtherRelationshipDetails(RelationshipType.FATHER, 'test')).toBe('');
+    });
+
+    test('should return other relationship details if relationsipType is  other', () => {
+      expect(cleanOtherRelationshipDetails(RelationshipType.OTHER, 'test')).toBe('test');
     });
   });
 });

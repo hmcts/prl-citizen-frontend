@@ -1,6 +1,6 @@
 import https from 'https';
 
-import Axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
@@ -25,6 +25,7 @@ import {
 } from './definition';
 import { fromApiFormat } from './from-api-format';
 import { toApiFormat } from './to-api-format';
+import { logError } from './utils';
 
 export class CaseApi {
   constructor(
@@ -66,7 +67,7 @@ export class CaseApi {
       );
       return response.data;
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be retrieved.');
     }
   }
@@ -77,7 +78,7 @@ export class CaseApi {
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be retrieved.');
     }
   }
@@ -107,7 +108,7 @@ export class CaseApi {
       });
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be created.');
     }
   }
@@ -123,7 +124,7 @@ export class CaseApi {
       });
       return { document: response.data.document, status: response.data.status };
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Document could not be uploaded.');
     }
   }
@@ -132,7 +133,7 @@ export class CaseApi {
     try {
       await this.axios.delete<void>(`/${docId}/delete`);
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Document could not be deleted.');
     }
   }
@@ -142,7 +143,7 @@ export class CaseApi {
       const response = await this.axios.get<CaseAssignedUserRoles>(`case-users?case_ids=${caseId}&user_ids=${userId}`);
       return response.data;
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case roles could not be fetched.');
     }
   }
@@ -161,7 +162,7 @@ export class CaseApi {
       // ...fromApiFormat(response.data.data)
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data.data) };
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be updated.');
     }
   }
@@ -181,17 +182,6 @@ export class CaseApi {
   // public async addPayment(caseId: string, payments: ListValue<Payment>[]): Promise<CaseWithId> {
   //   return this.sendEvent(caseId, { applicationPayments: payments }, CITIZEN_ADD_PAYMENT);
   // }
-
-  private logError(error: AxiosError) {
-    if (error.response) {
-      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
-      this.logger.info('Response: ', error.response.data);
-    } else if (error.request) {
-      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
-    } else {
-      this.logger.error('API Error', error.message);
-    }
-  }
 
   public async triggerEvent(caseId: string, userData: Partial<Case>, eventName: string): Promise<CaseWithId> {
     return this.sendEvent(caseId, toApiFormat(userData), eventName);

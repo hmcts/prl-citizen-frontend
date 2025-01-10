@@ -10,9 +10,7 @@
 
 {% block bodyStart %}
   {% include "./views/includes/script-ga_tag_manager_2.njk" %}
-  <!-- Dynatrace RUM Script -->
-  <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/17472274602522b6_complete.js" crossorigin="anonymous"></script>
-  <!-- End Dynatrace RUM Script -->
+  {% include "./views/includes/script-dt_rum.njk" %}
 {% endblock %}
 
 {% block header %}
@@ -79,11 +77,7 @@
 
     <div class="govuk-grid-column-one-third">
       {% block page_contact_us %}
-        {%if userCase.caseTypeOfApplication === "FL401" %}
-          {% include "./contact-us.njk" %}
-        {% else %}
-          {% include "./contact-us-c100.njk" %}
-        {% endif %}
+        {% include "./contact-us.njk" %}
       {% endblock %}
     </div>
   </div>

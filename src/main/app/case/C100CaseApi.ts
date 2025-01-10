@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import Axios, { AxiosError, AxiosInstance } from 'axios';
+import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
-import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
 import { C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT } from '../../steps/urls';
@@ -11,6 +10,7 @@ import { AppRequest, AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
+import { logError } from './utils';
 
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
@@ -23,7 +23,7 @@ export class CaseApi {
       const response = await this.axios.get<RetreiveDraftCase>(`${config.get('services.cos.url')}/${caseId}`);
       return detransformCaseData(response.data);
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be retreived');
     }
   }
@@ -54,7 +54,7 @@ export class CaseApi {
         c100RebuildChildPostCode,
       };
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be created.');
     }
   }
@@ -64,7 +64,7 @@ export class CaseApi {
       const response = await this.axios.post<RetreiveDraftCase>('/testing-support/create-dummy-citizen-case');
       return detransformCaseData(response.data);
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be created.');
     }
   }
@@ -103,7 +103,7 @@ export class CaseApi {
       );
       return { data: response.data };
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be updated.');
     }
   }
@@ -139,13 +139,12 @@ export class CaseApi {
       );
       return { data: response.data };
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Case could not be updated.');
     }
   }
 
   /**
-   * TODO: Alok need to double check on this API call - what to do with old case data
    * Delete Case
    * State: DELETED
    * Event: C100_CASE_EVENT.DELETE_CASE
@@ -163,33 +162,8 @@ export class CaseApi {
       session.userCase = {} as CaseWithId;
       session.save();
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Error occured, case could not be deleted.');
-    }
-  }
-
-  public async uploadDocument(formdata: FormData): Promise<DocumentUploadResponse> {
-    try {
-      const response = await this.axios.post<DocumentUploadResponse>('/upload-citizen-document', formdata, {
-        headers: {
-          ...formdata.getHeaders(),
-        },
-        maxContentLength: Infinity,
-        maxBodyLength: Infinity,
-      });
-      return { document: response.data.document, status: response.data.status };
-    } catch (err) {
-      this.logError(err);
-      throw new Error('Document could not be uploaded.');
-    }
-  }
-
-  public async deleteDocument(docId: string): Promise<void> {
-    try {
-      await this.axios.delete<void>(`/${docId}/delete`);
-    } catch (err) {
-      this.logError(err);
-      throw new Error('Document could not be deleted.');
     }
   }
 
@@ -200,7 +174,7 @@ export class CaseApi {
       });
       return response.data;
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Error occured, C100 application document could not be downloaded.');
     }
   }
@@ -224,19 +198,8 @@ export class CaseApi {
         },
       });
     } catch (err) {
-      this.logError(err);
+      logError(err, this.logger);
       throw new Error('Error occured, case could not be withdrawn.');
-    }
-  }
-
-  private logError(error: AxiosError) {
-    if (error.response) {
-      this.logger.error(`API Error ${error.config?.method} ${error.config?.url} ${error.response.status}`);
-      this.logger.info('Response: ', error.response.data);
-    } else if (error.request) {
-      this.logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
-    } else {
-      this.logger.error('API Error', error.message);
     }
   }
 }

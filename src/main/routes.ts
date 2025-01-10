@@ -16,6 +16,7 @@ import { routeGuard } from './steps/application-within-proceedings/routeGuard';
 import { processAWPApplication } from './steps/application-within-proceedings/utils';
 import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
+import { C8RefugeSequence } from './steps/common/refuge/sequence';
 import { AohSequence } from './steps/common/safety-concerns/sequence';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
@@ -111,6 +112,7 @@ export class Routes {
       ...stepsWithContent,
       ...getStepsWithContent(AohSequence.getSequence(), '/common'),
       ...getStepsWithContent(await RAProvider.getSequence(), '/common'),
+      ...getStepsWithContent(C8RefugeSequence.getSequence(), '/common'),
     ];
 
     for (const step of steps) {

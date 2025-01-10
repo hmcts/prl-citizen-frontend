@@ -57,7 +57,7 @@ export const aboutYou: TaskListConfigProps = {
     {
       id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
       href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
-      stateTag: (caseData: Partial<CaseWithId>, userDetails) => {
+      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getConfirmOrEditYourContactDetailsStatus(caseData, respondent);
       },

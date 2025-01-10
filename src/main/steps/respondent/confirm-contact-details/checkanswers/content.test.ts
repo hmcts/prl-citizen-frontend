@@ -4,13 +4,15 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 const en = {
-  section: 'Check your details',
-  title: 'Read the information to make sure it is correct, and add any missing details',
+  title: 'Check your details',
+  subTitle: 'Read the information to make sure it is correct, and add any missing details',
   sectionTitles: {
     applicationDetails: 'Application details',
   },
   keys: {
     citizenUserFullName: 'Name',
+    citizenUserLivingInRefugeText: 'Living in refuge',
+    refugeDocumentText: 'C8 refuge document',
     citizenUserDateOfBirthText: 'Date of birth',
     citizenUserPlaceOfBirthText: 'Place of birth',
     citizenUserAddressText: 'Address',
