@@ -4,14 +4,14 @@
 
 import _ from 'lodash';
 
-import { CaseWithId, CitizenNotification } from '../../../../../app/case/case';
-import { CaseType, PartyType, Respondent, State } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
-import { getPartyDetails } from '../../../../tasklistresponse/utils';
+import { hasApplicationPacks } from '../../../../../steps/common/documents/view/utils';
+import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { CitizenDocuments, DocumentCategory } from '../../../documents/definitions';
-import { hasApplicationPacks } from '../../../documents/view/utils';
 import { isCaseSubmitted, isDraftCase } from '../../utils';
 
+import { CaseWithId, CitizenNotification } from './../../../../../app/case/case';
+import { CaseType, PartyType, Respondent, State } from './../../../../../app/case/definition';
 import {
   CA_APPLICANT_CONFIG,
   CA_RESPONDENT_CONFIG,

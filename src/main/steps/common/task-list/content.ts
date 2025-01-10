@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
 import { DASHBOARD_URL } from './../../urls';
-import { getNotifications } from './components/notification-banner-temp/index';
+import { getNotifications } from './components/notification-banner/index';
 import { getProgressBarConfig } from './components/progress-bar/index';
 import { getQuickLinks } from './components/side-links';
 import { getTaskListConfig } from './components/tasklist/index';
