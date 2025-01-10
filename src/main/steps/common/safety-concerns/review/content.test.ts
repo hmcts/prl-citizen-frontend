@@ -677,7 +677,6 @@ describe('Content.ts test cases', () => {
     welsh: '',
     contactUsForHelp: '',
     webChat: '',
-    webChatDetails: '',
     sendUsAMessage: '',
     sendUsAMessageDetails: '',
     telephone: '',

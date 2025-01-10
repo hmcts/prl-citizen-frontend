@@ -416,7 +416,6 @@ describe('Content.ts toggle test cases', () => {
     welsh: '',
     contactUsForHelp: '',
     webChat: '',
-    webChatDetails: '',
     sendUsAMessage: '',
     sendUsAMessageDetails: '',
     telephone: '',
