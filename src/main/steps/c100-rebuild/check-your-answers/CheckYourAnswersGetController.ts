@@ -6,6 +6,7 @@ import { FieldPrefix } from '../../../app/case/case';
 import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
+import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 
 import { isMandatoryFieldsFilled } from './mainUtil';
 
@@ -21,16 +22,26 @@ export default class CheckYourAnswersGetController extends GetController {
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     //Clear hwfRefNumber if not opted
+    let returnUrl = req.originalUrl;
     if (req.session.userCase.hwf_needHelpWithFees === YesOrNo.NO) {
       req.session.userCase.helpWithFeesReferenceNumber = undefined;
       req.session.save();
+    }
+    if (isC100ApplicationValid(req.session.userCase, req)) {
+      returnUrl = returnUrl.includes('?lng=cy')
+        ? `${returnUrl}&validApplication=true`
+        : `${returnUrl}?validApplication=true`;
+      req.session.applicationSettings = {
+        ...req.session.applicationSettings,
+        hasC100ApplicationBeenCompleted: true,
+      };
     }
     try {
       await req.locals.C100Api.saveC100DraftApplication(
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         req.session.userCase?.caseId as string,
         req.session.userCase,
-        req.originalUrl
+        returnUrl
       );
 
       //clear payment error

@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { RootContext } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
@@ -76,7 +77,10 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest.params,
+      {
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest
     );
     expect(nextUrl).toBe('/c100-rebuild/safety-concerns/concern-guidance');
   });
@@ -176,7 +180,10 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest.params,
+      {
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest
     );
     expect(nextUrl).toBe(
       applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { orderType: 'otherOrder', root: RootContext.C100_REBUILD })
@@ -198,7 +205,10 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest.params,
+      {
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest
     );
     expect(nextUrl).toBe(applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }));
   });

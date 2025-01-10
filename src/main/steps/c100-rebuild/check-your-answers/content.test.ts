@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { CaseWithId, Miam_urgency } from '../../../app/case/case';
-import { C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { C1ASafteyConcernsAbout, MiamNonAttendReason, YesOrNo } from '../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
@@ -1214,6 +1214,7 @@ describe('Content.ts toggle test cases', () => {
         sq_writtenAgreement: undefined,
         miam_otherProceedings: undefined,
         miam_urgency: Miam_urgency.freedomPhysicalSafety,
+        miam_nonAttendanceReasons: [MiamNonAttendReason.URGENT],
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
@@ -1341,7 +1342,27 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'What are your reasons for not attending a MIAM?' },
-            value: {},
+            value: {
+              html: '<ul class="govuk-list govuk-list--bullet"><li>Urgency</li></ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/urgency',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Why is your application urgent?',
+                },
+              ],
+            },
+            key: {
+              text: 'Why is your application urgent?',
+            },
+            value: {
+              html: 'There is a risk to your life, freedom or physical safety',
+            },
           },
         ],
         title: '',
@@ -1720,6 +1741,7 @@ describe('Content.ts toggle test cases', () => {
         sq_writtenAgreement: undefined,
         miam_otherProceedings: undefined,
         miam_urgency: Miam_urgency.freedomPhysicalSafety,
+        miam_nonAttendanceReasons: [MiamNonAttendReason.URGENT],
       },
       language: 'cy',
     });
@@ -1846,7 +1868,27 @@ describe('Content.ts toggle test cases', () => {
               ],
             },
             key: { text: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?' },
-            value: {},
+            value: {
+              html: '<ul class="govuk-list govuk-list--bullet"><li>Cais brys</li></ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/urgency',
+                  text: ' Golygu',
+                  attributes: {},
+                  visuallyHiddenText: 'Pam bod eich cais yn un brys?',
+                },
+              ],
+            },
+            key: {
+              text: 'Pam bod eich cais yn un brys?',
+            },
+            value: {
+              html: "Mae perygl i'ch bywyd, rhyddid neu ddiogelwch corfforol",
+            },
           },
         ],
         title: '',
@@ -3623,6 +3665,13 @@ describe('Content.ts toggle test cases', () => {
         sq_writtenAgreement: undefined,
         miam_otherProceedings: YesOrNo.NO,
         miam_attendance: YesOrNo.YES,
+        miam_haveDocSigned: YesOrNo.YES,
+        miam_certificate: {
+          id: '123',
+          url: '/123',
+          filename: 'MIAM_cert.pdf',
+          binaryUrl: '/123/binary',
+        },
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
@@ -3770,7 +3819,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'Do you have a document signed by the mediator?  ',
             },
-            value: {},
+            value: {
+              text: 'Yes',
+            },
           },
         ],
         subTitle: 'MIAM attendance',
@@ -4236,6 +4287,508 @@ describe('Content.ts toggle test cases', () => {
     expect((form?.submit?.text as LanguageLookup)(generatedContent)).toBe(
       enContent.StatementOfTruth.payAndSubmitButton
     );
+  });
+
+  test('en should generate correct content for flow 4', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      language: 'en',
+      userCase: {},
+    });
+    expect(generatedEnContent.sections).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/childaddress',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Where do the children live?',
+                },
+              ],
+            },
+            key: { text: 'Where do the children live?' },
+            value: {},
+          },
+        ],
+        title: '<span class="app-task-list__section-number">1.</span> Location details',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/consent-agreement',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText:
+                    'Do you have a written agreement with the other people in the case that you want the court to review?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
+            },
+            value: {},
+          },
+        ],
+        title: '<span class="app-task-list__section-number">2.</span> Type of application',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/legal-representation',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Will you be using a legal representative in these proceedings?',
+                },
+              ],
+            },
+            key: { text: 'Will you be using a legal representative in these proceedings?' },
+            value: {},
+          },
+        ],
+        title: '<span class="app-task-list__section-number">3.</span> Legal representative details',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/permission',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText:
+                    'Is there any reason that you would need permission from the court to make this application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Is there any reason that you would need permission from the court to make this application?',
+            },
+            value: {},
+          },
+        ],
+        title: '<span class="app-task-list__section-number">4.</span> Permission to make the application',
+      },
+      {
+        rows: [],
+        title:
+          '<span class="app-task-list__section-number">5.</span> MIAM: Mediation Information and Assessment Meeting',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/other-proceedings',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText:
+                    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+                },
+              ],
+            },
+            key: {
+              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+            },
+            value: {},
+          },
+        ],
+        subTitle: 'MIAM attendance',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/general-reasons',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'What are your reasons for not attending a MIAM?',
+                },
+              ],
+            },
+            key: { text: 'What are your reasons for not attending a MIAM?' },
+            value: {},
+          },
+        ],
+        subTitle: 'MIAM exemption',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/select-courtorder',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'What are you asking the court to do?',
+                },
+              ],
+            },
+            key: { text: 'What are you asking the court to do?' },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/shortstatement',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText:
+                    'Describe what you want the court to do regarding the children in this application',
+                },
+              ],
+            },
+            key: { text: 'Describe what you want the court to do regarding the children in this application' },
+            value: {},
+          },
+        ],
+        title: '<span class="app-task-list__section-number">6.</span> What you\'re asking the court to decide',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-urgency/urgent',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Does your situation qualify for an urgent first hearing?',
+                },
+              ],
+            },
+            key: { text: 'Does your situation qualify for an urgent first hearing?' },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-without-notice/hearing-part1',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Are you asking for a without notice hearing?',
+                },
+              ],
+            },
+            key: { text: 'Are you asking for a without notice hearing?' },
+            value: {},
+          },
+        ],
+        title: '<span class="app-task-list__section-number">7.</span> Hearing details',
+      },
+      {
+        rows: [],
+        title: '<span class="app-task-list__section-number">8.</span> Details of the people in the application ',
+      },
+      { rows: [], subTitle: "Children's details", title: '' },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Are any of the children known to social services?',
+                },
+              ],
+            },
+            key: { text: 'Are any of the children known to social services?' },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Are any of the children the subject of a child protection plan?',
+                },
+              ],
+            },
+            key: { text: 'Are any of the children the subject of a child protection plan?' },
+            value: {},
+          },
+        ],
+        subTitle: 'Additional details about the children',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/has-other-children',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText:
+                    'Do you or any respondents have other children who are not part of this application?',
+                },
+              ],
+            },
+            key: { text: 'Do you or any respondents have other children who are not part of this application?' },
+            value: {},
+          },
+        ],
+        subTitle: 'Other Children details',
+        title: '',
+      },
+      { rows: [], subTitle: 'Details of the applicants', title: '' },
+      { rows: [], subTitle: 'Details of the respondents', title: '' },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-person-details/other-person-check',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Is there anyone else who should know about your application?',
+                },
+              ],
+            },
+            key: { text: 'Is there anyone else who should know about your application?' },
+            value: {},
+          },
+        ],
+        subTitle: 'Details of the other people in the application',
+        title: '',
+      },
+      [],
+      { rows: [], title: 'Where the children live' },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Have the children been involved in a court case?',
+                },
+              ],
+            },
+            key: { text: 'Have the children been involved in a court case?' },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Have you had a court order made for your protection?',
+                },
+              ],
+            },
+            key: { text: 'Have you had a court order made for your protection?' },
+            value: {},
+          },
+        ],
+        title: '<span class="app-task-list__section-number">9.</span> Past and current proceeding',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/concerns-for-safety',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
+                },
+              ],
+            },
+            key: { text: 'Do you have any concerns for your safety or the safety of the children?' },
+            value: {},
+          },
+        ],
+        title: '<span class="app-task-list__section-number">10.</span> Safety concerns',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/start',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: "Are the children's lives mainly based outside of England and Wales?",
+                },
+              ],
+            },
+            key: { text: "Are the children's lives mainly based outside of England and Wales?" },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/parents',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText:
+                    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+                },
+              ],
+            },
+            key: {
+              text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+            },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/jurisdiction',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText:
+                    'Could another person in the application apply for a similar order in a country outside England or Wales?',
+                },
+              ],
+            },
+            key: {
+              text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
+            },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/request',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText:
+                    'Has another country asked (or been asked) for information or help for the children?',
+                },
+              ],
+            },
+            key: { text: 'Has another country asked (or been asked) for information or help for the children?' },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">11.</span> International elements',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
+                },
+              ],
+            },
+            key: { text: 'Would you be able to take part in hearings by video and phone?' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Do you have any language requirements?',
+                },
+              ],
+            },
+            key: { text: 'Do you have any language requirements?' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Do you or the children need special arrangements at court?',
+                },
+              ],
+            },
+            key: { text: 'Do you or the children need special arrangements at court?' },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText:
+                    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+            },
+            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">12.</span> Support you need during your case',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/help-with-fees/need-help-with-fees',
+                  text: 'Edit',
+                  attributes: {},
+                  visuallyHiddenText: 'Do you need help with paying the fee for this application?',
+                },
+              ],
+            },
+            key: { text: 'Do you need help with paying the fee for this application?' },
+            value: {},
+          },
+        ],
+        title: '<span class="app-task-list__section-number">13.</span> Help with Fees',
+      },
+    ]);
   });
 
   test('generateContent with hwf conditions', () => {

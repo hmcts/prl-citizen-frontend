@@ -36,6 +36,7 @@ export interface AppSession extends Session {
   accessCodeLoginIn: boolean;
   c100RebuildLdFlag: boolean;
   applicationSettings?: Record<string, any>;
+  enableC100CaseProgressionTrainTrack: boolean;
 }
 export interface UserDetails {
   accessToken: string;

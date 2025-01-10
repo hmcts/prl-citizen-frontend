@@ -144,6 +144,7 @@ import LookupAndManualAddressPostController from './people/LookupAndManualAddres
 import UploadDocumentController from './uploadDocumentController';
 import { applyParms } from '../../steps/common/url-parser';
 import { RARootContext } from '../../modules/reasonable-adjustments/definitions';
+import { isC100ApplicationValid } from './utils';
 
 export const C100Sequence: Step[] = [
   {
@@ -193,8 +194,10 @@ export const C100Sequence: Step[] = [
   {
     url: C100_INTERNATIONAL_ELEMENTS_REQUEST,
     showInSection: Sections.C100,
-    getNextStep: () =>
-      applyParms(REASONABLE_ADJUSTMENTS_ATTENDING_COURT, { root: RARootContext.C100_REBUILD }) as PageLink,
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      isC100ApplicationValid(caseData as CaseWithId, req!)
+        ? C100_CHECK_YOUR_ANSWER
+        : (applyParms(REASONABLE_ADJUSTMENTS_ATTENDING_COURT, { root: RARootContext.C100_REBUILD }) as PageLink),
   },
   {
     url: C100_CONFIDENTIALITY_DETAILS_KNOW,
@@ -205,9 +208,11 @@ export const C100Sequence: Step[] = [
     //10
     url: C100_HEARING_WITHOUT_NOTICE_PART1,
     showInSection: Sections.C100,
-    getNextStep: (caseData: Partial<CaseWithId>): PageLink => {
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest): PageLink => {
       if (caseData.hwn_hearingPart1 === YesOrNo.YES) {
         return C100_HEARING_WITHOUT_NOTICE_PART2;
+      } else if (isC100ApplicationValid(caseData as CaseWithId, req!)) {
+        return C100_CHECK_YOUR_ANSWER;
       }
 
       return caseData.sq_writtenAgreement === YesOrNo.NO &&
@@ -220,12 +225,16 @@ export const C100Sequence: Step[] = [
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART2,
     showInSection: Sections.C100,
-    getNextStep: caseData =>
-      caseData.sq_writtenAgreement === YesOrNo.NO &&
-      caseData.miam_validReason === YesOrNo.YES &&
-      MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest): PageLink => {
+      if (isC100ApplicationValid(caseData as CaseWithId, req!)) {
+        return C100_CHECK_YOUR_ANSWER;
+      }
+      return caseData.sq_writtenAgreement === YesOrNo.NO &&
+        caseData.miam_validReason === YesOrNo.YES &&
+        MIAMNavigationController.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
         ? C100_TYPE_ORDER_SELECT_COURT_ORDER
-        : C100_CHILDERN_DETAILS_ADD,
+        : C100_CHILDERN_DETAILS_ADD;
+    },
   },
   {
     url: C100_TYPE_ORDER_SELECT_COURT_ORDER,
@@ -240,7 +249,11 @@ export const C100Sequence: Step[] = [
   {
     url: C100_TYPE_ORDER_SHORT_STATEMENT,
     showInSection: Sections.C100,
-    getNextStep: (caseData: Partial<CaseWithId>): PageLink => {
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest): PageLink => {
+      if (isC100ApplicationValid(caseData as CaseWithId, req!)) {
+        return C100_CHECK_YOUR_ANSWER;
+      }
+
       if (caseData.sq_writtenAgreement === YesOrNo.YES) {
         return C100_CONSENT_ORDER_UPLOAD;
       }
@@ -319,8 +332,13 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     showInSection: Sections.C100,
-    getNextStep: caseData =>
-      PreviousProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS, caseData),
+    getNextStep: (caseData, req) =>
+      PreviousProceedingsNavigationController.getNextUrl(
+        C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+        caseData,
+        req?.params,
+        req
+      ),
   },
   {
     url: C100_OTHER_PROCEEDINGS_DETAILS,
@@ -335,7 +353,8 @@ export const C100Sequence: Step[] = [
       return PreviousProceedingsNavigationController.getNextUrl(
         C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
         caseData,
-        req!.params
+        req!.params,
+        req
       );
     },
   },
@@ -353,8 +372,13 @@ export const C100Sequence: Step[] = [
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
-    getNextStep: caseData =>
-      PreviousProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY, caseData),
+    getNextStep: (caseData, req) =>
+      PreviousProceedingsNavigationController.getNextUrl(
+        C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
+        caseData,
+        req?.params,
+        req
+      ),
   },
   {
     url: C100_CHILD_ADDRESS,
@@ -418,7 +442,10 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_NONEED,
     showInSection: Sections.C100,
-    getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    getNextStep: (data: Partial<Case>, req?: AppRequest) =>
+      isC100ApplicationValid(data as CaseWithId, req!)
+        ? C100_CHECK_YOUR_ANSWER
+        : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   },
   {
     url: C100_MIAM_OTHER,
@@ -470,7 +497,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_UPLOAD_CONFIRMATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_TYPE_ORDER_SELECT_COURT_ORDER,
+    getNextStep: (data: Partial<Case>, req?: AppRequest) =>
+      isC100ApplicationValid(data as CaseWithId, req!) ? C100_CHECK_YOUR_ANSWER : C100_TYPE_ORDER_SELECT_COURT_ORDER,
   },
   {
     url: C100_MIAM_GET_DOC,
@@ -480,28 +508,36 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_EXCEMPTION_SUMMARY,
     showInSection: Sections.C100,
-    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_EXCEMPTION_SUMMARY, caseData),
+    getNextStep: (caseData: Partial<Case>, req?: AppRequest) =>
+      isC100ApplicationValid(caseData as CaseWithId, req!)
+        ? C100_CHECK_YOUR_ANSWER
+        : MIAMNavigationController.getNextUrl(C100_MIAM_EXCEMPTION_SUMMARY, caseData),
   },
   {
     url: C100_HEARING_URGENCY_URGENT,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<Case>) =>
-      data.hu_urgentHearingReasons === YesOrNo.YES
-        ? C100_HEARING_URGENCY_URGENT_DETAILS
-        : C100_HEARING_WITHOUT_NOTICE_PART1,
+    getNextStep: (data: Partial<Case>, req?: AppRequest): PageLink => {
+      const hwnOrCya = isC100ApplicationValid(data as CaseWithId, req!)
+        ? C100_CHECK_YOUR_ANSWER
+        : C100_HEARING_WITHOUT_NOTICE_PART1;
+      return data.hu_urgentHearingReasons === YesOrNo.YES ? C100_HEARING_URGENCY_URGENT_DETAILS : hwnOrCya;
+    },
   },
   {
     url: C100_HEARING_URGENCY_URGENT_DETAILS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART1,
+    getNextStep: (data: Partial<Case>, req?: AppRequest) =>
+      isC100ApplicationValid(data as CaseWithId, req!) ? C100_CHECK_YOUR_ANSWER : C100_HEARING_WITHOUT_NOTICE_PART1,
   },
   {
     url: C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<Case>) =>
-      data.sq_writtenAgreement === YesOrNo.YES
-        ? C100_TYPE_ORDER_SELECT_COURT_ORDER
-        : C100_SCREENING_QUESTIONS_ALTERNATIVE_RESOLUTION,
+    getNextStep: (data: Partial<Case>, req?: AppRequest): PageLink => {
+      const tooOrCya = isC100ApplicationValid(data as CaseWithId, req!)
+        ? C100_CHECK_YOUR_ANSWER
+        : C100_TYPE_ORDER_SELECT_COURT_ORDER;
+      return data.sq_writtenAgreement === YesOrNo.YES ? tooOrCya : C100_SCREENING_QUESTIONS_ALTERNATIVE_RESOLUTION;
+    },
   },
   {
     url: C100_SCREENING_QUESTIONS_ALTERNATIVE_RESOLUTION,
@@ -528,7 +564,8 @@ export const C100Sequence: Step[] = [
   {
     url: C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
     showInSection: Sections.C100,
-    getNextStep: () => C100_MIAM_OTHER_PROCEEDINGS,
+    getNextStep: (data: Partial<Case>, req?: AppRequest) =>
+      isC100ApplicationValid(data as CaseWithId, req!) ? C100_CHECK_YOUR_ANSWER : C100_MIAM_OTHER_PROCEEDINGS,
   },
   {
     url: C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES,
@@ -543,10 +580,15 @@ export const C100Sequence: Step[] = [
   {
     url: C100_SCREENING_QUESTIONS_COURT_PERMISSION,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<Case>) =>
-      data.sq_courtPermissionRequired === YesOrNo.YES
+    getNextStep: (data: Partial<Case>, req?: AppRequest): PageLink => {
+      if (isC100ApplicationValid(data as CaseWithId, req!)) {
+        return C100_CHECK_YOUR_ANSWER;
+      }
+
+      return data.sq_courtPermissionRequired === YesOrNo.YES
         ? C100_SCREENING_QUESTIONS_PERMISSIONS_WHY
-        : C100_MIAM_OTHER_PROCEEDINGS,
+        : C100_MIAM_OTHER_PROCEEDINGS;
+    },
   },
   {
     url: C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE,
@@ -781,7 +823,7 @@ export const C100Sequence: Step[] = [
     url: C100_CHILDERN_LIVING_ARRANGEMENTS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVING_ARRANGEMENTS, caseData, req?.params),
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVING_ARRANGEMENTS, caseData, req?.params, req),
   },
   {
     url: C100_APPLICANTS_PERSONAL_DETAILS,
@@ -811,7 +853,10 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CONSENT_ORDER_UPLOAD_CONFIRMATION,
     showInSection: Sections.C100,
-    getNextStep: () => C100_HEARING_URGENCY_URGENT,
+    getNextStep: (data: Partial<Case>, req?: AppRequest<Partial<Case>>) =>
+      isC100ApplicationValid(data as CaseWithId, req as AppRequest)
+        ? C100_CHECK_YOUR_ANSWER
+        : C100_HEARING_URGENCY_URGENT,
   },
   {
     url: C100_CHECK_YOUR_ANSWER,

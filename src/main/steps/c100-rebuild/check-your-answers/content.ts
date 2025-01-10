@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
-import { C1AAbuseTypes, C1ASafteyConcernsAbout, RootContext, YesOrNo } from '../../../app/case/definition';
+import {
+  C100FlowTypes,
+  C1AAbuseTypes,
+  C1ASafteyConcernsAbout,
+  RootContext,
+  YesOrNo,
+} from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
@@ -52,6 +58,8 @@ import { ReasonableAdjustmentElement } from './util/reasonableAdjustmentContent.
 import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
+import { getC100FlowType } from '../utils';
+import { CaseWithId } from '../../../app/case/case';
 
 export const enContent = {
   section: '',
@@ -587,24 +595,49 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, lan
 export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   let sections;
-  // if on sreening screen enable Yes
-  if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-    sections = CheckYourAnswerFlow1(userCase, enContent, content.language).flat() as ANYTYPE;
-  } else {
-    if (
-      (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
-      (userCase.hasOwnProperty('miam_otherProceedings') &&
-        userCase['miam_otherProceedings'] === YesOrNo.NO &&
-        userCase.hasOwnProperty('miam_attendance') &&
-        userCase['miam_attendance'] === YesOrNo.YES)
-    ) {
-      sections = CheckYourAnswerFlow2(userCase, enContent, content.language).flat() as ANYTYPE;
-    } else {
-      //if miam urgency is requested miam_urgency
-      if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
+
+  const flow = getC100FlowType(userCase as CaseWithId);
+  if (content.additionalData?.req.session.enableC100CaseProgressionTrainTrack) {
+    switch (flow) {
+      case C100FlowTypes.FLOW1:
+        sections = CheckYourAnswerFlow1(userCase, enContent, content.language).flat() as ANYTYPE;
+        break;
+      case C100FlowTypes.FLOW2:
+        sections = CheckYourAnswerFlow2(userCase, enContent, content.language).flat() as ANYTYPE;
+        break;
+      case C100FlowTypes.FLOW3:
         sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
-      } else {
+        break;
+      case C100FlowTypes.FLOW4:
         sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
+        break;
+      default:
+        sections = {};
+    }
+  } else {
+    // if on sreening screen enable Yes
+    if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
+      sections = CheckYourAnswerFlow1(userCase, enContent, content.language).flat() as ANYTYPE;
+    } else {
+      if (
+        (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
+        (userCase.hasOwnProperty('miam_otherProceedings') &&
+          userCase['miam_otherProceedings'] === YesOrNo.NO &&
+          userCase.hasOwnProperty('miam_attendance') &&
+          userCase['miam_attendance'] === YesOrNo.YES)
+      ) {
+        sections = CheckYourAnswerFlow2(userCase, enContent, content.language).flat() as ANYTYPE;
+      } else {
+        //if miam urgency is requested miam_urgency
+        if (
+          userCase['miam_urgency'] &&
+          userCase.hasOwnProperty('miam_urgency') &&
+          userCase['miam_urgency'] !== 'none'
+        ) {
+          sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
+        } else {
+          sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
+        }
       }
     }
   }
@@ -619,24 +652,49 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
 export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
   let sections;
-  // if on sreening screen enable Yes
-  if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-    sections = CheckYourAnswerFlow1(userCase, cyContent, content.language).flat() as ANYTYPE;
-  } else {
-    if (
-      (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
-      (userCase.hasOwnProperty('miam_otherProceedings') &&
-        userCase['miam_otherProceedings'] === YesOrNo.NO &&
-        userCase.hasOwnProperty('miam_attendance') &&
-        userCase['miam_attendance'] === YesOrNo.YES)
-    ) {
-      sections = CheckYourAnswerFlow2(userCase, cyContent, content.language).flat() as ANYTYPE;
-    } else {
-      //if miam urgency is requested miam_urgency
-      if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
+
+  if (content.additionalData?.req.session.enableC100CaseProgressionTrainTrack) {
+    const flow = getC100FlowType(userCase as CaseWithId);
+    switch (flow) {
+      case C100FlowTypes.FLOW1:
+        sections = CheckYourAnswerFlow1(userCase, cyContent, content.language).flat() as ANYTYPE;
+        break;
+      case C100FlowTypes.FLOW2:
+        sections = CheckYourAnswerFlow2(userCase, cyContent, content.language).flat() as ANYTYPE;
+        break;
+      case C100FlowTypes.FLOW3:
         sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
-      } else {
+        break;
+      case C100FlowTypes.FLOW4:
         sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
+        break;
+      default:
+        sections = {};
+    }
+  } else {
+    // if on sreening screen enable Yes
+    if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
+      sections = CheckYourAnswerFlow1(userCase, cyContent, content.language).flat() as ANYTYPE;
+    } else {
+      if (
+        (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
+        (userCase.hasOwnProperty('miam_otherProceedings') &&
+          userCase['miam_otherProceedings'] === YesOrNo.NO &&
+          userCase.hasOwnProperty('miam_attendance') &&
+          userCase['miam_attendance'] === YesOrNo.YES)
+      ) {
+        sections = CheckYourAnswerFlow2(userCase, cyContent, content.language).flat() as ANYTYPE;
+      } else {
+        //if miam urgency is requested miam_urgency
+        if (
+          userCase['miam_urgency'] &&
+          userCase.hasOwnProperty('miam_urgency') &&
+          userCase['miam_urgency'] !== 'none'
+        ) {
+          sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
+        } else {
+          sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
+        }
       }
     }
   }

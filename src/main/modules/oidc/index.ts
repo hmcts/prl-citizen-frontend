@@ -77,11 +77,18 @@ export class OidcMiddleware {
             config.get('launchDarkly.offline') === true
               ? config.get('featureToggles.enableCaseTrainTrack')
               : config.get('launchDarkly.offline');
+          req.session.enableC100CaseProgressionTrainTrack =
+            config.get('launchDarkly.offline') === true
+              ? config.get('featureToggles.enableC100CaseProgressionTrainTrack')
+              : config.get('launchDarkly.offline');
         }
 
         req.session.testingSupport = req.session.testingSupport ?? (await getFeatureToggle().isTestingSupportEnabled());
         req.session.enableCaseTrainTrack =
           req.session.enableCaseTrainTrack ?? (await getFeatureToggle().isCaseTrainTrackEnabled());
+        req.session.enableC100CaseProgressionTrainTrack =
+          req.session.enableC100CaseProgressionTrainTrack ??
+          (await getFeatureToggle().isC100CaseProgressionTrainTrackEnabled());
 
         req.session.save(async () => {
           const isAnonymousPage = ANONYMOUS_URLS.some(url => url.includes(req.path));

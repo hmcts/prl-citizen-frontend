@@ -1,4 +1,5 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import {
   C100_CHILDERN_DETAILS_ADD,
   C100_CHILDERN_DETAILS_CHILD_MATTERS,
@@ -233,7 +234,10 @@ describe('ChildrenDetailsNavigationController', () => {
       ChildrenDetailsNavigationController.getNextUrl(
         C100_CHILDERN_LIVING_ARRANGEMENTS,
         mockTwo.session.userCase,
-        mockTwo.params
+        mockTwo.params,
+        {
+          session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+        } as unknown as AppRequest
       )
     ).toBe('/c100-rebuild/safety-concerns/concern-guidance');
   });

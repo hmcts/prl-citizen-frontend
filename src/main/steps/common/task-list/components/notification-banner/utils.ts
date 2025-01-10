@@ -225,3 +225,11 @@ export const isOrderWithPowerOfArrest = (caseData: CaseWithId): boolean => {
       )
     : false;
 };
+
+export const parseC100ReturnUrl = (returnUrl: string): string => {
+  if (returnUrl?.includes('?lng=cy')) {
+    return returnUrl?.replace('&validApplication=true', '');
+  } else {
+    return returnUrl?.replace('?validApplication=true', '');
+  }
+};

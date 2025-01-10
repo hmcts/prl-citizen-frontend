@@ -3018,3 +3018,25 @@ export enum SupportServiceEvidence {
   DOMESTIC_VIOLENCE_ORGANISATION = 'letterFromOrgDomesticViolenceSupport',
   UK_DOMESTIC_VIOLENCE_ORGANISATION = 'letterFromOrgDomesticViolenceInUk',
 }
+
+export enum C100FlowTypes {
+  FLOW1 = 'flow1',
+  FLOW2 = 'flow2',
+  FLOW3 = 'flow3',
+  FLOW4 = 'flow4',
+}
+
+export enum C100SectionUrls {
+  screeningQuestions = 'screening-questions',
+  typeOfOrder = 'typeoforder',
+  consentOrder = 'consent-order',
+  urgency = 'hearing-urgency',
+  withoutNotice = 'hearing-without-notice',
+  people = 'people',
+  otherProceedings = 'other-proceedings',
+  safetyConcerns = 'safety-concerns',
+  internationalElement = 'international-elements',
+  reasonableAdjustments = 'reasonable-adjustments',
+  helpWithFees = 'help-with-fees',
+  miam = 'miam',
+}

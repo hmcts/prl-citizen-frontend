@@ -1,7 +1,10 @@
-import { Case } from '../../../app/case/case';
+import { Case, CaseWithId } from '../../../app/case/case';
 import { ChildrenDetails, RootContext, YesOrNo } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
+import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_CHECK_YOUR_ANSWER,
   C100_CHILDERN_DETAILS_ADD,
   C100_CHILDERN_DETAILS_CHILD_MATTERS,
   C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
@@ -20,8 +23,13 @@ class ChildrenDetailsNavigationController {
 
   private childId: ChildrenDetails['id'] = '';
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
+  public getNextUrl(
+    currentPageUrl: PageLink,
+    caseData: Partial<Case>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    params?: Record<string, any>,
+    req?: AppRequest
+  ): PageLink {
     this.childrenDetails = caseData?.cd_children as ChildrenDetails[];
     this.childId = params?.childId;
     let nextUrl;
@@ -55,6 +63,8 @@ class ChildrenDetailsNavigationController {
 
         if (nextChild) {
           nextUrl = applyParms(C100_CHILDERN_MAINLY_LIVE_WITH, { childId: nextChild.id as ChildrenDetails['id'] });
+        } else if (isC100ApplicationValid(caseData as CaseWithId, req!)) {
+          nextUrl = C100_CHECK_YOUR_ANSWER;
         } else if (caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES) {
           nextUrl = applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink;
         } else {
