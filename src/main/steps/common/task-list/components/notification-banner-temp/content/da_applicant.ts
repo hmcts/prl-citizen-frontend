@@ -1,13 +1,13 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
-import { DocumentPartyType } from '../../../../../../steps/common/documents/definitions';
-import { interpolate } from '../../../../../../steps/common/string-parser';
 import {
   STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
   VIEW_TYPE_DOCUMENT,
 } from '../../../../../urls';
+import { DocumentPartyType } from '../../../../documents/definitions';
+import { interpolate } from '../../../../string-parser';
 import { applyParms } from '../../../../url-parser';
 import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from '../definitions';
 import {

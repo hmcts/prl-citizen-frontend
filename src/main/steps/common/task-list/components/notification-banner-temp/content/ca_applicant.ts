@@ -1,8 +1,5 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
-import { DocumentPartyType, UploadDocumentCategory } from '../../../../../../steps/common/documents/definitions';
-import { interpolate } from '../../../../../../steps/common/string-parser';
-import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   C100_WITHDRAW_CASE,
   STATEMENT_OF_SERVICE_WHO_WAS_SERVED,
@@ -11,7 +8,10 @@ import {
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
   VIEW_TYPE_DOCUMENT,
-} from '../../../../../../steps/urls';
+} from '../../../../../urls';
+import { DocumentPartyType, UploadDocumentCategory } from '../../../../documents/definitions';
+import { interpolate } from '../../../../string-parser';
+import { applyParms } from '../../../../url-parser';
 import { NotificationBannerContent, NotificationBannerContentConfig, NotificationID } from '../definitions';
 import {
   findNotification,

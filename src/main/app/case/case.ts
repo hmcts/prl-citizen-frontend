@@ -2,7 +2,7 @@
 import { PaymentResponse } from '../../modules/payments/paymentController';
 import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
 import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders } from '../../steps/common/documents/definitions';
-import { NotificationID } from '../../steps/common/task-list/components/notification-banner/definitions';
+import { NotificationID } from '../../steps/common/task-list/components/notification-banner-temp/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {

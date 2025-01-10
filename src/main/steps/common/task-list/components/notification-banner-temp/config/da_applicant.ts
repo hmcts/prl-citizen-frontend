@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../../../../app/case/case';
-import { interpolate } from '../../../../../../steps/common/string-parser';
+import { interpolate } from '../../../../string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
 import { findNotification, getBannerContentForRespondent, showNotification } from '../utils';
 

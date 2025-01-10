@@ -1,13 +1,17 @@
 import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../../../../app/case/case';
-import { interpolate } from '../../../../../../steps/common/string-parser';
+import { interpolate } from '../../../../string-parser';
 import { NotificationBannerContent, NotificationBannerProps, NotificationID, NotificationType } from '../definitions';
 import { findNotification, showNotification } from '../utils';
 
-export const DA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
+export const CA_RESPONDENT_CONFIG = (): NotificationBannerProps[] => [
   {
-    id: NotificationType.APPLICATION_SERVED_BY_COURT_TO_DA_RESPONDENT,
+    id: NotificationType.APPLICATION_SERVED_BY_COURT_TO_RESPONDENT,
+    show: showNotification,
+  },
+  {
+    id: NotificationType.SUMBIT_FM5,
     show: showNotification,
   },
   {

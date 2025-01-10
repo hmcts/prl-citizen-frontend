@@ -1,9 +1,9 @@
 import _, { isFunction } from 'lodash';
 
 import { CaseWithId } from '../../../../../app/case/case';
+import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 
-import { CaseType, PartyType } from './../../../../../app/case/definition';
 import { NotificationBannerProps, NotificationContent, NotificationSection } from './definitions';
 import { getNotificationConfig } from './utils';
 
