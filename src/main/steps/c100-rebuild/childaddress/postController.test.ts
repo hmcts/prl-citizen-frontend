@@ -12,7 +12,7 @@ import C100ChildPostCodePostController from './postController';
 
 jest.mock('../../../app/case/CosApiClient');
 
-describe.skip('C100ChildPostCodePostController', () => {
+describe('C100ChildPostCodePostController', () => {
   let req;
   let res;
   const mockFindCourtByPostCodeAndService = jest.spyOn(CosApiClient.prototype, 'findCourtByPostCodeAndService');

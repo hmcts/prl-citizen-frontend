@@ -8,7 +8,7 @@ import AohPostController from './AohPostController';
 jest.mock('../../../../app/case/CosApiClient');
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 
-describe.skip('AohPostController', () => {
+describe('AohPostController', () => {
   let fields;
   const safetyConcernsPostController = new AohPostController(fields);
   const req = mockRequest();
