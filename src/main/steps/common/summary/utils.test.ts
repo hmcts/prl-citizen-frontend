@@ -60,6 +60,9 @@ describe('common > summary > utils', () => {
                     href: '/tasklistresponse/miam/miam-start',
                     text: 'Edit',
                     visuallyHiddenText: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+                    attributes: {
+                      id: 'miamStart',
+                    },
                   },
                 ],
               },
@@ -77,6 +80,9 @@ describe('common > summary > utils', () => {
                     href: '/tasklistresponse/consent-to-application',
                     text: 'Edit',
                     visuallyHiddenText: 'When did you receive the application?',
+                    attributes: {
+                      id: 'applicationReceivedDate',
+                    },
                   },
                 ],
               },
@@ -94,6 +100,9 @@ describe('common > summary > utils', () => {
                     href: '/tasklistresponse/consent-to-application',
                     text: 'Edit',
                     visuallyHiddenText: 'When did you receive the application?',
+                    attributes: {
+                      id: 'invalidApplicationReceivedDate',
+                    },
                   },
                 ],
               },
@@ -105,7 +114,8 @@ describe('common > summary > utils', () => {
               },
             },
           ],
-          title: 'applicationDetails',
+          title: '',
+          subTitle: 'applicationDetails',
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {

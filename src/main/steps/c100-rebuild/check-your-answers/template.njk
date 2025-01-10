@@ -17,7 +17,8 @@
     titleText: errors.paymentError.title,
     errorList: [
       {
-        html: "<div class='govuk-heading-s hmcts-badge--red'>"+errors.paymentError[paymentError.errorContext]+"</div>"
+        text: errors.paymentError[paymentError.errorContext],
+        href:"#statementOfTruth"
       }
     ]
   }) }}

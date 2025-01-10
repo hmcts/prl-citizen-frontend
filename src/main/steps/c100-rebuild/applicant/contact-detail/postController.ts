@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100Applicant, ContactPreference, YesNoEmpty } from '../../../../app/case/definition';
+import { C100Applicant, ContactPreference, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -24,18 +24,18 @@ export default class ContactDetailPostController extends PostController<AnyObjec
     const applicantIndex = req.session.userCase?.appl_allApplicants?.findIndex(i => i.id === applicantId) as number;
     req.session.userCase.appl_allApplicants![applicantIndex].applicantContactDetail = {
       ...req.session.userCase?.appl_allApplicants?.[applicantIndex].applicantContactDetail,
-      canProvideEmail: req.body['canProvideEmail'] as YesNoEmpty,
-      emailAddress: formData['canProvideEmail'] === YesNoEmpty.NO ? '' : (req.body['emailAddress'] as string),
-      canProvideTelephoneNumber: req.body['canProvideTelephoneNumber'] as YesNoEmpty,
+      canProvideEmail: req.body['canProvideEmail'] as YesOrNo,
+      emailAddress: formData['canProvideEmail'] === YesOrNo.NO ? '' : (req.body['emailAddress'] as string),
+      canProvideTelephoneNumber: req.body['canProvideTelephoneNumber'] as YesOrNo,
       telephoneNumber:
-        req.body['canProvideTelephoneNumber'] === YesNoEmpty.NO ? '' : (req.body['telephoneNumber'] as string),
+        req.body['canProvideTelephoneNumber'] === YesOrNo.NO ? '' : (req.body['telephoneNumber'] as string),
       canNotProvideTelephoneNumberReason:
-        req.body['canProvideTelephoneNumber'] === YesNoEmpty.YES
+        req.body['canProvideTelephoneNumber'] === YesOrNo.YES
           ? ''
-          : (req.body['canNotProvideTelephoneNumberReason'] as YesNoEmpty),
-      canLeaveVoiceMail: req.body['canLeaveVoiceMail'] as YesNoEmpty,
+          : (req.body['canNotProvideTelephoneNumberReason'] as YesOrNo),
+      canLeaveVoiceMail: req.body['canLeaveVoiceMail'] as YesOrNo,
       applicantContactPreferences:
-        formData['canProvideEmail'] === YesNoEmpty.NO &&
+        formData['canProvideEmail'] === YesOrNo.NO &&
         req.session.userCase.appl_allApplicants![applicantIndex].applicantContactDetail?.applicantContactPreferences ===
           ContactPreference.EMAIL
           ? ''

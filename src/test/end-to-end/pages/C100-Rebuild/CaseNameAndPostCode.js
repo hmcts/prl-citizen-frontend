@@ -10,7 +10,6 @@ module.exports = {
     caseNameDetails: 'Test Case',
     childrenPostcodeDetails: '//*[@id="c100RebuildChildPostCode"]',
     childPostcode: 'SA1 8LD'
-
   },
   async gettingStarted() {
     await I.retry(retryCount).waitForText('Before you start your application' , 30);

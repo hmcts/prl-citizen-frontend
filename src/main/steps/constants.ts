@@ -40,51 +40,6 @@ export const URL_PATTERN_INTERNATIONAL_FACTORS = 'international-factors';
 export const EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement';
 
 export const EVENT_RESPONDENT_MIAM = 'respondentMiam';
-export const ordinalNumberMapEn = new Map<number, string>([
-  [1, 'First'],
-  [2, 'Second'],
-  [3, 'Third'],
-  [4, 'Fourth'],
-  [5, 'Fifth'],
-  [6, 'Sixth'],
-  [7, 'Seventh'],
-  [8, 'Eighth'],
-  [9, 'Ninth'],
-  [10, 'Tenth'],
-  [11, 'Eleventh'],
-  [12, 'Twelfth'],
-  [13, 'Thirteenth'],
-  [14, 'Fourteenth'],
-  [15, 'Fifteenth'],
-  [16, 'Sixteenth'],
-  [17, 'Seventeenth'],
-  [18, 'Eighteenth'],
-  [19, 'Nineteenth'],
-  [20, 'Twentieth'],
-]);
-
-export const ordinalNumberMapCy: typeof ordinalNumberMapEn = new Map<number, string>([
-  [1, 'Cyntaf'],
-  [2, 'Ail'],
-  [3, 'Trydydd'],
-  [4, 'Pedwerydd'],
-  [5, 'Pumed'],
-  [6, 'Chweched'],
-  [7, 'Seithfed'],
-  [8, 'Wythfed'],
-  [9, 'Nawfed'],
-  [10, 'Degfed'],
-  [11, 'Unfed ar ddeg'],
-  [12, 'Deuddegfed'],
-  [13, 'Trydydd ar ddeg'],
-  [14, 'Pedwerydd ar ddeg'],
-  [15, 'Pymthegfed'],
-  [16, 'Unfed ar bymtheg'],
-  [17, 'Ail ar bymtheg'],
-  [18, 'Deunawfed'],
-  [19, 'Pedwerydd ar bymtheg'],
-  [20, 'Ugeinfed'],
-]);
 
 export const NO_NEED_OF_SUPPORT = 'No, I do not have any language requirements at this time';
 export const NO_NEED_OF_SUPPORT_AT_THIS_TIME = 'No, I do not need any extra support at this time';

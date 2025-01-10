@@ -4,7 +4,7 @@ import { CaseWithId } from '../../../../app/case/case';
 
 import { routeGuard } from './routeGuard';
 
-describe.skip('c100 > screening questions > permission > route guard', () => {
+describe('c100 > screening questions > permission > route guard', () => {
   let res;
   let req;
   const next = jest.fn();
@@ -49,7 +49,7 @@ describe.skip('c100 > screening questions > permission > route guard', () => {
 
     await routeGuard.post(req, res, next);
 
-    expect(req.session.userCase).toStrictEqual({ sq_permissionsWhy: [] });
+    expect(req.session.userCase).toStrictEqual({});
     expect(req.session.save).toHaveBeenCalled();
     expect(next).toHaveBeenCalled();
   });

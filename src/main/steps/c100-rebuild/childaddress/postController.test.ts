@@ -74,7 +74,7 @@ describe.skip('C100ChildPostCodePostController', () => {
       noOfDaysRemainingToSubmitCase: '3',
     });
     when(config.get).calledWith('allowedCourts').mockReturnValue(['Swansea Civil Justice Centre']);
-    req.session.userCase.testingSupport = true;
+    req.session.testingSupport = true;
     req.body.c100RebuildChildPostCode = 'SO15 2XQ';
 
     await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);

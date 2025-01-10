@@ -79,7 +79,7 @@ describe.skip('AohPostController', () => {
     updateCaserMock.mockResolvedValue(req.session.userCase);
     await safetyConcernsPostController.post(req, res);
     expect(req.session.userCase.respondents[0].value.response.respondingCitizenAoH).toEqual(
-      '{"c1A_haveSafetyConcerns":"No","c1A_safetyConernAbout":[],"c1A_concernAboutChild":[],"c1A_concernAboutRespondent":[],"c1A_keepingSafeStatement":"","c1A_supervisionAgreementDetails":"","c1A_agreementOtherWaysDetails":null,"c1A_otherConcernsDrugs":null,"c1A_otherConcernsDrugsDetails":"","c1A_childSafetyConcerns":null,"c1A_childSafetyConcernsDetails":"","c1A_abductionReasonOutsideUk":"","c1A_childsCurrentLocation":"","c1A_childrenMoreThanOnePassport":null,"c1A_possessionChildrenPassport":[],"c1A_provideOtherDetails":"","c1A_passportOffice":null,"c1A_abductionPassportOfficeNotified":null,"c1A_previousAbductionsShortDesc":"","c1A_policeOrInvestigatorInvolved":null,"c1A_policeOrInvestigatorOtherDetails":"","c1A_childAbductedBefore":null,"c1A_safteyConcerns":{}}'
+      '{"c1A_haveSafetyConcerns":"No","c1A_concernAboutRespondent":[],"c1A_provideOtherDetails":""}'
     );
     expect(res.redirect).toHaveBeenCalledWith(RESPOND_TO_APPLICATION);
   });
