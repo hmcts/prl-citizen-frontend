@@ -1,5 +1,7 @@
+import { DocumentUploadResponse } from '../../app/case/C100CaseApi';
+import { CosApiClient } from '../../app/case/CosApiClient';
 import { Document } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
+import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { FormError } from '../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../app/form/validation';
 import { parseUrl } from '../../steps/common/url-parser';
@@ -69,4 +71,28 @@ export const getLoginUrl = (Urls: Object, req: AppRequest): string => {
   return validateRedirectUrl(Urls, req)
     ? interpolate(SIGN_IN_URL_WITH_CALLBACK, { url: encodeURIComponent(req.url) })
     : SIGN_IN_URL;
+};
+
+export const handleUploadDocument = async (
+  client: CosApiClient,
+  user: UserDetails,
+  files:
+    | Express.Multer.File[]
+    | {
+        [fieldname: string]: Express.Multer.File[];
+      }
+    | undefined,
+  req: AppRequest,
+  documentType: string
+): Promise<DocumentUploadResponse | null> => {
+  const response = await client.uploadDocument(user, {
+    files: [files?.[documentType]],
+  });
+
+  if (response.status !== 'Success') {
+    req.session.errors = handleError(req.session.errors, 'uploadError', documentType, true);
+    return null;
+  }
+
+  return response;
 };
