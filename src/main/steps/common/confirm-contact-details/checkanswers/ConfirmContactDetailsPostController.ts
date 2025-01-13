@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { CaseWithId } from '../../../../app/case/case';
 import { CaseEvent, CaseType, PartyDetails, PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
@@ -65,13 +66,7 @@ export const saveAndRedirectContactDetailsAndPreference = async (
 
   if (partyDetails) {
     const request = prepareRequest(userCase) as PartyDetails;
-    if (userCase.caseTypeOfApplication === CaseType.C100 && partyType === PartyType.APPLICANT) {
-      Object.assign(partyDetails, mapConfirmContactDetails(request));
-    }
-
-    if (userCase.partyContactPreference) {
-      Object.assign(partyDetails, prepareContactPreferenceRequest(userCase));
-    }
+    mapDataToPartyDetails(userCase, request, partyDetails, partyType);
 
     const { response, address, ...rest } = request;
     Object.assign(partyDetails, {
@@ -110,5 +105,20 @@ export const saveAndRedirectContactDetailsAndPreference = async (
         throw new Error('ConfirmContactDetailsPostController - Case could not be updated.');
       }
     }
+  }
+};
+
+const mapDataToPartyDetails = (
+  userCase: CaseWithId,
+  request: PartyDetails,
+  partyDetails: PartyDetails,
+  partyType: string
+) => {
+  if (userCase.caseTypeOfApplication === CaseType.C100 && partyType === PartyType.APPLICANT) {
+    Object.assign(partyDetails, mapConfirmContactDetails(request));
+  }
+
+  if (userCase.partyContactPreference) {
+    Object.assign(partyDetails, prepareContactPreferenceRequest(userCase));
   }
 };
