@@ -4,6 +4,8 @@ export const HOME_URL: PageLink = '/';
 export const HEALTH_URL: PageLink = '/health';
 export const CALLBACK_URL: PageLink = '/receiver';
 export const SIGN_IN_URL: PageLink = '/login';
+export const SIGN_IN_URL_WITH_CALLBACK: PageLink = `${SIGN_IN_URL}?callback={url}`;
+
 export const SIGN_OUT_URL: PageLink = '/logout';
 export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
