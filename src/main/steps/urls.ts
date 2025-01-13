@@ -4,6 +4,8 @@ export const HOME_URL: PageLink = '/';
 export const HEALTH_URL: PageLink = '/health';
 export const CALLBACK_URL: PageLink = '/receiver';
 export const SIGN_IN_URL: PageLink = '/login';
+export const SIGN_IN_URL_WITH_CALLBACK: PageLink = `${SIGN_IN_URL}?callback={url}`;
+
 export const SIGN_OUT_URL: PageLink = '/logout';
 export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
@@ -284,9 +286,6 @@ export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink = '/:root/sa
 export const C1A_CHILD_ABDUCTION_THREATS: PageLink = '/:root/safety-concerns/abduction/threats';
 export const C1A_SAFETY_CONCERNS_REVIEW: PageLink = '/:root/safety-concerns/review';
 
-/** @C100 Document Submission */
-export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
-
 /** @C100 MIAM */
 export const C100_MIAM: PageLink = `${C100_URL}/miam`;
 export const C100_MIAM_OTHER_PROCEEDINGS: PageLink = `${C100_MIAM}/other-proceedings`;
@@ -492,6 +491,13 @@ export const STATEMENT_OF_SERVICE_WHO_WAS_SERVED: PageLink = `${STATEMENT_OF_SER
 export const UPLOAD_STATEMENT_OF_SERVICE: PageLink = `${STATEMENT_OF_SERVICE}/upload/:context/:removeFileId?`;
 export const STATEMENT_OF_SERVICE_REVIEW: PageLink = `${STATEMENT_OF_SERVICE}/review/:context`;
 export const STATEMENT_OF_SERVICE_SUCCESS: PageLink = `${STATEMENT_OF_SERVICE}/success`;
+
+const REFUGE_BASE_URL = 'refuge';
+export const STAYING_IN_REFUGE: PageLink = `/:root/${REFUGE_BASE_URL}/staying-in-refuge/:id?`;
+export const REFUGE_KEEPING_SAFE: PageLink = `/:root/${REFUGE_BASE_URL}/keeping-details-safe/:id?`;
+export const REFUGE_UPLOAD_DOC: PageLink = `/:root/${REFUGE_BASE_URL}/upload-refuge-document/:removeFileId?`;
+export const C100_REFUGE_UPLOAD_DOC: PageLink = `/:root/${REFUGE_BASE_URL}/upload-refuge-document/:id/:removeFileId?`;
+export const REFUGE_DOC_ALREADY_UPLOADED: PageLink = `/:root/${REFUGE_BASE_URL}/refuge-document-already-uploaded/:id?`;
 
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
 export const COMMON_PAGE_URLS = [

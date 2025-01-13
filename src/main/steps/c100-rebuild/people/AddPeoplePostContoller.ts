@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import _ from 'lodash';
 
 import {
   C100RebuildPartyDetails,
@@ -17,12 +18,18 @@ import { getFormFields as getAddOtherPersonFormFields } from '../other-person-de
 import { getFormFields as getAddRespondentsFormFields } from '../respondent-details/add-respondents/content';
 
 import { CaseWithId } from './../../../app/case/case';
-import { cleanChildRelationshipDetails, cleanLiveWithData, getDataShape, transformAddPeople } from './util';
+import {
+  cleanChildRelationshipDetails,
+  cleanLiveWithData,
+  getDataShape,
+  setDynamicFormContext,
+  transformAddPeople,
+} from './util';
 
 type ContextReference = {
   dataReference: string;
   context: PartyType;
-  formRef: (caseData: Partial<CaseWithId>) => FormContent;
+  formRef: (caseData: Partial<CaseWithId>, context: string) => FormContent;
 };
 type FeatureContext = { [key: string]: ContextReference };
 
@@ -90,6 +97,8 @@ export default class AddPersonPostController {
         person => person.id !== removePersonId
       );
 
+      setDynamicFormContext(req, 'remove');
+
       if (context === PartyType.CHILDREN) {
         req.session.userCase = cleanChildRelationshipDetails(req.session.userCase, removePersonId as string);
       }
@@ -101,7 +110,9 @@ export default class AddPersonPostController {
       return this.parent.redirect(req, res, req.originalUrl);
     }
 
-    const form = new Form(formRef(req.session.userCase).fields as FormFields);
+    const form = new Form(
+      formRef(req.session.userCase, _.get(req, 'session.applicationSettings.dynamicForm.context')).fields as FormFields
+    );
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { c100TempFirstName, c100TempLastName, ...rest } = formData;
 
@@ -115,6 +126,8 @@ export default class AddPersonPostController {
 
     if (add) {
       this.tryAddingPerson(fullName, form, formData, req, c100TempFirstName, c100TempLastName);
+      setDynamicFormContext(req, 'add');
+
       return this.parent.redirect(req, res, req.originalUrl);
     } else if (onlycontinue) {
       req.session.userCase[dataReference] = transformAddPeople(context, rest, req.session.userCase[dataReference]);

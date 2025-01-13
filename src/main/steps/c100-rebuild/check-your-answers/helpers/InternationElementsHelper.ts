@@ -3,15 +3,34 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation, translation } from '../mainUtil';
 
-const htmlValParser = (selection, subText, keys,language,istrue) => {
+const htmlValParser = (selection, subText, keys, language, istrue) => {
   selection = selection || HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
-  if(!subText){
-    subText=istrue?HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE:''
+  if (!subText) {
+    subText = istrue ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE : '';
   }
   const addDetails = subText
-    ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.P + subText + HTML.P_CLOSE
+    ? HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT +
+      keys['details'] +
+      HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      subText +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END
     : '';
-  return HTML.P + selection + HTML.P_CLOSE + addDetails;
+  const lastRow = !subText ? HTML.ROW_START_NO_BORDER : HTML.ROW_START;
+  return (
+    HTML.DESCRIPTION_LIST +
+    lastRow +
+    HTML.DESCRIPTION_TERM_DETAIL +
+    selection +
+    HTML.DESCRIPTION_TERM_DETAIL_END +
+    HTML.ROW_END +
+    addDetails +
+    HTML.DESCRIPTION_LIST_END
+  );
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const getValueUrlByKey = (key: string, userCase: any, language: any, Urls: any, keys: any) => {
@@ -40,9 +59,15 @@ const getValueUrlByKey = (key: string, userCase: any, language: any, Urls: any, 
       url = Urls['C100_INTERNATIONAL_ELEMENTS_REQUEST'];
       break;
   }
-  let istrue=caseDataYesNo===YesOrNo.YES
+  const istrue = caseDataYesNo === YesOrNo.YES;
   return {
-    valueHtml: htmlValParser(getYesNoTranslation(language, caseDataYesNo, 'ydyntTranslation'), caseDataDetail, keys,language,istrue),
+    valueHtml: htmlValParser(
+      getYesNoTranslation(language, caseDataYesNo, 'ydyntTranslation'),
+      caseDataDetail,
+      keys,
+      language,
+      istrue
+    ),
     changeUrl: url,
   };
 };

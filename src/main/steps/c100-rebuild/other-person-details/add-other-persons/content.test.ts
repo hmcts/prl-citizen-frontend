@@ -183,7 +183,7 @@ describe('Add other person  > content', () => {
         },
       },
     ];
-    const fieldss = generateFormFields(dummyApplicants).fields as FormFields;
+    const fieldss = generateFormFields(dummyApplicants, '').fields as FormFields;
 
     const { fieldset1: fieldset1 } = fieldss as Record<string, FormFields>;
     const { 'firstName-1': FirstName, 'lastName-1': LastName, remove } = fieldset1.subFields as FormFields;

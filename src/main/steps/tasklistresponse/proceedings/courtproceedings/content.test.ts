@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  section: '',
   title: 'Provide details of court cases you or the children have been involved in',
   select_all_apply:
     'Select all that apply to you or the children. If you have specific details, you will be able to provide that information shortly.',
@@ -39,7 +38,6 @@ const en = {
 };
 
 const cy = {
-  section: '',
   title: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
   select_all_apply:
     "Dewiswch bob un sy'n berthnasol i chi neu'r plant. Os oes gennych fanylion penodol, byddwch yn gallu darparu'r wybodaeth honno yn fuan.",

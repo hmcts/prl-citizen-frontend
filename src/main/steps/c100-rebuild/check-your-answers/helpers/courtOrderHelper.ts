@@ -4,12 +4,12 @@ import { translation } from '../mainUtil';
 
 export const courtOrderSubFieldParser = (userCase, keys, userKey, originalListItem) => {
   if (userCase.hasOwnProperty(userKey)) {
-    let returnAbleString = HTML.NESTED_LIST_ITEM + originalListItem + HTML.LIST_ITEM_END;
+    let returnAbleString = HTML.LIST_ITEM + originalListItem + HTML.LIST_ITEM_END;
     returnAbleString += HTML.UNORDER_LIST;
     returnAbleString += userCase[userKey]
       .filter(field => field !== '')
       .map(item => {
-        return HTML.NESTED_LIST_ITEM + keys[item] + HTML.LIST_ITEM_END;
+        return HTML.LIST_ITEM + keys[item] + HTML.LIST_ITEM_END;
       });
     returnAbleString += HTML.UNORDER_LIST_END;
     return returnAbleString;
@@ -35,7 +35,7 @@ export const courtOrderParentAndChildFieldParser = (userCase, keys, sessionKey) 
   }
 };
 
-export const courtTypeOfOrder = (userCase, keys, sessionKey,language) => {
+export const courtTypeOfOrder = (userCase, keys, sessionKey, language) => {
   if (userCase.hasOwnProperty(sessionKey)) {
     const mappedVals = userCase[sessionKey]
       .filter(val => val !== '')
@@ -52,12 +52,13 @@ export const courtTypeOfOrder = (userCase, keys, sessionKey,language) => {
         }
       });
     return (HTML.UNORDER_LIST + mappedVals + HTML.UNORDER_LIST_END).split(',').join('');
+  } else {
+    return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
   }
-  else return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE
 };
 
-export const courtTypeOfOrderHelper = (userCase, keys, sessionKey,language) => {
-  return courtTypeOfOrder(userCase, keys, sessionKey,language);
+export const courtTypeOfOrderHelper = (userCase, keys, sessionKey, language) => {
+  return courtTypeOfOrder(userCase, keys, sessionKey, language);
 };
 
 export const CourtOrderParserHelper = (userCase, keys, sessionKey) => {

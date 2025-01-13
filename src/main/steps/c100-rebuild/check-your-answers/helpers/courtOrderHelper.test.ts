@@ -22,27 +22,35 @@ describe('courtOrderHelper test case', () => {
   test('courtOrderSubFieldParser functionality testing', () => {
     const data = courtOrderSubFieldParser(userCase, keys, userKey, originalListItem);
     expect(data).toBe(
-      '<li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1"></li><ul><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">test data</li>,<li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">test data</li>,<li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">test data</li></ul>'
+      '<li></li><ul class="govuk-list govuk-list--bullet"><li>test data</li>,<li>test data</li>,<li>test data</li></ul>'
     );
   });
 
   test('courtOrderParentAndChildFieldParser functionality testing', () => {
     const data = courtOrderParentAndChildFieldParser(userCase, keys, userKey);
-    expect(data).toBe('<ul><li>test data</li><li>test data</li><li>test data</li></ul>');
+    expect(data).toBe(
+      '<ul class="govuk-list govuk-list--bullet"><li>test data</li><li>test data</li><li>test data</li></ul>'
+    );
   });
 
   test('courtTypeOfOrderHelper functionality testing', () => {
-    const data = courtTypeOfOrderHelper(userCase, keys, userKey);
-    expect(data).toBe('<ul><li>test data</li><li>test data</li><li>test data</li></ul>');
+    const data = courtTypeOfOrderHelper(userCase, keys, userKey, 'en');
+    expect(data).toBe(
+      '<ul class="govuk-list govuk-list--bullet"><li>test data</li><li>test data</li><li>test data</li></ul>'
+    );
   });
 
   test('CourtOrderParserHelper functionality testing', () => {
     const data = CourtOrderParserHelper(userCase, keys, userKey);
-    expect(data).toBe('<ul><li>test data</li><li>test data</li><li>test data</li></ul>');
+    expect(data).toBe(
+      '<ul class="govuk-list govuk-list--bullet"><li>test data</li><li>test data</li><li>test data</li></ul>'
+    );
   });
 
   test('courtTypeOfOrder functionality testing', () => {
-    const data = courtTypeOfOrder(userCase, keys, userKey);
-    expect(data).toBe('<ul><li>test data</li><li>test data</li><li>test data</li></ul>');
+    const data = courtTypeOfOrder(userCase, keys, userKey, 'en');
+    expect(data).toBe(
+      '<ul class="govuk-list govuk-list--bullet"><li>test data</li><li>test data</li><li>test data</li></ul>'
+    );
   });
 });

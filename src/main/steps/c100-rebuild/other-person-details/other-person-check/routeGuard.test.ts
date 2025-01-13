@@ -4,7 +4,7 @@ import { CaseWithId } from '../../../../app/case/case';
 
 import { routeGuard } from './routeGuard';
 
-describe.skip('c100 > other person details > other person check > route guard', () => {
+describe('c100 > other person details > other person check > route guard', () => {
   let res;
   let req;
   const next = jest.fn();
@@ -216,7 +216,6 @@ describe.skip('c100 > other person details > other person check > route guard', 
           },
         },
       ],
-      oprs_otherPersons: [],
     });
     expect(req.session.save).toHaveBeenCalled();
     expect(next).toHaveBeenCalled();

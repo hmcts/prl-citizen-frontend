@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 //import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
@@ -78,14 +78,6 @@ describe('Consent-Order Upload-should return english content', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
-  });
-
-  test('should contain Consent-Order document upload field', () => {
-    const generatedContent = generateContent(commonContent) as Record<string, never>;
-    const form = generatedContent.form as FormContent;
-    const fields = form.fields as FormFields;
-    const coUploadField = fields.co_upload as FormOptions;
-    expect(coUploadField.type).toBe('hidden');
   });
 
   test('should contain Continue button', () => {
