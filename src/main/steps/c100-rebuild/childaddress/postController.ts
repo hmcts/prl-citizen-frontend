@@ -24,7 +24,8 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
   }
 
   private signoutAndRedirectToMOJ(req: AppRequest, res: Response): void {
-    req.session.destroy(() => res.redirect(getMOJForkingScreenUrl(_.get(req.session, 'testingSupport', false))));
+    const isNonProd = _.get(req.session, 'testingSupport', false);
+    req.session.destroy(() => res.redirect(getMOJForkingScreenUrl(isNonProd)));
   }
 
   private handleError(errors: FormError[] | undefined, errorType: string) {

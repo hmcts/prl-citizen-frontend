@@ -6,6 +6,7 @@ import Negotiator from 'negotiator';
 import { LanguageToggle } from '../../modules/i18n';
 import BreadcrumbController from '../../steps/common/breadcrumb/BreadcrumbController';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
+import { validateRedirectUrl } from '../../steps/common/utils';
 import * as Urls from '../../steps/urls';
 import { CITIZEN_UPDATE } from '../case/definition';
 
@@ -134,7 +135,7 @@ export class GetController {
       if (callback) {
         callback();
       } else {
-        res.redirect(req.url);
+        res.redirect(validateRedirectUrl(Urls, req) ? req.url : Urls.DASHBOARD_URL);
       }
     });
   }

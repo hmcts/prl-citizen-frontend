@@ -43,7 +43,7 @@ export default class DocumentUpload extends GetController {
         if (error) {
           throw error;
         }
-        res.redirect(`${C100_CONSENT_ORDER_UPLOAD}`);
+        res.redirect(C100_CONSENT_ORDER_UPLOAD);
       });
     } catch (err) {
       console.log(err);
