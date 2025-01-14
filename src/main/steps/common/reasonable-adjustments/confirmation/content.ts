@@ -17,10 +17,10 @@ const cy: typeof en = {
   content1: 'What happens next - welsh',
   content2: 'Your support needs have been sent to the court. They’ll be reviewed by HMCTS staff or a judge. - welsh',
   content3: 'We’ll contact you if we need more information or we cannot provide the support you’ve requested. - welsh',
-  content4: 'If your hearing is within 2 days - welsh',
+  content4: 'If your hearing is within 2 dyddiau',
   content5:
     '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Contact the court (opens in a new tab)</a> to request any support you need for the hearing. - welsh',
-  closeAndReturn: 'Close and return to case overview - welsh',
+  closeAndReturn: 'Cau a dychwelyd i drosolwg o’r achos ',
 };
 
 export const languages = {
