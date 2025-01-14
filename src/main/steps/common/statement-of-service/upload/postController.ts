@@ -10,7 +10,7 @@ import { AnyObject, PostController } from '../../../../app/controller/PostContro
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { UPLOAD_STATEMENT_OF_SERVICE } from '../../../../steps/urls';
-import { getUploadedDocumentErrorType, handleError, removeErrors } from '../../utils';
+import { getUploadedDocumentErrorType, handleError, handleUploadDocument, removeErrors } from '../../utils';
 
 @autobind
 export default class SOSUploadDocumentPostController extends PostController<AnyObject> {
@@ -32,12 +32,8 @@ export default class SOSUploadDocumentPostController extends PostController<AnyO
 
     try {
       const client = new CosApiClient(user.accessToken, req.locals.logger);
-      const response = await client.uploadDocument(user, {
-        files: [files?.['statementOfServiceDoc']],
-      });
-
-      if (response.status !== 'Success') {
-        req.session.errors = handleError(req.session.errors, 'uploadError', 'statementOfServiceDoc', true);
+      const response = await handleUploadDocument(client, user, files, req, 'statementOfServiceDoc');
+      if (response === null) {
         return;
       }
 
