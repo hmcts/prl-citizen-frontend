@@ -1,6 +1,7 @@
 import languageAssertions from '../../../test/unit/utils/languageAssertions';
 import { FormContent } from '../../app/form/Form';
 import { CommonContent, generatePageContent } from '../common/common.content';
+import { interpolate } from '../common/string-parser';
 
 import { generateContent } from './content';
 
@@ -10,7 +11,7 @@ const en = {
   title: 'Completing your application',
   paragraphs: [
     'You can complete this application online or by post.',
-    'At the end of the application process you will need to pay a court fee of £232.',
+    'At the end of the application process you will need to pay a court fee of £{feeAmount}.',
     'The payment will be taken at the end of the process, when you submit your application.',
   ],
   helpPayingCourtFeesSubHeading: 'Get help paying court fees',
@@ -26,7 +27,7 @@ const cy = {
   title: 'Cwblhau eich cais',
   paragraphs: [
     'Gallwch gwblhau’r cais hwn ar-lein neu ei anfon drwy’r post.',
-    'Ar ddiwedd y broses gwneud cais bydd angen ichi dalu ffi’r llys o £232.',
+    'Ar ddiwedd y broses gwneud cais bydd angen ichi dalu ffi’r llys o £{feeAmount}.',
     'Fe gymerir y taliad ar ddiwedd y broses, pan fyddwch yn cyflwyno eich cais.',
   ],
   helpPayingCourtFeesSubHeading: 'Help i dalu ffioedd llys',
@@ -39,13 +40,19 @@ const cy = {
 };
 
 describe('complete-your-application-guidance > content', () => {
-  const commonContent = { language: 'en', userCase: {} } as CommonContent;
+  const commonContent = { language: 'en', userCase: { c100ApplicationFees: '232' } } as CommonContent;
   let generatedContent;
   let form;
 
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
+    en.paragraphs[1] = interpolate(en.paragraphs[1], {
+      feeAmount: '232',
+    });
+    cy.paragraphs[1] = interpolate(cy.paragraphs[1], {
+      feeAmount: '232',
+    });
   });
 
   // eslint-disable-next-line jest/expect-expect

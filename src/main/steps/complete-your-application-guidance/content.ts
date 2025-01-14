@@ -1,5 +1,8 @@
+import _ from 'lodash';
+
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
+import { interpolate } from '../../steps/common/string-parser';
 import { getMOJForkingScreenUrl } from '../../steps/urls';
 export * from './routeGuard';
 
@@ -8,7 +11,7 @@ const en = () => ({
   title: 'Completing your application',
   paragraphs: [
     'You can complete this application online or by post.',
-    'At the end of the application process you will need to pay a court fee of £232.',
+    'At the end of the application process you will need to pay a court fee of £{feeAmount}.',
     'The payment will be taken at the end of the process, when you submit your application.',
   ],
   helpPayingCourtFeesSubHeading: 'Get help paying court fees',
@@ -24,7 +27,7 @@ const cy = () => ({
   title: 'Cwblhau eich cais',
   paragraphs: [
     'Gallwch gwblhau’r cais hwn ar-lein neu ei anfon drwy’r post.',
-    'Ar ddiwedd y broses gwneud cais bydd angen ichi dalu ffi’r llys o £232.',
+    'Ar ddiwedd y broses gwneud cais bydd angen ichi dalu ffi’r llys o £{feeAmount}.',
     'Fe gymerir y taliad ar ddiwedd y broses, pan fyddwch yn cyflwyno eich cais.',
   ],
   helpPayingCourtFeesSubHeading: 'Help i dalu ffioedd llys',
@@ -56,6 +59,9 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const testingSupport = content.additionalData?.req?.session?.testingSupport;
+  translations.paragraphs[1] = interpolate(translations.paragraphs[1], {
+    feeAmount: _.get(content, 'userCase.c100ApplicationFees', ''),
+  });
 
   return {
     ...translations,

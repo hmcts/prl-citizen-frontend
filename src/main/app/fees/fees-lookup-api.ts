@@ -7,18 +7,26 @@ import { UserDetails } from '../controller/AppRequest';
 
 export const getC100ApplicationFee = async (
   userDetails: UserDetails,
-  logger: LoggerInstance
+  logger: LoggerInstance,
+  bypassAuth = false
 ): Promise<FeesResponse> => {
   try {
-    const url: string = config.get('services.cos.url') + '/fees-and-payment-apis/getC100ApplicationFees';
+    const headers = {
+      serviceAuthorization: 'Bearer ' + getServiceAuthToken(),
+      'Content-Type': 'application/json',
+    };
+
+    if (!bypassAuth) {
+      Object.assign(headers, { Authorization: 'Bearer ' + userDetails.accessToken });
+    }
+    const url: string = bypassAuth
+      ? config.get('services.cos.url') + '/fees-and-payment-apis/getFee/C100_SUBMISSION_FEE'
+      : config.get('services.cos.url') + '/fees-and-payment-apis/getC100ApplicationFees';
     const response = await axios.get<FeesResponse>(url, {
-      headers: {
-        Authorization: 'Bearer ' + userDetails.accessToken,
-        serviceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        'Content-Type': 'application/json',
-      },
+      headers,
     });
     return response.data;
+    // return { feeAmount: '255', errorRetrievingResponse: undefined } as unknown as FeesResponse;
   } catch (err) {
     logger.error(err.message);
     throw new Error('Error occured, C100 application fee could not be fetched. - getC100ApplicationFee');
