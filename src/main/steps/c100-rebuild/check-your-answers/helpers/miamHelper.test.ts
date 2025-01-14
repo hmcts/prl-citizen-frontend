@@ -102,7 +102,7 @@ describe('Miam Fields parser', () => {
       'en'
     );
     expect(str).toBe(
-      'The police have been involved<ul><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">Evidence that a party in the application has been arrested for a domestic abuse offence</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Can you provide evidence?</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Evidence of domestic abuse</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><ul><li>test_document</li></ul>'
+      '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">The police have been involved<ul class="govuk-list govuk-list--bullet"><li>Evidence that a party in the application has been arrested for a domestic abuse offence</li></ul></dd></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Can you provide evidence?</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Evidence of domestic abuse</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><li>test_document</li></ul></dl>'
     );
   });
 });
@@ -130,7 +130,7 @@ describe('Miam Fields parser - InstanceOfMiamHelper miamExemptionParser', () => 
       })
     ).toStrictEqual({
       listOfReasons:
-        '<ul><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">Domestic abuse</li> <li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">Urgency</li> <li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">Child protection concerns</li> <li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">Previous attendance of a MIAM  or non-court dispute resolution (NCDR)</li> <li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">Other reason</li> <li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">undefined</li></ul>',
+        '<ul class="govuk-list govuk-list--bullet"><li>Domestic abuse</li> <li>Urgency</li> <li>Child protection concerns</li> <li>Previous attendance of a MIAM  or non-court dispute resolution (NCDR)</li> <li>Other reason</li> <li>undefined</li></ul>',
     });
   });
 
@@ -139,7 +139,7 @@ describe('Miam Fields parser - InstanceOfMiamHelper miamExemptionParser', () => 
       miam_nonAttendanceReasons: ['none'],
     };
     expect(MiamHelper.miamExemptionParser(userCase, { ...enContent.keys, noneHead: 'None of these' })).toStrictEqual({
-      listOfReasons: '<ul><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">None of these</li></ul>',
+      listOfReasons: '<ul class="govuk-list govuk-list--bullet"><li>None of these</li></ul>',
     });
   });
 
@@ -220,7 +220,7 @@ describe('Miam Fields parser - InstanceOfMiamHelper miamExemptionParserDynamicEn
         changeUrl: '/c100-rebuild/miam/previous-attendance',
         key: 'What evidence do you have that you previously attended a MIAM or NCDR?',
         valueHtml:
-          'The application would be made in existing proceedings which are continuing and a MIAM exemption applied to the application for those proceedings<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Do you have a document signed by a mediator?</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">No<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Provide details of MIAM attendance</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">test data',
+          '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">The application would be made in existing proceedings which are continuing and a MIAM exemption applied to the application for those proceedings</dd></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Do you have a document signed by a mediator?</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">No</dd></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Provide details of MIAM attendance</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">test data</dd></dl>',
       },
     ]);
   });
@@ -253,7 +253,7 @@ describe('Miam Fields parser - InstanceOfMiamHelper miamExemptionParserDynamicEn
         changeUrl: '/c100-rebuild/miam/previous-attendance',
         key: 'What evidence do you have that you previously attended a MIAM or NCDR?',
         valueHtml:
-          'In the 4 months before making the application, you attended a MIAM or participated in another form of NCDR relating to the same (or substantially the same) dispute<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Evidence of attending a MIAM or NCDR</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">test_document',
+          '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">In the 4 months before making the application, you attended a MIAM or participated in another form of NCDR relating to the same (or substantially the same) dispute</dd></div></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Evidence of attending a MIAM or NCDR</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">test_document</dd></div></dl>',
       },
     ]);
   });
@@ -270,7 +270,7 @@ describe('Miam Fields parser - InstanceOfMiamHelper miamExemptionParserDynamicEn
         changeUrl: '/c100-rebuild/miam/miam-other',
         key: 'What other reason do you have for not attending a MIAM?',
         valueHtml:
-          '<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Why can you not access a mediator?</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">You are unable to attend a MIAM online or by video link because the  mediators contacted are unable to conduct a MIAM within 15 business days of the date of contact.<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Give details of the mediators you’ve contacted</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">test data',
+          '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Why can you not access a mediator?</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">You are unable to attend a MIAM online or by video link because the  mediators contacted are unable to conduct a MIAM within 15 business days of the date of contact.</dt></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Give details of the mediators you’ve contacted</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">test data</dt></div></dl>',
       },
     ]);
   });
@@ -287,7 +287,7 @@ describe('Miam Fields parser - InstanceOfMiamHelper miamExemptionParserDynamicEn
         changeUrl: '/c100-rebuild/miam/miam-other',
         key: 'What other reason do you have for not attending a MIAM?',
         valueHtml:
-          '<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Why can you not access a mediator?</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">You have a disability or other inability that prevents you from attending a MIAM in person online or by video link and the contacted mediators are unable to provide appropriate facilities for you to attend.<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Give details of the mediators you’ve contacted</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">test data',
+          '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Why can you not access a mediator?</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">You have a disability or other inability that prevents you from attending a MIAM in person online or by video link and the contacted mediators are unable to provide appropriate facilities for you to attend.</dt></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Give details of the mediators you’ve contacted</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">test data</dt></div></dl>',
       },
     ]);
   });
@@ -304,7 +304,7 @@ describe('Miam Fields parser - InstanceOfMiamHelper miamExemptionParserDynamicEn
         changeUrl: '/c100-rebuild/miam/miam-other',
         key: 'What other reason do you have for not attending a MIAM?',
         valueHtml:
-          '<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Why can you not access a mediator?</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">There is no mediator within 15 miles of your home and you cannot attend the MIAM online or by video link.<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><b>Give details of the mediators you’ve contacted</b><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">test data',
+          '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Why can you not access a mediator?</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">There is no mediator within 15 miles of your home and you cannot attend the MIAM online or by video link.</dt></div><div class="govuk-summary-list__row"><dt class="govuk-summary-list__key">Give details of the mediators you’ve contacted</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">test data</dt></div></dl>',
       },
     ]);
   });

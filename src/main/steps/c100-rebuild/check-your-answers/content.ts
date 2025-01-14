@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
-import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout, RootContext, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
@@ -47,7 +47,7 @@ import { childDetailsContents } from './util/childDetails.util';
 import { hearingDetailsContents } from './util/hearingwithout.util';
 import { HelpWithFeeContent } from './util/helpWithFee.util';
 import { MiamFieldsLoader } from './util/miam.util';
-import { otherProceedingsContents } from './util/otherProceeding.util';
+import { otherProceedingsContents } from '../../common/otherProceeding/utils';
 import { ReasonableAdjustmentElement } from './util/reasonableAdjustmentContent.util';
 import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
@@ -89,6 +89,7 @@ export const enContent = {
   telephone_number: 'Telephone number',
   dont_know_email_address: 'I dont know their email address',
   dont_know_telephone: 'I dont know their telephone number',
+  dontKnow: "Don't know",
   completeSectionError: 'Complete this section',
   StatementOfTruth: {
     title: 'Statement of Truth',
@@ -206,6 +207,7 @@ export const enContent = {
     releaseFromPrisonOnLicence:
       'You have been released from prison on licence, and you have a non-contact licence condition which includes someone who is a party to the application',
     noneOfTheAbove: 'None of these',
+    applicantLabel: 'Applicant',
   },
 };
 export const cyContent = {
@@ -351,6 +353,7 @@ export const cyContent = {
     releaseFromPrisonOnLicence:
       'Rydych wedi cael eich rhyddhau o’r carchar ar drwydded, ac mae gennych amod dim cysylltu ar eich trwydded sy’n cynnwys rhywun sy’n barti i’r cais',
     noneOfTheAbove: 'Dim un o’r rhain',
+    applicantLabel: 'Ceisydd',
   },
   yesNo: {
     ydynTranslation: {
@@ -461,7 +464,9 @@ export const sectionCountFormatter = sections => {
   sections = sections.map(section => {
     const { title } = section;
     if (title?.includes('[^^sectionNo^^]')) {
-      section['title'] = title.split('[^^sectionNo^^]').join(sectionCount);
+      section['title'] = title
+        .split('[^^sectionNo^^].')
+        .join(`<span class="app-task-list__section-number">${sectionCount}.</span>`);
       sectionCount++;
     }
     return section;
@@ -696,7 +701,7 @@ export const generateContent: TranslationFn = content => {
   newContents['keys'] = {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
-    ...otherProceedingsContents(content['language']),
+    ...otherProceedingsContents(content['language'], RootContext.C100_REBUILD),
     ...hearingDetailsContents(content['language']),
     ...typeOfCourtOrderContents(content['language']),
     ...hearingDetailsContents(content['language']),
@@ -713,12 +718,12 @@ export const generateContent: TranslationFn = content => {
 
   form.fields['statementOftruthHeading'] = {
     type: 'textAndHtml',
-    textAndHtml: `${HTML.H1}${newContents.StatementOfTruth['title']} ${HTML.H1_CLOSE}`,
+    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${newContents.StatementOfTruth['title']} ${HTML.H2_CLOSE}`,
   };
 
   form.fields['statementOftruthSubHeading'] = {
     type: 'textAndHtml',
-    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_H2}${newContents.StatementOfTruth['heading']} ${HTML.STATEMENT_OF_TRUTH_H2_CLOSE}`,
+    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_H3}${newContents.StatementOfTruth['heading']} ${HTML.H3_CLOSE}`,
   };
 
   form.fields['statementOftruthWarning'] = {

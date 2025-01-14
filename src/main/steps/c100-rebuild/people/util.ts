@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from 'uuid';
 
+import { CaseWithId } from '../../../app/case/case';
 import {
   C100Applicant,
   C100RebuildPartyDetails,
@@ -8,10 +9,12 @@ import {
   Gender,
   OtherChildrenDetails,
   PartyType,
+  RelationshipType,
   YesNoDontKnow,
   YesNoEmpty,
   YesOrNo,
 } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 
 export type People = ChildrenDetails | OtherChildrenDetails | C100RebuildPartyDetails | C100Applicant;
 
@@ -137,7 +140,10 @@ export const transformPartyDetails = (
     if (fieldName in formData && !(fieldName in transformedData)) {
       if (
         (fieldName === 'approxDateOfBirth' && formData.isDateOfBirthUnknown !== YesNoEmpty.YES) ||
-        (fieldName === 'otherGenderDetails' && formData.gender !== Gender.OTHER)
+        (fieldName === 'otherGenderDetails' && formData.gender !== Gender.OTHER) ||
+        (fieldName === 'provideDetailsOfPreviousAddresses' && formData.addressHistory !== YesNoDontKnow.yes) ||
+        (fieldName === 'previousFullName' && formData.hasNameChanged !== YesNoDontKnow.yes) ||
+        (fieldName === 'respondentPlaceOfBirth' && formData.respondentPlaceOfBirthUnknown === YesOrNo.YES)
       ) {
         formData[fieldName] = defaultValue;
       }
@@ -154,4 +160,60 @@ export const dobUnknown = (formData: Record<string, any>): string => {
       ? 'cannotHaveBothApproxAndExact'
       : '';
   return formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '';
+};
+
+export const setDynamicFormContext = (req: AppRequest, context: string): void => {
+  req.session.applicationSettings = {
+    ...req.session.applicationSettings,
+    dynamicForm: {
+      context,
+    },
+  };
+  setTimeout(() => {
+    delete req.session?.applicationSettings?.dynamicForm;
+    req.session.save();
+  }, 5000);
+};
+
+export const cleanLiveWithData = (caseData: CaseWithId, id: string): CaseWithId => {
+  caseData?.cd_children?.forEach(child => {
+    if (child.mainlyLiveWith?.id === id) {
+      delete child.mainlyLiveWith;
+    }
+    child.liveWith = child.liveWith?.filter(liveWith => liveWith.id !== id);
+  });
+
+  return caseData;
+};
+
+export const cleanChildRelationshipDetails = (caseData: CaseWithId, id: string): CaseWithId => {
+  caseData?.appl_allApplicants?.forEach(applicant => {
+    if (applicant.relationshipDetails) {
+      applicant.relationshipDetails.relationshipToChildren =
+        applicant.relationshipDetails?.relationshipToChildren.filter(relationship => relationship.childId !== id);
+    }
+  });
+
+  caseData?.resp_Respondents?.forEach(respondent => {
+    if (respondent.relationshipDetails) {
+      respondent.relationshipDetails.relationshipToChildren =
+        respondent.relationshipDetails?.relationshipToChildren.filter(relationship => relationship.childId !== id);
+    }
+  });
+
+  caseData?.oprs_otherPersons?.forEach(otherPerson => {
+    if (otherPerson.relationshipDetails) {
+      otherPerson.relationshipDetails.relationshipToChildren =
+        otherPerson.relationshipDetails?.relationshipToChildren.filter(relationship => relationship.childId !== id);
+    }
+  });
+
+  return caseData;
+};
+
+export const cleanOtherRelationshipDetails = (
+  relationshipType: RelationshipType,
+  otherRelationshipTypeDetails: string
+): string => {
+  return relationshipType !== RelationshipType.OTHER ? '' : otherRelationshipTypeDetails;
 };

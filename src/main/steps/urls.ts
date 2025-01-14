@@ -4,6 +4,8 @@ export const HOME_URL: PageLink = '/';
 export const HEALTH_URL: PageLink = '/health';
 export const CALLBACK_URL: PageLink = '/receiver';
 export const SIGN_IN_URL: PageLink = '/login';
+export const SIGN_IN_URL_WITH_CALLBACK: PageLink = `${SIGN_IN_URL}?callback={url}`;
+
 export const SIGN_OUT_URL: PageLink = '/logout';
 export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
@@ -283,9 +285,6 @@ export const C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS: PageLink = '/:root/safety-
 export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink = '/:root/safety-concerns/abduction/child-location';
 export const C1A_CHILD_ABDUCTION_THREATS: PageLink = '/:root/safety-concerns/abduction/threats';
 export const C1A_SAFETY_CONCERNS_REVIEW: PageLink = '/:root/safety-concerns/review';
-
-/** @C100 Document Submission */
-export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
 
 /** @C100 MIAM */
 export const C100_MIAM: PageLink = `${C100_URL}/miam`;

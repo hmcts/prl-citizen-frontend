@@ -77,11 +77,7 @@
 
     <div class="govuk-grid-column-one-third">
       {% block page_contact_us %}
-        {%if userCase.caseTypeOfApplication === "FL401" %}
-          {% include "./contact-us.njk" %}
-        {% else %}
-          {% include "./contact-us-c100.njk" %}
-        {% endif %}
+        {% include "./contact-us.njk" %}
       {% endblock %}
     </div>
   </div>

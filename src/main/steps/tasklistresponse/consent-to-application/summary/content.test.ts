@@ -7,8 +7,8 @@ import { generateContent } from './content';
 
 // eslint-disable-next-line jest/no-export
 export const enContent = {
-  section: 'Check your answers',
-  title: 'Your consent to the application',
+  title: 'Check your answers',
+  subTitle: 'Your consent to the application',
   sectionTitles: {
     consentDetails: '',
   },
@@ -22,8 +22,8 @@ export const enContent = {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Gwirio eich atebion',
-  title: 'Cydsynio i’r cais',
+  title: 'Gwirio eich atebion',
+  subTitle: 'Cydsynio i’r cais',
   sectionTitles: {
     consentDetails: '',
   },
@@ -51,8 +51,8 @@ describe('citizen-home content', () => {
   });
   test('should return correct english content', () => {
     generatedContent = generateContent(commonContent);
-    expect(generatedContent.section).toEqual(enContent.section);
     expect(generatedContent.title).toEqual(enContent.title);
+    expect(generatedContent.subTitle).toEqual(enContent.subTitle);
     expect(generatedContent.keys).toEqual(enContent.keys);
   });
 
@@ -61,7 +61,7 @@ describe('citizen-home content', () => {
       ...commonContent,
       language: 'cy',
     });
-    expect(generatedContent.section).toEqual(cyContent.section);
+    expect(generatedContent.subTitle).toEqual(cyContent.subTitle);
     expect(generatedContent.title).toEqual(cyContent.title);
     expect(generatedContent.keys).toEqual(cyContent.keys);
   });

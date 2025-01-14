@@ -1,4 +1,6 @@
-import { CaseDate } from '../../../../app/case/case';
+import _ from 'lodash';
+
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import {
   ProceedingsOrderInterface,
   ProceedingsOrderTypeKeyMapper,
@@ -6,7 +8,7 @@ import {
   YesNoEmpty,
 } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
+import { FormContent, FormInput, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
 import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
 export * from './routeGuard';
@@ -121,7 +123,8 @@ const languages = {
 
 export const generateFormFields = (
   orderType: ProceedingsOrderTypes,
-  orders: ProceedingsOrderInterface[]
+  orders: ProceedingsOrderInterface[],
+  context: string | undefined
 ): GenerateDynamicFormFields => {
   const fields = {};
   const errors = {
@@ -132,7 +135,7 @@ export const generateFormFields = (
   for (let index = 0; index < orders.length; index++) {
     const count = index + 1;
     const key = `fieldset${count}`;
-    fields[key] = createFormFileds(count, orderType, orders, index);
+    fields[key] = createFormFileds(count, orderType, orders, index, context);
     // mark the selection for the radio buttons based on the option chosen
     const currentOrder = fields[key].subFields[`currentOrder-${count}`];
     const orderCopy = fields[key].subFields[`orderCopy-${count}`];
@@ -212,8 +215,18 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updatedForm;
+export const getFormFields = (
+  caseData: Partial<CaseWithId>,
+  orderType: ProceedingsOrderTypes,
+  context: string
+): FormContent => {
+  const orderSessionData = caseData?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[orderType]];
+
+  return updateFormFields(
+    form,
+    generateFormFields(orderType, !orderSessionData?.length ? [getOrderSessionDataShape()] : orderSessionData, context)
+      .fields
+  );
 };
 
 export const generateContent: TranslationFn = content => {
@@ -222,7 +235,8 @@ export const generateContent: TranslationFn = content => {
   const orderSessionData = content?.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[orderType]];
   const { fields, errors } = generateFormFields(
     orderType,
-    !orderSessionData?.length ? [getOrderSessionDataShape()] : orderSessionData
+    !orderSessionData?.length ? [getOrderSessionDataShape()] : orderSessionData,
+    _.get(content, 'additionalData.req.session.applicationSettings.dynamicForm.context')
   );
   // ammend the existing translation with updated error field messages
   translations.errors = {
@@ -240,8 +254,21 @@ const createFormFileds = (
   count: number,
   orderType: ProceedingsOrderTypes,
   orders: ProceedingsOrderInterface[],
-  index: number
+  index: number,
+  context: string | undefined
 ) => {
+  const orderDetailFieldConfig: FormInput = {
+    type: 'text',
+    label: l => l.courtIssuedLabel,
+    labelSize: 's',
+  };
+
+  if (context === 'add' && count === orders.length) {
+    orderDetailFieldConfig['attributes'] = {
+      autofocus: true,
+    };
+  }
+
   return {
     type: 'fieldset',
     label: l => {
@@ -250,10 +277,8 @@ const createFormFileds = (
     classes: 'govuk-fieldset__legend--m',
     subFields: {
       [`orderDetail-${count}`]: {
-        type: 'text',
+        ...orderDetailFieldConfig,
         value: orders[index].orderDetail,
-        label: l => l.courtIssuedLabel,
-        labelSize: 's',
       },
       [`caseNo-${count}`]: {
         type: 'text',
@@ -314,9 +339,6 @@ const createFormFileds = (
             label: l => l.no,
             value: YesNoEmpty.NO,
           },
-          {
-            value: YesNoEmpty.EMPTY,
-          },
         ],
       },
       [`orderEndDate-${count}`]: {
@@ -369,9 +391,6 @@ const createFormFileds = (
           {
             label: l => l.no,
             value: YesNoEmpty.NO,
-          },
-          {
-            value: YesNoEmpty.EMPTY,
           },
         ],
       },

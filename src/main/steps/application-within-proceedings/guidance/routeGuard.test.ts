@@ -97,6 +97,24 @@ describe('AWP RouteGuard', () => {
     expect(next).toHaveBeenCalled();
   });
 
+  test('Should render the page when the guard validation fails', async () => {
+    req.session.applicationSettings = {
+      awpSelectedApplicationDetails: {
+        language: 'en',
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+        applicationFeeAmount: undefined,
+      },
+    };
+    req.session.userCase.awpFeeDetails = undefined;
+    req.params.applicationType = 'C3';
+    mockedAxios.post.mockReturnValueOnce({ data: feeDetails } as unknown as Promise<FeeDetailsResponse>);
+    const res = mockResponse();
+    const next = jest.fn();
+    await routeGuard.get(req, res, next);
+    expect(next).toHaveBeenCalled();
+  });
+
   test('Should redirect to original url if error with fetching fee details', async () => {
     req.session.applicationSettings = {
       awpSelectedApplicationDetails: {
@@ -118,14 +136,6 @@ describe('AWP RouteGuard', () => {
 
     expect(res.redirect).toHaveBeenCalledWith('/applicant/application-within-proceedings/list-of-applications/1');
     expect(next).not.toHaveBeenCalled();
-  });
-
-  test.skip('Should render the page when the guard validation fails', async () => {
-    req.params.applicationType = 'C3';
-    const res = mockResponse();
-    const next = jest.fn();
-    await routeGuard.get(req, res, next);
-    expect(next).toHaveBeenCalled();
   });
 
   test('Should redirect to original url when error happens', async () => {
