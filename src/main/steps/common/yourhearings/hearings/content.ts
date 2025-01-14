@@ -70,7 +70,7 @@ export const cy = {
   dates: 'Dyddiadau',
   hearingLength: 'Hyd y gwrandawiad',
   hearingMethod: 'Math o wrandawiad',
-  day: 'Diwrnod',
+  day: 'Diwrnod ',
   days: 'dyddiau',
   judgeName: 'Enw’r barnwr',
   venue: 'Lleoliad',

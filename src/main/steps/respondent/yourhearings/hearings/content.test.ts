@@ -56,7 +56,7 @@ const cyContent: typeof enContent = {
   dates: 'Dyddiadau',
   hearingLength: 'Hyd y gwrandawiad',
   hearingMethod: 'Math o wrandawiad',
-  day: 'Diwrnod',
+  day: 'Diwrnod ',
   judgeName: 'Enw’r barnwr',
   venue: 'Lleoliad',
   address: 'Cyfeiriad',
