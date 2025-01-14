@@ -9,7 +9,11 @@ import { DocumentUploadResponse } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../app/form/validation';
+import {
+  isExceedingMaxDocuments,
+  isFileSizeGreaterThanMaxAllowed,
+  isValidFileFormat,
+} from '../../../app/form/validation';
 import { applyParms } from '../../../steps/common/url-parser';
 import { APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD } from '../../../steps/urls';
 
@@ -101,6 +105,18 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       this.handleError(req, res, {
         propertyName: isSupportingDocuments ? 'awpUploadSupportingDocuments' : 'awpUploadApplicationForm',
         errorType: 'required',
+      });
+    } else if (
+      isExceedingMaxDocuments(
+        isSupportingDocuments
+          ? req.session.userCase.awp_supportingDocuments?.length
+          : req.session.userCase.awp_uploadedApplicationForms?.length,
+        isSupportingDocuments ? 'SUPPORT_DOCUMENTS' : 'DEFAULT'
+      )
+    ) {
+      this.handleError(req, res, {
+        propertyName: isSupportingDocuments ? 'awpUploadSupportingDocuments' : 'awpUploadApplicationForm',
+        errorType: 'maxDocumentsReached',
       });
     } else if (!isValidFileFormat({ documents: uploadedDocuments })) {
       this.handleError(req, res, {

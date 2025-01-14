@@ -360,6 +360,89 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       ]);
     });
+
+    test('should not set error when not exceeding max documents', async () => {
+      const req = mockRequest({
+        body: {
+          uploadFile: true,
+          documentDataRef: 'documentDataRef',
+          redirectUrl: '/some-redirect-url',
+        },
+        params: {
+          docCategory: 'your-position-statements',
+        },
+        session: {
+          user: { id: '1234' },
+          userCase: {
+            id: '1234',
+            caseType: 'FL401',
+            applicantsFL401: {
+              firstName: 'test',
+              lastName: 'user',
+            },
+            documentDataRef: new Array(18).fill({}),
+          },
+        },
+      });
+      req.files = {
+        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+      };
+      uploadDocumentListFromCitizenMock.mockResolvedValue({
+        status: 'Success',
+        document: {
+          document_url: 'test/1234',
+          document_binary_url: 'binary/test/1234',
+          document_filename: 'test_document',
+          document_hash: '1234',
+          document_creation_date: '1/1/2024',
+        },
+      });
+      const res = mockResponse();
+
+      const controller = new UploadDocumentPostController({});
+      await controller.post(req, res);
+      await new Promise(process.nextTick);
+      expect(req.session.errors).toStrictEqual([]);
+
+      expect(res.redirect).not.toHaveBeenCalledWith('/some-redirect-url');
+    });
+
+    test('should  set error when  exceeding max documents', async () => {
+      const req = mockRequest({
+        body: {
+          uploadFile: true,
+        },
+        params: {
+          docCategory: 'your-position-statements',
+        },
+        session: {
+          user: { id: '1234' },
+          userCase: {
+            id: '1234',
+            caseType: 'FL401',
+            applicantsFL401: {
+              firstName: 'test',
+              lastName: 'user',
+            },
+            applicantUploadFiles: new Array(21).fill({}),
+          },
+        },
+      });
+      req.files = {
+        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+      };
+      const res = mockResponse();
+      const controller = new UploadDocumentPostController({});
+
+      await controller.post(req, res);
+      await new Promise(process.nextTick);
+      expect(req.session.errors).toStrictEqual([
+        {
+          errorType: 'maxDocumentsReached',
+          propertyName: 'uploadDocumentFileUpload',
+        },
+      ]);
+    });
   });
 
   describe('submitDocuments', () => {
