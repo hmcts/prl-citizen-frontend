@@ -206,5 +206,5 @@
     "serve-static": "1.16.2",
     "cross-spawn": "7.0.6"
   },
-  "packageManager": "yarn@3.8.5"
+  "packageManager": "yarn@3.8.7"
 }
