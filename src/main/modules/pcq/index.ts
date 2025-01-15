@@ -143,7 +143,7 @@ export class PcqProvider {
   }
 
   getReturnUrl(req: AppRequest, partyType: string, context: string): string {
-    return `${req.protocol}://${req.get('host')}${applyParms(PCQ_CALLBACK_URL, {
+    return `${req.get('host')}${applyParms(PCQ_CALLBACK_URL, {
       partyType,
       context,
     })}`;
