@@ -29,7 +29,7 @@ nodejs:
     ENABLE_CASE_TRAIN_TRACK: false
     ENABLE_RA_COMPONENT: false
     ENABLE_PCQ_COMPONENT: false
-    ALLOWED_COURTS: Swansea Civil Justice Centre
+    ALLOWED_COURTS: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre
   keyVaults:
     prl:
       resourceGroup: prl
