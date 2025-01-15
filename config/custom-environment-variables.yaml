@@ -27,7 +27,7 @@ services:
     url: EQUALITY_URL
     tokenKey: PCQ_TOKEN
     path: '/service-endpoint'
-  fact:git pu
+  fact:
     url: FACT_URL
   reasonableAdjustments:
     url: REASONABLE_ADJUSTMENTS
