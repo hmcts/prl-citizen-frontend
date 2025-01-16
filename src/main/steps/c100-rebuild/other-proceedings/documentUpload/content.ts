@@ -101,14 +101,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    documentUploadProceed: {
-      type: 'hidden',
-      label: l => l.uploadDocumentFileUpload,
-      labelHidden: true,
-      value: 'true',
-    },
-  },
+  fields: {},
   submit: {
     text: l => l.onlycontinue,
   },

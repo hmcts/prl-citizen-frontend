@@ -129,7 +129,7 @@ describe('other proceedings > order-details > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(ProceedingsOrderTypes.CARE_ORDER, [getOrderSessionDataShape()]);
+    const { errors } = generateFormFields(ProceedingsOrderTypes.CARE_ORDER, [getOrderSessionDataShape()], '');
     languageAssertions(
       'en',
       {
@@ -145,9 +145,11 @@ describe('other proceedings > order-details > content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(ProceedingsOrderTypes.EMERGENCY_PROTECTION_ORDER, [
-      getOrderSessionDataShape(),
-    ]);
+    const { errors } = generateFormFields(
+      ProceedingsOrderTypes.EMERGENCY_PROTECTION_ORDER,
+      [getOrderSessionDataShape()],
+      ''
+    );
     languageAssertions(
       'cy',
       {

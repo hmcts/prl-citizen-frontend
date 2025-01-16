@@ -13,6 +13,7 @@ import {
   C100_APPLICANT_ADD_APPLICANTS,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
 } from '../../../urls';
+import { setDynamicFormContext } from '../../people/util';
 // eslint-disable-next-line import/no-unresolved
 
 @autobind
@@ -71,6 +72,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       this.addAnotherApplicant(req);
       this.resetSessionTemporaryFormValues(req);
     }
+    setDynamicFormContext(req, 'add');
     return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
   }
 
@@ -168,12 +170,12 @@ export default class AddApplicantPostController extends PostController<AnyObject
         applicantPlaceOfBirth: '',
       },
       applicantContactDetail: {
-        canProvideEmail: YesNoEmpty.EMPTY,
+        canProvideEmail: null,
         emailAddress: '',
-        canProvideTelephoneNumber: YesNoEmpty.EMPTY,
+        canProvideTelephoneNumber: null,
         telephoneNumber: '',
         canNotProvideTelephoneNumberReason: '',
-        canLeaveVoiceMail: YesNoEmpty.EMPTY,
+        canLeaveVoiceMail: null,
       },
       reasonableAdjustmentsFlags: [],
     } as C100Applicant;

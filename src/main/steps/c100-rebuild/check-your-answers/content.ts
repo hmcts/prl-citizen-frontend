@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
-import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout, RootContext, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
@@ -48,7 +48,7 @@ import { childDetailsContents } from './util/childDetails.util';
 import { hearingDetailsContents } from './util/hearingwithout.util';
 import { HelpWithFeeContent } from './util/helpWithFee.util';
 import { MiamFieldsLoader } from './util/miam.util';
-import { otherProceedingsContents } from './util/otherProceeding.util';
+import { otherProceedingsContents } from '../../common/otherProceeding/utils';
 import { ReasonableAdjustmentElement } from './util/reasonableAdjustmentContent.util';
 import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
@@ -93,6 +93,7 @@ export const enContent = {
   telephone_number: 'Telephone number',
   dont_know_email_address: 'I dont know their email address',
   dont_know_telephone: 'I dont know their telephone number',
+  dontKnow: "Don't know",
   completeSectionError: 'Complete this section',
   StatementOfTruth: {
     title: 'Statement of Truth',
@@ -119,6 +120,9 @@ export const enContent = {
       defaultPaymentError: 'Your application is not submitted. Please try again',
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application',
       paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
+    },
+    refugeDocumentText: {
+      required: 'You must upload a C8 document',
     },
     otherPersonConfidentiality: {
       required: 'Select yes if you want to keep {firstName} {lastName}’s details private',
@@ -183,6 +187,8 @@ export const enContent = {
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
+    refuge: 'Living in refuge',
+    c8RefugeDocument: 'C8 refuge document',
     doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
     courtOrderPrevent:
       'There is a court order preventing me from making an application without first getting the permission of the court',
@@ -211,6 +217,7 @@ export const enContent = {
     releaseFromPrisonOnLicence:
       'You have been released from prison on licence, and you have a non-contact licence condition which includes someone who is a party to the application',
     noneOfTheAbove: 'None of these',
+    applicantLabel: 'Applicant',
   },
 };
 export const cyContent = {
@@ -266,6 +273,9 @@ export const cyContent = {
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application (welsh)',
       paymentUnsuccessful:
         'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
+    },
+    refugeDocumentText: {
+      required: 'Mae’n rhaid i chi uwchlwytho dogfen C8',
     },
     otherPersonConfidentiality: {
       required: 'Dewiswch ydw os ydych eisiau cadw {firstName} {lastName} manylion yn gyfrinachol',
@@ -330,6 +340,8 @@ export const cyContent = {
     otherPerson: 'Rhywun arall',
     contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
     addressDetails: 'Manylion cyfeiriad',
+    refuge: 'Byw mewn lloches',
+    c8RefugeDocument: 'Dogfen lloches C8',
     doNotHaveParentalResponsibility: 'Nid oes gennyf gyfrifoldeb rhiant dros y plant',
     courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',
     anotherReason: 'Rheswm arall',
@@ -357,6 +369,7 @@ export const cyContent = {
     releaseFromPrisonOnLicence:
       'Rydych wedi cael eich rhyddhau o’r carchar ar drwydded, ac mae gennych amod dim cysylltu ar eich trwydded sy’n cynnwys rhywun sy’n barti i’r cais',
     noneOfTheAbove: 'Dim un o’r rhain',
+    applicantLabel: 'Ceisydd',
   },
   yesNo: {
     ydynTranslation: {
@@ -467,7 +480,9 @@ export const sectionCountFormatter = sections => {
   sections = sections.map(section => {
     const { title } = section;
     if (title?.includes('[^^sectionNo^^]')) {
-      section['title'] = title.split('[^^sectionNo^^]').join(sectionCount);
+      section['title'] = title
+        .split('[^^sectionNo^^].')
+        .join(`<span class="app-task-list__section-number">${sectionCount}.</span>`);
       sectionCount++;
     }
     return section;
@@ -709,7 +724,7 @@ export const generateContent: TranslationFn = content => {
   newContents['keys'] = {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
-    ...otherProceedingsContents(content['language']),
+    ...otherProceedingsContents(content['language'], RootContext.C100_REBUILD),
     ...hearingDetailsContents(content['language']),
     ...typeOfCourtOrderContents(content['language']),
     ...hearingDetailsContents(content['language']),
@@ -726,12 +741,12 @@ export const generateContent: TranslationFn = content => {
 
   form.fields['statementOftruthHeading'] = {
     type: 'textAndHtml',
-    textAndHtml: `${HTML.H1}${newContents.StatementOfTruth['title']} ${HTML.H1_CLOSE}`,
+    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${newContents.StatementOfTruth['title']} ${HTML.H2_CLOSE}`,
   };
 
   form.fields['statementOftruthSubHeading'] = {
     type: 'textAndHtml',
-    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_H2}${newContents.StatementOfTruth['heading']} ${HTML.STATEMENT_OF_TRUTH_H2_CLOSE}`,
+    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_H3}${newContents.StatementOfTruth['heading']} ${HTML.H3_CLOSE}`,
   };
 
   form.fields['statementOftruthWarning'] = {
@@ -758,9 +773,16 @@ export const generateContent: TranslationFn = content => {
     };
   }
   form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!);
+  const refugeErrors = {};
   const otherPersonConfidentialityErrors = {};
+  content.userCase?.appl_allApplicants?.forEach(applicant => {
+    refugeErrors[`c8RefugeDocument-applicant-${content.userCase?.appl_allApplicants?.indexOf(applicant)}`] =
+      translations.errors.refugeDocumentText;
+  });
 
   content.userCase?.oprs_otherPersons?.forEach(otherPerson => {
+    refugeErrors[`c8RefugeDocument-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`] =
+      translations.errors.refugeDocumentText;
     otherPersonConfidentialityErrors[
       `otherPersonConfidentiality-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`
     ] = {
@@ -776,6 +798,7 @@ export const generateContent: TranslationFn = content => {
     form,
     errors: {
       ...translations.errors,
+      ...refugeErrors,
       ...otherPersonConfidentialityErrors,
     },
   };

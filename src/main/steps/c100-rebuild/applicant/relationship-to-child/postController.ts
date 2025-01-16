@@ -6,6 +6,7 @@ import { C100Applicant } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { cleanOtherRelationshipDetails } from '../../../c100-rebuild/people/util';
 import { getApplicantDetails, updateApplicantDetails } from '../util';
 
 import { getFormFields } from './content';
@@ -28,6 +29,8 @@ export default class ApplicantRelationshipToChildPostController extends PostCont
       applicantId
     ) as C100Applicant;
 
+    const otherRelationshipDetails = cleanOtherRelationshipDetails(relationshipType, otherRelationshipTypeDetails);
+
     if (applicantDetails.relationshipDetails!.relationshipToChildren.length) {
       const matchingChildRelationshipIndex = applicantDetails.relationshipDetails!.relationshipToChildren.findIndex(
         relationshipToChildObject => relationshipToChildObject.childId === childId
@@ -37,13 +40,13 @@ export default class ApplicantRelationshipToChildPostController extends PostCont
         applicantDetails.relationshipDetails!.relationshipToChildren[matchingChildRelationshipIndex] = {
           childId,
           relationshipType,
-          otherRelationshipTypeDetails,
+          otherRelationshipTypeDetails: otherRelationshipDetails,
         };
       } else {
-        pushRelationshipDataToRespondent(applicantDetails, childId, relationshipType, otherRelationshipTypeDetails);
+        pushRelationshipDataToRespondent(applicantDetails, childId, relationshipType, otherRelationshipDetails);
       }
     } else {
-      pushRelationshipDataToRespondent(applicantDetails, childId, relationshipType, otherRelationshipTypeDetails);
+      pushRelationshipDataToRespondent(applicantDetails, childId, relationshipType, otherRelationshipDetails);
     }
 
     req.session.userCase.appl_allApplicants = updateApplicantDetails(

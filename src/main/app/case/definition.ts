@@ -113,6 +113,8 @@ export interface PartyDetails {
   contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
   partyId: string;
+  liveInRefuge: YesOrNo;
+  refugeConfidentialityC8Form?: Document | null;
 }
 
 export interface User {
@@ -672,6 +674,8 @@ export type C100Applicant = {
   applicantAddressTown?: string;
   applicantAddressCounty?: string;
   country?: string;
+  liveInRefuge?: YesOrNo;
+  refugeConfidentialityC8Form?: Document;
   applicantAddressHistory?: YesOrNo;
   applicantProvideDetailsOfPreviousAddresses?: string;
   personalDetails: {
@@ -696,12 +700,12 @@ export interface RelationshipToChildren {
 }
 
 export interface ContactDetail {
-  canProvideEmail?: YesNoEmpty;
+  canProvideEmail?: YesOrNo | null;
   emailAddress?: string;
-  canProvideTelephoneNumber?: YesNoEmpty;
+  canProvideTelephoneNumber?: YesOrNo | null;
   telephoneNumber?: string;
   canNotProvideTelephoneNumberReason?: string;
-  canLeaveVoiceMail?: YesNoEmpty;
+  canLeaveVoiceMail?: YesOrNo | null;
   applicantContactPreferences?: string;
 }
 
@@ -1848,7 +1852,6 @@ export const enum State {
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',
   ConditionalOrderRefused = 'ConditionalOrderRefused',
   Disputed = 'Disputed',
-  Draft = 'Draft',
   FinalOrderComplete = 'FinalOrderComplete',
   IssuedToBailiff = 'IssuedToBailiff',
   AwaitingPronouncement = 'AwaitingPronouncement',
@@ -2615,6 +2618,11 @@ export const C100OrderTypeKeyMapper = {
 };
 export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'tif', 'tiff', 'pdf', 'doc', 'docx'];
 export const C100MaxFileSize = '20000000';
+export const MAX_DOCUMENT_LIMITS = {
+  SUPPORT_DOCUMENTS: 100,
+  DEFAULT: 20,
+  OTHER_DOCUMENTS: 100
+};
 export interface C100OrderTypeInterface {
   childArrangementOrders?: C100OrderInterface[];
   emergencyProtectionOrders?: C100OrderInterface[];
@@ -2767,6 +2775,8 @@ export type C100RebuildPartyDetails = {
     donKnowTelephoneNumber?: YesOrNo;
   };
   addressUnknown?: YesOrNo;
+  liveInRefuge?: YesOrNo;
+  refugeConfidentialityC8Form?: Document;
   isOtherPersonAddressConfidential?: YesOrNo;
 };
 
@@ -2966,6 +2976,7 @@ export enum PaymentErrorContext {
 export enum RootContext {
   C100_REBUILD = 'c100-rebuild',
   RESPONDENT = 'respondent',
+  APPLICANT = 'applicant'
 }
 
 export enum DomesticAbuseExemptions {

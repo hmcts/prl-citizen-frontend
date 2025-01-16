@@ -168,7 +168,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyparams.params
       )
-    ).toBe('/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/lookup');
+    ).toBe('/c100-rebuild/refuge/staying-in-refuge/2732dd53-2e6c-46f9-88cd-08230e735b08?');
   });
 
   test('From OtherPerson1 address lookup screen -> navigate to other person address select', async () => {

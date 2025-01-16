@@ -3,12 +3,12 @@ import { HTML } from '../common/htmlSelectors';
 
 export const courtOrderSubFieldParser = (userCase, keys, userKey, originalListItem) => {
   if (userCase.hasOwnProperty(userKey)) {
-    let returnAbleString = HTML.NESTED_LIST_ITEM + originalListItem + HTML.LIST_ITEM_END;
+    let returnAbleString = HTML.LIST_ITEM + originalListItem + HTML.LIST_ITEM_END;
     returnAbleString += HTML.UNORDER_LIST;
     returnAbleString += userCase[userKey]
       .filter(field => field !== '')
       .map(item => {
-        return HTML.NESTED_LIST_ITEM + keys[item] + HTML.LIST_ITEM_END;
+        return HTML.LIST_ITEM + keys[item] + HTML.LIST_ITEM_END;
       });
     returnAbleString += HTML.UNORDER_LIST_END;
     return returnAbleString;

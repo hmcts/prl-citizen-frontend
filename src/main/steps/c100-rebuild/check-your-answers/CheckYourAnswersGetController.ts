@@ -41,6 +41,28 @@ export default class CheckYourAnswersGetController extends GetController {
       }, 1000);
       if (!isMandatoryFieldsFilled(req.session.userCase)) {
         req.session.errors = [];
+        req.session.userCase?.appl_allApplicants?.forEach(applicant => {
+          if (applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)) {
+            req.session.errors?.push({
+              propertyName: `c8RefugeDocument-applicant-${req.session.userCase?.appl_allApplicants?.indexOf(
+                applicant
+              )}`,
+              errorType: 'required',
+            });
+          }
+        });
+
+        req.session.userCase?.oprs_otherPersons?.forEach(otherPerson => {
+          if (otherPerson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherPerson.refugeConfidentialityC8Form)) {
+            req.session.errors?.push({
+              propertyName: `c8RefugeDocument-otherPerson-${req.session.userCase?.oprs_otherPersons?.indexOf(
+                otherPerson
+              )}`,
+              errorType: 'required',
+            });
+          }
+        });
+
         req.session.userCase?.oprs_otherPersons?.forEach(otherPerson => {
           if (
             doesAnyChildLiveWithOtherPerson(req.session.userCase, otherPerson.id) &&

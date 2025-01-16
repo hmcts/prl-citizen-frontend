@@ -1,12 +1,11 @@
 {% extends "../page.njk" %}
 
 {% block page_content %}
-  {% if section %}
-    <span class="govuk-heading-l">{{ section }}</span>
-  
-  {% endif %}
   {% if title %}
-    <h1 class="govuk-caption-m govuk-!-margin-bottom-2">{{ title }}</h1>
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% endif %}
+  {% if subTitle %}
+    <div class="govuk-caption-m govuk-!-margin-bottom-2">{{ subTitle }}</div>
   {% endif %}
   {% if line1 %}
     <div class="govuk-hint">{{ line1 }}</div>

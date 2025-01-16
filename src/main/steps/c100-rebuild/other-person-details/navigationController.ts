@@ -14,6 +14,7 @@ import {
   C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   PageLink,
+  STAYING_IN_REFUGE,
 } from '../../urls';
 import { getNextPerson } from '../people/util';
 
@@ -62,8 +63,9 @@ class OtherPersonsDetailsNavigationController {
               otherPersonId: this.otherPersonId,
               childId: nextChild.id as ChildrenDetails['id'],
             })
-          : applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, {
-              otherPersonId: this.otherPersonId,
+          : applyParms(STAYING_IN_REFUGE, {
+              root: RootContext.C100_REBUILD,
+              id: this.otherPersonId,
             });
         break;
       }
