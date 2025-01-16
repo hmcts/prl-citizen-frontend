@@ -10640,7 +10640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jackspeak@npm:^3.1.2":
+"jackspeak@npm:^3.4.3":
   version: 3.4.3
   resolution: "jackspeak@npm:3.4.3"
   dependencies:
