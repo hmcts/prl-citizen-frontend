@@ -24,14 +24,14 @@ nodejs:
     REASONABLE_ADJUSTMENTS: 'https://cui-ra.aat.platform.hmcts.net'
     FACT_URL: 'http://fact-api-aat.service.core-compute-aat.internal'
     REASONABLE_ADJUSTMENTS: 'https://cui-ra.{{ .Values.global.environment }}.platform.hmcts.net'
-    REDIS_HOST: 'prl-citizen-frontend-secondary-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
+    REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
     LAUNCH_DARKLY_OFFLINE_MODE: false
     C100_REBUILD_FLAG: false
     TESTING_SUPPORT_FLAG: true
     ENABLE_CASE_TRAIN_TRACK: true
     ENABLE_RA_COMPONENT: true
     ENABLE_PCQ_COMPONENT: true
-    ALLOWED_COURTS: Swansea Civil Justice Centre
+    ALLOWED_COURTS: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre
   keyVaults:
     prl:
       resourceGroup: prl
