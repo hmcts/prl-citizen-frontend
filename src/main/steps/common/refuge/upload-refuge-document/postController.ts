@@ -13,7 +13,7 @@ import { getPartyDetails } from '../../../c100-rebuild/people/util';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../../urls';
 import { applyParms } from '../../url-parser';
-import { getUploadedDocumentErrorType, handleError, removeErrors } from '../../utils';
+import { getUploadedDocumentErrorType, handleError, handleUploadDocument, removeErrors } from '../../utils';
 import { getC8DocumentForC100, updateApplicantOtherPersonDetails } from '../utils';
 
 @autobind
@@ -50,12 +50,8 @@ export default class C8RefugeploadDocumentPostController extends PostController<
 
     try {
       const client = new CosApiClient(user.accessToken, req.locals.logger);
-      const response = await client.uploadDocument(user, {
-        files: [files?.['c8RefugeDocument']],
-      });
-
-      if (response.status !== 'Success') {
-        req.session.errors = handleError(req.session.errors, 'uploadError', 'c8RefugeDocument', true);
+      const response = await handleUploadDocument(client, user, files, req, 'c8RefugeDocument');
+      if (response === null) {
         return;
       }
 

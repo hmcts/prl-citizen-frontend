@@ -38,6 +38,7 @@ const en = {
     },
     uploadDocumentFileUpload: {
       multipleFiles: 'You can upload only one document.',
+      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       noFile: 'Upload a file.',
       noStatementOrFile: 'Enter your statement or upload a file.',
       uploadError: 'Document could not be uploaded.',
@@ -80,6 +81,7 @@ const cy: typeof en = {
     },
     uploadDocumentFileUpload: {
       multipleFiles: 'Gallwch uwchlwytho un dogfen yn unig',
+      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       noFile: 'Uwchlwytho ffeil',
       noStatementOrFile: 'Rhowch eich datganiad neu llwythwch ffeil.',
       uploadError: 'Ni ellir uwchlwytho’r ddogfen.',

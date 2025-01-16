@@ -2,6 +2,8 @@
 import { Application } from 'express';
 
 import { RAProvider } from '../main/modules/reasonable-adjustments/index';
+import { mockRequest } from '../test/unit/utils/mockRequest';
+import { mockResponse } from '../test/unit/utils/mockResponse';
 
 import { Routes } from './routes';
 
@@ -36,5 +38,17 @@ describe('Routes', () => {
 
   test('should setup routes', () => {
     expect(appMock.get).toHaveBeenCalledWith('/csrf-token-error', mockCSRFTokenError);
+  });
+
+  test('should sanitize request body', () => {
+    const req = mockRequest({ body: { too_shortStatement: 'test<img src""> ☕️' } });
+    const res = mockResponse();
+    const mockNext = jest.fn();
+    const routes = new Routes();
+
+    routes.enableFor(appMock);
+    routes['sanitizeRequestBody'](req, res, mockNext);
+
+    expect(req.body).toEqual({ too_shortStatement: 'test' });
   });
 });
