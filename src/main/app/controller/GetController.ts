@@ -8,9 +8,10 @@ import BreadcrumbController from '../../steps/common/breadcrumb/BreadcrumbContro
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import { validateRedirectUrl } from '../../steps/common/utils';
 import * as Urls from '../../steps/urls';
-import { CITIZEN_UPDATE } from '../case/definition';
+import { CITIZEN_UPDATE, PartyType } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
+import { getProgressBarConfig } from '../../steps/common/task-list/components/progress-bar';
 
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
@@ -83,6 +84,9 @@ export class GetController {
       document_type,
       breadcrumbs: BreadcrumbController.get(req.session, language),
       name,
+      c100CaseProgressTrainTrack: req.session.enableC100CaseProgressionTrainTrack
+        ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user)
+        : [],
     };
     //Add caption only if it exists else it will be rendered by specific page
     if (captionValue) {

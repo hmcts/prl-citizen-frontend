@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseType, SelectTypeOfOrderEnum } from './../../../../../app/case/definition';
+import { CaseWithId } from 'app/case/case';
+import { CaseType, SelectTypeOfOrderEnum, State } from './../../../../../app/case/definition';
 import { languages as content } from './content';
+import { ProgressBarConfigType } from '../../definitions';
 
 export enum CaseProgressionStage {
   APPLICATION_SUBMITTED = 'applicationSubmitted',
@@ -13,11 +15,32 @@ export enum CaseProgressionStage {
   ALL_FINAL_ORDERS_ISSUED = 'caseClosed',
 }
 
-const getLabel = (caseStage: CaseProgressionStage, caseType: CaseType, language: string): string =>
-  content[language]?.[caseType]?.[caseStage]?.label;
+export enum CaseCreationStage {
+  CHILDREN_POSTCODE = 'childrenPostCode',
+  SCREENING_SECTION = 'screeningSection',
+  MIAM = 'miam',
+  TYPE_OF_ORDER = 'typeOfOrder',
+  OTHER_PROCEEDINGS = 'otherProceedings',
+  URGENCY_AND_WITHOUT_NOTICE = 'urgencyAndWithoutNotice',
+  PEOPLE = 'people',
+  SAFETY_CONCERNS = 'safetyConcerns',
+  INTERNATIONAL_ELEMENTS = 'internationalElements',
+  REASONABLE_ADJUSTMENTS = 'reasonableAdjustments',
+  HELP_WITH_FEES = 'helpWithFees',
+  REVIEW_ANSWERS = 'reviewAnswers',
+}
 
-const getAriaLabel = (caseStage: CaseProgressionStage, caseType: CaseType, language: string): string =>
-  content[language]?.[caseType]?.[caseStage]?.ariaLabel;
+export const getLabel = (
+  caseStage: CaseCreationStage | CaseProgressionStage,
+  caseType: CaseType,
+  language: string
+): string => content[language]?.[caseType]?.[caseStage]?.label;
+
+export const getAriaLabel = (
+  caseStage: CaseCreationStage | CaseProgressionStage,
+  caseType: CaseType,
+  language: string
+): string => content[language]?.[caseType]?.[caseStage]?.ariaLabel;
 
 export const isFinalOrderIssued = caseData => caseData.selectTypeOfOrder === SelectTypeOfOrderEnum.finl;
 
@@ -71,4 +94,20 @@ export const progressBarStage = {
     isInProgress: () => false,
     isComplete: () => false,
   },
+};
+
+export const getProgressBarType = (caseData: CaseWithId): ProgressBarConfigType => {
+  const caseType = caseData?.caseTypeOfApplication;
+  let progressBarType: ProgressBarConfigType;
+
+  if (!caseType || caseData?.state === State.CASE_DRAFT) {
+    progressBarType = ProgressBarConfigType.C100_CASE_CREATION;
+  } else {
+    progressBarType =
+      caseType === CaseType.C100
+        ? ProgressBarConfigType.C100_CASE_PROGRESSION
+        : ProgressBarConfigType.FL401_CASE_PROGRESSION;
+  }
+
+  return progressBarType;
 };

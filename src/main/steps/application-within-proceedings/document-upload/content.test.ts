@@ -32,6 +32,7 @@ const en = {
   errors: {
     awpUploadApplicationForm: {
       required: `Upload your ${applicationType} application form`,
+      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       fileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
       fileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
     },
@@ -62,6 +63,7 @@ const cy: typeof en = {
   errors: {
     awpUploadApplicationForm: {
       required: `Mae’n rhaid i chi uwchlwytho eich ffurflen gais ${applicationType}`,
+      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
       fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr",
     },

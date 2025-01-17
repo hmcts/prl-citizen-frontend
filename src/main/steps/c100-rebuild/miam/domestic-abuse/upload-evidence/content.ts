@@ -26,6 +26,7 @@ const en = {
   errors: {
     miam_domesticAbuseEvidenceDocs: {
       maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
+      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       invalidFileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
       uploadError: 'Document could not be uploaded',
       deleteFile: 'Document could not be deleted',
@@ -53,6 +54,7 @@ const cy: typeof en = {
   errors: {
     miam_domesticAbuseEvidenceDocs: {
       maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
+      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       invalidFileFormat:
         "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
       uploadError: 'Document could not be uploaded - welsh',
