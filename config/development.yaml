@@ -59,4 +59,4 @@ featureToggles:
 
 launchDarkly:
   offline: true
-allowedCourts: Swansea Civil Justice Centre
+allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre
