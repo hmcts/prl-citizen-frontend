@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { CaseApi } from '../../../../../app/case/CaseApi';
+import { isExceedingMaxDocuments } from '../../../../../app/form/validation';
 
 import MIAMDomesticAbuseEvidenceUploadController from './postController';
 
@@ -165,5 +166,64 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
       },
     ]);
     expect(req.session.userCase.miam_domesticAbuseEvidenceDocs).toStrictEqual(undefined);
+  });
+
+  test('should not set errorType if not exceeding max documents', async () => {
+    req.body = { onlyContinue: false };
+    req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
+    req.session.userCase.miam_domesticAbuseEvidenceDocs = new Array(18).fill({
+      document_url: 'test2/1234',
+      document_binary_url: 'binary/test2/1234',
+      document_filename: 'test_document_2',
+      document_hash: '1234',
+      document_creation_date: '1/1/2024',
+    });
+
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Success',
+      document: {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    });
+    await controller.post(req, res);
+
+    expect(isExceedingMaxDocuments(req.session.userCase.miam_domesticAbuseEvidenceDocs.length)).toBe(false);
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
+    expect(req.session.errors).toStrictEqual([]);
+  });
+
+  test('should  set errorType if exceeding max documents', async () => {
+    req.body = { onlyContinue: false };
+    req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
+    req.session.userCase.miam_domesticAbuseEvidenceDocs = new Array(21).fill({
+      document_url: 'test2/1234',
+      document_binary_url: 'binary/test2/1234',
+      document_filename: 'test_document_2',
+      document_hash: '1234',
+      document_creation_date: '1/1/2024',
+    });
+
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Success',
+      document: {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    });
+    await controller.post(req, res);
+
+    expect(isExceedingMaxDocuments(req.session.userCase.miam_domesticAbuseEvidenceDocs.length)).toBe(true);
+    expect(res.redirect).toHaveBeenCalledWith('/request');
+    expect(req.session.errors).toContainEqual({
+      propertyName: 'miam_domesticAbuseEvidenceDocs',
+      errorType: 'maxDocumentsReached',
+    });
   });
 });

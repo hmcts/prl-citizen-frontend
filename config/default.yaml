@@ -54,9 +54,10 @@ featureToggles:
   c100Rebuild: C100_REBUILD_FLAG
   testingSupport: TESTING_SUPPORT_FLAG
   enableCaseTrainTrack: ENABLE_CASE_TRAIN_TRACK
+  enableC100CaseProgressionTrainTrack: ENABLE_C100_CASE_PROGRESSION_TRAIN_TRACK
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
   enableRAComponent: ENABLE_RA_COMPONENT
   enablePcqComponent: ENABLE_PCQ_COMPONENT
 launchDarkly:
   offline: false
-allowedCourts: Swansea Civil Justice Centre
+allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre

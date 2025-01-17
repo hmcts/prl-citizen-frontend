@@ -1,5 +1,6 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
+{% from "common/task-list/components/progress-bar/progress-bar.macro.njk" import buildProgressBar with context %}
 
 {% extends "govuk/template.njk" %}
 
@@ -46,6 +47,13 @@
 
 {% block content %}
   <div class="govuk-grid-row">
+
+    {% if c100CaseProgressTrainTrack.length %}
+      <div class="govuk-grid-column-full govuk-!-padding-bottom-9">
+        {{buildProgressBar(c100CaseProgressTrainTrack)}}
+      </div>
+    {% endif %}
+
     <div class="govuk-grid-column-two-thirds">
       {% block backLink %}
         <a href="#" class="govuk-back-link">{{ back }}</a>

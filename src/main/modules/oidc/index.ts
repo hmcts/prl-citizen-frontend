@@ -7,6 +7,7 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { parseUrl } from '../../steps/common/url-parser';
+import { getLoginUrl } from '../../steps/common/utils';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   ANONYMOUS_URLS,
@@ -20,6 +21,7 @@ import {
   SIGN_OUT_URL,
   TESTING_SUPPORT,
 } from '../../steps/urls';
+import * as Urls from '../../steps/urls';
 import { RAProvider } from '../reasonable-adjustments';
 
 /**
@@ -41,7 +43,10 @@ export class OidcMiddleware {
 
     app.get(SIGN_OUT_URL, async (req, res) => {
       await RAProvider.destroy(req as AppRequest);
-      req.session.destroy(() => res.redirect('/'));
+      req.session.destroy(() => {
+        res.clearCookie('prl-citizen-frontend-session');
+        res.redirect('/');
+      });
     });
 
     app.get(
@@ -109,13 +114,14 @@ export class OidcMiddleware {
             if (!req.locals.C100Api) {
               req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
             }
-            const c100RebuildLdFlag: boolean =
-              req.session.c100RebuildLdFlag !== undefined
-                ? req.session.c100RebuildLdFlag
-                : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
+
+            if (!req.session.c100RebuildLdFlag) {
+              req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled();
+            }
+
             //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
             if (req.path.startsWith(C100_URL)) {
-              if (c100RebuildLdFlag) {
+              if (req.session.c100RebuildLdFlag) {
                 return next();
               } else {
                 return res.redirect(DASHBOARD_URL);
@@ -147,8 +153,8 @@ export class OidcMiddleware {
             if (req.originalUrl.includes('.css')) {
               return next();
             }
-            await RAProvider.destroy(req as AppRequest);
-            res.redirect(SIGN_IN_URL + `?callback=${encodeURIComponent(req.originalUrl)}`);
+            await RAProvider.destroy(req);
+            res.redirect(getLoginUrl(Urls, req));
           }
         });
       })
