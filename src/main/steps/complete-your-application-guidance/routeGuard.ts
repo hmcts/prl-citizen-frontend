@@ -15,18 +15,15 @@ export const routeGuard = {
     let feeDetails;
     try {
       feeDetails = await getC100ApplicationFee(req.session.user, req.locals.logger, true);
-    } catch (error) {
-      next();
+      if (feeDetails?.feeAmount) {
+        req.session.userCase = {
+          ...req.session.userCase,
+          c100ApplicationFees: feeDetails.feeAmount,
+        };
+      }
+    } finally {
+      req.session.save(next);
     }
-
-    if (feeDetails?.feeAmount) {
-      req.session.userCase = {
-        ...req.session.userCase,
-        c100ApplicationFees: feeDetails.feeAmount,
-      };
-      return req.session.save(next);
-    }
-    next();
   },
 
   post: async (req: AppRequest, res: Response, next: NextFunction) => {

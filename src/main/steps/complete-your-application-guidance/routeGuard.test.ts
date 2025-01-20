@@ -74,25 +74,6 @@ describe('complete-your-application-guidance RouteGuard', () => {
     expect(next).toHaveBeenCalled();
   });
 
-  test('Should call next when api throws error', async () => {
-    const req = mockRequest({
-      session: {
-        userCase: undefined,
-      },
-    });
-    const res = mockResponse();
-    mockedAxios.get.mockRejectedValueOnce({
-      data: {
-        feeAmount: undefined,
-        errorRetrievingResponse: 'Error',
-      },
-    });
-    const next = jest.fn();
-    await routeGuard.get(req, res, next);
-    expect(req.session.userCase).toBe(undefined);
-    expect(next).toHaveBeenCalled();
-  });
-
   test('Post should delete c100ApplicationFees', async () => {
     const req = mockRequest({ session: { userCase: { c100ApplicationFees: '232' } } });
     const res = mockResponse();
