@@ -10,7 +10,7 @@ jest.mock('../../app/form/validation');
 const en = {
   title: 'Completing your application',
   paragraphs: [
-    'You can complete this application online or by post.',
+    'You can complete this application online.',
     'At the end of the application process you will need to pay a court fee{feeText}',
     'The payment will be taken at the end of the process, when you submit your application.',
   ],
@@ -29,7 +29,7 @@ const en = {
 const cy = {
   title: 'Cwblhau eich cais',
   paragraphs: [
-    'Gallwch gwblhau’r cais hwn ar-lein neu ei anfon drwy’r post.',
+    'Gallwch gwblhau’r cais hwn ar-lein.',
     'Ar ddiwedd y broses gwneud cais bydd angen ichi dalu ffi’r llys{feeText}',
     'Fe gymerir y taliad ar ddiwedd y broses, pan fyddwch yn cyflwyno eich cais.',
   ],
