@@ -7,16 +7,16 @@ import { interpolate } from '../../../../steps/common/string-parser';
 import { getPartyDetails } from '../../../c100-rebuild/people/util';
 
 const en = {
-  title: 'Keeping {firstName} {lastName}’s details private',
+  title: 'Keeping {firstName} {lastName}’s identity private',
   answersWillBeShared:
-    'The answers you give in your response will be shared with other people named in this application (the respondents). This will include your contact details.',
+    'Unless you answer ‘Yes’ to the question below, the information you give will be shared with other people named in this application (the respondents). This will include the contact details',
   keepDetailsPrivate:
-    'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
+    'Do you want to keep {firstName} {lastName}’s identity private from the other people named in the application (the respondents)?',
   yes: 'Yes',
   no: 'No',
   errors: {
     confidentiality: {
-      required: 'Select yes if you want to keep {firstName} {lastName}’s details private',
+      required: 'Select yes if you want to keep {firstName} {lastName}’s identity private',
     },
   },
 };
