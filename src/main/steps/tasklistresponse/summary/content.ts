@@ -633,6 +633,7 @@ const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childCo
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
+  const req = content.additionalData?.req;
   userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
     ? userCase.refugeDocument.document_filename
     : HTML.ERROR_MESSAGE_SPAN + enContent.completeSectionError + HTML.SPAN_CLOSE;
@@ -667,7 +668,7 @@ const en = (content: CommonContent) => {
     prepareRASummaryList('C7ConsolidatedReview', 'en', userCase),
     summaryList(enDummyContent, userCase, '', '', content.language, enDummyContent.sectionTitles.title3),
     summaryList(enContentMiam, userCase, urls, enContentMiam.sectionTitles.title, content.language),
-    PastAndCurrentProceedings(enContentProceding, userCase, content.language),
+    PastAndCurrentProceedings(enContentProceding, userCase, req, content.language),
     summaryList(enDummyContent, userCase, '', '', content.language, enDummyContent.sectionTitles.title4),
     SafetyConcerns(enSaftyConcern, userCase, content.language)
   );
@@ -704,6 +705,7 @@ const en = (content: CommonContent) => {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
+  const req = content.additionalData?.req;
   userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
     ? userCase.refugeDocument.document_filename
     : HTML.ERROR_MESSAGE_SPAN + cyContent.completeSectionError + HTML.SPAN_CLOSE;
@@ -738,7 +740,7 @@ const cy: typeof en = (content: CommonContent) => {
     prepareRASummaryList('C7ConsolidatedReview', 'cy', userCase),
     summaryList(cyDummyContent, userCase, '', '', content.language, cyDummyContent.sectionTitles.title3),
     summaryList(cyContentMiam, userCase, urls, cyContentMiam.sectionTitles.title, content.language),
-    PastAndCurrentProceedings(cyContentProceding, userCase, content.language),
+    PastAndCurrentProceedings(cyContentProceding, userCase, req, content.language),
     summaryList(cyDummyContent, userCase, '', '', content.language, cyDummyContent.sectionTitles.title4),
     SafetyConcerns(cySaftyConcern, userCase, content.language)
   );

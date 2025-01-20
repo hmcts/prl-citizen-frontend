@@ -10,6 +10,7 @@ import {
   Miam_previousAttendance,
 } from '../../../../app/case/case';
 import { DomesticAbuseExemptions, MiamNonAttendReason, YesOrNo } from '../../../../app/case/definition';
+import { AppRequest } from '../../../../app/controller/AppRequest';
 import {
   C100_MIAM_CHILD_PROTECTION,
   C100_MIAM_MIAM_DOMESTIC_ABUSE,
@@ -32,14 +33,22 @@ type MiamSection = {
   changeUrl: string;
 };
 
-Object.getPrototypeOf(InstanceOfMiamHelper).miamExemptionParser = (userCase, keys) => {
+Object.getPrototypeOf(InstanceOfMiamHelper).miamExemptionParser = (userCase, keys, language, req, anchorReference) => {
   if (userCase.hasOwnProperty('miam_nonAttendanceReasons')) {
     const nonAttenDanceReaseons = userCase['miam_nonAttendanceReasons']
       .flatMap(reason => keys[`${reason}Head`])
       .map(element => {
         return HTML.LIST_ITEM + element + HTML.LIST_ITEM_END;
       });
-    const listOfReasons = (HTML.UNORDER_LIST + nonAttenDanceReaseons + HTML.UNORDER_LIST_END).split(',').join(' ');
+    const listOfReasons = populateError(
+      nonAttenDanceReaseons,
+      HTML.UNORDER_LIST + nonAttenDanceReaseons + HTML.UNORDER_LIST_END,
+      language,
+      req,
+      anchorReference
+    )
+      .split(',')
+      .join(' ');
     return { listOfReasons };
   } else {
     return {};
@@ -49,7 +58,9 @@ Object.getPrototypeOf(InstanceOfMiamHelper).miamExemptionParser = (userCase, key
 const generateDomesticAbuseAdditionalFields = (
   userCase: Partial<CaseWithId>,
   keys: Record<string, string>,
-  language: string
+  language: string,
+  req: AppRequest,
+  anchorReference: string
 ): string => {
   return (
     HTML.ROW_START +
@@ -62,7 +73,9 @@ const generateDomesticAbuseAdditionalFields = (
     populateError(
       userCase.miam_canProvideDomesticAbuseEvidence,
       getYesNoTranslation(language, userCase.miam_canProvideDomesticAbuseEvidence, 'gallafTranslation'),
-      language
+      language,
+      req,
+      anchorReference
     ) +
     HTML.DESCRIPTION_TERM_DETAIL_END +
     HTML.ROW_END +
@@ -79,14 +92,18 @@ const generateDomesticAbuseAdditionalFields = (
       ? HTML.UNORDER_LIST +
         userCase.miam_domesticAbuseEvidenceDocs?.map(doc => {
           return (
-            HTML.LIST_ITEM + populateError(doc.document_filename, doc.document_filename, language) + HTML.LIST_ITEM_END
+            HTML.LIST_ITEM +
+            populateError(doc.document_filename, doc.document_filename, language, req, anchorReference) +
+            HTML.LIST_ITEM_END
           );
         }) +
         HTML.UNORDER_LIST_END
       : populateError(
           userCase.miam_detailsOfDomesticAbuseEvidence,
           userCase.miam_detailsOfDomesticAbuseEvidence,
-          language
+          language,
+          req,
+          anchorReference
         ))
   );
 };
@@ -94,64 +111,87 @@ const generateDomesticAbuseAdditionalFields = (
 const generateNCDRAdditionalFields = (
   userCase: Partial<CaseWithId>,
   keys: Record<string, string>,
-  language: string
+  language: string,
+  req: AppRequest,
+  anchorReference
 ): string => {
   let additionalFields = '';
 
   if (userCase.miam_previousAttendance === Miam_previousAttendance.miamExamptionApplied) {
-    additionalFields +=
+    additionalFields += populateError(
+      userCase.miam_haveDocSignedByMediatorForPrevAttendance,
       HTML.ROW_START +
-      HTML.DESCRIPTION_TERM_ELEMENT +
-      keys['haveDocSignedByMediatorForPrevAttendance'] +
-      HTML.DESCRIPTION_TERM_ELEMENT_END +
-      HTML.ROW_END +
-      HTML.ROW_START +
-      HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(
-        userCase.miam_haveDocSignedByMediatorForPrevAttendance,
-        getYesNoTranslation(language, userCase.miam_haveDocSignedByMediatorForPrevAttendance, 'oesTranslation') +
-          HTML.DESCRIPTION_TERM_DETAIL_END,
-        language
-      );
+        HTML.DESCRIPTION_TERM_ELEMENT +
+        keys['haveDocSignedByMediatorForPrevAttendance'] +
+        HTML.DESCRIPTION_TERM_ELEMENT_END +
+        HTML.ROW_END +
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        populateError(
+          userCase.miam_haveDocSignedByMediatorForPrevAttendance,
+          getYesNoTranslation(language, userCase.miam_haveDocSignedByMediatorForPrevAttendance, 'oesTranslation') +
+            HTML.DESCRIPTION_TERM_DETAIL_END,
+          language,
+          req,
+          anchorReference
+        ),
+      language,
+      req,
+      anchorReference
+    );
   }
 
   if (userCase.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.NO) {
-    additionalFields +=
+    additionalFields += populateError(
+      userCase.miam_detailsOfEvidence,
       HTML.ROW_END +
-      HTML.ROW_START +
-      HTML.DESCRIPTION_TERM_ELEMENT +
-      keys['detailsOfPrevMiamEvidence'] +
-      HTML.DESCRIPTION_TERM_ELEMENT_END +
-      HTML.ROW_END +
-      HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(
-        userCase.miam_detailsOfEvidence,
-        userCase.miam_detailsOfEvidence + HTML.DESCRIPTION_TERM_DETAIL_END,
-        language
-      );
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_ELEMENT +
+        keys['detailsOfPrevMiamEvidence'] +
+        HTML.DESCRIPTION_TERM_ELEMENT_END +
+        HTML.ROW_END +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        populateError(
+          userCase.miam_detailsOfEvidence,
+          userCase.miam_detailsOfEvidence + HTML.DESCRIPTION_TERM_DETAIL_END,
+          language,
+          req,
+          anchorReference
+        ),
+      language,
+      req,
+      anchorReference
+    );
   }
 
   if (
     userCase.miam_previousAttendance === Miam_previousAttendance.fourMonthsPriorAttended ||
     userCase.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.YES
   ) {
-    additionalFields +=
+    additionalFields += populateError(
+      userCase.miam_previousAttendanceEvidenceDoc?.document_filename,
       HTML.ROW_END +
-      HTML.ROW_START +
-      HTML.DESCRIPTION_TERM_ELEMENT +
-      keys['prevMiamEvidence'] +
-      HTML.DESCRIPTION_TERM_ELEMENT_END +
-      HTML.ROW_END +
-      HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(
-        userCase.miam_previousAttendanceEvidenceDoc?.document_filename,
-        userCase.miam_previousAttendanceEvidenceDoc?.document_filename +
-          HTML.DESCRIPTION_TERM_DETAIL_END +
-          HTML.ROW_END,
-        language
-      );
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_ELEMENT +
+        keys['prevMiamEvidence'] +
+        HTML.DESCRIPTION_TERM_ELEMENT_END +
+        HTML.ROW_END +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        populateError(
+          userCase.miam_previousAttendanceEvidenceDoc?.document_filename,
+          userCase.miam_previousAttendanceEvidenceDoc?.document_filename +
+            HTML.DESCRIPTION_TERM_DETAIL_END +
+            HTML.ROW_END,
+          language,
+          req,
+          anchorReference
+        ),
+      language,
+      req,
+      anchorReference
+    );
   }
 
   return additionalFields;
@@ -160,10 +200,16 @@ const generateNCDRAdditionalFields = (
 const generateOtherExemptionAdditionalFields = (
   userCase: Partial<CaseWithId>,
   keys: Record<string, string>,
-  language: string
+  language: string,
+  req: AppRequest,
+  anchorReference: string
 ): string => {
   let additionalFields = '';
   if (userCase.miam_notAttendingReasons === Miam_notAttendingReasons.canNotAccessMediator) {
+    if (_.isEmpty(userCase.miam_noMediatorReasons)) {
+      return populateError(userCase.miam_noMediatorReasons, '', language, req, anchorReference);
+    }
+
     additionalFields +=
       HTML.ROW_START +
       HTML.DESCRIPTION_TERM_ELEMENT +
@@ -188,7 +234,9 @@ const generateOtherExemptionAdditionalFields = (
         populateError(
           userCase.miam_noAppointmentAvailableDetails,
           userCase.miam_noAppointmentAvailableDetails + HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END,
-          language
+          language,
+          req,
+          anchorReference
         );
     }
 
@@ -205,7 +253,9 @@ const generateOtherExemptionAdditionalFields = (
         populateError(
           userCase.miam_unableToAttainDueToDisablityDetails,
           userCase.miam_unableToAttainDueToDisablityDetails + HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END,
-          language
+          language,
+          req,
+          anchorReference
         );
     }
 
@@ -222,7 +272,9 @@ const generateOtherExemptionAdditionalFields = (
         populateError(
           userCase.miam_noMediatorIn15mileDetails,
           userCase.miam_noMediatorIn15mileDetails + HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END,
-          language
+          language,
+          req,
+          anchorReference
         );
     }
   }
@@ -234,7 +286,9 @@ export const miamParentAndChildFieldParser = (
   userCase: Partial<CaseWithId>,
   keys: Record<string, string>,
   sessionKey: string,
-  language: string
+  language: string,
+  req: AppRequest,
+  anchorReference: string
 ): string => {
   if (userCase.hasOwnProperty(sessionKey)) {
     const mappedVals = _.isArray(userCase[sessionKey])
@@ -243,13 +297,25 @@ export const miamParentAndChildFieldParser = (
           if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}_subfields`)) {
             return (
               _.get(keys, nonAttendance) +
-              HTML.UNORDER_LIST +
-              userCase[`${sessionKey}_${nonAttendance}_subfields`]
-                .filter(field => field !== '')
-                .map(item => {
-                  return HTML.LIST_ITEM + keys[`${nonAttendance}_subFields`][item] + HTML.LIST_ITEM_END;
-                }) +
-              HTML.UNORDER_LIST_END
+              populateError(
+                userCase[`${sessionKey}_${nonAttendance}_subfields`],
+                HTML.UNORDER_LIST +
+                  userCase[`${sessionKey}_${nonAttendance}_subfields`]
+                    .filter(field => field !== '')
+                    .map(item => {
+                      return populateError(
+                        keys[`${nonAttendance}_subFields`][item],
+                        HTML.LIST_ITEM + keys[`${nonAttendance}_subFields`][item] + HTML.LIST_ITEM_END,
+                        language,
+                        req,
+                        anchorReference
+                      );
+                    }) +
+                  HTML.UNORDER_LIST_END,
+                language,
+                req,
+                anchorReference
+              )
             )
               .split(',')
               .join('');
@@ -262,12 +328,16 @@ export const miamParentAndChildFieldParser = (
 
     let additionalFields = '';
     if (sessionKey === 'miam_domesticAbuse' && !userCase.miam_domesticAbuse?.includes(DomesticAbuseExemptions.NONE)) {
-      additionalFields = generateDomesticAbuseAdditionalFields(userCase, keys, language).split(',').join('');
+      additionalFields = generateDomesticAbuseAdditionalFields(userCase, keys, language, req, anchorReference)
+        .split(',')
+        .join('');
     } else if (
       sessionKey === 'miam_notAttendingReasons' &&
       userCase.miam_notAttendingReasons !== Miam_notAttendingReasons.none
     ) {
-      additionalFields = generateOtherExemptionAdditionalFields(userCase, keys, language).split(',').join('');
+      additionalFields = generateOtherExemptionAdditionalFields(userCase, keys, language, req, anchorReference)
+        .split(',')
+        .join('');
     }
 
     return (
@@ -290,46 +360,78 @@ export const MiamHelperDynamicEnteriesMapper = (
   key: string,
   keys: Record<string, string>,
   userCase: Partial<CaseWithId>,
-  language: string
+  language: string,
+  req: AppRequest
 ): MiamSection => {
   const mapper = {
     [MiamNonAttendReason.DOMESTIC]: {
       key: keys['domesticVoilenceHeading'],
-      valueHtml: miamParentAndChildFieldParser(userCase, keys, 'miam_domesticAbuse', language),
+      anchorReference: 'miam_domesticAbuse',
+      valueHtml: miamParentAndChildFieldParser(
+        userCase,
+        keys,
+        'miam_domesticAbuse',
+        language,
+        req,
+        'miam_domesticAbuse'
+      ),
       changeUrl: C100_MIAM_MIAM_DOMESTIC_ABUSE,
     },
     [MiamNonAttendReason.CHILD_PROTECTION]: {
       key: keys['childProtectionHeading'],
-      valueHtml: keys[userCase.miam_childProtectionEvidence!],
+      anchorReference: 'miam_childProtectionEvidence',
+      valueHtml: populateError(
+        userCase.miam_childProtectionEvidence,
+        keys[userCase.miam_childProtectionEvidence!],
+        language,
+        req,
+        'miam_childProtectionEvidence'
+      ),
       changeUrl: C100_MIAM_CHILD_PROTECTION,
     },
     [MiamNonAttendReason.URGENT]: {
       key: keys['urgentHearingHeading'],
-      valueHtml: keys[userCase.miam_urgency!],
+      anchorReference: 'miam_urgency',
+      valueHtml: populateError(userCase.miam_urgency, keys[userCase.miam_urgency!], language, req, 'miam_urgency'),
       changeUrl: C100_MIAM_URGENCY,
     },
     [MiamNonAttendReason.PREV_MIAM]: {
       key: keys['previousMIAMOrExemptHeading'],
-      valueHtml:
+      anchorReference: 'miam_previousAttendance',
+      valueHtml: populateError(
+        userCase.miam_previousAttendance,
         HTML.DESCRIPTION_LIST +
-        HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL +
-        keys[userCase.miam_previousAttendance!] +
-        HTML.DESCRIPTION_TERM_DETAIL_END +
-        HTML.ROW_END +
-        (userCase.miam_previousAttendance !== Miam_previousAttendance.none
-          ? generateNCDRAdditionalFields(userCase, keys, language).split(',').join('')
-          : '') +
-        HTML.DESCRIPTION_LIST_END,
+          HTML.ROW_START +
+          HTML.DESCRIPTION_TERM_DETAIL +
+          keys[userCase.miam_previousAttendance!] +
+          HTML.DESCRIPTION_TERM_DETAIL_END +
+          HTML.ROW_END +
+          (userCase.miam_previousAttendance !== Miam_previousAttendance.none
+            ? generateNCDRAdditionalFields(userCase, keys, language, req, 'miam_previousAttendance').split(',').join('')
+            : '') +
+          HTML.DESCRIPTION_LIST_END,
+        language,
+        req,
+        'miam_previousAttendance'
+      ),
       changeUrl: C100_MIAM_PREVIOUS_ATTENDANCE,
     },
     [MiamNonAttendReason.EXEMPT]: {
       key: keys['validExemptionHeading'],
-      valueHtml: miamParentAndChildFieldParser(userCase, keys, 'miam_notAttendingReasons', language),
+      anchorReference: 'miam_notAttendingReasons',
+      valueHtml: miamParentAndChildFieldParser(
+        userCase,
+        keys,
+        'miam_notAttendingReasons',
+        language,
+        req,
+        'miam_notAttendingReasons'
+      ),
       changeUrl: C100_MIAM_OTHER,
     },
     [MiamNonAttendReason.NONE]: {
       key: keys['domesticVoilenceHeading'],
+      anchorReference: 'miam_noReasons',
       valueHtml: 'Yes',
       changeUrl: '',
     },
@@ -340,11 +442,12 @@ export const MiamHelperDynamicEnteriesMapper = (
 Object.getPrototypeOf(InstanceOfMiamHelper).miamExemptionParserDynamicEnteries = (
   userCase: Partial<CaseWithId>,
   keys: Record<string, string>,
-  language: string
+  language: string,
+  req
 ): MiamSection[] => {
   return (
     userCase.miam_nonAttendanceReasons?.flatMap(reason => {
-      return [MiamHelperDynamicEnteriesMapper(reason, keys, userCase, language)];
+      return [MiamHelperDynamicEnteriesMapper(reason, keys, userCase, language, req)];
     }) ?? []
   );
 };

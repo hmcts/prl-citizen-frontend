@@ -3,6 +3,7 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
@@ -18,10 +19,10 @@ import {
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_START,
 } from '../../../steps/urls';
+import { HTML } from '../../c100-rebuild/check-your-answers/common/htmlSelectors';
 import { getYesNoTranslation, populateError, translation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import { OPotherProceedingsSessionParserUtil } from '../../c100-rebuild/check-your-answers/util/otherProceeding.util';
 import { cy, en } from '../common.content';
-import { HTML } from '../../c100-rebuild/check-your-answers/common/htmlSelectors';
 
 export const getSectionSummaryList = (
   rows: SummaryListRow[],
@@ -192,39 +193,40 @@ export const proceedingSummaryData = (
   userCase: Partial<CaseWithId>,
   courtOrderDetails: string,
   isRespondent: boolean,
+  req: AppRequest
 ) => {
   return [
     {
       key: keys['childrenInvolvedCourtCase'],
-      value:isRespondent ? getYesNoTranslation(
-        language,
-         userCase['proceedingsStart'],
-        'doTranslation'
-      ):populateError(userCase['op_childrenInvolvedCourtCase'],getYesNoTranslation(
-        language,
-        userCase['op_childrenInvolvedCourtCase'],
-        'doTranslation'
-      ),language),
+      value: isRespondent
+        ? getYesNoTranslation(language, userCase['proceedingsStart'], 'doTranslation')
+        : populateError(
+            userCase['op_childrenInvolvedCourtCase'],
+            getYesNoTranslation(language, userCase['op_childrenInvolvedCourtCase'], 'doTranslation'),
+            language,
+            req,
+            ''
+          ),
       changeUrl: isRespondent ? PROCEEDINGS_START : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     },
     {
       key: keys['courtOrderProtection'],
-      value: isRespondent ?getYesNoTranslation(
-        language,
-         userCase['proceedingsStartOrder'],
-        'oesTranslation'
-      ):populateError(userCase['op_courtOrderProtection'],getYesNoTranslation(
-        language,
-        userCase['op_courtOrderProtection'],
-        'oesTranslation'
-      ),language),
+      value: isRespondent
+        ? getYesNoTranslation(language, userCase['proceedingsStartOrder'], 'oesTranslation')
+        : populateError(
+            userCase['op_courtOrderProtection'],
+            getYesNoTranslation(language, userCase['op_courtOrderProtection'], 'oesTranslation'),
+            language,
+            req,
+            ''
+          ),
       changeUrl: isRespondent ? PROCEEDINGS_START : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     },
     {
       key: keys['optitle'],
       valueHtml: isRespondent
         ? respondentOrderDetails(userCase, courtOrderDetails)
-        : applicantOrderDetails(userCase, courtOrderDetails,language),
+        : applicantOrderDetails(userCase, courtOrderDetails, language),
       changeUrl: isRespondent ? PROCEEDINGS_COURT_PROCEEDINGS : C100_OTHER_PROCEEDINGS_DETAILS,
     },
     ...(isRespondent
@@ -233,8 +235,10 @@ export const proceedingSummaryData = (
   ];
 };
 
-const applicantOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string,language:string): string => {
-  return userCase.hasOwnProperty('op_courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
+const applicantOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string, language: string): string => {
+  return userCase.hasOwnProperty('op_courtProceedingsOrders')
+    ? courtOrderDetails?.split(',').join('')
+    : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 };
 
 const respondentOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string): string => {

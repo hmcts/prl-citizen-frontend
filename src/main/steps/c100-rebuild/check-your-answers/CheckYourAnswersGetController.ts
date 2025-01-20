@@ -6,6 +6,7 @@ import { FieldPrefix } from '../../../app/case/case';
 import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
+import { Language, generatePageContent } from '../../../steps/common/common.content';
 
 import { isMandatoryFieldsFilled } from './mainUtil';
 
@@ -38,7 +39,21 @@ export default class CheckYourAnswersGetController extends GetController {
         req.session.paymentError = { hasError: false, errorContext: null };
         req.session.save();
       }, 1000);
-      if (!isMandatoryFieldsFilled(req.session.userCase)) {
+
+      //call to add errors from mainUtil to session
+      req.session.C100CyaErrors = [];
+      generatePageContent({
+        language: super.getPreferredLanguage(req) as Language,
+        pageContent: this.content,
+        userCase: req.session?.userCase,
+        userEmail: req.session?.user?.email,
+        additionalData: {
+          req,
+        },
+      });
+
+      if (!isMandatoryFieldsFilled(req.session.userCase) || req.session.C100CyaErrors?.length) {
+        //temporary check
         req.session.errors = [];
         req.session.userCase?.appl_allApplicants?.forEach(applicant => {
           if (applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)) {
@@ -57,6 +72,22 @@ export default class CheckYourAnswersGetController extends GetController {
               propertyName: `c8RefugeDocument-otherPerson-${req.session.userCase?.oprs_otherPersons?.indexOf(
                 otherPerson
               )}`,
+              errorType: 'required',
+            });
+          }
+        });
+
+        //won't work
+        req.session.C100CyaErrors?.forEach(property => {
+          req.session.C100CyaErrors?.pop(); //?
+          if (
+            !req.session.errors?.includes({
+              propertyName: property,
+              errorType: 'required',
+            })
+          ) {
+            req.session.errors?.push({
+              propertyName: property,
               errorType: 'required',
             });
           }

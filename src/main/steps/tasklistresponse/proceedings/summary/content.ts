@@ -27,7 +27,8 @@ export const enContent = {
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
-  const sections = [PastAndCurrentProceedings(enContent, userCase)];
+  const req = content.additionalData?.req;
+  const sections = [PastAndCurrentProceedings(enContent, userCase, req)];
   return {
     ...enContent,
     language: content.language,
@@ -56,7 +57,8 @@ export const cyContent: typeof enContent = {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const sections = [PastAndCurrentProceedings(cyContent, userCase, content.language)];
+  const req = content.additionalData?.req;
+  const sections = [PastAndCurrentProceedings(cyContent, userCase, req, content.language)];
   return {
     ...cyContent,
     language: content.language,

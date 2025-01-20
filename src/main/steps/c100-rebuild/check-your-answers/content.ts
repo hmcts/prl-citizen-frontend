@@ -120,6 +120,157 @@ export const enContent = {
     refugeDocumentText: {
       required: 'You must upload a C8 document',
     },
+    sq_legalRepresentation: {
+      required: 'Complete this section',
+    },
+    c100RebuildChildPostCode: {
+      required: 'Complete this section',
+    },
+    sq_writtenAgreement: {
+      required: 'Complete this section',
+    },
+    sq_legalRepresentationApplication: {
+      required: 'Complete this section',
+    },
+    sq_courtPermissionRequired: {
+      required: 'Complete this section',
+    },
+    sq_permissionsRequest: {
+      required: 'Complete this section',
+    },
+    too_courtOrder: {
+      required: 'Complete this section',
+    },
+    too_shortStatement: {
+      required: 'Complete this section',
+    },
+    hu_urgentHearingReasons: {
+      required: 'Complete this section',
+    },
+    hwn_reasonsForApplicationWithoutNotice: {
+      required: 'Complete this section',
+    },
+    childrenKnownToSocialServicesLabel: {
+      required: 'Complete this section',
+    },
+    cd_childrenSubjectOfProtectionPlan: {
+      required: 'Complete this section',
+    },
+    ocd_hasOtherChildren: {
+      required: 'Complete this section',
+    },
+    miam_otherProceedings: {
+      required: 'Complete this section',
+    },
+    miam_haveDocSigned: {
+      required: 'Complete this section',
+    },
+    miam_validReason: {
+      required: 'Complete this section',
+    },
+    op_childrenInvolvedCourtCase: {
+      required: 'Complete this section',
+    },
+    op_courtOrderProtection: {
+      required: 'Complete this section',
+    },
+    c1A_haveSafetyConcerns: {
+      required: 'Complete this section',
+    },
+    c1A_safetyConernAbout: {
+      required: 'Complete this section',
+    },
+    c1A_concernAboutChild: {
+      required: 'Complete this section',
+    },
+    c1A_childsCurrentLocation: {
+      required: 'Complete this section',
+    },
+    c1A_passportOffice: {
+      required: 'Complete this section',
+    },
+    c1A_abductionPassportOfficeNotified: {
+      required: 'Complete this section',
+    },
+    c1A_childAbductedBefore: {
+      required: 'Complete this section',
+    },
+    c1A_previousAbductionsShortDesc: {
+      required: 'Complete this section',
+    },
+    c1A_policeOrInvestigatorOtherDetails: {
+      required: 'Complete this section',
+    },
+    c1A_concernAboutApplicant: {
+      required: 'Complete this section',
+    },
+    c1A_otherConcernsDrugs: {
+      required: 'Complete this section',
+    },
+    c1A_childSafetyConcerns: {
+      required: 'Complete this section',
+    },
+    c1A_keepingSafeStatement: {
+      required: 'Complete this section',
+    },
+    c1A_supervisionAgreementDetails: {
+      required: 'Complete this section',
+    },
+    c1A_agreementOtherWaysDetails: {
+      required: 'Complete this section',
+    },
+    oprs_otherPersonCheck: {
+      required: 'Complete this section',
+    },
+    hwf_needHelpWithFees: {
+      required: 'Complete this section',
+    },
+    helpWithFeesReferenceNumber: {
+      required: 'Complete this section',
+    },
+    ra_typeOfHearing: {
+      required: 'Complete this section',
+    },
+    ra_languageNeeds: {
+      required: 'Complete this section',
+    },
+    ra_specialArrangements: {
+      required: 'Complete this section',
+    },
+    ra_disabilityRequirements: {
+      required: 'Complete this section',
+    },
+    ra_documentInformation: {
+      required: 'Complete this section',
+    },
+    ra_communicationHelp: {
+      required: 'Complete this section',
+    },
+    ra_supportCourt: {
+      required: 'Complete this section',
+    },
+    ra_feelComportable: {
+      required: 'Complete this section',
+    },
+    ra_travellingCourt: {
+      required: 'Complete this section',
+    },
+    miam_notAttendingReasons: {
+      required: 'Complete this section',
+    },
+    miam_previousAttendance: {
+      required: 'Complete this section',
+    },
+    miam_urgency: {
+      required: 'Complete this section',
+    },
+    miam_childProtectionEvidence: {
+      required: 'Complete this section',
+    },
+    miam_domesticAbuse: {
+      required: 'Complete this section',
+    },
+    // need to add for parties
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -473,28 +624,28 @@ export const sectionCountFormatter = sections => {
   });
   return sections;
 };
-export const peopleSections = (userCase, contentLanguage, language) => {
+export const peopleSections = (userCase, contentLanguage, language, req) => {
   const otherPeopleSection =
     userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES
-      ? OtherPeopleDetails(contentLanguage, userCase, language)
+      ? OtherPeopleDetails(contentLanguage, userCase, language, req)
       : [];
   return [
     PeopleDetails(contentLanguage),
-    ChildernDetails(contentLanguage, userCase, language),
-    ChildernDetailsAdditional(contentLanguage, userCase, language),
-    OtherChildrenDetails(contentLanguage, userCase, language),
-    ApplicantDetails(contentLanguage, userCase, language),
-    RespondentDetails(contentLanguage, userCase, language),
-    OtherPeopleDetailsTitle(contentLanguage, userCase, language),
+    ChildernDetails(contentLanguage, userCase, language, req),
+    ChildernDetailsAdditional(contentLanguage, userCase, language, req),
+    OtherChildrenDetails(contentLanguage, userCase, language, req),
+    ApplicantDetails(contentLanguage, userCase, language, req),
+    RespondentDetails(contentLanguage, userCase, language, req),
+    OtherPeopleDetailsTitle(contentLanguage, userCase, language, req),
     otherPeopleSection,
     whereDoChildrenLive(contentLanguage, userCase),
   ];
 };
 
-const safteyConcenFilledSection = (userCase, contentLanguage, language) => {
+const safteyConcenFilledSection = (userCase, contentLanguage, language, req) => {
   const additionalSafteyConcernSections = [] as ANYTYPE;
   if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
-    additionalSafteyConcernSections.push(SafetyConcerns_child(contentLanguage, userCase, language));
+    additionalSafteyConcernSections.push(SafetyConcerns_child(contentLanguage, userCase, language, req));
     if (toggleApplicantSafetyConcerns('c1A_safetyConernAbout', userCase, 'c1A_concernAboutChild')) {
       additionalSafteyConcernSections.push(SafetyConcerns_yours(contentLanguage, userCase, language));
     }
@@ -504,92 +655,93 @@ const safteyConcenFilledSection = (userCase, contentLanguage, language) => {
 };
 //on Screeing screen if user selects Yes
 
-export const commonSectionsForContentLoader = (contentLanguage, userCase, language) => {
+export const commonSectionsForContentLoader = (contentLanguage, userCase, language, req) => {
   return {
     PostCodeAndTypeOfApplication: [
-      LocationDetails(contentLanguage, userCase, language),
-      TypeOfApplication(contentLanguage, userCase, language),
+      LocationDetails(contentLanguage, userCase, language, req),
+      TypeOfApplication(contentLanguage, userCase, language, req),
     ],
     ScreeingQuestions: [
-      LegalRepresentativeDetails(contentLanguage, userCase, language),
-      PermissionForApplication(contentLanguage, userCase, language),
+      LegalRepresentativeDetails(contentLanguage, userCase, language, req),
+      PermissionForApplication(contentLanguage, userCase, language, req),
     ],
-    MIAM_ALL: [MiamTitle(contentLanguage), MiamAttendance(contentLanguage, userCase, language)],
+    MIAM_ALL: [MiamTitle(contentLanguage), MiamAttendance(contentLanguage, userCase, language, req)],
     IE_RA_HF: [
       InternationalElement(contentLanguage, userCase, language),
-      reasonableAdjustment(contentLanguage, userCase),
-      HelpWithFee(contentLanguage, userCase, language),
+      reasonableAdjustment(contentLanguage, userCase, language, req),
+      HelpWithFee(contentLanguage, userCase, language, req),
     ],
   };
 };
-export const CheckYourAnswerFlow1 = (userCase, contentLanguage, language) => {
+export const CheckYourAnswerFlow1 = (userCase, contentLanguage, language, req) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
-    TypeOfOrder(contentLanguage, userCase, language),
-    WithoutNoticeHearing(contentLanguage, userCase, language),
-    peopleSections(userCase, contentLanguage, language),
-    PastAndCurrentProceedings(contentLanguage, userCase, language),
-    SafetyConcerns(contentLanguage, userCase, language),
-    ...safteyConcenFilledSection(userCase, contentLanguage, language),
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).PostCodeAndTypeOfApplication,
+    TypeOfOrder(contentLanguage, userCase, language, req),
+    WithoutNoticeHearing(contentLanguage, userCase, language, req),
+    peopleSections(userCase, contentLanguage, language, req),
+    PastAndCurrentProceedings(contentLanguage, userCase, language, req),
+    SafetyConcerns(contentLanguage, userCase, language, req),
+    ...safteyConcenFilledSection(userCase, contentLanguage, language, req),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).IE_RA_HF,
   ];
 };
 // on Screeing screen if user selects No and user opts out of miam
-export const CheckYourAnswerFlow2 = (userCase, contentLanguage, language) => {
+export const CheckYourAnswerFlow2 = (userCase, contentLanguage, language, req) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).ScreeingQuestions,
     MiamTitle(contentLanguage),
-    MiamAttendance(contentLanguage, userCase, language),
-    PastAndCurrentProceedings(contentLanguage, userCase, language),
-    TypeOfOrder(contentLanguage, userCase, language),
-    WithoutNoticeHearing(contentLanguage, userCase, language),
-    peopleSections(userCase, contentLanguage, language),
-    SafetyConcerns(contentLanguage, userCase, language),
-    ...safteyConcenFilledSection(userCase, contentLanguage, language),
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
+    MiamAttendance(contentLanguage, userCase, language, req),
+    PastAndCurrentProceedings(contentLanguage, userCase, language, req),
+    TypeOfOrder(contentLanguage, userCase, language, req),
+    WithoutNoticeHearing(contentLanguage, userCase, language, req),
+    peopleSections(userCase, contentLanguage, language, req),
+    SafetyConcerns(contentLanguage, userCase, language, req),
+    ...safteyConcenFilledSection(userCase, contentLanguage, language, req),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).IE_RA_HF,
   ];
 };
 // if user selects Yes for valid excemptions on maim_exemption
-export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents, language) => {
+export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents, language, req) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
-    MiamExemption(newContents, userCase, language),
-    WithoutNoticeHearing(contentLanguage, userCase, language),
-    TypeOfOrder(contentLanguage, userCase, language),
-    peopleSections(userCase, contentLanguage, language),
-    PastAndCurrentProceedings(contentLanguage, userCase, language),
-    SafetyConcerns(contentLanguage, userCase, language),
-    ...safteyConcenFilledSection(userCase, contentLanguage, language),
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).MIAM_ALL,
+    MiamExemption(newContents, userCase, language, req),
+    WithoutNoticeHearing(contentLanguage, userCase, language, req),
+    TypeOfOrder(contentLanguage, userCase, language, req),
+    peopleSections(userCase, contentLanguage, language, req),
+    PastAndCurrentProceedings(contentLanguage, userCase, language, req),
+    SafetyConcerns(contentLanguage, userCase, language, req),
+    ...safteyConcenFilledSection(userCase, contentLanguage, language, req),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).IE_RA_HF,
   ];
 };
 // if user selects No for valid excemptions on maim_exemption
-export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, language) => {
+export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, language, req) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
-    MiamExemption(newContents, userCase, language),
-    TypeOfOrder(contentLanguage, userCase, language),
-    WithoutNoticeHearing(contentLanguage, userCase, language),
-    peopleSections(userCase, contentLanguage, language),
-    PastAndCurrentProceedings(contentLanguage, userCase, language),
-    SafetyConcerns(contentLanguage, userCase, language),
-    ...safteyConcenFilledSection(userCase, contentLanguage, language),
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).MIAM_ALL,
+    MiamExemption(newContents, userCase, language, req),
+    TypeOfOrder(contentLanguage, userCase, language, req),
+    WithoutNoticeHearing(contentLanguage, userCase, language, req),
+    peopleSections(userCase, contentLanguage, language, req),
+    PastAndCurrentProceedings(contentLanguage, userCase, language, req),
+    SafetyConcerns(contentLanguage, userCase, language, req),
+    ...safteyConcenFilledSection(userCase, contentLanguage, language, req),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).IE_RA_HF,
   ];
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
+  const req = content.additionalData?.req;
   let sections;
   // if on sreening screen enable Yes
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-    sections = CheckYourAnswerFlow1(userCase, enContent, content.language).flat() as ANYTYPE;
+    sections = CheckYourAnswerFlow1(userCase, enContent, content.language, req).flat() as ANYTYPE;
   } else {
     if (
       (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
@@ -598,13 +750,13 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
         userCase.hasOwnProperty('miam_attendance') &&
         userCase['miam_attendance'] === YesOrNo.YES)
     ) {
-      sections = CheckYourAnswerFlow2(userCase, enContent, content.language).flat() as ANYTYPE;
+      sections = CheckYourAnswerFlow2(userCase, enContent, content.language, req).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
       if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
-        sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
+        sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language, req).flat() as ANYTYPE;
       } else {
-        sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
+        sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language, req).flat() as ANYTYPE;
       }
     }
   }
@@ -618,10 +770,11 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
 
 export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
+  const req = content.additionalData?.req;
   let sections;
   // if on sreening screen enable Yes
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-    sections = CheckYourAnswerFlow1(userCase, cyContent, content.language).flat() as ANYTYPE;
+    sections = CheckYourAnswerFlow1(userCase, cyContent, content.language, req).flat() as ANYTYPE;
   } else {
     if (
       (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
@@ -630,13 +783,13 @@ export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
         userCase.hasOwnProperty('miam_attendance') &&
         userCase['miam_attendance'] === YesOrNo.YES)
     ) {
-      sections = CheckYourAnswerFlow2(userCase, cyContent, content.language).flat() as ANYTYPE;
+      sections = CheckYourAnswerFlow2(userCase, cyContent, content.language, req).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
       if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
-        sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
+        sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language, req).flat() as ANYTYPE;
       } else {
-        sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
+        sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language, req).flat() as ANYTYPE;
       }
     }
   }
@@ -749,7 +902,8 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
-  form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!);
+  form.submit.disabled = //change to use cya redirect application completed?
+    !isMandatoryFieldsFilled(content.userCase!) || content.additionalData?.req.session.C100CyaErrors.length;
   const refugeErrors = {};
 
   content.userCase?.appl_allApplicants?.forEach(applicant => {
