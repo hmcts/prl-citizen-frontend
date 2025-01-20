@@ -26,7 +26,6 @@ export const getC100ApplicationFee = async (
       headers,
     });
     return response.data;
-    // return { feeAmount: '255', errorRetrievingResponse: undefined } as unknown as FeesResponse;
   } catch (err) {
     logger.error(err.message);
     throw new Error('Error occured, C100 application fee could not be fetched. - getC100ApplicationFee');

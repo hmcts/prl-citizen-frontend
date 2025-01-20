@@ -12,18 +12,21 @@ export const routeGuard = {
       delete req.session.userCase.legalRepresentativeForApplication;
     }
 
-    const feeDetails = await getC100ApplicationFee(req.session.user, req.locals.logger, true);
-
-    if (feeDetails?.errorRetrievingResponse) {
-      //set default value or throw error then set default in content
-      feeDetails.feeAmount = '255'; //temp
+    let feeDetails;
+    try {
+      feeDetails = await getC100ApplicationFee(req.session.user, req.locals.logger, true);
+    } catch (error) {
+      next();
     }
 
-    req.session.userCase = {
-      ...req.session.userCase,
-      c100ApplicationFees: feeDetails.feeAmount,
-    };
-    return req.session.save(next);
+    if (feeDetails?.feeAmount) {
+      req.session.userCase = {
+        ...req.session.userCase,
+        c100ApplicationFees: feeDetails.feeAmount,
+      };
+      return req.session.save(next);
+    }
+    next();
   },
 
   post: async (req: AppRequest, res: Response, next: NextFunction) => {

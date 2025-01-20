@@ -55,7 +55,7 @@ describe('complete-your-application-guidance RouteGuard', () => {
     expect(next).toHaveBeenCalled();
   });
 
-  test('Should set default fee amount when errorRetrievingResponse present', async () => {
+  test('Should not set fee amount when errorRetrievingResponse present', async () => {
     const req = mockRequest({
       session: {
         userCase: undefined,
@@ -64,13 +64,32 @@ describe('complete-your-application-guidance RouteGuard', () => {
     const res = mockResponse();
     mockedAxios.get.mockResolvedValueOnce({
       data: {
-        feeAmount: '232',
+        feeAmount: undefined,
         errorRetrievingResponse: 'Error',
       },
     });
     const next = jest.fn();
     await routeGuard.get(req, res, next);
-    expect(req.session.userCase.c100ApplicationFees).toBe('255');
+    expect(req.session.userCase).toBe(undefined);
+    expect(next).toHaveBeenCalled();
+  });
+
+  test('Should call next when api throws error', async () => {
+    const req = mockRequest({
+      session: {
+        userCase: undefined,
+      },
+    });
+    const res = mockResponse();
+    mockedAxios.get.mockRejectedValueOnce({
+      data: {
+        feeAmount: undefined,
+        errorRetrievingResponse: 'Error',
+      },
+    });
+    const next = jest.fn();
+    await routeGuard.get(req, res, next);
+    expect(req.session.userCase).toBe(undefined);
     expect(next).toHaveBeenCalled();
   });
 
