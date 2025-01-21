@@ -58,6 +58,8 @@ withPipeline(type, product, component) {
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
 
+  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
+
   afterAlways('build') {
     yarnBuilder.yarn('build')
   }
