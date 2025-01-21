@@ -58,12 +58,12 @@ withPipeline(type, product, component) {
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
 
-  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
-
   afterAlways('build') {
     yarnBuilder.yarn('build')
   }
 
+  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
+  
   before('smoketest:preview') {
     env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
     build job: 'HMCTS_j_to_z/prl-e2e-tests/master', wait: true, propogate: true, parameters: [booleanParam(name: "skipManageCasesTests", value: true), string(name: "CITIZEN_FRONTEND_BASE_URL", value: env.PRL_CITIZEN_URL)]
