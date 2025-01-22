@@ -1859,7 +1859,7 @@ export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId>): boo
 };
 
 export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>): boolean => {
-  return !areRefugeDocumentsNotPresent(caseData) && areOtherPeopleConfidentialDetailsValid(caseData);
+  return !areRefugeDocumentsNotPresent(caseData) && !areOtherPeopleConfidentialDetailsValid(caseData);
 };
 
 const areOtherPeopleConfidentialDetailsValid = (caseData: Partial<CaseWithId>): boolean => {
