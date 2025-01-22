@@ -183,7 +183,7 @@ export const enContent = {
     childLivingArrangements: "{firstname} {lastname}'s living arrangements",
     whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with?',
     isOtherPersonAddressConfidential:
-      'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
+      'Do you want to keep {firstName} {lastName}’s identity private from the other people named in the application (the respondents)?',
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
