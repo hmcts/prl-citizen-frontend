@@ -7,7 +7,7 @@ const pact = require('@pact-foundation/pact-node');
 const config = require('config');
 const git = require('git-rev-sync');
 
-if (process.env.PACT_TAG === 'master') {
+/* if (process.env.PACT_TAG === 'master') { */
   console.log('Publishing Pact contract');
   const opts = {
     pactFilesOrDirs: [path.resolve(process.cwd(), config.services.pact.pactDirectory)],
@@ -28,6 +28,6 @@ if (process.env.PACT_TAG === 'master') {
     .catch(e => {
       console.log('Pact contract publishing failed: ', e);
     });
-} else {
+/* } else {
   console.log('Not publishing Pact contract on non-master branch');
-}
+} */
