@@ -58,6 +58,7 @@ withPipeline(type, product, component) {
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
+  enableDockerTestBuild()
 
   afterAlways('build') {
     yarnBuilder.yarn('build')
