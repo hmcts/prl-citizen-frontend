@@ -6,7 +6,7 @@ const logger = {
   info: jest.fn(),
   error: jest.fn(),
 };
-Logger.getLogger.mockReturnValue(logger);
+(Logger.getLogger as jest.Mock).mockReturnValue(logger);
 import Axios, { AxiosStatic } from 'axios';
 import config from 'config';
 import { when } from 'jest-when';
@@ -32,7 +32,7 @@ describe('initAuthToken', () => {
     mockedAxios.post.mockResolvedValue('token');
 
     initAuthToken();
-    expect(mockedAxios.post).toHaveBeenCalledWith('http://rpe-service-auth-provider/testing-support/lease', {
+    expect(mockedAxios.post).toHaveBeenCalledWith('http://rpe-service-auth-provider/lease', {
       microservice: 'prl_citizen_frontend',
       oneTimePassword: expect.anything(),
     });
