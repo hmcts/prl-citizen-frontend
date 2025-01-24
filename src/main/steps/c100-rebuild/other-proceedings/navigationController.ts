@@ -52,12 +52,12 @@ class PreviousProceedingsNavigationController {
     currentPage: PageLink,
     caseData: Partial<Case>,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    params?: Record<string, any>,
     req?: AppRequest
   ): PageLink {
+    const params = req?.params;
     this.selectedOrderTypes = caseData?.op_courtProceedingsOrders ?? [];
     this.C100orderType = params?.orderType as C100OrderTypes;
-    this.C100orderId = params?.orderId;
+    this.C100orderId = Number(params?.orderId);
     this.orders = this.getOrdersByType(caseData);
     let nextUrl;
 

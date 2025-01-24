@@ -3,7 +3,7 @@ import {
   C100Applicant,
   C100FlowTypes,
   C100RebuildPartyDetails,
-  C100SectionUrls,
+  C100SectionUrlName,
   C1AAbuseTypes,
   MiamNonAttendReason,
   YesOrNo,
@@ -15,7 +15,7 @@ export const getC100FlowType = (caseData: CaseWithId, req?: AppRequest): C100Flo
     (caseData.hasOwnProperty('sq_writtenAgreement') && caseData.sq_writtenAgreement === YesOrNo.YES) ||
     req?.body.sq_writtenAgreement === YesOrNo.YES
   ) {
-    return C100FlowTypes.FLOW1;
+    return C100FlowTypes.C100_WITH_CONSENT_ORDER;
   } else if (
     (caseData.hasOwnProperty('miam_otherProceedings') && caseData.miam_otherProceedings === YesOrNo.YES) ||
     req?.body.miam_otherProceedings === YesOrNo.YES ||
@@ -27,11 +27,11 @@ export const getC100FlowType = (caseData: CaseWithId, req?: AppRequest): C100Flo
       caseData.miam_haveDocSigned === YesOrNo.YES &&
       (caseData.miam_certificate !== undefined || req?.body.miam_certificate !== undefined))
   ) {
-    return C100FlowTypes.FLOW2;
+    return C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE;
   } else if (isMiamUrgencyValid(caseData)) {
-    return C100FlowTypes.FLOW3;
+    return C100FlowTypes.C100_WITH_MIAM_URGENCY;
   } else {
-    return C100FlowTypes.FLOW4;
+    return C100FlowTypes.C100_WITH_MIAM;
   }
 };
 
@@ -41,19 +41,19 @@ export const isC100ApplicationValid = (caseData: CaseWithId, req: AppRequest): b
   if (req.session.enableC100CaseProgressionTrainTrack) {
     const flow = getC100FlowType(caseData, req);
     switch (flow) {
-      case C100FlowTypes.FLOW1:
+      case C100FlowTypes.C100_WITH_CONSENT_ORDER:
         return hasC100ApplicationBeenCompleted && !req.originalUrl.includes('check-your-answers')
           ? isCurrentSectionValid(req.originalUrl, caseData, flow1Sections)
           : isC100Flow1Valid(caseData);
-      case C100FlowTypes.FLOW2:
+      case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
         return hasC100ApplicationBeenCompleted && !req.originalUrl.includes('check-your-answers')
           ? isCurrentSectionValid(req.originalUrl, caseData, flow2Sections)
           : isC100Flow2Valid(caseData);
-      case C100FlowTypes.FLOW3:
+      case C100FlowTypes.C100_WITH_MIAM_URGENCY:
         return hasC100ApplicationBeenCompleted && !req.originalUrl.includes('check-your-answers')
           ? isCurrentSectionValid(req.originalUrl, caseData, flow3Sections)
           : isC100Flow3Valid(caseData);
-      case C100FlowTypes.FLOW4:
+      case C100FlowTypes.C100_WITH_MIAM:
         return hasC100ApplicationBeenCompleted && !req.originalUrl.includes('check-your-answers')
           ? isCurrentSectionValid(req.originalUrl, caseData, flow4Sections)
           : isC100Flow4Valid(caseData);
@@ -350,68 +350,68 @@ const isMiamUrgencyValid = (caseData: CaseWithId) => {
   );
 };
 
-type Section = { section: C100SectionUrls; function: (caseData: CaseWithId) => boolean };
+type Section = { section: C100SectionUrlName; function: (caseData: CaseWithId) => boolean };
 
 const commonSections: Section[] = [
-  { section: C100SectionUrls.typeOfOrder, function: isTypeOfOrderValid },
-  { section: C100SectionUrls.urgency, function: isUrgentHearingValid },
-  { section: C100SectionUrls.withoutNotice, function: isHearingWithoutNoticeValid },
-  { section: C100SectionUrls.people, function: isPeopleSectionValid },
-  { section: C100SectionUrls.otherProceedings, function: isOtherProceedingsValid },
-  { section: C100SectionUrls.safetyConcerns, function: isSafetyConcernsValid },
-  { section: C100SectionUrls.internationalElement, function: isInternationalElementsValid },
-  { section: C100SectionUrls.reasonableAdjustments, function: isReasonableAdjustmentsValid },
-  { section: C100SectionUrls.helpWithFees, function: isHWFValid },
+  { section: C100SectionUrlName.TYPE_OF_ORDER, function: isTypeOfOrderValid },
+  { section: C100SectionUrlName.URGENCY, function: isUrgentHearingValid },
+  { section: C100SectionUrlName.WITHOUT_NOTICE, function: isHearingWithoutNoticeValid },
+  { section: C100SectionUrlName.PEOPLE, function: isPeopleSectionValid },
+  { section: C100SectionUrlName.OTHER_PROCEEDINGS, function: isOtherProceedingsValid },
+  { section: C100SectionUrlName.SAFETY_CONCERNS, function: isSafetyConcernsValid },
+  { section: C100SectionUrlName.INTERNATIONAL_ELEMENT, function: isInternationalElementsValid },
+  { section: C100SectionUrlName.REASONABLE_ADJUSTMENTS, function: isReasonableAdjustmentsValid },
+  { section: C100SectionUrlName.HELP_WITH_FEES, function: isHWFValid },
 ];
 
 const flow1Sections: Section[] = [
   {
-    section: C100SectionUrls.typeOfOrder,
+    section: C100SectionUrlName.TYPE_OF_ORDER,
     function: caseData => isTypeOfOrderValid(caseData) && isConsentOrderValid(caseData),
   },
-  { section: C100SectionUrls.consentOrder, function: isConsentOrderValid },
+  { section: C100SectionUrlName.CONSENT_ORDER, function: isConsentOrderValid },
   ...commonSections,
 ];
 const flow2Sections: Section[] = [
   ...commonSections,
   {
-    section: C100SectionUrls.screeningQuestions,
+    section: C100SectionUrlName.SCREENING_QUESTIONS,
     function: caseData =>
       isScreeningQuestionsValid(caseData) && (isMiamOtherProceedingsValid(caseData) || isMiamAttendanceValid(caseData)),
   },
   {
-    section: C100SectionUrls.miam,
+    section: C100SectionUrlName.MIAM,
     function: caseData => isMiamOtherProceedingsValid(caseData) || isMiamAttendanceValid(caseData),
   },
 ];
 const flow3Sections: Section[] = [
   ...commonSections,
   {
-    section: C100SectionUrls.screeningQuestions,
+    section: C100SectionUrlName.SCREENING_QUESTIONS,
     function: caseData => isScreeningQuestionsValid(caseData) && isMiamUrgencyValid(caseData),
   },
-  { section: C100SectionUrls.miam, function: isMiamUrgencyValid },
+  { section: C100SectionUrlName.MIAM, function: isMiamUrgencyValid },
 ];
 const flow4Sections: Section[] = [
   ...commonSections,
   {
-    section: C100SectionUrls.screeningQuestions,
+    section: C100SectionUrlName.SCREENING_QUESTIONS,
     function: caseData => isScreeningQuestionsValid(caseData) && isMiamExemptionsValid(caseData),
   },
-  { section: C100SectionUrls.miam, function: isMiamExemptionsValid },
+  { section: C100SectionUrlName.MIAM, function: isMiamExemptionsValid },
 ];
 
 const isCurrentSectionValid = (currentUrl: string, caseData: CaseWithId, sections: Section[]): boolean => {
-  let currentSection;
+  let currentSection: C100SectionUrlName;
   if (
     currentUrl.includes('child-details') ||
     currentUrl.includes('applicant') ||
     currentUrl.includes('respondent') ||
     currentUrl.includes('other-person-details')
   ) {
-    currentSection = C100SectionUrls.people;
+    currentSection = C100SectionUrlName.PEOPLE;
   } else {
-    currentSection = currentUrl.split('/')[2];
+    currentSection = currentUrl.split('/')[2] as C100SectionUrlName;
   }
 
   return sections.find(section => section.section === currentSection)?.function(caseData) ?? false;

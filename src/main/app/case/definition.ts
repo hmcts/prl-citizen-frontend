@@ -3025,23 +3025,23 @@ export enum SupportServiceEvidence {
 }
 
 export enum C100FlowTypes {
-  FLOW1 = 'flow1',
-  FLOW2 = 'flow2',
-  FLOW3 = 'flow3',
-  FLOW4 = 'flow4',
+  C100_WITH_CONSENT_ORDER = 'c100-with-consent-order',
+  C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE = 'c100-with-miam-other-proceedings-or-attendance',
+  C100_WITH_MIAM_URGENCY = 'c100-with-miam-urgency',
+  C100_WITH_MIAM = 'c100-with-miam',
 }
 
-export enum C100SectionUrls {
-  screeningQuestions = 'screening-questions',
-  typeOfOrder = 'typeoforder',
-  consentOrder = 'consent-order',
-  urgency = 'hearing-urgency',
-  withoutNotice = 'hearing-without-notice',
-  people = 'people',
-  otherProceedings = 'other-proceedings',
-  safetyConcerns = 'safety-concerns',
-  internationalElement = 'international-elements',
-  reasonableAdjustments = 'reasonable-adjustments',
-  helpWithFees = 'help-with-fees',
-  miam = 'miam',
+export enum C100SectionUrlName {
+  SCREENING_QUESTIONS = 'screening-questions',
+  TYPE_OF_ORDER = 'typeoforder',
+  CONSENT_ORDER = 'consent-order',
+  URGENCY = 'hearing-urgency',
+  WITHOUT_NOTICE = 'hearing-without-notice',
+  PEOPLE = 'people',
+  OTHER_PROCEEDINGS = 'other-proceedings',
+  SAFETY_CONCERNS = 'safety-concerns',
+  INTERNATIONAL_ELEMENT = 'international-elements',
+  REASONABLE_ADJUSTMENTS = 'reasonable-adjustments',
+  HELP_WITH_FEES = 'help-with-fees',
+  MIAM = 'miam',
 }

@@ -120,7 +120,7 @@ export class PostController<T extends AnyObject> {
         Object.assign(req.session.userCase, formData);
         let returnUrl = req.originalUrl;
         if (req.session.applicationSettings?.hasC100ApplicationBeenCompleted) {
-          returnUrl = returnUrl.includes('?lng=cy')
+          returnUrl = returnUrl.includes('?lng')
             ? `${returnUrl}&validApplication=true`
             : `${returnUrl}?validApplication=true`;
         }

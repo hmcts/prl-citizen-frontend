@@ -27,11 +27,11 @@ class ChildrenDetailsNavigationController {
     currentPageUrl: PageLink,
     caseData: Partial<Case>,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    params?: Record<string, any>,
     req?: AppRequest
   ): PageLink {
+    const params = req?.params;
     this.childrenDetails = caseData?.cd_children as ChildrenDetails[];
-    this.childId = params?.childId;
+    this.childId = params?.childId ?? '';
     let nextUrl;
 
     switch (currentPageUrl) {

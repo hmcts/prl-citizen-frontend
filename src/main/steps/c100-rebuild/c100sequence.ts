@@ -299,25 +299,21 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
-      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, caseData, req?.params),
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_PERSONAL_DETAILS, caseData, req),
   },
   {
     url: C100_CHILDERN_DETAILS_CHILD_MATTERS,
     showInSection: Sections.C100,
     postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
-      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_CHILD_MATTERS, caseData, req?.params),
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_CHILD_MATTERS, caseData, req),
   },
   {
     url: C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
     showInSection: Sections.C100,
     postController: ChildDetailsPostController,
     getNextStep: (caseData, req) =>
-      ChildrenDetailsNavigationController.getNextUrl(
-        C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY,
-        caseData,
-        req?.params
-      ),
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY, caseData, req),
   },
   {
     url: C100_CHILDERN_FURTHER_INFORMATION,
@@ -333,12 +329,7 @@ export const C100Sequence: Step[] = [
     url: C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      PreviousProceedingsNavigationController.getNextUrl(
-        C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
-        caseData,
-        req?.params,
-        req
-      ),
+      PreviousProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS, caseData, req),
   },
   {
     url: C100_OTHER_PROCEEDINGS_DETAILS,
@@ -350,35 +341,21 @@ export const C100Sequence: Step[] = [
     url: C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
     showInSection: Sections.C100,
     getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
-      return PreviousProceedingsNavigationController.getNextUrl(
-        C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
-        caseData,
-        req!.params,
-        req
-      );
+      return PreviousProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, caseData, req);
     },
   },
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
     showInSection: Sections.C100,
     getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
-      return PreviousProceedingsNavigationController.getNextUrl(
-        C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
-        caseData,
-        req!.params
-      );
+      return PreviousProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, caseData, req);
     },
   },
   {
     url: C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      PreviousProceedingsNavigationController.getNextUrl(
-        C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
-        caseData,
-        req?.params,
-        req
-      ),
+      PreviousProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY, caseData, req),
   },
   {
     url: C100_CHILD_ADDRESS,
@@ -817,13 +794,13 @@ export const C100Sequence: Step[] = [
     url: C100_CHILDERN_MAINLY_LIVE_WITH,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_MAINLY_LIVE_WITH, caseData, req?.params),
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_MAINLY_LIVE_WITH, caseData, req),
   },
   {
     url: C100_CHILDERN_LIVING_ARRANGEMENTS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVING_ARRANGEMENTS, caseData, req?.params, req),
+      ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_LIVING_ARRANGEMENTS, caseData, req),
   },
   {
     url: C100_APPLICANTS_PERSONAL_DETAILS,

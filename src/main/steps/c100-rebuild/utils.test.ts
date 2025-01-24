@@ -9,13 +9,13 @@ describe('C100 rebuild > utils', () => {
     test('should return flow 1 when written agreement is yes in caseData', () => {
       expect(
         getC100FlowType({ sq_writtenAgreement: 'Yes' } as unknown as CaseWithId, {} as unknown as AppRequest)
-      ).toBe(C100FlowTypes.FLOW1);
+      ).toBe(C100FlowTypes.C100_WITH_CONSENT_ORDER);
     });
 
     test('should return flow 1 when written agreement is yes in request body', () => {
       expect(
         getC100FlowType({} as unknown as CaseWithId, { body: { sq_writtenAgreement: 'Yes' } } as unknown as AppRequest)
-      ).toBe(C100FlowTypes.FLOW1);
+      ).toBe(C100FlowTypes.C100_WITH_CONSENT_ORDER);
     });
 
     test('should return flow 2 when miam other proceedings is yes in caseData', () => {
@@ -24,7 +24,7 @@ describe('C100 rebuild > utils', () => {
           { miam_otherProceedings: 'Yes' } as unknown as CaseWithId,
           { body: {} } as unknown as AppRequest
         )
-      ).toBe(C100FlowTypes.FLOW2);
+      ).toBe(C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE);
     });
 
     test('should return flow 2 when miam other proceedings is yes in request body', () => {
@@ -33,7 +33,7 @@ describe('C100 rebuild > utils', () => {
           {} as unknown as CaseWithId,
           { body: { miam_otherProceedings: 'Yes' } } as unknown as AppRequest
         )
-      ).toBe(C100FlowTypes.FLOW2);
+      ).toBe(C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE);
     });
 
     test('should return flow 2 when miam other proceedings is no and attendance is yes', () => {
@@ -47,7 +47,7 @@ describe('C100 rebuild > utils', () => {
           } as unknown as CaseWithId,
           { body: {} } as unknown as AppRequest
         )
-      ).toBe(C100FlowTypes.FLOW2);
+      ).toBe(C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE);
     });
 
     test('should return flow 2 when miam other proceedings is no and attendance is yes and certificate in request body', () => {
@@ -60,7 +60,7 @@ describe('C100 rebuild > utils', () => {
           } as unknown as CaseWithId,
           { body: { miam_certificate: {} } } as unknown as AppRequest
         )
-      ).toBe(C100FlowTypes.FLOW2);
+      ).toBe(C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE);
     });
 
     test('should return flow 3 when miam when miam urgency selected', () => {
@@ -72,12 +72,12 @@ describe('C100 rebuild > utils', () => {
           } as unknown as CaseWithId,
           { body: {} } as unknown as AppRequest
         )
-      ).toBe(C100FlowTypes.FLOW3);
+      ).toBe(C100FlowTypes.C100_WITH_MIAM_URGENCY);
     });
 
     test('should return flow 4 in other scenarios', () => {
       expect(getC100FlowType({} as unknown as CaseWithId, { body: {} } as unknown as AppRequest)).toBe(
-        C100FlowTypes.FLOW4
+        C100FlowTypes.C100_WITH_MIAM
       );
     });
   });

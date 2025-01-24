@@ -28,7 +28,7 @@ export default class CheckYourAnswersGetController extends GetController {
       req.session.save();
     }
     if (isC100ApplicationValid(req.session.userCase, req)) {
-      returnUrl = returnUrl.includes('?lng=cy')
+      returnUrl = returnUrl.includes('?lng')
         ? `${returnUrl}&validApplication=true`
         : `${returnUrl}?validApplication=true`;
       req.session.applicationSettings = {
