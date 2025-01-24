@@ -101,6 +101,7 @@ export const isFieldFilled = (fieldConfig: MandatoryFieldsConfig, caseData: Case
   if (fieldType === 'string') {
     return fieldConfig?.value ? fieldValue === fieldConfig.value : !!fieldValue;
   } else if (fieldType === 'array') {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     fieldValue = fieldValue.filter((value: any) => value !== '');
     return fieldConfig?.value ? fieldValue.includes(fieldConfig.value) : fieldValue.length > 0;
   }
@@ -108,6 +109,7 @@ export const isFieldFilled = (fieldConfig: MandatoryFieldsConfig, caseData: Case
   return false;
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getMandatoryFields = (config, caseData: CaseWithId): MandatoryFieldsConfig[] => {
   const mandatoryFields: MandatoryFieldsConfig[] = [];
   const fieldsConfig: FieldsConfig = {};

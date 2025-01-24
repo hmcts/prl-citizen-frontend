@@ -1,6 +1,9 @@
+import { CaseWithId } from '../../../app/case/case';
 import { RootContext, YesOrNo } from '../../../app/case/definition';
+import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { Sections, Step } from '../../constants';
 import {
+  C100_CHECK_YOUR_ANSWER,
   C100_INTERNATIONAL_ELEMENTS_START,
   C100_URL,
   C1A_CHILD_ABDUCTION_THREATS,
@@ -54,8 +57,11 @@ export class AOHSequence {
         getNextStep: (data, req) => {
           const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
           if (data.c1A_haveSafetyConcerns === YesOrNo.NO) {
+            const nextC100Url = isC100ApplicationValid(data as CaseWithId, req!)
+              ? C100_CHECK_YOUR_ANSWER
+              : C100_INTERNATIONAL_ELEMENTS_START;
             return C100rebuildJourney
-              ? C100_INTERNATIONAL_ELEMENTS_START
+              ? nextC100Url
               : (applyParms(C1A_SAFETY_CONCERNS_REVIEW, { root: RootContext.RESPONDENT }) as PageLink);
           } else {
             return C100rebuildJourney
@@ -280,8 +286,11 @@ export class AOHSequence {
         url: C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED,
         showInSection: Sections.C100,
         getNextStep: (caseData, req) => {
+          const nextC100Url = isC100ApplicationValid(caseData as CaseWithId, req!)
+            ? C100_CHECK_YOUR_ANSWER
+            : C100_INTERNATIONAL_ELEMENTS_START;
           return req?.originalUrl?.startsWith(C100_URL)
-            ? C100_INTERNATIONAL_ELEMENTS_START
+            ? nextC100Url
             : (applyParms(C1A_SAFETY_CONCERNS_REVIEW, { root: RootContext.RESPONDENT }) as PageLink);
         },
       },

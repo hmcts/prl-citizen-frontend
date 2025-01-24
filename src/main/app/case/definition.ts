@@ -3023,3 +3023,25 @@ export enum SupportServiceEvidence {
   DOMESTIC_VIOLENCE_ORGANISATION = 'letterFromOrgDomesticViolenceSupport',
   UK_DOMESTIC_VIOLENCE_ORGANISATION = 'letterFromOrgDomesticViolenceInUk',
 }
+
+export enum C100FlowTypes {
+  C100_WITH_CONSENT_ORDER = 'c100-with-consent-order',
+  C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE = 'c100-with-miam-other-proceedings-or-attendance',
+  C100_WITH_MIAM_URGENCY = 'c100-with-miam-urgency',
+  C100_WITH_MIAM = 'c100-with-miam',
+}
+
+export enum C100SectionUrlName {
+  SCREENING_QUESTIONS = 'screening-questions',
+  TYPE_OF_ORDER = 'typeoforder',
+  CONSENT_ORDER = 'consent-order',
+  URGENCY = 'hearing-urgency',
+  WITHOUT_NOTICE = 'hearing-without-notice',
+  PEOPLE = 'people',
+  OTHER_PROCEEDINGS = 'other-proceedings',
+  SAFETY_CONCERNS = 'safety-concerns',
+  INTERNATIONAL_ELEMENT = 'international-elements',
+  REASONABLE_ADJUSTMENTS = 'reasonable-adjustments',
+  HELP_WITH_FEES = 'help-with-fees',
+  MIAM = 'miam',
+}

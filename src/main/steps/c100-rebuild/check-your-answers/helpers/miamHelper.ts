@@ -85,9 +85,7 @@ const generateDomesticAbuseAdditionalFields = (
       ? HTML.UNORDER_LIST +
         userCase.miam_domesticAbuseEvidenceDocs?.map(doc => {
           return (
-            HTML.LIST_ITEM +
-            populateError(doc.document_filename, doc.document_filename, language) +
-            HTML.LIST_ITEM_END
+            HTML.LIST_ITEM + populateError(doc.document_filename, doc.document_filename, language) + HTML.LIST_ITEM_END
           );
         }) +
         HTML.UNORDER_LIST_END
@@ -255,7 +253,7 @@ export const miamParentAndChildFieldParser = (
   userCase: Partial<CaseWithId>,
   keys: Record<string, string>,
   sessionKey: string,
-  language: string,
+  language: string
 ): string => {
   if (userCase.hasOwnProperty(sessionKey)) {
     const mappedVals = _.isArray(userCase[sessionKey])
@@ -291,16 +289,12 @@ export const miamParentAndChildFieldParser = (
 
     let additionalFields = '';
     if (sessionKey === 'miam_domesticAbuse' && !userCase.miam_domesticAbuse?.includes(DomesticAbuseExemptions.NONE)) {
-      additionalFields = generateDomesticAbuseAdditionalFields(userCase, keys, language)
-        .split(',')
-        .join('');
+      additionalFields = generateDomesticAbuseAdditionalFields(userCase, keys, language).split(',').join('');
     } else if (
       sessionKey === 'miam_notAttendingReasons' &&
       userCase.miam_notAttendingReasons !== Miam_notAttendingReasons.none
     ) {
-      additionalFields = generateOtherExemptionAdditionalFields(userCase, keys, language)
-        .split(',')
-        .join('');
+      additionalFields = generateOtherExemptionAdditionalFields(userCase, keys, language).split(',').join('');
     }
 
     return (
@@ -329,12 +323,7 @@ export const MiamHelperDynamicEnteriesMapper = (
     [MiamNonAttendReason.DOMESTIC]: {
       key: keys['domesticVoilenceHeading'],
       anchorReference: 'miam_domesticAbuse',
-      valueHtml: miamParentAndChildFieldParser(
-        userCase,
-        keys,
-        'miam_domesticAbuse',
-        language
-      ),
+      valueHtml: miamParentAndChildFieldParser(userCase, keys, 'miam_domesticAbuse', language),
       changeUrl: C100_MIAM_MIAM_DOMESTIC_ABUSE,
     },
     [MiamNonAttendReason.CHILD_PROTECTION]: {
@@ -375,12 +364,7 @@ export const MiamHelperDynamicEnteriesMapper = (
     [MiamNonAttendReason.EXEMPT]: {
       key: keys['validExemptionHeading'],
       anchorReference: 'miam_notAttendingReasons',
-      valueHtml: miamParentAndChildFieldParser(
-        userCase,
-        keys,
-        'miam_notAttendingReasons',
-        language
-      ),
+      valueHtml: miamParentAndChildFieldParser(userCase, keys, 'miam_notAttendingReasons', language),
       changeUrl: C100_MIAM_OTHER,
     },
     [MiamNonAttendReason.NONE]: {

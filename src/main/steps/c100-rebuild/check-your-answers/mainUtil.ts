@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import { CaseWithId } from '../../../app/case/case';
 import {
+  C100FlowTypes,
   C1AAbuseTypes,
   C1ASafteyConcernsAbout,
   ContactPreference,
@@ -14,13 +15,21 @@ import {
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
 import { interpolate } from '../../../steps/common/string-parser';
 import { proceedingSummaryData } from '../../../steps/common/summary/utils';
+import { getC100FlowType } from '../../c100-rebuild/utils';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
 
 import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
-import { cyContent, enContent } from './content';
+import {
+  CheckYourAnswerFlow1,
+  CheckYourAnswerFlow2,
+  CheckYourAnswerFlow3,
+  CheckYourAnswerFlow4,
+  cyContent,
+  enContent,
+} from './content';
 import { InternationElementHelper } from './helpers/InternationElementsHelper';
 // eslint-disable-next-line import/namespace
 import { courtTypeOfOrderHelper } from './helpers/courtOrderHelper';
@@ -56,11 +65,7 @@ export const LocationDetails = (
     {
       key: keys['whereDoChildLive'],
       anchorReference: 'c100RebuildChildPostCode',
-      valueHtml: populateError(
-        userCase['c100RebuildChildPostCode'],
-        userCase['c100RebuildChildPostCode'],
-        language
-      ),
+      valueHtml: populateError(userCase['c100RebuildChildPostCode'], userCase['c100RebuildChildPostCode'], language),
       changeUrl: Urls['C100_CHILD_ADDRESS'],
     },
   ];
@@ -106,7 +111,7 @@ export const LegalRepresentativeDetails = (
       valueHtml: populateError(
         userCase['sq_legalRepresentation'],
         getYesNoTranslation(language, userCase['sq_legalRepresentation'], 'byddafTranslation'),
-        language,
+        language
       ),
       changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION'],
     },
@@ -118,7 +123,7 @@ export const LegalRepresentativeDetails = (
       valueHtml: populateError(
         userCase['sq_legalRepresentationApplication'],
         getYesNoTranslation(language, userCase['sq_legalRepresentationApplication'], 'doTranslation'),
-        language,
+        language
       ),
       changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION'],
     });
@@ -132,8 +137,7 @@ export const LegalRepresentativeDetails = (
 export const PermissionForApplication = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-
+  language
 ): SummaryList | undefined => {
   const valForPermissionWhy = userCase.hasOwnProperty('sq_permissionsWhy')
     ? (
@@ -155,7 +159,7 @@ export const PermissionForApplication = (
         valueHtml: populateError(
           userCase['sq_courtPermissionRequired'],
           getYesNoTranslation(language, userCase['sq_courtPermissionRequired'], 'oesTranslation'),
-          language,
+          language
         ),
         changeUrl: Urls['C100_SCREENING_QUESTIONS_COURT_PERMISSION'],
       },
@@ -167,11 +171,7 @@ export const PermissionForApplication = (
       {
         key: keys['whyCourtGrantSubmittingPermission'],
         anchorReference: 'sq_permissionsRequest',
-        valueHtml: populateError(
-          userCase['sq_permissionsRequest'],
-          userCase['sq_permissionsRequest'],
-          language,
-        ),
+        valueHtml: populateError(userCase['sq_permissionsRequest'], userCase['sq_permissionsRequest'], language),
         changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST'],
       },
     ];
@@ -183,7 +183,7 @@ export const PermissionForApplication = (
         valueHtml: populateError(
           userCase['sq_courtPermissionRequired'],
           getYesNoTranslation(language, userCase['sq_courtPermissionRequired'], 'oesTranslation'),
-          language,
+          language
         ),
         changeUrl: Urls['C100_SCREENING_QUESTIONS_COURT_PERMISSION'],
       },
@@ -213,11 +213,7 @@ export const TypeOfOrder = (
     {
       key: keys['wantingCourtToDo'],
       anchorReference: 'too_shortStatement',
-      valueHtml: populateError(
-        userCase['too_shortStatement'],
-        userCase['too_shortStatement'],
-        language
-      ),
+      valueHtml: populateError(userCase['too_shortStatement'], userCase['too_shortStatement'], language),
       changeUrl: Urls['C100_TYPE_ORDER_SHORT_STATEMENT'],
     },
   ];
@@ -237,24 +233,14 @@ export const WithoutNoticeHearing = (
     {
       key: keys['qualifyForUrgentHearing'],
       anchorReference: 'hu_urgentHearingReasons',
-      valueHtml: hearingDetailsQualifyForFirstHearingHelper(
-        userCase,
-        keys,
-        'hu_urgentHearingReasons',
-        language
-      ), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
+      valueHtml: hearingDetailsQualifyForFirstHearingHelper(userCase, keys, 'hu_urgentHearingReasons', language), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
       changeUrl: Urls['C100_HEARING_URGENCY_URGENT'],
     },
     {
       key: keys['askingNoHearing'],
       anchorReference: 'hwn_reasonsForApplicationWithoutNotice',
       value: getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation'), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
-      valueHtml: hearingDetailsHelper(
-        userCase,
-        keys,
-        'hwn_reasonsForApplicationWithoutNotice',
-        language
-      ), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
+      valueHtml: hearingDetailsHelper(userCase, keys, 'hwn_reasonsForApplicationWithoutNotice', language), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
       changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
     },
   ];
@@ -351,19 +337,11 @@ export const ChildernDetails = (
               HTML.BREAK +
               HTML.ROW_START_NO_BORDER +
               HTML.DESCRIPTION_TERM_DETAIL +
-              populateError(
-                personalDetails['otherGenderDetails'],
-                personalDetails['otherGenderDetails'],
-                language
-              ) +
+              populateError(personalDetails['otherGenderDetails'], personalDetails['otherGenderDetails'], language) +
               HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
               HTML.DESCRIPTION_LIST_END
-            : populateError(
-                personalDetails?.['gender'],
-                translation(personalDetails?.['gender'], language),
-                language
-              ),
+            : populateError(personalDetails?.['gender'], translation(personalDetails?.['gender'], language), language),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
@@ -397,8 +375,7 @@ export const ChildernDetails = (
 export const ChildernDetailsAdditional = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
-  language,
-
+  language
 ): SummaryList | undefined => {
   let htmlForAdditionalText = userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
     ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
@@ -522,20 +499,12 @@ export const OtherChildrenDetails = (
   };
 };
 
-const generateGenderHtml = (
-  personalDetails,
-  keys: Record<string, string>,
-  language: string
-): string => {
+const generateGenderHtml = (personalDetails, keys: Record<string, string>, language: string): string => {
   return personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
     ? HTML.DESCRIPTION_LIST +
         HTML.ROW_START +
         HTML.DESCRIPTION_TERM_DETAIL +
-        populateError(
-          personalDetails?.['gender'],
-          translation(personalDetails?.['gender'], language),
-          language
-        ) +
+        populateError(personalDetails?.['gender'], translation(personalDetails?.['gender'], language), language) +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END +
         HTML.ROW_START_NO_BORDER +
@@ -553,18 +522,10 @@ const generateGenderHtml = (
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END +
         HTML.DESCRIPTION_LIST_END
-    : populateError(
-        personalDetails?.['gender'],
-        translation(personalDetails?.['gender'], language),
-        language
-      ) + ' ';
+    : populateError(personalDetails?.['gender'], translation(personalDetails?.['gender'], language), language) + ' ';
 };
 
-export const ApplicantDetailNameParser = (
-  personalDetails,
-  keys,
-  language,
-): string => {
+export const ApplicantDetailNameParser = (personalDetails, keys, language): string => {
   let changeNameInformation = '';
   changeNameInformation +=
     personalDetails['haveYouChangeName'] === 'Yes'
@@ -741,11 +702,7 @@ export const ApplicantDetails = (
         valueHtml:
           element['relationshipType'] === 'Other'
             ? element['otherRelationshipTypeDetails']
-            : populateError(
-                element['relationshipType'],
-                translation(element['relationshipType'], language),
-                language
-              ), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+            : populateError(element['relationshipType'], translation(element['relationshipType'], language), language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
         changeUrl: applyParms(Urls['C100_APPLICANT_RELATIONSHIP_TO_CHILD'], {
           applicantId: id,
           childId: element['childId'],
@@ -791,11 +748,7 @@ export const ApplicantDetails = (
       visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['addressDetails']}`,
       anchorReference: applicantAddressAnchorRef,
       value: '',
-      valueHtml: applicantAddressParser(
-        sessionApplicantData[applicant],
-        keys,
-        language
-      ),
+      valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys, language),
       changeUrl: applyParms(Urls['C100_APPLICANT_ADDRESS_MANUAL'], {
         applicantId: sessionApplicantData[applicant]['id'],
       }),
@@ -812,11 +765,7 @@ export const ApplicantDetails = (
         value: '',
         valueHtml: populateError(
           sessionApplicantData[applicant].applicantContactDetail,
-          applicantContactDetailsParser(
-            sessionApplicantData[applicant].applicantContactDetail,
-            keys,
-            language
-          ),
+          applicantContactDetailsParser(sessionApplicantData[applicant].applicantContactDetail, keys, language),
           language
         ),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_DETAIL'], {
@@ -944,11 +893,7 @@ export const MiamExemption = (
   userCase: Partial<CaseWithId>,
   language: string
 ): SummaryList | undefined => {
-  const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(
-    userCase,
-    keys,
-    language
-  ); //
+  const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys, language); //
   const SummaryData = [
     {
       key: keys['generalReasonTitle'],
@@ -1504,14 +1449,7 @@ const RespondentDetails_AddressAndPersonal = (
   return newRespondentStorage;
 };
 
-const respondentTelephoneEmailDetails = (
-  contactDetails,
-  id,
-  language,
-  isTelephone: boolean,
-  index: number,
-  keys
-) => {
+const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelephone: boolean, index: number, keys) => {
   const ctx: string[] = [];
   if (isTelephone) {
     ctx.push('donKnowTelephoneNumber', 'dont_know_telephone', 'telephone_number', 'telephoneNumber');
@@ -1536,11 +1474,7 @@ const respondentTelephoneEmailDetails = (
       key: getYesNoTranslation(language, ctx[2], 'personalDetails'),
       anchorReference: `personalDetails-respondent-${index}`,
       visuallyHiddenText: `${keys['respondents']} ${index} ${getYesNoTranslation(language, ctx[2], 'personalDetails')}`,
-      valueHtml: populateError(
-        contactDetails?.[ctx[3]],
-        contactDetails?.[ctx[3]],
-        language
-      ),
+      valueHtml: populateError(contactDetails?.[ctx[3]], contactDetails?.[ctx[3]], language),
       value: contactDetails?.[ctx[3]],
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
@@ -1702,14 +1636,7 @@ export const RespondentDetails = (
     });
     //section 1 insertion
     newRespondentStorage.push(
-      ...RespondentDetails_AddressAndPersonal(
-        sessionRespondentData,
-        respondent,
-        keys,
-        id,
-        contactDetails,
-        language
-      )
+      ...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails, language)
     );
   }
 
@@ -1785,11 +1712,7 @@ export const OtherPeopleDetails = (
         key: keys['fullName'],
         visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['fullName']}`,
         anchorReference: `fullName-otherPerson-${respondent}`,
-        valueHtml: populateError(
-          firstname + ' ' + lastname,
-          firstname + ' ' + lastname,
-          language
-        ),
+        valueHtml: populateError(firstname + ' ' + lastname, firstname + ' ' + lastname, language),
         // value: firstname + ' ' + lastname,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADD'], { otherPersonId: id }),
       },
@@ -1797,11 +1720,7 @@ export const OtherPeopleDetails = (
         key: keys['hasNameChanged'],
         visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['hasNameChanged']}`,
         anchorReference: `hasNameChanged-otherPerson-${respondent}`,
-        valueHtml: populateError(
-          changeNameInformation,
-          changeNameInformation,
-          language
-        ),
+        valueHtml: populateError(changeNameInformation, changeNameInformation, language),
         // valueHtml: changeNameInformation,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
       },
@@ -1809,11 +1728,7 @@ export const OtherPeopleDetails = (
         key: keys['childGenderLabel'],
         visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
         anchorReference: `otherGenderDetails-otherPerson-${respondent}`,
-        valueHtml: populateError(
-          childGender,
-          childGender,
-          language
-        ),
+        valueHtml: populateError(childGender, childGender, language),
         // valueHtml: childGender,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
       }
@@ -2273,7 +2188,7 @@ export const isBorderPresent = (data: YesOrNo | undefined, condition: string): H
   return data === condition ? HTML.ROW_START : HTML.ROW_START_NO_BORDER;
 };
 
-export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId>|CaseWithId): boolean => {
+export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId> | CaseWithId): boolean => {
   return !!(
     caseData.appl_allApplicants?.find(
       applicant => applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)
@@ -2284,8 +2199,56 @@ export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId>|CaseW
   );
 };
 
-export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>|CaseWithId): boolean => {
+export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId> | CaseWithId): boolean => {
   return !areRefugeDocumentsNotPresent(caseData);
+};
+
+export const getCyaSections = (userCase: CaseWithId, content, newContent, language, isC100TrainTrackEnabled, req) => {
+  let sections;
+  const flow = getC100FlowType(userCase);
+  if (isC100TrainTrackEnabled) {
+    switch (flow) {
+      case C100FlowTypes.C100_WITH_CONSENT_ORDER:
+        sections = CheckYourAnswerFlow1(userCase, content, language, req).flat() as ANYTYPE;
+        break;
+      case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
+        sections = CheckYourAnswerFlow2(userCase, content, language, req).flat() as ANYTYPE;
+        break;
+      case C100FlowTypes.C100_WITH_MIAM_URGENCY:
+        sections = CheckYourAnswerFlow3(userCase, content, newContent, language, req).flat() as ANYTYPE;
+        break;
+      default:
+        sections = CheckYourAnswerFlow4(userCase, content, newContent, language, req).flat() as ANYTYPE;
+    }
+  } else {
+    // if on sreening screen enable Yes
+    if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
+      sections = CheckYourAnswerFlow1(userCase, content, language, req).flat() as ANYTYPE;
+    } else {
+      if (
+        (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
+        (userCase.hasOwnProperty('miam_otherProceedings') &&
+          userCase['miam_otherProceedings'] === YesOrNo.NO &&
+          userCase.hasOwnProperty('miam_attendance') &&
+          userCase['miam_attendance'] === YesOrNo.YES)
+      ) {
+        sections = CheckYourAnswerFlow2(userCase, content, language, req).flat() as ANYTYPE;
+      } else {
+        //if miam urgency is requested miam_urgency
+        if (
+          userCase['miam_urgency'] &&
+          userCase.hasOwnProperty('miam_urgency') &&
+          userCase['miam_urgency'] !== 'none'
+        ) {
+          sections = CheckYourAnswerFlow3(userCase, content, newContent, language, req).flat() as ANYTYPE;
+        } else {
+          sections = CheckYourAnswerFlow4(userCase, content, newContent, language, req).flat() as ANYTYPE;
+        }
+      }
+    }
+  }
+
+  return sections;
 };
 
 export const populateError = (value, truethyValue, language): string => {

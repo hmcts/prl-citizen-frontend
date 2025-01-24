@@ -13,46 +13,50 @@ const en = {
       label: 'Screening<br/>questions',
       ariaLabel: 'Screening questions',
     },
+    consentOrder: {
+      label: 'Consent order',
+      ariaLabel: 'Consent order',
+    },
     miam: {
       label: 'MIAM',
       ariaLabel: 'MIAM',
     },
-    typeOfOrder:{
+    typeOfOrder: {
       label: 'Type<br/>of<br/>order',
       ariaLabel: 'Type of order',
     },
-    otherProceedings:{
+    otherProceedings: {
       label: 'Other<br/>Proceedings',
       ariaLabel: 'Other Proceedings',
     },
-    urgencyAndWithoutNotice:{
+    urgencyAndWithoutNotice: {
       label: 'Urgency<br/>&<br/>Without notice',
       ariaLabel: 'Urgency and Without notice',
     },
-    people:{
+    people: {
       label: 'People',
       ariaLabel: 'People',
     },
-    safetyConcerns:{
+    safetyConcerns: {
       label: 'Safety<br/>concerns',
       ariaLabel: 'Safety concerns',
     },
-    internationalElements:{
+    internationalElements: {
       label: 'International<br/>elements',
       ariaLabel: 'International elements',
     },
-    reasonableAdjustments:{
+    reasonableAdjustments: {
       label: 'Reasonable<br/>adjustments',
       ariaLabel: 'Reasonable adjustments',
     },
-    helpWithFees:{
+    helpWithFees: {
       label: 'Help<br/>with<br/>fees',
       ariaLabel: 'Help with fees',
     },
-    reviewAnswers:{
+    reviewAnswers: {
       label: 'Review<br/>answers',
       ariaLabel: 'Review answers',
-    }
+    },
   },
   [CaseType.C100]: {
     applicationSubmitted: {
@@ -109,46 +113,50 @@ const cy: typeof en = {
       label: 'Screening<br/>questions - welsh',
       ariaLabel: 'Screening questions - welsh',
     },
+    consentOrder: {
+      label: 'Consent order - welsh',
+      ariaLabel: 'Consent order - welsh',
+    },
     miam: {
       label: 'MIAM - welsh',
       ariaLabel: 'MIAM - welsh',
     },
-    typeOfOrder:{
+    typeOfOrder: {
       label: 'Type<br/>of<br/>order - welsh',
       ariaLabel: 'Type of order - welsh',
     },
-    otherProceedings:{
+    otherProceedings: {
       label: 'Other<br/>Proceedings - welsh',
       ariaLabel: 'Other Proceedings - welsh',
     },
-    urgencyAndWithoutNotice:{
+    urgencyAndWithoutNotice: {
       label: 'Urgency<br/>&<br/>Without notice - welsh',
       ariaLabel: 'Urgency and Without notice - welsh',
     },
-    people:{
+    people: {
       label: 'People - welsh',
       ariaLabel: 'People - welsh',
     },
-    safetyConcerns:{
+    safetyConcerns: {
       label: 'Safety<br/>concerns - welsh',
       ariaLabel: 'Safety concerns - welsh',
     },
-    internationalElements:{
+    internationalElements: {
       label: 'International<br/>elements - welsh',
       ariaLabel: 'International elements - welsh',
     },
-    reasonableAdjustments:{
+    reasonableAdjustments: {
       label: 'Reasonable<br/>adjustments - welsh',
       ariaLabel: 'Reasonable adjustments - welsh',
     },
-    helpWithFees:{
+    helpWithFees: {
       label: 'Help<br/>with<br/>fees - welsh',
       ariaLabel: 'Help with fees - welsh',
     },
-    reviewAnswers:{
+    reviewAnswers: {
       label: 'Review<br/>answers - welsh',
       ariaLabel: 'Review answers - welsh',
-    }
+    },
   },
   [CaseType.C100]: {
     applicationSubmitted: {

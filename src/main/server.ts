@@ -56,7 +56,8 @@ app.use(async (req, res, next) => {
   app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
   app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
   app.settings.nunjucksEnv.globals.enableCaseTrainTrack = await featureToggles.isCaseTrainTrackEnabled();
-  app.settings.nunjucksEnv.globals.enableC100CaseProgressionTrainTrack = await featureToggles.isC100CaseProgressionTrainTrackEnabled();
+  app.settings.nunjucksEnv.globals.enableC100CaseProgressionTrainTrack =
+    await featureToggles.isC100CaseProgressionTrainTrackEnabled();
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
 
   next();

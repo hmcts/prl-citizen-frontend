@@ -12,7 +12,7 @@ describe.skip('Reasonable Adjustment Helper Test', () => {
       ra_nestedFiled: ['field1', 'field2'],
       ra_field2_subfield: ['subfield1', 'subfield2'],
     };
-    const reasonableAdjustments = resonableAdjustmentHelper(userCase, keys, 'ra_nestedFiled','en');
+    const reasonableAdjustments = resonableAdjustmentHelper(userCase, keys, 'ra_nestedFiled', 'en');
     expect(reasonableAdjustments).toEqual('<li>test</li><li>test : subfield1,subfield2</li>');
   });
 });

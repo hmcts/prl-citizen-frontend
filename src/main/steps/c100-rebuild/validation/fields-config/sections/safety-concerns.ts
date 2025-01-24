@@ -43,7 +43,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldName: 'c1A_safteyConcerns',
       fieldType: 'object',
       mandatory_if: {
-        expression: (caseData: CaseWithId) => {
+        expression: (caseData: CaseWithId): { isMandatory: boolean } => {
           const childSafetyConcerns = caseData?.c1A_concernAboutChild || [];
           let isMandatory = false;
 

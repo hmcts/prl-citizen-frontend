@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseWithId } from 'app/case/case';
+import { CaseWithId } from '../../../../../app/case/case';
+import { ProgressBarConfigType } from '../../definitions';
+
 import { CaseType, SelectTypeOfOrderEnum, State } from './../../../../../app/case/definition';
 import { languages as content } from './content';
-import { ProgressBarConfigType } from '../../definitions';
 
 export enum CaseProgressionStage {
   APPLICATION_SUBMITTED = 'applicationSubmitted',

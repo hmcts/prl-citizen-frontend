@@ -117,11 +117,6 @@ export const getC100CaseCreationConfig = (): ProgressBarProps[] => {
           mandatoryFields: getMandatoryFields(ConsentOrderFieldsConfig, caseData),
         };
       },
-      isInProgress: (caseData, userDetails, preRenderData) => {
-        const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-        console.info(preRenderData, 'CO isInProgress --> ', isInProgress);
-        return isInProgress;
-      },
       isComplete: (caseData, userDetails, preRenderData) => {
         const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
         console.info(preRenderData, 'CO isComplete --> ', isComplete);

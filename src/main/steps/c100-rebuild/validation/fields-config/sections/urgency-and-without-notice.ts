@@ -1,4 +1,3 @@
-
 export const UrgenceyAndWithoutNoticeFieldsConfig = {
   section: 'urgenceyAndWithoutNotice',
   fields: [

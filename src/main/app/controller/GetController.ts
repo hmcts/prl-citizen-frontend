@@ -6,12 +6,12 @@ import Negotiator from 'negotiator';
 import { LanguageToggle } from '../../modules/i18n';
 import BreadcrumbController from '../../steps/common/breadcrumb/BreadcrumbController';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
+import { getProgressBarConfig } from '../../steps/common/task-list/components/progress-bar';
 import { validateRedirectUrl } from '../../steps/common/utils';
 import * as Urls from '../../steps/urls';
 import { CITIZEN_UPDATE, PartyType } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
-import { getProgressBarConfig } from '../../steps/common/task-list/components/progress-bar';
 
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;

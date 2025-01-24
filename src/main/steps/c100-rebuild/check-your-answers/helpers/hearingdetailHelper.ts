@@ -4,12 +4,7 @@ import { CaseWithId } from '../../../../app/case/case';
 import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation, populateError } from '../mainUtil';
 
-export const hearingDetailsHelper = (
-  userCase,
-  keys,
-  sessionKey,
-  language
-) => {
+export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
   // if (userCase.hasOwnProperty(sessionKey)) {
   let html = generateStartBorderHtml(userCase, 'hwn_hearingPart1');
   html += populateError(
@@ -103,12 +98,7 @@ export const hearingDetailsHelper = (
   // }
 };
 
-export const hearingDetailsQualifyForFirstHearingHelper = (
-  userCase,
-  keys,
-  sessionKey,
-  language
-) => {
+export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessionKey, language) => {
   //if (userCase.hasOwnProperty(sessionKey)) {
   let html = generateStartBorderHtml(userCase, 'hu_urgentHearingReasons');
   html += populateError(
@@ -136,11 +126,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
           .join('')
       : HTML.ROW_START +
         HTML.DESCRIPTION_TERM_DETAIL +
-        populateError(
-          userCase['hu_reasonOfUrgentHearing'],
-          userCase['hu_reasonOfUrgentHearing'],
-          language
-        ) +
+        populateError(userCase['hu_reasonOfUrgentHearing'], userCase['hu_reasonOfUrgentHearing'], language) +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
     html += HTML.ROW_START_NO_BORDER;
@@ -149,11 +135,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
     html +=
       HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(
-        userCase?.['hu_otherRiskDetails'],
-        userCase?.['hu_otherRiskDetails'],
-        language
-      ) +
+      populateError(userCase?.['hu_otherRiskDetails'], userCase?.['hu_otherRiskDetails'], language) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
     html +=
@@ -167,11 +149,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
       //   ?
       HTML.ROW_START +
       HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(
-        userCase?.['hu_timeOfHearingDetails'],
-        userCase?.['hu_timeOfHearingDetails'],
-        language
-      ) +
+      populateError(userCase?.['hu_timeOfHearingDetails'], userCase?.['hu_timeOfHearingDetails'], language) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
     //: HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
@@ -197,22 +175,14 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
         HTML.ROW_START_NO_BORDER +
         HTML.DESCRIPTION_TERM_ELEMENT +
         // keys['hearingWithNext48HrsDetails'] +
-        populateError(
-          keys['hearingWithNext48HrsDetails'],
-          keys['hearingWithNext48HrsDetails'],
-          language
-        ) +
+        populateError(keys['hearingWithNext48HrsDetails'], keys['hearingWithNext48HrsDetails'], language) +
         HTML.DESCRIPTION_TERM_ELEMENT_END +
         HTML.ROW_END;
       html +=
         HTML.ROW_START_NO_BORDER +
         HTML.DESCRIPTION_TERM_DETAIL +
         // userCase['hu_hearingWithNext48HrsMsg'] +
-        populateError(
-          userCase['hu_hearingWithNext48HrsMsg'],
-          userCase['hu_hearingWithNext48HrsMsg'],
-          language
-        ) +
+        populateError(userCase['hu_hearingWithNext48HrsMsg'], userCase['hu_hearingWithNext48HrsMsg'], language) +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
     }

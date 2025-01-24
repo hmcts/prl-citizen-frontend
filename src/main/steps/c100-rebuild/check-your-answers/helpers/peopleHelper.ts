@@ -4,11 +4,7 @@ import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation, isBorderPresent, populateError, translation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const applicantAddressParser = (
-  sessionApplicantData,
-  keys,
-  language
-) => {
+export const applicantAddressParser = (sessionApplicantData, keys, language) => {
   let html = HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL;
   if (
     !_.isEmpty(sessionApplicantData['applicantAddress1']) &&
@@ -161,11 +157,7 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys, langua
     html +=
       HTML.ROW_START +
       HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(
-        sessionApplicantData['emailAddress'],
-        sessionApplicantData['emailAddress'],
-        language
-      ) +
+      populateError(sessionApplicantData['emailAddress'], sessionApplicantData['emailAddress'], language) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
   }
@@ -188,11 +180,7 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys, langua
     html +=
       HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(
-        sessionApplicantData['telephoneNumber'],
-        sessionApplicantData['telephoneNumber'],
-        language
-      ) +
+      populateError(sessionApplicantData['telephoneNumber'], sessionApplicantData['telephoneNumber'], language) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
   }

@@ -6,14 +6,16 @@ import { FieldPrefix } from '../../../app/case/case';
 import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
+import { isC100ApplicationValid } from '../../c100-rebuild/utils';
+import { MandatoryFieldsConfig } from '../validation/definitions';
+import {
+  getAllMandatoryFields,
+  //getMandatoryFields
+} from '../validation/util';
 //import { Language, generatePageContent } from '../../../steps/common/common.content'; hugh
 
 //import { isMandatoryFieldsFilled } from './mainUtil';
-import { getAllMandatoryFields, 
-  //getMandatoryFields 
-  } from '../validation/util';
 //import { ChildrenPostcodeFieldsConfig } from '../validation/fields-config/sections/children-postcode';
-import { MandatoryFieldsConfig } from '../validation/definitions';
 //import { errorReference } from './config';
 //import { ScreeningQuestionsFieldsConfig } from '../validation/fields-config/sections/screening-questions';
 //import { OtherProceedingsFieldsConfig } from '../validation/fields-config/sections/other-proceedings';
@@ -30,16 +32,26 @@ export default class CheckYourAnswersGetController extends GetController {
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     //Clear hwfRefNumber if not opted
+    let returnUrl = req.originalUrl;
     if (req.session.userCase.hwf_needHelpWithFees === YesOrNo.NO) {
       req.session.userCase.helpWithFeesReferenceNumber = undefined;
       req.session.save();
+    }
+    if (isC100ApplicationValid(req.session.userCase, req)) {
+      returnUrl = returnUrl.includes('?lng')
+        ? `${returnUrl}&validApplication=true`
+        : `${returnUrl}?validApplication=true`;
+      req.session.applicationSettings = {
+        ...req.session.applicationSettings,
+        hasC100ApplicationBeenCompleted: true,
+      };
     }
     try {
       await req.locals.C100Api.saveC100DraftApplication(
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         req.session.userCase?.caseId as string,
         req.session.userCase,
-        req.originalUrl
+        returnUrl
       );
 
       //clear payment error
@@ -59,31 +71,30 @@ export default class CheckYourAnswersGetController extends GetController {
       //     req,
       //   },
       // });//hugh
-    //   const mandatoryFields:MandatoryFieldsConfig[]=
-    //   Array.prototype.concat(getMandatoryFields(ChildrenPostcodeFieldsConfig,req.session.userCase),
-    //   getMandatoryFields(ScreeningQuestionsFieldsConfig,req.session.userCase),
-    // getMandatoryFields(OtherProceedingsFieldsConfig, req.session.userCase))
-    const mandatoryFields:MandatoryFieldsConfig[]=getAllMandatoryFields(req.session.userCase)
-      const mandetoryFieldname:string[]=[]
-      mandatoryFields.forEach(field => mandetoryFieldname.push(field.fieldName))
+      //   const mandatoryFields:MandatoryFieldsConfig[]=
+      //   Array.prototype.concat(getMandatoryFields(ChildrenPostcodeFieldsConfig,req.session.userCase),
+      //   getMandatoryFields(ScreeningQuestionsFieldsConfig,req.session.userCase),
+      // getMandatoryFields(OtherProceedingsFieldsConfig, req.session.userCase))
+      const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(req.session.userCase);
+      const mandetoryFieldname: string[] = [];
+      mandatoryFields.forEach(field => mandetoryFieldname.push(field.fieldName));
 
-      const missingObject=mandetoryFieldname.filter(value=>_.isEmpty(req.session.userCase[value]))
+      const missingObject = mandetoryFieldname.filter(value => _.isEmpty(req.session.userCase[value]));
       req.session.errors = [];
-      if(missingObject.length){
-        missingObject.forEach(property=>{
-          if(property){
-        req.session.errors?.push({
+      if (missingObject.length) {
+        missingObject.forEach(property => {
+          if (property) {
+            req.session.errors?.push({
               propertyName: property,
               //errorReference[property as unknown as string].errorMessage,
               errorType: 'required',
-            })
+            });
           }
-        }
-      )
-    }
-    req.session.save(() => {
-          super.get(req, res);
         });
+      }
+      req.session.save(() => {
+        super.get(req, res);
+      });
 
       // if (!isMandatoryFieldsFilled(req.session.userCase)
       //    //|| req.session.C100CyaErrors?.length

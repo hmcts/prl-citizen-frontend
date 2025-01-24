@@ -37,6 +37,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  getCyaSections,
   isMandatoryFieldsFilled,
   reasonableAdjustment,
   whereDoChildrenLive,
@@ -52,6 +53,7 @@ import { ReasonableAdjustmentElement } from './util/reasonableAdjustmentContent.
 import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
+import { CaseWithId } from '../../../app/case/case';
 
 export const enContent = {
   section: '',
@@ -127,13 +129,15 @@ export const enContent = {
       required: 'Enter a full postcode, with or without a space',
     },
     sq_writtenAgreement: {
-      required: 'Select yes if you have a written agreement with the other people in the case, that you want the court to review',
+      required:
+        'Select yes if you have a written agreement with the other people in the case, that you want the court to review',
     },
     sq_legalRepresentationApplication: {
       required: 'Select yes if you want your legal representative to complete this application',
     },
     sq_courtPermissionRequired: {
-      required: 'Select yes if there is any reason why you would need permission from the court to make this application',
+      required:
+        'Select yes if there is any reason why you would need permission from the court to make this application',
     },
     sq_permissionsRequest: {
       required: 'Explain why the court should grant you permission to submit this application',
@@ -160,7 +164,8 @@ export const enContent = {
       required: 'Select yes if you have other children',
     },
     miam_otherProceedings: {
-      required: 'Select yes if the children are involved in any emergency protection, care or supervision proceedings(or have been)',
+      required:
+        'Select yes if the children are involved in any emergency protection, care or supervision proceedings(or have been)',
     },
     miam_haveDocSigned: {
       required: 'Select yes if you have a document signed by the mediator',
@@ -217,7 +222,8 @@ export const enContent = {
       required: 'Select whether you agree to the children spending time with the other people in this application',
     },
     c1A_agreementOtherWaysDetails: {
-      required: 'Select yes if you agree to the other people in this application being in touch with the children in other ways',
+      required:
+        'Select yes if you agree to the other people in this application being in touch with the children in other ways',
     },
     oprs_otherPersonCheck: {
       required: 'Select yes if anyone else should know about the application',
@@ -238,7 +244,8 @@ export const enContent = {
       required: 'Select whether you or the children need special arrangements at court',
     },
     ra_disabilityRequirements: {
-      required: 'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case',
+      required:
+        'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case',
     },
     ra_documentInformation: {
       required: 'Select which format you need your documents in',
@@ -737,30 +744,16 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, lan
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
-  const req = content.additionalData?.req;
-  let sections;
-  // if on sreening screen enable Yes
-  if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-    sections = CheckYourAnswerFlow1(userCase, enContent, content.language, req).flat() as ANYTYPE;
-  } else {
-    if (
-      (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
-      (userCase.hasOwnProperty('miam_otherProceedings') &&
-        userCase['miam_otherProceedings'] === YesOrNo.NO &&
-        userCase.hasOwnProperty('miam_attendance') &&
-        userCase['miam_attendance'] === YesOrNo.YES)
-    ) {
-      sections = CheckYourAnswerFlow2(userCase, enContent, content.language, req).flat() as ANYTYPE;
-    } else {
-      //if miam urgency is requested miam_urgency
-      if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
-        sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language, req).flat() as ANYTYPE;
-      } else {
-        sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language, req).flat() as ANYTYPE;
-      }
-    }
-  }
-  sections = sectionCountFormatter(sections);
+  const sections = sectionCountFormatter(
+    getCyaSections(
+      userCase as CaseWithId,
+      enContent,
+      newEnContents,
+      content.language,
+      content.additionalData?.req.session.enableC100CaseProgressionTrainTrack,
+      content.additionalData?.req //temp
+    )
+  );
   return {
     ...enContent,
     language: content.language,
@@ -770,31 +763,16 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
 
 export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
-  const req = content.additionalData?.req;
-  let sections;
-  // if on sreening screen enable Yes
-  if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-    sections = CheckYourAnswerFlow1(userCase, cyContent, content.language, req).flat() as ANYTYPE;
-  } else {
-    if (
-      (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
-      (userCase.hasOwnProperty('miam_otherProceedings') &&
-        userCase['miam_otherProceedings'] === YesOrNo.NO &&
-        userCase.hasOwnProperty('miam_attendance') &&
-        userCase['miam_attendance'] === YesOrNo.YES)
-    ) {
-      sections = CheckYourAnswerFlow2(userCase, cyContent, content.language, req).flat() as ANYTYPE;
-    } else {
-      //if miam urgency is requested miam_urgency
-      if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
-        sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language, req).flat() as ANYTYPE;
-      } else {
-        sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language, req).flat() as ANYTYPE;
-      }
-    }
-  }
-
-  sections = sectionCountFormatter(sections);
+  const sections = sectionCountFormatter(
+    getCyaSections(
+      userCase as CaseWithId,
+      cyContent,
+      newCyContents,
+      content.language,
+      content.additionalData?.req.session.enableC100CaseProgressionTrainTrack,
+      content.additionalData?.req //temp
+    )
+  );
   return {
     ...cyContent,
     language: content.language,
@@ -903,8 +881,7 @@ export const generateContent: TranslationFn = content => {
     };
   }
   form.submit.disabled = //change to use cya redirect application completed?
-    !isMandatoryFieldsFilled(content.userCase!) 
-    || content.additionalData?.req?.session?.error?.length;
+    !isMandatoryFieldsFilled(content.userCase!) || content.additionalData?.req?.session?.error?.length;
   const refugeErrors = {};
 
   content.userCase?.appl_allApplicants?.forEach(applicant => {

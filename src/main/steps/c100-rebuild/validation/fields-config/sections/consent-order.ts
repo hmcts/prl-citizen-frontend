@@ -8,12 +8,13 @@ export const ConsentOrderFieldsConfig = {
     {
       fieldName: 'co_certificate',
       fieldType: 'object',
-      expression: (caseData: CaseWithId) => {
+      expression: (caseData: CaseWithId): { isMandatory: boolean } => {
         return { isMandatory: !_.isEmpty(caseData?.co_certificate) };
       },
       mandatory_if: {
         fieldName: 'sq_writtenAgreement',
-        alue: 'Yes',
+        fieldType: 'string',
+        value: 'Yes',
       },
     },
   ],
