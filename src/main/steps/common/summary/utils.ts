@@ -3,7 +3,6 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { AppRequest } from '../../../app/controller/AppRequest';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
@@ -192,8 +191,7 @@ export const proceedingSummaryData = (
   language: string | 'en',
   userCase: Partial<CaseWithId>,
   courtOrderDetails: string,
-  isRespondent: boolean,
-  req: AppRequest
+  isRespondent: boolean
 ) => {
   return [
     {
@@ -203,9 +201,7 @@ export const proceedingSummaryData = (
         : populateError(
             userCase['op_childrenInvolvedCourtCase'],
             getYesNoTranslation(language, userCase['op_childrenInvolvedCourtCase'], 'doTranslation'),
-            language,
-            req,
-            ''
+            language
           ),
       changeUrl: isRespondent ? PROCEEDINGS_START : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     },
@@ -216,9 +212,7 @@ export const proceedingSummaryData = (
         : populateError(
             userCase['op_courtOrderProtection'],
             getYesNoTranslation(language, userCase['op_courtOrderProtection'], 'oesTranslation'),
-            language,
-            req,
-            ''
+            language
           ),
       changeUrl: isRespondent ? PROCEEDINGS_START : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
     },

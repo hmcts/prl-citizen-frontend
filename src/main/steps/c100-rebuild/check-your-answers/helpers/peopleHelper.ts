@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-import { AppRequest } from '../../../../app/controller/AppRequest';
 import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation, isBorderPresent, populateError, translation } from '../mainUtil';
 
@@ -8,9 +7,7 @@ import { getYesNoTranslation, isBorderPresent, populateError, translation } from
 export const applicantAddressParser = (
   sessionApplicantData,
   keys,
-  language,
-  req: AppRequest,
-  anchorReference: string
+  language
 ) => {
   let html = HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL;
   if (
@@ -64,9 +61,7 @@ export const applicantAddressParser = (
         getYesNoTranslation(language, sessionApplicantData?.['applicantAddressHistory'], 'doTranslation') +
           HTML.DESCRIPTION_TERM_DETAIL_END +
           HTML.ROW_END,
-        language,
-        req,
-        anchorReference
+        language
       );
     if (sessionApplicantData['applicantAddressHistory'] === 'Yes') {
       html +=
@@ -80,9 +75,7 @@ export const applicantAddressParser = (
         HTML.ROW_START_NO_BORDER +
           HTML.DESCRIPTION_TERM_DETAIL +
           sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'],
-        language,
-        req,
-        anchorReference
+        language
       ) +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
@@ -156,7 +149,7 @@ export const applicantAddressParserForRespondents = (sessionApplicantData, keys,
   return html;
 };
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const applicantContactDetailsParser = (sessionApplicantData, keys, language, req, anchorReference): string => {
+export const applicantContactDetailsParser = (sessionApplicantData, keys, language): string => {
   let html = HTML.DESCRIPTION_LIST as string;
   if (sessionApplicantData['canProvideEmail'] === 'Yes') {
     html +=
@@ -171,9 +164,7 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys, langua
       populateError(
         sessionApplicantData['emailAddress'],
         sessionApplicantData['emailAddress'],
-        language,
-        req,
-        anchorReference
+        language
       ) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
@@ -200,9 +191,7 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys, langua
       populateError(
         sessionApplicantData['telephoneNumber'],
         sessionApplicantData['telephoneNumber'],
-        language,
-        req,
-        anchorReference
+        language
       ) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
@@ -220,9 +209,7 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys, langua
       populateError(
         sessionApplicantData['canNotProvideTelephoneNumberReason'],
         sessionApplicantData['canNotProvideTelephoneNumberReason'],
-        language,
-        req,
-        anchorReference
+        language
       ) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;

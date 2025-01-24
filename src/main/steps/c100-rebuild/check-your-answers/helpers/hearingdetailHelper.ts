@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../../main/app/case/definition';
 import { CaseWithId } from '../../../../app/case/case';
-import { AppRequest } from '../../../../app/controller/AppRequest';
 import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation, populateError } from '../mainUtil';
 
@@ -9,18 +8,14 @@ export const hearingDetailsHelper = (
   userCase,
   keys,
   sessionKey,
-  language,
-  req: AppRequest,
-  anchorReference: string
+  language
 ) => {
   // if (userCase.hasOwnProperty(sessionKey)) {
   let html = generateStartBorderHtml(userCase, 'hwn_hearingPart1');
   html += populateError(
     userCase['hwn_hearingPart1'],
     getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation'),
-    language,
-    req,
-    anchorReference
+    language
   );
   if (userCase.hasOwnProperty('hwn_hearingPart1') && userCase['hwn_hearingPart1'] === 'Yes') {
     html += HTML.DESCRIPTION_TERM_DETAIL_END;
@@ -37,9 +32,7 @@ export const hearingDetailsHelper = (
       populateError(
         userCase?.['hwn_reasonsForApplicationWithoutNotice'],
         userCase?.['hwn_reasonsForApplicationWithoutNotice'],
-        language,
-        req,
-        anchorReference
+        language
       ) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
@@ -55,9 +48,7 @@ export const hearingDetailsHelper = (
       populateError(
         userCase?.['hwn_doYouNeedAWithoutNoticeHearing'],
         getYesNoTranslation(language, userCase?.['hwn_doYouNeedAWithoutNoticeHearing'], 'ydwTranslation'),
-        language,
-        req,
-        anchorReference
+        language
       ) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
@@ -87,9 +78,7 @@ export const hearingDetailsHelper = (
       populateError(
         userCase?.['hwn_doYouRequireAHearingWithReducedNotice'],
         getYesNoTranslation(language, userCase?.['hwn_doYouRequireAHearingWithReducedNotice'], 'ydwTranslation'),
-        language,
-        req,
-        anchorReference
+        language
       ) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
@@ -118,18 +107,14 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
   userCase,
   keys,
   sessionKey,
-  language,
-  req: AppRequest,
-  anchorReference: string
+  language
 ) => {
   //if (userCase.hasOwnProperty(sessionKey)) {
   let html = generateStartBorderHtml(userCase, 'hu_urgentHearingReasons');
   html += populateError(
     userCase['hu_urgentHearingReasons'],
     getYesNoTranslation(language, userCase['hu_urgentHearingReasons'], 'oesTranslation'),
-    language,
-    req,
-    anchorReference
+    language
   );
   if (userCase.hasOwnProperty('hu_urgentHearingReasons') && userCase['hu_urgentHearingReasons'] === 'Yes') {
     html += HTML.DESCRIPTION_TERM_DETAIL_END;
@@ -154,9 +139,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
         populateError(
           userCase['hu_reasonOfUrgentHearing'],
           userCase['hu_reasonOfUrgentHearing'],
-          language,
-          req,
-          anchorReference
+          language
         ) +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
@@ -169,9 +152,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
       populateError(
         userCase?.['hu_otherRiskDetails'],
         userCase?.['hu_otherRiskDetails'],
-        language,
-        req,
-        anchorReference
+        language
       ) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
@@ -189,9 +170,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
       populateError(
         userCase?.['hu_timeOfHearingDetails'],
         userCase?.['hu_timeOfHearingDetails'],
-        language,
-        req,
-        anchorReference
+        language
       ) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
@@ -205,9 +184,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
       populateError(
         userCase['hu_hearingWithNext48HrsDetails'],
         getYesNoTranslation(language, keys['hu_hearingWithNext48HrsDetails'], 'doTranslation'),
-        language,
-        req,
-        anchorReference
+        language
       ) +
       // getYesNoTranslation(language, userCase?.['hu_hearingWithNext48HrsDetails'], 'doTranslation') +
       HTML.DESCRIPTION_TERM_DETAIL_END +
@@ -223,9 +200,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
         populateError(
           keys['hearingWithNext48HrsDetails'],
           keys['hearingWithNext48HrsDetails'],
-          language,
-          req,
-          anchorReference
+          language
         ) +
         HTML.DESCRIPTION_TERM_ELEMENT_END +
         HTML.ROW_END;
@@ -236,9 +211,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (
         populateError(
           userCase['hu_hearingWithNext48HrsMsg'],
           userCase['hu_hearingWithNext48HrsMsg'],
-          language,
-          req,
-          anchorReference
+          language
         ) +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;

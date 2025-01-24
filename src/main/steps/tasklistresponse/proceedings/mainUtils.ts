@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../app/case/case';
-import { AppRequest } from '../../../app/controller/AppRequest';
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
 import { proceedingSummaryData } from '../../../steps/common/summary/utils';
@@ -14,7 +13,6 @@ import * as Urls from '../../urls';
 export const PastAndCurrentProceedings = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>, 
-  req: AppRequest,
   language?: string 
 ): SummaryList | undefined => {
   const courtOrderDetails =
@@ -23,7 +21,7 @@ export const PastAndCurrentProceedings = (
       order => '<li class="govuk-!-padding-bottom-2">' + keys[`${order}Label`] + '</li>'
     ) +
     '</ul>';
-  let SummaryData = proceedingSummaryData(keys, language||'en', userCase, courtOrderDetails,true, req);
+  let SummaryData = proceedingSummaryData(keys, language||'en', userCase, courtOrderDetails,true);
   if(userCase.proceedingsStart === 'No' && userCase.proceedingsStartOrder === 'No'){
     SummaryData = [
       {

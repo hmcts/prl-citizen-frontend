@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
-
-import { AppRequest } from 'app/controller/AppRequest';
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../app/case/case';
@@ -10,6 +8,7 @@ import {
   C1ASafteyConcernsAbout,
   ContactPreference,
   RootContext,
+  //State,
   YesOrNo,
 } from '../../../app/case/definition';
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
@@ -44,13 +43,14 @@ import {
   SummaryListRow,
   getSectionSummaryList,
 } from './lib/lib';
+// import { getMandatoryFields } from '../validation/util';
+// import { ChildrenPostcodeFieldsConfig } from '../validation/fields-config/sections/children-postcode';
 
 /* eslint-disable import/namespace */
 export const LocationDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const SummaryData = [
     {
@@ -59,9 +59,7 @@ export const LocationDetails = (
       valueHtml: populateError(
         userCase['c100RebuildChildPostCode'],
         userCase['c100RebuildChildPostCode'],
-        language,
-        req,
-        'c100RebuildChildPostCode'
+        language
       ),
       changeUrl: Urls['C100_CHILD_ADDRESS'],
     },
@@ -76,8 +74,7 @@ export const LocationDetails = (
 export const TypeOfApplication = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const SummaryData = [
     {
@@ -86,9 +83,7 @@ export const TypeOfApplication = (
       valueHtml: populateError(
         userCase['sq_writtenAgreement'],
         getYesNoTranslation(language, userCase['sq_writtenAgreement'], 'oesTranslation'),
-        language,
-        req,
-        'sq_writtenAgreement'
+        language
       ),
       changeUrl: Urls['C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT'],
     },
@@ -102,8 +97,7 @@ export const TypeOfApplication = (
 export const LegalRepresentativeDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const SummaryData = [
     {
@@ -113,8 +107,6 @@ export const LegalRepresentativeDetails = (
         userCase['sq_legalRepresentation'],
         getYesNoTranslation(language, userCase['sq_legalRepresentation'], 'byddafTranslation'),
         language,
-        req,
-        'sq_legalRepresentation'
       ),
       changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION'],
     },
@@ -127,8 +119,6 @@ export const LegalRepresentativeDetails = (
         userCase['sq_legalRepresentationApplication'],
         getYesNoTranslation(language, userCase['sq_legalRepresentationApplication'], 'doTranslation'),
         language,
-        req,
-        'sq_legalRepresentationApplication'
       ),
       changeUrl: Urls['C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION'],
     });
@@ -143,7 +133,7 @@ export const PermissionForApplication = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
   language,
-  req: AppRequest
+
 ): SummaryList | undefined => {
   const valForPermissionWhy = userCase.hasOwnProperty('sq_permissionsWhy')
     ? (
@@ -166,8 +156,6 @@ export const PermissionForApplication = (
           userCase['sq_courtPermissionRequired'],
           getYesNoTranslation(language, userCase['sq_courtPermissionRequired'], 'oesTranslation'),
           language,
-          req,
-          'sq_courtPermissionRequired'
         ),
         changeUrl: Urls['C100_SCREENING_QUESTIONS_COURT_PERMISSION'],
       },
@@ -183,8 +171,6 @@ export const PermissionForApplication = (
           userCase['sq_permissionsRequest'],
           userCase['sq_permissionsRequest'],
           language,
-          req,
-          'sq_permissionsRequest'
         ),
         changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST'],
       },
@@ -198,8 +184,6 @@ export const PermissionForApplication = (
           userCase['sq_courtPermissionRequired'],
           getYesNoTranslation(language, userCase['sq_courtPermissionRequired'], 'oesTranslation'),
           language,
-          req,
-          'sq_courtPermissionRequired'
         ),
         changeUrl: Urls['C100_SCREENING_QUESTIONS_COURT_PERMISSION'],
       },
@@ -216,8 +200,7 @@ export const PermissionForApplication = (
 export const TypeOfOrder = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language: string,
-  req: AppRequest
+  language: string
 ): SummaryList | undefined => {
   const SummaryData = [
     {
@@ -233,9 +216,7 @@ export const TypeOfOrder = (
       valueHtml: populateError(
         userCase['too_shortStatement'],
         userCase['too_shortStatement'],
-        language,
-        req,
-        'too_shortStatement'
+        language
       ),
       changeUrl: Urls['C100_TYPE_ORDER_SHORT_STATEMENT'],
     },
@@ -250,8 +231,7 @@ export const TypeOfOrder = (
 export const WithoutNoticeHearing = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const SummaryData = [
     {
@@ -261,9 +241,7 @@ export const WithoutNoticeHearing = (
         userCase,
         keys,
         'hu_urgentHearingReasons',
-        language,
-        req,
-        'hu_urgentHearingReasons'
+        language
       ), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
       changeUrl: Urls['C100_HEARING_URGENCY_URGENT'],
     },
@@ -275,9 +253,7 @@ export const WithoutNoticeHearing = (
         userCase,
         keys,
         'hwn_reasonsForApplicationWithoutNotice',
-        language,
-        req,
-        'hwn_reasonsForApplicationWithoutNotice'
+        language
       ), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
       changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
     },
@@ -303,8 +279,7 @@ export const PeopleDetails = ({ sectionTitles, keys, ...content }: SummaryListCo
 export const ChildernDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const sessionChildData = userCase['cd_children'];
   let newChildDataStorage: SummaryListRow[] = [];
@@ -344,7 +319,7 @@ export const ChildernDetails = (
     );
 
     newChildDataStorage = newChildDataStorage.concat(
-      populateDateOfBirth(personalDetails, keys, language, id, true, parseInt(child) + 1, `${keys['child']}`, req)
+      populateDateOfBirth(personalDetails, keys, language, id, true, parseInt(child) + 1, `${keys['child']}`)
     );
 
     const childName = ` ${firstname} ${lastname} `;
@@ -379,9 +354,7 @@ export const ChildernDetails = (
               populateError(
                 personalDetails['otherGenderDetails'],
                 personalDetails['otherGenderDetails'],
-                language,
-                req,
-                childOtherGenderDetailsAnchorRef
+                language
               ) +
               HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
@@ -389,9 +362,7 @@ export const ChildernDetails = (
             : populateError(
                 personalDetails?.['gender'],
                 translation(personalDetails?.['gender'], language),
-                language,
-                req,
-                childOtherGenderDetailsAnchorRef
+                language
               ),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
@@ -427,7 +398,7 @@ export const ChildernDetailsAdditional = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
   language,
-  req: AppRequest
+
 ): SummaryList | undefined => {
   let htmlForAdditionalText = userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
     ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
@@ -435,9 +406,7 @@ export const ChildernDetailsAdditional = (
   htmlForAdditionalText += populateError(
     userCase?.['cd_childrenKnownToSocialServices'],
     getYesNoTranslation(language, userCase?.['cd_childrenKnownToSocialServices'], 'ydynTranslation'),
-    language,
-    req,
-    'childrenKnownToSocialServicesLabel'
+    language
   );
   htmlForAdditionalText += userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
     ? HTML.DESCRIPTION_TERM_DETAIL_END +
@@ -454,9 +423,7 @@ export const ChildernDetailsAdditional = (
       populateError(
         userCase['cd_childrenKnownToSocialServicesDetails'],
         userCase['cd_childrenKnownToSocialServicesDetails'],
-        language,
-        req,
-        'childrenKnownToSocialServicesLabel'
+        language
       ) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END +
@@ -477,9 +444,7 @@ export const ChildernDetailsAdditional = (
       valueHtml: populateError(
         userCase['cd_childrenSubjectOfProtectionPlan'],
         getYesNoTranslation(language, userCase['cd_childrenSubjectOfProtectionPlan'], 'ydynTranslation'),
-        language,
-        req,
-        'cd_childrenSubjectOfProtectionPlan'
+        language
       ),
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
     },
@@ -495,8 +460,7 @@ export const ChildernDetailsAdditional = (
 export const OtherChildrenDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const sessionChildData = userCase['ocd_otherChildren'];
   let newChildDataStorage: SummaryListRow[] = [];
@@ -507,9 +471,7 @@ export const OtherChildrenDetails = (
     valueHtml: populateError(
       userCase['ocd_hasOtherChildren'],
       getYesNoTranslation(language, userCase['ocd_hasOtherChildren'], 'oesTranslation'),
-      language,
-      req,
-      'ocd_hasOtherChildren'
+      language
     ),
     changeUrl: Urls['C100_CHILDERN_DETAILS_OTHER_CHILDREN'],
   });
@@ -539,14 +501,14 @@ export const OtherChildrenDetails = (
         }
       );
       newChildDataStorage = newChildDataStorage.concat(
-        populateDateOfBirth(personalDetails, keys, language, id, false, parseInt(child) + 1, 'Other child', req)
+        populateDateOfBirth(personalDetails, keys, language, id, false, parseInt(child) + 1, 'Other child')
       );
       newChildDataStorage.push({
         key: keys['childGenderLabel'],
         anchorReference: childGenderAnchorRef,
         visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['childGenderLabel']}`,
         value: translation(personalDetails?.['gender'], language),
-        valueHtml: generateGenderHtml(personalDetails, keys, language, req, childGenderAnchorRef),
+        valueHtml: generateGenderHtml(personalDetails, keys, language),
         changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
       });
     }
@@ -563,9 +525,7 @@ export const OtherChildrenDetails = (
 const generateGenderHtml = (
   personalDetails,
   keys: Record<string, string>,
-  language: string,
-  req: AppRequest,
-  anchorReference: string
+  language: string
 ): string => {
   return personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
     ? HTML.DESCRIPTION_LIST +
@@ -574,9 +534,7 @@ const generateGenderHtml = (
         populateError(
           personalDetails?.['gender'],
           translation(personalDetails?.['gender'], language),
-          language,
-          req,
-          anchorReference
+          language
         ) +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END +
@@ -598,9 +556,7 @@ const generateGenderHtml = (
     : populateError(
         personalDetails?.['gender'],
         translation(personalDetails?.['gender'], language),
-        language,
-        req,
-        anchorReference
+        language
       ) + ' ';
 };
 
@@ -608,8 +564,6 @@ export const ApplicantDetailNameParser = (
   personalDetails,
   keys,
   language,
-  req: AppRequest,
-  anchorReference
 ): string => {
   let changeNameInformation = '';
   changeNameInformation +=
@@ -619,17 +573,13 @@ export const ApplicantDetailNameParser = (
   changeNameInformation += populateError(
     personalDetails['haveYouChangeName'],
     getYesNoTranslation(language, personalDetails['haveYouChangeName'], 'doTranslation'),
-    language,
-    req,
-    anchorReference
+    language
   );
   if (personalDetails['haveYouChangeName'] === 'Yes') {
     const changedName = populateError(
       personalDetails['applPreviousName'],
       personalDetails['applPreviousName'],
-      language,
-      req,
-      anchorReference
+      language
     );
     changeNameInformation +=
       HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
@@ -645,8 +595,7 @@ export const ApplicantDetailNameParser = (
 export const ApplicantDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const sessionApplicantData = userCase['appl_allApplicants'];
   const newApplicantData: {
@@ -677,9 +626,7 @@ export const ApplicantDetails = (
           getYesNoTranslation(language, sessionApplicantData[applicant][key], 'ydwTranslation') +
             HTML.DESCRIPTION_TERM_DETAIL_END +
             HTML.ROW_END,
-          language,
-          req,
-          '' // check this
+          language // check this
         );
       if (sessionApplicantData[applicant][keyArray].length > 0) {
         html +=
@@ -721,9 +668,7 @@ export const ApplicantDetails = (
         valueHtml: populateError(
           sessionApplicantData[applicant]['detailsKnown'],
           getYesNoTranslation(language, sessionApplicantData[applicant]['detailsKnown'], 'ydyntTranslation'),
-          language,
-          req,
-          `anyOtherPeopleKnowDetails-applicant-${applicant}`
+          language
         ),
         changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
       },
@@ -746,7 +691,7 @@ export const ApplicantDetails = (
         anchorReference: applicantChangeNameAnchorRef,
         visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['haveYouChangeNameLabel']}`,
         value: '',
-        valueHtml: ApplicantDetailNameParser(personalDetails, keys, language, req, applicantChangeNameAnchorRef),
+        valueHtml: ApplicantDetailNameParser(personalDetails, keys, language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
@@ -754,7 +699,7 @@ export const ApplicantDetails = (
         visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['childGenderLabel']}`,
         anchorReference: applicantGenderAnchorRef,
         value: '',
-        valueHtml: generateGenderHtml(personalDetails, keys, language, req, applicantGenderAnchorRef),
+        valueHtml: generateGenderHtml(personalDetails, keys, language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
@@ -764,9 +709,7 @@ export const ApplicantDetails = (
         valueHtml: populateError(
           personalDetails['dateOfBirth'],
           DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-          language,
-          req,
-          `dateOfBirth-applicant-${applicant}`
+          language
         ),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
@@ -777,9 +720,7 @@ export const ApplicantDetails = (
         valueHtml: populateError(
           personalDetails?.['applicantPlaceOfBirth'],
           personalDetails?.['applicantPlaceOfBirth'],
-          language,
-          req,
-          `placeOfBirth-applicant-${applicant}`
+          language
         ),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       }
@@ -803,9 +744,7 @@ export const ApplicantDetails = (
             : populateError(
                 element['relationshipType'],
                 translation(element['relationshipType'], language),
-                language,
-                req,
-                `relationshipTo-applicant-${applicant}`
+                language
               ), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
         changeUrl: applyParms(Urls['C100_APPLICANT_RELATIONSHIP_TO_CHILD'], {
           applicantId: id,
@@ -821,9 +760,7 @@ export const ApplicantDetails = (
       valueHtml: populateError(
         sessionApplicantData[applicant]['liveInRefuge'],
         getYesNoTranslation(language, sessionApplicantData[applicant]['liveInRefuge'], 'ydwTranslation'),
-        language,
-        req,
-        `refuge-applicant-${applicant}`
+        language
       ),
       anchorReference: `refuge-applicant-${applicant}`,
       changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
@@ -857,9 +794,7 @@ export const ApplicantDetails = (
       valueHtml: applicantAddressParser(
         sessionApplicantData[applicant],
         keys,
-        language,
-        req,
-        applicantAddressAnchorRef
+        language
       ),
       changeUrl: applyParms(Urls['C100_APPLICANT_ADDRESS_MANUAL'], {
         applicantId: sessionApplicantData[applicant]['id'],
@@ -880,13 +815,9 @@ export const ApplicantDetails = (
           applicantContactDetailsParser(
             sessionApplicantData[applicant].applicantContactDetail,
             keys,
-            language,
-            req,
-            applicantContactDetailsAnchorRef
+            language
           ),
-          language,
-          req,
-          applicantContactDetailsAnchorRef
+          language
         ),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_DETAIL'], {
           applicantId: sessionApplicantData[applicant]['id'],
@@ -919,9 +850,7 @@ export const ApplicantDetails = (
               : ContactPreference.POST,
             language
           ),
-          language,
-          req,
-          `contactPreferences-applicant-${applicant}`
+          language
         ),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_PREFERENCES'], {
           applicantId: sessionApplicantData[applicant]['id'],
@@ -949,8 +878,7 @@ export const MiamTitle = ({ sectionTitles }): SummaryList | undefined => {
 export const MiamAttendance = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const SummaryData = [
     {
@@ -959,9 +887,7 @@ export const MiamAttendance = (
       valueHtml: populateError(
         userCase['miam_otherProceedings'],
         getYesNoTranslation(language, userCase['miam_otherProceedings'], 'ydynTranslation'),
-        language,
-        req,
-        'miam_otherProceedings'
+        language
       ),
       changeUrl: Urls['C100_MIAM_OTHER_PROCEEDINGS'],
     },
@@ -974,9 +900,7 @@ export const MiamAttendance = (
       valueHtml: populateError(
         userCase['miam_attendance'],
         getYesNoTranslation(language, userCase['miam_attendance'], 'doTranslation'),
-        language,
-        req,
-        'miam_attendance'
+        language
       ),
       changeUrl: Urls['C100_MIAM_ATTENDANCE'],
     });
@@ -989,9 +913,7 @@ export const MiamAttendance = (
           valueHtml: populateError(
             userCase['miam_haveDocSigned'],
             getYesNoTranslation(language, userCase['miam_haveDocSigned'], 'oesTranslation'),
-            language,
-            req,
-            'miam_haveDocSigned'
+            language
           ),
           changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
         });
@@ -1002,9 +924,7 @@ export const MiamAttendance = (
           valueHtml: populateError(
             userCase['miam_validReason'],
             getYesNoTranslation(language, userCase['miam_validReason'], 'ydynTranslation'),
-            language,
-            req,
-            'miam_validReason'
+            language
           ),
           changeUrl: Urls['C100_MIAM_VALID_REASON'],
         });
@@ -1022,15 +942,12 @@ export const MiamAttendance = (
 export const MiamExemption = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
-  language: string,
-  req: AppRequest
+  language: string
 ): SummaryList | undefined => {
   const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(
     userCase,
     keys,
-    language,
-    req,
-    'miam_exemptions'
+    language
   ); //
   const SummaryData = [
     {
@@ -1040,7 +957,7 @@ export const MiamExemption = (
       valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },
-    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language, req), //
+    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language), //
   ];
   return {
     title: '',
@@ -1077,8 +994,7 @@ export const InternationalElement = (
 export const PastAndCurrentProceedings = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const courtOrderDetails =
     '<ul>' +
@@ -1088,7 +1004,7 @@ export const PastAndCurrentProceedings = (
     '</ul>';
   let SummaryData;
   if (userCase['op_childrenInvolvedCourtCase'] === YesOrNo.YES || userCase['op_courtOrderProtection'] === YesOrNo.YES) {
-    SummaryData = proceedingSummaryData(keys, language, userCase, courtOrderDetails, false, req);
+    SummaryData = proceedingSummaryData(keys, language, userCase, courtOrderDetails, false);
   } else {
     SummaryData = [
       {
@@ -1097,9 +1013,7 @@ export const PastAndCurrentProceedings = (
         valueHtml: populateError(
           userCase['op_childrenInvolvedCourtCase'],
           getYesNoTranslation(language, userCase['op_childrenInvolvedCourtCase'], 'doTranslation'),
-          language,
-          req,
-          'op_childrenInvolvedCourtCase'
+          language
         ),
         changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
       },
@@ -1109,9 +1023,7 @@ export const PastAndCurrentProceedings = (
         valueHtml: populateError(
           userCase['op_courtOrderProtection'],
           getYesNoTranslation(language, userCase['op_courtOrderProtection'], 'oesTranslation'),
-          language,
-          req,
-          'op_courtOrderProtection'
+          language
         ),
         changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
       },
@@ -1132,8 +1044,7 @@ export const PastAndCurrentProceedings = (
 export const SafetyConcerns = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const dataForConcerns = userCase.hasOwnProperty('c1A_safetyConernAbout')
     ? userCase['c1A_safetyConernAbout']?.map(concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
@@ -1145,9 +1056,7 @@ export const SafetyConcerns = (
       valueHtml: populateError(
         userCase['c1A_haveSafetyConcerns'],
         getYesNoTranslation(language, userCase['c1A_haveSafetyConcerns'], 'oesTranslation'),
-        language,
-        req,
-        'c1A_haveSafetyConcerns'
+        language
       ),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY'], {
         root: RootContext.C100_REBUILD,
@@ -1162,9 +1071,7 @@ export const SafetyConcerns = (
       valueHtml: populateError(
         dataForConcerns,
         HTML.UNORDER_LIST + dataForConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
-        language,
-        req,
-        'c1A_safetyConernAbout'
+        language
       ),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_CONCERN_ABOUT'], {
         root: RootContext.C100_REBUILD,
@@ -1187,8 +1094,7 @@ export const SafetyConcerns = (
 export const SafetyConcerns_child = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutChild')
     ? userCase['c1A_concernAboutChild']?.map(concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
@@ -1232,9 +1138,7 @@ export const SafetyConcerns_child = (
       valueHtml: populateError(
         childSafetyConcerns,
         HTML.UNORDER_LIST + childSafetyConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST_END,
-        language,
-        req,
-        'c1A_concernAboutChild'
+        language
       ),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD'], {
         root: RootContext.C100_REBUILD,
@@ -1253,9 +1157,7 @@ export const SafetyConcerns_child = (
   policeOrInvestigatorsOtherDetailsHTML += populateError(
     userCase['c1A_policeOrInvestigatorInvolved'],
     getYesNoTranslation(language, userCase['c1A_policeOrInvestigatorInvolved'], 'oeddTranslation'),
-    language,
-    req,
-    'c1A_concernAboutChild'
+    language
   );
   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
     ? HTML.DESCRIPTION_TERM_DETAIL_END +
@@ -1283,9 +1185,7 @@ export const SafetyConcerns_child = (
     populateError(
       userCase?.['c1A_passportOffice'],
       getYesNoTranslation(language, userCase?.['c1A_passportOffice'], 'oesTranslation'),
-      language,
-      req,
-      'c1A_concernAboutChild'
+      language
     ) +
     HTML.DESCRIPTION_TERM_DETAIL_END +
     HTML.ROW_END;
@@ -1299,9 +1199,7 @@ export const SafetyConcerns_child = (
       populateError(
         userCase['c1A_childrenMoreThanOnePassport'],
         getYesNoTranslation(language, userCase['c1A_childrenMoreThanOnePassport'], 'oesTranslation'),
-        language,
-        req,
-        'c1A_concernAboutChild'
+        language
       );
     c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
     c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
@@ -1560,8 +1458,7 @@ const RespondentDetails_AddressAndPersonal = (
   keys,
   id,
   contactDetails,
-  language,
-  req
+  language
 ) => {
   const newRespondentStorage = [] as ANYTYPE;
   if (!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')) {
@@ -1574,9 +1471,7 @@ const RespondentDetails_AddressAndPersonal = (
       valueHtml: populateError(
         sessionRespondentData[respondent].address,
         applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys, language),
-        language,
-        req,
-        `addressDetails-respondent-${respondent}`
+        language
       ),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
     });
@@ -1592,9 +1487,7 @@ const RespondentDetails_AddressAndPersonal = (
       valueHtml: populateError(
         sessionRespondentData[respondent].addressUnknown,
         getYesNoTranslation(language, sessionRespondentData[respondent]?.['addressUnknown'], 'doTranslation'),
-        language,
-        req,
-        `addressUnknown-respondent-${respondent}`
+        language
       ),
       value: getYesNoTranslation(language, sessionRespondentData[respondent]?.['addressUnknown'], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
@@ -1602,10 +1495,10 @@ const RespondentDetails_AddressAndPersonal = (
   }
 
   newRespondentStorage.push(
-    respondentTelephoneEmailDetails(contactDetails, id, language, false, parseInt(respondent) + 1, keys, req)
+    respondentTelephoneEmailDetails(contactDetails, id, language, false, parseInt(respondent) + 1, keys)
   );
   newRespondentStorage.push(
-    respondentTelephoneEmailDetails(contactDetails, id, language, true, parseInt(respondent) + 1, keys, req)
+    respondentTelephoneEmailDetails(contactDetails, id, language, true, parseInt(respondent) + 1, keys)
   );
 
   return newRespondentStorage;
@@ -1617,8 +1510,7 @@ const respondentTelephoneEmailDetails = (
   language,
   isTelephone: boolean,
   index: number,
-  keys,
-  req
+  keys
 ) => {
   const ctx: string[] = [];
   if (isTelephone) {
@@ -1634,9 +1526,7 @@ const respondentTelephoneEmailDetails = (
       valueHtml: populateError(
         contactDetails?.[ctx[0]],
         getYesNoTranslation(language, contactDetails?.[ctx[0]], 'doTranslation'),
-        language,
-        req,
-        `personalDetails-respondent-${index}`
+        language
       ),
       value: getYesNoTranslation(language, contactDetails?.[ctx[0]], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
@@ -1649,9 +1539,7 @@ const respondentTelephoneEmailDetails = (
       valueHtml: populateError(
         contactDetails?.[ctx[3]],
         contactDetails?.[ctx[3]],
-        language,
-        req,
-        `personalDetails-respondent-${index}`
+        language
       ),
       value: contactDetails?.[ctx[3]],
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
@@ -1663,8 +1551,7 @@ const respondentTelephoneEmailDetails = (
 export const RespondentDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req
+  language
 ): SummaryList | undefined => {
   const sessionRespondentData = userCase['resp_Respondents'];
   const newRespondentStorage: {
@@ -1707,9 +1594,7 @@ export const RespondentDetails = (
         valueHtml: populateError(
           changeNameInformation?.[0],
           changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1),
-          language,
-          req,
-          `hasNameChanged-respondent-${respondent}`
+          language
         ), //error needed?
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       },
@@ -1717,7 +1602,7 @@ export const RespondentDetails = (
         key: keys['childGenderLabel'],
         visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
         anchorReference: `childGenderLabel-respondent-${respondent}`,
-        valueHtml: populateError(childGender, childGender, language, req, `childGenderLabel-respondent-${respondent}`),
+        valueHtml: populateError(childGender, childGender, language),
         // valueHtml: childGender,
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       }
@@ -1733,9 +1618,7 @@ export const RespondentDetails = (
           valueHtml: populateError(
             personalDetails['isDateOfBirthUnknown'],
             getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
-            language,
-            req,
-            `isDateOfBirthUnknown-respondent-${respondent}`
+            language
           ),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         },
@@ -1746,9 +1629,7 @@ export const RespondentDetails = (
           valueHtml: populateError(
             personalDetails['approxDateOfBirth'],
             DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
-            language,
-            req,
-            `approxDateOfBirth-respondent-${respondent}`
+            language
           ),
           // value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
@@ -1762,9 +1643,7 @@ export const RespondentDetails = (
         valueHtml: populateError(
           personalDetails['dateOfBirth'],
           DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-          language,
-          req,
-          `dateOfBirth-respondent-${respondent}`
+          language
         ),
         // value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
@@ -1782,9 +1661,7 @@ export const RespondentDetails = (
         valueHtml: populateError(
           personalDetails?.['respondentPlaceOfBirthUnknown'],
           getYesNoTranslation(language, personalDetails?.['respondentPlaceOfBirthUnknown'], 'doTranslation'),
-          language,
-          req,
-          `respondentPlaceOfBirthUnknown-respondent-${respondent}`
+          language
         ),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       });
@@ -1796,9 +1673,7 @@ export const RespondentDetails = (
         valueHtml: populateError(
           personalDetails?.['respondentPlaceOfBirth'],
           personalDetails?.['respondentPlaceOfBirth'],
-          language,
-          req,
-          `respondentPlaceOfBirth-respondent-${respondent}`
+          language
         ),
         value: personalDetails?.['respondentPlaceOfBirth'],
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
@@ -1833,8 +1708,7 @@ export const RespondentDetails = (
         keys,
         id,
         contactDetails,
-        language,
-        req
+        language
       )
     );
   }
@@ -1851,8 +1725,7 @@ export const RespondentDetails = (
 export const OtherPeopleDetailsTitle = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const newOtherPeopleStorage = [
     {
@@ -1861,9 +1734,7 @@ export const OtherPeopleDetailsTitle = (
       valueHtml: populateError(
         userCase['oprs_otherPersonCheck'],
         getYesNoTranslation(language, userCase['oprs_otherPersonCheck'], 'oesTranslation'),
-        language,
-        req,
-        'oprs_otherPersonCheck'
+        language
       ),
       changeUrl: Urls['C100_OTHER_PERSON_CHECK'],
     },
@@ -1881,8 +1752,7 @@ export const OtherPeopleDetailsTitle = (
 export const OtherPeopleDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const sessionOtherPeopleData = userCase['oprs_otherPersons'];
   const newOtherPeopleStorage: {
@@ -1918,9 +1788,7 @@ export const OtherPeopleDetails = (
         valueHtml: populateError(
           firstname + ' ' + lastname,
           firstname + ' ' + lastname,
-          language,
-          req,
-          `fullName-otherPerson-${respondent}`
+          language
         ),
         // value: firstname + ' ' + lastname,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADD'], { otherPersonId: id }),
@@ -1932,9 +1800,7 @@ export const OtherPeopleDetails = (
         valueHtml: populateError(
           changeNameInformation,
           changeNameInformation,
-          language,
-          req,
-          `hasNameChanged-otherPerson-${respondent}`
+          language
         ),
         // valueHtml: changeNameInformation,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
@@ -1946,9 +1812,7 @@ export const OtherPeopleDetails = (
         valueHtml: populateError(
           childGender,
           childGender,
-          language,
-          req,
-          `otherGenderDetails-otherPerson-${respondent}`
+          language
         ),
         // valueHtml: childGender,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
@@ -1964,9 +1828,7 @@ export const OtherPeopleDetails = (
           valueHtml: populateError(
             personalDetails['isDateOfBirthUnknown'],
             getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
-            language,
-            req,
-            `isDateOfBirthUnknown-otherPerson-${respondent}`
+            language
           ),
           // value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
@@ -1978,9 +1840,7 @@ export const OtherPeopleDetails = (
           valueHtml: populateError(
             personalDetails['approxDateOfBirth'],
             DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
-            language,
-            req,
-            `approxDateOfBirth-otherPerson-${respondent}`
+            language
           ),
           // value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
@@ -1994,9 +1854,7 @@ export const OtherPeopleDetails = (
         valueHtml: populateError(
           personalDetails['dateOfBirth'],
           DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-          language,
-          req,
-          `dateOfBirth-otherPerson-${respondent}`
+          language
         ),
         value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
@@ -2032,9 +1890,7 @@ export const OtherPeopleDetails = (
       valueHtml: populateError(
         sessionOtherPeopleData[respondent]['liveInRefuge'],
         getYesNoTranslation(language, sessionOtherPeopleData[respondent]['liveInRefuge'], 'ydwTranslation'),
-        language,
-        req,
-        `refuge-otherPerson-${respondent}`
+        language
       ),
       visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['refuge']}`,
       changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
@@ -2093,8 +1949,7 @@ export const OtherPeopleDetails = (
 export const HelpWithFee = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language,
-  req: AppRequest
+  language
 ): SummaryList | undefined => {
   const SummaryData: ANYTYPE = [
     {
@@ -2103,9 +1958,7 @@ export const HelpWithFee = (
       valueHtml: populateError(
         userCase['hwf_needHelpWithFees'],
         getYesNoTranslation(language, userCase['hwf_needHelpWithFees'], 'oesSpecial'),
-        language,
-        req,
-        'hwf_needHelpWithFees'
+        language
       ),
       changeUrl: Urls['C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES'],
     },
@@ -2117,9 +1970,7 @@ export const HelpWithFee = (
       valueHtml: populateError(
         userCase['helpWithFeesReferenceNumber'],
         userCase['helpWithFeesReferenceNumber'],
-        language,
-        req,
-        'helpWithFeesReferenceNumber'
+        language
       ),
       changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'],
     });
@@ -2183,8 +2034,7 @@ export const whereDoChildrenLive = (
 export const reasonableAdjustment = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language: string,
-  req: AppRequest
+  language: string
 ): SummaryList | undefined => {
   const SummaryData: ANYTYPE = [
     {
@@ -2192,7 +2042,7 @@ export const reasonableAdjustment = (
       anchorReference: 'ra_typeOfHearing',
       valueHtml:
         HTML.UNORDER_LIST +
-        resonableAdjustmentHelper(userCase, keys, 'ra_typeOfHearing', language, req) +
+        resonableAdjustmentHelper(userCase, keys, 'ra_typeOfHearing', language) +
         HTML.UNORDER_LIST_END,
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_ATTENDING_COURT, { root: RARootContext.C100_REBUILD }),
     },
@@ -2201,7 +2051,7 @@ export const reasonableAdjustment = (
       anchorReference: 'ra_languageNeeds',
       valueHtml:
         HTML.UNORDER_LIST +
-        resonableAdjustmentHelper(userCase, keys, 'ra_languageNeeds', language, req) +
+        resonableAdjustmentHelper(userCase, keys, 'ra_languageNeeds', language) +
         HTML.UNORDER_LIST_END,
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS, { root: RARootContext.C100_REBUILD }),
     },
@@ -2210,7 +2060,7 @@ export const reasonableAdjustment = (
       anchorReference: 'ra_specialArrangements',
       valueHtml:
         HTML.UNORDER_LIST +
-        resonableAdjustmentHelper(userCase, keys, 'ra_specialArrangements', language, req) +
+        resonableAdjustmentHelper(userCase, keys, 'ra_specialArrangements', language) +
         HTML.UNORDER_LIST_END,
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS, { root: RARootContext.C100_REBUILD }),
     },
@@ -2219,7 +2069,7 @@ export const reasonableAdjustment = (
       anchorReference: 'ra_disabilityRequirements',
       valueHtml:
         HTML.UNORDER_LIST +
-        resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements', language, req) +
+        resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements', language) +
         HTML.UNORDER_LIST_END,
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, { root: RARootContext.C100_REBUILD }),
     },
@@ -2235,11 +2085,9 @@ export const reasonableAdjustment = (
             valueHtml: populateError(
               userCase.ra_documentInformation,
               HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation', language, req) +
+                resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation', language) +
                 HTML.UNORDER_LIST_END,
-              language,
-              req,
-              'ra_documentInformation'
+              language
             ),
             // valueHtml:
             //   HTML.UNORDER_LIST +
@@ -2256,11 +2104,9 @@ export const reasonableAdjustment = (
             valueHtml: populateError(
               userCase.ra_communicationHelp,
               HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp', language, req) +
+                resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp', language) +
                 HTML.UNORDER_LIST_END,
-              language,
-              req,
-              'ra_communicationHelp'
+              language
             ),
             // HTML.UNORDER_LIST +
             // resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp', language) +
@@ -2276,11 +2122,9 @@ export const reasonableAdjustment = (
             valueHtml: populateError(
               userCase.ra_supportCourt,
               HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt', language, req) +
+                resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt', language) +
                 HTML.UNORDER_LIST_END,
-              language,
-              req,
-              'ra_supportCourt'
+              language
             ),
             // valueHtml:
             //   HTML.UNORDER_LIST +
@@ -2299,11 +2143,9 @@ export const reasonableAdjustment = (
             valueHtml: populateError(
               userCase.ra_feelComportable,
               HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable', language, req) +
+                resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable', language) +
                 HTML.UNORDER_LIST_END,
-              language,
-              req,
-              'ra_feelComportable'
+              language
             ),
             // valueHtml:
             //   HTML.UNORDER_LIST +
@@ -2320,11 +2162,9 @@ export const reasonableAdjustment = (
             valueHtml: populateError(
               userCase.ra_travellingCourt,
               HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt', language, req) +
+                resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt', language) +
                 HTML.UNORDER_LIST_END,
-              language,
-              req,
-              'ra_travellingCourt'
+              language
             ),
             // valueHtml:
             //   HTML.UNORDER_LIST +
@@ -2376,8 +2216,7 @@ const populateDateOfBirth = (
   id: string,
   isForChild: boolean,
   count: number,
-  partyType: string,
-  req: AppRequest
+  partyType: string
 ): SummaryListRow[] => {
   const isDateOfBirthUnknown = isForChild
     ? personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES
@@ -2393,9 +2232,7 @@ const populateDateOfBirth = (
         valueHtml: populateError(
           personalDetails['isDateOfBirthUnknown'],
           getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
-          language,
-          req,
-          `isDateOfBirthUnknown-${childAnchorText}-${count}`
+          language
         ),
         changeUrl: isForChild
           ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
@@ -2408,9 +2245,7 @@ const populateDateOfBirth = (
         valueHtml: populateError(
           personalDetails['approxDateOfBirth'],
           DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
-          language,
-          req,
-          `approxDateOfBirth-${childAnchorText}-${count}`
+          language
         ),
         changeUrl: isForChild
           ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
@@ -2425,9 +2260,7 @@ const populateDateOfBirth = (
       valueHtml: populateError(
         personalDetails['dateOfBirth'],
         DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-        language,
-        req,
-        `dateOfBirth-${childAnchorText}-${count}`
+        language
       ),
       changeUrl: isForChild
         ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
@@ -2440,7 +2273,7 @@ export const isBorderPresent = (data: YesOrNo | undefined, condition: string): H
   return data === condition ? HTML.ROW_START : HTML.ROW_START_NO_BORDER;
 };
 
-export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId>): boolean => {
+export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId>|CaseWithId): boolean => {
   return !!(
     caseData.appl_allApplicants?.find(
       applicant => applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)
@@ -2451,11 +2284,11 @@ export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId>): boo
   );
 };
 
-export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>): boolean => {
+export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>|CaseWithId): boolean => {
   return !areRefugeDocumentsNotPresent(caseData);
 };
 
-export const populateError = (value, truethyValue, language, req, anchorReference): string => {
+export const populateError = (value, truethyValue, language): string => {
   if (!_.isEmpty(value)) {
     if (typeof value === 'object' && Object.values(value).every(objectVal => _.isEmpty(objectVal))) {
       return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
@@ -2463,11 +2296,11 @@ export const populateError = (value, truethyValue, language, req, anchorReferenc
     return truethyValue;
   }
 
-  if (req.session.C100CyaErrors) {
-    req.session.C100CyaErrors.push(anchorReference);
-  } else {
-    req.session.C100CyaErrors = [anchorReference];
-  }
+  // if (req.session.C100CyaErrors) {
+  //   req.session.C100CyaErrors.push(anchorReference);
+  // } else {
+  //   req.session.C100CyaErrors = [anchorReference];
+  // }
 
   return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 };

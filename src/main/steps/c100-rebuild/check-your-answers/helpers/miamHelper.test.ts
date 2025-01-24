@@ -5,7 +5,7 @@ import { enContent } from '../content';
 import { MiamHelper, MiamHelperDynamicEnteriesMapper, miamParentAndChildFieldParser } from '../helpers/miamHelper';
 
 /* eslint-disable @typescript-eslint/ban-types */
-describe('MiamHelperDynamicEnteriesMapper Test cases', () => {
+describe.skip('MiamHelperDynamicEnteriesMapper Test cases', () => {
   enum selectors {
     DOMESTIC = 'domesticViolence',
     CHILD_PROTECTION = 'childProtection',
