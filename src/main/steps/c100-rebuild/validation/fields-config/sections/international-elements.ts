@@ -10,7 +10,7 @@ export const InternationalElementsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'ie_internationalStart',
-        fieldValue: 'YES',
+        value: 'Yes',
       },
     },
     {
@@ -22,7 +22,7 @@ export const InternationalElementsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'ie_internationalParents',
-        fieldValue: 'YES',
+        value: 'Yes',
       },
     },
     {
@@ -34,7 +34,7 @@ export const InternationalElementsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'ie_internationalJurisdiction',
-        fieldValue: 'YES',
+        value: 'Yes',
       },
     },
     {
@@ -46,7 +46,7 @@ export const InternationalElementsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'ie_internationalRequest',
-        fieldValue: 'YES',
+        value: 'Yes',
       },
     },
   ],

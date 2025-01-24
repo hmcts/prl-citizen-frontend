@@ -1,11 +1,12 @@
 import _ from 'lodash';
+
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { ProgressBarConfigType, ProgressBarProps } from '../../definitions';
 
 import { CaseType, PartyType } from './../../../../../app/case/definition';
-import { languages as content } from './content';
 import { ProgressBarConfig } from './config';
+import { languages as content } from './content';
 import { getProgressBarType } from './utils';
 
 export const getProgressBarConfig = (
@@ -26,8 +27,8 @@ export const getProgressBarConfig = (
     .map(config => {
       if (!config.show || (_.isFunction(config.show) && config.show(caseData, userDetails))) {
         let preRenderData: any;
-        let isInProgress: boolean = false;
-        let isComplete: boolean = false;
+        let isInProgress = false;
+        let isComplete = false;
 
         if (_.isFunction(config.preRender)) {
           preRenderData = config.preRender(caseData, userDetails);

@@ -20,6 +20,6 @@ export const HelpWithFeesFieldsConfig = {
         fieldName: 'hwf_needHelpWithFees',
         value: 'Yes',
       },
-    }
+    },
   ],
 };

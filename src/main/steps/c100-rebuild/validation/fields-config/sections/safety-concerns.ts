@@ -1,3 +1,5 @@
+import { CaseWithId } from '../../../../../app/case/case';
+
 export const SafetyConcernsFieldsConfig = {
   section: 'safetyConcerns',
   fields: [
@@ -10,7 +12,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'array',
       mandatory_if: {
         fieldName: 'c1A_haveSafetyConcerns',
-        fieldValue: 'Yes',
+        value: 'Yes',
       },
     },
     {
@@ -18,7 +20,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'array',
       mandatory_if: {
         fieldName: 'c1A_haveSafetyConcerns',
-        fieldValue: 'Yes',
+        value: 'Yes',
       },
     },
     {
@@ -28,11 +30,11 @@ export const SafetyConcernsFieldsConfig = {
         or: [
           {
             fieldName: 'c1A_safetyConernAbout',
-            fieldValue: 'applicant',
+            value: 'applicant',
           },
           {
             fieldName: 'c1A_concernAboutChild',
-            fieldValue: 'witnessingDomesticAbuse',
+            value: 'witnessingDomesticAbuse',
           },
         ],
       },
@@ -40,23 +42,25 @@ export const SafetyConcernsFieldsConfig = {
     {
       fieldName: 'c1A_safteyConcerns',
       fieldType: 'object',
-      expression: caseData => {
-        const childSafetyConcerns = caseData?.c1A_concernAboutChild || [];
-        let isMandatory = false;
+      mandatory_if: {
+        expression: (caseData: CaseWithId) => {
+          const childSafetyConcerns = caseData?.c1A_concernAboutChild || [];
+          let isMandatory = false;
 
-        if (childSafetyConcerns.length >= 1 && childSafetyConcerns[0] !== 'abduction') {
-          isMandatory = childSafetyConcerns
-            .filter(concern => concern !== 'abduction')
-            .some(concern => {
-              const safetyConern = caseData?.c1A_safteyConcerns?.child?.[concern];
+          if (childSafetyConcerns.length >= 1 && childSafetyConcerns[0] !== 'abduction') {
+            isMandatory = childSafetyConcerns
+              .filter(concern => concern !== 'abduction')
+              .some(concern => {
+                const safetyConern = caseData?.c1A_safteyConcerns?.child?.[concern];
 
-              return !safetyConern || !safetyConern?.childrenConcernedAbout?.length;
-            });
-        }
+                return !!safetyConern || !!safetyConern?.childrenConcernedAbout?.length;
+              });
+          }
 
-        return {
-          isMandatory,
-        };
+          return {
+            isMandatory,
+          };
+        },
       },
     },
     {
@@ -64,7 +68,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'c1A_concernAboutChild',
-        fieldValue: 'abduction',
+        value: 'abduction',
       },
     },
     {
@@ -72,7 +76,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'c1A_concernAboutChild',
-        fieldValue: 'abduction',
+        value: 'abduction',
       },
     },
     {
@@ -94,7 +98,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'c1A_passportOffice',
-        fieldValue: 'Yes',
+        value: 'Yes',
       },
     },
     {
@@ -102,7 +106,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'array',
       mandatory_if: {
         fieldName: 'c1A_passportOffice',
-        fieldValue: 'Yes',
+        value: 'Yes',
       },
     },
     {
@@ -110,7 +114,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'c1A_possessionChildrenPassport',
-        fieldValue: 'Other',
+        value: 'Other',
       },
     },
     {
@@ -120,7 +124,7 @@ export const SafetyConcernsFieldsConfig = {
         or: [
           {
             fieldName: 'c1A_childrenMoreThanOnePassport',
-            fieldValue: 'Other',
+            value: 'Other',
           },
           {
             fieldName: 'c1A_possessionChildrenPassport',
@@ -140,7 +144,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'c1A_childAbductedBefore',
-        fieldValue: 'Yes',
+        value: 'Yes',
       },
     },
     {
@@ -148,7 +152,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'c1A_childAbductedBefore',
-        fieldValue: 'Yes',
+        value: 'Yes',
       },
     },
     {
@@ -156,7 +160,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'c1A_policeOrInvestigatorInvolved',
-        fieldValue: 'Yes',
+        value: 'Yes',
       },
     },
     {
@@ -171,7 +175,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'c1A_otherConcernsDrugs',
-        fieldValue: 'Yes',
+        value: 'Yes',
       },
     },
     {
@@ -186,7 +190,7 @@ export const SafetyConcernsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'c1A_childSafetyConcerns',
-        fieldValue: 'Yes',
+        value: 'Yes',
       },
     },
     {

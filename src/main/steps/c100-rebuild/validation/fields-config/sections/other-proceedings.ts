@@ -46,11 +46,10 @@ export const OtherProceedingsFieldsConfig = {
               return {
                 isMandatory:
                   caseData?.op_courtProceedingsOrders?.length && orders.length
-                    ? orders.some(
-                        order =>
-                          caseData.op_otherProceedings.order[order].some(
-                            orderItem => orderItem?.orderCopy === 'Yes' && !orderItem?.orderDocument?.filename
-                          )
+                    ? orders.some(order =>
+                        caseData.op_otherProceedings.order[order].some(
+                          orderItem => orderItem?.orderCopy === 'Yes' && !orderItem?.orderDocument?.filename
+                        )
                       )
                     : false,
               };

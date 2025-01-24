@@ -3,11 +3,11 @@ export const ScreeningQuestionsFieldsConfig = {
   fields: [
     {
       fieldName: 'sq_writtenAgreement',
-      fieldType: "string",
+      fieldType: 'string',
     },
     {
       fieldName: 'sq_legalRepresentation',
-      fieldType: "string",
+      fieldType: 'string',
       mandatory_if: {
         fieldName: 'sq_writtenAgreement',
         value: 'No',
@@ -15,7 +15,7 @@ export const ScreeningQuestionsFieldsConfig = {
     },
     {
       fieldName: 'sq_legalRepresentationApplication',
-      fieldType: "string",
+      fieldType: 'string',
       mandatory_if: {
         fieldName: 'sq_legalRepresentation',
         value: 'Yes',
@@ -23,15 +23,15 @@ export const ScreeningQuestionsFieldsConfig = {
     },
     {
       fieldName: 'sq_courtPermissionRequired',
-      fieldType: "string",
+      fieldType: 'string',
       mandatory_if: {
-        fieldName: 'sq_legalRepresentationApplication',
+        fieldName: 'sq_writtenAgreement',
         value: 'No',
       },
     },
     {
       fieldName: 'sq_permissionsRequest',
-      fieldType: "string",
+      fieldType: 'string',
       mandatory_if: {
         fieldName: 'sq_courtPermissionRequired',
         value: 'Yes',

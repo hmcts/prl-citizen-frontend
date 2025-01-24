@@ -7,3 +7,6 @@ export { InternationalElementsFieldsConfig } from './sections/international-elem
 export { HelpWithFeesFieldsConfig } from './sections/help-with-fees';
 export { SafetyConcernsFieldsConfig } from './sections/safety-concerns';
 export { ReasonableAdjustmentsFieldsConfig } from './sections/reasonable-adjustments';
+export { MiamQuestionsFieldsConfig } from './sections/miam';
+export { PeopleFieldsConfig } from './sections/people';
+export { ConsentOrderFieldsConfig } from './sections/consent-order';
