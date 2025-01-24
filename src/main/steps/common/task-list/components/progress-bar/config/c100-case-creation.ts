@@ -16,7 +16,6 @@ import {
   UrgenceyAndWithoutNoticeFieldsConfig,
 } from '../../../../../c100-rebuild/validation/fields-config/config';
 import {
-  getAllMandatoryFields,
   getMandatoryFields,
   isAllMandatoryFieldsFilled,
   isAtleastOneMandatoryFieldFilled,
@@ -261,22 +260,6 @@ export const getC100CaseCreationConfig = (): ProgressBarProps[] => {
       isComplete: (caseData, userDetails, preRenderData) => {
         const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
         console.info(preRenderData, 'HWF isComplete --> ', isComplete);
-        return isComplete;
-      },
-    },
-    {
-      id: CaseCreationStage.REVIEW_ANSWERS,
-      label: getLabel.bind(null, CaseCreationStage.REVIEW_ANSWERS),
-      ariaLabel: getAriaLabel.bind(null, CaseCreationStage.REVIEW_ANSWERS),
-      preRender: caseData => {
-        return {
-          mandatoryFields: getAllMandatoryFields(caseData),
-        };
-      },
-      isInProgress: () => false, //check has application been completed value?
-      isComplete: (caseData, userDetails, preRenderData) => {
-        const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-        console.info(preRenderData, 'Review answers isComplete --> ', isComplete);
         return isComplete;
       },
     },

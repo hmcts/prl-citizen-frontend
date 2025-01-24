@@ -28,7 +28,6 @@ export enum CaseCreationStage {
   INTERNATIONAL_ELEMENTS = 'internationalElements',
   REASONABLE_ADJUSTMENTS = 'reasonableAdjustments',
   HELP_WITH_FEES = 'helpWithFees',
-  REVIEW_ANSWERS = 'reviewAnswers',
   CONSENT_ORDER = 'consentOrder',
 }
 

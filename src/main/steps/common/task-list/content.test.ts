@@ -85,11 +85,6 @@ describe('testcase for tasklist', () => {
         label: 'Help<br/>with<br/>fees',
         statusBarClassName: '',
       },
-      {
-        ariaLabel: 'Review answers is not yet started',
-        label: 'Review<br/>answers',
-        statusBarClassName: '',
-      },
     ],
     taskLists: [
       {
@@ -187,11 +182,6 @@ describe('testcase for tasklist', () => {
       {
         ariaLabel: 'Help with fees - welsh heb ddechrau eto',
         label: 'Help<br/>with<br/>fees - welsh',
-        statusBarClassName: '',
-      },
-      {
-        ariaLabel: 'Review answers - welsh heb ddechrau eto',
-        label: 'Review<br/>answers - welsh',
         statusBarClassName: '',
       },
     ],

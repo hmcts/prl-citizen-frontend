@@ -53,10 +53,6 @@ const en = {
       label: 'Help<br/>with<br/>fees',
       ariaLabel: 'Help with fees',
     },
-    reviewAnswers: {
-      label: 'Review<br/>answers',
-      ariaLabel: 'Review answers',
-    },
   },
   [CaseType.C100]: {
     applicationSubmitted: {
@@ -152,10 +148,6 @@ const cy: typeof en = {
     helpWithFees: {
       label: 'Help<br/>with<br/>fees - welsh',
       ariaLabel: 'Help with fees - welsh',
-    },
-    reviewAnswers: {
-      label: 'Review<br/>answers - welsh',
-      ariaLabel: 'Review answers - welsh',
     },
   },
   [CaseType.C100]: {

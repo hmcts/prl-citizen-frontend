@@ -366,6 +366,10 @@ const commonSections: Section[] = [
 
 const flow1Sections: Section[] = [
   {
+    section: C100SectionUrlName.SCREENING_QUESTIONS,
+    function: caseData => caseData.sq_writtenAgreement === YesOrNo.YES && isConsentOrderValid(caseData),
+  },
+  {
     section: C100SectionUrlName.TYPE_OF_ORDER,
     function: caseData => isTypeOfOrderValid(caseData) && isConsentOrderValid(caseData),
   },
