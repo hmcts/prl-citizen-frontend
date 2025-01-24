@@ -1,29 +1,31 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { YesOrNo } from '../../../../../../app/case/definition';
-import { ProgressBarProps } from '../../../definitions';
-import { CaseCreationStage, getAriaLabel, getLabel } from '../utils';
 import {
+  ChildrenPostcodeFieldsConfig,
+  ConsentOrderFieldsConfig,
+  HelpWithFeesFieldsConfig,
   InternationalElementsFieldsConfig,
+  MiamQuestionsFieldsConfig,
   OtherProceedingsFieldsConfig,
+  PeopleFieldsConfig,
+  ReasonableAdjustmentsFieldsConfig,
+  SafetyConcernsFieldsConfig,
   ScreeningQuestionsFieldsConfig,
   TypeOfOrderFieldsConfig,
   UrgenceyAndWithoutNoticeFieldsConfig,
-  HelpWithFeesFieldsConfig,
-  SafetyConcernsFieldsConfig,
-  ChildrenPostcodeFieldsConfig,
-  ReasonableAdjustmentsFieldsConfig,
 } from '../../../../../c100-rebuild/validation/fields-config/config';
-import _ from 'lodash';
 import {
+  getAllMandatoryFields,
   getMandatoryFields,
-  isAtleastOneMandatoryFieldFilled,
   isAllMandatoryFieldsFilled,
+  isAtleastOneMandatoryFieldFilled,
 } from '../../../../../c100-rebuild/validation/util';
-import { CaseWithId } from 'app/case/case';
-import { UserDetails } from 'app/controller/AppRequest';
+import { ProgressBarProps } from '../../../definitions';
+import { CaseCreationStage, getAriaLabel, getLabel } from '../utils';
 
-export const getC100CaseCreationConfig = (caseData: CaseWithId, userDetails: UserDetails): ProgressBarProps[] => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getC100CaseCreationConfig = (): ProgressBarProps[] => {
   return [
     {
       id: CaseCreationStage.CHILDREN_POSTCODE,
@@ -69,8 +71,21 @@ export const getC100CaseCreationConfig = (caseData: CaseWithId, userDetails: Use
       id: CaseCreationStage.MIAM,
       label: getLabel.bind(null, CaseCreationStage.MIAM),
       ariaLabel: getAriaLabel.bind(null, CaseCreationStage.MIAM),
-      isInProgress: () => false,
-      isComplete: () => false,
+      preRender: caseData => {
+        return {
+          mandatoryFields: getMandatoryFields(MiamQuestionsFieldsConfig, caseData),
+        };
+      },
+      isInProgress: (caseData, userDetails, preRenderData) => {
+        const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
+        console.info(preRenderData, 'miam isInProgress --> ', isInProgress);
+        return isInProgress;
+      },
+      isComplete: (caseData, userDetails, preRenderData) => {
+        const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
+        console.info(preRenderData, 'miam isComplete --> ', isComplete);
+        return isComplete;
+      },
       show: caseData => caseData?.sq_writtenAgreement === YesOrNo.NO,
     },
     {
@@ -92,6 +107,27 @@ export const getC100CaseCreationConfig = (caseData: CaseWithId, userDetails: Use
         console.info(preRenderData, 'TO isComplete --> ', isComplete);
         return isComplete;
       },
+    },
+    {
+      id: CaseCreationStage.CONSENT_ORDER,
+      label: getLabel.bind(null, CaseCreationStage.CONSENT_ORDER),
+      ariaLabel: getAriaLabel.bind(null, CaseCreationStage.CONSENT_ORDER),
+      preRender: caseData => {
+        return {
+          mandatoryFields: getMandatoryFields(ConsentOrderFieldsConfig, caseData),
+        };
+      },
+      isInProgress: (caseData, userDetails, preRenderData) => {
+        const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
+        console.info(preRenderData, 'CO isInProgress --> ', isInProgress);
+        return isInProgress;
+      },
+      isComplete: (caseData, userDetails, preRenderData) => {
+        const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
+        console.info(preRenderData, 'CO isComplete --> ', isComplete);
+        return isComplete;
+      },
+      show: caseData => caseData?.sq_writtenAgreement === YesOrNo.YES,
     },
     {
       id: CaseCreationStage.OTHER_PROCEEDINGS,
@@ -137,8 +173,21 @@ export const getC100CaseCreationConfig = (caseData: CaseWithId, userDetails: Use
       id: CaseCreationStage.PEOPLE,
       label: getLabel.bind(null, CaseCreationStage.PEOPLE),
       ariaLabel: getAriaLabel.bind(null, CaseCreationStage.PEOPLE),
-      isInProgress: () => false,
-      isComplete: () => false,
+      preRender: caseData => {
+        return {
+          mandatoryFields: getMandatoryFields(PeopleFieldsConfig, caseData),
+        };
+      },
+      isInProgress: (caseData, userDetails, preRenderData) => {
+        const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
+        console.info(preRenderData, 'people isInProgress --> ', isInProgress);
+        return isInProgress;
+      },
+      isComplete: (caseData, userDetails, preRenderData) => {
+        const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
+        console.info(preRenderData, 'people isComplete --> ', isComplete);
+        return isComplete;
+      },
     },
     {
       id: CaseCreationStage.SAFETY_CONCERNS,
@@ -224,8 +273,17 @@ export const getC100CaseCreationConfig = (caseData: CaseWithId, userDetails: Use
       id: CaseCreationStage.REVIEW_ANSWERS,
       label: getLabel.bind(null, CaseCreationStage.REVIEW_ANSWERS),
       ariaLabel: getAriaLabel.bind(null, CaseCreationStage.REVIEW_ANSWERS),
-      isInProgress: () => false,
-      isComplete: () => false,
+      preRender: caseData => {
+        return {
+          mandatoryFields: getAllMandatoryFields(caseData),
+        };
+      },
+      isInProgress: () => false, //check has application been completed value?
+      isComplete: (caseData, userDetails, preRenderData) => {
+        const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
+        console.info(preRenderData, 'Review answers isComplete --> ', isComplete);
+        return isComplete;
+      },
     },
   ];
 
