@@ -10,7 +10,7 @@ export const ReasonableAdjustmentsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'ra_typeOfHearing',
-        fieldValue: 'noVideoAndPhoneHearing',
+        value: 'noVideoAndPhoneHearing',
       },
     },
     {
@@ -22,7 +22,7 @@ export const ReasonableAdjustmentsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'ra_languageNeeds',
-        fieldValue: 'needInterpreterInCertainLanguage',
+        value: 'needInterpreterInCertainLanguage',
       },
     },
     {
@@ -34,7 +34,7 @@ export const ReasonableAdjustmentsFieldsConfig = {
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'ra_specialArrangements',
-        fieldValue: 'specialArrangementsOther',
+        value: 'specialArrangementsOther',
       },
     },
     {

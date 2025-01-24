@@ -23,7 +23,7 @@ services:
   case:
     url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
   cos:
-    url: 'https://prl-cos-pr-2953.preview.platform.hmcts.net'
+    url: 'http://prl-cos-aat.service.core-compute-aat.internal'
   documentManagement:
     url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
   fact:
@@ -52,8 +52,7 @@ featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
   c100Rebuild: true
   testingSupport: true
-  enableCaseTrainTrack: true
-  enableC100CaseProgressionTrainTrack: true   
+  enableCaseTrainTrack: true  
   enableRAComponent: true
   enablePcqComponent: true
 
