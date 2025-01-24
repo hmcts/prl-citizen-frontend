@@ -72,7 +72,6 @@ export class FeatureToggles {
   }
 
   async isC100CaseProgressionTrainTrackEnabled(): Promise<boolean> {
-
     return this.launchDarklyClient.serviceVariation(
       'c100-case-progression-train-track',
       toBoolean(config.get<boolean>('featureToggles.enableC100CaseProgressionTrainTrack'))

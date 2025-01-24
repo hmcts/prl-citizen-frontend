@@ -26,7 +26,7 @@ export const getProgressBarConfig = (
   return progressBarItems
     .map(config => {
       if (!config.show || (_.isFunction(config.show) && config.show(caseData, userDetails))) {
-        let preRenderData: any;
+        let preRenderData;
         let isInProgress = false;
         let isComplete = false;
 

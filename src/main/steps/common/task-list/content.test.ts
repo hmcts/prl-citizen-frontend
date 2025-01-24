@@ -36,26 +36,60 @@ describe('testcase for tasklist', () => {
     ],
     progressBar: [
       {
-        ariaLabel: 'Application submitted stage is not yet started',
-        label: 'Application<br/> submitted',
+        ariaLabel: 'Children postcode is not yet started',
+        label: 'Children<br/>postcode',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cafcass child safety checks stage is not yet started',
-        label: 'Cafcass child<br/> safety checks',
+        ariaLabel: 'Screening questions is not yet started',
+        label: 'Screening<br/>questions',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Response submitted stage is not yet started',
-        label: 'Response<br/> submitted',
+        ariaLabel: 'Type of order is not yet started',
+        label: 'Type<br/>of<br/>order',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Hearings and court orders stage is not yet started',
-        label: 'Hearings and<br/> court orders',
+        ariaLabel: 'Other Proceedings is not yet started',
+        label: 'Other<br/>Proceedings',
         statusBarClassName: '',
       },
-      { ariaLabel: 'Case closed stage is not yet started', label: 'Case closed', statusBarClassName: '' },
+      {
+        ariaLabel: 'Urgency and Without notice is not yet started',
+        label: 'Urgency<br/>&<br/>Without notice',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'People is not yet started',
+        label: 'People',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Safety concerns is not yet started',
+        label: 'Safety<br/>concerns',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'International elements is not yet started',
+        label: 'International<br/>elements',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Reasonable adjustments is not yet started',
+        label: 'Reasonable<br/>adjustments',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Help with fees is not yet started',
+        label: 'Help<br/>with<br/>fees',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Review answers is not yet started',
+        label: 'Review<br/>answers',
+        statusBarClassName: '',
+      },
     ],
     taskLists: [
       {
@@ -106,28 +140,58 @@ describe('testcase for tasklist', () => {
     ],
     progressBar: [
       {
-        ariaLabel: 'Cam cais wedi’i gyflwyno heb ddechrau eto',
-        label: "Cais wedi'i<br/> gyflwyno",
+        ariaLabel: 'Children postcode - welsh heb ddechrau eto',
+        label: 'Children<br/>postcode - welsh',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cam gwiriadau diogelwch plant Cafcass heb ddechrau eto',
-        label: 'Gwiriadau diogelwch<br/> plant Cafcass',
+        ariaLabel: 'Screening questions - welsh heb ddechrau eto',
+        label: 'Screening<br/>questions - welsh',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cam ymateb wedi’i gyflwyno heb ddechrau eto',
-        label: "Ymateb wedi'i<br/> gyflwyno",
+        ariaLabel: 'Type of order - welsh heb ddechrau eto',
+        label: 'Type<br/>of<br/>order - welsh',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cam gwrandawiadau a gorchmynion llys heb ddechrau eto',
-        label: 'Gwrandawiadau <br/>a<br/> gorchmynion llys',
+        ariaLabel: 'Other Proceedings - welsh heb ddechrau eto',
+        label: 'Other<br/>Proceedings - welsh',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cam achos wedi’i gau heb ddechrau eto',
-        label: 'Achos wedi’i <br/>gau',
+        ariaLabel: 'Urgency and Without notice - welsh heb ddechrau eto',
+        label: 'Urgency<br/>&<br/>Without notice - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'People - welsh heb ddechrau eto',
+        label: 'People - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Safety concerns - welsh heb ddechrau eto',
+        label: 'Safety<br/>concerns - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'International elements - welsh heb ddechrau eto',
+        label: 'International<br/>elements - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Reasonable adjustments - welsh heb ddechrau eto',
+        label: 'Reasonable<br/>adjustments - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Help with fees - welsh heb ddechrau eto',
+        label: 'Help<br/>with<br/>fees - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Review answers - welsh heb ddechrau eto',
+        label: 'Review<br/>answers - welsh',
         statusBarClassName: '',
       },
     ],

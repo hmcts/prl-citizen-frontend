@@ -1,12 +1,13 @@
-import { getCAApplicantConfig } from './ca_applicant';
-import { getDAConfig } from './da_applicant_respondent';
-import { getC100CaseCreationConfig } from './c100-case-creation';
+import { PartyType } from '../../../../../../app/case/definition';
 import {
   ProgressBarConfig as ProgressBarConfigDefinition,
   ProgressBarConfigType,
 } from '../../../../../../steps/common/task-list/definitions';
-import { PartyType } from '../../../../../../app/case/definition';
+
+import { getC100CaseCreationConfig } from './c100-case-creation';
+import { getCAApplicantConfig } from './ca_applicant';
 import { getCARespondentConfig } from './ca_respondent';
+import { getDAConfig } from './da_applicant_respondent';
 
 export const ProgressBarConfig: ProgressBarConfigDefinition = {
   [ProgressBarConfigType.C100_CASE_CREATION]: {

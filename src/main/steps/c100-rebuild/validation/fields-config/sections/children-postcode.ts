@@ -4,6 +4,6 @@ export const ChildrenPostcodeFieldsConfig = {
     {
       fieldName: 'c100RebuildChildPostCode',
       fieldType: 'string',
-    }
+    },
   ],
 };
