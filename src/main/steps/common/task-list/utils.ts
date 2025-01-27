@@ -16,7 +16,7 @@ export const getPartyName = (
 ): string => {
   let partyDetails: Record<string, any> | undefined;
 
-  if (caseData) {
+  if (caseData && doesCaseHaveId(caseData)) {
     if (caseData.caseTypeOfApplication === CaseType.C100) {
       if (partyType === PartyType.APPLICANT) {
         partyDetails = caseData?.applicants?.find(party => party.value.user.idamId === userDetails.id) ?? {
@@ -102,4 +102,8 @@ export const isC7ResponseSubmitted = (respondent: PartyDetails | undefined): boo
 
 export const isC7ResponseReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
   return !!findC7ResponseDocument(caseData as CaseWithId, respondent);
+};
+
+export const doesCaseHaveId = (caseData: Partial<CaseWithId>): boolean => {
+  return !!caseData.caseId || !!caseData.id;
 };

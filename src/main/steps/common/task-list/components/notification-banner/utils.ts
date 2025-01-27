@@ -8,7 +8,7 @@ import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { hasApplicationPacks } from '../../../../../steps/common/documents/view/utils';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { CitizenDocuments, DocumentCategory } from '../../../documents/definitions';
-import { isCaseSubmitted, isDraftCase } from '../../utils';
+import { doesCaseHaveId, isCaseSubmitted, isDraftCase } from '../../utils';
 
 import { CaseWithId, CitizenNotification } from './../../../../../app/case/case';
 import { CaseType, PartyType, Respondent, State } from './../../../../../app/case/definition';
@@ -125,7 +125,7 @@ export function showPreDashBoardNotification(notificationType: NotificationType,
   let allowNotification = false;
   switch (notificationType) {
     case NotificationType.APPLICATION_NOT_STARTED:
-      allowNotification = !caseData;
+      allowNotification = !caseData || !doesCaseHaveId(caseData);
       break;
     case NotificationType.APPLICATION_IN_PROGRESS:
       allowNotification = isDraftCase(caseData);

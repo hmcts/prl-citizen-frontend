@@ -183,7 +183,28 @@ describe('testcase for notification Banner', () => {
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([]);
+    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
+      {
+        heading: 'You have not started your application',
+        id: 'applicationNotStarted',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'Once you have started your application, you have 28 days to submit it or your application will be deleted and you will need to start again. This is for security reasons.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/c100-rebuild/start',
+                text: 'Start the application',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
   });
 
   test('when casetype c100 and application in progress', () => {
