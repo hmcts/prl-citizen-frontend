@@ -6,6 +6,7 @@ import { FieldPrefix } from '../../../app/case/case';
 import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
+import { doesAnyChildLiveWithOtherPerson } from '../../c100-rebuild/other-person-details/utils';
 
 import { isMandatoryFieldsFilled } from './mainUtil';
 
@@ -55,6 +56,20 @@ export default class CheckYourAnswersGetController extends GetController {
           if (otherPerson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherPerson.refugeConfidentialityC8Form)) {
             req.session.errors?.push({
               propertyName: `c8RefugeDocument-otherPerson-${req.session.userCase?.oprs_otherPersons?.indexOf(
+                otherPerson
+              )}`,
+              errorType: 'required',
+            });
+          }
+        });
+
+        req.session.userCase?.oprs_otherPersons?.forEach(otherPerson => {
+          if (
+            doesAnyChildLiveWithOtherPerson(req.session.userCase, otherPerson.id) &&
+            _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
+          ) {
+            req.session.errors?.push({
+              propertyName: `otherPersonConfidentiality-otherPerson-${req.session.userCase?.oprs_otherPersons?.indexOf(
                 otherPerson
               )}`,
               errorType: 'required',
