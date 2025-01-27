@@ -38,6 +38,7 @@ import {
   TypeOfOrder,
   WithoutNoticeHearing,
   isMandatoryFieldsFilled,
+  otherPersonConfidentiality,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -52,6 +53,9 @@ import { ReasonableAdjustmentElement } from './util/reasonableAdjustmentContent.
 import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
+import { getOtherPeopleLivingWithChildren } from '../../c100-rebuild/other-person-details/utils';
+import { SummaryList } from './lib/lib';
+import { interpolate } from '../../../steps/common/string-parser';
 
 export const enContent = {
   section: '',
@@ -120,6 +124,9 @@ export const enContent = {
     refugeDocumentText: {
       required: 'You must upload a C8 document',
     },
+    otherPersonConfidentiality: {
+      required: 'Select yes if you want to keep {firstName} {lastName}’s details private',
+    },
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -145,6 +152,7 @@ export const enContent = {
     detailsOfRespondent: 'Details of the respondents',
     helpWithFee: '[^^sectionNo^^]. Help with Fees', //section 13
     whereTheChildrenLive: 'Where the children live',
+    otherPeopleConfidentiality: 'Confidential details of the other people',
     detailofOtherPeople: 'Details of the other people in the application',
     reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
   },
@@ -174,6 +182,8 @@ export const enContent = {
     relationshipTo: 'Relationship to',
     childLivingArrangements: "{firstname} {lastname}'s living arrangements",
     whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with?',
+    isOtherPersonAddressConfidential:
+      'Do you want to keep {firstName} {lastName}’s identity private from the other people named in the application (the respondents)?',
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
@@ -267,6 +277,9 @@ export const cyContent = {
     refugeDocumentText: {
       required: 'Mae’n rhaid i chi uwchlwytho dogfen C8',
     },
+    otherPersonConfidentiality: {
+      required: 'Dewiswch ydw os ydych eisiau cadw {firstName} {lastName} manylion yn gyfrinachol',
+    },
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1
@@ -292,6 +305,7 @@ export const cyContent = {
     detailsOfRespondent: 'Manylion yr atebwyr',
     helpWithFee: '[^^sectionNo^^].  Help i dalu ffioedd', //section 13
     whereTheChildrenLive: 'Ble mae’r plant yn byw',
+    otherPeopleConfidentiality: 'Manylion cyfrinachol y bobl eraill',
     detailofOtherPeople: 'Manylion y bobl eraill yn y cais',
     reasonAbleAdjustment: '[^^sectionNo^^]. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos', //section 12
   },
@@ -321,6 +335,8 @@ export const cyContent = {
     relationshipTo: 'Perthynas â',
     childLivingArrangements: "{firstname} {lastname}'s living arrangements (welsh)",
     whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with? (welsh)',
+    isOtherPersonAddressConfidential:
+      'Ydych chi eisiau cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol oddi wrth yr unigolyn arall a enwir yn y cais(yr atebydd)',
     otherPerson: 'Rhywun arall',
     contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
     addressDetails: 'Manylion cyfeiriad',
@@ -474,10 +490,16 @@ export const sectionCountFormatter = sections => {
   return sections;
 };
 export const peopleSections = (userCase, contentLanguage, language) => {
-  const otherPeopleSection =
-    userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES
-      ? OtherPeopleDetails(contentLanguage, userCase, language)
-      : [];
+  let otherPeopleSection: [] | SummaryList = [];
+  let otherPeopleConfidentialitySection: [] | SummaryList = [];
+
+  if (userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES) {
+    otherPeopleSection = OtherPeopleDetails(contentLanguage, userCase, language);
+    if (getOtherPeopleLivingWithChildren(userCase).length > 0) {
+      otherPeopleConfidentialitySection = otherPersonConfidentiality(contentLanguage, userCase, language);
+    }
+  }
+
   return [
     PeopleDetails(contentLanguage),
     ChildernDetails(contentLanguage, userCase, language),
@@ -488,6 +510,7 @@ export const peopleSections = (userCase, contentLanguage, language) => {
     OtherPeopleDetailsTitle(contentLanguage, userCase, language),
     otherPeopleSection,
     whereDoChildrenLive(contentLanguage, userCase),
+    otherPeopleConfidentialitySection,
   ];
 };
 
@@ -751,7 +774,7 @@ export const generateContent: TranslationFn = content => {
   }
   form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!);
   const refugeErrors = {};
-
+  const otherPersonConfidentialityErrors = {};
   content.userCase?.appl_allApplicants?.forEach(applicant => {
     refugeErrors[`c8RefugeDocument-applicant-${content.userCase?.appl_allApplicants?.indexOf(applicant)}`] =
       translations.errors.refugeDocumentText;
@@ -760,6 +783,14 @@ export const generateContent: TranslationFn = content => {
   content.userCase?.oprs_otherPersons?.forEach(otherPerson => {
     refugeErrors[`c8RefugeDocument-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`] =
       translations.errors.refugeDocumentText;
+    otherPersonConfidentialityErrors[
+      `otherPersonConfidentiality-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`
+    ] = {
+      required: interpolate(translations.errors.otherPersonConfidentiality.required, {
+        firstName: otherPerson.firstName,
+        lastName: otherPerson.lastName,
+      }),
+    };
   });
 
   return {
@@ -768,6 +799,7 @@ export const generateContent: TranslationFn = content => {
     errors: {
       ...translations.errors,
       ...refugeErrors,
+      ...otherPersonConfidentialityErrors,
     },
   };
 };
