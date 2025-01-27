@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../../app/case/case';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { ProgressBarConfigType } from '../../definitions';
 
 import { CaseType, SelectTypeOfOrderEnum, State } from './../../../../../app/case/definition';
@@ -111,4 +114,39 @@ export const getProgressBarType = (caseData: CaseWithId): ProgressBarConfigType 
   }
 
   return progressBarType;
+};
+
+const getPreRenderData = (config, caseData: CaseWithId, userDetails: UserDetails) => {
+  let preRenderData;
+  if (_.isFunction(config.preRender)) {
+    preRenderData = config.preRender(caseData, userDetails);
+  }
+
+  return preRenderData;
+};
+
+export const getIsInProgressStatus = (config, caseData: CaseWithId, userDetails: UserDetails) => {
+  const preRenderData = getPreRenderData(config, caseData, userDetails);
+  let isInProgress = false;
+
+  if (_.isFunction(config.isInProgress)) {
+    isInProgress = preRenderData
+      ? config.isInProgress(caseData, userDetails, preRenderData)
+      : config.isInProgress(caseData, userDetails);
+  }
+
+  return isInProgress;
+};
+
+export const getIsCompleteStatus = (config, caseData: CaseWithId, userDetails: UserDetails) => {
+  const preRenderData = getPreRenderData(config, caseData, userDetails);
+  let isComplete = false;
+
+  if (_.isFunction(config.isComplete)) {
+    isComplete = preRenderData
+      ? config.isComplete(caseData, userDetails, preRenderData)
+      : config.isComplete(caseData, userDetails);
+  }
+
+  return isComplete;
 };

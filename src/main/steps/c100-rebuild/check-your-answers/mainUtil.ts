@@ -1833,49 +1833,56 @@ export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>): boolean 
   return !areRefugeDocumentsNotPresent(caseData);
 };
 
-export const getCyaSections = (userCase: CaseWithId, content, newContent, language, isC100TrainTrackEnabled) => {
+export const getCyaSections = (
+  userCase: CaseWithId,
+  content,
+  newContent,
+  language: string,
+  isC100TrainTrackEnabled: boolean
+) => {
   let sections;
-  const flow = getC100FlowType(userCase);
+
   if (isC100TrainTrackEnabled) {
-    switch (flow) {
-      case C100FlowTypes.C100_WITH_CONSENT_ORDER:
-        sections = CheckYourAnswerFlow1(userCase, content, language).flat() as ANYTYPE;
-        break;
-      case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
-        sections = CheckYourAnswerFlow2(userCase, content, language).flat() as ANYTYPE;
-        break;
-      case C100FlowTypes.C100_WITH_MIAM_URGENCY:
-        sections = CheckYourAnswerFlow3(userCase, content, newContent, language).flat() as ANYTYPE;
-        break;
-      default:
-        sections = CheckYourAnswerFlow4(userCase, content, newContent, language).flat() as ANYTYPE;
-    }
+    sections = getSectionsByFlow(userCase, content, newContent, language);
+  } else if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
+    sections = CheckYourAnswerFlow1(userCase, content, language).flat() as ANYTYPE;
+  } else if (
+    (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
+    (userCase.hasOwnProperty('miam_otherProceedings') &&
+      userCase['miam_otherProceedings'] === YesOrNo.NO &&
+      userCase.hasOwnProperty('miam_attendance') &&
+      userCase['miam_attendance'] === YesOrNo.YES)
+  ) {
+    sections = CheckYourAnswerFlow2(userCase, content, language).flat() as ANYTYPE;
+  } else if (
+    userCase['miam_urgency'] &&
+    userCase.hasOwnProperty('miam_urgency') &&
+    userCase['miam_urgency'] !== 'none'
+  ) {
+    sections = CheckYourAnswerFlow3(userCase, content, newContent, language).flat() as ANYTYPE;
   } else {
-    // if on sreening screen enable Yes
-    if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
+    sections = CheckYourAnswerFlow4(userCase, content, newContent, language).flat() as ANYTYPE;
+  }
+
+  return sections;
+};
+
+const getSectionsByFlow = (userCase: CaseWithId, content, newContent, language: string) => {
+  const flow = getC100FlowType(userCase);
+  let sections;
+
+  switch (flow) {
+    case C100FlowTypes.C100_WITH_CONSENT_ORDER:
       sections = CheckYourAnswerFlow1(userCase, content, language).flat() as ANYTYPE;
-    } else {
-      if (
-        (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
-        (userCase.hasOwnProperty('miam_otherProceedings') &&
-          userCase['miam_otherProceedings'] === YesOrNo.NO &&
-          userCase.hasOwnProperty('miam_attendance') &&
-          userCase['miam_attendance'] === YesOrNo.YES)
-      ) {
-        sections = CheckYourAnswerFlow2(userCase, content, language).flat() as ANYTYPE;
-      } else {
-        //if miam urgency is requested miam_urgency
-        if (
-          userCase['miam_urgency'] &&
-          userCase.hasOwnProperty('miam_urgency') &&
-          userCase['miam_urgency'] !== 'none'
-        ) {
-          sections = CheckYourAnswerFlow3(userCase, content, newContent, language).flat() as ANYTYPE;
-        } else {
-          sections = CheckYourAnswerFlow4(userCase, content, newContent, language).flat() as ANYTYPE;
-        }
-      }
-    }
+      break;
+    case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
+      sections = CheckYourAnswerFlow2(userCase, content, language).flat() as ANYTYPE;
+      break;
+    case C100FlowTypes.C100_WITH_MIAM_URGENCY:
+      sections = CheckYourAnswerFlow3(userCase, content, newContent, language).flat() as ANYTYPE;
+      break;
+    default:
+      sections = CheckYourAnswerFlow4(userCase, content, newContent, language).flat() as ANYTYPE;
   }
 
   return sections;

@@ -13,7 +13,7 @@ import {
   YesOrNo,
 } from '../../../app/case/definition';
 
-import { FieldsConfig, MandatoryFieldsConfig } from './definitions';
+import { FieldConfig, FieldsConfig, MandatoryFieldsConfig } from './definitions';
 import {
   ChildrenPostcodeFieldsConfig,
   ConsentOrderFieldsConfig,
@@ -133,49 +133,53 @@ export const getMandatoryFields = (config, caseData: CaseWithId): MandatoryField
         (hasIfOrCondition &&
           field.mandatory_if.or.some(_field => isMandatoryFieldBasedOnCondition(fieldsConfig, _field, caseData)))
       ) {
-        const mandatoryField = {
-          fieldName: field.fieldName,
-          fieldMeta: {
-            fieldType: field.fieldType,
-          },
-        };
-
-        if (field?.expression) {
-          Object.assign(mandatoryField, {
-            expression: field.expression,
-          });
-        }
-
-        if (field?.value) {
-          Object.assign(mandatoryField, {
-            value: field.value,
-          });
-        }
-
-        if (field?.property) {
-          Object.assign(mandatoryField, {
-            property: field.property,
-          });
-        }
-
-        if (field?.items) {
-          Object.assign(mandatoryField.fieldMeta, {
-            items: field.value,
-          });
-        }
-
-        if (field?.properties) {
-          Object.assign(mandatoryField.fieldMeta, {
-            value: field.properties,
-          });
-        }
-
-        mandatoryFields.push(mandatoryField);
+        mandatoryFields.push(generateMandatoryField(field));
       }
     });
   }
 
   return mandatoryFields;
+};
+
+const generateMandatoryField = (field: FieldConfig): MandatoryFieldsConfig => {
+  const mandatoryField = {
+    fieldName: field.fieldName,
+    fieldMeta: {
+      fieldType: field.fieldType,
+    },
+  };
+
+  if (field?.expression) {
+    Object.assign(mandatoryField, {
+      expression: field.expression,
+    });
+  }
+
+  if (field?.value) {
+    Object.assign(mandatoryField, {
+      value: field.value,
+    });
+  }
+
+  if (field?.property) {
+    Object.assign(mandatoryField, {
+      property: field.property,
+    });
+  }
+
+  if (field?.items) {
+    Object.assign(mandatoryField.fieldMeta, {
+      items: field.value,
+    });
+  }
+
+  if (field?.properties) {
+    Object.assign(mandatoryField.fieldMeta, {
+      value: field.properties,
+    });
+  }
+
+  return mandatoryField;
 };
 
 export const isAllMandatoryFieldsFilled = (mandatoryFields: MandatoryFieldsConfig[], caseData: CaseWithId): boolean => {

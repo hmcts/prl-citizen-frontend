@@ -4,6 +4,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType } from '../../../app/case/definition';
 import { UserDetails } from '../../../app/controller/AppRequest';
+import { MandatoryFieldsConfig } from '../../../steps/c100-rebuild/validation/definitions';
 
 import { CaseCreationStage, CaseProgressionStage } from './components/progress-bar/utils';
 import { StateTags, TaskListSection, Tasks } from './components/tasklist/utils';
@@ -101,7 +102,7 @@ export type ProgressBarProps = {
   id: CaseProgressionStage | CaseCreationStage | undefined;
   label: (caseType: CaseType, language: string) => string;
   ariaLabel: (caseType: CaseType, language: string) => string;
-  preRender?: (caseData: CaseWithId, UserDetails: UserDetails) => void | any;
+  preRender?: (caseData: CaseWithId, UserDetails: UserDetails) => void | { mandatoryFields: MandatoryFieldsConfig[] };
   isComplete: (caseData: CaseWithId, UserDetails: UserDetails, preRenderData?: any) => boolean;
   isInProgress?: (caseData: CaseWithId, UserDetails: UserDetails, preRenderData?: any) => boolean;
   show?: (CaseData: CaseWithId, UserDetails: UserDetails) => boolean;
