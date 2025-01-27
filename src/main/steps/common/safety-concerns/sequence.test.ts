@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { YesOrNo } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 
 import { AohSequence } from './sequence';
 
@@ -42,7 +43,11 @@ describe('respondent1Sequence', () => {
     expect(sequence[1].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.YES })).toBe(
       '/respondent/safety-concerns/concern-about'
     );
-    expect(sequence[1].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.NO })).toBe('/respondent/safety-concerns/review');
+    expect(
+      sequence[1].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.NO }, {
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest)
+    ).toBe('/respondent/safety-concerns/review');
 
     expect(sequence[2].url).toBe('/:root/safety-concerns/child/concerns-about');
     expect(sequence[2].showInSection).toBe('c100');
@@ -145,9 +150,11 @@ describe('respondent1Sequence', () => {
 
     expect(sequence[17].url).toBe('/:root/safety-concerns/orders-required/unsupervised');
     expect(sequence[17].showInSection).toBe('c100');
-    expect(sequence[17].getNextStep(safetyConcernsMockData.session.userCase)).toBe(
-      '/respondent/safety-concerns/review'
-    );
+    expect(
+      sequence[17].getNextStep(safetyConcernsMockData.session.userCase, {
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest)
+    ).toBe('/respondent/safety-concerns/review');
 
     expect(sequence[18].url).toBe('/:root/safety-concerns/review');
     expect(sequence[18].showInSection).toBe('c100');
