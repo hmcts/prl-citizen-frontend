@@ -122,6 +122,162 @@ export const enContent = {
     refugeDocumentText: {
       required: 'You must upload a C8 document',
     },
+    sq_legalRepresentation: {
+      required: 'Select yes if you will be using a legal representative in these proceedings',
+    },
+    c100RebuildChildPostCode: {
+      required: 'Enter a full postcode, with or without a space',
+    },
+    sq_writtenAgreement: {
+      required:
+        'Select yes if you have a written agreement with the other people in the case, that you want the court to review',
+    },
+    sq_legalRepresentationApplication: {
+      required: 'Select yes if you want your legal representative to complete this application',
+    },
+    sq_courtPermissionRequired: {
+      required:
+        'Select yes if there is any reason why you would need permission from the court to make this application',
+    },
+    sq_permissionsRequest: {
+      required: 'Explain why the court should grant you permission to submit this application',
+    },
+    too_courtOrder: {
+      required: 'Select  what you are asking the court to do',
+    },
+    too_shortStatement: {
+      required: 'Describe what you want the court to do regarding the children in this application',
+    },
+    hu_urgentHearingReasons: {
+      required: 'Select yes if you have a good reason to request an urgent hearing',
+    },
+    hwn_reasonsForApplicationWithoutNotice: {
+      required: 'Enter details',
+    },
+    childrenKnownToSocialServicesLabel: {
+      required: 'Select if any of the children are known to social services',
+    },
+    cd_childrenSubjectOfProtectionPlan: {
+      required: 'Select if any of the children are the subject of a child protection plan',
+    },
+    ocd_hasOtherChildren: {
+      required: 'Select yes if you have other children',
+    },
+    miam_otherProceedings: {
+      required:
+        'Select yes if the children are involved in any emergency protection, care or supervision proceedings(or have been)',
+    },
+    miam_haveDocSigned: {
+      required: 'Select yes if you have a document signed by the mediator',
+    },
+    miam_validReason: {
+      required: 'Select yes if you have a valid reason for not attending a MIAM',
+    },
+    op_childrenInvolvedCourtCase: {
+      required: 'Select yes if the children have been involved in a previous court case',
+    },
+    op_courtOrderProtection: {
+      required: 'Select yes if you have had a court order made for your protection',
+    },
+    c1A_haveSafetyConcerns: {
+      required: 'Select yes if you have any concerns for your safety or the safety of the children',
+    },
+    c1A_safetyConernAbout: {
+      required: 'Specify who you are concerned about',
+    },
+    c1A_concernAboutChild: {
+      required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing',
+    },
+    c1A_childsCurrentLocation: {
+      required: 'Describe where the children are now',
+    },
+    c1A_passportOffice: {
+      required: 'Select yes if any of the children have a passport',
+    },
+    c1A_abductionPassportOfficeNotified: {
+      required: 'Select yes if the passport office has been notified',
+    },
+    c1A_childAbductedBefore: {
+      required: 'Select yes if the children have been abducted or kept outside the UK without your consent before',
+    },
+    c1A_previousAbductionsShortDesc: {
+      required: 'Briefly describe the previous incidents of abduction',
+    },
+    c1A_policeOrInvestigatorOtherDetails: {
+      required: 'Provide details of the police, private investigators or any other organisation involvement',
+    },
+    c1A_concernAboutApplicant: {
+      required: 'Specify the type of behaviour you have experienced or are at risk of experiencing',
+    },
+    c1A_otherConcernsDrugs: {
+      required: 'Describe how the children have been impacted by drug, alcohol or substance abuse',
+    },
+    c1A_childSafetyConcerns: {
+      required: 'Select yes if you have other concerns about the children’s safety and wellbeing',
+    },
+    c1A_keepingSafeStatement: {
+      required: 'Describe what do you want the court to do to keep you and the children safe',
+    },
+    c1A_supervisionAgreementDetails: {
+      required: 'Select whether you agree to the children spending time with the other people in this application',
+    },
+    c1A_agreementOtherWaysDetails: {
+      required:
+        'Select yes if you agree to the other people in this application being in touch with the children in other ways',
+    },
+    oprs_otherPersonCheck: {
+      required: 'Select yes if anyone else should know about the application',
+    },
+    hwf_needHelpWithFees: {
+      required: 'Select yes if you already applied for help with your application fee',
+    },
+    helpWithFeesReferenceNumber: {
+      required: 'Enter the help with fees reference number you received when you applied for help with fees',
+    },
+    ra_typeOfHearing: {
+      required: 'Select whether you can take part in a video or phone hearing',
+    },
+    ra_languageNeeds: {
+      required: 'Select whether you have any language requirements',
+    },
+    ra_specialArrangements: {
+      required: 'Select whether you or the children need special arrangements at court',
+    },
+    ra_disabilityRequirements: {
+      required:
+        'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case',
+    },
+    ra_documentInformation: {
+      required: 'Select which format you need your documents in',
+    },
+    ra_communicationHelp: {
+      required: 'Select what help you need with communicating and understanding',
+    },
+    ra_supportCourt: {
+      required: 'Select which support you need to bring with you to a hearing',
+    },
+    ra_feelComportable: {
+      required: 'Select what you need to feel comfortable during a court hearing',
+    },
+    ra_travellingCourt: {
+      required: 'Select what help you need if travelling to, or moving around court buildings',
+    },
+    miam_notAttendingReasons: {
+      required: 'Select what other reason you have for not attending a MIAM',
+    },
+    miam_previousAttendance: {
+      required: 'Select what evidence you have that you previously attended a MIAM or NCDR',
+    },
+    miam_urgency: {
+      required: 'Select a reason why your application is urgent',
+    },
+    miam_childProtectionEvidence: {
+      required: 'Select what evidence you have of child protection concerns.',
+    },
+    miam_domesticAbuse: {
+      required: 'Select the evidence you have of domestic abuse',
+    },
+    // need to add for parties
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -475,7 +631,7 @@ export const sectionCountFormatter = sections => {
   });
   return sections;
 };
-export const peopleSections = (userCase, contentLanguage, language) => {
+export const peopleSections = (userCase, contentLanguage, language, req) => {
   const otherPeopleSection =
     userCase.hasOwnProperty('oprs_otherPersonCheck') && userCase['oprs_otherPersonCheck'] === YesOrNo.YES
       ? OtherPeopleDetails(contentLanguage, userCase, language)
@@ -493,7 +649,7 @@ export const peopleSections = (userCase, contentLanguage, language) => {
   ];
 };
 
-const safteyConcenFilledSection = (userCase, contentLanguage, language) => {
+const safteyConcenFilledSection = (userCase, contentLanguage, language, req) => {
   const additionalSafteyConcernSections = [] as ANYTYPE;
   if (userCase.hasOwnProperty('c1A_haveSafetyConcerns') && userCase['c1A_haveSafetyConcerns'] === YesOrNo.YES) {
     additionalSafteyConcernSections.push(SafetyConcerns_child(contentLanguage, userCase, language));
@@ -506,10 +662,10 @@ const safteyConcenFilledSection = (userCase, contentLanguage, language) => {
 };
 //on Screeing screen if user selects Yes
 
-export const commonSectionsForContentLoader = (contentLanguage, userCase, language) => {
+export const commonSectionsForContentLoader = (contentLanguage, userCase, language, req) => {
   return {
     PostCodeAndTypeOfApplication: [
-      LocationDetails(contentLanguage, userCase),
+      LocationDetails(contentLanguage, userCase, language),
       TypeOfApplication(contentLanguage, userCase, language),
     ],
     ScreeingQuestions: [
@@ -519,69 +675,69 @@ export const commonSectionsForContentLoader = (contentLanguage, userCase, langua
     MIAM_ALL: [MiamTitle(contentLanguage), MiamAttendance(contentLanguage, userCase, language)],
     IE_RA_HF: [
       InternationalElement(contentLanguage, userCase, language),
-      reasonableAdjustment(contentLanguage, userCase),
+      reasonableAdjustment(contentLanguage, userCase, language),
       HelpWithFee(contentLanguage, userCase, language),
     ],
   };
 };
-export const CheckYourAnswerFlow1 = (userCase, contentLanguage, language) => {
+export const CheckYourAnswerFlow1 = (userCase, contentLanguage, language, req) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
-    TypeOfOrder(contentLanguage, userCase),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).PostCodeAndTypeOfApplication,
+    TypeOfOrder(contentLanguage, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
-    peopleSections(userCase, contentLanguage, language),
+    peopleSections(userCase, contentLanguage, language, req),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
     SafetyConcerns(contentLanguage, userCase, language),
-    ...safteyConcenFilledSection(userCase, contentLanguage, language),
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
+    ...safteyConcenFilledSection(userCase, contentLanguage, language, req),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).IE_RA_HF,
   ];
 };
 // on Screeing screen if user selects No and user opts out of miam
-export const CheckYourAnswerFlow2 = (userCase, contentLanguage, language) => {
+export const CheckYourAnswerFlow2 = (userCase, contentLanguage, language, req) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).ScreeingQuestions,
     MiamTitle(contentLanguage),
     MiamAttendance(contentLanguage, userCase, language),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
-    TypeOfOrder(contentLanguage, userCase),
+    TypeOfOrder(contentLanguage, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
-    peopleSections(userCase, contentLanguage, language),
+    peopleSections(userCase, contentLanguage, language, req),
     SafetyConcerns(contentLanguage, userCase, language),
-    ...safteyConcenFilledSection(userCase, contentLanguage, language),
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
+    ...safteyConcenFilledSection(userCase, contentLanguage, language, req),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).IE_RA_HF,
   ];
 };
 // if user selects Yes for valid excemptions on maim_exemption
-export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents, language) => {
+export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents, language, req) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).MIAM_ALL,
     MiamExemption(newContents, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
-    TypeOfOrder(contentLanguage, userCase),
-    peopleSections(userCase, contentLanguage, language),
+    TypeOfOrder(contentLanguage, userCase, language),
+    peopleSections(userCase, contentLanguage, language, req),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
     SafetyConcerns(contentLanguage, userCase, language),
-    ...safteyConcenFilledSection(userCase, contentLanguage, language),
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
+    ...safteyConcenFilledSection(userCase, contentLanguage, language, req),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).IE_RA_HF,
   ];
 };
 // if user selects No for valid excemptions on maim_exemption
-export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, language) => {
+export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, language, req) => {
   return [
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).PostCodeAndTypeOfApplication,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).ScreeingQuestions,
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).MIAM_ALL,
     MiamExemption(newContents, userCase, language),
-    TypeOfOrder(contentLanguage, userCase),
+    TypeOfOrder(contentLanguage, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
-    peopleSections(userCase, contentLanguage, language),
+    peopleSections(userCase, contentLanguage, language, req),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
     SafetyConcerns(contentLanguage, userCase, language),
-    ...safteyConcenFilledSection(userCase, contentLanguage, language),
-    ...commonSectionsForContentLoader(contentLanguage, userCase, language).IE_RA_HF,
+    ...safteyConcenFilledSection(userCase, contentLanguage, language, req),
+    ...commonSectionsForContentLoader(contentLanguage, userCase, language, req).IE_RA_HF,
   ];
 };
 
@@ -594,7 +750,8 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
       enContent,
       newEnContents,
       content.language,
-      content.additionalData?.req.session.enableC100CaseProgressionTrainTrack
+      content.additionalData?.req.session.enableC100CaseProgressionTrainTrack,
+      content.additionalData?.req //temp
     )
   );
   return {
@@ -612,7 +769,8 @@ export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
       cyContent,
       newCyContents,
       content.language,
-      content.additionalData?.req.session.enableC100CaseProgressionTrainTrack
+      content.additionalData?.req.session.enableC100CaseProgressionTrainTrack,
+      content.additionalData?.req //temp
     )
   );
   return {
@@ -722,7 +880,8 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
-  form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!);
+  form.submit.disabled = //change to use cya redirect application completed?
+    !isMandatoryFieldsFilled(content.userCase!) || content.additionalData?.req?.session?.error?.length;
   const refugeErrors = {};
 
   content.userCase?.appl_allApplicants?.forEach(applicant => {

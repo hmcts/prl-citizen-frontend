@@ -3,7 +3,7 @@ import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { generateBehaviourDetailsHtml } from '../../../../steps/common/safety-concerns/review/helpers/satetyConcernHelper';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
-import { getYesNoTranslation, isBorderPresent } from '../mainUtil';
+import { getYesNoTranslation, isBorderPresent, translation } from '../mainUtil';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const childNameFormatter = (childId, userCase) => {
@@ -94,5 +94,5 @@ export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typ
     }
     return html;
   }
-  return '';
+  return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 };

@@ -87,7 +87,7 @@ const isFieldTypeString = (fieldConfig: { fieldName: string; fieldType: string }
 const isFieldTypeObject = (fieldConfig: { fieldName: string; fieldType: string }, caseData: CaseWithId) =>
   fieldConfig.fieldType === 'object' && _.isObject(caseData?.[fieldConfig.fieldName]);
 
-const isFieldFilled = (fieldConfig: MandatoryFieldsConfig, caseData: CaseWithId): boolean => {
+export const isFieldFilled = (fieldConfig: MandatoryFieldsConfig, caseData: CaseWithId): boolean => {
   if (_.isFunction(fieldConfig.expression)) {
     return fieldConfig.expression(caseData).isMandatory;
   }
