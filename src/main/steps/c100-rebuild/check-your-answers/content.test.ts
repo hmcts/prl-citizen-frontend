@@ -845,6 +845,7 @@ describe('Content.ts toggle test cases', () => {
         rows: [],
         title: 'Where the children live',
       },
+      [],
       {
         rows: [
           {
@@ -1519,6 +1520,7 @@ describe('Content.ts toggle test cases', () => {
       },
       [],
       { rows: [], title: 'Where the children live' },
+      [],
       {
         rows: [
           {
@@ -2042,6 +2044,7 @@ describe('Content.ts toggle test cases', () => {
       },
       [],
       { rows: [], title: 'Ble mae’r plant yn byw' },
+      [],
       {
         rows: [
           {
@@ -2454,6 +2457,7 @@ describe('Content.ts toggle test cases', () => {
       },
       [],
       { rows: [], title: 'Ble mae’r plant yn byw' },
+      [],
       {
         rows: [
           {
@@ -2969,6 +2973,7 @@ describe('Content.ts toggle test cases', () => {
       },
       [],
       { rows: [], title: 'Ble mae’r plant yn byw' },
+      [],
       {
         rows: [
           {
@@ -3439,6 +3444,7 @@ describe('Content.ts toggle test cases', () => {
       },
       [],
       { rows: [], title: 'Ble mae’r plant yn byw' },
+      [],
       {
         rows: [
           {
@@ -4046,6 +4052,7 @@ describe('Content.ts toggle test cases', () => {
         rows: [],
         title: 'Where the children live',
       },
+      [],
       {
         rows: [
           {
@@ -4577,6 +4584,7 @@ describe('Content.ts toggle test cases', () => {
       },
       [],
       { rows: [], title: 'Where the children live' },
+      [],
       {
         rows: [
           {
@@ -4927,6 +4935,131 @@ describe('Content.ts toggle test cases', () => {
     });
     expect(generatedRefugeErrorsContent.errors?.['c8RefugeDocument-otherPerson-0']).toStrictEqual({
       required: 'You must upload a C8 document',
+    });
+  });
+
+  test('generateContent should add error error text for other person confidentiality', () => {
+    const generatedRefugeErrorsContent = generateContent({
+      ...commonContent,
+      language: 'en',
+      userCase: {
+        ...commonContent.userCase,
+        appl_allApplicants: [
+          {
+            id: '00ad391d-60b1-450d-ba05-674809fee4e5',
+            applicantFirstName: 'Test',
+            applicantLastName: 'Applicant',
+            detailsKnown: 'Yes',
+            startAlternative: 'No',
+            start: '',
+            contactDetailsPrivate: ['Address'],
+            contactDetailsPrivateAlternative: [],
+            relationshipDetails: {
+              relationshipToChildren: [
+                {
+                  childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                  relationshipType: 'Other',
+                  otherRelationshipTypeDetails: 'test',
+                },
+              ],
+            },
+            personalDetails: {
+              haveYouChangeName: 'Yes',
+              applPreviousName: 'sasdasd',
+              dateOfBirth: {
+                year: '1999',
+                month: '11',
+                day: '11',
+              },
+              gender: 'Other',
+              otherGenderDetails: 'Test',
+              applicantPlaceOfBirth: 'okdsdsd',
+            },
+            applicantContactDetail: {
+              canProvideEmail: 'No',
+              emailAddress: '',
+              telephoneNumber: '+447205308786',
+              canNotProvideTelephoneNumberReason: '',
+              canLeaveVoiceMail: 'Yes',
+              canProvideTelephoneNumber: 'Yes',
+            },
+            applicantAddressPostcode: '',
+            applicantAddress1: 'dasdas',
+            applicantAddress2: '',
+            applicantAddressTown: 'dada',
+            applicantAddressCounty: '',
+            applicantAddressHistory: 'Yes',
+            applicantProvideDetailsOfPreviousAddresses: '',
+            country: 'United Kingdom',
+          },
+        ],
+        oprs_otherPersons: [
+          {
+            id: '3b32bc4f-7417-443b-ba94-5eacfcee04c4',
+            firstName: 'Respondent',
+            lastName: 'FirstPage',
+            personalDetails: {
+              dateOfBirth: {
+                year: '1999',
+                month: '01',
+                day: '11',
+              },
+              isDateOfBirthUnknown: 'No',
+              approxDateOfBirth: {
+                year: '1999',
+                month: '01',
+                day: '11',
+              },
+            },
+            relationshipDetails: {
+              relationshipToChildren: [
+                {
+                  childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                  relationshipType: 'Grandparent',
+                  otherRelationshipTypeDetails: '',
+                },
+              ],
+            },
+            isOtherPersonAddressConfidential: null,
+          },
+        ],
+        cd_children: [
+          {
+            id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+            firstName: 'Nir',
+            lastName: 'Sin',
+            personalDetails: {
+              haveYouChangeName: 'No',
+              applPreviousName: '',
+              approxDateOfBirth: {
+                year: '1999',
+                month: '11',
+                day: '11',
+              },
+              isDateOfBirthUnknown: 'Yes',
+              gender: 'Male',
+              otherGenderDetails: '',
+              applicantPlaceOfBirth: 'okdsdsd',
+            },
+            childMatters: {
+              needsResolution: ['relocateChildrenOutsideUk'],
+            },
+            parentialResponsibility: {
+              statement: 'ok',
+            },
+            mainlyLiveWith: {
+              id: '3b32bc4f-7417-443b-ba94-5eacfcee04c4',
+              firstName: 'test',
+              lastName: 'parent',
+              partyType: 'other',
+            },
+          },
+        ],
+      } as unknown as CaseWithId,
+    });
+
+    expect(generatedRefugeErrorsContent.errors?.['otherPersonConfidentiality-otherPerson-0']).toStrictEqual({
+      required: 'Select yes if you want to keep Respondent FirstPage’s details private',
     });
   });
 });
