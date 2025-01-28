@@ -58,6 +58,9 @@ import { getOtherPeopleLivingWithChildren } from '../../c100-rebuild/other-perso
 import { SummaryList } from './lib/lib';
 import { interpolate } from '../../../steps/common/string-parser';
 import { CaseWithId } from '../../../app/case/case';
+import { MandatoryFieldsConfig } from '../validation/definitions';
+import { getAllMandatoryFields } from '../validation/util';
+import _ from 'lodash';
 
 export const enContent = {
   section: '',
@@ -125,6 +128,9 @@ export const enContent = {
     },
     refugeDocumentText: {
       required: 'You must upload a C8 document',
+    },
+    testText: {
+      required: 'test',
     },
     sq_legalRepresentation: {
       required: 'Select yes if you will be using a legal representative in these proceedings',
@@ -437,6 +443,9 @@ export const cyContent = {
     },
     otherPersonConfidentiality: {
       required: 'Dewiswch ydw os ydych eisiau cadw {firstName} {lastName} manylion yn gyfrinachol',
+    },
+    testText: {
+      required: 'test',
     },
   },
   sectionTitles: {
@@ -868,7 +877,10 @@ export const generateContent: TranslationFn = content => {
     ...{ none: content['language'] === 'en' ? enContent.keys.none : cyContent.keys.none },
   };
   const translations = languages[content.language](content, newContents);
-
+  const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(content.userCase! as CaseWithId);
+  const mandetoryFieldname: string[] = [];
+  mandatoryFields.forEach(field => mandetoryFieldname.push(field.fieldName));
+  const missingObject = mandetoryFieldname.find(value => _.isEmpty(content.userCase?.[value]));
   form.fields['statementOftruthHeading'] = {
     type: 'textAndHtml',
     textAndHtml: `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${newContents.StatementOfTruth['title']} ${HTML.H2_CLOSE}`,
@@ -902,9 +914,18 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
+  
+
   form.submit.disabled = //change to use cya redirect application completed?
-    !isMandatoryFieldsFilled(content.userCase!) || content.additionalData?.req?.session?.error?.length;
+    !isMandatoryFieldsFilled(content.userCase!) || !!missingObject;
   const refugeErrors = {};
+  //const Errors = {};
+  
+  // content.userCase?.appl_allApplicants?.forEach(applicant => {
+  //   Errors[`anyOtherPeopleKnowDetails-applicant-${content.userCase?.appl_allApplicants?.indexOf(applicant)}`] =
+  //     translations.errors.testText;
+  // });
+
   const otherPersonConfidentialityErrors = {};
   content.userCase?.appl_allApplicants?.forEach(applicant => {
     refugeErrors[`c8RefugeDocument-applicant-${content.userCase?.appl_allApplicants?.indexOf(applicant)}`] =

@@ -215,6 +215,27 @@ export const getAllMandatoryFields = (caseData: CaseWithId): MandatoryFieldsConf
   return mandatoryFields;
 };
 
+export const getAllMandatoryFieldsWithoutPeopleSection = (caseData: CaseWithId): MandatoryFieldsConfig[] => {
+  const mandatoryFields: MandatoryFieldsConfig[] = [];
+  mandatoryFields.push(...getMandatoryFields(ChildrenPostcodeFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(ScreeningQuestionsFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(TypeOfOrderFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(OtherProceedingsFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(UrgenceyAndWithoutNoticeFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(SafetyConcernsFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(InternationalElementsFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(ReasonableAdjustmentsFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(HelpWithFeesFieldsConfig, caseData));
+
+  if (caseData?.co_certificate) {
+    mandatoryFields.push(...getMandatoryFields(ConsentOrderFieldsConfig, caseData));
+  } else {
+    mandatoryFields.push(...getMandatoryFields(MiamQuestionsFieldsConfig, caseData));
+  }
+
+  return mandatoryFields;
+};
+
 export const isApplicantValid = (applicant: C100Applicant): boolean => {
   return (
     !_.isEmpty(applicant.applicantFirstName) &&

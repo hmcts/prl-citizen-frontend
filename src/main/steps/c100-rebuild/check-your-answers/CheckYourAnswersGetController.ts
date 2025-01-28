@@ -8,17 +8,9 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { MandatoryFieldsConfig } from '../validation/definitions';
-import {
-  getAllMandatoryFields,
-  //getMandatoryFields
-} from '../validation/util';
-//import { Language, generatePageContent } from '../../../steps/common/common.content'; hugh
-
-//import { isMandatoryFieldsFilled } from './mainUtil';
-//import { ChildrenPostcodeFieldsConfig } from '../validation/fields-config/sections/children-postcode';
-//import { errorReference } from './config';
-//import { ScreeningQuestionsFieldsConfig } from '../validation/fields-config/sections/screening-questions';
-//import { OtherProceedingsFieldsConfig } from '../validation/fields-config/sections/other-proceedings';
+import { getAllMandatoryFieldsWithoutPeopleSection } from '../validation/util';
+import { generateApplicantErrors, generateChildErrors, generateOtherChildrenError, generateOtherPersonErrors, generateRespondentErrors } from './mainUtil';
+import { doesAnyChildLiveWithOtherPerson } from '../other-person-details/utils';
 
 @autobind
 export default class CheckYourAnswersGetController extends GetController {
@@ -60,92 +52,79 @@ export default class CheckYourAnswersGetController extends GetController {
         req.session.save();
       }, 1000);
 
-      //call to add errors from mainUtil to session
-      // req.session.C100CyaErrors = [];
-      // generatePageContent({
-      //   language: super.getPreferredLanguage(req) as Language,
-      //   pageContent: this.content,
-      //   userCase: req.session?.userCase,
-      //   userEmail: req.session?.user?.email,
-      //   additionalData: {
-      //     req,
-      //   },
-      // });//hugh
-      //   const mandatoryFields:MandatoryFieldsConfig[]=
-      //   Array.prototype.concat(getMandatoryFields(ChildrenPostcodeFieldsConfig,req.session.userCase),
-      //   getMandatoryFields(ScreeningQuestionsFieldsConfig,req.session.userCase),
-      // getMandatoryFields(OtherProceedingsFieldsConfig, req.session.userCase))
-      const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(req.session.userCase);
+      const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFieldsWithoutPeopleSection(req.session.userCase);
       const mandetoryFieldname: string[] = [];
       mandatoryFields.forEach(field => mandetoryFieldname.push(field.fieldName));
 
       const missingObject = mandetoryFieldname.filter(value => _.isEmpty(req.session.userCase[value]));
       req.session.errors = [];
+      const generalErrors: { propertyName: string; errorType: string; }[] = [];
       if (missingObject.length) {
         missingObject.forEach(property => {
           if (property) {
-            req.session.errors?.push({
+            generalErrors.push({
               propertyName: property,
-              //errorReference[property as unknown as string].errorMessage,
               errorType: 'required',
             });
           }
         });
 
       }
+
+      const applicantErrors: { propertyName: string; errorType: string; }[] = [];
+      const respondentErrors: { propertyName: string; errorType: string; }[] = [];
+      const childErrors: { propertyName: string; errorType: string; }[] = [];
+      const otherChildErrors: { propertyName: string; errorType: string; }[] = [];
+      const otherPersonErrors: { propertyName: string; errorType: string; }[] = [];
+      // applicant
+      req.session.userCase?.appl_allApplicants?.forEach((applicant, index) => {
+        applicantErrors.concat(generateApplicantErrors(applicant, index));
+      });
+    // child
+      req.session.userCase?.cd_children?.forEach((child,index) => {
+        childErrors.concat(generateChildErrors(child,index));
+      });
+    // respondent
+      req.session.userCase?.resp_Respondents?.forEach((respondent,index) => {
+        respondentErrors.concat(generateRespondentErrors(respondent, index));
+      });
+      // otherchildren
+      if(_.isEmpty(req.session.userCase?.ocd_hasOtherChildren)){
+        generalErrors.push({
+              propertyName: `ocd_hasOtherChildren`,
+              errorType: 'required',
+          });
+      }
+      
+      if (req.session.userCase?.ocd_hasOtherChildren === "Yes") {
+          req.session.userCase?.ocd_otherChildren?.forEach((otherchildren, index) => {
+            otherChildErrors.concat(generateOtherChildrenError(otherchildren, index));
+          })
+      }
+      //otherPerson
+     if( _.isEmpty(req.session.userCase?.oprs_otherPersonCheck)){
+      generalErrors.push({
+              propertyName: `oprs_otherPersonCheck`,
+              errorType: 'required',
+          });
+      }
+      if (req.session.userCase?.oprs_otherPersonCheck === "Yes") {
+      
+          req.session.userCase?.oprs_otherPersons?.forEach((otherperson, index) => {
+            const isAnyChildliveWithOtherPerson=doesAnyChildLiveWithOtherPerson(req.session.userCase, otherperson.id)
+            otherPersonErrors.concat(generateOtherPersonErrors(otherperson, index,isAnyChildliveWithOtherPerson));
+          })
+      }
+
+      // TODO Vivek, One error is fine or multiple error is fine--- readability purpose
+
+      req.session.errors?.concat(generalErrors,applicantErrors,respondentErrors,childErrors,otherChildErrors,otherPersonErrors)
+
+
       req.session.save(() => {
         super.get(req, res);
       });
 
-      // if (!isMandatoryFieldsFilled(req.session.userCase)
-      //    //|| req.session.C100CyaErrors?.length
-      //   ) {
-      //   //temporary check
-      //  //req.session.errors = [];
-      //   req.session.userCase?.appl_allApplicants?.forEach(applicant => {
-      //     if (applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)) {
-      //       req.session.errors?.push({
-      //         propertyName: `c8RefugeDocument-applicant-${req.session.userCase?.appl_allApplicants?.indexOf(
-      //           applicant
-      //         )}`,
-      //         errorType: 'required',
-      //       });
-      //     }
-      //   });
-
-      //   req.session.userCase?.oprs_otherPersons?.forEach(otherPerson => {
-      //     if (otherPerson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherPerson.refugeConfidentialityC8Form)) {
-      //       req.session.errors?.push({
-      //         propertyName: `c8RefugeDocument-otherPerson-${req.session.userCase?.oprs_otherPersons?.indexOf(
-      //           otherPerson
-      //         )}`,
-      //         errorType: 'required',
-      //       });
-      //     }
-      //   });
-
-      //   //won't work
-      //   // req.session.C100CyaErrors?.forEach(property => {
-      //   //   req.session.C100CyaErrors?.pop(); //?
-      //   //   if (
-      //   //     !req.session.errors?.includes({
-      //   //       propertyName: property,
-      //   //       errorType: 'required',
-      //   //     })
-      //   //   ) {
-      //   //     req.session.errors?.push({
-      //   //       propertyName: property,
-      //   //       errorType: 'required',
-      //   //     });
-      //   //   }
-      //   // });hugh
-
-      //   req.session.save(() => {
-      //     super.get(req, res);
-      //   });
-      // } else {
-      //   super.get(req, res);
-      // }
     } catch (error) {
       req.locals.logger.error('error in update case', error);
 
@@ -163,3 +142,4 @@ export default class CheckYourAnswersGetController extends GetController {
     }
   }
 }
+

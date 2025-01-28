@@ -4,11 +4,18 @@ import _ from 'lodash';
 
 import { CaseWithId } from '../../../app/case/case';
 import {
+  C100Applicant,
   C100FlowTypes,
+  C100RebuildPartyDetails,
   C1AAbuseTypes,
   C1ASafteyConcernsAbout,
+  ChildrenDetails,
   ContactPreference,
+  Gender,
   RootContext,
+  YesNoDontKnow,
+  YesNoEmpty,
+  OtherChildrenDetails as otherchild,
   //State,
   YesOrNo,
 } from '../../../app/case/definition';
@@ -53,8 +60,7 @@ import {
   SummaryListRow,
   getSectionSummaryList,
 } from './lib/lib';
-// import { getMandatoryFields } from '../validation/util';
-// import { ChildrenPostcodeFieldsConfig } from '../validation/fields-config/sections/children-postcode';
+
 
 /* eslint-disable import/namespace */
 export const LocationDetails = (
@@ -142,14 +148,14 @@ export const PermissionForApplication = (
 ): SummaryList | undefined => {
   const valForPermissionWhy = userCase.hasOwnProperty('sq_permissionsWhy')
     ? (
-        HTML.UNORDER_LIST +
-        userCase['sq_permissionsWhy']?.map(
-          props => HTML.LIST_ITEM + keys[props] + ': ' + userCase[`sq_${props}_subfield`] + HTML.LIST_ITEM_END
-        ) +
-        HTML.UNORDER_LIST_END
-      )
-        .split(',')
-        .join('')
+      HTML.UNORDER_LIST +
+      userCase['sq_permissionsWhy']?.map(
+        props => HTML.LIST_ITEM + keys[props] + ': ' + userCase[`sq_${props}_subfield`] + HTML.LIST_ITEM_END
+      ) +
+      HTML.UNORDER_LIST_END
+    )
+      .split(',')
+      .join('')
     : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
   let SummaryData;
   if (userCase['sq_courtPermissionRequired'] === YesOrNo.YES) {
@@ -320,28 +326,28 @@ export const ChildernDetails = (
         valueHtml:
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
             ? HTML.DESCRIPTION_LIST +
-              HTML.ROW_START +
-              HTML.DESCRIPTION_TERM_DETAIL +
-              translation(personalDetails?.['gender'], language) +
-              HTML.DESCRIPTION_TERM_DETAIL_END +
-              HTML.ROW_END +
-              HTML.ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_DETAIL +
-              keys['otherGender'] +
-              HTML.DESCRIPTION_TERM_DETAIL_END +
-              HTML.ROW_END +
-              HTML.ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_ELEMENT +
-              keys['details'] +
-              HTML.DESCRIPTION_TERM_ELEMENT_END +
-              HTML.ROW_END +
-              HTML.BREAK +
-              HTML.ROW_START_NO_BORDER +
-              HTML.DESCRIPTION_TERM_DETAIL +
-              populateError(personalDetails['otherGenderDetails'], personalDetails['otherGenderDetails'], language) +
-              HTML.DESCRIPTION_TERM_DETAIL_END +
-              HTML.ROW_END +
-              HTML.DESCRIPTION_LIST_END
+            HTML.ROW_START +
+            HTML.DESCRIPTION_TERM_DETAIL +
+            translation(personalDetails?.['gender'], language) +
+            HTML.DESCRIPTION_TERM_DETAIL_END +
+            HTML.ROW_END +
+            HTML.ROW_START_NO_BORDER +
+            HTML.DESCRIPTION_TERM_DETAIL +
+            keys['otherGender'] +
+            HTML.DESCRIPTION_TERM_DETAIL_END +
+            HTML.ROW_END +
+            HTML.ROW_START_NO_BORDER +
+            HTML.DESCRIPTION_TERM_ELEMENT +
+            keys['details'] +
+            HTML.DESCRIPTION_TERM_ELEMENT_END +
+            HTML.ROW_END +
+            HTML.BREAK +
+            HTML.ROW_START_NO_BORDER +
+            HTML.DESCRIPTION_TERM_DETAIL +
+            populateError(personalDetails['otherGenderDetails'], personalDetails['otherGenderDetails'], language) +
+            HTML.DESCRIPTION_TERM_DETAIL_END +
+            HTML.ROW_END +
+            HTML.DESCRIPTION_LIST_END
             : populateError(personalDetails?.['gender'], translation(personalDetails?.['gender'], language), language),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
@@ -388,24 +394,24 @@ export const ChildernDetailsAdditional = (
   );
   htmlForAdditionalText += userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
     ? HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END +
-      HTML.BREAK +
-      HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_ELEMENT +
-      keys['details'] +
-      HTML.DESCRIPTION_TERM_ELEMENT_END +
-      HTML.ROW_END +
-      HTML.BREAK +
-      HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(
-        userCase['cd_childrenKnownToSocialServicesDetails'],
-        userCase['cd_childrenKnownToSocialServicesDetails'],
-        language
-      ) +
-      HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END +
-      HTML.DESCRIPTION_LIST_END
+    HTML.ROW_END +
+    HTML.BREAK +
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['details'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END +
+    HTML.BREAK +
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_DETAIL +
+    populateError(
+      userCase['cd_childrenKnownToSocialServicesDetails'],
+      userCase['cd_childrenKnownToSocialServicesDetails'],
+      language
+    ) +
+    HTML.DESCRIPTION_TERM_DETAIL_END +
+    HTML.ROW_END +
+    HTML.DESCRIPTION_LIST_END
     : '';
 
   const SummaryData = [
@@ -503,26 +509,26 @@ export const OtherChildrenDetails = (
 const generateGenderHtml = (personalDetails, keys: Record<string, string>, language: string): string => {
   return personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
     ? HTML.DESCRIPTION_LIST +
-        HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL +
-        populateError(personalDetails?.['gender'], translation(personalDetails?.['gender'], language), language) +
-        HTML.DESCRIPTION_TERM_DETAIL_END +
-        HTML.ROW_END +
-        HTML.ROW_START_NO_BORDER +
-        keys['otherGender'] +
-        HTML.ROW_END +
-        HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_ELEMENT +
-        keys['details'] +
-        HTML.DESCRIPTION_TERM_ELEMENT_END +
-        HTML.ROW_END +
-        HTML.BREAK +
-        HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL +
-        personalDetails['otherGenderDetails'] +
-        HTML.DESCRIPTION_TERM_DETAIL_END +
-        HTML.ROW_END +
-        HTML.DESCRIPTION_LIST_END
+    HTML.ROW_START +
+    HTML.DESCRIPTION_TERM_DETAIL +
+    populateError(personalDetails?.['gender'], translation(personalDetails?.['gender'], language), language) +
+    HTML.DESCRIPTION_TERM_DETAIL_END +
+    HTML.ROW_END +
+    HTML.ROW_START_NO_BORDER +
+    keys['otherGender'] +
+    HTML.ROW_END +
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['details'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END +
+    HTML.BREAK +
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_DETAIL +
+    personalDetails['otherGenderDetails'] +
+    HTML.DESCRIPTION_TERM_DETAIL_END +
+    HTML.ROW_END +
+    HTML.DESCRIPTION_LIST_END
     : populateError(personalDetails?.['gender'], translation(personalDetails?.['gender'], language), language) + ' ';
 };
 
@@ -586,8 +592,8 @@ export const ApplicantDetails = (
         populateError(
           sessionApplicantData[applicant][key],
           getYesNoTranslation(language, sessionApplicantData[applicant][key], 'ydwTranslation') +
-            HTML.DESCRIPTION_TERM_DETAIL_END +
-            HTML.ROW_END,
+          HTML.DESCRIPTION_TERM_DETAIL_END +
+          HTML.ROW_END,
           language // check this
         );
       if (sessionApplicantData[applicant][keyArray].length > 0) {
@@ -695,9 +701,8 @@ export const ApplicantDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newApplicantData.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${
-          keys['relationshipTo'] + ' ' + childFullName
-        }`,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['relationshipTo'] + ' ' + childFullName
+          }`,
         anchorReference: `relationshipTo-applicant-${applicant}`,
         value: translation(element['relationshipType'], language),
         valueHtml:
@@ -1107,18 +1112,18 @@ export const SafetyConcerns_child = (
   );
   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
     ? HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END +
-      HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_ELEMENT +
-      keys['details'] +
-      HTML.DESCRIPTION_TERM_ELEMENT_END +
-      HTML.ROW_END +
-      HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_DETAIL +
-      userCase['c1A_policeOrInvestigatorOtherDetails'] +
-      HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END +
-      HTML.DESCRIPTION_LIST_END
+    HTML.ROW_END +
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['details'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END +
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_DETAIL +
+    userCase['c1A_policeOrInvestigatorOtherDetails'] +
+    HTML.DESCRIPTION_TERM_DETAIL_END +
+    HTML.ROW_END +
+    HTML.DESCRIPTION_LIST_END
     : '';
 
   /**
@@ -1266,15 +1271,15 @@ export const SafetyConcerns_yours = (
       const keyForFields =
         field === C1AAbuseTypes.SOMETHING_ELSE
           ? keys['detailsOfChildConcern']
-              .split('[***]')
-              .join(` ${keys['concerns']?.toLowerCase()} `)
-              .split('[^^^]')
-              .join('')
+            .split('[***]')
+            .join(` ${keys['concerns']?.toLowerCase()} `)
+            .split('[^^^]')
+            .join('')
           : keys['detailsOfChildConcern']
-              .split('[***]')
-              .join(` ${keys[field]?.toLowerCase()} `)
-              .split('[^^^]')
-              .join('');
+            .split('[***]')
+            .join(` ${keys[field]?.toLowerCase()} `)
+            .split('[^^^]')
+            .join('');
       return {
         key: keyForFields,
         anchorReference: 'c1A_concernAboutApplicant',
@@ -1588,9 +1593,8 @@ export const RespondentDetails = (
     if (personalDetails['respondentPlaceOfBirthUnknown'] !== 'No') {
       newRespondentStorage.push({
         key: keys['respondentPlaceOfBirthUnknown'],
-        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${
-          keys['respondentPlaceOfBirthUnknown']
-        }`,
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['respondentPlaceOfBirthUnknown']
+          }`,
         anchorReference: `respondentPlaceOfBirthUnknown-respondent-${respondent}`,
         value: getYesNoTranslation(language, personalDetails?.['respondentPlaceOfBirthUnknown'], 'doTranslation'),
         valueHtml: populateError(
@@ -1620,9 +1624,8 @@ export const RespondentDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newRespondentStorage.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${
-          keys['relationshipTo'] + ' ' + childFullName
-        }`,
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['relationshipTo'] + ' ' + childFullName
+          }`,
         anchorReference: `relationshipTo-respondent-${respondent}`,
         value: translation(element['relationshipType'], language),
         valueHtml:
@@ -1784,9 +1787,8 @@ export const OtherPeopleDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newOtherPeopleStorage.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
-          keys['relationshipTo'] + ' ' + childFullName
-        }`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['relationshipTo'] + ' ' + childFullName
+          }`,
         anchorReference: `relationshipTo-otherPerson-${respondent}`,
         value: translation(element['relationshipType'], language),
         valueHtml:
@@ -1917,6 +1919,7 @@ export const whereDoChildrenLive = (
     const mainlyLivesWith = sessionChildData[child]?.['mainlyLiveWith'];
     newChildDataStorage.push({
       key: interpolate(keys['whoDoesChildMainlyLiveWith'], { firstname, lastname }),
+      anchorReference: `child-mainlyLeaveWith-${child}`,
       value: '',
       valueHtml: `${mainlyLivesWith?.firstName ?? ''} ${mainlyLivesWith?.lastName ?? ''}`,
       changeUrl: applyParms(Urls['C100_CHILDERN_MAINLY_LIVE_WITH'], { childId: id }),
@@ -2038,8 +2041,8 @@ export const reasonableAdjustment = (
             valueHtml: populateError(
               userCase.ra_documentInformation,
               HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation', language) +
-                HTML.UNORDER_LIST_END,
+              resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation', language) +
+              HTML.UNORDER_LIST_END,
               language
             ),
             // valueHtml:
@@ -2057,8 +2060,8 @@ export const reasonableAdjustment = (
             valueHtml: populateError(
               userCase.ra_communicationHelp,
               HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp', language) +
-                HTML.UNORDER_LIST_END,
+              resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp', language) +
+              HTML.UNORDER_LIST_END,
               language
             ),
             // HTML.UNORDER_LIST +
@@ -2075,8 +2078,8 @@ export const reasonableAdjustment = (
             valueHtml: populateError(
               userCase.ra_supportCourt,
               HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt', language) +
-                HTML.UNORDER_LIST_END,
+              resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt', language) +
+              HTML.UNORDER_LIST_END,
               language
             ),
             // valueHtml:
@@ -2096,8 +2099,8 @@ export const reasonableAdjustment = (
             valueHtml: populateError(
               userCase.ra_feelComportable,
               HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable', language) +
-                HTML.UNORDER_LIST_END,
+              resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable', language) +
+              HTML.UNORDER_LIST_END,
               language
             ),
             // valueHtml:
@@ -2115,8 +2118,8 @@ export const reasonableAdjustment = (
             valueHtml: populateError(
               userCase.ra_travellingCourt,
               HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt', language) +
-                HTML.UNORDER_LIST_END,
+              resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt', language) +
+              HTML.UNORDER_LIST_END,
               language
             ),
             // valueHtml:
@@ -2316,3 +2319,448 @@ export const populateError = (value, truethyValue, language): string => {
 
   return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 };
+
+
+export const generateApplicantErrors = (applicant: C100Applicant, index: number) => {
+  const error: { propertyName: string; errorType: string; }[] = [];
+  if (_.isEmpty(applicant.applicantLastName) || _.isEmpty(applicant.applicantFirstName)) {
+    error.push({
+      propertyName: `fullName-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+  if (_.isEmpty(applicant.detailsKnown)) {
+    error.push({
+      propertyName: `anyOtherPeopleKnowDetails-applicant--${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (applicant.detailsKnown == 'Yes' && _.isEmpty(applicant.start)
+    || applicant.detailsKnown == 'No' && _.isEmpty(applicant.startAlternative)) {
+    error.push({
+      propertyName: `anyOtherPeopleKnowDetails-applicant--${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (applicant.startAlternative == 'Yes' && _.isEmpty(applicant.contactDetailsPrivateAlternative)
+    || applicant.detailsKnown == 'No' && _.isEmpty(applicant.startAlternative)) {
+    error.push({
+      propertyName: `doYouWantToKeep-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if ((applicant.start == 'Yes' && _.isEmpty(applicant.contactDetailsPrivate))
+    || (applicant.detailsKnown == 'No' && _.isEmpty(applicant.startAlternative))) {
+    error.push({
+      propertyName: `doYouWantToKeep-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (applicant.start == 'Yes' && _.isEmpty(applicant.contactDetailsPrivate)) {
+    error.push({
+      propertyName: `doYouWantToKeep-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (applicant.personalDetails.haveYouChangeName === YesNoEmpty.YES &&
+    _.isEmpty(applicant.personalDetails.applPreviousName)) {
+    error.push({
+      propertyName: `haveYouChangeName-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (applicant.personalDetails.haveYouChangeName === YesNoEmpty.YES &&
+    _.isEmpty(applicant.personalDetails.applPreviousName)) {
+    error.push({
+      propertyName: `haveYouChangeName-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (!applicant.personalDetails.gender || (applicant.personalDetails?.gender === Gender.OTHER && _.isEmpty(applicant.personalDetails.otherGenderDetails))) {
+    error.push({
+      propertyName: `gender-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(applicant.personalDetails.dateOfBirth)) {
+    error.push({
+      propertyName: `dateOfBirth-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(applicant.personalDetails.applicantPlaceOfBirth)) {
+    error.push({
+      propertyName: `placeOfBirth-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(applicant.relationshipDetails?.relationshipToChildren)) { ///may be fail for multiple child
+    error.push({
+      propertyName: `relationshipTo-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(applicant.liveInRefuge)) {
+    error.push({
+      propertyName: `refuge-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)) {
+    error.push({
+      propertyName: `c8RefugeDocument-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(applicant.applicantAddress1) ||
+    _.isEmpty(applicant.applicantAddressTown) ||
+    _.isEmpty(applicant.country) ||
+    _.isEmpty(applicant.applicantAddressHistory) ||
+    (applicant.applicantAddressHistory === YesOrNo.YES &&
+      _.isEmpty(applicant.applicantProvideDetailsOfPreviousAddresses))) {
+    error.push({
+      propertyName: `addressDetails-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(applicant.applicantContactDetail) ||
+    _.isEmpty(applicant.applicantContactDetail.canProvideEmail) ||
+    (applicant.applicantContactDetail.canProvideEmail === YesOrNo.YES &&
+      _.isEmpty(applicant.applicantContactDetail.emailAddress)) ||
+    _.isEmpty(applicant.applicantContactDetail.canProvideTelephoneNumber) ||
+    (applicant.applicantContactDetail.canProvideTelephoneNumber === YesOrNo.YES &&
+      _.isEmpty(applicant.applicantContactDetail.telephoneNumber)) ||
+    (applicant.applicantContactDetail.canProvideTelephoneNumber === YesOrNo.NO &&
+      _.isEmpty(applicant.applicantContactDetail.canNotProvideTelephoneNumberReason))) {
+    error.push({
+      propertyName: `contactDetails-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(applicant.applicantContactDetail?.canLeaveVoiceMail)) {
+    error.push({
+      propertyName: `voiceMail-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+  if (_.isEmpty(applicant.applicantContactDetail?.applicantContactPreferences)) {
+    error.push({
+      propertyName: `contactPreferences-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  return error
+}
+
+export const generateChildErrors = (child: ChildrenDetails, index: number) => {
+  const error: { propertyName: string; errorType: string; }[] = [];
+  if (_.isEmpty(child.firstName) ||
+    _.isEmpty(child.lastName)) {
+    error.push({
+      propertyName: `fullName-child-${index}`,
+      errorType: 'required',
+    });
+  }
+  if (child.personalDetails.approxDateOfBirth && _.isEmpty(child.personalDetails.isDateOfBirthUnknown)) {
+    error.push({
+      propertyName: `isDateOfBirthUnknown-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (child.personalDetails.isDateOfBirthUnknown && child.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES && _.isEmpty(child.personalDetails.approxDateOfBirth)) {
+    error.push({
+      propertyName: `approxDateOfBirth-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (child.personalDetails.isDateOfBirthUnknown && child.personalDetails.isDateOfBirthUnknown === YesNoEmpty.NO && _.isEmpty(child.personalDetails.dateOfBirth)) {
+    error.push({
+      propertyName: `dateOfBirth-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (child.personalDetails.isDateOfBirthUnknown && child.personalDetails.isDateOfBirthUnknown === YesNoEmpty.NO && _.isEmpty(child.personalDetails.dateOfBirth)) {
+    error.push({
+      propertyName: `dateOfBirth-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(child.personalDetails.gender) ||
+    (child.personalDetails.gender === Gender.OTHER && _.isEmpty(child.personalDetails.otherGenderDetails))) {
+    error.push({
+      propertyName: `otherGenderDetails-child-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(child.childMatters.needsResolution)) {
+    error.push({
+      propertyName: `orderAppliedFor-child-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(child.parentialResponsibility.statement)) {
+    error.push({
+      propertyName: `parentalResponsibility-child-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(child.liveWith)) {
+    error.push({
+      propertyName: `childLivingArrangements-child-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(child.mainlyLiveWith)) {
+    error.push({
+      propertyName: `child-mainlyLeaveWith-${index}`,
+      errorType: 'required',
+    });
+  }
+  return error
+}
+
+export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, index: number) => {
+  const error: { propertyName: string; errorType: string; }[] = [];
+  if (_.isEmpty(respondent.firstName) ||
+    _.isEmpty(respondent.lastName)) {
+    error.push({
+      propertyName: `fullName-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(respondent.personalDetails.hasNameChanged) &&
+    (respondent.personalDetails.hasNameChanged === YesNoDontKnow.yes
+      && _.isEmpty(respondent.personalDetails.previousFullName))) {
+    error.push({
+      propertyName: `hasNameChanged-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(respondent.personalDetails.gender) ||
+    (respondent.personalDetails.gender === Gender.OTHER
+      && !_.isEmpty(respondent.personalDetails.otherGenderDetails))) {
+    error.push({
+      propertyName: `childGenderLabel-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(respondent.personalDetails.gender) ||
+    (respondent.personalDetails.gender === Gender.OTHER
+      && !_.isEmpty(respondent.personalDetails.otherGenderDetails))) {
+    error.push({
+      propertyName: `childGenderLabel-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (respondent.personalDetails.approxDateOfBirth && _.isEmpty(respondent.personalDetails.isDateOfBirthUnknown)
+    //   : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
+  ) {
+    error.push({
+      propertyName: `isDateOfBirthUnknown-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (respondent.personalDetails.approxDateOfBirth && _.isEmpty(respondent.personalDetails.isDateOfBirthUnknown)) {
+    error.push({
+      propertyName: `isDateOfBirthUnknown-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (respondent?.personalDetails?.isDateOfBirthUnknown === YesNoEmpty.YES && _.isEmpty(respondent.personalDetails.approxDateOfBirth)
+    //   : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
+  ) {
+    error.push({
+      propertyName: `approxDateOfBirth-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (respondent.personalDetails.isDateOfBirthUnknown == '' && _.isEmpty(respondent.personalDetails.dateOfBirth)) {
+    error.push({
+      propertyName: `dateOfBirth-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (respondent.personalDetails.respondentPlaceOfBirthUnknown !== 'No' && _.isEmpty(respondent.personalDetails.respondentPlaceOfBirth)) {
+    error.push({
+      propertyName: `respondentPlaceOfBirth-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(respondent.relationshipDetails?.relationshipToChildren)) {
+    error.push({
+      propertyName: `relationshipTo-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+  return error;
+}
+
+export const generateOtherChildrenError = (otherchildren: otherchild, index: number) => {
+  const error: { propertyName: string; errorType: string; }[] = [];
+  if (_.isEmpty(otherchildren.firstName) && _.isEmpty(otherchildren.lastName))
+    error.push({
+      propertyName: `fullName-otherChild-${index}`,
+      errorType: 'required',
+    });
+
+
+
+  if (otherchildren.personalDetails.approxDateOfBirth && _.isEmpty(otherchildren.personalDetails.isDateOfBirthUnknown)) {
+    error.push({
+      propertyName: `isDateOfBirthUnknown-otherChild-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (otherchildren.personalDetails.isDateOfBirthUnknown && otherchildren.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES && _.isEmpty(otherchildren.personalDetails.approxDateOfBirth)) {
+    error.push({
+      propertyName: `approxDateOfBirth-otherChild-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (otherchildren.personalDetails.isDateOfBirthUnknown && otherchildren.personalDetails.isDateOfBirthUnknown === YesNoEmpty.NO && _.isEmpty(otherchildren.personalDetails.dateOfBirth)) {
+    error.push({
+      propertyName: `dateOfBirth-otherChild-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (otherchildren.personalDetails.isDateOfBirthUnknown && otherchildren.personalDetails.isDateOfBirthUnknown === YesNoEmpty.NO && _.isEmpty(otherchildren.personalDetails.dateOfBirth)) {
+    error.push({
+      propertyName: `dateOfBirth-otherChild-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(otherchildren.personalDetails.gender) ||
+    (otherchildren.personalDetails.gender === Gender.OTHER && _.isEmpty(otherchildren.personalDetails.otherGenderDetails))) {
+    error.push({
+      propertyName: `otherGenderDetails-otherChild-${index}`,
+      errorType: 'required',
+    });
+
+  }
+  return error;
+}
+
+export const generateOtherPersonErrors = (otherperson: C100RebuildPartyDetails, index: number, isAnyChildliveWithOtherPerson: boolean) => {
+  const error: { propertyName: string; errorType: string; }[] = [];
+  if (_.isEmpty(otherperson.firstName) && _.isEmpty(otherperson.lastName))
+    error.push({
+      propertyName: `fullName-otherPerson-${index}`,
+      errorType: 'required',
+    });
+
+
+  if (_.isEmpty(otherperson.personalDetails.hasNameChanged) &&
+    (otherperson.personalDetails.hasNameChanged === YesNoDontKnow.yes
+      && _.isEmpty(otherperson.personalDetails.previousFullName))) {
+    error.push({
+      propertyName: `hasNameChanged-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(otherperson.personalDetails.gender) ||
+    (otherperson.personalDetails.gender === Gender.OTHER
+      && !_.isEmpty(otherperson.personalDetails.otherGenderDetails))) {
+    error.push({
+      propertyName: `otherGenderDetails-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (otherperson.personalDetails.approxDateOfBirth && _.isEmpty(otherperson.personalDetails.isDateOfBirthUnknown)
+    //   : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
+  ) {
+    error.push({
+      propertyName: `isDateOfBirthUnknown-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (otherperson.personalDetails.approxDateOfBirth && _.isEmpty(otherperson.personalDetails.isDateOfBirthUnknown)) {
+    error.push({
+      propertyName: `isDateOfBirthUnknown-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (otherperson?.personalDetails?.isDateOfBirthUnknown === YesNoEmpty.YES && _.isEmpty(otherperson.personalDetails.approxDateOfBirth)
+    //   : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
+  ) {
+    error.push({
+      propertyName: `approxDateOfBirth-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (otherperson.personalDetails.isDateOfBirthUnknown == '' && _.isEmpty(otherperson.personalDetails.dateOfBirth)) {
+    error.push({
+      propertyName: `dateOfBirth-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+
+  if (_.isEmpty(otherperson.relationshipDetails?.relationshipToChildren)) {
+    error.push({
+      propertyName: `relationshipTo-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (otherperson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherperson.refugeConfidentialityC8Form)) {
+    error.push({
+      propertyName: `c8RefugeDocument-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (isAnyChildliveWithOtherPerson
+    &&
+    _.isEmpty(otherperson.isOtherPersonAddressConfidential)
+  ) {
+    error.push({
+      propertyName: `otherPersonConfidentiality-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  return error;
+}
+
