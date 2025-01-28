@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { PartyType, YesOrNo } from '../../../../../app/case/definition';
+import { doesAnyChildLiveWithOtherPerson } from '../../../../c100-rebuild/other-person-details/utils';
 import { isApplicantValid, isChildValid, isOtherChildValid, isRespondentValid } from '../../util';
 
 export const PeopleFieldsConfig = {
@@ -67,7 +68,12 @@ export const PeopleFieldsConfig = {
             respondent =>
               isRespondentValid(respondent, PartyType.OTHER_PERSON) &&
               !_.isEmpty(respondent.liveInRefuge) &&
-              (respondent.liveInRefuge === YesOrNo.YES ? !_.isEmpty(respondent.refugeConfidentialityC8Form) : true)
+              (respondent.liveInRefuge === YesOrNo.YES ? !_.isEmpty(respondent.refugeConfidentialityC8Form) : true) &&
+              !caseData.oprs_otherPersons?.find(
+                otherPerson =>
+                  doesAnyChildLiveWithOtherPerson(caseData as CaseWithId, otherPerson.id) &&
+                  _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
+              )
           ),
         };
       },
