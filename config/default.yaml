@@ -37,7 +37,7 @@ services:
     tokenKey: PCQ_TOKEN
   pact:
     url: 'https://pact-broker.platform.hmcts.net'
-    tag:
+    tag: 'prl-citizen-pact-test'
     pactDirectory: 'pact/pacts'
 health:
   timeout: 5000
