@@ -2314,11 +2314,5 @@ export const populateError = (value, truethyValue, language): string => {
     return truethyValue;
   }
 
-  // if (req.session.C100CyaErrors) {
-  //   req.session.C100CyaErrors.push(anchorReference);
-  // } else {
-  //   req.session.C100CyaErrors = [anchorReference];
-  // }
-
   return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 };

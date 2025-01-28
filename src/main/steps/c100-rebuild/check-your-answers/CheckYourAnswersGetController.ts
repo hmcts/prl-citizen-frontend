@@ -6,7 +6,6 @@ import { FieldPrefix } from '../../../app/case/case';
 import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
-import { doesAnyChildLiveWithOtherPerson } from '../../c100-rebuild/other-person-details/utils';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import {
