@@ -7,7 +7,7 @@ import { ProgressBarConfigType, ProgressBarProps } from '../../definitions';
 import { CaseType, PartyType } from './../../../../../app/case/definition';
 import { ProgressBarConfig } from './config';
 import { languages as content } from './content';
-import { getProgressBarType } from './utils';
+import { getIsCompleteStatus, getIsInProgressStatus, getProgressBarType } from './utils';
 
 export const getProgressBarConfig = (
   caseData: CaseWithId,
@@ -26,33 +26,13 @@ export const getProgressBarConfig = (
   return progressBarItems
     .map(config => {
       if (!config.show || (_.isFunction(config.show) && config.show(caseData, userDetails))) {
-        let preRenderData;
-        let isInProgress = false;
-        let isComplete = false;
-
-        if (_.isFunction(config.preRender)) {
-          preRenderData = config.preRender(caseData, userDetails);
-        }
-
-        if (_.isFunction(config.isInProgress)) {
-          isInProgress = preRenderData
-            ? config.isInProgress(caseData, userDetails, preRenderData)
-            : config.isInProgress(caseData, userDetails);
-        }
-
-        if (_.isFunction(config.isComplete)) {
-          isComplete = preRenderData
-            ? config.isComplete(caseData, userDetails, preRenderData)
-            : config.isComplete(caseData, userDetails);
-        }
-
         let ariaLabel = _.isFunction(config.ariaLabel) ? `${config.ariaLabel(caseType, language)} ` : '';
         let statusBarClassName: string;
 
-        if (isComplete) {
+        if (getIsCompleteStatus(config, caseData, userDetails)) {
           ariaLabel += content[language]['complete'];
           statusBarClassName = 'stage--completed';
-        } else if (isInProgress) {
+        } else if (getIsInProgressStatus(config, caseData, userDetails)) {
           ariaLabel += content[language]['inProgress'];
           statusBarClassName = 'stage--active';
         } else {

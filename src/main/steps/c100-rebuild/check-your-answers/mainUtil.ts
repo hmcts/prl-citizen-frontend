@@ -15,6 +15,7 @@ import {
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
 import { interpolate } from '../../../steps/common/string-parser';
 import { proceedingSummaryData } from '../../../steps/common/summary/utils';
+import { doesAnyChildLiveWithOtherPerson } from '../../c100-rebuild/other-person-details/utils';
 import { getC100FlowType } from '../../c100-rebuild/utils';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
@@ -1680,7 +1681,7 @@ export const OtherPeopleDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
   language
-): SummaryList | undefined => {
+): SummaryList => {
   const sessionOtherPeopleData = userCase['oprs_otherPersons'];
   const newOtherPeopleStorage: {
     key: string;
@@ -1946,6 +1947,43 @@ export const whereDoChildrenLive = (
   };
 };
 
+export const otherPersonConfidentiality = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>,
+  language
+): SummaryList => {
+  const sessionOtherPeopleData = userCase['oprs_otherPersons'];
+  const newOtherPeopleStorage: {
+    key: string;
+    anchorReference?: string;
+    keyHtml?: string;
+    value?: string;
+    valueHtml?: string;
+    changeUrl: string;
+  }[] = [];
+
+  for (const otherPerson in sessionOtherPeopleData) {
+    const firstName = sessionOtherPeopleData[otherPerson]['firstName'],
+      lastName = sessionOtherPeopleData[otherPerson]['lastName'],
+      id = sessionOtherPeopleData[otherPerson]['id'];
+    const isOtherPersonAddressConfidential = sessionOtherPeopleData[otherPerson]?.['isOtherPersonAddressConfidential'];
+
+    newOtherPeopleStorage.push({
+      key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
+      anchorReference: `otherPersonConfidentiality-otherPerson-${otherPerson}`,
+      valueHtml: !_.isEmpty(isOtherPersonAddressConfidential)
+        ? getYesNoTranslation(language, isOtherPersonAddressConfidential, 'oesTranslation')
+        : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+      changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY'], { otherPersonId: id }),
+    });
+  }
+
+  return {
+    title: sectionTitles['otherPeopleConfidentiality'],
+    rows: getSectionSummaryList(newOtherPeopleStorage, content),
+  };
+};
+
 export const reasonableAdjustment = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
@@ -2199,53 +2237,70 @@ export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId> | Cas
   );
 };
 
-export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId> | CaseWithId): boolean => {
-  return !areRefugeDocumentsNotPresent(caseData);
+
+export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>): boolean => {
+  return !areRefugeDocumentsNotPresent(caseData) && !areOtherPeopleConfidentialDetailsValid(caseData);
 };
 
-export const getCyaSections = (userCase: CaseWithId, content, newContent, language, isC100TrainTrackEnabled, req) => {
+const areOtherPeopleConfidentialDetailsValid = (caseData: Partial<CaseWithId>): boolean => {
+  return !!caseData.oprs_otherPersons?.find(
+    otherPerson =>
+      doesAnyChildLiveWithOtherPerson(caseData as CaseWithId, otherPerson.id) &&
+      _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
+  );
+};
+
+export const getCyaSections = (
+  userCase: CaseWithId,
+  content,
+  newContent,
+  language: string,
+  isC100TrainTrackEnabled: boolean
+) => {
+
   let sections;
-  const flow = getC100FlowType(userCase);
+
   if (isC100TrainTrackEnabled) {
-    switch (flow) {
-      case C100FlowTypes.C100_WITH_CONSENT_ORDER:
-        sections = CheckYourAnswerFlow1(userCase, content, language, req).flat() as ANYTYPE;
-        break;
-      case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
-        sections = CheckYourAnswerFlow2(userCase, content, language, req).flat() as ANYTYPE;
-        break;
-      case C100FlowTypes.C100_WITH_MIAM_URGENCY:
-        sections = CheckYourAnswerFlow3(userCase, content, newContent, language, req).flat() as ANYTYPE;
-        break;
-      default:
-        sections = CheckYourAnswerFlow4(userCase, content, newContent, language, req).flat() as ANYTYPE;
-    }
+    sections = getSectionsByFlow(userCase, content, newContent, language);
+  } else if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
+    sections = CheckYourAnswerFlow1(userCase, content, language).flat() as ANYTYPE;
+  } else if (
+    (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
+    (userCase.hasOwnProperty('miam_otherProceedings') &&
+      userCase['miam_otherProceedings'] === YesOrNo.NO &&
+      userCase.hasOwnProperty('miam_attendance') &&
+      userCase['miam_attendance'] === YesOrNo.YES)
+  ) {
+    sections = CheckYourAnswerFlow2(userCase, content, language).flat() as ANYTYPE;
+  } else if (
+    userCase['miam_urgency'] &&
+    userCase.hasOwnProperty('miam_urgency') &&
+    userCase['miam_urgency'] !== 'none'
+  ) {
+    sections = CheckYourAnswerFlow3(userCase, content, newContent, language).flat() as ANYTYPE;
   } else {
-    // if on sreening screen enable Yes
-    if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-      sections = CheckYourAnswerFlow1(userCase, content, language, req).flat() as ANYTYPE;
-    } else {
-      if (
-        (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) ||
-        (userCase.hasOwnProperty('miam_otherProceedings') &&
-          userCase['miam_otherProceedings'] === YesOrNo.NO &&
-          userCase.hasOwnProperty('miam_attendance') &&
-          userCase['miam_attendance'] === YesOrNo.YES)
-      ) {
-        sections = CheckYourAnswerFlow2(userCase, content, language, req).flat() as ANYTYPE;
-      } else {
-        //if miam urgency is requested miam_urgency
-        if (
-          userCase['miam_urgency'] &&
-          userCase.hasOwnProperty('miam_urgency') &&
-          userCase['miam_urgency'] !== 'none'
-        ) {
-          sections = CheckYourAnswerFlow3(userCase, content, newContent, language, req).flat() as ANYTYPE;
-        } else {
-          sections = CheckYourAnswerFlow4(userCase, content, newContent, language, req).flat() as ANYTYPE;
-        }
-      }
-    }
+    sections = CheckYourAnswerFlow4(userCase, content, newContent, language).flat() as ANYTYPE;
+  }
+
+  return sections;
+};
+
+const getSectionsByFlow = (userCase: CaseWithId, content, newContent, language: string) => {
+  const flow = getC100FlowType(userCase);
+  let sections;
+
+  switch (flow) {
+    case C100FlowTypes.C100_WITH_CONSENT_ORDER:
+      sections = CheckYourAnswerFlow1(userCase, content, language).flat() as ANYTYPE;
+      break;
+    case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
+      sections = CheckYourAnswerFlow2(userCase, content, language).flat() as ANYTYPE;
+      break;
+    case C100FlowTypes.C100_WITH_MIAM_URGENCY:
+      sections = CheckYourAnswerFlow3(userCase, content, newContent, language).flat() as ANYTYPE;
+      break;
+    default:
+      sections = CheckYourAnswerFlow4(userCase, content, newContent, language).flat() as ANYTYPE;
   }
 
   return sections;

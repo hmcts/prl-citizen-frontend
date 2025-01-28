@@ -28,6 +28,7 @@ import {
   WithoutNoticeHearing,
   areRefugeDocumentsNotPresent,
   getYesNoTranslation,
+  otherPersonConfidentiality,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -48,6 +49,7 @@ const sectionTitles = {
   SafetyConcerns_child: 'childSafetyConcerns',
   SafetyConcerns_yours: 'yourSafetyConcerns',
   SafetyConcerns_others: 'otherSafetyConcerns',
+  otherPeopleConfidentiality: 'otherPeopleConfidentiality',
 };
 const keys = {
   whatAreYouAsking: 'whatAreYouAsking',
@@ -102,6 +104,8 @@ const keys = {
   otherPerson: 'Other person',
   refuge: 'refuge',
   c8RefugeDocument: 'c8RefugeDocument',
+  isOtherPersonAddressConfidential:
+    'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
 };
 const language = 'en';
 const content = {
@@ -1382,6 +1386,50 @@ describe.skip('test cases for main util', () => {
       },
     ]);
     expect(whereDoChildLiveObj?.title).toBe(undefined);
+  });
+
+  describe('otherPersonConfidentiality', () => {
+    test('should generate correct summary list', () => {
+      const userCase = {
+        id: 'id',
+        state: undefined,
+        oprs_otherPersons: [
+          {
+            id: '7483640e-0817-4ddc-b709-6723f7925474',
+            firstName: 'Bob',
+            lastName: 'Silly',
+            isOtherPersonAddressConfidential: 'Yes',
+          },
+        ],
+      } as ANYTYPE;
+      const otherPersonConfidentialitySections = otherPersonConfidentiality(
+        { sectionTitles, keys, content },
+        userCase,
+        'en'
+      );
+      expect(otherPersonConfidentialitySections?.rows).toStrictEqual([
+        {
+          actions: {
+            items: [
+              {
+                href: '/c100-rebuild/other-person-details/7483640e-0817-4ddc-b709-6723f7925474/confidentiality',
+                text: undefined,
+                visuallyHiddenText:
+                  'Do you want to keep Bob Silly’s contact details private from the other people named in the application (the respondents)?',
+                attributes: { id: 'otherPersonConfidentiality-otherPerson-0' },
+              },
+            ],
+          },
+          key: {
+            text: 'Do you want to keep Bob Silly’s contact details private from the other people named in the application (the respondents)?',
+          },
+          value: {
+            html: 'Yes',
+          },
+        },
+      ]);
+      expect(otherPersonConfidentialitySections?.title).toBe('otherPeopleConfidentiality');
+    });
   });
 
   test('RespondentDetails1', () => {

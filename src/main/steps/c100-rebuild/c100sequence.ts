@@ -122,6 +122,7 @@ import {
   C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
   C100_MIAM_PROVIDING_DA_EVIDENCE,
   C100_MIAM_UPLOAD_DA_EVIDENCE,
+  C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -728,7 +729,7 @@ export const C100Sequence: Step[] = [
     url: C100_OTHER_PERSON_CHECK,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_CHECK, caseData, req?.params),
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_CHECK, caseData, req),
   },
   {
     //100
@@ -742,43 +743,27 @@ export const C100Sequence: Step[] = [
     url: C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
-        caseData,
-        req?.params
-      ),
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS, caseData, req),
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
     postController: LookupAndManualAddressPostController,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
-        caseData,
-        req?.params
-      ),
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, caseData, req),
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
-        caseData,
-        req?.params
-      ),
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT, caseData, req),
   },
   {
     url: C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
     postController: LookupAndManualAddressPostController,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
-        caseData,
-        req?.params
-      ),
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL, caseData, req),
   },
   {
     url: C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
@@ -787,7 +772,7 @@ export const C100Sequence: Step[] = [
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
         caseData,
-        req?.params
+        req
       ),
   },
   {
@@ -858,5 +843,11 @@ export const C100Sequence: Step[] = [
     url: C100_WITHDRAW_CASE_CONFIRMATION,
     showInSection: Sections.C100,
     getNextStep: () => '/',
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, caseData, req),
   },
 ];

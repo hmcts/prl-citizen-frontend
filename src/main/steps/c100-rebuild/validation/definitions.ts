@@ -22,3 +22,13 @@ export type MandatoryFieldsConfig = {
     properties?: object;
   };
 };
+
+export type FieldConfig = {
+  fieldName: string;
+  fieldType: string;
+  value?: string;
+  items?: object;
+  properties?: object;
+  property?: string;
+  expression?: (caseData: CaseWithId) => { isMandatory: boolean };
+};

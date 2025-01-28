@@ -2777,6 +2777,7 @@ export type C100RebuildPartyDetails = {
   addressUnknown?: YesOrNo;
   liveInRefuge?: YesOrNo;
   refugeConfidentialityC8Form?: Document;
+  isOtherPersonAddressConfidential?: YesOrNo;
 };
 
 export interface RelationshipToChildren {

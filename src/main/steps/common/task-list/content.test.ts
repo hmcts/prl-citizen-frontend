@@ -51,11 +51,6 @@ describe('testcase for tasklist', () => {
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Other Proceedings is not yet started',
-        label: 'Other<br/>Proceedings',
-        statusBarClassName: '',
-      },
-      {
         ariaLabel: 'Urgency and Without notice is not yet started',
         label: 'Urgency<br/>&<br/>Without notice',
         statusBarClassName: '',
@@ -63,6 +58,11 @@ describe('testcase for tasklist', () => {
       {
         ariaLabel: 'People is not yet started',
         label: 'People',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Other Proceedings is not yet started',
+        label: 'Other<br/>Proceedings',
         statusBarClassName: '',
       },
       {
@@ -83,11 +83,6 @@ describe('testcase for tasklist', () => {
       {
         ariaLabel: 'Help with fees is not yet started',
         label: 'Help<br/>with<br/>fees',
-        statusBarClassName: '',
-      },
-      {
-        ariaLabel: 'Review answers is not yet started',
-        label: 'Review<br/>answers',
         statusBarClassName: '',
       },
     ],
@@ -155,11 +150,6 @@ describe('testcase for tasklist', () => {
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Other Proceedings - welsh heb ddechrau eto',
-        label: 'Other<br/>Proceedings - welsh',
-        statusBarClassName: '',
-      },
-      {
         ariaLabel: 'Urgency and Without notice - welsh heb ddechrau eto',
         label: 'Urgency<br/>&<br/>Without notice - welsh',
         statusBarClassName: '',
@@ -167,6 +157,11 @@ describe('testcase for tasklist', () => {
       {
         ariaLabel: 'People - welsh heb ddechrau eto',
         label: 'People - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Other Proceedings - welsh heb ddechrau eto',
+        label: 'Other<br/>Proceedings - welsh',
         statusBarClassName: '',
       },
       {
@@ -187,11 +182,6 @@ describe('testcase for tasklist', () => {
       {
         ariaLabel: 'Help with fees - welsh heb ddechrau eto',
         label: 'Help<br/>with<br/>fees - welsh',
-        statusBarClassName: '',
-      },
-      {
-        ariaLabel: 'Review answers - welsh heb ddechrau eto',
-        label: 'Review<br/>answers - welsh',
         statusBarClassName: '',
       },
     ],

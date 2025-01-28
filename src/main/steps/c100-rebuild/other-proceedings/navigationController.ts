@@ -120,7 +120,7 @@ class PreviousProceedingsNavigationController {
           caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
             ? C100_TYPE_ORDER_SELECT_COURT_ORDER
             : (applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink);
-        url = isC100ApplicationValid(caseData as CaseWithId, req!) ? C100_CHECK_YOUR_ANSWER : nextUrl;
+        url = isC100ApplicationValid(caseData as CaseWithId, req) ? C100_CHECK_YOUR_ANSWER : nextUrl;
       }
     }
     return url;

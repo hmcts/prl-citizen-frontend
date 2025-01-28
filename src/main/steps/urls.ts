@@ -369,6 +369,7 @@ export const C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD: PageLink = `${C100
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/lookup`;
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/manual`;
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/select`;
+export const C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/confidentiality`;
 
 /** @C100 Consent Order */
 export const C100_CONSENT_ORDER: PageLink = `${C100_URL}/consent-order`;

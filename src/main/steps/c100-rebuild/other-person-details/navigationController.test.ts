@@ -1,11 +1,14 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { CaseWithId } from '../../../app/case/case';
 import { RelationshipType } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import {
   C100_CHILDERN_MAINLY_LIVE_WITH,
   C100_OTHER_PERSON_DETAILS_ADD,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
   C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
+  C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
 } from '../../urls';
@@ -128,7 +131,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
         dummyRequest.session.userCase,
-        dummyRequest.params
+        dummyRequest
       )
     ).toBe(
       '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474'
@@ -147,7 +150,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
         dummyRequest.session.userCase,
-        dummyparams.params
+        { ...dummyRequest, params: dummyparams.params }
       )
     ).toBe(
       '/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925635'
@@ -164,7 +167,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
         dummyRequest.session.userCase,
-        dummyparams.params
+        { ...dummyRequest, params: dummyparams.params }
       )
     ).toBe('/c100-rebuild/refuge/staying-in-refuge/2732dd53-2e6c-46f9-88cd-08230e735b08?');
   });
@@ -179,7 +182,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
         dummyRequest.session.userCase,
-        dummyparams.params
+        { ...dummyRequest, params: dummyparams.params }
       )
     ).toBe('/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/select');
   });
@@ -194,7 +197,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
         dummyRequest.session.userCase,
-        dummyparams.params
+        { ...dummyRequest, params: dummyparams.params }
       )
     ).toBe('/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/manual');
   });
@@ -209,10 +212,66 @@ describe('OtherPersonsDetailsNavigationController', () => {
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
         dummyRequest.session.userCase,
-        dummyparams.params
+        { ...dummyRequest, params: dummyparams.params }
       )
     ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with');
   });
+
+  test('from other person confidentiality screen -> navigate to next other person confidentiality screen', async () => {
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+        {
+          oprs_otherPersons: [
+            { id: '2732dd53-2e6c-46f9-88cd-08230e735b08' },
+            { id: '2732dd53-2e6c-46f9-88cd-08230e735b09' },
+          ],
+          cd_children: [
+            { id: '7483640e-0817-4ddc-b709-6723f7925474', liveWith: [{ id: '2732dd53-2e6c-46f9-88cd-08230e735b08' }] },
+            { id: '7483640e-0817-4ddc-b709-6723f7925472', liveWith: [{ id: '2732dd53-2e6c-46f9-88cd-08230e735b09' }] },
+          ],
+        } as unknown as CaseWithId,
+        {
+          params: { otherPersonId: '2732dd53-2e6c-46f9-88cd-08230e735b08' },
+          session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b09/confidentiality');
+  });
+
+  test('from other person confidentiality screen -> navigate to safety concerns', async () => {
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+        {
+          oprs_otherPersons: [{ id: '2732dd53-2e6c-46f9-88cd-08230e735b08' }],
+          cd_children: [{ id: '7483640e-0817-4ddc-b709-6723f7925474' }],
+          sq_writtenAgreement: 'No',
+          miam_otherProceedings: 'Yes',
+        } as unknown as CaseWithId,
+        {
+          params: { otherPersonId: '2732dd53-2e6c-46f9-88cd-08230e735b08' },
+          session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/safety-concerns/concern-guidance');
+  });
+
+  test('from other person confidentiality screen -> navigate to other proceedings', async () => {
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+        {
+          oprs_otherPersons: [{ id: '2732dd53-2e6c-46f9-88cd-08230e735b08' }],
+          cd_children: [{ id: '7483640e-0817-4ddc-b709-6723f7925474' }],
+        } as unknown as CaseWithId,
+        {
+          session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+  });
+
   test('default', async () => {
     const dummyparams = mockRequest({
       params: {},
@@ -221,7 +280,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_CHILDERN_MAINLY_LIVE_WITH,
         dummyRequest.session.userCase,
-        dummyparams.params
+        { ...dummyRequest, params: dummyparams.params }
       )
     ).toBe(C100_CHILDERN_MAINLY_LIVE_WITH);
   });

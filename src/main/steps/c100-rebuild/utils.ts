@@ -37,26 +37,41 @@ export const getC100FlowType = (caseData: CaseWithId, req?: AppRequest): C100Flo
 
 export const isC100ApplicationValid = (caseData: CaseWithId, req: AppRequest): boolean => {
   const hasC100ApplicationBeenCompleted = req.session.applicationSettings?.hasC100ApplicationBeenCompleted;
-  //check at navigation controllers as well
   if (req.session.enableC100CaseProgressionTrainTrack) {
     const flow = getC100FlowType(caseData, req);
     switch (flow) {
       case C100FlowTypes.C100_WITH_CONSENT_ORDER:
-        return hasC100ApplicationBeenCompleted && !req.originalUrl.includes('check-your-answers')
-          ? isCurrentSectionValid(req.originalUrl, caseData, flow1Sections)
-          : isC100Flow1Valid(caseData);
+        return validateC100Flow(
+          caseData,
+          req.originalUrl,
+          hasC100ApplicationBeenCompleted,
+          c100WithConsentOrderSections,
+          isC100WithConsentOrderFlowValid
+        );
       case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
-        return hasC100ApplicationBeenCompleted && !req.originalUrl.includes('check-your-answers')
-          ? isCurrentSectionValid(req.originalUrl, caseData, flow2Sections)
-          : isC100Flow2Valid(caseData);
+        return validateC100Flow(
+          caseData,
+          req.originalUrl,
+          hasC100ApplicationBeenCompleted,
+          c100WithMiamOtherProceedingsSections,
+          isC100WithMiamOtherProceedingsFlowValid
+        );
       case C100FlowTypes.C100_WITH_MIAM_URGENCY:
-        return hasC100ApplicationBeenCompleted && !req.originalUrl.includes('check-your-answers')
-          ? isCurrentSectionValid(req.originalUrl, caseData, flow3Sections)
-          : isC100Flow3Valid(caseData);
+        return validateC100Flow(
+          caseData,
+          req.originalUrl,
+          hasC100ApplicationBeenCompleted,
+          c100WithMiamUrgencySections,
+          isC100WithMiamUrgencyFlowValid
+        );
       case C100FlowTypes.C100_WITH_MIAM:
-        return hasC100ApplicationBeenCompleted && !req.originalUrl.includes('check-your-answers')
-          ? isCurrentSectionValid(req.originalUrl, caseData, flow4Sections)
-          : isC100Flow4Valid(caseData);
+        return validateC100Flow(
+          caseData,
+          req.originalUrl,
+          hasC100ApplicationBeenCompleted,
+          c100WithMiamSections,
+          isC100MiamFlowValid
+        );
       default:
         return false;
     }
@@ -65,11 +80,25 @@ export const isC100ApplicationValid = (caseData: CaseWithId, req: AppRequest): b
   }
 };
 
-const isC100Flow1Valid = (caseData: CaseWithId): boolean => {
+const validateC100Flow = (
+  caseData: CaseWithId,
+  url: string,
+  hasC100ApplicationBeenCompleted: boolean,
+  sections: Section[],
+  flowValidation: (caseData: CaseWithId) => boolean
+): boolean => {
+  if (hasC100ApplicationBeenCompleted && !url.includes('check-your-answers')) {
+    return isCurrentSectionValid(url, caseData, sections);
+  } else {
+    return flowValidation(caseData);
+  }
+};
+
+const isC100WithConsentOrderFlowValid = (caseData: CaseWithId): boolean => {
   return isConsentOrderValid(caseData) && isCommonFlowValid(caseData);
 };
 
-const isC100Flow2Valid = (caseData: CaseWithId): boolean => {
+const isC100WithMiamOtherProceedingsFlowValid = (caseData: CaseWithId): boolean => {
   return (
     isCommonFlowValid(caseData) &&
     (isMiamOtherProceedingsValid(caseData) || isMiamAttendanceValid(caseData)) &&
@@ -77,11 +106,11 @@ const isC100Flow2Valid = (caseData: CaseWithId): boolean => {
   );
 };
 
-const isC100Flow3Valid = (caseData: CaseWithId): boolean => {
+const isC100WithMiamUrgencyFlowValid = (caseData: CaseWithId): boolean => {
   return isCommonFlowValid(caseData) && isMiamUrgencyValid(caseData) && isScreeningQuestionsValid(caseData);
 };
 
-const isC100Flow4Valid = (caseData: CaseWithId): boolean => {
+const isC100MiamFlowValid = (caseData: CaseWithId): boolean => {
   return isCommonFlowValid(caseData) && isMiamExemptionsValid(caseData) && isScreeningQuestionsValid(caseData);
 };
 
@@ -364,7 +393,11 @@ const commonSections: Section[] = [
   { section: C100SectionUrlName.HELP_WITH_FEES, function: isHWFValid },
 ];
 
-const flow1Sections: Section[] = [
+const c100WithConsentOrderSections: Section[] = [
+  {
+    section: C100SectionUrlName.SCREENING_QUESTIONS,
+    function: caseData => caseData.sq_writtenAgreement === YesOrNo.YES && isConsentOrderValid(caseData),
+  },
   {
     section: C100SectionUrlName.TYPE_OF_ORDER,
     function: caseData => isTypeOfOrderValid(caseData) && isConsentOrderValid(caseData),
@@ -372,7 +405,7 @@ const flow1Sections: Section[] = [
   { section: C100SectionUrlName.CONSENT_ORDER, function: isConsentOrderValid },
   ...commonSections,
 ];
-const flow2Sections: Section[] = [
+const c100WithMiamOtherProceedingsSections: Section[] = [
   ...commonSections,
   {
     section: C100SectionUrlName.SCREENING_QUESTIONS,
@@ -384,7 +417,7 @@ const flow2Sections: Section[] = [
     function: caseData => isMiamOtherProceedingsValid(caseData) || isMiamAttendanceValid(caseData),
   },
 ];
-const flow3Sections: Section[] = [
+const c100WithMiamUrgencySections: Section[] = [
   ...commonSections,
   {
     section: C100SectionUrlName.SCREENING_QUESTIONS,
@@ -392,7 +425,7 @@ const flow3Sections: Section[] = [
   },
   { section: C100SectionUrlName.MIAM, function: isMiamUrgencyValid },
 ];
-const flow4Sections: Section[] = [
+const c100WithMiamSections: Section[] = [
   ...commonSections,
   {
     section: C100SectionUrlName.SCREENING_QUESTIONS,

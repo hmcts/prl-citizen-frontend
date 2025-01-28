@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseWithId } from '../../../../../../app/case/case';
 import { State } from '../../../../../../app/case/definition';
 import { ProgressBarProps } from '../../../../../../steps/common/task-list/definitions';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
@@ -15,7 +14,7 @@ export const getCARespondentConfig = (): ProgressBarProps[] => {
     {
       ...progressBarStage.responseSubmitted,
       isInProgress: (caseData, userDetails) => {
-        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
+        const respondent = getPartyDetails(caseData, userDetails.id);
         return !!respondent?.response.citizenFlags?.isResponseInitiated;
       },
       isComplete: (caseData, userDetails) =>
