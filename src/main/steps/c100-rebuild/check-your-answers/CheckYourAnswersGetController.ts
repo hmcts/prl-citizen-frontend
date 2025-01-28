@@ -63,6 +63,7 @@ export default class CheckYourAnswersGetController extends GetController {
         missingObject.forEach(property => {
           if (property) {
             generalErrors.push({
+            generalErrors.push({
               propertyName: property,
               errorType: 'required',
             });
@@ -76,17 +77,18 @@ export default class CheckYourAnswersGetController extends GetController {
       const childErrors: { propertyName: string; errorType: string; }[] = [];
       const otherChildErrors: { propertyName: string; errorType: string; }[] = [];
       const otherPersonErrors: { propertyName: string; errorType: string; }[] = [];
+
       // applicant
       req.session.userCase?.appl_allApplicants?.forEach((applicant, index) => {
-        applicantErrors.concat(generateApplicantErrors(applicant, index));
+        applicantErrors.push(...generateApplicantErrors(applicant, index));
       });
-    // child
-      req.session.userCase?.cd_children?.forEach((child,index) => {
-        childErrors.concat(generateChildErrors(child,index));
+      // child
+      req.session.userCase?.cd_children?.forEach((child, index) => {
+        childErrors.push(...generateChildErrors(child, index));
       });
-    // respondent
-      req.session.userCase?.resp_Respondents?.forEach((respondent,index) => {
-        respondentErrors.concat(generateRespondentErrors(respondent, index));
+      // respondent
+      req.session.userCase?.resp_Respondents?.forEach((respondent, index) => {
+        respondentErrors.push(...generateRespondentErrors(respondent, index));
       });
       // otherchildren
       if(_.isEmpty(req.session.userCase?.ocd_hasOtherChildren)){
@@ -118,8 +120,15 @@ export default class CheckYourAnswersGetController extends GetController {
 
       // TODO Vivek, One error is fine or multiple error is fine--- readability purpose
 
-      req.session.errors?.concat(generalErrors,applicantErrors,respondentErrors,childErrors,otherChildErrors,otherPersonErrors)
 
+      req.session.errors?.push(
+        ...generalErrors,
+        ...applicantErrors,
+        ...respondentErrors,
+        ...childErrors,
+        ...otherChildErrors,
+        ...otherPersonErrors
+      );
 
       req.session.save(() => {
         super.get(req, res);

@@ -58,6 +58,34 @@ import { getOtherPeopleLivingWithChildren } from '../../c100-rebuild/other-perso
 import { SummaryList } from './lib/lib';
 import { interpolate } from '../../../steps/common/string-parser';
 import { CaseWithId } from '../../../app/case/case';
+
+import { cy as detailsKnownCy, en as detailsKnownEn } from '../applicant/confidentiality/details-know/content';
+import { cy as startCy, en as startEn } from '../applicant/confidentiality/start/content';
+import {
+  cy as startAlternativeCy,
+  en as startAlternativenEn,
+} from '../applicant/confidentiality/start-alternative/content';
+import { cy as personalDetailsCy, en as personalDetailsEn } from '../applicant/personal-details/content';
+import { cy as relationShipToChildCy, en as relationShipToChildEn } from '../applicant/relationship-to-child/content';
+import { cy as contactDetailsCy, en as contactDetailsEn } from '../applicant/contact-detail/content';
+import {
+  cy as applicantContactPreferencesCy,
+  en as applicantContactPreferencesEn,
+} from '../applicant/contact-preference/content';
+import { cy as childPersonalDetailsCy, en as childPersonalDetailsEn } from '../child-details/personal-details/content';
+import { cy as childMattersCy, en as childMattersEn } from '../child-details/child-matters/content';
+import {
+  cy as parentalResponsibilityCy,
+  en as parentalResponsibilityEn,
+} from '../child-details/parental-responsibility/content';
+import {
+  cy as liveWithContentCy,
+  en as liveWithContentEn,
+} from '../child-details/live-with/living-arrangements/content';
+import {
+  cy as respondentPersonalDetailsCy,
+  en as respondentPersonalDetailsEn,
+} from '../respondent-details/personal-details/content';
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import { getAllMandatoryFields } from '../validation/util';
 import _ from 'lodash';
@@ -287,6 +315,38 @@ export const enContent = {
     miam_domesticAbuse: {
       required: 'Select the evidence you have of domestic abuse',
     },
+    fullName: {
+      required: 'Enter the full name',
+    },
+    detailsKnown: detailsKnownEn().errors.detailsKnown,
+    start: startEn().errors.start,
+    startAlternative: startAlternativenEn().errors.startAlternative,
+    contactDetailsPrivateAlternative: startAlternativenEn().errors.contactDetailsPrivateAlternative,
+    haveYouChangeName: personalDetailsEn().errors.haveYouChangeName,
+    applPreviousName: personalDetailsEn().errors.applPreviousName,
+    dateOfBirth: personalDetailsEn().errors.dateOfBirth,
+    gender: personalDetailsEn().errors.gender,
+    placeOfBirth: personalDetailsEn().errors.applicantPlaceOfBirth,
+    relationshipType: relationShipToChildEn().errors.relationshipType,
+    addressDetails: {
+      required: 'Enter the address',
+    },
+    contactDetails: {
+      required: 'Please enter contact details',
+    },
+    voiceMail: contactDetailsEn().errors.canLeaveVoiceMail,
+    contactPreferences: applicantContactPreferencesEn().errors.applicantContactPreferences,
+    isDateOfBirthUnknown: {
+      required: 'Select if the date of birth is unknown',
+    },
+    childDateOfBirth: childPersonalDetailsEn().errors.dateOfBirth,
+    approxDateOfBirth: childPersonalDetailsEn().errors.approxDateOfBirth,
+    childGender: childPersonalDetailsEn().errors.gender,
+    otherGenderDetails: childPersonalDetailsEn().errors.otherGenderDetails,
+    childMatters: childMattersEn().errors.needsResolution,
+    parentalResponsibility: parentalResponsibilityEn().errors.statement,
+    liveWith: liveWithContentEn.errors.liveWith,
+    hasNameChanged: respondentPersonalDetailsEn().errors.hasNameChanged,
     // need to add for parties
     otherPersonConfidentiality: {
       required: 'Select yes if you want to keep {firstName} {lastName}’s details private',
@@ -447,6 +507,38 @@ export const cyContent = {
     testText: {
       required: 'test',
     },
+    fullName: {
+      required: 'Enter the full name (welsh)',
+    },
+    detailsKnown: detailsKnownCy().errors.detailsKnown,
+    start: startCy().errors.start,
+    startAlternative: startAlternativeCy().errors.startAlternative,
+    contactDetailsPrivateAlternative: startAlternativeCy().errors.contactDetailsPrivateAlternative,
+    haveYouChangeName: personalDetailsCy().errors.haveYouChangeName,
+    applPreviousName: personalDetailsCy().errors.applPreviousName,
+    dateOfBirth: personalDetailsCy().errors.dateOfBirth,
+    gender: personalDetailsCy().errors.gender,
+    placeOfBirth: personalDetailsCy().errors.applicantPlaceOfBirth,
+    relationshipType: relationShipToChildCy().errors.relationshipType,
+    addressDetails: {
+      required: 'Enter the address (welsh)',
+    },
+    contactDetails: {
+      required: 'Please enter contact details (welsh)',
+    },
+    voiceMail: contactDetailsCy().errors.canLeaveVoiceMail,
+    contactPreferences: applicantContactPreferencesCy().errors.applicantContactPreferences,
+    isDateOfBirthUnknown: {
+      required: 'Select if the date of birth is unknown (welsh)',
+    },
+    childDateOfBirth: childPersonalDetailsCy().errors.dateOfBirth,
+    approxDateOfBirth: childPersonalDetailsCy().errors.approxDateOfBirth,
+    childGender: childPersonalDetailsCy().errors.gender,
+    otherGenderDetails: childPersonalDetailsCy().errors.otherGenderDetails,
+    childMatters: childMattersCy().errors.needsResolution,
+    parentalResponsibility: parentalResponsibilityCy().errors.statement,
+    liveWith: liveWithContentCy.errors.liveWith,
+    hasNameChanged: respondentPersonalDetailsCy().errors.hasNameChanged,
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1
@@ -783,7 +875,7 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
       enContent,
       newEnContents,
       content.language,
-      content.additionalData?.req.session.enableC100CaseProgressionTrainTrack,
+      content.additionalData?.req.session.enableC100CaseProgressionTrainTrack
     )
   );
   return {
@@ -801,7 +893,7 @@ export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
       cyContent,
       newCyContents,
       content.language,
-      content.additionalData?.req.session.enableC100CaseProgressionTrainTrack,
+      content.additionalData?.req.session.enableC100CaseProgressionTrainTrack
     )
   );
   return {
@@ -914,26 +1006,51 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
-  
 
-  form.submit.disabled = //change to use cya redirect application completed?
-    !isMandatoryFieldsFilled(content.userCase!) || !!missingObject;
-  const refugeErrors = {};
-  //const Errors = {};
-  
-  // content.userCase?.appl_allApplicants?.forEach(applicant => {
-  //   Errors[`anyOtherPeopleKnowDetails-applicant-${content.userCase?.appl_allApplicants?.indexOf(applicant)}`] =
-  //     translations.errors.testText;
-  // });
+  form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!) || !!missingObject; //change to use cya redirect application completed?
+  const errors = {};
 
   const otherPersonConfidentialityErrors = {};
-  content.userCase?.appl_allApplicants?.forEach(applicant => {
-    refugeErrors[`c8RefugeDocument-applicant-${content.userCase?.appl_allApplicants?.indexOf(applicant)}`] =
-      translations.errors.refugeDocumentText;
+  content.userCase?.appl_allApplicants?.forEach((applicant, index) => {
+    errors[`c8RefugeDocument-applicant-${index}`] = translations.errors.refugeDocumentText;
+    errors[`fullName-applicant-${index}`] = translations.errors.fullName;
+    errors[`anyOtherPeopleKnowDetails-applicant-${index}`] = translations.errors.detailsKnown;
+    errors[`anyOtherPeopleKnowDetails-applicant-${index}`] = translations.errors.detailsKnown;
+    errors[`doYouWantToKeep-applicant-${index}`] = translations.errors.contactDetailsPrivateAlternative;
+    errors[`haveYouChangeName-applicant-${index}`] = translations.errors.haveYouChangeName;
+    errors[`gender-applicant-${index}`] = translations.errors.gender;
+    errors[`dateOfBirth-applicant-${index}`] = translations.errors.dateOfBirth;
+    errors[`placeOfBirth-applicant-${index}`] = translations.errors.placeOfBirth;
+    errors[`relationshipTo-applicant-${index}`] = translations.errors.relationshipType;
+    errors[`addressDetails-applicant-${index}`] = translations.errors.addressDetails;
+    errors[`contactDetails-applicant-${index}`] = translations.errors.contactDetails;
+    errors[`voiceMail-applicant-${index}`] = translations.errors.voiceMail;
+    errors[`contactPreferences-applicant-${index}`] = translations.errors.contactPreferences;
+  });
+
+  content.userCase?.cd_children?.forEach((child, index) => {
+    errors[`fullName-child-${index}`] = translations.errors.fullName;
+    errors[`isDateOfBirthUnknown-${index}`] = translations.errors.isDateOfBirthUnknown;
+    errors[`approxDateOfBirth-${index}`] = translations.errors.approxDateOfBirth;
+    errors[`dateOfBirth-${index}`] = translations.errors.childDateOfBirth;
+    errors[`otherGenderDetails-child-${index}`] = translations.errors.otherGenderDetails;
+    errors[`orderAppliedFor-child-${index}`] = translations.errors.childMatters;
+    errors[`parentalResponsibility-child-${index}`] = translations.errors.parentalResponsibility;
+    errors[`childLivingArrangements-child-${index}`] = translations.errors.liveWith;
+  });
+
+  content.userCase?.resp_Respondents?.forEach((respondent, index) => {
+    errors[`fullName-respondent-${index}`] = translations.errors.fullName;
+    errors[`hasNameChanged-respondent-${index}`] = translations.errors.hasNameChanged;
+    errors[`childGenderLabel-respondent-${index}`] = translations.errors.gender;
+    errors[`isDateOfBirthUnknown-respondent-${index}`] = translations.errors.isDateOfBirthUnknown;
+    errors[`dateOfBirth-respondent-${index}`] = translations.errors.otherGenderDetails;
+    errors[`respondentPlaceOfBirth-respondent-${index}`] = translations.errors.childMatters;
+    errors[`relationshipTo-respondent-${index}`] = translations.errors.relationshipType;
   });
 
   content.userCase?.oprs_otherPersons?.forEach(otherPerson => {
-    refugeErrors[`c8RefugeDocument-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`] =
+    errors[`c8RefugeDocument-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`] =
       translations.errors.refugeDocumentText;
     otherPersonConfidentialityErrors[
       `otherPersonConfidentiality-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`
@@ -949,9 +1066,8 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     form,
     errors: {
+      ...errors,
       ...translations.errors,
-      ...refugeErrors,
-      ...otherPersonConfidentialityErrors,
     },
   };
 };
