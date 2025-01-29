@@ -7,10 +7,17 @@ import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/d
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
+import { doesAnyChildLiveWithOtherPerson } from '../other-person-details/utils';
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import { getAllMandatoryFieldsWithoutPeopleSection } from '../validation/util';
-import { generateApplicantErrors, generateChildErrors, generateOtherChildrenError, generateOtherPersonErrors, generateRespondentErrors } from './mainUtil';
-import { doesAnyChildLiveWithOtherPerson } from '../other-person-details/utils';
+
+import {
+  generateApplicantErrors,
+  generateChildErrors,
+  generateOtherChildrenError,
+  generateOtherPersonErrors,
+  generateRespondentErrors,
+} from './mainUtil';
 
 @autobind
 export default class CheckYourAnswersGetController extends GetController {
@@ -58,7 +65,7 @@ export default class CheckYourAnswersGetController extends GetController {
 
       const missingObject = mandetoryFieldname.filter(value => _.isEmpty(req.session.userCase[value]));
       req.session.errors = [];
-      const generalErrors: { propertyName: string; errorType: string; }[] = [];
+      const generalErrors: { propertyName: string; errorType: string }[] = [];
       if (missingObject.length) {
         missingObject.forEach(property => {
           if (property) {
@@ -68,14 +75,13 @@ export default class CheckYourAnswersGetController extends GetController {
             });
           }
         });
-
       }
 
-      const applicantErrors: { propertyName: string; errorType: string; }[] = [];
-      const respondentErrors: { propertyName: string; errorType: string; }[] = [];
-      const childErrors: { propertyName: string; errorType: string; }[] = [];
-      const otherChildErrors: { propertyName: string; errorType: string; }[] = [];
-      const otherPersonErrors: { propertyName: string; errorType: string; }[] = [];
+      const applicantErrors: { propertyName: string; errorType: string }[] = [];
+      const respondentErrors: { propertyName: string; errorType: string }[] = [];
+      const childErrors: { propertyName: string; errorType: string }[] = [];
+      const otherChildErrors: { propertyName: string; errorType: string }[] = [];
+      const otherPersonErrors: { propertyName: string; errorType: string }[] = [];
 
       // applicant
       req.session.userCase?.appl_allApplicants?.forEach((applicant, index) => {
@@ -90,35 +96,33 @@ export default class CheckYourAnswersGetController extends GetController {
         respondentErrors.push(...generateRespondentErrors(respondent, index));
       });
       // otherchildren
-      if(_.isEmpty(req.session.userCase?.ocd_hasOtherChildren)){
+      if (_.isEmpty(req.session.userCase?.ocd_hasOtherChildren)) {
         generalErrors.push({
-              propertyName: `ocd_hasOtherChildren`,
-              errorType: 'required',
-          });
+          propertyName: 'ocd_hasOtherChildren',
+          errorType: 'required',
+        });
       }
-      
-      if (req.session.userCase?.ocd_hasOtherChildren === "Yes") {
-          req.session.userCase?.ocd_otherChildren?.forEach((otherchildren, index) => {
-            otherChildErrors.push(...generateOtherChildrenError(otherchildren, index));
-          })
+
+      if (req.session.userCase?.ocd_hasOtherChildren === 'Yes') {
+        req.session.userCase?.ocd_otherChildren?.forEach((otherchildren, index) => {
+          otherChildErrors.push(...generateOtherChildrenError(otherchildren, index));
+        });
       }
       //otherPerson
-     if( _.isEmpty(req.session.userCase?.oprs_otherPersonCheck)){
-      generalErrors.push({
-              propertyName: `oprs_otherPersonCheck`,
-              errorType: 'required',
-          });
+      if (_.isEmpty(req.session.userCase?.oprs_otherPersonCheck)) {
+        generalErrors.push({
+          propertyName: 'oprs_otherPersonCheck',
+          errorType: 'required',
+        });
       }
-      if (req.session.userCase?.oprs_otherPersonCheck === "Yes") {
-      
-          req.session.userCase?.oprs_otherPersons?.forEach((otherperson, index) => {
-            const isAnyChildliveWithOtherPerson=doesAnyChildLiveWithOtherPerson(req.session.userCase, otherperson.id)
-            otherPersonErrors.push(...generateOtherPersonErrors(otherperson, index,isAnyChildliveWithOtherPerson));
-          })
+      if (req.session.userCase?.oprs_otherPersonCheck === 'Yes') {
+        req.session.userCase?.oprs_otherPersons?.forEach((otherperson, index) => {
+          const isAnyChildliveWithOtherPerson = doesAnyChildLiveWithOtherPerson(req.session.userCase, otherperson.id);
+          otherPersonErrors.push(...generateOtherPersonErrors(otherperson, index, isAnyChildliveWithOtherPerson));
+        });
       }
 
       // TODO Vivek, One error is fine or multiple error is fine--- readability purpose
-
 
       req.session.errors?.push(
         ...generalErrors,
@@ -132,7 +136,6 @@ export default class CheckYourAnswersGetController extends GetController {
       req.session.save(() => {
         super.get(req, res);
       });
-
     } catch (error) {
       req.locals.logger.error('error in update case', error);
 
@@ -150,4 +153,3 @@ export default class CheckYourAnswersGetController extends GetController {
     }
   }
 }
-

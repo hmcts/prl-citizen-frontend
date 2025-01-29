@@ -1052,24 +1052,26 @@ export const generateContent: TranslationFn = content => {
     errors[`hasNameChanged-otherPerson-${index}`] = translations.errors.hasNameChanged;
     errors[`otherGenderDetails-otherPerson-${index}`] = translations.errors.gender;
     errors[`isDateOfBirthUnknown-otherPerson-${index}`] = translations.errors.isDateOfBirthUnknown;
-    errors[`approxDateOfBirth-otherPerson-${index}`] = translations.errors.otherGenderDetails;//
+    errors[`approxDateOfBirth-otherPerson-${index}`] = translations.errors.otherGenderDetails; //
     errors[`dateOfBirth-otherPerson-${index}`] = translations.errors.otherGenderDetails;
     errors[`relationshipTo-otherPerson-${index}`] = translations.errors.relationshipType;
     errors[`c8RefugeDocument-otherPerson-${index}`] = translations.errors.refugeDocumentText;
-    errors[`otherPersonConfidentiality-otherPerson-${index}`]= interpolate(translations.errors.otherPersonConfidentiality.required, {
-      firstName: otherPerson.firstName,
-      lastName: otherPerson.lastName,
-    })
+    errors[`otherPersonConfidentiality-otherPerson-${index}`] = interpolate(
+      translations.errors.otherPersonConfidentiality.required,
+      {
+        firstName: otherPerson.firstName,
+        lastName: otherPerson.lastName,
+      }
+    );
   });
 
   content.userCase?.ocd_otherChildren?.forEach((otherChild, index) => {
     errors[`fullName-otherChild-${index}`] = translations.errors.fullName;
     errors[`isDateOfBirthUnknown-otherChild-${index}`] = translations.errors.isDateOfBirthUnknown;
-    errors[`approxDateOfBirth-otherChild-${index}`] = translations.errors.dateOfBirth;//
+    errors[`approxDateOfBirth-otherChild-${index}`] = translations.errors.dateOfBirth; //
     errors[`otherGenderDetails-otherChild-${index}`] = translations.errors.gender;
     errors[`dateOfBirth-otherChild-${index}`] = translations.errors.otherGenderDetails;
   });
-
 
   return {
     ...translations,

@@ -42,40 +42,40 @@ export const applicantAddressParser = (sessionApplicantData, keys, language) => 
       HTML.SPAN_CLOSE +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
+  }
 
+  html +=
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['haveLivedMore'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END;
+  html += isBorderPresent(sessionApplicantData['applicantAddressHistory'], 'Yes');
+  html +=
+    HTML.DESCRIPTION_TERM_DETAIL +
+    populateError(
+      sessionApplicantData?.['applicantAddressHistory'],
+      getYesNoTranslation(language, sessionApplicantData?.['applicantAddressHistory'], 'doTranslation') +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END,
+      language
+    );
+  if (sessionApplicantData['applicantAddressHistory'] === 'Yes') {
     html +=
       HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_ELEMENT +
-      keys['haveLivedMore'] +
+      keys['previousAddress'] +
       HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END;
-    html += isBorderPresent(sessionApplicantData['applicantAddressHistory'], 'Yes');
-    html +=
-      HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(
-        sessionApplicantData?.['applicantAddressHistory'],
-        getYesNoTranslation(language, sessionApplicantData?.['applicantAddressHistory'], 'doTranslation') +
-          HTML.DESCRIPTION_TERM_DETAIL_END +
-          HTML.ROW_END,
-        language
-      );
-    if (sessionApplicantData['applicantAddressHistory'] === 'Yes') {
-      html +=
-        HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_ELEMENT +
-        keys['previousAddress'] +
-        HTML.DESCRIPTION_TERM_ELEMENT_END +
-        HTML.ROW_END;
-      populateError(
+    populateError(
+      sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'],
+      HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL +
         sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'],
-        HTML.ROW_START_NO_BORDER +
-          HTML.DESCRIPTION_TERM_DETAIL +
-          sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'],
-        language
-      ) +
-        HTML.DESCRIPTION_TERM_DETAIL_END +
-        HTML.ROW_END;
-    }
+      language
+    ) +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END;
   }
   return html + HTML.DESCRIPTION_LIST_END;
 };
