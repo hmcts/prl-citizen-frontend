@@ -63,7 +63,6 @@ export default class CheckYourAnswersGetController extends GetController {
         missingObject.forEach(property => {
           if (property) {
             generalErrors.push({
-            generalErrors.push({
               propertyName: property,
               errorType: 'required',
             });
@@ -100,7 +99,7 @@ export default class CheckYourAnswersGetController extends GetController {
       
       if (req.session.userCase?.ocd_hasOtherChildren === "Yes") {
           req.session.userCase?.ocd_otherChildren?.forEach((otherchildren, index) => {
-            otherChildErrors.concat(generateOtherChildrenError(otherchildren, index));
+            otherChildErrors.push(...generateOtherChildrenError(otherchildren, index));
           })
       }
       //otherPerson
@@ -114,7 +113,7 @@ export default class CheckYourAnswersGetController extends GetController {
       
           req.session.userCase?.oprs_otherPersons?.forEach((otherperson, index) => {
             const isAnyChildliveWithOtherPerson=doesAnyChildLiveWithOtherPerson(req.session.userCase, otherperson.id)
-            otherPersonErrors.concat(generateOtherPersonErrors(otherperson, index,isAnyChildliveWithOtherPerson));
+            otherPersonErrors.push(...generateOtherPersonErrors(otherperson, index,isAnyChildliveWithOtherPerson));
           })
       }
 

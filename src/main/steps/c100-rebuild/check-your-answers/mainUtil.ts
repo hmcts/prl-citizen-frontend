@@ -5,16 +5,12 @@ import _ from 'lodash';
 import { CaseWithId } from '../../../app/case/case';
 import {
   C100Applicant,
-  C100Applicant,
   C100FlowTypes,
-  C100RebuildPartyDetails,
   C100RebuildPartyDetails,
   C1AAbuseTypes,
   C1ASafteyConcernsAbout,
   ChildrenDetails,
-  ChildrenDetails,
   ContactPreference,
-  Gender,
   Gender,
   RootContext,
   YesNoDontKnow,
@@ -2394,7 +2390,7 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     });
   }
 
-  if (_.isEmpty(applicant.personalDetails.dateOfBirth)) {
+  if (_.isEmpty(applicant.personalDetails.dateOfBirth?.day) && _.isEmpty(applicant.personalDetails.dateOfBirth?.month)&&_.isEmpty(applicant.personalDetails.dateOfBirth?.year)) {
     error.push({
       propertyName: `dateOfBirth-applicant-${index}`,
       errorType: 'required',
@@ -2481,41 +2477,39 @@ export const generateChildErrors = (child: ChildrenDetails, index: number) => {
       errorType: 'required',
     });
   }
-  if (child.personalDetails.approxDateOfBirth && _.isEmpty(child.personalDetails.isDateOfBirthUnknown)) {
-    error.push({
-      propertyName: `isDateOfBirthUnknown-${index}`,
-      errorType: 'required',
-    });
-  }
+  //temp may be deleted
+  // if (child.personalDetails.approxDateOfBirth && _.isEmpty(child.personalDetails.isDateOfBirthUnknown)) {
+  //   error.push({
+  //     propertyName: `isDateOfBirthUnknown-${index}`,
+  //     errorType: 'required',
+  //   });
+  // }
 
   if (child.personalDetails.isDateOfBirthUnknown && child.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES && _.isEmpty(child.personalDetails.approxDateOfBirth)) {
     error.push({
-      propertyName: `approxDateOfBirth-${index}`,
+      propertyName: `approxDateOfBirth-child-${index}`,
       errorType: 'required',
     });
   }
 
-  if (child.personalDetails.isDateOfBirthUnknown && child.personalDetails.isDateOfBirthUnknown === YesNoEmpty.NO && _.isEmpty(child.personalDetails.dateOfBirth)) {
+  if (child.personalDetails.isDateOfBirthUnknown==="" && (_.isEmpty(child.personalDetails.dateOfBirth?.day)&& _.isEmpty(child.personalDetails.dateOfBirth?.month) &&_.isEmpty(child.personalDetails.dateOfBirth?.year))) {
     error.push({
-      propertyName: `dateOfBirth-${index}`,
+      propertyName: `dateOfBirth-child-${index}`,
       errorType: 'required',
     });
   }
 
-  if (child.personalDetails.isDateOfBirthUnknown && child.personalDetails.isDateOfBirthUnknown === YesNoEmpty.NO && _.isEmpty(child.personalDetails.dateOfBirth)) {
-    error.push({
-      propertyName: `dateOfBirth-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (_.isEmpty(child.personalDetails.gender) ||
-    (child.personalDetails.gender === Gender.OTHER && _.isEmpty(child.personalDetails.otherGenderDetails))) {
+  if (!child.personalDetails.gender ) {
     error.push({
       propertyName: `otherGenderDetails-child-${index}`,
       errorType: 'required',
     });
-  }
+  }else if ((child.personalDetails.gender === Gender.OTHER && _.isEmpty(child.personalDetails.otherGenderDetails))) {
+  error.push({
+    propertyName: `otherGenderDetails-child-${index}`,
+    errorType: 'required',
+  });
+}
 
   if (_.isEmpty(child.childMatters.needsResolution)) {
     error.push({
@@ -2584,24 +2578,17 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
     });
   }
 
-  if (respondent.personalDetails.approxDateOfBirth && _.isEmpty(respondent.personalDetails.isDateOfBirthUnknown)
-    //   : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
-  ) {
-    error.push({
-      propertyName: `isDateOfBirthUnknown-respondent-${index}`,
-      errorType: 'required',
-    });
-  }
 
-  if (respondent.personalDetails.approxDateOfBirth && _.isEmpty(respondent.personalDetails.isDateOfBirthUnknown)) {
-    error.push({
-      propertyName: `isDateOfBirthUnknown-respondent-${index}`,
-      errorType: 'required',
-    });
-  }
+  //temp may be deleted
 
+  // if (respondent.personalDetails.approxDateOfBirth && _.isEmpty(respondent.personalDetails.isDateOfBirthUnknown)
+  // ) {
+  //   error.push({
+  //     propertyName: `isDateOfBirthUnknown-respondent-${index}`,
+  //     errorType: 'required',
+  //   });
+  // }else 
   if (respondent?.personalDetails?.isDateOfBirthUnknown === YesNoEmpty.YES && _.isEmpty(respondent.personalDetails.approxDateOfBirth)
-    //   : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
   ) {
     error.push({
       propertyName: `approxDateOfBirth-respondent-${index}`,
@@ -2609,7 +2596,7 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
     });
   }
 
-  if (respondent.personalDetails.isDateOfBirthUnknown == '' && _.isEmpty(respondent.personalDetails.dateOfBirth)) {
+  if (respondent.personalDetails.isDateOfBirthUnknown == '' &&(_.isEmpty(respondent.personalDetails.dateOfBirth?.day)&&_.isEmpty(respondent.personalDetails.dateOfBirth?.month)&&_.isEmpty(respondent.personalDetails.dateOfBirth?.year))) {
     error.push({
       propertyName: `dateOfBirth-respondent-${index}`,
       errorType: 'required',
@@ -2640,14 +2627,14 @@ export const generateOtherChildrenError = (otherchildren: otherchild, index: num
       errorType: 'required',
     });
 
+  //temp may be deleted
 
-
-  if (otherchildren.personalDetails.approxDateOfBirth && _.isEmpty(otherchildren.personalDetails.isDateOfBirthUnknown)) {
-    error.push({
-      propertyName: `isDateOfBirthUnknown-otherChild-${index}`,
-      errorType: 'required',
-    });
-  }
+  // if (otherchildren.personalDetails.approxDateOfBirth && _.isEmpty(otherchildren.personalDetails.isDateOfBirthUnknown)) {
+  //   error.push({
+  //     propertyName: `isDateOfBirthUnknown-otherChild-${index}`,
+  //     errorType: 'required',
+  //   });
+  // }
 
   if (otherchildren.personalDetails.isDateOfBirthUnknown && otherchildren.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES && _.isEmpty(otherchildren.personalDetails.approxDateOfBirth)) {
     error.push({
@@ -2656,14 +2643,7 @@ export const generateOtherChildrenError = (otherchildren: otherchild, index: num
     });
   }
 
-  if (otherchildren.personalDetails.isDateOfBirthUnknown && otherchildren.personalDetails.isDateOfBirthUnknown === YesNoEmpty.NO && _.isEmpty(otherchildren.personalDetails.dateOfBirth)) {
-    error.push({
-      propertyName: `dateOfBirth-otherChild-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (otherchildren.personalDetails.isDateOfBirthUnknown && otherchildren.personalDetails.isDateOfBirthUnknown === YesNoEmpty.NO && _.isEmpty(otherchildren.personalDetails.dateOfBirth)) {
+  if (!otherchildren.personalDetails.isDateOfBirthUnknown &&( _.isEmpty(otherchildren.personalDetails.dateOfBirth?.day)&&_.isEmpty(otherchildren.personalDetails.dateOfBirth?.month)&&_.isEmpty(otherchildren.personalDetails.dateOfBirth?.year))) {
     error.push({
       propertyName: `dateOfBirth-otherChild-${index}`,
       errorType: 'required',
@@ -2707,22 +2687,22 @@ export const generateOtherPersonErrors = (otherperson: C100RebuildPartyDetails, 
       errorType: 'required',
     });
   }
+    //temp may be deleted
 
-  if (otherperson.personalDetails.approxDateOfBirth && _.isEmpty(otherperson.personalDetails.isDateOfBirthUnknown)
-    //   : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
-  ) {
-    error.push({
-      propertyName: `isDateOfBirthUnknown-otherPerson-${index}`,
-      errorType: 'required',
-    });
-  }
+  // if (otherperson.personalDetails.approxDateOfBirth && _.isEmpty(otherperson.personalDetails.isDateOfBirthUnknown)
+  // ) {
+  //   error.push({
+  //     propertyName: `isDateOfBirthUnknown-otherPerson-${index}`,
+  //     errorType: 'required',
+  //   });
+  // }
 
-  if (otherperson.personalDetails.approxDateOfBirth && _.isEmpty(otherperson.personalDetails.isDateOfBirthUnknown)) {
-    error.push({
-      propertyName: `isDateOfBirthUnknown-otherPerson-${index}`,
-      errorType: 'required',
-    });
-  }
+  // if (otherperson.personalDetails.approxDateOfBirth && _.isEmpty(otherperson.personalDetails.isDateOfBirthUnknown)) {
+  //   error.push({
+  //     propertyName: `isDateOfBirthUnknown-otherPerson-${index}`,
+  //     errorType: 'required',
+  //   });
+  // }
 
   if (otherperson?.personalDetails?.isDateOfBirthUnknown === YesNoEmpty.YES && _.isEmpty(otherperson.personalDetails.approxDateOfBirth)
     //   : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
@@ -2733,7 +2713,7 @@ export const generateOtherPersonErrors = (otherperson: C100RebuildPartyDetails, 
     });
   }
 
-  if (otherperson.personalDetails.isDateOfBirthUnknown == '' && _.isEmpty(otherperson.personalDetails.dateOfBirth)) {
+  if (otherperson.personalDetails.isDateOfBirthUnknown == '' &&( _.isEmpty(otherperson.personalDetails.dateOfBirth?.day)&&_.isEmpty(otherperson.personalDetails.dateOfBirth?.month)&&_.isEmpty(otherperson.personalDetails.dateOfBirth?.year))) {
     error.push({
       propertyName: `dateOfBirth-otherPerson-${index}`,
       errorType: 'required',

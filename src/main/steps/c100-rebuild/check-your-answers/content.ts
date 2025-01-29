@@ -1009,8 +1009,6 @@ export const generateContent: TranslationFn = content => {
 
   form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!) || !!missingObject; //change to use cya redirect application completed?
   const errors = {};
-
-  const otherPersonConfidentialityErrors = {};
   content.userCase?.appl_allApplicants?.forEach((applicant, index) => {
     errors[`c8RefugeDocument-applicant-${index}`] = translations.errors.refugeDocumentText;
     errors[`fullName-applicant-${index}`] = translations.errors.fullName;
@@ -1030,10 +1028,10 @@ export const generateContent: TranslationFn = content => {
 
   content.userCase?.cd_children?.forEach((child, index) => {
     errors[`fullName-child-${index}`] = translations.errors.fullName;
-    errors[`isDateOfBirthUnknown-${index}`] = translations.errors.isDateOfBirthUnknown;
-    errors[`approxDateOfBirth-${index}`] = translations.errors.approxDateOfBirth;
-    errors[`dateOfBirth-${index}`] = translations.errors.childDateOfBirth;
-    errors[`otherGenderDetails-child-${index}`] = translations.errors.otherGenderDetails;
+    errors[`isDateOfBirthUnknown-child-${index}`] = translations.errors.isDateOfBirthUnknown;
+    errors[`approxDateOfBirth-child-${index}`] = translations.errors.approxDateOfBirth;
+    errors[`dateOfBirth-child-${index}`] = translations.errors.childDateOfBirth;
+    errors[`otherGenderDetails-child-${index}`] = translations.errors.childGender;
     errors[`orderAppliedFor-child-${index}`] = translations.errors.childMatters;
     errors[`parentalResponsibility-child-${index}`] = translations.errors.parentalResponsibility;
     errors[`childLivingArrangements-child-${index}`] = translations.errors.liveWith;
@@ -1049,18 +1047,29 @@ export const generateContent: TranslationFn = content => {
     errors[`relationshipTo-respondent-${index}`] = translations.errors.relationshipType;
   });
 
-  content.userCase?.oprs_otherPersons?.forEach(otherPerson => {
-    errors[`c8RefugeDocument-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`] =
-      translations.errors.refugeDocumentText;
-    otherPersonConfidentialityErrors[
-      `otherPersonConfidentiality-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`
-    ] = {
-      required: interpolate(translations.errors.otherPersonConfidentiality.required, {
-        firstName: otherPerson.firstName,
-        lastName: otherPerson.lastName,
-      }),
-    };
+  content.userCase?.oprs_otherPersons?.forEach((otherPerson, index) => {
+    errors[`fullName-otherPerson-${index}`] = translations.errors.fullName;
+    errors[`hasNameChanged-otherPerson-${index}`] = translations.errors.hasNameChanged;
+    errors[`otherGenderDetails-otherPerson-${index}`] = translations.errors.gender;
+    errors[`isDateOfBirthUnknown-otherPerson-${index}`] = translations.errors.isDateOfBirthUnknown;
+    errors[`approxDateOfBirth-otherPerson-${index}`] = translations.errors.otherGenderDetails;//
+    errors[`dateOfBirth-otherPerson-${index}`] = translations.errors.otherGenderDetails;
+    errors[`relationshipTo-otherPerson-${index}`] = translations.errors.relationshipType;
+    errors[`c8RefugeDocument-otherPerson-${index}`] = translations.errors.refugeDocumentText;
+    errors[`otherPersonConfidentiality-otherPerson-${index}`]= interpolate(translations.errors.otherPersonConfidentiality.required, {
+      firstName: otherPerson.firstName,
+      lastName: otherPerson.lastName,
+    })
   });
+
+  content.userCase?.ocd_otherChildren?.forEach((otherChild, index) => {
+    errors[`fullName-otherChild-${index}`] = translations.errors.fullName;
+    errors[`isDateOfBirthUnknown-otherChild-${index}`] = translations.errors.isDateOfBirthUnknown;
+    errors[`approxDateOfBirth-otherChild-${index}`] = translations.errors.dateOfBirth;//
+    errors[`otherGenderDetails-otherChild-${index}`] = translations.errors.gender;
+    errors[`dateOfBirth-otherChild-${index}`] = translations.errors.otherGenderDetails;
+  });
+
 
   return {
     ...translations,
