@@ -389,6 +389,14 @@ describe('c100 > other person details > utils', () => {
         } as unknown as CaseWithId)
       ).toEqual(['123']);
     });
+
+    test('should return an empty list if no other people present', () => {
+      expect(
+        getOtherPeopleLivingWithChildren({
+          cd_children: [{ id: '123', liveWith: [{ id: '123' }] }],
+        } as unknown as CaseWithId)
+      ).toEqual([]);
+    });
   });
 
   describe('getNextPersonLivingWithChild', () => {

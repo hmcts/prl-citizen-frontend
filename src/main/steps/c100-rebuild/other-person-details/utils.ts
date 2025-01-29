@@ -17,9 +17,11 @@ export const doesAnyChildLiveWithOtherPerson = (caseData: CaseWithId, otherPerso
 };
 
 export const getOtherPeopleLivingWithChildren = (caseData: CaseWithId): string[] => {
-  return caseData
-    .oprs_otherPersons!.map(person => (doesAnyChildLiveWithOtherPerson(caseData, person.id) ? person.id : ''))
-    .filter(id => id !== '');
+  return (
+    caseData.oprs_otherPersons
+      ?.map(person => (doesAnyChildLiveWithOtherPerson(caseData, person.id) ? person.id : ''))
+      .filter(id => id !== '') ?? []
+  );
 };
 
 export const getNextPersonLivingWithChild = (otherPeopleIds: string[], currentPersonId: string): string | null => {
