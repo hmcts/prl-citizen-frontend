@@ -7,29 +7,11 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
 import { PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { FormError } from '../../../app/form/Form';
 import { GovUkNunjucksSummary } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { STATEMENT_OF_SERVICE_WHO_WAS_SERVED, UPLOAD_STATEMENT_OF_SERVICE } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
-
-export const removeErrors = (errors: FormError[] | undefined): FormError[] => {
-  return errors?.length ? errors.filter(error => error.propertyName !== 'statementOfServiceDoc') : [];
-};
-
-export const handleError = (
-  errors: FormError[] | undefined,
-  errorType: string,
-  omitOtherErrors?: boolean
-): FormError[] => {
-  let _errors: FormError[] = errors?.length ? errors : [];
-
-  if (omitOtherErrors) {
-    _errors = [...removeErrors(_errors)];
-  }
-
-  return [..._errors, { errorType, propertyName: 'statementOfServiceDoc' }];
-};
+import { handleError, removeErrors } from '../utils';
 
 export const deleteDocument = async (req: AppRequest, res: Response): Promise<void> => {
   const { params, session } = req;
@@ -46,7 +28,7 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
 
     req.session.errors = removeErrors(req.session.errors);
   } catch (e) {
-    req.session.errors = handleError(req.session.errors, 'deleteError', true);
+    req.session.errors = handleError(req.session.errors, 'deleteError', 'statementOfServiceDoc', true);
   } finally {
     req.session.save(() => {
       res.redirect(

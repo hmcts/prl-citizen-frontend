@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { Case } from '../../../../../app/case/case';
-import { C1AAbuseTypes, C1ASafteyConcerns } from '../../../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcerns, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -20,9 +20,21 @@ export default class SafteyConcernsAbusePostController extends PostController<An
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const abuseType = req.params.abuseType as C1AAbuseTypes;
     const C100RebuildJourney = req.originalUrl.startsWith(C100_URL);
-    const form = new Form(getFormFields(req.session.userCase, abuseType, C100RebuildJourney).fields as FormFields);
+    const caseData = req.session.userCase;
+    const form = new Form(getFormFields(caseData, abuseType, C100RebuildJourney).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const childDetails = C100RebuildJourney ? caseData?.cd_children : caseData?.newChildDetails;
+
+    if (childDetails?.length === 1) {
+      Object.assign(formFields, { childrenConcernedAbout: [childDetails[0].id] });
+    }
+
     const { _csrf, ...formData } = form.getParsedBody(formFields);
+
+    if (req.body['seekHelpFromPersonOrAgency'] === YesOrNo.NO) {
+      delete formData['seekHelpDetails'];
+    }
+
     const childAbuseData: Partial<Case> = {
       c1A_safteyConcerns: {
         ...(req.session.userCase?.c1A_safteyConcerns ?? {}),
@@ -33,6 +45,7 @@ export default class SafteyConcernsAbusePostController extends PostController<An
       },
     };
 
+    req.session.errors = form.getErrors(formData);
     req.session.userCase = {
       ...(req.session?.userCase ?? {}),
       ...childAbuseData,

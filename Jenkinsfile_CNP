@@ -39,7 +39,6 @@ def secrets = [
     secret('ccd-datastore-client-secret', 'CCD_DATASTORE_client_secret'),
     secret('ccd-datastore-username', 'CCD_DATASTORE_username'),
     secret('ccd-datastore-password', 'CCD_DATASTORE_password')
-
   ]
 ]
 
@@ -65,34 +64,15 @@ withPipeline(type, product, component) {
 
   before('smoketest:preview') {
     env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
+    build job: 'HMCTS_j_to_z/prl-e2e-tests/master', wait: true, propogate: true, parameters: [booleanParam(name: "skipManageCasesTests", value: true), string(name: "CITIZEN_FRONTEND_BASE_URL", value: env.PRL_CITIZEN_URL)]
   }
-
   afterAlways('smoketest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
-
   before('smoketest:aat') {
-    env.PRL_CITIZEN_URL = "https://privatelaw.aat.platform.hmcts.net/"
+    build job: 'HMCTS_j_to_z/prl-e2e-tests/master', wait: true, propogate: true, parameters: [booleanParam(name: "skipManageCasesTests", value: true)]
   }
-
   afterAlways('smoketest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('functionalTest:preview') {
-    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
-  }
-
-  afterAlways('functionalTest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('functionalTest:aat') {
-    env.PRL_CITIZEN_URL = "https://privatelaw.aat.platform.hmcts.net/"
-    yarnBuilder.yarn('test:functional:skip')
-  }
-
-  afterAlways('functionalTest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }

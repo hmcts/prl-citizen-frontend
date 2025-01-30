@@ -4,6 +4,7 @@ import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 import { generateContent as childrenGenerateContent } from '../child-details/add-children/content';
 import { generateContent as otherChildrenGenerateContent } from '../child-details/other-children/names/content';
+import { generateContent as respondentGenerateContent } from '../respondent-details/add-respondents/content';
 
 import AddPeoplePostContoller from './AddPeoplePostContoller';
 
@@ -610,6 +611,70 @@ describe('Add other children', () => {
     otherChildrenGenerateContent(commonContent);
     await controller.post(req, res);
 
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Should remove the respondent, clean live with data and redirect to the same page when remove child button is clicked', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new AddPeoplePostContoller(mockFormContent.fields);
+
+    const req = mockRequest({
+      body: {
+        _ctx: 'resp',
+        remove: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
+      session: {
+        lang: 'en',
+        userCase: {
+          resp_Respondents: [
+            {
+              id: '7483640e-0817-4ddc-b709-6723f7925474',
+              firstName: 'Bob',
+              lastName: 'Silly',
+            },
+            {
+              id: '7483640e-0817-4ddc-b709-6723f7925485',
+              firstName: 'Jane',
+              lastName: 'Doe',
+            },
+          ],
+          cd_children: [
+            {
+              id: '7483640e-0817-4ddc-b709-6723f79254742',
+              firstName: 'Bob',
+              lastName: 'Silly',
+              mainlyLiveWith: { id: '7483640e-0817-4ddc-b709-6723f7925474' },
+              liveWith: [
+                { id: '7483640e-0817-4ddc-b709-6723f7925474' },
+                { id: '7483640e-0817-4ddc-b709-6723f7925485' },
+              ],
+            },
+          ],
+        },
+      },
+    });
+    const res = mockResponse();
+    respondentGenerateContent(commonContent);
+    await controller.post(req, res);
+
+    expect(req.session.userCase.resp_Respondents).toHaveLength(1);
+    expect(req.session.userCase.resp_Respondents).toStrictEqual([
+      {
+        id: '7483640e-0817-4ddc-b709-6723f7925485',
+        firstName: 'Jane',
+        lastName: 'Doe',
+      },
+    ]);
+    expect(req.session.userCase.cd_children).toStrictEqual([
+      {
+        id: '7483640e-0817-4ddc-b709-6723f79254742',
+        firstName: 'Bob',
+        lastName: 'Silly',
+        liveWith: [{ id: '7483640e-0817-4ddc-b709-6723f7925485' }],
+      },
+    ]);
     expect(res.redirect).toHaveBeenCalled();
   });
 });

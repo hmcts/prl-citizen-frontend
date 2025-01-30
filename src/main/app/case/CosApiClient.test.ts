@@ -279,15 +279,70 @@ describe('CosApiClient', () => {
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
   });
 
-  /*test.skip('submitC7Response', async () => {
-    const response = { id: '200', state: 'SUCCESS' };
+  test('submitC7Response', async () => {
+    const response = { caseData: { id: '123456', state: 'Success' } };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
-    const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    const caseData = toApiFormat(req?.session?.userCase);
-    const actual = await client.submitC7Response('123456', '123456', caseData);
-    expect(actual).toEqual(response);
-  });*/
+    const actual = await client.submitC7Response(
+      '123456',
+      {
+        firstName: 'testuser',
+        lastName: 'Citizen',
+        email: 'abc@example.net',
+        dateOfBirth: '03-20-2023',
+        phoneNumber: '7755664466',
+        placeOfBirth: 'BPP',
+        previousName: 'test',
+        isAtAddressLessThan5Years: 'No',
+        addressLivedLessThan5YearsDetails: 'Hello',
+        address: {
+          AddressLine1: 'string',
+          AddressLine2: 'string',
+          AddressLine3: 'string',
+          PostTown: 'string',
+          County: 'string',
+          PostCode: 'string',
+          Country: 'string',
+        },
+      },
+      'applicant' as PartyType,
+      'C100' as CaseType
+    );
+    expect(actual).toEqual({ id: '123456', state: 'Success' });
+  });
+
+  test('submitC7Response should throw error', async () => {
+    const response = { caseData: { id: '123456', state: 'Success' } };
+    mockedAxios.post.mockRejectedValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const client = new CosApiClient('abc', mockLogger);
+    await expect(
+      client.submitC7Response(
+        '123456',
+        {
+          firstName: 'testuser',
+          lastName: 'Citizen',
+          email: 'abc@example.net',
+          dateOfBirth: '03-20-2023',
+          phoneNumber: '7755664466',
+          placeOfBirth: 'BPP',
+          previousName: 'test',
+          isAtAddressLessThan5Years: 'No',
+          addressLivedLessThan5YearsDetails: 'Hello',
+          address: {
+            AddressLine1: 'string',
+            AddressLine2: 'string',
+            AddressLine3: 'string',
+            PostTown: 'string',
+            County: 'string',
+            PostCode: 'string',
+            Country: 'string',
+          },
+        },
+        'applicant' as PartyType,
+        'C100' as CaseType
+      )
+    ).rejects.toThrow('Error occured, case could not be updated - updateCaseData');
+  });
 
   test('generateStatementDocument', async () => {
     const response = {

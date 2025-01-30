@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../app/case/case';
 import {
   C1AAbuseTypes,
@@ -12,6 +14,7 @@ import {
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
 import { interpolate } from '../../../steps/common/string-parser';
 import { proceedingSummaryData } from '../../../steps/common/summary/utils';
+import { doesAnyChildLiveWithOtherPerson } from '../../c100-rebuild/other-person-details/utils';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
@@ -222,8 +225,7 @@ export const ChildernDetails = (
   language
 ): SummaryList | undefined => {
   const sessionChildData = userCase['cd_children'];
-  const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
-    [];
+  let newChildDataStorage: SummaryListRow[] = [];
   for (const child in sessionChildData) {
     const firstname = sessionChildData[child]['firstName'],
       lastname = sessionChildData[child]['lastName'],
@@ -252,39 +254,62 @@ export const ChildernDetails = (
       },
       {
         key: keys['fullName'],
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['fullName']}`,
         value: firstname + ' ' + lastname,
         changeUrl: Urls['C100_CHILDERN_DETAILS_ADD'],
       }
     );
 
-    populateDateOfBirth(personalDetails, newChildDataStorage, keys, language, id, true);
+    newChildDataStorage = newChildDataStorage.concat(
+      populateDateOfBirth(personalDetails, keys, language, id, true, parseInt(child) + 1, `${keys['child']}`)
+    );
 
+    const childName = ` ${firstname} ${lastname} `;
     newChildDataStorage.push(
       {
         key: keys['childGenderLabel'],
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['childGenderLabel']}`,
         value: '',
         valueHtml:
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
-            ? translation(personalDetails?.['gender'], language) +
-              HTML.BREAK +
-              HTML.RULER +
+            ? HTML.DESCRIPTION_LIST +
+              HTML.ROW_START +
+              HTML.DESCRIPTION_TERM_DETAIL +
+              translation(personalDetails?.['gender'], language) +
+              HTML.DESCRIPTION_TERM_DETAIL_END +
+              HTML.ROW_END +
+              HTML.ROW_START_NO_BORDER +
+              HTML.DESCRIPTION_TERM_DETAIL +
               keys['otherGender'] +
-              HTML.H4 +
+              HTML.DESCRIPTION_TERM_DETAIL_END +
+              HTML.ROW_END +
+              HTML.ROW_START_NO_BORDER +
+              HTML.DESCRIPTION_TERM_ELEMENT +
               keys['details'] +
-              HTML.H4_CLOSE +
+              HTML.DESCRIPTION_TERM_ELEMENT_END +
+              HTML.ROW_END +
               HTML.BREAK +
-              personalDetails['otherGenderDetails']
+              HTML.ROW_START_NO_BORDER +
+              HTML.DESCRIPTION_TERM_DETAIL +
+              personalDetails['otherGenderDetails'] +
+              HTML.DESCRIPTION_TERM_DETAIL_END +
+              HTML.ROW_END +
+              HTML.DESCRIPTION_LIST_END
             : translation(personalDetails?.['gender'], language),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
         key: keys['orderAppliedFor'],
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['orderAppliedFor']}`,
         value: '',
         valueHtml: childResolution?.split(',').join(''),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
-        key: keys['parentalResponsibility']?.split('[^^^]').join(` ${firstname} ${lastname} `),
+        key: keys['parentalResponsibility']?.split('[^^^]').join(childName),
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['parentalResponsibility']
+          ?.split('[^^^]')
+          .join(childName)}`,
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       }
@@ -292,7 +317,8 @@ export const ChildernDetails = (
   }
   const SummaryData = newChildDataStorage;
   return {
-    title: sectionTitles['ChildernDetails'],
+    title: '',
+    subTitle: sectionTitles['ChildernDetails'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -303,20 +329,30 @@ export const ChildernDetailsAdditional = (
   userCase: Partial<CaseWithId>,
   language
 ): SummaryList | undefined => {
-  let htmlForAdditionalText = '';
-  htmlForAdditionalText = getYesNoTranslation(
+  let htmlForAdditionalText = userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
+    ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
+    : '';
+  htmlForAdditionalText += getYesNoTranslation(
     language,
     userCase?.['cd_childrenKnownToSocialServices'],
     'ydynTranslation'
   );
-  htmlForAdditionalText += HTML.BREAK;
   htmlForAdditionalText += userCase.hasOwnProperty('cd_childrenKnownToSocialServicesDetails')
-    ? HTML.RULER +
-      HTML.H4 +
-      keys['details'] +
-      HTML.H4_CLOSE +
+    ? HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END +
       HTML.BREAK +
-      userCase['cd_childrenKnownToSocialServicesDetails']
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT +
+      keys['details'] +
+      HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END +
+      HTML.BREAK +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      userCase['cd_childrenKnownToSocialServicesDetails'] +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END +
+      HTML.DESCRIPTION_LIST_END
     : '';
 
   const SummaryData = [
@@ -333,7 +369,8 @@ export const ChildernDetailsAdditional = (
     },
   ];
   return {
-    title: sectionTitles['additionationDetailsAboutChildern'],
+    title: '',
+    subTitle: sectionTitles['additionationDetailsAboutChildern'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -345,8 +382,7 @@ export const OtherChildrenDetails = (
   language
 ): SummaryList | undefined => {
   const sessionChildData = userCase['ocd_otherChildren'];
-  const newChildDataStorage: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
-    [];
+  let newChildDataStorage: SummaryListRow[] = [];
 
   newChildDataStorage.push({
     key: keys['hasOtherChildren'],
@@ -370,25 +406,18 @@ export const OtherChildrenDetails = (
         {
           key: keys['fullName'],
           value: firstname + ' ' + lastname,
+          visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['fullName']}`,
           changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
         }
       );
-      populateDateOfBirth(personalDetails, newChildDataStorage, keys, language, id, false);
+      newChildDataStorage = newChildDataStorage.concat(
+        populateDateOfBirth(personalDetails, keys, language, id, false, parseInt(child) + 1, 'Other child')
+      );
       newChildDataStorage.push({
         key: keys['childGenderLabel'],
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['childGenderLabel']}`,
         value: translation(personalDetails?.['gender'], language),
-        valueHtml:
-          translation(personalDetails?.['gender'], language) +
-            ' ' +
-            personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
-            ? HTML.BREAK +
-              keys['otherGender'] +
-              HTML.RULER +
-              HTML.H4 +
-              keys['details'] +
-              HTML.H4_CLOSE +
-              personalDetails['otherGenderDetails']
-            : '',
+        valueHtml: generateGenderHtml(personalDetails, keys, language),
         changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
       });
     }
@@ -396,24 +425,54 @@ export const OtherChildrenDetails = (
 
   const SummaryData = newChildDataStorage;
   return {
-    title: sectionTitles['otherChildernDetails'],
+    title: '',
+    subTitle: sectionTitles['otherChildernDetails'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
 
+const generateGenderHtml = (personalDetails, keys: Record<string, string>, language: string): string => {
+  return personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
+    ? HTML.DESCRIPTION_LIST +
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        translation(personalDetails?.['gender'], language) +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END +
+        HTML.ROW_START_NO_BORDER +
+        keys['otherGender'] +
+        HTML.ROW_END +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_ELEMENT +
+        keys['details'] +
+        HTML.DESCRIPTION_TERM_ELEMENT_END +
+        HTML.ROW_END +
+        HTML.BREAK +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        personalDetails['otherGenderDetails'] +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END +
+        HTML.DESCRIPTION_LIST_END
+    : translation(personalDetails?.['gender'], language) + ' ';
+};
+
 export const ApplicantDetailNameParser = (personalDetails, keys, language): string => {
   let changeNameInformation = '';
-  const hasNameChanged = getYesNoTranslation(language, personalDetails['haveYouChangeName'], 'doTranslation');
-  changeNameInformation += hasNameChanged;
+  changeNameInformation +=
+    personalDetails['haveYouChangeName'] === 'Yes'
+      ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
+      : '';
+  changeNameInformation += getYesNoTranslation(language, personalDetails['haveYouChangeName'], 'doTranslation');
   if (personalDetails['haveYouChangeName'] === 'Yes') {
     const changedName = personalDetails['applPreviousName'];
-    changeNameInformation += HTML.RULER;
-    changeNameInformation += HTML.H4;
+    changeNameInformation +=
+      HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
     changeNameInformation += keys['details'];
-    changeNameInformation += HTML.H4_CLOSE;
-    changeNameInformation += HTML.BOTTOM_PADDING_3;
+    changeNameInformation += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
+    changeNameInformation += HTML.BREAK + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL;
     changeNameInformation += changedName;
-    changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
+    changeNameInformation += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
   }
   return changeNameInformation;
 };
@@ -424,8 +483,15 @@ export const ApplicantDetails = (
   language
 ): SummaryList | undefined => {
   const sessionApplicantData = userCase['appl_allApplicants'];
-  const newApplicantData: { key: string; keyHtml?: string; value: string; valueHtml?: string; changeUrl: string }[] =
-    [];
+  const newApplicantData: {
+    key: string;
+    keyHtml?: string;
+    visuallyHiddenText?: string;
+    anchorReference?: string;
+    value: string;
+    valueHtml?: string;
+    changeUrl: string;
+  }[] = [];
   for (const applicant in sessionApplicantData) {
     const fullname =
       sessionApplicantData[applicant]['applicantFirstName'] +
@@ -436,18 +502,27 @@ export const ApplicantDetails = (
     const applicantId = sessionApplicantData[applicant]['id'];
     const parseStartAndStartAlternativeSubFields = (key, keyArray) => {
       let html = '';
-      html += getYesNoTranslation(language, sessionApplicantData[applicant][key], 'ydwTranslation');
+      html +=
+        HTML.DESCRIPTION_LIST +
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        getYesNoTranslation(language, sessionApplicantData[applicant][key], 'ydwTranslation') +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END;
       if (sessionApplicantData[applicant][keyArray].length > 0) {
         html +=
-          HTML.RULER +
+          HTML.ROW_START_NO_BORDER +
+          HTML.DESCRIPTION_TERM_DETAIL +
           HTML.UNORDER_LIST +
           sessionApplicantData[applicant][keyArray]
             ?.map(item => HTML.LIST_ITEM + translation(item, language) + HTML.LIST_ITEM_END)
             .toString()
             .split(',')
-            .join('');
+            .join('') +
+          HTML.DESCRIPTION_TERM_DETAIL_END +
+          HTML.ROW_END;
       }
-      return html;
+      return html + HTML.DESCRIPTION_LIST_END;
     };
 
     newApplicantData.push(
@@ -459,16 +534,19 @@ export const ApplicantDetails = (
       },
       {
         key: keys['fullName'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['fullName']}`,
         value: fullname,
         changeUrl: Urls['C100_APPLICANT_ADD_APPLICANTS'],
       },
       {
         key: keys['anyOtherPeopleKnowDetails'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['anyOtherPeopleKnowDetails']}`,
         value: getYesNoTranslation(language, sessionApplicantData[applicant]['detailsKnown'], 'ydyntTranslation'),
         changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
       },
       {
         key: keys['doYouWantToKeep'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['doYouWantToKeep']}`,
         value: '',
         valueHtml:
           sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
@@ -481,34 +559,27 @@ export const ApplicantDetails = (
       },
       {
         key: keys['haveYouChangeNameLabel'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['haveYouChangeNameLabel']}`,
         value: '',
         valueHtml: ApplicantDetailNameParser(personalDetails, keys, language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
         key: keys['childGenderLabel'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['childGenderLabel']}`,
         value: '',
-        valueHtml:
-          personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
-            ? translation(personalDetails?.['gender'], language) +
-              HTML.BREAK +
-              HTML.RULER +
-              keys['otherGender'] +
-              HTML.H4 +
-              keys['details'] +
-              HTML.H4_CLOSE +
-              HTML.BREAK +
-              personalDetails['otherGenderDetails']
-            : translation(personalDetails?.['gender'], language),
+        valueHtml: generateGenderHtml(personalDetails, keys, language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
         key: keys['dobLabel'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['dobLabel']}`,
         value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
         key: keys['respondentPlaceOfBirth'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['respondentPlaceOfBirth']}`,
         value: personalDetails?.['applicantPlaceOfBirth'],
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       }
@@ -521,6 +592,9 @@ export const ApplicantDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newApplicantData.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${
+          keys['relationshipTo'] + ' ' + childFullName
+        }`,
         value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
@@ -533,17 +607,49 @@ export const ApplicantDetails = (
       });
     });
 
+    const applicantFullName = ` ${fullname} `;
+    newApplicantData.push({
+      key: keys['refuge'],
+      visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['refuge']}`,
+      value: getYesNoTranslation(language, sessionApplicantData[applicant]['liveInRefuge'], 'ydwTranslation'),
+      changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
+        root: RootContext.C100_REBUILD,
+        id: sessionApplicantData[applicant]['id'],
+      }),
+    });
+
+    if (sessionApplicantData[applicant]['liveInRefuge'] === YesOrNo.YES) {
+      newApplicantData.push({
+        key: keys['c8RefugeDocument'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['c8RefugeDocument']}`,
+        anchorReference: `c8RefugeDocument-applicant-${applicant}`,
+        value: '',
+        valueHtml: !_.isEmpty(sessionApplicantData[applicant]['refugeConfidentialityC8Form'])
+          ? sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename']
+          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
+          root: RootContext.C100_REBUILD,
+          id: sessionApplicantData[applicant]['id'],
+        }),
+      });
+    }
+
+    newApplicantData.push({
+      key: keys['addressDetails'],
+      visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['addressDetails']}`,
+      value: '',
+      valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys, language),
+      changeUrl: applyParms(Urls['C100_APPLICANT_ADDRESS_MANUAL'], {
+        applicantId: sessionApplicantData[applicant]['id'],
+      }),
+    });
+
     newApplicantData.push(
       {
-        key: keys['addressDetails'],
-        value: '',
-        valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys, language),
-        changeUrl: applyParms(Urls['C100_APPLICANT_ADDRESS_MANUAL'], {
-          applicantId: sessionApplicantData[applicant]['id'],
-        }),
-      },
-      {
-        key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
+        key: keys['contactDetailsOf'].split('[^applicantName^]').join(applicantFullName),
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['contactDetailsOf']
+          .split('[^applicantName^]')
+          .join(applicantFullName)}`,
         value: '',
         valueHtml: applicantContactDetailsParser(sessionApplicantData[applicant].applicantContactDetail, keys),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_DETAIL'], {
@@ -552,6 +658,7 @@ export const ApplicantDetails = (
       },
       {
         key: keys['voiceMailLabel'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['voiceMailLabel']}`,
         value: '',
         valueHtml: applicantCourtCanLeaveVoiceMail(sessionApplicantData[applicant].applicantContactDetail, keys),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_DETAIL'], {
@@ -560,6 +667,7 @@ export const ApplicantDetails = (
       },
       {
         key: keys['contactPrefernces'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['contactPrefernces']}`,
         value: contactTranslation(
           sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences ===
             ContactPreference.EMAIL
@@ -574,17 +682,18 @@ export const ApplicantDetails = (
     );
   }
   return {
-    title: sectionTitles['ApplicantDetails'],
+    title: '',
+    subTitle: sectionTitles['ApplicantDetails'],
     rows: getSectionSummaryList(newApplicantData, content),
   };
 };
 
 /* eslint-disable import/namespace */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const MiamTitle = ({ sectionTitles, keys, Yes, No, ...content }): SummaryList | undefined => {
+export const MiamTitle = ({ sectionTitles }): SummaryList | undefined => {
   return {
     title: sectionTitles['Miam'],
-    rows: getSectionSummaryList([], content),
+    rows: [],
   };
 };
 
@@ -627,7 +736,8 @@ export const MiamAttendance = (
   }
 
   return {
-    title: sectionTitles['MiamAttendance'],
+    title: '',
+    subTitle: sectionTitles['MiamAttendance'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -647,7 +757,8 @@ export const MiamExemption = (
     ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language),
   ];
   return {
-    title: sectionTitles['MiamExemption'],
+    title: '',
+    subTitle: sectionTitles['MiamExemption'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -723,7 +834,7 @@ export const SafetyConcerns = (
   language
 ): SummaryList | undefined => {
   const dataForConcerns = userCase.hasOwnProperty('c1A_safetyConernAbout')
-    ? userCase['c1A_safetyConernAbout']?.map(concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
+    ? userCase['c1A_safetyConernAbout']?.map(concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
     : '';
   const SummaryData = [
     {
@@ -763,7 +874,7 @@ export const SafetyConcerns_child = (
   language
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutChild')
-    ? userCase['c1A_concernAboutChild']?.map(concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
+    ? userCase['c1A_concernAboutChild']?.map(concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
     : '';
   let subFields = userCase['c1A_concernAboutChild'] as ANYTYPE;
   subFields = subFields
@@ -811,35 +922,53 @@ export const SafetyConcerns_child = (
   /**
    * @policeOrInvestigatorsOtherDetails session Values
    */
-  let policeOrInvestigatorsOtherDetailsHTML = '';
+  let policeOrInvestigatorsOtherDetailsHTML = userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
+    ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
+    : '';
   policeOrInvestigatorsOtherDetailsHTML += getYesNoTranslation(
     language,
     userCase['c1A_policeOrInvestigatorInvolved'],
     'oeddTranslation'
   );
   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
-    ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails']
+    ? HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT +
+      keys['details'] +
+      HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      userCase['c1A_policeOrInvestigatorOtherDetails'] +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END +
+      HTML.DESCRIPTION_LIST_END
     : '';
+
   /**
    * @c1A_childAbductedBefore session Values
    */
-  let c1A_childAbductedBefore = '';
-  c1A_childAbductedBefore += getYesNoTranslation(language, userCase?.['c1A_passportOffice'], 'oesTranslation');
+  let c1A_childAbductedBefore = HTML.DESCRIPTION_LIST as string;
+  c1A_childAbductedBefore += isBorderPresent(userCase.c1A_passportOffice, 'Yes');
+  c1A_childAbductedBefore +=
+    HTML.DESCRIPTION_TERM_DETAIL +
+    getYesNoTranslation(language, userCase?.['c1A_passportOffice'], 'oesTranslation') +
+    HTML.DESCRIPTION_TERM_DETAIL_END +
+    HTML.ROW_END;
   if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
-    c1A_childAbductedBefore += HTML.RULER;
-    c1A_childAbductedBefore += HTML.H4;
+    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
-    c1A_childAbductedBefore += HTML.H4_CLOSE;
-    c1A_childAbductedBefore += getYesNoTranslation(
-      language,
-      userCase['c1A_childrenMoreThanOnePassport'],
-      'oesTranslation'
-    );
-    c1A_childAbductedBefore += HTML.RULER;
-    c1A_childAbductedBefore += HTML.H4;
+    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
+    c1A_childAbductedBefore +=
+      HTML.ROW_START +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      getYesNoTranslation(language, userCase['c1A_childrenMoreThanOnePassport'], 'oesTranslation');
+    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
-    c1A_childAbductedBefore += HTML.H4_CLOSE;
-    c1A_childAbductedBefore += HTML.UNORDER_LIST;
+    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
+    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
 
     if (userCase['c1A_possessionChildrenPassport']) {
       c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
@@ -853,9 +982,9 @@ export const SafetyConcerns_child = (
         c1A_childAbductedBefore += HTML.LIST_ITEM + userCase['c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
       }
     }
-    c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
+    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.UNORDER_LIST_END;
   }
-
+  c1A_childAbductedBefore += HTML.DESCRIPTION_LIST_END;
   const abdutionScreenData = [
     {
       key: keys['childLocation'],
@@ -919,7 +1048,8 @@ export const SafetyConcerns_child = (
     SummaryData.push(...abdutionScreenData);
   }
   return {
-    title: sectionTitles['childSafetyConcerns'],
+    title: '',
+    subTitle: sectionTitles['childSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -937,7 +1067,7 @@ export const SafetyConcerns_yours = (
   language
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('c1A_concernAboutApplicant')
-    ? userCase['c1A_concernAboutApplicant']?.map(concern => HTML.NESTED_LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
+    ? userCase['c1A_concernAboutApplicant']?.map(concern => HTML.LIST_ITEM + keys[concern] + HTML.LIST_ITEM_END)
     : '';
   let subFields = userCase?.['c1A_concernAboutApplicant'] as ANYTYPE;
   subFields = subFields
@@ -985,7 +1115,8 @@ export const SafetyConcerns_yours = (
     SummaryData.push(...subFields);
   }
   return {
-    title: sectionTitles['yourSafetyConcerns'],
+    title: '',
+    subTitle: sectionTitles['yourSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -1003,18 +1134,21 @@ export const SafetyConcerns_others = (
   language
 ): SummaryList | undefined => {
   const fieldParser = (field, fieldDescription?) => {
-    let html = '';
+    let html =
+      fieldDescription !== undefined ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL : '';
     if (field !== undefined) {
       html += field;
     }
     if (fieldDescription !== undefined) {
-      html += HTML.RULER;
-      html += HTML.H4;
+      html += HTML.DESCRIPTION_TERM_DETAIL_END;
+      html += HTML.ROW_END;
+      html += HTML.ROW_START_NO_BORDER;
+      html += HTML.DESCRIPTION_TERM_ELEMENT;
       html += keys['details'];
-      html += HTML.H4_CLOSE;
-      html += HTML.BOTTOM_PADDING_3;
+      html += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
+      html += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL;
       html += fieldDescription;
-      html += HTML.BOTTOM_PADDING_CLOSE;
+      html += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
     }
     return html;
   };
@@ -1061,7 +1195,8 @@ export const SafetyConcerns_others = (
     },
   ];
   return {
-    title: sectionTitles['otherSafetyConcerns'],
+    title: '',
+    subTitle: sectionTitles['otherSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -1078,6 +1213,7 @@ const RespondentDetails_AddressAndPersonal = (
   if (!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')) {
     newRespondentStorage.push({
       key: keys['addressDetails'],
+      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['addressDetails']}`,
       value: '',
       valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys, language),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
@@ -1089,18 +1225,23 @@ const RespondentDetails_AddressAndPersonal = (
   ) {
     newRespondentStorage.push({
       key: keys['explainYesLabel'],
+      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['explainYesLabel']}`,
       value: getYesNoTranslation(language, sessionRespondentData[respondent]?.['addressUnknown'], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
     });
   }
 
-  newRespondentStorage.push(respondentTelephoneEmailDetails(contactDetails, id, language, false));
-  newRespondentStorage.push(respondentTelephoneEmailDetails(contactDetails, id, language, true));
+  newRespondentStorage.push(
+    respondentTelephoneEmailDetails(contactDetails, id, language, false, parseInt(respondent) + 1, keys)
+  );
+  newRespondentStorage.push(
+    respondentTelephoneEmailDetails(contactDetails, id, language, true, parseInt(respondent) + 1, keys)
+  );
 
   return newRespondentStorage;
 };
 
-const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelephone: boolean) => {
+const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelephone: boolean, index: number, keys) => {
   const ctx: string[] = [];
   if (isTelephone) {
     ctx.push('donKnowTelephoneNumber', 'dont_know_telephone', 'telephone_number', 'telephoneNumber');
@@ -1110,12 +1251,14 @@ const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelepho
   if (contactDetails.hasOwnProperty(ctx[0]) && contactDetails[ctx[0]] === 'Yes') {
     return {
       key: getYesNoTranslation(language, ctx[1], 'personalDetails'),
+      visuallyHiddenText: `${keys['respondents']} ${index} ${getYesNoTranslation(language, ctx[1], 'personalDetails')}`,
       value: getYesNoTranslation(language, contactDetails?.[ctx[0]], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
   } else {
     return {
       key: getYesNoTranslation(language, ctx[2], 'personalDetails'),
+      visuallyHiddenText: `${keys['respondents']} ${index} ${getYesNoTranslation(language, ctx[2], 'personalDetails')}`,
       value: contactDetails?.[ctx[3]],
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
@@ -1132,6 +1275,7 @@ export const RespondentDetails = (
   const newRespondentStorage: {
     key: string;
     keyHtml?: string;
+    visuallyHiddenText?: string;
     value?: string;
     valueHtml?: string;
     changeUrl: string;
@@ -1155,16 +1299,19 @@ export const RespondentDetails = (
       },
       {
         key: keys['fullName'],
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['fullName']}`,
         value: firstname + ' ' + lastname,
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADD'], {}),
       },
       {
         key: keys['hasNameChanged'],
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['hasNameChanged']}`,
         valueHtml: changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       },
       {
         key: keys['childGenderLabel'],
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
         valueHtml: childGender,
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       }
@@ -1174,11 +1321,13 @@ export const RespondentDetails = (
       newRespondentStorage.push(
         {
           key: keys['approxCheckboxLabel'],
+          visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['approxCheckboxLabel']}`,
           value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         },
         {
           key: keys['approxDobLabel'],
+          visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['approxDobLabel']}`,
           value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         }
@@ -1186,6 +1335,7 @@ export const RespondentDetails = (
     } else {
       newRespondentStorage.push({
         key: keys['dobLabel'],
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['dobLabel']}`,
         value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       });
@@ -1194,12 +1344,16 @@ export const RespondentDetails = (
     if (personalDetails['respondentPlaceOfBirthUnknown'] !== 'No') {
       newRespondentStorage.push({
         key: keys['respondentPlaceOfBirthUnknown'],
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${
+          keys['respondentPlaceOfBirthUnknown']
+        }`,
         value: getYesNoTranslation(language, personalDetails?.['respondentPlaceOfBirthUnknown'], 'doTranslation'),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       });
     } else {
       newRespondentStorage.push({
         key: keys['respondentPlaceOfBirth'],
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['respondentPlaceOfBirth']}`,
         value: personalDetails?.['respondentPlaceOfBirth'],
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       });
@@ -1210,6 +1364,9 @@ export const RespondentDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newRespondentStorage.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${
+          keys['relationshipTo'] + ' ' + childFullName
+        }`,
         value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
@@ -1229,7 +1386,8 @@ export const RespondentDetails = (
 
   const SummaryData = newRespondentStorage;
   return {
-    title: sectionTitles['detailsOfRespondent'],
+    title: '',
+    subTitle: sectionTitles['detailsOfRespondent'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -1250,7 +1408,8 @@ export const OtherPeopleDetailsTitle = (
 
   const SummaryData = newOtherPeopleStorage;
   return {
-    title: sectionTitles['detailofOtherPeople'],
+    title: '',
+    subTitle: sectionTitles['detailofOtherPeople'],
     rows: getSectionSummaryList(SummaryData, content),
   };
 };
@@ -1260,11 +1419,13 @@ export const OtherPeopleDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
   language
-): SummaryList | undefined => {
+): SummaryList => {
   const sessionOtherPeopleData = userCase['oprs_otherPersons'];
   const newOtherPeopleStorage: {
     key: string;
+    anchorReference?: string;
     keyHtml?: string;
+    visuallyHiddenText?: string;
     value?: string;
     valueHtml?: string;
     changeUrl: string;
@@ -1288,16 +1449,19 @@ export const OtherPeopleDetails = (
       },
       {
         key: keys['fullName'],
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['fullName']}`,
         value: firstname + ' ' + lastname,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADD'], { otherPersonId: id }),
       },
       {
         key: keys['hasNameChanged'],
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['hasNameChanged']}`,
         valueHtml: changeNameInformation,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
       },
       {
         key: keys['childGenderLabel'],
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
         valueHtml: childGender,
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
       }
@@ -1307,11 +1471,13 @@ export const OtherPeopleDetails = (
       newOtherPeopleStorage.push(
         {
           key: keys['approxCheckboxLabel'],
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['approxCheckboxLabel']}`,
           value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
         },
         {
           key: keys['approxDobLabel'],
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['approxDobLabel']}`,
           value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
         }
@@ -1319,6 +1485,7 @@ export const OtherPeopleDetails = (
     } else {
       newOtherPeopleStorage.push({
         key: keys['dobLabel'],
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['dobLabel']}`,
         value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
       });
@@ -1331,6 +1498,9 @@ export const OtherPeopleDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newOtherPeopleStorage.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
+          keys['relationshipTo'] + ' ' + childFullName
+        }`,
         value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
@@ -1343,9 +1513,36 @@ export const OtherPeopleDetails = (
       });
     });
 
+    newOtherPeopleStorage.push({
+      key: keys['refuge'],
+      value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['liveInRefuge'], 'ydwTranslation'),
+      visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['refuge']}`,
+      changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
+        root: RootContext.C100_REBUILD,
+        id: sessionOtherPeopleData[respondent]['id'],
+      }),
+    });
+
+    if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
+      newOtherPeopleStorage.push({
+        key: keys['c8RefugeDocument'],
+        anchorReference: `c8RefugeDocument-otherPerson-${respondent}`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['c8RefugeDocument']}`,
+        value: '',
+        valueHtml: !_.isEmpty(sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form'])
+          ? sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form']?.['document_filename']
+          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
+          root: RootContext.C100_REBUILD,
+          id: sessionOtherPeopleData[respondent]['id'],
+        }),
+      });
+    }
+
     if (!sessionOtherPeopleData[respondent].hasOwnProperty('addressUnknown')) {
       newOtherPeopleStorage.push({
         key: keys['addressDetails'],
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['addressDetails']}`,
         value: '',
         valueHtml: otherPeopleAddressParser(sessionOtherPeopleData[respondent].address),
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
@@ -1357,6 +1554,7 @@ export const OtherPeopleDetails = (
     ) {
       newOtherPeopleStorage.push({
         key: keys['explainYesLabel'],
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['explainYesLabel']}`,
         value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['addressUnknown'], 'doTranslation'),
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
       });
@@ -1410,7 +1608,7 @@ export const whereDoChildrenLive = (
     newChildDataStorage.push({
       key: interpolate(keys['whoDoesChildMainlyLiveWith'], { firstname, lastname }),
       value: '',
-      valueHtml: `${mainlyLivesWith.firstName} ${mainlyLivesWith.lastName}`,
+      valueHtml: `${mainlyLivesWith?.firstName ?? ''} ${mainlyLivesWith?.lastName ?? ''}`,
       changeUrl: applyParms(Urls['C100_CHILDERN_MAINLY_LIVE_WITH'], { childId: id }),
     });
 
@@ -1435,6 +1633,43 @@ export const whereDoChildrenLive = (
   return {
     title: sectionTitles['whereTheChildrenLive'],
     rows: getSectionSummaryList(newChildDataStorage, content),
+  };
+};
+
+export const otherPersonConfidentiality = (
+  { sectionTitles, keys, ...content }: SummaryListContent,
+  userCase: Partial<CaseWithId>,
+  language
+): SummaryList => {
+  const sessionOtherPeopleData = userCase['oprs_otherPersons'];
+  const newOtherPeopleStorage: {
+    key: string;
+    anchorReference?: string;
+    keyHtml?: string;
+    value?: string;
+    valueHtml?: string;
+    changeUrl: string;
+  }[] = [];
+
+  for (const otherPerson in sessionOtherPeopleData) {
+    const firstName = sessionOtherPeopleData[otherPerson]['firstName'],
+      lastName = sessionOtherPeopleData[otherPerson]['lastName'],
+      id = sessionOtherPeopleData[otherPerson]['id'];
+    const isOtherPersonAddressConfidential = sessionOtherPeopleData[otherPerson]?.['isOtherPersonAddressConfidential'];
+
+    newOtherPeopleStorage.push({
+      key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
+      anchorReference: `otherPersonConfidentiality-otherPerson-${otherPerson}`,
+      valueHtml: !_.isEmpty(isOtherPersonAddressConfidential)
+        ? getYesNoTranslation(language, isOtherPersonAddressConfidential, 'oesTranslation')
+        : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+      changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY'], { otherPersonId: id }),
+    });
+  }
+
+  return {
+    title: sectionTitles['otherPeopleConfidentiality'],
+    rows: getSectionSummaryList(newOtherPeopleStorage, content),
   };
 };
 
@@ -1566,19 +1801,22 @@ const DIGITAL = 'digital';
 
 const populateDateOfBirth = (
   personalDetails: object,
-  newChildDataStorage: SummaryListRow[],
   keys: Record<string, string>,
   language: string,
   id: string,
-  isForChild: boolean
+  isForChild: boolean,
+  count: number,
+  partyType: string
 ): SummaryListRow[] => {
   const isDateOfBirthUnknown = isForChild
     ? personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES
     : personalDetails['isDateOfBirthUnknown'] !== '';
+  const dateOfBirthSections: SummaryListRow[] = [];
   if (isDateOfBirthUnknown) {
-    newChildDataStorage.push(
+    dateOfBirthSections.push(
       {
         key: keys['approxCheckboxLabel'],
+        visuallyHiddenText: `${partyType} ${count} ${keys['approxCheckboxLabel']}`,
         value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
         changeUrl: isForChild
           ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
@@ -1586,6 +1824,7 @@ const populateDateOfBirth = (
       },
       {
         key: keys['approxDobLabel'],
+        visuallyHiddenText: `${partyType} ${count} ${keys['approxDobLabel']}`,
         value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
         changeUrl: isForChild
           ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
@@ -1593,13 +1832,40 @@ const populateDateOfBirth = (
       }
     );
   } else {
-    newChildDataStorage.push({
+    dateOfBirthSections.push({
       key: keys['dobLabel'],
+      visuallyHiddenText: `${partyType} ${count} ${keys['dobLabel']}`,
       value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
       changeUrl: isForChild
         ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
         : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
     });
   }
-  return newChildDataStorage;
+  return dateOfBirthSections;
+};
+export const isBorderPresent = (data: YesOrNo | undefined, condition: string): HTML => {
+  return data === condition ? HTML.ROW_START : HTML.ROW_START_NO_BORDER;
+};
+
+export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId>): boolean => {
+  return !!(
+    caseData.appl_allApplicants?.find(
+      applicant => applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)
+    ) ||
+    caseData.oprs_otherPersons?.find(
+      otherPerson => otherPerson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherPerson.refugeConfidentialityC8Form)
+    )
+  );
+};
+
+export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>): boolean => {
+  return !areRefugeDocumentsNotPresent(caseData) && !areOtherPeopleConfidentialDetailsValid(caseData);
+};
+
+const areOtherPeopleConfidentialDetailsValid = (caseData: Partial<CaseWithId>): boolean => {
+  return !!caseData.oprs_otherPersons?.find(
+    otherPerson =>
+      doesAnyChildLiveWithOtherPerson(caseData as CaseWithId, otherPerson.id) &&
+      _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
+  );
 };

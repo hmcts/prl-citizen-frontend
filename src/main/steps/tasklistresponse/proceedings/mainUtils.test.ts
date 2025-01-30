@@ -58,6 +58,7 @@ describe('test cases for main util', () => {
                 href: '/tasklistresponse/proceedings/start',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
+                attributes: {},
               },
             ],
           },
@@ -71,6 +72,7 @@ describe('test cases for main util', () => {
                 href: '/tasklistresponse/proceedings/start',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
+                attributes: {},
               },
             ],
           },
@@ -84,6 +86,7 @@ describe('test cases for main util', () => {
                 href: '/tasklistresponse/proceedings/courtproceedings',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
+                attributes: {},
               },
             ],
           },
@@ -96,24 +99,25 @@ describe('test cases for main util', () => {
         },
       ],
       title: 'PastAndCurrentProceedings',
+      subTitle: '',
     });
   });
 
   test('PastAndCurrentProceedings - util', () => {
     const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
     expect(CaseName_fun?.rows).not.toBe([]);
-    expect(CaseName_fun?.title).toBe(undefined);
+    expect(CaseName_fun?.title).toBe('');
   });
 
   test('PastAndCurrentProceedings - util2', () => {
     const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase1);
     expect(CaseName_fun?.rows).not.toBe([]);
-    expect(CaseName_fun?.title).toBe(undefined);
+    expect(CaseName_fun?.title).toBe('');
   });
 
   test('PastAndCurrentProceedings - util3', () => {
     const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase2);
     expect(CaseName_fun?.rows).not.toBe([]);
-    expect(CaseName_fun?.title).toBe(undefined);
+    expect(CaseName_fun?.title).toBe('');
   });
 });

@@ -17,7 +17,8 @@ export class LanguageToggle {
 
         if (LanguageToggle.supportedLanguages.includes(requestedLanguage)) {
           req.session['lang'] = requestedLanguage;
-          return req.session.save(next);
+          req.session.save(next);
+          return;
         }
       }
       next();

@@ -23,7 +23,14 @@ import {
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
 import { Task, TaskListConfigProps } from '../../../definitions';
-import { isCaseClosed, isCaseLinked, isDocPresent, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
+import {
+  doesCaseHaveId,
+  isCaseClosed,
+  isCaseLinked,
+  isDocPresent,
+  isDraftCase,
+  isRepresentedBySolicotor,
+} from '../../../utils';
 import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, isRespondentSubmitedResponse } from '../utils';
 
 export const CA_APPLICANT: TaskListConfigProps[] = [
@@ -75,18 +82,18 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.CHILD_ARRANGEMENT_APPLICATION,
         href: (caseData: Partial<CaseWithId>) => {
-          if (!caseData) {
+          if (!caseData || !doesCaseHaveId(caseData)) {
             return C100_START;
           }
           return caseData.c100RebuildReturnUrl!;
         },
         stateTag: (caseData: Partial<CaseWithId>) => {
-          if (!caseData) {
+          if (!caseData || !doesCaseHaveId(caseData)) {
             return StateTags.NOT_STARTED_YET;
           }
           return StateTags.IN_PROGRESS;
         },
-        show: (caseData: Partial<CaseWithId>) => !caseData || isDraftCase(caseData),
+        show: (caseData: Partial<CaseWithId>) => !caseData || !doesCaseHaveId(caseData) || isDraftCase(caseData),
       },
       {
         id: Tasks.YOUR_APPLICATION_PDF,
@@ -99,7 +106,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           });
         },
         stateTag: () => StateTags.SUBMITTED,
-        show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+        show: (caseData: Partial<CaseWithId>) => caseData && doesCaseHaveId(caseData) && !isDraftCase(caseData),
         openInAnotherTab: () => true,
       },
       {
@@ -152,8 +159,8 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
             pageNumber: '1',
           }),
         stateTag: () => StateTags.OPTIONAL,
-        show: isCaseLinked,
-        disabled: isCaseClosed,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id),
       },
     ],
   },
@@ -166,7 +173,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+          return !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
         },
         stateTag: () => StateTags.OPTIONAL,
       },

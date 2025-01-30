@@ -9,11 +9,14 @@ import { RespondentSubmitResponseController } from './app/controller/RespondentS
 import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
+import { RequestSanitizer } from './modules/sanitize-request';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import UploadDocumentController from './steps/application-within-proceedings/document-upload/postController';
+import { routeGuard } from './steps/application-within-proceedings/routeGuard';
 import { processAWPApplication } from './steps/application-within-proceedings/utils';
 import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
+import { C8RefugeSequence } from './steps/common/refuge/sequence';
 import { AohSequence } from './steps/common/safety-concerns/sequence';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
@@ -24,6 +27,7 @@ import {
   APPLICANT_CHECK_ANSWERS,
   APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK,
   APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
+  AWP,
   C100_RETRIVE_CASE,
   CA_RESPONDENT_GENERATE_C7_DRAFT,
   CONSENT_TO_APPLICATION,
@@ -99,7 +103,7 @@ export class Routes {
     );
     app.get(DOWNLOAD_DOCUMENT_BY_TYPE, errorHandler(new DownloadDocumentController().download));
     app.get(DOWNLOAD_DOCUMENT, errorHandler(new DownloadDocumentController().download));
-
+    app.get(`*/${AWP}/*`, errorHandler(routeGuard.get));
     //C100 related routes
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
@@ -108,6 +112,7 @@ export class Routes {
       ...stepsWithContent,
       ...getStepsWithContent(AohSequence.getSequence(), '/common'),
       ...getStepsWithContent(await RAProvider.getSequence(), '/common'),
+      ...getStepsWithContent(C8RefugeSequence.getSequence(), '/common'),
     ];
 
     for (const step of steps) {
@@ -131,6 +136,7 @@ export class Routes {
           : step.postController ?? PostController;
         app.post(
           step.url,
+          this.sanitizeRequestBody.bind(this),
           // eslint-disable-next-line prettier/prettier
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
@@ -155,5 +161,10 @@ export class Routes {
     } else {
       next();
     }
+  }
+
+  private sanitizeRequestBody(req, res, next) {
+    RequestSanitizer.sanitizeRequestBody(req);
+    next();
   }
 }

@@ -7,6 +7,7 @@ import { C100_APPLICANT_TASKLIST, C100_URL, COMMON_PAGE_URLS } from '../../steps
 
 import AppSurvey from './app-survey/appSurveyController';
 import { appSurveyContents } from './app-survey/content';
+import { interpolate } from './string-parser';
 
 export const en = {
   phase: 'Beta',
@@ -15,7 +16,7 @@ export const en = {
   commonServiceName: 'Child arrangements and family injunctions',
   c100ServiceName: 'Child arrangements',
   fl401ServiceName: 'Family Injunctions',
-  languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
+  languageToggle: '<a lang="{lang}" {href} class="govuk-link language">{language}</a>',
   govUk: 'GOV.UK',
   back: 'Back',
   continue: 'Save and continue',
@@ -82,12 +83,11 @@ export const en = {
   welsh: 'Welsh',
   contactUsForHelp: 'Contact us for help',
   webChat: 'Web chat',
-  webChatDetails: 'Ask a question or get any help in any language',
   sendUsAMessage: 'Telephone',
   sendUsAMessageDetails: 'We aim to get back to you within 5 days.',
   telephone: 'Telephone',
-  telephoneNumber: '0300 303 0742',
-  telephoneDetails: 'Monday to Friday, 8am to 8pm, Saturday 8am to 2pm.',
+  telephoneNumber: '0300 323 0185',
+  telephoneDetails: 'Monday – Friday, 9am – 5pm',
   findOutCharges: 'Find out about call charges',
   openNewWindow: '(opens in a new window)',
   habitualResidentHelpText1:
@@ -122,12 +122,6 @@ export const en = {
   edit: 'Edit',
   appName: '- Private law - GOV.UK',
   ...appSurveyContents.en,
-  contactUs1:
-    'You can <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">contact the relevant court</a> if you need to discuss your case.',
-  contactUs2: 'They cannot give you legal advice or answer questions about applications submitted.',
-  contactUs3:
-    'If you would like to report a problem or have a suggestion to help improve this service, send an email to: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk</a>',
-  contactUs4: 'This email should only be used for feedback on the digital service.',
   feedback: 'FeedBack',
   awpErrorSummaryHeading: 'There is a problem',
   invalidDate: 'Invalid Date',
@@ -140,7 +134,7 @@ export const cy: typeof en = {
   commonServiceName: 'Trefniadau plant a gwaharddebau teulu',
   c100ServiceName: 'Trefniadau plant',
   fl401ServiceName: 'Gwaharddeb Teulu',
-  languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
+  languageToggle: '<a lang="{lang}" {href} class="govuk-link language">{language}</a>',
   govUk: 'GOV.UK',
   back: 'Yn ôl',
   continue: 'Cadw a pharhau',
@@ -203,7 +197,6 @@ export const cy: typeof en = {
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni i gael cymorth',
   webChat: 'Sgwrsio dros y we',
-  webChatDetails: 'Gofyn cwestiwn neu gael cymorth mewn unrhyw iaith',
   sendUsAMessage: 'Ffôn',
   sendUsAMessageDetails: 'Byddwn yn ymdrechu i ymateb o fewn 5 diwrnod.',
   findOutCharges: 'Gwybodaeth am brisiau galwadau',
@@ -228,20 +221,14 @@ export const cy: typeof en = {
   rejectAnalyticsCookies: 'Gwrthod cwcis dadansoddol',
   viewCookies: 'Gweld cwcis',
   hideMessage: 'Cuddio’r neges hon',
-  telephoneNumber: '0300 303 0742',
-  telephoneDetails: 'Dydd Llun i ddydd Gwener, 8am i 8pm',
+  telephoneNumber: '0300 323 0185',
+  telephoneDetails: 'Dydd Llun i ddydd Gwener, 9am i 5pm',
   onlyContinue: 'Parhau',
   onlycontinue: 'Parhau',
   divider: 'neu',
   edit: 'Golygu',
   appName: '- Cyfraith Breifat - GOV.UK',
   ...appSurveyContents.cy,
-  contactUs1:
-    'Gallwch <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">gysylltu â’r llys perthnasol</a> os ydych angen trafod eich achos.',
-  contactUs2: 'Ni allant roi cyngor cyfreithiol i chi nac ateb cwestiynau am geisiadau a gyflwynwyd.',
-  contactUs3:
-    'Os hoffech roi gwybod inni am broblem neu os oes gennych awgrym i’n helpu ni i wella’r gwasanaeth hwn, anfonwch neges e-bost i: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk-welsh</a>',
-  contactUs4: "Dim ond i roi adborth ar y gwasanaeth digidol y dylid defnyddio'r cyfeiriad e-bost hwn.",
   feedback: 'Adborth',
   awpErrorSummaryHeading: 'Mae yna broblem',
   invalidDate: 'Dyddiad Annilys',
@@ -313,6 +300,11 @@ export const generatePageContent = ({
     additionalData,
     userId,
     inPageSurveyContent,
+    languageToggle: interpolate(commonTranslations.languageToggle, {
+      lang: language === 'en' ? 'cy' : 'en',
+      href: `href="?lng=${language === 'en' ? 'cy' : 'en'}"`,
+      language: language === 'en' ? 'Cymraeg' : 'English',
+    }),
   };
 
   if (pageContent !== null && pageContent !== undefined) {

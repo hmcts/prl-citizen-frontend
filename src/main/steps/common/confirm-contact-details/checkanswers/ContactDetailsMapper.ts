@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../app/case/case';
 import { ContactPreference, PartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { fromApiDate } from '../../../../app/case/from-api-format';
@@ -25,6 +27,8 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
     citizenUserAddressPostcode,
     isAtAddressLessThan5Years,
     citizenUserAddressHistory,
+    isCitizenLivingInRefuge,
+    refugeDocument,
   } = userCase;
 
   Object.assign(request, {
@@ -47,6 +51,8 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
       County: citizenUserAddressCounty,
       PostCode: citizenUserAddressPostcode,
     },
+    liveInRefuge: isCitizenLivingInRefuge,
+    refugeConfidentialityC8Form: refugeDocument,
   });
   //data clean up
 
@@ -56,6 +62,10 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
 
   if (isAtAddressLessThan5Years === YesOrNo.NO) {
     request.addressLivedLessThan5YearsDetails = '';
+  }
+
+  if (isCitizenLivingInRefuge === YesOrNo.NO) {
+    request.refugeConfidentialityC8Form = null;
   }
 
   if (userCase.partyContactPreference) {
@@ -83,6 +93,8 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     isAtAddressLessThan5Years,
     addressLivedLessThan5YearsDetails,
     address,
+    liveInRefuge,
+    refugeConfidentialityC8Form,
     ...rest
   } = partyDetails;
   let fullName;
@@ -111,10 +123,15 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     citizenUserAddressTown: address.PostTown,
     citizenUserAddressCounty: address.County,
     citizenUserAddressPostcode: address.PostCode,
+    isCitizenLivingInRefuge: liveInRefuge,
+    refugeDocument: refugeConfidentialityC8Form,
     ...rest,
   });
   if (isAtAddressLessThan5Years === YesOrNo.NO) {
     delete contactDetail.citizenUserAddressHistory;
+  }
+  if (liveInRefuge === YesOrNo.NO) {
+    delete contactDetail.refugeDocument;
   }
   return contactDetail;
 };
@@ -174,6 +191,21 @@ export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
   } else {
     req.session.userCase.citizenUserEmailAddressText = req.session.userCase.citizenUserEmailAddress;
   }
+  if (!req.session.userCase.isCitizenLivingInRefuge) {
+    req.session.userCase.citizenUserLivingInRefugeText = '';
+  } else {
+    req.session.userCase.citizenUserLivingInRefugeText = req.session.userCase.isCitizenLivingInRefuge;
+  }
+
+  req.session.userCase.refugeDocumentText = !_.isEmpty(req.session.userCase.refugeDocument)
+    ? req.session.userCase.refugeDocument.document_filename
+    : '';
+
+  if (req.session.userCase.isCitizenLivingInRefuge === YesOrNo.NO) {
+    delete req.session.userCase.refugeDocument;
+    delete req.session.userCase.refugeDocumentText;
+  }
+
   setAddressFields(req);
   return req.session.userCase;
 };

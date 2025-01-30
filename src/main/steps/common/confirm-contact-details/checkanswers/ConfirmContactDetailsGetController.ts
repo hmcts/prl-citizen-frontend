@@ -53,11 +53,13 @@ export class ConfirmContactDetailsGetController extends GetController {
 
 const fieldsArray: string[] = [
   'citizenUserFullName',
+  'citizenUserLivingInRefugeText',
   'citizenUserPlaceOfBirthText',
   'citizenUserAddressText',
   'citizenUserPhoneNumberText',
   'citizenUserEmailAddressText',
   'citizenUserDateOfBirthText',
+  'refugeDocumentText',
 ];
 
 function setRedirectUrl(req: AppRequest<Partial<Case>>) {
@@ -101,24 +103,12 @@ export const getConfidentialData = (req: AppRequest<Partial<Case>>): void => {
   }
 };
 const prepareHtml = (req: AppRequest<Partial<Case>>, key: string, value: string, language: string) => {
-  if (
-    req.session.userCase?.detailsKnown &&
-    req.session.userCase?.startAlternative &&
-    req.session.userCase.contactDetailsPrivate?.length !== 0
-  ) {
-    if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
-      req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-        '<br/><span class="govuk-hint govuk-!-margin-top-1">' +
-          (language === SessionLanguage.WELSH ? CONFIDENTIAL_DETAILS.PRIVATE_CY : CONFIDENTIAL_DETAILS.PRIVATE) +
-          '</span>'
-      );
-    } else {
-      req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-        '<br/><span class="govuk-hint govuk-!-margin-top-1">' +
-          (language === SessionLanguage.WELSH ? CONFIDENTIAL_DETAILS.PUBLIC_CY : CONFIDENTIAL_DETAILS.PUBLIC) +
-          '</span>'
-      );
-    }
+  if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
+    req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
+      '<br/><span class="govuk-hint govuk-!-margin-top-1">' +
+        (language === SessionLanguage.WELSH ? CONFIDENTIAL_DETAILS.PRIVATE_CY : CONFIDENTIAL_DETAILS.PRIVATE) +
+        '</span>'
+    );
   } else {
     req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
       '<br/><span class="govuk-hint govuk-!-margin-top-1">' +

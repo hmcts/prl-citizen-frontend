@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId } from '../../../app/case/case';
 import { Respondent, YesOrNo } from '../../../app/case/definition';
@@ -131,13 +133,6 @@ function dataCleanupConfirmContactDetail(userCase: Partial<CaseWithId>, responde
     userCase.citizenUserEmailAddress = respondent?.value?.email;
   }
 
-  userCase.citizenUserPlaceOfBirthText = !userCase.citizenUserPlaceOfBirth ? '' : userCase.citizenUserPlaceOfBirth;
-  userCase.citizenUserDateOfBirthText = !userCase.citizenUserDateOfBirth
-    ? ''
-    : getFormattedDate(userCase.citizenUserDateOfBirth);
-  userCase.citizenUserPhoneNumberText = !userCase.citizenUserPhoneNumber ? '' : userCase.citizenUserPhoneNumber;
-  userCase.citizenUserEmailAddressText = !userCase.citizenUserEmailAddress ? '' : userCase.citizenUserEmailAddress;
-
   if (respondent?.value.address) {
     prepareAddress(respondent, userCase);
   }
@@ -145,6 +140,7 @@ function dataCleanupConfirmContactDetail(userCase: Partial<CaseWithId>, responde
     userCase.citizenUserAddressHistory = respondent?.value.addressLivedLessThan5YearsDetails;
   }
 
+  mapContactDetailsTextFields(userCase);
   mapAddressText(userCase);
   if (YesOrNo.NO === userCase.isAtAddressLessThan5Years) {
     userCase.citizenUserAddressHistory = '';
@@ -167,6 +163,24 @@ function mapAddressText(userCase: Partial<CaseWithId>) {
     }
   }
 }
+
+const mapContactDetailsTextFields = (userCase: Partial<CaseWithId>) => {
+  userCase.citizenUserPlaceOfBirthText = !userCase.citizenUserPlaceOfBirth ? '' : userCase.citizenUserPlaceOfBirth;
+  userCase.citizenUserDateOfBirthText = !userCase.citizenUserDateOfBirth
+    ? ''
+    : getFormattedDate(userCase.citizenUserDateOfBirth);
+  userCase.citizenUserPhoneNumberText = !userCase.citizenUserPhoneNumber ? '' : userCase.citizenUserPhoneNumber;
+  userCase.citizenUserEmailAddressText = !userCase.citizenUserEmailAddress ? '' : userCase.citizenUserEmailAddress;
+  userCase.citizenUserLivingInRefugeText = !userCase.isCitizenLivingInRefuge ? '' : userCase.isCitizenLivingInRefuge;
+  userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
+    ? userCase.refugeDocument.document_filename
+    : userCase.refugeDocumentText;
+
+  if (userCase.isCitizenLivingInRefuge === YesOrNo.NO) {
+    delete userCase.refugeDocument;
+    delete userCase.refugeDocumentText;
+  }
+};
 
 function prepareAddress(respondent: Respondent, userCase: Partial<CaseWithId>) {
   if (respondent?.value.address.AddressLine1) {

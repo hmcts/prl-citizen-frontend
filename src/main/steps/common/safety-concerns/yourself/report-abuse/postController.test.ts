@@ -44,6 +44,53 @@ describe('SafteyConcernsApplicantAbusePostController Post Controller', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
+  test('Should delete seek help details when seek help from agency is no', async () => {
+    const mockFormContent = {
+      fields: {
+        seekHelpDetails: 'test',
+      },
+    } as unknown as FormContent;
+    const controller = new SafteyConcernsApplicantAbusePostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
+      },
+      body: {
+        onlycontinue: true,
+        seekHelpFromPersonOrAgency: 'No',
+      },
+      session: {
+        lang: language,
+        userCase: {
+          c1A_safteyConcerns: {
+            applicant: {
+              physicalAbuse: {
+                seekHelpFromPersonOrAgency: 'Yes',
+                seekHelpDetails: 'test',
+              },
+            },
+          },
+        },
+      },
+    });
+    req.originalUrl = '/c100-rebuild/safety-concerns/yourself/report-abuse/physicalAbuse';
+    const res = mockResponse();
+    generateContent(commonContent);
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalled();
+    expect(req.session.userCase).toStrictEqual({
+      c1A_safteyConcerns: {
+        applicant: {
+          physicalAbuse: {
+            seekHelpFromPersonOrAgency: 'No',
+          },
+        },
+      },
+    });
+  });
+
   test('Should update case when save and come back button is clicked', async () => {
     const mockFormContent = {
       fields: {},

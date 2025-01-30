@@ -34,12 +34,12 @@ export class ErrorHandler {
   }
 
   public handleNextErrorsFor(app: Application): void {
-    app.use((err: Error | string | undefined, req: Request, res: Response, next: NextFunction) => {
+    app.use((err: Error | string | undefined, req: Request, res: Response, next: NextFunction): void => {
       if (err) {
-        // change
-        return err;
+        res.status(500).send('Internal Server Error');
+      } else {
+        next();
       }
-      next();
     });
   }
 }

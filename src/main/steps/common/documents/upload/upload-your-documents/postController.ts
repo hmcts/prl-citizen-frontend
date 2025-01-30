@@ -9,6 +9,7 @@ import { PartyType, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { isExceedingMaxDocuments } from '../../../../../app/form/validation';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
 import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
@@ -150,6 +151,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
         return;
       }
       req.session.userCase?.[getUploadedFilesDataReference(partyType)]?.push(response.document);
+      req.session.applicationSettings = {
+        ...req.session.applicationSettings,
+        isDocumentGeneratedAndUplaoded: true,
+      };
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
@@ -165,7 +170,6 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     const redirectUrl = this.setRedirectUrl(partyType, req);
-
     req.url = redirectUrl;
     this.initializeData(caseData);
 
@@ -178,6 +182,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
     if (docCategory === UploadDocumentCategory.FM5_DOCUMENT && caseData[documentDataRef].length) {
       req.session.errors = handleError(req.session.errors, 'multipleFiles');
+      return this.redirect(req, res, redirectUrl);
+    }
+    if (isExceedingMaxDocuments(caseData[documentDataRef]?.length, docCategory)) {
+      req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
       return this.redirect(req, res, redirectUrl);
     }
 
@@ -248,6 +256,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       }
 
       req.session.errors = removeUploadDocErrors(req.session.errors);
+      delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
     } catch (error) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
     } finally {
