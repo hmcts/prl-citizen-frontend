@@ -3,93 +3,82 @@ import { TranslationFn } from '../../app/controller/GetController';
 const en = {
   title: 'Accessibility statement for Family Private Law',
   websiteAvailable:
-    'This accessibility statement applies to the website available at <a href="/" class="govuk-link" target="_blank">this link</a>, that enables users to make child arrangements or domestic abuse applications.',
+    'This accessibility statement applies to <a href="/" class="govuk-link" target="_blank">this link</a>, that enables users to make child arrangements or submit domestic abuse applications.',
   websiteRanBy: 'The website is run by HM Courts & Tribunals Service (HMCTS).',
   asManyAsPossible:
     'We want as many people as possible to be able to use this website. For example, that means you should be able to:',
-  asManyAsPossibleColours: 'change colours, contrast levels and fonts',
-  asManyAsPossibleZoom: 'zoom in up to 300% without the text spilling off the screen',
+  asManyAsPossibleColours: 'change colours, contrast levels and fonts using browser or device settings',
+  asManyAsPossibleZoom: 'zoom in up to 400% without the text spilling off the screen',
   asManyAsPossibleKeyboard: 'navigate most of the website using just a keyboard',
   asManyAsPossibleSpeech: 'navigate most of the website using speech recognition software',
   asManyAsPossibleListen:
-    'listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)',
+    'listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver',
   simpleAsPossible: 'We’ve also made the website text as simple as possible to understand.',
   abilityNet:
-    '<a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for AbilityNet">AbilityNet</a> has advice on making your device easier to use if you have a disability.',
+    '<a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank">AbilityNet</a> has advice on making your device easier to use if you have a disability.',
   howAccessible: 'How accessible this website is',
   somePartsNot: 'We know some parts of this website are not fully accessible, for example:',
-  somePartsNotReflow: "some PDF documents aren't fully accessible to screen reader software",
-  somePartsNotSpacing: 'text to speech software cannot read all the text on every page',
-  somePartsNotFooter: 'the text used for hyperlinks does not always describe the destination and purpose of the link',
+  somePartsNotDescriptiveness: 'some heading labels are non-descriptive',
+  somePartsNotText: 'some content becomes obscured when resizing text',
+  somePartsNotPDF: "some PDF documents aren't fully accessible to screen reader software",
+  somePartsNotWelsh:
+    'a language attribute for some Welsh text is missing which will impact some text to speech software pronunciation',
+  somePartsNotError: 'error messages require improvement to convey suggestions on how to correct the error',
   feedbackAndContactInformation: 'Feedback and contact information',
-  needMoreInformation:
-    'If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:',
+  textRelayServiceInformation:
+    'We provide a text relay service for people who are d/Deaf, hearing impaired or have a speech impediment.',
+  audioInductionLoopsInformation:
+    'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
+  formatInformation:
+    'If you require support when visiting or need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille contact us at:',
   phone: 'Telephone:  0300 323 0185',
-  email:
-    'Email: <a href="hmctsforms@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to hmctsforms@justice.gov.uk">hmctsforms@justice.gov.uk</a>',
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
-  accessibilityPhoneNumber: 'Telephone: 0300 323 0185',
   lookingToImprove: 'We’re always looking to improve the accessibility of this website.',
   improveAccessibility:
     'If you find any problems not listed on this page or think we’re not meeting accessibility requirements:',
+  accessibilityPhoneNumber: 'Telephone: 0300 323 0185',
   enforcementProcedure: 'Enforcement procedure',
   humanRightsCommission:
     'The Equality and Human Rights Commission (EHRC) is responsible for enforcing the <a href="https://www.legislation.gov.uk/uksi/2018/852/contents/made" class="govuk-link" target="_blank" aria-label="This link will open a new tab for legislation.gov.uk">Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 </a> (the ‘accessibility regulations’).',
   notHappy:
-    'If you’re not happy with how we respond to your complaint, contact the <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Equality Advisory and Support Service">Equality Advisory and Support Service (EASS)</a>.',
-  contactingUs: 'Contacting us by phone or visiting us in person',
-  contactTextRelay:
-    'We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.',
-  contactInductionLoops:
-    'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
-  contactCourtDirectly: 'To get in touch with us:',
+    'If you’re not happy with how we respond to your complaint, contact the <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Equality Advisory and Support Service">contact the Equality Advisory and Support Service (EASS)</a>.',
   technicalInfo: 'Technical information about this website’s accessibility',
-  partiallyCompliant:
-    'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Web Content Accessibility Guidelines version 2.1</a> AA standard, due to the non-compliances listed below.',
   hmctsIsCommitted:
     'HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.',
+  complianceStatus: 'Compliance status',
+  partiallyCompliant:
+    'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Web Content Accessibility Guidelines version 2.2</a> AA standard, due to the non-compliances listed below.',
   nonAccessibleContent: 'Non-accessible content',
   nonAccessibleDescription: 'The content listed below is non-accessible for the following reasons.',
   issuesWithDocuments: 'Non-compliance with the accessibility regulations',
   issuesWithDocumentDescription1:
-    'Some pages do not have a logical heading structure in place, which is a barrier for users who rely on headings for navigation. This does not meet WCAG 2.1 success criterion 1.3.1 (Information and Relationships).',
+    'Heading labels are provided however they are non-descriptive. This means that assistive technology users may struggle to understand the content. This fails WCAG 2.2 success criterion 2.4.6 Headings and Labels (Level AA).',
   issuesWithDocumentDescription2:
-    'Some content is presented to look like a table, but does not contain table mark-up. This does not meet WCAG 2.1 success criteria 1.3.1 (Information and Relationships) and 1.3.2 (Meaningful Sequence).',
+    'An autocomplete attribute has been supplied an invalid value for ‘property name or number’ which may cause issues for screen reader users. This fails WCAG 2.2 success criterion 1.3.5 Identify Input Purpose (Level AA).',
   issuesWithDocumentDescription3:
-    'Some links are ambiguous and non-descriptive, and do not describe the destination of the link. This does not meet WCAG 2.1. success criterion 2.4.9 (Link Purpose - Link Only).',
+    'Text was found to fail the minimum text contrast requirements within ‘draft’ marked PDF documents which means that users who are colourblind may struggle to see the content. This fails WCAG 2.2 success criterion 1.4.3 Contrast (Minimum) (Level AA).',
   issuesWithDocumentDescription4:
-    'Some lists are not structured to be compatible with screen readers and other assistive technology. This does not meet WCAG 2.1 success criteria 1.3.1 (Information and Relationships) and 4.1.1 (Parsing).',
+    'Content becomes obscured when resizing text on the page, which means that some users with low vision may struggle to read the content. This fails WCAG 2.2 success criterion 1.4.4 Resize text (Level AA).',
   issuesWithDocumentDescription5:
-    'Some forms are difficult to navigate using a screen reader or keyboard commands. This does not meet WCAG 2.1 success criteria 1.3.1 (Information and Relationships) and 2.4.6 (Heading and Labels).',
+    'Text on pages written in a different language is not programmatically written as such. This is specifically the ‘Cymraeg’ link has been written in Welsh but lacks a lang attribute, which means the correct pronunciation may not be relayed to a screen reader user. This fails WCAG 2.2 success criterion 3.1.2 Language of Parts (Level AA).',
   issuesWithDocumentDescription6:
-    'PDFs are used to download and keep service receipts and copies of orders and directions, but are not structured to be accessible to a screen reader.  This does not meet WCAG 2.1 success criteria 1.3.1 (Information and Relationships), 1.1.1 (Non-text Content) and 2.3.2 (Page Titled).',
-  otherKnownIssues: 'Other known issues',
-  knownIssues1: 'On some pages, fields do not have associated labels that are accessible to a screen reader.',
-  knownIssues2:
-    'Some page elements are coded with duplicate IDs, which means that these elements can be missed by a screen reader.',
-  knownIssues3: 'Some visual labels do not function correctly for users who navigate pages with voice activation.',
-  knownIssues4:
-    "Users are not warned of a 'timeout' or given the option to extend their time when completing certain tasks.",
+    'Some error messages do not convey suggestions on how to correct the errors, which means some users will struggle to fix their input errors on the page. This fails WCAG 2.2 success criterion 3.3.3 Error Suggestion (Level AA).',
+  thirdPartyContent: 'Third party content that’s under someone else’s control',
+  thirdPartyContentDescription1:
+    'Pages and websites that are linked to and from the Family Private Law service may not be fully accessible. These include: ',
+  thirdPartyContentDescription2: 'External pages hosting PDF documents',
+  thirdPartyContentDescription3: 'The payment pages which have a separate accessibility statement',
   toImproveAccessibility: 'What we’re doing to improve accessibility',
   improveAccessibilityDescription:
-    'We are working to improve accessibility on this website, and plan to fix the identified issues by 30 November 2023.',
+    'We are working to improve accessibility on this website, and plan to fix the identified issues by 30 November 2025.',
   preparationAccessibilityStatement: 'Preparation of this accessibility statement',
   statementPreparationDate:
-    'This statement was prepared on Wednesday 4 January 2023. It was last reviewed on 17 January 2023.',
+    'This statement was prepared on Wednesday 4 January 2023. It was last reviewed on 24 January 2025.',
   statementPreparationWebsite:
-    'This website was last tested on 25 November 2022. The test was carried out by the Digital Accessibility Centre (DAC).',
-  dacExcerpt: 'This is an excerpt from the DAC report explaining their methodology:',
-  dacTestingProcedure: 'Testing procedure:',
-  dacTestingProcedureDescription:
-    '“The service is tested by a team of experienced auditors and analysts, many of whom are disabled individuals and users of adaptive technology. The combination of subjective pan-disability user feedback and comprehensive technical auditing allows us to measure how the service performs technically and practically, thereby offering an essential added dimension to our test results that other methods of testing cannot provide.”',
-  dacTestingProcedure2: 'User testing:',
-  dacTestingProcedureDescription2:
-    '“Manual accessibility checking was conducted by a team of disabled individuals, using a range of adaptive technologies (hardware and software designed to facilitate the use of computers by people with disabilities).”',
-  dacTestingProcedure3: 'Technical auditing:',
-  dacTestingProcedureDescription3:
-    '“Technical auditing involves the experienced application of a number of technical auditing and standards compliance assessment tools. This combined with an extensive knowledge of WCAG, its application and wider global practice provides the DAC website with further credibility and quality.”',
-  contactHelp: 'Contact us for help:',
+    'This website was last tested by the Digital Accessibility Centre (DAC) on 31st July 2024 across a range of assistive technologies and with disabled users.',
+  statementReviewedFixes:
+    'Fixes were reviewed by the HMCTS accessibility testing team in the Testing Centre of Excellence.',
 };
 
 const cy = {

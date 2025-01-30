@@ -18,24 +18,27 @@
   <h2 class="govuk-heading-s">{{ howAccessible }}</h2>
   <p class="govuk-body">{{ somePartsNot }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ somePartsNotReflow }}</li>
-    <li>{{ somePartsNotSpacing }}</li>
-    <li>{{ somePartsNotFooter }}</li>
+    <li>{{ somePartsNotDescriptiveness }}</li>
+    <li>{{ somePartsNotText }}</li>
+    <li>{{ somePartsNotPDF }}</li>
+    <li>{{ somePartsNotWelsh }}</li>
+    <li>{{ somePartsNotError }}</li>
   </ul>
 
   <h2 class="govuk-heading-s">{{ feedbackAndContactInformation }}</h2>
-  <p class="govuk-body">{{ needMoreInformation }}</p>
+  <p class="govuk-body">{{ textRelayServiceInformation }}</p>
+  <p class="govuk-body">{{ audioInductionLoopsInformation }}</p>
+    <p class="govuk-body">{{ formatInformation }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ email | safe }}</li>
     <li>{{ phone }}</li>
   </ul>
+
   <p class="govuk-body">{{ considerYourRequest }}</p>
 
   <h2 class="govuk-heading-s">{{ reportingAccessibility }}</h2>
   <p class="govuk-body">{{ lookingToImprove | safe }}</p>
   <p class="govuk-body">{{ improveAccessibility | safe }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ email | safe }}</li>
     <li>{{ accessibilityPhoneNumber }}</li>
   </ul>
 
@@ -43,14 +46,6 @@
   <p class="govuk-body">{{ humanRightsCommission | safe }}</p>
   <p class="govuk-body">{{ notHappy | safe }}</p>
 
-  <h2 class="govuk-heading-m">{{ contactingUs }}</h2>
-  <p class="govuk-body">{{ contactTextRelay }}</p>
-  <p class="govuk-body">{{ contactInductionLoops }}</p>
-  <p class="govuk-body">{{ contactCourtDirectly | safe }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ email | safe }}</li>
-    <li>{{ phone }}</li>
-  </ul>
 
   <h2 class="govuk-heading-m">{{ technicalInfo }}</h2>
   <p class="govuk-body">{{ hmctsIsCommitted }}</p>
@@ -75,24 +70,17 @@
   <p class="govuk-body">{{ knownIssues3 }}</p>
   <p class="govuk-body">{{ knownIssues4 }}</p>
 
+  <h3 class="govuk-heading-m">{{ thirdPartyContent }}</h3>
+  <p class="govuk-body">{{ thirdPartyContentDescription1 }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+  <li> {{ thirdPartyContentDescription2 }}</li>
+  <li> {{ thirdPartyContentDescription3 }}</li>
+</ul>
   <h2 class="govuk-heading-m">{{ toImproveAccessibility }}</h2>
   <p class="govuk-body">{{ improveAccessibilityDescription }}</p>
 
   <h2 class="govuk-heading-m">{{ preparationAccessibilityStatement }}</h2>
   <p class="govuk-body">{{ statementPreparationDate }}</p>
   <p class="govuk-body">{{ statementPreparationWebsite }}</p>
-  <p class="govuk-body">{{ dacExcerpt }}</p>
-
-  <h3 class="govuk-heading-s">{{ dacTestingProcedure }}</h3>
-  <p class="govuk-body">{{ dacTestingProcedureDescription }}</p>
-
-  <h3 class="govuk-heading-s">{{ dacTestingProcedure2 }}</h3>
-  <p class="govuk-body">{{ dacTestingProcedureDescription2 }}</p>
-
-  <h3 class="govuk-heading-s">{{ dacTestingProcedure3 }}</h3>
-  <p class="govuk-body">{{ dacTestingProcedureDescription3 }}</p>
-
-  <p class="govuk-body govuk-!-font-weight-bold">{{ contactHelp }}</p>
-  <p class="govuk-body">{{ email | safe }}</p>
-  <p class="govuk-body">{{ accessibilityPhoneNumber }}</p>
+  <p class="govuk-body">{{ statementReviewedFixes }}</p>
 {% endblock %}
