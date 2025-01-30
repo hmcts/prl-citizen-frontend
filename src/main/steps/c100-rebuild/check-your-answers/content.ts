@@ -38,7 +38,6 @@ import {
   TypeOfOrder,
   WithoutNoticeHearing,
   getCyaSections,
-  isMandatoryFieldsFilled,
   otherPersonConfidentiality,
   reasonableAdjustment,
   whereDoChildrenLive,
@@ -87,7 +86,7 @@ import {
   en as respondentPersonalDetailsEn,
 } from '../respondent-details/personal-details/content';
 import { MandatoryFieldsConfig } from '../validation/definitions';
-import { getAllMandatoryFields } from '../validation/util';
+import { getAllMandatoryFields, isAllMandatoryFieldsFilled } from '../validation/util';
 import _ from 'lodash';
 
 export const enContent = {
@@ -970,9 +969,10 @@ export const generateContent: TranslationFn = content => {
   };
   const translations = languages[content.language](content, newContents);
   const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(content.userCase! as CaseWithId);
-  const mandetoryFieldname: string[] = [];
-  mandatoryFields.forEach(field => mandetoryFieldname.push(field.fieldName));
-  const missingObject = mandetoryFieldname.find(value => _.isEmpty(content.userCase?.[value]));
+   const isAllFieldsFilled =isAllMandatoryFieldsFilled(mandatoryFields,content.userCase! as CaseWithId)
+  // const mandetoryFieldname: string[] = [];
+  // mandatoryFields.forEach(field => mandetoryFieldname.push(field.fieldName));
+  // const missingObject = mandetoryFieldname.find(value => _.isEmpty(content.userCase?.[value]));
   form.fields['statementOftruthHeading'] = {
     type: 'textAndHtml',
     textAndHtml: `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${newContents.StatementOfTruth['title']} ${HTML.H2_CLOSE}`,
@@ -1007,7 +1007,7 @@ export const generateContent: TranslationFn = content => {
     };
   }
 
-  form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!) || !!missingObject; //change to use cya redirect application completed?
+  form.submit.disabled = !isAllFieldsFilled; //change to use cya redirect application completed?
   const errors = {};
   content.userCase?.appl_allApplicants?.forEach((applicant, index) => {
     errors[`c8RefugeDocument-applicant-${index}`] = translations.errors.refugeDocumentText;
