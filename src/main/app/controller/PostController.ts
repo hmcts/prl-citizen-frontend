@@ -118,13 +118,20 @@ export class PostController<T extends AnyObject> {
       try {
         req.session.errors = [];
         Object.assign(req.session.userCase, formData);
+        let returnUrl = req.originalUrl;
+        if (req.session.applicationSettings?.hasC100ApplicationBeenCompleted) {
+          returnUrl = returnUrl.includes('?lng')
+            ? `${returnUrl}&validApplication=true`
+            : `${returnUrl}?validApplication=true`;
+        }
         await req.locals.C100Api.saveC100DraftApplication(
           req.session.userCase.caseId!,
           req.session.userCase,
-          req.originalUrl
+          returnUrl
         );
+
         //update latest reutrn URL in the session
-        req.session.userCase.c100RebuildReturnUrl = req.originalUrl;
+        req.session.userCase.c100RebuildReturnUrl = returnUrl;
         req.session.save(() => {
           res.redirect(applyParms(PARTY_TASKLIST, { partyType: PartyType.APPLICANT }));
         });

@@ -1,7 +1,10 @@
 import { Case, CaseWithId } from '../../../app/case/case';
 import { C100RebuildPartyDetails, ChildrenDetails, RootContext, YesOrNo } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
+import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_CHECK_YOUR_ANSWER,
   C100_CHILDERN_MAINLY_LIVE_WITH,
   C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_ADD,
@@ -27,11 +30,12 @@ class OtherPersonsDetailsNavigationController {
   private otherPersonId: C100RebuildPartyDetails['id'] = '';
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
+  public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, req?: AppRequest): PageLink {
+    const params = req?.params;
     this.otherPersonsDetails = caseData?.oprs_otherPersons as C100RebuildPartyDetails[];
     this.childrenDetails = caseData?.cd_children as ChildrenDetails[];
-    this.childId = params?.childId;
-    this.otherPersonId = params?.otherPersonId;
+    this.childId = params?.childId ?? '';
+    this.otherPersonId = params?.otherPersonId ?? '';
     let nextUrl;
 
     switch (currentPageUrl) {
@@ -96,6 +100,8 @@ class OtherPersonsDetailsNavigationController {
           nextUrl = applyParms(C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, {
             otherPersonId: nextPersonId,
           });
+        } else if (isC100ApplicationValid(caseData as CaseWithId, req!)) {
+          nextUrl = C100_CHECK_YOUR_ANSWER;
         } else if (caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES) {
           nextUrl = applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink;
         } else {

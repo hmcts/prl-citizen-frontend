@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { RootContext } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
@@ -67,7 +68,7 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_DETAILS,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest
     );
     expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: 'careOrder' }));
   });
@@ -76,7 +77,10 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      {
+        params: dummyRequest.params,
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest
     );
     expect(nextUrl).toBe('/c100-rebuild/safety-concerns/concern-guidance');
   });
@@ -88,7 +92,7 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest
     );
     expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'careOrder', orderId: '2' }));
   });
@@ -101,7 +105,7 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest
     );
     expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'careOrder', orderId: '4' }));
   });
@@ -114,7 +118,7 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest
     );
     expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: 'emergencyProtectionOrder' }));
   });
@@ -126,7 +130,7 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest
     );
     expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: 'otherOrder' }));
   });
@@ -138,7 +142,7 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest
     );
     expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'otherOrder', orderId: '1' }));
   });
@@ -151,7 +155,7 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest
     );
     expect(nextUrl).toBe(applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: 'supervisionOrder' }));
   });
@@ -163,7 +167,7 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      dummyRequest
     );
     expect(nextUrl).toBe(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY);
   });
@@ -176,7 +180,10 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      {
+        params: dummyRequest.params,
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest
     );
     expect(nextUrl).toBe(
       applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { orderType: 'otherOrder', root: RootContext.C100_REBUILD })
@@ -198,7 +205,10 @@ describe('OtherProceedingsNavigationController', () => {
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
       C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
       dummyRequest.session.userCase,
-      dummyRequest.params
+      {
+        params: dummyRequest.params,
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest
     );
     expect(nextUrl).toBe(applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }));
   });
