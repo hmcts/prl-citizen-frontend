@@ -8,6 +8,7 @@ import {
   C100OrderInterface,
   C100OrderTypeKeyMapper,
   C100OrderTypes,
+  PartyType,
   ProceedingsOrderInterface,
   ProceedingsOrderTypeKeyMapper,
   ProceedingsOrderTypes,
@@ -22,6 +23,7 @@ import {
   RESPONSE_TASKLIST,
 } from '../../../steps/urls';
 import { Language, generatePageContent } from '../../common/common.content';
+import { getProgressBarConfig } from '../task-list/components/progress-bar';
 
 @autobind
 export default class OtherProceedingsGetController extends GetController {
@@ -85,6 +87,10 @@ export default class OtherProceedingsGetController extends GetController {
         orderType,
         orderId,
         document: currentOrderDocument,
+        c100CaseProgressTrainTrack:
+          req.session.enableC100CaseProgressionTrainTrack && req.originalUrl.startsWith(C100_URL)
+            ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user)
+            : [],
         fileUplaodUrl: applyParms(
           req.originalUrl.startsWith(C100_URL)
             ? C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD

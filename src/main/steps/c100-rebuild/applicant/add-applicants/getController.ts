@@ -2,9 +2,11 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { FieldPrefix } from '../../../../app/case/case';
+import { PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
+import { getProgressBarConfig } from '../../../../steps/common/task-list/components/progress-bar';
 import { cleanLiveWithData, setDynamicFormContext } from '../../../c100-rebuild/people/util';
 import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
 
@@ -55,6 +57,9 @@ export default class AddApplicants extends GetController {
         ...content,
         sessionErrors,
         htmlLang: language,
+        c100CaseProgressTrainTrack: req.session.enableC100CaseProgressionTrainTrack
+          ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user)
+          : [],
         tempFirstName: '',
         tempLastName: '',
       });

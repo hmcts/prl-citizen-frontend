@@ -36,15 +36,15 @@ export enum CaseCreationStage {
 
 export const getLabel = (
   caseStage: CaseCreationStage | CaseProgressionStage,
-  caseType: CaseType,
+  caseProgressionType: ProgressBarConfigType,
   language: string
-): string => content[language]?.[caseType]?.[caseStage]?.label;
+): string => content[language]?.[caseProgressionType]?.[caseStage]?.label;
 
 export const getAriaLabel = (
   caseStage: CaseCreationStage | CaseProgressionStage,
-  caseType: CaseType,
+  caseProgressionType: ProgressBarConfigType,
   language: string
-): string => content[language]?.[caseType]?.[caseStage]?.ariaLabel;
+): string => content[language]?.[caseProgressionType]?.[caseStage]?.ariaLabel;
 
 export const isFinalOrderIssued = caseData => caseData.selectTypeOfOrder === SelectTypeOfOrderEnum.finl;
 

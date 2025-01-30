@@ -84,9 +84,10 @@ export class GetController {
       document_type,
       breadcrumbs: BreadcrumbController.get(req.session, language),
       name,
-      c100CaseProgressTrainTrack: req.session.enableC100CaseProgressionTrainTrack
-        ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user)
-        : [],
+      c100CaseProgressTrainTrack:
+        req.session.enableC100CaseProgressionTrainTrack && req.originalUrl.startsWith(Urls.C100_URL)
+          ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user)
+          : [],
     };
     //Add caption only if it exists else it will be rendered by specific page
     if (captionValue) {

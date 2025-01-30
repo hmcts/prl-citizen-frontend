@@ -1,10 +1,10 @@
-import { CaseType } from '../../../../../app/case/definition';
+import { ProgressBarConfigType } from '../../definitions';
 
 const en = {
   complete: 'is completed',
   inProgress: 'is in progress',
   notStarted: 'is not yet started',
-  ['C100-case-creation']: {
+  [ProgressBarConfigType.C100_CASE_CREATION]: {
     childrenPostCode: {
       label: 'Children<br/>postcode',
       ariaLabel: 'Children postcode',
@@ -54,7 +54,7 @@ const en = {
       ariaLabel: 'Help with fees',
     },
   },
-  [CaseType.C100]: {
+  [ProgressBarConfigType.C100_CASE_PROGRESSION]: {
     applicationSubmitted: {
       label: 'Application<br/> submitted',
       ariaLabel: 'Application submitted stage',
@@ -76,7 +76,7 @@ const en = {
       ariaLabel: 'Case closed stage',
     },
   },
-  [CaseType.FL401]: {
+  [ProgressBarConfigType.FL401_CASE_PROGRESSION]: {
     caseOpened: {
       label: 'Case<br/> opened',
       ariaLabel: 'Case opened stage',
@@ -100,7 +100,7 @@ const cy: typeof en = {
   complete: 'wedi’i gwblhau',
   inProgress: 'ar y gweill',
   notStarted: 'heb ddechrau eto',
-  ['C100-case-creation']: {
+  [ProgressBarConfigType.C100_CASE_CREATION]: {
     childrenPostCode: {
       label: 'Children<br/>postcode - welsh',
       ariaLabel: 'Children postcode - welsh',
@@ -150,7 +150,7 @@ const cy: typeof en = {
       ariaLabel: 'Help with fees - welsh',
     },
   },
-  [CaseType.C100]: {
+  [ProgressBarConfigType.C100_CASE_PROGRESSION]: {
     applicationSubmitted: {
       label: "Cais wedi'i<br/> gyflwyno",
       ariaLabel: 'Cam cais wedi’i gyflwyno',
@@ -172,7 +172,7 @@ const cy: typeof en = {
       ariaLabel: 'Cam achos wedi’i gau',
     },
   },
-  [CaseType.FL401]: {
+  [ProgressBarConfigType.FL401_CASE_PROGRESSION]: {
     caseOpened: {
       label: 'Achos<br/> wedi’i agor',
       ariaLabel: 'Cam achos wedi’i agor',

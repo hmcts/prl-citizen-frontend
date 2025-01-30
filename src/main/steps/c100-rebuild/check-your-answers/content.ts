@@ -850,11 +850,18 @@ export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents, lan
 };
 // if user selects No for valid excemptions on maim_exemption
 export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, language) => {
-  return [
+  const flow4Sections = [
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
-    MiamExemption(newContents, userCase, language),
+  ];
+
+  if (userCase.miam_attendance === YesOrNo.NO) {
+    flow4Sections.push(MiamExemption(newContents, userCase, language));
+  }
+
+  return [
+    ...flow4Sections,
     TypeOfOrder(contentLanguage, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
     peopleSections(userCase, contentLanguage, language),
@@ -969,7 +976,7 @@ export const generateContent: TranslationFn = content => {
   };
   const translations = languages[content.language](content, newContents);
   const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(content.userCase! as CaseWithId);
-   const isAllFieldsFilled =isAllMandatoryFieldsFilled(mandatoryFields,content.userCase! as CaseWithId)
+  const isAllFieldsFilled = isAllMandatoryFieldsFilled(mandatoryFields, content.userCase! as CaseWithId);
   // const mandetoryFieldname: string[] = [];
   // mandatoryFields.forEach(field => mandetoryFieldname.push(field.fieldName));
   // const missingObject = mandetoryFieldname.find(value => _.isEmpty(content.userCase?.[value]));

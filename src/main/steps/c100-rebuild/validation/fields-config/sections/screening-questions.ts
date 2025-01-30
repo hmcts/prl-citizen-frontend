@@ -25,8 +25,11 @@ export const ScreeningQuestionsFieldsConfig = {
       fieldName: 'sq_courtPermissionRequired',
       fieldType: 'string',
       mandatory_if: {
-        fieldName: 'sq_writtenAgreement',
-        value: 'No',
+        and: [
+          { fieldName: 'sq_writtenAgreement', value: 'No' },
+          { fieldName: 'sq_legalRepresentation', value: 'No' },
+        ],
+        or: [{ fieldName: 'sq_legalRepresentationApplication', value: 'No' }],
       },
     },
     {
