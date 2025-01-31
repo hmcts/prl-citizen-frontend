@@ -36,6 +36,7 @@ const en = {
     'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
   formatInformation:
     'If you require support when visiting or need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille contact us at:',
+  emailInfo: 'Email: hmctsforms@justice.gov.uk',
   phone: 'Telephone:  0300 323 0185',
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
@@ -69,11 +70,11 @@ const en = {
     'Text on pages written in a different language is not programmatically written as such. This is specifically the ‘Cymraeg’ link has been written in Welsh but lacks a lang attribute, which means the correct pronunciation may not be relayed to a screen reader user. This fails WCAG 2.2 success criterion 3.1.2 Language of Parts (Level AA).',
   issuesWithDocumentDescription6:
     'Some error messages do not convey suggestions on how to correct the errors, which means some users will struggle to fix their input errors on the page. This fails WCAG 2.2 success criterion 3.3.3 Error Suggestion (Level AA).',
-  thirdPartyContent: 'Third party content that’s under someone else’s control',
+  thirdPartyContent: "Third party content that's not within the scope of the accessibility regulations",
   thirdPartyContentDescription1:
     'Pages and websites that are linked to and from the Family Private Law service may not be fully accessible. These include: ',
   thirdPartyContentDescription2: 'External pages hosting PDF documents',
-  thirdPartyContentDescription3: 'The payment pages which have a separate accessibility statement.',
+  thirdPartyContentDescription3: 'The payment pages which have a separate accessibility statement',
   toImproveAccessibility: 'What we’re doing to improve accessibility',
   improveAccessibilityDescription:
     'We are working to improve accessibility on this website, and plan to fix the identified issues by 30 November 2025.',
