@@ -1,51 +1,62 @@
 {% extends "common/page.njk" %}
 
 {% block page_content %}
-  <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body">{{ websiteAvailable | safe}}</p>
-  <p class="govuk-body">{{ websiteRanBy }}</p>
-  <p class="govuk-body">{{ asManyAsPossible }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ asManyAsPossibleColours }}</li>
-    <li>{{ asManyAsPossibleZoom }}</li>
-    <li>{{ asManyAsPossibleKeyboard }}</li>
-    <li>{{ asManyAsPossibleSpeech }}</li>
-    <li>{{ asManyAsPossibleListen }}</li>
-  </ul>
-  <p class="govuk-body">{{ simpleAsPossible }}</p>
-  <p class="govuk-body">{{ abilityNet | safe }}</p>
 
-  <h2 class="govuk-heading-s">{{ howAccessible }}</h2>
-  <p class="govuk-body">{{ somePartsNot }}</p>
+   {% macro generateBulletList(items, listClass="govuk-list govuk-list--bullet") %}
+  <ul class="{{ listClass }}">
+    {% for item in items %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  {% endmacro %}
+
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% set paragraphs = [websiteAvailable | safe, websiteRanBy, asManyAsPossible] %}
+  {% for paragraph in paragraphs %}
+    <p class="govuk-body">{{ paragraph }}</p>
+  {% endfor %}
+  {% set accessibilityOptions = [asManyAsPossibleColours, asManyAsPossibleZoom, asManyAsPossibleKeyboard, asManyAsPossibleSpeech, asManyAsPossibleListen] %}
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ somePartsNotDescriptiveness }}</li>
-    <li>{{ somePartsNotText }}</li>
-    <li>{{ somePartsNotPDF }}</li>
-    <li>{{ somePartsNotWelsh }}</li>
-    <li>{{ somePartsNotError }}</li>
+    {% for option in accessibilityOptions %}
+      <li>{{ option }}</li>
+    {% endfor %}
+  </ul>
+  {% set paragraphs2 = [simpleAsPossible, abilityNet | safe] %}
+  {% for paragraph in paragraphs2 %}
+    <p class="govuk-body">{{ paragraph }}</p>
+  {% endfor %}
+
+   <h2 class="govuk-heading-s">{{ howAccessible }}</h2>
+  <p class="govuk-body">{{ somePartsNot }}</p>
+  {% set notAccessibleParts = [somePartsNotDescriptiveness, somePartsNotText, somePartsNotPDF, somePartsNotWelsh, somePartsNotError] %}
+  <ul class="govuk-list govuk-list--bullet">
+    {% for part in notAccessibleParts %}
+      <li>{{ part }}</li>
+    {% endfor %}
   </ul>
 
   <h2 class="govuk-heading-s">{{ feedbackAndContactInformation }}</h2>
-  <p class="govuk-body">{{ textRelayServiceInformation }}</p>
-  <p class="govuk-body">{{ audioInductionLoopsInformation }}</p>
-    <p class="govuk-body">{{ formatInformation }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ phone }}</li>
-  </ul>
+  {% set contactInfo = [textRelayServiceInformation, audioInductionLoopsInformation, formatInformation] %}
+  {% for info in contactInfo %}
+    <p class="govuk-body">{{ info }}</p>
+  {% endfor %}
+  {% set phoneAndEmail = [emailInfo, phone] %}
+  {{ generateBulletList(phoneAndEmail) }}
 
   <p class="govuk-body">{{ considerYourRequest }}</p>
 
   <h2 class="govuk-heading-s">{{ reportingAccessibility }}</h2>
-  <p class="govuk-body">{{ lookingToImprove | safe }}</p>
-  <p class="govuk-body">{{ improveAccessibility | safe }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>{{ accessibilityPhoneNumber }}</li>
-  </ul>
+  {% set improvements = [lookingToImprove | safe, improveAccessibility | safe] %}
+  {% for improvement in improvements %}
+    <p class="govuk-body">{{ improvement }}</p>
+  {% endfor %}
+  {{ generateBulletList(phoneAndEmail) }}
 
   <h2 class="govuk-heading-s">{{ enforcementProcedure }}</h2>
-  <p class="govuk-body">{{ humanRightsCommission | safe }}</p>
-  <p class="govuk-body">{{ notHappy | safe }}</p>
-
+  {% set humanRightsInfo = [humanRightsCommission | safe, notHappy | safe] %}
+  {% for info in humanRightsInfo %}
+    <p class="govuk-body">{{ info }}</p>
+  {% endfor %}
 
   <h2 class="govuk-heading-m">{{ technicalInfo }}</h2>
   <p class="govuk-body">{{ hmctsIsCommitted }}</p>
@@ -57,30 +68,26 @@
   <p class="govuk-body">{{ nonAccessibleDescription }}</p>
 
   <h3 class="govuk-heading-s">{{ issuesWithDocuments }}</h3>
-  <p class="govuk-body">{{ issuesWithDocumentDescription1 }}</p>
-  <p class="govuk-body">{{ issuesWithDocumentDescription2 }}</p>
-  <p class="govuk-body">{{ issuesWithDocumentDescription3 }}</p>
-  <p class="govuk-body">{{ issuesWithDocumentDescription4 }}</p>
-  <p class="govuk-body">{{ issuesWithDocumentDescription5 }}</p>
-  <p class="govuk-body">{{ issuesWithDocumentDescription6 }}</p>
-
-  <h2 class="govuk-heading-m">{{ otherKnownIssues }}</h2>
-  <p class="govuk-body">{{ knownIssues1 }}</p>
-  <p class="govuk-body">{{ knownIssues2 }}</p>
-  <p class="govuk-body">{{ knownIssues3 }}</p>
-  <p class="govuk-body">{{ knownIssues4 }}</p>
+  {% set documentIssues = [issuesWithDocumentDescription1, issuesWithDocumentDescription2, issuesWithDocumentDescription3, issuesWithDocumentDescription4, issuesWithDocumentDescription5, issuesWithDocumentDescription6] %}
+  {% for issue in documentIssues %}
+    <p class="govuk-body">{{ issue }}</p>
+  {% endfor %}
 
   <h3 class="govuk-heading-m">{{ thirdPartyContent }}</h3>
   <p class="govuk-body">{{ thirdPartyContentDescription1 }}</p>
   <ul class="govuk-list govuk-list--bullet">
-  <li> {{ thirdPartyContentDescription2 }}</li>
-  <li> {{ thirdPartyContentDescription3 }}</li>
-</ul>
+    {% set thirdPartyContents = [thirdPartyContentDescription2, thirdPartyContentDescription3] %}
+    {% for content in thirdPartyContents %}
+      <li>{{ content }}</li>
+    {% endfor %}
+  </ul>
+
   <h2 class="govuk-heading-m">{{ toImproveAccessibility }}</h2>
   <p class="govuk-body">{{ improveAccessibilityDescription }}</p>
 
   <h2 class="govuk-heading-m">{{ preparationAccessibilityStatement }}</h2>
-  <p class="govuk-body">{{ statementPreparationDate }}</p>
-  <p class="govuk-body">{{ statementPreparationWebsite }}</p>
-  <p class="govuk-body">{{ statementReviewedFixes }}</p>
+  {% set preparationDetails = [statementPreparationDate, statementPreparationWebsite, statementReviewedFixes] %}
+  {% for detail in preparationDetails %}
+    <p class="govuk-body">{{ detail }}</p>
+  {% endfor %}
 {% endblock %}
