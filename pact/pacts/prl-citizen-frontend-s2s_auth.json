@@ -7,26 +7,33 @@
   },
   "interactions": [
     {
-      "description": "a request for service auth token",
-      "providerState": "i request a service auth token",
+      "description": "a request for a token",
+      "providerState": "microservice with valid credentials",
       "request": {
         "method": "POST",
-        "path": "/testing-support/lease",
-        "headers": {
-          "Accept": "application/json, text/plain, */*",
-          "content-type": "application/json"
-        },
+        "path": "/lease",
         "body": {
-          "microservice": "prl-citizen-frontend",
-          "oneTimePassword": "123456"
+          "content": {
+            "microservice": "microserviceName",
+            "oneTimePassword": "784467"
+          },
+          "contentType": "application/json",
+          "encoded": false
         }
       },
       "response": {
         "status": 200,
         "headers": {
-          "content-type": "application/json"
+          "Content-Type": [
+            "text/plain"
+          ]
         },
-        "body": "MOCK_TOKEN"
+        "body": {
+          "content": "someMicroServiceToken",
+          "contentType": "text/plain",
+          "contentTypeHint": "DEFAULT",
+          "encoded": false
+        }
       }
     }
   ],

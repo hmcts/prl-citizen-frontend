@@ -34,7 +34,7 @@ pactWith(
       };
 
       const serviceAuthTokenRequest = {
-        uponReceiving: 'a request for a token for a microservice',
+        uponReceiving: 'a request for a token',
         withRequest: {
           method: 'POST',
           path: '/lease',
