@@ -100,12 +100,17 @@ export const progressBarStage = {
   },
 };
 
-export const getProgressBarType = (caseData: CaseWithId): ProgressBarConfigType => {
+export const getProgressBarType = (
+  caseData: CaseWithId,
+  isC100TrainTrackEnabled: boolean | undefined
+): ProgressBarConfigType => {
   const caseType = caseData?.caseTypeOfApplication;
   let progressBarType: ProgressBarConfigType;
 
   if (!caseType || caseData?.state === State.CASE_DRAFT) {
-    progressBarType = ProgressBarConfigType.C100_CASE_CREATION;
+    progressBarType = isC100TrainTrackEnabled
+      ? ProgressBarConfigType.C100_CASE_CREATION
+      : ProgressBarConfigType.C100_CASE_PROGRESSION;
   } else {
     progressBarType =
       caseType === CaseType.C100

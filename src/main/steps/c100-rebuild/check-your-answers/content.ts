@@ -4,7 +4,7 @@
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, RootContext, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { FormContent, GenerateDynamicFormFields } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
 
@@ -913,8 +913,22 @@ export const SystemLanguageContent = (content, Function) => {
   return content['language'] === 'en' ? Function(content.userCase)?.en() : Function(content.userCase)?.cy();
 };
 
-export const form: FormContent = {
-  fields: {
+let updatedForm: FormContent;
+
+const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
+  updatedForm = {
+    ...form,
+    fields: {
+      ...formFields,
+      ...(form.fields ?? {}),
+    },
+  };
+
+  return updatedForm;
+};
+
+const generateFormFields = (areAllFieldsFilled: boolean): GenerateDynamicFormFields => {
+  const fields = {
     statementOftruthHeading: {},
     statementOftruthSubHeading: {},
     statementOftruthWarning: {},
@@ -927,11 +941,23 @@ export const form: FormContent = {
           name: 'statementOfTruth',
           label: l => l.StatementOfTruth['check'],
           value: YesOrNo.YES,
+          disabled: !areAllFieldsFilled,
         },
       ],
     },
     statementOftruthLastPara: {},
-  },
+  };
+
+  const errors = {
+    en: {},
+    cy: {},
+  };
+
+  return { fields, errors };
+};
+
+export const form: FormContent = {
+  fields: {},
   submit: {
     text: l => l.onlycontinue,
     disabled: false,
@@ -1082,7 +1108,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    form,
+    form: updateFormFields(form, generateFormFields(isAllFieldsFilled).fields),
     errors: {
       ...errors,
       ...translations.errors,

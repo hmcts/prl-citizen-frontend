@@ -6,6 +6,7 @@ import { FieldPrefix } from '../../../app/case/case';
 import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
+import { doesCaseHaveId } from '../../../steps/common/task-list/utils';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { doesAnyChildLiveWithOtherPerson } from '../other-person-details/utils';
 import { MandatoryFieldsConfig } from '../validation/definitions';
@@ -46,13 +47,14 @@ export default class CheckYourAnswersGetController extends GetController {
       };
     }
     try {
-      await req.locals.C100Api.saveC100DraftApplication(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        req.session.userCase?.caseId as string,
-        req.session.userCase,
-        returnUrl
-      );
-
+      if (doesCaseHaveId(req.session.userCase)) {
+        await req.locals.C100Api.saveC100DraftApplication(
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          req.session.userCase?.caseId as string,
+          req.session.userCase,
+          returnUrl
+        );
+      }
       //clear payment error
       setTimeout(() => {
         req.session.paymentError = { hasError: false, errorContext: null };
