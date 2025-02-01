@@ -89,7 +89,7 @@ export default class OtherProceedingsGetController extends GetController {
         document: currentOrderDocument,
         c100CaseProgressTrainTrack:
           req.session.enableC100CaseProgressionTrainTrack && req.originalUrl.startsWith(C100_URL)
-            ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user)
+            ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user, true)
             : [],
         fileUplaodUrl: applyParms(
           req.originalUrl.startsWith(C100_URL)

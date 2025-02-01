@@ -14,7 +14,7 @@ export const getProgressBarConfig = (
   partyType: PartyType,
   language: string,
   userDetails: UserDetails,
-  isC100TrainTrackEnabled?: boolean
+  isC100TrainTrackEnabled: boolean
 ): ProgressBarProps[] => {
   const progressBarType = getProgressBarType(caseData, isC100TrainTrackEnabled);
   const progressBarConfig = ProgressBarConfig?.[progressBarType]?.[partyType];

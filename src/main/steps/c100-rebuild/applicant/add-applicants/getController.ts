@@ -58,7 +58,7 @@ export default class AddApplicants extends GetController {
         sessionErrors,
         htmlLang: language,
         c100CaseProgressTrainTrack: req.session.enableC100CaseProgressionTrainTrack
-          ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user)
+          ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user, true)
           : [],
         tempFirstName: '',
         tempLastName: '',

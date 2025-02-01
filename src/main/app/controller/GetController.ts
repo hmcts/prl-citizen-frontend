@@ -86,7 +86,7 @@ export class GetController {
       name,
       c100CaseProgressTrainTrack:
         req.session.enableC100CaseProgressionTrainTrack && req.originalUrl.startsWith(Urls.C100_URL)
-          ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user)
+          ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user, true)
           : [],
     };
     //Add caption only if it exists else it will be rendered by specific page
