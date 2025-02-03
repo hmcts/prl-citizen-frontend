@@ -1,3 +1,4 @@
+/* eslint-disable import/namespace */
 import languageAssertions from '../../../test/unit/utils/languageAssertions';
 import { CommonContent, generatePageContent } from '../common/common.content';
 
@@ -59,17 +60,37 @@ const en = {
   nonAccessibleDescription: 'The content listed below is non-accessible for the following reasons.',
   issuesWithDocuments: 'Non-compliance with the accessibility regulations',
   issuesWithDocumentDescription1:
-    'Heading labels are provided however they are non-descriptive. This means that assistive technology users may struggle to understand the content. This fails WCAG 2.2 success criterion 2.4.6 Headings and Labels (Level AA).',
+    'Heading labels are provided however they are non-descriptive.  This does not meet WCAG 2.2 success criterion 2.4.6 Headings and Labels (Level AA).',
   issuesWithDocumentDescription2:
-    'An autocomplete attribute has been supplied an invalid value for ‘property name or number’ which may cause issues for screen reader users. This fails WCAG 2.2 success criterion 1.3.5 Identify Input Purpose (Level AA).',
+    'An autocomplete attribute has been supplied an invalid value for ‘property name or number’ which may cause issues for screen reader users.  This does not meet WCAG 2.2 success criterion 1.3.5 Identify Input Purpose (Level AA).',
   issuesWithDocumentDescription3:
-    'Text was found to fail the minimum text contrast requirements within ‘draft’ marked PDF documents which means that users who are colourblind may struggle to see the content. This fails WCAG 2.2 success criterion 1.4.3 Contrast (Minimum) (Level AA).',
+    'Text was found to fail the minimum text contrast requirements within ‘draft’ marked PDF documents.  This does not meet WCAG 2.2 success criterion 1.4.3 Contrast (Minimum) (Level AA)',
   issuesWithDocumentDescription4:
-    'Content becomes obscured when resizing text on the page, which means that some users with low vision may struggle to read the content. This fails WCAG 2.2 success criterion 1.4.4 Resize text (Level AA).',
+    'Content becomes obscured when resizing text on the page. This does not meet WCAG 2.2 success criterion 1.4.4 Resize text (Level AA).',
   issuesWithDocumentDescription5:
-    'Text on pages written in a different language is not programmatically written as such. This is specifically the ‘Cymraeg’ link has been written in Welsh but lacks a lang attribute, which means the correct pronunciation may not be relayed to a screen reader user. This fails WCAG 2.2 success criterion 3.1.2 Language of Parts (Level AA).',
+    'Some error messages do not convey suggestions on how to correct the errors.  This does not meet WCAG 2.2 success criterion 3.3.3 Error Suggestion (Level AA).',
   issuesWithDocumentDescription6:
-    'Some error messages do not convey suggestions on how to correct the errors, which means some users will struggle to fix their input errors on the page. This fails WCAG 2.2 success criterion 3.3.3 Error Suggestion (Level AA).',
+    'A timeout feature is present however there is no way to adjust or cancel when the timeout occurs throughout the service. The lack of a prior warning may cause frustration and make it much more difficult for users who need additional time. This fails WCAG 2.2 success criterion 2.2.1 Timing Adjustable (Level A).',
+  issuesWithDocumentDescription7:
+    'A fieldset is used however no legend was included and in some cases is unnecessary. This can be confusing for screen reader users when navigating out of context. This fails WCAG 2.2 success criterion 1.3.1 Info and Relationships (Level A).',
+  issuesWithDocumentDescription8:
+    'Optional pages are not relayed as such for users navigating the service which means that some users may become stuck at this stage as they may feel forced to upload a document as nothing on the page informs users of the step being optional. This fails WCAG 2.2 success criterion 3.3.2 Labels or Instructions (Level A).',
+  issuesWithDocumentDescription9:
+    'Some labels may be present but not programmatically associated to the form element which means that assistive technology users will be presented with an unlabelled input. This fails WCAG 2.2 success criterion 1.3.1 Info and Relationships (Level A).',
+  issuesWithDocumentDescription10:
+    'Some form fields do not have a visible label present which means that assistive technology users do not get the necessary information conveyed to them. This fails WCAG 2.2 success criterion 3.3.2 Labels or Instructions (Level A).',
+  issuesWithDocumentDescription11:
+    'At least on page title was found to be non-descriptive which means that the page does not present its purpose which would normally be presented in heading level one. This fails WCAG 2.2 success criterion 2.4.2 Page Titled (Level A).',
+  issuesWithDocumentDescription12:
+    'At least one PDF document was found to be missing a title. This property is used by screen readers to informs these users of the document’s details. This fails WCAG 2.2 success criterion 2.4.2 Page Titled (Level A).',
+  issuesWithDocumentDescription13:
+    'At least on PDF document does not contain tags used to define elements on the page which can prevent assistive technology users to access the content within the PDF. This fails WCAG 2.2 success criterion 1.3.1 Info and Relationships (Level A).',
+  issuesWithDocumentDescription14:
+    'A non-interactive element receives focus when navigating via keyboard/screen reader software. This affects the navigation for keyboard and screen reader users where the section will receive the focus order when it is unneeded. This fails WCAG 2.2 success criterion 2.4.3 Focus Order (Level A).',
+  issuesWithDocumentDescription15:
+    'An input has a label that is not programmatically associated. This means that hint text that contains important information when inputting data has not been associated to the relevant inputs on the page. This fails WCAG 2.2 success criterion 1.3.1 Info and Relationships (Level A).',
+  issuesWithDocumentDescription16:
+    'Empty links may be encountered when navigating the service. This means that assistive technology users may experience unexpected functionality which may disorient these users.  This fails WCAG 2.2 success criterion 2.4.3 Focus Order (Level A).',
   thirdPartyContent: "Third party content that's not within the scope of the accessibility regulations",
   thirdPartyContentDescription1:
     'Pages and websites that are linked to and from the Family Private Law service may not be fully accessible. These include: ',
