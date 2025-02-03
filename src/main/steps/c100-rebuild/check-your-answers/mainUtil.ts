@@ -1453,7 +1453,7 @@ const RespondentDetails_AddressAndPersonal = (
     newRespondentStorage.push({
       key: keys['addressDetails'],
       anchorReference: `addressDetails-respondent-${respondent}`,
-      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['addressDetails']}`,
+      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent)} ${keys['addressDetails']}`,
       value: '',
       // valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys, language),
       valueHtml: populateError(
@@ -1471,7 +1471,7 @@ const RespondentDetails_AddressAndPersonal = (
     newRespondentStorage.push({
       key: keys['explainYesLabel'],
       anchorReference: `addressUnknown-respondent-${respondent}`,
-      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['explainYesLabel']}`,
+      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent)} ${keys['explainYesLabel']}`,
       valueHtml: populateError(
         sessionRespondentData[respondent].addressUnknown,
         getYesNoTranslation(language, sessionRespondentData[respondent]?.['addressUnknown'], 'doTranslation'),
@@ -1483,10 +1483,10 @@ const RespondentDetails_AddressAndPersonal = (
   }
 
   newRespondentStorage.push(
-    respondentTelephoneEmailDetails(contactDetails, id, language, false, parseInt(respondent) + 1, keys)
+    respondentTelephoneEmailDetails(contactDetails, id, language, false, parseInt(respondent), keys)
   );
   newRespondentStorage.push(
-    respondentTelephoneEmailDetails(contactDetails, id, language, true, parseInt(respondent) + 1, keys)
+    respondentTelephoneEmailDetails(contactDetails, id, language, true, parseInt(respondent), keys)
   );
 
   return newRespondentStorage;
@@ -1494,6 +1494,7 @@ const RespondentDetails_AddressAndPersonal = (
 
 const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelephone: boolean, index: number, keys) => {
   const ctx: string[] = [];
+  const anchor = isTelephone ? 'phone' : 'email';
   if (isTelephone) {
     ctx.push('donKnowTelephoneNumber', 'dont_know_telephone', 'telephone_number', 'telephoneNumber');
   } else {
@@ -1502,7 +1503,7 @@ const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelepho
   if (contactDetails.hasOwnProperty(ctx[0]) && contactDetails[ctx[0]] === 'Yes') {
     return {
       key: getYesNoTranslation(language, ctx[1], 'personalDetails'),
-      anchorReference: `personalDetails-respondent-${index}`,
+      anchorReference: `personalDetails-respondent-${anchor}-${index}`,
       visuallyHiddenText: `${keys['respondents']} ${index} ${getYesNoTranslation(language, ctx[1], 'personalDetails')}`,
       valueHtml: populateError(
         contactDetails?.[ctx[0]],
@@ -1515,7 +1516,7 @@ const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelepho
   } else {
     return {
       key: getYesNoTranslation(language, ctx[2], 'personalDetails'),
-      anchorReference: `personalDetails-respondent-${index}`,
+      anchorReference: `personalDetails-respondent-${anchor}-${index}`,
       visuallyHiddenText: `${keys['respondents']} ${index} ${getYesNoTranslation(language, ctx[2], 'personalDetails')}`,
       valueHtml: populateError(contactDetails?.[ctx[3]], contactDetails?.[ctx[3]], language),
       value: contactDetails?.[ctx[3]],
@@ -2673,22 +2674,12 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
   }
 
   if (
-    _.isEmpty(respondent.personalDetails.hasNameChanged) &&
-    respondent.personalDetails.hasNameChanged === YesNoDontKnow.yes &&
-    _.isEmpty(respondent.personalDetails.previousFullName)
+    _.isEmpty(respondent.personalDetails.hasNameChanged) ||
+    (respondent.personalDetails.hasNameChanged === YesNoDontKnow.yes &&
+      _.isEmpty(respondent.personalDetails.previousFullName))
   ) {
     error.push({
       propertyName: `hasNameChanged-respondent-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (
-    _.isEmpty(respondent.personalDetails.gender) ||
-    (respondent.personalDetails.gender === Gender.OTHER && !_.isEmpty(respondent.personalDetails.otherGenderDetails))
-  ) {
-    error.push({
-      propertyName: `childGenderLabel-respondent-${index}`,
       errorType: 'required',
     });
   }
@@ -2713,8 +2704,10 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
   //   });
   // }else
   if (
-    respondent?.personalDetails?.isDateOfBirthUnknown === YesNoEmpty.YES &&
-    _.isEmpty(respondent.personalDetails.approxDateOfBirth)
+    respondent.personalDetails.isDateOfBirthUnknown &&
+    respondent.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES &&
+    respondent.personalDetails.approxDateOfBirth &&
+    Object.values(respondent.personalDetails.approxDateOfBirth).some(dobValue => _.isEmpty(dobValue))
   ) {
     error.push({
       propertyName: `approxDateOfBirth-respondent-${index}`,
@@ -2735,7 +2728,7 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
   }
 
   if (
-    respondent.personalDetails.respondentPlaceOfBirthUnknown !== 'No' &&
+    respondent.personalDetails.respondentPlaceOfBirthUnknown === 'No' &&
     _.isEmpty(respondent.personalDetails.respondentPlaceOfBirth)
   ) {
     error.push({
@@ -2744,12 +2737,25 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
     });
   }
 
-  //   if (_.isEmpty(respondent.relationshipDetails?.relationshipToChildren)) {
-  //     error.push({
-  //       propertyName: `relationshipTo-respondent-${index}`,
-  //       errorType: 'required',
-  //     });
-  //   }
+  if (
+    _.isEmpty(respondent.contactDetails) ||
+    (respondent.contactDetails.donKnowEmailAddress === YesOrNo.NO && _.isEmpty(respondent.contactDetails.emailAddress))
+  ) {
+    error.push({
+      propertyName: `personalDetails-respondent-email-${index}`,
+      errorType: 'required',
+    });
+  }
+  if (
+    _.isEmpty(respondent.contactDetails) ||
+    (respondent.contactDetails.donKnowTelephoneNumber === YesOrNo.NO &&
+      _.isEmpty(respondent.contactDetails.telephoneNumber))
+  ) {
+    error.push({
+      propertyName: `personalDetails-respondent-phone-${index}`,
+      errorType: 'required',
+    });
+  }
   return error;
 };
 

@@ -1151,8 +1151,10 @@ export const generateContent: TranslationFn = content => {
     errors[`childGenderLabel-respondent-${index}`] = translations.errors.gender;
     errors[`isDateOfBirthUnknown-respondent-${index}`] = translations.errors.isDateOfBirthUnknown;
     errors[`dateOfBirth-respondent-${index}`] = translations.errors.otherGenderDetails;
-    errors[`respondentPlaceOfBirth-respondent-${index}`] = translations.errors.childMatters;
+    errors[`respondentPlaceOfBirth-respondent-${index}`] = translations.errors.placeOfBirth;
     errors[`relationshipTo-respondent-${index}`] = translations.errors.relationshipType;
+    errors[`personalDetails-respondent-email-${index}`] = translations.errors.contactDetails;
+    errors[`personalDetails-respondent-phone-${index}`] = translations.errors.contactDetails;
   });
 
   content.userCase?.resp_Respondents?.forEach((applicant, index) => {
