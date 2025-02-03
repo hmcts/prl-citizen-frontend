@@ -186,10 +186,12 @@ export const enContent = {
       required: 'Describe what you want the court to do regarding the children in this application',
     },
     hu_urgentHearingReasons: {
-      required: 'Select yes if you have a good reason to request an urgent hearing',
+      // required: 'Select yes if you have a good reason to request an urgent hearing',
+      required: 'Complete urgent hearing related questioner',
     },
     hwn_reasonsForApplicationWithoutNotice: {
-      required: 'Enter details',
+      //required: 'Enter details',
+      required: 'Complete with out notice hearing related questioner',
     },
     childrenKnownToSocialServicesLabel: {
       required: 'Select if any of the children are known to social services',
@@ -350,6 +352,24 @@ export const enContent = {
     otherPersonConfidentiality: {
       required: 'Select yes if you want to keep {firstName} {lastName}’s details private',
     },
+    liveInRefuge: {
+      required: 'Select yes if you/they currently live in a refuge',
+    },
+    // hu_reasonOfUrgentHearing:{
+    //   required:'Select the reason why you are asking for an urgent hearing'
+    // },
+    // hu_otherRiskDetails: {
+    //   required: 'Give details of the risk in your case that support your need for an urgent hearing',
+    // },
+    // hu_timeOfHearingDetails: {
+    //   required: 'Enter how soon you need the hearing to take place',
+    // },
+    // hu_hearingWithNext48HrsDetails: {
+    //   required: 'Select yes if you need a hearing within the next 48 hours',
+    // },
+    // hu_hearingWithNext48HrsMsg: {
+    //   required: 'Provide details of what you have done to inform the respondents of your application',
+    // }
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -538,6 +558,10 @@ export const cyContent = {
     parentalResponsibility: parentalResponsibilityCy().errors.statement,
     liveWith: liveWithContentCy.errors.liveWith,
     hasNameChanged: respondentPersonalDetailsCy().errors.hasNameChanged,
+
+    liveInRefuge: {
+      required: 'Select yes if you/they currently live in a refuge-welsh',
+    },
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1
@@ -1046,18 +1070,27 @@ export const generateContent: TranslationFn = content => {
     errors[`c8RefugeDocument-applicant-${index}`] = translations.errors.refugeDocumentText;
     errors[`fullName-applicant-${index}`] = translations.errors.fullName;
     errors[`anyOtherPeopleKnowDetails-applicant-${index}`] = translations.errors.detailsKnown;
-    errors[`anyOtherPeopleKnowDetails-applicant-${index}`] = translations.errors.detailsKnown;
+    //errors[`anyOtherPeopleKnowDetails-applicant-${index}`] = translations.errors.detailsKnown;
     errors[`doYouWantToKeep-applicant-${index}`] = translations.errors.contactDetailsPrivateAlternative;
     errors[`haveYouChangeName-applicant-${index}`] = translations.errors.haveYouChangeName;
     errors[`gender-applicant-${index}`] = translations.errors.gender;
     errors[`dateOfBirth-applicant-${index}`] = translations.errors.dateOfBirth;
     errors[`placeOfBirth-applicant-${index}`] = translations.errors.placeOfBirth;
-    errors[`relationshipTo-applicant-${index}`] = translations.errors.relationshipType;
+    // errors[`relationshipTo-applicant-${index}-`] = translations.errors.relationshipType;
     errors[`addressDetails-applicant-${index}`] = translations.errors.addressDetails;
     errors[`contactDetails-applicant-${index}`] = translations.errors.contactDetails;
     errors[`voiceMail-applicant-${index}`] = translations.errors.voiceMail;
-    errors[`contactPreferences-applicant-${index}`] = translations.errors.contactPreferences;
+    errors[`refuge-applicant-${index}`] = translations.errors.liveInRefuge;
   });
+  content.userCase?.appl_allApplicants?.forEach((applicant, index) => {
+    // if(applicant?.relationshipDetails?.relationshipToChildren){
+    // applicant?.relationshipDetails?.relationshipToChildren.forEach((relation)=>{
+    content.userCase?.cd_children?.forEach((child, index1) => {
+      errors[`relationshipTo-applicant-${index}-${index1}`] = translations.errors.relationshipType;
+    });
+  });
+  //   }
+  // })
 
   content.userCase?.cd_children?.forEach((child, index) => {
     errors[`fullName-child-${index}`] = translations.errors.fullName;
@@ -1080,6 +1113,14 @@ export const generateContent: TranslationFn = content => {
     errors[`relationshipTo-respondent-${index}`] = translations.errors.relationshipType;
   });
 
+  content.userCase?.resp_Respondents?.forEach((applicant, index) => {
+    // if(applicant?.relationshipDetails?.relationshipToChildren){
+    // applicant?.relationshipDetails?.relationshipToChildren.forEach((relation)=>{
+    content.userCase?.cd_children?.forEach((child, index1) => {
+      errors[`relationshipTo-respondent-${index}-${index1}`] = translations.errors.relationshipType;
+    });
+  });
+
   content.userCase?.oprs_otherPersons?.forEach((otherPerson, index) => {
     errors[`fullName-otherPerson-${index}`] = translations.errors.fullName;
     errors[`hasNameChanged-otherPerson-${index}`] = translations.errors.hasNameChanged;
@@ -1096,6 +1137,14 @@ export const generateContent: TranslationFn = content => {
         lastName: otherPerson.lastName,
       }
     );
+  });
+
+  content.userCase?.oprs_otherPersons?.forEach((applicant, index) => {
+    // if(applicant?.relationshipDetails?.relationshipToChildren){
+    // applicant?.relationshipDetails?.relationshipToChildren.forEach((relation)=>{
+    content.userCase?.cd_children?.forEach((child, index1) => {
+      errors[`relationshipTo-otherPerson-${index}-${index1}`] = translations.errors.relationshipType;
+    });
   });
 
   content.userCase?.ocd_otherChildren?.forEach((otherChild, index) => {

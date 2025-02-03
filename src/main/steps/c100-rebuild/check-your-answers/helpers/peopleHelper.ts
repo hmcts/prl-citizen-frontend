@@ -66,16 +66,17 @@ export const applicantAddressParser = (sessionApplicantData, keys, language) => 
       HTML.DESCRIPTION_TERM_ELEMENT +
       keys['previousAddress'] +
       HTML.DESCRIPTION_TERM_ELEMENT_END +
-      HTML.ROW_END;
-    populateError(
-      sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'],
+      HTML.ROW_END +
       HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL +
-        sessionApplicantData?.['applicantProvideDetailsOfPreviousAddresses'],
-      language
-    ) +
-      HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END;
+      HTML.DESCRIPTION_TERM_DETAIL;
+    if (sessionApplicantData?.applicantProvideDetailsOfPreviousAddresses !== '') {
+      html += sessionApplicantData.applicantProvideDetailsOfPreviousAddresses;
+    } else {
+      html += HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
+    }
+
+    html += HTML.DESCRIPTION_TERM_DETAIL_END;
+    html += HTML.ROW_END;
   }
   return html + HTML.DESCRIPTION_LIST_END;
 };

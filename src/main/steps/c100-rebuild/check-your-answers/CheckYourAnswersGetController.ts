@@ -3,7 +3,7 @@ import { Response } from 'express';
 import _ from 'lodash';
 
 import { FieldPrefix } from '../../../app/case/case';
-import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
+import { PaymentErrorContext, PaymentStatus, RelationshipType, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
 import { doesCaseHaveId } from '../../../steps/common/task-list/utils';
@@ -72,7 +72,7 @@ export default class CheckYourAnswersGetController extends GetController {
         missingObject.forEach(property => {
           if (property) {
             generalErrors.push({
-              propertyName: property,
+              propertyName: prepareProp(property),
               errorType: 'required',
             });
           }
@@ -89,13 +89,112 @@ export default class CheckYourAnswersGetController extends GetController {
       req.session.userCase?.appl_allApplicants?.forEach((applicant, index) => {
         applicantErrors.push(...generateApplicantErrors(applicant, index));
       });
+      req.session.userCase?.appl_allApplicants?.forEach((applicant, index) => {
+        if (
+          applicant.relationshipDetails?.relationshipToChildren.length !== req.session.userCase?.cd_children?.length
+        ) {
+          //const childIds = req.session.userCase?.cd_children?.map(i=>i.id)
+          const childIdWithRelation = applicant.relationshipDetails?.relationshipToChildren.map(i => i.childId);
+          //const otherRelationWithPresent=applicant.relationshipDetails?.relationshipToChildren.map(i=>i.relationshipType=RelationshipType.OTHER)
+          req.session.userCase?.cd_children?.forEach((child, index1) => {
+            if (!childIdWithRelation?.includes(child.id)) {
+              applicantErrors.push({
+                propertyName: `relationshipTo-applicant-${index}-${index1}`,
+                errorType: 'required',
+              });
+            } else if (
+              applicant.relationshipDetails?.relationshipToChildren.find(
+                i =>
+                  !!(
+                    i.childId === child.id &&
+                    i.relationshipType === RelationshipType.OTHER &&
+                    _.isEmpty(i.otherRelationshipTypeDetails)
+                  )
+              )
+            ) {
+              applicantErrors.push({
+                propertyName: `relationshipTo-applicant-${index}-${index1}`,
+                errorType: 'required',
+              });
+            }
+          });
+        } else {
+          req.session.userCase?.cd_children?.forEach((child, index1) => {
+            if (
+              applicant.relationshipDetails?.relationshipToChildren.find(
+                i =>
+                  !!(
+                    i.childId === child.id &&
+                    i.relationshipType === RelationshipType.OTHER &&
+                    _.isEmpty(i.otherRelationshipTypeDetails)
+                  )
+              )
+            ) {
+              applicantErrors.push({
+                propertyName: `relationshipTo-applicant-${index}-${index1}`,
+                errorType: 'required',
+              });
+            }
+          });
+        }
+      });
       // child
       req.session.userCase?.cd_children?.forEach((child, index) => {
         childErrors.push(...generateChildErrors(child, index));
       });
+
       // respondent
       req.session.userCase?.resp_Respondents?.forEach((respondent, index) => {
         respondentErrors.push(...generateRespondentErrors(respondent, index));
+      });
+
+      //respondent relation
+      req.session.userCase?.resp_Respondents?.forEach((respondent, index) => {
+        if (
+          respondent.relationshipDetails?.relationshipToChildren.length !== req.session.userCase?.cd_children?.length
+        ) {
+          const childIdWithRelation = respondent.relationshipDetails?.relationshipToChildren.map(i => i.childId);
+          req.session.userCase?.cd_children?.forEach((child, index1) => {
+            if (!childIdWithRelation?.includes(child.id)) {
+              respondentErrors.push({
+                propertyName: `relationshipTo-respondent-${index}-${index1}`,
+                errorType: 'required',
+              });
+            } else if (
+              respondent.relationshipDetails?.relationshipToChildren.find(
+                i =>
+                  !!(
+                    i.childId === child.id &&
+                    i.relationshipType === RelationshipType.OTHER &&
+                    _.isEmpty(i.otherRelationshipTypeDetails)
+                  )
+              )
+            ) {
+              respondentErrors.push({
+                propertyName: `relationshipTo-respondent-${index}-${index1}`,
+                errorType: 'required',
+              });
+            }
+          });
+        } else {
+          req.session.userCase?.cd_children?.forEach((child, index1) => {
+            if (
+              respondent.relationshipDetails?.relationshipToChildren.find(
+                i =>
+                  !!(
+                    i.childId === child.id &&
+                    i.relationshipType === RelationshipType.OTHER &&
+                    _.isEmpty(i.otherRelationshipTypeDetails)
+                  )
+              )
+            ) {
+              respondentErrors.push({
+                propertyName: `relationshipTo-respondent-${index}-${index1}`,
+                errorType: 'required',
+              });
+            }
+          });
+        }
       });
       // otherchildren
       if (_.isEmpty(req.session.userCase?.ocd_hasOtherChildren)) {
@@ -123,6 +222,59 @@ export default class CheckYourAnswersGetController extends GetController {
           otherPersonErrors.push(...generateOtherPersonErrors(otherperson, index, isAnyChildliveWithOtherPerson));
         });
       }
+
+      req.session.userCase?.oprs_otherPersons?.forEach((otherperson, index) => {
+        if (
+          otherperson.relationshipDetails?.relationshipToChildren.length !== req.session.userCase?.cd_children?.length
+        ) {
+          //const childIds = req.session.userCase?.cd_children?.map(i=>i.id)
+          const childIdWithRelation = otherperson.relationshipDetails?.relationshipToChildren.map(i => i.childId);
+          //const otherRelationWithPresent=applicant.relationshipDetails?.relationshipToChildren.map(i=>i.relationshipType=RelationshipType.OTHER)
+          req.session.userCase?.cd_children?.forEach((child, index1) => {
+            if (!childIdWithRelation?.includes(child.id)) {
+              respondentErrors.push({
+                propertyName: `relationshipTo-otherperson-${index}-${index1}`,
+                errorType: 'required',
+              });
+            } else if (
+              otherperson.relationshipDetails?.relationshipToChildren.find(
+                i =>
+                  !!(
+                    i.childId === child.id &&
+                    i.relationshipType === RelationshipType.OTHER &&
+                    _.isEmpty(i.otherRelationshipTypeDetails)
+                  )
+              )
+            ) {
+              respondentErrors.push({
+                propertyName: `relationshipTo-otherperson-${index}-${index1}`,
+                errorType: 'required',
+              });
+            }
+          });
+        } else {
+          req.session.userCase?.cd_children?.forEach((child, index1) => {
+            if (
+              otherperson.relationshipDetails?.relationshipToChildren.find(
+                i =>
+                  !!(
+                    i.childId === child.id &&
+                    i.relationshipType === RelationshipType.OTHER &&
+                    _.isEmpty(i.otherRelationshipTypeDetails)
+                  )
+              )
+            ) {
+              respondentErrors.push({
+                propertyName: `relationshipTo-otherperson-${index}-${index1}`,
+                errorType: 'required',
+              });
+            }
+          });
+        }
+        // else if (applicant.relationshipDetails?.relationshipToChildren.length!==req.session.userCase?.cd_children?.length){
+
+        // }
+      });
 
       // TODO Vivek, One error is fine or multiple error is fine--- readability purpose
 
@@ -155,3 +307,21 @@ export default class CheckYourAnswersGetController extends GetController {
     }
   }
 }
+const prepareProp = (property: string): string => {
+  switch (property) {
+    case 'hu_reasonOfUrgentHearing':
+    case 'hu_hearingWithNext48HrsDetails':
+    case 'hu_hearingWithNext48HrsMsg':
+    case 'hu_otherRiskDetails':
+    case 'hu_timeOfHearingDetails':
+      return 'hu_urgentHearingReasons';
+
+    case 'hwn_reasonsForApplicationWithoutNotice':
+    case 'hwn_doYouNeedAWithoutNoticeHearing':
+    case 'hwn_doYouRequireAHearingWithReducedNotice':
+      return 'hwn_reasonsForApplicationWithoutNotice';
+
+    default:
+      return property;
+  }
+};
