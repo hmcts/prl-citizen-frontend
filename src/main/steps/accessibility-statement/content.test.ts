@@ -91,7 +91,8 @@ const en = {
     'An input has a label that is not programmatically associated. This means that hint text that contains important information when inputting data has not been associated to the relevant inputs on the page. This fails WCAG 2.2 success criterion 1.3.1 Info and Relationships (Level A).',
   issuesWithDocumentDescription16:
     'Empty links may be encountered when navigating the service. This means that assistive technology users may experience unexpected functionality which may disorient these users.  This fails WCAG 2.2 success criterion 2.4.3 Focus Order (Level A).',
-  thirdPartyContent: "Third party content that's not within the scope of the accessibility regulations",
+  thirdPartyContent1: 'Content that’s not within the scope of the accessibility regulations',
+  thirdPartyContent2: 'Third party content that’s under someone else’s control',
   thirdPartyContentDescription1:
     'Pages and websites that are linked to and from the Family Private Law service may not be fully accessible. These include: ',
   thirdPartyContentDescription2: 'External pages hosting PDF documents',
