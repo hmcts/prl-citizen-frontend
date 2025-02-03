@@ -205,9 +205,17 @@ export default class CheckYourAnswersGetController extends GetController {
       }
 
       if (req.session.userCase?.ocd_hasOtherChildren === 'Yes') {
-        req.session.userCase?.ocd_otherChildren?.forEach((otherchildren, index) => {
-          otherChildErrors.push(...generateOtherChildrenError(otherchildren, index));
-        });
+        const otherChildren = req.session.userCase?.ocd_otherChildren;
+        if (otherChildren && otherChildren.length > 0) {
+          otherChildren?.forEach((otherchildren, index) => {
+            otherChildErrors.push(...generateOtherChildrenError(otherchildren, index));
+          });
+        } else {
+          otherChildErrors.push({
+            propertyName: 'fullName-otherChild-0',
+            errorType: 'required',
+          });
+        }
       }
       //otherPerson
       if (_.isEmpty(req.session.userCase?.oprs_otherPersonCheck)) {
@@ -217,10 +225,17 @@ export default class CheckYourAnswersGetController extends GetController {
         });
       }
       if (req.session.userCase?.oprs_otherPersonCheck === 'Yes') {
-        req.session.userCase?.oprs_otherPersons?.forEach((otherperson, index) => {
-          const isAnyChildliveWithOtherPerson = doesAnyChildLiveWithOtherPerson(req.session.userCase, otherperson.id);
-          otherPersonErrors.push(...generateOtherPersonErrors(otherperson, index, isAnyChildliveWithOtherPerson));
-        });
+        if (!_.isEmpty(req.session.userCase?.oprs_otherPersons)) {
+          req.session.userCase?.oprs_otherPersons?.forEach((otherperson, index) => {
+            const isAnyChildliveWithOtherPerson = doesAnyChildLiveWithOtherPerson(req.session.userCase, otherperson.id);
+            otherPersonErrors.push(...generateOtherPersonErrors(otherperson, index, isAnyChildliveWithOtherPerson));
+          });
+        } else {
+          otherChildErrors.push({
+            propertyName: 'fullName-otherPerson-0',
+            errorType: 'required',
+          });
+        }
       }
 
       req.session.userCase?.oprs_otherPersons?.forEach((otherperson, index) => {

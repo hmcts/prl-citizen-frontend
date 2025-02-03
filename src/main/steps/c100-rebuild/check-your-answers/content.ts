@@ -82,9 +82,23 @@ import {
   en as liveWithContentEn,
 } from '../child-details/live-with/living-arrangements/content';
 import {
+  cy as mainlyLiveWithContentCy,
+  en as mainlyLiveWithContentEn,
+} from '../child-details/live-with/mainly-live-with/content';
+import {
   cy as respondentPersonalDetailsCy,
   en as respondentPersonalDetailsEn,
 } from '../respondent-details/personal-details/content';
+import { cy as miamAttendanceCy, en as miamAttendanceEn } from '../miam/attendance/content';
+import { cy as miamNonAttendanceReasonsCy, en as miamNonAttendanceReasonsEn } from '../miam/general-reasons/content';
+import { cy as internationalStartCy, en as internationalStartEn } from '../international-elements/start/content';
+import { cy as internationalParentsCy, en as internationalParentsEn } from '../international-elements/parents/content';
+import {
+  cy as internationalJurisdictionCy,
+  en as internationalJurisdictionEn,
+} from '../international-elements/jurisdiction/content';
+import { cy as internationalRequestCy, en as internationalRequestEn } from '../international-elements/request/content';
+
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import { getAllMandatoryFields, isAllMandatoryFieldsFilled } from '../validation/util';
 import _ from 'lodash';
@@ -301,6 +315,7 @@ export const enContent = {
     ra_travellingCourt: {
       required: 'Select what help you need if travelling to, or moving around court buildings',
     },
+    miam_nonAttendanceReasons: miamNonAttendanceReasonsEn.errors.miam_nonAttendanceReasons,
     miam_notAttendingReasons: {
       required: 'Select what other reason you have for not attending a MIAM',
     },
@@ -319,6 +334,13 @@ export const enContent = {
     fullName: {
       required: 'Enter the full name',
     },
+    co_certificate: {
+      required: 'Please upload a consent order certificate',
+    },
+    miam_certificate: {
+      required: 'Please upload a miam certificate',
+    },
+    miam_attendance: miamAttendanceEn.errors.miam_attendance,
     detailsKnown: detailsKnownEn().errors.detailsKnown,
     start: startEn().errors.start,
     startAlternative: startAlternativenEn().errors.startAlternative,
@@ -347,7 +369,9 @@ export const enContent = {
     childMatters: childMattersEn().errors.needsResolution,
     parentalResponsibility: parentalResponsibilityEn().errors.statement,
     liveWith: liveWithContentEn.errors.liveWith,
+    mainlyLiveWith: mainlyLiveWithContentEn.errors.mainlyLiveWith,
     hasNameChanged: respondentPersonalDetailsEn().errors.hasNameChanged,
+    previousFullName: respondentPersonalDetailsEn().errors.previousFullName,
     // need to add for parties
     otherPersonConfidentiality: {
       required: 'Select yes if you want to keep {firstName} {lastName}’s details private',
@@ -370,6 +394,10 @@ export const enContent = {
     // hu_hearingWithNext48HrsMsg: {
     //   required: 'Provide details of what you have done to inform the respondents of your application',
     // }
+    ie_internationalStart: internationalStartEn().errors.ie_internationalStart,
+    ie_internationalParents: internationalParentsEn().errors.ie_internationalParents,
+    ie_internationalJurisdiction: internationalJurisdictionEn().errors.ie_internationalJurisdiction,
+    ie_internationalRequest: internationalRequestEn().errors.ie_internationalRequest,
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -529,6 +557,14 @@ export const cyContent = {
     fullName: {
       required: 'Enter the full name (welsh)',
     },
+    co_certificate: {
+      required: 'Please upload a consent order certificate (welsh)',
+    },
+    miam_certificate: {
+      required: 'Please upload a miam certificate (welsh)',
+    },
+    miam_nonAttendanceReasons: miamNonAttendanceReasonsCy.errors.miam_nonAttendanceReasons,
+    miam_attendance: miamAttendanceCy.errors.miam_attendance,
     detailsKnown: detailsKnownCy().errors.detailsKnown,
     start: startCy().errors.start,
     startAlternative: startAlternativeCy().errors.startAlternative,
@@ -557,11 +593,16 @@ export const cyContent = {
     childMatters: childMattersCy().errors.needsResolution,
     parentalResponsibility: parentalResponsibilityCy().errors.statement,
     liveWith: liveWithContentCy.errors.liveWith,
+    mainlyLiveWith: mainlyLiveWithContentCy.errors.mainlyLiveWith,
     hasNameChanged: respondentPersonalDetailsCy().errors.hasNameChanged,
-
     liveInRefuge: {
       required: 'Select yes if you/they currently live in a refuge-welsh',
     },
+    previousFullName: respondentPersonalDetailsCy().errors.previousFullName,
+    ie_internationalStart: internationalStartCy().errors.ie_internationalStart,
+    ie_internationalParents: internationalParentsCy().errors.ie_internationalParents,
+    ie_internationalJurisdiction: internationalJurisdictionCy().errors.ie_internationalJurisdiction,
+    ie_internationalRequest: internationalRequestCy().errors.ie_internationalRequest,
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1
@@ -792,7 +833,7 @@ export const peopleSections = (userCase, contentLanguage, language) => {
     RespondentDetails(contentLanguage, userCase, language),
     OtherPeopleDetailsTitle(contentLanguage, userCase, language),
     otherPeopleSection,
-    whereDoChildrenLive(contentLanguage, userCase),
+    whereDoChildrenLive(contentLanguage, userCase, language),
     otherPeopleConfidentialitySection,
   ];
 };
@@ -1097,10 +1138,11 @@ export const generateContent: TranslationFn = content => {
     errors[`isDateOfBirthUnknown-child-${index}`] = translations.errors.isDateOfBirthUnknown;
     errors[`approxDateOfBirth-child-${index}`] = translations.errors.approxDateOfBirth;
     errors[`dateOfBirth-child-${index}`] = translations.errors.childDateOfBirth;
-    errors[`otherGenderDetails-child-${index}`] = translations.errors.childGender;
+    errors[`gender-child-${index}`] = translations.errors.childGender;
     errors[`orderAppliedFor-child-${index}`] = translations.errors.childMatters;
     errors[`parentalResponsibility-child-${index}`] = translations.errors.parentalResponsibility;
     errors[`childLivingArrangements-child-${index}`] = translations.errors.liveWith;
+    errors[`mainlyLiveWith-child-${index}`] = translations.errors.mainlyLiveWith;
   });
 
   content.userCase?.resp_Respondents?.forEach((respondent, index) => {
@@ -1121,23 +1163,30 @@ export const generateContent: TranslationFn = content => {
     });
   });
 
-  content.userCase?.oprs_otherPersons?.forEach((otherPerson, index) => {
-    errors[`fullName-otherPerson-${index}`] = translations.errors.fullName;
-    errors[`hasNameChanged-otherPerson-${index}`] = translations.errors.hasNameChanged;
-    errors[`otherGenderDetails-otherPerson-${index}`] = translations.errors.gender;
-    errors[`isDateOfBirthUnknown-otherPerson-${index}`] = translations.errors.isDateOfBirthUnknown;
-    errors[`approxDateOfBirth-otherPerson-${index}`] = translations.errors.otherGenderDetails; //
-    errors[`dateOfBirth-otherPerson-${index}`] = translations.errors.otherGenderDetails;
-    errors[`relationshipTo-otherPerson-${index}`] = translations.errors.relationshipType;
-    errors[`c8RefugeDocument-otherPerson-${index}`] = translations.errors.refugeDocumentText;
-    errors[`otherPersonConfidentiality-otherPerson-${index}`] = interpolate(
-      translations.errors.otherPersonConfidentiality.required,
-      {
-        firstName: otherPerson.firstName,
-        lastName: otherPerson.lastName,
-      }
-    );
-  });
+  if (content.userCase?.oprs_otherPersonCheck === YesOrNo.YES && _.isEmpty(content.userCase?.oprs_otherPersons)) {
+    errors['fullName-otherPerson-0'] = translations.errors.fullName;
+  } else {
+    content.userCase?.oprs_otherPersons?.forEach((otherPerson, index) => {
+      errors[`fullName-otherPerson-${index}`] = translations.errors.fullName;
+      errors[`previousFullName-otherPerson-${index}`] = translations.errors.previousFullName;
+      errors[`hasNameChanged-otherPerson-${index}`] = translations.errors.hasNameChanged;
+      errors[`otherGenderDetails-otherPerson-${index}`] = translations.errors.gender;
+      errors[`isDateOfBirthUnknown-otherPerson-${index}`] = translations.errors.isDateOfBirthUnknown;
+      errors[`approxDateOfBirth-otherPerson-${index}`] = translations.errors.approxDateOfBirth;
+      errors[`dateOfBirth-otherPerson-${index}`] = translations.errors.dateOfBirth;
+      errors[`relationshipTo-otherPerson-${index}`] = translations.errors.relationshipType;
+      errors[`c8RefugeDocument-otherPerson-${index}`] = translations.errors.refugeDocumentText;
+      errors[`addressDetails-otherPerson-${index}`] = translations.errors.addressDetails;
+      // live in refuge
+      errors[`otherPersonConfidentiality-otherPerson-${index}`] = interpolate(
+        translations.errors.otherPersonConfidentiality.required,
+        {
+          firstName: otherPerson.firstName,
+          lastName: otherPerson.lastName,
+        }
+      );
+    });
+  }
 
   content.userCase?.oprs_otherPersons?.forEach((applicant, index) => {
     // if(applicant?.relationshipDetails?.relationshipToChildren){
@@ -1147,13 +1196,17 @@ export const generateContent: TranslationFn = content => {
     });
   });
 
-  content.userCase?.ocd_otherChildren?.forEach((otherChild, index) => {
-    errors[`fullName-otherChild-${index}`] = translations.errors.fullName;
-    errors[`isDateOfBirthUnknown-otherChild-${index}`] = translations.errors.isDateOfBirthUnknown;
-    errors[`approxDateOfBirth-otherChild-${index}`] = translations.errors.dateOfBirth; //
-    errors[`otherGenderDetails-otherChild-${index}`] = translations.errors.gender;
-    errors[`dateOfBirth-otherChild-${index}`] = translations.errors.otherGenderDetails;
-  });
+  if (content.userCase?.ocd_hasOtherChildren === YesOrNo.YES && _.isEmpty(content.userCase?.ocd_otherChildren)) {
+    errors['fullName-otherChild-0'] = translations.errors.fullName;
+  } else {
+    content.userCase?.ocd_otherChildren?.forEach((otherChild, index) => {
+      errors[`fullName-otherChild-${index}`] = translations.errors.fullName;
+      errors[`isDateOfBirthUnknown-otherChild-${index}`] = translations.errors.isDateOfBirthUnknown;
+      errors[`approxDateOfBirth-otherChild-${index}`] = translations.errors.approxDateOfBirth;
+      errors[`gender-otherChild-${index}`] = translations.errors.childGender;
+      errors[`dateOfBirth-otherChild-${index}`] = translations.errors.dateOfBirth;
+    });
+  }
 
   return {
     ...translations,

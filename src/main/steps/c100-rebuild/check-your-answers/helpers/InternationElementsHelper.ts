@@ -76,20 +76,23 @@ export const InternationElementHelper = (userCase, keys, Urls, language) => {
     {
       key: keys['liveOutSideUk'],
       ...getValueUrlByKey('liveOutSideUk', userCase, language, Urls, keys),
+      anchorReference: 'ie_internationalStart',
     },
     {
       key: keys['basedOutSideEnglandOrWales'],
       ...getValueUrlByKey('basedOutSideEnglandOrWales', userCase, language, Urls, keys),
+      anchorReference: 'ie_internationalParents',
     },
     {
       key: keys['anotherPersonSameOrder'],
       ...getValueUrlByKey('anotherPersonSameOrder', userCase, language, Urls, keys),
+      anchorReference: 'ie_internationalJurisdiction',
     },
     {
       key: keys['otherCountryRequestInfo'],
       ...getValueUrlByKey('otherCountryRequestInfo', userCase, language, Urls, keys),
+      anchorReference: 'ie_internationalRequest',
     },
   ];
-
   return summaryData;
 };

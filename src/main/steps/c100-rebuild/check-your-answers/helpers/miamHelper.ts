@@ -116,8 +116,11 @@ const generateNCDRAdditionalFields = (
         HTML.DESCRIPTION_TERM_DETAIL +
         populateError(
           userCase.miam_haveDocSignedByMediatorForPrevAttendance,
-          getYesNoTranslation(language, userCase.miam_haveDocSignedByMediatorForPrevAttendance, 'oesTranslation') +
-            HTML.DESCRIPTION_TERM_DETAIL_END,
+          getYesNoTranslation(
+            language,
+            HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + userCase.miam_haveDocSignedByMediatorForPrevAttendance,
+            'oesTranslation'
+          ) + HTML.DESCRIPTION_TERM_DETAIL_END,
           language
         ),
       language
@@ -364,7 +367,11 @@ export const MiamHelperDynamicEnteriesMapper = (
     [MiamNonAttendReason.EXEMPT]: {
       key: keys['validExemptionHeading'],
       anchorReference: 'miam_notAttendingReasons',
-      valueHtml: miamParentAndChildFieldParser(userCase, keys, 'miam_notAttendingReasons', language),
+      valueHtml: populateError(
+        userCase.miam_notAttendingReasons,
+        miamParentAndChildFieldParser(userCase, keys, 'miam_notAttendingReasons', language),
+        language
+      ),
       changeUrl: C100_MIAM_OTHER,
     },
     [MiamNonAttendReason.NONE]: {

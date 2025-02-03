@@ -67,14 +67,6 @@ export const MiamQuestionsFieldsConfig = {
       },
     },
     {
-      fieldName: 'miam_nonAttendanceReasons',
-      fieldType: 'array',
-      mandatory_if: {
-        fieldName: 'miam_validReason',
-        value: 'Yes',
-      },
-    },
-    {
       fieldName: 'miam_domesticAbuse',
       fieldType: 'array',
       mandatory_if: {

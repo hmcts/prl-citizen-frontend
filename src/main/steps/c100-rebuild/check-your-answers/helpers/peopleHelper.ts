@@ -219,7 +219,15 @@ export const applicantCourtCanLeaveVoiceMail = (sessionApplicantData, keys, lang
   return html;
 };
 
-export const otherPeopleAddressParser = sessionApplicantData => {
+export const otherPeopleAddressParser = (sessionApplicantData, language) => {
+  if (
+    _.isEmpty(sessionApplicantData.AddressLine1) ||
+    _.isEmpty(sessionApplicantData.PostTown) ||
+    _.isEmpty(sessionApplicantData.Country)
+  ) {
+    return populateError('', '', language);
+  }
+
   let html = HTML.DESCRIPTION_LIST + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL;
   html += sessionApplicantData.hasOwnProperty('AddressLine1') ? sessionApplicantData['AddressLine1'] + HTML.BREAK : '';
   html += sessionApplicantData.hasOwnProperty('AddressLine2') ? sessionApplicantData['AddressLine2'] + HTML.BREAK : '';

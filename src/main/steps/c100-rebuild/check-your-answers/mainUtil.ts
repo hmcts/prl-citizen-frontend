@@ -313,11 +313,11 @@ export const ChildernDetails = (
     );
 
     newChildDataStorage = newChildDataStorage.concat(
-      populateDateOfBirth(personalDetails, keys, language, id, true, parseInt(child) + 1, `${keys['child']}`)
+      populateDateOfBirth(personalDetails, keys, language, id, true, parseInt(child), `${keys['child']}`)
     );
 
     const childName = ` ${firstname} ${lastname} `;
-    const childOtherGenderDetailsAnchorRef = `otherGenderDetails-child-${child}`;
+    const childOtherGenderDetailsAnchorRef = `gender-child-${child}`;
     newChildDataStorage.push(
       {
         key: keys['childGenderLabel'],
@@ -345,7 +345,7 @@ export const ChildernDetails = (
               HTML.BREAK +
               HTML.ROW_START_NO_BORDER +
               HTML.DESCRIPTION_TERM_DETAIL +
-              populateError(personalDetails['otherGenderDetails'], personalDetails['otherGenderDetails'], language) +
+              personalDetails['otherGenderDetails'] +
               HTML.DESCRIPTION_TERM_DETAIL_END +
               HTML.ROW_END +
               HTML.DESCRIPTION_LIST_END
@@ -466,40 +466,58 @@ export const OtherChildrenDetails = (
   });
 
   if (userCase['ocd_hasOtherChildren'] === 'Yes') {
-    for (const child in sessionChildData) {
-      const firstname = sessionChildData[child]['firstName'],
-        lastname = sessionChildData[child]['lastName'],
-        id = sessionChildData[child]['id'],
-        personalDetails = sessionChildData[child]['personalDetails'];
-      const childNo = Number(child) + 1;
-      const childGenderAnchorRef = `otherGenderDetails-otherChild-${child}`;
+    if (sessionChildData && sessionChildData.length > 0) {
+      for (const child in sessionChildData) {
+        const firstname = sessionChildData[child]['firstName'],
+          lastname = sessionChildData[child]['lastName'],
+          id = sessionChildData[child]['id'],
+          personalDetails = sessionChildData[child]['personalDetails'];
+        const childNo = Number(child) + 1;
+        const childGenderAnchorRef = `gender-otherChild-${child}`;
 
+        newChildDataStorage.push(
+          {
+            key: '',
+            keyHtml: '<h4 class="app-task-list__section">' + keys['child'] + ' ' + childNo + '</h4>',
+            value: '',
+            changeUrl: '',
+          },
+          {
+            key: keys['fullName'],
+            anchorReference: `fullName-otherChild-${child}`,
+            value: firstname + ' ' + lastname, //error check not needed
+            visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['fullName']}`,
+            changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
+          }
+        );
+        newChildDataStorage = newChildDataStorage.concat(
+          populateDateOfBirth(personalDetails, keys, language, id, false, parseInt(child), 'Other child')
+        );
+        newChildDataStorage.push({
+          key: keys['childGenderLabel'],
+          anchorReference: childGenderAnchorRef,
+          visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['childGenderLabel']}`,
+          value: translation(personalDetails?.['gender'], language),
+          valueHtml: generateGenderHtml(personalDetails, keys, language),
+          changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+        });
+      }
+    } else {
       newChildDataStorage.push(
         {
           key: '',
-          keyHtml: '<h4 class="app-task-list__section">' + keys['child'] + ' ' + childNo + '</h4>',
+          keyHtml: '<h4 class="app-task-list__section">' + keys['child'] + ' 1</h4>',
           value: '',
           changeUrl: '',
         },
         {
           key: keys['fullName'],
-          anchorReference: `fullName-otherChild-${child}`,
-          value: firstname + ' ' + lastname, //error check not needed
-          visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['fullName']}`,
+          anchorReference: 'fullName-otherChild-0',
+          valueHtml: HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+          visuallyHiddenText: `${keys['child']} 1} ${keys['fullName']}`,
           changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
         }
       );
-      newChildDataStorage = newChildDataStorage.concat(
-        populateDateOfBirth(personalDetails, keys, language, id, false, parseInt(child) + 1, 'Other child')
-      );
-      newChildDataStorage.push({
-        key: keys['childGenderLabel'],
-        anchorReference: childGenderAnchorRef,
-        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['childGenderLabel']}`,
-        value: translation(personalDetails?.['gender'], language),
-        valueHtml: generateGenderHtml(personalDetails, keys, language),
-        changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-      });
     }
   }
 
@@ -921,7 +939,7 @@ export const MiamExemption = (
   const SummaryData = [
     {
       key: keys['generalReasonTitle'],
-      anchorReference: 'miam_exemptions',
+      anchorReference: 'miam_nonAttendanceReasons',
       // valueHtml: populateError( validReasonForNotAttendingMiam['listOfReasons'],  validReasonForNotAttendingMiam['listOfReasons'], language),
       valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
@@ -946,6 +964,7 @@ export const InternationalElement = (
     value: string;
     valueHtml: string;
     changeUrl: string;
+    anchorReference: string;
   }[];
   return {
     title: sectionTitles['InternationalElement'],
@@ -1726,177 +1745,193 @@ export const OtherPeopleDetails = (
     valueHtml?: string;
     changeUrl: string;
   }[] = [];
-  for (const respondent in sessionOtherPeopleData) {
-    const firstname = sessionOtherPeopleData[respondent]['firstName'],
-      lastname = sessionOtherPeopleData[respondent]['lastName'],
-      id = sessionOtherPeopleData[respondent]['id'],
-      personalDetails = sessionOtherPeopleData[respondent]['personalDetails']; //personalDetails
-    const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
-    const OtherRespondentNo = Number(respondent) + 1;
+  if (!_.isEmpty(sessionOtherPeopleData)) {
+    for (const respondent in sessionOtherPeopleData) {
+      const firstname = sessionOtherPeopleData[respondent]['firstName'],
+        lastname = sessionOtherPeopleData[respondent]['lastName'],
+        id = sessionOtherPeopleData[respondent]['id'],
+        personalDetails = sessionOtherPeopleData[respondent]['personalDetails']; //personalDetails
+      const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
+      const OtherRespondentNo = Number(respondent) + 1;
 
-    const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML, language);
+      const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML, language);
 
+      newOtherPeopleStorage.push(
+        {
+          key: '',
+          keyHtml: '<h4 class="app-task-list__section">' + keys['otherPerson'] + ' ' + OtherRespondentNo + '</h4>',
+          value: '',
+          changeUrl: '',
+        },
+        {
+          key: keys['fullName'],
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['fullName']}`,
+          anchorReference: `fullName-otherPerson-${respondent}`,
+          valueHtml: populateError(firstname + ' ' + lastname, firstname + ' ' + lastname, language),
+          // value: firstname + ' ' + lastname,
+          changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADD'], { otherPersonId: id }),
+        },
+        {
+          key: keys['hasNameChanged'],
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['hasNameChanged']}`,
+          anchorReference: `hasNameChanged-otherPerson-${respondent}`,
+          valueHtml: populateError(changeNameInformation, changeNameInformation, language),
+          // valueHtml: changeNameInformation,
+          changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
+        },
+        {
+          key: keys['childGenderLabel'],
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
+          anchorReference: `otherGenderDetails-otherPerson-${respondent}`,
+          valueHtml: populateError(childGender, childGender, language),
+          // valueHtml: childGender,
+          changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
+        }
+      );
+
+      if (isDateOfBirthUnknown) {
+        newOtherPeopleStorage.push(
+          {
+            key: keys['approxCheckboxLabel'],
+            visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['approxCheckboxLabel']}`,
+            anchorReference: `isDateOfBirthUnknown-otherPerson-${respondent}`,
+            valueHtml: populateError(
+              personalDetails['isDateOfBirthUnknown'],
+              getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
+              language
+            ),
+            // value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
+            changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
+          },
+          {
+            key: keys['approxDobLabel'],
+            visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['approxDobLabel']}`,
+            anchorReference: `approxDateOfBirth-otherPerson-${respondent}`,
+            valueHtml: populateError(
+              personalDetails['approxDateOfBirth'],
+              DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+              language
+            ),
+            // value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+            changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
+          }
+        );
+      } else {
+        newOtherPeopleStorage.push({
+          key: keys['dobLabel'],
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['dobLabel']}`,
+          anchorReference: `dateOfBirth-otherPerson-${respondent}`,
+          valueHtml: populateError(
+            personalDetails['dateOfBirth'],
+            DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+            language
+          ),
+          value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+          changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
+        });
+      }
+
+      const relationShipToChildren =
+        sessionOtherPeopleData[respondent]['relationshipDetails']?.['relationshipToChildren'];
+      // relationShipToChildren?.forEach(element => {
+      //   const childDetails = userCase?.['cd_children']?.filter(child => child.id === element['childId'])[0];
+      //   const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
+      //   newOtherPeopleStorage.push({
+      //     key: keys['relationshipTo'] + ' ' + childFullName,
+      //     visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
+      //       keys['relationshipTo'] + ' ' + childFullName
+      //     }`,
+      //     anchorReference: `relationshipTo-otherPerson-${respondent}`,
+      //     value: translation(element['relationshipType'], language),
+      //     valueHtml:
+      //       element['relationshipType'] === 'Other'
+      //         ? element['otherRelationshipTypeDetails']
+      //         : translation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+      //     changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD'], {
+      //       otherPersonId: id,
+      //       childId: element['childId'],
+      //     }),
+      //   });
+      // });
+      genarateRelationshipWithChild(
+        userCase,
+        relationShipToChildren,
+        newOtherPeopleStorage,
+        keys,
+        respondent,
+        language,
+        id,
+        PartyType.OTHER_PERSON
+      );
+
+      newOtherPeopleStorage.push({
+        key: keys['refuge'],
+        anchorReference: `refuge-otherPerson-${respondent}`,
+        valueHtml: populateError(
+          sessionOtherPeopleData[respondent]['liveInRefuge'],
+          getYesNoTranslation(language, sessionOtherPeopleData[respondent]['liveInRefuge'], 'ydwTranslation'),
+          language
+        ),
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['refuge']}`,
+        changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
+          root: RootContext.C100_REBUILD,
+          id: sessionOtherPeopleData[respondent]['id'],
+        }),
+      });
+
+      if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
+        newOtherPeopleStorage.push({
+          key: keys['c8RefugeDocument'],
+          anchorReference: `c8RefugeDocument-otherPerson-${respondent}`,
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['c8RefugeDocument']}`,
+          value: '',
+          valueHtml: !_.isEmpty(sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form'])
+            ? sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form']?.['document_filename']
+            : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+          changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
+            root: RootContext.C100_REBUILD,
+            id: sessionOtherPeopleData[respondent]['id'],
+          }),
+        });
+      }
+      if (
+        sessionOtherPeopleData[respondent].hasOwnProperty('addressUnknown') &&
+        sessionOtherPeopleData[respondent]['addressUnknown'] === YesOrNo.YES
+      ) {
+        newOtherPeopleStorage.push({
+          key: keys['explainYesLabel'],
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['explainYesLabel']}`,
+          anchorReference: `addressUnknown-otherPerson-${respondent}`,
+          value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['addressUnknown'], 'doTranslation'),
+          changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
+        });
+      } else {
+        newOtherPeopleStorage.push({
+          key: keys['addressDetails'],
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['addressDetails']}`,
+          anchorReference: `addressDetails-otherPerson-${respondent}`,
+          value: '',
+          valueHtml: otherPeopleAddressParser(sessionOtherPeopleData[respondent].address, language),
+          changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
+        });
+      }
+    }
+  } else {
     newOtherPeopleStorage.push(
       {
         key: '',
-        keyHtml: '<h4 class="app-task-list__section">' + keys['otherPerson'] + ' ' + OtherRespondentNo + '</h4>',
+        keyHtml: '<h4 class="app-task-list__section">' + keys['otherPerson'] + ' 1</h4>',
         value: '',
         changeUrl: '',
       },
       {
         key: keys['fullName'],
-        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['fullName']}`,
-        anchorReference: `fullName-otherPerson-${respondent}`,
-        valueHtml: populateError(firstname + ' ' + lastname, firstname + ' ' + lastname, language),
-        // value: firstname + ' ' + lastname,
-        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADD'], { otherPersonId: id }),
-      },
-      {
-        key: keys['hasNameChanged'],
-        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['hasNameChanged']}`,
-        anchorReference: `hasNameChanged-otherPerson-${respondent}`,
-        valueHtml: populateError(changeNameInformation, changeNameInformation, language),
-        // valueHtml: changeNameInformation,
-        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
-      },
-      {
-        key: keys['childGenderLabel'],
-        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
-        anchorReference: `otherGenderDetails-otherPerson-${respondent}`,
-        valueHtml: populateError(childGender, childGender, language),
-        // valueHtml: childGender,
-        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
+        visuallyHiddenText: `${keys['otherPerson']}  1 ${keys['fullName']}`,
+        anchorReference: 'fullName-otherPerson-0',
+        valueHtml: HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADD']),
       }
     );
-
-    if (isDateOfBirthUnknown) {
-      newOtherPeopleStorage.push(
-        {
-          key: keys['approxCheckboxLabel'],
-          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['approxCheckboxLabel']}`,
-          anchorReference: `isDateOfBirthUnknown-otherPerson-${respondent}`,
-          valueHtml: populateError(
-            personalDetails['isDateOfBirthUnknown'],
-            getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
-            language
-          ),
-          // value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
-          changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
-        },
-        {
-          key: keys['approxDobLabel'],
-          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['approxDobLabel']}`,
-          anchorReference: `approxDateOfBirth-otherPerson-${respondent}`,
-          valueHtml: populateError(
-            personalDetails['approxDateOfBirth'],
-            DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
-            language
-          ),
-          // value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
-          changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
-        }
-      );
-    } else {
-      newOtherPeopleStorage.push({
-        key: keys['dobLabel'],
-        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['dobLabel']}`,
-        anchorReference: `dateOfBirth-otherPerson-${respondent}`,
-        valueHtml: populateError(
-          personalDetails['dateOfBirth'],
-          DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-          language
-        ),
-        value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
-      });
-    }
-
-    const relationShipToChildren =
-      sessionOtherPeopleData[respondent]['relationshipDetails']?.['relationshipToChildren'];
-    // relationShipToChildren?.forEach(element => {
-    //   const childDetails = userCase?.['cd_children']?.filter(child => child.id === element['childId'])[0];
-    //   const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
-    //   newOtherPeopleStorage.push({
-    //     key: keys['relationshipTo'] + ' ' + childFullName,
-    //     visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
-    //       keys['relationshipTo'] + ' ' + childFullName
-    //     }`,
-    //     anchorReference: `relationshipTo-otherPerson-${respondent}`,
-    //     value: translation(element['relationshipType'], language),
-    //     valueHtml:
-    //       element['relationshipType'] === 'Other'
-    //         ? element['otherRelationshipTypeDetails']
-    //         : translation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
-    //     changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD'], {
-    //       otherPersonId: id,
-    //       childId: element['childId'],
-    //     }),
-    //   });
-    // });
-    genarateRelationshipWithChild(
-      userCase,
-      relationShipToChildren,
-      newOtherPeopleStorage,
-      keys,
-      respondent,
-      language,
-      id,
-      PartyType.OTHER_PERSON
-    );
-
-    newOtherPeopleStorage.push({
-      key: keys['refuge'],
-      anchorReference: `refuge-otherPerson-${respondent}`,
-      valueHtml: populateError(
-        sessionOtherPeopleData[respondent]['liveInRefuge'],
-        getYesNoTranslation(language, sessionOtherPeopleData[respondent]['liveInRefuge'], 'ydwTranslation'),
-        language
-      ),
-      visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['refuge']}`,
-      changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
-        root: RootContext.C100_REBUILD,
-        id: sessionOtherPeopleData[respondent]['id'],
-      }),
-    });
-
-    if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
-      newOtherPeopleStorage.push({
-        key: keys['c8RefugeDocument'],
-        anchorReference: `c8RefugeDocument-otherPerson-${respondent}`,
-        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['c8RefugeDocument']}`,
-        value: '',
-        valueHtml: !_.isEmpty(sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form'])
-          ? sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form']?.['document_filename']
-          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
-        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
-          root: RootContext.C100_REBUILD,
-          id: sessionOtherPeopleData[respondent]['id'],
-        }),
-      });
-    }
-
-    if (!sessionOtherPeopleData[respondent].hasOwnProperty('addressUnknown')) {
-      newOtherPeopleStorage.push({
-        key: keys['addressDetails'],
-        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['addressDetails']}`,
-        anchorReference: `addressDetails-otherPerson-${respondent}`,
-        value: '',
-        valueHtml: otherPeopleAddressParser(sessionOtherPeopleData[respondent].address),
-        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
-      });
-    }
-    if (
-      sessionOtherPeopleData[respondent].hasOwnProperty('addressUnknown') &&
-      sessionOtherPeopleData[respondent]['addressUnknown'] === YesOrNo.YES
-    ) {
-      newOtherPeopleStorage.push({
-        key: keys['explainYesLabel'],
-        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['explainYesLabel']}`,
-        anchorReference: `addressUnknown-otherPerson-${respondent}`,
-        value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['addressUnknown'], 'doTranslation'),
-        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
-      });
-    }
   }
 
   const SummaryData = newOtherPeopleStorage;
@@ -1943,7 +1978,8 @@ export const HelpWithFee = (
 
 export const whereDoChildrenLive = (
   { sectionTitles, keys, ...content }: SummaryListContent,
-  userCase: Partial<CaseWithId>
+  userCase: Partial<CaseWithId>,
+  language: string
 ): SummaryList | undefined => {
   const sessionChildData = userCase['cd_children'];
   const newChildDataStorage: {
@@ -1961,9 +1997,13 @@ export const whereDoChildrenLive = (
     const mainlyLivesWith = sessionChildData[child]?.['mainlyLiveWith'];
     newChildDataStorage.push({
       key: interpolate(keys['whoDoesChildMainlyLiveWith'], { firstname, lastname }),
-      anchorReference: `child-mainlyLeaveWith-${child}`,
+      anchorReference: `mainlyLiveWith-child-${child}`,
       value: '',
-      valueHtml: `${mainlyLivesWith?.firstName ?? ''} ${mainlyLivesWith?.lastName ?? ''}`,
+      valueHtml: populateError(
+        `${mainlyLivesWith?.firstName ?? ''}${mainlyLivesWith?.lastName ?? ''}`,
+        `${mainlyLivesWith?.firstName ?? ''} ${mainlyLivesWith?.lastName ?? ''}`,
+        language
+      ),
       changeUrl: applyParms(Urls['C100_CHILDERN_MAINLY_LIVE_WITH'], { childId: id }),
     });
 
@@ -1971,18 +2011,21 @@ export const whereDoChildrenLive = (
       key: interpolate(keys['childLivingArrangements'], { firstname, lastname }),
       anchorReference: `childLivingArrangements-child-${child}`,
       value: '',
-      valueHtml:
+      valueHtml: populateError(
+        sessionChildData[child]?.['liveWith'],
         HTML.UNORDER_LIST +
-        sessionChildData[child]?.['liveWith']
-          ?.map(respectiveParty => {
-            const { firstName, lastName } = respectiveParty;
-            return `${HTML.LIST_ITEM}${firstName} ${lastName}${HTML.LIST_ITEM_END}`;
-          })
-          .toString()
-          .split(',')
-          .join('')
-          .toString() +
-        HTML.UNORDER_LIST_END,
+          sessionChildData[child]?.['liveWith']
+            ?.map(respectiveParty => {
+              const { firstName, lastName } = respectiveParty;
+              return `${HTML.LIST_ITEM}${firstName} ${lastName}${HTML.LIST_ITEM_END}`;
+            })
+            .toString()
+            .split(',')
+            .join('')
+            .toString() +
+          HTML.UNORDER_LIST_END,
+        language
+      ),
       changeUrl: applyParms(Urls['C100_CHILDERN_LIVING_ARRANGEMENTS'], { childId: id }),
     });
   }
@@ -2578,15 +2621,17 @@ export const generateChildErrors = (child: ChildrenDetails, index: number) => {
 
   if (!child.personalDetails.gender) {
     error.push({
-      propertyName: `otherGenderDetails-child-${index}`,
-      errorType: 'required',
-    });
-  } else if (child.personalDetails.gender === Gender.OTHER && _.isEmpty(child.personalDetails.otherGenderDetails)) {
-    error.push({
-      propertyName: `otherGenderDetails-child-${index}`,
+      propertyName: `gender-child-${index}`,
       errorType: 'required',
     });
   }
+  // optional
+  // else if (child.personalDetails.gender === Gender.OTHER && _.isEmpty(child.personalDetails.otherGenderDetails)) {
+  //   error.push({
+  //     propertyName: `otherGenderDetails-child-${index}`,
+  //     errorType: 'required',
+  //   });
+  // }
 
   if (_.isEmpty(child.childMatters.needsResolution)) {
     error.push({
@@ -2611,7 +2656,7 @@ export const generateChildErrors = (child: ChildrenDetails, index: number) => {
 
   if (_.isEmpty(child.mainlyLiveWith)) {
     error.push({
-      propertyName: `child-mainlyLeaveWith-${index}`,
+      propertyName: `mainlyLiveWith-child-${index}`,
       errorType: 'required',
     });
   }
@@ -2717,19 +2762,11 @@ export const generateOtherChildrenError = (otherchildren: otherchild, index: num
     });
   }
 
-  //temp may be deleted
-
-  // if (otherchildren.personalDetails.approxDateOfBirth && _.isEmpty(otherchildren.personalDetails.isDateOfBirthUnknown)) {
-  //   error.push({
-  //     propertyName: `isDateOfBirthUnknown-otherChild-${index}`,
-  //     errorType: 'required',
-  //   });
-  // }
-
   if (
     otherchildren.personalDetails.isDateOfBirthUnknown &&
     otherchildren.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES &&
-    _.isEmpty(otherchildren.personalDetails.approxDateOfBirth)
+    otherchildren.personalDetails.approxDateOfBirth &&
+    Object.values(otherchildren.personalDetails.approxDateOfBirth).some(dobValue => _.isEmpty(dobValue))
   ) {
     error.push({
       propertyName: `approxDateOfBirth-otherChild-${index}`,
@@ -2749,16 +2786,24 @@ export const generateOtherChildrenError = (otherchildren: otherchild, index: num
     });
   }
 
-  if (
-    _.isEmpty(otherchildren.personalDetails.gender) ||
-    (otherchildren.personalDetails.gender === Gender.OTHER &&
-      _.isEmpty(otherchildren.personalDetails.otherGenderDetails))
-  ) {
+  if (_.isEmpty(otherchildren.personalDetails.gender)) {
     error.push({
-      propertyName: `otherGenderDetails-otherChild-${index}`,
+      propertyName: `gender-otherChild-${index}`,
       errorType: 'required',
     });
   }
+
+  // optional field
+  // if (
+  //   _.isEmpty(otherchildren.personalDetails.gender) ||
+  //   (otherchildren.personalDetails.gender === Gender.OTHER &&
+  //     _.isEmpty(otherchildren.personalDetails.otherGenderDetails))
+  // ) {
+  //   error.push({
+  //     propertyName: `otherGenderDetails-otherChild-${index}`,
+  //     errorType: 'required',
+  //   });
+  // }
   return error;
 };
 
@@ -2775,13 +2820,21 @@ export const generateOtherPersonErrors = (
     });
   }
 
+  if (_.isEmpty(otherperson.personalDetails.hasNameChanged)) {
+    error.push({
+      propertyName: `hasNameChanged-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  // needs to be same property as above (hasNameChanged) for link, but error text wrong then
   if (
-    _.isEmpty(otherperson.personalDetails.hasNameChanged) &&
+    !_.isEmpty(otherperson.personalDetails.hasNameChanged) &&
     otherperson.personalDetails.hasNameChanged === YesNoDontKnow.yes &&
     _.isEmpty(otherperson.personalDetails.previousFullName)
   ) {
     error.push({
-      propertyName: `hasNameChanged-otherPerson-${index}`,
+      propertyName: `previousFullName-otherPerson-${index}`,
       errorType: 'required',
     });
   }
@@ -2795,27 +2848,12 @@ export const generateOtherPersonErrors = (
       errorType: 'required',
     });
   }
-  //temp may be deleted
-
-  // if (otherperson.personalDetails.approxDateOfBirth && _.isEmpty(otherperson.personalDetails.isDateOfBirthUnknown)
-  // ) {
-  //   error.push({
-  //     propertyName: `isDateOfBirthUnknown-otherPerson-${index}`,
-  //     errorType: 'required',
-  //   });
-  // }
-
-  // if (otherperson.personalDetails.approxDateOfBirth && _.isEmpty(otherperson.personalDetails.isDateOfBirthUnknown)) {
-  //   error.push({
-  //     propertyName: `isDateOfBirthUnknown-otherPerson-${index}`,
-  //     errorType: 'required',
-  //   });
-  // }
 
   if (
-    otherperson?.personalDetails?.isDateOfBirthUnknown === YesNoEmpty.YES &&
-    _.isEmpty(otherperson.personalDetails.approxDateOfBirth)
-    //   : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
+    otherperson.personalDetails.isDateOfBirthUnknown &&
+    otherperson.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES &&
+    otherperson.personalDetails.approxDateOfBirth &&
+    Object.values(otherperson.personalDetails.approxDateOfBirth).some(dobValue => _.isEmpty(dobValue))
   ) {
     error.push({
       propertyName: `approxDateOfBirth-otherPerson-${index}`,
@@ -2845,6 +2883,19 @@ export const generateOtherPersonErrors = (
   if (otherperson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherperson.refugeConfidentialityC8Form)) {
     error.push({
       propertyName: `c8RefugeDocument-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (
+    otherperson.address &&
+    (_.isEmpty(otherperson.address.AddressLine1) ||
+      _.isEmpty(otherperson.address.PostTown) ||
+      _.isEmpty(otherperson.address.Country)) &&
+    !(otherperson.addressUnknown === YesOrNo.YES)
+  ) {
+    error.push({
+      propertyName: `addressDetails-otherPerson-${index}`,
       errorType: 'required',
     });
   }
@@ -2902,7 +2953,7 @@ const genarateRelationshipWithChild = (
   return newRowData;
 };
 
-const relationshipUrl = (partyType: PartyType, id:string, child: ChildrenDetails): string | undefined => {
+const relationshipUrl = (partyType: PartyType, id: string, child: ChildrenDetails): string | undefined => {
   return partyType === PartyType.APPLICANT
     ? applyParms(Urls['C100_APPLICANT_RELATIONSHIP_TO_CHILD'], {
         applicantId: id,

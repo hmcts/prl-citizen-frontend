@@ -126,13 +126,13 @@ describe.skip('test cases for peopleHelper', () => {
   });
 
   test('otherPeopleAddressParser should return correct HTML for address values', () => {
-    expect(otherPeopleAddressParser(userCase)).toBe(
+    expect(otherPeopleAddressParser(userCase, 'en')).toBe(
       '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">MOCK_ADDRESS_1<br>MOCK_ADDRESS_2<br>MOCK_ADDRESS_TOWN<br>MOCK_ADRESS_COUNTY<br><br>MOCK_POSTCODE<br>MOCK_COUNTRY</dd></div></dl>'
     );
   });
 
   test('otherPeopleAddressParser should return correct HTML when address values not present', () => {
-    expect(otherPeopleAddressParser({})).toBe(
+    expect(otherPeopleAddressParser({}, 'en')).toBe(
       '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>'
     );
   });

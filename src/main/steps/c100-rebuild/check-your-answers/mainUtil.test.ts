@@ -1197,7 +1197,7 @@ describe.skip('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase, 'en');
     expect(whereDoChildLiveObj?.rows).toEqual([
       {
         actions: {
@@ -1255,7 +1255,7 @@ describe.skip('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase, 'en');
     expect(whereDoChildLiveObj?.rows).toEqual([
       {
         actions: {
@@ -1315,7 +1315,7 @@ describe.skip('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase, 'en');
     expect(whereDoChildLiveObj?.rows).not.toBe([]);
     expect(whereDoChildLiveObj?.title).toBe(undefined);
   });
@@ -1346,7 +1346,7 @@ describe.skip('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase, 'en');
     expect(whereDoChildLiveObj?.rows).toEqual([
       {
         actions: {
