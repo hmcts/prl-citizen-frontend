@@ -11,51 +11,43 @@
   {% endmacro %}
 
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  {% set paragraphs = [websiteAvailable | safe, websiteRanBy, asManyAsPossible] %}
-  {% for paragraph in paragraphs %}
-    <p class="govuk-body">{{ paragraph }}</p>
-  {% endfor %}
-  {% set accessibilityOptions = [asManyAsPossibleColours, asManyAsPossibleZoom, asManyAsPossibleKeyboard, asManyAsPossibleSpeech, asManyAsPossibleListen] %}
-  <ul class="govuk-list govuk-list--bullet">
-    {% for option in accessibilityOptions %}
-      <li>{{ option }}</li>
+    {% for paragraph in paragraphs %}
+  <p class="govuk-body">{{ paragraph | safe }}</p>
     {% endfor %}
-  </ul>
-  {% set paragraphs2 = [simpleAsPossible, abilityNet | safe] %}
-  {% for paragraph in paragraphs2 %}
-    <p class="govuk-body">{{ paragraph }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+  {% for option in accessibilityOptions %}
+    <li>{{ option }}</li>
+     {% endfor %}
+    </ul>
+  {% for paragraph in additionalParagraphs %}
+  <p class="govuk-body">{{ paragraph | safe }}</p>
   {% endfor %}
 
    <h2 class="govuk-heading-s">{{ howAccessible }}</h2>
   <p class="govuk-body">{{ somePartsNot }}</p>
-  {% set notAccessibleParts = [somePartsNotDescriptiveness, somePartsNotText, somePartsNotPDF, somePartsNotWelsh, somePartsNotError] %}
   <ul class="govuk-list govuk-list--bullet">
-    {% for part in notAccessibleParts %}
-      <li>{{ part }}</li>
-    {% endfor %}
-  </ul>
+  {% for part in notAccessibleParts %}
+    <li>{{ part }}</li>
+  {% endfor %}
+    </ul>
 
   <h2 class="govuk-heading-s">{{ feedbackAndContactInformation }}</h2>
-  {% set contactInfo = [textRelayServiceInformation, audioInductionLoopsInformation, formatInformation] %}
   {% for info in contactInfo %}
     <p class="govuk-body">{{ info }}</p>
   {% endfor %}
-  {% set phoneAndEmail = [emailInfo, phone] %}
   {{ generateBulletList(phoneAndEmail) }}
 
   <p class="govuk-body">{{ considerYourRequest }}</p>
 
   <h2 class="govuk-heading-s">{{ reportingAccessibility }}</h2>
-  {% set improvements = [lookingToImprove | safe, improveAccessibility | safe] %}
   {% for improvement in improvements %}
     <p class="govuk-body">{{ improvement }}</p>
   {% endfor %}
   {{ generateBulletList(phoneAndEmail) }}
 
   <h2 class="govuk-heading-s">{{ enforcementProcedure }}</h2>
-  {% set humanRightsInfo = [humanRightsCommission | safe, notHappy | safe] %}
   {% for info in humanRightsInfo %}
-    <p class="govuk-body">{{ info }}</p>
+    <p class="govuk-body">{{ info | safe }}</p>
   {% endfor %}
 
   <h2 class="govuk-heading-m">{{ technicalInfo }}</h2>
@@ -68,18 +60,16 @@
   <p class="govuk-body">{{ nonAccessibleDescription }}</p>
 
   <h3 class="govuk-heading-s">{{ issuesWithDocuments }}</h3>
-  {% set documentIssues = [issuesWithDocumentDescription1, issuesWithDocumentDescription2, issuesWithDocumentDescription3, issuesWithDocumentDescription4, issuesWithDocumentDescription5, issuesWithDocumentDescription6, issuesWithDocumentDescription7, issuesWithDocumentDescription8, issuesWithDocumentDescription9, issuesWithDocumentDescription10, issuesWithDocumentDescription11, issuesWithDocumentDescription12, issuesWithDocumentDescription13, issuesWithDocumentDescription14, issuesWithDocumentDescription15, issuesWithDocumentDescription16] %}
-  {% for issue in documentIssues %}
+  {% for issue in issuesWithDocumentDescriptions %}
     <p class="govuk-body">{{ issue }}</p>
   {% endfor %}
 
   <h3 class="govuk-heading-m">{{ thirdPartyContent1 }}</h3>
   <h3 class="govuk-heading-s">{{ thirdPartyContent2 }}</h3>
 
-  <p class="govuk-body">{{ thirdPartyContentDescription1 }}</p>
+  <p class="govuk-body">{{ thirdPartyContent3 }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    {% set thirdPartyContents = [thirdPartyContentDescription2, thirdPartyContentDescription3] %}
-    {% for content in thirdPartyContents %}
+    {% for content in thirdPartyContentDescriptions %}
       <li>{{ content }}</li>
     {% endfor %}
   </ul>
@@ -88,8 +78,7 @@
   <p class="govuk-body">{{ improveAccessibilityDescription }}</p>
 
   <h2 class="govuk-heading-m">{{ preparationAccessibilityStatement }}</h2>
-  {% set preparationDetails = [statementPreparationDate, statementPreparationWebsite, statementReviewedFixes] %}
-  {% for detail in preparationDetails %}
+  {% for detail in statementPreparationInfo %}
     <p class="govuk-body">{{ detail }}</p>
   {% endfor %}
 {% endblock %}
