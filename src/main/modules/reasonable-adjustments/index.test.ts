@@ -96,12 +96,6 @@ describe('ReasonableAdjustementsProvider', () => {
     expect(req.session.applicationSettings.reasonableAdjustments.urlBeforeRedirection).toBe('');
   });
 
-  test('get the client instance of the module', async () => {
-    mockedAxios.create.mockResolvedValueOnce;
-    RAProvider.init(appRequest);
-    expect(RAProvider.APIClient()).not.toBeNull;
-  });
-
   test('get appBaseUrl of the module', async () => {
     mockedAxios.create.mockResolvedValueOnce;
     RAProvider.init(appRequest);

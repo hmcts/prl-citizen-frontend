@@ -2,9 +2,8 @@
 import config from 'config';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
-import { CaseWithId } from '../../app/case/case';
 import { CaseData, CaseType, PartyDetails } from '../../app/case/definition';
-import { UserDetails } from '../../app/controller/AppRequest';
+import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import {
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL,
@@ -23,6 +22,7 @@ import { RAProvider } from './index';
 
 export class ReasonableAdjustmentsService {
   async getCommonComponentUrl(
+    req: AppRequest,
     correlationId: RARequestPayload['correlationId'],
     payload: RARequestPayload['existingFlags'],
     language: RARequestPayload['language']
@@ -38,7 +38,8 @@ export class ReasonableAdjustmentsService {
         existingFlags: payload,
         language,
       };
-      const response = await RAProvider.APIClient()!.post<RAPostResponse>(
+
+      const response = await RAProvider.createClient(req).post<RAPostResponse>(
         REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_POST_URL,
         requestData
       );
@@ -50,9 +51,9 @@ export class ReasonableAdjustmentsService {
     }
   }
 
-  async retrievePartyRAFlagsFromCommonComponent(referenceId: string): Promise<RAData> {
+  async retrievePartyRAFlagsFromCommonComponent(req: AppRequest, referenceId: string): Promise<RAData> {
     try {
-      const response = await RAProvider.APIClient()!.get<RAData>(
+      const response = await RAProvider.createClient(req).get<RAData>(
         applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_FETCH_DATA_URL, {
           id: referenceId,
         })
@@ -66,12 +67,13 @@ export class ReasonableAdjustmentsService {
   }
 
   async retrieveExistingPartyRAFlags(
+    req: AppRequest,
     caseId: CaseData['id'],
     partyId: PartyDetails['user']['idamId'],
     userAccessToken: UserDetails['accessToken']
   ): Promise<RAFlags> {
     try {
-      const response = await RAProvider.APIClient()!.get<RAFlags>(
+      const response = await RAProvider.createClient(req).get<RAFlags>(
         applyParms(REASONABLE_ADJUSTMENTS_RETRIEVE_SUPPORT_FLAGS, {
           appBaseUrl: config.get('services.cos.url'),
           caseId,
@@ -95,6 +97,7 @@ export class ReasonableAdjustmentsService {
   }
 
   async updatePartyRAFlags(
+    req: AppRequest,
     caseId: CaseData['id'],
     caseTypeOfApplication: CaseType,
     partyIdamId: PartyDetails['user']['idamId'],
@@ -110,7 +113,7 @@ export class ReasonableAdjustmentsService {
           details: flags,
         },
       };
-      const response = await RAProvider.APIClient()!.post<string>(
+      const response = await RAProvider.createClient(req).post<string>(
         applyParms(REASONABLE_ADJUSTMENTS_MANAGE_SUPPORT_FLAGS, {
           appBaseUrl: config.get('services.cos.url'),
           caseId,
@@ -134,9 +137,9 @@ export class ReasonableAdjustmentsService {
     }
   }
 
-  async retrieveCommonComponentHealthStatus(): Promise<string> {
+  async retrieveCommonComponentHealthStatus(req: AppRequest): Promise<string> {
     try {
-      const response = await RAProvider.APIClient()!.get<Record<string, any>>(
+      const response = await RAProvider.createClient(req).get<Record<string, any>>(
         REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_HEALTH_CHECK_URL,
         {
           headers: {
@@ -153,16 +156,17 @@ export class ReasonableAdjustmentsService {
   }
 
   async saveLanguagePrefAndSpecialArrangements(
-    caseData: CaseWithId,
+    req: AppRequest,
     partyIdamId: PartyDetails['user']['idamId'],
     userAccessToken: UserDetails['accessToken']
   ): Promise<any> {
+    const caseData = req.session.userCase;
     try {
       const data = {
         languageSupportNotes: caseData.ra_languageReqAndSpecialArrangements,
         partyIdamId,
       };
-      const response = await RAProvider.APIClient()!.post<string>(
+      const response = await RAProvider.createClient(req).post<string>(
         applyParms(REASONABLE_ADJUSTMENTS_SUBMIT_LANGUAGE_REQ, {
           appBaseUrl: config.get('services.cos.url'),
           caseId: caseData.id,
