@@ -17,8 +17,10 @@ describe('ReasonableAdjustementsService', () => {
   const correlationId = 'ra-cc-correlation-id';
   const language = 'en';
   const req = mockRequest();
+  req.protocol = 'https';
+  req.host = 'localhost';
+  req.get = jest.fn().mockReturnValue('localhost');
 
-  jest.spyOn(RAProvider, 'getAppBaseUrl').mockImplementation(() => 'https://cui-ra.aat.platform.hmcts.net');
   jest.spyOn(RAProvider, 'log');
 
   beforeEach(() => {

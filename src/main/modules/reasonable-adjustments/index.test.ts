@@ -96,12 +96,6 @@ describe('ReasonableAdjustementsProvider', () => {
     expect(req.session.applicationSettings.reasonableAdjustments.urlBeforeRedirection).toBe('');
   });
 
-  test('get appBaseUrl of the module', async () => {
-    mockedAxios.create.mockResolvedValueOnce;
-    RAProvider.init(appRequest);
-    expect(RAProvider.getAppBaseUrl()).not.toBeNull;
-  });
-
   test('get the sequence of the module', async () => {
     const sequence = await RAProvider.getSequence();
     expect(sequence).toHaveLength(15);
@@ -279,6 +273,6 @@ describe('ReasonableAdjustementsProvider', () => {
     await RAProvider.destroy(appRequest);
     expect((RAProvider as any).correlationId).toBeNull;
     expect((RAProvider as any).client).toBeNull;
-    expect((RAProvider as any).appBaseUrl).toBe('');
+    expect((RAProvider as any).appBaseUrl).toBeUndefined;
   });
 });

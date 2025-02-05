@@ -26,7 +26,6 @@ import { RAUtility, ReasonableAdjustementsUtility } from './util';
 
 class ReasonableAdjustmentsProvider {
   private isEnabled = false;
-  private appBaseUrl = '';
   private logger: LoggerInstance | Record<string, never> = {};
   //private correlationId: string | null = null;
   //private urlBeforeRedirection = '';
@@ -112,10 +111,6 @@ class ReasonableAdjustmentsProvider {
     }
   }
 
-  getAppBaseUrl(): string {
-    return this.appBaseUrl;
-  }
-
   /*async recordPageNavigation(req: AppRequest, done: () => void) {
     const url = req.originalUrl;
     if (url.includes(C100_URL) && this.route.routes.length && !this.route.routes.includes(url)) {
@@ -150,8 +145,6 @@ class ReasonableAdjustmentsProvider {
     this.logger = appRequest.locals.logger;
 
     if (this.isEnabled) {
-      this.appBaseUrl = `${appRequest.protocol}://${appRequest.get('host')}`;
-
       await this.createSession(appRequest);
       return Promise.resolve();
     }
@@ -262,7 +255,6 @@ class ReasonableAdjustmentsProvider {
   }
 
   async destroy(req: AppRequest): Promise<void> {
-    this.appBaseUrl = '';
     await this.resetData(req);
   }
 }

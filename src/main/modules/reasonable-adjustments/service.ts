@@ -28,7 +28,7 @@ export class ReasonableAdjustmentsService {
     language: RARequestPayload['language']
   ): Promise<RAPostResponse> {
     try {
-      const appBaseUrl = RAProvider.getAppBaseUrl();
+      const appBaseUrl = `${req.protocol}://${req.get('host')}`;
       const requestData: RARequestPayload = {
         hmctsServiceId: RACommonComponent.SERVICE_ID,
         callbackUrl: applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL, { appBaseUrl }),
@@ -39,6 +39,7 @@ export class ReasonableAdjustmentsService {
         language,
       };
 
+      RAProvider.log('info', 'PRL RA callback url: ' + requestData.callbackUrl);
       const response = await RAProvider.createClient(req).post<RAPostResponse>(
         REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_POST_URL,
         requestData
