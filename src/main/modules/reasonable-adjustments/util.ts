@@ -254,13 +254,19 @@ export class ReasonableAdjustementsUtility {
     return eventId;
   }
 
-  async updatePartyRAFlags(caseData: CaseWithId, userDetails: UserDetails, raData: RAData): Promise<void> {
+  async updatePartyRAFlags(
+    req: AppRequest,
+    caseData: CaseWithId,
+    userDetails: UserDetails,
+    raData: RAData
+  ): Promise<void> {
     return new Promise((resolve, reject) => {
       (async () => {
         const partyIdamId = getPartyDetails(caseData, userDetails.id)!.user.idamId;
         try {
           if (raData.flagsAsSupplied.details.length) {
             await RAProvider.service.updatePartyRAFlags(
+              req,
               caseData.id,
               caseData.caseTypeOfApplication! as CaseType,
               partyIdamId,
@@ -272,6 +278,7 @@ export class ReasonableAdjustementsUtility {
 
           if (raData?.replacementFlags?.details?.length) {
             await RAProvider.service.updatePartyRAFlags(
+              req,
               caseData.id,
               caseData.caseTypeOfApplication! as CaseType,
               partyIdamId,

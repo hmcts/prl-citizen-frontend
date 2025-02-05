@@ -1,10 +1,12 @@
-import { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { RAProvider } from '../../../../../modules/reasonable-adjustments';
 
 import RALangReqSplArrangementsPostController from './postController';
+
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.create = jest.fn(() => mockedAxios);
 
 describe('RA > language-requirements-and-special-arrangements > review > postController', () => {
   test('should save language preferences and special arrangements', async () => {
@@ -21,10 +23,8 @@ describe('RA > language-requirements-and-special-arrangements > review > postCon
     const res = mockResponse();
     const controller = new RALangReqSplArrangementsPostController({});
 
-    const client = jest.spyOn(RAProvider, 'APIClient');
-    client.mockReturnValueOnce({
-      post: jest.fn().mockResolvedValueOnce({ data: 200 }),
-    } as unknown as AxiosInstance);
+    const mockGet = jest.fn().mockResolvedValueOnce({ data: 200 });
+    mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
 
     await controller.post(req, res);
     await new Promise(process.nextTick);
@@ -40,10 +40,8 @@ describe('RA > language-requirements-and-special-arrangements > review > postCon
     const res = mockResponse();
     const controller = new RALangReqSplArrangementsPostController({});
 
-    const client = jest.spyOn(RAProvider, 'APIClient');
-    client.mockReturnValueOnce({
-      post: jest.fn().mockResolvedValueOnce({ data: 200 }),
-    } as unknown as AxiosInstance);
+    const mockGet = jest.fn().mockResolvedValueOnce({ data: 200 });
+    mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
 
     await controller.post(req, res);
     expect(req.session.userCase.ra_languageReqAndSpecialArrangements).toBe(undefined);

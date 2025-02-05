@@ -21,11 +21,11 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2569.preview.platform.hmcts.net'
+    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
   cos:
-    url: 'https://prl-cos-pr-2988.preview.platform.hmcts.net'
+    url: 'http://prl-cos-aat.service.core-compute-aat.internal'
   documentManagement:
-    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2569.preview.platform.hmcts.net'
+    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
   fact:
     url: 'http://fact-api-aat.service.core-compute-aat.internal'
   reasonableAdjustments:
@@ -55,6 +55,7 @@ featureToggles:
   enableCaseTrainTrack: true  
   enableRAComponent: true
   enablePcqComponent: true
+
 launchDarkly:
   offline: true
 allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre
