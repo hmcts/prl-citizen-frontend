@@ -56,7 +56,11 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
           HTML.ROW_END +
           HTML.ROW_START +
           HTML.DESCRIPTION_TERM_DETAIL +
-          populateError(userCase?.['hwn_doYouNeedAWithoutNoticeHearingDetails'],userCase?.['hwn_doYouNeedAWithoutNoticeHearingDetails'],language) +
+          populateError(
+            userCase?.['hwn_doYouNeedAWithoutNoticeHearingDetails'],
+            userCase?.['hwn_doYouNeedAWithoutNoticeHearingDetails'],
+            language
+          ) +
           HTML.DESCRIPTION_TERM_DETAIL_END +
           HTML.ROW_END
         : '';
@@ -86,7 +90,11 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
           HTML.ROW_END +
           HTML.ROW_START_NO_BORDER +
           HTML.DESCRIPTION_TERM_DETAIL +
-          populateError(userCase?.['hwn_doYouRequireAHearingWithReducedNoticeDetails'],userCase?.['hwn_doYouRequireAHearingWithReducedNoticeDetails'],language) +
+          populateError(
+            userCase?.['hwn_doYouRequireAHearingWithReducedNoticeDetails'],
+            userCase?.['hwn_doYouRequireAHearingWithReducedNoticeDetails'],
+            language
+          ) +
           HTML.DESCRIPTION_TERM_DETAIL_END +
           HTML.ROW_END
         : '';
