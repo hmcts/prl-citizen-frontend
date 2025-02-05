@@ -566,7 +566,7 @@ const en: NotificationBannerContentConfig = {
             text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
           },
           {
-            text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+            text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them and may not be able to print papers on the day.</strong>',
           },
         ],
       },
