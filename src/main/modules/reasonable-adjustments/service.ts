@@ -39,7 +39,6 @@ export class ReasonableAdjustmentsService {
         language,
       };
 
-      RAProvider.log('info', 'PRL RA callback url: ' + requestData.callbackUrl);
       const response = await RAProvider.createClient(req).post<RAPostResponse>(
         REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_POST_URL,
         requestData
