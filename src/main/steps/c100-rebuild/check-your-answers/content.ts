@@ -200,12 +200,10 @@ export const enContent = {
       required: 'Describe what you want the court to do regarding the children in this application',
     },
     hu_urgentHearingReasons: {
-      // required: 'Select yes if you have a good reason to request an urgent hearing',
-      required: 'Complete urgent hearing related questioner',
+      required: 'Does your situation qualify for an urgent first hearing?',
     },
     hwn_reasonsForApplicationWithoutNotice: {
-      //required: 'Enter details',
-      required: 'Complete with out notice hearing related questioner',
+      required: 'Are you asking for a without notice hearing?',
     },
     childrenKnownToSocialServicesLabel: {
       required: 'Select if any of the children are known to social services',
@@ -603,6 +601,12 @@ export const cyContent = {
     ie_internationalParents: internationalParentsCy().errors.ie_internationalParents,
     ie_internationalJurisdiction: internationalJurisdictionCy().errors.ie_internationalJurisdiction,
     ie_internationalRequest: internationalRequestCy().errors.ie_internationalRequest,
+    hu_urgentHearingReasons: {
+      required: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+    },
+    hwn_reasonsForApplicationWithoutNotice: {
+      required: 'Ydych chi’n gofyn am wrandawiad heb rybudd?',
+    },
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1

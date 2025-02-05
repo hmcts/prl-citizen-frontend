@@ -20,6 +20,7 @@ import {
   generateRespondentErrors,
 } from './mainUtil';
 
+
 @autobind
 export default class CheckYourAnswersGetController extends GetController {
   constructor(
@@ -70,12 +71,16 @@ export default class CheckYourAnswersGetController extends GetController {
       const generalErrors: { propertyName: string; errorType: string }[] = [];
       if (missingObject.length) {
         missingObject.forEach(property => {
-          if (property) {
+          if (property &&
+            // generalErrors.includes({
+            //   propertyName: property,
+            //   errorType: 'required',
+            // })
+          ! generalErrors.map(i=>i.propertyName).includes(prepareProp(property)))
             generalErrors.push({
               propertyName: prepareProp(property),
               errorType: 'required',
             });
-          }
         });
       }
 

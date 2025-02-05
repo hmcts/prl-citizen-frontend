@@ -2537,7 +2537,6 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
   if (
     _.isEmpty(applicant.applicantAddress1) ||
     _.isEmpty(applicant.applicantAddressTown) ||
-    _.isEmpty(applicant.country) ||
     _.isEmpty(applicant.applicantAddressHistory) ||
     (applicant.applicantAddressHistory === YesOrNo.YES &&
       _.isEmpty(applicant.applicantProvideDetailsOfPreviousAddresses))
