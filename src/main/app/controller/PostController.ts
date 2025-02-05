@@ -121,7 +121,8 @@ export class PostController<T extends AnyObject> {
         await req.locals.C100Api.saveC100DraftApplication(
           req.session.userCase.caseId!,
           req.session.userCase,
-          req.originalUrl
+          req.originalUrl,
+          req.session.applicationSettings
         );
         //update latest reutrn URL in the session
         req.session.userCase.c100RebuildReturnUrl = req.originalUrl;
