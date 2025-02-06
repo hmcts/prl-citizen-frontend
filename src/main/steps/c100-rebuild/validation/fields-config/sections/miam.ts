@@ -69,6 +69,19 @@ export const MiamQuestionsFieldsConfig = {
     {
       fieldName: 'miam_domesticAbuse',
       fieldType: 'array',
+      expression: (caseData: CaseWithId): { isMandatory: boolean } => {
+        return {
+          isMandatory:
+            caseData.miam_domesticAbuse?.every(subField => {
+              if (_.isArray(caseData[`miam_domesticAbuse_${subField}_subfields`])) {
+                return caseData[`miam_domesticAbuse_${subField}_subfields`].some(
+                  subSubField => !_.isEmpty(subSubField)
+                );
+              }
+              return !_.isEmpty(subField);
+            }) ?? true,
+        };
+      },
       mandatory_if: {
         fieldName: 'miam_nonAttendanceReasons',
         expression: (caseData: CaseWithId): { isMandatory: boolean | undefined } => {
@@ -126,11 +139,15 @@ export const MiamQuestionsFieldsConfig = {
     },
     {
       fieldName: 'miam_previousAttendanceEvidenceDoc',
-      fieldType: 'string',
+      fieldType: 'object',
+      expression: (caseData: CaseWithId): { isMandatory: boolean } => {
+        return { isMandatory: !_.isEmpty(caseData?.miam_previousAttendanceEvidenceDoc) };
+      },
       mandatory_if: {
         or: [
           {
             fieldName: 'miam_previousAttendance',
+            fieldType: 'string',
             expression: (caseData: CaseWithId): { isMandatory: boolean | undefined } => {
               return {
                 isMandatory: caseData?.miam_previousAttendance?.includes(
@@ -141,6 +158,7 @@ export const MiamQuestionsFieldsConfig = {
           },
           {
             fieldName: 'miam_haveDocSignedByMediatorForPrevAttendance',
+            fieldType: 'string',
             expression: (caseData: CaseWithId): { isMandatory: boolean } => {
               return {
                 isMandatory: caseData?.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.YES,

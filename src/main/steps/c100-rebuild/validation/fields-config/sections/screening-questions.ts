@@ -1,3 +1,7 @@
+import _ from 'lodash';
+
+import { CaseWithId } from '../../../../../app/case/case';
+
 export const ScreeningQuestionsFieldsConfig = {
   section: 'screeningQuestions',
   fields: [
@@ -30,6 +34,19 @@ export const ScreeningQuestionsFieldsConfig = {
           { fieldName: 'sq_legalRepresentation', value: 'No' },
         ],
         or: [{ fieldName: 'sq_legalRepresentationApplication', value: 'No' }],
+      },
+    },
+    {
+      fieldName: 'sq_permissionsWhy',
+      fieldType: 'array',
+      expression: (caseData: CaseWithId): { isMandatory: boolean } => {
+        return {
+          isMandatory:
+            !_.isEmpty(caseData?.sq_courtPermissionRequired) &&
+            (_.isEmpty(caseData?.sq_permissionsWhy) ||
+              (caseData?.sq_permissionsWhy?.every(subField => !_.isEmpty(caseData[`sq_${subField}_subfield`])) ??
+                true)),
+        };
       },
     },
     {

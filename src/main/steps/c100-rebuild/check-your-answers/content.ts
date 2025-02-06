@@ -98,6 +98,58 @@ import {
   en as internationalJurisdictionEn,
 } from '../international-elements/jurisdiction/content';
 import { cy as internationalRequestCy, en as internationalRequestEn } from '../international-elements/request/content';
+import {
+  cy as c1A_abductionLocationCy,
+  en as c1A_abductionLocationEn,
+} from '../../common/safety-concerns/abduction/child-location/content';
+import {
+  cy as c1A_otherConcernsDrugsCy,
+  en as c1A_otherConcernsDrugsEn,
+} from '../../common/safety-concerns/other-concerns/drugs/content';
+import {
+  cy as c1A_childSafetyConcernsCy,
+  en as c1A_childSafetyConcernsEn,
+} from '../../common/safety-concerns/other-concerns/other-issues/content';
+import {
+  cy as c1A_passportOfficeCy,
+  en as c1A_passportOfficeEn,
+} from '../../common/safety-concerns/abduction/passport-office/content';
+import {
+  cy as c1A_previousAbductionsCy,
+  en as c1A_previousAbductionsEn,
+} from '../../common/safety-concerns/abduction/previousabductions/content';
+import {
+  cy as c1A_concernsForSafetyCy,
+  en as c1A_concernsForSafetyEn,
+} from '../../common/safety-concerns/concerns-for-safety/content';
+import {
+  cy as c1A_concernsAboutCy,
+  en as c1A_concernsAboutEn,
+} from '../../common/safety-concerns/concern-about/content';
+import {
+  cy as c1A_childConcernsAboutCy,
+  en as c1A_childConcernsAboutEn,
+} from '../../common/safety-concerns/child/concerns-about/content';
+import {
+  cy as c1A_passportOfficeNotifiedCy,
+  en as c1A_passportOfficeNotifiedEn,
+} from '../../common/safety-concerns/abduction/passport-office-notified/content';
+import {
+  cy as c1A_childAbductedBeforeCy,
+  en as c1A_childAbductedBeforeEn,
+} from '../../common/safety-concerns/abduction/threats/content';
+import {
+  cy as c1A_concernsAboutYourselfCy,
+  en as c1A_concernsAboutYourselfEn,
+} from '../../common/safety-concerns/yourself/concerns-about/content';
+import {
+  cy as c1A_courtActionCy,
+  en as c1A_courtActionEn,
+} from '../../common/safety-concerns/orders-required/court-action/content';
+import {
+  cy as c1A_unsupervisedCy,
+  en as c1A_unsupervisedEn,
+} from '../../common/safety-concerns/orders-required/unsupervised/content';
 
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import { getAllMandatoryFields, isAllMandatoryFieldsFilled } from '../validation/util';
@@ -190,6 +242,10 @@ export const enContent = {
       required:
         'Select yes if there is any reason why you would need permission from the court to make this application',
     },
+    sq_permissionsWhy: {
+      // not imported as title includes (optional) tag
+      required: 'Why do you need a permission from the court to make this application?',
+    },
     sq_permissionsRequest: {
       required: 'Explain why the court should grant you permission to submit this application',
     },
@@ -230,52 +286,27 @@ export const enContent = {
     op_courtOrderProtection: {
       required: 'Select yes if you have had a court order made for your protection',
     },
-    c1A_haveSafetyConcerns: {
-      required: 'Select yes if you have any concerns for your safety or the safety of the children',
-    },
-    c1A_safetyConernAbout: {
-      required: 'Specify who you are concerned about',
-    },
-    c1A_concernAboutChild: {
-      required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing',
-    },
-    c1A_childsCurrentLocation: {
-      required: 'Describe where the children are now',
-    },
+    c1A_haveSafetyConcerns: c1A_concernsForSafetyEn().errors.c1A_haveSafetyConcerns,
+    c1A_safetyConernAbout: c1A_concernsAboutEn().errors.c1A_safetyConernAbout,
+    c1A_concernAboutChild: c1A_childConcernsAboutEn().errors.c1A_concernAboutChild,
+    c1A_childsCurrentLocation: c1A_abductionLocationEn().errors.c1A_childsCurrentLocation,
     c1A_passportOffice: {
-      required: 'Select yes if any of the children have a passport',
+      required: c1A_passportOfficeEn().title,
     },
-    c1A_abductionPassportOfficeNotified: {
-      required: 'Select yes if the passport office has been notified',
-    },
-    c1A_childAbductedBefore: {
-      required: 'Select yes if the children have been abducted or kept outside the UK without your consent before',
-    },
+    c1A_abductionPassportOfficeNotified: c1A_passportOfficeNotifiedEn().errors.c1A_abductionPassportOfficeNotified,
+    c1A_childAbductedBefore: c1A_childAbductedBeforeEn().errors.c1A_childAbductedBefore,
     c1A_previousAbductionsShortDesc: {
-      required: 'Briefly describe the previous incidents of abduction',
+      required: c1A_previousAbductionsEn().title,
     },
-    c1A_policeOrInvestigatorOtherDetails: {
-      required: 'Provide details of the police, private investigators or any other organisation involvement',
+    c1A_policeOrInvestigatorInvolved: {
+      required: c1A_previousAbductionsEn().c1A_policeOrInvestigatorInvolved,
     },
-    c1A_concernAboutApplicant: {
-      required: 'Specify the type of behaviour you have experienced or are at risk of experiencing',
-    },
-    c1A_otherConcernsDrugs: {
-      required: 'Describe how the children have been impacted by drug, alcohol or substance abuse',
-    },
-    c1A_childSafetyConcerns: {
-      required: 'Select yes if you have other concerns about the children’s safety and wellbeing',
-    },
-    c1A_keepingSafeStatement: {
-      required: 'Describe what do you want the court to do to keep you and the children safe',
-    },
-    c1A_supervisionAgreementDetails: {
-      required: 'Select whether you agree to the children spending time with the other people in this application',
-    },
-    c1A_agreementOtherWaysDetails: {
-      required:
-        'Select yes if you agree to the other people in this application being in touch with the children in other ways',
-    },
+    c1A_concernAboutApplicant: c1A_concernsAboutYourselfEn().errors.c1A_concernAboutApplicant,
+    c1A_otherConcernsDrugs: { required: c1A_otherConcernsDrugsEn().title },
+    c1A_childSafetyConcerns: { required: c1A_childSafetyConcernsEn().title },
+    c1A_keepingSafeStatement: c1A_courtActionEn().errors.c1A_keepingSafeStatement,
+    c1A_supervisionAgreementDetails: c1A_unsupervisedEn().errors.c1A_supervisionAgreementDetails,
+    c1A_agreementOtherWaysDetails: c1A_unsupervisedEn().errors.c1A_agreementOtherWaysDetails,
     oprs_otherPersonCheck: {
       required: 'Select yes if anyone else should know about the application',
     },
@@ -396,6 +427,7 @@ export const enContent = {
     ie_internationalParents: internationalParentsEn().errors.ie_internationalParents,
     ie_internationalJurisdiction: internationalJurisdictionEn().errors.ie_internationalJurisdiction,
     ie_internationalRequest: internationalRequestEn().errors.ie_internationalRequest,
+    c1A_abductionReasonOutsideUk: c1A_abductionLocationEn().errors.c1A_abductionReasonOutsideUk,
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -601,11 +633,37 @@ export const cyContent = {
     ie_internationalParents: internationalParentsCy().errors.ie_internationalParents,
     ie_internationalJurisdiction: internationalJurisdictionCy().errors.ie_internationalJurisdiction,
     ie_internationalRequest: internationalRequestCy().errors.ie_internationalRequest,
+    c1A_abductionReasonOutsideUk: c1A_abductionLocationCy().errors.c1A_abductionReasonOutsideUk,
+    c1A_otherConcernsDrugs: { required: c1A_otherConcernsDrugsCy().title },
+    c1A_childSafetyConcerns: { required: c1A_childSafetyConcernsCy().title },
+    c1A_haveSafetyConcerns: c1A_concernsForSafetyCy().errors.c1A_haveSafetyConcerns,
+    c1A_safetyConernAbout: c1A_concernsAboutCy().errors.c1A_safetyConernAbout,
+    c1A_concernAboutChild: c1A_childConcernsAboutCy().errors.c1A_concernAboutChild,
+    c1A_childsCurrentLocation: c1A_abductionLocationCy().errors.c1A_childsCurrentLocation,
+    c1A_passportOffice: {
+      required: c1A_passportOfficeCy().title,
+    },
+    c1A_previousAbductionsShortDesc: {
+      required: c1A_previousAbductionsCy().title,
+    },
+    c1A_policeOrInvestigatorInvolved: {
+      required: c1A_previousAbductionsCy().c1A_policeOrInvestigatorInvolved,
+    },
+    c1A_abductionPassportOfficeNotified: c1A_passportOfficeNotifiedCy().errors.c1A_abductionPassportOfficeNotified,
+    c1A_childAbductedBefore: c1A_childAbductedBeforeCy().errors.c1A_childAbductedBefore,
+    c1A_concernAboutApplicant: c1A_concernsAboutYourselfCy().errors.c1A_concernAboutApplicant,
+    c1A_keepingSafeStatement: c1A_courtActionCy().errors.c1A_keepingSafeStatement,
+    c1A_supervisionAgreementDetails: c1A_unsupervisedCy().errors.c1A_supervisionAgreementDetails,
+    c1A_agreementOtherWaysDetails: c1A_unsupervisedCy().errors.c1A_agreementOtherWaysDetails,
     hu_urgentHearingReasons: {
       required: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
     },
     hwn_reasonsForApplicationWithoutNotice: {
       required: 'Ydych chi’n gofyn am wrandawiad heb rybudd?',
+    },
+    sq_permissionsWhy: {
+      // not imported as title includes (optional) tag
+      required: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn?',
     },
   },
   sectionTitles: {

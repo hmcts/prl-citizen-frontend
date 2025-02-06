@@ -151,7 +151,12 @@ export const PermissionForApplication = (
     ? (
         HTML.UNORDER_LIST +
         userCase['sq_permissionsWhy']?.map(
-          props => HTML.LIST_ITEM + keys[props] + ': ' + userCase[`sq_${props}_subfield`] + HTML.LIST_ITEM_END
+          props =>
+            HTML.LIST_ITEM +
+            keys[props] +
+            ': ' +
+            populateError(userCase[`sq_${props}_subfield`], userCase[`sq_${props}_subfield`], language) +
+            HTML.LIST_ITEM_END
         ) +
         HTML.UNORDER_LIST_END
       )
@@ -173,6 +178,7 @@ export const PermissionForApplication = (
       },
       {
         key: keys['whyPermissionRequiredFromCourt'],
+        anchorReference: 'sq_permissionsWhy',
         valueHtml: valForPermissionWhy,
         changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_WHY'],
       },
@@ -1139,29 +1145,43 @@ export const SafetyConcerns_child = (
   /**
    * @policeOrInvestigatorsOtherDetails session Values
    */
-  let policeOrInvestigatorsOtherDetailsHTML = userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
-    ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL
-    : '';
-  policeOrInvestigatorsOtherDetailsHTML += populateError(
-    userCase['c1A_policeOrInvestigatorInvolved'],
-    getYesNoTranslation(language, userCase['c1A_policeOrInvestigatorInvolved'], 'oeddTranslation'),
-    language
-  );
-  policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
-    ? HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END +
-      HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_ELEMENT +
-      keys['details'] +
-      HTML.DESCRIPTION_TERM_ELEMENT_END +
-      HTML.ROW_END +
-      HTML.ROW_START_NO_BORDER +
-      HTML.DESCRIPTION_TERM_DETAIL +
-      userCase['c1A_policeOrInvestigatorOtherDetails'] +
-      HTML.DESCRIPTION_TERM_DETAIL_END +
-      HTML.ROW_END +
-      HTML.DESCRIPTION_LIST_END
-    : '';
+  let policeOrInvestigatorsOtherDetailsHTML = '';
+  if (!_.isEmpty(userCase.c1A_policeOrInvestigatorInvolved)) {
+    if (userCase.c1A_policeOrInvestigatorInvolved === YesOrNo.YES) {
+      policeOrInvestigatorsOtherDetailsHTML +=
+        HTML.DESCRIPTION_LIST +
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        userCase['c1A_policeOrInvestigatorInvolved'];
+
+      policeOrInvestigatorsOtherDetailsHTML +=
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_ELEMENT +
+        keys['details'] +
+        HTML.DESCRIPTION_TERM_ELEMENT_END +
+        HTML.ROW_END +
+        HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        populateError(
+          userCase['c1A_policeOrInvestigatorOtherDetails'],
+          userCase['c1A_policeOrInvestigatorOtherDetails'],
+          language
+        ) +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END +
+        HTML.DESCRIPTION_LIST_END;
+    } else {
+      policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorInvolved'];
+    }
+  } else {
+    policeOrInvestigatorsOtherDetailsHTML += populateError(
+      userCase['c1A_policeOrInvestigatorInvolved'],
+      getYesNoTranslation(language, userCase['c1A_policeOrInvestigatorInvolved'], 'oeddTranslation'),
+      language
+    );
+  }
 
   /**
    * @c1A_childAbductedBefore session Values
@@ -1193,28 +1213,35 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
     c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-    c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
+    if (!_.isEmpty(userCase['c1A_possessionChildrenPassport'])) {
+      c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
 
-    if (userCase['c1A_possessionChildrenPassport']) {
-      c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
-        .filter(element => element !== 'Other')
+      c1A_childAbductedBefore += userCase.c1A_possessionChildrenPassport
+        ?.filter(element => element !== 'Other')
         .map(relatives => HTML.LIST_ITEM + translation(relatives, language) + HTML.LIST_ITEM_END)
         .toString()
         .split(',')
         .join('');
 
-      if (userCase['c1A_possessionChildrenPassport'].some(element => element === 'Other')) {
-        c1A_childAbductedBefore += HTML.LIST_ITEM + userCase['c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
+      if (userCase['c1A_possessionChildrenPassport']?.some(element => element === 'Other')) {
+        c1A_childAbductedBefore +=
+          HTML.LIST_ITEM +
+          populateError(userCase['c1A_provideOtherDetails'], userCase['c1A_provideOtherDetails'], language) +
+          HTML.LIST_ITEM_END;
       }
+
+      c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.UNORDER_LIST_END;
+    } else {
+      c1A_childAbductedBefore +=
+        HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
     }
-    c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.UNORDER_LIST_END;
   }
   c1A_childAbductedBefore += HTML.DESCRIPTION_LIST_END;
   const abdutionScreenData = [
     {
       key: keys['childLocation'],
-      anchorReference: 'c1A_concernAboutChild',
-      valueHtml: userCase['c1A_abductionReasonOutsideUk'] as string,
+      anchorReference: 'c1A_abductionReasonOutsideUk',
+      valueHtml: populateError(userCase.c1A_abductionReasonOutsideUk, userCase.c1A_abductionReasonOutsideUk, language),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
@@ -1222,7 +1249,7 @@ export const SafetyConcerns_child = (
     {
       key: keys['childsCurrentLocationText'],
       anchorReference: 'c1A_childsCurrentLocation',
-      valueHtml: userCase['c1A_childsCurrentLocation'] as string,
+      valueHtml: populateError(userCase.c1A_childsCurrentLocation, userCase.c1A_childsCurrentLocation, language),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
@@ -1238,7 +1265,11 @@ export const SafetyConcerns_child = (
     {
       key: keys['haspassportOfficeNotified'],
       anchorReference: 'c1A_abductionPassportOfficeNotified',
-      valueHtml: getYesNoTranslation(language, userCase['c1A_abductionPassportOfficeNotified'], 'ydyTranslation'),
+      valueHtml: populateError(
+        userCase.c1A_abductionPassportOfficeNotified,
+        getYesNoTranslation(language, userCase['c1A_abductionPassportOfficeNotified'], 'ydyTranslation'),
+        language
+      ),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
@@ -1246,7 +1277,11 @@ export const SafetyConcerns_child = (
     {
       key: keys['abducionThreats'],
       anchorReference: 'c1A_childAbductedBefore',
-      valueHtml: getYesNoTranslation(language, userCase['c1A_childAbductedBefore'] as string, 'ydynTranslation'),
+      valueHtml: populateError(
+        userCase.c1A_childAbductedBefore,
+        getYesNoTranslation(language, userCase['c1A_childAbductedBefore'], 'ydynTranslation'),
+        language
+      ),
       changeUrl: applyParms(Urls['C1A_CHILD_ABDUCTION_THREATS'], { root: RootContext.C100_REBUILD }) as Urls.PageLink,
     },
   ];
@@ -1255,14 +1290,18 @@ export const SafetyConcerns_child = (
       {
         key: keys['detailsofAbduction'],
         anchorReference: 'c1A_previousAbductionsShortDesc',
-        valueHtml: userCase['c1A_previousAbductionsShortDesc'] as string,
+        valueHtml: populateError(
+          userCase.c1A_previousAbductionsShortDesc,
+          userCase.c1A_previousAbductionsShortDesc,
+          language
+        ),
         changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'], {
           root: RootContext.C100_REBUILD,
         }) as Urls.PageLink,
       },
       {
         key: keys['c1A_policeOrInvestigatorInvolved'],
-        anchorReference: 'c1A_policeOrInvestigatorOtherDetails',
+        anchorReference: 'c1A_policeOrInvestigatorInvolved',
         valueHtml: policeOrInvestigatorsOtherDetailsHTML,
         changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'], {
           root: RootContext.C100_REBUILD,
@@ -1339,7 +1378,11 @@ export const SafetyConcerns_yours = (
     {
       key: keys['childConcerns'],
       anchorReference: 'c1A_concernAboutApplicant',
-      valueHtml: HTML.UNORDER_LIST + childSafetyConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST,
+      valueHtml: populateError(
+        childSafetyConcerns,
+        HTML.UNORDER_LIST + childSafetyConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST,
+        language
+      ),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
@@ -1368,22 +1411,29 @@ export const SafetyConcerns_others = (
   language
 ): SummaryList | undefined => {
   const fieldParser = (field, fieldDescription?) => {
-    let html =
-      fieldDescription !== undefined ? HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL : '';
-    if (field !== undefined) {
-      html += field;
+    let html = '';
+    if (field === YesOrNo.YES) {
+      html += HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL;
     }
-    if (fieldDescription !== undefined) {
-      html += HTML.DESCRIPTION_TERM_DETAIL_END;
-      html += HTML.ROW_END;
-      html += HTML.ROW_START_NO_BORDER;
-      html += HTML.DESCRIPTION_TERM_ELEMENT;
-      html += keys['details'];
-      html += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-      html += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL;
-      html += fieldDescription;
-      html += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
+
+    if (_.isEmpty(field)) {
+      return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
     }
+    html += field;
+    if (field === YesOrNo.NO) {
+      return html;
+    }
+
+    html += HTML.DESCRIPTION_TERM_DETAIL_END;
+    html += HTML.ROW_END;
+    html += HTML.ROW_START_NO_BORDER;
+    html += HTML.DESCRIPTION_TERM_ELEMENT;
+    html += keys['details'];
+    html += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
+    html += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL;
+    html += populateError(fieldDescription, fieldDescription, language);
+    html += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
+
     return html;
   };
 
@@ -1411,7 +1461,7 @@ export const SafetyConcerns_others = (
     {
       key: keys['doWantCourtToAction'],
       anchorReference: 'c1A_keepingSafeStatement',
-      value: userCase['c1A_keepingSafeStatement'],
+      valueHtml: populateError(userCase.c1A_keepingSafeStatement, userCase.c1A_keepingSafeStatement, language),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_COURT_ACTION'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
@@ -1419,7 +1469,11 @@ export const SafetyConcerns_others = (
     {
       key: keys['selectSupervisionAgreementLabel'],
       anchorReference: 'c1A_supervisionAgreementDetails',
-      value: getYesNoTranslation(language, userCase['c1A_supervisionAgreementDetails'], 'ydwSpecial'),
+      valueHtml: populateError(
+        userCase.c1A_supervisionAgreementDetails,
+        getYesNoTranslation(language, userCase['c1A_supervisionAgreementDetails'], 'ydwSpecial'),
+        language
+      ),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,
@@ -1427,7 +1481,11 @@ export const SafetyConcerns_others = (
     {
       key: keys['supervisionAgreementOtherWaysLabel'],
       anchorReference: 'c1A_agreementOtherWaysDetails',
-      value: getYesNoTranslation(language, userCase['c1A_agreementOtherWaysDetails'], 'ydwTranslation'),
+      valueHtml: populateError(
+        userCase.c1A_agreementOtherWaysDetails,
+        getYesNoTranslation(language, userCase['c1A_agreementOtherWaysDetails'], 'ydwTranslation'),
+        language
+      ),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED'], {
         root: RootContext.C100_REBUILD,
       }) as Urls.PageLink,

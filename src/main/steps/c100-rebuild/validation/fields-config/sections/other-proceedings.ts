@@ -18,13 +18,15 @@ export const OtherProceedingsFieldsConfig = {
         type: 'string',
       },
       mandatory_if: {
-        and: [
+        or: [
           {
             fieldName: 'op_childrenInvolvedCourtCase',
+            fieldType: 'string',
             value: 'Yes',
           },
           {
             fieldName: 'op_courtOrderProtection',
+            fieldType: 'string',
             value: 'Yes',
           },
         ],

@@ -63,9 +63,29 @@ export default class CheckYourAnswersGetController extends GetController {
 
       const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFieldsWithoutPeopleSection(req.session.userCase);
       const mandetoryFieldname: string[] = [];
-      mandatoryFields.forEach(field => mandetoryFieldname.push(field.fieldName));
+      mandatoryFields.forEach(field => {
+        if (field.fieldName === 'sq_permissionsWhy') {
+          req.session.userCase.sq_permissionsWhy?.forEach(subField => {
+            mandetoryFieldname.push(`sq_${subField}_subfield`);
+          });
+        } else if (field.fieldName === 'miam_domesticAbuse') {
+          mandetoryFieldname.push(field.fieldName);
+          req.session.userCase.miam_domesticAbuse?.forEach(subField => {
+            if (_.isArray(req.session.userCase[`miam_domesticAbuse_${subField}_subfields`])) {
+              mandetoryFieldname.push(`miam_domesticAbuse_${subField}_subfields`);
+            }
+          });
+        } else {
+          mandetoryFieldname.push(field.fieldName);
+        }
+      });
 
-      const missingObject = mandetoryFieldname.filter(value => _.isEmpty(req.session.userCase[value]));
+      const missingObject = mandetoryFieldname.filter(value => {
+        if (value.includes('miam_domesticAbuse_')) {
+          return !req.session.userCase[value].some(subSubField => !_.isEmpty(subSubField));
+        }
+        return _.isEmpty(req.session.userCase[value]);
+      });
       req.session.errors = [];
       const generalErrors: { propertyName: string; errorType: string }[] = [];
       if (missingObject.length) {
@@ -342,6 +362,29 @@ const prepareProp = (property: string): string => {
     case 'hwn_doYouNeedAWithoutNoticeHearing':
     case 'hwn_doYouRequireAHearingWithReducedNotice':
       return 'hwn_reasonsForApplicationWithoutNotice';
+
+    case 'c1A_otherConcernsDrugsDetails':
+      return 'c1A_otherConcernsDrugs';
+    case 'c1A_childSafetyConcernsDetails':
+      return 'c1A_childSafetyConcerns';
+    case 'c1A_childrenMoreThanOnePassport':
+    case 'c1A_possessionChildrenPassport':
+    case 'c1A_provideOtherDetails':
+      return 'c1A_passportOffice';
+    case 'c1A_policeOrInvestigatorOtherDetails':
+      return 'c1A_policeOrInvestigatorInvolved';
+
+    case 'sq_doNotHaveParentalResponsibility_subfield':
+    case 'sq_courtOrderPrevent_subfield':
+    case 'sq_anotherReason_subfield':
+      return 'sq_permissionsWhy';
+
+    case 'miam_domesticAbuse_policeInvolvement_subfields':
+    case 'miam_domesticAbuse_courtInvolvement_subfields':
+    case 'miam_domesticAbuse_letterOfBeingVictim_subfields':
+    case 'miam_domesticAbuse_letterFromAuthority_subfields':
+    case 'miam_domesticAbuse_letterFromSupportService_subfields':
+      return 'miam_domesticAbuse';
 
     default:
       return property;
