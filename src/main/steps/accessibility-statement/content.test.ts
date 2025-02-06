@@ -9,7 +9,7 @@ jest.mock('../../app/form/validation');
 const en = {
   title: 'Accessibility statement for Family Private Law',
   paragraphs: [
-    'This accessibility statement applies to <a href="/" class="govuk-link" target="blank">this link</a>, that enables users to make child arrangements or submit domestic abuse applications.',
+    'This accessibility statement applies to <a href="/" class="govuk-link">this link</a>, that enables users to make child arrangements or submit domestic abuse applications.',
     'The website is run by HM Courts & Tribunals Service (HMCTS).',
     'We want as many people as possible to be able to use this website. For example, that means you should be able to:',
   ],
