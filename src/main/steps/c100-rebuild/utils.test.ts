@@ -36,33 +36,6 @@ describe('C100 rebuild > utils', () => {
       ).toBe(C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE);
     });
 
-    test('should return flow 2 when miam other proceedings is no and attendance is yes', () => {
-      expect(
-        getC100FlowType(
-          {
-            miam_otherProceedings: 'No',
-            miam_attendance: 'Yes',
-            miam_haveDocSigned: 'Yes',
-            miam_certificate: {},
-          } as unknown as CaseWithId,
-          { body: {} } as unknown as AppRequest
-        )
-      ).toBe(C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE);
-    });
-
-    test('should return flow 2 when miam other proceedings is no and attendance is yes and certificate in request body', () => {
-      expect(
-        getC100FlowType(
-          {
-            miam_otherProceedings: 'No',
-            miam_attendance: 'Yes',
-            miam_haveDocSigned: 'Yes',
-          } as unknown as CaseWithId,
-          { body: { miam_certificate: {} } } as unknown as AppRequest
-        )
-      ).toBe(C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE);
-    });
-
     test('should return flow 3 when miam when miam urgency selected', () => {
       expect(
         getC100FlowType(
@@ -185,30 +158,6 @@ describe('C100 rebuild > utils', () => {
       ).toBe(true);
     });
 
-    test('should return true for flow 2 when all required sections including miam attendance are present', () => {
-      expect(
-        isC100ApplicationValid(
-          {
-            sq_writtenAgreement: 'No',
-            sq_legalRepresentation: 'No',
-            sq_courtPermissionRequired: 'No',
-            miam_otherProceedings: 'No',
-            miam_attendance: 'Yes',
-            miam_haveDocSigned: 'Yes',
-            miam_certificate: {},
-            ...commonUserCase,
-          } as unknown as CaseWithId,
-          {
-            session: {
-              enableC100CaseProgressionTrainTrack: true,
-              applicationSettings: { hasC100ApplicationBeenCompleted: false },
-            },
-            body: {},
-          } as unknown as AppRequest
-        )
-      ).toBe(true);
-    });
-
     test('should return true for flow 2 for specific section', () => {
       expect(
         isC100ApplicationValid(
@@ -253,30 +202,6 @@ describe('C100 rebuild > utils', () => {
       ).toBe(true);
     });
 
-    test('should return true for flow 2 for screening questions section when miam attendance valid', () => {
-      expect(
-        isC100ApplicationValid(
-          {
-            sq_writtenAgreement: 'No',
-            sq_legalRepresentation: 'No',
-            sq_courtPermissionRequired: 'No',
-            miam_otherProceedings: 'No',
-            miam_attendance: 'Yes',
-            miam_haveDocSigned: 'Yes',
-            miam_certificate: {},
-          } as unknown as CaseWithId,
-          {
-            session: {
-              enableC100CaseProgressionTrainTrack: true,
-              applicationSettings: { hasC100ApplicationBeenCompleted: true },
-            },
-            body: {},
-            originalUrl: 'localhost:3000/c100-rebuild/screening-questions/permission',
-          } as unknown as AppRequest
-        )
-      ).toBe(true);
-    });
-
     test('should return true for flow 2 for miam section when miam other proceedings', () => {
       expect(
         isC100ApplicationValid(
@@ -293,30 +218,6 @@ describe('C100 rebuild > utils', () => {
             },
             body: {},
             originalUrl: 'localhost:3000/c100-rebuild/miam/other-proceedings',
-          } as unknown as AppRequest
-        )
-      ).toBe(true);
-    });
-
-    test('should return true for flow 2 for miam section when miam attendance', () => {
-      expect(
-        isC100ApplicationValid(
-          {
-            sq_writtenAgreement: 'No',
-            sq_legalRepresentation: 'No',
-            sq_courtPermissionRequired: 'No',
-            miam_otherProceedings: 'No',
-            miam_attendance: 'Yes',
-            miam_haveDocSigned: 'Yes',
-            miam_certificate: {},
-          } as unknown as CaseWithId,
-          {
-            session: {
-              enableC100CaseProgressionTrainTrack: true,
-              applicationSettings: { hasC100ApplicationBeenCompleted: true },
-            },
-            body: {},
-            originalUrl: 'localhost:3000/c100-rebuild/miam/upload-confirmation',
           } as unknown as AppRequest
         )
       ).toBe(true);

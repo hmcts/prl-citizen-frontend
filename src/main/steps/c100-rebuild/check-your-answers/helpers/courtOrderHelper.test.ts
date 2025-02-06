@@ -34,7 +34,7 @@ describe('courtOrderHelper test case', () => {
   });
 
   test('courtTypeOfOrderHelper functionality testing', () => {
-    const data = courtTypeOfOrderHelper(userCase, keys, userKey);
+    const data = courtTypeOfOrderHelper(userCase, keys, userKey, 'en');
     expect(data).toBe(
       '<ul class="govuk-list govuk-list--bullet"><li>test data</li><li>test data</li><li>test data</li></ul>'
     );
@@ -48,7 +48,7 @@ describe('courtOrderHelper test case', () => {
   });
 
   test('courtTypeOfOrder functionality testing', () => {
-    const data = courtTypeOfOrder(userCase, keys, userKey);
+    const data = courtTypeOfOrder(userCase, keys, userKey, 'en');
     expect(data).toBe(
       '<ul class="govuk-list govuk-list--bullet"><li>test data</li><li>test data</li><li>test data</li></ul>'
     );

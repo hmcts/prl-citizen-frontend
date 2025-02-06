@@ -15,7 +15,7 @@ describe.skip('getProgressBarConfig', () => {
     const language = 'en';
     const userDetails = { id: '1234' } as UserDetails;
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Application submitted stage is not yet started',
         label: 'Application<br/> submitted',
@@ -54,7 +54,7 @@ describe.skip('getProgressBarConfig', () => {
     const language = 'en';
     const userDetails = { id: '1234' } as UserDetails;
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Case opened stage is completed',
         label: 'Case<br/> opened',
@@ -86,7 +86,7 @@ describe.skip('getProgressBarConfig', () => {
     const language = 'en';
     const userDetails = { id: '1234' } as UserDetails;
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Application submitted stage is completed',
         label: 'Application<br/> submitted',
@@ -123,7 +123,7 @@ describe.skip('getProgressBarConfig', () => {
     const language = 'en';
     const userDetails = { id: '1234' } as UserDetails;
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Application submitted stage is in progress',
         label: 'Application<br/> submitted',
@@ -191,7 +191,7 @@ describe.skip('getProgressBarConfig', () => {
     const language = 'en';
     const userDetails = { id: '1234' } as UserDetails;
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Case opened stage is completed',
         label: 'Case<br/> opened',
@@ -252,7 +252,7 @@ describe.skip('getProgressBarConfig', () => {
     const userDetails = { id: '1234' } as UserDetails;
     const language = 'en';
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Case opened stage is completed',
         label: 'Case<br/> opened',
@@ -308,7 +308,7 @@ describe.skip('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -370,7 +370,7 @@ describe.skip('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -447,7 +447,7 @@ describe.skip('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -524,7 +524,7 @@ describe.skip('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -602,7 +602,7 @@ describe.skip('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -680,7 +680,7 @@ describe.skip('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',

@@ -18,14 +18,7 @@ export const getC100FlowType = (caseData: CaseWithId, req?: AppRequest): C100Flo
     return C100FlowTypes.C100_WITH_CONSENT_ORDER;
   } else if (
     (caseData.hasOwnProperty('miam_otherProceedings') && caseData.miam_otherProceedings === YesOrNo.YES) ||
-    req?.body.miam_otherProceedings === YesOrNo.YES ||
-    (caseData.hasOwnProperty('miam_otherProceedings') &&
-      caseData.miam_otherProceedings === YesOrNo.NO &&
-      caseData.hasOwnProperty('miam_attendance') &&
-      caseData.miam_attendance === YesOrNo.YES &&
-      caseData.miam_haveDocSigned !== undefined &&
-      caseData.miam_haveDocSigned === YesOrNo.YES &&
-      (caseData.miam_certificate !== undefined || req?.body.miam_certificate !== undefined))
+    req?.body.miam_otherProceedings === YesOrNo.YES
   ) {
     return C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE;
   } else if (isMiamUrgencyValid(caseData)) {

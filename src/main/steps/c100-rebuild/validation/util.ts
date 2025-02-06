@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { CaseWithId } from '../../../app/case/case';
 import {
   C100Applicant,
+  C100FlowTypes,
   C100RebuildPartyDetails,
   ChildrenDetails,
   Gender,
@@ -12,6 +13,7 @@ import {
   YesNoEmpty,
   YesOrNo,
 } from '../../../app/case/definition';
+import { getC100FlowType } from '../utils';
 
 import { FieldConfig, FieldsConfig, MandatoryFieldsConfig } from './definitions';
 import {
@@ -87,7 +89,7 @@ const isFieldTypeString = (fieldConfig: { fieldName: string; fieldType: string }
 const isFieldTypeObject = (fieldConfig: { fieldName: string; fieldType: string }, caseData: CaseWithId) =>
   fieldConfig.fieldType === 'object' && _.isObject(caseData?.[fieldConfig.fieldName]);
 
-const isFieldFilled = (fieldConfig: MandatoryFieldsConfig, caseData: CaseWithId): boolean => {
+export const isFieldFilled = (fieldConfig: MandatoryFieldsConfig, caseData: CaseWithId): boolean => {
   if (_.isFunction(fieldConfig.expression)) {
     return fieldConfig.expression(caseData).isMandatory;
   }
@@ -206,7 +208,28 @@ export const getAllMandatoryFields = (caseData: CaseWithId): MandatoryFieldsConf
   mandatoryFields.push(...getMandatoryFields(ReasonableAdjustmentsFieldsConfig, caseData));
   mandatoryFields.push(...getMandatoryFields(HelpWithFeesFieldsConfig, caseData));
 
-  if (caseData?.co_certificate) {
+  if (getC100FlowType(caseData) === C100FlowTypes.C100_WITH_CONSENT_ORDER) {
+    mandatoryFields.push(...getMandatoryFields(ConsentOrderFieldsConfig, caseData));
+  } else {
+    mandatoryFields.push(...getMandatoryFields(MiamQuestionsFieldsConfig, caseData));
+  }
+
+  return mandatoryFields;
+};
+
+export const getAllMandatoryFieldsWithoutPeopleSection = (caseData: CaseWithId): MandatoryFieldsConfig[] => {
+  const mandatoryFields: MandatoryFieldsConfig[] = [];
+  mandatoryFields.push(...getMandatoryFields(ChildrenPostcodeFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(ScreeningQuestionsFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(TypeOfOrderFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(OtherProceedingsFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(UrgenceyAndWithoutNoticeFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(SafetyConcernsFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(InternationalElementsFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(ReasonableAdjustmentsFieldsConfig, caseData));
+  mandatoryFields.push(...getMandatoryFields(HelpWithFeesFieldsConfig, caseData));
+
+  if (getC100FlowType(caseData) === C100FlowTypes.C100_WITH_CONSENT_ORDER) {
     mandatoryFields.push(...getMandatoryFields(ConsentOrderFieldsConfig, caseData));
   } else {
     mandatoryFields.push(...getMandatoryFields(MiamQuestionsFieldsConfig, caseData));
@@ -276,9 +299,6 @@ export const isRespondentValid = (respondent: C100RebuildPartyDetails, partyType
       ? !_.isEmpty(respondent.personalDetails.approxDateOfBirth)
       : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
     !_.isEmpty(respondent.personalDetails.gender) &&
-    (respondent.personalDetails.gender === Gender.OTHER
-      ? !_.isEmpty(respondent.personalDetails.otherGenderDetails)
-      : true) &&
     !_.isEmpty(respondent.relationshipDetails?.relationshipToChildren) &&
     !_.isEmpty(respondent.address) &&
     (partyType === PartyType.RESPONDENT ? addressHistory : true) &&
@@ -315,8 +335,7 @@ export const areChildPersonalDetailsValid = (child: ChildrenDetails | OtherChild
     (child.personalDetails.isDateOfBirthUnknown && child.personalDetails.isDateOfBirthUnknown === YesNoEmpty.NO
       ? !_.isEmpty(child.personalDetails.dateOfBirth)
       : !_.isEmpty(child.personalDetails.approxDateOfBirth)) &&
-    !_.isEmpty(child.personalDetails.gender) &&
-    (child.personalDetails.gender === Gender.OTHER ? !_.isEmpty(child.personalDetails.otherGenderDetails) : true)
+    !_.isEmpty(child.personalDetails.gender)
   );
 };
 
