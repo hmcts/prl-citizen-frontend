@@ -9,6 +9,8 @@ import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { generateContentForLocalComponent } from '../../util';
 import { generateContent as parentContent } from '../content';
 
+export * from './routeGuard';
+
 export const en = () => ({
   caption: 'Safety concerns',
   headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing?',

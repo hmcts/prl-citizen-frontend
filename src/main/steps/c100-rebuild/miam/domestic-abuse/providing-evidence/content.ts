@@ -6,6 +6,8 @@ import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import { languages as commonLanguages } from '../common.content';
 
+export * from './routeGuard';
+
 const en = {
   caption: 'MIAM exemptions',
   title: 'Providing evidence of domestic abuse',

@@ -1,8 +1,8 @@
 {% extends "common/confirm-contact-details/addressdetails/template.njk" %}
 {% block form %}
-<p class="govuk-body govuk-!-font-weight-bold">
+<p class="govuk-body"><strong>
 {{ userCase.citizenUserAddressText | safe}}
-</p>
+</strong></p>
 <div class="govuk-button-group">
     <div>
         <form action="/respondent/confirm-contact-details/checkanswers">

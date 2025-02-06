@@ -8,7 +8,11 @@ import { caseApi } from '../../../../../app/case/CaseApi';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../../app/form/validation';
+import {
+  isExceedingMaxDocuments,
+  isFileSizeGreaterThanMaxAllowed,
+  isValidFileFormat,
+} from '../../../../../app/form/validation';
 import { applyParms } from '../../../../common/url-parser';
 import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
 import { handleEvidenceDocError, removeEvidenceDocErrors } from '../../util';
@@ -19,10 +23,12 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
     super(fields);
   }
 
-  private hasError(uploadedDocument: Record<string, any>): string | undefined {
+  private hasError(uploadedDocument: Record<string, any>, req: AppRequest<AnyObject>): string | undefined {
     let errorType;
 
-    if (!isValidFileFormat({ documents: uploadedDocument })) {
+    if (isExceedingMaxDocuments(req.session.userCase.miam_domesticAbuseEvidenceDocs?.length ?? 0)) {
+      errorType = 'maxDocumentsReached';
+    } else if (!isValidFileFormat({ documents: uploadedDocument })) {
       errorType = 'invalidFileFormat';
     } else if (isFileSizeGreaterThanMaxAllowed({ documents: uploadedDocument })) {
       errorType = 'maxFileSize';
@@ -45,7 +51,7 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
       return super.redirect(req, res, C100_MIAM_UPLOAD_DA_EVIDENCE);
     }
 
-    const error = this.hasError(fileUploaded);
+    const error = this.hasError(fileUploaded, req);
 
     if (error) {
       handleEvidenceDocError(error, req, 'miam_domesticAbuseEvidenceDocs');

@@ -62,7 +62,7 @@ describe('Test cases for safety concerns check answers', () => {
       language
     );
     expect(safetyConcerns_childObj?.rows).not.toBe([]);
-    expect(safetyConcerns_childObj?.title).toBe(undefined);
+    expect(safetyConcerns_childObj?.title).toBe('');
   });
 
   //SafetyConcerns_yours
@@ -78,7 +78,7 @@ describe('Test cases for safety concerns check answers', () => {
       language
     );
     expect(safetyConcerns_yoursObj?.rows).not.toBe([]);
-    expect(safetyConcerns_yoursObj?.title).toBe(undefined);
+    expect(safetyConcerns_yoursObj?.title).toBe('');
   });
 
   //SafetyConcerns_others
@@ -94,6 +94,6 @@ describe('Test cases for safety concerns check answers', () => {
       language
     );
     expect(safetyConcerns_yoursObj?.rows).not.toBe([]);
-    expect(safetyConcerns_yoursObj?.title).toBe(undefined);
+    expect(safetyConcerns_yoursObj?.title).toBe('');
   });
 });

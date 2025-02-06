@@ -35,7 +35,6 @@ import {
   C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
   C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
-  C100_DOCUMENT_SUBMISSION,
 
   /** @MIAM MIAM */
   C100_MIAM_UPLOAD_CONFIRMATION,
@@ -123,6 +122,7 @@ import {
   C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
   C100_MIAM_PROVIDING_DA_EVIDENCE,
   C100_MIAM_UPLOAD_DA_EVIDENCE,
+  C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -361,11 +361,6 @@ export const C100Sequence: Step[] = [
     url: C100_CHILD_ADDRESS,
     showInSection: Sections.C100,
     getNextStep: () => C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
-  },
-  {
-    url: C100_DOCUMENT_SUBMISSION,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_DOCUMENT_SUBMISSION,
   },
   {
     url: C100_MIAM_MEDIATOR_DOCUMENT,
@@ -842,5 +837,15 @@ export const C100Sequence: Step[] = [
     url: C100_WITHDRAW_CASE_CONFIRMATION,
     showInSection: Sections.C100,
     getNextStep: () => '/',
+  },
+  {
+    url: C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+        caseData,
+        req?.params
+      ),
   },
 ];

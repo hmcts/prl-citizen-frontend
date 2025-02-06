@@ -899,6 +899,7 @@ export interface CaseData {
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
   citizenNotifications?: CitizenNotification[];
+  applicantPcqId?: string;
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1852,7 +1853,6 @@ export const enum State {
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',
   ConditionalOrderRefused = 'ConditionalOrderRefused',
   Disputed = 'Disputed',
-  Draft = 'Draft',
   FinalOrderComplete = 'FinalOrderComplete',
   IssuedToBailiff = 'IssuedToBailiff',
   AwaitingPronouncement = 'AwaitingPronouncement',
@@ -2619,6 +2619,11 @@ export const C100OrderTypeKeyMapper = {
 };
 export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'tif', 'tiff', 'pdf', 'doc', 'docx'];
 export const C100MaxFileSize = '20000000';
+export const MAX_DOCUMENT_LIMITS = {
+  SUPPORT_DOCUMENTS: 100,
+  DEFAULT: 20,
+  OTHER_DOCUMENTS: 100
+};
 export interface C100OrderTypeInterface {
   childArrangementOrders?: C100OrderInterface[];
   emergencyProtectionOrders?: C100OrderInterface[];
@@ -2773,6 +2778,7 @@ export type C100RebuildPartyDetails = {
   addressUnknown?: YesOrNo;
   liveInRefuge?: YesOrNo;
   refugeConfidentialityC8Form?: Document;
+  isOtherPersonAddressConfidential?: YesOrNo;
 };
 
 export interface RelationshipToChildren {

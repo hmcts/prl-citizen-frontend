@@ -48,11 +48,7 @@
             </ul>
           {% endif %}
 
-          {%if userCase.caseTypeOfApplication === "FL401" %}
-            {% include "../contact-us.njk" %}
-          {% else %}
-            {% include "../contact-us-c100.njk" %}
-          {% endif %}
+          {% include "../contact-us.njk" %}
         {% endblock %}
       </div>
     </div>

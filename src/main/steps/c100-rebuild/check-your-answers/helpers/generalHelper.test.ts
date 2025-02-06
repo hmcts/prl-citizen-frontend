@@ -50,7 +50,7 @@ describe('nameAndGenderParser test case', () => {
     const data = nameAndGenderParser(personalDetails, keys, HTML, language);
     expect(data).toEqual({
       changeNameInformation:
-        'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>Enter details</h4><div class="govuk-!-padding-bottom-3">undefined</div>',
+        '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">Enter details</dt></div><br><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">undefined</dd></div></dl>',
       childGender: 'Male',
     });
   });
