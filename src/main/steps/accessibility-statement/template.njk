@@ -5,7 +5,7 @@
    {% macro generateBulletList(items, listClass="govuk-list govuk-list--bullet") %}
   <ul class="{{ listClass }}">
     {% for item in items %}
-      <li>{{ item }}</li>
+      <li>{{ item | safe }}</li>
     {% endfor %}
   </ul>
   {% endmacro %}

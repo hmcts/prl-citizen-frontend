@@ -33,7 +33,10 @@ export const en = {
     'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
     'If you require support when visiting or need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille contact us at:',
   ],
-  phoneAndEmail: ['Email: hmctsforms@justice.gov.uk', 'Telephone: 0300 323 0185'],
+  phoneAndEmail: [
+    'Email: <a href=”privatelawproject@justice.gov.uk” class=”govuk-link”>privatelawproject@justice.gov.uk</a>',
+    'Telephone: 0300 323 0185',
+  ],
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
   improvements: [
@@ -169,7 +172,8 @@ const cy = {
   ],
   thirdPartyContent1: 'Content that’s not within the scope of the accessibility regulations -welsh',
   thirdPartyContent2: 'Third party content that’s under someone else’s control -welsh',
-  thirdPartyContent3: 'Problemau gyda dolenni',
+  thirdPartyContent3:
+    'Pages and websites that are linked to and from the Family Private Law service may not be fully accessible. These include: -welsh',
   thirdPartyContentDescriptions: [
     'External pages hosting PDF documents -welsh',
     'The payment pages which have a separate accessibility statement -welsh',
