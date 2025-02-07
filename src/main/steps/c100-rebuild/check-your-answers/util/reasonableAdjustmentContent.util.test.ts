@@ -36,7 +36,6 @@ const TestReasonableAdjustmentElement = language => {
         easyReadFormatDocuments: 'Documents in Easy Read format',
         easyReadFormatDocumentsHint: 'information written in simple language with pictures',
         emailInformation: 'Information emailed to me',
-        errors: '',
         explanationOfCourt: "Explanation of the court and who's in the room at the hearing",
         extraSupport: 'I need to bring support with me to a hearing',
         extraSupportHint: 'for example, someone you know or an assistance dog',
@@ -117,6 +116,12 @@ const TestReasonableAdjustmentElement = language => {
         videoLinksHint: 'This needs to be approved by a judge',
         visitCourtBeforeHearing: 'Visit to court before the hearing',
         wheelchairAccess: 'Step free / wheelchair access',
+        errors: {
+          ra_disabilityRequirements: {
+            required:
+              'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case',
+          },
+        },
       };
     },
     cy: () => {
@@ -146,7 +151,6 @@ const TestReasonableAdjustmentElement = language => {
         easyReadFormatDocuments: 'Dogfennau mewn fformat hawdd i’w darllen',
         easyReadFormatDocumentsHint: "Gwybodaeth wedi'i hysgrifennu mewn iaith syml gyda lluniau",
         emailInformation: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
-        errors: '',
         explanationOfCourt: 'Esboniad o osodiad y llys a phwy fydd yn yr ystafell wrandawiadau',
         extraSupport: 'Rwyf angen dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad',
         extraSupportHint: "er enghraifft, rhywun rydych chi'n ei adnabod neu gi cymorth",
@@ -232,6 +236,12 @@ const TestReasonableAdjustmentElement = language => {
         videoLinksHint: 'Mae angen i farnwr gymeradwyo hyn',
         visitCourtBeforeHearing: "Ymweld â'r llys cyn y gwrandawiad",
         wheelchairAccess: 'Dim gris / mynediad ar gyfer cadair olwyn',
+        errors: {
+          ra_disabilityRequirements: {
+            required:
+              "Dewiswch p'un a oes gennych anabledd corfforol, meddyliol neu addysgol ai peidio neu gyflwr iechyd sy'n golygu eich bod angen cymorth yn ystod eich achos",
+          },
+        },
       };
     },
   };

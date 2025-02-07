@@ -32,6 +32,10 @@ export const getC100CaseCreationConfig = (caseData: CaseWithId): ProgressBarProp
   progressBarSections.push(...startSections);
 
   if (caseData) {
+    if (caseData.sq_legalRepresentationApplication && caseData.sq_legalRepresentationApplication === YesOrNo.YES) {
+      return progressBarSections;
+    }
+
     flowType = getC100FlowType(caseData);
   }
 
@@ -228,7 +232,9 @@ const peopleSection: ProgressBarProps = {
     };
   },
   isInProgress: (caseData, userDetails, preRenderData) => {
-    const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
+    const childSectionStarted = (caseData?.cd_children && caseData?.cd_children?.length > 0) ?? false;
+    const isInProgress =
+      childSectionStarted || isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
     console.info(preRenderData, 'people isInProgress --> ', isInProgress);
     return isInProgress;
   },

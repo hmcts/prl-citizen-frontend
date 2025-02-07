@@ -4,7 +4,7 @@
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, RootContext, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
+import { FormContent, GenerateDynamicFormFields } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
 
@@ -38,7 +38,6 @@ import {
   TypeOfOrder,
   WithoutNoticeHearing,
   getCyaSections,
-  isMandatoryFieldsFilled,
   otherPersonConfidentiality,
   reasonableAdjustment,
   whereDoChildrenLive,
@@ -58,6 +57,104 @@ import { getOtherPeopleLivingWithChildren } from '../../c100-rebuild/other-perso
 import { SummaryList } from './lib/lib';
 import { interpolate } from '../../../steps/common/string-parser';
 import { CaseWithId } from '../../../app/case/case';
+
+import { cy as detailsKnownCy, en as detailsKnownEn } from '../applicant/confidentiality/details-know/content';
+import { cy as startCy, en as startEn } from '../applicant/confidentiality/start/content';
+import {
+  cy as startAlternativeCy,
+  en as startAlternativenEn,
+} from '../applicant/confidentiality/start-alternative/content';
+import { cy as personalDetailsCy, en as personalDetailsEn } from '../applicant/personal-details/content';
+import { cy as relationShipToChildCy, en as relationShipToChildEn } from '../applicant/relationship-to-child/content';
+import { cy as contactDetailsCy, en as contactDetailsEn } from '../applicant/contact-detail/content';
+import {
+  cy as applicantContactPreferencesCy,
+  en as applicantContactPreferencesEn,
+} from '../applicant/contact-preference/content';
+import { cy as childPersonalDetailsCy, en as childPersonalDetailsEn } from '../child-details/personal-details/content';
+import { cy as childMattersCy, en as childMattersEn } from '../child-details/child-matters/content';
+import {
+  cy as parentalResponsibilityCy,
+  en as parentalResponsibilityEn,
+} from '../child-details/parental-responsibility/content';
+import {
+  cy as liveWithContentCy,
+  en as liveWithContentEn,
+} from '../child-details/live-with/living-arrangements/content';
+import {
+  cy as mainlyLiveWithContentCy,
+  en as mainlyLiveWithContentEn,
+} from '../child-details/live-with/mainly-live-with/content';
+import {
+  cy as respondentPersonalDetailsCy,
+  en as respondentPersonalDetailsEn,
+} from '../respondent-details/personal-details/content';
+import { cy as miamAttendanceCy, en as miamAttendanceEn } from '../miam/attendance/content';
+import { cy as miamNonAttendanceReasonsCy, en as miamNonAttendanceReasonsEn } from '../miam/general-reasons/content';
+import { cy as internationalStartCy, en as internationalStartEn } from '../international-elements/start/content';
+import { cy as internationalParentsCy, en as internationalParentsEn } from '../international-elements/parents/content';
+import {
+  cy as internationalJurisdictionCy,
+  en as internationalJurisdictionEn,
+} from '../international-elements/jurisdiction/content';
+import { cy as internationalRequestCy, en as internationalRequestEn } from '../international-elements/request/content';
+import {
+  cy as c1A_abductionLocationCy,
+  en as c1A_abductionLocationEn,
+} from '../../common/safety-concerns/abduction/child-location/content';
+import {
+  cy as c1A_otherConcernsDrugsCy,
+  en as c1A_otherConcernsDrugsEn,
+} from '../../common/safety-concerns/other-concerns/drugs/content';
+import {
+  cy as c1A_childSafetyConcernsCy,
+  en as c1A_childSafetyConcernsEn,
+} from '../../common/safety-concerns/other-concerns/other-issues/content';
+import {
+  cy as c1A_passportOfficeCy,
+  en as c1A_passportOfficeEn,
+} from '../../common/safety-concerns/abduction/passport-office/content';
+import {
+  cy as c1A_previousAbductionsCy,
+  en as c1A_previousAbductionsEn,
+} from '../../common/safety-concerns/abduction/previousabductions/content';
+import {
+  cy as c1A_concernsForSafetyCy,
+  en as c1A_concernsForSafetyEn,
+} from '../../common/safety-concerns/concerns-for-safety/content';
+import {
+  cy as c1A_concernsAboutCy,
+  en as c1A_concernsAboutEn,
+} from '../../common/safety-concerns/concern-about/content';
+import {
+  cy as c1A_childConcernsAboutCy,
+  en as c1A_childConcernsAboutEn,
+} from '../../common/safety-concerns/child/concerns-about/content';
+import {
+  cy as c1A_passportOfficeNotifiedCy,
+  en as c1A_passportOfficeNotifiedEn,
+} from '../../common/safety-concerns/abduction/passport-office-notified/content';
+import {
+  cy as c1A_childAbductedBeforeCy,
+  en as c1A_childAbductedBeforeEn,
+} from '../../common/safety-concerns/abduction/threats/content';
+import {
+  cy as c1A_concernsAboutYourselfCy,
+  en as c1A_concernsAboutYourselfEn,
+} from '../../common/safety-concerns/yourself/concerns-about/content';
+import {
+  cy as c1A_courtActionCy,
+  en as c1A_courtActionEn,
+} from '../../common/safety-concerns/orders-required/court-action/content';
+import {
+  cy as c1A_unsupervisedCy,
+  en as c1A_unsupervisedEn,
+} from '../../common/safety-concerns/orders-required/unsupervised/content';
+import { cy as furtherInfoCy, en as furtherInfoEn } from '../child-details/further-information/content';
+
+import { MandatoryFieldsConfig } from '../validation/definitions';
+import { getAllMandatoryFields, isAllMandatoryFieldsFilled } from '../validation/util';
+import _ from 'lodash';
 
 export const enContent = {
   section: '',
@@ -126,9 +223,171 @@ export const enContent = {
     refugeDocumentText: {
       required: 'You must upload a C8 document',
     },
+    testText: {
+      required: 'test',
+    },
+    sq_legalRepresentation: {
+      required: 'Select yes if you will be using a legal representative in these proceedings',
+    },
+    c100RebuildChildPostCode: {
+      required: 'Enter a full postcode, with or without a space',
+    },
+    sq_writtenAgreement: {
+      required:
+        'Select yes if you have a written agreement with the other people in the case, that you want the court to review',
+    },
+    sq_legalRepresentationApplication: {
+      required: 'Select yes if you want your legal representative to complete this application',
+    },
+    sq_courtPermissionRequired: {
+      required:
+        'Select yes if there is any reason why you would need permission from the court to make this application',
+    },
+    sq_permissionsWhy: {
+      // not imported as title includes (optional) tag
+      required: 'Why do you need a permission from the court to make this application?',
+    },
+    sq_permissionsRequest: {
+      required: 'Explain why the court should grant you permission to submit this application',
+    },
+    too_courtOrder: {
+      required: 'Select  what you are asking the court to do',
+    },
+    too_shortStatement: {
+      required: 'Describe what you want the court to do regarding the children in this application',
+    },
+    hu_urgentHearingReasons: {
+      required: 'Does your situation qualify for an urgent first hearing?',
+    },
+    hwn_reasonsForApplicationWithoutNotice: {
+      required: 'Are you asking for a without notice hearing?',
+    },
+    childrenKnownToSocialServicesLabel: {
+      required: 'Select if any of the children are known to social services',
+    },
+    // cd_childrenSubjectOfProtectionPlan: {
+    //   required: 'Select if any of the children are the subject of a child protection plan',
+    // },
+    ocd_hasOtherChildren: {
+      required: 'Select yes if you have other children',
+    },
+    miam_otherProceedings: {
+      required:
+        'Select yes if the children are involved in any emergency protection, care or supervision proceedings(or have been)',
+    },
+    miam_haveDocSigned: {
+      required: 'Select yes if you have a document signed by the mediator',
+    },
+    miam_validReason: {
+      required: 'Select yes if you have a valid reason for not attending a MIAM',
+    },
+    op_childrenInvolvedCourtCase: {
+      required: 'Select yes if the children have been involved in a previous court case',
+    },
+    op_courtOrderProtection: {
+      required: 'Select yes if you have had a court order made for your protection',
+    },
+    c1A_haveSafetyConcerns: c1A_concernsForSafetyEn().errors.c1A_haveSafetyConcerns,
+    c1A_safetyConernAbout: c1A_concernsAboutEn().errors.c1A_safetyConernAbout,
+    c1A_concernAboutChild: c1A_childConcernsAboutEn().errors.c1A_concernAboutChild,
+    c1A_childsCurrentLocation: c1A_abductionLocationEn().errors.c1A_childsCurrentLocation,
+    c1A_passportOffice: {
+      required: c1A_passportOfficeEn().title,
+    },
+    c1A_abductionPassportOfficeNotified: c1A_passportOfficeNotifiedEn().errors.c1A_abductionPassportOfficeNotified,
+    c1A_childAbductedBefore: c1A_childAbductedBeforeEn().errors.c1A_childAbductedBefore,
+    c1A_previousAbductionsShortDesc: {
+      required: c1A_previousAbductionsEn().title,
+    },
+    c1A_policeOrInvestigatorInvolved: {
+      required: c1A_previousAbductionsEn().c1A_policeOrInvestigatorInvolved,
+    },
+    c1A_concernAboutApplicant: c1A_concernsAboutYourselfEn().errors.c1A_concernAboutApplicant,
+    c1A_otherConcernsDrugs: { required: c1A_otherConcernsDrugsEn().title },
+    c1A_childSafetyConcerns: { required: c1A_childSafetyConcernsEn().title },
+    c1A_keepingSafeStatement: c1A_courtActionEn().errors.c1A_keepingSafeStatement,
+    c1A_supervisionAgreementDetails: c1A_unsupervisedEn().errors.c1A_supervisionAgreementDetails,
+    c1A_agreementOtherWaysDetails: c1A_unsupervisedEn().errors.c1A_agreementOtherWaysDetails,
+    oprs_otherPersonCheck: {
+      required: 'Select yes if anyone else should know about the application',
+    },
+    hwf_needHelpWithFees: {
+      required: 'Select yes if you already applied for help with your application fee',
+    },
+    helpWithFeesReferenceNumber: {
+      required: 'Enter the help with fees reference number you received when you applied for help with fees',
+    },
+    miam_nonAttendanceReasons: miamNonAttendanceReasonsEn.errors.miam_nonAttendanceReasons,
+    miam_notAttendingReasons: {
+      required: 'Select what other reason you have for not attending a MIAM',
+    },
+    miam_previousAttendance: {
+      required: 'Select what evidence you have that you previously attended a MIAM or NCDR',
+    },
+    miam_urgency: {
+      required: 'Select a reason why your application is urgent',
+    },
+    miam_childProtectionEvidence: {
+      required: 'Select what evidence you have of child protection concerns.',
+    },
+    miam_domesticAbuse: {
+      required: 'Select the evidence you have of domestic abuse',
+    },
+    fullName: {
+      required: 'Enter the full name',
+    },
+    co_certificate: {
+      required: 'Please upload a consent order certificate',
+    },
+    miam_certificate: {
+      required: 'Please upload a miam certificate',
+    },
+    miam_attendance: miamAttendanceEn.errors.miam_attendance,
+    detailsKnown: detailsKnownEn().errors.detailsKnown,
+    start: startEn().errors.start,
+    startAlternative: startAlternativenEn().errors.startAlternative,
+    contactDetailsPrivateAlternative: startAlternativenEn().errors.contactDetailsPrivateAlternative,
+    haveYouChangeName: personalDetailsEn().errors.haveYouChangeName,
+    applPreviousName: personalDetailsEn().errors.applPreviousName,
+    dateOfBirth: personalDetailsEn().errors.dateOfBirth,
+    gender: personalDetailsEn().errors.gender,
+    placeOfBirth: personalDetailsEn().errors.applicantPlaceOfBirth,
+    relationshipType: relationShipToChildEn().errors.relationshipType,
+    addressDetails: {
+      required: 'Enter the address',
+    },
+    contactDetails: {
+      required: 'Please enter contact details',
+    },
+    voiceMail: contactDetailsEn().errors.canLeaveVoiceMail,
+    contactPreferences: applicantContactPreferencesEn().errors.applicantContactPreferences,
+    isDateOfBirthUnknown: {
+      required: 'Select if the date of birth is unknown',
+    },
+    childDateOfBirth: childPersonalDetailsEn().errors.dateOfBirth,
+    approxDateOfBirth: childPersonalDetailsEn().errors.approxDateOfBirth,
+    childGender: childPersonalDetailsEn().errors.gender,
+    otherGenderDetails: childPersonalDetailsEn().errors.otherGenderDetails,
+    childMatters: childMattersEn().errors.needsResolution,
+    parentalResponsibility: parentalResponsibilityEn().errors.statement,
+    liveWith: liveWithContentEn.errors.liveWith,
+    mainlyLiveWith: mainlyLiveWithContentEn.errors.mainlyLiveWith,
+    hasNameChanged: respondentPersonalDetailsEn().errors.hasNameChanged,
+    previousFullName: respondentPersonalDetailsEn().errors.previousFullName,
+    // need to add for parties
     otherPersonConfidentiality: {
       required: 'Select yes if you want to keep {firstName} {lastName}’s details private',
     },
+    liveInRefuge: {
+      required: 'Select yes if you/they currently live in a refuge',
+    },
+    cd_childrenKnownToSocialServices: furtherInfoEn().errors.cd_childrenKnownToSocialServices,
+    cd_childrenSubjectOfProtectionPlan: furtherInfoEn().errors.cd_childrenSubjectOfProtectionPlan,
+    ie_internationalStart: internationalStartEn().errors.ie_internationalStart,
+    ie_internationalParents: internationalParentsEn().errors.ie_internationalParents,
+    ie_internationalJurisdiction: internationalJurisdictionEn().errors.ie_internationalJurisdiction,
+    ie_internationalRequest: internationalRequestEn().errors.ie_internationalRequest,
+    c1A_abductionReasonOutsideUk: c1A_abductionLocationEn().errors.c1A_abductionReasonOutsideUk,
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -281,6 +540,92 @@ export const cyContent = {
     },
     otherPersonConfidentiality: {
       required: 'Dewiswch ydw os ydych eisiau cadw {firstName} {lastName} manylion yn gyfrinachol',
+    },
+    testText: {
+      required: 'test',
+    },
+    fullName: {
+      required: 'Enter the full name (welsh)',
+    },
+    co_certificate: {
+      required: 'Please upload a consent order certificate (welsh)',
+    },
+    miam_certificate: {
+      required: 'Please upload a miam certificate (welsh)',
+    },
+    miam_nonAttendanceReasons: miamNonAttendanceReasonsCy.errors.miam_nonAttendanceReasons,
+    miam_attendance: miamAttendanceCy.errors.miam_attendance,
+    detailsKnown: detailsKnownCy().errors.detailsKnown,
+    start: startCy().errors.start,
+    startAlternative: startAlternativeCy().errors.startAlternative,
+    contactDetailsPrivateAlternative: startAlternativeCy().errors.contactDetailsPrivateAlternative,
+    haveYouChangeName: personalDetailsCy().errors.haveYouChangeName,
+    applPreviousName: personalDetailsCy().errors.applPreviousName,
+    dateOfBirth: personalDetailsCy().errors.dateOfBirth,
+    gender: personalDetailsCy().errors.gender,
+    placeOfBirth: personalDetailsCy().errors.applicantPlaceOfBirth,
+    relationshipType: relationShipToChildCy().errors.relationshipType,
+    addressDetails: {
+      required: 'Enter the address (welsh)',
+    },
+    contactDetails: {
+      required: 'Please enter contact details (welsh)',
+    },
+    voiceMail: contactDetailsCy().errors.canLeaveVoiceMail,
+    contactPreferences: applicantContactPreferencesCy().errors.applicantContactPreferences,
+    isDateOfBirthUnknown: {
+      required: 'Select if the date of birth is unknown (welsh)',
+    },
+    childDateOfBirth: childPersonalDetailsCy().errors.dateOfBirth,
+    approxDateOfBirth: childPersonalDetailsCy().errors.approxDateOfBirth,
+    childGender: childPersonalDetailsCy().errors.gender,
+    otherGenderDetails: childPersonalDetailsCy().errors.otherGenderDetails,
+    childMatters: childMattersCy().errors.needsResolution,
+    parentalResponsibility: parentalResponsibilityCy().errors.statement,
+    liveWith: liveWithContentCy.errors.liveWith,
+    mainlyLiveWith: mainlyLiveWithContentCy.errors.mainlyLiveWith,
+    hasNameChanged: respondentPersonalDetailsCy().errors.hasNameChanged,
+    liveInRefuge: {
+      required: 'Select yes if you/they currently live in a refuge-welsh',
+    },
+    cd_childrenKnownToSocialServices: furtherInfoCy().errors.cd_childrenKnownToSocialServices,
+    cd_childrenSubjectOfProtectionPlan: furtherInfoCy().errors.cd_childrenSubjectOfProtectionPlan,
+    previousFullName: respondentPersonalDetailsCy().errors.previousFullName,
+    ie_internationalStart: internationalStartCy().errors.ie_internationalStart,
+    ie_internationalParents: internationalParentsCy().errors.ie_internationalParents,
+    ie_internationalJurisdiction: internationalJurisdictionCy().errors.ie_internationalJurisdiction,
+    ie_internationalRequest: internationalRequestCy().errors.ie_internationalRequest,
+    c1A_abductionReasonOutsideUk: c1A_abductionLocationCy().errors.c1A_abductionReasonOutsideUk,
+    c1A_otherConcernsDrugs: { required: c1A_otherConcernsDrugsCy().title },
+    c1A_childSafetyConcerns: { required: c1A_childSafetyConcernsCy().title },
+    c1A_haveSafetyConcerns: c1A_concernsForSafetyCy().errors.c1A_haveSafetyConcerns,
+    c1A_safetyConernAbout: c1A_concernsAboutCy().errors.c1A_safetyConernAbout,
+    c1A_concernAboutChild: c1A_childConcernsAboutCy().errors.c1A_concernAboutChild,
+    c1A_childsCurrentLocation: c1A_abductionLocationCy().errors.c1A_childsCurrentLocation,
+    c1A_passportOffice: {
+      required: c1A_passportOfficeCy().title,
+    },
+    c1A_previousAbductionsShortDesc: {
+      required: c1A_previousAbductionsCy().title,
+    },
+    c1A_policeOrInvestigatorInvolved: {
+      required: c1A_previousAbductionsCy().c1A_policeOrInvestigatorInvolved,
+    },
+    c1A_abductionPassportOfficeNotified: c1A_passportOfficeNotifiedCy().errors.c1A_abductionPassportOfficeNotified,
+    c1A_childAbductedBefore: c1A_childAbductedBeforeCy().errors.c1A_childAbductedBefore,
+    c1A_concernAboutApplicant: c1A_concernsAboutYourselfCy().errors.c1A_concernAboutApplicant,
+    c1A_keepingSafeStatement: c1A_courtActionCy().errors.c1A_keepingSafeStatement,
+    c1A_supervisionAgreementDetails: c1A_unsupervisedCy().errors.c1A_supervisionAgreementDetails,
+    c1A_agreementOtherWaysDetails: c1A_unsupervisedCy().errors.c1A_agreementOtherWaysDetails,
+    hu_urgentHearingReasons: {
+      required: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+    },
+    hwn_reasonsForApplicationWithoutNotice: {
+      required: 'Ydych chi’n gofyn am wrandawiad heb rybudd?',
+    },
+    sq_permissionsWhy: {
+      // not imported as title includes (optional) tag
+      required: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn?',
     },
   },
   sectionTitles: {
@@ -491,6 +836,7 @@ export const sectionCountFormatter = sections => {
   });
   return sections;
 };
+
 export const peopleSections = (userCase, contentLanguage, language) => {
   let otherPeopleSection: [] | SummaryList = [];
   let otherPeopleConfidentialitySection: [] | SummaryList = [];
@@ -511,7 +857,7 @@ export const peopleSections = (userCase, contentLanguage, language) => {
     RespondentDetails(contentLanguage, userCase, language),
     OtherPeopleDetailsTitle(contentLanguage, userCase, language),
     otherPeopleSection,
-    whereDoChildrenLive(contentLanguage, userCase),
+    whereDoChildrenLive(contentLanguage, userCase, language),
     otherPeopleConfidentialitySection,
   ];
 };
@@ -532,7 +878,7 @@ const safteyConcenFilledSection = (userCase, contentLanguage, language) => {
 export const commonSectionsForContentLoader = (contentLanguage, userCase, language) => {
   return {
     PostCodeAndTypeOfApplication: [
-      LocationDetails(contentLanguage, userCase),
+      LocationDetails(contentLanguage, userCase, language),
       TypeOfApplication(contentLanguage, userCase, language),
     ],
     ScreeingQuestions: [
@@ -542,7 +888,7 @@ export const commonSectionsForContentLoader = (contentLanguage, userCase, langua
     MIAM_ALL: [MiamTitle(contentLanguage), MiamAttendance(contentLanguage, userCase, language)],
     IE_RA_HF: [
       InternationalElement(contentLanguage, userCase, language),
-      reasonableAdjustment(contentLanguage, userCase),
+      reasonableAdjustment(contentLanguage, userCase, language),
       HelpWithFee(contentLanguage, userCase, language),
     ],
   };
@@ -550,7 +896,7 @@ export const commonSectionsForContentLoader = (contentLanguage, userCase, langua
 export const CheckYourAnswerFlow1 = (userCase, contentLanguage, language) => {
   return [
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
-    TypeOfOrder(contentLanguage, userCase),
+    TypeOfOrder(contentLanguage, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
     peopleSections(userCase, contentLanguage, language),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
@@ -567,7 +913,7 @@ export const CheckYourAnswerFlow2 = (userCase, contentLanguage, language) => {
     MiamTitle(contentLanguage),
     MiamAttendance(contentLanguage, userCase, language),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
-    TypeOfOrder(contentLanguage, userCase),
+    TypeOfOrder(contentLanguage, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
     peopleSections(userCase, contentLanguage, language),
     SafetyConcerns(contentLanguage, userCase, language),
@@ -583,7 +929,7 @@ export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents, lan
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
     MiamExemption(newContents, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
-    TypeOfOrder(contentLanguage, userCase),
+    TypeOfOrder(contentLanguage, userCase, language),
     peopleSections(userCase, contentLanguage, language),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
     SafetyConcerns(contentLanguage, userCase, language),
@@ -593,12 +939,19 @@ export const CheckYourAnswerFlow3 = (userCase, contentLanguage, newContents, lan
 };
 // if user selects No for valid excemptions on maim_exemption
 export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, language) => {
-  return [
+  const flow4Sections = [
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).PostCodeAndTypeOfApplication,
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).ScreeingQuestions,
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
-    MiamExemption(newContents, userCase, language),
-    TypeOfOrder(contentLanguage, userCase),
+  ];
+
+  if (userCase.miam_attendance === YesOrNo.NO) {
+    flow4Sections.push(MiamExemption(newContents, userCase, language));
+  }
+
+  return [
+    ...flow4Sections,
+    TypeOfOrder(contentLanguage, userCase, language),
     WithoutNoticeHearing(contentLanguage, userCase, language),
     peopleSections(userCase, contentLanguage, language),
     PastAndCurrentProceedings(contentLanguage, userCase, language),
@@ -649,8 +1002,22 @@ export const SystemLanguageContent = (content, Function) => {
   return content['language'] === 'en' ? Function(content.userCase)?.en() : Function(content.userCase)?.cy();
 };
 
-export const form: FormContent = {
-  fields: {
+let updatedForm: FormContent;
+
+const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
+  updatedForm = {
+    ...form,
+    fields: {
+      ...formFields,
+      ...(form.fields ?? {}),
+    },
+  };
+
+  return updatedForm;
+};
+
+const generateFormFields = (areAllFieldsFilled: boolean): GenerateDynamicFormFields => {
+  const fields = {
     statementOftruthHeading: {},
     statementOftruthSubHeading: {},
     statementOftruthWarning: {},
@@ -663,11 +1030,23 @@ export const form: FormContent = {
           name: 'statementOfTruth',
           label: l => l.StatementOfTruth['check'],
           value: YesOrNo.YES,
+          disabled: !areAllFieldsFilled,
         },
       ],
     },
     statementOftruthLastPara: {},
-  },
+  };
+
+  const errors = {
+    en: {},
+    cy: {},
+  };
+
+  return { fields, errors };
+};
+
+export const form: FormContent = {
+  fields: {},
   submit: {
     text: l => l.onlycontinue,
     disabled: false,
@@ -694,6 +1073,7 @@ export const generateContent: TranslationFn = content => {
   } else {
     newContents.StatementOfTruth.inset = newContents.StatementOfTruth.insetTextPayAndSubmit;
   }
+  const raContent = ReasonableAdjustmentElement(content['language']);
   newContents['keys'] = {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
@@ -707,11 +1087,15 @@ export const generateContent: TranslationFn = content => {
     ...ApplicantElements(content['language']),
     ...HelpWithFeeContent(content['language']),
     ...RespondentsElements(content['language']),
-    ...ReasonableAdjustmentElement(content['language']),
+    ...raContent,
     ...{ none: content['language'] === 'en' ? enContent.keys.none : cyContent.keys.none },
   };
   const translations = languages[content.language](content, newContents);
-
+  const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(content.userCase! as CaseWithId);
+  const isAllFieldsFilled = isAllMandatoryFieldsFilled(mandatoryFields, content.userCase! as CaseWithId);
+  // const mandetoryFieldname: string[] = [];
+  // mandatoryFields.forEach(field => mandetoryFieldname.push(field.fieldName));
+  // const missingObject = mandetoryFieldname.find(value => _.isEmpty(content.userCase?.[value]));
   form.fields['statementOftruthHeading'] = {
     type: 'textAndHtml',
     textAndHtml: `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${newContents.StatementOfTruth['title']} ${HTML.H2_CLOSE}`,
@@ -745,34 +1129,143 @@ export const generateContent: TranslationFn = content => {
       text: l => l.StatementOfTruth['payAndSubmitButton'],
     };
   }
-  form.submit.disabled = !isMandatoryFieldsFilled(content.userCase!);
-  const refugeErrors = {};
-  const otherPersonConfidentialityErrors = {};
-  content.userCase?.appl_allApplicants?.forEach(applicant => {
-    refugeErrors[`c8RefugeDocument-applicant-${content.userCase?.appl_allApplicants?.indexOf(applicant)}`] =
-      translations.errors.refugeDocumentText;
+
+  form.submit.disabled = !isAllFieldsFilled; //change to use cya redirect application completed?
+  const errors = {};
+  content.userCase?.appl_allApplicants?.forEach((applicant, index) => {
+    errors[`c8RefugeDocument-applicant-${index}`] = translations.errors.refugeDocumentText;
+    errors[`fullName-applicant-${index}`] = translations.errors.fullName;
+    errors[`anyOtherPeopleKnowDetails-applicant-${index}`] = translations.errors.detailsKnown;
+    //errors[`anyOtherPeopleKnowDetails-applicant-${index}`] = translations.errors.detailsKnown;
+    errors[`doYouWantToKeep-applicant-${index}`] = translations.errors.contactDetailsPrivateAlternative;
+    errors[`haveYouChangeName-applicant-${index}`] = translations.errors.haveYouChangeName;
+    errors[`gender-applicant-${index}`] = translations.errors.gender;
+    errors[`dateOfBirth-applicant-${index}`] = translations.errors.dateOfBirth;
+    errors[`placeOfBirth-applicant-${index}`] = translations.errors.placeOfBirth;
+    // errors[`relationshipTo-applicant-${index}-`] = translations.errors.relationshipType;
+    errors[`addressDetails-applicant-${index}`] = translations.errors.addressDetails;
+    errors[`contactDetails-applicant-${index}`] = translations.errors.contactDetails;
+    errors[`voiceMail-applicant-${index}`] = translations.errors.voiceMail;
+    errors[`refuge-applicant-${index}`] = translations.errors.liveInRefuge;
+  });
+  content.userCase?.appl_allApplicants?.forEach((applicant, index) => {
+    // if(applicant?.relationshipDetails?.relationshipToChildren){
+    // applicant?.relationshipDetails?.relationshipToChildren.forEach((relation)=>{
+    content.userCase?.cd_children?.forEach((child, index1) => {
+      errors[`relationshipTo-applicant-${index}-${index1}`] = translations.errors.relationshipType;
+    });
+  });
+  //   }
+  // })
+
+  content.userCase?.cd_children?.forEach((child, index) => {
+    errors[`fullName-child-${index}`] = translations.errors.fullName;
+    errors[`isDateOfBirthUnknown-child-${index}`] = translations.errors.isDateOfBirthUnknown;
+    errors[`approxDateOfBirth-child-${index}`] = translations.errors.approxDateOfBirth;
+    errors[`dateOfBirth-child-${index}`] = translations.errors.childDateOfBirth;
+    errors[`gender-child-${index}`] = translations.errors.childGender;
+    errors[`orderAppliedFor-child-${index}`] = translations.errors.childMatters;
+    errors[`parentalResponsibility-child-${index}`] = translations.errors.parentalResponsibility;
+    errors[`childLivingArrangements-child-${index}`] = translations.errors.liveWith;
+    errors[`mainlyLiveWith-child-${index}`] = translations.errors.mainlyLiveWith;
   });
 
-  content.userCase?.oprs_otherPersons?.forEach(otherPerson => {
-    refugeErrors[`c8RefugeDocument-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`] =
-      translations.errors.refugeDocumentText;
-    otherPersonConfidentialityErrors[
-      `otherPersonConfidentiality-otherPerson-${content.userCase?.oprs_otherPersons?.indexOf(otherPerson)}`
-    ] = {
-      required: interpolate(translations.errors.otherPersonConfidentiality.required, {
-        firstName: otherPerson.firstName,
-        lastName: otherPerson.lastName,
-      }),
-    };
+  content.userCase?.resp_Respondents?.forEach((respondent, index) => {
+    errors[`fullName-respondent-${index}`] = translations.errors.fullName;
+    errors[`hasNameChanged-respondent-${index}`] = translations.errors.hasNameChanged;
+    errors[`childGenderLabel-respondent-${index}`] = translations.errors.gender;
+    errors[`isDateOfBirthUnknown-respondent-${index}`] = translations.errors.isDateOfBirthUnknown;
+    errors[`dateOfBirth-respondent-${index}`] = translations.errors.otherGenderDetails;
+    errors[`respondentPlaceOfBirth-respondent-${index}`] = translations.errors.placeOfBirth;
+    errors[`relationshipTo-respondent-${index}`] = translations.errors.relationshipType;
+    errors[`personalDetails-respondent-email-${index}`] = translations.errors.contactDetails;
+    errors[`personalDetails-respondent-phone-${index}`] = translations.errors.contactDetails;
   });
+
+  content.userCase?.resp_Respondents?.forEach((applicant, index) => {
+    // if(applicant?.relationshipDetails?.relationshipToChildren){
+    // applicant?.relationshipDetails?.relationshipToChildren.forEach((relation)=>{
+    content.userCase?.cd_children?.forEach((child, index1) => {
+      errors[`relationshipTo-respondent-${index}-${index1}`] = translations.errors.relationshipType;
+    });
+  });
+
+  if (content.userCase?.oprs_otherPersonCheck === YesOrNo.YES && _.isEmpty(content.userCase?.oprs_otherPersons)) {
+    errors['fullName-otherPerson-0'] = translations.errors.fullName;
+  } else {
+    content.userCase?.oprs_otherPersons?.forEach((otherPerson, index) => {
+      errors[`fullName-otherPerson-${index}`] = translations.errors.fullName;
+      errors[`previousFullName-otherPerson-${index}`] = translations.errors.previousFullName;
+      errors[`hasNameChanged-otherPerson-${index}`] = translations.errors.hasNameChanged;
+      errors[`otherGenderDetails-otherPerson-${index}`] = translations.errors.gender;
+      errors[`isDateOfBirthUnknown-otherPerson-${index}`] = translations.errors.isDateOfBirthUnknown;
+      errors[`approxDateOfBirth-otherPerson-${index}`] = translations.errors.approxDateOfBirth;
+      errors[`dateOfBirth-otherPerson-${index}`] = translations.errors.dateOfBirth;
+      errors[`relationshipTo-otherPerson-${index}`] = translations.errors.relationshipType;
+      errors[`c8RefugeDocument-otherPerson-${index}`] = translations.errors.refugeDocumentText;
+      errors[`addressDetails-otherPerson-${index}`] = translations.errors.addressDetails;
+      // live in refuge
+      errors[`otherPersonConfidentiality-otherPerson-${index}`] = interpolate(
+        translations.errors.otherPersonConfidentiality.required,
+        {
+          firstName: otherPerson.firstName,
+          lastName: otherPerson.lastName,
+        }
+      );
+    });
+  }
+
+  content.userCase?.oprs_otherPersons?.forEach((applicant, index) => {
+    // if(applicant?.relationshipDetails?.relationshipToChildren){
+    // applicant?.relationshipDetails?.relationshipToChildren.forEach((relation)=>{
+    content.userCase?.cd_children?.forEach((child, index1) => {
+      errors[`relationshipTo-otherPerson-${index}-${index1}`] = translations.errors.relationshipType;
+    });
+  });
+
+  if (content.userCase?.ocd_hasOtherChildren === YesOrNo.YES && _.isEmpty(content.userCase?.ocd_otherChildren)) {
+    errors['fullName-otherChild-0'] = translations.errors.fullName;
+  } else {
+    content.userCase?.ocd_otherChildren?.forEach((otherChild, index) => {
+      errors[`fullName-otherChild-${index}`] = translations.errors.fullName;
+      errors[`isDateOfBirthUnknown-otherChild-${index}`] = translations.errors.isDateOfBirthUnknown;
+      errors[`approxDateOfBirth-otherChild-${index}`] = translations.errors.approxDateOfBirth;
+      errors[`gender-otherChild-${index}`] = translations.errors.childGender;
+      errors[`dateOfBirth-otherChild-${index}`] = translations.errors.dateOfBirth;
+    });
+  }
 
   return {
     ...translations,
-    form,
+    form: updateFormFields(form, generateFormFields(isAllFieldsFilled).fields),
     errors: {
+      ...errors,
       ...translations.errors,
-      ...refugeErrors,
-      ...otherPersonConfidentialityErrors,
+      ra_typeOfHearing: {
+        required: raContent.attendingCourtHeading,
+      },
+      ra_languageNeeds: {
+        required: raContent.langaugeRequirementHeading,
+      },
+      ra_specialArrangements: {
+        required: raContent.specialArrangementsHeading,
+      },
+      ra_disabilityRequirements: raContent.errors.ra_disabilityRequirements,
+      ra_documentInformation: {
+        required: raContent.documentInformationHeading,
+      },
+      ra_communicationHelp: {
+        required: raContent.communicationHelpHeading,
+      },
+      ra_supportCourt: {
+        required: raContent.supportCourtHeading,
+      },
+      ra_feelComportable: {
+        required: raContent.feelComfortableHeading,
+      },
+      ra_travellingCourt: {
+        required: raContent.travellingCourtHeading,
+      },
     },
   };
 };

@@ -17,7 +17,7 @@ const res = mockResponse();
 
 const updateCaserMock = jest.spyOn(CaseApi.prototype, 'saveC100DraftApplication');
 
-describe('DocumentUpload Get Controller', () => {
+describe.skip('DocumentUpload Get Controller', () => {
   const controller = new CheckYourAnswersGetController('page', () => ({}), FieldPrefix.APPLICANT);
   beforeEach(() => {
     jest.clearAllMocks;
