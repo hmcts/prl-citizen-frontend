@@ -721,6 +721,9 @@ export interface Case {
   ie_internationalJurisdiction?: YesOrNo;
   ie_provideDetailsJurisdiction?: string;
   hasC100ApplicationBeenCompleted?: boolean;
+  cd_childrenKnownToSocialServices?: string;
+  cd_childrenKnownToSocialServicesDetails?: string;
+  cd_childrenSubjectOfProtectionPlan?: string;
 }
 
 export interface CitizenNotification {

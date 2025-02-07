@@ -386,6 +386,32 @@ const prepareProp = (property: string): string => {
     case 'miam_domesticAbuse_letterFromSupportService_subfields':
       return 'miam_domesticAbuse';
 
+    case 'ra_noVideoAndPhoneHearing_subfield':
+      return 'ra_typeOfHearing';
+    case 'ra_needInterpreterInCertainLanguage_subfield':
+      return 'ra_languageNeeds';
+    case 'ra_specialArrangementsOther_subfield':
+      return 'ra_specialArrangements';
+    case 'ra_specifiedColorDocuments_subfield':
+    case 'ra_largePrintDocuments_subfield':
+    case 'ra_documentHelpOther_subfield':
+      return 'ra_documentInformation';
+    case 'ra_signLanguageInterpreter_subfield':
+    case 'ra_communicationHelpOther_subfield':
+      return 'ra_communicationHelp';
+    case 'ra_supportWorkerCarer_subfield':
+    case 'ra_friendFamilyMember_subfield':
+    case 'ra_therapyAnimal_subfield':
+    case 'ra_supportCourtOther_subfield':
+      return 'ra_supportCourt';
+    case 'ra_appropriateLighting_subfield':
+    case 'ra_feelComportableOther_subfield':
+      return 'ra_feelComportable';
+    case 'ra_parkingSpace_subfield':
+    case 'ra_differentTypeChair_subfield':
+    case 'ra_travellingCourtOther_subfield':
+      return 'ra_travellingCourt';
+
     default:
       return property;
   }

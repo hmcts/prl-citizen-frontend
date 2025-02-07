@@ -10,9 +10,9 @@ export const resonableAdjustmentHelper = (userCase, keys, sessionKey, language) 
       if (userCase.hasOwnProperty(`ra_${item}_subfield`)) {
         html +=
           HTML.LIST_ITEM +
-          populateError(keys[item], keys[item], language) +
+          keys[item] +
           ' : ' +
-          userCase[`ra_${item}_subfield`] +
+          populateError(userCase[`ra_${item}_subfield`], userCase[`ra_${item}_subfield`], language) +
           HTML.LIST_ITEM_END;
       } else {
         html += HTML.LIST_ITEM + populateError(keys[item], keys[item], language) + HTML.LIST_ITEM_END;

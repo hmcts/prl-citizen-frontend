@@ -316,34 +316,6 @@ export const enContent = {
     helpWithFeesReferenceNumber: {
       required: 'Enter the help with fees reference number you received when you applied for help with fees',
     },
-    ra_typeOfHearing: {
-      required: 'Select whether you can take part in a video or phone hearing',
-    },
-    ra_languageNeeds: {
-      required: 'Select whether you have any language requirements',
-    },
-    ra_specialArrangements: {
-      required: 'Select whether you or the children need special arrangements at court',
-    },
-    ra_disabilityRequirements: {
-      required:
-        'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case',
-    },
-    ra_documentInformation: {
-      required: 'Select which format you need your documents in',
-    },
-    ra_communicationHelp: {
-      required: 'Select what help you need with communicating and understanding',
-    },
-    ra_supportCourt: {
-      required: 'Select which support you need to bring with you to a hearing',
-    },
-    ra_feelComportable: {
-      required: 'Select what you need to feel comfortable during a court hearing',
-    },
-    ra_travellingCourt: {
-      required: 'Select what help you need if travelling to, or moving around court buildings',
-    },
     miam_nonAttendanceReasons: miamNonAttendanceReasonsEn.errors.miam_nonAttendanceReasons,
     miam_notAttendingReasons: {
       required: 'Select what other reason you have for not attending a MIAM',
@@ -1111,6 +1083,7 @@ export const generateContent: TranslationFn = content => {
   } else {
     newContents.StatementOfTruth.inset = newContents.StatementOfTruth.insetTextPayAndSubmit;
   }
+  const raContent = ReasonableAdjustmentElement(content['language']);
   newContents['keys'] = {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
@@ -1124,7 +1097,7 @@ export const generateContent: TranslationFn = content => {
     ...ApplicantElements(content['language']),
     ...HelpWithFeeContent(content['language']),
     ...RespondentsElements(content['language']),
-    ...ReasonableAdjustmentElement(content['language']),
+    ...raContent,
     ...{ none: content['language'] === 'en' ? enContent.keys.none : cyContent.keys.none },
   };
   const translations = languages[content.language](content, newContents);
@@ -1278,6 +1251,31 @@ export const generateContent: TranslationFn = content => {
     errors: {
       ...errors,
       ...translations.errors,
+      ra_typeOfHearing: {
+        required: raContent.attendingCourtHeading,
+      },
+      ra_languageNeeds: {
+        required: raContent.langaugeRequirementHeading,
+      },
+      ra_specialArrangements: {
+        required: raContent.specialArrangementsHeading,
+      },
+      ra_disabilityRequirements: raContent.errors.ra_disabilityRequirements,
+      ra_documentInformation: {
+        required: raContent.documentInformationHeading,
+      },
+      ra_communicationHelp: {
+        required: raContent.communicationHelpHeading,
+      },
+      ra_supportCourt: {
+        required: raContent.supportCourtHeading,
+      },
+      ra_feelComportable: {
+        required: raContent.feelComfortableHeading,
+      },
+      ra_travellingCourt: {
+        required: raContent.travellingCourtHeading,
+      },
     },
   };
 };

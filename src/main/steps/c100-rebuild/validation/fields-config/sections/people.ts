@@ -14,7 +14,13 @@ export const PeopleFieldsConfig = {
       fieldType: 'object',
       expression: (caseData: CaseWithId) => {
         return {
-          isMandatory: caseData?.cd_children?.every(child => isChildValid(child)),
+          isMandatory:
+            caseData?.cd_children?.every(child => isChildValid(child)) &&
+            caseData?.cd_childrenKnownToSocialServices &&
+            caseData?.cd_childrenSubjectOfProtectionPlan &&
+            (caseData?.cd_childrenKnownToSocialServices === YesOrNo.YES
+              ? !_.isEmpty(caseData.cd_childrenKnownToSocialServicesDetails)
+              : true),
         };
       },
     },

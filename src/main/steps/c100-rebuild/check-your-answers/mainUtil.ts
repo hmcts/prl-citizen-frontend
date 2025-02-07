@@ -2140,37 +2140,51 @@ export const reasonableAdjustment = (
     {
       key: keys['attendingCourtHeading'],
       anchorReference: 'ra_typeOfHearing',
-      valueHtml:
+      valueHtml: populateError(
+        userCase.ra_typeOfHearing,
         HTML.UNORDER_LIST +
-        resonableAdjustmentHelper(userCase, keys, 'ra_typeOfHearing', language) +
-        HTML.UNORDER_LIST_END,
+          resonableAdjustmentHelper(userCase, keys, 'ra_typeOfHearing', language) +
+          HTML.UNORDER_LIST_END,
+        language
+      ),
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_ATTENDING_COURT, { root: RARootContext.C100_REBUILD }),
     },
     {
       key: keys['langaugeRequirementHeading'],
       anchorReference: 'ra_languageNeeds',
-      valueHtml:
+      valueHtml: populateError(
+        userCase.ra_languageNeeds,
         HTML.UNORDER_LIST +
-        resonableAdjustmentHelper(userCase, keys, 'ra_languageNeeds', language) +
-        HTML.UNORDER_LIST_END,
+          resonableAdjustmentHelper(userCase, keys, 'ra_languageNeeds', language) +
+          HTML.UNORDER_LIST_END,
+        language
+      ),
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS, { root: RARootContext.C100_REBUILD }),
     },
     {
       key: keys['specialArrangementsHeading'],
       anchorReference: 'ra_specialArrangements',
-      valueHtml:
+      valueHtml: populateError(
+        userCase.ra_specialArrangements,
         HTML.UNORDER_LIST +
-        resonableAdjustmentHelper(userCase, keys, 'ra_specialArrangements', language) +
-        HTML.UNORDER_LIST_END,
+          resonableAdjustmentHelper(userCase, keys, 'ra_specialArrangements', language) +
+          HTML.UNORDER_LIST_END,
+        language
+      ),
+
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS, { root: RARootContext.C100_REBUILD }),
     },
     {
       key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
       anchorReference: 'ra_disabilityRequirements',
-      valueHtml:
+      valueHtml: populateError(
+        userCase.ra_disabilityRequirements,
         HTML.UNORDER_LIST +
-        resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements', language) +
-        HTML.UNORDER_LIST_END,
+          resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements', language) +
+          HTML.UNORDER_LIST_END,
+        language
+      ),
+
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, { root: RARootContext.C100_REBUILD }),
     },
   ];

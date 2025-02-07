@@ -212,20 +212,24 @@ export const MiamQuestionsFieldsConfig = {
       fieldName: 'miam_noAppointmentAvailableDetails',
       fieldType: 'string',
       mandatory_if: {
-        fieldName: 'miam_haveDocSignedByMediatorForPrevAttendance',
-        expression: (caseData: CaseWithId): { isMandatory: boolean } => {
-          return { isMandatory: caseData?.miam_noMediatorReasons === Miam_noMediatorReasons.noAppointmentAvailable };
-        },
+        fieldName: 'miam_noMediatorReasons',
+        value: Miam_noMediatorReasons.noAppointmentAvailable,
       },
     },
     {
       fieldName: 'miam_unableToAttainDueToDisablityDetails',
       fieldType: 'string',
       mandatory_if: {
-        fieldName: 'miam_haveDocSignedByMediatorForPrevAttendance',
-        expression: (caseData: CaseWithId): { isMandatory: boolean } => {
-          return { isMandatory: caseData?.miam_noMediatorReasons === Miam_noMediatorReasons.disability };
-        },
+        fieldName: 'miam_noMediatorReasons',
+        value: Miam_noMediatorReasons.disability,
+      },
+    },
+    {
+      fieldName: 'miam_noMediatorIn15mileDetails',
+      fieldType: 'string',
+      mandatory_if: {
+        fieldName: 'miam_noMediatorReasons',
+        value: Miam_noMediatorReasons.noMediatorIn15mile,
       },
     },
   ],
