@@ -20,7 +20,7 @@ nodejs:
     EQUALITY_URL: 'https://pcq.aat.platform.hmcts.net'
     CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2575.preview.platform.hmcts.net'
     DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2575.preview.platform.hmcts.net'
-    COS_URL: 'https://prl-cos-pr-2994.preview.platform.hmcts.net'
+    COS_URL: 'https://prl-cos-pr-2995.preview.platform.hmcts.net'
     REASONABLE_ADJUSTMENTS: 'https://cui-ra.aat.platform.hmcts.net'
     FACT_URL: 'http://fact-api-aat.service.core-compute-aat.internal'
     REASONABLE_ADJUSTMENTS: 'https://cui-ra.{{ .Values.global.environment }}.platform.hmcts.net'
