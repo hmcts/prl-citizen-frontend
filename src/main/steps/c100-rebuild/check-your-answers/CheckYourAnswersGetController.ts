@@ -230,6 +230,23 @@ export default class CheckYourAnswersGetController extends GetController {
           errorType: 'required',
         });
       }
+      if (
+        _.isEmpty(req.session.userCase?.cd_childrenKnownToSocialServices) ||
+        (req.session.userCase?.cd_childrenKnownToSocialServices === YesOrNo.YES &&
+          _.isEmpty(req.session.userCase?.cd_childrenKnownToSocialServicesDetails))
+      ) {
+        generalErrors.push({
+          propertyName: 'cd_childrenKnownToSocialServices',
+          errorType: 'required',
+        });
+      }
+
+      if (_.isEmpty(req.session.userCase?.cd_childrenSubjectOfProtectionPlan)) {
+        generalErrors.push({
+          propertyName: 'cd_childrenSubjectOfProtectionPlan',
+          errorType: 'required',
+        });
+      }
 
       if (req.session.userCase?.ocd_hasOtherChildren === 'Yes') {
         const otherChildren = req.session.userCase?.ocd_otherChildren;
@@ -363,6 +380,30 @@ const prepareProp = (property: string): string => {
     case 'hwn_doYouRequireAHearingWithReducedNotice':
       return 'hwn_reasonsForApplicationWithoutNotice';
 
+    case 'miam_canProvideDomesticAbuseEvidence':
+    case 'miam_detailsOfDomesticAbuseEvidence':
+    case 'miam_domesticAbuse_policeInvolvement_subfields':
+    case 'miam_domesticAbuse_courtInvolvement_subfields':
+    case 'miam_domesticAbuse_letterOfBeingVictim_subfields':
+    case 'miam_domesticAbuse_letterFromAuthority_subfields':
+    case 'miam_domesticAbuse_letterFromSupportService_subfields':
+      return 'miam_domesticAbuse';
+    case 'miam_previousAttendanceEvidenceDoc':
+    case 'miam_haveDocSignedByMediatorForPrevAttendance':
+    case 'miam_detailsOfEvidence':
+      return 'miam_previousAttendance';
+    case 'miam_noMediatorReasons':
+      return 'miam_notAttendingReasons';
+
+    case 'ie_provideDetailsStart':
+      return 'ie_internationalStart';
+    case 'ie_provideDetailsParents':
+      return 'ie_internationalParents';
+    case 'ie_provideDetailsJurisdiction':
+      return 'ie_internationalJurisdiction';
+    case 'ie_provideDetailsRequest':
+      return 'ie_internationalRequest';
+
     case 'c1A_otherConcernsDrugsDetails':
       return 'c1A_otherConcernsDrugs';
     case 'c1A_childSafetyConcernsDetails':
@@ -378,13 +419,6 @@ const prepareProp = (property: string): string => {
     case 'sq_courtOrderPrevent_subfield':
     case 'sq_anotherReason_subfield':
       return 'sq_permissionsWhy';
-
-    case 'miam_domesticAbuse_policeInvolvement_subfields':
-    case 'miam_domesticAbuse_courtInvolvement_subfields':
-    case 'miam_domesticAbuse_letterOfBeingVictim_subfields':
-    case 'miam_domesticAbuse_letterFromAuthority_subfields':
-    case 'miam_domesticAbuse_letterFromSupportService_subfields':
-      return 'miam_domesticAbuse';
 
     case 'ra_noVideoAndPhoneHearing_subfield':
       return 'ra_typeOfHearing';

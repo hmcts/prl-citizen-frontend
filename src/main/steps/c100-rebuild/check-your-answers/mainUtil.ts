@@ -428,7 +428,7 @@ export const ChildernDetailsAdditional = (
   const SummaryData = [
     {
       key: keys['childrenKnownToSocialServicesLabel'],
-      anchorReference: 'childrenKnownToSocialServicesLabel',
+      anchorReference: 'cd_childrenKnownToSocialServices',
       value: '',
       valueHtml: htmlForAdditionalText,
       changeUrl: Urls['C100_CHILDERN_FURTHER_INFORMATION'],
@@ -947,7 +947,11 @@ export const MiamExemption = (
       key: keys['generalReasonTitle'],
       anchorReference: 'miam_nonAttendanceReasons',
       // valueHtml: populateError( validReasonForNotAttendingMiam['listOfReasons'],  validReasonForNotAttendingMiam['listOfReasons'], language),
-      valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
+      valueHtml: populateError(
+        validReasonForNotAttendingMiam['listOfReasons'],
+        validReasonForNotAttendingMiam['listOfReasons'],
+        language
+      ),
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },
     ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language), //

@@ -1,6 +1,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+/* eslint-disable @typescript-eslint/no-explicit-any*/
 import _ from 'lodash';
 
 import {
@@ -19,7 +20,7 @@ import {
 } from '../../../../steps/urls';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
-import { getYesNoTranslation, populateError } from '../mainUtil';
+import { getYesNoTranslation, populateError, translation } from '../mainUtil';
 
 class MiamHelperDataParser<T> {
   [x: string]: T;
@@ -84,9 +85,7 @@ const generateDomesticAbuseAdditionalFields = (
     (userCase.miam_canProvideDomesticAbuseEvidence === YesOrNo.YES
       ? HTML.UNORDER_LIST +
         userCase.miam_domesticAbuseEvidenceDocs?.map(doc => {
-          return (
-            HTML.LIST_ITEM + populateError(doc.document_filename, doc.document_filename, language) + HTML.LIST_ITEM_END
-          );
+          return HTML.LIST_ITEM + doc.document_filename + HTML.LIST_ITEM_END;
         }) +
         HTML.UNORDER_LIST_END
       : populateError(
@@ -105,71 +104,57 @@ const generateNCDRAdditionalFields = (
   let additionalFields = '';
 
   if (userCase.miam_previousAttendance === Miam_previousAttendance.miamExamptionApplied) {
-    additionalFields += populateError(
-      userCase.miam_haveDocSignedByMediatorForPrevAttendance,
+    additionalFields +=
       HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_ELEMENT +
-        keys['haveDocSignedByMediatorForPrevAttendance'] +
-        HTML.DESCRIPTION_TERM_ELEMENT_END +
-        HTML.ROW_END +
-        HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_DETAIL +
-        populateError(
-          userCase.miam_haveDocSignedByMediatorForPrevAttendance,
-          getYesNoTranslation(
-            language,
-            HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + userCase.miam_haveDocSignedByMediatorForPrevAttendance,
-            'oesTranslation'
-          ) + HTML.DESCRIPTION_TERM_DETAIL_END,
-          language
-        ),
-      language
-    );
+      HTML.DESCRIPTION_TERM_ELEMENT +
+      keys['haveDocSignedByMediatorForPrevAttendance'] +
+      HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END +
+      HTML.ROW_START +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      populateError(
+        userCase.miam_haveDocSignedByMediatorForPrevAttendance,
+        getYesNoTranslation(language, userCase.miam_haveDocSignedByMediatorForPrevAttendance, 'oesTranslation'),
+        language
+      ) +
+      HTML.DESCRIPTION_TERM_DETAIL_END;
   }
 
   if (userCase.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.NO) {
-    additionalFields += populateError(
-      userCase.miam_detailsOfEvidence,
+    additionalFields +=
       HTML.ROW_END +
-        HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_ELEMENT +
-        keys['detailsOfPrevMiamEvidence'] +
-        HTML.DESCRIPTION_TERM_ELEMENT_END +
-        HTML.ROW_END +
-        HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL +
-        populateError(
-          userCase.miam_detailsOfEvidence,
-          userCase.miam_detailsOfEvidence + HTML.DESCRIPTION_TERM_DETAIL_END,
-          language
-        ),
-      language
-    );
+      HTML.ROW_START +
+      HTML.DESCRIPTION_TERM_ELEMENT +
+      keys['detailsOfPrevMiamEvidence'] +
+      HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      populateError(userCase.miam_detailsOfEvidence, userCase.miam_detailsOfEvidence, language) +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END;
   }
 
   if (
     userCase.miam_previousAttendance === Miam_previousAttendance.fourMonthsPriorAttended ||
     userCase.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.YES
   ) {
-    additionalFields += populateError(
-      userCase.miam_previousAttendanceEvidenceDoc?.document_filename,
+    additionalFields +=
       HTML.ROW_END +
-        HTML.ROW_START +
-        HTML.DESCRIPTION_TERM_ELEMENT +
-        keys['prevMiamEvidence'] +
-        HTML.DESCRIPTION_TERM_ELEMENT_END +
-        HTML.ROW_END +
-        HTML.ROW_START_NO_BORDER +
-        HTML.DESCRIPTION_TERM_DETAIL +
-        populateError(
-          userCase.miam_previousAttendanceEvidenceDoc?.document_filename,
-          userCase.miam_previousAttendanceEvidenceDoc?.document_filename +
-            HTML.DESCRIPTION_TERM_DETAIL_END +
-            HTML.ROW_END,
-          language
-        ),
-      language
-    );
+      HTML.ROW_START +
+      HTML.DESCRIPTION_TERM_ELEMENT +
+      keys['prevMiamEvidence'] +
+      HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END +
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      populateError(
+        userCase.miam_previousAttendanceEvidenceDoc?.document_filename,
+        userCase.miam_previousAttendanceEvidenceDoc?.document_filename,
+        language
+      ) +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END;
   }
 
   return additionalFields;
@@ -260,34 +245,19 @@ export const miamParentAndChildFieldParser = (
 ): string => {
   if (userCase.hasOwnProperty(sessionKey)) {
     const mappedVals = _.isArray(userCase[sessionKey])
-      ? HTML.DESCRIPTION_TERM_DETAIL +
-        userCase[sessionKey].map(nonAttendance => {
-          if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}_subfields`)) {
-            return (
-              _.get(keys, nonAttendance) +
-              populateError(
-                userCase[`${sessionKey}_${nonAttendance}_subfields`],
-                HTML.UNORDER_LIST +
-                  userCase[`${sessionKey}_${nonAttendance}_subfields`]
-                    .filter(field => field !== '')
-                    .map(item => {
-                      return populateError(
-                        keys[`${nonAttendance}_subFields`][item],
-                        HTML.LIST_ITEM + keys[`${nonAttendance}_subFields`][item] + HTML.LIST_ITEM_END,
-                        language
-                      );
-                    }) +
-                  HTML.UNORDER_LIST_END,
-                language
-              )
-            )
-              .split(',')
-              .join('');
-          } else {
-            return keys[nonAttendance];
-          }
-        }) +
-        HTML.DESCRIPTION_TERM_DETAIL_END
+      ? userCase[sessionKey].length === 0
+        ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+        : HTML.DESCRIPTION_TERM_DETAIL +
+          userCase[sessionKey].map(nonAttendance => {
+            if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}_subfields`)) {
+              return (
+                _.get(keys, nonAttendance) + generateSubfieldlist(userCase, sessionKey, nonAttendance, keys, language)
+              );
+            } else {
+              return keys[nonAttendance];
+            }
+          }) +
+          HTML.DESCRIPTION_TERM_DETAIL_END
       : HTML.DESCRIPTION_TERM_DETAIL + [keys[userCase[sessionKey]]] + HTML.DESCRIPTION_TERM_DETAIL_END;
 
     let additionalFields = '';
@@ -311,7 +281,7 @@ export const miamParentAndChildFieldParser = (
       .split(',')
       .join('');
   } else {
-    return '';
+    return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
   }
 };
 
@@ -348,20 +318,17 @@ export const MiamHelperDynamicEnteriesMapper = (
     [MiamNonAttendReason.PREV_MIAM]: {
       key: keys['previousMIAMOrExemptHeading'],
       anchorReference: 'miam_previousAttendance',
-      valueHtml: populateError(
-        userCase.miam_previousAttendance,
+      valueHtml:
         HTML.DESCRIPTION_LIST +
-          HTML.ROW_START +
-          HTML.DESCRIPTION_TERM_DETAIL +
-          keys[userCase.miam_previousAttendance!] +
-          HTML.DESCRIPTION_TERM_DETAIL_END +
-          HTML.ROW_END +
-          (userCase.miam_previousAttendance !== Miam_previousAttendance.none
-            ? generateNCDRAdditionalFields(userCase, keys, language).split(',').join('')
-            : '') +
-          HTML.DESCRIPTION_LIST_END,
-        language
-      ),
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        populateError(userCase.miam_previousAttendance, keys[userCase.miam_previousAttendance!], language) +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END +
+        (userCase.miam_previousAttendance !== Miam_previousAttendance.none
+          ? generateNCDRAdditionalFields(userCase, keys, language)
+          : '') +
+        HTML.DESCRIPTION_LIST_END,
       changeUrl: C100_MIAM_PREVIOUS_ATTENDANCE,
     },
     [MiamNonAttendReason.EXEMPT]: {
@@ -398,3 +365,22 @@ Object.getPrototypeOf(InstanceOfMiamHelper).miamExemptionParserDynamicEnteries =
 };
 const MiamHelper = InstanceOfMiamHelper;
 export { MiamHelper };
+const generateSubfieldlist = (
+  userCase: Partial<CaseWithId>,
+  sessionKey: string,
+  nonAttendance: any,
+  keys: Record<string, string>,
+  language
+) => {
+  const subfield = userCase[`${sessionKey}_${nonAttendance}_subfields`].filter(field => field !== '');
+  if (subfield.length) {
+    return (
+      HTML.UNORDER_LIST +
+      subfield.map(item => {
+        return HTML.LIST_ITEM + keys[`${nonAttendance}_subFields`][item] + HTML.LIST_ITEM_END + HTML.UNORDER_LIST_END;
+      })
+    );
+  } else {
+    return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
+  }
+};

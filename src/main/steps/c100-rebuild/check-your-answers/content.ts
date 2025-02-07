@@ -150,6 +150,7 @@ import {
   cy as c1A_unsupervisedCy,
   en as c1A_unsupervisedEn,
 } from '../../common/safety-concerns/orders-required/unsupervised/content';
+import { cy as furtherInfoCy, en as furtherInfoEn } from '../child-details/further-information/content';
 
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import { getAllMandatoryFields, isAllMandatoryFieldsFilled } from '../validation/util';
@@ -264,9 +265,9 @@ export const enContent = {
     childrenKnownToSocialServicesLabel: {
       required: 'Select if any of the children are known to social services',
     },
-    cd_childrenSubjectOfProtectionPlan: {
-      required: 'Select if any of the children are the subject of a child protection plan',
-    },
+    // cd_childrenSubjectOfProtectionPlan: {
+    //   required: 'Select if any of the children are the subject of a child protection plan',
+    // },
     ocd_hasOtherChildren: {
       required: 'Select yes if you have other children',
     },
@@ -380,21 +381,8 @@ export const enContent = {
     liveInRefuge: {
       required: 'Select yes if you/they currently live in a refuge',
     },
-    // hu_reasonOfUrgentHearing:{
-    //   required:'Select the reason why you are asking for an urgent hearing'
-    // },
-    // hu_otherRiskDetails: {
-    //   required: 'Give details of the risk in your case that support your need for an urgent hearing',
-    // },
-    // hu_timeOfHearingDetails: {
-    //   required: 'Enter how soon you need the hearing to take place',
-    // },
-    // hu_hearingWithNext48HrsDetails: {
-    //   required: 'Select yes if you need a hearing within the next 48 hours',
-    // },
-    // hu_hearingWithNext48HrsMsg: {
-    //   required: 'Provide details of what you have done to inform the respondents of your application',
-    // }
+    cd_childrenKnownToSocialServices: furtherInfoEn().errors.cd_childrenKnownToSocialServices,
+    cd_childrenSubjectOfProtectionPlan: furtherInfoEn().errors.cd_childrenSubjectOfProtectionPlan,
     ie_internationalStart: internationalStartEn().errors.ie_internationalStart,
     ie_internationalParents: internationalParentsEn().errors.ie_internationalParents,
     ie_internationalJurisdiction: internationalJurisdictionEn().errors.ie_internationalJurisdiction,
@@ -600,6 +588,8 @@ export const cyContent = {
     liveInRefuge: {
       required: 'Select yes if you/they currently live in a refuge-welsh',
     },
+    cd_childrenKnownToSocialServices: furtherInfoCy().errors.cd_childrenKnownToSocialServices,
+    cd_childrenSubjectOfProtectionPlan: furtherInfoCy().errors.cd_childrenSubjectOfProtectionPlan,
     previousFullName: respondentPersonalDetailsCy().errors.previousFullName,
     ie_internationalStart: internationalStartCy().errors.ie_internationalStart,
     ie_internationalParents: internationalParentsCy().errors.ie_internationalParents,
