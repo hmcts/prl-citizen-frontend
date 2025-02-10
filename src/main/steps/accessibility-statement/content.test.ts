@@ -9,7 +9,7 @@ jest.mock('../../app/form/validation');
 
 const en = {
   title: 'Accessibility statement for Family Private Law',
-  paragraphs: [
+  accessibilityStatements: [
     'This accessibility statement applies to <a href="/" class="govuk-link">this link</a>, that enables users to make child arrangements or submit domestic abuse applications.',
     'The website is run by HM Courts & Tribunals Service (HMCTS).',
     'We want as many people as possible to be able to use this website. For example, that means you should be able to:',
@@ -40,10 +40,7 @@ const en = {
     'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
     'If you require support when visiting or need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille contact us at:',
   ],
-  phoneAndEmail: [
-    'Email: <a href=”hmctsforms@justice.gov.uk” class=”govuk-link”>hmctsforms@justice.gov.uk</a>',
-    'Telephone: 0300 323 0185',
-  ],
+  phone: ['Telephone: 0300 323 0185'],
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
   improvements: [
@@ -105,7 +102,7 @@ const en = {
 const cy = {
   title: 'Datganiad hygyrchedd ar gyfer y gwasanaeth mabwysiadu',
   paragraphs: [
-    "Mae'r datganiad hygyrchedd hwn yn berthnasol i <a href='/' class='govuk-link'>ddolen hon</a>, sy'n galluogi defnyddwyr i wneud trefniadau plentyn neu gyflwyno ceisiadau cam-drin domestig.",
+    "Mae'r datganiad hygyrchedd hwn yn berthnasol i <a href='/' class='govuk-link'>y ddolen hon</a>, sy'n galluogi defnyddwyr i wneud trefniadau plentyn neu gyflwyno ceisiadau cam-drin domestig.",
     'Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y gwasanaeth hwn.',
     'Rydym eisiau i gymaint o bobl â phosibl allu ei ddefnyddio, felly rydym wedi ceisio ei wneud mor hygyrch â phosibl.  Er enghraifft, dylech allu:',
   ],
@@ -135,10 +132,7 @@ const cy = {
     'Mae yna ddolenni sain yn ein swyddfeydd, neu os byddwch yn cysylltu â ni cyn eich ymweliad, gallwn drefnu cyfieithydd Iaith Arwyddion Prydain (BSL) ar eich cyfer.',
     "Os ydych angen cymorth wrth ymweld â'r wefan, neu eich bod angen gwybodaeth sydd ar y wefan hon mewn fformat arall megis ar ffurf PDF hygyrch, print bras, fformat hawdd ei ddeall, recordiad sain neu braille cysylltwch â ni yn: ",
   ],
-  phoneAndEmail: [
-    'Rhif ffôn: <a href=”hmctsforms@justice.gov.uk” class=”govuk-link”>hmctsforms@justice.gov.uk</a>',
-    'Ffoniwch: 01634 887900',
-  ],
+  phone: ['Ffoniwch: 01634 887900'],
   considerYourRequest: 'Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.',
   reportingAccessibility: "Riportio problemau hygyrchedd gyda'r wefan hon",
   improvements: [

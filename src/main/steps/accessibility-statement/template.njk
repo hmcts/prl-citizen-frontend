@@ -35,7 +35,7 @@
   {% for info in contactInfo %}
     <p class="govuk-body">{{ info }}</p>
   {% endfor %}
-  {{ generateBulletList(phoneAndEmail) }}
+  {{ generateBulletList(phone) }}
 
   <p class="govuk-body">{{ considerYourRequest }}</p>
 
@@ -43,7 +43,7 @@
   {% for improvement in improvements %}
     <p class="govuk-body">{{ improvement }}</p>
   {% endfor %}
-  {{ generateBulletList(phoneAndEmail) }}
+  {{ generateBulletList(phone) }}
 
   <h2 class="govuk-heading-s">{{ enforcementProcedure }}</h2>
   {% for info in humanRightsInfo %}
