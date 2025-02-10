@@ -98,7 +98,7 @@ export const en = {
 const cy = {
   title: 'Datganiad hygyrchedd ar gyfer y gwasanaeth mabwysiadu',
   paragraphs: [
-    "Mae'r datganiad hygyrchedd hwn yn berthnasol i <a href='/' class='govuk-link'>y ddolen hon</a>, sy'n galluogi defnyddwyr i wneud trefniadau plentyn neu gyflwyno ceisiadau cam-drin domestig.",
+    "Mae'r datganiad hygyrchedd hwn yn berthnasol i <a href='/' class='govuk-link'>ddolen hon</a>, sy'n galluogi defnyddwyr i wneud trefniadau plentyn neu gyflwyno ceisiadau cam-drin domestig.",
     'Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y gwasanaeth hwn.',
     'Rydym eisiau i gymaint o bobl â phosibl allu ei ddefnyddio, felly rydym wedi ceisio ei wneud mor hygyrch â phosibl.  Er enghraifft, dylech allu:',
   ],
