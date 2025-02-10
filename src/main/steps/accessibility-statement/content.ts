@@ -134,7 +134,7 @@ const cy = {
   ],
   enforcementProcedure: 'Y Weithdrefn Orfodi',
   humanRightsInfo: [
-    'Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi <a href="https://www.legislation.gov.uk/uksi/2018/852/contents/made/" class="govuk-link" > Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 </a> (y ‘rheoliadau hygyrchedd’).',
+    'Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi <a href="https://www.legislation.gov.uk/uksi/2018/852/contents/made/" class="govuk-link" target="_blank"> Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 </a> (y ‘rheoliadau hygyrchedd’).',
     'Os ydych wedi cysylltu â ni ynghylch mater hygyrchedd ac nad ydych yn fodlon â’n hymateb, gallwch gysylltu â’r <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank">Gwasanaeth Chynghori a Chymorth Cydraddoldeb (EASS)</a>.',
   ],
   technicalInfo: 'Gwybodaeth dechnegol am hygyrchedd y wefan hon',
