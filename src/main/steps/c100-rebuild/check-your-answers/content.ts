@@ -151,6 +151,7 @@ import {
   en as c1A_unsupervisedEn,
 } from '../../common/safety-concerns/orders-required/unsupervised/content';
 import { cy as furtherInfoCy, en as furtherInfoEn } from '../child-details/further-information/content';
+import { cy as otherProceedingCY, en as otherProceedingEN } from '../other-proceedings/proceeding-details/content';
 
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import { getAllMandatoryFields, isAllMandatoryFieldsFilled } from '../validation/util';
@@ -388,6 +389,7 @@ export const enContent = {
     ie_internationalJurisdiction: internationalJurisdictionEn().errors.ie_internationalJurisdiction,
     ie_internationalRequest: internationalRequestEn().errors.ie_internationalRequest,
     c1A_abductionReasonOutsideUk: c1A_abductionLocationEn().errors.c1A_abductionReasonOutsideUk,
+    op_courtProceedingsOrders: otherProceedingEN().errors.op_courtProceedingsOrders,
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -627,6 +629,7 @@ export const cyContent = {
       // not imported as title includes (optional) tag
       required: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn?',
     },
+    op_courtProceedingsOrders: otherProceedingCY().errors.op_courtProceedingsOrders,
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1

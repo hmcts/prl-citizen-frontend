@@ -9,8 +9,7 @@ export const applicantAddressParser = (sessionApplicantData, keys, language) => 
   if (
     !_.isEmpty(sessionApplicantData['applicantAddress1']) &&
     !_.isEmpty(sessionApplicantData['applicantAddressTown']) &&
-    !_.isEmpty(sessionApplicantData['applicantAddressCounty']) &&
-    !_.isEmpty(sessionApplicantData['applicantAddressPostcode'])
+    !_.isEmpty(sessionApplicantData.country)
   ) {
     html +=
       sessionApplicantData.hasOwnProperty('applicantAddress1') && sessionApplicantData['applicantAddress1'] !== ''

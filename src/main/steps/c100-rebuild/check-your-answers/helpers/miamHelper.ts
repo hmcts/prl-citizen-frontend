@@ -117,12 +117,13 @@ const generateNCDRAdditionalFields = (
         getYesNoTranslation(language, userCase.miam_haveDocSignedByMediatorForPrevAttendance, 'oesTranslation'),
         language
       ) +
-      HTML.DESCRIPTION_TERM_DETAIL_END;
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END;
   }
 
   if (userCase.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.NO) {
     additionalFields +=
-      HTML.ROW_END +
+      //HTML.ROW_END +
       HTML.ROW_START +
       HTML.DESCRIPTION_TERM_ELEMENT +
       keys['detailsOfPrevMiamEvidence'] +
@@ -140,7 +141,7 @@ const generateNCDRAdditionalFields = (
     userCase.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.YES
   ) {
     additionalFields +=
-      HTML.ROW_END +
+      //HTML.ROW_END +
       HTML.ROW_START +
       HTML.DESCRIPTION_TERM_ELEMENT +
       keys['prevMiamEvidence'] +
@@ -194,9 +195,11 @@ const generateOtherExemptionAdditionalFields = (
         HTML.DESCRIPTION_TERM_DETAIL +
         populateError(
           userCase.miam_noAppointmentAvailableDetails,
-          userCase.miam_noAppointmentAvailableDetails + HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END,
+          userCase.miam_noAppointmentAvailableDetails,
           language
-        );
+        ) +
+        HTML.DESCRIPTION_TERM_ELEMENT_END +
+        HTML.ROW_END;
     }
 
     if (userCase.miam_noMediatorReasons === Miam_noMediatorReasons.disability) {
@@ -226,11 +229,9 @@ const generateOtherExemptionAdditionalFields = (
         HTML.ROW_END +
         HTML.ROW_START +
         HTML.DESCRIPTION_TERM_DETAIL +
-        populateError(
-          userCase.miam_noMediatorIn15mileDetails,
-          userCase.miam_noMediatorIn15mileDetails + HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END,
-          language
-        );
+        populateError(userCase.miam_noMediatorIn15mileDetails, userCase.miam_noMediatorIn15mileDetails, language) +
+        HTML.DESCRIPTION_TERM_ELEMENT_END +
+        HTML.ROW_END;
     }
   }
 

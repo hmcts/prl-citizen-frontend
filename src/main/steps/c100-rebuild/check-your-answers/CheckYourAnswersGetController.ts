@@ -377,7 +377,10 @@ const prepareProp = (property: string): string => {
 
     case 'hwn_reasonsForApplicationWithoutNotice':
     case 'hwn_doYouNeedAWithoutNoticeHearing':
+    case 'hwn_doYouNeedAWithoutNoticeHearingDetails':
     case 'hwn_doYouRequireAHearingWithReducedNotice':
+    case 'hwn_doYouRequireAHearingWithReducedNoticeDetails':
+    case 'hwn_hearingPart1':
       return 'hwn_reasonsForApplicationWithoutNotice';
 
     case 'miam_canProvideDomesticAbuseEvidence':
@@ -393,6 +396,9 @@ const prepareProp = (property: string): string => {
     case 'miam_detailsOfEvidence':
       return 'miam_previousAttendance';
     case 'miam_noMediatorReasons':
+    case 'miam_noAppointmentAvailableDetails':
+    case 'miam_unableToAttainDueToDisablityDetails':
+    case 'miam_noMediatorIn15mileDetails':
       return 'miam_notAttendingReasons';
 
     case 'ie_provideDetailsStart':

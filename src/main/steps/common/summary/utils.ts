@@ -218,6 +218,7 @@ export const proceedingSummaryData = (
     },
     {
       key: keys['optitle'],
+      anchorReference: 'op_courtProceedingsOrders',
       valueHtml: isRespondent
         ? respondentOrderDetails(userCase, courtOrderDetails)
         : applicantOrderDetails(userCase, courtOrderDetails, language),
@@ -230,7 +231,7 @@ export const proceedingSummaryData = (
 };
 
 const applicantOrderDetails = (userCase: Partial<CaseWithId>, courtOrderDetails: string, language: string): string => {
-  return userCase.hasOwnProperty('op_courtProceedingsOrders')
+  return userCase?.op_courtProceedingsOrders?.length
     ? courtOrderDetails?.split(',').join('')
     : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 };

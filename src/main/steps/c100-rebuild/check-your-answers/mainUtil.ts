@@ -2545,20 +2545,7 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     });
   }
 
-  if (
-    applicant.personalDetails.haveYouChangeName === YesNoEmpty.YES &&
-    _.isEmpty(applicant.personalDetails.applPreviousName)
-  ) {
-    error.push({
-      propertyName: `haveYouChangeName-applicant-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (
-    !applicant.personalDetails.gender ||
-    (applicant.personalDetails?.gender === Gender.OTHER && _.isEmpty(applicant.personalDetails.otherGenderDetails))
-  ) {
+  if (_.isEmpty(applicant.personalDetails.gender)) {
     error.push({
       propertyName: `gender-applicant-${index}`,
       errorType: 'required',
