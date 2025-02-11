@@ -1,9 +1,13 @@
+import _ from 'lodash';
+
 import { TranslationFn } from '../../app/controller/GetController';
+import { interpolate } from '../../steps/common/string-parser';
 
 export const en = {
   title: 'Accessibility statement for Family Private Law',
+  opensInNewTab: '(opens in a new tab)',
   paragraphs: [
-    'This accessibility statement applies to <a href="/" class="govuk-link">this link</a>, that enables users to make child arrangements or submit domestic abuse applications.',
+    'This accessibility statement applies to <a href="/" class="govuk-link" target="_blank">{currentPageUrlText}</a>, that enables users to make child arrangements or submit domestic abuse applications.',
     'The website is run by HM Courts & Tribunals Service (HMCTS).',
     'We want as many people as possible to be able to use this website. For example, that means you should be able to:',
   ],
@@ -73,7 +77,6 @@ export const en = {
     'An input has a label that is not programmatically associated so hint text that contains important information when inputting data has not been associated to the relevant inputs on the page. This means that assistive technology users may not be able to understand the label and its associated hint text. This fails WCAG 2.2 success criterion 1.3.1 Info and Relationships (Level A).',
     'Empty links may be encountered when navigating the service. This means that assistive technology users may experience unexpected functionality when interacting with the links. This fails WCAG 2.2 success criterion 2.4.3 Focus Order (Level A).',
   ],
-  thirdPartyContent1: 'Content that’s not within the scope of the accessibility regulations',
   thirdPartyContent2: 'Third party content that’s under someone else’s control',
   thirdPartyContent3:
     'Pages and websites that are linked to and from the Family Private Law service may not be fully accessible. These include: ',
@@ -94,8 +97,9 @@ export const en = {
 
 const cy = {
   title: 'Datganiad hygyrchedd ar gyfer y gwasanaeth mabwysiadu',
+  opensInNewTab: '(yn agor mewn tab newydd)',
   paragraphs: [
-    "Mae'r datganiad hygyrchedd hwn yn berthnasol i <a href='/' class='govuk-link'>y ddolen hon</a>, sy'n galluogi defnyddwyr i wneud trefniadau plentyn neu gyflwyno ceisiadau cam-drin domestig.",
+    'Mae’r datganiad hygyrchedd hwn yn berthnasol i <a href="/" class="govuk-link" target="_blank">{currentPageUrlText}</a>, sy’n galluogi defnyddwyr i wneud trefniadau plant neu gyflwyno ceisiadau cam-drin domestig.',
     'Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y gwasanaeth hwn.',
     'Rydym eisiau i gymaint o bobl â phosibl allu ei ddefnyddio, felly rydym wedi ceisio ei wneud mor hygyrch â phosibl.  Er enghraifft, dylech allu:',
   ],
@@ -164,7 +168,6 @@ const cy = {
     'Mae mewnbwn yn cynnwys label nad yw’n gysylltiedig â rhaglen, felly mae testun awgrymiadol sy’n cynnwys gwybodaeth bwysig wrth fewnbynnu data ddim wedi’i gysylltu â’r mewnbynnau perthnasol ar y dudalen. Mae hyn yn golygu efallai na fydd defnyddwyr technoleg gynorthwyol yn gallu deall y label a’r testun awgrymiadol cysylltiedig.  Mae hyn yn methu â bodloni WCAG 2.2 maen prawf llwyddiant 1.3.1 Gwybodaeth a Pherthnasau (Lefel A).',
     'Gellir dod ar draws dolenni gwag wrth lywio’r gwasanaeth. Mae hyn golygu gall defnyddwyr technoleg gynorthwyol brofi swyddogaethau annisgwyl wrth ryngweithio â’r dolenni. Mae hyn yn methu â bodloni WCAG 2.2 maen prawf llwyddiant 2.4.3: Trefn Ffocws (Lefel A).',
   ],
-  thirdPartyContent1: 'Cynnwys nad yw o fewn cwmpas y rheoliadau hygyrchedd',
   thirdPartyContent2: 'Cynnwys trydydd parti sydd dan reolaeth rhywun arall',
   thirdPartyContent3:
     "Efallai na fydd tudalennau a gwefannau sy’n berthnasol i'r gwasanaeth Cyfraith Deulu Breifat yn gwbwl hygyrch. Mae’r rhain yn cynnwys:",
@@ -190,5 +193,11 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  return languages[content.language];
+  const contents = { ...languages[content.language] };
+  const currentPageHost = _.get(content, 'additionalData.req.headers.host', '/');
+  contents.paragraphs[0] = interpolate(contents.paragraphs[0], {
+    currentPageUrlText: `${currentPageHost} ${contents['opensInNewTab']}`,
+  });
+
+  return contents;
 };

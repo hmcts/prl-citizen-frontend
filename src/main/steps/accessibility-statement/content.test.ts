@@ -11,7 +11,7 @@ jest.mock('../../app/form/validation');
 const en = {
   title: 'Accessibility statement for Family Private Law',
   paragraphs: [
-    'This accessibility statement applies to <a href="/" class="govuk-link">this link</a>, that enables users to make child arrangements or submit domestic abuse applications.',
+    'This accessibility statement applies to <a href="https://www.claim-employment-tribunals.service.gov.uk/accessibility" class="govuk-link" target="_blank">https://www.claim-employment-tribunals.service.gov.uk/accessibility</a>, that enables users to make child arrangements or submit domestic abuse applications.',
     'The website is run by HM Courts & Tribunals Service (HMCTS).',
     'We want as many people as possible to be able to use this website. For example, that means you should be able to:',
   ],
@@ -103,7 +103,7 @@ const en = {
 const cy = {
   title: 'Datganiad hygyrchedd ar gyfer y gwasanaeth mabwysiadu',
   paragraphs: [
-    "Mae'r datganiad hygyrchedd hwn yn berthnasol i <a href='/' class='govuk-link'>y ddolen hon</a>, sy'n galluogi defnyddwyr i wneud trefniadau plentyn neu gyflwyno ceisiadau cam-drin domestig.",
+    'Mae’r datganiad hygyrchedd hwn yn berthnasol i https://www.claim-employment-tribunals.service.gov.uk/accessibility, sy’n galluogi defnyddwyr i wneud trefniadau plant neu gyflwyno ceisiadau cam-drin domestig.',
     'Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y gwasanaeth hwn.',
     'Rydym eisiau i gymaint o bobl â phosibl allu ei ddefnyddio, felly rydym wedi ceisio ei wneud mor hygyrch â phosibl.  Er enghraifft, dylech allu:',
   ],
