@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 /* eslint-disable import/namespace */
 
 import languageAssertions from '../../../test/unit/utils/languageAssertions';
@@ -132,7 +133,7 @@ const cy = {
     'Mae yna ddolenni sain yn ein swyddfeydd, neu os byddwch yn cysylltu â ni cyn eich ymweliad, gallwn drefnu cyfieithydd Iaith Arwyddion Prydain (BSL) ar eich cyfer.',
     "Os ydych angen cymorth wrth ymweld â'r wefan, neu eich bod angen gwybodaeth sydd ar y wefan hon mewn fformat arall megis ar ffurf PDF hygyrch, print bras, fformat hawdd ei ddeall, recordiad sain neu braille cysylltwch â ni yn: ",
   ],
-  phone: ['Ffoniwch: 01634 887900'],
+  phone: ['Rhif ffôn: 01634 887900'],
   considerYourRequest: 'Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.',
   reportingAccessibility: "Riportio problemau hygyrchedd gyda'r wefan hon",
   improvements: [
@@ -147,7 +148,7 @@ const cy = {
   technicalInfo: 'Gwybodaeth dechnegol am hygyrchedd y wefan hon',
   hmctsIsCommitted:
     'Mae GLlTEM wedi ymrwymo i sicrhau bod ei wefannau yn hygyrch, a hynny yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Gyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018.',
-  complianceStatus: 'Statws cydymffurfiaeth',
+  complianceStatus: 'Statws cydymffurfio',
   partiallyCompliant:
     'Mae’r wefan hon yn cydymffurfio’n rhannol â safon <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">AA Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.2,</a>a hynny oherwydd y materion o beidio â chydymffurfio a’r esemptiadau a restrir isod.',
   nonAccessibleContent: 'Cynnwys anhygyrch',
@@ -197,6 +198,7 @@ describe('accessibility statement > content', () => {
     userCase: {},
   }) as CommonContent;
 
+  // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
   });
