@@ -24,11 +24,7 @@ export default class RALangReqSplArrangementsReviewPostController extends PostCo
         const userDetails = req.session.user;
         const partyIdamId = _.get(getPartyDetails(caseData, userDetails.id), 'user.idamId', '');
 
-        await RAProvider.service.saveLanguagePrefAndSpecialArrangements(
-          req.session.userCase,
-          partyIdamId,
-          userDetails.accessToken
-        );
+        await RAProvider.service.saveLanguagePrefAndSpecialArrangements(req, partyIdamId, userDetails.accessToken);
 
         super.redirect(req, res);
       }
