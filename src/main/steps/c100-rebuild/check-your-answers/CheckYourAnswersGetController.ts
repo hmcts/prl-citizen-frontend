@@ -3,9 +3,10 @@ import { Response } from 'express';
 import _ from 'lodash';
 
 import { FieldPrefix } from '../../../app/case/case';
-import { PaymentErrorContext, PaymentStatus, RelationshipType, YesOrNo } from '../../../app/case/definition';
+import { PartyType, PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
+import { FormError } from '../../../app/form/Form';
 import { doesCaseHaveId } from '../../../steps/common/task-list/utils';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { doesAnyChildLiveWithOtherPerson } from '../other-person-details/utils';
@@ -15,8 +16,11 @@ import { getAllMandatoryFieldsWithoutPeopleSection } from '../validation/util';
 import {
   generateApplicantErrors,
   generateChildErrors,
+  generateConcernAboutChildErrors,
   generateOtherChildrenError,
   generateOtherPersonErrors,
+  generateOtherProceedingDocErrors,
+  generateRelationshipErrors,
   generateRespondentErrors,
 } from './mainUtil';
 
@@ -87,7 +91,7 @@ export default class CheckYourAnswersGetController extends GetController {
         return _.isEmpty(req.session.userCase[value]);
       });
       req.session.errors = [];
-      const generalErrors: { propertyName: string; errorType: string }[] = [];
+      const generalErrors: FormError[] = [];
       if (missingObject.length) {
         missingObject.forEach(property => {
           if (
@@ -106,65 +110,24 @@ export default class CheckYourAnswersGetController extends GetController {
         });
       }
 
-      const applicantErrors: { propertyName: string; errorType: string }[] = [];
-      const respondentErrors: { propertyName: string; errorType: string }[] = [];
-      const childErrors: { propertyName: string; errorType: string }[] = [];
-      const otherChildErrors: { propertyName: string; errorType: string }[] = [];
-      const otherPersonErrors: { propertyName: string; errorType: string }[] = [];
+      const applicantErrors: FormError[] = [];
+      const respondentErrors: FormError[] = [];
+      const childErrors: FormError[] = [];
+      const otherChildErrors: FormError[] = [];
+      const otherPersonErrors: FormError[] = [];
 
       // applicant
       req.session.userCase?.appl_allApplicants?.forEach((applicant, index) => {
         applicantErrors.push(...generateApplicantErrors(applicant, index));
       });
-      req.session.userCase?.appl_allApplicants?.forEach((applicant, index) => {
-        if (
-          applicant.relationshipDetails?.relationshipToChildren.length !== req.session.userCase?.cd_children?.length
-        ) {
-          //const childIds = req.session.userCase?.cd_children?.map(i=>i.id)
-          const childIdWithRelation = applicant.relationshipDetails?.relationshipToChildren.map(i => i.childId);
-          //const otherRelationWithPresent=applicant.relationshipDetails?.relationshipToChildren.map(i=>i.relationshipType=RelationshipType.OTHER)
-          req.session.userCase?.cd_children?.forEach((child, index1) => {
-            if (!childIdWithRelation?.includes(child.id)) {
-              applicantErrors.push({
-                propertyName: `relationshipTo-applicant-${index}-${index1}`,
-                errorType: 'required',
-              });
-            } else if (
-              applicant.relationshipDetails?.relationshipToChildren.find(
-                i =>
-                  !!(
-                    i.childId === child.id &&
-                    i.relationshipType === RelationshipType.OTHER &&
-                    _.isEmpty(i.otherRelationshipTypeDetails)
-                  )
-              )
-            ) {
-              applicantErrors.push({
-                propertyName: `relationshipTo-applicant-${index}-${index1}`,
-                errorType: 'required',
-              });
-            }
-          });
-        } else {
-          req.session.userCase?.cd_children?.forEach((child, index1) => {
-            if (
-              applicant.relationshipDetails?.relationshipToChildren.find(
-                i =>
-                  !!(
-                    i.childId === child.id &&
-                    i.relationshipType === RelationshipType.OTHER &&
-                    _.isEmpty(i.otherRelationshipTypeDetails)
-                  )
-              )
-            ) {
-              applicantErrors.push({
-                propertyName: `relationshipTo-applicant-${index}-${index1}`,
-                errorType: 'required',
-              });
-            }
-          });
-        }
-      });
+      applicantErrors.push(
+        ...generateRelationshipErrors(
+          req.session.userCase?.appl_allApplicants,
+          req.session.userCase?.cd_children,
+          PartyType.APPLICANT
+        )
+      );
+
       // child
       req.session.userCase?.cd_children?.forEach((child, index) => {
         childErrors.push(...generateChildErrors(child, index));
@@ -174,55 +137,14 @@ export default class CheckYourAnswersGetController extends GetController {
       req.session.userCase?.resp_Respondents?.forEach((respondent, index) => {
         respondentErrors.push(...generateRespondentErrors(respondent, index));
       });
+      respondentErrors.push(
+        ...generateRelationshipErrors(
+          req.session.userCase?.resp_Respondents,
+          req.session.userCase?.cd_children,
+          PartyType.RESPONDENT
+        )
+      );
 
-      //respondent relation
-      req.session.userCase?.resp_Respondents?.forEach((respondent, index) => {
-        if (
-          respondent.relationshipDetails?.relationshipToChildren.length !== req.session.userCase?.cd_children?.length
-        ) {
-          const childIdWithRelation = respondent.relationshipDetails?.relationshipToChildren.map(i => i.childId);
-          req.session.userCase?.cd_children?.forEach((child, index1) => {
-            if (!childIdWithRelation?.includes(child.id)) {
-              respondentErrors.push({
-                propertyName: `relationshipTo-respondent-${index}-${index1}`,
-                errorType: 'required',
-              });
-            } else if (
-              respondent.relationshipDetails?.relationshipToChildren.find(
-                i =>
-                  !!(
-                    i.childId === child.id &&
-                    i.relationshipType === RelationshipType.OTHER &&
-                    _.isEmpty(i.otherRelationshipTypeDetails)
-                  )
-              )
-            ) {
-              respondentErrors.push({
-                propertyName: `relationshipTo-respondent-${index}-${index1}`,
-                errorType: 'required',
-              });
-            }
-          });
-        } else {
-          req.session.userCase?.cd_children?.forEach((child, index1) => {
-            if (
-              respondent.relationshipDetails?.relationshipToChildren.find(
-                i =>
-                  !!(
-                    i.childId === child.id &&
-                    i.relationshipType === RelationshipType.OTHER &&
-                    _.isEmpty(i.otherRelationshipTypeDetails)
-                  )
-              )
-            ) {
-              respondentErrors.push({
-                propertyName: `relationshipTo-respondent-${index}-${index1}`,
-                errorType: 'required',
-              });
-            }
-          });
-        }
-      });
       // otherchildren
       if (_.isEmpty(req.session.userCase?.ocd_hasOtherChildren)) {
         generalErrors.push({
@@ -268,12 +190,20 @@ export default class CheckYourAnswersGetController extends GetController {
           errorType: 'required',
         });
       }
+
       if (req.session.userCase?.oprs_otherPersonCheck === 'Yes') {
         if (!_.isEmpty(req.session.userCase?.oprs_otherPersons)) {
           req.session.userCase?.oprs_otherPersons?.forEach((otherperson, index) => {
             const isAnyChildliveWithOtherPerson = doesAnyChildLiveWithOtherPerson(req.session.userCase, otherperson.id);
             otherPersonErrors.push(...generateOtherPersonErrors(otherperson, index, isAnyChildliveWithOtherPerson));
           });
+          otherPersonErrors.push(
+            ...generateRelationshipErrors(
+              req.session.userCase?.oprs_otherPersons,
+              req.session.userCase?.cd_children,
+              PartyType.OTHER_PERSON
+            )
+          );
         } else {
           otherChildErrors.push({
             propertyName: 'fullName-otherPerson-0',
@@ -281,59 +211,6 @@ export default class CheckYourAnswersGetController extends GetController {
           });
         }
       }
-
-      req.session.userCase?.oprs_otherPersons?.forEach((otherperson, index) => {
-        if (
-          otherperson.relationshipDetails?.relationshipToChildren.length !== req.session.userCase?.cd_children?.length
-        ) {
-          //const childIds = req.session.userCase?.cd_children?.map(i=>i.id)
-          const childIdWithRelation = otherperson.relationshipDetails?.relationshipToChildren.map(i => i.childId);
-          //const otherRelationWithPresent=applicant.relationshipDetails?.relationshipToChildren.map(i=>i.relationshipType=RelationshipType.OTHER)
-          req.session.userCase?.cd_children?.forEach((child, index1) => {
-            if (!childIdWithRelation?.includes(child.id)) {
-              respondentErrors.push({
-                propertyName: `relationshipTo-otherperson-${index}-${index1}`,
-                errorType: 'required',
-              });
-            } else if (
-              otherperson.relationshipDetails?.relationshipToChildren.find(
-                i =>
-                  !!(
-                    i.childId === child.id &&
-                    i.relationshipType === RelationshipType.OTHER &&
-                    _.isEmpty(i.otherRelationshipTypeDetails)
-                  )
-              )
-            ) {
-              respondentErrors.push({
-                propertyName: `relationshipTo-otherperson-${index}-${index1}`,
-                errorType: 'required',
-              });
-            }
-          });
-        } else {
-          req.session.userCase?.cd_children?.forEach((child, index1) => {
-            if (
-              otherperson.relationshipDetails?.relationshipToChildren.find(
-                i =>
-                  !!(
-                    i.childId === child.id &&
-                    i.relationshipType === RelationshipType.OTHER &&
-                    _.isEmpty(i.otherRelationshipTypeDetails)
-                  )
-              )
-            ) {
-              respondentErrors.push({
-                propertyName: `relationshipTo-otherperson-${index}-${index1}`,
-                errorType: 'required',
-              });
-            }
-          });
-        }
-        // else if (applicant.relationshipDetails?.relationshipToChildren.length!==req.session.userCase?.cd_children?.length){
-
-        // }
-      });
 
       // TODO Vivek, One error is fine or multiple error is fine--- readability purpose
 
@@ -343,7 +220,12 @@ export default class CheckYourAnswersGetController extends GetController {
         ...respondentErrors,
         ...childErrors,
         ...otherChildErrors,
-        ...otherPersonErrors
+        ...otherPersonErrors,
+        ...generateOtherProceedingDocErrors(req.session.userCase.op_otherProceedings?.order),
+        ...generateConcernAboutChildErrors(
+          req.session.userCase.c1A_concernAboutChild,
+          req.session.userCase.c1A_safteyConcerns
+        )
       );
 
       req.session.save(() => {

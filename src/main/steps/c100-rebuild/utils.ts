@@ -402,12 +402,11 @@ const c100WithMiamOtherProceedingsSections: Section[] = [
   ...commonSections,
   {
     section: C100SectionUrlName.SCREENING_QUESTIONS,
-    function: caseData =>
-      isScreeningQuestionsValid(caseData) && (isMiamOtherProceedingsValid(caseData) || isMiamAttendanceValid(caseData)),
+    function: caseData => isScreeningQuestionsValid(caseData) && isMiamOtherProceedingsValid(caseData),
   },
   {
     section: C100SectionUrlName.MIAM,
-    function: caseData => isMiamOtherProceedingsValid(caseData) || isMiamAttendanceValid(caseData),
+    function: isMiamOtherProceedingsValid,
   },
 ];
 const c100WithMiamUrgencySections: Section[] = [
@@ -422,9 +421,13 @@ const c100WithMiamSections: Section[] = [
   ...commonSections,
   {
     section: C100SectionUrlName.SCREENING_QUESTIONS,
-    function: caseData => isScreeningQuestionsValid(caseData) && isMiamExemptionsValid(caseData),
+    function: caseData =>
+      isScreeningQuestionsValid(caseData) && (isMiamExemptionsValid(caseData) || isMiamAttendanceValid(caseData)),
   },
-  { section: C100SectionUrlName.MIAM, function: isMiamExemptionsValid },
+  {
+    section: C100SectionUrlName.MIAM,
+    function: caseData => isMiamExemptionsValid(caseData) || isMiamAttendanceValid(caseData),
+  },
 ];
 
 const isCurrentSectionValid = (currentUrl: string, caseData: CaseWithId, sections: Section[]): boolean => {

@@ -6,14 +6,17 @@ import { CaseWithId } from '../../../app/case/case';
 import {
   C100Applicant,
   C100FlowTypes,
+  C100OrderTypeInterface,
   C100RebuildPartyDetails,
   C1AAbuseTypes,
+  C1ASafteyConcerns,
   C1ASafteyConcernsAbout,
   ChildrenDetails,
   ContactPreference,
   Gender,
   PartyType,
   RelationshipToChildren,
+  RelationshipType,
   RootContext,
   YesNoDontKnow,
   YesNoEmpty,
@@ -21,6 +24,7 @@ import {
   OtherChildrenDetails as otherchild,
   //State,
 } from '../../../app/case/definition';
+import { FormError } from '../../../app/form/Form';
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
 import { interpolate } from '../../../steps/common/string-parser';
 import { proceedingSummaryData } from '../../../steps/common/summary/utils';
@@ -1511,13 +1515,17 @@ const RespondentDetails_AddressAndPersonal = (
   language
 ) => {
   const newRespondentStorage = [] as ANYTYPE;
-  if (!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')) {
+
+  if (
+    _.isEmpty(sessionRespondentData[respondent].addressUnknown) ||
+    sessionRespondentData[respondent].addressUnknown !== YesOrNo.YES ||
+    _.isEmpty(sessionRespondentData[respondent].address.addressHistory)
+  ) {
     newRespondentStorage.push({
       key: keys['addressDetails'],
       anchorReference: `addressDetails-respondent-${respondent}`,
       visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent)} ${keys['addressDetails']}`,
       value: '',
-      // valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys, language),
       valueHtml: populateError(
         sessionRespondentData[respondent].address,
         applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys, language),
@@ -1526,6 +1534,7 @@ const RespondentDetails_AddressAndPersonal = (
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
     });
   }
+
   if (
     sessionRespondentData[respondent].hasOwnProperty('addressUnknown') &&
     sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES
@@ -2818,6 +2827,21 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
       errorType: 'required',
     });
   }
+
+  if (
+    (respondent.address &&
+      (_.isEmpty(respondent.address.AddressLine1) ||
+        _.isEmpty(respondent.address.PostTown) ||
+        _.isEmpty(respondent.address.Country)) &&
+      respondent.addressUnknown !== YesOrNo.YES) ||
+    _.isEmpty(respondent.address.addressHistory)
+  ) {
+    error.push({
+      propertyName: `addressDetails-respondent-${index}`,
+      errorType: 'required',
+    });
+  }
+
   return error;
 };
 
@@ -2895,14 +2919,13 @@ export const generateOtherPersonErrors = (
     });
   }
 
-  // needs to be same property as above (hasNameChanged) for link, but error text wrong then
   if (
     !_.isEmpty(otherperson.personalDetails.hasNameChanged) &&
     otherperson.personalDetails.hasNameChanged === YesNoDontKnow.yes &&
     _.isEmpty(otherperson.personalDetails.previousFullName)
   ) {
     error.push({
-      propertyName: `previousFullName-otherPerson-${index}`,
+      propertyName: `hasNameChanged-otherPerson-${index}`,
       errorType: 'required',
     });
   }
@@ -2944,6 +2967,13 @@ export const generateOtherPersonErrors = (
   if (_.isEmpty(otherperson.relationshipDetails?.relationshipToChildren)) {
     error.push({
       propertyName: `relationshipTo-otherPerson-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (!otherperson.liveInRefuge) {
+    error.push({
+      propertyName: `refuge-otherPerson-${index}`,
       errorType: 'required',
     });
   }
@@ -3036,4 +3066,123 @@ const relationshipUrl = (partyType: PartyType, id: string, child: ChildrenDetail
         otherPersonId: id,
         childId: child.id,
       });
+};
+
+export const generateRelationshipErrors = (
+  people: C100RebuildPartyDetails[] | C100Applicant[] | undefined,
+  children: ChildrenDetails[] | undefined,
+  partyType: PartyType
+): FormError[] => {
+  const errors: FormError[] = [];
+  people?.forEach((person, index) => {
+    if (person.relationshipDetails?.relationshipToChildren.length !== children?.length) {
+      const childIdWithRelation = person.relationshipDetails?.relationshipToChildren.map(i => i.childId);
+      children?.forEach((child, index1) => {
+        if (!childIdWithRelation?.includes(child.id)) {
+          errors.push({
+            propertyName: `relationshipTo-${partyType}-${index}-${index1}`,
+            errorType: 'required',
+          });
+        } else if (
+          person.relationshipDetails?.relationshipToChildren.find(
+            i =>
+              !!(
+                i.childId === child.id &&
+                i.relationshipType === RelationshipType.OTHER &&
+                _.isEmpty(i.otherRelationshipTypeDetails)
+              )
+          )
+        ) {
+          errors.push({ propertyName: `relationshipTo-${partyType}-${index}-${index1}`, errorType: 'required' });
+        }
+      });
+    } else {
+      children?.forEach((child, index1) => {
+        if (
+          person.relationshipDetails?.relationshipToChildren.find(
+            i =>
+              !!(
+                i.childId === child.id &&
+                i.relationshipType === RelationshipType.OTHER &&
+                _.isEmpty(i.otherRelationshipTypeDetails)
+              )
+          )
+        ) {
+          errors.push({
+            propertyName: `relationshipTo-${partyType}-${index}-${index1}`,
+            errorType: 'required',
+          });
+        }
+      });
+    }
+  });
+
+  return errors;
+};
+
+export const generateOtherProceedingDocErrors = (otherProceeding: C100OrderTypeInterface | undefined): FormError[] => {
+  const errors: FormError[] = [];
+
+  if (otherProceeding) {
+    Object.values(otherProceeding).forEach((orderList, orderTypeIndex) => {
+      orderList.forEach((order, index) => {
+        if (order?.orderCopy === YesNoEmpty.YES && !order?.orderDocument?.filename) {
+          errors.push({
+            propertyName: `${Object.keys(otherProceeding)[orderTypeIndex]}-${index}`,
+            errorType: 'required',
+          });
+        }
+      });
+    });
+  }
+
+  return errors;
+};
+
+export const generateOtherProceedingDocErrorContent = (
+  otherProceeding: C100OrderTypeInterface | undefined,
+  translations
+) => {
+  const errors = {};
+
+  if (otherProceeding) {
+    Object.values(otherProceeding).forEach((orderList, orderTypeIndex) => {
+      orderList.forEach((order, index) => {
+        if (order?.orderCopy === YesNoEmpty.YES && !order?.orderDocument?.filename) {
+          errors[`${Object.keys(otherProceeding)[orderTypeIndex]}-${index}`] =
+            translations.errors.otherProceedingsDocument;
+        }
+      });
+    });
+  }
+
+  return errors;
+};
+
+export const generateConcernAboutChildErrors = (
+  c1A_concernAboutChild: C1AAbuseTypes[] | undefined,
+  c1A_safteyConcerns: C1ASafteyConcerns | undefined
+): FormError[] => {
+  const errors: FormError[] = [];
+
+  c1A_concernAboutChild
+    ?.filter(
+      element =>
+        element !== C1AAbuseTypes.ABDUCTION &&
+        element !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
+        element !== C1AAbuseTypes.SOMETHING_ELSE
+    )
+    .forEach(abuseType => {
+      if (
+        _.isEmpty(c1A_safteyConcerns?.child?.[abuseType]) ||
+        _.isEmpty(c1A_safteyConcerns?.child?.[abuseType].childrenConcernedAbout)
+      ) {
+        errors.push({
+          propertyName: `c1A_concernAboutChild-${abuseType}`,
+          errorType: 'required',
+        });
+      }
+    });
+
+  return errors;
 };

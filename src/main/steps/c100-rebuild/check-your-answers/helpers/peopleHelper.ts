@@ -116,30 +116,39 @@ export const applicantAddressParserForRespondents_addressHistory = (sessionAppli
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const applicantAddressParserForRespondents = (sessionApplicantData, keys, language): string => {
   let html = HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL;
-  html +=
-    sessionApplicantData.hasOwnProperty('AddressLine1') && sessionApplicantData['AddressLine1'] !== ''
-      ? sessionApplicantData['AddressLine1'] + HTML.BREAK
-      : '';
-  html +=
-    sessionApplicantData.hasOwnProperty('AddressLine2') && sessionApplicantData['AddressLine2'] !== ''
-      ? sessionApplicantData['AddressLine2'] + HTML.BREAK
-      : '';
-  html +=
-    sessionApplicantData.hasOwnProperty('PostTown') && sessionApplicantData['PostTown'] !== ''
-      ? sessionApplicantData['PostTown'] + HTML.BREAK
-      : '';
-  html +=
-    sessionApplicantData.hasOwnProperty('County') && sessionApplicantData['County'] !== ''
-      ? sessionApplicantData['County'] + HTML.BREAK + HTML.BREAK
-      : '';
-  html +=
-    sessionApplicantData.hasOwnProperty('PostCode') && sessionApplicantData['PostCode'] !== ''
-      ? sessionApplicantData['PostCode'] + HTML.BREAK
-      : '';
-  html +=
-    sessionApplicantData.hasOwnProperty('Country') && sessionApplicantData['Country'] !== ''
-      ? sessionApplicantData['Country']
-      : '';
+  if (
+    _.isEmpty(sessionApplicantData.AddressLine1) ||
+    _.isEmpty(sessionApplicantData.PostTown) ||
+    _.isEmpty(sessionApplicantData.Country)
+  ) {
+    html += HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
+  } else {
+    html +=
+      sessionApplicantData.hasOwnProperty('AddressLine1') && sessionApplicantData['AddressLine1'] !== ''
+        ? sessionApplicantData['AddressLine1'] + HTML.BREAK
+        : '';
+    html +=
+      sessionApplicantData.hasOwnProperty('AddressLine2') && sessionApplicantData['AddressLine2'] !== ''
+        ? sessionApplicantData['AddressLine2'] + HTML.BREAK
+        : '';
+    html +=
+      sessionApplicantData.hasOwnProperty('PostTown') && sessionApplicantData['PostTown'] !== ''
+        ? sessionApplicantData['PostTown'] + HTML.BREAK
+        : '';
+    html +=
+      sessionApplicantData.hasOwnProperty('County') && sessionApplicantData['County'] !== ''
+        ? sessionApplicantData['County'] + HTML.BREAK + HTML.BREAK
+        : '';
+    html +=
+      sessionApplicantData.hasOwnProperty('PostCode') && sessionApplicantData['PostCode'] !== ''
+        ? sessionApplicantData['PostCode'] + HTML.BREAK
+        : '';
+    html +=
+      sessionApplicantData.hasOwnProperty('Country') && sessionApplicantData['Country'] !== ''
+        ? sessionApplicantData['Country']
+        : '';
+  }
+
   html += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
   html += applicantAddressParserForRespondents_addressHistory(sessionApplicantData, keys, language);
   return html;

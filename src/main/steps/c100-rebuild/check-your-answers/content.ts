@@ -37,6 +37,7 @@ import {
   TypeOfApplication,
   TypeOfOrder,
   WithoutNoticeHearing,
+  generateOtherProceedingDocErrorContent,
   getCyaSections,
   otherPersonConfidentiality,
   reasonableAdjustment,
@@ -152,6 +153,10 @@ import {
 } from '../../common/safety-concerns/orders-required/unsupervised/content';
 import { cy as furtherInfoCy, en as furtherInfoEn } from '../child-details/further-information/content';
 import { cy as otherProceedingCY, en as otherProceedingEN } from '../other-proceedings/proceeding-details/content';
+import {
+  cy as otherProceedingDocumentCy,
+  en as otherProceedingDocumentEn,
+} from '../other-proceedings/documentUpload/content';
 
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import { getAllMandatoryFields, isAllMandatoryFieldsFilled } from '../validation/util';
@@ -354,9 +359,6 @@ export const enContent = {
     gender: personalDetailsEn().errors.gender,
     placeOfBirth: personalDetailsEn().errors.applicantPlaceOfBirth,
     relationshipType: relationShipToChildEn().errors.relationshipType,
-    addressDetails: {
-      required: 'Enter the address',
-    },
     contactDetails: {
       required: 'Please enter contact details',
     },
@@ -373,8 +375,9 @@ export const enContent = {
     parentalResponsibility: parentalResponsibilityEn().errors.statement,
     liveWith: liveWithContentEn.errors.liveWith,
     mainlyLiveWith: mainlyLiveWithContentEn.errors.mainlyLiveWith,
-    hasNameChanged: respondentPersonalDetailsEn().errors.hasNameChanged,
-    previousFullName: respondentPersonalDetailsEn().errors.previousFullName,
+    hasNameChanged: {
+      required: respondentPersonalDetailsEn().hasNameChanged,
+    },
     // need to add for parties
     otherPersonConfidentiality: {
       required: 'Select yes if you want to keep {firstName} {lastName}’s details private',
@@ -390,6 +393,7 @@ export const enContent = {
     ie_internationalRequest: internationalRequestEn().errors.ie_internationalRequest,
     c1A_abductionReasonOutsideUk: c1A_abductionLocationEn().errors.c1A_abductionReasonOutsideUk,
     op_courtProceedingsOrders: otherProceedingEN().errors.op_courtProceedingsOrders,
+    otherProceedingsDocument: otherProceedingDocumentEn().errors.document,
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Location details', // section 1
@@ -567,9 +571,6 @@ export const cyContent = {
     gender: personalDetailsCy().errors.gender,
     placeOfBirth: personalDetailsCy().errors.applicantPlaceOfBirth,
     relationshipType: relationShipToChildCy().errors.relationshipType,
-    addressDetails: {
-      required: 'Enter the address (welsh)',
-    },
     contactDetails: {
       required: 'Please enter contact details (welsh)',
     },
@@ -586,7 +587,9 @@ export const cyContent = {
     parentalResponsibility: parentalResponsibilityCy().errors.statement,
     liveWith: liveWithContentCy.errors.liveWith,
     mainlyLiveWith: mainlyLiveWithContentCy.errors.mainlyLiveWith,
-    hasNameChanged: respondentPersonalDetailsCy().errors.hasNameChanged,
+    hasNameChanged: {
+      required: respondentPersonalDetailsCy().hasNameChanged,
+    },
     liveInRefuge: {
       required: 'Select yes if you/they currently live in a refuge-welsh',
     },
@@ -630,6 +633,7 @@ export const cyContent = {
       required: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn?',
     },
     op_courtProceedingsOrders: otherProceedingCY().errors.op_courtProceedingsOrders,
+    otherProceedingsDocument: otherProceedingDocumentCy().errors.document,
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1
@@ -1146,9 +1150,12 @@ export const generateContent: TranslationFn = content => {
     errors[`dateOfBirth-applicant-${index}`] = translations.errors.dateOfBirth;
     errors[`placeOfBirth-applicant-${index}`] = translations.errors.placeOfBirth;
     // errors[`relationshipTo-applicant-${index}-`] = translations.errors.relationshipType;
-    errors[`addressDetails-applicant-${index}`] = translations.errors.addressDetails;
+    errors[`addressDetails-applicant-${index}`] = {
+      required: translations.keys.addressDetails,
+    };
     errors[`contactDetails-applicant-${index}`] = translations.errors.contactDetails;
     errors[`voiceMail-applicant-${index}`] = translations.errors.voiceMail;
+    errors[`contactPreferences-applicant-${index}`] = translations.errors.contactPreferences;
     errors[`refuge-applicant-${index}`] = translations.errors.liveInRefuge;
   });
   content.userCase?.appl_allApplicants?.forEach((applicant, index) => {
@@ -1183,6 +1190,9 @@ export const generateContent: TranslationFn = content => {
     errors[`relationshipTo-respondent-${index}`] = translations.errors.relationshipType;
     errors[`personalDetails-respondent-email-${index}`] = translations.errors.contactDetails;
     errors[`personalDetails-respondent-phone-${index}`] = translations.errors.contactDetails;
+    errors[`addressDetails-respondent-${index}`] = {
+      required: translations.keys.addressDetails,
+    };
   });
 
   content.userCase?.resp_Respondents?.forEach((applicant, index) => {
@@ -1198,23 +1208,22 @@ export const generateContent: TranslationFn = content => {
   } else {
     content.userCase?.oprs_otherPersons?.forEach((otherPerson, index) => {
       errors[`fullName-otherPerson-${index}`] = translations.errors.fullName;
-      errors[`previousFullName-otherPerson-${index}`] = translations.errors.previousFullName;
       errors[`hasNameChanged-otherPerson-${index}`] = translations.errors.hasNameChanged;
       errors[`otherGenderDetails-otherPerson-${index}`] = translations.errors.gender;
       errors[`isDateOfBirthUnknown-otherPerson-${index}`] = translations.errors.isDateOfBirthUnknown;
       errors[`approxDateOfBirth-otherPerson-${index}`] = translations.errors.approxDateOfBirth;
       errors[`dateOfBirth-otherPerson-${index}`] = translations.errors.dateOfBirth;
-      errors[`relationshipTo-otherPerson-${index}`] = translations.errors.relationshipType;
       errors[`c8RefugeDocument-otherPerson-${index}`] = translations.errors.refugeDocumentText;
-      errors[`addressDetails-otherPerson-${index}`] = translations.errors.addressDetails;
-      // live in refuge
-      errors[`otherPersonConfidentiality-otherPerson-${index}`] = interpolate(
-        translations.errors.otherPersonConfidentiality.required,
-        {
+      errors[`addressDetails-otherPerson-${index}`] = {
+        required: translations.keys.addressDetails,
+      };
+      errors[`refuge-otherPerson-${index}`] = translations.errors.liveInRefuge;
+      errors[`otherPersonConfidentiality-otherPerson-${index}`] = {
+        required: interpolate(translations.errors.otherPersonConfidentiality.required, {
           firstName: otherPerson.firstName,
           lastName: otherPerson.lastName,
-        }
-      );
+        }),
+      };
     });
   }
 
@@ -1238,12 +1247,22 @@ export const generateContent: TranslationFn = content => {
     });
   }
 
+  const c1AAbuseErrors = [];
+  c1AAbuseErrors[`c1A_concernAboutChild-${C1AAbuseTypes.PHYSICAL_ABUSE}`] = translations.errors.c1A_concernAboutChild;
+  c1AAbuseErrors[`c1A_concernAboutChild-${C1AAbuseTypes.PSYCHOLOGICAL_ABUSE}`] =
+    translations.errors.c1A_concernAboutChild;
+  c1AAbuseErrors[`c1A_concernAboutChild-${C1AAbuseTypes.EMOTIONAL_ABUSE}`] = translations.errors.c1A_concernAboutChild;
+  c1AAbuseErrors[`c1A_concernAboutChild-${C1AAbuseTypes.SEXUAL_ABUSE}`] = translations.errors.c1A_concernAboutChild;
+  c1AAbuseErrors[`c1A_concernAboutChild-${C1AAbuseTypes.FINANCIAL_ABUSE}`] = translations.errors.c1A_concernAboutChild;
+
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields(isAllFieldsFilled).fields),
     errors: {
       ...errors,
       ...translations.errors,
+      ...generateOtherProceedingDocErrorContent(content.userCase?.op_otherProceedings?.order, translations),
+      ...c1AAbuseErrors,
       ra_typeOfHearing: {
         required: raContent.attendingCourtHeading,
       },
