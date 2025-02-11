@@ -29,7 +29,7 @@ export const en = {
   ],
   feedbackAndContactInformation: 'Feedback and contact information',
   contactInfo: [
-    'We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.',
+    'We provide a text relay service for people who are d/Deaf, hearing impaired or have a speech impediment.',
     'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
     'If you require support when visiting or need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille contact us at:',
   ],
@@ -38,7 +38,7 @@ export const en = {
   reportingAccessibility: 'Reporting accessibility problems with this website',
   improvements: [
     'We’re always looking to improve the accessibility of this website.',
-    'If you find any problems not listed on this page or think we’re not meeting accessibility requirements:',
+    'If you find any problems not listed on this page or think we’re not meeting accessibility requirements contact us at:',
   ],
   enforcementProcedure: 'Enforcement procedure',
   humanRightsInfo: [
@@ -130,7 +130,7 @@ const cy = {
   reportingAccessibility: "Riportio problemau hygyrchedd gyda'r wefan hon",
   improvements: [
     'Rydym wastad yn ceisio gwella hygyrchedd y wefan hon.',
-    "Os byddwch yn dod o hyd i unrhyw broblemau nad ydynt wedi'u rhestru ar y dudalen hon neu'n meddwl nad ydym yn bodloni gofynion hygyrchedd:",
+    "Os byddwch yn dod o hyd i unrhyw broblemau nad ydynt wedi'u rhestru ar y dudalen hon neu'n meddwl nad ydym yn bodloni gofynion hygyrchedd cysylltwch â ni yn:",
   ],
   enforcementProcedure: 'Y Weithdrefn Orfodi',
   humanRightsInfo: [
