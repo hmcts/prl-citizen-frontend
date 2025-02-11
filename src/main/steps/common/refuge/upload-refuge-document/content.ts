@@ -11,7 +11,7 @@ import { applyParms } from '../../url-parser';
 import { getC8DocumentForC100 } from '../utils';
 export * from './routeGuard';
 
-const en = {
+export const en = {
   title: 'Upload a C8 form',
   uploadFileHeading: 'Upload a document',
   uploadGuidance:
@@ -45,7 +45,7 @@ const en = {
   },
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Uwchlwytho ffurflen C8',
   uploadGuidance:
     'Gallwch lawrlwytho\'r ffurflen <a href="https://www.gov.uk/government/publications/form-c8-confidential-contact-details-family-procedure-rules-2010-rule-291" class="govuk-link" target="_blank" rel="external" aria-label="Gallwch lawrlwytho\'r C8 ffurflen yma">yma</a>. Bydd eich cyfeiriad, cyfeiriad e-bost a rhif cyswllt yn cael eu cadw\'n gyfrinachol.',

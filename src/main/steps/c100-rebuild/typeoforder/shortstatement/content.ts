@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Describe what you want the court to do regarding the children in this application',
   subHeading: 'Summarise what you want the court to do. Give your answer in bullet points and short paragraphs.',
   setOut: 'You should set out:',
@@ -23,7 +23,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: "Disgrifiwch yr hyn rydych chi eisiau i'r llys ei wneud o ran y plant yn y cais hwn",
   subHeading:
     "Rhowch grynodeb o'r hyn rydych chi eisiau i'r llys ei wneud. Rhowch eich ateb mewn pwyntiau bwled a pharagraffau byr.",

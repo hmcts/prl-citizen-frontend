@@ -1418,7 +1418,7 @@ export const SafetyConcerns_others = (
   userCase: Partial<CaseWithId>,
   language
 ): SummaryList | undefined => {
-  const fieldParser = (field, fieldDescription?) => {
+  const fieldParser = (field, translationType: string, fieldDescription?) => {
     let html = '';
     if (field === YesOrNo.YES) {
       html += HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL;
@@ -1427,7 +1427,7 @@ export const SafetyConcerns_others = (
     if (_.isEmpty(field)) {
       return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
     }
-    html += field;
+    html += getYesNoTranslation(language, field, translationType);
     if (field === YesOrNo.NO) {
       return html;
     }
@@ -1450,7 +1450,8 @@ export const SafetyConcerns_others = (
       key: keys['childDrugAbuse'],
       anchorReference: 'c1A_otherConcernsDrugs',
       valueHtml: fieldParser(
-        getYesNoTranslation(language, userCase['c1A_otherConcernsDrugs'], 'doTranslation'),
+        userCase['c1A_otherConcernsDrugs'],
+        'doTranslation',
         userCase['c1A_otherConcernsDrugsDetails']
       ),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS'], {
@@ -1461,7 +1462,8 @@ export const SafetyConcerns_others = (
       key: keys['otherWellBeingIssues'],
       anchorReference: 'c1A_childSafetyConcerns',
       valueHtml: fieldParser(
-        getYesNoTranslation(language, userCase['c1A_childSafetyConcerns'], 'oesTranslation'),
+        userCase['c1A_childSafetyConcerns'],
+        'oesTranslation',
         userCase['c1A_childSafetyConcernsDetails']
       ),
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_OTHER'], { root: RootContext.C100_REBUILD }) as Urls.PageLink,

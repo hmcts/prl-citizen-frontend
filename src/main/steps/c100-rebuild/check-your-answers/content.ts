@@ -1,7 +1,6 @@
 /* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, RootContext, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../app/form/Form';
@@ -157,6 +156,49 @@ import {
   cy as otherProceedingDocumentCy,
   en as otherProceedingDocumentEn,
 } from '../other-proceedings/documentUpload/content';
+import { cy as uploadRefugeCy, en as uploadRefugeEn } from '../../common/refuge/upload-refuge-document/content';
+import {
+  cy as otherPersonConifidentialityCy,
+  en as otherPersonConifidentialityEn,
+} from '../other-person-details/confidentiality/content';
+import { cy as sq_legalRepCy, en as sq_legalRepEn } from '../screening-questions/legal-representation/content';
+import {
+  cy as sq_consentAgreementCy,
+  en as sq_consentAgreementEn,
+} from '../screening-questions/consent-agreement/content';
+import {
+  cy as sq_legalRepApplicationCy,
+  en as sq_legalRepApplicationEn,
+} from '../screening-questions/legal-representation-application/content';
+import { cy as sq_permissionCy, en as sq_permissionEn } from '../screening-questions/permission/content';
+import {
+  cy as sq_permissionRequestCy,
+  en as sq_permissionRequestEn,
+} from '../screening-questions/permissions-request/content';
+import { cy as too_selectCourtOrderCy, en as too_selectCourtOrderEn } from '../typeoforder/select-courtorder/content';
+import { cy as too_shortStatementCy, en as too_shortStatementEn } from '../typeoforder/shortstatement/content';
+import { cy as miam_otherProceedingsCy, en as miam_otherProceedingsEn } from '../miam/other-proceedings/content';
+import { cy as miam_mediatorDocumentCy, en as miam_mediatorDocumentEn } from '../miam/mediator-document/content';
+import { cy as miam_validReasonCy, en as miam_validReasonEn } from '../miam/valid-reason/content';
+import {
+  cy as op_currentPrevProceedingsCy,
+  en as op_currentPrevProceedingsEn,
+} from '../other-proceedings/current-previous-proceedings/content';
+import { cy as otherPersonCheckCy, en as otherPersonCheckEn } from '../other-person-details/other-person-check/content';
+import {
+  cy as hwf_needHelpWithFeesCy,
+  en as hwf_needHelpWithFeesEn,
+} from '../help-with-fees/need-help-with-fees/content';
+import { cy as hwf_referenceNumberCy, en as hwf_referenceNumberEn } from '../help-with-fees/hwf-guidance/content';
+import { cy as miam_miamOtherCy, en as miam_miamOtherEn } from '../miam/miam-other/content';
+import { cy as miam_previousAttendanceCy, en as miam_previousAttendanceEn } from '../miam/previous-attendance/content';
+import { cy as miam_urgencyCy, en as miam_urgencyEn } from '../miam/urgency/content';
+import { cy as miam_childProtectionCy, en as miam_childProtectionEn } from '../miam/child-protection/content';
+import { cy as miam_domesticAbuseCy, en as miam_domesticAbuseEn } from '../miam/domestic-abuse/domestic-abuse/content';
+import { cy as haveOtherChildrenCy, en as haveOtherChildrenEn } from '../child-details/has-other-children/content';
+import { cy as childAddressCy, en as childAddressEn } from '../childaddress/content';
+import { cy as hwn_part1Cy, en as hwn_part1En } from '../hearing-without-notice/hearing-part1/content';
+import { cy as hu_urgentCy, en as hu_urgentEn } from '../hearing-urgency/urgent/content';
 
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import { getAllMandatoryFields, isAllMandatoryFieldsFilled } from '../validation/util';
@@ -227,72 +269,28 @@ export const enContent = {
       paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
     },
     refugeDocumentText: {
-      required: 'You must upload a C8 document',
+      required: uploadRefugeEn.errors.c8RefugeDocument.empty,
     },
-    testText: {
-      required: 'test',
-    },
-    sq_legalRepresentation: {
-      required: 'Select yes if you will be using a legal representative in these proceedings',
-    },
-    c100RebuildChildPostCode: {
-      required: 'Enter a full postcode, with or without a space',
-    },
-    sq_writtenAgreement: {
-      required:
-        'Select yes if you have a written agreement with the other people in the case, that you want the court to review',
-    },
-    sq_legalRepresentationApplication: {
-      required: 'Select yes if you want your legal representative to complete this application',
-    },
-    sq_courtPermissionRequired: {
-      required:
-        'Select yes if there is any reason why you would need permission from the court to make this application',
-    },
+    sq_legalRepresentation: sq_legalRepEn().errors.sq_legalRepresentation,
+    c100RebuildChildPostCode: childAddressEn().errors.c100RebuildChildPostCode,
+    sq_writtenAgreement: sq_consentAgreementEn().errors.sq_writtenAgreement,
+    sq_legalRepresentationApplication: sq_legalRepApplicationEn().errors.sq_legalRepresentationApplication,
+    sq_courtPermissionRequired: sq_permissionEn().errors.sq_courtPermissionRequired,
     sq_permissionsWhy: {
       // not imported as title includes (optional) tag
       required: 'Why do you need a permission from the court to make this application?',
     },
-    sq_permissionsRequest: {
-      required: 'Explain why the court should grant you permission to submit this application',
-    },
-    too_courtOrder: {
-      required: 'Select  what you are asking the court to do',
-    },
-    too_shortStatement: {
-      required: 'Describe what you want the court to do regarding the children in this application',
-    },
-    hu_urgentHearingReasons: {
-      required: 'Does your situation qualify for an urgent first hearing?',
-    },
-    hwn_reasonsForApplicationWithoutNotice: {
-      required: 'Are you asking for a without notice hearing?',
-    },
-    childrenKnownToSocialServicesLabel: {
-      required: 'Select if any of the children are known to social services',
-    },
-    // cd_childrenSubjectOfProtectionPlan: {
-    //   required: 'Select if any of the children are the subject of a child protection plan',
-    // },
-    ocd_hasOtherChildren: {
-      required: 'Select yes if you have other children',
-    },
-    miam_otherProceedings: {
-      required:
-        'Select yes if the children are involved in any emergency protection, care or supervision proceedings(or have been)',
-    },
-    miam_haveDocSigned: {
-      required: 'Select yes if you have a document signed by the mediator',
-    },
-    miam_validReason: {
-      required: 'Select yes if you have a valid reason for not attending a MIAM',
-    },
-    op_childrenInvolvedCourtCase: {
-      required: 'Select yes if the children have been involved in a previous court case',
-    },
-    op_courtOrderProtection: {
-      required: 'Select yes if you have had a court order made for your protection',
-    },
+    sq_permissionsRequest: sq_permissionRequestEn().errors.sq_permissionsRequest,
+    too_courtOrder: too_selectCourtOrderEn().errors.too_courtOrder,
+    too_shortStatement: too_shortStatementEn().errors.too_shortStatement,
+    hu_urgentHearingReasons: hu_urgentEn().errors.hu_urgentHearingReasons,
+    hwn_reasonsForApplicationWithoutNotice: hwn_part1En().errors.hwn_hearingPart1,
+    ocd_hasOtherChildren: haveOtherChildrenEn().errors.ocd_hasOtherChildren,
+    miam_otherProceedings: miam_otherProceedingsEn().errors.miam_otherProceedings,
+    miam_haveDocSigned: miam_mediatorDocumentEn.errors.miam_haveDocSigned,
+    miam_validReason: miam_validReasonEn.errors.miam_validReason,
+    op_childrenInvolvedCourtCase: op_currentPrevProceedingsEn().errors.op_childrenInvolvedCourtCase,
+    op_courtOrderProtection: op_currentPrevProceedingsEn().errors.op_courtOrderProtection,
     c1A_haveSafetyConcerns: c1A_concernsForSafetyEn().errors.c1A_haveSafetyConcerns,
     c1A_safetyConernAbout: c1A_concernsAboutEn().errors.c1A_safetyConernAbout,
     c1A_concernAboutChild: c1A_childConcernsAboutEn().errors.c1A_concernAboutChild,
@@ -314,31 +312,15 @@ export const enContent = {
     c1A_keepingSafeStatement: c1A_courtActionEn().errors.c1A_keepingSafeStatement,
     c1A_supervisionAgreementDetails: c1A_unsupervisedEn().errors.c1A_supervisionAgreementDetails,
     c1A_agreementOtherWaysDetails: c1A_unsupervisedEn().errors.c1A_agreementOtherWaysDetails,
-    oprs_otherPersonCheck: {
-      required: 'Select yes if anyone else should know about the application',
-    },
-    hwf_needHelpWithFees: {
-      required: 'Select yes if you already applied for help with your application fee',
-    },
-    helpWithFeesReferenceNumber: {
-      required: 'Enter the help with fees reference number you received when you applied for help with fees',
-    },
+    oprs_otherPersonCheck: otherPersonCheckEn().errors.oprs_otherPersonCheck,
+    hwf_needHelpWithFees: hwf_needHelpWithFeesEn().errors.hwf_needHelpWithFees,
+    helpWithFeesReferenceNumber: hwf_referenceNumberEn().errors.helpWithFeesReferenceNumber,
     miam_nonAttendanceReasons: miamNonAttendanceReasonsEn.errors.miam_nonAttendanceReasons,
-    miam_notAttendingReasons: {
-      required: 'Select what other reason you have for not attending a MIAM',
-    },
-    miam_previousAttendance: {
-      required: 'Select what evidence you have that you previously attended a MIAM or NCDR',
-    },
-    miam_urgency: {
-      required: 'Select a reason why your application is urgent',
-    },
-    miam_childProtectionEvidence: {
-      required: 'Select what evidence you have of child protection concerns.',
-    },
-    miam_domesticAbuse: {
-      required: 'Select the evidence you have of domestic abuse',
-    },
+    miam_notAttendingReasons: miam_miamOtherEn.errors.miam_notAttendingReasons,
+    miam_previousAttendance: miam_previousAttendanceEn.errors.miam_previousAttendance,
+    miam_urgency: miam_urgencyEn.errors.miam_urgency,
+    miam_childProtectionEvidence: miam_childProtectionEn.errors.miam_childProtectionEvidence,
+    miam_domesticAbuse: miam_domesticAbuseEn.errors.miam_domesticAbuse,
     fullName: {
       required: 'Enter the full name',
     },
@@ -379,9 +361,7 @@ export const enContent = {
       required: respondentPersonalDetailsEn().hasNameChanged,
     },
     // need to add for parties
-    otherPersonConfidentiality: {
-      required: 'Select yes if you want to keep {firstName} {lastName}’s details private',
-    },
+    otherPersonConfidentiality: otherPersonConifidentialityEn.errors.confidentiality,
     liveInRefuge: {
       required: 'Select yes if you/they currently live in a refuge',
     },
@@ -431,7 +411,7 @@ export const enContent = {
     emailAddress: 'Contact number of the person named on the application',
     domesticVoilenceHeading: 'What evidence of domestic abuse do you have?',
     childProtectionHeading: 'Which child protection concern applies?',
-    midatatorDocumentTitle: EnMidiationDocument.title,
+    midatatorDocumentTitle: miam_mediatorDocumentEn.title,
     previousAddress: 'Previous Addresses',
     none: 'none',
     details: 'Details',
@@ -542,14 +522,9 @@ export const cyContent = {
         'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
     },
     refugeDocumentText: {
-      required: 'Mae’n rhaid i chi uwchlwytho dogfen C8',
+      required: uploadRefugeCy.errors.c8RefugeDocument.empty,
     },
-    otherPersonConfidentiality: {
-      required: 'Dewiswch ydw os ydych eisiau cadw {firstName} {lastName} manylion yn gyfrinachol',
-    },
-    testText: {
-      required: 'test',
-    },
+    otherPersonConfidentiality: otherPersonConifidentialityCy.errors.confidentiality,
     fullName: {
       required: 'Enter the full name (welsh)',
     },
@@ -622,18 +597,37 @@ export const cyContent = {
     c1A_keepingSafeStatement: c1A_courtActionCy().errors.c1A_keepingSafeStatement,
     c1A_supervisionAgreementDetails: c1A_unsupervisedCy().errors.c1A_supervisionAgreementDetails,
     c1A_agreementOtherWaysDetails: c1A_unsupervisedCy().errors.c1A_agreementOtherWaysDetails,
-    hu_urgentHearingReasons: {
-      required: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
-    },
-    hwn_reasonsForApplicationWithoutNotice: {
-      required: 'Ydych chi’n gofyn am wrandawiad heb rybudd?',
-    },
+    hu_urgentHearingReasons: hu_urgentCy().errors.hu_urgentHearingReasons,
+    hwn_reasonsForApplicationWithoutNotice: hwn_part1Cy().errors.hwn_hearingPart1,
+
     sq_permissionsWhy: {
       // not imported as title includes (optional) tag
       required: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn?',
     },
     op_courtProceedingsOrders: otherProceedingCY().errors.op_courtProceedingsOrders,
     otherProceedingsDocument: otherProceedingDocumentCy().errors.document,
+    sq_legalRepresentation: sq_legalRepCy().errors.sq_legalRepresentation,
+    sq_writtenAgreement: sq_consentAgreementCy().errors.sq_writtenAgreement,
+    sq_legalRepresentationApplication: sq_legalRepApplicationCy().errors.sq_legalRepresentationApplication,
+    sq_courtPermissionRequired: sq_permissionCy().errors.sq_courtPermissionRequired,
+    sq_permissionsRequest: sq_permissionRequestCy().errors.sq_permissionsRequest,
+    too_courtOrder: too_selectCourtOrderCy().errors.too_courtOrder,
+    too_shortStatement: too_shortStatementCy().errors.too_shortStatement,
+    miam_otherProceedings: miam_otherProceedingsCy().errors.miam_otherProceedings,
+    miam_haveDocSigned: miam_mediatorDocumentCy.errors.miam_haveDocSigned,
+    miam_validReason: miam_validReasonCy.errors.miam_validReason,
+    op_childrenInvolvedCourtCase: op_currentPrevProceedingsCy().errors.op_childrenInvolvedCourtCase,
+    op_courtOrderProtection: op_currentPrevProceedingsCy().errors.op_courtOrderProtection,
+    oprs_otherPersonCheck: otherPersonCheckCy().errors.oprs_otherPersonCheck,
+    hwf_needHelpWithFees: hwf_needHelpWithFeesCy().errors.hwf_needHelpWithFees,
+    helpWithFeesReferenceNumber: hwf_referenceNumberCy().errors.helpWithFeesReferenceNumber,
+    miam_notAttendingReasons: miam_miamOtherCy.errors.miam_notAttendingReasons,
+    miam_previousAttendance: miam_previousAttendanceCy.errors.miam_previousAttendance,
+    miam_urgency: miam_urgencyCy.errors.miam_urgency,
+    miam_childProtectionEvidence: miam_childProtectionCy.errors.miam_childProtectionEvidence,
+    miam_domesticAbuse: miam_domesticAbuseCy.errors.miam_domesticAbuse,
+    ocd_hasOtherChildren: haveOtherChildrenCy().errors.ocd_hasOtherChildren,
+    c100RebuildChildPostCode: childAddressCy().errors.c100RebuildChildPostCode,
   },
   sectionTitles: {
     locationDetails: '[^^sectionNo^^]. Manylion lleoliad', // section 1
@@ -671,7 +665,7 @@ export const cyContent = {
     emailAddress: 'C Rhif cyswllt yr un a enwir yn y cais',
     domesticVoilenceHeading: 'Pa dystiolaeth o gam-drin domestig sydd gennych chi?',
     childProtectionHeading: 'Pa bryderon amddiffyn plant sy’n berthnasol?',
-    midatatorDocumentTitle: CyMidiationDocument.title,
+    midatatorDocumentTitle: miam_mediatorDocumentCy.title,
     previousAddress: 'Cyfeiriad blaenorol',
     none: 'dim',
     details: 'Manylion',
