@@ -724,6 +724,7 @@ export interface Case {
   cd_childrenKnownToSocialServices?: string;
   cd_childrenKnownToSocialServicesDetails?: string;
   cd_childrenSubjectOfProtectionPlan?: string;
+  applicantPcqId?: string;
 }
 
 export interface CitizenNotification {

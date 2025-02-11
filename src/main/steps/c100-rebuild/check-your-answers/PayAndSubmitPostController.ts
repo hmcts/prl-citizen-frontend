@@ -32,7 +32,10 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
 
         /** Invoke Pcq questionnaire
          * */
-        if (!PCQProvider.getPcqId(req) && (await PCQProvider.isComponentEnabled())) {
+        if (
+          !(PCQProvider.getPcqId(req) || req.session.userCase.applicantPcqId) &&
+          (await PCQProvider.isComponentEnabled())
+        ) {
           PCQController.launch(req, res, PCQProvider.getReturnUrl(req, PartyType.APPLICANT, 'c100-rebuild'));
         } else {
           this.handlePayment(req, res);

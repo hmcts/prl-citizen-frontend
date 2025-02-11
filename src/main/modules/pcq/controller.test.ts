@@ -4,6 +4,7 @@ import config from 'config';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { CaseApi } from '../../app/case/C100CaseApi';
 import { YesNoEmpty } from '../../app/case/definition';
 import PayAndSubmitPostController from '../../steps/c100-rebuild/check-your-answers/PayAndSubmitPostController';
 import ResponseSummaryConfirmationPostController from '../../steps/tasklistresponse/summary/postController';
@@ -21,6 +22,7 @@ describe('PCQController', () => {
   config.get = jest.fn();
   const mockedAxios = axios as jest.Mocked<typeof axios>;
   const responseControllerMock = jest.spyOn(ResponseSummaryConfirmationPostController.prototype, 'submitC7Response');
+  const saveC100DraftApplicationMock = jest.spyOn(CaseApi.prototype, 'saveC100DraftApplication');
 
   mockedAxios.create = jest.fn(() => mockedAxios);
 
@@ -185,13 +187,29 @@ describe('PCQController', () => {
     expect(PCQProvider.getPcqServiceUrl).not.toBeCalled;
   });
 
-  test('should call Pay and submit controller after pcq if c100-rebuild is the return url', async () => {
+  test('should save pcq id and call Pay and submit controller after pcq if c100-rebuild is the return url', async () => {
     appRequest.url = 'http://localhost:3001/c100-rebuild';
     appRequest.params = {
       context: 'c100-rebuild',
     };
+    appRequest.session.applicationSettings = { pcqId: '123' };
+    appRequest.locals.C100Api.saveC100DraftApplication = jest.fn(() => appRequest);
     await PCQController.onPcqCompletion(appRequest, appResponse);
-    expect((PayAndSubmitPostController as any).handlePayment).toBeCalled;
+    expect((PayAndSubmitPostController as any).handlePayment).toHaveBeenCalled;
+    expect(appRequest.locals.C100Api.saveC100DraftApplication).toHaveBeenCalled();
+  });
+
+  test('should redirect to check your answers if save fails', async () => {
+    appRequest.url = 'http://localhost:3001/c100-rebuild';
+    appRequest.params = {
+      context: 'c100-rebuild',
+    };
+    appRequest.session.applicationSettings = { pcqId: '123' };
+    appRequest.locals.C100Api.saveC100DraftApplication = saveC100DraftApplicationMock;
+    saveC100DraftApplicationMock.mockRejectedValueOnce({ status: 'Failure' });
+    await PCQController.onPcqCompletion(appRequest, appResponse);
+    expect(appRequest.locals.C100Api.saveC100DraftApplication).toHaveBeenCalled();
+    expect(appResponse.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
   });
 
   test('should call C7 response submission controller after pcq if c7 response is the return url', async () => {

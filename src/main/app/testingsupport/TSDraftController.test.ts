@@ -69,6 +69,7 @@ describe('TSDraftController', () => {
       helpWithFeesReferenceNumber: undefined,
       noOfDaysRemainingToSubmitCase: undefined,
       state: undefined,
+      applicantPcqId: undefined,
     });
     expect(req.session.save).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
