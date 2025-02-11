@@ -899,6 +899,7 @@ export interface CaseData {
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
   citizenNotifications?: CitizenNotification[];
+  applicantPcqId?: string;
 }
 
 export const enum SelectTypeOfOrderEnum {

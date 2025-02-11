@@ -119,11 +119,14 @@ export class CaseApi {
   public async saveC100DraftApplication(
     caseId: string,
     caseData: Partial<CaseWithId>,
-    returnUrl: string
+    returnUrl: string,
+    additionalData: Record<string, any> | undefined
   ): Promise<UpdateCaseResponse> {
-    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantPcqId, ...rest } =
+      caseData;
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
+      applicantPcqId: applicantPcqId ?? additionalData?.pcqId,
       caseTypeOfApplication: caseTypeOfApplication as string,
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
@@ -252,6 +255,7 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
     c100RebuildReturnUrl: caseData.c100RebuildReturnUrl,
     state: caseData.state,
     noOfDaysRemainingToSubmitCase: caseData.noOfDaysRemainingToSubmitCase,
+    applicantPcqId: caseData.applicantPcqId,
   } as RetreiveDraftCase;
 
   Object.values(updateCaseDataMapper).forEach(field => {

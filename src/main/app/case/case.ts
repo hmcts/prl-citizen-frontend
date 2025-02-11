@@ -721,6 +721,7 @@ export interface Case {
   ie_internationalJurisdiction?: YesOrNo;
   ie_provideDetailsJurisdiction?: string;
   hasC100ApplicationBeenCompleted?: boolean;
+  applicantPcqId?: string;
 }
 
 export interface CitizenNotification {

@@ -13,7 +13,8 @@ export const routeGuard = {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         req.session.userCase?.caseId as string,
         req.session.userCase,
-        req.originalUrl
+        req.originalUrl,
+        req.session.applicationSettings
       );
       await retriveFeeAmount(req, next);
     } catch {

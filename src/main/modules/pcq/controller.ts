@@ -6,6 +6,7 @@ import { FormFieldsFn } from '../../../main/app/form/Form';
 import { AppRequest } from '../../app/controller/AppRequest';
 import PayAndSubmitPostController from '../../steps/c100-rebuild/check-your-answers/PayAndSubmitPostController';
 import ResponseSummaryConfirmationPostController from '../../steps/tasklistresponse/summary/postController';
+import { C100_CHECK_YOUR_ANSWER } from '../../steps/urls';
 
 import { PCQProvider } from './index';
 
@@ -36,7 +37,17 @@ export class PcqController {
 
   async onPcqCompletion(req: AppRequest, res: Response): Promise<void> {
     if (req.params.context === 'c100-rebuild') {
-      return new PayAndSubmitPostController({} as FormFieldsFn).handlePayment(req, res);
+      try {
+        await req.locals.C100Api.saveC100DraftApplication(
+          req.session.userCase.caseId!,
+          req.session.userCase,
+          req.originalUrl,
+          req.session.applicationSettings
+        );
+        return new PayAndSubmitPostController({} as FormFieldsFn).handlePayment(req, res);
+      } catch (error) {
+        PcqController.handleError(error, res, C100_CHECK_YOUR_ANSWER);
+      }
     } else {
       return new ResponseSummaryConfirmationPostController({} as FormFieldsFn).submitC7Response(req, res);
     }

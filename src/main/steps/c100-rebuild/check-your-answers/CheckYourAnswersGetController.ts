@@ -42,7 +42,8 @@ export default class CheckYourAnswersGetController extends GetController {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         req.session.userCase?.caseId as string,
         req.session.userCase,
-        returnUrl
+        returnUrl,
+        req.session.applicationSettings
       );
 
       //clear payment error
