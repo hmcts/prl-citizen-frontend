@@ -13,6 +13,7 @@ import {
   YesNoEmpty,
   YesOrNo,
 } from '../../../app/case/definition';
+import { isEmailValid, isPhoneNoValid } from '../../../app/form/validation';
 import { getC100FlowType } from '../utils';
 
 import { FieldConfig, FieldsConfig, MandatoryFieldsConfig } from './definitions';
@@ -269,11 +270,13 @@ export const isApplicantValid = (applicant: C100Applicant): boolean => {
     !_.isEmpty(applicant.applicantContactDetail) &&
     !_.isEmpty(applicant.applicantContactDetail.canProvideEmail) &&
     (applicant.applicantContactDetail.canProvideEmail === YesOrNo.YES
-      ? !_.isEmpty(applicant.applicantContactDetail.emailAddress)
+      ? !_.isEmpty(applicant.applicantContactDetail.emailAddress) &&
+        isEmailValid(applicant.applicantContactDetail.emailAddress) !== 'invalid'
       : true) &&
     !_.isEmpty(applicant.applicantContactDetail.canProvideTelephoneNumber) &&
     (applicant.applicantContactDetail.canProvideTelephoneNumber === YesOrNo.YES
-      ? !_.isEmpty(applicant.applicantContactDetail.telephoneNumber)
+      ? !_.isEmpty(applicant.applicantContactDetail.telephoneNumber) &&
+        isPhoneNoValid(applicant.applicantContactDetail.telephoneNumber) !== 'invalid'
       : !_.isEmpty(applicant.applicantContactDetail.canNotProvideTelephoneNumberReason)) &&
     !_.isEmpty(applicant.applicantContactDetail.canLeaveVoiceMail) &&
     !_.isEmpty(applicant.applicantContactDetail.applicantContactPreferences) &&
@@ -282,10 +285,6 @@ export const isApplicantValid = (applicant: C100Applicant): boolean => {
 };
 
 export const isRespondentValid = (respondent: C100RebuildPartyDetails, partyType: PartyType): boolean => {
-  const addressHistory =
-    !_.isEmpty(respondent.address.addressHistory) && respondent.address.addressHistory === YesNoDontKnow.yes
-      ? !_.isEmpty(respondent.address.provideDetailsOfPreviousAddresses)
-      : true;
   return (
     //check
     !_.isEmpty(respondent.firstName) &&
@@ -301,7 +300,7 @@ export const isRespondentValid = (respondent: C100RebuildPartyDetails, partyType
     !_.isEmpty(respondent.personalDetails.gender) &&
     !_.isEmpty(respondent.relationshipDetails?.relationshipToChildren) &&
     !_.isEmpty(respondent.address) &&
-    (partyType === PartyType.RESPONDENT ? addressHistory : true) &&
+    (partyType === PartyType.RESPONDENT ? !_.isEmpty(respondent.address.addressHistory) : true) &&
     (respondent.addressUnknown === undefined
       ? !_.isEmpty(respondent.address.AddressLine1) &&
         !_.isEmpty(respondent.address.PostTown) &&
@@ -309,10 +308,12 @@ export const isRespondentValid = (respondent: C100RebuildPartyDetails, partyType
       : true) &&
     !_.isEmpty(respondent.contactDetails) &&
     (respondent.contactDetails.donKnowEmailAddress === undefined
-      ? !_.isEmpty(respondent.contactDetails.emailAddress)
+      ? !_.isEmpty(respondent.contactDetails.emailAddress) &&
+        isEmailValid(respondent.contactDetails.emailAddress) !== 'invalid'
       : true) &&
     (respondent.contactDetails.donKnowTelephoneNumber === undefined
-      ? !_.isEmpty(respondent.contactDetails.telephoneNumber)
+      ? !_.isEmpty(respondent.contactDetails.telephoneNumber) &&
+        isPhoneNoValid(respondent.contactDetails.telephoneNumber) !== 'invalid'
       : true)
   );
 };

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import { isEmailValid, isPhoneNoValid } from '../../../../app/form/validation';
 import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation, isBorderPresent, populateError, translation } from '../mainUtil';
 
@@ -156,7 +157,17 @@ export const applicantAddressParserForRespondents = (sessionApplicantData, keys,
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const applicantContactDetailsParser = (sessionApplicantData, keys, language): string => {
   let html = HTML.DESCRIPTION_LIST as string;
-  if (sessionApplicantData['canProvideEmail'] === 'Yes') {
+
+  const validatedEmail =
+    isEmailValid(sessionApplicantData['emailAddress']) === 'invalid'
+      ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+      : sessionApplicantData['emailAddress'];
+  const validatedPhoneNumber =
+    isPhoneNoValid(sessionApplicantData['telephoneNumber']) === 'invalid'
+      ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+      : sessionApplicantData['telephoneNumber'];
+
+  if (_.isEmpty(sessionApplicantData.canProvideEmail)) {
     html +=
       HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_ELEMENT +
@@ -166,11 +177,25 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys, langua
     html +=
       HTML.ROW_START +
       HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(sessionApplicantData['emailAddress'], sessionApplicantData['emailAddress'], language) +
+      HTML.ERROR_MESSAGE_SPAN +
+      translation('completeSectionError', language) +
+      HTML.SPAN_CLOSE +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
-  }
-  if (sessionApplicantData['canProvideEmail'] === 'No') {
+  } else if (sessionApplicantData['canProvideEmail'] === 'Yes') {
+    html +=
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT +
+      keys['canProvideEmailLabel'] +
+      HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END;
+    html +=
+      HTML.ROW_START +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      populateError(sessionApplicantData['emailAddress'], validatedEmail, language) +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END;
+  } else if (sessionApplicantData['canProvideEmail'] === 'No') {
     html +=
       HTML.ROW_START +
       HTML.DESCRIPTION_TERM_ELEMENT +
@@ -179,7 +204,7 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys, langua
       HTML.ROW_END;
   }
 
-  if (sessionApplicantData['canProvideTelephoneNumber'] === 'Yes') {
+  if (_.isEmpty(sessionApplicantData.canProvideTelephoneNumber)) {
     html +=
       HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_ELEMENT +
@@ -189,11 +214,25 @@ export const applicantContactDetailsParser = (sessionApplicantData, keys, langua
     html +=
       HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_DETAIL +
-      populateError(sessionApplicantData['telephoneNumber'], sessionApplicantData['telephoneNumber'], language) +
+      HTML.ERROR_MESSAGE_SPAN +
+      translation('completeSectionError', language) +
+      HTML.SPAN_CLOSE +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
-  }
-  if (sessionApplicantData['canProvideTelephoneNumber'] === 'No') {
+  } else if (sessionApplicantData['canProvideTelephoneNumber'] === 'Yes') {
+    html +=
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_ELEMENT +
+      keys['canProvideTelephoneNumberLabel'] +
+      HTML.DESCRIPTION_TERM_ELEMENT_END +
+      HTML.ROW_END;
+    html +=
+      HTML.ROW_START_NO_BORDER +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      populateError(sessionApplicantData['telephoneNumber'], validatedPhoneNumber, language) +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END;
+  } else if (sessionApplicantData['canProvideTelephoneNumber'] === 'No') {
     html +=
       HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_ELEMENT +

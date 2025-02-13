@@ -25,12 +25,13 @@ import {
   //State,
 } from '../../../app/case/definition';
 import { FormError } from '../../../app/form/Form';
+import { isEmailValid, isPhoneNoValid } from '../../../app/form/validation';
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
 import { interpolate } from '../../../steps/common/string-parser';
 import { proceedingSummaryData } from '../../../steps/common/summary/utils';
 import { doesAnyChildLiveWithOtherPerson } from '../../c100-rebuild/other-person-details/utils';
 import { getC100FlowType } from '../../c100-rebuild/utils';
-import { DATE_FORMATTOR } from '../../common/dateformatter';
+import { C100_CYA_DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
 
@@ -305,6 +306,10 @@ export const ChildernDetails = (
     } else {
       childResolution += keys[sessionChildData[child]['childMatters']['needsResolution']];
     }
+    const childFullName =
+      _.isEmpty(firstname) || _.isEmpty(lastname)
+        ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+        : firstname + ' ' + lastname;
 
     newChildDataStorage.push(
       {
@@ -317,7 +322,7 @@ export const ChildernDetails = (
         key: keys['fullName'],
         anchorReference: `fullName-child-${child}`,
         visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['fullName']}`,
-        value: firstname + ' ' + lastname, //error check not need
+        valueHtml: childFullName,
         changeUrl: Urls['C100_CHILDERN_DETAILS_ADD'],
       }
     );
@@ -484,6 +489,10 @@ export const OtherChildrenDetails = (
           personalDetails = sessionChildData[child]['personalDetails'];
         const childNo = Number(child) + 1;
         const childGenderAnchorRef = `gender-otherChild-${child}`;
+        const fullName =
+          _.isEmpty(firstname) || _.isEmpty(lastname)
+            ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+            : firstname + ' ' + lastname;
 
         newChildDataStorage.push(
           {
@@ -495,7 +504,7 @@ export const OtherChildrenDetails = (
           {
             key: keys['fullName'],
             anchorReference: `fullName-otherChild-${child}`,
-            value: firstname + ' ' + lastname, //error check not needed
+            valueHtml: fullName,
             visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['fullName']}`,
             changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
           }
@@ -610,9 +619,12 @@ export const ApplicantDetails = (
   }[] = [];
   for (const applicant in sessionApplicantData) {
     const fullname =
-      sessionApplicantData[applicant]['applicantFirstName'] +
-      ' ' +
-      sessionApplicantData[applicant]['applicantLastName'];
+      _.isEmpty(sessionApplicantData[applicant]['applicantFirstName']) ||
+      _.isEmpty(sessionApplicantData[applicant]['applicantLastName'])
+        ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+        : sessionApplicantData[applicant]['applicantFirstName'] +
+          ' ' +
+          sessionApplicantData[applicant]['applicantLastName'];
     const applicantNo = Number(applicant) + 1;
     const personalDetails = sessionApplicantData[applicant]['personalDetails'];
     const applicantId = sessionApplicantData[applicant]['id'];
@@ -641,6 +653,15 @@ export const ApplicantDetails = (
             .join('') +
           HTML.DESCRIPTION_TERM_DETAIL_END +
           HTML.ROW_END;
+      } else if (sessionApplicantData[applicant][key] === YesOrNo.YES) {
+        html +=
+          HTML.ROW_START_NO_BORDER +
+          HTML.DESCRIPTION_TERM_DETAIL +
+          HTML.ERROR_MESSAGE_SPAN +
+          translation('completeSectionError', language) +
+          HTML.SPAN_CLOSE +
+          HTML.DESCRIPTION_TERM_DETAIL_END +
+          HTML.ROW_END;
       }
       return html + HTML.DESCRIPTION_LIST_END;
     };
@@ -659,7 +680,7 @@ export const ApplicantDetails = (
         key: keys['fullName'],
         visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['fullName']}`,
         anchorReference: `fullName-applicant-${applicant}`,
-        value: fullname, //error check not needed
+        valueHtml: fullname,
         changeUrl: Urls['C100_APPLICANT_ADD_APPLICANTS'],
       },
       {
@@ -709,7 +730,7 @@ export const ApplicantDetails = (
         anchorReference: `dateOfBirth-applicant-${applicant}`,
         valueHtml: populateError(
           personalDetails['dateOfBirth'],
-          DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+          C100_CYA_DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
           language
         ),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
@@ -1568,10 +1589,19 @@ const RespondentDetails_AddressAndPersonal = (
 const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelephone: boolean, index: number, keys) => {
   const ctx: string[] = [];
   const anchor = isTelephone ? 'phone' : 'email';
+  let validatedField;
   if (isTelephone) {
     ctx.push('donKnowTelephoneNumber', 'dont_know_telephone', 'telephone_number', 'telephoneNumber');
+    validatedField =
+      isPhoneNoValid(contactDetails['telephoneNumber']) === 'invalid'
+        ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+        : contactDetails['telephoneNumber'];
   } else {
     ctx.push('donKnowEmailAddress', 'dont_know_email_address', 'email', 'emailAddress');
+    validatedField =
+      isEmailValid(contactDetails['emailAddress']) === 'invalid'
+        ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+        : contactDetails['emailAddress'];
   }
   if (contactDetails.hasOwnProperty(ctx[0]) && contactDetails[ctx[0]] === 'Yes') {
     return {
@@ -1591,7 +1621,7 @@ const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelepho
       key: getYesNoTranslation(language, ctx[2], 'personalDetails'),
       anchorReference: `personalDetails-respondent-${anchor}-${index}`,
       visuallyHiddenText: `${keys['respondents']} ${index} ${getYesNoTranslation(language, ctx[2], 'personalDetails')}`,
-      valueHtml: populateError(contactDetails?.[ctx[3]], contactDetails?.[ctx[3]], language),
+      valueHtml: populateError(contactDetails?.[ctx[3]], validatedField, language),
       value: contactDetails?.[ctx[3]],
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
@@ -1622,6 +1652,10 @@ export const RespondentDetails = (
     const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
     const respondentNo = Number(respondent) + 1;
     const contactDetails = sessionRespondentData[respondent]['contactDetails'];
+    const respondentFullName =
+      _.isEmpty(firstname) || _.isEmpty(lastname)
+        ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+        : firstname + ' ' + lastname;
 
     const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML, language);
     newRespondentStorage.push(
@@ -1635,7 +1669,7 @@ export const RespondentDetails = (
         key: keys['fullName'],
         visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['fullName']}`,
         anchorReference: `fullName-respondent-${respondent}`,
-        value: firstname + ' ' + lastname, //error needed?
+        valueHtml: respondentFullName,
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADD'], {}),
       },
       {
@@ -1679,7 +1713,7 @@ export const RespondentDetails = (
           anchorReference: `approxDateOfBirth-respondent-${respondent}`,
           valueHtml: populateError(
             personalDetails['approxDateOfBirth'],
-            DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+            C100_CYA_DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
             language
           ),
           // value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
@@ -1693,7 +1727,7 @@ export const RespondentDetails = (
         anchorReference: `dateOfBirth-respondent-${respondent}`,
         valueHtml: populateError(
           personalDetails['dateOfBirth'],
-          DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+          C100_CYA_DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
           language
         ),
         // value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
@@ -1829,6 +1863,10 @@ export const OtherPeopleDetails = (
       const OtherRespondentNo = Number(respondent) + 1;
 
       const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML, language);
+      const fullName =
+        _.isEmpty(firstname) || _.isEmpty(lastname)
+          ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+          : firstname + ' ' + lastname;
 
       newOtherPeopleStorage.push(
         {
@@ -1841,8 +1879,7 @@ export const OtherPeopleDetails = (
           key: keys['fullName'],
           visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['fullName']}`,
           anchorReference: `fullName-otherPerson-${respondent}`,
-          valueHtml: populateError(firstname + ' ' + lastname, firstname + ' ' + lastname, language),
-          // value: firstname + ' ' + lastname,
+          valueHtml: fullName,
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADD'], { otherPersonId: id }),
         },
         {
@@ -1883,7 +1920,7 @@ export const OtherPeopleDetails = (
             anchorReference: `approxDateOfBirth-otherPerson-${respondent}`,
             valueHtml: populateError(
               personalDetails['approxDateOfBirth'],
-              DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+              C100_CYA_DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
               language
             ),
             // value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
@@ -1897,10 +1934,10 @@ export const OtherPeopleDetails = (
           anchorReference: `dateOfBirth-otherPerson-${respondent}`,
           valueHtml: populateError(
             personalDetails['dateOfBirth'],
-            DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+            C100_CYA_DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
             language
           ),
-          value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+          // value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
         });
       }
@@ -2112,7 +2149,8 @@ export const whereDoChildrenLive = (
 export const otherPersonConfidentiality = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
-  language
+  language: string,
+  otherPeopleLivingWithChildren: string[]
 ): SummaryList => {
   const sessionOtherPeopleData = userCase['oprs_otherPersons'];
   const newOtherPeopleStorage: {
@@ -2125,19 +2163,22 @@ export const otherPersonConfidentiality = (
   }[] = [];
 
   for (const otherPerson in sessionOtherPeopleData) {
-    const firstName = sessionOtherPeopleData[otherPerson]['firstName'],
-      lastName = sessionOtherPeopleData[otherPerson]['lastName'],
-      id = sessionOtherPeopleData[otherPerson]['id'];
-    const isOtherPersonAddressConfidential = sessionOtherPeopleData[otherPerson]?.['isOtherPersonAddressConfidential'];
+    if (otherPeopleLivingWithChildren.includes(sessionOtherPeopleData[otherPerson].id)) {
+      const firstName = sessionOtherPeopleData[otherPerson]['firstName'],
+        lastName = sessionOtherPeopleData[otherPerson]['lastName'],
+        id = sessionOtherPeopleData[otherPerson]['id'];
+      const isOtherPersonAddressConfidential =
+        sessionOtherPeopleData[otherPerson]?.['isOtherPersonAddressConfidential'];
 
-    newOtherPeopleStorage.push({
-      key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
-      anchorReference: `otherPersonConfidentiality-otherPerson-${otherPerson}`,
-      valueHtml: !_.isEmpty(isOtherPersonAddressConfidential)
-        ? getYesNoTranslation(language, isOtherPersonAddressConfidential, 'oesTranslation')
-        : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
-      changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY'], { otherPersonId: id }),
-    });
+      newOtherPeopleStorage.push({
+        key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
+        anchorReference: `otherPersonConfidentiality-otherPerson-${otherPerson}`,
+        valueHtml: !_.isEmpty(isOtherPersonAddressConfidential)
+          ? getYesNoTranslation(language, isOtherPersonAddressConfidential, 'oesTranslation')
+          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY'], { otherPersonId: id }),
+      });
+    }
   }
 
   return {
@@ -2373,7 +2414,7 @@ const populateDateOfBirth = (
         anchorReference: `approxDateOfBirth-${childAnchorText}-${count}`,
         valueHtml: populateError(
           personalDetails['approxDateOfBirth'],
-          DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+          C100_CYA_DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
           language
         ),
         changeUrl: isForChild
@@ -2388,7 +2429,7 @@ const populateDateOfBirth = (
       anchorReference: `dateOfBirth-${childAnchorText}-${count}`,
       valueHtml: populateError(
         personalDetails['dateOfBirth'],
-        DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+        C100_CYA_DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
         language
       ),
       changeUrl: isForChild
@@ -2564,8 +2605,8 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
   }
 
   if (
-    _.isEmpty(applicant.personalDetails.dateOfBirth?.day) &&
-    _.isEmpty(applicant.personalDetails.dateOfBirth?.month) &&
+    _.isEmpty(applicant.personalDetails.dateOfBirth?.day) ||
+    _.isEmpty(applicant.personalDetails.dateOfBirth?.month) ||
     _.isEmpty(applicant.personalDetails.dateOfBirth?.year)
   ) {
     error.push({
@@ -2638,6 +2679,30 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     });
   }
 
+  if (
+    !_.isEmpty(applicant.applicantContactDetail) &&
+    applicant.applicantContactDetail.canProvideEmail === YesOrNo.YES &&
+    !_.isEmpty(applicant.applicantContactDetail.emailAddress) &&
+    isEmailValid(applicant.applicantContactDetail.emailAddress) === 'invalid'
+  ) {
+    error.push({
+      propertyName: `contactDetails-applicant-${index}`,
+      errorType: 'invalidEmail',
+    });
+  }
+
+  if (
+    !_.isEmpty(applicant.applicantContactDetail) &&
+    applicant.applicantContactDetail.canProvideTelephoneNumber === YesOrNo.YES &&
+    !_.isEmpty(applicant.applicantContactDetail.telephoneNumber) &&
+    isPhoneNoValid(applicant.applicantContactDetail.telephoneNumber) === 'invalid'
+  ) {
+    error.push({
+      propertyName: `contactDetails-applicant-${index}`,
+      errorType: 'invalidPhoneNumber',
+    });
+  }
+
   if (_.isEmpty(applicant.applicantContactDetail?.canLeaveVoiceMail)) {
     error.push({
       propertyName: `voiceMail-applicant-${index}`,
@@ -2673,7 +2738,8 @@ export const generateChildErrors = (child: ChildrenDetails, index: number) => {
   if (
     child.personalDetails.isDateOfBirthUnknown &&
     child.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES &&
-    _.isEmpty(child.personalDetails.approxDateOfBirth)
+    child.personalDetails.approxDateOfBirth &&
+    Object.values(child.personalDetails.approxDateOfBirth).some(dobValue => _.isEmpty(dobValue))
   ) {
     error.push({
       propertyName: `approxDateOfBirth-child-${index}`,
@@ -2683,9 +2749,9 @@ export const generateChildErrors = (child: ChildrenDetails, index: number) => {
 
   if (
     child.personalDetails.isDateOfBirthUnknown === '' &&
-    _.isEmpty(child.personalDetails.dateOfBirth?.day) &&
-    _.isEmpty(child.personalDetails.dateOfBirth?.month) &&
-    _.isEmpty(child.personalDetails.dateOfBirth?.year)
+    (_.isEmpty(child.personalDetails.dateOfBirth?.day) ||
+      _.isEmpty(child.personalDetails.dateOfBirth?.month) ||
+      _.isEmpty(child.personalDetails.dateOfBirth?.year))
   ) {
     error.push({
       propertyName: `dateOfBirth-child-${index}`,
@@ -2790,9 +2856,9 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
 
   if (
     respondent.personalDetails.isDateOfBirthUnknown === '' &&
-    _.isEmpty(respondent.personalDetails.dateOfBirth?.day) &&
-    _.isEmpty(respondent.personalDetails.dateOfBirth?.month) &&
-    _.isEmpty(respondent.personalDetails.dateOfBirth?.year)
+    (_.isEmpty(respondent.personalDetails.dateOfBirth?.day) ||
+      _.isEmpty(respondent.personalDetails.dateOfBirth?.month) ||
+      _.isEmpty(respondent.personalDetails.dateOfBirth?.year))
   ) {
     error.push({
       propertyName: `dateOfBirth-respondent-${index}`,
@@ -2812,7 +2878,7 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
 
   if (
     _.isEmpty(respondent.contactDetails) ||
-    (respondent.contactDetails.donKnowEmailAddress === YesOrNo.NO && _.isEmpty(respondent.contactDetails.emailAddress))
+    (respondent.contactDetails.donKnowEmailAddress !== YesOrNo.YES && _.isEmpty(respondent.contactDetails.emailAddress))
   ) {
     error.push({
       propertyName: `personalDetails-respondent-email-${index}`,
@@ -2820,13 +2886,36 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
     });
   }
   if (
+    !_.isEmpty(respondent.contactDetails) &&
+    respondent.contactDetails.donKnowEmailAddress !== YesOrNo.YES &&
+    !_.isEmpty(respondent.contactDetails.emailAddress) &&
+    isEmailValid(respondent.contactDetails.emailAddress) === 'invalid'
+  ) {
+    error.push({
+      propertyName: `personalDetails-respondent-email-${index}`,
+      errorType: 'invalid',
+    });
+  }
+
+  if (
     _.isEmpty(respondent.contactDetails) ||
-    (respondent.contactDetails.donKnowTelephoneNumber === YesOrNo.NO &&
+    (respondent.contactDetails.donKnowTelephoneNumber !== YesOrNo.YES &&
       _.isEmpty(respondent.contactDetails.telephoneNumber))
   ) {
     error.push({
       propertyName: `personalDetails-respondent-phone-${index}`,
       errorType: 'required',
+    });
+  }
+  if (
+    !_.isEmpty(respondent.contactDetails) &&
+    respondent.contactDetails.donKnowTelephoneNumber !== YesOrNo.YES &&
+    !_.isEmpty(respondent.contactDetails.telephoneNumber) &&
+    isPhoneNoValid(respondent.contactDetails.telephoneNumber) === 'invalid'
+  ) {
+    error.push({
+      propertyName: `personalDetails-respondent-phone-${index}`,
+      errorType: 'invalid',
     });
   }
 
@@ -2849,7 +2938,7 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
 
 export const generateOtherChildrenError = (otherchildren: otherchild, index: number) => {
   const error: { propertyName: string; errorType: string }[] = [];
-  if (_.isEmpty(otherchildren.firstName) && _.isEmpty(otherchildren.lastName)) {
+  if (_.isEmpty(otherchildren.firstName) || _.isEmpty(otherchildren.lastName)) {
     error.push({
       propertyName: `fullName-otherChild-${index}`,
       errorType: 'required',
@@ -2870,9 +2959,9 @@ export const generateOtherChildrenError = (otherchildren: otherchild, index: num
 
   if (
     !otherchildren.personalDetails.isDateOfBirthUnknown &&
-    _.isEmpty(otherchildren.personalDetails.dateOfBirth?.day) &&
-    _.isEmpty(otherchildren.personalDetails.dateOfBirth?.month) &&
-    _.isEmpty(otherchildren.personalDetails.dateOfBirth?.year)
+    (_.isEmpty(otherchildren.personalDetails.dateOfBirth?.day) ||
+      _.isEmpty(otherchildren.personalDetails.dateOfBirth?.month) ||
+      _.isEmpty(otherchildren.personalDetails.dateOfBirth?.year))
   ) {
     error.push({
       propertyName: `dateOfBirth-otherChild-${index}`,
@@ -2907,7 +2996,7 @@ export const generateOtherPersonErrors = (
   isAnyChildliveWithOtherPerson: boolean
 ) => {
   const error: { propertyName: string; errorType: string }[] = [];
-  if (_.isEmpty(otherperson.firstName) && _.isEmpty(otherperson.lastName)) {
+  if (_.isEmpty(otherperson.firstName) || _.isEmpty(otherperson.lastName)) {
     error.push({
       propertyName: `fullName-otherPerson-${index}`,
       errorType: 'required',
@@ -2956,9 +3045,9 @@ export const generateOtherPersonErrors = (
 
   if (
     otherperson.personalDetails.isDateOfBirthUnknown === '' &&
-    _.isEmpty(otherperson.personalDetails.dateOfBirth?.day) &&
-    _.isEmpty(otherperson.personalDetails.dateOfBirth?.month) &&
-    _.isEmpty(otherperson.personalDetails.dateOfBirth?.year)
+    (_.isEmpty(otherperson.personalDetails.dateOfBirth?.day) ||
+      _.isEmpty(otherperson.personalDetails.dateOfBirth?.month) ||
+      _.isEmpty(otherperson.personalDetails.dateOfBirth?.year))
   ) {
     error.push({
       propertyName: `dateOfBirth-otherPerson-${index}`,
@@ -3090,6 +3179,7 @@ export const generateRelationshipErrors = (
             i =>
               !!(
                 i.childId === child.id &&
+                i.relationshipType &&
                 i.relationshipType === RelationshipType.OTHER &&
                 _.isEmpty(i.otherRelationshipTypeDetails)
               )
@@ -3105,6 +3195,7 @@ export const generateRelationshipErrors = (
             i =>
               !!(
                 i.childId === child.id &&
+                i.relationshipType &&
                 i.relationshipType === RelationshipType.OTHER &&
                 _.isEmpty(i.otherRelationshipTypeDetails)
               )

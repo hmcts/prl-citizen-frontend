@@ -88,6 +88,10 @@ export default class CheckYourAnswersGetController extends GetController {
       const missingObject = mandetoryFieldname.filter(value => {
         if (value.includes('miam_domesticAbuse_')) {
           return !req.session.userCase[value].some(subSubField => !_.isEmpty(subSubField));
+        } else if (value.includes('too_stopOtherPeopleDoingSomethingSubField')) {
+          return !req.session.userCase.too_stopOtherPeopleDoingSomethingSubField?.some(
+            subField => !_.isEmpty(subField)
+          );
         }
         return _.isEmpty(req.session.userCase[value]);
       });
@@ -257,6 +261,10 @@ const prepareProp = (property: string): string => {
     case 'hu_otherRiskDetails':
     case 'hu_timeOfHearingDetails':
       return 'hu_urgentHearingReasons';
+
+    case 'too_stopOtherPeopleDoingSomethingSubField':
+    case 'too_resolveSpecificIssueSubField':
+      return 'too_courtOrder';
 
     case 'hwn_reasonsForApplicationWithoutNotice':
     case 'hwn_doYouNeedAWithoutNoticeHearing':

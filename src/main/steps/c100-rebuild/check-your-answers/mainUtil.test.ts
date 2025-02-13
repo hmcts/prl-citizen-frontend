@@ -1405,7 +1405,8 @@ describe.skip('test cases for main util', () => {
       const otherPersonConfidentialitySections = otherPersonConfidentiality(
         { sectionTitles, keys, content },
         userCase,
-        'en'
+        'en',
+        ['7483640e-0817-4ddc-b709-6723f7925474']
       );
       expect(otherPersonConfidentialitySections?.rows).toStrictEqual([
         {

@@ -358,9 +358,7 @@ const isHWFValid = (caseData: CaseWithId) => {
   return (
     caseData.hwf_needHelpWithFees !== undefined &&
     (caseData.hwf_needHelpWithFees === YesOrNo.NO ||
-      (caseData.hwf_feesAppliedDetails !== undefined &&
-        caseData.hwf_feesAppliedDetails === YesOrNo.YES &&
-        caseData.helpWithFeesReferenceNumber !== undefined))
+      (caseData.hwf_feesAppliedDetails !== undefined && caseData.helpWithFeesReferenceNumber !== undefined))
   );
 };
 
