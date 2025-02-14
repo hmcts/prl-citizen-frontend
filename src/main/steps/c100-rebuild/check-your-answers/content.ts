@@ -984,7 +984,7 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, lan
     ...commonSectionsForContentLoader(contentLanguage, userCase, language).MIAM_ALL,
   ];
 
-  if (userCase.miam_attendance === YesOrNo.NO) {
+  if (userCase.miam_validReason === YesOrNo.YES && userCase.miam_attendance === YesOrNo.NO) {
     flow4Sections.push(MiamExemption(newContents, userCase, language));
   }
 
