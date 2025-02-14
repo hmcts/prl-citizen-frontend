@@ -1,4 +1,7 @@
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../../app/case/case';
+import { C1AAbuseTypes } from '../../../../../app/case/definition';
 
 export const SafetyConcernsFieldsConfig = {
   section: 'safetyConcerns',
@@ -42,23 +45,36 @@ export const SafetyConcernsFieldsConfig = {
     {
       fieldName: 'c1A_safteyConcerns',
       fieldType: 'object',
+      expression: (caseData: CaseWithId): { isMandatory: boolean } => {
+        const childSafetyConcerns = caseData?.c1A_concernAboutChild || [];
+        let isMandatory = false;
+
+        if (childSafetyConcerns.length >= 1 && childSafetyConcerns[0] !== 'abduction') {
+          isMandatory = childSafetyConcerns
+            .filter(concern => concern !== 'abduction')
+            .some(concern => {
+              const safetyConern = caseData?.c1A_safteyConcerns?.child?.[concern];
+
+              return !_.isEmpty(safetyConern) && !_.isEmpty(safetyConern.childrenConcernedAbout);
+            });
+        }
+
+        return {
+          isMandatory,
+        };
+      },
       mandatory_if: {
+        fieldName: 'c1A_concernAboutChild',
+        fieldType: 'array',
         expression: (caseData: CaseWithId): { isMandatory: boolean } => {
-          const childSafetyConcerns = caseData?.c1A_concernAboutChild || [];
-          let isMandatory = false;
-
-          if (childSafetyConcerns.length >= 1 && childSafetyConcerns[0] !== 'abduction') {
-            isMandatory = childSafetyConcerns
-              .filter(concern => concern !== 'abduction')
-              .some(concern => {
-                const safetyConern = caseData?.c1A_safteyConcerns?.child?.[concern];
-
-                return !!safetyConern || !!safetyConern?.childrenConcernedAbout?.length;
-              });
-          }
-
           return {
-            isMandatory,
+            isMandatory:
+              (caseData?.c1A_concernAboutChild?.filter(
+                concern =>
+                  concern !== C1AAbuseTypes.ABDUCTION &&
+                  concern !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
+                  concern !== C1AAbuseTypes.SOMETHING_ELSE
+              ).length ?? 0) > 0,
           };
         },
       },
