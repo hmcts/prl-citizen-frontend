@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { areOtherProceedingsValid } from '../../util';
+import { areOtherProceedingsInvalid } from '../../util';
 
 export const OtherProceedingsFieldsConfig = {
   section: 'otherProceedings',
@@ -45,7 +45,7 @@ export const OtherProceedingsFieldsConfig = {
             fieldName: 'op_otherProceedings',
             expression: (caseData: CaseWithId): { isMandatory: boolean } => {
               return {
-                isMandatory: areOtherProceedingsValid(caseData),
+                isMandatory: areOtherProceedingsInvalid(caseData),
               };
             },
           },

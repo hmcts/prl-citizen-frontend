@@ -338,7 +338,7 @@ const isChildValid = (child: ChildrenDetails): boolean => {
   );
 };
 
-export const areChildPersonalDetailsValid = (child: ChildrenDetails | OtherChildrenDetails): boolean => {
+const areChildPersonalDetailsValid = (child: ChildrenDetails | OtherChildrenDetails): boolean => {
   return (
     !_.isEmpty(child.personalDetails) &&
     (child.personalDetails.isDateOfBirthUnknown && child.personalDetails.isDateOfBirthUnknown === YesNoEmpty.NO
@@ -351,6 +351,7 @@ export const areChildPersonalDetailsValid = (child: ChildrenDetails | OtherChild
 const isOtherChildValid = (child: OtherChildrenDetails): boolean => {
   return !_.isEmpty(child.firstName) && !_.isEmpty(child.lastName) && areChildPersonalDetailsValid(child);
 };
+
 export const isPermissionWhyCompleted = (caseData: CaseWithId): boolean => {
   return (
     caseData?.sq_writtenAgreement === YesOrNo.NO &&
@@ -406,7 +407,7 @@ export const areOtherPeopleValid = (caseData: CaseWithId): boolean => {
   );
 };
 
-export const areOtherProceedingsValid = (caseData: CaseWithId): boolean => {
+export const areOtherProceedingsInvalid = (caseData: CaseWithId): boolean => {
   const orders = caseData?.op_otherProceedings?.order ? Object.keys(caseData.op_otherProceedings.order) : [];
 
   return caseData?.op_courtProceedingsOrders?.length && orders.length
