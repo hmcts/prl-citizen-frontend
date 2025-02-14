@@ -7,6 +7,7 @@ import {
   Miam_previousAttendance,
 } from '../../../../../app/case/case';
 import { MiamNonAttendReason, YesOrNo } from '../../../../../app/case/definition';
+import { isMiamDomesticAbuseValid } from '../../util';
 
 export const MiamQuestionsFieldsConfig = {
   section: 'miam',
@@ -71,15 +72,7 @@ export const MiamQuestionsFieldsConfig = {
       fieldType: 'array',
       expression: (caseData: CaseWithId): { isMandatory: boolean } => {
         return {
-          isMandatory:
-            caseData.miam_domesticAbuse?.every(subField => {
-              if (_.isArray(caseData[`miam_domesticAbuse_${subField}_subfields`])) {
-                return caseData[`miam_domesticAbuse_${subField}_subfields`].some(
-                  subSubField => !_.isEmpty(subSubField)
-                );
-              }
-              return !_.isEmpty(subField);
-            }) ?? true,
+          isMandatory: isMiamDomesticAbuseValid(caseData),
         };
       },
       mandatory_if: {

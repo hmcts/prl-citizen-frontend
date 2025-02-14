@@ -5,6 +5,7 @@ import {
   C100Applicant,
   C100FlowTypes,
   C100RebuildPartyDetails,
+  C1AAbuseTypes,
   ChildrenDetails,
   Gender,
   OtherChildrenDetails,
@@ -14,6 +15,7 @@ import {
   YesOrNo,
 } from '../../../app/case/definition';
 import { isEmailValid, isPhoneNoValid } from '../../../app/form/validation';
+import { doesAnyChildLiveWithOtherPerson } from '../other-person-details/utils';
 import { getC100FlowType } from '../utils';
 
 import { FieldConfig, FieldsConfig, MandatoryFieldsConfig } from './definitions';
@@ -239,7 +241,7 @@ export const getAllMandatoryFieldsWithoutPeopleSection = (caseData: CaseWithId):
   return mandatoryFields;
 };
 
-export const isApplicantValid = (applicant: C100Applicant): boolean => {
+const isApplicantValid = (applicant: C100Applicant, children: ChildrenDetails[]): boolean => {
   return (
     !_.isEmpty(applicant.applicantFirstName) &&
     !_.isEmpty(applicant.applicantLastName) &&
@@ -280,11 +282,16 @@ export const isApplicantValid = (applicant: C100Applicant): boolean => {
       : !_.isEmpty(applicant.applicantContactDetail.canNotProvideTelephoneNumberReason)) &&
     !_.isEmpty(applicant.applicantContactDetail.canLeaveVoiceMail) &&
     !_.isEmpty(applicant.applicantContactDetail.applicantContactPreferences) &&
-    !_.isEmpty(applicant.relationshipDetails?.relationshipToChildren)
+    !_.isEmpty(applicant.relationshipDetails?.relationshipToChildren) &&
+    applicant.relationshipDetails?.relationshipToChildren.length === children.length
   );
 };
 
-export const isRespondentValid = (respondent: C100RebuildPartyDetails, partyType: PartyType): boolean => {
+const isRespondentValid = (
+  respondent: C100RebuildPartyDetails,
+  partyType: PartyType,
+  children: ChildrenDetails[]
+): boolean => {
   return (
     //check
     !_.isEmpty(respondent.firstName) &&
@@ -299,6 +306,7 @@ export const isRespondentValid = (respondent: C100RebuildPartyDetails, partyType
       : !_.isEmpty(respondent.personalDetails.dateOfBirth)) &&
     !_.isEmpty(respondent.personalDetails.gender) &&
     !_.isEmpty(respondent.relationshipDetails?.relationshipToChildren) &&
+    respondent.relationshipDetails?.relationshipToChildren.length === children.length &&
     !_.isEmpty(respondent.address) &&
     (partyType === PartyType.RESPONDENT ? !_.isEmpty(respondent.address.addressHistory) : true) &&
     (respondent.addressUnknown === undefined
@@ -318,7 +326,7 @@ export const isRespondentValid = (respondent: C100RebuildPartyDetails, partyType
   );
 };
 
-export const isChildValid = (child: ChildrenDetails): boolean => {
+const isChildValid = (child: ChildrenDetails): boolean => {
   return (
     !_.isEmpty(child.firstName) &&
     !_.isEmpty(child.lastName) &&
@@ -340,6 +348,111 @@ export const areChildPersonalDetailsValid = (child: ChildrenDetails | OtherChild
   );
 };
 
-export const isOtherChildValid = (child: OtherChildrenDetails): boolean => {
+const isOtherChildValid = (child: OtherChildrenDetails): boolean => {
   return !_.isEmpty(child.firstName) && !_.isEmpty(child.lastName) && areChildPersonalDetailsValid(child);
+};
+export const isPermissionWhyCompleted = (caseData: CaseWithId): boolean => {
+  return (
+    caseData?.sq_writtenAgreement === YesOrNo.NO &&
+    !_.isEmpty(caseData?.sq_courtPermissionRequired) &&
+    (_.isEmpty(caseData?.sq_permissionsWhy) ||
+      (caseData?.sq_permissionsWhy?.every(subField => !_.isEmpty(caseData[`sq_${subField}_subfield`])) ?? true))
+  );
+};
+
+export const isPermissionWhyMandatory = (caseData: CaseWithId): boolean => {
+  return (
+    caseData?.sq_writtenAgreement === YesOrNo.NO &&
+    !_.isEmpty(caseData?.sq_courtPermissionRequired) &&
+    !_.isEmpty(caseData?.sq_permissionsWhy)
+  );
+};
+
+export const areChildrenValid = (caseData: CaseWithId): boolean => {
+  return !!(
+    caseData?.cd_children?.every(child => isChildValid(child)) &&
+    caseData?.cd_childrenKnownToSocialServices &&
+    caseData?.cd_childrenSubjectOfProtectionPlan &&
+    (caseData?.cd_childrenKnownToSocialServices === YesOrNo.YES
+      ? !_.isEmpty(caseData.cd_childrenKnownToSocialServicesDetails)
+      : true)
+  );
+};
+
+export const areOtherChildrenValid = (caseData: CaseWithId): boolean =>
+  caseData.ocd_otherChildren?.every(child => isOtherChildValid(child)) ?? false;
+
+export const areApplicantsValid = (caseData: CaseWithId): boolean =>
+  caseData?.appl_allApplicants?.every(applicant => isApplicantValid(applicant, caseData.cd_children ?? [])) ?? false;
+
+export const areRespondentsValid = (caseData: CaseWithId): boolean =>
+  caseData?.resp_Respondents?.every(respondent =>
+    isRespondentValid(respondent, PartyType.RESPONDENT, caseData.cd_children ?? [])
+  ) ?? false;
+
+export const areOtherPeopleValid = (caseData: CaseWithId): boolean => {
+  return (
+    caseData?.oprs_otherPersons?.every(
+      respondent =>
+        isRespondentValid(respondent, PartyType.OTHER_PERSON, caseData.cd_children ?? []) &&
+        !_.isEmpty(respondent.liveInRefuge) &&
+        (respondent.liveInRefuge === YesOrNo.YES ? !_.isEmpty(respondent.refugeConfidentialityC8Form) : true) &&
+        !caseData.oprs_otherPersons?.find(
+          otherPerson =>
+            doesAnyChildLiveWithOtherPerson(caseData as CaseWithId, otherPerson.id) &&
+            _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
+        )
+    ) ?? false
+  );
+};
+
+export const areOtherProceedingsValid = (caseData: CaseWithId): boolean => {
+  const orders = caseData?.op_otherProceedings?.order ? Object.keys(caseData.op_otherProceedings.order) : [];
+
+  return caseData?.op_courtProceedingsOrders?.length && orders.length
+    ? orders.some(order =>
+        caseData.op_otherProceedings?.order?.[order].some(
+          orderItem => orderItem?.orderCopy === 'Yes' && !orderItem?.orderDocument?.filename
+        )
+      )
+    : false;
+};
+
+export const isMiamDomesticAbuseValid = (caseData: CaseWithId): boolean => {
+  return (
+    caseData.miam_domesticAbuse?.every(subField => {
+      if (_.isArray(caseData[`miam_domesticAbuse_${subField}_subfields`])) {
+        return caseData[`miam_domesticAbuse_${subField}_subfields`].some(subSubField => !_.isEmpty(subSubField));
+      }
+      return !_.isEmpty(subField);
+    }) ?? true
+  );
+};
+
+export const areSafetyConcernsValid = (caseData: CaseWithId): boolean => {
+  const childSafetyConcerns = caseData?.c1A_concernAboutChild || [];
+  let isMandatory = false;
+
+  if (childSafetyConcerns.length >= 1 && childSafetyConcerns[0] !== 'abduction') {
+    isMandatory = childSafetyConcerns
+      .filter(concern => concern !== 'abduction')
+      .every(concern => {
+        const safetyConern = caseData?.c1A_safteyConcerns?.child?.[concern];
+
+        return !_.isEmpty(safetyConern) && !_.isEmpty(safetyConern.childrenConcernedAbout);
+      });
+  }
+
+  return isMandatory;
+};
+
+export const isSafetyConcernsMandatory = (caseData: CaseWithId): boolean => {
+  return (
+    (caseData?.c1A_concernAboutChild?.filter(
+      concern =>
+        concern !== C1AAbuseTypes.ABDUCTION &&
+        concern !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
+        concern !== C1AAbuseTypes.SOMETHING_ELSE
+    ).length ?? 0) > 0
+  );
 };

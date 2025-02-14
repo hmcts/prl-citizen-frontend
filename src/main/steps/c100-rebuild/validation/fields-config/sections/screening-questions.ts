@@ -1,7 +1,5 @@
-import _ from 'lodash';
-
 import { CaseWithId } from '../../../../../app/case/case';
-import { YesOrNo } from '../../../../../app/case/definition';
+import { isPermissionWhyCompleted, isPermissionWhyMandatory } from '../../util';
 
 export const ScreeningQuestionsFieldsConfig = {
   section: 'screeningQuestions',
@@ -42,12 +40,7 @@ export const ScreeningQuestionsFieldsConfig = {
       fieldType: 'array',
       expression: (caseData: CaseWithId): { isMandatory: boolean } => {
         return {
-          isMandatory:
-            caseData?.sq_writtenAgreement === YesOrNo.NO &&
-            !_.isEmpty(caseData?.sq_courtPermissionRequired) &&
-            (_.isEmpty(caseData?.sq_permissionsWhy) ||
-              (caseData?.sq_permissionsWhy?.every(subField => !_.isEmpty(caseData[`sq_${subField}_subfield`])) ??
-                true)),
+          isMandatory: isPermissionWhyCompleted(caseData),
         };
       },
       mandatory_if: {
@@ -55,10 +48,7 @@ export const ScreeningQuestionsFieldsConfig = {
         fieldType: 'array',
         expression: (caseData: CaseWithId): { isMandatory: boolean } => {
           return {
-            isMandatory:
-              caseData?.sq_writtenAgreement === YesOrNo.NO &&
-              !_.isEmpty(caseData?.sq_courtPermissionRequired) &&
-              !_.isEmpty(caseData?.sq_permissionsWhy),
+            isMandatory: isPermissionWhyMandatory(caseData),
           };
         },
       },

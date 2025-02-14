@@ -1,4 +1,5 @@
 import { CaseWithId } from '../../../../../app/case/case';
+import { areOtherProceedingsValid } from '../../util';
 
 export const OtherProceedingsFieldsConfig = {
   section: 'otherProceedings',
@@ -43,19 +44,8 @@ export const OtherProceedingsFieldsConfig = {
           {
             fieldName: 'op_otherProceedings',
             expression: (caseData: CaseWithId): { isMandatory: boolean } => {
-              const orders = caseData?.op_otherProceedings?.order
-                ? Object.keys(caseData.op_otherProceedings.order)
-                : [];
-
               return {
-                isMandatory:
-                  caseData?.op_courtProceedingsOrders?.length && orders.length
-                    ? orders.some(order =>
-                        caseData.op_otherProceedings?.order?.[order].some(
-                          orderItem => orderItem?.orderCopy === 'Yes' && !orderItem?.orderDocument?.filename
-                        )
-                      )
-                    : false,
+                isMandatory: areOtherProceedingsValid(caseData),
               };
             },
           },
