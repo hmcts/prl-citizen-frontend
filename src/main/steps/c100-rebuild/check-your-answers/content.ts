@@ -1132,9 +1132,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content, newContents);
   const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(content.userCase! as CaseWithId);
   const isAllFieldsFilled = isAllMandatoryFieldsFilled(mandatoryFields, content.userCase! as CaseWithId);
-  // const mandetoryFieldname: string[] = [];
-  // mandatoryFields.forEach(field => mandetoryFieldname.push(field.fieldName));
-  // const missingObject = mandetoryFieldname.find(value => _.isEmpty(content.userCase?.[value]));
   form.fields['statementOftruthHeading'] = {
     type: 'textAndHtml',
     textAndHtml: `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${newContents.StatementOfTruth['title']} ${HTML.H2_CLOSE}`,
@@ -1229,8 +1226,6 @@ export const generateContent: TranslationFn = content => {
   });
 
   content.userCase?.resp_Respondents?.forEach((applicant, index) => {
-    // if(applicant?.relationshipDetails?.relationshipToChildren){
-    // applicant?.relationshipDetails?.relationshipToChildren.forEach((relation)=>{
     content.userCase?.cd_children?.forEach((child, index1) => {
       errors[`relationshipTo-respondent-${index}-${index1}`] = translations.errors.relationshipType;
     });
@@ -1263,8 +1258,6 @@ export const generateContent: TranslationFn = content => {
   }
 
   content.userCase?.oprs_otherPersons?.forEach((applicant, index) => {
-    // if(applicant?.relationshipDetails?.relationshipToChildren){
-    // applicant?.relationshipDetails?.relationshipToChildren.forEach((relation)=>{
     content.userCase?.cd_children?.forEach((child, index1) => {
       errors[`relationshipTo-otherPerson-${index}-${index1}`] = translations.errors.relationshipType;
     });

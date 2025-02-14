@@ -22,7 +22,6 @@ import {
   YesNoEmpty,
   YesOrNo,
   OtherChildrenDetails as otherchild,
-  //State,
 } from '../../../app/case/definition';
 import { FormError } from '../../../app/form/Form';
 import { isEmailValid, isPhoneNoValid } from '../../../app/form/validation';
@@ -226,7 +225,7 @@ export const TypeOfOrder = (
       key: keys['whatAreYouAsking'],
       value: '',
       anchorReference: 'too_courtOrder',
-      valueHtml: courtTypeOfOrderHelper(userCase, keys, 'too_courtOrder', language), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
+      valueHtml: courtTypeOfOrderHelper(userCase, keys, 'too_courtOrder', language),
       changeUrl: Urls['C100_TYPE_ORDER_SELECT_COURT_ORDER'],
     },
     {
@@ -252,14 +251,14 @@ export const WithoutNoticeHearing = (
     {
       key: keys['qualifyForUrgentHearing'],
       anchorReference: 'hu_urgentHearingReasons',
-      valueHtml: hearingDetailsQualifyForFirstHearingHelper(userCase, keys, 'hu_urgentHearingReasons', language), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
+      valueHtml: hearingDetailsQualifyForFirstHearingHelper(userCase, keys, 'hu_urgentHearingReasons', language),
       changeUrl: Urls['C100_HEARING_URGENCY_URGENT'],
     },
     {
       key: keys['askingNoHearing'],
       anchorReference: 'hwn_reasonsForApplicationWithoutNotice',
-      value: getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation'), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
-      valueHtml: hearingDetailsHelper(userCase, keys, 'hwn_reasonsForApplicationWithoutNotice', language), //:HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError',language) + HTML.SPAN_CLOSE,
+      value: getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation'),
+      valueHtml: hearingDetailsHelper(userCase, keys, 'hwn_reasonsForApplicationWithoutNotice', language),
       changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
     },
   ];
@@ -639,7 +638,7 @@ export const ApplicantDetails = (
           getYesNoTranslation(language, sessionApplicantData[applicant][key], 'ydwTranslation') +
             HTML.DESCRIPTION_TERM_DETAIL_END +
             HTML.ROW_END,
-          language // check this
+          language
         );
       if (sessionApplicantData[applicant][keyArray].length > 0) {
         html +=
@@ -750,28 +749,6 @@ export const ApplicantDetails = (
 
     const relationShipToChildren = sessionApplicantData[applicant]['relationshipDetails']?.['relationshipToChildren'];
     const id = sessionApplicantData[applicant]['id'];
-    // relationShipToChildren.forEach((element,index) => {
-    //   const childDetails = userCase?.['cd_children']?.filter(child => child.id === element['childId'])[0];
-    //   const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
-    //   newApplicantData.push({
-    //     key: keys['relationshipTo'] + ' ' + childFullName,
-    //     visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${
-    //       keys['relationshipTo'] + ' ' + childFullName
-    //     }`,
-    //     anchorReference: `relationshipTo-applicant-${applicant}-${index}`,
-    //     value: translation(element['relationshipType'], language),
-    //     valueHtml:
-    //       element['relationshipType'] === 'Other'
-    //         ? element['otherRelationshipTypeDetails']
-    //         : populateError(element['relationshipType'], translation(element['relationshipType'], language), language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
-    //     changeUrl: applyParms(Urls['C100_APPLICANT_RELATIONSHIP_TO_CHILD'], {
-    //       applicantId: id,
-    //       childId: element['childId'],
-    //     }),
-    //   });
-    // })
-
-    // const childdetails=
     genarateRelationshipWithChild(
       userCase,
       relationShipToChildren,
@@ -966,12 +943,11 @@ export const MiamExemption = (
   userCase: Partial<CaseWithId>,
   language: string
 ): SummaryList | undefined => {
-  const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys, language); //
+  const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys, language);
   const SummaryData = [
     {
       key: keys['generalReasonTitle'],
       anchorReference: 'miam_nonAttendanceReasons',
-      // valueHtml: populateError( validReasonForNotAttendingMiam['listOfReasons'],  validReasonForNotAttendingMiam['listOfReasons'], language),
       valueHtml: populateError(
         validReasonForNotAttendingMiam['listOfReasons'],
         validReasonForNotAttendingMiam['listOfReasons'],
@@ -979,7 +955,7 @@ export const MiamExemption = (
       ),
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },
-    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language), //
+    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language),
   ];
   return {
     title: '',
@@ -1648,7 +1624,7 @@ export const RespondentDetails = (
     const firstname = sessionRespondentData[respondent]['firstName'],
       lastname = sessionRespondentData[respondent]['lastName'],
       id = sessionRespondentData[respondent]['id'],
-      personalDetails = sessionRespondentData[respondent]['personalDetails']; //personalDetails
+      personalDetails = sessionRespondentData[respondent]['personalDetails'];
     const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
     const respondentNo = Number(respondent) + 1;
     const contactDetails = sessionRespondentData[respondent]['contactDetails'];
@@ -1680,7 +1656,7 @@ export const RespondentDetails = (
           changeNameInformation?.[0],
           changeNameInformation?.[0]?.toUpperCase() + changeNameInformation.slice(1),
           language
-        ), //error needed?
+        ),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       },
       {
@@ -1688,7 +1664,6 @@ export const RespondentDetails = (
         visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
         anchorReference: `childGenderLabel-respondent-${respondent}`,
         valueHtml: populateError(childGender, childGender, language),
-        // valueHtml: childGender,
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       }
     );
@@ -1699,7 +1674,6 @@ export const RespondentDetails = (
           key: keys['approxCheckboxLabel'],
           visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['approxCheckboxLabel']}`,
           anchorReference: `isDateOfBirthUnknown-respondent-${respondent}`,
-          // value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
           valueHtml: populateError(
             personalDetails['isDateOfBirthUnknown'],
             getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
@@ -1716,7 +1690,6 @@ export const RespondentDetails = (
             C100_CYA_DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
             language
           ),
-          // value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
         }
       );
@@ -1730,7 +1703,6 @@ export const RespondentDetails = (
           C100_CYA_DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
           language
         ),
-        // value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
       });
     }
@@ -1765,28 +1737,7 @@ export const RespondentDetails = (
       });
     }
     const relationShipToChildren = sessionRespondentData[respondent]['relationshipDetails']?.['relationshipToChildren'];
-    // relationShipToChildren.forEach(element => {
 
-    //   const childDetails = userCase?.['cd_children']?.filter(child => child.id === element['childId'])[0];
-    //   const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
-    //   newRespondentStorage.push({
-    //     key: keys['relationshipTo'] + ' ' + childFullName,
-    //     visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${
-    //       keys['relationshipTo'] + ' ' + childFullName
-    //     }`,
-    //     anchorReference: `relationshipTo-respondent-${respondent}`,
-    //     value: translation(element['relationshipType'], language),
-    //     valueHtml:
-    //       element['relationshipType'] === 'Other'
-    //         ? element['otherRelationshipTypeDetails']
-    //         : translation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
-    //     changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD'], {
-    //       respondentId: id,
-    //       childId: element['childId'],
-    //     }),
-    //   });
-    // });
-    //section 1 insertion
     genarateRelationshipWithChild(
       userCase,
       relationShipToChildren,
@@ -1858,7 +1809,7 @@ export const OtherPeopleDetails = (
       const firstname = sessionOtherPeopleData[respondent]['firstName'],
         lastname = sessionOtherPeopleData[respondent]['lastName'],
         id = sessionOtherPeopleData[respondent]['id'],
-        personalDetails = sessionOtherPeopleData[respondent]['personalDetails']; //personalDetails
+        personalDetails = sessionOtherPeopleData[respondent]['personalDetails'];
       const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
       const OtherRespondentNo = Number(respondent) + 1;
 
@@ -1887,7 +1838,6 @@ export const OtherPeopleDetails = (
           visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['hasNameChanged']}`,
           anchorReference: `hasNameChanged-otherPerson-${respondent}`,
           valueHtml: populateError(changeNameInformation, changeNameInformation, language),
-          // valueHtml: changeNameInformation,
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
         },
         {
@@ -1895,7 +1845,6 @@ export const OtherPeopleDetails = (
           visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
           anchorReference: `otherGenderDetails-otherPerson-${respondent}`,
           valueHtml: populateError(childGender, childGender, language),
-          // valueHtml: childGender,
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
         }
       );
@@ -1911,7 +1860,6 @@ export const OtherPeopleDetails = (
               getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
               language
             ),
-            // value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
             changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
           },
           {
@@ -1923,7 +1871,6 @@ export const OtherPeopleDetails = (
               C100_CYA_DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
               language
             ),
-            // value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
             changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
           }
         );
@@ -1937,33 +1884,12 @@ export const OtherPeopleDetails = (
             C100_CYA_DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
             language
           ),
-          // value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
         });
       }
 
       const relationShipToChildren =
         sessionOtherPeopleData[respondent]['relationshipDetails']?.['relationshipToChildren'];
-      // relationShipToChildren?.forEach(element => {
-      //   const childDetails = userCase?.['cd_children']?.filter(child => child.id === element['childId'])[0];
-      //   const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
-      //   newOtherPeopleStorage.push({
-      //     key: keys['relationshipTo'] + ' ' + childFullName,
-      //     visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
-      //       keys['relationshipTo'] + ' ' + childFullName
-      //     }`,
-      //     anchorReference: `relationshipTo-otherPerson-${respondent}`,
-      //     value: translation(element['relationshipType'], language),
-      //     valueHtml:
-      //       element['relationshipType'] === 'Other'
-      //         ? element['otherRelationshipTypeDetails']
-      //         : translation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
-      //     changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD'], {
-      //       otherPersonId: id,
-      //       childId: element['childId'],
-      //     }),
-      //   });
-      // });
       genarateRelationshipWithChild(
         userCase,
         relationShipToChildren,
@@ -2231,7 +2157,7 @@ export const reasonableAdjustment = (
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS, { root: RARootContext.C100_REBUILD }),
     },
     {
-      key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
+      key: keys['disabilityRequirementHeading'],
       anchorReference: 'ra_disabilityRequirements',
       valueHtml: populateError(
         userCase.ra_disabilityRequirements,
@@ -2259,10 +2185,6 @@ export const reasonableAdjustment = (
                 HTML.UNORDER_LIST_END,
               language
             ),
-            // valueHtml:
-            //   HTML.UNORDER_LIST +
-            //   resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation', language) +
-            //   HTML.UNORDER_LIST_END,
             changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, { root: RARootContext.C100_REBUILD }),
           });
           break;
@@ -2278,9 +2200,6 @@ export const reasonableAdjustment = (
                 HTML.UNORDER_LIST_END,
               language
             ),
-            // HTML.UNORDER_LIST +
-            // resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp', language) +
-            // HTML.UNORDER_LIST_END,
             changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, { root: RARootContext.C100_REBUILD }),
           });
           break;
@@ -2296,10 +2215,6 @@ export const reasonableAdjustment = (
                 HTML.UNORDER_LIST_END,
               language
             ),
-            // valueHtml:
-            //   HTML.UNORDER_LIST +
-            //   resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt', language) +
-            //   HTML.UNORDER_LIST_END,
             changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, {
               root: RARootContext.C100_REBUILD,
             }),
@@ -2317,10 +2232,6 @@ export const reasonableAdjustment = (
                 HTML.UNORDER_LIST_END,
               language
             ),
-            // valueHtml:
-            //   HTML.UNORDER_LIST +
-            //   resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable', language) +
-            //   HTML.UNORDER_LIST_END,
             changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING, { root: RARootContext.C100_REBUILD }),
           });
           break;
@@ -2336,10 +2247,6 @@ export const reasonableAdjustment = (
                 HTML.UNORDER_LIST_END,
               language
             ),
-            // valueHtml:
-            //   HTML.UNORDER_LIST +
-            //   resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt', language) +
-            //   HTML.UNORDER_LIST_END,
             changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: RARootContext.C100_REBUILD }),
           });
           break;
@@ -2547,16 +2454,6 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     });
   }
 
-  // if (
-  //   (applicant.detailsKnown === 'Yes' && _.isEmpty(applicant.start)) ||
-  //   (applicant.detailsKnown === 'No' && _.isEmpty(applicant.startAlternative))
-  // ) {
-  //   error.push({
-  //     propertyName: `anyOtherPeopleKnowDetails-applicant-${index}`,
-  //     errorType: 'required',
-  //   });
-  // }
-
   if (!applicant.startAlternative && !applicant.start) {
     error.push({
       propertyName: `doYouWantToKeep-applicant-${index}`,
@@ -2621,19 +2518,6 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
       errorType: 'required',
     });
   }
-
-  // if (_.isEmpty(applicant.relationshipDetails?.relationshipToChildren)) {
-  ///may be fail for multiple child
-  //   if(applicant.relationshipDetails?.relationshipToChildren.length){
-  //  applicant.relationshipDetails?.relationshipToChildren.forEach(res=>{
-  //   return error.push({
-  //     propertyName: `relationshipTo-applicant-${res}-${index}`,
-  //     errorType: 'required',
-  //   });
-  // }
-  // )
-  // }
-  //relationshipTo-{partytype}-{party.index}-{child.index}
 
   if (!applicant.liveInRefuge) {
     error.push({
@@ -2727,14 +2611,6 @@ export const generateChildErrors = (child: ChildrenDetails, index: number) => {
       errorType: 'required',
     });
   }
-  //temp may be deleted
-  // if (child.personalDetails.approxDateOfBirth && _.isEmpty(child.personalDetails.isDateOfBirthUnknown)) {
-  //   error.push({
-  //     propertyName: `isDateOfBirthUnknown-${index}`,
-  //     errorType: 'required',
-  //   });
-  // }
-
   if (
     child.personalDetails.isDateOfBirthUnknown &&
     child.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES &&
@@ -2765,13 +2641,6 @@ export const generateChildErrors = (child: ChildrenDetails, index: number) => {
       errorType: 'required',
     });
   }
-  // optional
-  // else if (child.personalDetails.gender === Gender.OTHER && _.isEmpty(child.personalDetails.otherGenderDetails)) {
-  //   error.push({
-  //     propertyName: `otherGenderDetails-child-${index}`,
-  //     errorType: 'required',
-  //   });
-  // }
 
   if (_.isEmpty(child.childMatters.needsResolution)) {
     error.push({
@@ -2833,15 +2702,6 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
     });
   }
 
-  //temp may be deleted
-
-  // if (respondent.personalDetails.approxDateOfBirth && _.isEmpty(respondent.personalDetails.isDateOfBirthUnknown)
-  // ) {
-  //   error.push({
-  //     propertyName: `isDateOfBirthUnknown-respondent-${index}`,
-  //     errorType: 'required',
-  //   });
-  // }else
   if (
     respondent.personalDetails.isDateOfBirthUnknown &&
     respondent.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES &&
@@ -2976,17 +2836,6 @@ export const generateOtherChildrenError = (otherchildren: otherchild, index: num
     });
   }
 
-  // optional field
-  // if (
-  //   _.isEmpty(otherchildren.personalDetails.gender) ||
-  //   (otherchildren.personalDetails.gender === Gender.OTHER &&
-  //     _.isEmpty(otherchildren.personalDetails.otherGenderDetails))
-  // ) {
-  //   error.push({
-  //     propertyName: `otherGenderDetails-otherChild-${index}`,
-  //     errorType: 'required',
-  //   });
-  // }
   return error;
 };
 
@@ -3124,7 +2973,6 @@ const genarateRelationshipWithChild = (
       key: keys['relationshipTo'] + ' ' + childFullName,
       visuallyHiddenText: `${keyLabel} ${parseInt(partyIndex) + 1} ${keys['relationshipTo'] + ' ' + childFullName}`,
       anchorReference: `relationshipTo-${partyType}-${partyIndex}-${index}`,
-      // value: translation(relationshipDetails.relationshipType, language),
       valueHtml: !relationshipDetails
         ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
         : relationshipDetails['relationshipType'] === 'Other'
@@ -3135,7 +2983,7 @@ const genarateRelationshipWithChild = (
           )
         : relationshipDetails?.relationshipType
         ? translation(relationshipDetails['relationshipType'], language)
-        : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE, //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+        : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
       changeUrl: relationshipUrl(partyType, id, child),
     });
   });
