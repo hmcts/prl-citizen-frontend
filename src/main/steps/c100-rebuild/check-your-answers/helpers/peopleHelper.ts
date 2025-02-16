@@ -272,7 +272,7 @@ export const otherPeopleAddressParser = (sessionApplicantData, language) => {
     _.isEmpty(sessionApplicantData.PostTown) ||
     _.isEmpty(sessionApplicantData.Country)
   ) {
-    return populateError('', '', language);
+    return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
   }
 
   let html = HTML.DESCRIPTION_LIST + HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL;

@@ -1166,7 +1166,7 @@ export const generateContent: TranslationFn = content => {
     };
   }
 
-  form.submit.disabled = !isAllFieldsFilled; //change to use cya redirect application completed?
+  form.submit.disabled = !isAllFieldsFilled;
   const errors = {};
   content.userCase?.appl_allApplicants?.forEach((applicant, index) => {
     errors[`c8RefugeDocument-applicant-${index}`] = translations.errors.refugeDocumentText;

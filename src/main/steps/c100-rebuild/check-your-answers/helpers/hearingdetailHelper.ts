@@ -5,7 +5,6 @@ import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation, populateError } from '../mainUtil';
 
 export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
-  // if (userCase.hasOwnProperty(sessionKey)) {
   let html = generateStartBorderHtml(userCase, 'hwn_hearingPart1');
   html += populateError(
     userCase['hwn_hearingPart1'],
@@ -103,11 +102,9 @@ export const hearingDetailsHelper = (userCase, keys, sessionKey, language) => {
     html += HTML.ROW_END;
   }
   return html;
-  // }
 };
 
 export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessionKey, language) => {
-  //if (userCase.hasOwnProperty(sessionKey)) {
   let html = generateStartBorderHtml(userCase, 'hu_urgentHearingReasons');
   html += populateError(
     userCase['hu_urgentHearingReasons'],
@@ -153,14 +150,11 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
       HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END;
     html +=
-      // userCase['hu_timeOfHearingDetails'] !== undefined
-      //   ?
       HTML.ROW_START +
       HTML.DESCRIPTION_TERM_DETAIL +
       populateError(userCase?.['hu_timeOfHearingDetails'], userCase?.['hu_timeOfHearingDetails'], language) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
-    //: HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
     html += HTML.ROW_START_NO_BORDER;
     html +=
       HTML.DESCRIPTION_TERM_ELEMENT + keys['hearingWithNext48Hrs'] + HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
@@ -172,7 +166,6 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
         getYesNoTranslation(language, keys['hu_hearingWithNext48HrsDetails'], 'doTranslation'),
         language
       ) +
-      // getYesNoTranslation(language, userCase?.['hu_hearingWithNext48HrsDetails'], 'doTranslation') +
       HTML.DESCRIPTION_TERM_DETAIL_END +
       HTML.ROW_END;
     if (
@@ -182,14 +175,12 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
       html +=
         HTML.ROW_START_NO_BORDER +
         HTML.DESCRIPTION_TERM_ELEMENT +
-        // keys['hearingWithNext48HrsDetails'] +
         populateError(keys['hearingWithNext48HrsDetails'], keys['hearingWithNext48HrsDetails'], language) +
         HTML.DESCRIPTION_TERM_ELEMENT_END +
         HTML.ROW_END;
       html +=
         HTML.ROW_START_NO_BORDER +
         HTML.DESCRIPTION_TERM_DETAIL +
-        // userCase['hu_hearingWithNext48HrsMsg'] +
         populateError(userCase['hu_hearingWithNext48HrsMsg'], userCase['hu_hearingWithNext48HrsMsg'], language) +
         HTML.DESCRIPTION_TERM_DETAIL_END +
         HTML.ROW_END;
@@ -199,7 +190,6 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
     html += HTML.ROW_END;
   }
   return html;
-  //}
 };
 
 const generateStartBorderHtml = (userCase: CaseWithId, field: string) => {

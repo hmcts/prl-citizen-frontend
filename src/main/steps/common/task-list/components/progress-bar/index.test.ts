@@ -4,8 +4,7 @@ import { UserDetails } from '../../../../../app/controller/AppRequest';
 
 import { getProgressBarConfig } from '.';
 
-// new tests needed for new framework
-describe.skip('getProgressBarConfig', () => {
+describe('getProgressBarConfig', () => {
   test('when not started yet', () => {
     const data = {
       id: '12',
@@ -47,7 +46,7 @@ describe.skip('getProgressBarConfig', () => {
   test('when FL401 respondent', () => {
     const data = {
       id: '12',
-      state: State.CASE_DRAFT,
+      state: State.CASE_HEARING,
       caseTypeOfApplication: CaseType.FL401,
     };
     const party = PartyType.RESPONDENT;
@@ -705,6 +704,286 @@ describe.skip('getProgressBarConfig', () => {
           ariaLabel: 'Case closed stage is completed',
           label: 'Case closed',
           statusBarClassName: 'stage--completed',
+        },
+      ]);
+    });
+  });
+
+  describe('c100-case-creation progress bar', () => {
+    test('should have correct config for consent order flow', () => {
+      expect(
+        getProgressBarConfig(
+          { sq_writtenAgreement: 'Yes' } as CaseWithId,
+          PartyType.APPLICANT,
+          'en',
+          { id: '1234' } as UserDetails,
+          true
+        )
+      ).toStrictEqual([
+        {
+          ariaLabel: 'Children postcode is not yet started',
+          label: 'Children<br/>postcode',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Screening questions is completed',
+          label: 'Screening<br/>questions',
+          statusBarClassName: 'stage--completed',
+        },
+        {
+          ariaLabel: 'Type of order is not yet started',
+          label: 'Type<br/>of<br/>order',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Consent order is not yet started',
+          label: 'Consent order',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Urgency and Without notice is not yet started',
+          label: 'Urgency<br/>&<br/>Without notice',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'People is not yet started',
+          label: 'People',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Other Proceedings is not yet started',
+          label: 'Other<br/>Proceedings',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Safety concerns is not yet started',
+          label: 'Safety<br/>concerns',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'International elements is not yet started',
+          label: 'International<br/>elements',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Reasonable adjustments is not yet started',
+          label: 'Reasonable<br/>adjustments',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Help with fees is not yet started',
+          label: 'Help<br/>with<br/>fees',
+          statusBarClassName: '',
+        },
+      ]);
+    });
+
+    test('should have correct config for miam other proceedings flow', () => {
+      expect(
+        getProgressBarConfig(
+          { sq_writtenAgreement: 'No', miam_otherProceedings: 'Yes' } as CaseWithId,
+          PartyType.APPLICANT,
+          'en',
+          { id: '1234' } as UserDetails,
+          true
+        )
+      ).toStrictEqual([
+        {
+          ariaLabel: 'Children postcode is not yet started',
+          label: 'Children<br/>postcode',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Screening questions is in progress',
+          label: 'Screening<br/>questions',
+          statusBarClassName: 'stage--active',
+        },
+        {
+          ariaLabel: 'MIAM is completed',
+          label: 'MIAM',
+          statusBarClassName: 'stage--completed',
+        },
+        {
+          ariaLabel: 'Other Proceedings is not yet started',
+          label: 'Other<br/>Proceedings',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Type of order is not yet started',
+          label: 'Type<br/>of<br/>order',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Urgency and Without notice is not yet started',
+          label: 'Urgency<br/>&<br/>Without notice',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'People is not yet started',
+          label: 'People',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Safety concerns is not yet started',
+          label: 'Safety<br/>concerns',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'International elements is not yet started',
+          label: 'International<br/>elements',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Reasonable adjustments is not yet started',
+          label: 'Reasonable<br/>adjustments',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Help with fees is not yet started',
+          label: 'Help<br/>with<br/>fees',
+          statusBarClassName: '',
+        },
+      ]);
+    });
+
+    test('should have correct config for miam urgency flow', () => {
+      expect(
+        getProgressBarConfig(
+          {
+            sq_writtenAgreement: 'No',
+            miam_nonAttendanceReasons: ['urgentHearing'],
+            miam_urgency: 'freedomPhysicalSafety',
+          } as CaseWithId,
+          PartyType.APPLICANT,
+          'en',
+          { id: '1234' } as UserDetails,
+          true
+        )
+      ).toStrictEqual([
+        {
+          ariaLabel: 'Children postcode is not yet started',
+          label: 'Children<br/>postcode',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Screening questions is in progress',
+          label: 'Screening<br/>questions',
+          statusBarClassName: 'stage--active',
+        },
+        {
+          ariaLabel: 'MIAM is in progress',
+          label: 'MIAM',
+          statusBarClassName: 'stage--active',
+        },
+        {
+          ariaLabel: 'Urgency and Without notice is not yet started',
+          label: 'Urgency<br/>&<br/>Without notice',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Type of order is not yet started',
+          label: 'Type<br/>of<br/>order',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'People is not yet started',
+          label: 'People',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Other Proceedings is not yet started',
+          label: 'Other<br/>Proceedings',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Safety concerns is not yet started',
+          label: 'Safety<br/>concerns',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'International elements is not yet started',
+          label: 'International<br/>elements',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Reasonable adjustments is not yet started',
+          label: 'Reasonable<br/>adjustments',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Help with fees is not yet started',
+          label: 'Help<br/>with<br/>fees',
+          statusBarClassName: '',
+        },
+      ]);
+    });
+
+    test('should have correct config for miam default flow', () => {
+      expect(
+        getProgressBarConfig(
+          {
+            sq_writtenAgreement: 'No',
+          } as CaseWithId,
+          PartyType.APPLICANT,
+          'en',
+          { id: '1234' } as UserDetails,
+          true
+        )
+      ).toStrictEqual([
+        {
+          ariaLabel: 'Children postcode is not yet started',
+          label: 'Children<br/>postcode',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Screening questions is in progress',
+          label: 'Screening<br/>questions',
+          statusBarClassName: 'stage--active',
+        },
+        {
+          ariaLabel: 'MIAM is not yet started',
+          label: 'MIAM',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Type of order is not yet started',
+          label: 'Type<br/>of<br/>order',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Urgency and Without notice is not yet started',
+          label: 'Urgency<br/>&<br/>Without notice',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'People is not yet started',
+          label: 'People',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Other Proceedings is not yet started',
+          label: 'Other<br/>Proceedings',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Safety concerns is not yet started',
+          label: 'Safety<br/>concerns',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'International elements is not yet started',
+          label: 'International<br/>elements',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Reasonable adjustments is not yet started',
+          label: 'Reasonable<br/>adjustments',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Help with fees is not yet started',
+          label: 'Help<br/>with<br/>fees',
+          statusBarClassName: '',
         },
       ]);
     });

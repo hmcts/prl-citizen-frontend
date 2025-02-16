@@ -3127,3 +3127,188 @@ export const generateConcernAboutChildErrors = (
 
   return errors;
 };
+
+export const generatePeopleErrors = (userCase: CaseWithId): FormError[] => {
+  const peopleErrors: FormError[] = [];
+
+  // applicant
+  userCase?.appl_allApplicants?.forEach((applicant, index) => {
+    peopleErrors.push(...generateApplicantErrors(applicant, index));
+  });
+  peopleErrors.push(
+    ...generateRelationshipErrors(userCase?.appl_allApplicants, userCase?.cd_children, PartyType.APPLICANT)
+  );
+
+  // child
+  userCase?.cd_children?.forEach((child, index) => {
+    peopleErrors.push(...generateChildErrors(child, index));
+  });
+
+  // respondent
+  userCase?.resp_Respondents?.forEach((respondent, index) => {
+    peopleErrors.push(...generateRespondentErrors(respondent, index));
+  });
+  peopleErrors.push(
+    ...generateRelationshipErrors(userCase?.resp_Respondents, userCase?.cd_children, PartyType.RESPONDENT)
+  );
+
+  // otherchildren
+  if (_.isEmpty(userCase?.ocd_hasOtherChildren)) {
+    peopleErrors.push({
+      propertyName: 'ocd_hasOtherChildren',
+      errorType: 'required',
+    });
+  }
+  if (
+    _.isEmpty(userCase?.cd_childrenKnownToSocialServices) ||
+    (userCase?.cd_childrenKnownToSocialServices === YesOrNo.YES &&
+      _.isEmpty(userCase?.cd_childrenKnownToSocialServicesDetails))
+  ) {
+    peopleErrors.push({
+      propertyName: 'cd_childrenKnownToSocialServices',
+      errorType: 'required',
+    });
+  }
+
+  if (_.isEmpty(userCase?.cd_childrenSubjectOfProtectionPlan)) {
+    peopleErrors.push({
+      propertyName: 'cd_childrenSubjectOfProtectionPlan',
+      errorType: 'required',
+    });
+  }
+
+  if (userCase?.ocd_hasOtherChildren === 'Yes') {
+    const otherChildren = userCase?.ocd_otherChildren;
+    if (otherChildren && otherChildren.length > 0) {
+      otherChildren?.forEach((otherchildren, index) => {
+        peopleErrors.push(...generateOtherChildrenError(otherchildren, index));
+      });
+    } else {
+      peopleErrors.push({
+        propertyName: 'fullName-otherChild-0',
+        errorType: 'required',
+      });
+    }
+  }
+  //otherPerson
+  if (_.isEmpty(userCase?.oprs_otherPersonCheck)) {
+    peopleErrors.push({
+      propertyName: 'oprs_otherPersonCheck',
+      errorType: 'required',
+    });
+  }
+
+  if (userCase?.oprs_otherPersonCheck === 'Yes') {
+    if (!_.isEmpty(userCase?.oprs_otherPersons)) {
+      userCase?.oprs_otherPersons?.forEach((otherperson, index) => {
+        const isAnyChildliveWithOtherPerson = doesAnyChildLiveWithOtherPerson(userCase, otherperson.id);
+        peopleErrors.push(...generateOtherPersonErrors(otherperson, index, isAnyChildliveWithOtherPerson));
+      });
+      peopleErrors.push(
+        ...generateRelationshipErrors(userCase?.oprs_otherPersons, userCase?.cd_children, PartyType.OTHER_PERSON)
+      );
+    } else {
+      peopleErrors.push({
+        propertyName: 'fullName-otherPerson-0',
+        errorType: 'required',
+      });
+    }
+  }
+
+  return peopleErrors;
+};
+
+export const prepareProp = (property: string): string => {
+  switch (property) {
+    case 'hu_reasonOfUrgentHearing':
+    case 'hu_hearingWithNext48HrsDetails':
+    case 'hu_hearingWithNext48HrsMsg':
+    case 'hu_otherRiskDetails':
+    case 'hu_timeOfHearingDetails':
+      return 'hu_urgentHearingReasons';
+
+    case 'too_stopOtherPeopleDoingSomethingSubField':
+    case 'too_resolveSpecificIssueSubField':
+      return 'too_courtOrder';
+
+    case 'hwn_reasonsForApplicationWithoutNotice':
+    case 'hwn_doYouNeedAWithoutNoticeHearing':
+    case 'hwn_doYouNeedAWithoutNoticeHearingDetails':
+    case 'hwn_doYouRequireAHearingWithReducedNotice':
+    case 'hwn_doYouRequireAHearingWithReducedNoticeDetails':
+    case 'hwn_hearingPart1':
+      return 'hwn_reasonsForApplicationWithoutNotice';
+
+    case 'miam_canProvideDomesticAbuseEvidence':
+    case 'miam_detailsOfDomesticAbuseEvidence':
+    case 'miam_domesticAbuse_policeInvolvement_subfields':
+    case 'miam_domesticAbuse_courtInvolvement_subfields':
+    case 'miam_domesticAbuse_letterOfBeingVictim_subfields':
+    case 'miam_domesticAbuse_letterFromAuthority_subfields':
+    case 'miam_domesticAbuse_letterFromSupportService_subfields':
+      return 'miam_domesticAbuse';
+    case 'miam_previousAttendanceEvidenceDoc':
+    case 'miam_haveDocSignedByMediatorForPrevAttendance':
+    case 'miam_detailsOfEvidence':
+      return 'miam_previousAttendance';
+    case 'miam_noMediatorReasons':
+    case 'miam_noAppointmentAvailableDetails':
+    case 'miam_unableToAttainDueToDisablityDetails':
+    case 'miam_noMediatorIn15mileDetails':
+      return 'miam_notAttendingReasons';
+
+    case 'ie_provideDetailsStart':
+      return 'ie_internationalStart';
+    case 'ie_provideDetailsParents':
+      return 'ie_internationalParents';
+    case 'ie_provideDetailsJurisdiction':
+      return 'ie_internationalJurisdiction';
+    case 'ie_provideDetailsRequest':
+      return 'ie_internationalRequest';
+
+    case 'c1A_otherConcernsDrugsDetails':
+      return 'c1A_otherConcernsDrugs';
+    case 'c1A_childSafetyConcernsDetails':
+      return 'c1A_childSafetyConcerns';
+    case 'c1A_childrenMoreThanOnePassport':
+    case 'c1A_possessionChildrenPassport':
+    case 'c1A_provideOtherDetails':
+      return 'c1A_passportOffice';
+    case 'c1A_policeOrInvestigatorOtherDetails':
+      return 'c1A_policeOrInvestigatorInvolved';
+
+    case 'sq_doNotHaveParentalResponsibility_subfield':
+    case 'sq_courtOrderPrevent_subfield':
+    case 'sq_anotherReason_subfield':
+      return 'sq_permissionsWhy';
+
+    case 'ra_noVideoAndPhoneHearing_subfield':
+      return 'ra_typeOfHearing';
+    case 'ra_needInterpreterInCertainLanguage_subfield':
+      return 'ra_languageNeeds';
+    case 'ra_specialArrangementsOther_subfield':
+      return 'ra_specialArrangements';
+    case 'ra_specifiedColorDocuments_subfield':
+    case 'ra_largePrintDocuments_subfield':
+    case 'ra_documentHelpOther_subfield':
+      return 'ra_documentInformation';
+    case 'ra_signLanguageInterpreter_subfield':
+    case 'ra_communicationHelpOther_subfield':
+      return 'ra_communicationHelp';
+    case 'ra_supportWorkerCarer_subfield':
+    case 'ra_friendFamilyMember_subfield':
+    case 'ra_therapyAnimal_subfield':
+    case 'ra_supportCourtOther_subfield':
+      return 'ra_supportCourt';
+    case 'ra_appropriateLighting_subfield':
+    case 'ra_feelComportableOther_subfield':
+      return 'ra_feelComportable';
+    case 'ra_parkingSpace_subfield':
+    case 'ra_differentTypeChair_subfield':
+    case 'ra_travellingCourtOther_subfield':
+      return 'ra_travellingCourt';
+
+    default:
+      return property;
+  }
+};

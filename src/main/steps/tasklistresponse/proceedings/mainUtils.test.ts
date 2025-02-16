@@ -47,7 +47,7 @@ const content = {
 
 const keys = {};
 
-describe.skip('test cases for main util', () => {
+describe('test cases for main util', () => {
   test('PastAndCurrentProceedings', () => {
     expect(PastAndCurrentProceedings(enContent, userCase)).toStrictEqual({
       rows: [
@@ -86,7 +86,7 @@ describe.skip('test cases for main util', () => {
                 href: '/tasklistresponse/proceedings/courtproceedings',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {},
+                attributes: { id: 'op_courtProceedingsOrders' },
               },
             ],
           },

@@ -228,7 +228,7 @@ const isRespondentSectionValid = (caseData: CaseWithId): boolean => {
 const areRespondentsValid = (respondents: C100RebuildPartyDetails[]): boolean => {
   return respondents.every(
     respondent =>
-      respondent.address?.AddressLine1 !== undefined &&
+      (respondent.addressUnknown === YesOrNo.YES || respondent.address?.AddressLine1 !== undefined) &&
       respondent.firstName !== undefined &&
       respondent.lastName !== undefined &&
       respondent.contactDetails !== undefined &&

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { CaseWithId } from '../../../app/case/case';
-import { PartyType, YesOrNo } from '../../../app/case/definition';
+import { Gender, PartyType, YesOrNo } from '../../../app/case/definition';
 
 import { ANYTYPE } from './common/index';
 import {
@@ -27,8 +27,10 @@ import {
   TypeOfOrder,
   WithoutNoticeHearing,
   areRefugeDocumentsNotPresent,
+  generatePeopleErrors,
   getYesNoTranslation,
   otherPersonConfidentiality,
+  prepareProp,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -2350,5 +2352,522 @@ describe.skip('test cases for main util', () => {
         } as CaseWithId)
       ).toBe(false);
     });
+  });
+});
+
+describe('generatePeopleErrors', () => {
+  test('should generate errors for people section when people objects are empty', () => {
+    expect(
+      generatePeopleErrors({
+        oprs_otherPersonCheck: 'Yes',
+        ocd_hasOtherChildren: 'Yes',
+        appl_allApplicants: [
+          {
+            personalDetails: {},
+          },
+        ],
+        oprs_otherPersons: [{ address: {}, personalDetails: {} }],
+        cd_children: [{ personalDetails: {}, childMatters: {}, parentialResponsibility: {} }],
+        ocd_otherChildren: [{ personalDetails: {} }],
+        resp_Respondents: [{ address: {}, personalDetails: {} }],
+      } as CaseWithId)
+    ).toStrictEqual([
+      {
+        errorType: 'required',
+        propertyName: 'fullName-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'anyOtherPeopleKnowDetails-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'doYouWantToKeep-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'gender-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'dateOfBirth-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'placeOfBirth-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'refuge-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'addressDetails-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'contactDetails-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'voiceMail-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'contactPreferences-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'relationshipTo-applicant-0-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'fullName-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'gender-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'orderAppliedFor-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'parentalResponsibility-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'childLivingArrangements-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'mainlyLiveWith-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'fullName-respondent-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'hasNameChanged-respondent-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'childGenderLabel-respondent-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'personalDetails-respondent-email-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'personalDetails-respondent-phone-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'addressDetails-respondent-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'relationshipTo-respondent-0-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'cd_childrenKnownToSocialServices',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'cd_childrenSubjectOfProtectionPlan',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'fullName-otherChild-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'dateOfBirth-otherChild-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'gender-otherChild-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'fullName-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'hasNameChanged-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'otherGenderDetails-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'relationshipTo-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'refuge-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'addressDetails-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'relationshipTo-otherPerson-0-0',
+      },
+    ]);
+  });
+
+  test('should generate errors for people section when other people arrays are empty', () => {
+    expect(
+      generatePeopleErrors({
+        oprs_otherPersonCheck: 'Yes',
+        ocd_hasOtherChildren: 'Yes',
+        appl_allApplicants: [
+          {
+            applicantFirstName: 'test',
+            applicantLastName: 'test',
+            detailsKnown: 'Yes',
+            start: 'Yes',
+            contactDetailsPrivate: ['phone'],
+            personalDetails: {
+              haveYouChangeName: 'No',
+              dateOfBirth: {
+                year: '2020',
+                month: '1',
+                day: '1',
+              },
+              gender: Gender.FEMALE,
+              applicantPlaceOfBirth: 'test',
+            },
+            liveInRefuge: 'No',
+            applicantAddress1: 'test',
+            applicantAddressTown: 'test',
+            country: 'test',
+            applicantAddressHistory: 'No',
+            applicantContactDetail: {
+              canProvideEmail: 'Yes',
+              emailAddress: 'test@test.com',
+              canProvideTelephoneNumber: 'Yes',
+              telephoneNumber: '01234567891',
+              canLeaveVoiceMail: 'Yes',
+              applicantContactPreferences: 'email',
+            },
+            relationshipDetails: {
+              relationshipToChildren: ['test'],
+            },
+            id: '123',
+          },
+        ],
+        oprs_otherPersons: [],
+        cd_children: [
+          {
+            id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+            firstName: 'Nir',
+            lastName: 'Sin',
+            personalDetails: {
+              isDateOfBirthUnknown: 'No',
+              dateOfBirth: {
+                year: '1999',
+                month: '11',
+                day: '11',
+              },
+              gender: 'Female',
+            },
+            childMatters: {
+              needsResolution: ['whoChildLiveWith'],
+            },
+            parentialResponsibility: {
+              statement: 'test',
+            },
+            liveWith: [{ id: '3b32bc4f-7417-443b-ba94-5eacfcee04c4' }],
+            mainlyLiveWith: '3b32bc4f-7417-443b-ba94-5eacfcee04c4',
+          },
+        ],
+        ocd_otherChildren: [],
+        resp_Respondents: [
+          {
+            firstName: 'test',
+            lastName: 'test',
+            detailsKnown: 'Yes',
+            start: 'Yes',
+            contactDetailsPrivate: ['phone'],
+            personalDetails: {
+              hasNameChanged: 'No',
+              dateOfBirth: {
+                year: '2020',
+                month: '1',
+                day: '1',
+              },
+              gender: Gender.FEMALE,
+              applicantPlaceOfBirth: 'test',
+            },
+            address: {
+              AddressLine1: 'test',
+              PostTown: 'test',
+              Country: 'test',
+              addressHistory: 'No',
+            },
+            addressUnknown: undefined,
+            contactDetails: {
+              donKnowEmailAddress: undefined,
+              emailAddress: 'test@test.com',
+              donKnowTelephoneNumber: undefined,
+              telephoneNumber: '01234567891',
+            },
+            relationshipDetails: {
+              relationshipToChildren: ['test'],
+            },
+            id: '123',
+          },
+        ],
+        cd_childrenKnownToSocialServices: 'Yes',
+        cd_childrenSubjectOfProtectionPlan: 'Yes',
+        cd_childrenKnownToSocialServicesDetails: 'test',
+      } as unknown as CaseWithId)
+    ).toStrictEqual([
+      {
+        errorType: 'required',
+        propertyName: 'fullName-otherChild-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'fullName-otherPerson-0',
+      },
+    ]);
+  });
+
+  test('should generate no errors for people section when people objects are valid', () => {
+    expect(
+      generatePeopleErrors({
+        oprs_otherPersonCheck: 'Yes',
+        ocd_hasOtherChildren: 'Yes',
+        appl_allApplicants: [
+          {
+            applicantFirstName: 'test',
+            applicantLastName: 'test',
+            detailsKnown: 'Yes',
+            start: 'Yes',
+            contactDetailsPrivate: ['phone'],
+            personalDetails: {
+              haveYouChangeName: 'No',
+              dateOfBirth: {
+                year: '2020',
+                month: '1',
+                day: '1',
+              },
+              gender: Gender.FEMALE,
+              applicantPlaceOfBirth: 'test',
+            },
+            liveInRefuge: 'No',
+            applicantAddress1: 'test',
+            applicantAddressTown: 'test',
+            country: 'test',
+            applicantAddressHistory: 'No',
+            applicantContactDetail: {
+              canProvideEmail: 'Yes',
+              emailAddress: 'test@test.com',
+              canProvideTelephoneNumber: 'Yes',
+              telephoneNumber: '01234567891',
+              canLeaveVoiceMail: 'Yes',
+              applicantContactPreferences: 'email',
+            },
+            relationshipDetails: {
+              relationshipToChildren: ['test'],
+            },
+            id: '123',
+          },
+        ],
+        oprs_otherPersons: [
+          {
+            id: '3b32bc4f-7417-443b-ba94-5eacfcee04c4',
+            firstName: 'Respondent',
+            lastName: 'FirstPage',
+            personalDetails: {
+              hasNameChanged: 'No',
+              dateOfBirth: {
+                year: '1999',
+                month: '01',
+                day: '11',
+              },
+              gender: 'Male',
+              isDateOfBirthUnknown: 'No',
+            },
+            contactDetails: {},
+            liveInRefuge: 'Yes',
+            refugeConfidentialityC8Form: {
+              document_url: 'test',
+              document_filename: 'test',
+              document_binary_url: 'test/binary',
+            },
+            relationshipDetails: {
+              relationshipToChildren: [
+                {
+                  childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                  relationshipType: 'Grandparent',
+                  otherRelationshipTypeDetails: '',
+                },
+              ],
+            },
+            addressUnknown: 'Yes',
+            isOtherPersonAddressConfidential: 'Yes',
+          },
+        ],
+        cd_children: [
+          {
+            id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+            firstName: 'Nir',
+            lastName: 'Sin',
+            personalDetails: {
+              isDateOfBirthUnknown: 'No',
+              dateOfBirth: {
+                year: '1999',
+                month: '11',
+                day: '11',
+              },
+              gender: 'Female',
+            },
+            childMatters: {
+              needsResolution: ['whoChildLiveWith'],
+            },
+            parentialResponsibility: {
+              statement: 'test',
+            },
+            liveWith: [{ id: '3b32bc4f-7417-443b-ba94-5eacfcee04c4' }],
+            mainlyLiveWith: '3b32bc4f-7417-443b-ba94-5eacfcee04c4',
+          },
+        ],
+        ocd_otherChildren: [
+          {
+            firstName: 'test',
+            lastName: 'test',
+            personalDetails: {
+              isDateOfBirthUnknown: 'No',
+              dateOfBirth: {
+                year: '1999',
+                month: '11',
+                day: '11',
+              },
+              gender: 'Female',
+            },
+          },
+        ],
+        resp_Respondents: [
+          {
+            firstName: 'test',
+            lastName: 'test',
+            detailsKnown: 'Yes',
+            start: 'Yes',
+            contactDetailsPrivate: ['phone'],
+            personalDetails: {
+              hasNameChanged: 'No',
+              dateOfBirth: {
+                year: '2020',
+                month: '1',
+                day: '1',
+              },
+              gender: Gender.FEMALE,
+              applicantPlaceOfBirth: 'test',
+            },
+            address: {
+              AddressLine1: 'test',
+              PostTown: 'test',
+              Country: 'test',
+              addressHistory: 'No',
+            },
+            addressUnknown: undefined,
+            contactDetails: {
+              donKnowEmailAddress: undefined,
+              emailAddress: 'test@test.com',
+              donKnowTelephoneNumber: undefined,
+              telephoneNumber: '01234567891',
+            },
+            relationshipDetails: {
+              relationshipToChildren: ['test'],
+            },
+            id: '123',
+          },
+        ],
+        cd_childrenKnownToSocialServices: 'Yes',
+        cd_childrenSubjectOfProtectionPlan: 'Yes',
+        cd_childrenKnownToSocialServicesDetails: 'test',
+      } as unknown as CaseWithId)
+    ).toStrictEqual([]);
+  });
+});
+
+describe('prepareProp', () => {
+  test.each([
+    { property: 'hu_reasonOfUrgentHearing', expected: 'hu_urgentHearingReasons' },
+    { property: 'hu_hearingWithNext48HrsDetails', expected: 'hu_urgentHearingReasons' },
+    { property: 'hu_hearingWithNext48HrsMsg', expected: 'hu_urgentHearingReasons' },
+    { property: 'hu_otherRiskDetails', expected: 'hu_urgentHearingReasons' },
+    { property: 'hu_timeOfHearingDetails', expected: 'hu_urgentHearingReasons' },
+    { property: 'too_stopOtherPeopleDoingSomethingSubField', expected: 'too_courtOrder' },
+    { property: 'too_resolveSpecificIssueSubField', expected: 'too_courtOrder' },
+    { property: 'hwn_reasonsForApplicationWithoutNotice', expected: 'hwn_reasonsForApplicationWithoutNotice' },
+    { property: 'hwn_doYouNeedAWithoutNoticeHearing', expected: 'hwn_reasonsForApplicationWithoutNotice' },
+    { property: 'hwn_doYouNeedAWithoutNoticeHearingDetails', expected: 'hwn_reasonsForApplicationWithoutNotice' },
+    { property: 'hwn_doYouRequireAHearingWithReducedNotice', expected: 'hwn_reasonsForApplicationWithoutNotice' },
+    {
+      property: 'hwn_doYouRequireAHearingWithReducedNoticeDetails',
+      expected: 'hwn_reasonsForApplicationWithoutNotice',
+    },
+    { property: 'hwn_hearingPart1', expected: 'hwn_reasonsForApplicationWithoutNotice' },
+    { property: 'miam_canProvideDomesticAbuseEvidence', expected: 'miam_domesticAbuse' },
+    { property: 'miam_detailsOfDomesticAbuseEvidence', expected: 'miam_domesticAbuse' },
+    { property: 'miam_domesticAbuse_policeInvolvement_subfields', expected: 'miam_domesticAbuse' },
+    { property: 'miam_domesticAbuse_courtInvolvement_subfields', expected: 'miam_domesticAbuse' },
+    {
+      property: 'miam_domesticAbuse_letterOfBeingVictim_subfields',
+      expected: 'miam_domesticAbuse',
+    },
+    { property: 'miam_domesticAbuse_letterFromAuthority_subfields', expected: 'miam_domesticAbuse' },
+    { property: 'miam_domesticAbuse_letterFromSupportService_subfields', expected: 'miam_domesticAbuse' },
+    { property: 'miam_previousAttendanceEvidenceDoc', expected: 'miam_previousAttendance' },
+    { property: 'miam_haveDocSignedByMediatorForPrevAttendance', expected: 'miam_previousAttendance' },
+    { property: 'miam_detailsOfEvidence', expected: 'miam_previousAttendance' },
+    { property: 'miam_noMediatorReasons', expected: 'miam_notAttendingReasons' },
+    { property: 'miam_noAppointmentAvailableDetails', expected: 'miam_notAttendingReasons' },
+    { property: 'miam_unableToAttainDueToDisablityDetails', expected: 'miam_notAttendingReasons' },
+    { property: 'miam_noMediatorIn15mileDetails', expected: 'miam_notAttendingReasons' },
+    { property: 'ie_provideDetailsStart', expected: 'ie_internationalStart' },
+    { property: 'ie_provideDetailsParents', expected: 'ie_internationalParents' },
+    { property: 'ie_provideDetailsJurisdiction', expected: 'ie_internationalJurisdiction' },
+    { property: 'ie_provideDetailsRequest', expected: 'ie_internationalRequest' },
+    { property: 'c1A_otherConcernsDrugsDetails', expected: 'c1A_otherConcernsDrugs' },
+    { property: 'c1A_childSafetyConcernsDetails', expected: 'c1A_childSafetyConcerns' },
+    { property: 'c1A_childrenMoreThanOnePassport', expected: 'c1A_passportOffice' },
+    { property: 'c1A_possessionChildrenPassport', expected: 'c1A_passportOffice' },
+    { property: 'c1A_provideOtherDetails', expected: 'c1A_passportOffice' },
+    { property: 'c1A_policeOrInvestigatorOtherDetails', expected: 'c1A_policeOrInvestigatorInvolved' },
+    { property: 'sq_doNotHaveParentalResponsibility_subfield', expected: 'sq_permissionsWhy' },
+    { property: 'sq_courtOrderPrevent_subfield', expected: 'sq_permissionsWhy' },
+    { property: 'sq_anotherReason_subfield', expected: 'sq_permissionsWhy' },
+
+    { property: 'ra_noVideoAndPhoneHearing_subfield', expected: 'ra_typeOfHearing' },
+    { property: 'ra_needInterpreterInCertainLanguage_subfield', expected: 'ra_languageNeeds' },
+    { property: 'ra_specialArrangementsOther_subfield', expected: 'ra_specialArrangements' },
+    { property: 'ra_specifiedColorDocuments_subfield', expected: 'ra_documentInformation' },
+    { property: 'ra_largePrintDocuments_subfield', expected: 'ra_documentInformation' },
+    { property: 'ra_documentHelpOther_subfield', expected: 'ra_documentInformation' },
+    { property: 'ra_signLanguageInterpreter_subfield', expected: 'ra_communicationHelp' },
+    { property: 'ra_communicationHelpOther_subfield', expected: 'ra_communicationHelp' },
+    { property: 'ra_supportWorkerCarer_subfield', expected: 'ra_supportCourt' },
+    { property: 'ra_friendFamilyMember_subfield', expected: 'ra_supportCourt' },
+    { property: 'ra_therapyAnimal_subfield', expected: 'ra_supportCourt' },
+    { property: 'ra_supportCourtOther_subfield', expected: 'ra_supportCourt' },
+    { property: 'ra_appropriateLighting_subfield', expected: 'ra_feelComportable' },
+    { property: 'ra_feelComportableOther_subfield', expected: 'ra_feelComportable' },
+    { property: 'ra_parkingSpace_subfield', expected: 'ra_travellingCourt' },
+    { property: 'ra_differentTypeChair_subfield', expected: 'ra_travellingCourt' },
+    { property: 'ra_travellingCourtOther_subfield', expected: 'ra_travellingCourt' },
+  ])('config for consent order flow should have the correct sections', ({ property, expected }) => {
+    expect(prepareProp(property)).toBe(expected);
   });
 });
