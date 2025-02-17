@@ -1,8 +1,13 @@
+import axios from 'axios';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { YesOrNo } from '../../app/case/definition';
 
 import { routeGuard } from './routeGuard';
+
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('complete-your-application-guidance RouteGuard', () => {
   test('Should delete all the screening journey related data from session when the page loads', async () => {
@@ -17,10 +22,17 @@ describe('complete-your-application-guidance RouteGuard', () => {
     });
     const res = mockResponse();
     const next = jest.fn();
-    routeGuard.get(req, res, next);
+    mockedAxios.get.mockResolvedValueOnce({
+      data: {
+        feeAmount: '232',
+        errorRetrievingResponse: '',
+      },
+    });
+    await routeGuard.get(req, res, next);
     expect(req.session.userCase).not.toContain('applicationPayOnline');
     expect(req.session.userCase).not.toContain('legalRepresentativeForProceedings');
     expect(req.session.userCase).not.toContain('legalRepresentativeForApplication');
+    expect(req.session.userCase.c100ApplicationFees).toBe('232');
     expect(next).toHaveBeenCalled();
   });
 
@@ -31,8 +43,43 @@ describe('complete-your-application-guidance RouteGuard', () => {
       },
     });
     const res = mockResponse();
+    mockedAxios.get.mockResolvedValueOnce({
+      data: {
+        feeAmount: '232',
+        errorRetrievingResponse: '',
+      },
+    });
     const next = jest.fn();
-    routeGuard.get(req, res, next);
+    await routeGuard.get(req, res, next);
+    expect(req.session.userCase.c100ApplicationFees).toBe('232');
+    expect(next).toHaveBeenCalled();
+  });
+
+  test('Should not set fee amount when errorRetrievingResponse present', async () => {
+    const req = mockRequest({
+      session: {
+        userCase: undefined,
+      },
+    });
+    const res = mockResponse();
+    mockedAxios.get.mockResolvedValueOnce({
+      data: {
+        feeAmount: undefined,
+        errorRetrievingResponse: 'Error',
+      },
+    });
+    const next = jest.fn();
+    await routeGuard.get(req, res, next);
+    expect(req.session.userCase).toBe(undefined);
+    expect(next).toHaveBeenCalled();
+  });
+
+  test('Post should delete c100ApplicationFees', async () => {
+    const req = mockRequest({ session: { userCase: { c100ApplicationFees: '232' } } });
+    const res = mockResponse();
+    const next = jest.fn();
+    await routeGuard.post(req, res, next);
+    expect(req.session.userCase.c100ApplicationFees).toBe(undefined);
     expect(next).toHaveBeenCalled();
   });
 });

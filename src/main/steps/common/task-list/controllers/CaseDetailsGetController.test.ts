@@ -19,6 +19,7 @@ describe('GetCaseController', () => {
   test('Session doesnot have user', async () => {
     controller = new CaseDetailsGetController();
     req = {
+      url: '/mock-url',
       session: {},
     };
     res = mockResponse();

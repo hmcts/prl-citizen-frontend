@@ -28,6 +28,7 @@ import {
   WithoutNoticeHearing,
   areRefugeDocumentsNotPresent,
   getYesNoTranslation,
+  otherPersonConfidentiality,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -48,6 +49,7 @@ const sectionTitles = {
   SafetyConcerns_child: 'childSafetyConcerns',
   SafetyConcerns_yours: 'yourSafetyConcerns',
   SafetyConcerns_others: 'otherSafetyConcerns',
+  otherPeopleConfidentiality: 'otherPeopleConfidentiality',
 };
 const keys = {
   whatAreYouAsking: 'whatAreYouAsking',
@@ -97,8 +99,13 @@ const keys = {
   mediatorConfirmation: 'mediatorConfirmation',
   midatatorDocumentTitle: 'midatatorDocumentTitle',
   childInvolvementInSupervision: 'childInvolvementInSupervision',
+  respondents: 'respondents',
+  applicantLabel: 'Applicants',
+  otherPerson: 'Other person',
   refuge: 'refuge',
   c8RefugeDocument: 'c8RefugeDocument',
+  isOtherPersonAddressConfidential:
+    'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
 };
 const language = 'en';
 const content = {
@@ -202,7 +209,8 @@ describe('test cases for main util', () => {
     };
     expect(ChildernDetails({ sectionTitles, keys, content }, userCase, language)).toStrictEqual({
       rows: [],
-      title: 'ChildernDetails',
+      title: '',
+      subTitle: 'ChildernDetails',
     });
   });
   //LocationDetails
@@ -296,7 +304,7 @@ describe('test cases for main util', () => {
         },
         key: { text: 'whyPermissionRequiredFromCourt' },
         value: {
-          html: '<ul><li>doNotHaveParentalResponsibility: responsnibility subfield</li></ul>',
+          html: '<ul class="govuk-list govuk-list--bullet"><li>doNotHaveParentalResponsibility: responsnibility subfield</li></ul>',
         },
       },
       {
@@ -513,7 +521,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/add-children',
               text: undefined,
-              visuallyHiddenText: 'fullName',
+              visuallyHiddenText: 'child 1 fullName',
               attributes: {},
             },
           ],
@@ -531,7 +539,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'approxCheckboxLabel',
+              visuallyHiddenText: 'child 1 approxCheckboxLabel',
               attributes: {},
             },
           ],
@@ -547,7 +555,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'approxDobLabel',
+              visuallyHiddenText: 'child 1 approxDobLabel',
               attributes: {},
             },
           ],
@@ -563,7 +571,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'childGenderLabel',
+              visuallyHiddenText: 'child 1 childGenderLabel',
               attributes: {},
             },
           ],
@@ -581,7 +589,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/child-matters',
               text: undefined,
-              visuallyHiddenText: 'orderAppliedFor',
+              visuallyHiddenText: 'child 1 orderAppliedFor',
               attributes: {},
             },
           ],
@@ -590,7 +598,7 @@ describe('test cases for main util', () => {
           text: 'orderAppliedFor',
         },
         value: {
-          html: '<ul><li>relocateChildrenOutsideUk</li></ul>',
+          html: '<ul class="govuk-list govuk-list--bullet"><li>relocateChildrenOutsideUk</li></ul>',
         },
       },
       {
@@ -599,7 +607,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/parental-responsibility',
               text: undefined,
-              visuallyHiddenText: 'parentalResponsibility',
+              visuallyHiddenText: 'child 1 parentalResponsibility',
               attributes: {},
             },
           ],
@@ -708,7 +716,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/other-children/names',
               text: undefined,
-              visuallyHiddenText: 'fullName',
+              visuallyHiddenText: 'child 1 fullName',
               attributes: {},
             },
           ],
@@ -726,7 +734,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'dobLabel',
+              visuallyHiddenText: 'Other child 1 dobLabel',
               attributes: {},
             },
           ],
@@ -744,7 +752,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'childGenderLabel',
+              visuallyHiddenText: 'child 1 childGenderLabel',
               attributes: {},
             },
           ],
@@ -753,7 +761,7 @@ describe('test cases for main util', () => {
           text: 'childGenderLabel',
         },
         value: {
-          html: '<br>otherGender<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4>otherGenderDetails',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Male</dd></div><div class="govuk-summary-list__row border-bottom--none">otherGender</div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><br><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">otherGenderDetails</dd></div></dl>',
           text: 'Male',
         },
       },
@@ -823,7 +831,7 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/names',
                 text: undefined,
-                visuallyHiddenText: 'fullName',
+                visuallyHiddenText: 'child 1 fullName',
                 attributes: {},
               },
             ],
@@ -841,7 +849,7 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
-                visuallyHiddenText: 'approxCheckboxLabel',
+                visuallyHiddenText: 'Other child 1 approxCheckboxLabel',
                 attributes: {},
               },
             ],
@@ -855,7 +863,7 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
-                visuallyHiddenText: 'approxDobLabel',
+                visuallyHiddenText: 'Other child 1 approxDobLabel',
                 attributes: {},
               },
             ],
@@ -873,7 +881,7 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
-                visuallyHiddenText: 'childGenderLabel',
+                visuallyHiddenText: 'child 1 childGenderLabel',
                 attributes: {},
               },
             ],
@@ -883,10 +891,12 @@ describe('test cases for main util', () => {
           },
           value: {
             text: 'Male',
+            html: 'Male ',
           },
         },
       ],
-      title: undefined,
+      title: '',
+      subTitle: undefined,
     });
   });
 
@@ -988,7 +998,7 @@ describe('test cases for main util', () => {
     expect(otherPeopleDetailsObj?.rows).toStrictEqual([
       {
         key: {
-          html: '<h4 class="app-task-list__section">undefined 1</h4>',
+          html: '<h4 class="app-task-list__section">Other person 1</h4>',
         },
         value: {},
       },
@@ -998,7 +1008,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/add-other-persons',
               text: undefined,
-              visuallyHiddenText: 'fullName',
+              visuallyHiddenText: 'Other person 1 fullName',
               attributes: {},
             },
           ],
@@ -1016,7 +1026,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
-              visuallyHiddenText: 'hasNameChanged',
+              visuallyHiddenText: 'Other person 1 hasNameChanged',
               attributes: {},
             },
           ],
@@ -1032,7 +1042,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
-              visuallyHiddenText: 'childGenderLabel',
+              visuallyHiddenText: 'Other person 1 childGenderLabel',
               attributes: {},
             },
           ],
@@ -1041,7 +1051,7 @@ describe('test cases for main util', () => {
           text: 'childGenderLabel',
         },
         value: {
-          html: '<br><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">otherGender<h4>details</h4><br>undefined',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">otherGender</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><br><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">undefined</dd></div></dl>',
         },
       },
       {
@@ -1050,7 +1060,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
-              visuallyHiddenText: 'dobLabel',
+              visuallyHiddenText: 'Other person 1 dobLabel',
               attributes: {},
             },
           ],
@@ -1068,7 +1078,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/relationship-to-child/39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
               text: undefined,
-              visuallyHiddenText: 'relationshipTo Nir Sin',
+              visuallyHiddenText: 'Other person 1 relationshipTo Nir Sin',
               attributes: {},
             },
           ],
@@ -1086,7 +1096,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/refuge/staying-in-refuge/3b32bc4f-7417-443b-ba94-5eacfcee04c4?',
               text: undefined,
-              visuallyHiddenText: 'refuge',
+              visuallyHiddenText: 'Other person 1 refuge',
               attributes: {},
             },
           ],
@@ -1104,7 +1114,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/refuge/upload-refuge-document/3b32bc4f-7417-443b-ba94-5eacfcee04c4',
               text: undefined,
-              visuallyHiddenText: 'c8RefugeDocument',
+              visuallyHiddenText: 'Other person 1 c8RefugeDocument',
               attributes: {
                 id: 'c8RefugeDocument-otherPerson-0',
               },
@@ -1124,7 +1134,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/address/manual',
               text: undefined,
-              visuallyHiddenText: 'addressDetails',
+              visuallyHiddenText: 'Other person 1 addressDetails',
               attributes: {},
             },
           ],
@@ -1133,7 +1143,7 @@ describe('test cases for main util', () => {
           text: 'addressDetails',
         },
         value: {
-          html: 'addressLine1<br>addressLine2<br>postTown<br>county<br><br>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">addressLine1<br>addressLine2<br>postTown<br>county<br><br></dd></div></dl>',
         },
       },
     ]);
@@ -1148,7 +1158,7 @@ describe('test cases for main util', () => {
   test('otherPeopleDetailsTitle', () => {
     const otherPeopleDetailsTitleObj = OtherPeopleDetailsTitle({ sectionTitles, keys, content }, {}, language);
     expect(otherPeopleDetailsTitleObj?.rows).not.toBe([]);
-    expect(otherPeopleDetailsTitleObj?.title).toBe(undefined);
+    expect(otherPeopleDetailsTitleObj?.title).toBe('');
   });
 
   //ChildernDetailsAdditional
@@ -1166,7 +1176,7 @@ describe('test cases for main util', () => {
       language
     );
     expect(childernDetailsAdditionalObj?.rows).not.toBe([]);
-    expect(childernDetailsAdditionalObj?.title).toBe(undefined);
+    expect(childernDetailsAdditionalObj?.title).toBe('');
   });
 
   test('whoDoesChildMainlyLiveWith should have correct details', () => {
@@ -1222,7 +1232,65 @@ describe('test cases for main util', () => {
           text: "Bob Silly's living arrangements",
         },
         value: {
-          html: '<ul>undefined</ul>',
+          html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+        },
+      },
+    ]);
+    expect(whereDoChildLiveObj?.title).toBe(undefined);
+  });
+
+  test('whoDoesChildMainlyLiveWith should have correct details when mainly live with name not present', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      cd_children: [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          firstName: 'Bob',
+          lastName: 'Silly',
+          mainlyLiveWith: {
+            id: '2',
+            partyType: PartyType.RESPONDENT,
+          },
+        },
+      ],
+    } as ANYTYPE;
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    expect(whereDoChildLiveObj?.rows).toEqual([
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
+              text: undefined,
+              visuallyHiddenText: 'Who does Bob Silly mainly live with?',
+              attributes: {},
+            },
+          ],
+        },
+        key: {
+          text: 'Who does Bob Silly mainly live with?',
+        },
+        value: {
+          html: ' ',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
+              text: undefined,
+              visuallyHiddenText: "Bob Silly's living arrangements",
+              attributes: {},
+            },
+          ],
+        },
+        key: {
+          text: "Bob Silly's living arrangements",
+        },
+        value: {
+          html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
         },
       },
     ]);
@@ -1313,11 +1381,55 @@ describe('test cases for main util', () => {
           text: "Bob Silly's living arrangements",
         },
         value: {
-          html: '<ul><li>test parent</li></ul>',
+          html: '<ul class="govuk-list govuk-list--bullet"><li>test parent</li></ul>',
         },
       },
     ]);
     expect(whereDoChildLiveObj?.title).toBe(undefined);
+  });
+
+  describe('otherPersonConfidentiality', () => {
+    test('should generate correct summary list', () => {
+      const userCase = {
+        id: 'id',
+        state: undefined,
+        oprs_otherPersons: [
+          {
+            id: '7483640e-0817-4ddc-b709-6723f7925474',
+            firstName: 'Bob',
+            lastName: 'Silly',
+            isOtherPersonAddressConfidential: 'Yes',
+          },
+        ],
+      } as ANYTYPE;
+      const otherPersonConfidentialitySections = otherPersonConfidentiality(
+        { sectionTitles, keys, content },
+        userCase,
+        'en'
+      );
+      expect(otherPersonConfidentialitySections?.rows).toStrictEqual([
+        {
+          actions: {
+            items: [
+              {
+                href: '/c100-rebuild/other-person-details/7483640e-0817-4ddc-b709-6723f7925474/confidentiality',
+                text: undefined,
+                visuallyHiddenText:
+                  'Do you want to keep Bob Silly’s contact details private from the other people named in the application (the respondents)?',
+                attributes: { id: 'otherPersonConfidentiality-otherPerson-0' },
+              },
+            ],
+          },
+          key: {
+            text: 'Do you want to keep Bob Silly’s contact details private from the other people named in the application (the respondents)?',
+          },
+          value: {
+            html: 'Yes',
+          },
+        },
+      ]);
+      expect(otherPersonConfidentialitySections?.title).toBe('otherPeopleConfidentiality');
+    });
   });
 
   test('RespondentDetails1', () => {
@@ -1378,7 +1490,7 @@ describe('test cases for main util', () => {
     } as ANYTYPE;
     const respondentDetailsObj = RespondentDetails({ sectionTitles, keys, content }, userCase, language);
     expect(respondentDetailsObj?.rows).not.toBe([]);
-    expect(respondentDetailsObj?.title).toBe(undefined);
+    expect(respondentDetailsObj?.title).toBe('');
   });
 
   //SafetyConcerns
@@ -1429,7 +1541,7 @@ describe('test cases for main util', () => {
         },
         key: {},
         value: {
-          html: '<ul><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">undefined</li><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">undefined</li><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">undefined</li></ul>',
+          html: '<ul class="govuk-list govuk-list--bullet"><li>undefined</li><li>undefined</li><li>undefined</li></ul>',
         },
       },
       {
@@ -1506,7 +1618,7 @@ describe('test cases for main util', () => {
         },
         key: {},
         value: {
-          html: 'Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>undefined</h4><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>undefined</h4><ul><li>Father</li></ul>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><li>Father</li></dd></div></ul></dl>',
         },
       },
       {
@@ -1570,11 +1682,11 @@ describe('test cases for main util', () => {
           text: 'c1A_policeOrInvestigatorInvolved',
         },
         value: {
-          html: '<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4>c1A_policeOrInvestigatorOtherDetails',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_policeOrInvestigatorOtherDetails</dd></div></dl>',
         },
       },
     ]);
-    expect(safetyConcerns_childObj?.title).toBe(undefined);
+    expect(safetyConcerns_childObj?.title).toBe('');
   });
 
   test('SafetyConcerns_child should return correct values when c1A_possessionChildrenPassport is other', () => {
@@ -1603,7 +1715,7 @@ describe('test cases for main util', () => {
         },
         key: {},
         value: {
-          html: '<ul></ul>',
+          html: '<ul class="govuk-list govuk-list--bullet"></ul>',
         },
       },
     ]);
@@ -1674,7 +1786,7 @@ describe('test cases for main util', () => {
     expect(respondentDetailsObj?.rows).toStrictEqual([
       {
         key: {
-          html: '<h4 class="app-task-list__section">undefined 1</h4>',
+          html: '<h4 class="app-task-list__section">respondents 1</h4>',
         },
         value: {},
       },
@@ -1684,7 +1796,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/add-respondents',
               text: undefined,
-              visuallyHiddenText: 'fullName',
+              visuallyHiddenText: 'respondents 1 fullName',
               attributes: {},
             },
           ],
@@ -1702,7 +1814,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
-              visuallyHiddenText: 'hasNameChanged',
+              visuallyHiddenText: 'respondents 1 hasNameChanged',
               attributes: {},
             },
           ],
@@ -1720,7 +1832,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
-              visuallyHiddenText: 'childGenderLabel',
+              visuallyHiddenText: 'respondents 1 childGenderLabel',
               attributes: {},
             },
           ],
@@ -1738,7 +1850,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
-              visuallyHiddenText: 'approxCheckboxLabel',
+              visuallyHiddenText: 'respondents 1 approxCheckboxLabel',
               attributes: {},
             },
           ],
@@ -1756,7 +1868,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
-              visuallyHiddenText: 'approxDobLabel',
+              visuallyHiddenText: 'respondents 1 approxDobLabel',
               attributes: {},
             },
           ],
@@ -1772,7 +1884,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
-              visuallyHiddenText: 'respondentPlaceOfBirthUnknown',
+              visuallyHiddenText: 'respondents 1 respondentPlaceOfBirthUnknown',
               attributes: {},
             },
           ],
@@ -1790,7 +1902,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/relationship-to-child/39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
               text: undefined,
-              visuallyHiddenText: 'relationshipTo Nir Sin',
+              visuallyHiddenText: 'respondents 1 relationshipTo Nir Sin',
               attributes: {},
             },
           ],
@@ -1808,7 +1920,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/address/manual',
               text: undefined,
-              visuallyHiddenText: 'addressDetails',
+              visuallyHiddenText: 'respondents 1 addressDetails',
               attributes: {},
             },
           ],
@@ -1817,7 +1929,7 @@ describe('test cases for main util', () => {
           text: 'addressDetails',
         },
         value: {
-          html: 'dsadas<br>ILFORD<br>United Kingdom<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>undefined</h4><div class="govuk-!-padding-bottom-3"></div>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">dsadas<br>ILFORD<br>United Kingdom</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">Don\'t know</dd></div></dl>',
         },
       },
       {
@@ -1826,7 +1938,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
-              visuallyHiddenText: 'E-mail',
+              visuallyHiddenText: 'respondents 1 E-mail',
               attributes: {},
             },
           ],
@@ -1844,7 +1956,7 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
-              visuallyHiddenText: 'Telephone number',
+              visuallyHiddenText: 'respondents 1 Telephone number',
               attributes: {},
             },
           ],
@@ -1857,7 +1969,7 @@ describe('test cases for main util', () => {
         },
       },
     ]);
-    expect(respondentDetailsObj?.title).toBe(undefined);
+    expect(respondentDetailsObj?.title).toBe('');
   });
 
   //SafetyConcerns_yours
@@ -1873,7 +1985,7 @@ describe('test cases for main util', () => {
       language
     );
     expect(safetyConcerns_yoursObj?.rows).not.toBe([]);
-    expect(safetyConcerns_yoursObj?.title).toBe(undefined);
+    expect(safetyConcerns_yoursObj?.title).toBe('');
   });
   test('MiamAttendance - util', () => {
     const userCase = {
@@ -1882,7 +1994,7 @@ describe('test cases for main util', () => {
     } as ANYTYPE;
     const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).not.toBe([]);
-    expect(CaseName_fun?.title).toBe('MiamAttendance');
+    expect(CaseName_fun?.subTitle).toBe('MiamAttendance');
   });
 
   test('MiamAttendance - util > miam_otherProceedings > No', () => {
@@ -1894,7 +2006,7 @@ describe('test cases for main util', () => {
     } as ANYTYPE;
     const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).not.toBe([]);
-    expect(CaseName_fun?.title).toBe('MiamAttendance');
+    expect(CaseName_fun?.subTitle).toBe('MiamAttendance');
   });
 
   test('MiamAttendance - util > miam_attendance > Yes', () => {
@@ -1907,7 +2019,7 @@ describe('test cases for main util', () => {
     } as ANYTYPE;
     const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).not.toBe([]);
-    expect(CaseName_fun?.title).toBe('MiamAttendance');
+    expect(CaseName_fun?.subTitle).toBe('MiamAttendance');
   });
 
   test('MiamAttendance - util > miam_attendance > No', () => {
@@ -1974,7 +2086,7 @@ describe('test cases for main util', () => {
         },
       },
     ]);
-    expect(CaseName_fun?.title).toBe('MiamAttendance');
+    expect(CaseName_fun?.subTitle).toBe('MiamAttendance');
   });
 
   test('MiamAttendance - util > miam_attendance > Yes > miam_mediatorDocument > No', () => {
@@ -1987,7 +2099,7 @@ describe('test cases for main util', () => {
     } as ANYTYPE;
     const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).not.toBe([]);
-    expect(CaseName_fun?.title).toBe('MiamAttendance');
+    expect(CaseName_fun?.subTitle).toBe('MiamAttendance');
   });
 
   test('InternationalElement - util', () => {
@@ -2105,7 +2217,7 @@ describe('test cases for main util', () => {
           text: 'childDrugAbuse',
         },
         value: {
-          html: '<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><div class="govuk-!-padding-bottom-3">c1A_otherConcernsDrugsDetails</div>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_otherConcernsDrugsDetails</dd></div></dl>',
         },
       },
       {
@@ -2123,7 +2235,7 @@ describe('test cases for main util', () => {
           text: 'otherWellBeingIssues',
         },
         value: {
-          html: '<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>details</h4><div class="govuk-!-padding-bottom-3">c1A_childSafetyConcernsDetails</div>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_childSafetyConcernsDetails</dd></div></dl>',
         },
       },
       {

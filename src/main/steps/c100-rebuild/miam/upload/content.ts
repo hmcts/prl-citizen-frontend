@@ -63,13 +63,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    miamUpload: {
-      type: 'hidden',
-      labelHidden: true,
-      value: 'true',
-    },
-  },
+  fields: {},
   submit: {
     text: l => l.onlycontinue,
   },

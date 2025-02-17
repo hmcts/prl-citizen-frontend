@@ -32,4 +32,24 @@ describe('MIAM valid exempt reasons Route Guard', () => {
     expect(res.redirect).toHaveBeenCalledWith('error');
     expect(next).not.toHaveBeenCalled();
   });
+
+  test('post should clean miam no mediator reasons if not attending reasons is not can not access mediator', async () => {
+    const req = mockRequest({
+      body: {
+        miam_notAttendingReasons: 'under18',
+      },
+      session: {
+        userCase: {
+          miam_noMediatorReasons: 'noAppointmentAvailable',
+          miam_noAppointmentAvailableDetails: 'test',
+          miam_unableToAttainDueToDisablityDetails: 'test',
+        },
+      },
+    });
+    const res = mockResponse();
+    const next = jest.fn();
+    routeGuard.post(req, res, next);
+    expect(req.session.userCase).toStrictEqual({});
+    expect(req.session.save).toHaveBeenCalled();
+  });
 });

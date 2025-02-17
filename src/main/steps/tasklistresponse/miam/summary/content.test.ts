@@ -6,8 +6,8 @@ import { generateContent } from './content';
 
 // eslint-disable-next-line jest/no-export
 export const enContent = {
-  section: 'Check your answers',
-  title: 'Mediation Information and Assessment Meeting (MIAM) attendance',
+  title: 'Check your answers',
+  subTitle: 'Mediation Information and Assessment Meeting (MIAM) attendance',
   sectionTitles: {
     MIAMDetails: '',
   },
@@ -19,8 +19,8 @@ export const enContent = {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Gwirio eich atebion',
-  title: 'Presenoldeb mewn Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
+  title: 'Gwirio eich atebion',
+  subTitle: 'Presenoldeb mewn Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
   sectionTitles: {
     MIAMDetails: '',
   },
@@ -45,8 +45,8 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english data content1', () => {
-    expect(generatedContent.title).toEqual('Mediation Information and Assessment Meeting (MIAM) attendance');
-    expect(generatedContent.section).toEqual('Check your answers');
+    expect(generatedContent.subTitle).toEqual('Mediation Information and Assessment Meeting (MIAM) attendance');
+    expect(generatedContent.title).toEqual('Check your answers');
   });
   test('should return correct english data content2', () => {
     commonContent.userCase = {
@@ -55,8 +55,8 @@ describe('citizen-home content', () => {
       miamWillingness: 'Yes',
     };
     generatedContent = generateContent(commonContent);
-    expect(generatedContent.title).toEqual('Mediation Information and Assessment Meeting (MIAM) attendance');
-    expect(generatedContent.section).toEqual('Check your answers');
+    expect(generatedContent.subTitle).toEqual('Mediation Information and Assessment Meeting (MIAM) attendance');
+    expect(generatedContent.title).toEqual('Check your answers');
   });
   test('should return correct english data content3', () => {
     commonContent.userCase = {
@@ -64,11 +64,11 @@ describe('citizen-home content', () => {
       miamStart: 'Yes',
     };
     generatedContent = generateContent(commonContent);
-    expect(generatedContent.title).toEqual('Mediation Information and Assessment Meeting (MIAM) attendance');
-    expect(generatedContent.section).toEqual('Check your answers');
+    expect(generatedContent.subTitle).toEqual('Mediation Information and Assessment Meeting (MIAM) attendance');
+    expect(generatedContent.title).toEqual('Check your answers');
   });
   test('should return correct english content', () => {
-    expect(generatedContent.section).toEqual(enContent.section);
+    expect(generatedContent.title).toEqual(enContent.title);
     expect(generatedContent.title).toEqual(enContent.title);
   });
 

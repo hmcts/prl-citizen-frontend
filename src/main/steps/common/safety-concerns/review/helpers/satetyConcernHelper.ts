@@ -1,8 +1,8 @@
 /* eslint-disable import/no-unresolved */
 
 import { C1ASafteyConcernsAbout, YesOrNo } from '../../../../../app/case/definition';
+import { HTML } from '../../../../c100-rebuild/check-your-answers/common/htmlSelectors';
 import { getYesNoTranslation } from '../../../../c100-rebuild/check-your-answers/mainUtil';
-import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -22,33 +22,44 @@ export const childNameFormatter = (childId, userCase) => {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser, language) => {
+  bodyHtml += HTML.DESCRIPTION_LIST;
   if (typeOfUser === 'child') {
     bodyHtml = prepapeHTMLForChildren(bodyHtml, keys, FoundElement, language, userCase);
   }
-  bodyHtml += HTML.H4 + keys['behaviourDetailsLabel'] + HTML.H4_CLOSE;
-  bodyHtml += HTML.P + FoundElement.hasOwnProperty('behaviourDetails') ? FoundElement['behaviourDetails'] : '';
-  bodyHtml += HTML.RULER;
-  bodyHtml += HTML.H4 + keys['behaviourStartDateLabel'] + HTML.H4_CLOSE;
-  bodyHtml += HTML.P + FoundElement.hasOwnProperty('behaviourStartDate') && FoundElement['behaviourStartDate'];
-  bodyHtml += HTML.RULER;
-  bodyHtml += HTML.H4 + keys['isOngoingBehaviourLabel'] + HTML.H4_CLOSE;
+  bodyHtml += generateBehaviourDetailsHtml(keys, FoundElement);
   bodyHtml +=
     FoundElement.hasOwnProperty('isOngoingBehaviour') && FoundElement.isOngoingBehaviour
-      ? getYesNoTranslation(language, FoundElement['isOngoingBehaviour'], 'ydyTranslation')
-      : '';
-  bodyHtml += HTML.RULER;
-  bodyHtml += HTML.H4 + keys['seekHelpFromPersonOrAgencyLabel'] + HTML.H4_CLOSE;
+      ? HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        getYesNoTranslation(language, FoundElement['isOngoingBehaviour'], 'ydyTranslation') +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END
+      : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+
+  bodyHtml +=
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['seekHelpFromPersonOrAgencyLabel'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END;
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency') && FoundElement.seekHelpFromPersonOrAgency
-      ? HTML.BOTTOM_PADDING_3 +
+      ? HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL +
         translationForSeekHelpFromPersonOrAgency(FoundElement, language) +
-        HTML.BOTTOM_PADDING_CLOSE
-      : '';
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END
+      : HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpDetails') && FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes'
-      ? HTML.BOTTOM_TOP_3 + FoundElement?.['seekHelpDetails'] + HTML.BOTTOM_PADDING_CLOSE
+      ? HTML.ROW_START_NO_BORDER +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        FoundElement?.['seekHelpDetails'] +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END
       : '';
-  return bodyHtml;
+  return bodyHtml + HTML.DESCRIPTION_LIST_END;
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -75,9 +86,14 @@ const translationForSeekHelpFromPersonOrAgency = (FoundElement: any, language: a
 };
 
 const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, language: any, userCase: any) => {
-  bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
+  bodyHtml +=
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['childrenConcernedAboutLabel'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END;
   if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
-    bodyHtml += HTML.UNORDER_LIST;
+    bodyHtml += HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
     if (
       Array.isArray(FoundElement['childrenConcernedAbout']) &&
       FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
@@ -90,11 +106,53 @@ const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, lan
         .split(',')
         .join('');
     } else {
-      bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
+      bodyHtml +=
+        HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
     }
 
-    bodyHtml += HTML.UNORDER_LIST_END;
+    bodyHtml += HTML.UNORDER_LIST_END + HTML.ROW_END;
   }
-  bodyHtml += HTML.RULER;
+  return bodyHtml;
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const generateBehaviourDetailsHtml = (keys: Record<string, string>, FoundElement): string => {
+  let bodyHtml = '';
+  bodyHtml +=
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['behaviourDetailsLabel'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END;
+  bodyHtml += FoundElement.hasOwnProperty('behaviourDetails')
+    ? HTML.ROW_START +
+      HTML.DESCRIPTION_TERM_DETAIL +
+      FoundElement['behaviourDetails'] +
+      HTML.DESCRIPTION_TERM_DETAIL_END +
+      HTML.ROW_END
+    : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+  bodyHtml +=
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['behaviourStartDateLabel'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END;
+  bodyHtml +=
+    FoundElement.hasOwnProperty('behaviourStartDate') && FoundElement['behaviourStartDate']
+      ? HTML.ROW_START +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        FoundElement['behaviourStartDate'] +
+        HTML.DESCRIPTION_TERM_DETAIL_END +
+        HTML.ROW_END
+      : HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + '' + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+  bodyHtml +=
+    HTML.ROW_START_NO_BORDER +
+    HTML.DESCRIPTION_TERM_ELEMENT +
+    keys['isOngoingBehaviourLabel'] +
+    HTML.DESCRIPTION_TERM_ELEMENT_END +
+    HTML.ROW_END;
+
   return bodyHtml;
 };
