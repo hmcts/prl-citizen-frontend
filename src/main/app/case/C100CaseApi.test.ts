@@ -22,6 +22,10 @@ const mockData = {
   helpWithFeesReferenceNumber: 'HWF-1234',
   c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
   id: '1234',
+  c100RebuildConsentOrderDetails: '{}',
+  paymentReferenceNumber: undefined,
+  paymentServiceRequestReferenceNumber: undefined,
+  applicantPcqId: undefined,
 };
 
 describe('CaseApi', () => {
@@ -143,6 +147,10 @@ describe('CaseApi', () => {
       c100RebuildMaim: '{"miam":"c100RebuildMaim"}',
       c100RebuildReturnUrl: '{"miam":"c100RebuildMaim"}',
       id: '1234',
+      c100RebuildConsentOrderDetails: '{}',
+      paymentReferenceNumber: undefined,
+      paymentServiceRequestReferenceNumber: undefined,
+      applicantPcqId: undefined,
     });
   });
 
