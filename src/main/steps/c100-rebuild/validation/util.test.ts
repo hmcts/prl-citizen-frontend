@@ -10,7 +10,6 @@ import {
   areRespondentsValid,
   areSafetyConcernsValid,
   getAllMandatoryFields,
-  getAllMandatoryFieldsWithoutPeopleSection,
   getMandatoryFields,
   isAllMandatoryFieldsFilled,
   isAtleastOneMandatoryFieldFilled,
@@ -272,7 +271,7 @@ describe('c100 validation > util', () => {
 
   describe('getAllMandatoryFields', () => {
     test('should return mandatory fields for each section for consent order flow', () => {
-      expect(getAllMandatoryFields({ sq_writtenAgreement: 'Yes' } as CaseWithId)).toStrictEqual([
+      expect(getAllMandatoryFields({ sq_writtenAgreement: 'Yes' } as CaseWithId, true)).toStrictEqual([
         {
           fieldMeta: {
             fieldType: 'string',
@@ -425,7 +424,7 @@ describe('c100 validation > util', () => {
     });
 
     test('should return mandatory fields for each section for miam flows', () => {
-      expect(getAllMandatoryFields({} as CaseWithId)).toStrictEqual([
+      expect(getAllMandatoryFields({} as CaseWithId, true)).toStrictEqual([
         {
           fieldMeta: {
             fieldType: 'string',
@@ -575,131 +574,9 @@ describe('c100 validation > util', () => {
         },
       ]);
     });
-  });
 
-  describe('getAllMandatoryFieldsWithoutPeopleSection', () => {
-    test('should return mandatory fields for each section for consent order flow', () => {
-      expect(getAllMandatoryFieldsWithoutPeopleSection({ sq_writtenAgreement: 'Yes' } as CaseWithId)).toStrictEqual([
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'c100RebuildChildPostCode',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'sq_writtenAgreement',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'array',
-          },
-          fieldName: 'too_courtOrder',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'too_shortStatement',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'op_childrenInvolvedCourtCase',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'op_courtOrderProtection',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'hu_urgentHearingReasons',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'hwn_hearingPart1',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'c1A_haveSafetyConcerns',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'ie_internationalStart',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'ie_internationalParents',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'ie_internationalJurisdiction',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'ie_internationalRequest',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'array',
-          },
-          fieldName: 'ra_typeOfHearing',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'array',
-          },
-          fieldName: 'ra_languageNeeds',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'array',
-          },
-          fieldName: 'ra_specialArrangements',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'array',
-          },
-          fieldName: 'ra_disabilityRequirements',
-        },
-        {
-          fieldMeta: {
-            fieldType: 'string',
-          },
-          fieldName: 'hwf_needHelpWithFees',
-        },
-        {
-          expression: expect.any(Function),
-          fieldMeta: {
-            fieldType: 'object',
-          },
-          fieldName: 'co_certificate',
-        },
-      ]);
-    });
-
-    test('should return mandatory fields for each section for miam flows', () => {
-      expect(getAllMandatoryFieldsWithoutPeopleSection({} as CaseWithId)).toStrictEqual([
+    test('should return mandatory fields when people section not required', () => {
+      expect(getAllMandatoryFields({} as CaseWithId, false)).toStrictEqual([
         {
           fieldMeta: {
             fieldType: 'string',

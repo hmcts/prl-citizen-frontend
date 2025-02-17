@@ -137,6 +137,42 @@ describe('C100 rebuild > utils', () => {
       ).toBe(true);
     });
 
+    test('should return true for flow 1 for consent order section', () => {
+      expect(
+        isC100ApplicationValid(
+          {
+            sq_writtenAgreement: 'Yes',
+            co_certificate: {},
+          } as unknown as CaseWithId,
+          {
+            session: {
+              enableC100CaseProgressionTrainTrack: true,
+              applicationSettings: { hasC100ApplicationBeenCompleted: true },
+            },
+            originalUrl: 'localhost:3000/c100-rebuild/consent-order/upload',
+          } as unknown as AppRequest
+        )
+      ).toBe(true);
+    });
+
+    test('should return true for flow 1 for screening questions section', () => {
+      expect(
+        isC100ApplicationValid(
+          {
+            sq_writtenAgreement: 'Yes',
+            co_certificate: {},
+          } as unknown as CaseWithId,
+          {
+            session: {
+              enableC100CaseProgressionTrainTrack: true,
+              applicationSettings: { hasC100ApplicationBeenCompleted: true },
+            },
+            originalUrl: 'localhost:3000/c100-rebuild/screening-questions',
+          } as unknown as AppRequest
+        )
+      ).toBe(true);
+    });
+
     test('should return true for flow 2 when all required sections including miam other proceedings are present', () => {
       expect(
         isC100ApplicationValid(
@@ -320,6 +356,30 @@ describe('C100 rebuild > utils', () => {
       ).toBe(true);
     });
 
+    test('should return true for flow 4 when all required sections including miam attendance are present', () => {
+      expect(
+        isC100ApplicationValid(
+          {
+            sq_writtenAgreement: 'No',
+            sq_legalRepresentation: 'No',
+            sq_courtPermissionRequired: 'No',
+            miam_otherProceedings: 'No',
+            miam_attendance: 'Yes',
+            miam_haveDocSigned: 'Yes',
+            miam_certificate: {},
+            ...commonUserCase,
+          } as unknown as CaseWithId,
+          {
+            session: {
+              enableC100CaseProgressionTrainTrack: true,
+              applicationSettings: { hasC100ApplicationBeenCompleted: false },
+            },
+            body: {},
+          } as unknown as AppRequest
+        )
+      ).toBe(true);
+    });
+
     test('should return true for flow 4 for specific section', () => {
       expect(
         isC100ApplicationValid(
@@ -369,6 +429,79 @@ describe('C100 rebuild > utils', () => {
             },
             body: {},
             originalUrl: 'localhost:3000/c100-rebuild/screening-questions/permission',
+          } as unknown as AppRequest
+        )
+      ).toBe(true);
+    });
+
+    test('should return true for flow 4 for screening section when miam attendance valid', () => {
+      expect(
+        isC100ApplicationValid(
+          {
+            sq_writtenAgreement: 'No',
+            sq_legalRepresentation: 'No',
+            sq_courtPermissionRequired: 'No',
+            miam_otherProceedings: 'No',
+            miam_attendance: 'Yes',
+            miam_haveDocSigned: 'Yes',
+            miam_certificate: {},
+          } as unknown as CaseWithId,
+          {
+            session: {
+              enableC100CaseProgressionTrainTrack: true,
+              applicationSettings: { hasC100ApplicationBeenCompleted: true },
+            },
+            body: {},
+            originalUrl: 'localhost:3000/c100-rebuild/screening-questions/permission',
+          } as unknown as AppRequest
+        )
+      ).toBe(true);
+    });
+
+    test('should return true for flow 4 for miam section when miam attendance valid', () => {
+      expect(
+        isC100ApplicationValid(
+          {
+            sq_writtenAgreement: 'No',
+            sq_legalRepresentation: 'No',
+            sq_courtPermissionRequired: 'No',
+            miam_otherProceedings: 'No',
+            miam_attendance: 'Yes',
+            miam_haveDocSigned: 'Yes',
+            miam_certificate: {},
+          } as unknown as CaseWithId,
+          {
+            session: {
+              enableC100CaseProgressionTrainTrack: true,
+              applicationSettings: { hasC100ApplicationBeenCompleted: true },
+            },
+            body: {},
+            originalUrl: 'localhost:3000/c100-rebuild/miam/miam-excemptions-summary',
+          } as unknown as AppRequest
+        )
+      ).toBe(true);
+    });
+
+    test('should return true for flow 4 for miam section when miam valid', () => {
+      expect(
+        isC100ApplicationValid(
+          {
+            sq_writtenAgreement: 'No',
+            sq_legalRepresentation: 'No',
+            sq_courtPermissionRequired: 'No',
+            miam_otherProceedings: 'No',
+            miam_nonAttendanceReasons: ['previousMIAMOrExempt'],
+            miam_childProtectionEvidence: 'localAuthority',
+            miam_previousAttendance: 'fourMonthsPriorAttended',
+            miam_haveDocSignedByMediatorForPrevAttendance: 'Yes',
+          } as unknown as CaseWithId,
+          {
+            session: {
+              enableC100CaseProgressionTrainTrack: true,
+              applicationSettings: { hasC100ApplicationBeenCompleted: true },
+            },
+            body: {},
+            originalUrl: 'localhost:3000/c100-rebuild/miam/miam-excemptions-summary',
           } as unknown as AppRequest
         )
       ).toBe(true);

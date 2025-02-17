@@ -92,11 +92,7 @@ const isC100WithConsentOrderFlowValid = (caseData: CaseWithId): boolean => {
 };
 
 const isC100WithMiamOtherProceedingsFlowValid = (caseData: CaseWithId): boolean => {
-  return (
-    isCommonFlowValid(caseData) &&
-    (isMiamOtherProceedingsValid(caseData) || isMiamAttendanceValid(caseData)) &&
-    isScreeningQuestionsValid(caseData)
-  );
+  return isCommonFlowValid(caseData) && isMiamOtherProceedingsValid(caseData) && isScreeningQuestionsValid(caseData);
 };
 
 const isC100WithMiamUrgencyFlowValid = (caseData: CaseWithId): boolean => {
@@ -104,7 +100,11 @@ const isC100WithMiamUrgencyFlowValid = (caseData: CaseWithId): boolean => {
 };
 
 const isC100MiamFlowValid = (caseData: CaseWithId): boolean => {
-  return isCommonFlowValid(caseData) && isMiamExemptionsValid(caseData) && isScreeningQuestionsValid(caseData);
+  return (
+    isCommonFlowValid(caseData) &&
+    (isMiamExemptionsValid(caseData) || isMiamAttendanceValid(caseData)) &&
+    isScreeningQuestionsValid(caseData)
+  );
 };
 
 const isCommonFlowValid = (caseData: CaseWithId): boolean => {

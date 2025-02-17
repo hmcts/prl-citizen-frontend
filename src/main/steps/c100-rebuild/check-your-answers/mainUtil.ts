@@ -30,7 +30,7 @@ import { interpolate } from '../../../steps/common/string-parser';
 import { proceedingSummaryData } from '../../../steps/common/summary/utils';
 import { doesAnyChildLiveWithOtherPerson } from '../../c100-rebuild/other-person-details/utils';
 import { getC100FlowType } from '../../c100-rebuild/utils';
-import { C100_CYA_DATE_FORMATTOR } from '../../common/dateformatter';
+import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
 
@@ -729,7 +729,7 @@ export const ApplicantDetails = (
         anchorReference: `dateOfBirth-applicant-${applicant}`,
         valueHtml: populateError(
           personalDetails['dateOfBirth'],
-          C100_CYA_DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+          DATE_FORMATTOR(personalDetails['dateOfBirth'], language, RootContext.C100_REBUILD),
           language
         ),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
@@ -1687,7 +1687,7 @@ export const RespondentDetails = (
           anchorReference: `approxDateOfBirth-respondent-${respondent}`,
           valueHtml: populateError(
             personalDetails['approxDateOfBirth'],
-            C100_CYA_DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+            DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language, RootContext.C100_REBUILD),
             language
           ),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
@@ -1700,7 +1700,7 @@ export const RespondentDetails = (
         anchorReference: `dateOfBirth-respondent-${respondent}`,
         valueHtml: populateError(
           personalDetails['dateOfBirth'],
-          C100_CYA_DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+          DATE_FORMATTOR(personalDetails['dateOfBirth'], language, RootContext.C100_REBUILD),
           language
         ),
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
@@ -1868,7 +1868,7 @@ export const OtherPeopleDetails = (
             anchorReference: `approxDateOfBirth-otherPerson-${respondent}`,
             valueHtml: populateError(
               personalDetails['approxDateOfBirth'],
-              C100_CYA_DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+              DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language, RootContext.C100_REBUILD),
               language
             ),
             changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
@@ -1881,7 +1881,7 @@ export const OtherPeopleDetails = (
           anchorReference: `dateOfBirth-otherPerson-${respondent}`,
           valueHtml: populateError(
             personalDetails['dateOfBirth'],
-            C100_CYA_DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+            DATE_FORMATTOR(personalDetails['dateOfBirth'], language, RootContext.C100_REBUILD),
             language
           ),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
@@ -2321,7 +2321,7 @@ const populateDateOfBirth = (
         anchorReference: `approxDateOfBirth-${childAnchorText}-${count}`,
         valueHtml: populateError(
           personalDetails['approxDateOfBirth'],
-          C100_CYA_DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+          DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language, RootContext.C100_REBUILD),
           language
         ),
         changeUrl: isForChild
@@ -2336,7 +2336,7 @@ const populateDateOfBirth = (
       anchorReference: `dateOfBirth-${childAnchorText}-${count}`,
       valueHtml: populateError(
         personalDetails['dateOfBirth'],
-        C100_CYA_DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+        DATE_FORMATTOR(personalDetails['dateOfBirth'], language, RootContext.C100_REBUILD),
         language
       ),
       changeUrl: isForChild

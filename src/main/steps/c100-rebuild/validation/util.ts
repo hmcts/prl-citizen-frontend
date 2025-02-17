@@ -198,35 +198,19 @@ export const isAtleastOneMandatoryFieldFilled = (
   return mandatoryFields.some(field => isFieldFilled(field, caseData));
 };
 
-export const getAllMandatoryFields = (caseData: CaseWithId): MandatoryFieldsConfig[] => {
+export const getAllMandatoryFields = (
+  caseData: CaseWithId,
+  peopleSectionRequired: boolean
+): MandatoryFieldsConfig[] => {
   const mandatoryFields: MandatoryFieldsConfig[] = [];
   mandatoryFields.push(...getMandatoryFields(ChildrenPostcodeFieldsConfig, caseData));
   mandatoryFields.push(...getMandatoryFields(ScreeningQuestionsFieldsConfig, caseData));
   mandatoryFields.push(...getMandatoryFields(TypeOfOrderFieldsConfig, caseData));
   mandatoryFields.push(...getMandatoryFields(OtherProceedingsFieldsConfig, caseData));
   mandatoryFields.push(...getMandatoryFields(UrgenceyAndWithoutNoticeFieldsConfig, caseData));
-  mandatoryFields.push(...getMandatoryFields(PeopleFieldsConfig, caseData));
-  mandatoryFields.push(...getMandatoryFields(SafetyConcernsFieldsConfig, caseData));
-  mandatoryFields.push(...getMandatoryFields(InternationalElementsFieldsConfig, caseData));
-  mandatoryFields.push(...getMandatoryFields(ReasonableAdjustmentsFieldsConfig, caseData));
-  mandatoryFields.push(...getMandatoryFields(HelpWithFeesFieldsConfig, caseData));
-
-  if (getC100FlowType(caseData) === C100FlowTypes.C100_WITH_CONSENT_ORDER) {
-    mandatoryFields.push(...getMandatoryFields(ConsentOrderFieldsConfig, caseData));
-  } else {
-    mandatoryFields.push(...getMandatoryFields(MiamQuestionsFieldsConfig, caseData));
+  if (peopleSectionRequired) {
+    mandatoryFields.push(...getMandatoryFields(PeopleFieldsConfig, caseData));
   }
-
-  return mandatoryFields;
-};
-
-export const getAllMandatoryFieldsWithoutPeopleSection = (caseData: CaseWithId): MandatoryFieldsConfig[] => {
-  const mandatoryFields: MandatoryFieldsConfig[] = [];
-  mandatoryFields.push(...getMandatoryFields(ChildrenPostcodeFieldsConfig, caseData));
-  mandatoryFields.push(...getMandatoryFields(ScreeningQuestionsFieldsConfig, caseData));
-  mandatoryFields.push(...getMandatoryFields(TypeOfOrderFieldsConfig, caseData));
-  mandatoryFields.push(...getMandatoryFields(OtherProceedingsFieldsConfig, caseData));
-  mandatoryFields.push(...getMandatoryFields(UrgenceyAndWithoutNoticeFieldsConfig, caseData));
   mandatoryFields.push(...getMandatoryFields(SafetyConcernsFieldsConfig, caseData));
   mandatoryFields.push(...getMandatoryFields(InternationalElementsFieldsConfig, caseData));
   mandatoryFields.push(...getMandatoryFields(ReasonableAdjustmentsFieldsConfig, caseData));

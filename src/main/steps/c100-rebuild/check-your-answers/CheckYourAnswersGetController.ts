@@ -10,7 +10,7 @@ import { FormError } from '../../../app/form/Form';
 import { doesCaseHaveId } from '../../../steps/common/task-list/utils';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { MandatoryFieldsConfig } from '../validation/definitions';
-import { getAllMandatoryFieldsWithoutPeopleSection } from '../validation/util';
+import { getAllMandatoryFields } from '../validation/util';
 
 import {
   generateConcernAboutChildErrors,
@@ -61,7 +61,7 @@ export default class CheckYourAnswersGetController extends GetController {
         req.session.save();
       }, 1000);
 
-      const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFieldsWithoutPeopleSection(req.session.userCase);
+      const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(req.session.userCase, false);
       const mandetoryFieldname: string[] = [];
       mandatoryFields.forEach(field => {
         if (field.fieldName === 'sq_permissionsWhy') {

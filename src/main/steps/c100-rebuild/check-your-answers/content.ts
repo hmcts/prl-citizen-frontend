@@ -1130,7 +1130,7 @@ export const generateContent: TranslationFn = content => {
     ...{ none: content['language'] === 'en' ? enContent.keys.none : cyContent.keys.none },
   };
   const translations = languages[content.language](content, newContents);
-  const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(content.userCase! as CaseWithId);
+  const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(content.userCase! as CaseWithId, true);
   const isAllFieldsFilled = isAllMandatoryFieldsFilled(mandatoryFields, content.userCase! as CaseWithId);
   form.fields['statementOftruthHeading'] = {
     type: 'textAndHtml',
