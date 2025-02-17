@@ -114,7 +114,7 @@ const content = {
   x: 'aaa',
 };
 
-describe.skip('test cases for main util', () => {
+describe('test cases for main util', () => {
   test('TypeOfOrder', () => {
     const userCase = {
       id: 'id',
@@ -129,14 +129,14 @@ describe.skip('test cases for main util', () => {
                 href: '/c100-rebuild/typeoforder/select-courtorder',
                 text: undefined,
                 visuallyHiddenText: 'whatAreYouAsking',
-                attributes: {},
+                attributes: { id: 'too_courtOrder' },
               },
             ],
           },
           key: {
             text: 'whatAreYouAsking',
           },
-          value: {},
+          value: { html: '<span class="govuk-error-message">Complete this section</span>' },
         },
         {
           actions: {
@@ -145,14 +145,14 @@ describe.skip('test cases for main util', () => {
                 href: '/c100-rebuild/typeoforder/shortstatement',
                 text: undefined,
                 visuallyHiddenText: 'wantingCourtToDo',
-                attributes: {},
+                attributes: { id: 'too_shortStatement' },
               },
             ],
           },
           key: {
             text: 'wantingCourtToDo',
           },
-          value: {},
+          value: { html: '<span class="govuk-error-message">Complete this section</span>' },
         },
       ],
       title: undefined,
@@ -172,12 +172,14 @@ describe.skip('test cases for main util', () => {
                 href: '/c100-rebuild/hearing-urgency/urgent',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {},
+                attributes: { id: 'hu_urgentHearingReasons' },
               },
             ],
           },
           key: {},
-          value: {},
+          value: {
+            html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+          },
         },
         {
           actions: {
@@ -186,12 +188,14 @@ describe.skip('test cases for main util', () => {
                 href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {},
+                attributes: { id: 'hwn_reasonsForApplicationWithoutNotice' },
               },
             ],
           },
           key: {},
-          value: {},
+          value: {
+            html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+          },
         },
       ],
       title: 'WithoutNoticeHearing',
@@ -284,13 +288,13 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/screening-questions/permission',
               text: undefined,
               visuallyHiddenText: 'reasonPermissionRequired',
-              attributes: {},
+              attributes: { id: 'sq_courtPermissionRequired' },
             },
           ],
         },
         key: { text: 'reasonPermissionRequired' },
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -300,7 +304,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/screening-questions/permissions-why',
               text: undefined,
               visuallyHiddenText: 'whyPermissionRequiredFromCourt',
-              attributes: {},
+              attributes: { id: 'sq_permissionsWhy' },
             },
           ],
         },
@@ -316,7 +320,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/screening-questions/permissions-request',
               text: undefined,
               visuallyHiddenText: 'whyCourtGrantSubmittingPermission',
-              attributes: {},
+              attributes: { id: 'sq_permissionsRequest' },
             },
           ],
         },
@@ -324,7 +328,7 @@ describe.skip('test cases for main util', () => {
           text: 'whyCourtGrantSubmittingPermission',
         },
         value: {
-          text: 'MOCK_VALUE',
+          html: 'MOCK_VALUE',
         },
       },
     ]);
@@ -524,7 +528,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/add-children',
               text: undefined,
               visuallyHiddenText: 'child 1 fullName',
-              attributes: {},
+              attributes: { id: 'fullName-child-0' },
             },
           ],
         },
@@ -532,7 +536,7 @@ describe.skip('test cases for main util', () => {
           text: 'fullName',
         },
         value: {
-          text: 'Nir Sin',
+          html: 'Nir Sin',
         },
       },
       {
@@ -541,14 +545,14 @@ describe.skip('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'child 1 approxCheckboxLabel',
-              attributes: {},
+              visuallyHiddenText: 'child 0 approxCheckboxLabel',
+              attributes: { id: 'isDateOfBirthUnknown-child-0' },
             },
           ],
         },
         key: { text: 'approxCheckboxLabel' },
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -557,14 +561,14 @@ describe.skip('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'child 1 approxDobLabel',
-              attributes: {},
+              visuallyHiddenText: 'child 0 approxDobLabel',
+              attributes: { id: 'approxDateOfBirth-child-0' },
             },
           ],
         },
         key: { text: 'approxDobLabel' },
         value: {
-          text: '11 November 1999',
+          html: '11 November 1999',
         },
       },
       {
@@ -574,7 +578,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
               visuallyHiddenText: 'child 1 childGenderLabel',
-              attributes: {},
+              attributes: { id: 'gender-child-0' },
             },
           ],
         },
@@ -592,7 +596,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/child-matters',
               text: undefined,
               visuallyHiddenText: 'child 1 orderAppliedFor',
-              attributes: {},
+              attributes: { id: 'orderAppliedFor-child-0' },
             },
           ],
         },
@@ -610,7 +614,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/parental-responsibility',
               text: undefined,
               visuallyHiddenText: 'child 1 parentalResponsibility',
-              attributes: {},
+              attributes: { id: 'parentalResponsibility-child-0' },
             },
           ],
         },
@@ -618,7 +622,7 @@ describe.skip('test cases for main util', () => {
           text: 'parentalResponsibility',
         },
         value: {
-          text: 'ok',
+          html: 'ok',
         },
       },
     ]);
@@ -697,13 +701,13 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/has-other-children',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'ocd_hasOtherChildren' },
             },
           ],
         },
         key: {},
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -719,7 +723,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/other-children/names',
               text: undefined,
               visuallyHiddenText: 'child 1 fullName',
-              attributes: {},
+              attributes: { id: 'fullName-otherChild-0' },
             },
           ],
         },
@@ -727,7 +731,7 @@ describe.skip('test cases for main util', () => {
           text: 'fullName',
         },
         value: {
-          text: 'Nir Sin',
+          html: 'Nir Sin',
         },
       },
       {
@@ -736,8 +740,8 @@ describe.skip('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'Other child 1 dobLabel',
-              attributes: {},
+              visuallyHiddenText: 'Other child 0 dobLabel',
+              attributes: { id: 'dateOfBirth-otherChild-0' },
             },
           ],
         },
@@ -745,7 +749,7 @@ describe.skip('test cases for main util', () => {
           text: 'dobLabel',
         },
         value: {
-          text: '11 November 1999',
+          html: '11 November 1999',
         },
       },
       {
@@ -755,7 +759,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
               visuallyHiddenText: 'child 1 childGenderLabel',
-              attributes: {},
+              attributes: { id: 'gender-otherChild-0' },
             },
           ],
         },
@@ -812,13 +816,13 @@ describe.skip('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/has-other-children',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {},
+                attributes: { id: 'ocd_hasOtherChildren' },
               },
             ],
           },
           key: {},
           value: {
-            text: 'Yes',
+            html: 'Yes',
           },
         },
         {
@@ -834,7 +838,7 @@ describe.skip('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/other-children/names',
                 text: undefined,
                 visuallyHiddenText: 'child 1 fullName',
-                attributes: {},
+                attributes: { id: 'fullName-otherChild-0' },
               },
             ],
           },
@@ -842,7 +846,7 @@ describe.skip('test cases for main util', () => {
             text: 'fullName',
           },
           value: {
-            text: 'Nir Sin',
+            html: 'Nir Sin',
           },
         },
         {
@@ -851,13 +855,13 @@ describe.skip('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
-                visuallyHiddenText: 'Other child 1 approxCheckboxLabel',
-                attributes: {},
+                visuallyHiddenText: 'Other child 0 approxCheckboxLabel',
+                attributes: { id: 'isDateOfBirthUnknown-otherChild-0' },
               },
             ],
           },
           key: { text: 'approxCheckboxLabel' },
-          value: {},
+          value: { html: '<span class="govuk-error-message">Complete this section</span>' },
         },
         {
           actions: {
@@ -865,8 +869,8 @@ describe.skip('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
-                visuallyHiddenText: 'Other child 1 approxDobLabel',
-                attributes: {},
+                visuallyHiddenText: 'Other child 0 approxDobLabel',
+                attributes: { id: 'approxDateOfBirth-otherChild-0' },
               },
             ],
           },
@@ -874,7 +878,7 @@ describe.skip('test cases for main util', () => {
             text: 'approxDobLabel',
           },
           value: {
-            text: '11 November 1999',
+            html: '11 November 1999',
           },
         },
         {
@@ -884,7 +888,7 @@ describe.skip('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
                 visuallyHiddenText: 'child 1 childGenderLabel',
-                attributes: {},
+                attributes: { id: 'gender-otherChild-0' },
               },
             ],
           },
@@ -1011,7 +1015,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/add-other-persons',
               text: undefined,
               visuallyHiddenText: 'Other person 1 fullName',
-              attributes: {},
+              attributes: { id: 'fullName-otherPerson-0' },
             },
           ],
         },
@@ -1019,7 +1023,7 @@ describe.skip('test cases for main util', () => {
           text: 'fullName',
         },
         value: {
-          text: 'Respondent FirstPage',
+          html: 'Respondent FirstPage',
         },
       },
       {
@@ -1029,14 +1033,14 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
               visuallyHiddenText: 'Other person 1 hasNameChanged',
-              attributes: {},
+              attributes: { id: 'hasNameChanged-otherPerson-0' },
             },
           ],
         },
         key: {
           text: 'hasNameChanged',
         },
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1045,7 +1049,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
               visuallyHiddenText: 'Other person 1 childGenderLabel',
-              attributes: {},
+              attributes: { id: 'otherGenderDetails-otherPerson-0' },
             },
           ],
         },
@@ -1063,7 +1067,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
               visuallyHiddenText: 'Other person 1 dobLabel',
-              attributes: {},
+              attributes: { id: 'dateOfBirth-otherPerson-0' },
             },
           ],
         },
@@ -1071,7 +1075,7 @@ describe.skip('test cases for main util', () => {
           text: 'dobLabel',
         },
         value: {
-          text: '11 January 1999',
+          html: '11 January 1999',
         },
       },
       {
@@ -1081,7 +1085,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/relationship-to-child/39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
               text: undefined,
               visuallyHiddenText: 'Other person 1 relationshipTo Nir Sin',
-              attributes: {},
+              attributes: { id: 'relationshipTo-otherPerson-0-0' },
             },
           ],
         },
@@ -1089,7 +1093,7 @@ describe.skip('test cases for main util', () => {
           text: 'relationshipTo Nir Sin',
         },
         value: {
-          text: 'Other',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
       {
@@ -1099,7 +1103,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/refuge/staying-in-refuge/3b32bc4f-7417-443b-ba94-5eacfcee04c4?',
               text: undefined,
               visuallyHiddenText: 'Other person 1 refuge',
-              attributes: {},
+              attributes: { id: 'refuge-otherPerson-0' },
             },
           ],
         },
@@ -1107,7 +1111,7 @@ describe.skip('test cases for main util', () => {
           text: 'refuge',
         },
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -1137,7 +1141,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/address/manual',
               text: undefined,
               visuallyHiddenText: 'Other person 1 addressDetails',
-              attributes: {},
+              attributes: { id: 'addressDetails-otherPerson-0' },
             },
           ],
         },
@@ -1145,7 +1149,7 @@ describe.skip('test cases for main util', () => {
           text: 'addressDetails',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">addressLine1<br>addressLine2<br>postTown<br>county<br><br></dd></div></dl>',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
     ]);
@@ -1208,7 +1212,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
               text: undefined,
               visuallyHiddenText: 'Who does Bob Silly mainly live with?',
-              attributes: {},
+              attributes: { id: 'mainlyLiveWith-child-0' },
             },
           ],
         },
@@ -1226,7 +1230,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
               text: undefined,
               visuallyHiddenText: "Bob Silly's living arrangements",
-              attributes: {},
+              attributes: { id: 'childLivingArrangements-child-0' },
             },
           ],
         },
@@ -1234,7 +1238,7 @@ describe.skip('test cases for main util', () => {
           text: "Bob Silly's living arrangements",
         },
         value: {
-          html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
     ]);
@@ -1266,7 +1270,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
               text: undefined,
               visuallyHiddenText: 'Who does Bob Silly mainly live with?',
-              attributes: {},
+              attributes: { id: 'mainlyLiveWith-child-0' },
             },
           ],
         },
@@ -1274,7 +1278,7 @@ describe.skip('test cases for main util', () => {
           text: 'Who does Bob Silly mainly live with?',
         },
         value: {
-          html: ' ',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
       {
@@ -1284,7 +1288,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
               text: undefined,
               visuallyHiddenText: "Bob Silly's living arrangements",
-              attributes: {},
+              attributes: { id: 'childLivingArrangements-child-0' },
             },
           ],
         },
@@ -1292,7 +1296,7 @@ describe.skip('test cases for main util', () => {
           text: "Bob Silly's living arrangements",
         },
         value: {
-          html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
     ]);
@@ -1357,7 +1361,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
               text: undefined,
               visuallyHiddenText: 'Who does Bob Silly mainly live with?',
-              attributes: {},
+              attributes: { id: 'mainlyLiveWith-child-0' },
             },
           ],
         },
@@ -1375,7 +1379,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
               text: undefined,
               visuallyHiddenText: "Bob Silly's living arrangements",
-              attributes: {},
+              attributes: { id: 'childLivingArrangements-child-0' },
             },
           ],
         },
@@ -1538,7 +1542,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/concerns-about',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_concernAboutChild' },
             },
           ],
         },
@@ -1554,14 +1558,14 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/report-abuse/physicalAbuse',
               text: undefined,
               visuallyHiddenText: 'detailsOfChildConcern',
-              attributes: {},
+              attributes: { id: 'c1A_concernAboutChild-physicalAbuse' },
             },
           ],
         },
         key: {
           text: 'detailsOfChildConcern',
         },
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1570,7 +1574,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/report-abuse/psychologicalAbuse',
               text: undefined,
               visuallyHiddenText: 'detailsOfChildConcern',
-              attributes: {},
+              attributes: { id: 'c1A_concernAboutChild-psychologicalAbuse' },
             },
           ],
         },
@@ -1578,7 +1582,7 @@ describe.skip('test cases for main util', () => {
           text: 'detailsOfChildConcern',
         },
 
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1587,12 +1591,12 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/child-location',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_abductionReasonOutsideUk' },
             },
           ],
         },
         key: {},
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1601,12 +1605,12 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/child-location',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_childsCurrentLocation' },
             },
           ],
         },
         key: {},
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1615,13 +1619,13 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/passport-office',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_passportOffice' },
             },
           ],
         },
         key: {},
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><li>Father</li></dd></div></ul></dl>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><li>Father</li></dd></div></ul></dl>',
         },
       },
       {
@@ -1631,12 +1635,12 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/passport-office-notified',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_abductionPassportOfficeNotified' },
             },
           ],
         },
         key: {},
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1645,7 +1649,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/threats',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_childAbductedBefore' },
             },
           ],
         },
@@ -1661,14 +1665,14 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/previousabductions',
               text: undefined,
               visuallyHiddenText: 'detailsofAbduction',
-              attributes: {},
+              attributes: { id: 'c1A_previousAbductionsShortDesc' },
             },
           ],
         },
         key: {
           text: 'detailsofAbduction',
         },
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1677,7 +1681,7 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/previousabductions',
               text: undefined,
               visuallyHiddenText: 'c1A_policeOrInvestigatorInvolved',
-              attributes: {},
+              attributes: { id: 'c1A_policeOrInvestigatorInvolved' },
             },
           ],
         },
@@ -1685,7 +1689,7 @@ describe.skip('test cases for main util', () => {
           text: 'c1A_policeOrInvestigatorInvolved',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_policeOrInvestigatorOtherDetails</dd></div></dl>',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
     ]);
@@ -1712,13 +1716,15 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/concerns-about',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: {
+                id: 'c1A_concernAboutChild',
+              },
             },
           ],
         },
         key: {},
         value: {
-          html: '<ul class="govuk-list govuk-list--bullet"></ul>',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
     ]);
@@ -1800,7 +1806,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/add-respondents',
               text: undefined,
               visuallyHiddenText: 'respondents 1 fullName',
-              attributes: {},
+              attributes: {
+                id: 'fullName-respondent-0',
+              },
             },
           ],
         },
@@ -1808,7 +1816,7 @@ describe.skip('test cases for main util', () => {
           text: 'fullName',
         },
         value: {
-          text: 'Respondent FirstPage',
+          html: 'Respondent FirstPage',
         },
       },
       {
@@ -1818,7 +1826,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondents 1 hasNameChanged',
-              attributes: {},
+              attributes: {
+                id: 'hasNameChanged-respondent-0',
+              },
             },
           ],
         },
@@ -1836,7 +1846,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondents 1 childGenderLabel',
-              attributes: {},
+              attributes: {
+                id: 'childGenderLabel-respondent-0',
+              },
             },
           ],
         },
@@ -1854,7 +1866,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondents 1 approxCheckboxLabel',
-              attributes: {},
+              attributes: {
+                id: 'isDateOfBirthUnknown-respondent-0',
+              },
             },
           ],
         },
@@ -1862,7 +1876,7 @@ describe.skip('test cases for main util', () => {
           text: 'approxCheckboxLabel',
         },
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -1872,14 +1886,18 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondents 1 approxDobLabel',
-              attributes: {},
+              attributes: {
+                id: 'approxDateOfBirth-respondent-0',
+              },
             },
           ],
         },
         key: {
           text: 'approxDobLabel',
         },
-        value: {},
+        value: {
+          html: '<span class="govuk-error-message">Complete this section</span>',
+        },
       },
       {
         actions: {
@@ -1888,7 +1906,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondents 1 respondentPlaceOfBirthUnknown',
-              attributes: {},
+              attributes: {
+                id: 'respondentPlaceOfBirthUnknown-respondent-0',
+              },
             },
           ],
         },
@@ -1897,6 +1917,7 @@ describe.skip('test cases for main util', () => {
         },
         value: {
           text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -1906,7 +1927,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/relationship-to-child/39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
               text: undefined,
               visuallyHiddenText: 'respondents 1 relationshipTo Nir Sin',
-              attributes: {},
+              attributes: {
+                id: 'relationshipTo-respondent-0-0',
+              },
             },
           ],
         },
@@ -1914,7 +1937,7 @@ describe.skip('test cases for main util', () => {
           text: 'relationshipTo Nir Sin',
         },
         value: {
-          text: 'Other',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
       {
@@ -1923,8 +1946,10 @@ describe.skip('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/address/manual',
               text: undefined,
-              visuallyHiddenText: 'respondents 1 addressDetails',
-              attributes: {},
+              visuallyHiddenText: 'respondents 0 addressDetails',
+              attributes: {
+                id: 'addressDetails-respondent-0',
+              },
             },
           ],
         },
@@ -1941,8 +1966,10 @@ describe.skip('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
-              visuallyHiddenText: 'respondents 1 E-mail',
-              attributes: {},
+              visuallyHiddenText: 'respondents 0 E-mail',
+              attributes: {
+                id: 'personalDetails-respondent-email-0',
+              },
             },
           ],
         },
@@ -1951,6 +1978,7 @@ describe.skip('test cases for main util', () => {
         },
         value: {
           text: 'abc@gmail.com',
+          html: 'abc@gmail.com',
         },
       },
       {
@@ -1959,8 +1987,10 @@ describe.skip('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
-              visuallyHiddenText: 'respondents 1 Telephone number',
-              attributes: {},
+              visuallyHiddenText: 'respondents 0 Telephone number',
+              attributes: {
+                id: 'personalDetails-respondent-phone-0',
+              },
             },
           ],
         },
@@ -1968,6 +1998,7 @@ describe.skip('test cases for main util', () => {
           text: 'Telephone number',
         },
         value: {
+          html: '+447205308786',
           text: '+447205308786',
         },
       },
@@ -2043,7 +2074,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/miam/other-proceedings',
               text: undefined,
               visuallyHiddenText: 'childInvolvementInSupervision',
-              attributes: {},
+              attributes: {
+                id: 'miam_otherProceedings',
+              },
             },
           ],
         },
@@ -2051,7 +2084,7 @@ describe.skip('test cases for main util', () => {
           text: 'childInvolvementInSupervision',
         },
         value: {
-          text: 'No',
+          html: 'No',
         },
       },
       {
@@ -2061,7 +2094,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/miam/attendance',
               text: undefined,
               visuallyHiddenText: 'attendedMiamMidiation',
-              attributes: {},
+              attributes: {
+                id: 'miam_attendance',
+              },
             },
           ],
         },
@@ -2069,7 +2104,7 @@ describe.skip('test cases for main util', () => {
           text: 'attendedMiamMidiation',
         },
         value: {
-          text: 'No',
+          html: 'No',
         },
       },
       {
@@ -2079,13 +2114,15 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/miam/valid-reason',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: {
+                id: 'miam_validReason',
+              },
             },
           ],
         },
         key: {},
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
     ]);
@@ -2164,7 +2201,9 @@ describe.skip('test cases for main util', () => {
         key: {
           text: 'courtOrderProtection',
         },
-        value: {},
+        value: {
+          text: '<span class="govuk-error-message">Complete this section</span>',
+        },
       },
       {
         actions: {
@@ -2173,7 +2212,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/other-proceedings/proceeding-details',
               text: undefined,
               visuallyHiddenText: 'optitle',
-              attributes: {},
+              attributes: {
+                id: 'op_courtProceedingsOrders',
+              },
             },
           ],
         },
@@ -2212,7 +2253,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/other-concerns/drugs',
               text: undefined,
               visuallyHiddenText: 'childDrugAbuse',
-              attributes: {},
+              attributes: {
+                id: 'c1A_otherConcernsDrugs',
+              },
             },
           ],
         },
@@ -2220,7 +2263,7 @@ describe.skip('test cases for main util', () => {
           text: 'childDrugAbuse',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_otherConcernsDrugsDetails</dd></div></dl>',
+          html: '</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_otherConcernsDrugsDetails</dd></div></dl>',
         },
       },
       {
@@ -2230,7 +2273,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/other-concerns/other-issues',
               text: undefined,
               visuallyHiddenText: 'otherWellBeingIssues',
-              attributes: {},
+              attributes: {
+                id: 'c1A_childSafetyConcerns',
+              },
             },
           ],
         },
@@ -2238,7 +2283,7 @@ describe.skip('test cases for main util', () => {
           text: 'otherWellBeingIssues',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_childSafetyConcernsDetails</dd></div></dl>',
+          html: '</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_childSafetyConcernsDetails</dd></div></dl>',
         },
       },
       {
@@ -2248,7 +2293,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/orders-required/court-action',
               text: undefined,
               visuallyHiddenText: 'doWantCourtToAction',
-              attributes: {},
+              attributes: {
+                id: 'c1A_keepingSafeStatement',
+              },
             },
           ],
         },
@@ -2256,7 +2303,7 @@ describe.skip('test cases for main util', () => {
           text: 'doWantCourtToAction',
         },
         value: {
-          text: 'c1A_keepingSafeStatement',
+          html: 'c1A_keepingSafeStatement',
         },
       },
       {
@@ -2266,7 +2313,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
               text: undefined,
               visuallyHiddenText: 'selectSupervisionAgreementLabel',
-              attributes: {},
+              attributes: {
+                id: 'c1A_supervisionAgreementDetails',
+              },
             },
           ],
         },
@@ -2282,7 +2331,9 @@ describe.skip('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
               text: undefined,
               visuallyHiddenText: 'supervisionAgreementOtherWaysLabel',
-              attributes: {},
+              attributes: {
+                id: 'c1A_agreementOtherWaysDetails',
+              },
             },
           ],
         },
