@@ -374,18 +374,23 @@ const generateSubfieldlist = (
   }
 };
 
-const prepareHtml=(userCase: Partial<CaseWithId>, sessionKey: string, language: string, keys: Record<string, string>):string=> {
+const prepareHtml = (
+  userCase: Partial<CaseWithId>,
+  sessionKey: string,
+  language: string,
+  keys: Record<string, string>
+): string => {
   return userCase[sessionKey].length === 0
     ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
     : HTML.DESCRIPTION_TERM_DETAIL +
-    userCase[sessionKey].map(nonAttendance => {
-      if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}_subfields`)) {
-        return (
-          _.get(keys, nonAttendance) + generateSubfieldlist(userCase, sessionKey, nonAttendance, keys, language)
-        );
-      } else {
-        return keys[nonAttendance];
-      }
-    }) +
-    HTML.DESCRIPTION_TERM_DETAIL_END;
-}
+        userCase[sessionKey].map(nonAttendance => {
+          if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}_subfields`)) {
+            return (
+              _.get(keys, nonAttendance) + generateSubfieldlist(userCase, sessionKey, nonAttendance, keys, language)
+            );
+          } else {
+            return keys[nonAttendance];
+          }
+        }) +
+        HTML.DESCRIPTION_TERM_DETAIL_END;
+};

@@ -88,19 +88,13 @@ export default class OtherProceedingsGetController extends GetController {
         orderType,
         orderId,
         document: currentOrderDocument,
-        c100CaseProgressTrainTrack:genarateProgressTracker(req, language),
-        fileUplaodUrl: applyParms(
-          prepareBaseURL(req),
-          { orderType, orderId }
-        ),
-        fileRemoveUrl: applyParms(
-          prepareBaseURL(req),
-          {
-            orderType,
-            orderId,
-            removeId: currentOrderDocument.id,
-          }
-        ),
+        c100CaseProgressTrainTrack: genarateProgressTracker(req, language),
+        fileUplaodUrl: applyParms(prepareBaseURL(req), { orderType, orderId }),
+        fileRemoveUrl: applyParms(prepareBaseURL(req), {
+          orderType,
+          orderId,
+          removeId: currentOrderDocument.id,
+        }),
       });
     }
   }
@@ -175,15 +169,14 @@ export default class OtherProceedingsGetController extends GetController {
   }
 }
 
-
-const prepareBaseURL=(req: AppRequest<Partial<Case>>): string=> {
+const prepareBaseURL = (req: AppRequest<Partial<Case>>): string => {
   return req.originalUrl.startsWith(C100_URL)
     ? C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD
     : OTHER_PROCEEDINGS_DOCUMENT_UPLOAD;
-}
+};
 
-const genarateProgressTracker=(req: AppRequest<Partial<Case>>, language: string):ProgressBarProps[]=> {
+const genarateProgressTracker = (req: AppRequest<Partial<Case>>, language: string): ProgressBarProps[] => {
   return req.session.enableC100CaseProgressionTrainTrack && req.originalUrl.startsWith(C100_URL)
     ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user, true)
     : [];
-}
+};
