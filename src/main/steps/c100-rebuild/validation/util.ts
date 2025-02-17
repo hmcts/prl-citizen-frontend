@@ -384,7 +384,7 @@ export const areOtherPeopleValid = (caseData: CaseWithId): boolean => {
         (respondent.liveInRefuge === YesOrNo.YES ? !_.isEmpty(respondent.refugeConfidentialityC8Form) : true) &&
         !caseData.oprs_otherPersons?.find(
           otherPerson =>
-            doesAnyChildLiveWithOtherPerson(caseData as CaseWithId, otherPerson.id) &&
+            doesAnyChildLiveWithOtherPerson(caseData, otherPerson.id) &&
             _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
         )
     ) ?? false

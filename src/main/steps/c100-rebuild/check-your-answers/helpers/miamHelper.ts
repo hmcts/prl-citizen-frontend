@@ -246,19 +246,7 @@ export const miamParentAndChildFieldParser = (
 ): string => {
   if (userCase.hasOwnProperty(sessionKey)) {
     const mappedVals = _.isArray(userCase[sessionKey])
-      ? userCase[sessionKey].length === 0
-        ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
-        : HTML.DESCRIPTION_TERM_DETAIL +
-          userCase[sessionKey].map(nonAttendance => {
-            if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}_subfields`)) {
-              return (
-                _.get(keys, nonAttendance) + generateSubfieldlist(userCase, sessionKey, nonAttendance, keys, language)
-              );
-            } else {
-              return keys[nonAttendance];
-            }
-          }) +
-          HTML.DESCRIPTION_TERM_DETAIL_END
+      ? prepareHtml(userCase, sessionKey, language, keys)
       : HTML.DESCRIPTION_TERM_DETAIL + [keys[userCase[sessionKey]]] + HTML.DESCRIPTION_TERM_DETAIL_END;
 
     let additionalFields = '';
@@ -385,3 +373,19 @@ const generateSubfieldlist = (
     return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
   }
 };
+
+const prepareHtml=(userCase: Partial<CaseWithId>, sessionKey: string, language: string, keys: Record<string, string>):string=> {
+  return userCase[sessionKey].length === 0
+    ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
+    : HTML.DESCRIPTION_TERM_DETAIL +
+    userCase[sessionKey].map(nonAttendance => {
+      if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}_subfields`)) {
+        return (
+          _.get(keys, nonAttendance) + generateSubfieldlist(userCase, sessionKey, nonAttendance, keys, language)
+        );
+      } else {
+        return keys[nonAttendance];
+      }
+    }) +
+    HTML.DESCRIPTION_TERM_DETAIL_END;
+}

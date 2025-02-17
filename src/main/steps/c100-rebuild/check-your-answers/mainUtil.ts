@@ -1003,7 +1003,7 @@ export const PastAndCurrentProceedings = (
     '</ul>';
   let SummaryData;
   if (userCase['op_childrenInvolvedCourtCase'] === YesOrNo.YES || userCase['op_courtOrderProtection'] === YesOrNo.YES) {
-    SummaryData = proceedingSummaryData(keys, language, userCase, courtOrderDetails, false);
+    SummaryData = proceedingSummaryData(keys, language??'en', userCase, courtOrderDetails, false);
   } else {
     SummaryData = [
       {

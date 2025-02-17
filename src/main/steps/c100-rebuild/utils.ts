@@ -80,11 +80,9 @@ const validateC100Flow = (
   sections: Section[],
   flowValidation: (caseData: CaseWithId) => boolean
 ): boolean => {
-  if (hasC100ApplicationBeenCompleted && !url.includes('check-your-answers')) {
-    return isCurrentSectionValid(url, caseData, sections);
-  } else {
-    return flowValidation(caseData);
-  }
+  return (hasC100ApplicationBeenCompleted && !url.includes('check-your-answers'))
+  ?isCurrentSectionValid(url, caseData, sections)
+  :flowValidation(caseData)
 };
 
 const isC100WithConsentOrderFlowValid = (caseData: CaseWithId): boolean => {
