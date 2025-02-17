@@ -1,4 +1,5 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { CaseWithId } from '../../../app/case/case';
 import {
   C100_CHILDERN_DETAILS_ADD,
   C100_CHILDERN_DETAILS_CHILD_MATTERS,
@@ -75,6 +76,7 @@ describe('ChildrenDetailsNavigationController', () => {
               liveWith: [],
             },
           ],
+          oprs_otherPersons: [],
         },
       },
     });
@@ -141,6 +143,7 @@ describe('ChildrenDetailsNavigationController', () => {
               liveWith: [],
             },
           ],
+          oprs_otherPersons: [],
         },
       },
     });
@@ -242,5 +245,31 @@ describe('ChildrenDetailsNavigationController', () => {
     expect(
       ChildrenDetailsNavigationController.getNextUrl('/c100-rebuild/dummyPage', mock.session.userCase, mock.params)
     ).toBe('/c100-rebuild/dummyPage');
+  });
+
+  test('living with should navigate to other person confidentiality screen when there are other people living with children', async () => {
+    expect(
+      ChildrenDetailsNavigationController.getNextUrl(
+        C100_CHILDERN_LIVING_ARRANGEMENTS,
+        {
+          oprs_otherPersons: [{ id: '7483640e-0817-4ddc-b709-6723f7945678' }],
+          cd_children: [{ id: '1234', liveWith: [{ id: '7483640e-0817-4ddc-b709-6723f7945678' }] }],
+        } as unknown as CaseWithId,
+        { childId: '1234' }
+      )
+    ).toBe('/c100-rebuild/other-person-details/7483640e-0817-4ddc-b709-6723f7945678/confidentiality');
+  });
+
+  test('living with should navigate to other proceedings screen', async () => {
+    expect(
+      ChildrenDetailsNavigationController.getNextUrl(
+        C100_CHILDERN_LIVING_ARRANGEMENTS,
+        {
+          oprs_otherPersons: [{ id: '7483640e-0817-4ddc-b709-6723f7945678' }],
+          cd_children: [{ id: '1234' }],
+        } as unknown as CaseWithId,
+        { childId: '1234' }
+      )
+    ).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
   });
 });

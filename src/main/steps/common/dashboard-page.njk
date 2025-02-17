@@ -16,6 +16,7 @@
 {% block header %}
   {% include "../cookie-banner/template.njk" %}
   {{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
     containerClasses: "govuk-width-container",
     serviceName: serviceName,
     serviceUrl: (globals.basePath if globals.basePath) + "/",

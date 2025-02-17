@@ -5,6 +5,7 @@ import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
+import { cleanLiveWithData, setDynamicFormContext } from '../../../c100-rebuild/people/util';
 import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
 
 @autobind
@@ -69,10 +70,12 @@ export default class AddApplicants extends GetController {
           req.session.userCase['appl_allApplicants'] = req.session.userCase.appl_allApplicants.filter(
             applicant => applicant['id'] !== applicantId
           );
+          req.session.userCase = cleanLiveWithData(req.session.userCase, applicantId as string);
           return req.session.save(err => {
             if (err) {
               console.log(err);
             }
+            setDynamicFormContext(req, 'remove');
             res.redirect(C100_APPLICANT_ADD_APPLICANTS);
           });
         }

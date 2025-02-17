@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { CaseApi } from '../../../app/case/C100CaseApi';
 import { Document } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { PCQProvider } from '../../../modules/pcq';
@@ -11,6 +12,7 @@ import { C100_CHECK_YOUR_ANSWER, C100_CONFIRMATIONPAGE } from '../../urls';
 import PayAndSubmitPostController from './PayAndSubmitPostController';
 
 jest.mock('axios');
+const saveC100DraftApplicationMock = jest.spyOn(CaseApi.prototype, 'saveC100DraftApplication');
 let req, res;
 
 const finalDocument: Document = {
@@ -110,5 +112,42 @@ describe('PayAndSubmitPostController test cases', () => {
     const controller = new PayAndSubmitPostController(mockFormContent.fields);
     await controller.post(req, res);
     expect(pcqGetControllerMock).not.toHaveBeenCalled();
+  });
+
+  test('Should navigate to payment handler if pcq id is in usercase', async () => {
+    req = mockRequest({
+      body: {
+        saveAndContinue: true,
+      },
+      session: {
+        userCase: {
+          caseId: '1234567890123456',
+          applicantPcqId: '123',
+        },
+      },
+    });
+    jest.spyOn(PCQProvider, 'isComponentEnabled').mockReturnValue(Promise.resolve(true));
+    mockedAxios.post.mockResolvedValueOnce({ finalDocument });
+    const controller = new PayAndSubmitPostController(mockFormContent.fields);
+    await controller.post(req, res);
+    expect(pcqGetControllerMock).not.toHaveBeenCalled();
+  });
+
+  test('Should save and redirect when save and come back later clicked', async () => {
+    req = mockRequest({
+      body: {
+        saveAndComeLater: true,
+      },
+      session: {
+        userCase: {
+          caseId: '1234567890123456',
+        },
+      },
+    });
+    saveC100DraftApplicationMock.mockResolvedValueOnce(req.session.userCase);
+    const controller = new PayAndSubmitPostController(mockFormContent.fields);
+    await controller.post(req, res);
+    expect(req.session.save).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/request');
   });
 });

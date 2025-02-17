@@ -4,6 +4,8 @@ export const HOME_URL: PageLink = '/';
 export const HEALTH_URL: PageLink = '/health';
 export const CALLBACK_URL: PageLink = '/receiver';
 export const SIGN_IN_URL: PageLink = '/login';
+export const SIGN_IN_URL_WITH_CALLBACK: PageLink = `${SIGN_IN_URL}?callback={url}`;
+
 export const SIGN_OUT_URL: PageLink = '/logout';
 export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
@@ -284,9 +286,6 @@ export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink = '/:root/sa
 export const C1A_CHILD_ABDUCTION_THREATS: PageLink = '/:root/safety-concerns/abduction/threats';
 export const C1A_SAFETY_CONCERNS_REVIEW: PageLink = '/:root/safety-concerns/review';
 
-/** @C100 Document Submission */
-export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;
-
 /** @C100 MIAM */
 export const C100_MIAM: PageLink = `${C100_URL}/miam`;
 export const C100_MIAM_OTHER_PROCEEDINGS: PageLink = `${C100_MIAM}/other-proceedings`;
@@ -370,6 +369,7 @@ export const C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD: PageLink = `${C100
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/lookup`;
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/manual`;
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/select`;
+export const C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/confidentiality`;
 
 /** @C100 Consent Order */
 export const C100_CONSENT_ORDER: PageLink = `${C100_URL}/consent-order`;

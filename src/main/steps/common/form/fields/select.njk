@@ -6,8 +6,7 @@
     classes: field.classes or "govuk-!-width-three-quarters",
     name: fieldName,
     label: {
-      text: getContent(field.label) if not field.labelHidden else "",
-      classes: labelClasses
+      text: getContent(field.label) if not field.labelHidden else ""
     },
     items: getContent(field.options),
     attributes: {

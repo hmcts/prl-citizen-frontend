@@ -568,6 +568,11 @@ export interface Case {
   miam_detailsOfEvidence?: string;
   miam_childProtectionEvidence?: Miam_childProtectionEvidence;
   hu_urgentHearingReasons?: YesOrNo;
+  hu_reasonOfUrgentHearing?: string[];
+  hu_otherRiskDetails?: string;
+  hu_timeOfHearingDetails?: string;
+  hu_hearingWithNext48HrsDetails?: YesOrNo;
+  hu_hearingWithNext48HrsMsg?: string;
   cd_children?: ChildrenDetails[];
   ocd_otherChildren?: OtherChildrenDetails[];
   ocd_hasOtherChildren?: YesOrNo;
@@ -575,6 +580,11 @@ export interface Case {
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
   sq_courtPermissionRequired?: YesOrNo;
+  sq_permissionsRequest?: string;
+  sq_permissionsWhy?: string[]; //check
+  sq_doNotHaveParentalResponsibility_subfield?: string;
+  sq_courtOrderPrevent_subfield?: string;
+  sq_anotherReason_subfield?: string;
 
   co_certificate?: C100DocumentInfo;
   too_courtOrder?: string[];
@@ -591,6 +601,11 @@ export interface Case {
   op_childrenInvolvedCourtCase?: YesOrNo;
   op_courtOrderProtection?: YesOrNo;
   hwn_hearingPart1?: YesOrNo;
+  hwn_reasonsForApplicationWithoutNotice?: string;
+  hwn_doYouNeedAWithoutNoticeHearing?: YesOrNo;
+  hwn_doYouNeedAWithoutNoticeHearingDetails?: string;
+  hwn_doYouRequireAHearingWithReducedNotice?: YesOrNo;
+  hwn_doYouRequireAHearingWithReducedNoticeDetails?: string;
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
   createdDate?: string;
@@ -696,6 +711,7 @@ export interface Case {
   awp_applicationReason?: AWPApplicationReason;
   refugeDocument?: Document;
   reUploadRefugeDocument?: YesOrNo;
+  applicantPcqId?: string;
 }
 
 export interface CitizenNotification {
@@ -793,6 +809,7 @@ export interface CaseWithId extends Case {
   legalRepresentativeForProceedings?: YesOrNo;
   legalRepresentativeForApplication?: YesOrNo;
   paymentData?: PaymentResponse;
+  dynamicForm?: Record<string, any>;
 }
 
 export enum Checkbox {

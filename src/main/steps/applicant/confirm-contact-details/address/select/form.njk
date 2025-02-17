@@ -2,7 +2,8 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% block before_fields %}
-  <label class="govuk-label govuk-label--m">{{ postcode }}</label>
+<h2  class="govuk-heading-m govuk-!-margin-bottom-1">{{ postcode }}
+  </h2>
   <div class="govuk-form-group float-left">
     <p class="govuk-body govuk-!-font-size-19">{{ userCase.citizenUserAddressPostcode }}</p>
     <p class="govuk-body">

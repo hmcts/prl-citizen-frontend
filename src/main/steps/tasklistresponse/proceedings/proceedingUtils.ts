@@ -1,56 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { YesOrNo } from '../../../app/case/definition';
+import { RootContext } from '../../../app/case/definition';
+import { IndividualOrderFieldsParser } from '../../../steps/common/otherProceeding/utils';
 import { PROCEEDINGS_ORDER_DETAILS } from '../../../steps/urls';
-import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
-import { Mapper } from '../../c100-rebuild/check-your-answers/util/otherProceeding.util';
-import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
-
-import { cy, en } from './courtproceedings/content';
-import { HTML } from './htmlSelectors';
-import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-details/content';
-
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const IndividualOrderFieldsParser = (keys, order, language) => {
-  const newOrders = order;
-  let Val = '';
-  Object.entries(newOrders).forEach((entry, index) => {
-    const key = entry[0];
-    const value = entry[1];
-    const rulerForLastElement = Object.entries(newOrders).length > index + 1 ? HTML.RULER : '<br>';
-    if (key !== 'id' && key !== 'orderDocument') {
-      if (typeof entry[1] === 'object' && entry[1] !== null) {
-        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + DATE_FORMATTOR(value, language) + HTML.P_CLOSE;
-        Val += keyDetails + valueDetails + rulerForLastElement;
-      } else {
-        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
-        const valueDetails =
-          HTML.P +
-          (value === YesOrNo.YES
-            ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
-            : isValueNo(value, language)) +
-          HTML.P_CLOSE;
-        Val += keyDetails + valueDetails + rulerForLastElement;
-      }
-    } else if (key === 'orderDocument') {
-      if (value !== 'undefined') {
-        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + getYesNoTranslation(language, YesOrNo.YES, 'doTranslation') + HTML.P_CLOSE;
-        Val += keyDetails + valueDetails + rulerForLastElement;
-      } else {
-        const keyDetails = HTML.H4 + Mapper(key, keys) + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + getYesNoTranslation(language, YesOrNo.NO, 'doTranslation') + HTML.P_CLOSE;
-        Val += keyDetails + valueDetails + rulerForLastElement;
-      }
-    }
-  });
-  return Val;
-};
-
-const isValueNo = (value, language) =>
-  value === YesOrNo.NO ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation') : value;
 
 /**
  * It takes in a UserCase object, a keys object, a URLS object and a sessionKey string. It returns an
@@ -87,21 +40,6 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, 
  * depending on the language selected
  * @returns A function that returns an object.
  */
-export const otherProceedingsContents = SystemLanguage => {
-  const opContents = {
-    en: () => {
-      delete en['errors'];
-      delete opDetailsEnContents['errors'];
-      return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().title };
-    },
-    cy: () => {
-      delete cy['errors'];
-      delete opDetailsCyContents['errors'];
-      return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().title };
-    },
-  };
-  return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
-};
 /* eslint-disable @typescript-eslint/no-explicit-any*/
 function prepareOrderDetail(
   order: any,
@@ -122,7 +60,7 @@ function prepareOrderDetail(
     const IndexNumber = index > 0 ? index + 1 : '';
     orderSessionStorage.push({
       key: `${keys[order + 'Label']} ${IndexNumber}`,
-      valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
+      valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language, RootContext.RESPONDENT),
       changeUrl: applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: order }),
     });
   });
