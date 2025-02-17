@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
-import { CaseWithId } from '../../app/case/case';
+import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { CaseType } from '../../app/case/definition';
 
 import { RACommonComponentUserAction, RASupportContext } from './definitions';
@@ -9,13 +9,18 @@ import { RAService } from './service';
 
 import { RAProvider } from './index';
 
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.create = jest.fn(() => mockedAxios);
+
 describe('ReasonableAdjustementsService', () => {
   let existingFlags;
   const correlationId = 'ra-cc-correlation-id';
   const language = 'en';
-  const client = jest.spyOn(RAProvider, 'APIClient');
+  const req = mockRequest();
+  req.protocol = 'https';
+  req.host = 'localhost';
+  req.get = jest.fn().mockReturnValue('localhost');
 
-  jest.spyOn(RAProvider, 'getAppBaseUrl').mockImplementation(() => 'https://cui-ra.aat.platform.hmcts.net');
   jest.spyOn(RAProvider, 'log');
 
   beforeEach(() => {
@@ -58,28 +63,29 @@ describe('ReasonableAdjustementsService', () => {
   });
 
   test('when invoking getCommonComponentUrl - success scenario', async () => {
-    client.mockReturnValueOnce({
-      post: jest.fn().mockResolvedValueOnce({ data: { url: 'https://cui-ra.aat.platform.hmcts.net/xyz-123' } }),
-    } as unknown as AxiosInstance);
-    const response = await RAService.getCommonComponentUrl(correlationId, existingFlags, language);
+    const mockPost = jest
+      .fn()
+      .mockResolvedValueOnce({ data: { url: 'https://cui-ra.aat.platform.hmcts.net/xyz-123' } });
+    mockedAxios.create.mockReturnValueOnce({ post: mockPost } as unknown as AxiosInstance);
+    const response = await RAService.getCommonComponentUrl(req, correlationId, existingFlags, language);
 
     expect(response.url).toBe('https://cui-ra.aat.platform.hmcts.net/xyz-123');
   });
 
   test('when invoking getCommonComponentUrl - error scenario', async () => {
-    client.mockReturnValueOnce({
+    mockedAxios.create.mockReturnValueOnce({
       post: jest.fn().mockRejectedValueOnce(new Error('404')),
     } as unknown as AxiosInstance);
 
     try {
-      await RAService.getCommonComponentUrl(correlationId, existingFlags, language);
+      await RAService.getCommonComponentUrl(req, correlationId, existingFlags, language);
     } catch (error) {
       expect(RAProvider.log).toBeCalled;
     }
   });
 
   test('when invoking retrievePartyRAFlagsFromCommonComponent - success scenario', async () => {
-    client.mockReturnValueOnce({
+    mockedAxios.create.mockReturnValueOnce({
       get: jest.fn().mockResolvedValueOnce({
         data: {
           flagsAsSupplied: {
@@ -127,7 +133,8 @@ describe('ReasonableAdjustementsService', () => {
         },
       }),
     } as unknown as AxiosInstance);
-    const response = await RAService.retrievePartyRAFlagsFromCommonComponent(correlationId);
+
+    const response = await RAService.retrievePartyRAFlagsFromCommonComponent(req, correlationId);
 
     expect(response.flagsAsSupplied.details).toHaveLength(0);
     expect(response.replacementFlags.details).toHaveLength(1);
@@ -135,19 +142,19 @@ describe('ReasonableAdjustementsService', () => {
   });
 
   test('when invoking retrievePartyRAFlagsFromCommonComponent - error scenario', async () => {
-    client.mockReturnValueOnce({
+    mockedAxios.create.mockReturnValueOnce({
       get: jest.fn().mockRejectedValueOnce(new Error('404')),
     } as unknown as AxiosInstance);
 
     try {
-      await RAService.retrievePartyRAFlagsFromCommonComponent(correlationId);
+      await RAService.retrievePartyRAFlagsFromCommonComponent(req, correlationId);
     } catch (error) {
       expect(RAProvider.log).toBeCalled;
     }
   });
 
   test('when invoking retrieveExistingPartyRAFlags - success scenario', async () => {
-    client.mockReturnValueOnce({
+    mockedAxios.create.mockReturnValueOnce({
       get: jest.fn().mockResolvedValueOnce({
         data: {
           partyName: 'testuser citizen',
@@ -187,6 +194,7 @@ describe('ReasonableAdjustementsService', () => {
       }),
     } as unknown as AxiosInstance);
     const response = await RAService.retrieveExistingPartyRAFlags(
+      req,
       '1700583741814566',
       '0c09b130-2eba-4ca8-a910-1f001bac01e6',
       'test-user-access-token'
@@ -197,12 +205,13 @@ describe('ReasonableAdjustementsService', () => {
   });
 
   test('when invoking retrieveExistingPartyRAFlags - error scenario', async () => {
-    client.mockReturnValueOnce({
+    mockedAxios.create.mockReturnValueOnce({
       get: jest.fn().mockRejectedValueOnce(new Error('404')),
     } as unknown as AxiosInstance);
 
     try {
       await RAService.retrieveExistingPartyRAFlags(
+        req,
         '1700583741814566',
         '0c09b130-2eba-4ca8-a910-1f001bac01e6',
         'test-user-access-token'
@@ -213,12 +222,13 @@ describe('ReasonableAdjustementsService', () => {
   });
 
   test('when invoking updatePartyRAFlags for manageSupport - success scenario', async () => {
-    client.mockReturnValueOnce({
+    mockedAxios.create.mockReturnValueOnce({
       post: jest.fn().mockResolvedValueOnce({
         data: '200',
       }),
     } as unknown as AxiosInstance);
     const response = await RAService.updatePartyRAFlags(
+      req,
       '1700583741814566',
       CaseType.C100,
       '0c09b130-2eba-4ca8-a910-1f001bac01e6',
@@ -231,12 +241,13 @@ describe('ReasonableAdjustementsService', () => {
   });
 
   test('when invoking updatePartyRAFlags for manageSupport - error scenario', async () => {
-    client.mockReturnValueOnce({
+    mockedAxios.create.mockReturnValueOnce({
       post: jest.fn().mockRejectedValueOnce(new Error('404')),
     } as unknown as AxiosInstance);
 
     try {
       await RAService.updatePartyRAFlags(
+        req,
         '1700583741814566',
         CaseType.C100,
         '0c09b130-2eba-4ca8-a910-1f001bac01e6',
@@ -250,37 +261,50 @@ describe('ReasonableAdjustementsService', () => {
   });
 
   test('when invoking retrieveCommonComponentHealthStatus for health check - success scenario', async () => {
-    client.mockReturnValueOnce({
+    mockedAxios.create.mockReturnValueOnce({
       get: jest.fn().mockResolvedValueOnce({
         data: {
           status: 'UP',
         },
       }),
     } as unknown as AxiosInstance);
-    const response = await RAService.retrieveCommonComponentHealthStatus();
+    const response = await RAService.retrieveCommonComponentHealthStatus(req);
 
     expect(response).toBe('UP');
   });
 
   test('when invoking retrieveCommonComponentHealthStatus for health check - error scenario', async () => {
-    client.mockReturnValueOnce({
+    mockedAxios.create.mockReturnValueOnce({
       get: jest.fn().mockRejectedValueOnce(new Error('404')),
     } as unknown as AxiosInstance);
 
     try {
-      await RAService.retrieveCommonComponentHealthStatus();
+      await RAService.retrieveCommonComponentHealthStatus(req);
     } catch (error) {
       expect(RAProvider.log).toBeCalled;
     }
   });
 
   test('saveLanguagePrefAndSpecialArrangements should catch error', async () => {
-    client.mockReturnValueOnce({
+    mockedAxios.create.mockReturnValueOnce({
       post: jest.fn().mockRejectedValueOnce(new Error('404')),
     } as unknown as AxiosInstance);
 
     await expect(
-      RAService.saveLanguagePrefAndSpecialArrangements({ caseTypeOfApplication: 'C100' } as CaseWithId, '1234', '1234')
+      RAService.saveLanguagePrefAndSpecialArrangements(
+        {
+          ...req,
+          session: {
+            ...req.session,
+            userCase: {
+              ...req.session.userCase,
+              caseTypeOfApplication: 'C100',
+            },
+          },
+        },
+        '1234',
+        '1234'
+      )
     ).rejects.toThrow(new Error('Could not save RA language pref - saveLanguagePrefAndSpecialArrangements'));
   });
 });
