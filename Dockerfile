@@ -1,5 +1,7 @@
 # ---- Base image ----
 FROM hmctspublic.azurecr.io/base/node:20-alpine as base
+USER root
+RUN corepack enable
 COPY --chown=hmcts:hmcts . .
 RUN yarn install --production \
   && yarn cache clean
@@ -7,7 +9,6 @@ RUN yarn install --production \
 # ---- Build image ----
 FROM base as build
 
-USER root
 # Remove when switched to dart-sass
 RUN apk add --update --no-cache python3 make g++ build-base
 USER hmcts
