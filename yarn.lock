@@ -5553,14 +5553,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "axios@npm:0.29.0"
+"axios@npm:^1.0.0":
+  version: 1.7.9
+  resolution: "axios@npm:1.7.9"
   dependencies:
-    follow-redirects: ^1.15.4
+    follow-redirects: ^1.15.6
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
-  checksum: b365fa0471ff62472521932c68f152e98650804c016fc6a9fe337a6cd67201141baf14d29161527cce5189b9eba8f14cb5781e02c56e69f56784e9a23385d7e7
+  checksum: cb8ce291818effda09240cb60f114d5625909b345e10f389a945320e06acf0bc949d0f8422d25720f5dd421362abee302c99f5e97edec4c156c8939814b23d19
   languageName: node
   linkType: hard
 
@@ -16941,7 +16941,7 @@ __metadata:
     allure-commandline: ^2.13.8
     applicationinsights: ^2.3.5
     autobind-decorator: ^2.4.0
-    axios: ^0.29.0
+    axios: ^1.0.0
     axios-debug-log: ^1.0.0
     babel-eslint: ^10.1.0
     babel-loader: ^8.2.2
