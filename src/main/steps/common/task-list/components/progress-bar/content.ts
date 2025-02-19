@@ -6,12 +6,12 @@ const en = {
   notStarted: 'is not yet started',
   [ProgressBarConfigType.C100_CASE_CREATION]: {
     childrenPostCode: {
-      label: 'Children<br/>postcode',
-      ariaLabel: 'Children postcode',
+      label: 'Childs<br/>postcode',
+      ariaLabel: 'Childs postcode',
     },
     screeningSection: {
-      label: 'Screening<br/>questions',
-      ariaLabel: 'Screening questions',
+      label: 'Parties<br/>agreement',
+      ariaLabel: 'Parties agreement',
     },
     consentOrder: {
       label: 'Consent order',
@@ -26,12 +26,12 @@ const en = {
       ariaLabel: 'Type of order',
     },
     otherProceedings: {
-      label: 'Other<br/>Proceedings',
-      ariaLabel: 'Other Proceedings',
+      label: 'Other<br/>proceedings',
+      ariaLabel: 'Other proceedings',
     },
     urgencyAndWithoutNotice: {
-      label: 'Urgency<br/>&<br/>Without notice',
-      ariaLabel: 'Urgency and Without notice',
+      label: 'Hearing<br/>urgency',
+      ariaLabel: 'Hearing urgency',
     },
     people: {
       label: 'People',
@@ -46,12 +46,12 @@ const en = {
       ariaLabel: 'International elements',
     },
     reasonableAdjustments: {
-      label: 'Reasonable<br/>adjustments',
-      ariaLabel: 'Reasonable adjustments',
+      label: 'Court<br/>support',
+      ariaLabel: 'Court support',
     },
     helpWithFees: {
-      label: 'Help<br/>with<br/>fees',
-      ariaLabel: 'Help with fees',
+      label: 'Payment',
+      ariaLabel: 'Payment',
     },
   },
   [ProgressBarConfigType.C100_CASE_PROGRESSION]: {
@@ -102,12 +102,12 @@ const cy: typeof en = {
   notStarted: 'heb ddechrau eto',
   [ProgressBarConfigType.C100_CASE_CREATION]: {
     childrenPostCode: {
-      label: 'Children<br/>postcode - welsh',
-      ariaLabel: 'Children postcode - welsh',
+      label: 'Childs<br/>postcode - welsh',
+      ariaLabel: 'Childs postcode - welsh',
     },
     screeningSection: {
-      label: 'Screening<br/>questions - welsh',
-      ariaLabel: 'Screening questions - welsh',
+      label: 'Parties<br/>agreement - welsh',
+      ariaLabel: 'Parties agreement - welsh',
     },
     consentOrder: {
       label: 'Consent order - welsh',
@@ -122,12 +122,12 @@ const cy: typeof en = {
       ariaLabel: 'Type of order - welsh',
     },
     otherProceedings: {
-      label: 'Other<br/>Proceedings - welsh',
-      ariaLabel: 'Other Proceedings - welsh',
+      label: 'Other<br/>proceedings - welsh',
+      ariaLabel: 'Other proceedings - welsh',
     },
     urgencyAndWithoutNotice: {
-      label: 'Urgency<br/>&<br/>Without notice - welsh',
-      ariaLabel: 'Urgency and Without notice - welsh',
+      label: 'Hearing<br/>urgency - welsh',
+      ariaLabel: 'Hearing urgency - welsh',
     },
     people: {
       label: 'People - welsh',
@@ -142,12 +142,12 @@ const cy: typeof en = {
       ariaLabel: 'International elements - welsh',
     },
     reasonableAdjustments: {
-      label: 'Reasonable<br/>adjustments - welsh',
-      ariaLabel: 'Reasonable adjustments - welsh',
+      label: 'Court<br/>support - welsh',
+      ariaLabel: 'Court support - welsh',
     },
     helpWithFees: {
-      label: 'Help<br/>with<br/>fees - welsh',
-      ariaLabel: 'Help with fees - welsh',
+      label: 'Payment - welsh',
+      ariaLabel: 'Payment - welsh',
     },
   },
   [ProgressBarConfigType.C100_CASE_PROGRESSION]: {

@@ -721,13 +721,13 @@ describe('getProgressBarConfig', () => {
         )
       ).toStrictEqual([
         {
-          ariaLabel: 'Children postcode is not yet started',
-          label: 'Children<br/>postcode',
+          ariaLabel: 'Childs postcode is not yet started',
+          label: 'Childs<br/>postcode',
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Screening questions is completed',
-          label: 'Screening<br/>questions',
+          ariaLabel: 'Parties agreement is completed',
+          label: 'Parties<br/>agreement',
           statusBarClassName: 'stage--completed',
         },
         {
@@ -741,8 +741,8 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Urgency and Without notice is not yet started',
-          label: 'Urgency<br/>&<br/>Without notice',
+          ariaLabel: 'Hearing urgency is not yet started',
+          label: 'Hearing<br/>urgency',
           statusBarClassName: '',
         },
         {
@@ -751,8 +751,8 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Other Proceedings is not yet started',
-          label: 'Other<br/>Proceedings',
+          ariaLabel: 'Other proceedings is not yet started',
+          label: 'Other<br/>proceedings',
           statusBarClassName: '',
         },
         {
@@ -766,13 +766,13 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Reasonable adjustments is not yet started',
-          label: 'Reasonable<br/>adjustments',
+          ariaLabel: 'Court support is not yet started',
+          label: 'Court<br/>support',
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Help with fees is not yet started',
-          label: 'Help<br/>with<br/>fees',
+          ariaLabel: 'Payment is not yet started',
+          label: 'Payment',
           statusBarClassName: '',
         },
       ]);
@@ -789,13 +789,13 @@ describe('getProgressBarConfig', () => {
         )
       ).toStrictEqual([
         {
-          ariaLabel: 'Children postcode is not yet started',
-          label: 'Children<br/>postcode',
+          ariaLabel: 'Childs postcode is not yet started',
+          label: 'Childs<br/>postcode',
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Screening questions is in progress',
-          label: 'Screening<br/>questions',
+          ariaLabel: 'Parties agreement is in progress',
+          label: 'Parties<br/>agreement',
           statusBarClassName: 'stage--active',
         },
         {
@@ -804,8 +804,8 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: 'stage--completed',
         },
         {
-          ariaLabel: 'Other Proceedings is not yet started',
-          label: 'Other<br/>Proceedings',
+          ariaLabel: 'Other proceedings is not yet started',
+          label: 'Other<br/>proceedings',
           statusBarClassName: '',
         },
         {
@@ -814,8 +814,8 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Urgency and Without notice is not yet started',
-          label: 'Urgency<br/>&<br/>Without notice',
+          ariaLabel: 'Hearing urgency is not yet started',
+          label: 'Hearing<br/>urgency',
           statusBarClassName: '',
         },
         {
@@ -823,6 +823,7 @@ describe('getProgressBarConfig', () => {
           label: 'People',
           statusBarClassName: '',
         },
+
         {
           ariaLabel: 'Safety concerns is not yet started',
           label: 'Safety<br/>concerns',
@@ -834,13 +835,13 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Reasonable adjustments is not yet started',
-          label: 'Reasonable<br/>adjustments',
+          ariaLabel: 'Court support is not yet started',
+          label: 'Court<br/>support',
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Help with fees is not yet started',
-          label: 'Help<br/>with<br/>fees',
+          ariaLabel: 'Payment is not yet started',
+          label: 'Payment',
           statusBarClassName: '',
         },
       ]);
@@ -861,13 +862,13 @@ describe('getProgressBarConfig', () => {
         )
       ).toStrictEqual([
         {
-          ariaLabel: 'Children postcode is not yet started',
-          label: 'Children<br/>postcode',
+          ariaLabel: 'Childs postcode is not yet started',
+          label: 'Childs<br/>postcode',
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Screening questions is in progress',
-          label: 'Screening<br/>questions',
+          ariaLabel: 'Parties agreement is in progress',
+          label: 'Parties<br/>agreement',
           statusBarClassName: 'stage--active',
         },
         {
@@ -876,8 +877,8 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: 'stage--active',
         },
         {
-          ariaLabel: 'Urgency and Without notice is not yet started',
-          label: 'Urgency<br/>&<br/>Without notice',
+          ariaLabel: 'Hearing urgency is not yet started',
+          label: 'Hearing<br/>urgency',
           statusBarClassName: '',
         },
         {
@@ -891,8 +892,8 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Other Proceedings is not yet started',
-          label: 'Other<br/>Proceedings',
+          ariaLabel: 'Other proceedings is not yet started',
+          label: 'Other<br/>proceedings',
           statusBarClassName: '',
         },
         {
@@ -906,13 +907,13 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Reasonable adjustments is not yet started',
-          label: 'Reasonable<br/>adjustments',
+          ariaLabel: 'Court support is not yet started',
+          label: 'Court<br/>support',
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Help with fees is not yet started',
-          label: 'Help<br/>with<br/>fees',
+          ariaLabel: 'Payment is not yet started',
+          label: 'Payment',
           statusBarClassName: '',
         },
       ]);
@@ -931,13 +932,13 @@ describe('getProgressBarConfig', () => {
         )
       ).toStrictEqual([
         {
-          ariaLabel: 'Children postcode is not yet started',
-          label: 'Children<br/>postcode',
+          ariaLabel: 'Childs postcode is not yet started',
+          label: 'Childs<br/>postcode',
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Screening questions is in progress',
-          label: 'Screening<br/>questions',
+          ariaLabel: 'Parties agreement is in progress',
+          label: 'Parties<br/>agreement',
           statusBarClassName: 'stage--active',
         },
         {
@@ -951,8 +952,8 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Urgency and Without notice is not yet started',
-          label: 'Urgency<br/>&<br/>Without notice',
+          ariaLabel: 'Hearing urgency is not yet started',
+          label: 'Hearing<br/>urgency',
           statusBarClassName: '',
         },
         {
@@ -961,8 +962,8 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Other Proceedings is not yet started',
-          label: 'Other<br/>Proceedings',
+          ariaLabel: 'Other proceedings is not yet started',
+          label: 'Other<br/>proceedings',
           statusBarClassName: '',
         },
         {
@@ -976,13 +977,13 @@ describe('getProgressBarConfig', () => {
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Reasonable adjustments is not yet started',
-          label: 'Reasonable<br/>adjustments',
+          ariaLabel: 'Court support is not yet started',
+          label: 'Court<br/>support',
           statusBarClassName: '',
         },
         {
-          ariaLabel: 'Help with fees is not yet started',
-          label: 'Help<br/>with<br/>fees',
+          ariaLabel: 'Payment is not yet started',
+          label: 'Payment',
           statusBarClassName: '',
         },
       ]);

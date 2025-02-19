@@ -36,13 +36,13 @@ describe('testcase for tasklist', () => {
     ],
     progressBar: [
       {
-        ariaLabel: 'Children postcode is not yet started',
-        label: 'Children<br/>postcode',
+        ariaLabel: 'Childs postcode is not yet started',
+        label: 'Childs<br/>postcode',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Screening questions is not yet started',
-        label: 'Screening<br/>questions',
+        ariaLabel: 'Parties agreement is not yet started',
+        label: 'Parties<br/>agreement',
         statusBarClassName: '',
       },
       {
@@ -51,8 +51,8 @@ describe('testcase for tasklist', () => {
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Urgency and Without notice is not yet started',
-        label: 'Urgency<br/>&<br/>Without notice',
+        ariaLabel: 'Hearing urgency is not yet started',
+        label: 'Hearing<br/>urgency',
         statusBarClassName: '',
       },
       {
@@ -61,8 +61,8 @@ describe('testcase for tasklist', () => {
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Other Proceedings is not yet started',
-        label: 'Other<br/>Proceedings',
+        ariaLabel: 'Other proceedings is not yet started',
+        label: 'Other<br/>proceedings',
         statusBarClassName: '',
       },
       {
@@ -76,13 +76,13 @@ describe('testcase for tasklist', () => {
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Reasonable adjustments is not yet started',
-        label: 'Reasonable<br/>adjustments',
+        ariaLabel: 'Court support is not yet started',
+        label: 'Court<br/>support',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Help with fees is not yet started',
-        label: 'Help<br/>with<br/>fees',
+        ariaLabel: 'Payment is not yet started',
+        label: 'Payment',
         statusBarClassName: '',
       },
     ],
@@ -135,13 +135,13 @@ describe('testcase for tasklist', () => {
     ],
     progressBar: [
       {
-        ariaLabel: 'Children postcode - welsh heb ddechrau eto',
-        label: 'Children<br/>postcode - welsh',
+        ariaLabel: 'Childs postcode - welsh heb ddechrau eto',
+        label: 'Childs<br/>postcode - welsh',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Screening questions - welsh heb ddechrau eto',
-        label: 'Screening<br/>questions - welsh',
+        ariaLabel: 'Parties agreement - welsh heb ddechrau eto',
+        label: 'Parties<br/>agreement - welsh',
         statusBarClassName: '',
       },
       {
@@ -150,8 +150,8 @@ describe('testcase for tasklist', () => {
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Urgency and Without notice - welsh heb ddechrau eto',
-        label: 'Urgency<br/>&<br/>Without notice - welsh',
+        ariaLabel: 'Hearing urgency - welsh heb ddechrau eto',
+        label: 'Hearing<br/>urgency - welsh',
         statusBarClassName: '',
       },
       {
@@ -160,8 +160,8 @@ describe('testcase for tasklist', () => {
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Other Proceedings - welsh heb ddechrau eto',
-        label: 'Other<br/>Proceedings - welsh',
+        ariaLabel: 'Other proceedings - welsh heb ddechrau eto',
+        label: 'Other<br/>proceedings - welsh',
         statusBarClassName: '',
       },
       {
@@ -175,13 +175,13 @@ describe('testcase for tasklist', () => {
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Reasonable adjustments - welsh heb ddechrau eto',
-        label: 'Reasonable<br/>adjustments - welsh',
+        ariaLabel: 'Court support - welsh heb ddechrau eto',
+        label: 'Court<br/>support - welsh',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Help with fees - welsh heb ddechrau eto',
-        label: 'Help<br/>with<br/>fees - welsh',
+        ariaLabel: 'Payment - welsh heb ddechrau eto',
+        label: 'Payment - welsh',
         statusBarClassName: '',
       },
     ],
