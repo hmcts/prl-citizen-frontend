@@ -607,15 +607,7 @@ export const ApplicantDetails = (
   language
 ): SummaryList | undefined => {
   const sessionApplicantData = userCase['appl_allApplicants'];
-  const newApplicantData: {
-    key: string;
-    keyHtml?: string;
-    visuallyHiddenText?: string;
-    anchorReference?: string;
-    value?: string;
-    valueHtml?: string;
-    changeUrl: string;
-  }[] = [];
+  const newApplicantData: SummaryListRow[] = [];
   for (const applicant in sessionApplicantData) {
     const fullname =
       _.isEmpty(sessionApplicantData[applicant]['applicantFirstName']) ||
@@ -749,15 +741,16 @@ export const ApplicantDetails = (
 
     const relationShipToChildren = sessionApplicantData[applicant]['relationshipDetails']?.['relationshipToChildren'];
     const id = sessionApplicantData[applicant]['id'];
-    genarateRelationshipWithChild(
-      userCase,
-      relationShipToChildren,
-      newApplicantData,
-      keys,
-      applicant,
-      language,
-      id,
-      PartyType.APPLICANT
+    newApplicantData.push(
+      ...genarateRelationshipWithChild(
+        userCase,
+        relationShipToChildren,
+        keys,
+        applicant,
+        language,
+        id,
+        PartyType.APPLICANT
+      )
     );
 
     const applicantFullName = ` ${fullname} `;
@@ -1003,7 +996,7 @@ export const PastAndCurrentProceedings = (
     '</ul>';
   let SummaryData;
   if (userCase['op_childrenInvolvedCourtCase'] === YesOrNo.YES || userCase['op_courtOrderProtection'] === YesOrNo.YES) {
-    SummaryData = proceedingSummaryData(keys, language, userCase, courtOrderDetails, false);
+    SummaryData = proceedingSummaryData(keys, language ?? 'en', userCase, courtOrderDetails, false);
   } else {
     SummaryData = [
       {
@@ -1218,28 +1211,7 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_ELEMENT;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
     c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_ELEMENT_END + HTML.ROW_END;
-    if (!_.isEmpty(userCase['c1A_possessionChildrenPassport'])) {
-      c1A_childAbductedBefore += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
-
-      c1A_childAbductedBefore += userCase.c1A_possessionChildrenPassport
-        ?.filter(element => element !== 'Other')
-        .map(relatives => HTML.LIST_ITEM + translation(relatives, language) + HTML.LIST_ITEM_END)
-        .toString()
-        .split(',')
-        .join('');
-
-      if (userCase['c1A_possessionChildrenPassport']?.some(element => element === 'Other')) {
-        c1A_childAbductedBefore +=
-          HTML.LIST_ITEM +
-          populateError(userCase['c1A_provideOtherDetails'], userCase['c1A_provideOtherDetails'], language) +
-          HTML.LIST_ITEM_END;
-      }
-
-      c1A_childAbductedBefore += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.UNORDER_LIST_END;
-    } else {
-      c1A_childAbductedBefore +=
-        HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
-    }
+    c1A_childAbductedBefore += generatePassportPosessionContent(userCase, language);
   }
   c1A_childAbductedBefore += HTML.DESCRIPTION_LIST_END;
   const abdutionScreenData = [
@@ -1328,6 +1300,34 @@ export const SafetyConcerns_child = (
     subTitle: sectionTitles['childSafetyConcerns'],
     rows: getSectionSummaryList(SummaryData, content),
   };
+};
+
+const generatePassportPosessionContent = (userCase, language): string => {
+  let passportPosessionContent = '';
+  if (!_.isEmpty(userCase['c1A_possessionChildrenPassport'])) {
+    passportPosessionContent += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
+
+    passportPosessionContent += userCase.c1A_possessionChildrenPassport
+      ?.filter(element => element !== 'Other')
+      .map(relatives => HTML.LIST_ITEM + translation(relatives, language) + HTML.LIST_ITEM_END)
+      .toString()
+      .split(',')
+      .join('');
+
+    if (userCase['c1A_possessionChildrenPassport']?.some(element => element === 'Other')) {
+      passportPosessionContent +=
+        HTML.LIST_ITEM +
+        populateError(userCase['c1A_provideOtherDetails'], userCase['c1A_provideOtherDetails'], language) +
+        HTML.LIST_ITEM_END;
+    }
+
+    passportPosessionContent += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.UNORDER_LIST_END;
+  } else {
+    passportPosessionContent =
+      HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
+  }
+
+  return passportPosessionContent;
 };
 
 /**
@@ -1611,15 +1611,7 @@ export const RespondentDetails = (
   language
 ): SummaryList | undefined => {
   const sessionRespondentData = userCase['resp_Respondents'];
-  const newRespondentStorage: {
-    key: string;
-    keyHtml?: string;
-    visuallyHiddenText?: string;
-    anchorReference?: string;
-    value?: string;
-    valueHtml?: string;
-    changeUrl: string;
-  }[] = [];
+  const newRespondentStorage: SummaryListRow[] = [];
   for (const respondent in sessionRespondentData) {
     const firstname = sessionRespondentData[respondent]['firstName'],
       lastname = sessionRespondentData[respondent]['lastName'],
@@ -1738,15 +1730,16 @@ export const RespondentDetails = (
     }
     const relationShipToChildren = sessionRespondentData[respondent]['relationshipDetails']?.['relationshipToChildren'];
 
-    genarateRelationshipWithChild(
-      userCase,
-      relationShipToChildren,
-      newRespondentStorage,
-      keys,
-      respondent,
-      language,
-      id,
-      PartyType.RESPONDENT
+    newRespondentStorage.push(
+      ...genarateRelationshipWithChild(
+        userCase,
+        relationShipToChildren,
+        keys,
+        respondent,
+        language,
+        id,
+        PartyType.RESPONDENT
+      )
     );
     newRespondentStorage.push(
       ...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails, language)
@@ -1795,15 +1788,7 @@ export const OtherPeopleDetails = (
   language
 ): SummaryList => {
   const sessionOtherPeopleData = userCase['oprs_otherPersons'];
-  const newOtherPeopleStorage: {
-    key: string;
-    anchorReference?: string;
-    keyHtml?: string;
-    visuallyHiddenText?: string;
-    value?: string;
-    valueHtml?: string;
-    changeUrl: string;
-  }[] = [];
+  const newOtherPeopleStorage: SummaryListRow[] = [];
   if (!_.isEmpty(sessionOtherPeopleData)) {
     for (const respondent in sessionOtherPeopleData) {
       const firstname = sessionOtherPeopleData[respondent]['firstName'],
@@ -1843,7 +1828,7 @@ export const OtherPeopleDetails = (
         {
           key: keys['childGenderLabel'],
           visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['childGenderLabel']}`,
-          anchorReference: `otherGenderDetails-otherPerson-${respondent}`,
+          anchorReference: `childGenderLabel-otherPerson-${respondent}`,
           valueHtml: populateError(childGender, childGender, language),
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
         }
@@ -1890,15 +1875,16 @@ export const OtherPeopleDetails = (
 
       const relationShipToChildren =
         sessionOtherPeopleData[respondent]['relationshipDetails']?.['relationshipToChildren'];
-      genarateRelationshipWithChild(
-        userCase,
-        relationShipToChildren,
-        newOtherPeopleStorage,
-        keys,
-        respondent,
-        language,
-        id,
-        PartyType.OTHER_PERSON
+      newOtherPeopleStorage.push(
+        ...genarateRelationshipWithChild(
+          userCase,
+          relationShipToChildren,
+          keys,
+          respondent,
+          language,
+          id,
+          PartyType.OTHER_PERSON
+        )
       );
 
       newOtherPeopleStorage.push({
@@ -1915,43 +1901,14 @@ export const OtherPeopleDetails = (
           id: sessionOtherPeopleData[respondent]['id'],
         }),
       });
-
       if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
-        newOtherPeopleStorage.push({
-          key: keys['c8RefugeDocument'],
-          anchorReference: `c8RefugeDocument-otherPerson-${respondent}`,
-          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['c8RefugeDocument']}`,
-          value: '',
-          valueHtml: !_.isEmpty(sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form'])
-            ? sessionOtherPeopleData[respondent]['refugeConfidentialityC8Form']?.['document_filename']
-            : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
-          changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
-            root: RootContext.C100_REBUILD,
-            id: sessionOtherPeopleData[respondent]['id'],
-          }),
-        });
+        newOtherPeopleStorage.push(
+          generateOtherPersonC8RefugeContent(sessionOtherPeopleData, respondent, keys, language)
+        );
       }
-      if (
-        sessionOtherPeopleData[respondent].hasOwnProperty('addressUnknown') &&
-        sessionOtherPeopleData[respondent]['addressUnknown'] === YesOrNo.YES
-      ) {
-        newOtherPeopleStorage.push({
-          key: keys['explainYesLabel'],
-          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['explainYesLabel']}`,
-          anchorReference: `addressUnknown-otherPerson-${respondent}`,
-          value: getYesNoTranslation(language, sessionOtherPeopleData[respondent]['addressUnknown'], 'doTranslation'),
-          changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
-        });
-      } else {
-        newOtherPeopleStorage.push({
-          key: keys['addressDetails'],
-          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['addressDetails']}`,
-          anchorReference: `addressDetails-otherPerson-${respondent}`,
-          value: '',
-          valueHtml: otherPeopleAddressParser(sessionOtherPeopleData[respondent].address, language),
-          changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
-        });
-      }
+      newOtherPeopleStorage.push(
+        generateOtherPersonAddressContent(sessionOtherPeopleData, respondent, keys, id, language)
+      );
     }
   } else {
     newOtherPeopleStorage.push(
@@ -1976,6 +1933,46 @@ export const OtherPeopleDetails = (
     title: '',
     rows: getSectionSummaryList(SummaryData, content),
   };
+};
+
+const generateOtherPersonC8RefugeContent = (sessionOtherPeopleData, index, keys, language): SummaryListRow => {
+  return {
+    key: keys['c8RefugeDocument'],
+    anchorReference: `c8RefugeDocument-otherPerson-${index}`,
+    visuallyHiddenText: `${keys['otherPerson']} ${parseInt(index) + 1} ${keys['c8RefugeDocument']}`,
+    value: '',
+    valueHtml: !_.isEmpty(sessionOtherPeopleData[index]['refugeConfidentialityC8Form'])
+      ? sessionOtherPeopleData[index]['refugeConfidentialityC8Form']?.['document_filename']
+      : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+    changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
+      root: RootContext.C100_REBUILD,
+      id: sessionOtherPeopleData[index]['id'],
+    }),
+  };
+};
+
+const generateOtherPersonAddressContent = (sessionOtherPeopleData, index, keys, id, language): SummaryListRow => {
+  if (
+    sessionOtherPeopleData[index].hasOwnProperty('addressUnknown') &&
+    sessionOtherPeopleData[index]['addressUnknown'] === YesOrNo.YES
+  ) {
+    return {
+      key: keys['explainYesLabel'],
+      visuallyHiddenText: `${keys['otherPerson']} ${parseInt(index) + 1} ${keys['explainYesLabel']}`,
+      anchorReference: `addressUnknown-otherPerson-${index}`,
+      value: getYesNoTranslation(language, sessionOtherPeopleData[index]['addressUnknown'], 'doTranslation'),
+      changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
+    };
+  } else {
+    return {
+      key: keys['addressDetails'],
+      visuallyHiddenText: `${keys['otherPerson']} ${parseInt(index) + 1} ${keys['addressDetails']}`,
+      anchorReference: `addressDetails-otherPerson-${index}`,
+      value: '',
+      valueHtml: otherPeopleAddressParser(sessionOtherPeopleData[index].address, language),
+      changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
+    };
+  }
 };
 
 export const HelpWithFee = (
@@ -2454,28 +2451,7 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     });
   }
 
-  if (!applicant.startAlternative && !applicant.start) {
-    error.push({
-      propertyName: `doYouWantToKeep-applicant-${index}`,
-      errorType: 'required',
-    });
-  } else if (
-    (applicant.startAlternative === 'Yes' && _.isEmpty(applicant.contactDetailsPrivateAlternative)) ||
-    (applicant.detailsKnown === 'No' && _.isEmpty(applicant.startAlternative))
-  ) {
-    error.push({
-      propertyName: `doYouWantToKeep-applicant-${index}`,
-      errorType: 'required',
-    });
-  } else if (
-    (applicant.start === 'Yes' && _.isEmpty(applicant.contactDetailsPrivate)) ||
-    (applicant.detailsKnown === 'No' && _.isEmpty(applicant.startAlternative))
-  ) {
-    error.push({
-      propertyName: `doYouWantToKeep-applicant-${index}`,
-      errorType: 'required',
-    });
-  }
+  error.push(...generateApplicantConfidentialityError(applicant, index));
 
   if (applicant.personalDetails.haveYouChangeName === YesNoEmpty.EMPTY) {
     error.push({
@@ -2546,6 +2522,13 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     });
   }
 
+  error.push(...generateApplicantContactDetailErrors(applicant, index));
+
+  return error;
+};
+
+const generateApplicantContactDetailErrors = (applicant: C100Applicant, index: number): FormError[] => {
+  const errors: FormError[] = [];
   if (
     _.isEmpty(applicant.applicantContactDetail) ||
     _.isEmpty(applicant.applicantContactDetail.canProvideEmail) ||
@@ -2557,7 +2540,7 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     (applicant.applicantContactDetail.canProvideTelephoneNumber === YesOrNo.NO &&
       _.isEmpty(applicant.applicantContactDetail.canNotProvideTelephoneNumberReason))
   ) {
-    error.push({
+    errors.push({
       propertyName: `contactDetails-applicant-${index}`,
       errorType: 'required',
     });
@@ -2569,7 +2552,7 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     !_.isEmpty(applicant.applicantContactDetail.emailAddress) &&
     isEmailValid(applicant.applicantContactDetail.emailAddress) === 'invalid'
   ) {
-    error.push({
+    errors.push({
       propertyName: `contactDetails-applicant-${index}`,
       errorType: 'invalidEmail',
     });
@@ -2581,26 +2564,44 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     !_.isEmpty(applicant.applicantContactDetail.telephoneNumber) &&
     isPhoneNoValid(applicant.applicantContactDetail.telephoneNumber) === 'invalid'
   ) {
-    error.push({
+    errors.push({
       propertyName: `contactDetails-applicant-${index}`,
       errorType: 'invalidPhoneNumber',
     });
   }
 
   if (_.isEmpty(applicant.applicantContactDetail?.canLeaveVoiceMail)) {
-    error.push({
+    errors.push({
       propertyName: `voiceMail-applicant-${index}`,
       errorType: 'required',
     });
   }
   if (_.isEmpty(applicant.applicantContactDetail?.applicantContactPreferences)) {
-    error.push({
+    errors.push({
       propertyName: `contactPreferences-applicant-${index}`,
       errorType: 'required',
     });
   }
 
-  return error;
+  return errors;
+};
+
+const generateApplicantConfidentialityError = (applicant: C100Applicant, index: number): FormError[] => {
+  const errors: FormError[] = [];
+  if (
+    (!applicant.startAlternative && !applicant.start) ||
+    (applicant.startAlternative === 'Yes' && _.isEmpty(applicant.contactDetailsPrivateAlternative)) ||
+    (applicant.detailsKnown === 'No' && _.isEmpty(applicant.startAlternative)) ||
+    (applicant.start === 'Yes' && _.isEmpty(applicant.contactDetailsPrivate)) ||
+    (applicant.detailsKnown === 'No' && _.isEmpty(applicant.startAlternative))
+  ) {
+    errors.push({
+      propertyName: `doYouWantToKeep-applicant-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  return errors;
 };
 
 export const generateChildErrors = (child: ChildrenDetails, index: number) => {
@@ -2681,50 +2682,7 @@ export const generateRespondentErrors = (respondent: C100RebuildPartyDetails, in
     });
   }
 
-  if (
-    _.isEmpty(respondent.personalDetails.hasNameChanged) ||
-    (respondent.personalDetails.hasNameChanged === YesNoDontKnow.yes &&
-      _.isEmpty(respondent.personalDetails.previousFullName))
-  ) {
-    error.push({
-      propertyName: `hasNameChanged-respondent-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (
-    _.isEmpty(respondent.personalDetails.gender) ||
-    (respondent.personalDetails.gender === Gender.OTHER && !_.isEmpty(respondent.personalDetails.otherGenderDetails))
-  ) {
-    error.push({
-      propertyName: `childGenderLabel-respondent-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (
-    respondent.personalDetails.isDateOfBirthUnknown &&
-    respondent.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES &&
-    respondent.personalDetails.approxDateOfBirth &&
-    Object.values(respondent.personalDetails.approxDateOfBirth).some(dobValue => _.isEmpty(dobValue))
-  ) {
-    error.push({
-      propertyName: `approxDateOfBirth-respondent-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (
-    respondent.personalDetails.isDateOfBirthUnknown === '' &&
-    (_.isEmpty(respondent.personalDetails.dateOfBirth?.day) ||
-      _.isEmpty(respondent.personalDetails.dateOfBirth?.month) ||
-      _.isEmpty(respondent.personalDetails.dateOfBirth?.year))
-  ) {
-    error.push({
-      propertyName: `dateOfBirth-respondent-${index}`,
-      errorType: 'required',
-    });
-  }
+  error.push(...generateCommonPersonalDetailErrors(respondent, index, PartyType.RESPONDENT));
 
   if (
     respondent.personalDetails.respondentPlaceOfBirthUnknown === 'No' &&
@@ -2852,57 +2810,7 @@ export const generateOtherPersonErrors = (
     });
   }
 
-  if (_.isEmpty(otherperson.personalDetails.hasNameChanged)) {
-    error.push({
-      propertyName: `hasNameChanged-otherPerson-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (
-    !_.isEmpty(otherperson.personalDetails.hasNameChanged) &&
-    otherperson.personalDetails.hasNameChanged === YesNoDontKnow.yes &&
-    _.isEmpty(otherperson.personalDetails.previousFullName)
-  ) {
-    error.push({
-      propertyName: `hasNameChanged-otherPerson-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (
-    _.isEmpty(otherperson.personalDetails.gender) ||
-    (otherperson.personalDetails.gender === Gender.OTHER && !_.isEmpty(otherperson.personalDetails.otherGenderDetails))
-  ) {
-    error.push({
-      propertyName: `otherGenderDetails-otherPerson-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (
-    otherperson.personalDetails.isDateOfBirthUnknown &&
-    otherperson.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES &&
-    otherperson.personalDetails.approxDateOfBirth &&
-    Object.values(otherperson.personalDetails.approxDateOfBirth).some(dobValue => _.isEmpty(dobValue))
-  ) {
-    error.push({
-      propertyName: `approxDateOfBirth-otherPerson-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (
-    otherperson.personalDetails.isDateOfBirthUnknown === '' &&
-    (_.isEmpty(otherperson.personalDetails.dateOfBirth?.day) ||
-      _.isEmpty(otherperson.personalDetails.dateOfBirth?.month) ||
-      _.isEmpty(otherperson.personalDetails.dateOfBirth?.year))
-  ) {
-    error.push({
-      propertyName: `dateOfBirth-otherPerson-${index}`,
-      errorType: 'required',
-    });
-  }
+  error.push(...generateCommonPersonalDetailErrors(otherperson, index, PartyType.OTHER_PERSON));
 
   if (_.isEmpty(otherperson.relationshipDetails?.relationshipToChildren)) {
     error.push({
@@ -2930,7 +2838,7 @@ export const generateOtherPersonErrors = (
     (_.isEmpty(otherperson.address.AddressLine1) ||
       _.isEmpty(otherperson.address.PostTown) ||
       _.isEmpty(otherperson.address.Country)) &&
-    !(otherperson.addressUnknown === YesOrNo.YES)
+    otherperson.addressUnknown !== YesOrNo.YES
   ) {
     error.push({
       propertyName: `addressDetails-otherPerson-${index}`,
@@ -2950,44 +2858,45 @@ export const generateOtherPersonErrors = (
 const genarateRelationshipWithChild = (
   userCase: Partial<CaseWithId>,
   relationShipToChildren: RelationshipToChildren[],
-  newRowData: SummaryListRow[],
   keys: Record<string, string>,
   partyIndex: string,
   language: string,
   id: string,
   partyType: PartyType
 ) => {
-  const keyLabel =
-    partyType === PartyType.APPLICANT
-      ? keys['applicantLabel']
-      : partyType === PartyType.RESPONDENT
-      ? keys['respondents']
-      : keys['otherPerson'];
+  const rowData: SummaryListRow[] = [];
+  let keyLabel = partyType === PartyType.RESPONDENT ? keys['respondents'] : keys['otherPerson'];
+  if (partyType === PartyType.APPLICANT) {
+    keyLabel = keys['applicantLabel'];
+  }
 
   userCase?.['cd_children']?.forEach((child, index) => {
     const relationshipDetails = relationShipToChildren?.find(relation => relation.childId === child.id);
-
     const childFullName = child.firstName + ' ' + child.lastName;
+    const relationShipTypeContent = relationshipDetails?.relationshipType
+      ? translation(relationshipDetails['relationshipType'], language)
+      : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
+    const relationShipTypeOtherContent =
+      relationshipDetails?.['relationshipType'] === 'Other'
+        ? populateError(
+            relationshipDetails?.otherRelationshipTypeDetails,
+            relationshipDetails?.otherRelationshipTypeDetails,
+            language
+          )
+        : relationShipTypeContent;
 
-    newRowData.push({
+    rowData.push({
       key: keys['relationshipTo'] + ' ' + childFullName,
       visuallyHiddenText: `${keyLabel} ${parseInt(partyIndex) + 1} ${keys['relationshipTo'] + ' ' + childFullName}`,
       anchorReference: `relationshipTo-${partyType}-${partyIndex}-${index}`,
       valueHtml: !relationshipDetails
         ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
-        : relationshipDetails['relationshipType'] === 'Other'
-        ? populateError(
-            relationshipDetails.otherRelationshipTypeDetails,
-            relationshipDetails.otherRelationshipTypeDetails,
-            language
-          )
-        : relationshipDetails?.relationshipType
-        ? translation(relationshipDetails['relationshipType'], language)
-        : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+        : relationShipTypeOtherContent,
       changeUrl: relationshipUrl(partyType, id, child),
     });
   });
-  return newRowData;
+
+  return rowData;
 };
 
 const relationshipUrl = (partyType: PartyType, id: string, child: ChildrenDetails): string | undefined => {
@@ -3311,4 +3220,58 @@ export const prepareProp = (property: string): string => {
     default:
       return property;
   }
+};
+
+const generateCommonPersonalDetailErrors = (
+  person: C100RebuildPartyDetails,
+  index: number,
+  partyType: PartyType
+): FormError[] => {
+  const errors: FormError[] = [];
+
+  if (
+    _.isEmpty(person.personalDetails.hasNameChanged) ||
+    (person.personalDetails.hasNameChanged === YesNoDontKnow.yes && _.isEmpty(person.personalDetails.previousFullName))
+  ) {
+    errors.push({
+      propertyName: `hasNameChanged-${partyType}-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (
+    _.isEmpty(person.personalDetails.gender) ||
+    (person.personalDetails.gender === Gender.OTHER && !_.isEmpty(person.personalDetails.otherGenderDetails))
+  ) {
+    errors.push({
+      propertyName: `childGenderLabel-${partyType}-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (
+    person.personalDetails.isDateOfBirthUnknown &&
+    person.personalDetails.isDateOfBirthUnknown === YesNoEmpty.YES &&
+    person.personalDetails.approxDateOfBirth &&
+    Object.values(person.personalDetails.approxDateOfBirth).some(dobValue => _.isEmpty(dobValue))
+  ) {
+    errors.push({
+      propertyName: `approxDateOfBirth-${partyType}-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  if (
+    _.isEmpty(person.personalDetails.isDateOfBirthUnknown) &&
+    (_.isEmpty(person.personalDetails.dateOfBirth?.day) ||
+      _.isEmpty(person.personalDetails.dateOfBirth?.month) ||
+      _.isEmpty(person.personalDetails.dateOfBirth?.year))
+  ) {
+    errors.push({
+      propertyName: `dateOfBirth-${partyType}-${index}`,
+      errorType: 'required',
+    });
+  }
+
+  return errors;
 };

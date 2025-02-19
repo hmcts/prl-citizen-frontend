@@ -1049,7 +1049,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
               visuallyHiddenText: 'Other person 1 childGenderLabel',
-              attributes: { id: 'otherGenderDetails-otherPerson-0' },
+              attributes: { id: 'childGenderLabel-otherPerson-0' },
             },
           ],
         },
@@ -2509,6 +2509,10 @@ describe('generatePeopleErrors', () => {
       },
       {
         errorType: 'required',
+        propertyName: 'dateOfBirth-respondent-0',
+      },
+      {
+        errorType: 'required',
         propertyName: 'personalDetails-respondent-email-0',
       },
       {
@@ -2553,7 +2557,11 @@ describe('generatePeopleErrors', () => {
       },
       {
         errorType: 'required',
-        propertyName: 'otherGenderDetails-otherPerson-0',
+        propertyName: 'childGenderLabel-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'dateOfBirth-otherPerson-0',
       },
       {
         errorType: 'required',

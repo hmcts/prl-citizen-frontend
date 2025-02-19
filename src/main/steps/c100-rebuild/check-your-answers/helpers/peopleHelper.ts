@@ -5,6 +5,7 @@ import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation, isBorderPresent, populateError, translation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const applicantAddressParser = (sessionApplicantData, keys, language) => {
   let html = HTML.DESCRIPTION_LIST + HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL;
   if (
@@ -12,29 +13,7 @@ export const applicantAddressParser = (sessionApplicantData, keys, language) => 
     !_.isEmpty(sessionApplicantData['applicantAddressTown']) &&
     !_.isEmpty(sessionApplicantData.country)
   ) {
-    html +=
-      sessionApplicantData.hasOwnProperty('applicantAddress1') && sessionApplicantData['applicantAddress1'] !== ''
-        ? sessionApplicantData['applicantAddress1'] + HTML.BREAK
-        : '';
-    html +=
-      sessionApplicantData.hasOwnProperty('applicantAddress2') && sessionApplicantData['applicantAddress2'] !== ''
-        ? sessionApplicantData['applicantAddress2'] + HTML.BREAK
-        : '';
-    html +=
-      sessionApplicantData.hasOwnProperty('applicantAddressTown') && sessionApplicantData['applicantAddressTown'] !== ''
-        ? sessionApplicantData['applicantAddressTown'] + HTML.BREAK
-        : '';
-    html +=
-      sessionApplicantData.hasOwnProperty('applicantAddressCounty') &&
-      sessionApplicantData['applicantAddressCounty'] !== ''
-        ? sessionApplicantData['applicantAddressCounty'] + HTML.BREAK + HTML.BREAK
-        : '';
-    html +=
-      sessionApplicantData.hasOwnProperty('applicantAddressPostcode') &&
-      sessionApplicantData['applicantAddressPostcode'] !== ''
-        ? sessionApplicantData['applicantAddressPostcode']
-        : '';
-    html += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+    html = prepareApplicantAddressHtml(html, sessionApplicantData);
   } else {
     html +=
       HTML.ERROR_MESSAGE_SPAN +
@@ -124,30 +103,7 @@ export const applicantAddressParserForRespondents = (sessionApplicantData, keys,
   ) {
     html += HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
   } else {
-    html +=
-      sessionApplicantData.hasOwnProperty('AddressLine1') && sessionApplicantData['AddressLine1'] !== ''
-        ? sessionApplicantData['AddressLine1'] + HTML.BREAK
-        : '';
-    html +=
-      sessionApplicantData.hasOwnProperty('AddressLine2') && sessionApplicantData['AddressLine2'] !== ''
-        ? sessionApplicantData['AddressLine2'] + HTML.BREAK
-        : '';
-    html +=
-      sessionApplicantData.hasOwnProperty('PostTown') && sessionApplicantData['PostTown'] !== ''
-        ? sessionApplicantData['PostTown'] + HTML.BREAK
-        : '';
-    html +=
-      sessionApplicantData.hasOwnProperty('County') && sessionApplicantData['County'] !== ''
-        ? sessionApplicantData['County'] + HTML.BREAK + HTML.BREAK
-        : '';
-    html +=
-      sessionApplicantData.hasOwnProperty('PostCode') && sessionApplicantData['PostCode'] !== ''
-        ? sessionApplicantData['PostCode'] + HTML.BREAK
-        : '';
-    html +=
-      sessionApplicantData.hasOwnProperty('Country') && sessionApplicantData['Country'] !== ''
-        ? sessionApplicantData['Country']
-        : '';
+    html = prepareRespondentAddressHtml(html, sessionApplicantData);
   }
 
   html += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
@@ -284,4 +240,58 @@ export const otherPeopleAddressParser = (sessionApplicantData, language) => {
   html += sessionApplicantData.hasOwnProperty('Country') ? sessionApplicantData['Country'] : '';
   html += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
   return html + HTML.DESCRIPTION_LIST_END;
+};
+const prepareApplicantAddressHtml = (html: string, sessionApplicantData: any): string => {
+  html +=
+    sessionApplicantData.hasOwnProperty('applicantAddress1') && sessionApplicantData['applicantAddress1'] !== ''
+      ? sessionApplicantData['applicantAddress1'] + HTML.BREAK
+      : '';
+  html +=
+    sessionApplicantData.hasOwnProperty('applicantAddress2') && sessionApplicantData['applicantAddress2'] !== ''
+      ? sessionApplicantData['applicantAddress2'] + HTML.BREAK
+      : '';
+  html +=
+    sessionApplicantData.hasOwnProperty('applicantAddressTown') && sessionApplicantData['applicantAddressTown'] !== ''
+      ? sessionApplicantData['applicantAddressTown'] + HTML.BREAK
+      : '';
+  html +=
+    sessionApplicantData.hasOwnProperty('applicantAddressCounty') &&
+    sessionApplicantData['applicantAddressCounty'] !== ''
+      ? sessionApplicantData['applicantAddressCounty'] + HTML.BREAK + HTML.BREAK
+      : '';
+  html +=
+    sessionApplicantData.hasOwnProperty('applicantAddressPostcode') &&
+    sessionApplicantData['applicantAddressPostcode'] !== ''
+      ? sessionApplicantData['applicantAddressPostcode']
+      : '';
+  html += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+  return html;
+};
+
+const prepareRespondentAddressHtml = (html: string, sessionApplicantData: any): string => {
+  html +=
+    sessionApplicantData.hasOwnProperty('AddressLine1') && sessionApplicantData['AddressLine1'] !== ''
+      ? sessionApplicantData['AddressLine1'] + HTML.BREAK
+      : '';
+  html +=
+    sessionApplicantData.hasOwnProperty('AddressLine2') && sessionApplicantData['AddressLine2'] !== ''
+      ? sessionApplicantData['AddressLine2'] + HTML.BREAK
+      : '';
+  html +=
+    sessionApplicantData.hasOwnProperty('PostTown') && sessionApplicantData['PostTown'] !== ''
+      ? sessionApplicantData['PostTown'] + HTML.BREAK
+      : '';
+  html +=
+    sessionApplicantData.hasOwnProperty('County') && sessionApplicantData['County'] !== ''
+      ? sessionApplicantData['County'] + HTML.BREAK + HTML.BREAK
+      : '';
+  html +=
+    sessionApplicantData.hasOwnProperty('PostCode') && sessionApplicantData['PostCode'] !== ''
+      ? sessionApplicantData['PostCode'] + HTML.BREAK
+      : '';
+  html +=
+    sessionApplicantData.hasOwnProperty('Country') && sessionApplicantData['Country'] !== ''
+      ? sessionApplicantData['Country']
+      : '';
+  return html;
 };

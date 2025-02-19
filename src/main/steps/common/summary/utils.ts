@@ -188,7 +188,7 @@ export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
 };
 export const proceedingSummaryData = (
   keys: Record<string, string>,
-  language: string | 'en',
+  language: string,
   userCase: Partial<CaseWithId>,
   courtOrderDetails: string,
   isRespondent: boolean
