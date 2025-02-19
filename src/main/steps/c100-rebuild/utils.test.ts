@@ -106,7 +106,12 @@ describe('C100 rebuild > utils', () => {
     test('should return true for flow 1 when all required sections present', () => {
       expect(
         isC100ApplicationValid(
-          { sq_writtenAgreement: 'Yes', co_certificate: {}, ...commonUserCase } as unknown as CaseWithId,
+          {
+            c100RebuildChildPostCode: 'test',
+            sq_writtenAgreement: 'Yes',
+            co_certificate: {},
+            ...commonUserCase,
+          } as unknown as CaseWithId,
           {
             session: {
               enableC100CaseProgressionTrainTrack: true,
@@ -177,6 +182,7 @@ describe('C100 rebuild > utils', () => {
       expect(
         isC100ApplicationValid(
           {
+            c100RebuildChildPostCode: 'test',
             sq_writtenAgreement: 'No',
             sq_legalRepresentation: 'No',
             sq_courtPermissionRequired: 'No',
@@ -263,6 +269,7 @@ describe('C100 rebuild > utils', () => {
       expect(
         isC100ApplicationValid(
           {
+            c100RebuildChildPostCode: 'test',
             sq_writtenAgreement: 'No',
             sq_legalRepresentation: 'No',
             sq_courtPermissionRequired: 'No',
@@ -334,6 +341,7 @@ describe('C100 rebuild > utils', () => {
       expect(
         isC100ApplicationValid(
           {
+            c100RebuildChildPostCode: 'test',
             sq_writtenAgreement: 'No',
             sq_legalRepresentation: 'No',
             sq_courtPermissionRequired: 'No',
@@ -360,6 +368,7 @@ describe('C100 rebuild > utils', () => {
       expect(
         isC100ApplicationValid(
           {
+            c100RebuildChildPostCode: 'test',
             sq_writtenAgreement: 'No',
             sq_legalRepresentation: 'No',
             sq_courtPermissionRequired: 'No',
@@ -802,6 +811,36 @@ describe('C100 rebuild > utils', () => {
             },
             body: {},
             originalUrl: 'localhost:3000/c100-rebuild/help-with-fees/fees-applied',
+          } as unknown as AppRequest
+        )
+      ).toBe(true);
+    });
+
+    test('should return true when navigating from childaddress section', () => {
+      expect(
+        isC100ApplicationValid(
+          {
+            c100RebuildChildPostCode: 'test',
+            sq_writtenAgreement: 'No',
+            sq_legalRepresentation: 'No',
+            sq_courtPermissionRequired: 'No',
+            miam_otherProceedings: 'No',
+            miam_nonAttendanceReasons: ['domesticViolence', 'previousMIAMOrExempt'],
+            miam_domesticAbuse: ['policeInvolvement'],
+            miam_canProvideDomesticAbuseEvidence: 'Yes',
+            miam_previousAttendance: 'fourMonthsPriorAttended',
+            miam_haveDocSignedByMediatorForPrevAttendance: 'Yes',
+            hwf_needHelpWithFees: 'Yes',
+            hwf_feesAppliedDetails: 'Yes',
+            helpWithFeesReferenceNumber: '1234',
+          } as unknown as CaseWithId,
+          {
+            session: {
+              enableC100CaseProgressionTrainTrack: true,
+              applicationSettings: { hasC100ApplicationBeenCompleted: true },
+            },
+            body: {},
+            originalUrl: '/c100-rebuild/childaddress',
           } as unknown as AppRequest
         )
       ).toBe(true);

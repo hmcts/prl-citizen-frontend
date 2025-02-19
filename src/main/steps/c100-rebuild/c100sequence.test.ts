@@ -13,6 +13,7 @@ import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   const commonUserCase = {
+    c100RebuildChildPostCode: 'test',
     too_courtOrder: ['test'],
     too_shortStatement: 'test',
     hu_urgentHearingReasons: 'No',
@@ -381,7 +382,16 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[30].url).toBe('/c100-rebuild/childaddress');
     expect(C100Sequence[30].showInSection).toBe('c100');
-    expect(C100Sequence[30].getNextStep({})).toBe('/c100-rebuild/screening-questions/consent-agreement');
+    expect(
+      C100Sequence[30].getNextStep({}, {
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest)
+    ).toBe('/c100-rebuild/screening-questions/consent-agreement');
+    expect(
+      C100Sequence[30].getNextStep({ c100RebuildChildPostCode: 'test' }, {
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: true } },
+      } as unknown as AppRequest)
+    ).toBe('/c100-rebuild/screening-questions/consent-agreement');
 
     expect(C100Sequence[31].url).toBe('/c100-rebuild/miam/mediator-document');
     expect(C100Sequence[31].showInSection).toBe('c100');

@@ -3034,6 +3034,7 @@ export enum C100FlowTypes {
 }
 
 export enum C100SectionUrlName {
+  CHILD_ADDRESS = 'childaddress',
   SCREENING_QUESTIONS = 'screening-questions',
   TYPE_OF_ORDER = 'typeoforder',
   CONSENT_ORDER = 'consent-order',

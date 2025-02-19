@@ -7,7 +7,6 @@ import {
   C100RebuildPartyDetails,
   C1AAbuseTypes,
   ChildrenDetails,
-  Gender,
   OtherChildrenDetails,
   PartyType,
   YesNoDontKnow,
@@ -240,9 +239,6 @@ const isApplicantValid = (applicant: C100Applicant, children: ChildrenDetails[])
       : true) &&
     !_.isEmpty(applicant.personalDetails.dateOfBirth) &&
     !_.isEmpty(applicant.personalDetails.gender) &&
-    (applicant.personalDetails.gender === Gender.OTHER
-      ? !_.isEmpty(applicant.personalDetails.otherGenderDetails)
-      : true) &&
     !_.isEmpty(applicant.personalDetails.applicantPlaceOfBirth) &&
     !_.isEmpty(applicant.liveInRefuge) &&
     (applicant.liveInRefuge === YesOrNo.YES ? !_.isEmpty(applicant.refugeConfidentialityC8Form) : true) &&

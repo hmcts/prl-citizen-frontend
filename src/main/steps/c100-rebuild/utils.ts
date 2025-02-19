@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { CaseWithId } from '../../app/case/case';
 import {
   C100Applicant,
@@ -107,6 +109,7 @@ const isC100MiamFlowValid = (caseData: CaseWithId): boolean => {
 
 const isCommonFlowValid = (caseData: CaseWithId): boolean => {
   return (
+    !_.isEmpty(caseData.c100RebuildChildPostCode) &&
     isTypeOfOrderValid(caseData) &&
     isUrgentHearingValid(caseData) &&
     isHearingWithoutNoticeValid(caseData) &&
@@ -371,6 +374,8 @@ const isMiamUrgencyValid = (caseData: CaseWithId) => {
 type Section = { section: C100SectionUrlName; function: (caseData: CaseWithId) => boolean };
 
 const commonSections: Section[] = [
+  { section: C100SectionUrlName.CHILD_ADDRESS, function: caseData => !_.isEmpty(caseData.c100RebuildChildPostCode) },
+  { section: C100SectionUrlName.TYPE_OF_ORDER, function: isTypeOfOrderValid },
   { section: C100SectionUrlName.TYPE_OF_ORDER, function: isTypeOfOrderValid },
   { section: C100SectionUrlName.URGENCY, function: isUrgentHearingValid },
   { section: C100SectionUrlName.WITHOUT_NOTICE, function: isHearingWithoutNoticeValid },

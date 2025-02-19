@@ -361,7 +361,10 @@ export const C100Sequence: Step[] = [
   {
     url: C100_CHILD_ADDRESS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
+    getNextStep: (caseData, req) =>
+      isC100ApplicationValid(caseData as CaseWithId, req!)
+        ? C100_CHECK_YOUR_ANSWER
+        : C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT,
   },
   {
     url: C100_MIAM_MEDIATOR_DOCUMENT,
