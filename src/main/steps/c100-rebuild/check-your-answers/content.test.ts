@@ -6192,4 +6192,62 @@ describe('Content.ts toggle test cases', () => {
       required: 'Select yes if you want to keep Respondent FirstPage’s identity private',
     });
   });
+
+  test('en should generate sections properly for consent order with safety concerns when train track enabled', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      additionalData: { req: { session: { enableC100CaseProgressionTrainTrack: true } } },
+    });
+    expect(generatedEnContent.sections?.[4].title).not.toStrictEqual(
+      '<span class="app-task-list__section-number">5.</span> MIAM: Mediation Information and Assessment Meeting'
+    );
+  });
+
+  test('en should generate sections properly for miam_otherProceedings with safety concerns when train track enabled', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        sq_writtenAgreement: undefined,
+        c1A_haveSafetyConcerns: 'Yes' as YesOrNo.YES,
+        c1A_safetyConernAbout: ['applicant' as C1ASafteyConcernsAbout],
+      },
+      additionalData: { req: { session: { enableC100CaseProgressionTrainTrack: true } } },
+    });
+    expect(generatedEnContent.sections?.[6].title).toStrictEqual(
+      '<span class="app-task-list__section-number">6.</span> Past and current proceeding'
+    );
+  });
+
+  test('en should generate sections properly for miam urgency when train track enabled', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        sq_writtenAgreement: undefined,
+        miam_otherProceedings: undefined,
+        miam_urgency: Miam_urgency.freedomPhysicalSafety,
+        miam_nonAttendanceReasons: [MiamNonAttendReason.URGENT],
+      },
+      additionalData: { req: { session: { enableC100CaseProgressionTrainTrack: true } } },
+    });
+    expect(generatedEnContent.sections?.[7].title).toStrictEqual(
+      '<span class="app-task-list__section-number">6.</span> Hearing details'
+    );
+  });
+
+  test('en should generate correct content for default flow when train track enabled', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      language: 'en',
+      userCase: {
+        miam_validReason: 'Yes',
+        miam_attendance: 'No',
+      } as CaseWithId,
+      additionalData: { req: { session: { enableC100CaseProgressionTrainTrack: true } } },
+    });
+    expect(generatedEnContent.sections?.[7].title).toStrictEqual(
+      '<span class="app-task-list__section-number">6.</span> What you\'re asking the court to decide'
+    );
+  });
 });

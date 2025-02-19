@@ -13,7 +13,6 @@ import {
   C1ASafteyConcernsAbout,
   ChildrenDetails,
   ContactPreference,
-  Gender,
   PartyType,
   RelationshipToChildren,
   RelationshipType,
@@ -2358,18 +2357,6 @@ export const areRefugeDocumentsNotPresent = (caseData: Partial<CaseWithId> | Cas
   );
 };
 
-export const isMandatoryFieldsFilled = (caseData: Partial<CaseWithId>): boolean => {
-  return !areRefugeDocumentsNotPresent(caseData) && !areOtherPeopleConfidentialDetailsValid(caseData);
-};
-
-const areOtherPeopleConfidentialDetailsValid = (caseData: Partial<CaseWithId>): boolean => {
-  return !!caseData.oprs_otherPersons?.find(
-    otherPerson =>
-      doesAnyChildLiveWithOtherPerson(caseData as CaseWithId, otherPerson.id) &&
-      _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
-  );
-};
-
 export const getCyaSections = (
   userCase: CaseWithId,
   content,
@@ -2900,20 +2887,23 @@ const genarateRelationshipWithChild = (
 };
 
 const relationshipUrl = (partyType: PartyType, id: string, child: ChildrenDetails): string | undefined => {
+  const respondentOrOtherPersonUrl =
+    partyType === PartyType.RESPONDENT
+      ? applyParms(Urls['C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD'], {
+          respondentId: id,
+          childId: child.id,
+        })
+      : applyParms(Urls['C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD'], {
+          otherPersonId: id,
+          childId: child.id,
+        });
+
   return partyType === PartyType.APPLICANT
     ? applyParms(Urls['C100_APPLICANT_RELATIONSHIP_TO_CHILD'], {
         applicantId: id,
         childId: child.id,
       })
-    : partyType === PartyType.RESPONDENT
-    ? applyParms(Urls['C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD'], {
-        respondentId: id,
-        childId: child.id,
-      })
-    : applyParms(Urls['C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD'], {
-        otherPersonId: id,
-        childId: child.id,
-      });
+    : respondentOrOtherPersonUrl;
 };
 
 export const generateRelationshipErrors = (
@@ -3239,10 +3229,7 @@ const generateCommonPersonalDetailErrors = (
     });
   }
 
-  if (
-    _.isEmpty(person.personalDetails.gender) ||
-    (person.personalDetails.gender === Gender.OTHER && !_.isEmpty(person.personalDetails.otherGenderDetails))
-  ) {
+  if (_.isEmpty(person.personalDetails.gender)) {
     errors.push({
       propertyName: `childGenderLabel-${partyType}-${index}`,
       errorType: 'required',

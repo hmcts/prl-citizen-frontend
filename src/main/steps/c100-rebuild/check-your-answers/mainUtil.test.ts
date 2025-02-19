@@ -1,6 +1,15 @@
 /* eslint-disable import/no-unresolved */
 import { CaseWithId } from '../../../app/case/case';
-import { Gender, PartyType, YesOrNo } from '../../../app/case/definition';
+import {
+  C100Applicant,
+  C100OrderTypeInterface,
+  C100RebuildPartyDetails,
+  C1AAbuseTypes,
+  ChildrenDetails,
+  Gender,
+  PartyType,
+  YesOrNo,
+} from '../../../app/case/definition';
 
 import { ANYTYPE } from './common/index';
 import {
@@ -27,7 +36,14 @@ import {
   TypeOfOrder,
   WithoutNoticeHearing,
   areRefugeDocumentsNotPresent,
+  generateApplicantErrors,
+  generateChildErrors,
+  generateConcernAboutChildErrors,
+  generateOtherProceedingDocErrorContent,
+  generateOtherProceedingDocErrors,
   generatePeopleErrors,
+  generateRelationshipErrors,
+  generateRespondentErrors,
   getYesNoTranslation,
   otherPersonConfidentiality,
   prepareProp,
@@ -2402,6 +2418,389 @@ describe('test cases for main util', () => {
           ],
         } as CaseWithId)
       ).toBe(false);
+    });
+  });
+
+  describe('generateRelationshipErrors', () => {
+    test('should generate relationship errors when some relationships are missing', () => {
+      expect(
+        generateRelationshipErrors(
+          [
+            { relationshipDetails: { relationshipToChildren: [{ childId: '123', relationshipType: 'Mother' }] } },
+          ] as unknown as C100Applicant[],
+          [{ id: '123' }, { id: '1234' }] as ChildrenDetails[],
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'relationshipTo-applicant-0-1',
+        },
+      ]);
+    });
+
+    test('should generate relationship errors when some relationships are missing and relationship type details missing', () => {
+      expect(
+        generateRelationshipErrors(
+          [
+            { relationshipDetails: { relationshipToChildren: [{ childId: '123', relationshipType: 'Other' }] } },
+          ] as unknown as C100Applicant[],
+          [{ id: '123' }, { id: '1234' }] as ChildrenDetails[],
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'relationshipTo-applicant-0-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'relationshipTo-applicant-0-1',
+        },
+      ]);
+    });
+
+    test('should generate relationship errors when relationship type details missing', () => {
+      expect(
+        generateRelationshipErrors(
+          [
+            { relationshipDetails: { relationshipToChildren: [{ childId: '123', relationshipType: 'Other' }] } },
+          ] as unknown as C100Applicant[],
+          [{ id: '123' }] as ChildrenDetails[],
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'relationshipTo-applicant-0-0',
+        },
+      ]);
+    });
+
+    test('should not generate relationship errors when relationship details are correct', () => {
+      expect(
+        generateRelationshipErrors(
+          [
+            {
+              relationshipDetails: {
+                relationshipToChildren: [
+                  { childId: '123', relationshipType: 'Other', otherRelationshipTypeDetails: 'test' },
+                ],
+              },
+            },
+          ] as unknown as C100Applicant[],
+          [{ id: '123' }] as ChildrenDetails[],
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([]);
+    });
+  });
+
+  describe('generateOtherProceedingDocErrors', () => {
+    test('should generate errors when other proceedings documents missing', () => {
+      expect(
+        generateOtherProceedingDocErrors({
+          childArrangementOrders: [{ id: '123', orderCopy: 'Yes' }],
+        } as C100OrderTypeInterface)
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'childArrangementOrders-0',
+        },
+      ]);
+    });
+
+    test('should not generate errors when other proceedings documents are present', () => {
+      expect(
+        generateOtherProceedingDocErrors({
+          childArrangementOrders: [
+            { id: '123', orderCopy: 'Yes', orderDocument: { id: '1234', url: 'url', filename: 'test' } },
+          ],
+        } as C100OrderTypeInterface)
+      ).toStrictEqual([]);
+    });
+
+    test('should not generate errors when no other proceedings present', () => {
+      expect(generateOtherProceedingDocErrors(undefined)).toStrictEqual([]);
+    });
+  });
+
+  describe('generateOtherProceedingDocErrorContent', () => {
+    test('should generate error content when other proceedings documents missing', () => {
+      expect(
+        generateOtherProceedingDocErrorContent(
+          {
+            childArrangementOrders: [{ id: '123', orderCopy: 'Yes' }],
+          } as C100OrderTypeInterface,
+          { errors: { otherProceedingsDocument: { required: 'Please choose a file.' } } }
+        )
+      ).toStrictEqual({ 'childArrangementOrders-0': { required: 'Please choose a file.' } });
+    });
+
+    test('should not generate errors when other proceedings documents are present', () => {
+      expect(
+        generateOtherProceedingDocErrorContent(
+          {
+            childArrangementOrders: [
+              { id: '123', orderCopy: 'Yes', orderDocument: { id: '1234', url: 'url', filename: 'test' } },
+            ],
+          } as C100OrderTypeInterface,
+          { errors: { childArrangementOrders: { required: 'Please choose a file.' } } }
+        )
+      ).toStrictEqual({});
+    });
+
+    test('should not generate errors when no other proceedings present', () => {
+      expect(
+        generateOtherProceedingDocErrorContent(undefined, {
+          errors: { childArrangementOrders: { required: 'Please choose a file.' } },
+        })
+      ).toStrictEqual({});
+    });
+  });
+
+  describe('generateConcernAboutChildErrors', () => {
+    test('should generate errors for concerns about child when abuse type empty', () => {
+      expect(generateConcernAboutChildErrors(['physicalAbuse'] as C1AAbuseTypes[], { child: {} })).toStrictEqual([
+        { propertyName: 'c1A_concernAboutChild-physicalAbuse', errorType: 'required' },
+      ]);
+    });
+
+    test('should generate errors for concerns about child when childrenConcernedAbout empty', () => {
+      expect(
+        generateConcernAboutChildErrors(['physicalAbuse'] as C1AAbuseTypes[], {
+          child: { physicalAbuse: { childrenConcernedAbout: [] } },
+        })
+      ).toStrictEqual([{ propertyName: 'c1A_concernAboutChild-physicalAbuse', errorType: 'required' }]);
+    });
+  });
+
+  describe('generateApplicantErrors', () => {
+    test('should generate errors for missing applicant data', () => {
+      expect(
+        generateApplicantErrors(
+          {
+            applicantLastName: undefined,
+            applicantFirstName: undefined,
+            detailsKnown: undefined,
+            startAlternative: 'Yes',
+            contactDetailsPrivateAlternative: undefined,
+            personalDetails: {
+              haveYouChangeName: 'Yes',
+              applPreviousName: undefined,
+              gender: undefined,
+              dateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              applicantPlaceOfBirth: undefined,
+            },
+            liveInRefuge: 'Yes',
+            refugeConfidentialityC8Form: {},
+            applicantAddressHistory: 'Yes',
+            applicantProvideDetailsOfPreviousAddresses: undefined,
+            applicantContactDetail: {
+              canProvideEmail: 'Yes',
+              emailAddress: 'test',
+              canProvideTelephoneNumber: 'Yes',
+              telephoneNumber: '0123',
+              canLeaveVoiceMail: undefined,
+              applicantContactPreferences: undefined,
+            },
+          } as unknown as C100Applicant,
+          0
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'anyOtherPeopleKnowDetails-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'doYouWantToKeep-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'haveYouChangeName-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'gender-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'dateOfBirth-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'placeOfBirth-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'c8RefugeDocument-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'addressDetails-applicant-0',
+        },
+        {
+          errorType: 'invalidEmail',
+          propertyName: 'contactDetails-applicant-0',
+        },
+        {
+          errorType: 'invalidPhoneNumber',
+          propertyName: 'contactDetails-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'voiceMail-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'contactPreferences-applicant-0',
+        },
+      ]);
+    });
+  });
+
+  describe('generateChildErrors', () => {
+    test('should generate errors for children when child data is missing', () => {
+      expect(
+        generateChildErrors(
+          {
+            firstName: undefined,
+            lastName: undefined,
+            personalDetails: {
+              isDateOfBirthUnknown: 'Yes',
+              dateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              approxDateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              gender: undefined,
+            },
+            childMatters: {
+              needsResolution: [],
+            },
+            parentialResponsibility: {
+              statement: '',
+            },
+            liveWith: undefined,
+            mainlyLiveWith: undefined,
+          } as unknown as ChildrenDetails,
+          0
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'approxDateOfBirth-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'gender-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'orderAppliedFor-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'parentalResponsibility-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'childLivingArrangements-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'mainlyLiveWith-child-0',
+        },
+      ]);
+    });
+  });
+
+  describe('generateRespondentErrors', () => {
+    test('should generate errors for respondents when respondent data is missing', () => {
+      expect(
+        generateRespondentErrors(
+          {
+            firstName: undefined,
+            lastName: undefined,
+            personalDetails: {
+              hasNameChanged: 'yes',
+              previousFullName: undefined,
+              gender: undefined,
+              isDateOfBirthUnknown: 'Yes',
+              approxDateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              respondentPlaceOfBirthUnknown: 'No',
+              respondentPlaceOfBirth: undefined,
+            },
+            contactDetails: {
+              donKnowEmailAddress: 'No',
+              emailAddress: 'test',
+              donKnowTelephoneNumber: 'No',
+              telephoneNumber: '0123',
+            },
+            address: {
+              AddressLine1: undefined,
+              PostTown: undefined,
+              Country: 'test',
+            },
+          } as unknown as C100RebuildPartyDetails,
+          0
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-respondent-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'hasNameChanged-respondent-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'childGenderLabel-respondent-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'approxDateOfBirth-respondent-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'respondentPlaceOfBirth-respondent-0',
+        },
+        {
+          errorType: 'invalid',
+          propertyName: 'personalDetails-respondent-email-0',
+        },
+        {
+          errorType: 'invalid',
+          propertyName: 'personalDetails-respondent-phone-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'addressDetails-respondent-0',
+        },
+      ]);
     });
   });
 });
