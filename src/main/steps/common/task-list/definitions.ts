@@ -100,8 +100,8 @@ export type ProgressBarConfig = {
 
 export type ProgressBarProps = {
   id: CaseProgressionStage | CaseCreationStage | undefined;
-  label: (caseType: CaseType, language: string) => string;
-  ariaLabel: (caseType: CaseType, language: string) => string;
+  label: (caseType: ProgressBarConfigType, language: string) => string;
+  ariaLabel: (caseType: ProgressBarConfigType, language: string) => string;
   preRender?: (caseData: CaseWithId, UserDetails: UserDetails) => void | { mandatoryFields: MandatoryFieldsConfig[] };
   isComplete: (caseData: CaseWithId, UserDetails: UserDetails, preRenderData?: any) => boolean;
   isInProgress?: (caseData: CaseWithId, UserDetails: UserDetails, preRenderData?: any) => boolean;

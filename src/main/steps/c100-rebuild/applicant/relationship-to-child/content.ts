@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../app/case/case';
 import {
   C100Applicant,
@@ -11,8 +12,7 @@ import { isAlphaNumeric, isFieldFilledIn } from '../../../../app/form/validation
 import { getPartyDetails } from '../../people/util';
 import { getApplicantDetails } from '../util';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'What is ',
   title1: "'s relationship to ",
   mother: 'Mother',
@@ -36,7 +36,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Beth yw perthynas',
   title1: ' â',
   mother: 'Mam',

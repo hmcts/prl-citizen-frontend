@@ -18,14 +18,7 @@ export const getC100FlowType = (caseData: CaseWithId, req?: AppRequest): C100Flo
     return C100FlowTypes.C100_WITH_CONSENT_ORDER;
   } else if (
     (caseData.hasOwnProperty('miam_otherProceedings') && caseData.miam_otherProceedings === YesOrNo.YES) ||
-    req?.body.miam_otherProceedings === YesOrNo.YES ||
-    (caseData.hasOwnProperty('miam_otherProceedings') &&
-      caseData.miam_otherProceedings === YesOrNo.NO &&
-      caseData.hasOwnProperty('miam_attendance') &&
-      caseData.miam_attendance === YesOrNo.YES &&
-      caseData.miam_haveDocSigned !== undefined &&
-      caseData.miam_haveDocSigned === YesOrNo.YES &&
-      (caseData.miam_certificate !== undefined || req?.body.miam_certificate !== undefined))
+    req?.body.miam_otherProceedings === YesOrNo.YES
   ) {
     return C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE;
   } else if (isMiamUrgencyValid(caseData)) {
@@ -87,11 +80,9 @@ const validateC100Flow = (
   sections: Section[],
   flowValidation: (caseData: CaseWithId) => boolean
 ): boolean => {
-  if (hasC100ApplicationBeenCompleted && !url.includes('check-your-answers')) {
-    return isCurrentSectionValid(url, caseData, sections);
-  } else {
-    return flowValidation(caseData);
-  }
+  return hasC100ApplicationBeenCompleted && !url.includes('check-your-answers')
+    ? isCurrentSectionValid(url, caseData, sections)
+    : flowValidation(caseData);
 };
 
 const isC100WithConsentOrderFlowValid = (caseData: CaseWithId): boolean => {
@@ -99,11 +90,7 @@ const isC100WithConsentOrderFlowValid = (caseData: CaseWithId): boolean => {
 };
 
 const isC100WithMiamOtherProceedingsFlowValid = (caseData: CaseWithId): boolean => {
-  return (
-    isCommonFlowValid(caseData) &&
-    (isMiamOtherProceedingsValid(caseData) || isMiamAttendanceValid(caseData)) &&
-    isScreeningQuestionsValid(caseData)
-  );
+  return isCommonFlowValid(caseData) && isMiamOtherProceedingsValid(caseData) && isScreeningQuestionsValid(caseData);
 };
 
 const isC100WithMiamUrgencyFlowValid = (caseData: CaseWithId): boolean => {
@@ -111,7 +98,11 @@ const isC100WithMiamUrgencyFlowValid = (caseData: CaseWithId): boolean => {
 };
 
 const isC100MiamFlowValid = (caseData: CaseWithId): boolean => {
-  return isCommonFlowValid(caseData) && isMiamExemptionsValid(caseData) && isScreeningQuestionsValid(caseData);
+  return (
+    isCommonFlowValid(caseData) &&
+    (isMiamExemptionsValid(caseData) || isMiamAttendanceValid(caseData)) &&
+    isScreeningQuestionsValid(caseData)
+  );
 };
 
 const isCommonFlowValid = (caseData: CaseWithId): boolean => {
@@ -235,7 +226,7 @@ const isRespondentSectionValid = (caseData: CaseWithId): boolean => {
 const areRespondentsValid = (respondents: C100RebuildPartyDetails[]): boolean => {
   return respondents.every(
     respondent =>
-      respondent.address?.AddressLine1 !== undefined &&
+      (respondent.addressUnknown === YesOrNo.YES || respondent.address?.AddressLine1 !== undefined) &&
       respondent.firstName !== undefined &&
       respondent.lastName !== undefined &&
       respondent.contactDetails !== undefined &&
@@ -365,9 +356,7 @@ const isHWFValid = (caseData: CaseWithId) => {
   return (
     caseData.hwf_needHelpWithFees !== undefined &&
     (caseData.hwf_needHelpWithFees === YesOrNo.NO ||
-      (caseData.hwf_feesAppliedDetails !== undefined &&
-        caseData.hwf_feesAppliedDetails === YesOrNo.YES &&
-        caseData.helpWithFeesReferenceNumber !== undefined))
+      (caseData.hwf_feesAppliedDetails !== undefined && caseData.helpWithFeesReferenceNumber !== undefined))
   );
 };
 
@@ -409,12 +398,11 @@ const c100WithMiamOtherProceedingsSections: Section[] = [
   ...commonSections,
   {
     section: C100SectionUrlName.SCREENING_QUESTIONS,
-    function: caseData =>
-      isScreeningQuestionsValid(caseData) && (isMiamOtherProceedingsValid(caseData) || isMiamAttendanceValid(caseData)),
+    function: caseData => isScreeningQuestionsValid(caseData) && isMiamOtherProceedingsValid(caseData),
   },
   {
     section: C100SectionUrlName.MIAM,
-    function: caseData => isMiamOtherProceedingsValid(caseData) || isMiamAttendanceValid(caseData),
+    function: isMiamOtherProceedingsValid,
   },
 ];
 const c100WithMiamUrgencySections: Section[] = [
@@ -429,9 +417,13 @@ const c100WithMiamSections: Section[] = [
   ...commonSections,
   {
     section: C100SectionUrlName.SCREENING_QUESTIONS,
-    function: caseData => isScreeningQuestionsValid(caseData) && isMiamExemptionsValid(caseData),
+    function: caseData =>
+      isScreeningQuestionsValid(caseData) && (isMiamExemptionsValid(caseData) || isMiamAttendanceValid(caseData)),
   },
-  { section: C100SectionUrlName.MIAM, function: isMiamExemptionsValid },
+  {
+    section: C100SectionUrlName.MIAM,
+    function: caseData => isMiamExemptionsValid(caseData) || isMiamAttendanceValid(caseData),
+  },
 ];
 
 const isCurrentSectionValid = (currentUrl: string, caseData: CaseWithId, sections: Section[]): boolean => {

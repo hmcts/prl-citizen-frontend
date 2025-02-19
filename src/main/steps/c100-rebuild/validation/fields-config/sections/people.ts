@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import _ from 'lodash';
-
 import { CaseWithId } from '../../../../../app/case/case';
-import { PartyType, YesOrNo } from '../../../../../app/case/definition';
-import { doesAnyChildLiveWithOtherPerson } from '../../../../c100-rebuild/other-person-details/utils';
-import { isApplicantValid, isChildValid, isOtherChildValid, isRespondentValid } from '../../util';
+import {
+  areApplicantsValid,
+  areChildrenValid,
+  areOtherChildrenValid,
+  areOtherPeopleValid,
+  areRespondentsValid,
+} from '../../util';
 
 export const PeopleFieldsConfig = {
   section: 'people',
@@ -14,7 +16,7 @@ export const PeopleFieldsConfig = {
       fieldType: 'object',
       expression: (caseData: CaseWithId) => {
         return {
-          isMandatory: caseData?.cd_children?.every(child => isChildValid(child)),
+          isMandatory: areChildrenValid(caseData),
         };
       },
     },
@@ -27,7 +29,7 @@ export const PeopleFieldsConfig = {
       fieldType: 'object',
       expression: (caseData: CaseWithId) => {
         return {
-          isMandatory: caseData?.ocd_otherChildren?.every(child => isOtherChildValid(child)),
+          isMandatory: areOtherChildrenValid(caseData),
         };
       },
       mandatory_if: {
@@ -40,7 +42,7 @@ export const PeopleFieldsConfig = {
       fieldType: 'object',
       expression: (caseData: CaseWithId) => {
         return {
-          isMandatory: caseData?.appl_allApplicants?.every(applicant => isApplicantValid(applicant)),
+          isMandatory: areApplicantsValid(caseData),
         };
       },
     },
@@ -49,9 +51,7 @@ export const PeopleFieldsConfig = {
       fieldType: 'object',
       expression: (caseData: CaseWithId) => {
         return {
-          isMandatory: caseData?.resp_Respondents?.every(respondent =>
-            isRespondentValid(respondent, PartyType.RESPONDENT)
-          ),
+          isMandatory: areRespondentsValid(caseData),
         };
       },
     },
@@ -64,17 +64,7 @@ export const PeopleFieldsConfig = {
       fieldType: 'object',
       expression: (caseData: CaseWithId) => {
         return {
-          isMandatory: caseData?.oprs_otherPersons?.every(
-            respondent =>
-              isRespondentValid(respondent, PartyType.OTHER_PERSON) &&
-              !_.isEmpty(respondent.liveInRefuge) &&
-              (respondent.liveInRefuge === YesOrNo.YES ? !_.isEmpty(respondent.refugeConfidentialityC8Form) : true) &&
-              !caseData.oprs_otherPersons?.find(
-                otherPerson =>
-                  doesAnyChildLiveWithOtherPerson(caseData as CaseWithId, otherPerson.id) &&
-                  _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
-              )
-          ),
+          isMandatory: areOtherPeopleValid(caseData),
         };
       },
       mandatory_if: {

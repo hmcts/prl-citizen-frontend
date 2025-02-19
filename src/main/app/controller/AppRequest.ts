@@ -37,6 +37,7 @@ export interface AppSession extends Session {
   accessCodeLoginIn: boolean;
   c100RebuildLdFlag: boolean;
   applicationSettings?: Record<string, any>;
+  C100CyaErrors?: string[];
 }
 export interface UserDetails {
   accessToken: string;

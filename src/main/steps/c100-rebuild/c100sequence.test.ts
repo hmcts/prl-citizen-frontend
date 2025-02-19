@@ -5,12 +5,62 @@ import { otherChildrenMockData } from '../../../test/unit/mocks/mocked-requests/
 import { otherPersonMockData } from '../../../test/unit/mocks/mocked-requests/other-person-mock';
 import { otherProceedingsMockData } from '../../../test/unit/mocks/mocked-requests/other-proceedings-mock';
 import { respondentMockData } from '../../../test/unit/mocks/mocked-requests/respondent-details-mock';
-import { YesOrNo } from '../../app/case/definition';
+import { CaseWithId, Miam_urgency } from '../../app/case/case';
+import { MiamNonAttendReason, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 
 import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
+  const commonUserCase = {
+    too_courtOrder: ['test'],
+    too_shortStatement: 'test',
+    hu_urgentHearingReasons: 'No',
+    hwn_hearingPart1: 'No',
+    cd_children: [
+      {
+        firstName: 'test',
+        lastName: 'test',
+        personalDetails: { isDateOfBirthUnknown: 'Yes' },
+        liveWith: [{}],
+        mainlyLiveWith: {},
+      },
+    ],
+    ocd_hasOtherChildren: 'No',
+    appl_allApplicants: [
+      {
+        applicantAddress1: '',
+        applicantFirstName: '',
+        applicantLastName: '',
+        contactDetailsPrivate: 'No',
+        applicantContactDetail: { canLeaveVoiceMail: 'No' },
+        relationshipDetails: { relationshipToChildren: {} },
+      },
+    ],
+    resp_Respondents: [
+      {
+        address: {
+          AddressLine1: '',
+        },
+        firstName: '',
+        lastName: '',
+        contactDetails: '',
+        relationshipDetails: { relationshipToChildren: {} },
+      },
+    ],
+    oprs_otherPersonCheck: 'No',
+    op_courtOrderProtection: 'No',
+    op_childrenInvolvedCourtCase: 'No',
+    c1A_haveSafetyConcerns: 'No',
+    ra_typeOfHearing: ['test'],
+    ra_disabilityRequirements: ['test'],
+    ie_internationalStart: 'No',
+    ie_internationalParents: 'Yes',
+    ie_provideDetailsParents: 'Scotland',
+    ie_internationalJurisdiction: 'No',
+    ie_internationalRequest: 'Yes',
+    hwf_needHelpWithFees: 'No',
+  };
   test('should contain 1 entries in c100 screen sequence', () => {
     expect(C100Sequence).toHaveLength(103);
 
@@ -63,6 +113,17 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/reasonable-adjustments/attending-court');
+    expect(
+      C100Sequence[8].getNextStep(
+        { sq_writtenAgreement: 'Yes', co_certificate: {}, ...commonUserCase } as unknown as CaseWithId,
+        {
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: false },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[9].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[9].showInSection).toBe('c100');
@@ -73,6 +134,31 @@ describe('C100Sequence', () => {
     expect(C100Sequence[10].getNextStep({ hwn_hearingPart1: YesOrNo.YES })).toBe(
       '/c100-rebuild/hearing-without-notice/hearing-part2'
     );
+    expect(
+      C100Sequence[10].getNextStep(
+        {
+          sq_writtenAgreement: 'Yes',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'No',
+          miam_nonAttendanceReasons: ['domesticViolence', 'previousMIAMOrExempt'],
+          miam_domesticAbuse: ['policeInvolvement'],
+          miam_canProvideDomesticAbuseEvidence: 'Yes',
+          miam_previousAttendance: 'fourMonthsPriorAttended',
+          miam_haveDocSignedByMediatorForPrevAttendance: 'Yes',
+          hwn_hearingPart1: YesOrNo.NO,
+          hu_urgentHearingReasons: 'Yes',
+          hu_reasonOfUrgentHearing: ['riskOfSafety'],
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/hearing-without-notice/hearing-part1',
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
     expect(
       C100Sequence[10].getNextStep({ hwn_hearingPart1: YesOrNo.NO }, {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
@@ -86,6 +172,50 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/child-details/add-children');
+    expect(
+      C100Sequence[11].getNextStep(
+        {
+          sq_writtenAgreement: YesOrNo.NO,
+          miam_validReason: YesOrNo.YES,
+          miam_nonAttendanceReasons: [MiamNonAttendReason.URGENT],
+          miam_urgency: Miam_urgency.freedomPhysicalSafety,
+        },
+        {
+          session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/typeoforder/select-courtorder');
+
+    expect(
+      C100Sequence[11].getNextStep(
+        {
+          sq_writtenAgreement: 'Yes',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'No',
+          miam_nonAttendanceReasons: ['domesticViolence', 'previousMIAMOrExempt'],
+          miam_domesticAbuse: ['policeInvolvement'],
+          miam_canProvideDomesticAbuseEvidence: 'Yes',
+          miam_previousAttendance: 'fourMonthsPriorAttended',
+          miam_haveDocSignedByMediatorForPrevAttendance: 'Yes',
+          hwn_hearingPart1: YesOrNo.YES,
+          hu_urgentHearingReasons: 'Yes',
+          hu_reasonOfUrgentHearing: ['riskOfSafety'],
+          hwn_reasonsForApplicationWithoutNotice: 'hwn_reasonsForApplicationWithoutNotice',
+          hwn_doYouNeedAWithoutNoticeHearing: 'hwn_doYouNeedAWithoutNoticeHearing',
+          hwn_doYouNeedAWithoutNoticeHearingDetails: 'hwn_doYouNeedAWithoutNoticeHearingDetails',
+          hwn_doYouRequireAHearingWithReducedNotice: 'hwn_doYouRequireAHearingWithReducedNotice',
+          hwn_doYouRequireAHearingWithReducedNoticeDetails: 'hwn_doYouRequireAHearingWithReducedNoticeDetails',
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/hearing-without-notice/hearing-part2',
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[12].url).toBe('/c100-rebuild/typeoforder/select-courtorder');
     expect(C100Sequence[12].showInSection).toBe('c100');
@@ -107,6 +237,36 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/hearing-urgency/urgent');
+    expect(
+      C100Sequence[14].getNextStep(
+        {
+          sq_writtenAgreement: 'Yes',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'No',
+          miam_nonAttendanceReasons: ['domesticViolence', 'previousMIAMOrExempt'],
+          miam_domesticAbuse: ['policeInvolvement'],
+          miam_canProvideDomesticAbuseEvidence: 'Yes',
+          miam_previousAttendance: 'fourMonthsPriorAttended',
+          miam_haveDocSignedByMediatorForPrevAttendance: 'Yes',
+          hwn_hearingPart1: YesOrNo.YES,
+          hu_urgentHearingReasons: 'Yes',
+          hu_reasonOfUrgentHearing: ['riskOfSafety'],
+          hwn_reasonsForApplicationWithoutNotice: 'hwn_reasonsForApplicationWithoutNotice',
+          hwn_doYouNeedAWithoutNoticeHearing: 'hwn_doYouNeedAWithoutNoticeHearing',
+          hwn_doYouNeedAWithoutNoticeHearingDetails: 'hwn_doYouNeedAWithoutNoticeHearingDetails',
+          hwn_doYouRequireAHearingWithReducedNotice: 'hwn_doYouRequireAHearingWithReducedNotice',
+          hwn_doYouRequireAHearingWithReducedNoticeDetails: 'hwn_doYouRequireAHearingWithReducedNoticeDetails',
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/hearing-without-notice/hearing-part2',
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[15].url).toBe('/c100-rebuild/start');
     expect(C100Sequence[15].showInSection).toBe('c100');
@@ -277,6 +437,26 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+    expect(
+      C100Sequence[41].getNextStep(
+        {
+          sq_writtenAgreement: 'No',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'Yes',
+          too_courtOrder: ['test'],
+          too_shortStatement: 'test',
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/miam/no-need',
+          body: { sq_writtenAgreement: YesOrNo.NO },
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[42].url).toBe('/c100-rebuild/miam/miam-other');
     expect(C100Sequence[42].showInSection).toBe('c100');
@@ -329,6 +509,26 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/typeoforder/select-courtorder');
+    expect(
+      C100Sequence[51].getNextStep(
+        {
+          sq_writtenAgreement: 'No',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'Yes',
+          too_courtOrder: ['test'],
+          too_shortStatement: 'test',
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/miam/no-need',
+          body: { sq_writtenAgreement: YesOrNo.NO },
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[52].url).toBe('/c100-rebuild/miam/get-doc');
     expect(C100Sequence[52].showInSection).toBe('c100');
@@ -345,6 +545,26 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/typeoforder/select-courtorder');
+    expect(
+      C100Sequence[53].getNextStep(
+        {
+          sq_writtenAgreement: 'No',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'Yes',
+          too_courtOrder: ['test'],
+          too_shortStatement: 'test',
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/miam/no-need',
+          body: { sq_writtenAgreement: YesOrNo.NO },
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[54].url).toBe('/c100-rebuild/hearing-urgency/urgent');
     expect(
@@ -352,6 +572,25 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/hearing-urgency/urgent-details');
+    expect(
+      C100Sequence[54].getNextStep(
+        {
+          sq_writtenAgreement: 'No',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'Yes',
+          ...commonUserCase,
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/miam/no-need',
+          body: { sq_writtenAgreement: YesOrNo.NO },
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
     expect(
       C100Sequence[54].getNextStep({ hu_urgentHearingReasons: YesOrNo.NO }, {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
@@ -365,6 +604,25 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/hearing-without-notice/hearing-part1');
+    expect(
+      C100Sequence[55].getNextStep(
+        {
+          sq_writtenAgreement: 'No',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'Yes',
+          ...commonUserCase,
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/miam/no-need',
+          body: { sq_writtenAgreement: YesOrNo.NO },
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[56].url).toBe('/c100-rebuild/screening-questions/consent-agreement');
     expect(C100Sequence[56].showInSection).toBe('c100');
@@ -378,6 +636,23 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/screening-questions/alternative-resolution');
+    expect(
+      C100Sequence[56].getNextStep(
+        {
+          sq_writtenAgreement: YesOrNo.YES,
+          miam_otherProceedings: 'Yes',
+          ...commonUserCase,
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/screening-questions/consent-agreement',
+          body: { sq_writtenAgreement: YesOrNo.NO },
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/typeoforder/select-courtorder');
 
     expect(C100Sequence[57].url).toBe('/c100-rebuild/screening-questions/alternative-resolution');
     expect(C100Sequence[57].showInSection).toBe('c100');
@@ -408,6 +683,25 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/miam/other-proceedings');
+    expect(
+      C100Sequence[60].getNextStep(
+        {
+          sq_writtenAgreement: 'No',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'Yes',
+          ...commonUserCase,
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/miam/no-need',
+          body: { sq_writtenAgreement: YesOrNo.NO },
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[61].url).toBe('/c100-rebuild/screening-questions/alternative-routes');
     expect(C100Sequence[61].showInSection).toBe('c100');
@@ -428,6 +722,31 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/miam/other-proceedings');
+    expect(
+      C100Sequence[63].getNextStep({ sq_courtPermissionRequired: YesOrNo.YES }, {
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest)
+    ).toBe('/c100-rebuild/screening-questions/permissions-why');
+
+    expect(
+      C100Sequence[63].getNextStep(
+        {
+          sq_writtenAgreement: 'No',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'Yes',
+          ...commonUserCase,
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/miam/no-need',
+          body: { sq_writtenAgreement: YesOrNo.NO },
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[64].url).toBe('/c100-rebuild/screening-questions/contact-representative');
     expect(C100Sequence[64].showInSection).toBe('c100');
@@ -646,6 +965,30 @@ describe('C100Sequence', () => {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/hearing-urgency/urgent');
+
+    expect(
+      C100Sequence[97].getNextStep(
+        {
+          sq_writtenAgreement: 'Yes',
+          co_certificate: {
+            id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+            url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+            filename: 'applicantname_consent_order_draft_05102022.rtf',
+            binaryUrl:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+          },
+          ...commonUserCase,
+        } as unknown as CaseWithId,
+        {
+          originalUrl: '/c100-rebuild/consent-order/upload-confirmation',
+
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(C100Sequence[98].url).toBe('/c100-rebuild/check-your-answers');
     expect(C100Sequence[98].showInSection).toBe('c100');

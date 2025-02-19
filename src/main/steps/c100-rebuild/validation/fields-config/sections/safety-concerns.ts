@@ -1,4 +1,5 @@
 import { CaseWithId } from '../../../../../app/case/case';
+import { areSafetyConcernsValid, isSafetyConcernsMandatory } from '../../util';
 
 export const SafetyConcernsFieldsConfig = {
   section: 'safetyConcerns',
@@ -42,23 +43,17 @@ export const SafetyConcernsFieldsConfig = {
     {
       fieldName: 'c1A_safteyConcerns',
       fieldType: 'object',
+      expression: (caseData: CaseWithId): { isMandatory: boolean } => {
+        return {
+          isMandatory: areSafetyConcernsValid(caseData),
+        };
+      },
       mandatory_if: {
+        fieldName: 'c1A_concernAboutChild',
+        fieldType: 'array',
         expression: (caseData: CaseWithId): { isMandatory: boolean } => {
-          const childSafetyConcerns = caseData?.c1A_concernAboutChild || [];
-          let isMandatory = false;
-
-          if (childSafetyConcerns.length >= 1 && childSafetyConcerns[0] !== 'abduction') {
-            isMandatory = childSafetyConcerns
-              .filter(concern => concern !== 'abduction')
-              .some(concern => {
-                const safetyConern = caseData?.c1A_safteyConcerns?.child?.[concern];
-
-                return !!safetyConern || !!safetyConern?.childrenConcernedAbout?.length;
-              });
-          }
-
           return {
-            isMandatory,
+            isMandatory: isSafetyConcernsMandatory(caseData),
           };
         },
       },

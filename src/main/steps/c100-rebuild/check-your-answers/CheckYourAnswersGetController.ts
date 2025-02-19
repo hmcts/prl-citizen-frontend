@@ -6,10 +6,18 @@ import { FieldPrefix } from '../../../app/case/case';
 import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
-import { doesAnyChildLiveWithOtherPerson } from '../../c100-rebuild/other-person-details/utils';
+import { FormError } from '../../../app/form/Form';
+import { doesCaseHaveId } from '../../../steps/common/task-list/utils';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
+import { MandatoryFieldsConfig } from '../validation/definitions';
+import { getAllMandatoryFields } from '../validation/util';
 
-import { isMandatoryFieldsFilled } from './mainUtil';
+import {
+  generateConcernAboutChildErrors,
+  generateOtherProceedingDocErrors,
+  generatePeopleErrors,
+  prepareProp,
+} from './mainUtil';
 
 @autobind
 export default class CheckYourAnswersGetController extends GetController {
@@ -38,63 +46,76 @@ export default class CheckYourAnswersGetController extends GetController {
       };
     }
     try {
-      await req.locals.C100Api.saveC100DraftApplication(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        req.session.userCase?.caseId as string,
-        req.session.userCase,
-        returnUrl,
-        req.session.applicationSettings
-      );
-
+      if (doesCaseHaveId(req.session.userCase)) {
+        await req.locals.C100Api.saveC100DraftApplication(
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          req.session.userCase?.caseId as string,
+          req.session.userCase,
+          returnUrl,
+          req.session.applicationSettings
+        );
+      }
       //clear payment error
       setTimeout(() => {
         req.session.paymentError = { hasError: false, errorContext: null };
         req.session.save();
       }, 1000);
-      if (!isMandatoryFieldsFilled(req.session.userCase)) {
-        req.session.errors = [];
-        req.session.userCase?.appl_allApplicants?.forEach(applicant => {
-          if (applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)) {
-            req.session.errors?.push({
-              propertyName: `c8RefugeDocument-applicant-${req.session.userCase?.appl_allApplicants?.indexOf(
-                applicant
-              )}`,
+
+      const mandatoryFields: MandatoryFieldsConfig[] = getAllMandatoryFields(req.session.userCase, false);
+      const mandetoryFieldname: string[] = [];
+      mandatoryFields.forEach(field => {
+        if (field.fieldName === 'sq_permissionsWhy') {
+          req.session.userCase.sq_permissionsWhy?.forEach(subField => {
+            mandetoryFieldname.push(`sq_${subField}_subfield`);
+          });
+        } else if (field.fieldName === 'miam_domesticAbuse') {
+          mandetoryFieldname.push(field.fieldName);
+          req.session.userCase.miam_domesticAbuse?.forEach(subField => {
+            if (_.isArray(req.session.userCase[`miam_domesticAbuse_${subField}_subfields`])) {
+              mandetoryFieldname.push(`miam_domesticAbuse_${subField}_subfields`);
+            }
+          });
+        } else {
+          mandetoryFieldname.push(field.fieldName);
+        }
+      });
+
+      const missingObject = mandetoryFieldname.filter(value => {
+        if (value.includes('miam_domesticAbuse_')) {
+          return !req.session.userCase[value].some(subSubField => !_.isEmpty(subSubField));
+        } else if (value.includes('too_stopOtherPeopleDoingSomethingSubField')) {
+          return !req.session.userCase.too_stopOtherPeopleDoingSomethingSubField?.some(
+            subField => !_.isEmpty(subField)
+          );
+        }
+        return _.isEmpty(req.session.userCase[value]);
+      });
+      req.session.errors = [];
+      const generalErrors: FormError[] = [];
+      if (missingObject.length) {
+        missingObject.forEach(property => {
+          if (property && !generalErrors.map(i => i.propertyName).includes(prepareProp(property))) {
+            generalErrors.push({
+              propertyName: prepareProp(property),
               errorType: 'required',
             });
           }
         });
-
-        req.session.userCase?.oprs_otherPersons?.forEach(otherPerson => {
-          if (otherPerson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherPerson.refugeConfidentialityC8Form)) {
-            req.session.errors?.push({
-              propertyName: `c8RefugeDocument-otherPerson-${req.session.userCase?.oprs_otherPersons?.indexOf(
-                otherPerson
-              )}`,
-              errorType: 'required',
-            });
-          }
-        });
-
-        req.session.userCase?.oprs_otherPersons?.forEach(otherPerson => {
-          if (
-            doesAnyChildLiveWithOtherPerson(req.session.userCase, otherPerson.id) &&
-            _.isEmpty(otherPerson.isOtherPersonAddressConfidential)
-          ) {
-            req.session.errors?.push({
-              propertyName: `otherPersonConfidentiality-otherPerson-${req.session.userCase?.oprs_otherPersons?.indexOf(
-                otherPerson
-              )}`,
-              errorType: 'required',
-            });
-          }
-        });
-
-        req.session.save(() => {
-          super.get(req, res);
-        });
-      } else {
-        super.get(req, res);
       }
+
+      req.session.errors?.push(
+        ...generalErrors,
+        ...generatePeopleErrors(req.session.userCase),
+        ...generateOtherProceedingDocErrors(req.session.userCase.op_otherProceedings?.order),
+        ...generateConcernAboutChildErrors(
+          req.session.userCase.c1A_concernAboutChild,
+          req.session.userCase.c1A_safteyConcerns
+        )
+      );
+
+      req.session.save(() => {
+        super.get(req, res);
+      });
     } catch (error) {
       req.locals.logger.error('error in update case', error);
 

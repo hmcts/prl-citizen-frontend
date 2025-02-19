@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
-const en = () => ({
+export const en = () => ({
   title: 'Upload the draft of your consent order',
   titleForFile: 'Select documents to upload',
   uploadGuidance1:
@@ -33,7 +34,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Llwytho drafft o’ch gorchymyn cydsynio',
   titleForFile: "Dewis dogfennau i'w llwytho",
   uploadGuidance1: 'Rhaid i chi (y ceisydd) a’r unigolyn arall (yr atebydd) lofnodi’r drafft o’r gorchymyn cydsynio.',

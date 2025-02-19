@@ -7,6 +7,7 @@ import {
   Miam_previousAttendance,
 } from '../../../../../app/case/case';
 import { MiamNonAttendReason, YesOrNo } from '../../../../../app/case/definition';
+import { isMiamDomesticAbuseValid } from '../../util';
 
 export const MiamQuestionsFieldsConfig = {
   section: 'miam',
@@ -67,16 +68,13 @@ export const MiamQuestionsFieldsConfig = {
       },
     },
     {
-      fieldName: 'miam_nonAttendanceReasons',
-      fieldType: 'array',
-      mandatory_if: {
-        fieldName: 'miam_validReason',
-        value: 'Yes',
-      },
-    },
-    {
       fieldName: 'miam_domesticAbuse',
       fieldType: 'array',
+      expression: (caseData: CaseWithId): { isMandatory: boolean } => {
+        return {
+          isMandatory: isMiamDomesticAbuseValid(caseData),
+        };
+      },
       mandatory_if: {
         fieldName: 'miam_nonAttendanceReasons',
         expression: (caseData: CaseWithId): { isMandatory: boolean | undefined } => {
@@ -134,11 +132,15 @@ export const MiamQuestionsFieldsConfig = {
     },
     {
       fieldName: 'miam_previousAttendanceEvidenceDoc',
-      fieldType: 'string',
+      fieldType: 'object',
+      expression: (caseData: CaseWithId): { isMandatory: boolean } => {
+        return { isMandatory: !_.isEmpty(caseData?.miam_previousAttendanceEvidenceDoc) };
+      },
       mandatory_if: {
         or: [
           {
             fieldName: 'miam_previousAttendance',
+            fieldType: 'string',
             expression: (caseData: CaseWithId): { isMandatory: boolean | undefined } => {
               return {
                 isMandatory: caseData?.miam_previousAttendance?.includes(
@@ -149,6 +151,7 @@ export const MiamQuestionsFieldsConfig = {
           },
           {
             fieldName: 'miam_haveDocSignedByMediatorForPrevAttendance',
+            fieldType: 'string',
             expression: (caseData: CaseWithId): { isMandatory: boolean } => {
               return {
                 isMandatory: caseData?.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.YES,
@@ -202,20 +205,24 @@ export const MiamQuestionsFieldsConfig = {
       fieldName: 'miam_noAppointmentAvailableDetails',
       fieldType: 'string',
       mandatory_if: {
-        fieldName: 'miam_haveDocSignedByMediatorForPrevAttendance',
-        expression: (caseData: CaseWithId): { isMandatory: boolean } => {
-          return { isMandatory: caseData?.miam_noMediatorReasons === Miam_noMediatorReasons.noAppointmentAvailable };
-        },
+        fieldName: 'miam_noMediatorReasons',
+        value: Miam_noMediatorReasons.noAppointmentAvailable,
       },
     },
     {
       fieldName: 'miam_unableToAttainDueToDisablityDetails',
       fieldType: 'string',
       mandatory_if: {
-        fieldName: 'miam_haveDocSignedByMediatorForPrevAttendance',
-        expression: (caseData: CaseWithId): { isMandatory: boolean } => {
-          return { isMandatory: caseData?.miam_noMediatorReasons === Miam_noMediatorReasons.disability };
-        },
+        fieldName: 'miam_noMediatorReasons',
+        value: Miam_noMediatorReasons.disability,
+      },
+    },
+    {
+      fieldName: 'miam_noMediatorIn15mileDetails',
+      fieldType: 'string',
+      mandatory_if: {
+        fieldName: 'miam_noMediatorReasons',
+        value: Miam_noMediatorReasons.noMediatorIn15mile,
       },
     },
   ],

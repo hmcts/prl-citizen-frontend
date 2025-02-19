@@ -61,13 +61,17 @@ describe('test cases for SaftyConcern', () => {
     const sessionKey = 'sessionKey';
     const typeOfUser = 'child';
 
-    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser, language)).toBe('');
+    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser, language)).toBe(
+      '<span class="govuk-error-message">Complete this section</span>'
+    );
   });
 
   test('noFoundElement', () => {
     const sessionKey = 'sessionKey';
     const typeOfUser = 'child';
-    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser, language)).toBe('');
+    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser, language)).toBe(
+      '<span class="govuk-error-message">Complete this section</span>'
+    );
   });
 
   test('FoundElement and SessionKey', () => {
@@ -83,7 +87,6 @@ describe('test cases for SaftyConcern', () => {
   });
 
   test('HTMLParser', () => {
-    const bodyHtml = '';
     const FoundElement = {
       childrenConcernedAbout: 'test',
       behaviourDetailsLabel: 'test',
@@ -91,13 +94,12 @@ describe('test cases for SaftyConcern', () => {
       isOngoingBehaviour: 'test',
     };
     const typeOfUser = 'child';
-    expect(HTMLParser(keys, FoundElement, bodyHtml, userCase, typeOfUser, language)).toBe(
+    expect(HTMLParser(keys, FoundElement, userCase, typeOfUser, language)).toBe(
       '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">childrenConcernedAboutLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"><li>undefined undefined</li></ul></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">behaviourDetailsLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">behaviourStartDateLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">test</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">isOngoingBehaviourLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">seekHelpFromPersonOrAgencyLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>'
     );
   });
 
   test('Condition Checks', () => {
-    const bodyHtml = '';
     const FoundElement = {
       childrenConcernedAbout: ['childrenConcernedAbout'],
       behaviourDetailsLabel: 'test',
@@ -105,7 +107,7 @@ describe('test cases for SaftyConcern', () => {
       isOngoingBehaviour: 'test',
     };
     const typeOfUser = 'child';
-    expect(HTMLParser(keys, FoundElement, bodyHtml, userCase, typeOfUser, language)).toBe(
+    expect(HTMLParser(keys, FoundElement, userCase, typeOfUser, language)).toBe(
       '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">childrenConcernedAboutLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><li>undefined undefined</li></ul></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">behaviourDetailsLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">behaviourStartDateLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">test</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">isOngoingBehaviourLabel</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">seekHelpFromPersonOrAgencyLabel</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>'
     );
   });

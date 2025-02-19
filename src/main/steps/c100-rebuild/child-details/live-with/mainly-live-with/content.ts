@@ -10,7 +10,7 @@ import { getPartyDetails } from '../../../people/util';
 import { getAddresses, getPeople } from '../utils';
 export * from '../routeGuard';
 
-const en = {
+export const en = {
   title: 'Who does {firstName} {lastName} mainly live with?',
   liveWithHint: 'Select the person that the child lives with most of the time.',
   incorrectAddress:
@@ -24,7 +24,7 @@ const en = {
   },
 };
 
-const cy = {
+export const cy = {
   title: 'Who does {firstName} {lastName} mainly live with? (welsh)',
   liveWithHint: 'Select the person that the child lives with most of the time. (welsh)',
   incorrectAddress:
