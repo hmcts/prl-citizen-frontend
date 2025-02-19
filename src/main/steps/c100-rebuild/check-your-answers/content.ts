@@ -204,6 +204,8 @@ import {
   cy as respondentContactDetailsCy,
   en as respondentContactDetailsEn,
 } from '../respondent-details/contact-details/content';
+import { cy as miamUploadCy, en as miamUploadEn } from '../miam/upload/content';
+import { cy as consentOrderUploadCy, en as consentOrderUploadEn } from '../consent-order/upload/content';
 
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import { getAllMandatoryFields, isAllMandatoryFieldsFilled } from '../validation/util';
@@ -334,10 +336,10 @@ export const enContent = {
       required: 'Enter the full name',
     },
     co_certificate: {
-      required: 'Please upload a consent order certificate',
+      required: consentOrderUploadEn().title,
     },
     miam_certificate: {
-      required: 'Please upload a miam certificate',
+      required: miamUploadEn().title,
     },
     miam_attendance: miamAttendanceEn.errors.miam_attendance,
     detailsKnown: detailsKnownEn().errors.detailsKnown,
@@ -357,9 +359,7 @@ export const enContent = {
     invalidPhoneNumber: contactDetailsEn().errors.telephoneNumber,
     voiceMail: contactDetailsEn().errors.canLeaveVoiceMail,
     contactPreferences: applicantContactPreferencesEn().errors.applicantContactPreferences,
-    isDateOfBirthUnknown: {
-      required: 'Select if the date of birth is unknown',
-    },
+    isDateOfBirthUnknown: childPersonalDetailsEn().errors.approxDateOfBirth,
     childDateOfBirth: childPersonalDetailsEn().errors.dateOfBirth,
     approxDateOfBirth: childPersonalDetailsEn().errors.approxDateOfBirth,
     childGender: childPersonalDetailsEn().errors.gender,
@@ -550,10 +550,10 @@ export const cyContent = {
       required: 'Enter the full name (welsh)',
     },
     co_certificate: {
-      required: 'Please upload a consent order certificate (welsh)',
+      required: consentOrderUploadCy().title,
     },
     miam_certificate: {
-      required: 'Please upload a miam certificate (welsh)',
+      required: miamUploadCy().title,
     },
     miam_nonAttendanceReasons: miamNonAttendanceReasonsCy.errors.miam_nonAttendanceReasons,
     miam_attendance: miamAttendanceCy.errors.miam_attendance,
@@ -574,9 +574,7 @@ export const cyContent = {
     invalidPhoneNumber: contactDetailsCy().errors.telephoneNumber,
     voiceMail: contactDetailsCy().errors.canLeaveVoiceMail,
     contactPreferences: applicantContactPreferencesCy().errors.applicantContactPreferences,
-    isDateOfBirthUnknown: {
-      required: 'Select if the date of birth is unknown (welsh)',
-    },
+    isDateOfBirthUnknown: childPersonalDetailsCy().errors.approxDateOfBirth,
     childDateOfBirth: childPersonalDetailsCy().errors.dateOfBirth,
     approxDateOfBirth: childPersonalDetailsCy().errors.approxDateOfBirth,
     childGender: childPersonalDetailsCy().errors.gender,
@@ -1214,7 +1212,7 @@ export const generateContent: TranslationFn = content => {
     errors[`hasNameChanged-respondent-${index}`] = translations.errors.hasNameChanged;
     errors[`childGenderLabel-respondent-${index}`] = translations.errors.gender;
     errors[`isDateOfBirthUnknown-respondent-${index}`] = translations.errors.isDateOfBirthUnknown;
-    errors[`dateOfBirth-respondent-${index}`] = translations.errors.otherGenderDetails;
+    errors[`dateOfBirth-respondent-${index}`] = translations.errors.dateOfBirth;
     errors[`respondentPlaceOfBirth-respondent-${index}`] = translations.errors.placeOfBirth;
     errors[`relationshipTo-respondent-${index}`] = translations.errors.relationshipType;
     errors[`personalDetails-respondent-email-${index}`] = translations.errors.respondentEmailAddress;
@@ -1237,7 +1235,7 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.oprs_otherPersons?.forEach((otherPerson, index) => {
       errors[`fullName-otherPerson-${index}`] = translations.errors.fullName;
       errors[`hasNameChanged-otherPerson-${index}`] = translations.errors.hasNameChanged;
-      errors[`otherGenderDetails-otherPerson-${index}`] = translations.errors.gender;
+      errors[`childGenderLabel-otherPerson-${index}`] = translations.errors.gender;
       errors[`isDateOfBirthUnknown-otherPerson-${index}`] = translations.errors.isDateOfBirthUnknown;
       errors[`approxDateOfBirth-otherPerson-${index}`] = translations.errors.approxDateOfBirth;
       errors[`dateOfBirth-otherPerson-${index}`] = translations.errors.dateOfBirth;
