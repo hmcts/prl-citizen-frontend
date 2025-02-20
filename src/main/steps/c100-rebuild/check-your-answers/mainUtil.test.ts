@@ -39,6 +39,8 @@ import {
   generateApplicantErrors,
   generateChildErrors,
   generateConcernAboutChildErrors,
+  generateOtherChildrenError,
+  generateOtherPersonErrors,
   generateOtherProceedingDocErrorContent,
   generateOtherProceedingDocErrors,
   generatePeopleErrors,
@@ -2731,6 +2733,64 @@ describe('test cases for main util', () => {
         },
       ]);
     });
+
+    test('should generate errors for children when child date of birth not entered', () => {
+      expect(
+        generateChildErrors(
+          {
+            firstName: undefined,
+            lastName: undefined,
+            personalDetails: {
+              isDateOfBirthUnknown: '',
+              dateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              gender: undefined,
+            },
+            childMatters: {
+              needsResolution: [],
+            },
+            parentialResponsibility: {
+              statement: '',
+            },
+            liveWith: undefined,
+            mainlyLiveWith: undefined,
+          } as unknown as ChildrenDetails,
+          0
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'dateOfBirth-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'gender-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'orderAppliedFor-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'parentalResponsibility-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'childLivingArrangements-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'mainlyLiveWith-child-0',
+        },
+      ]);
+    });
   });
 
   describe('generateRespondentErrors', () => {
@@ -2799,6 +2859,120 @@ describe('test cases for main util', () => {
         {
           errorType: 'required',
           propertyName: 'addressDetails-respondent-0',
+        },
+      ]);
+    });
+  });
+
+  describe('generateOtherChildrenError', () => {
+    test('should generate errors for children when child data is missing', () => {
+      expect(
+        generateOtherChildrenError(
+          {
+            firstName: undefined,
+            lastName: undefined,
+            personalDetails: {
+              isDateOfBirthUnknown: 'Yes',
+              dateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              approxDateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              gender: undefined,
+            },
+          } as unknown as ChildrenDetails,
+          0
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-otherChild-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'approxDateOfBirth-otherChild-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'gender-otherChild-0',
+        },
+      ]);
+    });
+  });
+
+  describe('generateOtherPersonErrors', () => {
+    test('should generate errors for respondents when respondent data is missing', () => {
+      expect(
+        generateOtherPersonErrors(
+          {
+            firstName: undefined,
+            lastName: undefined,
+            personalDetails: {
+              hasNameChanged: 'yes',
+              previousFullName: undefined,
+              gender: undefined,
+              isDateOfBirthUnknown: 'Yes',
+              approxDateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+            },
+            contactDetails: {
+              donKnowEmailAddress: 'No',
+              emailAddress: 'test',
+              donKnowTelephoneNumber: 'No',
+              telephoneNumber: '0123',
+            },
+            address: {
+              AddressLine1: 'test',
+              PostTown: undefined,
+              Country: 'test',
+            },
+            isOtherPersonAddressConfidential: undefined,
+            refugeConfidentialityC8Form: undefined,
+            liveInRefuge: 'Yes',
+          } as unknown as C100RebuildPartyDetails,
+          0,
+          true
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'hasNameChanged-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'childGenderLabel-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'approxDateOfBirth-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'relationshipTo-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'c8RefugeDocument-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'addressDetails-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'otherPersonConfidentiality-otherPerson-0',
         },
       ]);
     });
