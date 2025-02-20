@@ -82,7 +82,17 @@ const validateC100Flow = (
   sections: Section[],
   flowValidation: (caseData: CaseWithId) => boolean
 ): boolean => {
-  return hasC100ApplicationBeenCompleted && !url.includes('check-your-answers')
+  return hasC100ApplicationBeenCompleted
+    ? isInSummeryScreen(url, caseData, sections, flowValidation)
+    : flowValidation(caseData);
+};
+const isInSummeryScreen = (
+  url: string,
+  caseData: CaseWithId,
+  sections: Section[],
+  flowValidation: (caseData: CaseWithId) => boolean
+): boolean => {
+  return !url.includes('check-your-answers')
     ? isCurrentSectionValid(url, caseData, sections)
     : flowValidation(caseData);
 };
