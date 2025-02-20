@@ -10,6 +10,7 @@ RUN yarn workspaces focus --all --production
 FROM base as build
 
 # Remove when switched to dart-sass
+USER root
 RUN apk add --update --no-cache python3 make g++ build-base
 USER hmcts
 
