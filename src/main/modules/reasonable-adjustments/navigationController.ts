@@ -5,9 +5,11 @@ import _ from 'lodash';
 import { CaseWithId } from '../../app/case/case';
 import { PartyType } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { isC100ApplicationValid } from '../../steps/c100-rebuild/utils';
 import { applyParms, parseUrl } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
+  C100_CHECK_YOUR_ANSWER,
   C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
   C100_URL,
   PageLink,
@@ -73,6 +75,12 @@ export class ReasonableAdjustementsNavigationController {
         ],
       },
       {
+        url: C100_CHECK_YOUR_ANSWER,
+        values: [RALocalComponentC100SupportNeeds.NO_SUPPORT],
+        isExitPage: (currentPageUrl: PageLink, caseData: CaseWithId, req: AppRequest): boolean =>
+          currentPageUrl.startsWith(C100_URL) && isC100ApplicationValid(caseData, req),
+      },
+      {
         url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
         values: [RALocalComponentC100SupportNeeds.NO_SUPPORT],
         isExitPage: (currentPageUrl: PageLink): boolean => currentPageUrl.startsWith(C100_URL),
@@ -85,7 +93,12 @@ export class ReasonableAdjustementsNavigationController {
     ],
   };
 
-  private getNextPageUrl(currentPageUrl: PageLink, currentPage: PageLink, caseData: Partial<CaseWithId>): PageLink {
+  private getNextPageUrl(
+    currentPageUrl: PageLink,
+    currentPage: PageLink,
+    caseData: Partial<CaseWithId>,
+    req: AppRequest
+  ): PageLink {
     const pageConfig = this.page.pages.find(page => currentPage === parseUrl(page.url).url);
     let nextPageUrl = currentPageUrl;
 
@@ -107,12 +120,23 @@ export class ReasonableAdjustementsNavigationController {
 
     nextPageUrl =
       nextPageIndex >= 0
-        ? _.find(this.page.pages, page => page.values.includes(dataRefValues[nextPageIndex])).url
+        ? _.find(
+            this.page.pages,
+            page =>
+              page.values.includes(dataRefValues[nextPageIndex]) &&
+              (this.doesPageHaveFunction(page, currentPageUrl)
+                ? page.isExitPage(currentPageUrl, caseData, req) === true
+                : true)
+          ).url
         : this.page.pages.find(page => {
-            return _.isFunction(page.isExitPage) && page.isExitPage(currentPageUrl) === true;
+            return _.isFunction(page.isExitPage) && page.isExitPage(currentPageUrl, caseData, req) === true;
           })?.url ?? currentPageUrl;
 
     return nextPageUrl;
+  }
+
+  private doesPageHaveFunction(page, currentPageUrl: string): boolean {
+    return currentPageUrl.includes(C100_URL) ? _.isFunction(page.isExitPage) : false;
   }
 
   public getNextUrl(caseData: Partial<CaseWithId> | undefined, req: AppRequest | undefined): PageLink {
@@ -154,7 +178,7 @@ export class ReasonableAdjustementsNavigationController {
       case parseUrl(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING).url:
       case parseUrl(REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING).url:
       case parseUrl(REASONABLE_ADJUSTMENTS_COURT_NEEDS).url: {
-        nextUrl = applyParms(this.getNextPageUrl(currentPageUrl, currentPage, caseData), {
+        nextUrl = applyParms(this.getNextPageUrl(currentPageUrl, currentPage, caseData, req), {
           root: isC100Journey ? RARootContext.C100_REBUILD : RARootContext.RESPONDENT,
         });
         break;

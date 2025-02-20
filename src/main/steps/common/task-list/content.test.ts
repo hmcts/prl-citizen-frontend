@@ -36,26 +36,55 @@ describe('testcase for tasklist', () => {
     ],
     progressBar: [
       {
-        ariaLabel: 'Application submitted stage is not yet started',
-        label: 'Application<br/> submitted',
+        ariaLabel: 'Childs postcode is not yet started',
+        label: 'Childs<br/>postcode',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cafcass child safety checks stage is not yet started',
-        label: 'Cafcass child<br/> safety checks',
+        ariaLabel: 'Parties agreement is not yet started',
+        label: 'Parties<br/>agreement',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Response submitted stage is not yet started',
-        label: 'Response<br/> submitted',
+        ariaLabel: 'Type of order is not yet started',
+        label: 'Type<br/>of<br/>order',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Hearings and court orders stage is not yet started',
-        label: 'Hearings and<br/> court orders',
+        ariaLabel: 'Hearing urgency is not yet started',
+        label: 'Hearing<br/>urgency',
         statusBarClassName: '',
       },
-      { ariaLabel: 'Case closed stage is not yet started', label: 'Case closed', statusBarClassName: '' },
+      {
+        ariaLabel: 'People is not yet started',
+        label: 'People',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Other proceedings is not yet started',
+        label: 'Other<br/>proceedings',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Safety concerns is not yet started',
+        label: 'Safety<br/>concerns',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'International elements is not yet started',
+        label: 'International<br/>elements',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Court support is not yet started',
+        label: 'Court<br/>support',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Payment is not yet started',
+        label: 'Payment',
+        statusBarClassName: '',
+      },
     ],
     taskLists: [
       {
@@ -106,28 +135,53 @@ describe('testcase for tasklist', () => {
     ],
     progressBar: [
       {
-        ariaLabel: 'Cam cais wedi’i gyflwyno heb ddechrau eto',
-        label: "Cais wedi'i<br/> gyflwyno",
+        ariaLabel: 'Childs postcode - welsh heb ddechrau eto',
+        label: 'Childs<br/>postcode - welsh',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cam gwiriadau diogelwch plant Cafcass heb ddechrau eto',
-        label: 'Gwiriadau diogelwch<br/> plant Cafcass',
+        ariaLabel: 'Parties agreement - welsh heb ddechrau eto',
+        label: 'Parties<br/>agreement - welsh',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cam ymateb wedi’i gyflwyno heb ddechrau eto',
-        label: "Ymateb wedi'i<br/> gyflwyno",
+        ariaLabel: 'Type of order - welsh heb ddechrau eto',
+        label: 'Type<br/>of<br/>order - welsh',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cam gwrandawiadau a gorchmynion llys heb ddechrau eto',
-        label: 'Gwrandawiadau <br/>a<br/> gorchmynion llys',
+        ariaLabel: 'Hearing urgency - welsh heb ddechrau eto',
+        label: 'Hearing<br/>urgency - welsh',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cam achos wedi’i gau heb ddechrau eto',
-        label: 'Achos wedi’i <br/>gau',
+        ariaLabel: 'People - welsh heb ddechrau eto',
+        label: 'People - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Other proceedings - welsh heb ddechrau eto',
+        label: 'Other<br/>proceedings - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Safety concerns - welsh heb ddechrau eto',
+        label: 'Safety<br/>concerns - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'International elements - welsh heb ddechrau eto',
+        label: 'International<br/>elements - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Court support - welsh heb ddechrau eto',
+        label: 'Court<br/>support - welsh',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Payment - welsh heb ddechrau eto',
+        label: 'Payment - welsh',
         statusBarClassName: '',
       },
     ],
@@ -174,10 +228,115 @@ describe('testcase for tasklist', () => {
     },
   } as unknown as CommonContent;
 
-  test('should return correct english content', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
+  test('should return correct english content when enableC100CaseProgressionTrainTrack is not present', () => {
+    languageAssertions(
+      'en',
+      {
+        ...en,
+        progressBar: [
+          {
+            ariaLabel: 'Application submitted stage is not yet started',
+            label: 'Application<br/> submitted',
+            statusBarClassName: '',
+          },
+          {
+            ariaLabel: 'Cafcass child safety checks stage is not yet started',
+            label: 'Cafcass child<br/> safety checks',
+            statusBarClassName: '',
+          },
+          {
+            ariaLabel: 'Response submitted stage is not yet started',
+            label: 'Response<br/> submitted',
+            statusBarClassName: '',
+          },
+          {
+            ariaLabel: 'Hearings and court orders stage is not yet started',
+            label: 'Hearings and<br/> court orders',
+            statusBarClassName: '',
+          },
+          {
+            ariaLabel: 'Case closed stage is not yet started',
+            label: 'Case closed',
+            statusBarClassName: '',
+          },
+        ],
+      },
+      () =>
+        generateContent({
+          ...commonContent,
+        })
+    );
   });
-  test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+
+  test('should return correct welsh content when enableC100CaseProgressionTrainTrack is not present', () => {
+    languageAssertions(
+      'cy',
+      {
+        ...cy,
+        progressBar: [
+          {
+            ariaLabel: 'Cam cais wedi’i gyflwyno heb ddechrau eto',
+            label: "Cais wedi'i<br/> gyflwyno",
+            statusBarClassName: '',
+          },
+          {
+            ariaLabel: 'Cam gwiriadau diogelwch plant Cafcass heb ddechrau eto',
+            label: 'Gwiriadau diogelwch<br/> plant Cafcass',
+            statusBarClassName: '',
+          },
+          {
+            ariaLabel: 'Cam ymateb wedi’i gyflwyno heb ddechrau eto',
+            label: "Ymateb wedi'i<br/> gyflwyno",
+            statusBarClassName: '',
+          },
+          {
+            ariaLabel: 'Cam gwrandawiadau a gorchmynion llys heb ddechrau eto',
+            label: 'Gwrandawiadau <br/>a<br/> gorchmynion llys',
+            statusBarClassName: '',
+          },
+          {
+            ariaLabel: 'Cam achos wedi’i gau heb ddechrau eto',
+            label: 'Achos wedi’i <br/>gau',
+            statusBarClassName: '',
+          },
+        ],
+      },
+      () =>
+        generateContent({
+          ...commonContent,
+          language: 'cy',
+        })
+    );
+  });
+
+  test('should return correct english content when enableC100CaseProgressionTrainTrack is present', () => {
+    languageAssertions('en', en, () =>
+      generateContent({
+        ...commonContent,
+        additionalData: {
+          ...commonContent.additionalData,
+          req: {
+            ...commonContent.additionalData?.req,
+            session: { ...commonContent.additionalData?.req.session, enableC100CaseProgressionTrainTrack: true },
+          },
+        },
+      })
+    );
+  });
+
+  test('should return correct welsh content when enableC100CaseProgressionTrainTrack is present', () => {
+    languageAssertions('cy', cy, () =>
+      generateContent({
+        ...commonContent,
+        language: 'cy',
+        additionalData: {
+          ...commonContent.additionalData,
+          req: {
+            ...commonContent.additionalData?.req,
+            session: { ...commonContent.additionalData?.req.session, enableC100CaseProgressionTrainTrack: true },
+          },
+        },
+      })
+    );
   });
 });

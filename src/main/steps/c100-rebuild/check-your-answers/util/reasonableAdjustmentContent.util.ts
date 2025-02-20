@@ -57,7 +57,9 @@ export const ReasonableAdjustmentElement = language => {
         ...supportCourtEn,
         ...needsDuringHearingEn,
         ...needsInCourtEn,
-        errors: '',
+        errors: {
+          ...supportDuringCaseEn.errors,
+        },
       };
     },
     cy: () => {
@@ -80,7 +82,9 @@ export const ReasonableAdjustmentElement = language => {
         ...supportCourtCy,
         ...needsDuringHearingCy,
         ...needsInCourtCy,
-        errors: '',
+        errors: {
+          ...supportDuringCaseCy.errors,
+        },
       };
     },
   };

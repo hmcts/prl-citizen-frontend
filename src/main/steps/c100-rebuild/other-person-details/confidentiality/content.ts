@@ -6,7 +6,7 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 import { interpolate } from '../../../../steps/common/string-parser';
 import { getPartyDetails } from '../../../c100-rebuild/people/util';
 
-const en = {
+export const en = {
   title: 'Keeping {firstName} {lastName}’s identity private',
   answersWillBeShared:
     'Unless you answer ‘Yes’ to the question below, the information you give will be shared with other people named in this application (the respondents). This will include the contact details',
@@ -21,7 +21,7 @@ const en = {
   },
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol',
   answersWillBeShared:
     'Bydd yr atebion a roddwch yn eich ymateb yn cael eu rhannu â’r bobl eraill a enwir yn y cais hwn(yr atebydd), bydd hyn yn cynnwys eich manylion cyswllt',

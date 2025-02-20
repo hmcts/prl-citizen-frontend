@@ -256,8 +256,16 @@ describe('PostController', () => {
         classes: '',
       },
     };
-    req = mockRequest({ body });
+    req = mockRequest({
+      body,
+      session: {
+        applicationSettings: {
+          hasC100ApplicationBeenCompleted: true,
+        },
+      },
+    });
     req.path = C100_URL;
+    req.originalUrl = '/test?lng';
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalled();
   });
@@ -376,7 +384,15 @@ describe('PostController', () => {
         classes: '',
       },
     };
-    req = mockRequest({ body });
+    req = mockRequest({
+      body,
+      originalUrl: '/test',
+      session: {
+        applicationSettings: {
+          hasC100ApplicationBeenCompleted: true,
+        },
+      },
+    });
     req.path = C100_URL;
     req.locals.C100Api.updateCase.mockRejectedValue({
       message: 'MOCK_ERROR',
@@ -388,7 +404,15 @@ describe('PostController', () => {
 
   test('redirect should throw error with saving session', async () => {
     controller = new PostController({});
-    req = mockRequest();
+    req = mockRequest({
+      originalUrl: '/test?lng=en',
+      session: {
+        applicationSettings: {
+          hasC100ApplicationBeenCompleted: true,
+        },
+      },
+    });
+
     req.session.save = jest.fn(done => done('MOCK_ERROR'));
 
     let flag = false;

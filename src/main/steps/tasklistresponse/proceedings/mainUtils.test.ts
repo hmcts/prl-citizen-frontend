@@ -86,7 +86,7 @@ describe('test cases for main util', () => {
                 href: '/tasklistresponse/proceedings/courtproceedings',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {},
+                attributes: { id: 'op_courtProceedingsOrders' },
               },
             ],
           },
@@ -110,13 +110,21 @@ describe('test cases for main util', () => {
   });
 
   test('PastAndCurrentProceedings - util2', () => {
-    const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase1);
+    const CaseName_fun = PastAndCurrentProceedings(
+      { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
+      userCase1,
+      'en'
+    );
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe('');
   });
 
   test('PastAndCurrentProceedings - util3', () => {
-    const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase2);
+    const CaseName_fun = PastAndCurrentProceedings(
+      { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
+      userCase2,
+      'en'
+    );
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe('');
   });

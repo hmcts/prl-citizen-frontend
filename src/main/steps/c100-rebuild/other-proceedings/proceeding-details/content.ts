@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 export * from './routeGuard';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   headingTitle: 'Provide details of court cases you or the children have been involved in',
   select_all_apply:
     'Select all that apply to you or the children. If you have specific details, you will be able to provide that information shortly.',
@@ -35,7 +35,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   headingTitle: 'Darparwch fanylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy',
   select_all_apply:
     "Dewiswch bopeth sy'n berthnasol i chi neu'r plant. Os oes gennych fanylion penodol, byddwch yn gallu darparu'r wybodaeth honno yn fuan.",
