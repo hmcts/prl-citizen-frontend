@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { CaseWithId } from '../../app/case/case';
+import { Case, CaseWithId } from '../../app/case/case';
 import {
   C100Applicant,
   C100FlowTypes,
@@ -31,60 +31,16 @@ export const getC100FlowType = (caseData: CaseWithId, req?: AppRequest): C100Flo
 };
 
 export const isC100ApplicationValid = (caseData: CaseWithId, req: AppRequest): boolean => {
-  const hasC100ApplicationBeenCompleted = req.session.applicationSettings?.hasC100ApplicationBeenCompleted;
   if (req.session.enableC100CaseProgressionTrainTrack) {
     const flow = getC100FlowType(caseData, req);
-    switch (flow) {
-      case C100FlowTypes.C100_WITH_CONSENT_ORDER:
-        return validateC100Flow(
-          caseData,
-          req.originalUrl,
-          hasC100ApplicationBeenCompleted,
-          c100WithConsentOrderSections,
-          isC100WithConsentOrderFlowValid
-        );
-      case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
-        return validateC100Flow(
-          caseData,
-          req.originalUrl,
-          hasC100ApplicationBeenCompleted,
-          c100WithMiamOtherProceedingsSections,
-          isC100WithMiamOtherProceedingsFlowValid
-        );
-      case C100FlowTypes.C100_WITH_MIAM_URGENCY:
-        return validateC100Flow(
-          caseData,
-          req.originalUrl,
-          hasC100ApplicationBeenCompleted,
-          c100WithMiamUrgencySections,
-          isC100WithMiamUrgencyFlowValid
-        );
-      case C100FlowTypes.C100_WITH_MIAM:
-        return validateC100Flow(
-          caseData,
-          req.originalUrl,
-          hasC100ApplicationBeenCompleted,
-          c100WithMiamSections,
-          isC100MiamFlowValid
-        );
-      default:
-        return false;
+    if (req.session.applicationSettings?.hasC100ApplicationBeenCompleted) {
+      return hasC100ApplicationBeenCompleted(flow, req, caseData);
+    } else {
+      return hasC100ApplicationInProgress(flow, caseData);
     }
   } else {
     return false;
   }
-};
-
-const validateC100Flow = (
-  caseData: CaseWithId,
-  url: string,
-  hasC100ApplicationBeenCompleted: boolean,
-  sections: Section[],
-  flowValidation: (caseData: CaseWithId) => boolean
-): boolean => {
-  return hasC100ApplicationBeenCompleted
-    ? isInSummeryScreen(url, caseData, sections, flowValidation)
-    : flowValidation(caseData);
 };
 const isInSummeryScreen = (
   url: string,
@@ -455,4 +411,43 @@ const isCurrentSectionValid = (currentUrl: string, caseData: CaseWithId, section
   }
 
   return sections.find(section => section.section === currentSection)?.function(caseData) ?? false;
+};
+const hasC100ApplicationInProgress = (flow: C100FlowTypes, caseData: CaseWithId) => {
+  switch (flow) {
+    case C100FlowTypes.C100_WITH_CONSENT_ORDER:
+      return isC100WithConsentOrderFlowValid(caseData);
+    case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
+      return isC100WithMiamOtherProceedingsFlowValid(caseData);
+    case C100FlowTypes.C100_WITH_MIAM_URGENCY:
+      return isC100WithMiamUrgencyFlowValid(caseData);
+    case C100FlowTypes.C100_WITH_MIAM:
+      return isC100MiamFlowValid(caseData);
+    default:
+      return false;
+  }
+};
+
+const hasC100ApplicationBeenCompleted = (flow: C100FlowTypes, req: AppRequest<Partial<Case>>, caseData: CaseWithId) => {
+  switch (flow) {
+    case C100FlowTypes.C100_WITH_CONSENT_ORDER:
+      return isInSummeryScreen(
+        req.originalUrl,
+        caseData,
+        c100WithConsentOrderSections,
+        isC100WithConsentOrderFlowValid
+      );
+    case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
+      return isInSummeryScreen(
+        req.originalUrl,
+        caseData,
+        c100WithMiamOtherProceedingsSections,
+        isC100WithMiamOtherProceedingsFlowValid
+      );
+    case C100FlowTypes.C100_WITH_MIAM_URGENCY:
+      return isInSummeryScreen(req.originalUrl, caseData, c100WithMiamUrgencySections, isC100WithMiamUrgencyFlowValid);
+    case C100FlowTypes.C100_WITH_MIAM:
+      return isInSummeryScreen(req.originalUrl, caseData, c100WithMiamSections, isC100MiamFlowValid);
+    default:
+      return false;
+  }
 };
