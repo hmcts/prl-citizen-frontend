@@ -4,7 +4,7 @@ USER root
 RUN corepack enable
 COPY --chown=hmcts:hmcts . .
 USER hmcts
-RUN yarn workspaces focus --all --production && rm -rf $(yarn cache clean)
+RUN yarn workspaces focus --all --production
 
 # ---- Build image ----
 FROM base as build
