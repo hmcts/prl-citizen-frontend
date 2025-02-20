@@ -13,7 +13,7 @@ FROM base as build
 USER root
 RUN apk add --update --no-cache python3 make g++ build-base
 
-RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install && yarn build:prod
+RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install
 
 # ---- Runtime image ----
 FROM base as runtime
