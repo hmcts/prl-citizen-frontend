@@ -3,7 +3,8 @@ FROM hmctspublic.azurecr.io/base/node:20-alpine as base
 USER root
 RUN corepack enable
 COPY --chown=hmcts:hmcts . .
-RUN yarn workspaces focus --all --production \
+RUN yarn plugin import workspace-tools \
+  && yarn workspaces focus --all --production \
   && yarn cache clean
 
 # ---- Build image ----
