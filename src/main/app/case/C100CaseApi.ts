@@ -223,7 +223,7 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
 
 const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
   const caseDataMapperKeys = Object.keys(updateCaseDataMapper);
-  const transformedCaseData = Object.entries(caseData).reduce((transformedData: Record<string, any>, [field, data]) => {
+  let transformedCaseData = Object.entries(caseData).reduce((transformedData: Record<string, any>, [field, data]) => {
     const [type] = field.split('_');
     const key = updateCaseDataMapper[type];
 
@@ -237,6 +237,10 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
 
     return transformedData;
   }, {});
+
+  if (!Object.keys(transformedCaseData).includes(updateCaseDataMapper.co)) {
+    transformedCaseData = { ...transformedCaseData, c100RebuildConsentOrderDetails: {} };
+  }
 
   return (
     Object.entries(transformedCaseData).reduce((data: UpdateCase, [_field, _data]) => {
