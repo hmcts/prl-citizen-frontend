@@ -12,7 +12,7 @@ FROM base as build
 # Remove when switched to dart-sass
 USER root
 RUN apk add --update --no-cache python3 make g++ build-base
-
+USER hmcts
 RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install && yarn build:prod
 
 # ---- Runtime image ----
