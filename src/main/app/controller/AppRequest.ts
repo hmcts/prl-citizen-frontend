@@ -23,6 +23,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 
 export interface AppSession extends Session {
   enableCaseTrainTrack: boolean;
+  enableC100CaseProgressionTrainTrack: boolean;
   testingSupport: boolean;
   paymentError: PaymentError;
   user: UserDetails;
@@ -36,6 +37,7 @@ export interface AppSession extends Session {
   accessCodeLoginIn: boolean;
   c100RebuildLdFlag: boolean;
   applicationSettings?: Record<string, any>;
+  C100CyaErrors?: string[];
 }
 export interface UserDetails {
   accessToken: string;

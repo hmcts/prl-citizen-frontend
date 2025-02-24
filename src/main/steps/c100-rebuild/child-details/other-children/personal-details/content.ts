@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseDate, CaseWithId } from '../../../../../app/case/case';
 import { ChildrenDetails, Gender, OtherChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
@@ -14,8 +15,7 @@ import {
 import { dobUnknown, getPartyDetails } from '../../../people/util';
 export * from '../routeGuard';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Provide details for',
   dobLabel: 'Date of birth',
   dateHint: 'For example, 31 3 2016',
@@ -55,7 +55,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Darparwch fanylion am',
   dobLabel: 'Dyddiad geni',
   dateHint: 'Er enghraifft, 31 3 2016',

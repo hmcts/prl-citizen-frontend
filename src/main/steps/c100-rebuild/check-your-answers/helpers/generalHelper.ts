@@ -1,4 +1,4 @@
-import { getYesNoTranslation, translation } from '../mainUtil';
+import { getYesNoTranslation, populateError, translation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const nameAndGenderParser = (personalDetails, keys, HTML, language) => {
@@ -26,7 +26,11 @@ export const nameAndGenderParser = (personalDetails, keys, HTML, language) => {
         HTML.BREAK +
         HTML.ROW_START_NO_BORDER +
         HTML.DESCRIPTION_TERM_DETAIL;
-      changeNameInformation += personalDetails['previousFullName'];
+      changeNameInformation += populateError(
+        personalDetails['previousFullName'],
+        personalDetails['previousFullName'],
+        language
+      );
       changeNameInformation += HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END + HTML.DESCRIPTION_LIST_END;
       break;
     }

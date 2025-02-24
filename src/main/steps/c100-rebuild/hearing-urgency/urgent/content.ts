@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
@@ -5,8 +6,7 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 
 export * from './routeGuard';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   title: 'Does your situation qualify for an urgent first hearing?',
   paragraphs: [
     'In many cases the first hearing will take place within 2 months. But the court may agree to an earlier first hearing (urgent hearing) if it is necessary.',
@@ -27,7 +27,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
   paragraphs: [
     'Gyda nifer o achosion, cynhelir y gwrandawiad cyntaf o fewn 2 fis. Ond efallai y bydd y llys yn trefnu i gynnal y gwrandawiad cyntaf yn gynt na hyn (gwrandawiad brys) os bydd angen.',

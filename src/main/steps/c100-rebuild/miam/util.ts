@@ -63,9 +63,14 @@ export const cleanMiamDAExemptions = (caseData: CaseWithId): CaseWithId => {
 
 export const cleanMiamNCDRExemptions = (caseData: CaseWithId): CaseWithId => {
   delete caseData.miam_previousAttendance;
+  caseData = cleanMiamHaveDocForPrevAttendance(caseData);
+  delete caseData.miam_previousAttendanceEvidenceDoc;
+  return caseData;
+};
+
+export const cleanMiamHaveDocForPrevAttendance = (caseData: CaseWithId): CaseWithId => {
   delete caseData.miam_haveDocSignedByMediatorForPrevAttendance;
   delete caseData.miam_detailsOfEvidence;
-  delete caseData.miam_previousAttendanceEvidenceDoc;
   return caseData;
 };
 

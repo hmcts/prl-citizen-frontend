@@ -14,7 +14,7 @@ describe('getProgressBarConfig', () => {
     const language = 'en';
     const userDetails = { id: '1234' } as UserDetails;
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Application submitted stage is not yet started',
         label: 'Application<br/> submitted',
@@ -46,14 +46,14 @@ describe('getProgressBarConfig', () => {
   test('when FL401 respondent', () => {
     const data = {
       id: '12',
-      state: State.CASE_DRAFT,
+      state: State.CASE_HEARING,
       caseTypeOfApplication: CaseType.FL401,
     };
     const party = PartyType.RESPONDENT;
     const language = 'en';
     const userDetails = { id: '1234' } as UserDetails;
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Case opened stage is completed',
         label: 'Case<br/> opened',
@@ -85,7 +85,7 @@ describe('getProgressBarConfig', () => {
     const language = 'en';
     const userDetails = { id: '1234' } as UserDetails;
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Application submitted stage is completed',
         label: 'Application<br/> submitted',
@@ -122,7 +122,7 @@ describe('getProgressBarConfig', () => {
     const language = 'en';
     const userDetails = { id: '1234' } as UserDetails;
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Application submitted stage is in progress',
         label: 'Application<br/> submitted',
@@ -190,7 +190,7 @@ describe('getProgressBarConfig', () => {
     const language = 'en';
     const userDetails = { id: '1234' } as UserDetails;
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Case opened stage is completed',
         label: 'Case<br/> opened',
@@ -251,7 +251,7 @@ describe('getProgressBarConfig', () => {
     const userDetails = { id: '1234' } as UserDetails;
     const language = 'en';
 
-    expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+    expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
       {
         ariaLabel: 'Case opened stage is completed',
         label: 'Case<br/> opened',
@@ -307,7 +307,7 @@ describe('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -369,7 +369,7 @@ describe('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -446,7 +446,7 @@ describe('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -523,7 +523,7 @@ describe('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -601,7 +601,7 @@ describe('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -679,7 +679,7 @@ describe('getProgressBarConfig', () => {
       const language = 'en';
       const userDetails = { id: '1234' } as UserDetails;
 
-      expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
+      expect(getProgressBarConfig(data, party, language, userDetails, false)).toStrictEqual([
         {
           ariaLabel: 'Application submitted stage is completed',
           label: 'Application<br/> submitted',
@@ -704,6 +704,287 @@ describe('getProgressBarConfig', () => {
           ariaLabel: 'Case closed stage is completed',
           label: 'Case closed',
           statusBarClassName: 'stage--completed',
+        },
+      ]);
+    });
+  });
+
+  describe('c100-case-creation progress bar', () => {
+    test('should have correct config for consent order flow', () => {
+      expect(
+        getProgressBarConfig(
+          { sq_writtenAgreement: 'Yes' } as CaseWithId,
+          PartyType.APPLICANT,
+          'en',
+          { id: '1234' } as UserDetails,
+          true
+        )
+      ).toStrictEqual([
+        {
+          ariaLabel: 'Childs postcode is not yet started',
+          label: 'Childs<br/>postcode',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Parties agreement is completed',
+          label: 'Parties<br/>agreement',
+          statusBarClassName: 'stage--completed',
+        },
+        {
+          ariaLabel: 'Type of order is not yet started',
+          label: 'Type<br/>of<br/>order',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Consent order is not yet started',
+          label: 'Consent order',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Hearing urgency is not yet started',
+          label: 'Hearing<br/>urgency',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'People is not yet started',
+          label: 'People',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Other proceedings is not yet started',
+          label: 'Other<br/>proceedings',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Safety concerns is not yet started',
+          label: 'Safety<br/>concerns',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'International elements is not yet started',
+          label: 'International<br/>elements',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Court support is not yet started',
+          label: 'Court<br/>support',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Payment is not yet started',
+          label: 'Payment',
+          statusBarClassName: '',
+        },
+      ]);
+    });
+
+    test('should have correct config for miam other proceedings flow', () => {
+      expect(
+        getProgressBarConfig(
+          { sq_writtenAgreement: 'No', miam_otherProceedings: 'Yes' } as CaseWithId,
+          PartyType.APPLICANT,
+          'en',
+          { id: '1234' } as UserDetails,
+          true
+        )
+      ).toStrictEqual([
+        {
+          ariaLabel: 'Childs postcode is not yet started',
+          label: 'Childs<br/>postcode',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Parties agreement is in progress',
+          label: 'Parties<br/>agreement',
+          statusBarClassName: 'stage--active',
+        },
+        {
+          ariaLabel: 'MIAM is completed',
+          label: 'MIAM',
+          statusBarClassName: 'stage--completed',
+        },
+        {
+          ariaLabel: 'Other proceedings is not yet started',
+          label: 'Other<br/>proceedings',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Type of order is not yet started',
+          label: 'Type<br/>of<br/>order',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Hearing urgency is not yet started',
+          label: 'Hearing<br/>urgency',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'People is not yet started',
+          label: 'People',
+          statusBarClassName: '',
+        },
+
+        {
+          ariaLabel: 'Safety concerns is not yet started',
+          label: 'Safety<br/>concerns',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'International elements is not yet started',
+          label: 'International<br/>elements',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Court support is not yet started',
+          label: 'Court<br/>support',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Payment is not yet started',
+          label: 'Payment',
+          statusBarClassName: '',
+        },
+      ]);
+    });
+
+    test('should have correct config for miam urgency flow', () => {
+      expect(
+        getProgressBarConfig(
+          {
+            sq_writtenAgreement: 'No',
+            miam_nonAttendanceReasons: ['urgentHearing'],
+            miam_urgency: 'freedomPhysicalSafety',
+          } as CaseWithId,
+          PartyType.APPLICANT,
+          'en',
+          { id: '1234' } as UserDetails,
+          true
+        )
+      ).toStrictEqual([
+        {
+          ariaLabel: 'Childs postcode is not yet started',
+          label: 'Childs<br/>postcode',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Parties agreement is in progress',
+          label: 'Parties<br/>agreement',
+          statusBarClassName: 'stage--active',
+        },
+        {
+          ariaLabel: 'MIAM is in progress',
+          label: 'MIAM',
+          statusBarClassName: 'stage--active',
+        },
+        {
+          ariaLabel: 'Hearing urgency is not yet started',
+          label: 'Hearing<br/>urgency',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Type of order is not yet started',
+          label: 'Type<br/>of<br/>order',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'People is not yet started',
+          label: 'People',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Other proceedings is not yet started',
+          label: 'Other<br/>proceedings',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Safety concerns is not yet started',
+          label: 'Safety<br/>concerns',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'International elements is not yet started',
+          label: 'International<br/>elements',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Court support is not yet started',
+          label: 'Court<br/>support',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Payment is not yet started',
+          label: 'Payment',
+          statusBarClassName: '',
+        },
+      ]);
+    });
+
+    test('should have correct config for miam default flow', () => {
+      expect(
+        getProgressBarConfig(
+          {
+            sq_writtenAgreement: 'No',
+          } as CaseWithId,
+          PartyType.APPLICANT,
+          'en',
+          { id: '1234' } as UserDetails,
+          true
+        )
+      ).toStrictEqual([
+        {
+          ariaLabel: 'Childs postcode is not yet started',
+          label: 'Childs<br/>postcode',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Parties agreement is in progress',
+          label: 'Parties<br/>agreement',
+          statusBarClassName: 'stage--active',
+        },
+        {
+          ariaLabel: 'MIAM is not yet started',
+          label: 'MIAM',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Type of order is not yet started',
+          label: 'Type<br/>of<br/>order',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Hearing urgency is not yet started',
+          label: 'Hearing<br/>urgency',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'People is not yet started',
+          label: 'People',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Other proceedings is not yet started',
+          label: 'Other<br/>proceedings',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Safety concerns is not yet started',
+          label: 'Safety<br/>concerns',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'International elements is not yet started',
+          label: 'International<br/>elements',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Court support is not yet started',
+          label: 'Court<br/>support',
+          statusBarClassName: '',
+        },
+        {
+          ariaLabel: 'Payment is not yet started',
+          label: 'Payment',
+          statusBarClassName: '',
         },
       ]);
     });

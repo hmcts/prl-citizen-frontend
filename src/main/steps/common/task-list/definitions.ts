@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-shadow */
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType } from '../../../app/case/definition';
 import { UserDetails } from '../../../app/controller/AppRequest';
+import { MandatoryFieldsConfig } from '../../../steps/c100-rebuild/validation/definitions';
 
-import { CaseProgressionStage } from './components/progress-bar/utils';
+import { CaseCreationStage, CaseProgressionStage } from './components/progress-bar/utils';
 import { StateTags, TaskListSection, Tasks } from './components/tasklist/utils';
 
 export type StateTagsConfig = {
@@ -83,18 +86,26 @@ type PreparedStateTag = {
   className: string;
 };
 
+export enum ProgressBarConfigType {
+  C100_CASE_CREATION = 'C100-case-creation',
+  C100_CASE_PROGRESSION = 'C100-case-progression',
+  FL401_CASE_PROGRESSION = 'FL401-case-progression',
+}
+
 export type ProgressBarConfig = {
-  [key in CaseType]: {
-    [key in PartyType]?: ProgressBarProps[];
+  [key in ProgressBarConfigType]: {
+    [key in PartyType]?: Function;
   };
 };
 
 export type ProgressBarProps = {
-  id: CaseProgressionStage | undefined;
-  label: (caseType: CaseType, language: string) => string;
-  ariaLabel: (caseType: CaseType, language: string) => string;
-  isComplete: (caseData: Partial<CaseWithId>, UserDetails: UserDetails) => boolean;
-  isInProgress: (caseData: Partial<CaseWithId>, UserDetails: UserDetails) => boolean;
+  id: CaseProgressionStage | CaseCreationStage | undefined;
+  label: (caseType: ProgressBarConfigType, language: string) => string;
+  ariaLabel: (caseType: ProgressBarConfigType, language: string) => string;
+  preRender?: (caseData: CaseWithId, UserDetails: UserDetails) => void | { mandatoryFields: MandatoryFieldsConfig[] };
+  isComplete: (caseData: CaseWithId, UserDetails: UserDetails, preRenderData?: any) => boolean;
+  isInProgress?: (caseData: CaseWithId, UserDetails: UserDetails, preRenderData?: any) => boolean;
+  show?: (CaseData: CaseWithId, UserDetails: UserDetails) => boolean;
 };
 
 export type QuickLinksProps = {

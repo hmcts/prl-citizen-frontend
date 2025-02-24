@@ -55,7 +55,11 @@ describe('testcase for tasklist', () => {
         label: 'Hearings and<br/> court orders',
         statusBarClassName: '',
       },
-      { ariaLabel: 'Case closed stage is not yet started', label: 'Case closed', statusBarClassName: '' },
+      {
+        ariaLabel: 'Case closed stage is not yet started',
+        label: 'Case closed',
+        statusBarClassName: '',
+      },
     ],
     taskLists: [
       {
@@ -174,10 +178,51 @@ describe('testcase for tasklist', () => {
     },
   } as unknown as CommonContent;
 
-  test('should return correct english content', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
+  test('should return correct english content when enableC100CaseProgressionTrainTrack is not present', () => {
+    languageAssertions('en', en, () =>
+      generateContent({
+        ...commonContent,
+      })
+    );
   });
-  test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+
+  test('should return correct welsh content when enableC100CaseProgressionTrainTrack is not present', () => {
+    languageAssertions('cy', cy, () =>
+      generateContent({
+        ...commonContent,
+        language: 'cy',
+      })
+    );
+  });
+
+  test('should return correct english content when enableC100CaseProgressionTrainTrack is present', () => {
+    languageAssertions('en', en, () =>
+      generateContent({
+        ...commonContent,
+        additionalData: {
+          ...commonContent.additionalData,
+          req: {
+            ...commonContent.additionalData?.req,
+            session: { ...commonContent.additionalData?.req.session, enableC100CaseProgressionTrainTrack: true },
+          },
+        },
+      })
+    );
+  });
+
+  test('should return correct welsh content when enableC100CaseProgressionTrainTrack is present', () => {
+    languageAssertions('cy', cy, () =>
+      generateContent({
+        ...commonContent,
+        language: 'cy',
+        additionalData: {
+          ...commonContent.additionalData,
+          req: {
+            ...commonContent.additionalData?.req,
+            session: { ...commonContent.additionalData?.req.session, enableC100CaseProgressionTrainTrack: true },
+          },
+        },
+      })
+    );
   });
 });
