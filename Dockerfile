@@ -1,7 +1,10 @@
 # ---- Base image ----
 FROM hmctspublic.azurecr.io/base/node:20-alpine as base
+USER root
+RUN corepack enable
 COPY --chown=hmcts:hmcts . .
-RUN yarn install --production \
+RUN yarn plugin import workspace-tools \
+  && yarn workspaces focus --all --production \
   && yarn cache clean
 
 # ---- Build image ----
@@ -10,7 +13,7 @@ FROM base as build
 USER root
 # Remove when switched to dart-sass
 RUN apk add --update --no-cache python3 make g++ build-base
-USER hmcts
+USER root
 
 RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install && yarn build:prod
 
