@@ -18,9 +18,10 @@
     "paths": {
       "router/*": ["router/*"],
       "routes/*": ["routes/*"],
-      "@c100/*": ["steps/c100-rebuild/*"]
+      "@c100/*": ["steps/c100-rebuild/*"],
+      "node_modules/*": ["node_modules/*"]
     },
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": ["./node_modules/@types", "./types"],
     "allowJs": true,
     "moduleDetection": "force",
   },

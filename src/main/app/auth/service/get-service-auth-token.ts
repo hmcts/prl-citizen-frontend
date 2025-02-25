@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import { Logger } from '@hmcts/nodejs-logging';
 import Axios from 'axios';
 import config from 'config';

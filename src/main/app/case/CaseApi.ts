@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import https from 'https';
 
 import Axios, { AxiosInstance, AxiosResponse } from 'axios';

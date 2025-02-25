@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import * as bodyParser from 'body-parser';
+import bodyParser = require('body-parser');
 import config = require('config');
 import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';

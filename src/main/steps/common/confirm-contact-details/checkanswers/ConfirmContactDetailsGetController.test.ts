@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import Axios, { AxiosStatic } from 'axios';
 import config from 'config';
 import { when } from 'jest-when';
