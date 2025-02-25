@@ -21,8 +21,6 @@ RUN yarn config get nodeLinker
 RUN pwd
 RUN ls -la
 RUN yarn workspaces list --verbose
-RUN yarn workspaces foreach exec ls -la node_modules
-RUN ls -la /opt/app/node_modules
 RUN yarn build:prod
 
 # ---- Runtime image ----
