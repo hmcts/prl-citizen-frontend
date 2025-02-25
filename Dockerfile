@@ -18,6 +18,7 @@ RUN yarn why body-parser
 RUN yarn why winston
 RUN yarn exec env
 RUN yarn workspaces info
+RUN yarn config get nodeLinker
 RUN pwd
 RUN yarn workspaces list --verbose
 RUN ls -la /opt/app/node_modules
