@@ -19,6 +19,7 @@ RUN yarn why winston
 RUN yarn exec env
 RUN yarn config get nodeLinker
 RUN pwd
+RUN ls -la
 RUN yarn workspaces list --verbose
 RUN yarn workspaces foreach exec ls -la node_modules
 RUN ls -la /opt/app/node_modules
