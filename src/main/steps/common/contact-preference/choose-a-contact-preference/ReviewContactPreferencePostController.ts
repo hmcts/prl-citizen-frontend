@@ -19,24 +19,30 @@ export default class ReviewContactPreferencePostController extends PostControlle
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
+    const { onlycontinue } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(req.body);
     const { user, userCase } = req.session;
     Object.assign(userCase, formData);
     req.session.applicationSettings = { ...req.session.applicationSettings, navFromContactPreferences: true };
     const partyType = getCasePartyType(userCase, user.id);
     const partyDetailsContactPreference = getPartyDetails(userCase, user.id)?.contactPreferences;
-    if (userCase.partyContactPreference !== partyDetailsContactPreference) {
-      try {
-        await saveAndRedirectContactDetailsAndPreference(req, res);
-      } catch (error) {
-        throw new Error(
-          'ReviewContactPreferencePostController - error when saving contact preferences and redirecting'
-        );
+    if (onlycontinue) {
+      req.session.errors = form.getErrors(formData);
+      if (req.session.errors.length) {
+        return super.redirect(req, res);
+      } else if (userCase.partyContactPreference !== partyDetailsContactPreference) {
+        try {
+          await saveAndRedirectContactDetailsAndPreference(req, res);
+        } catch (error) {
+          throw new Error(
+            'ReviewContactPreferencePostController - error when saving contact preferences and redirecting'
+          );
+        }
+      } else {
+        req.session.save(() => {
+          res.redirect(applyParms(REVIEW_CONTACT_PREFERENCE, { partyType }) as PageLink);
+        });
       }
-    } else {
-      req.session.save(() => {
-        res.redirect(applyParms(REVIEW_CONTACT_PREFERENCE, { partyType }) as PageLink);
-      });
     }
   }
 }
