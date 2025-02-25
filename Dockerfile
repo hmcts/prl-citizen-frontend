@@ -17,10 +17,10 @@ RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install
 RUN yarn why body-parser
 RUN yarn why winston
 RUN yarn exec env
-RUN yarn workspaces info
 RUN yarn config get nodeLinker
 RUN pwd
 RUN yarn workspaces list --verbose
+RUN yarn workspaces foreach exec ls -la node_modules
 RUN ls -la /opt/app/node_modules
 RUN yarn build:prod
 
