@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import Axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';

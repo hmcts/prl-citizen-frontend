@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 jest.mock('axios');
 jest.mock('@hmcts/nodejs-logging');
 jest.useFakeTimers();

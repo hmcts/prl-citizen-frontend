@@ -1,4 +1,9 @@
 module.exports = {
+  settings: {
+    jest: {
+      version: 27 // Replace with your Jest version
+    }
+  },
   root: true,
   env: { browser: true, es6: true, node: true },
   parser: '@typescript-eslint/parser',

@@ -25,7 +25,6 @@ import { toApiFormat } from './to-api-format';
 jest.mock('axios');
 jest.mock('config');
 jest.mock('../auth/service/get-service-auth-token');
-jest.mock('form-data');
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);

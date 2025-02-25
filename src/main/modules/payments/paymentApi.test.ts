@@ -55,7 +55,7 @@ describe('PaymentTaskResolver class testing', () => {
     expect(fetchData.date_created).toEqual(undefined);
     expect(fetchData.external_reference).toEqual(undefined);
     expect(fetchData.payment_reference).toEqual(undefined);
-    expect(fetchData.status).toEqual(undefined);
+    expect(fetchData.status).toEqual(405);
     expect(fetchData.serviceRequestReference).toEqual(undefined);
   });
 });
