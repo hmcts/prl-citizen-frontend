@@ -14,4 +14,5 @@ module.exports = {
   coverageThreshold: {
   },
   verbose: true,
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!node-emoji|axios)'],
 };
