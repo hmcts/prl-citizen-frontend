@@ -10,7 +10,7 @@
   </ul>
   {% endmacro %}
 
-  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
     {% for paragraph in paragraphs %}
   <p class="govuk-body">{{ paragraph | safe }}</p>
     {% endfor %}
@@ -23,7 +23,7 @@
   <p class="govuk-body">{{ paragraph | safe }}</p>
   {% endfor %}
 
-   <h2 class="govuk-heading-s">{{ howAccessible }}</h2>
+   <h2 class="govuk-heading-l">{{ howAccessible }}</h2>
   <p class="govuk-body">{{ somePartsNot }}</p>
   <ul class="govuk-list govuk-list--bullet">
   {% for part in notAccessibleParts %}
@@ -31,7 +31,7 @@
   {% endfor %}
     </ul>
 
-  <h2 class="govuk-heading-s">{{ feedbackAndContactInformation }}</h2>
+  <h2 class="govuk-heading-l">{{ feedbackAndContactInformation }}</h2>
   {% for info in contactInfo %}
     <p class="govuk-body">{{ info }}</p>
   {% endfor %}
@@ -39,44 +39,35 @@
 
   <p class="govuk-body">{{ considerYourRequest }}</p>
 
-  <h2 class="govuk-heading-s">{{ reportingAccessibility }}</h2>
+  <h2 class="govuk-heading-l">{{ reportingAccessibility }}</h2>
   {% for improvement in improvements %}
     <p class="govuk-body">{{ improvement }}</p>
   {% endfor %}
   {{ generateBulletList(phone) }}
 
-  <h2 class="govuk-heading-s">{{ enforcementProcedure }}</h2>
+  <h2 class="govuk-heading-l">{{ enforcementProcedure }}</h2>
   {% for info in humanRightsInfo %}
     <p class="govuk-body">{{ info | safe }}</p>
   {% endfor %}
 
-  <h2 class="govuk-heading-s">{{ technicalInfo }}</h2>
+  <h2 class="govuk-heading-l">{{ technicalInfo }}</h2>
   <p class="govuk-body">{{ hmctsIsCommitted }}</p>
 
-  <h2 class="govuk-heading-s">{{ complianceStatus }}</h2>
+  <h2 class="govuk-heading-l">{{ complianceStatus }}</h2>
   <p class="govuk-body">{{ partiallyCompliant | safe }}</p>
 
-  <h2 class="govuk-heading-s">{{ nonAccessibleContent }}</h2>
+  <h2 class="govuk-heading-l">{{ nonAccessibleContent }}</h2>
   <p class="govuk-body">{{ nonAccessibleDescription }}</p>
 
-  <h3 class="govuk-heading-s">{{ issuesWithDocuments }}</h3>
+  <h3 class="govuk-heading-m">{{ issuesWithDocuments }}</h3>
   {% for issue in issuesWithDocumentDescriptions %}
     <p class="govuk-body">{{ issue }}</p>
   {% endfor %}
-
-  <h3 class="govuk-heading-s">{{ thirdPartyContent2 }}</h3>
-
-  <p class="govuk-body">{{ thirdPartyContent3 }}</p>
-  <ul class="govuk-list govuk-list--bullet">
-    {% for content in thirdPartyContentDescriptions %}
-      <li>{{ content }}</li>
-    {% endfor %}
-  </ul>
-
-  <h2 class="govuk-heading-s">{{ toImproveAccessibility }}</h2>
+  
+  <h2 class="govuk-heading-l">{{ toImproveAccessibility }}</h2>
   <p class="govuk-body">{{ improveAccessibilityDescription }}</p>
 
-  <h2 class="govuk-heading-s">{{ preparationAccessibilityStatement }}</h2>
+  <h2 class="govuk-heading-l">{{ preparationAccessibilityStatement }}</h2>
   {% for detail in statementPreparationInfo %}
     <p class="govuk-body">{{ detail }}</p>
   {% endfor %}
