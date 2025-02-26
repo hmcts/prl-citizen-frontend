@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import Axios, { AxiosResponse } from 'axios';
 import config from 'config';
 import jwt_decode from 'jwt-decode';
