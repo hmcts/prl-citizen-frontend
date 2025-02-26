@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable import/no-named-as-default */
 
 import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
