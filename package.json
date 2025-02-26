@@ -131,7 +131,7 @@
     "@wdio/sauce-service": "^8.39.0",
     "allure-commandline": "^2.13.8",
     "axios-debug-log": "^1.0.0",
-    "babel-eslint": "^10.1.0",
+    "@babel/eslint-parser": "^7.11.0",
     "babel-loader": "^8.2.2",
     "chai": "^4.3.5",
     "chai-as-promised": "^7.1.1",
