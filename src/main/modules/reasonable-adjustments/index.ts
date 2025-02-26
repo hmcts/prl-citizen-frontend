@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable import/no-named-as-default */
 import https from 'https';
 
 import Axios, { AxiosError, AxiosInstance } from 'axios';
