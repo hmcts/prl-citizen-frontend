@@ -197,6 +197,7 @@ describe('CaseApi', () => {
       helpWithFeesReferenceNumber: 'HWF-1234',
       c100RebuildMaim: '{"miam":"c100RebuildMaim"}',
       c100RebuildReturnUrl: '{"miam":"c100RebuildMaim"}',
+      c100RebuildConsentOrderDetails: '{}',
       id: '1234',
       paymentReferenceNumber: '12345',
       paymentServiceRequestReferenceNumber: '1234',
