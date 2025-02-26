@@ -161,6 +161,57 @@ describe('CaseApi', () => {
     );
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
   });
+
+  test('Should save c100 draft application', async () => {
+    const caseData = {
+      ...mockData,
+      miam: 'c100RebuildMaim',
+      applicantPcqId: '123',
+      paymentDetails: {
+        serviceRequestReference: '1234',
+        payment_reference: '12345',
+      },
+    };
+    mockedAxios.post.mockResolvedValueOnce({ data: caseData });
+    const updatedCaseData = await api.saveC100DraftApplication(
+      '1234',
+      caseData,
+      '{"miam":"c100RebuildMaim"}',
+      'c100-rebuild/dummyUrl',
+      C100_CASE_EVENT.CASE_UPDATE
+    );
+
+    expect(updatedCaseData).toStrictEqual({ data: caseData });
+    expect(mockedAxios.post).toHaveBeenCalledWith('/citizen/1234/save-c100-draft-application', {
+      applicantPcqId: '123',
+      caseTypeOfApplication: C100_CASE_TYPE.C100,
+      c100RebuildChildPostCode: 'AB2 3BV',
+      helpWithFeesReferenceNumber: 'HWF-1234',
+      c100RebuildMaim: '{"miam":"c100RebuildMaim"}',
+      c100RebuildReturnUrl: '{"miam":"c100RebuildMaim"}',
+      id: '1234',
+      paymentReferenceNumber: '12345',
+      paymentServiceRequestReferenceNumber: '1234',
+    });
+    expect(updatedCaseData.data).toStrictEqual(caseData);
+  });
+
+  test('Should throw error if there is an error saving draft application', async () => {
+    mockedAxios.post.mockRejectedValue({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+
+    await expect(api.saveC100DraftApplication('1234', userDetails, 'c100-rebuild/dummyUrl')).rejects.toThrow(
+      'Case could not be updated.'
+    );
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
+  });
+
   test('Should throw error if there is no caseID', async () => {
     mockedAxios.post.mockRejectedValue({
       response: {
