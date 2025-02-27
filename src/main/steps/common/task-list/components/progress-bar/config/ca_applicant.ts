@@ -3,7 +3,7 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State } from '../../../../../../app/case/definition';
 import { ProgressBarProps } from '../../../../../../steps/common/task-list/definitions';
-import { isCaseClosed } from '../../../../../../steps/common/task-list/utils';
+import { doesCaseHaveId, isCaseClosed } from '../../../../../../steps/common/task-list/utils';
 import { progressBarStage } from '../utils';
 
 export const CA_APPLICANT: ProgressBarProps[] = [
@@ -11,6 +11,7 @@ export const CA_APPLICANT: ProgressBarProps[] = [
     ...progressBarStage.applicationSubmitted,
     isComplete: (caseData: Partial<CaseWithId>) =>
       caseData &&
+      doesCaseHaveId(caseData) &&
       ![
         State.CASE_DRAFT,
         State.CASE_SUBMITTED_NOT_PAID,
@@ -18,7 +19,8 @@ export const CA_APPLICANT: ProgressBarProps[] = [
         State.CASE_ISSUED_TO_LOCAL_COURT,
         State.CASE_GATE_KEEPING,
       ].includes(caseData.state!),
-    isInProgress: (caseData: Partial<CaseWithId>) => caseData && caseData.state !== State.CASE_DRAFT,
+    isInProgress: (caseData: Partial<CaseWithId>) =>
+      caseData && doesCaseHaveId(caseData) && caseData.state !== State.CASE_DRAFT,
   },
   progressBarStage.cafcassSafetyChecks,
   progressBarStage.responseSubmitted,

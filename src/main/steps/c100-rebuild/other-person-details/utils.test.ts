@@ -1,7 +1,12 @@
 import { CaseWithId } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
 
-import { cleanOtherPeopleDetails } from './utils';
+import {
+  cleanOtherPeopleDetails,
+  doesAnyChildLiveWithOtherPerson,
+  getNextPersonLivingWithChild,
+  getOtherPeopleLivingWithChildren,
+} from './utils';
 
 describe('c100 > other person details > utils', () => {
   describe('cleanOtherPeopleDetails', () => {
@@ -348,6 +353,55 @@ describe('c100 > other person details > utils', () => {
         ],
       } as unknown as CaseWithId;
       expect(cleanOtherPeopleDetails(caseData, YesOrNo.YES)).toStrictEqual(caseData);
+    });
+  });
+
+  describe('doesAnyChildLiveWithOtherPerson', () => {
+    test('should return true if any child lives with the other person', () => {
+      expect(
+        doesAnyChildLiveWithOtherPerson(
+          {
+            cd_children: [{ id: '123', liveWith: [{ id: '1234' }] }],
+          } as unknown as CaseWithId,
+          '1234'
+        )
+      ).toBe(true);
+    });
+
+    test('should return false if no child lives with the other person', () => {
+      expect(
+        doesAnyChildLiveWithOtherPerson(
+          {
+            cd_children: [{ id: '123', liveWith: [{ id: '12345' }] }],
+          } as unknown as CaseWithId,
+          '1234'
+        )
+      ).toBe(false);
+    });
+  });
+
+  describe('getOtherPeopleLivingWithChildren', () => {
+    test('should return the ids of the other people living with children', () => {
+      expect(
+        getOtherPeopleLivingWithChildren({
+          oprs_otherPersons: [{ id: '123' }, { id: '1234' }],
+          cd_children: [{ id: '123', liveWith: [{ id: '123' }] }],
+        } as unknown as CaseWithId)
+      ).toEqual(['123']);
+    });
+
+    test('should return an empty list if no other people present', () => {
+      expect(
+        getOtherPeopleLivingWithChildren({
+          cd_children: [{ id: '123', liveWith: [{ id: '123' }] }],
+        } as unknown as CaseWithId)
+      ).toEqual([]);
+    });
+  });
+
+  describe('getNextPersonLivingWithChild', () => {
+    test('should return the next person who lives with a child', () => {
+      expect(getNextPersonLivingWithChild(['123', '1234'], '123')).toBe('1234');
     });
   });
 });

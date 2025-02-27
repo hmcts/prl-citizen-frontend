@@ -49,7 +49,6 @@ describe('PayAndSubmitPostController test cases', () => {
       },
     });
     jest.spyOn(PCQProvider, 'getPcqId').mockReturnValueOnce('1234567890123456');
-    jest.spyOn(PCQProvider, 'isComponentEnabled').mockReturnValueOnce(Promise.resolve(true));
     const caseData = {
       ...finalDocument,
     };
@@ -76,7 +75,6 @@ describe('PayAndSubmitPostController test cases', () => {
       },
     });
     jest.spyOn(PCQProvider, 'getPcqId').mockReturnValueOnce('1234567890123456');
-    jest.spyOn(PCQProvider, 'isComponentEnabled').mockReturnValueOnce(Promise.resolve(true));
     mockedAxios.post.mockResolvedValueOnce({ finalDocument });
     const controller = new PayAndSubmitPostController(mockFormContent.fields);
     await controller.post(req, res);
@@ -87,13 +85,32 @@ describe('PayAndSubmitPostController test cases', () => {
 
   test('Should navigate to check your answers in case of any errors', async () => {
     delete req.body;
-    jest.spyOn(PCQProvider, 'getPcqId').mockReturnValueOnce('1234567890123456');
-    jest.spyOn(PCQProvider, 'isComponentEnabled').mockReturnValueOnce(Promise.resolve(true));
     const controller = new PayAndSubmitPostController(mockFormContent.fields);
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(C100_CHECK_YOUR_ANSWER);
     expect(req.session.paymentError).toStrictEqual({ hasError: false, errorContext: null });
     expect(req.session.save).toHaveBeenCalled();
+  });
+
+  test('Should navigate to pcq if pcq not already executed by user', async () => {
+    req = mockRequest({
+      body: {
+        saveAndContinue: true,
+      },
+      session: {
+        userCase: {
+          caseId: '1234567890123456',
+        },
+        applicationSettings: {},
+      },
+    });
+    req.host = 'localhost';
+    req.get = jest.fn().mockReturnValue('localhost');
+    jest.spyOn(PCQProvider, 'getPcqId').mockReturnValueOnce(null);
+    jest.spyOn(PCQProvider, 'isComponentEnabled').mockResolvedValue(true);
+    const controller = new PayAndSubmitPostController(mockFormContent.fields);
+    await controller.post(req, res);
+    expect(pcqGetControllerMock).toHaveBeenCalled();
   });
 
   test('Should navigate to payment handler since pcq already executed by user', async () => {
@@ -104,6 +121,26 @@ describe('PayAndSubmitPostController test cases', () => {
       session: {
         userCase: {
           caseId: '1234567890123456',
+        },
+      },
+    });
+    jest.spyOn(PCQProvider, 'getPcqId').mockReturnValueOnce('1234567890123456');
+    jest.spyOn(PCQProvider, 'isComponentEnabled').mockReturnValue(Promise.resolve(true));
+    mockedAxios.post.mockResolvedValueOnce({ finalDocument });
+    const controller = new PayAndSubmitPostController(mockFormContent.fields);
+    await controller.post(req, res);
+    expect(pcqGetControllerMock).not.toHaveBeenCalled();
+  });
+
+  test('Should navigate to payment handler if pcq id is in usercase', async () => {
+    req = mockRequest({
+      body: {
+        saveAndContinue: true,
+      },
+      session: {
+        userCase: {
+          caseId: '1234567890123456',
+          applicantPcqId: '123',
         },
       },
     });

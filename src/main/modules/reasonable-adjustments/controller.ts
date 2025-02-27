@@ -39,11 +39,12 @@ export class ReasonableAdjustementsController {
     }
 
     try {
-      const status = await RAProvider.service.retrieveCommonComponentHealthStatus();
+      const status = await RAProvider.service.retrieveCommonComponentHealthStatus(req);
 
       if (status === 'UP') {
         try {
           const existingRAFlags = await RAProvider.service.retrieveExistingPartyRAFlags(
+            req,
             caseData.id!,
             partyDetails.user.idamId,
             userDetails.accessToken
@@ -96,7 +97,7 @@ export class ReasonableAdjustementsController {
     }
 
     try {
-      const response = await RAProvider.service.retrievePartyRAFlagsFromCommonComponent(externalRefId);
+      const response = await RAProvider.service.retrievePartyRAFlagsFromCommonComponent(req, externalRefId);
 
       if (!response.correlationId) {
         return ReasonableAdjustementsController.handleError('RA - no correlation ID present', res);
@@ -113,7 +114,7 @@ export class ReasonableAdjustementsController {
         }
 
         try {
-          await RAProvider.utils.updatePartyRAFlags(caseData, userDetails, response);
+          await RAProvider.utils.updatePartyRAFlags(req, caseData, userDetails, response);
 
           return res.redirect(
             applyParms(REASONABLE_ADJUSTMENTS_SUCCESS_CONFIRMATION, {

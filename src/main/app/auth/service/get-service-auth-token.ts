@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import { Logger } from '@hmcts/nodejs-logging';
 import Axios from 'axios';
 import config from 'config';
@@ -9,7 +10,7 @@ let token;
 export const getTokenFromApi = async (): Promise<string> => {
   logger.info('Refreshing service auth token');
 
-  const url: string = config.get('services.authProvider.url') + '/testing-support/lease';
+  const url: string = config.get('services.authProvider.url') + '/lease';
   const microservice: string = config.get('services.authProvider.microservice');
   const secret: string = config.get('services.authProvider.secret');
   const oneTimePassword = authenticator.generate(secret);

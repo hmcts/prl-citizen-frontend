@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { LoggerInstance } from 'winston';
 
 import { UserDetails } from '../controller/AppRequest';
@@ -11,20 +12,46 @@ describe('getC100ApplicationFee', () => {
     error: jest.fn().mockImplementation((message: string) => message),
     info: jest.fn().mockImplementation((message: string) => message),
   } as unknown as LoggerInstance;
+  const mockedAxios = axios as jest.Mocked<typeof axios>;
+  const userDetails: UserDetails = {
+    accessToken: '123',
+    email: 'billy@bob.com',
+    givenName: 'billy',
+    familyName: 'bob',
+    id: '1234',
+  };
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  test('should throw an error', async () => {
-    const userDetails: UserDetails = {
-      accessToken: '123',
-      email: 'billy@bob.com',
-      givenName: 'billy',
-      familyName: 'bob',
-      id: '1234',
-    };
+  test('should return correct response for fee with auth', async () => {
+    mockedAxios.get.mockResolvedValueOnce({
+      data: {
+        feeAmount: '232',
+        errorRetrievingResponse: '',
+      },
+    });
+    expect(await getC100ApplicationFee(userDetails, mockLogger)).toEqual({
+      feeAmount: '232',
+      errorRetrievingResponse: '',
+    });
+  });
 
+  test('should return correct response for fee without auth', async () => {
+    mockedAxios.get.mockResolvedValueOnce({
+      data: {
+        feeAmount: '232',
+        errorRetrievingResponse: '',
+      },
+    });
+    expect(await getC100ApplicationFee(userDetails, mockLogger, true)).toEqual({
+      feeAmount: '232',
+      errorRetrievingResponse: '',
+    });
+  });
+
+  test('should throw an error', async () => {
     try {
       await getC100ApplicationFee(userDetails, mockLogger);
     } catch (err) {

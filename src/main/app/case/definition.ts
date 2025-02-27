@@ -899,6 +899,7 @@ export interface CaseData {
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
   citizenNotifications?: CitizenNotification[];
+  applicantPcqId?: string;
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -2777,6 +2778,7 @@ export type C100RebuildPartyDetails = {
   addressUnknown?: YesOrNo;
   liveInRefuge?: YesOrNo;
   refugeConfidentialityC8Form?: Document;
+  isOtherPersonAddressConfidential?: YesOrNo;
 };
 
 export interface RelationshipToChildren {

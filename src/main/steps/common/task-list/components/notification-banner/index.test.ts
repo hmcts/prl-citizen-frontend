@@ -183,7 +183,28 @@ describe('testcase for notification Banner', () => {
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([]);
+    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
+      {
+        heading: 'You have not started your application',
+        id: 'applicationNotStarted',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'Once you have started your application, you have 28 days to submit it or your application will be deleted and you will need to start again. This is for security reasons.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/c100-rebuild/start',
+                text: 'Start the application',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
   });
 
   test('when casetype c100 and application in progress', () => {
@@ -298,7 +319,7 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+                text: 'This means the court will provide your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
               },
               {
                 text: 'We will let you know when the other people in the case have been given your application and case documents.',
@@ -394,7 +415,7 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: "Mae hyn yn golygu y bydd y llys yn rhoi eich cais i'r bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i'r hyn yr ydych wedi'i ddweud.  Bydd y cais yn symud yn ei flaen p’un a fyddant yn ymateb neu beidio.",
+                text: "Mae hyn yn golygu y bydd y llys yn cyflwyno eich cais i'r bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i'r hyn rydych wedi'i ddweud. Bydd yr achos yn mynd yn ei flaen p'un a ydynt yn ymateb ai peidio.",
               },
               {
                 text: "Byddwn yn rhoi gwybod i chi pan fydd y bobl eraill yn yr achos wedi cael eich cais a'ch dogfennau achos.",
@@ -491,7 +512,7 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+                text: 'This means the court will provide your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
               },
               {
                 text: 'We will let you know when the other people in the case have been given your application and case documents.',
@@ -587,7 +608,7 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: "Mae hyn yn golygu y bydd y llys yn rhoi eich cais i'r bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i'r hyn yr ydych wedi'i ddweud.  Bydd y cais yn symud yn ei flaen p’un a fyddant yn ymateb neu beidio.",
+                text: "Mae hyn yn golygu y bydd y llys yn cyflwyno eich cais i'r bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i'r hyn rydych wedi'i ddweud. Bydd yr achos yn mynd yn ei flaen p'un a ydynt yn ymateb ai peidio.",
               },
               {
                 text: "Byddwn yn rhoi gwybod i chi pan fydd y bobl eraill yn yr achos wedi cael eich cais a'ch dogfennau achos.",

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable import/no-named-as-default */
 import https from 'https';
 
 import Axios, { AxiosError, AxiosInstance } from 'axios';
@@ -26,8 +27,6 @@ import { RAUtility, ReasonableAdjustementsUtility } from './util';
 
 class ReasonableAdjustmentsProvider {
   private isEnabled = false;
-  private appBaseUrl = '';
-  private client: AxiosInstance | null = null;
   private logger: LoggerInstance | Record<string, never> = {};
   //private correlationId: string | null = null;
   //private urlBeforeRedirection = '';
@@ -48,7 +47,7 @@ class ReasonableAdjustmentsProvider {
   }
 
   private canProcessRequest(): boolean {
-    return !!(this.isEnabled && this.client);
+    return !!this.isEnabled;
   }
 
   private createAndSaveCorrelationId(req: AppRequest): Promise<void> {
@@ -113,14 +112,6 @@ class ReasonableAdjustmentsProvider {
     }
   }
 
-  APIClient(): AxiosInstance | null {
-    return this.client;
-  }
-
-  getAppBaseUrl(): string {
-    return this.appBaseUrl;
-  }
-
   /*async recordPageNavigation(req: AppRequest, done: () => void) {
     const url = req.originalUrl;
     if (url.includes(C100_URL) && this.route.routes.length && !this.route.routes.includes(url)) {
@@ -154,25 +145,26 @@ class ReasonableAdjustmentsProvider {
   async init(appRequest: AppRequest): Promise<void> {
     this.logger = appRequest.locals.logger;
 
-    if (this.isEnabled && !this.client) {
-      this.appBaseUrl = `${appRequest.protocol}://${appRequest.get('host')}`;
-      this.client = Axios.create({
-        baseURL: config.get('services.reasonableAdjustments.url'),
-        headers: {
-          'idam-token': `Bearer ${appRequest.session.user.accessToken}`,
-          'service-token': getServiceAuthToken(),
-          Accept: 'application/json',
-        },
-        httpsAgent: new https.Agent({
-          rejectUnauthorized: false,
-        }),
-      });
-
+    if (this.isEnabled) {
       await this.createSession(appRequest);
       return Promise.resolve();
     }
 
     return Promise.resolve();
+  }
+
+  createClient(appRequest: AppRequest): AxiosInstance {
+    return Axios.create({
+      baseURL: config.get('services.reasonableAdjustments.url'),
+      headers: {
+        'idam-token': `Bearer ${appRequest.session.user.accessToken}`,
+        'service-token': getServiceAuthToken(),
+        Accept: 'application/json',
+      },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    });
   }
 
   async launch(
@@ -186,7 +178,7 @@ class ReasonableAdjustmentsProvider {
       await this.resetLanguagePrefData(req);
       //this.correlationId = uuid();
       try {
-        const response = await this.service.getCommonComponentUrl(this.getCorrelationId(req)!, data, language);
+        const response = await this.service.getCommonComponentUrl(req, this.getCorrelationId(req)!, data, language);
 
         if (response.url) {
           return res.redirect(response.url);
@@ -264,8 +256,6 @@ class ReasonableAdjustmentsProvider {
   }
 
   async destroy(req: AppRequest): Promise<void> {
-    this.appBaseUrl = '';
-    this.client = null;
     await this.resetData(req);
   }
 }
