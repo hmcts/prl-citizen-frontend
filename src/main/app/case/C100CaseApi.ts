@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable import/no-named-as-default */
 
 import Axios, { AxiosInstance } from 'axios';
 import config from 'config';
@@ -119,11 +120,14 @@ export class CaseApi {
   public async saveC100DraftApplication(
     caseId: string,
     caseData: Partial<CaseWithId>,
-    returnUrl: string
+    returnUrl: string,
+    additionalData: Record<string, any> | undefined
   ): Promise<UpdateCaseResponse> {
-    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantPcqId, ...rest } =
+      caseData;
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
+      applicantPcqId: applicantPcqId ?? additionalData?.pcqId,
       caseTypeOfApplication: caseTypeOfApplication as string,
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
@@ -220,7 +224,7 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
 
 const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
   const caseDataMapperKeys = Object.keys(updateCaseDataMapper);
-  const transformedCaseData = Object.entries(caseData).reduce((transformedData: Record<string, any>, [field, data]) => {
+  let transformedCaseData = Object.entries(caseData).reduce((transformedData: Record<string, any>, [field, data]) => {
     const [type] = field.split('_');
     const key = updateCaseDataMapper[type];
 
@@ -234,6 +238,10 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
 
     return transformedData;
   }, {});
+
+  if (!Object.keys(transformedCaseData).includes(updateCaseDataMapper.co)) {
+    transformedCaseData = { ...transformedCaseData, c100RebuildConsentOrderDetails: {} };
+  }
 
   return (
     Object.entries(transformedCaseData).reduce((data: UpdateCase, [_field, _data]) => {
@@ -252,6 +260,7 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
     c100RebuildReturnUrl: caseData.c100RebuildReturnUrl,
     state: caseData.state,
     noOfDaysRemainingToSubmitCase: caseData.noOfDaysRemainingToSubmitCase,
+    applicantPcqId: caseData.applicantPcqId,
   } as RetreiveDraftCase;
 
   Object.values(updateCaseDataMapper).forEach(field => {
