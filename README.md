@@ -76,19 +76,10 @@ the following command:
 $ yarn test
 ```
 
-Here's how to run functional tests (the template contains just one sample test):
-
-```bash
-$ yarn test:routes
-```
-
-Running accessibility tests:
-
-```bash
-$ yarn test:a11y
-```
-
-Make sure all the paths in your application are covered by accessibility tests (see [a11y.ts](src/test/a11y/a11y.ts)).
+Functional end-to-end (e2e) tests are hosted in the [prl-e2e-tests](https://github.com/hmcts/prl-e2e-tests) repository.
+Smoke tests from this repository are executed by triggering a build job in Jenkins.
+To run e2e tests on your PR build, add the label `enable-prl-e2e-tests`. This will initiate a Playwright smoke test. Developers should add this label when their changes are ready for code review.
+The smoke test is run against AAT in the master build.
 
 ### Security
 
@@ -148,3 +139,4 @@ e.g. the ones verifying the state of each service it depends on.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
