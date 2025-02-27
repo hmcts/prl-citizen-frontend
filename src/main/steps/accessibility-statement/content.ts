@@ -77,13 +77,6 @@ export const en = {
     'An input has a label that is not programmatically associated so hint text that contains important information when inputting data has not been associated to the relevant inputs on the page. This means that assistive technology users may not be able to understand the label and its associated hint text. This fails WCAG 2.2 success criterion 1.3.1 Info and Relationships (Level A).',
     'Empty links may be encountered when navigating the service. This means that assistive technology users may experience unexpected functionality when interacting with the links. This fails WCAG 2.2 success criterion 2.4.3 Focus Order (Level A).',
   ],
-  thirdPartyContent2: 'Third party content that’s under someone else’s control',
-  thirdPartyContent3:
-    'Pages and websites that are linked to and from the Family Private Law service may not be fully accessible. These include: ',
-  thirdPartyContentDescriptions: [
-    'External pages hosting PDF documents',
-    'The payment pages which have a separate accessibility statement',
-  ],
   toImproveAccessibility: 'What we’re doing to improve accessibility',
   improveAccessibilityDescription:
     'We are working to improve accessibility on this website, and plan to fix the identified issues by 30 November 2025.',
@@ -167,13 +160,6 @@ const cy = {
     'Mae elfen nad yw’n rhyngweithiol yn destun ffocws wrth lywio’r dudalen, a all beri dryswch i ddefnyddwyr bysellfwrdd/darllenydd sgrin. Mae hyn yn methu â bodloni WCAG 2.2 maen prawf llwyddiant 2.4.3: Trefn Ffocws (Lefel A).',
     'Mae mewnbwn yn cynnwys label nad yw’n gysylltiedig â rhaglen, felly mae testun awgrymiadol sy’n cynnwys gwybodaeth bwysig wrth fewnbynnu data ddim wedi’i gysylltu â’r mewnbynnau perthnasol ar y dudalen. Mae hyn yn golygu efallai na fydd defnyddwyr technoleg gynorthwyol yn gallu deall y label a’r testun awgrymiadol cysylltiedig.  Mae hyn yn methu â bodloni WCAG 2.2 maen prawf llwyddiant 1.3.1 Gwybodaeth a Pherthnasau (Lefel A).',
     'Gellir dod ar draws dolenni gwag wrth lywio’r gwasanaeth. Mae hyn golygu gall defnyddwyr technoleg gynorthwyol brofi swyddogaethau annisgwyl wrth ryngweithio â’r dolenni. Mae hyn yn methu â bodloni WCAG 2.2 maen prawf llwyddiant 2.4.3: Trefn Ffocws (Lefel A).',
-  ],
-  thirdPartyContent2: 'Cynnwys trydydd parti sydd dan reolaeth rhywun arall',
-  thirdPartyContent3:
-    "Efallai na fydd tudalennau a gwefannau sy’n berthnasol i'r gwasanaeth Cyfraith Deulu Breifat yn gwbwl hygyrch. Mae’r rhain yn cynnwys:",
-  thirdPartyContentDescriptions: [
-    'Tudalennau allanol sy’n cynnwys dogfennau PDF',
-    'Y tudalennau talu sydd â datganiad hygyrchedd ar wahân',
   ],
   toImproveAccessibility: 'Beth rydym yn ei wneud i wella hygyrchedd',
   improveAccessibilityDescription: [
