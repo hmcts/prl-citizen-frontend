@@ -76,10 +76,17 @@ the following command:
 $ yarn test
 ```
 
-Functional end-to-end (e2e) tests are hosted in the [prl-e2e-tests](https://github.com/hmcts/prl-e2e-tests) repository.
+#### Functional End-to-End (E2E) Tests
+
+Functional end-to-end (E2E) tests are hosted in the [prl-e2e-tests](https://github.com/hmcts/prl-e2e-tests) repository.
+
+
 Smoke tests from this repository are executed by triggering a build job in Jenkins.
-To run e2e tests on your PR build, add the label `enable-prl-e2e-tests`. This will initiate a Playwright smoke test. Developers should add this label when their changes are ready for code review.
-The smoke test is run against AAT in the master build.
+
+To run E2E tests on your PR build, add the label `enable-prl-e2e-tests`. This will initiate a Playwright smoke test. Developers should add this label when their changes are ready for code review.
+
+The smoke test is run against **AAT** in the master build.
+
 
 ### Security
 
