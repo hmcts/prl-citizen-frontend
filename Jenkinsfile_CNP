@@ -3,6 +3,7 @@
 @Library("Infrastructure")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
+import uk.gov.hmcts.contino.GithubAPI
 
 def type = "nodejs"
 def product = "prl"
@@ -51,6 +52,9 @@ env.C100_REBUILD_FLAG = false
 env.TESTING_SUPPORT_FLAG = false
 env.ENABLE_CASE_TRAIN_TRACK = false
 
+def checkForEnableTestsLabel(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "enable-prl-e2e-tests").contains("enable-prl-e2e-tests")
+}
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
@@ -63,8 +67,12 @@ withPipeline(type, product, component) {
   }
 
   before('smoketest:preview') {
-    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
-    build job: 'HMCTS_j_to_z/prl-e2e-tests/master', wait: true, propogate: true, parameters: [booleanParam(name: "skipManageCasesTests", value: true), string(name: "CITIZEN_FRONTEND_BASE_URL", value: env.PRL_CITIZEN_URL)]
+    if (checkForEnableTestsLabel(env.BRANCH_NAME)) {
+      env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
+      build job: 'HMCTS_j_to_z/prl-e2e-tests/master', wait: true, propogate: true, parameters: [booleanParam(name: "skipManageCasesTests", value: true), string(name: "CITIZEN_FRONTEND_BASE_URL", value: env.PRL_CITIZEN_URL)]
+    } else {
+      echo "Skipping Functional Tests: 'enable-prl-e2e-tests' label is absent"
+    }
   }
   afterAlways('smoketest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
