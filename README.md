@@ -1,4 +1,4 @@
-## prl-citizen-frontend
+### prl-citizen-frontend
 
 Updated with Release 4.0
 
@@ -76,19 +76,17 @@ the following command:
 $ yarn test
 ```
 
-Here's how to run functional tests (the template contains just one sample test):
+#### Functional End-to-End (E2E) Tests
 
-```bash
-$ yarn test:routes
-```
+Functional end-to-end (E2E) tests are hosted in the [prl-e2e-tests](https://github.com/hmcts/prl-e2e-tests) repository.
 
-Running accessibility tests:
 
-```bash
-$ yarn test:a11y
-```
+Smoke tests from this repository are executed by triggering a build job in Jenkins.
 
-Make sure all the paths in your application are covered by accessibility tests (see [a11y.ts](src/test/a11y/a11y.ts)).
+To run E2E tests on your PR build, add the label `enable-prl-e2e-tests`. This will initiate a Playwright smoke test. Developers should add this label when their changes are ready for code review.
+
+The smoke test is run against **AAT** in the master build.
+
 
 ### Security
 
@@ -148,3 +146,4 @@ e.g. the ones verifying the state of each service it depends on.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
