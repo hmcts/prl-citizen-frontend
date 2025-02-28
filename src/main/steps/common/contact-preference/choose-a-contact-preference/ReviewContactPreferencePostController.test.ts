@@ -227,154 +227,153 @@ describe('ContactPreferencesPostController', () => {
   });
 });
 
-  test('Should return to same page with error', async () => {
-    const req = mockRequest();
-    const res = mockResponse();
-      req.session.user = {
-        ...req.session.user,
-        id: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
-      };
-      req.session.userCase = {
-        ...req.session.userCase,
-        state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
-        citizenUserAddress1: 'Flatc1',
-        citizenUserAddress2: 'Unkonwn lane',
-        citizenUserAddressCounty: 'Dummy County',
-        citizenUserAddressPostcode: 'SW13ND',
-        citizenUserAddressTown: 'Dummy Town',
-        citizenUserAddressHistory: '',
-        citizenUserDateOfBirth: {
-          year: '2000',
-          month: '11',
-          day: '14',
-        },
-        citizenUserEmailAddress: 'a.b@test.com',
-        citizenUserFirstNames: 'John',
-        isAtAddressLessThan5Years: 'No',
-        citizenUserLastNames: 'Smith',
-        citizenUserPhoneNumber: '0987654321',
-        citizenUserPlaceOfBirth: 'london',
-        citizenUserAdditionalName: 'Johnny Smith',
-        citizenUserSafeToCall: '4 pm',
-        isCitizenLivingInRefuge: 'No',
-        applicants: [
-          {
-            id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
-            value: {
-              firstName: 'testuser',
-              lastName: 'Citizen',
-              email: 'abc@example.net',
-              dateOfBirth: '2023-11-12',
-              phoneNumber: '7755664466',
-              placeOfBirth: 'BPP',
-              previousName: 'test',
-              isAtAddressLessThan5Years: 'No',
-              addressLivedLessThan5YearsDetails: 'Hello',
-              address: {
-                AddressLine1: 'string',
-                AddressLine2: 'string',
-                AddressLine3: 'string',
-                PostTown: 'string',
-                County: 'string',
-                PostCode: 'string',
-                Country: 'string',
-              },
-              user: {
-                idamId: '123',
-                email: 'test1234@example.net',
-              },
-              response: 'MOCK_RESPONSE',
-              contactPreferences: 'email',
-            },
+test('Should return to same page with error', async () => {
+  const req = mockRequest();
+  const res = mockResponse();
+  req.session.user = {
+    ...req.session.user,
+    id: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+  };
+  req.session.userCase = {
+    ...req.session.userCase,
+    state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
+    citizenUserAddress1: 'Flatc1',
+    citizenUserAddress2: 'Unkonwn lane',
+    citizenUserAddressCounty: 'Dummy County',
+    citizenUserAddressPostcode: 'SW13ND',
+    citizenUserAddressTown: 'Dummy Town',
+    citizenUserAddressHistory: '',
+    citizenUserDateOfBirth: {
+      year: '2000',
+      month: '11',
+      day: '14',
+    },
+    citizenUserEmailAddress: 'a.b@test.com',
+    citizenUserFirstNames: 'John',
+    isAtAddressLessThan5Years: 'No',
+    citizenUserLastNames: 'Smith',
+    citizenUserPhoneNumber: '0987654321',
+    citizenUserPlaceOfBirth: 'london',
+    citizenUserAdditionalName: 'Johnny Smith',
+    citizenUserSafeToCall: '4 pm',
+    isCitizenLivingInRefuge: 'No',
+    applicants: [
+      {
+        id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+        value: {
+          firstName: 'testuser',
+          lastName: 'Citizen',
+          email: 'abc@example.net',
+          dateOfBirth: '2023-11-12',
+          phoneNumber: '7755664466',
+          placeOfBirth: 'BPP',
+          previousName: 'test',
+          isAtAddressLessThan5Years: 'No',
+          addressLivedLessThan5YearsDetails: 'Hello',
+          address: {
+            AddressLine1: 'string',
+            AddressLine2: 'string',
+            AddressLine3: 'string',
+            PostTown: 'string',
+            County: 'string',
+            PostCode: 'string',
+            Country: 'string',
           },
-        ],
-        respondents: [
-          {
-            id: '0c09b130-2eba-4ca8-a910-1f001bac01e2',
-            value: {
-              firstName: 'testuser',
-              lastName: 'Citizen',
-              email: 'abc@example.net',
-              dateOfBirth: '03-20-2023',
-              phoneNumber: '7755664466',
-              placeOfBirth: 'BPP',
-              previousName: 'test',
-              isAtAddressLessThan5Years: 'No',
-              addressLivedLessThan5YearsDetails: 'Hello',
-              address: {
-                AddressLine1: 'string',
-                AddressLine2: 'string',
-                AddressLine3: 'string',
-                PostTown: 'string',
-                County: 'string',
-                PostCode: 'string',
-                Country: 'string',
-              },
-              user: {
-                idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
-                email: 'test1234@example.net',
-              },
-              response: 'MOCK_RESPONSE',
-              contactPreferences: 'email',
-              liveInRefuge: 'No',
-            },
+          user: {
+            idamId: '123',
+            email: 'test1234@example.net',
           },
-        ],
-        caseInvites: [
-          {
-            id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
-            value: {
-              partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e2',
-              caseInviteEmail: 'respondent2@example.net',
-              accessCode: '3GYFGJHO',
-              invitedUserId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
-              hasLinked: 'Yes',
-              expiryDate: '2023-05-07',
-              isApplicant: 'No',
-            },
-          },
-        ],
-        caseTypeOfApplication: 'C100',
-      };
-      req.body.onlycontinue = true;
- 
-    const mockForm: FormContent = {
-      fields: {
-        partyContactPreference: {
-          type: 'radios',
-          classes: 'govuk-radios',
-          validator: atLeastOneFieldIsChecked,
-          label: l => l.contactPreferenceLabel,
-          labelSize: 'm',
-          hint: l => l.contactPreferenceHintText,
-          values: [
-            {
-              label: l => l.labelDigital,
-              name: 'partyContactPreference',
-              value: ContactPreference.EMAIL,
-              hint: l => l.labelDitigalHintText,
-            },
-            {
-              label: l => l.labelPost,
-              name: 'partyContactPreference',
-              value: ContactPreference.POST,
-              hint: l => l.labelPostHintText,
-            },
-          ],
+          response: 'MOCK_RESPONSE',
+          contactPreferences: 'email',
         },
       },
-      onlycontinue: {
-        text: l => l.continue,
+    ],
+    respondents: [
+      {
+        id: '0c09b130-2eba-4ca8-a910-1f001bac01e2',
+        value: {
+          firstName: 'testuser',
+          lastName: 'Citizen',
+          email: 'abc@example.net',
+          dateOfBirth: '03-20-2023',
+          phoneNumber: '7755664466',
+          placeOfBirth: 'BPP',
+          previousName: 'test',
+          isAtAddressLessThan5Years: 'No',
+          addressLivedLessThan5YearsDetails: 'Hello',
+          address: {
+            AddressLine1: 'string',
+            AddressLine2: 'string',
+            AddressLine3: 'string',
+            PostTown: 'string',
+            County: 'string',
+            PostCode: 'string',
+            Country: 'string',
+          },
+          user: {
+            idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+            email: 'test1234@example.net',
+          },
+          response: 'MOCK_RESPONSE',
+          contactPreferences: 'email',
+          liveInRefuge: 'No',
+        },
       },
-    };
-    const controller1 = new ReviewContactPreferencePostController(mockForm.fields);
-    req.session.userCase.applicants[0].value.contactPreferences = undefined;
-    req.session.userCase.caseTypeOfApplication = 'C100';
-    req.session.user.id = '123';
-    req.body.onlycontinue = true;
-    req.session.userCase.partyContactPreference = undefined;
-    req.body.partyContactPreference = undefined;
-    controller1.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/request');
-  });
+    ],
+    caseInvites: [
+      {
+        id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e2',
+          caseInviteEmail: 'respondent2@example.net',
+          accessCode: '3GYFGJHO',
+          invitedUserId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+          hasLinked: 'Yes',
+          expiryDate: '2023-05-07',
+          isApplicant: 'No',
+        },
+      },
+    ],
+    caseTypeOfApplication: 'C100',
+  };
+  req.body.onlycontinue = true;
 
+  const mockForm: FormContent = {
+    fields: {
+      partyContactPreference: {
+        type: 'radios',
+        classes: 'govuk-radios',
+        validator: atLeastOneFieldIsChecked,
+        label: l => l.contactPreferenceLabel,
+        labelSize: 'm',
+        hint: l => l.contactPreferenceHintText,
+        values: [
+          {
+            label: l => l.labelDigital,
+            name: 'partyContactPreference',
+            value: ContactPreference.EMAIL,
+            hint: l => l.labelDitigalHintText,
+          },
+          {
+            label: l => l.labelPost,
+            name: 'partyContactPreference',
+            value: ContactPreference.POST,
+            hint: l => l.labelPostHintText,
+          },
+        ],
+      },
+    },
+    onlycontinue: {
+      text: l => l.continue,
+    },
+  };
+  const controller1 = new ReviewContactPreferencePostController(mockForm.fields);
+  req.session.userCase.applicants[0].value.contactPreferences = undefined;
+  req.session.userCase.caseTypeOfApplication = 'C100';
+  req.session.user.id = '123';
+  req.body.onlycontinue = true;
+  req.session.userCase.partyContactPreference = undefined;
+  req.body.partyContactPreference = undefined;
+  controller1.post(req, res);
+  expect(res.redirect).toHaveBeenCalledWith('/request');
+});
