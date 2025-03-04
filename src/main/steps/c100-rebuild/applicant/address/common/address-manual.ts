@@ -5,7 +5,8 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
 export const en = () => ({
-  addressLine1: 'Building and street',
+  addressLine1: 'Building',
+  addressLine2: 'Street',
   town: 'Town or city',
   county: 'County',
   country: 'Country',
@@ -19,7 +20,8 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  addressLine1: 'Adeilad a stryd',
+  addressLine1: 'Adeilad',
+  addressLine2: 'Stryd',
   town: 'Tref neu ddinas',
   county: 'Sir',
   country: 'Gwlad',
