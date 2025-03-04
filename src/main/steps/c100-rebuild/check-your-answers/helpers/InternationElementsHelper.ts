@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { YesOrNo } from '../../../../app/case/definition';
 import { HTML } from '../common/htmlSelectors';
-import { getYesNoTranslation } from '../mainUtil';
+import { getYesNoTranslation, translation } from '../mainUtil';
 
-const htmlValParser = (selection, subText, keys) => {
-  selection = selection || '';
-  subText = subText || '';
+const htmlValParser = (selection, subText, keys, language, istrue) => {
+  selection = selection || HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
+  if (!subText) {
+    subText = istrue ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE : '';
+  }
   const addDetails = subText
     ? HTML.ROW_START_NO_BORDER +
       HTML.DESCRIPTION_TERM_ELEMENT +
@@ -57,8 +59,15 @@ const getValueUrlByKey = (key: string, userCase: any, language: any, Urls: any, 
       url = Urls['C100_INTERNATIONAL_ELEMENTS_REQUEST'];
       break;
   }
+  const istrue = caseDataYesNo === YesOrNo.YES;
   return {
-    valueHtml: htmlValParser(getYesNoTranslation(language, caseDataYesNo, 'ydyntTranslation'), caseDataDetail, keys),
+    valueHtml: htmlValParser(
+      getYesNoTranslation(language, caseDataYesNo, 'ydyntTranslation'),
+      caseDataDetail,
+      keys,
+      language,
+      istrue
+    ),
     changeUrl: url,
   };
 };
@@ -67,20 +76,23 @@ export const InternationElementHelper = (userCase, keys, Urls, language) => {
     {
       key: keys['liveOutSideUk'],
       ...getValueUrlByKey('liveOutSideUk', userCase, language, Urls, keys),
+      anchorReference: 'ie_internationalStart',
     },
     {
       key: keys['basedOutSideEnglandOrWales'],
       ...getValueUrlByKey('basedOutSideEnglandOrWales', userCase, language, Urls, keys),
+      anchorReference: 'ie_internationalParents',
     },
     {
       key: keys['anotherPersonSameOrder'],
       ...getValueUrlByKey('anotherPersonSameOrder', userCase, language, Urls, keys),
+      anchorReference: 'ie_internationalJurisdiction',
     },
     {
       key: keys['otherCountryRequestInfo'],
       ...getValueUrlByKey('otherCountryRequestInfo', userCase, language, Urls, keys),
+      anchorReference: 'ie_internationalRequest',
     },
   ];
-
   return summaryData;
 };

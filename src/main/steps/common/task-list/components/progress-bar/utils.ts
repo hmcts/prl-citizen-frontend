@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseType, SelectTypeOfOrderEnum } from './../../../../../app/case/definition';
+import _ from 'lodash';
+
+import { CaseWithId } from '../../../../../app/case/case';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { ProgressBarConfigType } from '../../definitions';
+
+import { CaseType, SelectTypeOfOrderEnum, State } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
 export enum CaseProgressionStage {
@@ -13,11 +19,32 @@ export enum CaseProgressionStage {
   ALL_FINAL_ORDERS_ISSUED = 'caseClosed',
 }
 
-const getLabel = (caseStage: CaseProgressionStage, caseType: CaseType, language: string): string =>
-  content[language]?.[caseType]?.[caseStage]?.label;
+export enum CaseCreationStage {
+  CHILDREN_POSTCODE = 'childrenPostCode',
+  SCREENING_SECTION = 'screeningSection',
+  MIAM = 'miam',
+  TYPE_OF_ORDER = 'typeOfOrder',
+  OTHER_PROCEEDINGS = 'otherProceedings',
+  URGENCY_AND_WITHOUT_NOTICE = 'urgencyAndWithoutNotice',
+  PEOPLE = 'people',
+  SAFETY_CONCERNS = 'safetyConcerns',
+  INTERNATIONAL_ELEMENTS = 'internationalElements',
+  REASONABLE_ADJUSTMENTS = 'reasonableAdjustments',
+  HELP_WITH_FEES = 'helpWithFees',
+  CONSENT_ORDER = 'consentOrder',
+}
 
-const getAriaLabel = (caseStage: CaseProgressionStage, caseType: CaseType, language: string): string =>
-  content[language]?.[caseType]?.[caseStage]?.ariaLabel;
+export const getLabel = (
+  caseStage: CaseCreationStage | CaseProgressionStage,
+  caseProgressionType: ProgressBarConfigType,
+  language: string
+): string => content[language]?.[caseProgressionType]?.[caseStage]?.label;
+
+export const getAriaLabel = (
+  caseStage: CaseCreationStage | CaseProgressionStage,
+  caseProgressionType: ProgressBarConfigType,
+  language: string
+): string => content[language]?.[caseProgressionType]?.[caseStage]?.ariaLabel;
 
 export const isFinalOrderIssued = caseData => caseData.selectTypeOfOrder === SelectTypeOfOrderEnum.finl;
 
@@ -71,4 +98,57 @@ export const progressBarStage = {
     isInProgress: () => false,
     isComplete: () => false,
   },
+};
+
+export const getProgressBarType = (caseData: CaseWithId, isC100TrainTrackEnabled: boolean): ProgressBarConfigType => {
+  const caseType = caseData?.caseTypeOfApplication;
+  let progressBarType: ProgressBarConfigType;
+
+  if (!caseType || caseData?.state === State.CASE_DRAFT) {
+    progressBarType = isC100TrainTrackEnabled
+      ? ProgressBarConfigType.C100_CASE_CREATION
+      : ProgressBarConfigType.C100_CASE_PROGRESSION;
+  } else {
+    progressBarType =
+      caseType === CaseType.C100
+        ? ProgressBarConfigType.C100_CASE_PROGRESSION
+        : ProgressBarConfigType.FL401_CASE_PROGRESSION;
+  }
+
+  return progressBarType;
+};
+
+const getPreRenderData = (config, caseData: CaseWithId, userDetails: UserDetails) => {
+  let preRenderData;
+  if (_.isFunction(config.preRender)) {
+    preRenderData = config.preRender(caseData, userDetails);
+  }
+
+  return preRenderData;
+};
+
+export const getIsInProgressStatus = (config, caseData: CaseWithId, userDetails: UserDetails) => {
+  const preRenderData = getPreRenderData(config, caseData, userDetails);
+  let isInProgress = false;
+
+  if (_.isFunction(config.isInProgress)) {
+    isInProgress = preRenderData
+      ? config.isInProgress(caseData, userDetails, preRenderData)
+      : config.isInProgress(caseData, userDetails);
+  }
+
+  return isInProgress;
+};
+
+export const getIsCompleteStatus = (config, caseData: CaseWithId, userDetails: UserDetails) => {
+  const preRenderData = getPreRenderData(config, caseData, userDetails);
+  let isComplete = false;
+
+  if (_.isFunction(config.isComplete)) {
+    isComplete = preRenderData
+      ? config.isComplete(caseData, userDetails, preRenderData)
+      : config.isComplete(caseData, userDetails);
+  }
+
+  return isComplete;
 };

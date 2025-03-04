@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { HTML } from '../common/htmlSelectors';
+import { populateError, translation } from '../mainUtil';
 
 export const courtOrderSubFieldParser = (userCase, keys, userKey, originalListItem) => {
   if (userCase.hasOwnProperty(userKey)) {
@@ -34,8 +35,8 @@ export const courtOrderParentAndChildFieldParser = (userCase, keys, sessionKey) 
   }
 };
 
-export const courtTypeOfOrder = (userCase, keys, sessionKey) => {
-  if (userCase.hasOwnProperty(sessionKey)) {
+export const courtTypeOfOrder = (userCase, keys, sessionKey, language) => {
+  if (userCase.hasOwnProperty(sessionKey) && userCase[sessionKey].length > 0) {
     const mappedVals = userCase[sessionKey]
       .filter(val => val !== '')
       .map(courtConsideration => {
@@ -44,18 +45,20 @@ export const courtTypeOfOrder = (userCase, keys, sessionKey) => {
             userCase,
             keys,
             `too_${courtConsideration}SubField`,
-            keys[courtConsideration]
+            populateError(userCase[`too_${courtConsideration}SubField`], keys[courtConsideration], language)
           );
         } else {
           return HTML.LIST_ITEM + keys[courtConsideration] + HTML.LIST_ITEM_END;
         }
       });
     return (HTML.UNORDER_LIST + mappedVals + HTML.UNORDER_LIST_END).split(',').join('');
+  } else {
+    return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
   }
 };
 
-export const courtTypeOfOrderHelper = (userCase, keys, sessionKey) => {
-  return courtTypeOfOrder(userCase, keys, sessionKey);
+export const courtTypeOfOrderHelper = (userCase, keys, sessionKey, language) => {
+  return courtTypeOfOrder(userCase, keys, sessionKey, language);
 };
 
 export const CourtOrderParserHelper = (userCase, keys, sessionKey) => {

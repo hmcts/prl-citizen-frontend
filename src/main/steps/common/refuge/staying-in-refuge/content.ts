@@ -10,7 +10,7 @@ import { C100_URL } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
 export * from './routeGuard';
 
-const en = {
+export const en = {
   title: 'Staying in a refuge',
   refuge:
     'A refuge is a secure place for people and their children to stay when they are escaping domestic abuse. It provides a space to feel safe and supported.',
@@ -30,7 +30,7 @@ const en = {
   },
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Aros mewn lloches',
   refuge:
     'Mae lloches yn lle diogel i bobl a’u plant aros pan fyddant yn dianc rhag cam-drin domestig. Mae’n darparu lle i deimlo’n ddiogel a chael cefnogaeth.',
