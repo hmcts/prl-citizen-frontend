@@ -7,12 +7,12 @@ import { generateContent } from './content';
 
 const en = {
   caption: 'Safety concerns',
-  physicalAbusePageTitle: 'Briefly describe the physical abuse if you feel able to',
-  psychologicalAbusePageTitle: 'Briefly describe the psychological abuse if you feel able to',
-  emotionalAbusePageTitle: 'Briefly describe the emotional abuse if you feel able to',
-  sexualAbusePageTitle: 'Briefly describe the sexual abuse if you feel able to',
-  financialAbusePageTitle: 'Briefly describe the financial abuse if you feel able to',
-  somethingElsePageTitle: 'Briefly describe the abuse if you feel able to',
+  physicalAbusePageTitle: 'Briefly describe the physical abuse if you feel able to (optional)',
+  psychologicalAbusePageTitle: 'Briefly describe the psychological abuse if you feel able to (optional)',
+  emotionalAbusePageTitle: 'Briefly describe the emotional abuse if you feel able to (optional)',
+  sexualAbusePageTitle: 'Briefly describe the sexual abuse if you feel able to (optional)',
+  financialAbusePageTitle: 'Briefly describe the financial abuse if you feel able to (optional)',
+  somethingElsePageTitle: 'Briefly describe the abuse if you feel able to (optional)',
   introText: `<p class="govuk-body ">Complete this section as best you can. If you don't feel able to discuss the abuse at this stage, you can do so when you speak to Cafcass.</p>
   <p class="govuk-body ">The information that you give will be used in the application. It is not a request for a domestic abuse injunction.</p>
   <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately.</p>`,
@@ -40,14 +40,18 @@ const en = {
 
 const cy = () => ({
   caption: 'Pryderon am ddiogelwch',
-  physicalAbusePageTitle: 'Disgrifiwch y cam-drin corfforol yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
+  physicalAbusePageTitle:
+    'Disgrifiwch y cam-drin corfforol yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny (dewisol)',
   psychologicalAbusePageTitle:
-    'Disgrifiwch y cam-drin seicolegol yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
+    'Disgrifiwch y cam-drin seicolegol yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny (dewisol)',
   emotionalAbusePageTitle:
-    'Disgrifiwch yn gryno y cam-drin emosiynol os ydych yn teimlo eich bod yn gallu gwneud hynny',
-  sexualAbusePageTitle: 'Disgrifiwch y cam-drin rhywiol yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
-  financialAbusePageTitle: 'Disgrifiwch y cam-drin ariannol yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
-  somethingElsePageTitle: 'Disgrifiwch y gamdriniaeth yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
+    'Disgrifiwch yn gryno y cam-drin emosiynol os ydych yn teimlo eich bod yn gallu gwneud hynny (dewisol)',
+  sexualAbusePageTitle:
+    'Disgrifiwch y cam-drin rhywiol yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny (dewisol)',
+  financialAbusePageTitle:
+    'Disgrifiwch y cam-drin ariannol yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny (dewisol)',
+  somethingElsePageTitle:
+    'Disgrifiwch y gamdriniaeth yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny (dewisol)',
   introText: `<p class="govuk-body ">Llenwch yr adran hon y gorau y gallwch. Os nad ydych chi'n teimlo eich bod chi'n gallu trafod y gamdriniaeth ar hyn o bryd, gallwch wneud hynny wrth siarad efo Cafcass</p>
               <p class="govuk-body ">Bydd yr wybodaeth y byddwch yn ei rhoi yn cael ei defnyddio yn y cais. Nid yw'n gais am waharddeb cam-drin domestig.</p>
               <p class="govuk-body ">Gallwch wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">
