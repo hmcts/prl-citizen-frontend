@@ -4,7 +4,8 @@ import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validat
 
 const en = {
   title: 'Your Address',
-  citizenUserAddress1: 'Building and street',
+  citizenUserAddress1: 'Building',
+  addressLine2: 'Street',
   citizenUserAddressTown: 'Town or city',
   citizenUserAddressCounty: 'County',
   citizenUserAddressPostcode: 'Postcode',
@@ -24,7 +25,8 @@ const en = {
 
 const cy: typeof en = {
   title: 'Beth yw eich cyfeiriad?',
-  citizenUserAddress1: 'Adeilad a stryd',
+  citizenUserAddress1: 'Adeilad',
+  addressLine2: 'Stryd',
   citizenUserAddressTown: 'Tref neu ddinas',
   citizenUserAddressCounty: 'Sir',
   citizenUserAddressPostcode: 'Cod post',

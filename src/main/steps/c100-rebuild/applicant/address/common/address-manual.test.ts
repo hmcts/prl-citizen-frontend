@@ -4,7 +4,8 @@ import { CommonContent } from '../../../../common/common.content';
 import { generateContent } from './address-manual';
 
 const enContent = {
-  addressLine1: 'Building and street',
+  addressLine1: 'Building',
+  addressLine2: 'Street',
   town: 'Town or city',
   county: 'County',
   postcode: 'Postcode',
@@ -17,7 +18,8 @@ const enContent = {
 };
 
 const cyContent = {
-  addressLine1: 'Adeilad a stryd',
+  addressLine1: 'Adeilad',
+  addressLine2: 'Stryd',
   town: 'Tref neu ddinas',
   county: 'Sir',
   country: 'Gwlad',
