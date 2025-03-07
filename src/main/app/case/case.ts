@@ -711,6 +711,7 @@ export interface Case {
   awp_applicationReason?: AWPApplicationReason;
   refugeDocument?: Document;
   reUploadRefugeDocument?: YesOrNo;
+  applicantPcqId?: string;
 }
 
 export interface CitizenNotification {

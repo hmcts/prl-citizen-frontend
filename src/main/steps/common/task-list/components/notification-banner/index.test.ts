@@ -183,7 +183,28 @@ describe('testcase for notification Banner', () => {
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([]);
+    expect(getNotifications(data, userDetails, party, language)).toStrictEqual([
+      {
+        heading: 'You have not started your application',
+        id: 'applicationNotStarted',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'Once you have started your application, you have 28 days to submit it or your application will be deleted and you will need to start again. This is for security reasons.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/c100-rebuild/start',
+                text: 'Start the application',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
   });
 
   test('when casetype c100 and application in progress', () => {
@@ -335,7 +356,7 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -428,10 +449,10 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
               },
             ],
             links: [],
@@ -528,7 +549,7 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -621,10 +642,10 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
               },
             ],
             links: [],
@@ -706,7 +727,7 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -810,7 +831,7 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -927,7 +948,7 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -1055,7 +1076,7 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -1132,10 +1153,10 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
               },
             ],
             links: [],
@@ -1236,10 +1257,10 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
               },
             ],
             links: [],
@@ -1437,7 +1458,7 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -1589,7 +1610,7 @@ describe('testcase for notification Banner', () => {
                   text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
                 },
                 {
-                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
                 },
               ],
               links: [],
@@ -1649,10 +1670,10 @@ describe('testcase for notification Banner', () => {
             {
               contents: [
                 {
-                  text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                  text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
                 },
                 {
-                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
                 },
               ],
               links: [],
@@ -1715,7 +1736,7 @@ describe('testcase for notification Banner', () => {
                   text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
                 },
                 {
-                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
                 },
               ],
               links: [],
@@ -1775,10 +1796,10 @@ describe('testcase for notification Banner', () => {
             {
               contents: [
                 {
-                  text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                  text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
                 },
                 {
-                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
                 },
               ],
               links: [],
@@ -1858,7 +1879,7 @@ describe('testcase for notification Banner', () => {
                   text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
                 },
                 {
-                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
                 },
               ],
               links: [],
@@ -1935,10 +1956,10 @@ describe('testcase for notification Banner', () => {
             {
               contents: [
                 {
-                  text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                  text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
                 },
                 {
-                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
                 },
               ],
               links: [],
@@ -2000,7 +2021,7 @@ describe('testcase for notification Banner', () => {
                   text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
                 },
                 {
-                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
                 },
               ],
               links: [],
@@ -2065,7 +2086,7 @@ describe('FL401 banners', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -2101,7 +2122,7 @@ describe('FL401 banners', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -2146,10 +2167,10 @@ describe('FL401 banners', () => {
           {
             contents: [
               {
-                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
               },
             ],
             links: [],
@@ -2182,10 +2203,10 @@ describe('FL401 banners', () => {
           {
             contents: [
               {
-                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
               },
             ],
             links: [],
@@ -2262,7 +2283,7 @@ describe('FL401 banners', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -2374,7 +2395,7 @@ describe('FL401 banners', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them or be able to print papers on the day.</strong>',
+                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
               },
             ],
             links: [],
@@ -2410,10 +2431,10 @@ describe('FL401 banners', () => {
           {
             contents: [
               {
-                text: 'Os ydych chi’n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â’ch llythyr gwrandawiad gyda’ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.',
+                text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld nac yn gallu argraffu’r papurau ar y diwrnod.</strong>',
+                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
               },
             ],
             links: [],
