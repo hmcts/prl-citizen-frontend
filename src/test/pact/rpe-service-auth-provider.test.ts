@@ -23,12 +23,12 @@ pactWith(
   },
   provider => {
     describe('rpe-service-auth-provider API', () => {
-      const EXPECTED_RESPONSE = 'someMicroServiceToken';
+      const EXPECTED_RESPONSE = {"pact:matcher:type": "type", "value": "someMicroServiceToken"};
 
       const successResponse = {
         status: 200,
         headers: {
-          'Content-Type': 'text/plain;charset=ISO-8859-1',
+          'Content-Type': 'text/plain',
         },
         body: string('someMicroServiceToken'),
       };
