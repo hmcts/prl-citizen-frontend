@@ -3,6 +3,7 @@
 @Library("Infrastructure")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
+import uk.gov.hmcts.contino.AppPipelineDsl
 import uk.gov.hmcts.contino.GithubAPI
 
 def type = "nodejs"
@@ -66,6 +67,8 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
+  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
+  
   before('smoketest:preview') {
     if (checkForEnableTestsLabel(env.BRANCH_NAME)) {
       env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"

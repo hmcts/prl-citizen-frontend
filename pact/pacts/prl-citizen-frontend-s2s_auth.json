@@ -2,37 +2,43 @@
   "consumer": {
     "name": "prl-citizen-frontend"
   },
-  "provider": {
-    "name": "s2s_auth"
-  },
   "interactions": [
     {
-      "description": "a request for service auth token",
-      "providerState": "i request a service auth token",
+      "description": "a request for a token",
+      "providerState": "microservice with valid credentials",
       "request": {
-        "method": "POST",
-        "path": "/testing-support/lease",
-        "headers": {
-          "Accept": "application/json, text/plain, */*",
-          "content-type": "application/json"
-        },
         "body": {
-          "microservice": "prl-citizen-frontend",
-          "oneTimePassword": "123456"
-        }
+          "microservice": "microserviceName",
+          "oneTimePassword": "784467"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/lease"
       },
       "response": {
-        "status": 200,
+        "body": "{\"value\":\"someMicroServiceToken\",\"pact:matcher:type\":\"type\"}",
         "headers": {
-          "content-type": "application/json"
+          "Content-Type": "text/plain"
         },
-        "body": "MOCK_TOKEN"
+        "status": 200
       }
     }
   ],
   "metadata": {
+    "pact-js": {
+      "version": "14.0.0"
+    },
+    "pactRust": {
+      "ffi": "0.4.22",
+      "models": "1.2.3"
+    },
     "pactSpecification": {
       "version": "2.0.0"
     }
+  },
+  "provider": {
+    "name": "s2s_auth"
   }
 }

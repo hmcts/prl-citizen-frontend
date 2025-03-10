@@ -2,68 +2,105 @@
   "consumer": {
     "name": "prl-citizen-frontend"
   },
-  "provider": {
-    "name": "ccdDataStoreAPI_Cases"
-  },
   "interactions": [
+    {
+      "description": "a request to get cases",
+      "providerState": "prl-citizen-frontend makes request to get cases",
+      "request": {
+        "headers": {
+          "Accept": "*/*",
+          "Authorization": "Bearer mock-user-access-token",
+          "Content-Type": "application/json",
+          "ServiceAuthorization": "mock-service-auth-token",
+          "experimental": "true"
+        },
+        "method": "GET",
+        "path": "/citizens/123456/jurisdictions/PRIVATELAW/case-types/PRLAPPS/cases"
+      },
+      "response": {
+        "body": [
+          {
+            "case_data": {
+              "applyingWith": "alone"
+            },
+            "id": "45678",
+            "state": "Draft"
+          }
+        ],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "status": 201
+      }
+    },
     {
       "description": "a request to get citizen-create-application event token",
       "providerState": "prl-citizen-frontend makes request to get citizen-create-application event token",
       "request": {
-        "method": "GET",
-        "path": "/case-types/PRLAPPS/event-triggers/citizen-create-application",
         "headers": {
-          "Authorization": "Bearer mock-user-access-token",
-          "ServiceAuthorization": "mock-service-auth-token",
-          "experimental": "true",
           "Accept": "*/*",
-          "Content-Type": "application/json"
-        }
+          "Authorization": "Bearer mock-user-access-token",
+          "Content-Type": "application/json",
+          "ServiceAuthorization": "mock-service-auth-token",
+          "experimental": "true"
+        },
+        "method": "GET",
+        "path": "/case-types/PRLAPPS/event-triggers/citizen-create-application"
       },
       "response": {
-        "status": 200,
+        "body": {
+          "token": "create-case-event-token"
+        },
         "headers": {
           "Content-Type": "application/json"
         },
-        "body": {
-          "token": "create-case-event-token"
-        }
+        "status": 200
       }
     },
     {
       "description": "a request to get cases",
       "providerState": "prl-citizen-frontend makes request to get cases",
       "request": {
-        "method": "GET",
-        "path": "/citizens/123456/jurisdictions/PRIVATELAW/case-types/PRLAPPS/cases",
         "headers": {
-          "Authorization": "Bearer mock-user-access-token",
-          "ServiceAuthorization": "mock-service-auth-token",
-          "experimental": "true",
           "Accept": "*/*",
-          "Content-Type": "application/json"
-        }
+          "Authorization": "Bearer mock-user-access-token",
+          "Content-Type": "application/json",
+          "ServiceAuthorization": "mock-service-auth-token",
+          "experimental": "true"
+        },
+        "method": "GET",
+        "path": "/citizens/123456/jurisdictions/PRIVATELAW/case-types/PRLAPPS/cases"
       },
       "response": {
-        "status": 201,
+        "body": [
+          {
+            "case_data": {
+              "applyingWith": "alone"
+            },
+            "id": "45678",
+            "state": "Draft"
+          }
+        ],
         "headers": {
           "Content-Type": "application/json"
         },
-        "body": [
-          {
-            "id": "45678",
-            "state": "Draft",
-            "case_data": {
-              "applyingWith": "alone"
-            }
-          }
-        ]
+        "status": 201
       }
     }
   ],
   "metadata": {
+    "pact-js": {
+      "version": "14.0.0"
+    },
+    "pactRust": {
+      "ffi": "0.4.22",
+      "models": "1.2.3"
+    },
     "pactSpecification": {
       "version": "2.0.0"
     }
+  },
+  "provider": {
+    "name": "ccdDataStoreAPI_Cases"
   }
 }
