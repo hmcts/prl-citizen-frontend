@@ -8,7 +8,7 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  feesAppliedDetailsTitle: 'Have you already applied for help with your application fee?',
+  title: 'Have you already applied for help with your application fee?',
   hwfReferenceNumberLabel: 'Enter your help with fees reference number',
   hwfReferenceNumberBody: 'You received this number when you applied for help with fees.',
   hwfReferenceNumberHint: 'For example, HWF-A1B-23C',
@@ -25,7 +25,7 @@ const en = {
 };
 
 const cy = {
-  feesAppliedDetailsTitle: 'A ydych chi eisoes wedi gwneud cais am help i dalu ffi’r cais?',
+  title: 'A ydych chi eisoes wedi gwneud cais am help i dalu ffi’r cais?',
   hwfReferenceNumberLabel: 'Rhowch eich cyfeirnod help i dalu ffioedd',
   hwfReferenceNumberBody: 'Cawsoch y rhif hwn pan wnaethoch gais am help i dalu ffioedd.',
   hwfReferenceNumberHint: 'Er enghraifft, HWF-A1B-23C',
@@ -69,9 +69,13 @@ describe('help with fess > fees applied', () => {
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+
     const applyTextField = applyingWithField.values[0].subFields!.helpWithFeesReferenceNumber;
     expect(applyTextField.type).toBe('text');
-    expect((applyTextField.hint as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberHint);
+    expect((applyTextField.hint as LanguageLookup)(generatedContent)).toBe(
+      `<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-1">${en.hwfReferenceNumberBody}</p><p class="govuk-hint govuk-!-margin-top-0">${en.hwfReferenceNumberHint}</p>`
+    );
+    expect((applyTextField.label as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberLabel);
     (applyTextField.validator as Function)('test text');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text');

@@ -94,21 +94,17 @@ describe('help with fees content', () => {
 
   test('should contain help with fees form fields', () => {
     const helpWithFeesReferenceFields = fields.awp_have_hwfReference as FormOptions;
-    const referenceSubField = helpWithFeesReferenceFields.values[0].subFields?.awp_hwf_referenceLabel as FormInput;
     const referenceNumberSubField = helpWithFeesReferenceFields.values[0].subFields
       ?.awp_hwf_referenceNumber as FormInput;
 
     expect(helpWithFeesReferenceFields.type).toBe('radios');
     expect((helpWithFeesReferenceFields.values[0].label as Function)(generatedContent)).toBe(en.yes);
 
-    expect(referenceSubField?.type).toBe('textAndHtml');
-    expect((referenceSubField?.textAndHtml as Function)(generatedContent)).toBe(
-      '<h3 class="govuk-heading-s govuk-!-margin-bottom-0">Enter your help with fees reference number</h3>'
-    );
-
     expect(referenceNumberSubField?.type).toBe('text');
-    expect((referenceNumberSubField?.label as Function)(generatedContent)).toBe(en.referenceText);
-    expect((referenceNumberSubField?.hint as Function)(generatedContent)).toBe(en.hint);
+    expect((referenceNumberSubField?.label as Function)(generatedContent)).toBe(en.enterReferenceNumber);
+    expect((referenceNumberSubField?.hint as Function)(generatedContent)).toBe(
+      `<p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">${en.referenceText}</p><p class="govuk-hint govuk-!-margin-top-0 govuk-!-margin-bottom-0">${en.hint}</p>`
+    );
 
     expect((helpWithFeesReferenceFields.values[1].label as Function)(generatedContent)).toBe(en.no);
     expect(helpWithFeesReferenceFields.validator).toBe(isFieldFilledIn);

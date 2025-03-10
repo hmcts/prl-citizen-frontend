@@ -108,7 +108,7 @@ describe('applicant > address > manual > content', () => {
     expect(AddressLine1.type).toBe('text');
     expect(AddressLine1.classes).toBe('govuk-label');
     expect(AddressLine1.labelSize).toBe(null);
-    expect((AddressLine1.label as LanguageLookup)(generatedContent)).toBe('Building and street');
+    expect((AddressLine1.label as LanguageLookup)(generatedContent)).toBe('Building');
 
     expect(AddressLine2.type).toBe('text');
     expect(AddressLine2.classes).toBe('govuk-label');
