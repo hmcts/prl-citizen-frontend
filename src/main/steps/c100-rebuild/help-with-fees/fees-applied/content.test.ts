@@ -69,9 +69,13 @@ describe('help with fess > fees applied', () => {
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+
     const applyTextField = applyingWithField.values[0].subFields!.helpWithFeesReferenceNumber;
     expect(applyTextField.type).toBe('text');
-    expect((applyTextField.hint as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberHint);
+    expect((applyTextField.hint as LanguageLookup)(generatedContent)).toBe(
+      `<p class="govuk-body govuk-!-margin-top-4 govuk-!-margin-bottom-1">${en.hwfReferenceNumberBody}</p><p class="govuk-hint govuk-!-margin-top-0">${en.hwfReferenceNumberHint}</p>`
+    );
+    expect((applyTextField.label as LanguageLookup)(generatedContent)).toBe(en.hwfReferenceNumberLabel);
     (applyTextField.validator as Function)('test text');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text');

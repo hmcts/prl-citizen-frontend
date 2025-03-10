@@ -264,7 +264,6 @@ export const ChildernDetails = (
       populateDateOfBirth(personalDetails, keys, language, id, true, parseInt(child) + 1, `${keys['child']}`)
     );
 
-    const childName = ` ${firstname} ${lastname} `;
     newChildDataStorage.push(
       {
         key: keys['childGenderLabel'],
@@ -306,10 +305,11 @@ export const ChildernDetails = (
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
-        key: keys['parentalResponsibility']?.split('[^^^]').join(childName),
-        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['parentalResponsibility']
-          ?.split('[^^^]')
-          .join(childName)}`,
+        key: interpolate(keys['parentalResponsibility'], { firstname, lastname }),
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${interpolate(keys['parentalResponsibility'], {
+          firstname,
+          lastname,
+        })}`,
         value: parentialResponsibility['statement'],
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
       }

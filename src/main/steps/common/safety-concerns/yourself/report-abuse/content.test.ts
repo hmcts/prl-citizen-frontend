@@ -32,8 +32,8 @@ const en = {
   NoOptionLabel: 'No',
   seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
   seekHelpFromPersonOrAgencyHintText: 'For example, speaking to your local GP.',
-  seekHelpDetailsYesHint: `<p class="govuk-body">Indicate who you sought help from, and what they did to help (optional). </p>
-  <p class="govuk-body">Do not include personal details such as names and addresses.</p>`,
+  seekHelpDetailsYesLabel: 'Indicate who you sought help from, and what they did to help (optional).',
+  seekHelpDetailsYesHint: '<p class="govuk-body">Do not include personal details such as names and addresses.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">GOV.UK guidance</a> if you are unsure how to get help.</p>',
 };
@@ -75,8 +75,8 @@ const cy = () => ({
   seekHelpFromPersonOrAgencyLabel:
     'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol? (dewisol)',
   seekHelpFromPersonOrAgencyHintText: "Er enghraifft, siarad â'ch meddyg teulu lleol.",
-  seekHelpDetailsYesHint:
-    '<p class="govuk-body">Dywedwch wrth bwy wnaethoch chi ofyn am help, a beth wnaethon nhw i helpu (dewisol). </p><p class="govuk-body">Peidiwch â chynnwys manylion personol fel enwau a chyfeiriadau.</p>',
+  seekHelpDetailsYesLabel: 'Dywedwch wrth bwy wnaethoch chi ofyn am help, a beth wnaethon nhw i helpu (dewisol).',
+  seekHelpDetailsYesHint: '<p class="govuk-body">Peidiwch â chynnwys manylion personol fel enwau a chyfeiriadau.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">Gweler <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">cyfarwyddyd GOV.UK </a>os nad ydych yn siŵr sut i gael help.</p>',
 });
@@ -170,6 +170,7 @@ describe('C1A safetyconcerns > applicant > report abuse > content', () => {
 
     expect(seekHelpDetails.type).toBe('textarea');
     expect((seekHelpDetails.hint as Function)(generatedContent)).toBe(en.seekHelpDetailsYesHint);
+    expect((seekHelpDetails.label as Function)(generatedContent)).toBe(en.seekHelpDetailsYesLabel);
   });
 
   test('should contain Save and continue button', () => {
