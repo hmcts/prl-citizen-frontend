@@ -26,5 +26,4 @@ jobs:
           days-before-stale: '28'
           exempt-pr-labels: 'pinned,dependences'
           stale-pr-label: 'stale'
-          close-pr-message: 'This issue has been automatically closed because it has been stalled for 2 days
-  with no activity.'
+          close-pr-message: 'This issue has been automatically closed because there has been no recent activity.'
