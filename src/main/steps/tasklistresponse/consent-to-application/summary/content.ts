@@ -15,7 +15,7 @@ const urls = {
 };
 
 export const enContent = {
-  title: 'Check your answers',
+  title: 'Check your answers to consent to the application',
   subTitle: 'Your consent to the application',
   sectionTitles: {
     consentDetails: '',
@@ -40,7 +40,7 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  title: 'Gwirio eich atebion',
+  title: 'Check your answers to consent to the application (welsh)',
   subTitle: 'Cydsynio i’r cais',
   sectionTitles: {
     consentDetails: '',

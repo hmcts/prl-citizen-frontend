@@ -5,13 +5,13 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 const en = {
-  title: 'Upload the draft of your consent order',
+  title: 'Draft of the consent order upload complete',
   confirmationText: 'Your consent order draft has been uploaded',
   secondaryTitle: 'Your documents for Consent order',
 };
 
 const cy = {
-  title: 'Llwytho drafft o’r gorchymyn cydsynio i fyny',
+  title: 'Draft of the consent order upload complete (welsh)',
   confirmationText: 'Mae’r drafft o’r gorchymyn cydsynio wedi ei lwytho',
   secondaryTitle: 'Eich dogfennau ar gyfer Gorchymyn cydsynio',
 };

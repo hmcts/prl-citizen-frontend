@@ -5,8 +5,10 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 
 import { generateContent } from './content';
 
+const name = 'test name';
+
 const en = {
-  title: 'Your Address',
+  title: `Confirm address details for ${name}`,
   citizenUserAddress1: 'Building',
   addressLine2: 'Street',
   citizenUserAddressTown: 'Town or city',
@@ -27,7 +29,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Beth yw eich cyfeiriad?',
+  title: `Confirm address details for ${name} (welsh)`,
   citizenUserAddress1: 'Adeilad',
   addressLine2: 'Stryd',
   citizenUserAddressTown: 'Tref neu ddinas',
@@ -51,7 +53,7 @@ const cy: typeof en = {
 describe('address confirmation > content', () => {
   const commonContent = generatePageContent({
     language: 'en',
-    userCase: {},
+    userCase: { citizenUserFullName: 'test name' },
   }) as CommonContent;
   let generatedContent;
   let form;

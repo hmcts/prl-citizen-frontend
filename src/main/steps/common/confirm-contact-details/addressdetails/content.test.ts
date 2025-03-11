@@ -8,8 +8,10 @@ import { generateContent } from './content';
 
 //jest.mock('../../../app/form/validation');
 
+const name = 'test name';
+
 const enContent = {
-  title: 'Your address',
+  title: `Review the address of ${name}`,
   citizenUserAddressText: 'address',
   continue: 'Save and continue',
   editAddress: 'Edit Address',
@@ -17,7 +19,7 @@ const enContent = {
 };
 
 const cyContent: typeof enContent = {
-  title: 'Eich cyfeiriad',
+  title: `Review the address of ${name} (welsh)`,
   citizenUserAddressText: 'cyfeiriad',
   continue: 'Arbed a pharhau',
   editAddress: 'Golygu Cyfeiriad',
@@ -25,8 +27,14 @@ const cyContent: typeof enContent = {
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('address details', () => {
-  const commonContent = { language: 'en', userCase: { citizenUserAddressText: 'address' } } as CommonContent;
-  const commonContentcy = { language: 'cy', userCase: { citizenUserAddressText: 'cyfeiriad' } } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: { citizenUserAddressText: 'address', citizenUserFullName: name },
+  } as CommonContent;
+  const commonContentcy = {
+    language: 'cy',
+    userCase: { citizenUserAddressText: 'cyfeiriad', citizenUserFullName: name },
+  } as CommonContent;
   let generatedContent;
   let generatedContentcy;
   let form;

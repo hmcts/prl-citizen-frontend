@@ -1,9 +1,10 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validation';
+import { interpolate } from '../../../../steps/common/string-parser';
 
 const en = {
-  title: 'Your Address',
+  title: 'Confirm address details for {name}',
   citizenUserAddress1: 'Building',
   addressLine2: 'Street',
   citizenUserAddressTown: 'Town or city',
@@ -24,7 +25,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Beth yw eich cyfeiriad?',
+  title: 'Confirm address details for {name} (welsh)',
   citizenUserAddress1: 'Adeilad',
   addressLine2: 'Stryd',
   citizenUserAddressTown: 'Tref neu ddinas',
@@ -97,6 +98,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
+    title: interpolate(translations.title, { name: content.userCase!.citizenUserFullName! }),
     form,
   };
 };

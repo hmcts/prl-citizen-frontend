@@ -5,6 +5,7 @@ import {
   generateContent as generateManualAddressContent,
   form as manualAddressForm,
 } from '../../../../common/components/address-manual';
+import { interpolate } from '../../../../common/string-parser';
 
 import { generateContent } from './content';
 
@@ -22,7 +23,7 @@ const cyContent = {
 
 /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
 describe('applicant1 > address > manual > content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = { language: 'en', userCase: { citizenUserFullName: 'test name' } } as CommonContent;
   let generatedContent;
   let form;
   let fields;
@@ -37,7 +38,7 @@ describe('applicant1 > address > manual > content', () => {
   test('should return correct english content', () => {
     const manualAddressContent = generateManualAddressContent(commonContent);
     expect(generatedContent.section).toEqual(enContent.section);
-    expect(generatedContent.title).toEqual(enContent.title);
+    expect(generatedContent.title).toEqual(interpolate(enContent.title, { name: 'test name' }));
     expect(generatedContent.errors).toEqual({
       citizenUserManualAddress1: (manualAddressContent.errors as any).citizenUserManualAddress1,
       citizenUserManualAddressTown: (manualAddressContent.errors as any).citizenUserManualAddressTown,
@@ -49,7 +50,7 @@ describe('applicant1 > address > manual > content', () => {
     const manualAddressContent = generateManualAddressContent({ ...commonContent, language: 'cy' });
     generatedContent = generateContent({ ...commonContent, language: 'cy' });
     expect(generatedContent.section).toEqual(cyContent.section);
-    expect(generatedContent.title).toEqual(cyContent.title);
+    expect(generatedContent.title).toEqual(interpolate(cyContent.title, { name: 'test name' }));
     expect(generatedContent.errors).toEqual({
       citizenUserManualAddress1: (manualAddressContent.errors as any).citizenUserManualAddress1,
       citizenUserManualAddressTown: (manualAddressContent.errors as any).citizenUserManualAddressTown,

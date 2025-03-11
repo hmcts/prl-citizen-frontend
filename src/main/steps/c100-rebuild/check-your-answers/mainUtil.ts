@@ -545,7 +545,7 @@ export const ApplicantDetails = (
         changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
       },
       {
-        key: keys['doYouWantToKeep'],
+        key: interpolate(keys['doYouWantToKeep'], { name: fullname }),
         visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['doYouWantToKeep']}`,
         value: '',
         valueHtml:

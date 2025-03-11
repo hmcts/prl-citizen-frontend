@@ -12,7 +12,7 @@ import { SafetyConcerns, SafetyConcerns_child, SafetyConcerns_others, SafetyConc
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 
 export const enContent = {
-  title: 'Check your Answers',
+  title: 'Check your answers to safety concerns',
   change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
   makingSure: 'Please review your answers before you finish your application.',
@@ -36,7 +36,7 @@ export const enContent = {
   },
 };
 export const cyContent: typeof enContent = {
-  title: 'Gwirio eich atebion',
+  title: 'Check your answers to safety concerns (welsh)',
   change: 'Golygu',
   topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
   makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',

@@ -11,7 +11,7 @@ import { languages as whoWasServedLang } from '../who-was-served/content';
 
 const en = {
   ...commonContentEn,
-  title: 'Check your answers',
+  title: 'Check your answers to the statement of service',
   whoWasServedLabel: whoWasServedLang.en.whoWasServedLabel,
   servedDateLabel: whoWasServedLang.en.servedDateLabel,
   filesUploadedLabel: uploadSOSLang.en.filesUploadedLabel,
@@ -30,7 +30,7 @@ const en = {
 
 const cy: typeof en = {
   ...commonContentCy,
-  title: 'Gwiriwch eich atebion',
+  title: 'Check your answers to the statement of service (welsh)',
   whoWasServedLabel: whoWasServedLang.cy.whoWasServedLabel,
   servedDateLabel: whoWasServedLang.cy.servedDateLabel,
   filesUploadedLabel: uploadSOSLang.cy.filesUploadedLabel,

@@ -4,7 +4,7 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: 'Provide details of court cases you or the children have been involved in',
+  title: 'Which type of order have you (the respondent) or the children been involved in?',
   select_all_apply:
     'Select all that apply to you or the children. If you have specific details, you will be able to provide that information shortly.',
   childArrangementOrder: 'A Child Arrangements Order',
@@ -37,7 +37,7 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  title: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
+  title: 'Which type of order have you (the respondent) or the children been involved in? (welsh)',
   select_all_apply:
     "Dewiswch bob un sy'n berthnasol i chi neu'r plant. Os oes gennych fanylion penodol, byddwch yn gallu darparu'r wybodaeth honno yn fuan.",
   childArrangementOrder: 'Gorchymyn Trefniadau Plant',

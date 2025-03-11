@@ -7,7 +7,7 @@ import { generateContent } from './content';
 
 // eslint-disable-next-line jest/no-export
 export const enContent = {
-  title: 'Check your answers',
+  title: 'Check your answers to consent to the application',
   subTitle: 'Your consent to the application',
   sectionTitles: {
     consentDetails: '',
@@ -22,7 +22,7 @@ export const enContent = {
 };
 
 const cyContent: typeof enContent = {
-  title: 'Gwirio eich atebion',
+  title: 'Check your answers to consent to the application (welsh)',
   subTitle: 'Cydsynio i’r cais',
   sectionTitles: {
     consentDetails: '',

@@ -106,7 +106,7 @@ const keys = {
 };
 
 const enContent = {
-  title: 'Check your Answers',
+  title: 'Check your answers to safety concerns',
   change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
   makingSure: 'Please review your answers before you finish your application.',
@@ -132,7 +132,7 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Gwirio eich atebion',
+  title: 'Check your answers to safety concerns (welsh)',
   change: 'Golygu',
   topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
   makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',

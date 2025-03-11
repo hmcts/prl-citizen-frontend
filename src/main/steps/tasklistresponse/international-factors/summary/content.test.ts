@@ -7,7 +7,7 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 const en = {
-  title: 'Check your answers',
+  title: 'Check your answers to international elements',
   respondentAdditionalInformation: 'International elements',
   sectionTitles: {
     respondentAdditionalInformation: '',
@@ -28,7 +28,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Gwirio eich atebion',
+  title: 'Check your answers to international elements (welsh)',
   respondentAdditionalInformation: 'Elfennau rhyngwladol',
   sectionTitles: {
     respondentAdditionalInformation: '',
@@ -67,7 +67,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('Check your answers');
+    expect(generatedContent.title).toEqual('Check your answers to international elements');
     expect(generatedContent.sectionTitles.respondentAdditionalInformation).toEqual('');
   });
 

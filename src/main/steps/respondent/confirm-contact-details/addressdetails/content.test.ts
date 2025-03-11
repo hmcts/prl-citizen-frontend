@@ -3,8 +3,10 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 
 import { generateContent } from './content';
 
+const name = 'test name';
+
 const en = {
-  title: 'Your address',
+  title: `Review the address of ${name}`,
   citizenUserAddressText: 'address',
   continue: 'Save and continue',
   editAddress: 'Edit Address',
@@ -16,6 +18,7 @@ describe('address confirmation > content', () => {
     language: 'en',
     userCase: {
       citizenUserAddressText: 'address',
+      citizenUserFullName: name,
     },
   }) as CommonContent;
 

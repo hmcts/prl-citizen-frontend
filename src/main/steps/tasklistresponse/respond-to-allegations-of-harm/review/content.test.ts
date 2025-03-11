@@ -14,7 +14,7 @@ import { generateContent } from './content';
 const en = {
   ...commonContentEn,
   caption: 'Respond to allegations of harm and violence',
-  title: 'Check your answers',
+  title: 'Check your answers to the allegation of harm and violence',
   content1: 'Case number:',
   wishToRespondLabel: "Do you wish to respond to the applicant's allegations of harm and violence?",
   responseToAohLabel: yourResponseLanguages.en.responseToAohLabel,
@@ -26,7 +26,7 @@ const en = {
 const cy: typeof en = {
   ...commonContentCy,
   caption: 'Ymateb i honiadau o niwed a thrais',
-  title: 'Ymateb i’r honiadau',
+  title: 'Check your answers to the allegation of harm and violence (welsh)',
   content1: 'Rhif yr achos:',
   wishToRespondLabel: 'Ydych chi eisiau ymateb i honiadau o niwed a thrais y ceisydd?',
   responseToAohLabel: yourResponseLanguages.cy.responseToAohLabel,

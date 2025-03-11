@@ -59,7 +59,7 @@ import { interpolate } from '../../../steps/common/string-parser';
 
 export const enContent = {
   section: '',
-  title: 'Check your Answers',
+  title: 'Check your answers to your C100 application',
   change: 'Edit',
   topWarning: {
     text: 'Your answers will be shared with the other people in this case.',
@@ -222,7 +222,7 @@ export const enContent = {
 };
 export const cyContent = {
   section: '',
-  title: 'Gwiriwch eich atebion',
+  title: 'Check your answers to your C100 application (welsh)',
   change: ' Golygu',
   topWarning: {
     text: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
