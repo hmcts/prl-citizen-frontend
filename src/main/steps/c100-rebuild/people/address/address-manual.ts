@@ -6,7 +6,8 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 import { getDataShape } from '../util';
 
 export const en = () => ({
-  addressLine1: 'Building and street',
+  addressLine1: 'Building',
+  addressLine2: 'Street',
   town: 'Town or city',
   county: 'County',
   country: 'Country',
@@ -16,7 +17,8 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  addressLine1: 'Adeilad a stryd',
+  addressLine1: 'Adeilad',
+  addressLine2: 'Stryd',
   town: 'Tref neu ddinas',
   county: 'Sir',
   country: 'Gwlad',
@@ -42,7 +44,7 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
     AddressLine2: {
       type: 'text',
       classes: 'govuk-label',
-      //label: l => l.addressLine2,
+      label: l => l.addressLine2,
       value: address!.AddressLine2,
       labelSize: null,
     },

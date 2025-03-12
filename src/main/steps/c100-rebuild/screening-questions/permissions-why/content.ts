@@ -11,13 +11,13 @@ export const en = () => ({
   line: 'Consult <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">the CB1 guidance</a> if you are not sure if you need permission to apply',
   select_all_apply: 'Select all that apply',
   doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
-  doNotHaveParentalResponsibilityHintText: 'Provide details',
+  doNotHaveParentalResponsibilityLabelText: 'Provide details',
   section: 'parental responsibility means that you are responsible for the children and their property',
   courtOrderPrevent:
     'There is a court order preventing me from making an application without first getting the permission of the court',
-  courtOrderPreventHintText: 'Provide details of the court order in place',
+  courtOrderPreventLabelText: 'Provide details of the court order in place',
   anotherReason: 'Another reason',
-  anotherReasonHintText: 'Provide details for why you need permission to make this application',
+  anotherReasonLabelText: 'Provide details for why you need permission to make this application',
   errors: {
     sq_doNotHaveParentalResponsibility_subfield: {
       required: "Provide details for 'I do not have parental responsibility for the children'",
@@ -45,12 +45,12 @@ export const cy = () => ({
   line: 'Edrychwch <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">arganllawiau CB1</a> os nad ydych yn siŵr a oes angen caniatâd arnoch i wneud cais',
   select_all_apply: "Dewiswch bob un sy'n berthnasol",
   doNotHaveParentalResponsibility: 'Does gen i ddim cyfrifoldeb rhiant dros y plant',
-  doNotHaveParentalResponsibilityHintText: 'Rhowch fanylion',
+  doNotHaveParentalResponsibilityLabelText: 'Rhowch fanylion',
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
   courtOrderPrevent: 'Mae yna orchymyn llys yn fy atal rhag gwneud cais heb gael caniatâd y llys yn gyntaf',
-  courtOrderPreventHintText: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
+  courtOrderPreventLabelText: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
   anotherReason: 'Rheswm arall',
-  anotherReasonHintText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
+  anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
   errors: {
     sq_doNotHaveParentalResponsibility_subfield: {
       required: 'Rhowch fanylion pam nad oes gennych gyfrifoldeb rhiant dros y plant',
@@ -94,7 +94,7 @@ export const form: FormContent = {
             sq_doNotHaveParentalResponsibility_subfield: {
               type: 'textarea',
               labelSize: null,
-              hint: l => l.doNotHaveParentalResponsibilityHintText,
+              label: l => l.doNotHaveParentalResponsibilityLabelText,
               attributes: {
                 rows: 4,
               },
@@ -110,7 +110,7 @@ export const form: FormContent = {
             sq_courtOrderPrevent_subfield: {
               type: 'textarea',
               labelSize: null,
-              hint: l => l.courtOrderPreventHintText,
+              label: l => l.courtOrderPreventLabelText,
               attributes: {
                 rows: 4,
               },
@@ -126,7 +126,7 @@ export const form: FormContent = {
             sq_anotherReason_subfield: {
               type: 'textarea',
               labelSize: null,
-              hint: l => l.anotherReasonHintText,
+              label: l => l.anotherReasonLabelText,
               attributes: {
                 rows: 4,
               },

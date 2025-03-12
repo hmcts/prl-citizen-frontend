@@ -5,7 +5,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Your Address',
-  citizenUserAddress1: 'Building and street',
+  citizenUserAddress1: 'Building',
   citizenUserAddressTown: 'Town or city',
   citizenUserAddressCounty: 'County',
   citizenUserAddressPostcode: 'Postcode',

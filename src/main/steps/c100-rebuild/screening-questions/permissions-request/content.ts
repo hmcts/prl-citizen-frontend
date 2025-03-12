@@ -38,7 +38,10 @@ const languages = {
 export const form: FormContent = {
   fields: {
     sq_permissionsRequest: {
+      label: l => l.title,
+      labelSize: 'xl',
       type: 'textarea',
+      hint: l => `<p class="govuk-body govuk-!-margin-top-7">${l.line}</p>`,
       attributes: { rows: 10 },
       validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },

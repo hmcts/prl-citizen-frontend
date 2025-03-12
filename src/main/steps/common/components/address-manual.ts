@@ -3,7 +3,8 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
 
 const en = () => ({
-  citizenUserManualAddress1: 'Building and street',
+  citizenUserManualAddress1: 'Building',
+  citizenUserManualAddress2: 'Street',
   citizenUserManualAddressTown: 'Town or city',
   citizenUserManualAddressCounty: 'County',
   citizenUserManualAddressPostcode: 'Postcode',
@@ -22,7 +23,8 @@ const en = () => ({
 });
 
 const cy = () => ({
-  citizenUserManualAddress1: 'Adeilad a stryd',
+  citizenUserManualAddress1: 'Adeilad',
+  citizenUserManualAddress2: 'Stryd',
   citizenUserManualAddressTown: 'Tref neu ddinas',
   citizenUserManualAddressCounty: 'Sir',
   citizenUserManualAddressPostcode: 'Cod post',

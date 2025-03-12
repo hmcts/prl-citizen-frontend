@@ -12,13 +12,13 @@ const en = {
   line: 'Consult <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">the CB1 guidance</a> if you are not sure if you need permission to apply',
   select_all_apply: 'Select all that apply',
   doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
-  doNotHaveParentalResponsibilityHintText: 'Provide details',
+  doNotHaveParentalResponsibilityLabelText: 'Provide details',
   section: 'parental responsibility means that you are responsible for the children and their property',
   courtOrderPrevent:
     'There is a court order preventing me from making an application without first getting the permission of the court',
-  courtOrderPreventHintText: 'Provide details of the court order in place',
+  courtOrderPreventLabelText: 'Provide details of the court order in place',
   anotherReason: 'Another reason',
-  anotherReasonHintText: 'Provide details for why you need permission to make this application',
+  anotherReasonLabelText: 'Provide details for why you need permission to make this application',
   errors: {
     sq_doNotHaveParentalResponsibility_subfield: {
       required: "Provide details for 'I do not have parental responsibility for the children'",
@@ -46,12 +46,12 @@ const cy = {
   line: 'Edrychwch <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">arganllawiau CB1</a> os nad ydych yn siŵr a oes angen caniatâd arnoch i wneud cais',
   select_all_apply: "Dewiswch bob un sy'n berthnasol",
   doNotHaveParentalResponsibility: 'Does gen i ddim cyfrifoldeb rhiant dros y plant',
-  doNotHaveParentalResponsibilityHintText: 'Rhowch fanylion',
+  doNotHaveParentalResponsibilityLabelText: 'Rhowch fanylion',
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
   courtOrderPrevent: 'Mae yna orchymyn llys yn fy atal rhag gwneud cais heb gael caniatâd y llys yn gyntaf',
-  courtOrderPreventHintText: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
+  courtOrderPreventLabelText: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
   anotherReason: 'Rheswm arall',
-  anotherReasonHintText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
+  anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
   errors: {
     sq_doNotHaveParentalResponsibility_subfield: {
       required: 'Rhowch fanylion pam nad oes gennych gyfrifoldeb rhiant dros y plant',
@@ -111,7 +111,7 @@ describe('Screening questions > permissions-why', () => {
     const sq_courtOrderPrevent_subfield = permissionsWhyField.values[1].subFields
       ?.sq_courtOrderPrevent_subfield as FormOptions;
     expect(sq_courtOrderPrevent_subfield.type).toBe('textarea');
-    expect((sq_courtOrderPrevent_subfield.hint as LanguageLookup)(generatedContent)).toBe(
+    expect((sq_courtOrderPrevent_subfield.label as LanguageLookup)(generatedContent)).toBe(
       'Provide details of the court order in place'
     );
     expect(sq_courtOrderPrevent_subfield.attributes).toStrictEqual({
@@ -131,11 +131,18 @@ describe('Screening questions > permissions-why', () => {
 
     expect(
       (
-        fields.sq_permissionsWhy.values[0].subFields!.sq_doNotHaveParentalResponsibility_subfield.hint as LanguageLookup
+        fields.sq_permissionsWhy.values[0].subFields!.sq_doNotHaveParentalResponsibility_subfield
+          .label as LanguageLookup
       )(generatedContent)
     ).toBe('Provide details');
     const sq_anotherReason_subfield = permissionsWhyField.values[2].subFields?.sq_anotherReason_subfield as FormOptions;
     expect(sq_anotherReason_subfield.type).toBe('textarea');
+    expect((sq_anotherReason_subfield.label as LanguageLookup)(generatedContent)).toBe(en.anotherReasonLabelText);
+
+    const anotherReasonValidator = fields.sq_permissionsWhy.values[2].subFields!.sq_anotherReason_subfield.validator();
+    expect(anotherReasonValidator).toEqual(undefined);
+    expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
+    expect(isTextAreaValid).toHaveBeenCalledWith('Test');
   });
 
   test('should contain Save and continue button', () => {
