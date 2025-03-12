@@ -4,6 +4,7 @@ import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isAlphaNumericWithApostrophe, isFieldFilledIn } from '../../../../app/form/validation';
+import { interpolate } from '../../../../steps/common/string-parser';
 import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
@@ -13,7 +14,7 @@ let updatedForm: FormContent;
 export const en = () => ({
   title: 'Parental responsibility for',
   parentalResponsibility:
-    'State everyone who has parental responsibility for [^^^]  and how they have parental responsibility.',
+    'State everyone who has parental responsibility for {firstname} {lastname} and how they have parental responsibility.',
   subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility.',
   bodyHint: `<p>For example 'child's mother', or 'child's father who was married to the mother when the child was born'.</p>
  <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">See section E of leaflet CB1 for more information</a></p>`,
@@ -66,6 +67,9 @@ export const generateFormFields = (
   };
   const fields = {
     statement: {
+      label: l => l.parentalResponsibility,
+      labelSize: 'xs',
+      hint: l => l.bodyHint,
       type: 'text',
       value: statement,
       validator: value => isFieldFilledIn(value) || isAlphaNumericWithApostrophe(value),
@@ -106,6 +110,10 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     title: `${translations['title']} ${childDetails.firstName} ${childDetails.lastName}`,
+    parentalResponsibility: interpolate(translations.parentalResponsibility, {
+      firstname: childDetails.firstName,
+      lastname: childDetails.lastName,
+    }),
     form: updateFormFields(form, fields),
   };
 };
