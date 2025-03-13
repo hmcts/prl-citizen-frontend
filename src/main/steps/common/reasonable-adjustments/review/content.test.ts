@@ -45,7 +45,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Check your answers to hearing requirements (welsh)',
+  title: 'Gwirio eich atebion ynghylch gofynion gwrandawiad',
   subTitle: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
     aboutYou: 'Amdanoch chi',

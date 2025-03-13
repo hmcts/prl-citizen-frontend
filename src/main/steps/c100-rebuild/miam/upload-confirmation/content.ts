@@ -9,7 +9,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'MIAM certificate upload complete (welsh)',
+  title: 'Uwchlwytho’r dystysgrif MIAM wedi’i gwblhau',
   confirmationText: 'YMae eich tystysgrif MIAM wedi’i llwytho',
   secondaryTitle: 'Eich dogfennau',
   //success:"abcd"

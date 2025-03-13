@@ -30,7 +30,7 @@ const en = {
 
 const cy: typeof en = {
   ...commonContentCy,
-  title: 'Check your answers to the statement of service (welsh)',
+  title: 'Gwirio eich atebion ynghylch y datganiad cyflwyno',
   whoWasServedLabel: whoWasServedLang.cy.whoWasServedLabel,
   servedDateLabel: whoWasServedLang.cy.servedDateLabel,
   filesUploadedLabel: uploadSOSLang.cy.filesUploadedLabel,

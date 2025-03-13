@@ -2,11 +2,11 @@
     "translations": {
         "en": {
             "continue": "Continue",
-            "title": "Enter  address details for {name}"
+            "title": "Enter address details for {name}"
         },
         "cy": {
             "continue": "Parhau",
-            "title": "Enter  address details for {name} (welsh)"
+            "title": "Nodi manylion cyfeiriad ar gyfer {name}"
         }
     },
     "errors":{

@@ -30,7 +30,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Address details of (welsh)',
+  title: 'Manylion cyfeiriad',
   errors: {
     address1: {
       required: 'Nodwch linell gyntaf y cyfeiriad',

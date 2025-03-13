@@ -19,7 +19,7 @@ const enContent = {
 };
 
 const cyContent: typeof enContent = {
-  title: `Review the address of ${name} (welsh)`,
+  title: `Adolygu cyfeiriad ${name}`,
   citizenUserAddressText: 'cyfeiriad',
   continue: 'Arbed a pharhau',
   editAddress: 'Golygu Cyfeiriad',

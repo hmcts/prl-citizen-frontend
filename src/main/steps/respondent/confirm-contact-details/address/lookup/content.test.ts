@@ -63,7 +63,7 @@ describe('applicant1 > address > lookup > content', () => {
     const commonContent1 = { language: 'cy', userCase: { citizenUserFullName: 'test name' } } as CommonContent;
 
     const generatedContent1 = generateContent(commonContent1);
-    expect(generatedContent1.title).toBe('Find the address for test name (welsh)');
+    expect(generatedContent1.title).toBe('Dod o hyd i’r cyfeiriad ar gyfer test name');
   });
 
   test('should contain citizenUserAddressPostcode field', () => {

@@ -11,7 +11,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Review the address of {name} (welsh)',
+  title: 'Adolygu cyfeiriad {name}',
   citizenUserAddressText: 'cyfeiriad',
   continue: 'Arbed a pharhau',
   editAddress: 'Golygu Cyfeiriad',

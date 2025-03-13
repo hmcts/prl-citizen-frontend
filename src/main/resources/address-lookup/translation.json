@@ -4,7 +4,7 @@
             "title": "Find the address for {name}"
         },
         "cy": {
-            "title": "Find the address for {name} (welsh)"
+            "title": "Dod o hyd i’r cyfeiriad ar gyfer {name}"
         }
     },
     "errors":{

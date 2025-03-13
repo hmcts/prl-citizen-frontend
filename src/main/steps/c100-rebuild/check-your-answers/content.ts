@@ -222,7 +222,7 @@ export const enContent = {
 };
 export const cyContent = {
   section: '',
-  title: 'Check your answers to your C100 application (welsh)',
+  title: 'Gwirio eich atebion i’ch cais C100',
   change: ' Golygu',
   topWarning: {
     text: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',

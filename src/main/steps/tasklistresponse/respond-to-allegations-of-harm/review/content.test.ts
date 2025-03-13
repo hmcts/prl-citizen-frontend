@@ -26,7 +26,7 @@ const en = {
 const cy: typeof en = {
   ...commonContentCy,
   caption: 'Ymateb i honiadau o niwed a thrais',
-  title: 'Check your answers to the allegation of harm and violence (welsh)',
+  title: 'Gwirio eich atebion ynghylch yr honiad or niwed a thrais',
   content1: 'Rhif yr achos:',
   wishToRespondLabel: 'Ydych chi eisiau ymateb i honiadau o niwed a thrais y ceisydd?',
   responseToAohLabel: yourResponseLanguages.cy.responseToAohLabel,

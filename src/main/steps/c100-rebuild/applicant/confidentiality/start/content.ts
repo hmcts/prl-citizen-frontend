@@ -33,7 +33,7 @@ export const en = () => ({
 
 export const cy = () => ({
   caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
-  title: 'Do the other people named in the application (the respondents) know any contact details of {name}? (welsh)',
+  title: 'A yw’r bobl eraill a enwir yn y cais (yr atebwyr) yn gwybod beth yw  manylion cyswllt {name}?',
   paragraph1:
     "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r atebwyr. Mae hyn yn cynnwys eich manylion cyswllt.",
   paragraph2:

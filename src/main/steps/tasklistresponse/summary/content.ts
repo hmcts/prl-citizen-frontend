@@ -305,7 +305,7 @@ export const enResponseToAOH = {
 };
 
 export const cyContent: typeof enContent = {
-  title: 'Check your answers for the response (welsh)',
+  title: 'Gwirio eich atebion ar gyfer yr ymateb',
   subTitle: 'Edrychwch dros eich atebion cyn i chi gyflwyno eich ymateb',
   title2: 'Achosion llys cyfredol neu flaenorol',
   sectionTitles: {

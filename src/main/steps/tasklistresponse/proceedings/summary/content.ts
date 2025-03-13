@@ -36,7 +36,7 @@ const en = (content: CommonContent) => {
 };
 
 export const cyContent: typeof enContent = {
-  title: 'Check your answers to other proceedings (welsh)',
+  title: 'Gwirio eich atebion ynghylch achosion eraill',
   otherProceedings: 'Achos cyfredol neu flaenorol',
   change: 'Golygu',
   topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',

@@ -35,7 +35,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Check your answers to your application (welsh)',
+  title: 'Gwirio eich atebion i’ch cais',
   caseNumber: 'Rhif yr achos ',
   application: 'Cais',
   sectionTitles: {},

@@ -22,7 +22,7 @@ export const enContent = {
 };
 
 const cyContent: typeof enContent = {
-  title: 'Check your answers to consent to the application (welsh)',
+  title: 'Gwirio eich atebion ynghylch cydsynio i’r cais',
   subTitle: 'Cydsynio i’r cais',
   sectionTitles: {
     consentDetails: '',

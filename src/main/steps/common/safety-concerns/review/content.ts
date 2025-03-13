@@ -36,7 +36,7 @@ export const enContent = {
   },
 };
 export const cyContent: typeof enContent = {
-  title: 'Check your answers to safety concerns (welsh)',
+  title: 'Gwirio eich atebion ynghylch pryderon diogelwch',
   change: 'Golygu',
   topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
   makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',

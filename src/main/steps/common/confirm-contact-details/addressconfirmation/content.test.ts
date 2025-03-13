@@ -29,7 +29,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: `Confirm address details for ${name} (welsh)`,
+  title: `Cadarnhau manylion cyfeiriad ar gyfer ${name}`,
   citizenUserAddress1: 'Adeilad',
   addressLine2: 'Stryd',
   citizenUserAddressTown: 'Tref neu ddinas',

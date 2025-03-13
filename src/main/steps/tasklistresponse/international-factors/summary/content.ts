@@ -45,7 +45,7 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  title: 'Check your answers to international elements (welsh)',
+  title: 'Gwirio eich atebion ynghylch elfennau rhyngwladol',
   respondentAdditionalInformation: 'Elfennau rhyngwladol',
   sectionTitles: {
     respondentAdditionalInformation: '',

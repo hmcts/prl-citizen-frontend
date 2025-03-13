@@ -6,7 +6,7 @@
         },
         "cy": {
             "continue": "Parhau",
-            "title": "Select an address for {name} (welsh)"
+            "title": "Dewis cyfeiriad ar gyfer {name}"
         }
     },
     "errors":{

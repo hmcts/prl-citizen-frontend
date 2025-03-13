@@ -33,7 +33,7 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  title: 'Check your answers to MIAM attendance (welsh)',
+  title: 'Gwirio eich atebion ynghylch mynychu MIAM',
   subTitle: 'Presenoldeb mewn Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
   sectionTitles: {
     MIAMDetails: '',

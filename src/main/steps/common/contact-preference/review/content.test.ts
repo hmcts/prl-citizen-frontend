@@ -28,7 +28,7 @@ const en = {
 
 const cy = {
   caption: `Rhif yr achos ${caseNumber}`,
-  title: 'Review contact preferences (welsh)',
+  title: 'Adolygu dewisiadau cyswllt',
   subTitle: 'Manylion personol',
   emailText:
     'Rydych wedi penderfynu cael diweddariadau drwy e-bost. Byddwch yn dal i gael rhywfaint o wybodaeth drwy’r post.',

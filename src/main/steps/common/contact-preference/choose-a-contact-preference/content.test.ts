@@ -33,7 +33,7 @@ const en = {
 
 const cy = {
   caption: `Rhif yr achos ${caseNumber}`,
-  title: 'Choose contact preferences (welsh)',
+  title: 'Dewis dewisiadau cyswllt',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
     'Os byddwch yn dewis cael diweddariadau drwy e-bost, byddwch hefyd yn gallu gweld y diweddariadau yn eich dangosfwrdd.',

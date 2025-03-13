@@ -9,7 +9,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Draft of the consent order upload complete (welsh)',
+  title: 'Uwchlwytho’r gorchymyn cydsynio drafft wedi’i gwblhau',
   confirmationText: 'Mae’r drafft o’r gorchymyn cydsynio wedi ei lwytho',
   secondaryTitle: 'Eich dogfennau ar gyfer Gorchymyn cydsynio',
 });
