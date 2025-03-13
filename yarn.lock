@@ -15879,7 +15879,7 @@ __metadata:
     allure-commandline: "npm:^2.13.8"
     applicationinsights: "npm:^2.3.5"
     autobind-decorator: "npm:^2.4.0"
-    axios: "npm:^1.7.9"
+    axios: "npm:^1.8.3"
     axios-debug-log: "npm:^1.0.0"
     babel-eslint: "npm:^10.1.0"
     babel-loader: "npm:^8.2.2"
