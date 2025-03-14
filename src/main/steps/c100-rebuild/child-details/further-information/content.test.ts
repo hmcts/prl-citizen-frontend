@@ -103,7 +103,7 @@ describe('child details > further information', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
 
     expect(childrenKnownToSocialServicesDetails.type).toBe('textarea');
-    expect((childrenKnownToSocialServicesDetails.hint as LanguageLookup)(generatedContent)).toBe(
+    expect((childrenKnownToSocialServicesDetails.label as LanguageLookup)(generatedContent)).toBe(
       en.childrenKnownToSocialServicesHint
     );
     (childrenKnownToSocialServicesDetails.validator as Function)('test text area');

@@ -13,7 +13,7 @@ import { interpolate } from '../../string-parser';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Case number {caseNumber}',
-  title: 'Contact Preferences',
+  title: 'Choose contact preferences',
   paragraphs: [
     'You can choose to receive case updates by email or post.',
     'If you receive updates by email, the updates will also be available to view in your dashboard.',
@@ -36,7 +36,7 @@ export const en = () => ({
 
 export const cy = () => ({
   caption: 'Rhif yr achos {caseNumber}',
-  title: 'Dewisiadau cyswllt',
+  title: 'Dewis dewisiadau cyswllt',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
     'Os byddwch yn dewis cael diweddariadau drwy e-bost, byddwch hefyd yn gallu gweld y diweddariadau yn eich dangosfwrdd.',

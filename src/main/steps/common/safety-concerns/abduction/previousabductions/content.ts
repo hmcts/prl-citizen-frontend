@@ -79,6 +79,8 @@ export const form: FormContent = {
       c1A_previousAbductionsShortDesc: {
         type: 'textarea',
         name: 'c1A_previousAbductionsShortDesc',
+        label: l => l.line1,
+        labelSize: 'xs',
         hint: l => l.c1A_previousAbductionsShortDescHint,
         validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
       },

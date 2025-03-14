@@ -60,15 +60,12 @@ export const form: FormContent = {
           label: l => l.yes,
           value: YesOrNo.YES,
           subFields: {
-            awp_hwf_referenceLabel: {
-              type: 'textAndHtml',
-              textAndHtml: l => `<h3 class="govuk-heading-s govuk-!-margin-bottom-0">${l.enterReferenceNumber}</h3>`,
-            },
             awp_hwf_referenceNumber: {
               type: 'text',
-              label: l => l.referenceText,
-              labelSize: null,
-              hint: l => l.hint,
+              label: l => l.enterReferenceNumber,
+              labelSize: 's',
+              hint: l =>
+                `<p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">${l.referenceText}</p><p class="govuk-hint govuk-!-margin-top-0 govuk-!-margin-bottom-0">${l.hint}</p>`,
               validator: isFieldFilledIn,
             },
           },

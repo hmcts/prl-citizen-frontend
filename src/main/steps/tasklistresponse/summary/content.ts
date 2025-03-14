@@ -111,7 +111,7 @@ export const enConfirmYourDetailsContent = {
 };
 
 export const enContent = {
-  title: 'Check your answers',
+  title: 'Check your answers for the response',
   subTitle: 'Please review your answers before you complete your response.',
   title2: 'Current or previous court cases',
   sectionTitles: {
@@ -305,7 +305,7 @@ export const enResponseToAOH = {
 };
 
 export const cyContent: typeof enContent = {
-  title: 'Gwirio eich atebion',
+  title: 'Gwirio eich atebion ar gyfer yr ymateb',
   subTitle: 'Edrychwch dros eich atebion cyn i chi gyflwyno eich ymateb',
   title2: 'Achosion llys cyfredol neu flaenorol',
   sectionTitles: {

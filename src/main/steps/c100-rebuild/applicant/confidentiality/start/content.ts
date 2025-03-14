@@ -4,13 +4,13 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
+import { interpolate } from '../../../../../steps/common/string-parser';
 import { generateDetailsKnownYesField } from '../common/utils';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Keeping your contact details private for',
-  headingTitle: `Do you want to keep your contact details private from 
-  the other people named in the application (the respondents)?`,
+  title: 'Do the other people named in the application (the respondents) know any contact details of {name}?',
   paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details.',
   paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children, 
   you can ask the court to keep your contact details private.`,
@@ -33,8 +33,7 @@ export const en = () => ({
 
 export const cy = () => ({
   caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
-  headingTitle:
-    'Ydych chi eisiau cadw eich manylion cyswllt yn breifat ar gyfer oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',
+  title: 'A yw’r bobl eraill a enwir yn y cais (yr atebwyr) yn gwybod beth yw  manylion cyswllt {name}?',
   paragraph1:
     "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r atebwyr. Mae hyn yn cynnwys eich manylion cyswllt.",
   paragraph2:
@@ -163,6 +162,7 @@ export const generateContent: TranslationFn = content => {
   translations['applicantName'] = applicantName;
   return {
     ...translations,
+    title: interpolate(translations.title, { name: applicantName }),
     form,
   };
 };

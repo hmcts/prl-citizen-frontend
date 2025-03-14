@@ -14,7 +14,7 @@ describe('respondent/proceedings content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('Check your answers');
+    expect(generatedContent.title).toEqual('Check your answers to other proceedings');
   });
 
   // eslint-disable-next-line jest/expect-expect

@@ -6,7 +6,7 @@ import { otherProceedingsContents } from '../../../common/otherProceeding/utils'
 import { PastAndCurrentProceedings } from '../mainUtils';
 
 export const enContent = {
-  title: 'Check your answers',
+  title: 'Check your answers to other proceedings',
   otherProceedings: 'Current or previous proceedings',
   change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
@@ -36,7 +36,7 @@ const en = (content: CommonContent) => {
 };
 
 export const cyContent: typeof enContent = {
-  title: 'Gwirio eich atebion',
+  title: 'Gwirio eich atebion ynghylch achosion eraill',
   otherProceedings: 'Achos cyfredol neu flaenorol',
   change: 'Golygu',
   topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',

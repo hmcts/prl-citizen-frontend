@@ -12,7 +12,7 @@ import {
 import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
-  title: 'Check your answers',
+  title: 'Check your answers to international elements',
   respondentAdditionalInformation: 'International elements',
   sectionTitles: {
     respondentAdditionalInformation: '',
@@ -45,7 +45,7 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  title: 'Gwirio eich atebion',
+  title: 'Gwirio eich atebion ynghylch elfennau rhyngwladol',
   respondentAdditionalInformation: 'Elfennau rhyngwladol',
   sectionTitles: {
     respondentAdditionalInformation: '',

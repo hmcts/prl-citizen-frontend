@@ -5,9 +5,12 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 
 import { generateContent } from './content';
 
+const name = 'test name';
+
 const en = {
-  title: 'Your Address',
-  citizenUserAddress1: 'Building and street',
+  title: `Confirm address details for ${name}`,
+  citizenUserAddress1: 'Building',
+  addressLine2: 'Street',
   citizenUserAddressTown: 'Town or city',
   citizenUserAddressCounty: 'County',
   citizenUserAddressPostcode: 'Postcode',
@@ -26,8 +29,9 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Beth yw eich cyfeiriad?',
-  citizenUserAddress1: 'Adeilad a stryd',
+  title: `Cadarnhau manylion cyfeiriad ar gyfer ${name}`,
+  citizenUserAddress1: 'Adeilad',
+  addressLine2: 'Stryd',
   citizenUserAddressTown: 'Tref neu ddinas',
   citizenUserAddressCounty: 'Sir',
   citizenUserAddressPostcode: 'Cod post',
@@ -49,7 +53,7 @@ const cy: typeof en = {
 describe('address confirmation > content', () => {
   const commonContent = generatePageContent({
     language: 'en',
-    userCase: {},
+    userCase: { citizenUserFullName: 'test name' },
   }) as CommonContent;
   let generatedContent;
   let form;
@@ -77,7 +81,7 @@ describe('address confirmation > content', () => {
     const citizenUserAddress2Field = fields.citizenUserAddress2 as FormOptions;
     expect(citizenUserAddress2Field.type).toBe('text');
     expect(citizenUserAddress2Field.classes).toBe('govuk-label');
-    expect((citizenUserAddress2Field.label as Function)(generatedContent)).toBe(undefined);
+    expect((citizenUserAddress2Field.label as Function)(generatedContent)).toBe('Street');
 
     const citizenUserAddressTownField = fields.citizenUserAddressTown as FormOptions;
     expect(citizenUserAddressTownField.type).toBe('text');
