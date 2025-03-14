@@ -106,6 +106,7 @@ const keys = {
   c8RefugeDocument: 'c8RefugeDocument',
   isOtherPersonAddressConfidential:
     'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
+  doYouWantToKeep: 'Do the other people named in the application (the respondents) know any contact details of {name}?',
 };
 const language = 'en';
 const content = {

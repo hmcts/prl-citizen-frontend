@@ -9,7 +9,7 @@ import { languages as yourResponseLanguages } from '../your-response/content';
 export const en = {
   ...commonContentEn,
   caption: 'Respond to allegations of harm and violence',
-  title: 'Check your answers',
+  title: 'Check your answers to the allegation of harm and violence',
   content1: 'Case number:',
   wishToRespondLabel: "Do you wish to respond to the applicant's allegations of harm and violence?",
   responseToAohLabel: yourResponseLanguages.en.responseToAohLabel,
@@ -21,7 +21,7 @@ export const en = {
 export const cy: typeof en = {
   ...commonContentCy,
   caption: 'Ymateb i honiadau o niwed a thrais',
-  title: 'Ymateb i’r honiadau',
+  title: 'Gwirio eich atebion ynghylch yr honiad or niwed a thrais',
   content1: 'Rhif yr achos:',
   wishToRespondLabel: 'Ydych chi eisiau ymateb i honiadau o niwed a thrais y ceisydd?',
   responseToAohLabel: yourResponseLanguages.cy.responseToAohLabel,

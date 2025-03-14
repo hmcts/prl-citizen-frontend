@@ -6,6 +6,7 @@
 {% from "../../../common/fileupload/macro.njk" import fileUpload %}
 
 {% extends "common/page.njk" %}
+
 {% block page_content %}
 
 {% if FileErrors.length > 0 %}
@@ -15,7 +16,7 @@
 }) }}
 {%endif%}
 
-  <h1 class="govuk-heading-xl">{{titleList[orderType]}}
+  <h1 class="govuk-heading-xl">{{title}}
  {% if orderId == '1' %}
   {{''}}
   {% else %}

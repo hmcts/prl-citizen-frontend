@@ -8,7 +8,7 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  hwfGuidanceTitle: 'You need to apply for help with your child arrangements application fee',
+  title: 'You need to apply for help with your child arrangements application fee',
   hwfApplyLinkHint1: 'You need to',
   hwfApplyLinkHint2: 'before you continue with this child arrangements application.',
   applyForHwfLink:
@@ -26,7 +26,7 @@ const en = {
 };
 
 const cy = {
-  hwfGuidanceTitle: 'Mae angen ichi wneud cais am help i dalu ffi eich cais trefniadau plant',
+  title: 'Mae angen ichi wneud cais am help i dalu ffi eich cais trefniadau plant',
   hwfApplyLinkHint1: 'Mae angen ichi',
   hwfApplyLinkHint2: 'cyn ichi fwrw ymlaen â’r cais trefniadau plant hwn.',
   applyForHwfLink:

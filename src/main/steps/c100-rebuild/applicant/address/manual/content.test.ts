@@ -6,7 +6,7 @@ import { CommonContent, generatePageContent } from '../../../../common/common.co
 import { generateContent } from './content';
 
 const en = {
-  title: 'Address of Dummy  Test1',
+  title: 'Address details of Dummy  Test1',
   errors: {
     address1: {
       required: 'Enter the first line of the address',
@@ -28,7 +28,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Cyfeiriad Dummy  Test1',
+  title: 'Manylion cyfeiriad Dummy  Test1',
   errors: {
     address1: {
       required: 'Nodwch linell gyntaf y cyfeiriad',
