@@ -21,8 +21,21 @@ const en = {
   submitButtonText: 'Submit',
   uploadDocumentFileUpload: 'Your documents',
   removeDocument: 'Remove',
-  textAreaDocUploadText1: 'You can write your statement in the text box or upload it.',
-  textAreaDocUploadText2: 'Write your statement (optional)',
+  positionStatementTextAreaUploadText: 'You can submit your position statement by either:',
+  witnessStatementTextAreaUploadText: 'You can submit a witness statement by either:',
+  textAreaDocBulletPoints: ['using the text box to write your statement', 'uploading your statement as a document'],
+  alsoUploadDocumentsPositionStatement: 'You can also upload documents and other files to support your statement.',
+  alsoUploadDocumentsWitnessStatement:
+    'You can also upload documents and other files to support the witness statement.',
+  textAreaDocUploadText1: 'Using the text box',
+  textAreaDocUploadText2: 'Enter your statement in the box, or describe the files that you are uploading.',
+  textAreaDocUploadText3: 'There is no text limit.',
+  textAreaSaveText: "Select 'Save', to save your text as a document in this page. You can remove it if you need to.",
+  save: 'Save',
+  uploadFileTitle: 'Uploading files',
+  positionOrWitnessStatementUploadText1:
+    "If you are uploading documents or other files, name the files clearly. For example, 'Letter from school', '{docCategory}'.",
+  positionOrWitnessStatementUploadText2: 'Files must be in the format JPG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uplodFileText1:
     'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.',
   uplodFileText2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX and have a maximum size of 20mb.',
@@ -63,8 +76,25 @@ const cy: typeof en = {
   submitButtonText: 'Cyflwyno',
   uploadDocumentFileUpload: 'Eich dogfennau',
   removeDocument: 'Dileu',
-  textAreaDocUploadText1: 'Gallwch ysgrifennu eich datganiad yn y blwch testun neu ei lwytho.',
-  textAreaDocUploadText2: 'Ysgrifennwch eich datganiad (dewisol)',
+  positionStatementTextAreaUploadText: 'Gallwch gyflwyno eich datganiad safbwynt un ai:',
+  witnessStatementTextAreaUploadText: 'Gallwch gyflwyno datganiad tyst un ai:',
+  textAreaDocBulletPoints: [
+    'trwy ddefnyddio’r blwch testun i ysgrifennu’ch datganiad',
+    'uwchlwytho eich datganiad fel dogfen',
+  ],
+  alsoUploadDocumentsPositionStatement: 'Gallwch hefyd uwchlwytho dogfennau a ffeiliau eraill i gefnogi’ch datganiad.',
+  alsoUploadDocumentsWitnessStatement:
+    'Gallwch hefyd uwchlwytho dogfennau a ffeiliau eraill i gefnogi’r datganiad tyst.',
+  textAreaDocUploadText1: 'Defnyddio’r blwch testun',
+  textAreaDocUploadText2: 'Nodwch eich datganiad yn y blwch, neu disgrifiwch y ffeiliau rydych yn eu huwchlwytho',
+  textAreaDocUploadText3: 'Nid oes cyfyngiad o ran hyd y testun.',
+  textAreaSaveText:
+    "Dewiswch 'Cadw' i gadw eich testun fel dogfen ar y dudalen hon. Gallwch ei ddileu os oes arnoch angen.",
+  save: 'Cadw',
+  uploadFileTitle: 'Uwchlwytho ffeiliau',
+  positionOrWitnessStatementUploadText1:
+    "Os ydych yn uwchlwytho dogfennau zip neu ffeiliau eraill, rhowch enwau clir i’r ffeiliau. Er enghraifft, ‘Llythyr gan yr ysgol’, '{docCategory}'.",
+  positionOrWitnessStatementUploadText2: 'Rhaid i ffeiliau fod mewn fformat JPG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
   uplodFileText1:
     'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, llythyr-gan-yr-ysgol.doc.',
   uplodFileText2:
@@ -145,6 +175,10 @@ export const generateContent: TranslationFn = content => {
   const uploadedFilesDataReference =
     partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles';
   let title: string;
+  const allowGenerateDocs = [
+    UploadDocumentCategory.POSITION_STATEMENTS,
+    UploadDocumentCategory.WITNESS_STATEMENTS,
+  ].includes(docCategory);
 
   if (docCategory === UploadDocumentCategory.POSITION_STATEMENTS) {
     title = translations.positionStatements;
@@ -171,14 +205,26 @@ export const generateContent: TranslationFn = content => {
         ...file,
       })) ?? [],
     docCategory,
-    allowGenerateDocs: [UploadDocumentCategory.POSITION_STATEMENTS, UploadDocumentCategory.WITNESS_STATEMENTS].includes(
-      docCategory
-    ),
+    allowGenerateDocs,
     errorMessage:
       translations.errors.uploadDocumentFileUpload?.[
         request.session?.errors?.find(
           error => error.propertyName === 'uploadDocumentFileUpload' && error.errorType !== 'uploadError'
         )?.errorType
       ] ?? null,
+    textAreaUploadText:
+      docCategory === UploadDocumentCategory.POSITION_STATEMENTS
+        ? translations.positionStatementTextAreaUploadText
+        : translations.witnessStatementTextAreaUploadText,
+    alsoUploadDocuments:
+      docCategory === UploadDocumentCategory.POSITION_STATEMENTS
+        ? translations.alsoUploadDocumentsPositionStatement
+        : translations.alsoUploadDocumentsWitnessStatement,
+    uplodFileText1: allowGenerateDocs
+      ? interpolate(translations.positionOrWitnessStatementUploadText1, { docCategory: title })
+      : translations.uplodFileText1,
+    uplodFileText2: allowGenerateDocs
+      ? translations.positionOrWitnessStatementUploadText2
+      : translations.uplodFileText2,
   };
 };
