@@ -109,13 +109,12 @@
     "ua-parser-js": "^1.0.33",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "uuid": "^8.3.2",
-    "webpack": "^5.76.0",
-    "yarn": "^1.22.18"
+    "webpack": "^5.76.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.10",
-    "@babel/preset-env": "^7.18.2",
-    "@babel/preset-typescript": "^7.16.7",
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-typescript": "^7.26.0",
     "@pact-foundation/absolute-version": "^0.0.4",
     "@pact-foundation/pact": "^14.0.0",
     "@stryker-mutator/core": "^5.3.0",
