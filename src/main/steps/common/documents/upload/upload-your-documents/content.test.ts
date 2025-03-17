@@ -3,6 +3,7 @@ import { DocType, PartyType } from '../../../../../app/case/definition';
 import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
+import { interpolate } from '../../../string-parser';
 import { UploadDocumentCategory } from '../../definitions';
 
 import { generateContent } from './content';
@@ -17,12 +18,19 @@ const en = {
   removeDocument: 'Remove',
   positionStatementTextAreaUploadText: 'You can submit your position statement by either:',
   witnessStatementTextAreaUploadText: 'You can submit a witness statement by either:',
-  textAreaDocBulletPoints: ['using the text box to write your statement', 'uploading your statement as a document'],
+  textAreaDocBulletPoint1: 'using the text box to write {statement}',
+  textAreaDocBulletPoint2: '{uploading} statement as a document',
+  uploadingYour: 'uploading your',
+  uploadingThe: 'uploading the',
+  yourStatement: 'your statement',
+  theStatement: 'the statement',
+  yourStatement2: 'your statement',
+  theStatement2: 'the statement',
   alsoUploadDocumentsPositionStatement: 'You can also upload documents and other files to support your statement.',
   alsoUploadDocumentsWitnessStatement:
     'You can also upload documents and other files to support the witness statement.',
   textAreaDocUploadText1: 'Using the text box',
-  textAreaDocUploadText2: 'Enter your statement in the box, or describe the files that you are uploading.',
+  textAreaDocUploadText2: 'Enter {statement} in the box, or describe the files that you are uploading.',
   textAreaDocUploadText3: 'There is no text limit.',
   textAreaSaveText: "Select 'Save', to save your text as a document in this page. You can remove it if you need to.",
   save: 'Save',
@@ -53,7 +61,7 @@ const en = {
       multipleFiles: 'You can upload only one document.',
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       noFile: 'Upload a file.',
-      noStatementOrFile: 'Enter your statement or upload a file.',
+      noStatementOrFile: 'Enter {statement} as text or upload {statement} as a file.',
       uploadError: 'Document could not be uploaded.',
       deleteError: 'Document could not be deleted.',
     },
@@ -71,15 +79,19 @@ const cy: typeof en = {
   removeDocument: 'Dileu',
   positionStatementTextAreaUploadText: 'Gallwch gyflwyno eich datganiad safbwynt un ai:',
   witnessStatementTextAreaUploadText: 'Gallwch gyflwyno datganiad tyst un ai:',
-  textAreaDocBulletPoints: [
-    'trwy ddefnyddio’r blwch testun i ysgrifennu’ch datganiad',
-    'uwchlwytho eich datganiad fel dogfen',
-  ],
+  textAreaDocBulletPoint1: 'trwy ddefnyddio’r blwch testun i ysgrifennu{statement}',
+  textAreaDocBulletPoint2: '{uploading} datganiad fel dogfen',
+  uploadingYour: 'uwchlwytho eich',
+  uploadingThe: 'uwchlwytho’r',
+  yourStatement: '’ch datganiad',
+  theStatement: '’r datganiad',
+  yourStatement2: 'eich datganiad',
+  theStatement2: 'y datganiad',
   alsoUploadDocumentsPositionStatement: 'Gallwch hefyd uwchlwytho dogfennau a ffeiliau eraill i gefnogi’ch datganiad.',
   alsoUploadDocumentsWitnessStatement:
     'Gallwch hefyd uwchlwytho dogfennau a ffeiliau eraill i gefnogi’r datganiad tyst.',
   textAreaDocUploadText1: 'Defnyddio’r blwch testun',
-  textAreaDocUploadText2: 'Nodwch eich datganiad yn y blwch, neu disgrifiwch y ffeiliau rydych yn eu huwchlwytho',
+  textAreaDocUploadText2: 'Nodwch {statement} yn y blwch, neu disgrifiwch y ffeiliau rydych yn eu huwchlwytho.',
   textAreaDocUploadText3: 'Nid oes cyfyngiad o ran hyd y testun.',
   textAreaSaveText:
     "Dewiswch 'Cadw' i gadw eich testun fel dogfen ar y dudalen hon. Gallwch ei ddileu os oes arnoch angen.",
@@ -113,7 +125,7 @@ const cy: typeof en = {
       multipleFiles: 'Gallwch uwchlwytho un dogfen yn unig',
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       noFile: 'Uwchlwytho ffeil',
-      noStatementOrFile: 'Rhowch eich datganiad neu llwythwch ffeil.',
+      noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
       uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
       deleteError: "Ni ellir dileu'r ddogfen",
     },
@@ -161,12 +173,44 @@ describe('documents > upload > upload-your-documents > content', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content Data', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
+    languageAssertions(
+      'en',
+      {
+        ...en,
+        textAreaDocUploadText2: interpolate(en.textAreaDocUploadText2, { statement: en.theStatement2 }),
+        errors: {
+          ...en.errors,
+          uploadDocumentFileUpload: {
+            ...en.errors.uploadDocumentFileUpload,
+            noStatementOrFile: interpolate(en.errors.uploadDocumentFileUpload.noStatementOrFile, {
+              statement: en.theStatement2,
+            }),
+          },
+        },
+      },
+      () => generateContent(commonContent)
+    );
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+    languageAssertions(
+      'cy',
+      {
+        ...cy,
+        textAreaDocUploadText2: interpolate(cy.textAreaDocUploadText2, { statement: cy.theStatement2 }),
+        errors: {
+          ...cy.errors,
+          uploadDocumentFileUpload: {
+            ...cy.errors.uploadDocumentFileUpload,
+            noStatementOrFile: interpolate(cy.errors.uploadDocumentFileUpload.noStatementOrFile, {
+              statement: cy.theStatement2,
+            }),
+          },
+        },
+      },
+      () => generateContent({ ...commonContent, language: 'cy' })
+    );
   });
 
   test('should contain correct cancel link', () => {
@@ -233,7 +277,7 @@ describe('documents > upload > upload-your-documents > content', () => {
         id: 'MOCK_URL2',
       },
     ]);
-    expect(content.errorMessage).toBe('Enter your statement or upload a file.');
+    expect(content.errorMessage).toBe('Enter the statement as text or upload the statement as a file.');
     expect(content.docCategory).toBe('drug-and-alcohol-tests');
   });
 
