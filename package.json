@@ -176,6 +176,7 @@
   },
   "resolutions": {
     "babel-loader/loader-utils": "^2.0.4",
+    "@babel/core": "7.26.10",
     "decode-uri-component": "^0.2.1",
     "qs": "^6.9.7",
     "got": "^11.8.5",
