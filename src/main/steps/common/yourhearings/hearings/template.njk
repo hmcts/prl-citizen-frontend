@@ -2,10 +2,7 @@
 
 {% block page_content %}
 
-  {% if section %}
-    <h1 class="govuk-heading-xl govuk-!-margin-top-6">{{ section }}</h1>
-  {% endif %}
-
+  <h1 class="govuk-heading-xl govuk-!-margin-top-6">{{ title }}</h1>
   <p class="govuk-body">{{ caseNumber }} {{ userCase.id }}</p>
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   {# <h3 class="govuk-heading-l">{{ yourPreviousHearings }}</h3> #}
