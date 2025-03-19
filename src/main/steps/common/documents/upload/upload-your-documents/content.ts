@@ -21,8 +21,9 @@ const en = {
   submitButtonText: 'Submit',
   uploadDocumentFileUpload: 'Your documents',
   removeDocument: 'Remove',
-  positionStatementTextAreaUploadText: 'You can submit your position statement by either:',
-  witnessStatementTextAreaUploadText: 'You can submit a witness statement by either:',
+  statementTextAreaUploadText: 'You can submit {positionOrWitness} statement by either:',
+  yourPosition: 'your position',
+  aWitness: 'a witness',
   textAreaDocBulletPoint1: 'using the text box to write {statement}',
   textAreaDocBulletPoint2: '{uploading} statement as a document',
   uploadingYour: 'uploading your',
@@ -83,8 +84,9 @@ const cy: typeof en = {
   submitButtonText: 'Cyflwyno',
   uploadDocumentFileUpload: 'Eich dogfennau',
   removeDocument: 'Dileu',
-  positionStatementTextAreaUploadText: 'Gallwch gyflwyno eich datganiad safbwynt un ai:',
-  witnessStatementTextAreaUploadText: 'Gallwch gyflwyno datganiad tyst un ai:',
+  statementTextAreaUploadText: 'Gallwch gyflwyno {positionOrWitness} un ai:',
+  yourPosition: 'eich datganiad safbwynt',
+  aWitness: 'datganiad tyst',
   textAreaDocBulletPoint1: 'trwy ddefnyddio’r blwch testun i ysgrifennu{statement}',
   textAreaDocBulletPoint2: '{uploading} datganiad fel dogfen',
   uploadingYour: 'uwchlwytho eich',
@@ -234,9 +236,9 @@ export const generateContent: TranslationFn = content => {
           error => error.propertyName === 'uploadDocumentFileUpload' && error.errorType !== 'uploadError'
         )?.errorType
       ] ?? null,
-    textAreaUploadText: isPositionStatement
-      ? translations.positionStatementTextAreaUploadText
-      : translations.witnessStatementTextAreaUploadText,
+    textAreaUploadText: interpolate(translations.statementTextAreaUploadText, {
+      positionOrWitness: isPositionStatement ? translations.yourPosition : translations.aWitness,
+    }),
     alsoUploadDocuments: isPositionStatement
       ? translations.alsoUploadDocumentsPositionStatement
       : translations.alsoUploadDocumentsWitnessStatement,
