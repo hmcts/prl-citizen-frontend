@@ -416,7 +416,12 @@ export const areSafetyConcernsValid = (caseData: CaseWithId): boolean => {
 
   if (childSafetyConcerns.length >= 1 && childSafetyConcerns[0] !== 'abduction') {
     isMandatory = childSafetyConcerns
-      .filter(concern => concern !== 'abduction')
+      .filter(
+        concern =>
+          concern !== C1AAbuseTypes.ABDUCTION &&
+          concern !== C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE &&
+          concern !== C1AAbuseTypes.SOMETHING_ELSE
+      )
       .every(concern => {
         const safetyConern = caseData?.c1A_safteyConcerns?.child?.[concern];
 
