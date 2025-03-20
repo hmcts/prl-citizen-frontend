@@ -163,7 +163,7 @@ export const hearingDetailsQualifyForFirstHearingHelper = (userCase, keys, sessi
       HTML.DESCRIPTION_TERM_DETAIL +
       populateError(
         userCase['hu_hearingWithNext48HrsDetails'],
-        getYesNoTranslation(language, keys['hu_hearingWithNext48HrsDetails'], 'doTranslation'),
+        getYesNoTranslation(language, userCase['hu_hearingWithNext48HrsDetails'], 'doTranslation'),
         language
       ) +
       HTML.DESCRIPTION_TERM_DETAIL_END +
