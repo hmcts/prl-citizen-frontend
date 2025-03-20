@@ -92,3 +92,16 @@ describe('FeatureToggles', () => {
     });
   });
 });
+
+describe('isC100CaseProgressionTrainTrackEnabled', () => {
+  it('should throw and error if isC100CaseProgressionTrainTrackEnabled does not exist', async () => {
+    new FeatureToggles(new mockedLaunchDarklyClient()).isC100CaseProgressionTrainTrackEnabled().then(data => {
+      expect(data).to.be.undefined;
+    });
+    await expect(
+      await new FeatureToggles(new mockedLaunchDarklyClient())
+        .isC100CaseProgressionTrainTrackEnabled()
+        .then(() => false)
+    ).to.be.false;
+  });
+});

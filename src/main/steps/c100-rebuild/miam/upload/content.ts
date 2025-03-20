@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
-const en = () => ({
+export const en = () => ({
   title: 'Upload your MIAM certificate',
   youNeed: 'If you are uploading documents from a computer, name the files clearly. For example, miam-certificate.doc.',
   youNeed2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
@@ -30,7 +31,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   title: 'Llwytho eich tystysgrif MIAM',
   youNeed:
     'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, tystysgrif-miam.doc.',

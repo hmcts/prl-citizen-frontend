@@ -1,9 +1,11 @@
 /* eslint-disable import/no-unresolved */
+import _ from 'lodash';
+
 import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { generateBehaviourDetailsHtml } from '../../../../steps/common/safety-concerns/review/helpers/satetyConcernHelper';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
-import { getYesNoTranslation, isBorderPresent } from '../mainUtil';
+import { getYesNoTranslation, isBorderPresent, translation } from '../mainUtil';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const childNameFormatter = (childId, userCase) => {
@@ -15,8 +17,8 @@ export const childNameFormatter = (childId, userCase) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser, language) => {
-  bodyHtml += HTML.DESCRIPTION_LIST;
+export const HTMLParser = (keys, FoundElement: ANYTYPE, userCase, typeOfUser, language) => {
+  let bodyHtml: string = HTML.DESCRIPTION_LIST;
   if (typeOfUser === 'child') {
     bodyHtml +=
       HTML.ROW_START_NO_BORDER +
@@ -25,20 +27,29 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
       HTML.DESCRIPTION_TERM_ELEMENT_END +
       HTML.ROW_END;
     if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
-      bodyHtml += HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
-      if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
-        bodyHtml += FoundElement['childrenConcernedAbout']
-          ?.map(childId => childNameFormatter(childId, userCase))
-          .toString()
-          .split(',')
-          .join('');
-      } else {
+      if (_.isEmpty(FoundElement['childrenConcernedAbout'])) {
         bodyHtml +=
           HTML.ROW_START +
-          HTML.DESCRIPTION_TERM_DETAIL +
-          childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
+          HTML.ERROR_MESSAGE_SPAN +
+          translation('completeSectionError', language) +
+          HTML.SPAN_CLOSE +
+          HTML.ROW_END;
+      } else {
+        bodyHtml += HTML.ROW_START + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
+        if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
+          bodyHtml += FoundElement['childrenConcernedAbout']
+            ?.map(childId => childNameFormatter(childId, userCase))
+            .toString()
+            .split(',')
+            .join('');
+        } else {
+          bodyHtml +=
+            HTML.ROW_START +
+            HTML.DESCRIPTION_TERM_DETAIL +
+            childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
+        }
+        bodyHtml += HTML.UNORDER_LIST_END + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
       }
-      bodyHtml += HTML.UNORDER_LIST_END + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
     }
   }
   bodyHtml += generateBehaviourDetailsHtml(keys, FoundElement);
@@ -84,15 +95,14 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
 export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typeOfUser, language) => {
   const subFieldKey = 'c1A_safteyConcerns' as string;
   const user = typeOfUser === C1ASafteyConcernsAbout.CHILDREN ? 'child' : C1ASafteyConcernsAbout.APPLICANT;
-  let html = '';
   if (userCase.hasOwnProperty(sessionKey)) {
     if (userCase.hasOwnProperty(subFieldKey)) {
       const FoundElement = userCase[subFieldKey]?.[user]?.[childField];
       if (FoundElement !== undefined) {
-        html = HTMLParser(keys, FoundElement, html, userCase, user, language);
+        return HTMLParser(keys, FoundElement, userCase, user, language);
       }
     }
-    return html;
+    return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
   }
-  return '';
+  return HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 };

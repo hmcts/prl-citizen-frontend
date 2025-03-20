@@ -13,7 +13,7 @@ import * as Urls from '../../urls';
 export const PastAndCurrentProceedings = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>, 
-  language?: string
+  language?: string 
 ): SummaryList | undefined => {
   const courtOrderDetails =
     '<ul>' +
@@ -21,7 +21,7 @@ export const PastAndCurrentProceedings = (
       order => '<li class="govuk-!-padding-bottom-2">' + keys[`${order}Label`] + '</li>'
     ) +
     '</ul>';
-  let SummaryData = proceedingSummaryData(keys, language, userCase, courtOrderDetails,true);
+  let SummaryData = proceedingSummaryData(keys, language??'en', userCase, courtOrderDetails,true);
   if(userCase.proceedingsStart === 'No' && userCase.proceedingsStartOrder === 'No'){
     SummaryData = [
       {
