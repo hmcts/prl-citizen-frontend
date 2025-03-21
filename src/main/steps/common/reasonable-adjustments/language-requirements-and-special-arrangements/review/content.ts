@@ -27,7 +27,7 @@ const cy: typeof en = {
   content1: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch (dewisol)',
   content2: "Os yw'ch gwrandawiad o fewn 2 ddiwrnod",
   content3:
-    '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Contact the court (opens in a new tab)</a> to request any support you need for the hearing. - welsh',
+    '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Cysylltwch â’r llys (yn agor mewn tab newydd)</a> i ofyn am unrhyw gymorth sydd ei angen arnoch ar gyfer y gwrandawiad.',
   submitAndContinue: 'Cyflwyno a pharhau',
   change: commonContentCy.change,
 };

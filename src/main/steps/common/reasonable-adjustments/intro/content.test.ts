@@ -60,7 +60,7 @@ const cy = {
   ],
   content3: 'Gofyn am gymorth',
   content4:
-    '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Contact the court (opens in a new tab)</a> if you have a hearing within 2 days and you need support. - welsh',
+    '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Cysylltwch â’r llys (yn agor mewn tab newydd)</a> os oes gennych wrandawiad o fewn 2 ddiwrnod ac mae angen cymorth arnoch.',
   content5: 'Cymorth cyn gwrandawiad llys',
   content6:
     'Os oes arnoch angen cymorth cyn gwrandawiad, gallwch ofyn amdano ar unrhyw adeg yn ystod eich achos. Er enghraifft, os oes angen dogfennau arnoch mewn fformat amgen fel braille.',
@@ -69,7 +69,7 @@ const cy = {
     'Os gofynnir i chi fynychu gwrandawiad, gallwch ofyn am gymorth os oes angen help arnoch i gymryd rhan. Byddwn yn rhoi gwybod i chi os oes angen i chi fynychu a gallwch ddweud wrthym pa gymorth y bydd ei angen arnoch.',
   content9: 'Cymorth i rywun arall',
   content10:
-    'If somebody else who’s also attending the hearing needs support, you can <a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">contact the court (opens in a new tab)</a>. - welsh',
+    'Os oes angen cymorth ar rywun arall sydd hefyd yn mynychu’r gwrandawiad, gallwch <a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank"> gysylltu â’r llys (yn agor mewn tab newydd)</a>.',
   content11: 'Beth fydd yn digwydd nesaf',
   content12:
     'Unwaith y byddwch wedi cyflwyno eich cais am gymorth, bydd yn cael ei adolygu gan staff GLlTEF neu farnwr. Byddwn yn cysylltu â chi os byddwn angen mwy o wybodaeth.',
