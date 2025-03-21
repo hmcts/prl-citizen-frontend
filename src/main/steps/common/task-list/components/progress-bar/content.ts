@@ -102,52 +102,52 @@ const cy: typeof en = {
   notStarted: 'heb ddechrau eto',
   [ProgressBarConfigType.C100_CASE_CREATION]: {
     childrenPostCode: {
-      label: 'Childs<br/>postcode - welsh',
-      ariaLabel: 'Childs postcode - welsh',
+      label: 'Cod post<br/> plant',
+      ariaLabel: 'Cod post plant',
     },
     screeningSection: {
-      label: 'Parties<br/>agreement - welsh',
-      ariaLabel: 'Parties agreement - welsh',
+      label: 'Cytundeb<br/>partïon',
+      ariaLabel: 'Cytundeb partïon',
     },
     consentOrder: {
-      label: 'Consent order - welsh',
-      ariaLabel: 'Consent order - welsh',
+      label: 'Gorchymyn caniatâd',
+      ariaLabel: 'Gorchymyn caniatâd',
     },
     miam: {
-      label: 'MIAM - welsh',
-      ariaLabel: 'MIAM - welsh',
+      label: 'MIAM',
+      ariaLabel: 'MIAM',
     },
     typeOfOrder: {
-      label: 'Type<br/>of<br/>order - welsh',
-      ariaLabel: 'Type of order - welsh',
+      label: 'Math o orchymyn',
+      ariaLabel: 'Math o orchymyn',
     },
     otherProceedings: {
-      label: 'Other<br/>proceedings - welsh',
-      ariaLabel: 'Other proceedings - welsh',
+      label: 'Achosion eraill',
+      ariaLabel: 'Achosion eraill',
     },
     urgencyAndWithoutNotice: {
-      label: 'Hearing<br/>urgency - welsh',
-      ariaLabel: 'Hearing urgency - welsh',
+      label: 'Brys clyw',
+      ariaLabel: 'Brys clyw',
     },
     people: {
-      label: 'People - welsh',
-      ariaLabel: 'People - welsh',
+      label: 'Pobl',
+      ariaLabel: 'Pobl',
     },
     safetyConcerns: {
-      label: 'Safety<br/>concerns - welsh',
-      ariaLabel: 'Safety concerns - welsh',
+      label: 'Pryderon diogelwch',
+      ariaLabel: 'Pryderon diogelwch',
     },
     internationalElements: {
-      label: 'International<br/>elements - welsh',
-      ariaLabel: 'International elements - welsh',
+      label: 'Elfennau rhyngwladol',
+      ariaLabel: 'Elfennau rhyngwladol',
     },
     reasonableAdjustments: {
-      label: 'Court<br/>support - welsh',
-      ariaLabel: 'Court support - welsh',
+      label: 'Cefnogaeth llys',
+      ariaLabel: 'Cefnogaeth llys',
     },
     helpWithFees: {
-      label: 'Payment - welsh',
-      ariaLabel: 'Payment - welsh',
+      label: 'Taliad',
+      ariaLabel: 'Taliad',
     },
   },
   [ProgressBarConfigType.C100_CASE_PROGRESSION]: {

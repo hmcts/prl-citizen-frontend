@@ -89,12 +89,10 @@ const startSections: ProgressBarProps[] = [
     },
     isInProgress: (caseData, userDetails, preRenderData) => {
       const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'CP isInProgress --> ', isInProgress);
       return isInProgress;
     },
     isComplete: (caseData, userDetails, preRenderData) => {
       const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'CP isComplete --> ', isComplete);
       return isComplete;
     },
   },
@@ -109,12 +107,10 @@ const startSections: ProgressBarProps[] = [
     },
     isInProgress: (caseData, userDetails, preRenderData) => {
       const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'SQ isInProgress --> ', isInProgress);
       return isInProgress;
     },
     isComplete: (caseData, userDetails, preRenderData) => {
       const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'SQ isComplete --> ', isComplete);
       return isComplete;
     },
   },
@@ -131,7 +127,6 @@ const consentOrderSection: ProgressBarProps = {
   },
   isComplete: (caseData, userDetails, preRenderData) => {
     const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'CO isComplete --> ', isComplete);
     return isComplete;
   },
   show: caseData => caseData?.sq_writtenAgreement === YesOrNo.YES,
@@ -148,12 +143,10 @@ const miamSection: ProgressBarProps = {
   },
   isInProgress: (caseData, userDetails, preRenderData) => {
     const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'miam isInProgress --> ', isInProgress);
     return isInProgress;
   },
   isComplete: (caseData, userDetails, preRenderData) => {
     const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'miam isComplete --> ', isComplete);
     return isComplete;
   },
   show: caseData => caseData?.sq_writtenAgreement === YesOrNo.NO,
@@ -170,12 +163,10 @@ const typeOfOrderSection: ProgressBarProps = {
   },
   isInProgress: (caseData, userDetails, preRenderData) => {
     const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'TO isInProgress --> ', isInProgress);
     return isInProgress;
   },
   isComplete: (caseData, userDetails, preRenderData) => {
     const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'TO isComplete --> ', isComplete);
     return isComplete;
   },
 };
@@ -191,12 +182,10 @@ const otherProceedingsSection: ProgressBarProps = {
   },
   isInProgress: (caseData, userDetails, preRenderData) => {
     const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'OP isInProgress --> ', isInProgress);
     return isInProgress;
   },
   isComplete: (caseData, userDetails, preRenderData) => {
     const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'OP isComplete --> ', isComplete);
     return isComplete;
   },
 };
@@ -212,12 +201,10 @@ const hearingUrgencyWithoutNoticeSection: ProgressBarProps = {
   },
   isInProgress: (caseData, userDetails, preRenderData) => {
     const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'UWN isInProgress --> ', isInProgress);
     return isInProgress;
   },
   isComplete: (caseData, userDetails, preRenderData) => {
     const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'UWN isComplete --> ', isComplete);
     return isComplete;
   },
 };
@@ -235,12 +222,10 @@ const peopleSection: ProgressBarProps = {
     const childSectionStarted = (caseData?.cd_children && caseData?.cd_children?.length > 0) ?? false;
     const isInProgress =
       childSectionStarted || isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'people isInProgress --> ', isInProgress);
     return isInProgress;
   },
   isComplete: (caseData, userDetails, preRenderData) => {
     const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-    console.info(preRenderData, 'people isComplete --> ', isComplete);
     return isComplete;
   },
 };
@@ -257,12 +242,10 @@ const endSections: ProgressBarProps[] = [
     },
     isInProgress: (caseData, userDetails, preRenderData) => {
       const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'SC isInProgress --> ', isInProgress);
       return isInProgress;
     },
     isComplete: (caseData, userDetails, preRenderData) => {
       const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'SC isComplete --> ', isComplete);
       return isComplete;
     },
   },
@@ -277,12 +260,10 @@ const endSections: ProgressBarProps[] = [
     },
     isInProgress: (caseData, userDetails, preRenderData) => {
       const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'IE isInProgress --> ', isInProgress);
       return isInProgress;
     },
     isComplete: (caseData, userDetails, preRenderData) => {
       const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'IE isComplete --> ', isComplete);
       return isComplete;
     },
   },
@@ -297,12 +278,10 @@ const endSections: ProgressBarProps[] = [
     },
     isInProgress: (caseData, userDetails, preRenderData) => {
       const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'RA isInProgress --> ', isInProgress);
       return isInProgress;
     },
     isComplete: (caseData, userDetails, preRenderData) => {
       const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'RA isComplete --> ', isComplete);
       return isComplete;
     },
   },
@@ -317,12 +296,10 @@ const endSections: ProgressBarProps[] = [
     },
     isInProgress: (caseData, userDetails, preRenderData) => {
       const isInProgress = isAtleastOneMandatoryFieldFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'HWF isInProgress --> ', isInProgress);
       return isInProgress;
     },
     isComplete: (caseData, userDetails, preRenderData) => {
       const isComplete = isAllMandatoryFieldsFilled(preRenderData.mandatoryFields, caseData);
-      console.info(preRenderData, 'HWF isComplete --> ', isComplete);
       return isComplete;
     },
   },
