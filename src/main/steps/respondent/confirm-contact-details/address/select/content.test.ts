@@ -5,6 +5,7 @@ import {
   generateContent as generateSelectAddressContent,
   form as selectAddressForm,
 } from '../../../../common/components/address-select';
+import { interpolate } from '../../../../common/string-parser';
 
 import { generateContent } from './content';
 
@@ -25,7 +26,11 @@ const cyContent = {
 
 /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
 describe('applicant > address > select > content', () => {
-  const commonContent = { language: EN, userCase: {}, addresses: [] as any[] } as CommonContent;
+  const commonContent = {
+    language: EN,
+    userCase: { citizenUserFullName: 'test name' },
+    addresses: [] as any[],
+  } as CommonContent;
   let generatedContent;
 
   beforeEach(() => {
@@ -35,7 +40,7 @@ describe('applicant > address > select > content', () => {
   test('should return correct english content', () => {
     const selectAddressContent = generateSelectAddressContent(commonContent);
     expect(generatedContent.section).toEqual(enContent.section);
-    expect(generatedContent.title).toEqual(enContent.title);
+    expect(generatedContent.title).toEqual(interpolate(enContent.title, { name: 'test name' }));
     expect(generatedContent.errors).toEqual({
       citizenUserSelectAddress: (selectAddressContent.errors as any).citizenUserSelectAddress,
     });
@@ -47,7 +52,7 @@ describe('applicant > address > select > content', () => {
     const selectAddressContent = generateSelectAddressContent({ ...commonContent, language: CY });
     generatedContent = generateContent({ ...commonContent, language: CY });
     expect(generatedContent.section).toEqual(cyContent.section);
-    expect(generatedContent.title).toEqual(cyContent.title);
+    expect(generatedContent.title).toEqual(interpolate(cyContent.title, { name: 'test name' }));
     expect(generatedContent.errors).toEqual({
       citizenUserSelectAddress: (selectAddressContent.errors as any).citizenUserSelectAddress,
     });

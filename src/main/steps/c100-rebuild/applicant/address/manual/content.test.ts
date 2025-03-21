@@ -6,7 +6,7 @@ import { CommonContent, generatePageContent } from '../../../../common/common.co
 import { generateContent } from './content';
 
 const en = {
-  title: 'Address of Dummy  Test1',
+  title: 'Address details of Dummy  Test1',
   errors: {
     address1: {
       required: 'Enter the first line of the address',
@@ -28,7 +28,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Cyfeiriad Dummy  Test1',
+  title: 'Manylion cyfeiriad Dummy  Test1',
   errors: {
     address1: {
       required: 'Nodwch linell gyntaf y cyfeiriad',
@@ -107,14 +107,14 @@ describe('applicant > address > manual > content', () => {
     expect(address1.type).toBe('text');
     expect(address1.classes).toBe('govuk-label');
     expect(address1.labelSize).toBe(null);
-    expect((address1.label as LanguageLookup)(generatedContent)).toBe('Building and street');
+    expect((address1.label as LanguageLookup)(generatedContent)).toBe('Building');
     // expect(address1.label).toBe('Building and street'),
     expect(address1.validator).toBe(isFieldFilledIn);
 
     expect(address2.type).toBe('text');
     expect(address2.classes).toBe('govuk-label');
     expect(address2.labelSize).toBe(null);
-    expect((address2.label as LanguageLookup)(generatedContent)).toBe(undefined);
+    expect((address2.label as LanguageLookup)(generatedContent)).toBe('Street');
 
     expect(addressTown.type).toBe('text');
     expect(addressTown.classes).toBe('govuk-label govuk-!-width-two-thirds');

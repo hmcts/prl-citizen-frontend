@@ -4,8 +4,7 @@ import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { prepareHearingData } from './utils';
 
 export const en = {
-  section: 'Your court hearings',
-  title: 'Your Hearings',
+  title: 'Your court hearings',
   goBack: 'Close and return to case overview',
   caseNumber: 'Case number',
   yourPreviousHearings: 'Your previous hearings',
@@ -60,8 +59,7 @@ export const en = {
 };
 
 export const cy = {
-  section: 'Eich gwrandawiadau llys',
-  title: 'Eich Gwrandawiadau',
+  title: 'Eich gwrandawiadau llys',
   goBack: 'Cau a dychwelyd i drosolwg o’r achos ',
   caseNumber: 'Rhif yr achos',
   yourPreviousHearings: 'Eich gwrandawiadau blaenorol',

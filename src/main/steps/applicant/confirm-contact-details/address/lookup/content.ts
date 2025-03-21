@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
+import { interpolate } from '../../../../../steps/common/string-parser';
 import {
   form as addressLookupForm,
   generateContent as addressLookupGenerateContent,
@@ -59,6 +60,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...addressLookupContent,
     ...translationContent,
+    title: interpolate(translationContent.title, { name: content.userCase!.citizenUserFullName! }),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
   };
 };

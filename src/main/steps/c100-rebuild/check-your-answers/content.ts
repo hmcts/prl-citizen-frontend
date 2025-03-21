@@ -213,7 +213,7 @@ import _ from 'lodash';
 
 export const enContent = {
   section: '',
-  title: 'Check your Answers',
+  title: 'Check your answers to your C100 application',
   change: 'Edit',
   topWarning: {
     text: 'Your answers will be shared with the other people in this case.',
@@ -488,7 +488,7 @@ export const enContent = {
 };
 export const cyContent = {
   section: '',
-  title: 'Gwiriwch eich atebion',
+  title: 'Gwirio eich atebion i’ch cais C100',
   change: ' Golygu',
   topWarning: {
     text: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',

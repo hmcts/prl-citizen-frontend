@@ -6,7 +6,7 @@ import { generateContent } from '../../remove-legal-representative/confirm/conte
 
 const enContent = {
   continue: 'Close and return to case overview',
-  requestSubmitted: 'Request submitted',
+  title: 'Request submitted',
   whatHappensText: 'What happens next',
   removeLegalRepresentativeConfirmationLine1:
     'A case administrator from HM Courts and Tribunals will review this request.',
@@ -16,7 +16,7 @@ const enContent = {
 
 const cyContent = {
   continue: 'Cau a dychwelyd i drosolwg o’r achos',
-  requestSubmitted: 'Cais wedi’i gyflwyno',
+  title: 'Cais wedi’i gyflwyno',
   whatHappensText: 'Beth fydd yn digwydd nesaf',
   removeLegalRepresentativeConfirmationLine1:
     'Bydd gweinyddwr achosion o Wasanaeth Llysoedd a Thribiwnlysoedd EF yn adolygu’r cais hwn.',

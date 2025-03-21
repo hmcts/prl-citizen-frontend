@@ -6,7 +6,7 @@ import { summaryList } from '../../../common/summary/utils';
 import { updateContent } from './handler';
 
 export const enContent = {
-  title: 'Check your answers',
+  title: 'Check your answers to MIAM attendance',
   subTitle: 'Mediation Information and Assessment Meeting (MIAM) attendance',
   sectionTitles: {
     MIAMDetails: '',
@@ -33,7 +33,7 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  title: 'Gwirio eich atebion',
+  title: 'Gwirio eich atebion ynghylch mynychu MIAM',
   subTitle: 'Presenoldeb mewn Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
   sectionTitles: {
     MIAMDetails: '',

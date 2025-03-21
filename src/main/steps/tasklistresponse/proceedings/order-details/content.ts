@@ -15,7 +15,7 @@ export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: 'Provide details of court cases you or the children have been involved in',
+  title: 'Provide details of the order that you (the respondent) or the children have been involved in (optional)',
   additionalNote:
     'If you do not have the specific details, you can skip this section and proceed with the application.',
   emergencyProtectionOrderLabel: 'Emergency Protection Order',
@@ -67,7 +67,7 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  title: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
+  title: 'Darparu manylion am y gorchymyn yr ydych chi (yr atebydd) neu’r plant wedi bod yn rhan ohono (dewisol)',
   additionalNote: "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a bwrw ymlaen â'r cais.",
   emergencyProtectionOrderLabel: 'Gorchymyn Diogelu Brys',
   childArrangementOrderLabel: 'Gorchymyn Trefniadau Plant',

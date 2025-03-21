@@ -6,8 +6,7 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const enContent = {
-  section: 'Your court hearings',
-  title: 'Your Hearings',
+  title: 'Your court hearings',
   goBack: 'Close and return to case overview',
   caseNumber: 'Case number',
   yourPreviousHearings: 'Your previous hearings',
@@ -46,8 +45,7 @@ const enContent = {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Eich gwrandawiadau llys',
-  title: 'Eich Gwrandawiadau',
+  title: 'Eich gwrandawiadau llys',
   goBack: 'Cau a dychwelyd i drosolwg o’r achos ',
   caseNumber: 'Rhif yr achos',
   yourPreviousHearings: 'Eich gwrandawiadau blaenorol',
@@ -359,7 +357,7 @@ describe('citizen-home yourhearings hearings content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.section).toEqual('Your court hearings');
+    expect(generatedContent.title).toEqual('Your court hearings');
   });
 
   // eslint-disable-next-line jest/expect-expect

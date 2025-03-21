@@ -1,8 +1,9 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { interpolate } from '../../../../steps/common/string-parser';
 
 const en = {
-  title: 'Your address',
+  title: 'Review the address of {name}',
   citizenUserAddressText: 'address',
   continue: 'Save and continue',
   editAddress: 'Edit Address',
@@ -10,7 +11,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Eich cyfeiriad',
+  title: 'Adolygu cyfeiriad {name}',
   citizenUserAddressText: 'cyfeiriad',
   continue: 'Arbed a pharhau',
   editAddress: 'Golygu Cyfeiriad',
@@ -46,6 +47,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     citizenUserAddressText: content.userCase?.citizenUserAddressText,
+    title: interpolate(translations.title, { name: content.userCase!.citizenUserFullName! }),
     form,
   };
 };

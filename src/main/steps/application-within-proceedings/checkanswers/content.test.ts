@@ -8,7 +8,7 @@ import { CommonContent, generatePageContent } from '../../common/common.content'
 import { generateContent } from './content';
 
 const en = {
-  title: 'Check your answers',
+  title: 'Check your answers to your application',
   caseNumber: 'Case number',
   application: 'application',
   sectionTitles: {},
@@ -35,7 +35,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Gwirio eich atebion',
+  title: 'Gwirio eich atebion i’ch cais',
   caseNumber: 'Rhif yr achos ',
   application: 'Cais',
   sectionTitles: {},

@@ -7,7 +7,8 @@ import { generateContent } from './address-manual';
 jest.mock('../../../app/form/validation');
 
 const enContent = {
-  addressLine1: 'Building and street',
+  addressLine1: 'Building',
+  addressLine2: 'Street',
   town: 'Town or city',
   county: 'County',
   postcode: 'Postcode',
@@ -26,7 +27,8 @@ const enContent = {
 };
 
 const cyContent = {
-  addressLine1: 'Adeilad a stryd',
+  addressLine1: 'Adeilad',
+  addressLine2: 'Stryd',
   town: 'Tref neu ddinas',
   county: 'Sir',
   postcode: 'Cod post',
@@ -59,6 +61,7 @@ describe('common > components > manual-address > content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.citizenUserManualAddress1).toEqual(enContent.addressLine1);
+    expect(generatedContent.citizenUserManualAddress2).toEqual(enContent.addressLine2);
     expect(generatedContent.citizenUserManualAddressTown).toEqual(enContent.town);
     expect(generatedContent.citizenUserManualAddressCounty).toEqual(enContent.county);
     expect(generatedContent.citizenUserManualAddressPostcode).toEqual(enContent.postcode);
@@ -69,6 +72,7 @@ describe('common > components > manual-address > content', () => {
   test('should return correct welsh content', () => {
     generatedContent = generateContent({ ...commonContent, language: 'cy' });
     expect(generatedContent.citizenUserManualAddress1).toEqual(cyContent.addressLine1);
+    expect(generatedContent.citizenUserManualAddress2).toEqual(cyContent.addressLine2);
     expect(generatedContent.citizenUserManualAddressTown).toEqual(cyContent.town);
     expect(generatedContent.citizenUserManualAddressCounty).toEqual(cyContent.county);
     expect(generatedContent.citizenUserManualAddressPostcode).toEqual(cyContent.postcode);
@@ -89,7 +93,7 @@ describe('common > components > manual-address > content', () => {
     const address2Field = fields.citizenUserManualAddress2 as FormOptions;
     expect(address2Field.type).toBe('text');
     expect(address2Field.classes).toBe('govuk-label');
-    expect((address2Field.label as Function)(generatedContent)).toBeUndefined();
+    expect((address2Field.label as Function)(generatedContent)).toBe(enContent.addressLine2);
     expect(address2Field.labelSize).toBe(null);
   });
 
