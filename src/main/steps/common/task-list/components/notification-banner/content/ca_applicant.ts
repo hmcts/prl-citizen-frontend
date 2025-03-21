@@ -21,6 +21,7 @@ import {
   isCafcassCymruServed,
   isCafcassServed,
   isPersonalServiceByCourt,
+  parseC100ReturnUrl,
 } from '../utils';
 
 const en: NotificationBannerContentConfig = {
@@ -60,7 +61,9 @@ const en: NotificationBannerContentConfig = {
             href: '{c100RebuildReturnUrl}',
             interpolateHref: (content: string, caseData: CaseWithId): string => {
               return interpolate(content, {
-                c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
+                c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl
+                  ? parseC100ReturnUrl(caseData.c100RebuildReturnUrl)
+                  : '#',
               });
             },
           },
@@ -611,7 +614,9 @@ const cy: typeof en = {
             href: '{c100RebuildReturnUrl}',
             interpolateHref: (content: string, caseData: CaseWithId): string => {
               return interpolate(content, {
-                c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
+                c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl
+                  ? parseC100ReturnUrl(caseData.c100RebuildReturnUrl)
+                  : '#',
               });
             },
           },

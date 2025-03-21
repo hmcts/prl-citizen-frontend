@@ -8,8 +8,7 @@ import { getPartyDetails } from '../../../people/util';
 import { getPeople } from '../utils';
 export * from '../routeGuard';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = {
+export const en = {
   title: "{firstName} {lastName}'s living arrangements",
   livingArrangements:
     'We need this information so that the court has a complete understanding of the child’s living arrangements.',
@@ -21,7 +20,7 @@ const en = {
   },
 };
 
-const cy = {
+export const cy = {
   title: "{firstName} {lastName}'s living arrangements (welsh)",
   livingArrangements:
     'We need this information so that the court has a complete understanding of the child’s living arrangements. (welsh)',

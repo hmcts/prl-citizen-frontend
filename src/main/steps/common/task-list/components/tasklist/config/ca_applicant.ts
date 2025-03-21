@@ -31,6 +31,7 @@ import {
   isDraftCase,
   isRepresentedBySolicotor,
 } from '../../../utils';
+import { parseC100ReturnUrl } from '../../notification-banner/utils';
 import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, isRespondentSubmitedResponse } from '../utils';
 
 export const CA_APPLICANT: TaskListConfigProps[] = [
@@ -85,7 +86,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           if (!caseData || !doesCaseHaveId(caseData)) {
             return C100_START;
           }
-          return caseData.c100RebuildReturnUrl!;
+          return parseC100ReturnUrl(caseData.c100RebuildReturnUrl!);
         },
         stateTag: (caseData: Partial<CaseWithId>) => {
           if (!caseData || !doesCaseHaveId(caseData)) {

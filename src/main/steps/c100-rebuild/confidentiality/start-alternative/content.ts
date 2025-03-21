@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Case } from '../../../../app/case/case';
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
+export const en = () => ({
   caption: 'Keeping your contact details private',
   headingTitle: `Do you want to keep your contact details private from 
   the other people named in the application (the respondents)?`,
@@ -31,7 +31,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
   headingTitle:
     'Ydych chi eisiau cadw eich manylion cyswllt yn breifat ar gyfer oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',

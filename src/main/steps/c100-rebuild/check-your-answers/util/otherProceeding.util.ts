@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { RootContext } from '../../../../app/case/definition';
+import { ProceedingsOrderTypeKeyMapper, RootContext } from '../../../../app/case/definition';
 import { IndividualOrderFieldsParser } from '../../../../steps/common/otherProceeding/utils';
 import { C100_OTHER_PROCEEDINGS_ORDER_DETAILS } from '../../../../steps/urls';
 import { applyParms } from '../../../common/url-parser';
@@ -40,7 +40,7 @@ export const Mapper = (key, keys) => {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, language) => {
   if (UserCase.hasOwnProperty(sessionKey)) {
-    const orderSessionStorage = [] as { key: string; valueHtml: string; changeUrl: string }[];
+    const orderSessionStorage = [] as { key: string; anchorReference: string; valueHtml: string; changeUrl: string }[];
     UserCase[sessionKey].forEach(order => {
       if (
         UserCase['op_otherProceedings']?.['order'].hasOwnProperty(`${order}s`) ||
@@ -59,10 +59,11 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, sessionKey, 
             orderDetails = UserCase['op_otherProceedings']?.['order'][`${order}s`];
             break;
         }
-        orderDetails.forEach((nestedOrder, index) => {
+        orderDetails?.forEach((nestedOrder, index) => {
           const IndexNumber = index > 0 ? index + 1 : '';
           orderSessionStorage.push({
             key: `${keys[order + 'Label']} ${IndexNumber}`,
+            anchorReference: `${ProceedingsOrderTypeKeyMapper[order]}-${index}`,
             valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language, RootContext.C100_REBUILD),
             changeUrl: applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: order }),
           });

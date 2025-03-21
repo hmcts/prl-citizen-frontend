@@ -19,6 +19,7 @@ import {
   isCafcassServed,
   isPartyServed,
   isPersonalServiceByCourt,
+  parseC100ReturnUrl,
   showNotification,
 } from './utils';
 
@@ -609,6 +610,18 @@ describe('notification Banner', () => {
         uploadedBy: 'test user2',
         uploadedDate: '2024-03-11T16:24:33.122506',
       });
+    });
+  });
+
+  describe('parseC100ReturnUrl', () => {
+    test('should return the correct url for english', () => {
+      const url = parseC100ReturnUrl('/c100-rebuild/check-your-answers?validApplication=true');
+      expect(url).toBe('/c100-rebuild/check-your-answers');
+    });
+
+    test('should return the correct url for welsh', () => {
+      const url = parseC100ReturnUrl('/c100-rebuild/check-your-answers?lng=cy&validApplication=true');
+      expect(url).toBe('/c100-rebuild/check-your-answers?lng=cy');
     });
   });
 });
