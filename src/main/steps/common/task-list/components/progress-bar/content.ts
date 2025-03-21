@@ -126,8 +126,8 @@ const cy: typeof en = {
       ariaLabel: 'Achosion eraill',
     },
     urgencyAndWithoutNotice: {
-      label: 'Pa mor frys yw’r cais',
-      ariaLabel: 'Pa mor frys yw’r cais',
+      label: 'Brys clyw',
+      ariaLabel: 'Brys clyw',
     },
     people: {
       label: 'Pobl',
