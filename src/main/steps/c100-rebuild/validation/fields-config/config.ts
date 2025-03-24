@@ -1,0 +1,12 @@
+export { ChildrenPostcodeFieldsConfig } from './sections/children-postcode';
+export { ScreeningQuestionsFieldsConfig } from './sections/screening-questions';
+export { TypeOfOrderFieldsConfig } from './sections/type-of-order';
+export { OtherProceedingsFieldsConfig } from './sections/other-proceedings';
+export { UrgenceyAndWithoutNoticeFieldsConfig } from './sections/urgency-and-without-notice';
+export { InternationalElementsFieldsConfig } from './sections/international-elements';
+export { HelpWithFeesFieldsConfig } from './sections/help-with-fees';
+export { SafetyConcernsFieldsConfig } from './sections/safety-concerns';
+export { ReasonableAdjustmentsFieldsConfig } from './sections/reasonable-adjustments';
+export { MiamQuestionsFieldsConfig } from './sections/miam';
+export { PeopleFieldsConfig } from './sections/people';
+export { ConsentOrderFieldsConfig } from './sections/consent-order';

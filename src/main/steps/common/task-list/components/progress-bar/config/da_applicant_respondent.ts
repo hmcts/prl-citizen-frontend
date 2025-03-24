@@ -6,24 +6,26 @@ import { ProgressBarProps } from '../../../../../../steps/common/task-list/defin
 import { isCaseClosed } from '../../../utils';
 import { progressBarStage } from '../utils';
 
-export const DA_APPLICANT_RESPONDENT: ProgressBarProps[] = [
-  { ...progressBarStage.caseOpened, isComplete: () => true },
-  {
-    ...progressBarStage.hearingAndCourtOrders,
-    isInProgress: (userCase: Partial<CaseWithId>) =>
-      userCase &&
-      !!(
-        userCase.orderCollection ||
-        [State.DECISION_OUTCOME, State.PREPARE_FOR_HEARING_CONDUCT_HEARING].includes(userCase.state!)
-      ),
-    isComplete: (userCase: Partial<CaseWithId>) => userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl,
-  },
-  {
-    ...progressBarStage.finalOrder,
-    isComplete: (userCase: Partial<CaseWithId>) => userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl,
-  },
-  {
-    ...progressBarStage.caseClosed,
-    isComplete: isCaseClosed,
-  },
-];
+export const getDAConfig = (): ProgressBarProps[] => {
+  return [
+    { ...progressBarStage.caseOpened, isComplete: () => true },
+    {
+      ...progressBarStage.hearingAndCourtOrders,
+      isInProgress: (userCase: Partial<CaseWithId>) =>
+        userCase &&
+        !!(
+          userCase.orderCollection ||
+          [State.DECISION_OUTCOME, State.PREPARE_FOR_HEARING_CONDUCT_HEARING].includes(userCase.state!)
+        ),
+      isComplete: (userCase: Partial<CaseWithId>) => userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl,
+    },
+    {
+      ...progressBarStage.finalOrder,
+      isComplete: (userCase: Partial<CaseWithId>) => userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl,
+    },
+    {
+      ...progressBarStage.caseClosed,
+      isComplete: isCaseClosed,
+    },
+  ];
+};

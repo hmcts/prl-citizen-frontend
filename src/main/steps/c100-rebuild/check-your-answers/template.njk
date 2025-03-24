@@ -24,13 +24,16 @@
   }) }}
 {% endif %}
 
+{% endblock %}
+
+{% if c100CaseProgressTrainTrack.length %}
+      <div class="govuk-grid-column-full govuk-!-padding-bottom-9">
+        {{buildProgressBar(c100CaseProgressTrainTrack)}}
+      </div>
+    {% endif %}
 <h1 class="govuk-heading-xl govuk-!-margin-top-5">{{title}}</h1>
 {{ govukWarningText(getContent(topWarning)) }}
 <p class="govuk-body-l">{{makingSure}}</p>
-
-
-{% endblock %}
-
 {% block form %}
   {% include "./form.njk"%}
 {% endblock %}

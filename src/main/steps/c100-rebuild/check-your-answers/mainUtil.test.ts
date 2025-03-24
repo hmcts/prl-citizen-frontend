@@ -1,6 +1,15 @@
 /* eslint-disable import/no-unresolved */
 import { CaseWithId } from '../../../app/case/case';
-import { PartyType, YesOrNo } from '../../../app/case/definition';
+import {
+  C100Applicant,
+  C100OrderTypeInterface,
+  C100RebuildPartyDetails,
+  C1AAbuseTypes,
+  ChildrenDetails,
+  Gender,
+  PartyType,
+  YesOrNo,
+} from '../../../app/case/definition';
 
 import { ANYTYPE } from './common/index';
 import {
@@ -27,8 +36,19 @@ import {
   TypeOfOrder,
   WithoutNoticeHearing,
   areRefugeDocumentsNotPresent,
+  generateApplicantErrors,
+  generateChildErrors,
+  generateConcernAboutChildErrors,
+  generateOtherChildrenError,
+  generateOtherPersonErrors,
+  generateOtherProceedingDocErrorContent,
+  generateOtherProceedingDocErrors,
+  generatePeopleErrors,
+  generateRelationshipErrors,
+  generateRespondentErrors,
   getYesNoTranslation,
   otherPersonConfidentiality,
+  prepareProp,
   reasonableAdjustment,
   whereDoChildrenLive,
 } from './mainUtil';
@@ -118,7 +138,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
     };
-    expect(TypeOfOrder({ sectionTitles, keys, content }, userCase)).toStrictEqual({
+    expect(TypeOfOrder({ sectionTitles, keys, content }, userCase, 'en')).toStrictEqual({
       rows: [
         {
           actions: {
@@ -127,14 +147,14 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/typeoforder/select-courtorder',
                 text: undefined,
                 visuallyHiddenText: 'whatAreYouAsking',
-                attributes: {},
+                attributes: { id: 'too_courtOrder' },
               },
             ],
           },
           key: {
             text: 'whatAreYouAsking',
           },
-          value: {},
+          value: { html: '<span class="govuk-error-message">Complete this section</span>' },
         },
         {
           actions: {
@@ -143,14 +163,14 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/typeoforder/shortstatement',
                 text: undefined,
                 visuallyHiddenText: 'wantingCourtToDo',
-                attributes: {},
+                attributes: { id: 'too_shortStatement' },
               },
             ],
           },
           key: {
             text: 'wantingCourtToDo',
           },
-          value: {},
+          value: { html: '<span class="govuk-error-message">Complete this section</span>' },
         },
       ],
       title: undefined,
@@ -170,12 +190,14 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/hearing-urgency/urgent',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {},
+                attributes: { id: 'hu_urgentHearingReasons' },
               },
             ],
           },
           key: {},
-          value: {},
+          value: {
+            html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+          },
         },
         {
           actions: {
@@ -184,12 +206,14 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {},
+                attributes: { id: 'hwn_reasonsForApplicationWithoutNotice' },
               },
             ],
           },
           key: {},
-          value: {},
+          value: {
+            html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+          },
         },
       ],
       title: 'WithoutNoticeHearing',
@@ -219,7 +243,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
     };
-    const locationDetails = LocationDetails({ sectionTitles, keys, content }, userCase);
+    const locationDetails = LocationDetails({ sectionTitles, keys, content }, userCase, 'en');
     expect(locationDetails?.rows).not.toBe([]);
     expect(locationDetails?.title).toBe(undefined);
   });
@@ -282,13 +306,13 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/screening-questions/permission',
               text: undefined,
               visuallyHiddenText: 'reasonPermissionRequired',
-              attributes: {},
+              attributes: { id: 'sq_courtPermissionRequired' },
             },
           ],
         },
         key: { text: 'reasonPermissionRequired' },
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -298,7 +322,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/screening-questions/permissions-why',
               text: undefined,
               visuallyHiddenText: 'whyPermissionRequiredFromCourt',
-              attributes: {},
+              attributes: { id: 'sq_permissionsWhy' },
             },
           ],
         },
@@ -314,7 +338,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/screening-questions/permissions-request',
               text: undefined,
               visuallyHiddenText: 'whyCourtGrantSubmittingPermission',
-              attributes: {},
+              attributes: { id: 'sq_permissionsRequest' },
             },
           ],
         },
@@ -322,7 +346,7 @@ describe('test cases for main util', () => {
           text: 'whyCourtGrantSubmittingPermission',
         },
         value: {
-          text: 'MOCK_VALUE',
+          html: 'MOCK_VALUE',
         },
       },
     ]);
@@ -472,7 +496,7 @@ describe('test cases for main util', () => {
         'helpTravellingMovingBuildingSupport',
       ],
     };
-    const PermissionForApplicationObj = reasonableAdjustment({ sectionTitles, keys, content }, userCase);
+    const PermissionForApplicationObj = reasonableAdjustment({ sectionTitles, keys, content }, userCase, 'en');
     expect(PermissionForApplicationObj?.rows).not.toBe([]);
     expect(PermissionForApplicationObj?.title).toBe(undefined);
   });
@@ -522,7 +546,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/add-children',
               text: undefined,
               visuallyHiddenText: 'child 1 fullName',
-              attributes: {},
+              attributes: { id: 'fullName-child-0' },
             },
           ],
         },
@@ -530,7 +554,7 @@ describe('test cases for main util', () => {
           text: 'fullName',
         },
         value: {
-          text: 'Nir Sin',
+          html: 'Nir Sin',
         },
       },
       {
@@ -539,14 +563,14 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'child 1 approxCheckboxLabel',
-              attributes: {},
+              visuallyHiddenText: 'child 0 approxCheckboxLabel',
+              attributes: { id: 'isDateOfBirthUnknown-child-0' },
             },
           ],
         },
         key: { text: 'approxCheckboxLabel' },
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -555,14 +579,14 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'child 1 approxDobLabel',
-              attributes: {},
+              visuallyHiddenText: 'child 0 approxDobLabel',
+              attributes: { id: 'approxDateOfBirth-child-0' },
             },
           ],
         },
         key: { text: 'approxDobLabel' },
         value: {
-          text: '11 November 1999',
+          html: '11 November 1999',
         },
       },
       {
@@ -572,7 +596,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
               visuallyHiddenText: 'child 1 childGenderLabel',
-              attributes: {},
+              attributes: { id: 'gender-child-0' },
             },
           ],
         },
@@ -590,7 +614,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/child-matters',
               text: undefined,
               visuallyHiddenText: 'child 1 orderAppliedFor',
-              attributes: {},
+              attributes: { id: 'orderAppliedFor-child-0' },
             },
           ],
         },
@@ -608,7 +632,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/parental-responsibility',
               text: undefined,
               visuallyHiddenText: 'child 1 parentalResponsibility',
-              attributes: {},
+              attributes: { id: 'parentalResponsibility-child-0' },
             },
           ],
         },
@@ -616,7 +640,7 @@ describe('test cases for main util', () => {
           text: 'parentalResponsibility',
         },
         value: {
-          text: 'ok',
+          html: 'ok',
         },
       },
     ]);
@@ -695,13 +719,13 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/has-other-children',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'ocd_hasOtherChildren' },
             },
           ],
         },
         key: {},
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -717,7 +741,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/other-children/names',
               text: undefined,
               visuallyHiddenText: 'child 1 fullName',
-              attributes: {},
+              attributes: { id: 'fullName-otherChild-0' },
             },
           ],
         },
@@ -725,7 +749,7 @@ describe('test cases for main util', () => {
           text: 'fullName',
         },
         value: {
-          text: 'Nir Sin',
+          html: 'Nir Sin',
         },
       },
       {
@@ -734,8 +758,8 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
-              visuallyHiddenText: 'Other child 1 dobLabel',
-              attributes: {},
+              visuallyHiddenText: 'Other child 0 dobLabel',
+              attributes: { id: 'dateOfBirth-otherChild-0' },
             },
           ],
         },
@@ -743,7 +767,7 @@ describe('test cases for main util', () => {
           text: 'dobLabel',
         },
         value: {
-          text: '11 November 1999',
+          html: '11 November 1999',
         },
       },
       {
@@ -753,7 +777,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
               text: undefined,
               visuallyHiddenText: 'child 1 childGenderLabel',
-              attributes: {},
+              attributes: { id: 'gender-otherChild-0' },
             },
           ],
         },
@@ -810,13 +834,13 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/has-other-children',
                 text: undefined,
                 visuallyHiddenText: 'undefined',
-                attributes: {},
+                attributes: { id: 'ocd_hasOtherChildren' },
               },
             ],
           },
           key: {},
           value: {
-            text: 'Yes',
+            html: 'Yes',
           },
         },
         {
@@ -832,7 +856,7 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/other-children/names',
                 text: undefined,
                 visuallyHiddenText: 'child 1 fullName',
-                attributes: {},
+                attributes: { id: 'fullName-otherChild-0' },
               },
             ],
           },
@@ -840,7 +864,7 @@ describe('test cases for main util', () => {
             text: 'fullName',
           },
           value: {
-            text: 'Nir Sin',
+            html: 'Nir Sin',
           },
         },
         {
@@ -849,13 +873,13 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
-                visuallyHiddenText: 'Other child 1 approxCheckboxLabel',
-                attributes: {},
+                visuallyHiddenText: 'Other child 0 approxCheckboxLabel',
+                attributes: { id: 'isDateOfBirthUnknown-otherChild-0' },
               },
             ],
           },
           key: { text: 'approxCheckboxLabel' },
-          value: {},
+          value: { html: '<span class="govuk-error-message">Complete this section</span>' },
         },
         {
           actions: {
@@ -863,8 +887,8 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
-                visuallyHiddenText: 'Other child 1 approxDobLabel',
-                attributes: {},
+                visuallyHiddenText: 'Other child 0 approxDobLabel',
+                attributes: { id: 'approxDateOfBirth-otherChild-0' },
               },
             ],
           },
@@ -872,7 +896,7 @@ describe('test cases for main util', () => {
             text: 'approxDobLabel',
           },
           value: {
-            text: '11 November 1999',
+            html: '11 November 1999',
           },
         },
         {
@@ -882,7 +906,7 @@ describe('test cases for main util', () => {
                 href: '/c100-rebuild/child-details/other-children/39bc0ed2-503e-4d6e-a957-b57e8f35bc70/personal-details',
                 text: undefined,
                 visuallyHiddenText: 'child 1 childGenderLabel',
-                attributes: {},
+                attributes: { id: 'gender-otherChild-0' },
               },
             ],
           },
@@ -1009,7 +1033,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/add-other-persons',
               text: undefined,
               visuallyHiddenText: 'Other person 1 fullName',
-              attributes: {},
+              attributes: { id: 'fullName-otherPerson-0' },
             },
           ],
         },
@@ -1017,7 +1041,7 @@ describe('test cases for main util', () => {
           text: 'fullName',
         },
         value: {
-          text: 'Respondent FirstPage',
+          html: 'Respondent FirstPage',
         },
       },
       {
@@ -1027,14 +1051,14 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
               visuallyHiddenText: 'Other person 1 hasNameChanged',
-              attributes: {},
+              attributes: { id: 'hasNameChanged-otherPerson-0' },
             },
           ],
         },
         key: {
           text: 'hasNameChanged',
         },
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1043,7 +1067,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
               visuallyHiddenText: 'Other person 1 childGenderLabel',
-              attributes: {},
+              attributes: { id: 'childGenderLabel-otherPerson-0' },
             },
           ],
         },
@@ -1061,7 +1085,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/personal-details',
               text: undefined,
               visuallyHiddenText: 'Other person 1 dobLabel',
-              attributes: {},
+              attributes: { id: 'dateOfBirth-otherPerson-0' },
             },
           ],
         },
@@ -1069,7 +1093,7 @@ describe('test cases for main util', () => {
           text: 'dobLabel',
         },
         value: {
-          text: '11 January 1999',
+          html: '11 January 1999',
         },
       },
       {
@@ -1079,7 +1103,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/relationship-to-child/39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
               text: undefined,
               visuallyHiddenText: 'Other person 1 relationshipTo Nir Sin',
-              attributes: {},
+              attributes: { id: 'relationshipTo-otherPerson-0-0' },
             },
           ],
         },
@@ -1087,7 +1111,7 @@ describe('test cases for main util', () => {
           text: 'relationshipTo Nir Sin',
         },
         value: {
-          text: 'Other',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
       {
@@ -1097,7 +1121,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/refuge/staying-in-refuge/3b32bc4f-7417-443b-ba94-5eacfcee04c4?',
               text: undefined,
               visuallyHiddenText: 'Other person 1 refuge',
-              attributes: {},
+              attributes: { id: 'refuge-otherPerson-0' },
             },
           ],
         },
@@ -1105,7 +1129,7 @@ describe('test cases for main util', () => {
           text: 'refuge',
         },
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -1135,7 +1159,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/address/manual',
               text: undefined,
               visuallyHiddenText: 'Other person 1 addressDetails',
-              attributes: {},
+              attributes: { id: 'addressDetails-otherPerson-0' },
             },
           ],
         },
@@ -1143,7 +1167,7 @@ describe('test cases for main util', () => {
           text: 'addressDetails',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">addressLine1<br>addressLine2<br>postTown<br>county<br><br></dd></div></dl>',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
     ]);
@@ -1153,6 +1177,15 @@ describe('test cases for main util', () => {
     const helpWithFeeObj = HelpWithFee({ sectionTitles, keys, content }, {}, language);
     expect(helpWithFeeObj?.rows).not.toBe([]);
     expect(helpWithFeeObj?.title).toBe(undefined);
+  });
+
+  test('helpWithFee should have correct url when feesAppliedDetails is no', () => {
+    const helpWithFeeObj = HelpWithFee(
+      { sectionTitles, keys, content },
+      { hwf_needHelpWithFees: 'Yes', hwf_feesAppliedDetails: 'No' } as CaseWithId,
+      language
+    );
+    expect(helpWithFeeObj?.rows[1].actions?.items?.[0].href).toBe('/c100-rebuild/help-with-fees/hwf-guidance');
   });
 
   test('otherPeopleDetailsTitle', () => {
@@ -1197,7 +1230,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase, 'en');
     expect(whereDoChildLiveObj?.rows).toEqual([
       {
         actions: {
@@ -1206,7 +1239,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
               text: undefined,
               visuallyHiddenText: 'Who does Bob Silly mainly live with?',
-              attributes: {},
+              attributes: { id: 'mainlyLiveWith-child-0' },
             },
           ],
         },
@@ -1224,7 +1257,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
               text: undefined,
               visuallyHiddenText: "Bob Silly's living arrangements",
-              attributes: {},
+              attributes: { id: 'childLivingArrangements-child-0' },
             },
           ],
         },
@@ -1232,7 +1265,7 @@ describe('test cases for main util', () => {
           text: "Bob Silly's living arrangements",
         },
         value: {
-          html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
     ]);
@@ -1255,7 +1288,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase, 'en');
     expect(whereDoChildLiveObj?.rows).toEqual([
       {
         actions: {
@@ -1264,7 +1297,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
               text: undefined,
               visuallyHiddenText: 'Who does Bob Silly mainly live with?',
-              attributes: {},
+              attributes: { id: 'mainlyLiveWith-child-0' },
             },
           ],
         },
@@ -1272,7 +1305,7 @@ describe('test cases for main util', () => {
           text: 'Who does Bob Silly mainly live with?',
         },
         value: {
-          html: ' ',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
       {
@@ -1282,7 +1315,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
               text: undefined,
               visuallyHiddenText: "Bob Silly's living arrangements",
-              attributes: {},
+              attributes: { id: 'childLivingArrangements-child-0' },
             },
           ],
         },
@@ -1290,7 +1323,7 @@ describe('test cases for main util', () => {
           text: "Bob Silly's living arrangements",
         },
         value: {
-          html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
     ]);
@@ -1315,7 +1348,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase, 'en');
     expect(whereDoChildLiveObj?.rows).not.toBe([]);
     expect(whereDoChildLiveObj?.title).toBe(undefined);
   });
@@ -1346,7 +1379,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase);
+    const whereDoChildLiveObj = whereDoChildrenLive({ sectionTitles, keys, content }, userCase, 'en');
     expect(whereDoChildLiveObj?.rows).toEqual([
       {
         actions: {
@@ -1355,7 +1388,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with',
               text: undefined,
               visuallyHiddenText: 'Who does Bob Silly mainly live with?',
-              attributes: {},
+              attributes: { id: 'mainlyLiveWith-child-0' },
             },
           ],
         },
@@ -1373,7 +1406,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/living-arrangements',
               text: undefined,
               visuallyHiddenText: "Bob Silly's living arrangements",
-              attributes: {},
+              attributes: { id: 'childLivingArrangements-child-0' },
             },
           ],
         },
@@ -1405,7 +1438,8 @@ describe('test cases for main util', () => {
       const otherPersonConfidentialitySections = otherPersonConfidentiality(
         { sectionTitles, keys, content },
         userCase,
-        'en'
+        'en',
+        ['7483640e-0817-4ddc-b709-6723f7925474']
       );
       expect(otherPersonConfidentialitySections?.rows).toStrictEqual([
         {
@@ -1535,7 +1569,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/concerns-about',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_concernAboutChild' },
             },
           ],
         },
@@ -1551,14 +1585,14 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/report-abuse/physicalAbuse',
               text: undefined,
               visuallyHiddenText: 'detailsOfChildConcern',
-              attributes: {},
+              attributes: { id: 'c1A_concernAboutChild-physicalAbuse' },
             },
           ],
         },
         key: {
           text: 'detailsOfChildConcern',
         },
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1567,7 +1601,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/report-abuse/psychologicalAbuse',
               text: undefined,
               visuallyHiddenText: 'detailsOfChildConcern',
-              attributes: {},
+              attributes: { id: 'c1A_concernAboutChild-psychologicalAbuse' },
             },
           ],
         },
@@ -1575,7 +1609,7 @@ describe('test cases for main util', () => {
           text: 'detailsOfChildConcern',
         },
 
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1584,12 +1618,12 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/child-location',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_abductionReasonOutsideUk' },
             },
           ],
         },
         key: {},
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1598,12 +1632,12 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/child-location',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_childsCurrentLocation' },
             },
           ],
         },
         key: {},
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1612,13 +1646,13 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/passport-office',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_passportOffice' },
             },
           ],
         },
         key: {},
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><li>Father</li></dd></div></ul></dl>',
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">undefined</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><li>Father</li></dd></div></ul></dl>',
         },
       },
       {
@@ -1628,12 +1662,12 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/passport-office-notified',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_abductionPassportOfficeNotified' },
             },
           ],
         },
         key: {},
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1642,7 +1676,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/threats',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: { id: 'c1A_childAbductedBefore' },
             },
           ],
         },
@@ -1658,14 +1692,14 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/previousabductions',
               text: undefined,
               visuallyHiddenText: 'detailsofAbduction',
-              attributes: {},
+              attributes: { id: 'c1A_previousAbductionsShortDesc' },
             },
           ],
         },
         key: {
           text: 'detailsofAbduction',
         },
-        value: {},
+        value: { html: '<span class="govuk-error-message">Complete this section</span>' },
       },
       {
         actions: {
@@ -1674,7 +1708,7 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/abduction/previousabductions',
               text: undefined,
               visuallyHiddenText: 'c1A_policeOrInvestigatorInvolved',
-              attributes: {},
+              attributes: { id: 'c1A_policeOrInvestigatorInvolved' },
             },
           ],
         },
@@ -1682,7 +1716,7 @@ describe('test cases for main util', () => {
           text: 'c1A_policeOrInvestigatorInvolved',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_policeOrInvestigatorOtherDetails</dd></div></dl>',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
     ]);
@@ -1709,13 +1743,15 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/child/concerns-about',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: {
+                id: 'c1A_concernAboutChild',
+              },
             },
           ],
         },
         key: {},
         value: {
-          html: '<ul class="govuk-list govuk-list--bullet"></ul>',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
     ]);
@@ -1797,7 +1833,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/add-respondents',
               text: undefined,
               visuallyHiddenText: 'respondents 1 fullName',
-              attributes: {},
+              attributes: {
+                id: 'fullName-respondent-0',
+              },
             },
           ],
         },
@@ -1805,7 +1843,7 @@ describe('test cases for main util', () => {
           text: 'fullName',
         },
         value: {
-          text: 'Respondent FirstPage',
+          html: 'Respondent FirstPage',
         },
       },
       {
@@ -1815,7 +1853,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondents 1 hasNameChanged',
-              attributes: {},
+              attributes: {
+                id: 'hasNameChanged-respondent-0',
+              },
             },
           ],
         },
@@ -1833,7 +1873,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondents 1 childGenderLabel',
-              attributes: {},
+              attributes: {
+                id: 'childGenderLabel-respondent-0',
+              },
             },
           ],
         },
@@ -1851,7 +1893,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondents 1 approxCheckboxLabel',
-              attributes: {},
+              attributes: {
+                id: 'isDateOfBirthUnknown-respondent-0',
+              },
             },
           ],
         },
@@ -1859,7 +1903,7 @@ describe('test cases for main util', () => {
           text: 'approxCheckboxLabel',
         },
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -1869,14 +1913,18 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondents 1 approxDobLabel',
-              attributes: {},
+              attributes: {
+                id: 'approxDateOfBirth-respondent-0',
+              },
             },
           ],
         },
         key: {
           text: 'approxDobLabel',
         },
-        value: {},
+        value: {
+          html: '<span class="govuk-error-message">Complete this section</span>',
+        },
       },
       {
         actions: {
@@ -1885,7 +1933,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/personal-details',
               text: undefined,
               visuallyHiddenText: 'respondents 1 respondentPlaceOfBirthUnknown',
-              attributes: {},
+              attributes: {
+                id: 'respondentPlaceOfBirthUnknown-respondent-0',
+              },
             },
           ],
         },
@@ -1894,6 +1944,7 @@ describe('test cases for main util', () => {
         },
         value: {
           text: 'Yes',
+          html: 'Yes',
         },
       },
       {
@@ -1903,7 +1954,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/relationship-to-child/39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
               text: undefined,
               visuallyHiddenText: 'respondents 1 relationshipTo Nir Sin',
-              attributes: {},
+              attributes: {
+                id: 'relationshipTo-respondent-0-0',
+              },
             },
           ],
         },
@@ -1911,7 +1964,7 @@ describe('test cases for main util', () => {
           text: 'relationshipTo Nir Sin',
         },
         value: {
-          text: 'Other',
+          html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
       {
@@ -1920,8 +1973,10 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/address/manual',
               text: undefined,
-              visuallyHiddenText: 'respondents 1 addressDetails',
-              attributes: {},
+              visuallyHiddenText: 'respondents 0 addressDetails',
+              attributes: {
+                id: 'addressDetails-respondent-0',
+              },
             },
           ],
         },
@@ -1938,8 +1993,10 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
-              visuallyHiddenText: 'respondents 1 E-mail',
-              attributes: {},
+              visuallyHiddenText: 'respondents 0 E-mail',
+              attributes: {
+                id: 'personalDetails-respondent-email-0',
+              },
             },
           ],
         },
@@ -1948,6 +2005,7 @@ describe('test cases for main util', () => {
         },
         value: {
           text: 'abc@gmail.com',
+          html: 'abc@gmail.com',
         },
       },
       {
@@ -1956,8 +2014,10 @@ describe('test cases for main util', () => {
             {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/contact-details',
               text: undefined,
-              visuallyHiddenText: 'respondents 1 Telephone number',
-              attributes: {},
+              visuallyHiddenText: 'respondents 0 Telephone number',
+              attributes: {
+                id: 'personalDetails-respondent-phone-0',
+              },
             },
           ],
         },
@@ -1965,6 +2025,7 @@ describe('test cases for main util', () => {
           text: 'Telephone number',
         },
         value: {
+          html: '+447205308786',
           text: '+447205308786',
         },
       },
@@ -2040,7 +2101,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/miam/other-proceedings',
               text: undefined,
               visuallyHiddenText: 'childInvolvementInSupervision',
-              attributes: {},
+              attributes: {
+                id: 'miam_otherProceedings',
+              },
             },
           ],
         },
@@ -2048,7 +2111,7 @@ describe('test cases for main util', () => {
           text: 'childInvolvementInSupervision',
         },
         value: {
-          text: 'No',
+          html: 'No',
         },
       },
       {
@@ -2058,7 +2121,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/miam/attendance',
               text: undefined,
               visuallyHiddenText: 'attendedMiamMidiation',
-              attributes: {},
+              attributes: {
+                id: 'miam_attendance',
+              },
             },
           ],
         },
@@ -2066,7 +2131,7 @@ describe('test cases for main util', () => {
           text: 'attendedMiamMidiation',
         },
         value: {
-          text: 'No',
+          html: 'No',
         },
       },
       {
@@ -2076,13 +2141,15 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/miam/valid-reason',
               text: undefined,
               visuallyHiddenText: 'undefined',
-              attributes: {},
+              attributes: {
+                id: 'miam_validReason',
+              },
             },
           ],
         },
         key: {},
         value: {
-          text: 'Yes',
+          html: 'Yes',
         },
       },
     ]);
@@ -2161,7 +2228,9 @@ describe('test cases for main util', () => {
         key: {
           text: 'courtOrderProtection',
         },
-        value: {},
+        value: {
+          text: '<span class="govuk-error-message">Complete this section</span>',
+        },
       },
       {
         actions: {
@@ -2170,7 +2239,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/other-proceedings/proceeding-details',
               text: undefined,
               visuallyHiddenText: 'optitle',
-              attributes: {},
+              attributes: {
+                id: 'op_courtProceedingsOrders',
+              },
             },
           ],
         },
@@ -2209,7 +2280,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/other-concerns/drugs',
               text: undefined,
               visuallyHiddenText: 'childDrugAbuse',
-              attributes: {},
+              attributes: {
+                id: 'c1A_otherConcernsDrugs',
+              },
             },
           ],
         },
@@ -2217,7 +2290,7 @@ describe('test cases for main util', () => {
           text: 'childDrugAbuse',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_otherConcernsDrugsDetails</dd></div></dl>',
+          html: '</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_otherConcernsDrugsDetails</dd></div></dl>',
         },
       },
       {
@@ -2227,7 +2300,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/other-concerns/other-issues',
               text: undefined,
               visuallyHiddenText: 'otherWellBeingIssues',
-              attributes: {},
+              attributes: {
+                id: 'c1A_childSafetyConcerns',
+              },
             },
           ],
         },
@@ -2235,7 +2310,7 @@ describe('test cases for main util', () => {
           text: 'otherWellBeingIssues',
         },
         value: {
-          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value"></dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_childSafetyConcernsDetails</dd></div></dl>',
+          html: '</dd></div><div class="govuk-summary-list__row border-bottom--none"><dt class="govuk-summary-list__key">details</dt></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value">c1A_childSafetyConcernsDetails</dd></div></dl>',
         },
       },
       {
@@ -2245,7 +2320,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/orders-required/court-action',
               text: undefined,
               visuallyHiddenText: 'doWantCourtToAction',
-              attributes: {},
+              attributes: {
+                id: 'c1A_keepingSafeStatement',
+              },
             },
           ],
         },
@@ -2253,7 +2330,7 @@ describe('test cases for main util', () => {
           text: 'doWantCourtToAction',
         },
         value: {
-          text: 'c1A_keepingSafeStatement',
+          html: 'c1A_keepingSafeStatement',
         },
       },
       {
@@ -2263,7 +2340,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
               text: undefined,
               visuallyHiddenText: 'selectSupervisionAgreementLabel',
-              attributes: {},
+              attributes: {
+                id: 'c1A_supervisionAgreementDetails',
+              },
             },
           ],
         },
@@ -2279,7 +2358,9 @@ describe('test cases for main util', () => {
               href: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
               text: undefined,
               visuallyHiddenText: 'supervisionAgreementOtherWaysLabel',
-              attributes: {},
+              attributes: {
+                id: 'c1A_agreementOtherWaysDetails',
+              },
             },
           ],
         },
@@ -2349,5 +2430,1085 @@ describe('test cases for main util', () => {
         } as CaseWithId)
       ).toBe(false);
     });
+  });
+
+  describe('generateRelationshipErrors', () => {
+    test('should generate relationship errors when some relationships are missing', () => {
+      expect(
+        generateRelationshipErrors(
+          [
+            { relationshipDetails: { relationshipToChildren: [{ childId: '123', relationshipType: 'Mother' }] } },
+          ] as unknown as C100Applicant[],
+          [{ id: '123' }, { id: '1234' }] as ChildrenDetails[],
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'relationshipTo-applicant-0-1',
+        },
+      ]);
+    });
+
+    test('should generate relationship errors when some relationships are missing and relationship type details missing', () => {
+      expect(
+        generateRelationshipErrors(
+          [
+            { relationshipDetails: { relationshipToChildren: [{ childId: '123', relationshipType: 'Other' }] } },
+          ] as unknown as C100Applicant[],
+          [{ id: '123' }, { id: '1234' }] as ChildrenDetails[],
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'relationshipTo-applicant-0-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'relationshipTo-applicant-0-1',
+        },
+      ]);
+    });
+
+    test('should generate relationship errors when relationship type details missing', () => {
+      expect(
+        generateRelationshipErrors(
+          [
+            { relationshipDetails: { relationshipToChildren: [{ childId: '123', relationshipType: 'Other' }] } },
+          ] as unknown as C100Applicant[],
+          [{ id: '123' }] as ChildrenDetails[],
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'relationshipTo-applicant-0-0',
+        },
+      ]);
+    });
+
+    test('should not generate relationship errors when relationship details are correct', () => {
+      expect(
+        generateRelationshipErrors(
+          [
+            {
+              relationshipDetails: {
+                relationshipToChildren: [
+                  { childId: '123', relationshipType: 'Other', otherRelationshipTypeDetails: 'test' },
+                ],
+              },
+            },
+          ] as unknown as C100Applicant[],
+          [{ id: '123' }] as ChildrenDetails[],
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([]);
+    });
+  });
+
+  describe('generateOtherProceedingDocErrors', () => {
+    test('should generate errors when other proceedings documents missing', () => {
+      expect(
+        generateOtherProceedingDocErrors({
+          childArrangementOrders: [{ id: '123', orderCopy: 'Yes' }],
+        } as C100OrderTypeInterface)
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'childArrangementOrders-0',
+        },
+      ]);
+    });
+
+    test('should not generate errors when other proceedings documents are present', () => {
+      expect(
+        generateOtherProceedingDocErrors({
+          childArrangementOrders: [
+            { id: '123', orderCopy: 'Yes', orderDocument: { id: '1234', url: 'url', filename: 'test' } },
+          ],
+        } as C100OrderTypeInterface)
+      ).toStrictEqual([]);
+    });
+
+    test('should not generate errors when no other proceedings present', () => {
+      expect(generateOtherProceedingDocErrors(undefined)).toStrictEqual([]);
+    });
+  });
+
+  describe('generateOtherProceedingDocErrorContent', () => {
+    test('should generate error content when other proceedings documents missing', () => {
+      expect(
+        generateOtherProceedingDocErrorContent(
+          {
+            childArrangementOrders: [{ id: '123', orderCopy: 'Yes' }],
+          } as C100OrderTypeInterface,
+          { errors: { otherProceedingsDocument: { required: 'Please choose a file.' } } }
+        )
+      ).toStrictEqual({ 'childArrangementOrders-0': { required: 'Please choose a file.' } });
+    });
+
+    test('should not generate errors when other proceedings documents are present', () => {
+      expect(
+        generateOtherProceedingDocErrorContent(
+          {
+            childArrangementOrders: [
+              { id: '123', orderCopy: 'Yes', orderDocument: { id: '1234', url: 'url', filename: 'test' } },
+            ],
+          } as C100OrderTypeInterface,
+          { errors: { childArrangementOrders: { required: 'Please choose a file.' } } }
+        )
+      ).toStrictEqual({});
+    });
+
+    test('should not generate errors when no other proceedings present', () => {
+      expect(
+        generateOtherProceedingDocErrorContent(undefined, {
+          errors: { childArrangementOrders: { required: 'Please choose a file.' } },
+        })
+      ).toStrictEqual({});
+    });
+  });
+
+  describe('generateConcernAboutChildErrors', () => {
+    test('should generate errors for concerns about child when abuse type empty', () => {
+      expect(generateConcernAboutChildErrors(['physicalAbuse'] as C1AAbuseTypes[], { child: {} })).toStrictEqual([
+        { propertyName: 'c1A_concernAboutChild-physicalAbuse', errorType: 'required' },
+      ]);
+    });
+
+    test('should generate errors for concerns about child when childrenConcernedAbout empty', () => {
+      expect(
+        generateConcernAboutChildErrors(['physicalAbuse'] as C1AAbuseTypes[], {
+          child: { physicalAbuse: { childrenConcernedAbout: [] } },
+        })
+      ).toStrictEqual([{ propertyName: 'c1A_concernAboutChild-physicalAbuse', errorType: 'required' }]);
+    });
+  });
+
+  describe('generateApplicantErrors', () => {
+    test('should generate errors for missing applicant data', () => {
+      expect(
+        generateApplicantErrors(
+          {
+            applicantLastName: undefined,
+            applicantFirstName: undefined,
+            detailsKnown: undefined,
+            startAlternative: 'Yes',
+            contactDetailsPrivateAlternative: undefined,
+            personalDetails: {
+              haveYouChangeName: 'Yes',
+              applPreviousName: undefined,
+              gender: undefined,
+              dateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              applicantPlaceOfBirth: undefined,
+            },
+            liveInRefuge: 'Yes',
+            refugeConfidentialityC8Form: {},
+            applicantAddressHistory: 'Yes',
+            applicantProvideDetailsOfPreviousAddresses: undefined,
+            applicantContactDetail: {
+              canProvideEmail: 'Yes',
+              emailAddress: 'test',
+              canProvideTelephoneNumber: 'Yes',
+              telephoneNumber: '0123',
+              canLeaveVoiceMail: undefined,
+              applicantContactPreferences: undefined,
+            },
+          } as unknown as C100Applicant,
+          0
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'anyOtherPeopleKnowDetails-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'doYouWantToKeep-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'haveYouChangeName-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'gender-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'dateOfBirth-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'placeOfBirth-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'c8RefugeDocument-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'addressDetails-applicant-0',
+        },
+        {
+          errorType: 'invalidEmail',
+          propertyName: 'contactDetails-applicant-0',
+        },
+        {
+          errorType: 'invalidPhoneNumber',
+          propertyName: 'contactDetails-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'voiceMail-applicant-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'contactPreferences-applicant-0',
+        },
+      ]);
+    });
+  });
+
+  describe('generateChildErrors', () => {
+    test('should generate errors for children when child data is missing', () => {
+      expect(
+        generateChildErrors(
+          {
+            firstName: undefined,
+            lastName: undefined,
+            personalDetails: {
+              isDateOfBirthUnknown: 'Yes',
+              dateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              approxDateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              gender: undefined,
+            },
+            childMatters: {
+              needsResolution: [],
+            },
+            parentialResponsibility: {
+              statement: '',
+            },
+            liveWith: undefined,
+            mainlyLiveWith: undefined,
+          } as unknown as ChildrenDetails,
+          0
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'approxDateOfBirth-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'gender-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'orderAppliedFor-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'parentalResponsibility-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'childLivingArrangements-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'mainlyLiveWith-child-0',
+        },
+      ]);
+    });
+
+    test('should generate errors for children when child date of birth not entered', () => {
+      expect(
+        generateChildErrors(
+          {
+            firstName: undefined,
+            lastName: undefined,
+            personalDetails: {
+              isDateOfBirthUnknown: '',
+              dateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              gender: undefined,
+            },
+            childMatters: {
+              needsResolution: [],
+            },
+            parentialResponsibility: {
+              statement: '',
+            },
+            liveWith: undefined,
+            mainlyLiveWith: undefined,
+          } as unknown as ChildrenDetails,
+          0
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'dateOfBirth-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'gender-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'orderAppliedFor-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'parentalResponsibility-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'childLivingArrangements-child-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'mainlyLiveWith-child-0',
+        },
+      ]);
+    });
+  });
+
+  describe('generateRespondentErrors', () => {
+    test('should generate errors for respondents when respondent data is missing', () => {
+      expect(
+        generateRespondentErrors(
+          {
+            firstName: undefined,
+            lastName: undefined,
+            personalDetails: {
+              hasNameChanged: 'yes',
+              previousFullName: undefined,
+              gender: undefined,
+              isDateOfBirthUnknown: 'Yes',
+              approxDateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              respondentPlaceOfBirthUnknown: 'No',
+              respondentPlaceOfBirth: undefined,
+            },
+            contactDetails: {
+              donKnowEmailAddress: 'No',
+              emailAddress: 'test',
+              donKnowTelephoneNumber: 'No',
+              telephoneNumber: '0123',
+            },
+            address: {
+              AddressLine1: undefined,
+              PostTown: undefined,
+              Country: 'test',
+            },
+          } as unknown as C100RebuildPartyDetails,
+          0
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-respondent-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'hasNameChanged-respondent-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'childGenderLabel-respondent-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'approxDateOfBirth-respondent-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'respondentPlaceOfBirth-respondent-0',
+        },
+        {
+          errorType: 'invalid',
+          propertyName: 'personalDetails-respondent-email-0',
+        },
+        {
+          errorType: 'invalid',
+          propertyName: 'personalDetails-respondent-phone-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'addressDetails-respondent-0',
+        },
+      ]);
+    });
+  });
+
+  describe('generateOtherChildrenError', () => {
+    test('should generate errors for children when child data is missing', () => {
+      expect(
+        generateOtherChildrenError(
+          {
+            firstName: undefined,
+            lastName: undefined,
+            personalDetails: {
+              isDateOfBirthUnknown: 'Yes',
+              dateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              approxDateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+              gender: undefined,
+            },
+          } as unknown as ChildrenDetails,
+          0
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-otherChild-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'approxDateOfBirth-otherChild-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'gender-otherChild-0',
+        },
+      ]);
+    });
+  });
+
+  describe('generateOtherPersonErrors', () => {
+    test('should generate errors for respondents when respondent data is missing', () => {
+      expect(
+        generateOtherPersonErrors(
+          {
+            firstName: undefined,
+            lastName: undefined,
+            personalDetails: {
+              hasNameChanged: 'yes',
+              previousFullName: undefined,
+              gender: undefined,
+              isDateOfBirthUnknown: 'Yes',
+              approxDateOfBirth: {
+                year: undefined,
+                month: undefined,
+                day: undefined,
+              },
+            },
+            contactDetails: {
+              donKnowEmailAddress: 'No',
+              emailAddress: 'test',
+              donKnowTelephoneNumber: 'No',
+              telephoneNumber: '0123',
+            },
+            address: {
+              AddressLine1: 'test',
+              PostTown: undefined,
+              Country: 'test',
+            },
+            isOtherPersonAddressConfidential: undefined,
+            refugeConfidentialityC8Form: undefined,
+            liveInRefuge: 'Yes',
+          } as unknown as C100RebuildPartyDetails,
+          0,
+          true
+        )
+      ).toStrictEqual([
+        {
+          errorType: 'required',
+          propertyName: 'fullName-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'hasNameChanged-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'childGenderLabel-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'approxDateOfBirth-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'relationshipTo-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'c8RefugeDocument-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'addressDetails-otherPerson-0',
+        },
+        {
+          errorType: 'required',
+          propertyName: 'otherPersonConfidentiality-otherPerson-0',
+        },
+      ]);
+    });
+  });
+});
+
+describe('generatePeopleErrors', () => {
+  test('should generate errors for people section when people objects are empty', () => {
+    expect(
+      generatePeopleErrors({
+        oprs_otherPersonCheck: 'Yes',
+        ocd_hasOtherChildren: 'Yes',
+        appl_allApplicants: [
+          {
+            personalDetails: {},
+          },
+        ],
+        oprs_otherPersons: [{ address: {}, personalDetails: {} }],
+        cd_children: [{ personalDetails: {}, childMatters: {}, parentialResponsibility: {} }],
+        ocd_otherChildren: [{ personalDetails: {} }],
+        resp_Respondents: [{ address: {}, personalDetails: {} }],
+      } as CaseWithId)
+    ).toStrictEqual([
+      {
+        errorType: 'required',
+        propertyName: 'fullName-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'anyOtherPeopleKnowDetails-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'doYouWantToKeep-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'gender-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'dateOfBirth-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'placeOfBirth-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'refuge-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'addressDetails-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'contactDetails-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'voiceMail-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'contactPreferences-applicant-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'relationshipTo-applicant-0-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'fullName-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'gender-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'orderAppliedFor-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'parentalResponsibility-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'childLivingArrangements-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'mainlyLiveWith-child-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'fullName-respondent-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'hasNameChanged-respondent-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'childGenderLabel-respondent-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'dateOfBirth-respondent-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'personalDetails-respondent-email-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'personalDetails-respondent-phone-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'addressDetails-respondent-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'relationshipTo-respondent-0-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'cd_childrenKnownToSocialServices',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'cd_childrenSubjectOfProtectionPlan',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'fullName-otherChild-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'dateOfBirth-otherChild-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'gender-otherChild-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'fullName-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'hasNameChanged-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'childGenderLabel-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'dateOfBirth-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'relationshipTo-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'refuge-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'addressDetails-otherPerson-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'relationshipTo-otherPerson-0-0',
+      },
+    ]);
+  });
+
+  test('should generate errors for people section when other people arrays are empty', () => {
+    expect(
+      generatePeopleErrors({
+        oprs_otherPersonCheck: 'Yes',
+        ocd_hasOtherChildren: 'Yes',
+        appl_allApplicants: [
+          {
+            applicantFirstName: 'test',
+            applicantLastName: 'test',
+            detailsKnown: 'Yes',
+            start: 'Yes',
+            contactDetailsPrivate: ['phone'],
+            personalDetails: {
+              haveYouChangeName: 'No',
+              dateOfBirth: {
+                year: '2020',
+                month: '1',
+                day: '1',
+              },
+              gender: Gender.FEMALE,
+              applicantPlaceOfBirth: 'test',
+            },
+            liveInRefuge: 'No',
+            applicantAddress1: 'test',
+            applicantAddressTown: 'test',
+            country: 'test',
+            applicantAddressHistory: 'No',
+            applicantContactDetail: {
+              canProvideEmail: 'Yes',
+              emailAddress: 'test@test.com',
+              canProvideTelephoneNumber: 'Yes',
+              telephoneNumber: '01234567891',
+              canLeaveVoiceMail: 'Yes',
+              applicantContactPreferences: 'email',
+            },
+            relationshipDetails: {
+              relationshipToChildren: ['test'],
+            },
+            id: '123',
+          },
+        ],
+        oprs_otherPersons: [],
+        cd_children: [
+          {
+            id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+            firstName: 'Nir',
+            lastName: 'Sin',
+            personalDetails: {
+              isDateOfBirthUnknown: 'No',
+              dateOfBirth: {
+                year: '1999',
+                month: '11',
+                day: '11',
+              },
+              gender: 'Female',
+            },
+            childMatters: {
+              needsResolution: ['whoChildLiveWith'],
+            },
+            parentialResponsibility: {
+              statement: 'test',
+            },
+            liveWith: [{ id: '3b32bc4f-7417-443b-ba94-5eacfcee04c4' }],
+            mainlyLiveWith: '3b32bc4f-7417-443b-ba94-5eacfcee04c4',
+          },
+        ],
+        ocd_otherChildren: [],
+        resp_Respondents: [
+          {
+            firstName: 'test',
+            lastName: 'test',
+            detailsKnown: 'Yes',
+            start: 'Yes',
+            contactDetailsPrivate: ['phone'],
+            personalDetails: {
+              hasNameChanged: 'No',
+              dateOfBirth: {
+                year: '2020',
+                month: '1',
+                day: '1',
+              },
+              gender: Gender.FEMALE,
+              applicantPlaceOfBirth: 'test',
+            },
+            address: {
+              AddressLine1: 'test',
+              PostTown: 'test',
+              Country: 'test',
+              addressHistory: 'No',
+            },
+            addressUnknown: undefined,
+            contactDetails: {
+              donKnowEmailAddress: undefined,
+              emailAddress: 'test@test.com',
+              donKnowTelephoneNumber: undefined,
+              telephoneNumber: '01234567891',
+            },
+            relationshipDetails: {
+              relationshipToChildren: ['test'],
+            },
+            id: '123',
+          },
+        ],
+        cd_childrenKnownToSocialServices: 'Yes',
+        cd_childrenSubjectOfProtectionPlan: 'Yes',
+        cd_childrenKnownToSocialServicesDetails: 'test',
+      } as unknown as CaseWithId)
+    ).toStrictEqual([
+      {
+        errorType: 'required',
+        propertyName: 'fullName-otherChild-0',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'fullName-otherPerson-0',
+      },
+    ]);
+  });
+
+  test('should generate no errors for people section when people objects are valid', () => {
+    expect(
+      generatePeopleErrors({
+        oprs_otherPersonCheck: 'Yes',
+        ocd_hasOtherChildren: 'Yes',
+        appl_allApplicants: [
+          {
+            applicantFirstName: 'test',
+            applicantLastName: 'test',
+            detailsKnown: 'Yes',
+            start: 'Yes',
+            contactDetailsPrivate: ['phone'],
+            personalDetails: {
+              haveYouChangeName: 'No',
+              dateOfBirth: {
+                year: '2020',
+                month: '1',
+                day: '1',
+              },
+              gender: Gender.FEMALE,
+              applicantPlaceOfBirth: 'test',
+            },
+            liveInRefuge: 'No',
+            applicantAddress1: 'test',
+            applicantAddressTown: 'test',
+            country: 'test',
+            applicantAddressHistory: 'No',
+            applicantContactDetail: {
+              canProvideEmail: 'Yes',
+              emailAddress: 'test@test.com',
+              canProvideTelephoneNumber: 'Yes',
+              telephoneNumber: '01234567891',
+              canLeaveVoiceMail: 'Yes',
+              applicantContactPreferences: 'email',
+            },
+            relationshipDetails: {
+              relationshipToChildren: ['test'],
+            },
+            id: '123',
+          },
+        ],
+        oprs_otherPersons: [
+          {
+            id: '3b32bc4f-7417-443b-ba94-5eacfcee04c4',
+            firstName: 'Respondent',
+            lastName: 'FirstPage',
+            personalDetails: {
+              hasNameChanged: 'No',
+              dateOfBirth: {
+                year: '1999',
+                month: '01',
+                day: '11',
+              },
+              gender: 'Male',
+              isDateOfBirthUnknown: 'No',
+            },
+            contactDetails: {},
+            liveInRefuge: 'Yes',
+            refugeConfidentialityC8Form: {
+              document_url: 'test',
+              document_filename: 'test',
+              document_binary_url: 'test/binary',
+            },
+            relationshipDetails: {
+              relationshipToChildren: [
+                {
+                  childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                  relationshipType: 'Grandparent',
+                  otherRelationshipTypeDetails: '',
+                },
+              ],
+            },
+            addressUnknown: 'Yes',
+            isOtherPersonAddressConfidential: 'Yes',
+          },
+        ],
+        cd_children: [
+          {
+            id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+            firstName: 'Nir',
+            lastName: 'Sin',
+            personalDetails: {
+              isDateOfBirthUnknown: 'No',
+              dateOfBirth: {
+                year: '1999',
+                month: '11',
+                day: '11',
+              },
+              gender: 'Female',
+            },
+            childMatters: {
+              needsResolution: ['whoChildLiveWith'],
+            },
+            parentialResponsibility: {
+              statement: 'test',
+            },
+            liveWith: [{ id: '3b32bc4f-7417-443b-ba94-5eacfcee04c4' }],
+            mainlyLiveWith: '3b32bc4f-7417-443b-ba94-5eacfcee04c4',
+          },
+        ],
+        ocd_otherChildren: [
+          {
+            firstName: 'test',
+            lastName: 'test',
+            personalDetails: {
+              isDateOfBirthUnknown: 'No',
+              dateOfBirth: {
+                year: '1999',
+                month: '11',
+                day: '11',
+              },
+              gender: 'Female',
+            },
+          },
+        ],
+        resp_Respondents: [
+          {
+            firstName: 'test',
+            lastName: 'test',
+            detailsKnown: 'Yes',
+            start: 'Yes',
+            contactDetailsPrivate: ['phone'],
+            personalDetails: {
+              hasNameChanged: 'No',
+              dateOfBirth: {
+                year: '2020',
+                month: '1',
+                day: '1',
+              },
+              gender: Gender.FEMALE,
+              applicantPlaceOfBirth: 'test',
+            },
+            address: {
+              AddressLine1: 'test',
+              PostTown: 'test',
+              Country: 'test',
+              addressHistory: 'No',
+            },
+            addressUnknown: undefined,
+            contactDetails: {
+              donKnowEmailAddress: undefined,
+              emailAddress: 'test@test.com',
+              donKnowTelephoneNumber: undefined,
+              telephoneNumber: '01234567891',
+            },
+            relationshipDetails: {
+              relationshipToChildren: ['test'],
+            },
+            id: '123',
+          },
+        ],
+        cd_childrenKnownToSocialServices: 'Yes',
+        cd_childrenSubjectOfProtectionPlan: 'Yes',
+        cd_childrenKnownToSocialServicesDetails: 'test',
+      } as unknown as CaseWithId)
+    ).toStrictEqual([]);
+  });
+});
+
+describe('prepareProp', () => {
+  test.each([
+    { property: 'hu_reasonOfUrgentHearing', expected: 'hu_urgentHearingReasons' },
+    { property: 'hu_hearingWithNext48HrsDetails', expected: 'hu_urgentHearingReasons' },
+    { property: 'hu_hearingWithNext48HrsMsg', expected: 'hu_urgentHearingReasons' },
+    { property: 'hu_otherRiskDetails', expected: 'hu_urgentHearingReasons' },
+    { property: 'hu_timeOfHearingDetails', expected: 'hu_urgentHearingReasons' },
+    { property: 'too_stopOtherPeopleDoingSomethingSubField', expected: 'too_courtOrder' },
+    { property: 'too_resolveSpecificIssueSubField', expected: 'too_courtOrder' },
+    { property: 'hwn_reasonsForApplicationWithoutNotice', expected: 'hwn_reasonsForApplicationWithoutNotice' },
+    { property: 'hwn_doYouNeedAWithoutNoticeHearing', expected: 'hwn_reasonsForApplicationWithoutNotice' },
+    { property: 'hwn_doYouNeedAWithoutNoticeHearingDetails', expected: 'hwn_reasonsForApplicationWithoutNotice' },
+    { property: 'hwn_doYouRequireAHearingWithReducedNotice', expected: 'hwn_reasonsForApplicationWithoutNotice' },
+    {
+      property: 'hwn_doYouRequireAHearingWithReducedNoticeDetails',
+      expected: 'hwn_reasonsForApplicationWithoutNotice',
+    },
+    { property: 'hwn_hearingPart1', expected: 'hwn_reasonsForApplicationWithoutNotice' },
+    { property: 'miam_canProvideDomesticAbuseEvidence', expected: 'miam_domesticAbuse' },
+    { property: 'miam_detailsOfDomesticAbuseEvidence', expected: 'miam_domesticAbuse' },
+    { property: 'miam_domesticAbuse_policeInvolvement_subfields', expected: 'miam_domesticAbuse' },
+    { property: 'miam_domesticAbuse_courtInvolvement_subfields', expected: 'miam_domesticAbuse' },
+    {
+      property: 'miam_domesticAbuse_letterOfBeingVictim_subfields',
+      expected: 'miam_domesticAbuse',
+    },
+    { property: 'miam_domesticAbuse_letterFromAuthority_subfields', expected: 'miam_domesticAbuse' },
+    { property: 'miam_domesticAbuse_letterFromSupportService_subfields', expected: 'miam_domesticAbuse' },
+    { property: 'miam_previousAttendanceEvidenceDoc', expected: 'miam_previousAttendance' },
+    { property: 'miam_haveDocSignedByMediatorForPrevAttendance', expected: 'miam_previousAttendance' },
+    { property: 'miam_detailsOfEvidence', expected: 'miam_previousAttendance' },
+    { property: 'miam_noMediatorReasons', expected: 'miam_notAttendingReasons' },
+    { property: 'miam_noAppointmentAvailableDetails', expected: 'miam_notAttendingReasons' },
+    { property: 'miam_unableToAttainDueToDisablityDetails', expected: 'miam_notAttendingReasons' },
+    { property: 'miam_noMediatorIn15mileDetails', expected: 'miam_notAttendingReasons' },
+    { property: 'ie_provideDetailsStart', expected: 'ie_internationalStart' },
+    { property: 'ie_provideDetailsParents', expected: 'ie_internationalParents' },
+    { property: 'ie_provideDetailsJurisdiction', expected: 'ie_internationalJurisdiction' },
+    { property: 'ie_provideDetailsRequest', expected: 'ie_internationalRequest' },
+    { property: 'c1A_otherConcernsDrugsDetails', expected: 'c1A_otherConcernsDrugs' },
+    { property: 'c1A_childSafetyConcernsDetails', expected: 'c1A_childSafetyConcerns' },
+    { property: 'c1A_childrenMoreThanOnePassport', expected: 'c1A_passportOffice' },
+    { property: 'c1A_possessionChildrenPassport', expected: 'c1A_passportOffice' },
+    { property: 'c1A_provideOtherDetails', expected: 'c1A_passportOffice' },
+    { property: 'c1A_policeOrInvestigatorOtherDetails', expected: 'c1A_policeOrInvestigatorInvolved' },
+    { property: 'sq_doNotHaveParentalResponsibility_subfield', expected: 'sq_permissionsWhy' },
+    { property: 'sq_courtOrderPrevent_subfield', expected: 'sq_permissionsWhy' },
+    { property: 'sq_anotherReason_subfield', expected: 'sq_permissionsWhy' },
+
+    { property: 'ra_noVideoAndPhoneHearing_subfield', expected: 'ra_typeOfHearing' },
+    { property: 'ra_needInterpreterInCertainLanguage_subfield', expected: 'ra_languageNeeds' },
+    { property: 'ra_specialArrangementsOther_subfield', expected: 'ra_specialArrangements' },
+    { property: 'ra_specifiedColorDocuments_subfield', expected: 'ra_documentInformation' },
+    { property: 'ra_largePrintDocuments_subfield', expected: 'ra_documentInformation' },
+    { property: 'ra_documentHelpOther_subfield', expected: 'ra_documentInformation' },
+    { property: 'ra_signLanguageInterpreter_subfield', expected: 'ra_communicationHelp' },
+    { property: 'ra_communicationHelpOther_subfield', expected: 'ra_communicationHelp' },
+    { property: 'ra_supportWorkerCarer_subfield', expected: 'ra_supportCourt' },
+    { property: 'ra_friendFamilyMember_subfield', expected: 'ra_supportCourt' },
+    { property: 'ra_therapyAnimal_subfield', expected: 'ra_supportCourt' },
+    { property: 'ra_supportCourtOther_subfield', expected: 'ra_supportCourt' },
+    { property: 'ra_appropriateLighting_subfield', expected: 'ra_feelComportable' },
+    { property: 'ra_feelComportableOther_subfield', expected: 'ra_feelComportable' },
+    { property: 'ra_parkingSpace_subfield', expected: 'ra_travellingCourt' },
+    { property: 'ra_differentTypeChair_subfield', expected: 'ra_travellingCourt' },
+    { property: 'ra_travellingCourtOther_subfield', expected: 'ra_travellingCourt' },
+  ])('config for consent order flow should have the correct sections', ({ property, expected }) => {
+    expect(prepareProp(property)).toBe(expected);
   });
 });

@@ -1,4 +1,4 @@
-import { Case } from '../../../app/case/case';
+import { Case, CaseWithId } from '../../../app/case/case';
 import {
   C100OrderInterface,
   C100OrderTypeKeyMapper,
@@ -7,8 +7,11 @@ import {
   YesNoEmpty,
   YesOrNo,
 } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { applyParms } from '../../../steps/common/url-parser';
+import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import {
+  C100_CHECK_YOUR_ANSWER,
   C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   C100_OTHER_PROCEEDINGS_DETAILS,
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
@@ -45,11 +48,16 @@ class PreviousProceedingsNavigationController {
     return caseData?.op_otherProceedings?.order[C100OrderTypeKeyMapper[this.C100orderType]] ?? [];
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public getNextUrl(currentPage: PageLink, caseData: Partial<Case>, params?: Record<string, any>): PageLink {
+  public getNextUrl(
+    currentPage: PageLink,
+    caseData: Partial<Case>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    req?: AppRequest
+  ): PageLink {
+    const params = req?.params;
     this.selectedOrderTypes = caseData?.op_courtProceedingsOrders ?? [];
     this.C100orderType = params?.orderType as C100OrderTypes;
-    this.C100orderId = params?.orderId;
+    this.C100orderId = Number(params?.orderId);
     this.orders = this.getOrdersByType(caseData);
     let nextUrl;
 
@@ -59,17 +67,18 @@ class PreviousProceedingsNavigationController {
           caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
             ? C100_TYPE_ORDER_SELECT_COURT_ORDER
             : (applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink);
+        const cyaRedirect = isC100ApplicationValid(caseData as CaseWithId, req!) ? C100_CHECK_YOUR_ANSWER : nextUrl1;
         nextUrl =
           caseData.op_childrenInvolvedCourtCase === YesOrNo.YES || caseData.op_courtOrderProtection === YesOrNo.YES
             ? C100_OTHER_PROCEEDINGS_DETAILS
-            : nextUrl1;
+            : cyaRedirect;
         break;
       }
       case C100_OTHER_PROCEEDINGS_DETAILS:
         nextUrl = applyParms(C100_OTHER_PROCEEDINGS_ORDER_DETAILS, { orderType: this.selectedOrderTypes[0] });
         break;
       case C100_OTHER_PROCEEDINGS_ORDER_DETAILS: {
-        nextUrl = this.getNextUrlOtherProceedingDetails(caseData);
+        nextUrl = this.getNextUrlOtherProceedingDetails(caseData, req);
         break;
       }
       case C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: {
@@ -77,10 +86,11 @@ class PreviousProceedingsNavigationController {
         break;
       }
       case C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY: {
-        nextUrl =
+        const nonCyaRedirectUrl =
           caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
             ? C100_TYPE_ORDER_SELECT_COURT_ORDER
             : (applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink);
+        nextUrl = isC100ApplicationValid(caseData as CaseWithId, req!) ? C100_CHECK_YOUR_ANSWER : nonCyaRedirectUrl;
         break;
       }
       default:
@@ -91,7 +101,7 @@ class PreviousProceedingsNavigationController {
     return nextUrl;
   }
 
-  private getNextUrlOtherProceedingDetails(caseData) {
+  private getNextUrlOtherProceedingDetails(caseData, req) {
     let url;
     const orderId = this.getC100OrderId();
     if (orderId) {
@@ -106,10 +116,11 @@ class PreviousProceedingsNavigationController {
         // check at last if there were any previous order types having at least an order with order copy
         url = C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY;
       } else {
-        url =
+        const nextUrl =
           caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
             ? C100_TYPE_ORDER_SELECT_COURT_ORDER
             : (applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink);
+        url = isC100ApplicationValid(caseData as CaseWithId, req) ? C100_CHECK_YOUR_ANSWER : nextUrl;
       }
     }
     return url;

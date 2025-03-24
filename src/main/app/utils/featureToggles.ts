@@ -70,6 +70,13 @@ export class FeatureToggles {
     }
     return toBoolean(config.get<boolean>('featureToggles.enablePcqComponent'));
   }
+
+  async isC100CaseProgressionTrainTrackEnabled(): Promise<boolean> {
+    return this.launchDarklyClient.serviceVariation(
+      'c100-case-progression-train-track',
+      toBoolean(config.get<boolean>('featureToggles.enableC100CaseProgressionTrainTrack'))
+    );
+  }
 }
 
 let featureToggleObj: FeatureToggles;

@@ -588,6 +588,7 @@ export interface Case {
 
   co_certificate?: C100DocumentInfo;
   too_courtOrder?: string[];
+  too_shortStatement?: string;
   too_stopOtherPeopleDoingSomethingSubField?: string[];
   too_resolveSpecificIssueSubField?: string[];
   otherPersonFirstName?: C100RebuildPartyDetails['firstName'];
@@ -711,6 +712,18 @@ export interface Case {
   awp_applicationReason?: AWPApplicationReason;
   refugeDocument?: Document;
   reUploadRefugeDocument?: YesOrNo;
+  ie_internationalStart?: YesOrNo;
+  ie_provideDetailsStart?: string;
+  ie_internationalParents?: YesOrNo;
+  ie_provideDetailsParents?: string;
+  ie_internationalRequest?: YesOrNo;
+  ie_provideDetailsRequest?: string;
+  ie_internationalJurisdiction?: YesOrNo;
+  ie_provideDetailsJurisdiction?: string;
+  hasC100ApplicationBeenCompleted?: boolean;
+  cd_childrenKnownToSocialServices?: string;
+  cd_childrenKnownToSocialServicesDetails?: string;
+  cd_childrenSubjectOfProtectionPlan?: string;
   applicantPcqId?: string;
 }
 
