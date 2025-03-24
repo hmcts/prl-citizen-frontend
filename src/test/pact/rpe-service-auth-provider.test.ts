@@ -2,6 +2,7 @@ import config from 'config';
 import { when } from 'jest-when';
 
 import { getTokenFromApi } from '../../main/app/auth/service/get-service-auth-token';
+
 const { pactWith } = require('jest-pact');
 
 jest.mock('otplib', () => ({
