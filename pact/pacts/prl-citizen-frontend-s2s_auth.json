@@ -18,7 +18,7 @@
         "path": "/lease"
       },
       "response": {
-        "body": "{\"value\":\"someMicroServiceToken\",\"pact:matcher:type\":\"type\"}",
+        "body": "someMicroServiceToken",
         "headers": {
           "Content-Type": "text/plain"
         },

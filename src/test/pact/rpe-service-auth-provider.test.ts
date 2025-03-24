@@ -2,10 +2,7 @@ import config from 'config';
 import { when } from 'jest-when';
 
 import { getTokenFromApi } from '../../main/app/auth/service/get-service-auth-token';
-
-const { Matchers } = require('@pact-foundation/pact');
 const { pactWith } = require('jest-pact');
-const { string } = Matchers;
 
 jest.mock('otplib', () => ({
   authenticator: {
@@ -23,14 +20,14 @@ pactWith(
   },
   provider => {
     describe('rpe-service-auth-provider API', () => {
-      const EXPECTED_RESPONSE = { 'pact:matcher:type': 'type', value: 'someMicroServiceToken' };
+      const EXPECTED_RESPONSE = 'someMicroServiceToken';
 
       const successResponse = {
         status: 200,
         headers: {
           'Content-Type': 'text/plain',
         },
-        body: string('someMicroServiceToken'),
+        body: 'someMicroServiceToken',
       };
 
       const serviceAuthTokenRequest = {
