@@ -101,8 +101,8 @@ describe('common > CaseDataController', () => {
       },
     });
     const res = mockResponse();
-    retrieveCaseAndHearingsMock.mockResolvedValue(req.session.userCase);
-    req.locals.C100Api.retrieveCaseById = jest.fn().mockRejectedValueOnce;
+    retrieveCaseAndHearingsMock.mockRejectedValue('ERROR');
+    req.locals.C100Api.retrieveCaseById = undefined;
 
     await expect(controller.getC100ApplicantCase(req, res)).rejects.toThrow(
       'Error in retriving the case - getC100ApplicantCase'

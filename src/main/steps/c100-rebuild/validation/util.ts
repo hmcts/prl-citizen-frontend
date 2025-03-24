@@ -127,7 +127,6 @@ export const getMandatoryFields = (config, caseData: CaseWithId): MandatoryField
       const hasIfOrCondition = hasCondition && !!field.mandatory_if?.or;
       const hasOnlyExpression = !hasCondition && _.isFunction(field.expression);
 
-      console.info(hasCondition, hasIfCondition, hasIfAndCondition, hasIfOrCondition);
       if (
         !hasCondition ||
         (hasOnlyExpression && !field.expression(caseData).fulfilled) ||
