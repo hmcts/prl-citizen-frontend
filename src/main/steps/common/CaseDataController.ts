@@ -93,7 +93,7 @@ export default class CaseDataController {
       const caseData = await req.locals.C100Api.retrieveCaseById(req.params?.caseId);
       req.session.applicationSettings = {
         ...req.session.applicationSettings,
-        hasC100ApplicationBeenCompleted: caseData?.c100RebuildReturnUrl.includes('validApplication=true'),
+        hasC100ApplicationBeenCompleted: caseData?.c100RebuildReturnUrl?.includes('validApplication=true') ?? false,
       };
 
       req.session.userCase = caseData;

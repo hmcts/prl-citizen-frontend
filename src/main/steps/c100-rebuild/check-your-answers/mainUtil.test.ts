@@ -1180,6 +1180,15 @@ describe('test cases for main util', () => {
     expect(helpWithFeeObj?.title).toBe(undefined);
   });
 
+  test('helpWithFee should have correct url when feesAppliedDetails is no', () => {
+    const helpWithFeeObj = HelpWithFee(
+      { sectionTitles, keys, content },
+      { hwf_needHelpWithFees: 'Yes', hwf_feesAppliedDetails: 'No' } as CaseWithId,
+      language
+    );
+    expect(helpWithFeeObj?.rows[1].actions?.items?.[0].href).toBe('/c100-rebuild/help-with-fees/hwf-guidance');
+  });
+
   test('otherPeopleDetailsTitle', () => {
     const otherPeopleDetailsTitleObj = OtherPeopleDetailsTitle({ sectionTitles, keys, content }, {}, language);
     expect(otherPeopleDetailsTitleObj?.rows).not.toBe([]);

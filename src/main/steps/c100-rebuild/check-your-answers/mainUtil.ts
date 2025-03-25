@@ -2000,7 +2000,10 @@ export const HelpWithFee = (
         userCase['helpWithFeesReferenceNumber'],
         language
       ),
-      changeUrl: Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE'],
+      changeUrl:
+        userCase['hwf_feesAppliedDetails'] === YesOrNo.NO
+          ? Urls['C100_HELP_WITH_FEES_HWF_GUIDANCE']
+          : Urls['C100_HELP_WITH_FEES_FEES_APPLIED'],
     });
   }
   return {
