@@ -35,7 +35,7 @@ const en = {
   alsoUploadDocumentsPositionStatement: 'You can also upload documents and other files to support your statement.',
   alsoUploadDocumentsWitnessStatement:
     'You can also upload documents and other files to support the witness statement.',
-  textAreaDocUploadText1: 'Write your {docCategory}',
+  textAreaDocUploadText1: 'Write {docCategoryText}',
   textAreaDocUploadText2:
     'Enter the statement in the box or upload your statement as a file. You can also use this text box to describe the files you are uploading.',
   textAreaDocUploadText3:
@@ -61,6 +61,8 @@ const en = {
   warning: 'Warning',
   warningText:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  the: 'the ',
+  your: 'your ',
   errors: {
     declarationCheck: {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
@@ -100,7 +102,7 @@ const cy: typeof en = {
   alsoUploadDocumentsPositionStatement: 'Gallwch hefyd uwchlwytho dogfennau a ffeiliau eraill i gefnogi’ch datganiad.',
   alsoUploadDocumentsWitnessStatement:
     'Gallwch hefyd uwchlwytho dogfennau a ffeiliau eraill i gefnogi’r datganiad tyst.',
-  textAreaDocUploadText1: 'Ysgrifennwch eich {docCategory}',
+  textAreaDocUploadText1: 'Ysgrifennwch {docCategoryText}',
   textAreaDocUploadText2:
     "Nodwch y datganiad yn y blwch, neu lanlwythwch eich datganiad fel ffeil. Gallwch hefyd ddefnyddio'r blwch testun i ddisgrifio'r ffeiliau rydych chi'n eu huwchlwytho.",
   textAreaDocUploadText3:
@@ -129,6 +131,8 @@ const cy: typeof en = {
   warning: 'Rhybudd',
   warningText:
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
+  the: 'y ',
+  your: 'eich ',
   errors: {
     declarationCheck: {
       required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
@@ -261,7 +265,7 @@ export const generateContent: TranslationFn = content => {
       }),
     ],
     textAreaDocUploadText1: interpolate(translations.textAreaDocUploadText1, {
-      docCategory: title.toLowerCase(),
+      docCategoryText: (isPositionStatement ? translations.your : translations.the) + title.toLowerCase(),
     }),
     errors: errorMessages,
   };
