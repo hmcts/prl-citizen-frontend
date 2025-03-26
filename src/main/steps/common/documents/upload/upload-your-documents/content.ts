@@ -35,12 +35,14 @@ const en = {
   alsoUploadDocumentsPositionStatement: 'You can also upload documents and other files to support your statement.',
   alsoUploadDocumentsWitnessStatement:
     'You can also upload documents and other files to support the witness statement.',
-  textAreaDocUploadText1: 'Using the text box',
-  textAreaDocUploadText2: 'Enter {statement} in the box, or describe the files that you are uploading.',
-  textAreaDocUploadText3: 'There is no text limit.',
+  textAreaDocUploadText1: 'Write your {docCategory}',
+  textAreaDocUploadText2:
+    'Enter the statement in the box or upload your statement as a file. You can also use this text box to describe the files you are uploading.',
+  textAreaDocUploadText3:
+    'Upload your statement as a file or write your statement in the text box. You can also use the text box to describe the files you are uploading.',
   textAreaSaveText: "Select 'Save', to save your text as a document in this page. You can remove it if you need to.",
   save: 'Save',
-  uploadFileTitle: 'Uploading files',
+  uploadFileTitle: 'Upload files',
   positionOrWitnessStatementUploadText1:
     "If you are uploading documents or other files, name the files clearly. For example, 'Letter from school', '{docCategory}'.",
   positionOrWitnessStatementUploadText2: 'Files must be in the format JPG, BMP, PNG, TIF, PDF, DOC or DOCX.',
@@ -48,7 +50,7 @@ const en = {
     'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.',
   uplodFileText2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX and have a maximum size of 20mb.',
   uplodFileText3: 'How to take a picture of a document on your phone and upload it',
-  uplodFileText4: 'Place your document on a flat service in a well-lit room. Use a flash if you need to.',
+  uplodFileText4: 'Place your document on a flat surface in a well-lit room. Use a flash if you need to.',
   uplodFileText5: 'Take a picture of the whole document. You should be able to see its edges.',
   uplodFileText6: 'Check you can read all the writing, including the handwriting.',
   uplodFileText7: 'Email or send the photo or scan to the device you are using now.',
@@ -98,9 +100,11 @@ const cy: typeof en = {
   alsoUploadDocumentsPositionStatement: 'Gallwch hefyd uwchlwytho dogfennau a ffeiliau eraill i gefnogi’ch datganiad.',
   alsoUploadDocumentsWitnessStatement:
     'Gallwch hefyd uwchlwytho dogfennau a ffeiliau eraill i gefnogi’r datganiad tyst.',
-  textAreaDocUploadText1: 'Defnyddio’r blwch testun',
-  textAreaDocUploadText2: 'Nodwch {statement} yn y blwch, neu disgrifiwch y ffeiliau rydych yn eu huwchlwytho.',
-  textAreaDocUploadText3: 'Nid oes cyfyngiad o ran hyd y testun.',
+  textAreaDocUploadText1: 'Ysgrifennwch eich {docCategory}',
+  textAreaDocUploadText2:
+    "Nodwch y datganiad yn y blwch, neu lanlwythwch eich datganiad fel ffeil. Gallwch hefyd ddefnyddio'r blwch testun i ddisgrifio'r ffeiliau rydych chi'n eu huwchlwytho.",
+  textAreaDocUploadText3:
+    "Llwythwch eich datganiad i fyny fel ffeil neu ysgrifennwch eich datganiad yn y blwch testun. Gallwch hefyd ddefnyddio'r blwch testun i ddisgrifio'r ffeiliau rydych chi'n eu huwchlwytho.",
   textAreaSaveText:
     "Dewiswch 'Cadw' i gadw eich testun fel dogfen ar y dudalen hon. Gallwch ei ddileu os oes arnoch angen.",
   save: 'Cadw',
@@ -256,8 +260,8 @@ export const generateContent: TranslationFn = content => {
         uploading: isPositionStatement ? translations.uploadingYour : translations.uploadingThe,
       }),
     ],
-    textAreaDocUploadText2: interpolate(translations.textAreaDocUploadText2, {
-      statement: isPositionStatement ? translations.yourStatement2 : translations.theStatement2,
+    textAreaDocUploadText1: interpolate(translations.textAreaDocUploadText1, {
+      docCategory: title.toLowerCase(),
     }),
     errors: errorMessages,
   };

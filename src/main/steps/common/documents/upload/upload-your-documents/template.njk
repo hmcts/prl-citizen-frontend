@@ -43,7 +43,7 @@
                 for: "statementText"
               },
               hint: {
-                html: textAreaDocUploadText2 + "<br/>" + textAreaDocUploadText3,
+                html: textAreaDocUploadText2,
                 classes: "govuk-hint"
               },
                errorMessage: {
@@ -57,6 +57,7 @@
           </button>
         </form>
         <h2 class="govuk-heading-m">{{uploadFileTitle}}</h2>
+        <p class="govuk-body">{{textAreaDocUploadText3}}</p>
       {% endif %}
 
     </div>
@@ -111,7 +112,10 @@
           name: "uploadFile",
           value: "true",
           type: "submit", 
-          classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+          classes: "govuk-button--secondary govuk-!-margin-bottom-0",
+          attributes:  {
+            "aria-label": textAreaDocUploadText3
+          } if allowGenerateDocs
         }) }}
             </form>
           </div>
