@@ -57,7 +57,7 @@
           </button>
         </form>
         <h2 class="govuk-heading-m">{{uploadFileTitle}}</h2>
-        <p class="govuk-body">{{textAreaDocUploadText3}}</p>
+        <p class="govuk-body" id="fileUploadLabel">{{textAreaDocUploadText3}}</p>
       {% endif %}
 
     </div>
@@ -114,7 +114,7 @@
           type: "submit", 
           classes: "govuk-button--secondary govuk-!-margin-bottom-0",
           attributes:  {
-            "aria-label": textAreaDocUploadText3
+            "aria-describedby": "fileUploadLabel"
           } if allowGenerateDocs
         }) }}
             </form>
