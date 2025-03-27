@@ -5,7 +5,7 @@ import { CommonContent, generatePageContent } from '../../common.content';
 import { generateContent, summaryList } from './content';
 
 const en = {
-  title: 'Check your answers ',
+  title: 'Check your answers to hearing requirements',
   subTitle: 'Your hearing needs and requirments',
   sectionTitles: {
     aboutYou: 'About you',
@@ -45,7 +45,7 @@ const en = {
 };
 
 const cy = {
-  title: 'Gwirio eich atebion',
+  title: 'Gwirio eich atebion ynghylch gofynion gwrandawiad',
   subTitle: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
     aboutYou: 'Amdanoch chi',

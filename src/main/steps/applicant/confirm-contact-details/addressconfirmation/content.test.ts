@@ -3,9 +3,11 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 
 import { generateContent } from './content';
 
+const name = 'test name';
+
 const en = {
-  title: 'Your Address',
-  citizenUserAddress1: 'Building and street',
+  title: `Confirm address details for ${name}`,
+  citizenUserAddress1: 'Building',
   citizenUserAddressTown: 'Town or city',
   citizenUserAddressCounty: 'County',
   citizenUserAddressPostcode: 'Postcode',
@@ -27,7 +29,9 @@ const en = {
 describe('address confirmation > content', () => {
   const commonContent = generatePageContent({
     language: 'en',
-    userCase: {},
+    userCase: {
+      citizenUserFullName: name,
+    },
   }) as CommonContent;
 
   test('should return correct english content', () => {

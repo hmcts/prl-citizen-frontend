@@ -16,6 +16,7 @@ const en = {
   safetyConcernsText: 'Briefly explain your concerns, including:',
   safetyConcernsBullet1: 'Who might take them',
   safetyConcernsBullet2: 'Where they might be taken or kept',
+  abductionConcernsLabel: 'Briefly explain your concerns about abduction',
   childsCurrentLocationText: 'Where are the children now?',
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses.',
@@ -45,6 +46,7 @@ const cy = {
   safetyConcernsText: 'Esboniwch eich pryderon yn gryno, gan gynnwys:',
   safetyConcernsBullet1: 'pwy allai eu cymryd',
   safetyConcernsBullet2: 'lle y gellid mynd â nhw neu eu cadw',
+  abductionConcernsLabel: 'Esboniwch yn gryno eich pryderon am gipio',
   childsCurrentLocationText: "Lle mae'r plant nawr?",
   childsCurrentLocationHint:
     'Os ydyn nhw y tu allan i Gymru neu Loegr, dylech gynnwys pa wlad maen nhw ynddi a pha mor hir maen nhw wedi bod yno. Does dim angen i chi gynnwys unrhyw gyfeiriadau.',

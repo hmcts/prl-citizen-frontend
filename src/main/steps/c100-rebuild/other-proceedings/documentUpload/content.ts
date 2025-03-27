@@ -113,8 +113,10 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const { orderType } = content.additionalData?.req.params;
   return {
     ...translations,
     form,
+    title: translations.titleList[orderType],
   };
 };

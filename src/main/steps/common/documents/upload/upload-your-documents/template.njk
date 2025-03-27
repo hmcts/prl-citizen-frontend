@@ -21,35 +21,47 @@
         }) }}
         {% endif %}
 
+        <p class="govuk-body">{{textAreaUploadText}}</p>
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-left-2">
+          {% for listItem in textAreaDocBulletPoints %}
+            <li>{{ listItem }}</li>
+          {% endfor %}
+        </ul>
+        <p class="govuk-body">{{alsoUploadDocuments}}</p>
+
         <form
         action="?docCategory={{ docCategory }}&_csrf={{ csrfToken }}"
         method="post"
         novalidate>
           <div class="govuk-form-group">
-            <h2 class="govuk-label-wrapper">
-              <label class="govuk-label" for="more-detail">
-                {{textAreaDocUploadText1}}
-              </label>
-            </h2>
-
             {{ govukTextarea({
               name: "statementText",
+              id: "statementText",
               label: {
-                text: textAreaDocUploadText2,
-                classes: "govuk-label--s govuk-!-margin-top-4"
+                text: textAreaDocUploadText1,
+                classes: "govuk-label--m govuk-!-margin-top-4",
+                for: "statementText"
+              },
+              hint: {
+                html: textAreaDocUploadText2,
+                classes: "govuk-hint"
               },
                errorMessage: {
             text: errorMessage
           } if errorMessage !== null
             }) }}
           </div>
+          <p class="govuk-body">{{textAreaSaveText}}</p>
           <button type="submit" value="true" name="generateDocument" class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button">
-            {{submitButtonText}}
+            {{save}}
           </button>
         </form>
+        <h2 class="govuk-heading-m">{{uploadFileTitle}}</h2>
+        <p class="govuk-body" id="fileUploadLabel">{{textAreaDocUploadText3}}</p>
       {% endif %}
 
     </div>
+
     <p class="govuk-body">{{uplodFileText1}}</p>
     <p class="govuk-body govuk-!-margin-bottom-6">{{uplodFileText2}}</p>
     <details class="govuk-details govuk-!-margin-bottom-9" data-module="govuk-details">
@@ -68,16 +80,16 @@
         </ol>
       </div>
     </details>
-    <div id="uploadGroup" tabindex="0" class="uploadGroup">
+    <div id="uploadGroup" class="uploadGroup">
       <div class=" govuk-!-margin-bottom-3">
         {% if errorMessage !== null %}
           <div class="govuk-form-group--error">
           {% endif %}
           <div class="govuk-form-group govuk-inset-text">
-          <h2 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--s for="file-document-upload">
-              {{uploadFileHeading}}
-            </label>
+            <h2 class="govuk-label-wrapper">
+              <label class="govuk-label govuk-label--s" for="uploadDocumentFileUpload">
+                {{uploadFileHeading}}
+              </label>
             </h2>
             <form
             action="?docCategory={{ docCategory }}&_csrf={{ csrfToken }}"
@@ -100,7 +112,10 @@
           name: "uploadFile",
           value: "true",
           type: "submit", 
-          classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+          classes: "govuk-button--secondary govuk-!-margin-bottom-0",
+          attributes:  {
+            "aria-describedby": "fileUploadLabel"
+          } if allowGenerateDocs
         }) }}
             </form>
           </div>

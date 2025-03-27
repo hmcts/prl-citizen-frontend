@@ -1,10 +1,10 @@
 {
     "translations": {
         "en": {
-            "title": "Your address"
+            "title": "Find the address for {name}"
         },
         "cy": {
-            "title": "Eich cyfeiriad"
+            "title": "Dod o hyd i’r cyfeiriad ar gyfer {name}"
         }
     },
     "errors":{

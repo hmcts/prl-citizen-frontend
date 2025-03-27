@@ -61,7 +61,7 @@
 </div>
 
 {% if params.sessionFiles !== undefined and params.sessionFilesArray === true  %}
-  <div id="uploadGroup" tabindex="0" class="uploadGroup">
+  <div id="uploadGroup" class="uploadGroup">
     <h2 class="govuk-heading-s">{{ params.uploadFileHeading }}</h2>
     <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if params.sessionFiles |length %} hidden{% endif %}" id="noFilesUploaded">{{ params.sessionNullFilesMessage }}</p>
     <ul id="filesUploaded" class="govuk-list">

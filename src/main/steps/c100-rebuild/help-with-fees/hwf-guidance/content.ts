@@ -4,7 +4,7 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 export const en = () => ({
-  hwfGuidanceTitle: 'You need to apply for help with your child arrangements application fee',
+  title: 'You need to apply for help with your child arrangements application fee',
   hwfApplyLinkHint1: 'You need to',
   hwfApplyLinkHint2: 'before you continue with this child arrangements application.',
   applyForHwfLink:
@@ -22,7 +22,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  hwfGuidanceTitle: 'Mae angen ichi wneud cais am help i dalu ffi eich cais trefniadau plant',
+  title: 'Mae angen ichi wneud cais am help i dalu ffi eich cais trefniadau plant',
   hwfApplyLinkHint1: 'Mae angen ichi',
   hwfApplyLinkHint2: 'cyn ichi fwrw ymlaen â’r cais trefniadau plant hwn.',
   applyForHwfLink:

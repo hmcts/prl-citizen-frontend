@@ -5,6 +5,7 @@ import {
   form as addressLookupForm,
   generateContent as generateAddressLookupContent,
 } from '../../../../common/components/address-lookup';
+import { interpolate } from '../../../../common/string-parser';
 import { APPLICANT_MANUAL_ADDRESS } from '../../../../urls';
 
 import { generateContent } from './content';
@@ -23,7 +24,7 @@ const cyContent = {
 
 /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
 describe('applicant1 > address > lookup > content', () => {
-  const commonContent = { language: 'en', userCase: {} } as CommonContent;
+  const commonContent = { language: 'en', userCase: { citizenUserFullName: 'test name' } } as CommonContent;
   let generatedContent;
 
   beforeEach(() => {
@@ -33,7 +34,7 @@ describe('applicant1 > address > lookup > content', () => {
   test('should return correct english content', () => {
     const addressLookupContent = generateAddressLookupContent(commonContent);
     expect(generatedContent.section).toEqual(enContent.section);
-    expect(generatedContent.title).toEqual(enContent.title);
+    expect(generatedContent.title).toEqual(interpolate(enContent.title, { name: 'test name' }));
     expect(generatedContent.errors).toEqual({
       citizenUserAddressPostcode: (addressLookupContent.errors as any).citizenUserAddressPostcode,
     });
@@ -44,7 +45,7 @@ describe('applicant1 > address > lookup > content', () => {
     const addressLookupContent = generateAddressLookupContent({ ...commonContent, language: 'cy' });
     generatedContent = generateContent({ ...commonContent, language: 'cy' });
     expect(generatedContent.section).toEqual(cyContent.section);
-    expect(generatedContent.title).toEqual(cyContent.title);
+    expect(generatedContent.title).toEqual(interpolate(cyContent.title, { name: 'test name' }));
     expect(generatedContent.errors).toEqual({
       citizenUserAddressPostcode: (addressLookupContent.errors as any).citizenUserAddressPostcode,
     });
@@ -52,17 +53,17 @@ describe('applicant1 > address > lookup > content', () => {
   });
 
   it('should have citizenUserAddressPostcode label when language: en and  applyingWith: alone', () => {
-    const commonContent1 = { language: 'en' } as CommonContent;
+    const commonContent1 = { language: 'en', userCase: { citizenUserFullName: 'test name' } } as CommonContent;
 
     const generatedContent1 = generateContent(commonContent1);
-    expect(generatedContent1.title).toBe('Your address');
+    expect(generatedContent1.title).toBe('Find the address for test name');
   });
 
   it('should have an citizenUserAddressPostcode label when language: cy and  applyingWith: alone', () => {
-    const commonContent1 = { language: 'cy' } as CommonContent;
+    const commonContent1 = { language: 'cy', userCase: { citizenUserFullName: 'test name' } } as CommonContent;
 
     const generatedContent1 = generateContent(commonContent1);
-    expect(generatedContent1.title).toBe('Eich cyfeiriad');
+    expect(generatedContent1.title).toBe('Dod o hyd i’r cyfeiriad ar gyfer test name');
   });
 
   test('should contain citizenUserAddressPostcode field', () => {

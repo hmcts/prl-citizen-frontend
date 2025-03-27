@@ -13,7 +13,7 @@ import { getChangeLink } from '../util';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Case number {caseNumber}',
-  title: 'Contact Preferences',
+  title: 'Review contact preferences',
   subTitle: 'Personal details',
   emailText: 'You have decided to receive updates by email. You will still receive some information by post.',
   postText: [
@@ -31,7 +31,7 @@ export const en = () => ({
 
 export const cy = () => ({
   caption: 'Rhif yr achos {caseNumber}',
-  title: 'Dewisiadau Cyswllt',
+  title: 'Adolygu dewisiadau cyswllt',
   subTitle: 'Manylion personol',
   emailText:
     'Rydych wedi penderfynu cael diweddariadau drwy e-bost. Byddwch yn dal i gael rhywfaint o wybodaeth drwy’r post.',

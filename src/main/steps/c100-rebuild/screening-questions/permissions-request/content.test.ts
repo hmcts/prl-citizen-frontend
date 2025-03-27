@@ -57,6 +57,10 @@ describe('c100-rebuild > screening-question > permission-request', () => {
   test('should contain courtOrder short statement text area', () => {
     const permissionRequestField = fields.sq_permissionsRequest as FormOptions;
     expect(permissionRequestField.type).toBe('textarea');
+    expect((permissionRequestField.label as LanguageLookup)(generatedContent)).toBe(en.title);
+    expect((permissionRequestField.hint as LanguageLookup)(generatedContent)).toBe(
+      `<p class="govuk-body govuk-!-margin-top-7">${en.line}</p>`
+    );
     (permissionRequestField.validator as Function)('Test');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
   });

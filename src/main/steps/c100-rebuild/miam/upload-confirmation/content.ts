@@ -3,13 +3,13 @@ import { FormContent } from '../../../../app/form/Form';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Upload your MIAM certificate',
+  title: 'MIAM certificate upload complete',
   confirmationText: 'Your MIAM certificate has been uploaded',
   secondaryTitle: 'Your documents',
 });
 
 const cy = () => ({
-  title: 'Llwytho eich tystysgrif MIAM',
+  title: 'Uwchlwytho’r dystysgrif MIAM wedi’i gwblhau',
   confirmationText: 'YMae eich tystysgrif MIAM wedi’i llwytho',
   secondaryTitle: 'Eich dogfennau',
   //success:"abcd"

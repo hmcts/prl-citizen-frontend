@@ -11,10 +11,11 @@ import { generateContent } from './content';
 
 jest.mock('../../../../../app/form/validation');
 
+const name = 'Test1 Test2';
+
 const en = {
   caption: 'Keeping your contact details private for',
-  headingTitle: `Do you want to keep your contact details private from 
-  the other people named in the application (the respondents)?`,
+  title: `Do the other people named in the application (the respondents) know any contact details of ${name}?`,
   paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details.',
   paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children, 
   you can ask the court to keep your contact details private.`,
@@ -29,8 +30,7 @@ const en = {
 
 const cy = {
   caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
-  headingTitle:
-    'Ydych chi eisiau cadw eich manylion cyswllt yn breifat ar gyfer oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',
+  title: `A yw’r bobl eraill a enwir yn y cais (yr atebwyr) yn gwybod beth yw  manylion cyswllt ${name}?`,
   paragraph1:
     "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r atebwyr. Mae hyn yn cynnwys eich manylion cyswllt.",
   paragraph2:
@@ -90,12 +90,12 @@ describe('applicant personal details > applying-with > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
+    languageAssertions('en', en, () => generateContent({ ...commonContent, additionalData }));
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy', additionalData }));
   });
   test('should contain applyingWith field', () => {
     const applyingWithField = fields.start as FormOptions;

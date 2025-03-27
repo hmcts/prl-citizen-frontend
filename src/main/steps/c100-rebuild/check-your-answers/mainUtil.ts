@@ -329,7 +329,6 @@ export const ChildernDetails = (
       populateDateOfBirth(personalDetails, keys, language, id, true, parseInt(child), `${keys['child']}`)
     );
 
-    const childName = ` ${firstname} ${lastname} `;
     const childOtherGenderDetailsAnchorRef = `gender-child-${child}`;
     newChildDataStorage.push(
       {
@@ -378,10 +377,11 @@ export const ChildernDetails = (
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_CHILD_MATTERS'], { childId: id }),
       },
       {
-        key: keys['parentalResponsibility']?.split('[^^^]').join(childName),
-        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${keys['parentalResponsibility']
-          ?.split('[^^^]')
-          .join(childName)}`,
+        key: interpolate(keys['parentalResponsibility'], { firstname, lastname }),
+        visuallyHiddenText: `${keys['child']} ${parseInt(child) + 1} ${interpolate(keys['parentalResponsibility'], {
+          firstname,
+          lastname,
+        })}`,
         anchorReference: `parentalResponsibility-child-${child}`,
         valueHtml: populateError(parentialResponsibility['statement'], parentialResponsibility['statement'], language),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PARENTIAL_RESPONSIBILITY'], { childId: id }),
@@ -685,7 +685,7 @@ export const ApplicantDetails = (
         changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
       },
       {
-        key: keys['doYouWantToKeep'],
+        key: interpolate(keys['doYouWantToKeep'], { name: fullname }),
         visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['doYouWantToKeep']}`,
         anchorReference: `doYouWantToKeep-applicant-${applicant}`,
         value: '',
