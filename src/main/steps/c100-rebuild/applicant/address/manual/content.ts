@@ -8,7 +8,7 @@ let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Address of',
+  title: 'Address details of',
   errors: {
     address1: {
       required: 'Enter the first line of the address',
@@ -30,7 +30,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Cyfeiriad',
+  title: 'Manylion cyfeiriad',
   errors: {
     address1: {
       required: 'Nodwch linell gyntaf y cyfeiriad',

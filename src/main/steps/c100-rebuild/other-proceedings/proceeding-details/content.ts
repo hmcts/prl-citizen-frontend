@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 export * from './routeGuard';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = () => ({
-  headingTitle: 'Provide details of court cases you or the children have been involved in',
+export const en = () => ({
+  title: 'Which type of order have you (the applicant) or the children been involved in?',
   select_all_apply:
     'Select all that apply to you or the children. If you have specific details, you will be able to provide that information shortly.',
   childArrangementOrder: 'A Child Arrangements Order',
@@ -35,8 +35,8 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
-  headingTitle: 'Darparwch fanylion am achosion llys rydych chi neu’r plant wedi bod ynghlwm â hwy',
+export const cy = () => ({
+  title: 'Pa fath o orchymyn ydych chi (y ceisydd) neu’r plant wedi bod yn rhan ohono?',
   select_all_apply:
     "Dewiswch bopeth sy'n berthnasol i chi neu'r plant. Os oes gennych fanylion penodol, byddwch yn gallu darparu'r wybodaeth honno yn fuan.",
   childArrangementOrder: 'Gorchymyn Trefniadau Plant',

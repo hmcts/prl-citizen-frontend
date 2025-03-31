@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { CaseWithId, Miam_urgency } from '../../../app/case/case';
-import { C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { C1ASafteyConcernsAbout, MiamNonAttendReason, YesOrNo } from '../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
@@ -10,9 +10,16 @@ import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-a
 
 import { form, generateContent, sectionCountFormatter, toggleApplicantSafetyConcerns } from './content';
 
+jest.mock('../validation/util.ts', () => {
+  return {
+    isAllMandatoryFieldsFilled: jest.fn().mockReturnValue(true),
+    getAllMandatoryFields: jest.fn().mockReturnValue([]),
+  };
+});
+
 const enContent = {
   section: '',
-  title: 'Check your Answers',
+  title: 'Check your answers to your C100 application',
   change: 'Edit',
   topWarning: {
     text: 'Your answers will be shared with the other people in this case.',
@@ -141,7 +148,7 @@ const enContent = {
 };
 const cyContent = {
   section: '',
-  title: 'Gwiriwch eich atebion',
+  title: 'Check your answers to your C100 application (welsh)',
   change: ' Golygu',
   topWarning: {
     text: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
@@ -456,7 +463,6 @@ describe('Content.ts toggle test cases', () => {
   let generatedContent;
   let generatedForm;
   let fields;
-  const formContent = form as FormContent;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     generatedForm = generatedContent.form as FormContent;
@@ -488,9 +494,8 @@ describe('Content.ts toggle test cases', () => {
     );
   });
 
-  test('Form should return correct content', () => {
-    const formFields = formContent.fields as FormFields;
-    const statementOfTruthField = formFields.statementOfTruth as FormOptions;
+  test('Form should return correct content if all mandatory fields filled', () => {
+    const statementOfTruthField = fields.statementOfTruth as FormOptions;
     expect(statementOfTruthField.type).toBe('checkboxes');
     expect(statementOfTruthField.validator).toBe(atLeastOneFieldIsChecked);
     expect((statementOfTruthField.values[0].label as Function)(generatedContent)).toBe(
@@ -516,17 +521,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c100RebuildChildPostCode',
+                  },
                   href: '/c100-rebuild/childaddress',
                   text: 'Edit',
                   visuallyHiddenText: 'Where do the children live?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Where do the children live?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">1.</span> Location details',
@@ -537,18 +546,22 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_writtenAgreement',
+                  },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you have a written agreement with the other people in the case that you want the court to review?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">2.</span> Type of application',
@@ -559,17 +572,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_legalRepresentation',
+                  },
                   href: '/c100-rebuild/screening-questions/legal-representation',
                   text: 'Edit',
                   visuallyHiddenText: 'Will you be using a legal representative in these proceedings?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Will you be using a legal representative in these proceedings?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">3.</span> Legal representative details',
@@ -580,18 +597,22 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_courtPermissionRequired',
+                  },
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Is there any reason that you would need permission from the court to make this application?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Is there any reason that you would need permission from the court to make this application?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">4.</span> Permission to make the application',
@@ -607,11 +628,13 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'miam_otherProceedings',
+                  },
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
-                  attributes: {},
                 },
               ],
             },
@@ -619,12 +642,12 @@ describe('Content.ts toggle test cases', () => {
               text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
             },
             value: {
-              text: 'Yes',
+              html: 'Yes',
             },
           },
         ],
-        title: '',
         subTitle: 'MIAM attendance',
+        title: '',
       },
       {
         rows: [
@@ -632,33 +655,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_childrenInvolvedCourtCase',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: 'Edit',
                   visuallyHiddenText: 'Have the children been involved in a court case?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Have the children been involved in a court case?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_courtOrderProtection',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: 'Edit',
                   visuallyHiddenText: 'Have you had a court order made for your protection?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Have you had a court order made for your protection?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">6.</span> Past and current proceeding',
@@ -669,34 +700,42 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_courtOrder',
+                  },
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: 'Edit',
                   visuallyHiddenText: 'What are you asking the court to do?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'What are you asking the court to do?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_shortStatement',
+                  },
                   href: '/c100-rebuild/typeoforder/shortstatement',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Describe what you want the court to do regarding the children in this application',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Describe what you want the court to do regarding the children in this application',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">7.</span> What you\'re asking the court to decide',
@@ -707,33 +746,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hu_urgentHearingReasons',
+                  },
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: 'Edit',
                   visuallyHiddenText: 'Does your situation qualify for an urgent first hearing?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Does your situation qualify for an urgent first hearing?',
             },
-            value: {},
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwn_reasonsForApplicationWithoutNotice',
+                  },
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: 'Edit',
                   visuallyHiddenText: 'Are you asking for a without notice hearing?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Are you asking for a without notice hearing?',
             },
-            value: {},
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">8.</span> Hearing details',
@@ -744,8 +791,8 @@ describe('Content.ts toggle test cases', () => {
       },
       {
         rows: [],
-        title: '',
         subTitle: "Children's details",
+        title: '',
       },
       {
         rows: [
@@ -753,37 +800,45 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'cd_childrenKnownToSocialServices',
+                  },
                   href: '/c100-rebuild/child-details/further-information',
                   text: 'Edit',
                   visuallyHiddenText: 'Are any of the children known to social services?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Are any of the children known to social services?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'cd_childrenSubjectOfProtectionPlan',
+                  },
                   href: '/c100-rebuild/child-details/further-information',
                   text: 'Edit',
                   visuallyHiddenText: 'Are any of the children the subject of a child protection plan?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Are any of the children the subject of a child protection plan?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Additional details about the children',
+        title: '',
       },
       {
         rows: [
@@ -791,32 +846,36 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ocd_hasOtherChildren',
+                  },
                   href: '/c100-rebuild/child-details/has-other-children',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you or any respondents have other children who are not part of this application?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you or any respondents have other children who are not part of this application?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Other Children details',
+        title: '',
       },
       {
         rows: [],
-        title: '',
         subTitle: 'Details of the applicants',
+        title: '',
       },
       {
         rows: [],
-        title: '',
         subTitle: 'Details of the respondents',
+        title: '',
       },
       {
         rows: [
@@ -824,21 +883,25 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'oprs_otherPersonCheck',
+                  },
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: 'Edit',
                   visuallyHiddenText: 'Is there anyone else who should know about your application?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Is there anyone else who should know about your application?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Details of the other people in the application',
+        title: '',
       },
       [],
       {
@@ -852,10 +915,12 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_haveSafetyConcerns',
+                  },
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
-                  attributes: {},
                 },
               ],
             },
@@ -863,17 +928,19 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you have any concerns for your safety or the safety of the children?',
             },
             value: {
-              text: 'Yes',
+              html: 'Yes',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_safetyConernAbout',
+                  },
                   href: '/c100-rebuild/safety-concerns/concern-about',
                   text: 'Edit',
                   visuallyHiddenText: 'Who are you concerned about?',
-                  attributes: {},
                 },
               ],
             },
@@ -893,11 +960,13 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_concernAboutChild',
+                  },
                   href: '/c100-rebuild/safety-concerns/child/concerns-about',
                   text: 'Edit',
                   visuallyHiddenText:
                     'What type of behaviour have the children experienced or are at risk of experiencing?',
-                  attributes: {},
                 },
               ],
             },
@@ -905,12 +974,12 @@ describe('Content.ts toggle test cases', () => {
               text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
             },
             value: {
-              html: '<ul class="govuk-list govuk-list--bullet"></ul>',
+              html: '<span class="govuk-error-message">Complete this section</span>',
             },
           },
         ],
-        title: '',
         subTitle: 'Safety concerns: the children in the application ',
+        title: '',
       },
       {
         rows: [
@@ -918,11 +987,13 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_concernAboutApplicant',
+                  },
                   href: '/c100-rebuild/safety-concerns/yourself/concerns-about',
                   text: 'Edit',
                   visuallyHiddenText:
                     'What type of behaviour have the children experienced or are at risk of experiencing?',
-                  attributes: {},
                 },
               ],
             },
@@ -930,12 +1001,12 @@ describe('Content.ts toggle test cases', () => {
               text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
             },
             value: {
-              html: '<ul class="govuk-list govuk-list--bullet"><ul class="govuk-list govuk-list--bullet">',
+              html: '<span class="govuk-error-message">Complete this section</span>',
             },
           },
         ],
-        title: '',
         subTitle: 'Safety concern: your safety',
+        title: '',
       },
       {
         rows: [
@@ -943,87 +1014,107 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_otherConcernsDrugs',
+                  },
                   href: '/c100-rebuild/safety-concerns/other-concerns/drugs',
                   text: 'Edit',
                   visuallyHiddenText: 'Have the children been impacted by drug, alcohol or substance abuse?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Have the children been impacted by drug, alcohol or substance abuse?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_childSafetyConcerns',
+                  },
                   href: '/c100-rebuild/safety-concerns/other-concerns/other-issues',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have any other concerns about the children’s safety and wellbeing?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you have any other concerns about the children’s safety and wellbeing?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_keepingSafeStatement',
+                  },
                   href: '/c100-rebuild/safety-concerns/orders-required/court-action',
                   text: 'Edit',
                   visuallyHiddenText: 'What do you want the court to do to keep you and the children safe?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'What do you want the court to do to keep you and the children safe?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_supervisionAgreementDetails',
+                  },
                   href: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you agree to the children spending time with the other people in this application?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you agree to the children spending time with the other people in this application?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_agreementOtherWaysDetails',
+                  },
                   href: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you agree to the other people in this application being in touch with the children in other ways?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you agree to the other people in this application being in touch with the children in other ways?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Safety concern: other concerns that you have',
+        title: '',
       },
       {
         rows: [
@@ -1031,10 +1122,12 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalStart',
+                  },
                   href: '/c100-rebuild/international-elements/start',
                   text: 'Edit',
                   visuallyHiddenText: "Are the children's lives mainly based outside of England and Wales?",
-                  attributes: {},
                 },
               ],
             },
@@ -1042,18 +1135,20 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's lives mainly based outside of England and Wales?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalParents',
+                  },
                   href: '/c100-rebuild/international-elements/parents',
                   text: 'Edit',
                   visuallyHiddenText:
                     "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
-                  attributes: {},
                 },
               ],
             },
@@ -1061,18 +1156,20 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalJurisdiction',
+                  },
                   href: '/c100-rebuild/international-elements/jurisdiction',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Could another person in the application apply for a similar order in a country outside England or Wales?',
-                  attributes: {},
                 },
               ],
             },
@@ -1080,18 +1177,20 @@ describe('Content.ts toggle test cases', () => {
               text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalRequest',
+                  },
                   href: '/c100-rebuild/international-elements/request',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Has another country asked (or been asked) for information or help for the children?',
-                  attributes: {},
                 },
               ],
             },
@@ -1099,7 +1198,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Has another country asked (or been asked) for information or help for the children?',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
         ],
@@ -1111,10 +1210,12 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_typeOfHearing',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: 'Edit',
                   visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
-                  attributes: {},
                 },
               ],
             },
@@ -1122,17 +1223,19 @@ describe('Content.ts toggle test cases', () => {
               text: 'Would you be able to take part in hearings by video and phone?',
             },
             value: {
-              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+              html: '<span class="govuk-error-message">Complete this section</span>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_languageNeeds',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have any language requirements?',
-                  attributes: {},
                 },
               ],
             },
@@ -1140,17 +1243,19 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you have any language requirements?',
             },
             value: {
-              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+              html: '<span class="govuk-error-message">Complete this section</span>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_specialArrangements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you or the children need special arrangements at court?',
-                  attributes: {},
                 },
               ],
             },
@@ -1158,18 +1263,20 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you or the children need special arrangements at court?',
             },
             value: {
-              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+              html: '<span class="govuk-error-message">Complete this section</span>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_disabilityRequirements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-                  attributes: {},
                 },
               ],
             },
@@ -1177,7 +1284,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
             },
             value: {
-              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+              html: '<span class="govuk-error-message">Complete this section</span>',
             },
           },
         ],
@@ -1189,17 +1296,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwf_needHelpWithFees',
+                  },
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you need help with paying the fee for this application?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you need help with paying the fee for this application?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">13.</span> Help with Fees',
@@ -1215,6 +1326,7 @@ describe('Content.ts toggle test cases', () => {
         sq_writtenAgreement: undefined,
         miam_otherProceedings: undefined,
         miam_urgency: Miam_urgency.freedomPhysicalSafety,
+        miam_nonAttendanceReasons: [MiamNonAttendReason.URGENT],
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
@@ -1224,15 +1336,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c100RebuildChildPostCode',
+                  },
                   href: '/c100-rebuild/childaddress',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Where do the children live?',
                 },
               ],
             },
-            key: { text: 'Where do the children live?' },
-            value: {},
+            key: {
+              text: 'Where do the children live?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">1.</span> Location details',
@@ -1243,9 +1361,11 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_writtenAgreement',
+                  },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText:
                     'Do you have a written agreement with the other people in the case that you want the court to review?',
                 },
@@ -1254,7 +1374,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">2.</span> Type of application',
@@ -1265,15 +1387,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_legalRepresentation',
+                  },
                   href: '/c100-rebuild/screening-questions/legal-representation',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Will you be using a legal representative in these proceedings?',
                 },
               ],
             },
-            key: { text: 'Will you be using a legal representative in these proceedings?' },
-            value: {},
+            key: {
+              text: 'Will you be using a legal representative in these proceedings?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">3.</span> Legal representative details',
@@ -1284,9 +1412,11 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_courtPermissionRequired',
+                  },
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText:
                     'Is there any reason that you would need permission from the court to make this application?',
                 },
@@ -1295,7 +1425,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'Is there any reason that you would need permission from the court to make this application?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">4.</span> Permission to make the application',
@@ -1311,9 +1443,11 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'miam_otherProceedings',
+                  },
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText:
                     'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
                 },
@@ -1322,11 +1456,13 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'MIAM attendance',
+        title: '',
       },
       {
         rows: [
@@ -1334,19 +1470,45 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'miam_nonAttendanceReasons',
+                  },
                   href: '/c100-rebuild/miam/general-reasons',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'What are your reasons for not attending a MIAM?',
                 },
               ],
             },
-            key: { text: 'What are your reasons for not attending a MIAM?' },
-            value: {},
+            key: {
+              text: 'What are your reasons for not attending a MIAM?',
+            },
+            value: {
+              html: '<ul class="govuk-list govuk-list--bullet"><li>Urgency</li></ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'miam_urgency',
+                  },
+                  href: '/c100-rebuild/miam/urgency',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Why is your application urgent?',
+                },
+              ],
+            },
+            key: {
+              text: 'Why is your application urgent?',
+            },
+            value: {
+              html: 'There is a risk to your life, freedom or physical safety',
+            },
           },
         ],
-        title: '',
         subTitle: 'MIAM exemption',
+        title: '',
       },
       {
         rows: [
@@ -1354,29 +1516,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hu_urgentHearingReasons',
+                  },
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Does your situation qualify for an urgent first hearing?',
                 },
               ],
             },
-            key: { text: 'Does your situation qualify for an urgent first hearing?' },
-            value: {},
+            key: {
+              text: 'Does your situation qualify for an urgent first hearing?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwn_reasonsForApplicationWithoutNotice',
+                  },
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Are you asking for a without notice hearing?',
                 },
               ],
             },
-            key: { text: 'Are you asking for a without notice hearing?' },
-            value: {},
+            key: {
+              text: 'Are you asking for a without notice hearing?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">6.</span> Hearing details',
@@ -1387,30 +1561,42 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_courtOrder',
+                  },
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'What are you asking the court to do?',
                 },
               ],
             },
-            key: { text: 'What are you asking the court to do?' },
-            value: {},
+            key: {
+              text: 'What are you asking the court to do?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_shortStatement',
+                  },
                   href: '/c100-rebuild/typeoforder/shortstatement',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText:
                     'Describe what you want the court to do regarding the children in this application',
                 },
               ],
             },
-            key: { text: 'Describe what you want the court to do regarding the children in this application' },
-            value: {},
+            key: {
+              text: 'Describe what you want the court to do regarding the children in this application',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">7.</span> What you\'re asking the court to decide',
@@ -1419,40 +1605,10 @@ describe('Content.ts toggle test cases', () => {
         rows: [],
         title: '<span class="app-task-list__section-number">8.</span> Details of the people in the application ',
       },
-      { rows: [], title: '', subTitle: "Children's details" },
       {
-        rows: [
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/child-details/further-information',
-                  text: 'Edit',
-                  attributes: {},
-                  visuallyHiddenText: 'Are any of the children known to social services?',
-                },
-              ],
-            },
-            key: { text: 'Are any of the children known to social services?' },
-            value: {},
-          },
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/child-details/further-information',
-                  text: 'Edit',
-                  attributes: {},
-                  visuallyHiddenText: 'Are any of the children the subject of a child protection plan?',
-                },
-              ],
-            },
-            key: { text: 'Are any of the children the subject of a child protection plan?' },
-            value: {},
-          },
-        ],
+        rows: [],
+        subTitle: "Children's details",
         title: '',
-        subTitle: 'Additional details about the children',
       },
       {
         rows: [
@@ -1460,45 +1616,114 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'cd_childrenKnownToSocialServices',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are any of the children known to social services?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are any of the children known to social services?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'cd_childrenSubjectOfProtectionPlan',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are any of the children the subject of a child protection plan?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are any of the children the subject of a child protection plan?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        subTitle: 'Additional details about the children',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ocd_hasOtherChildren',
+                  },
                   href: '/c100-rebuild/child-details/has-other-children',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText:
                     'Do you or any respondents have other children who are not part of this application?',
                 },
               ],
             },
-            key: { text: 'Do you or any respondents have other children who are not part of this application?' },
-            value: {},
+            key: {
+              text: 'Do you or any respondents have other children who are not part of this application?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Other Children details',
+        title: '',
       },
-      { rows: [], title: '', subTitle: 'Details of the applicants' },
-      { rows: [], title: '', subTitle: 'Details of the respondents' },
+      {
+        rows: [],
+        subTitle: 'Details of the applicants',
+        title: '',
+      },
+      {
+        rows: [],
+        subTitle: 'Details of the respondents',
+        title: '',
+      },
       {
         rows: [
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'oprs_otherPersonCheck',
+                  },
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Is there anyone else who should know about your application?',
                 },
               ],
             },
-            key: { text: 'Is there anyone else who should know about your application?' },
-            value: {},
+            key: {
+              text: 'Is there anyone else who should know about your application?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Details of the other people in the application',
+        title: '',
       },
       [],
-      { rows: [], title: 'Where the children live' },
+      {
+        rows: [],
+        title: 'Where the children live',
+      },
       [],
       {
         rows: [
@@ -1506,29 +1731,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_childrenInvolvedCourtCase',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Have the children been involved in a court case?',
                 },
               ],
             },
-            key: { text: 'Have the children been involved in a court case?' },
-            value: {},
+            key: {
+              text: 'Have the children been involved in a court case?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_courtOrderProtection',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Have you had a court order made for your protection?',
                 },
               ],
             },
-            key: { text: 'Have you had a court order made for your protection?' },
-            value: {},
+            key: {
+              text: 'Have you had a court order made for your protection?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">9.</span> Past and current proceeding',
@@ -1539,15 +1776,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_haveSafetyConcerns',
+                  },
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
                 },
               ],
             },
-            key: { text: 'Do you have any concerns for your safety or the safety of the children?' },
-            value: {},
+            key: {
+              text: 'Do you have any concerns for your safety or the safety of the children?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">10.</span> Safety concerns',
@@ -1558,25 +1801,31 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalStart',
+                  },
                   href: '/c100-rebuild/international-elements/start',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: "Are the children's lives mainly based outside of England and Wales?",
                 },
               ],
             },
-            key: { text: "Are the children's lives mainly based outside of England and Wales?" },
+            key: {
+              text: "Are the children's lives mainly based outside of England and Wales?",
+            },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalParents',
+                  },
                   href: '/c100-rebuild/international-elements/parents',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText:
                     "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
                 },
@@ -1586,16 +1835,18 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalJurisdiction',
+                  },
                   href: '/c100-rebuild/international-elements/jurisdiction',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText:
                     'Could another person in the application apply for a similar order in a country outside England or Wales?',
                 },
@@ -1605,24 +1856,28 @@ describe('Content.ts toggle test cases', () => {
               text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalRequest',
+                  },
                   href: '/c100-rebuild/international-elements/request',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText:
                     'Has another country asked (or been asked) for information or help for the children?',
                 },
               ],
             },
-            key: { text: 'Has another country asked (or been asked) for information or help for the children?' },
+            key: {
+              text: 'Has another country asked (or been asked) for information or help for the children?',
+            },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
         ],
@@ -1634,51 +1889,71 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_typeOfHearing',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
                 },
               ],
             },
-            key: { text: 'Would you be able to take part in hearings by video and phone?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'Would you be able to take part in hearings by video and phone?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_languageNeeds',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Do you have any language requirements?',
                 },
               ],
             },
-            key: { text: 'Do you have any language requirements?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'Do you have any language requirements?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_specialArrangements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Do you or the children need special arrangements at court?',
                 },
               ],
             },
-            key: { text: 'Do you or the children need special arrangements at court?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'Do you or the children need special arrangements at court?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_disabilityRequirements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText:
                     'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
                 },
@@ -1687,7 +1962,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
             },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">12.</span> Support you need during your case',
@@ -1698,15 +1975,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwf_needHelpWithFees',
+                  },
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: 'Edit',
-                  attributes: {},
                   visuallyHiddenText: 'Do you need help with paying the fee for this application?',
                 },
               ],
             },
-            key: { text: 'Do you need help with paying the fee for this application?' },
-            value: {},
+            key: {
+              text: 'Do you need help with paying the fee for this application?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">13.</span> Help with Fees',
@@ -1722,6 +2005,7 @@ describe('Content.ts toggle test cases', () => {
         sq_writtenAgreement: undefined,
         miam_otherProceedings: undefined,
         miam_urgency: Miam_urgency.freedomPhysicalSafety,
+        miam_nonAttendanceReasons: [MiamNonAttendReason.URGENT],
       },
       language: 'cy',
     });
@@ -1733,15 +2017,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c100RebuildChildPostCode',
+                  },
                   href: '/c100-rebuild/childaddress',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: "Ble mae'r plant yn byw?",
                 },
               ],
             },
-            key: { text: "Ble mae'r plant yn byw?" },
-            value: {},
+            key: {
+              text: "Ble mae'r plant yn byw?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">1.</span> Manylion lleoliad',
@@ -1752,9 +2042,11 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_writtenAgreement',
+                  },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
                 },
@@ -1763,7 +2055,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">2.</span> Math o gais',
@@ -1774,15 +2068,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_legalRepresentation',
+                  },
                   href: '/c100-rebuild/screening-questions/legal-representation',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
                 },
               ],
             },
-            key: { text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?' },
-            value: {},
+            key: {
+              text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">3.</span> Manylion cynrychiolydd cyfreithiol',
@@ -1793,16 +2093,22 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_courtPermissionRequired',
+                  },
                   href: '/c100-rebuild/screening-questions/permission',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
                 },
               ],
             },
-            key: { text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?' },
-            value: {},
+            key: {
+              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">4.</span> Caniatâd i wneud cais',
@@ -1817,9 +2123,11 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'miam_otherProceedings',
+                  },
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
                 },
@@ -1828,11 +2136,13 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Mynychu MIAM',
+        title: '',
       },
       {
         rows: [
@@ -1840,19 +2150,45 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'miam_nonAttendanceReasons',
+                  },
                   href: '/c100-rebuild/miam/general-reasons',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
                 },
               ],
             },
-            key: { text: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?' },
-            value: {},
+            key: {
+              text: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
+            },
+            value: {
+              html: '<ul class="govuk-list govuk-list--bullet"><li>Cais brys</li></ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'miam_urgency',
+                  },
+                  href: '/c100-rebuild/miam/urgency',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Pam bod eich cais yn un brys?',
+                },
+              ],
+            },
+            key: {
+              text: 'Pam bod eich cais yn un brys?',
+            },
+            value: {
+              html: "Mae perygl i'ch bywyd, rhyddid neu ddiogelwch corfforol",
+            },
           },
         ],
-        title: '',
         subTitle: 'Esemptiad MIAM',
+        title: '',
       },
       {
         rows: [
@@ -1860,29 +2196,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hu_urgentHearingReasons',
+                  },
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
                 },
               ],
             },
-            key: { text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?' },
-            value: {},
+            key: {
+              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Llenwch yr adran hon</span></div>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwn_reasonsForApplicationWithoutNotice',
+                  },
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
                 },
               ],
             },
-            key: { text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?' },
-            value: {},
+            key: {
+              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Llenwch yr adran hon</span></div>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">6.</span>  Manylion y gwrandawiad',
@@ -1893,69 +2241,54 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_courtOrder',
+                  },
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: "Beth ydych chi'n gofyn i'r llys ei wneud?",
                 },
               ],
             },
-            key: { text: "Beth ydych chi'n gofyn i'r llys ei wneud?" },
-            value: {},
+            key: {
+              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_shortStatement',
+                  },
                   href: '/c100-rebuild/typeoforder/shortstatement',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
                 },
               ],
             },
-            key: { text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn' },
-            value: {},
+            key: {
+              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">7.</span> Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
       },
-      { rows: [], title: '<span class="app-task-list__section-number">8.</span> Manylion y bobl yn y cais' },
-      { rows: [], title: '', subTitle: 'Manylion y plant' },
       {
-        rows: [
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/child-details/further-information',
-                  text: ' Golygu',
-                  attributes: {},
-                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
-                },
-              ],
-            },
-            key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
-            value: {},
-          },
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/child-details/further-information',
-                  text: ' Golygu',
-                  attributes: {},
-                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
-                },
-              ],
-            },
-            key: { text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?' },
-            value: {},
-          },
-        ],
+        rows: [],
+        title: '<span class="app-task-list__section-number">8.</span> Manylion y bobl yn y cais',
+      },
+      {
+        rows: [],
+        subTitle: 'Manylion y plant',
         title: '',
-        subTitle: 'Manylion ychwanegol am y plant',
       },
       {
         rows: [
@@ -1963,45 +2296,114 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'cd_childrenKnownToSocialServices',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'cd_childrenSubjectOfProtectionPlan',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+        ],
+        subTitle: 'Manylion ychwanegol am y plant',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ocd_hasOtherChildren',
+                  },
                   href: '/c100-rebuild/child-details/has-other-children',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
                 },
               ],
             },
-            key: { text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?' },
-            value: {},
+            key: {
+              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Manylion plant eraill',
+        title: '',
       },
-      { rows: [], title: '', subTitle: 'Manylion y ceiswyr' },
-      { rows: [], title: '', subTitle: 'Manylion yr atebwyr' },
+      {
+        rows: [],
+        subTitle: 'Manylion y ceiswyr',
+        title: '',
+      },
+      {
+        rows: [],
+        subTitle: 'Manylion yr atebwyr',
+        title: '',
+      },
       {
         rows: [
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'oprs_otherPersonCheck',
+                  },
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A oes unrhyw un arall y dylai wybod am eich cais?',
                 },
               ],
             },
-            key: { text: 'A oes unrhyw un arall y dylai wybod am eich cais?' },
-            value: {},
+            key: {
+              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Manylion y bobl eraill yn y cais',
+        title: '',
       },
       [],
-      { rows: [], title: 'Ble mae’r plant yn byw' },
+      {
+        rows: [],
+        title: 'Ble mae’r plant yn byw',
+      },
       [],
       {
         rows: [
@@ -2009,29 +2411,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_childrenInvolvedCourtCase',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
                 },
               ],
             },
-            key: { text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?' },
-            value: {},
+            key: {
+              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_courtOrderProtection',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
                 },
               ],
             },
-            key: { text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?' },
-            value: {},
+            key: {
+              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">9.</span> Achosion yn y gorffennol ac achosion cyfredol',
@@ -2042,15 +2456,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_haveSafetyConcerns',
+                  },
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
                 },
               ],
             },
-            key: { text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?' },
-            value: {},
+            key: {
+              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">10.</span> Pryderon am ddiogelwch',
@@ -2061,25 +2481,31 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalStart',
+                  },
                   href: '/c100-rebuild/international-elements/start',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
                 },
               ],
             },
-            key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
+            key: {
+              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+            },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalParents',
+                  },
                   href: '/c100-rebuild/international-elements/parents',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
                 },
@@ -2089,16 +2515,18 @@ describe('Content.ts toggle test cases', () => {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalJurisdiction',
+                  },
                   href: '/c100-rebuild/international-elements/jurisdiction',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
                 },
@@ -2108,16 +2536,18 @@ describe('Content.ts toggle test cases', () => {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalRequest',
+                  },
                   href: '/c100-rebuild/international-elements/request',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
                 },
@@ -2127,7 +2557,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
         ],
@@ -2139,51 +2569,71 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_typeOfHearing',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
                 },
               ],
             },
-            key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_languageNeeds',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
                 },
               ],
             },
-            key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_specialArrangements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
                 },
               ],
             },
-            key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_disabilityRequirements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
                 },
@@ -2192,7 +2642,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
             },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title:
@@ -2204,15 +2656,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwf_needHelpWithFees',
+                  },
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
                 },
               ],
             },
-            key: { text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?' },
-            value: {},
+            key: {
+              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">13.</span>  Help i dalu ffioedd',
@@ -2232,15 +2690,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c100RebuildChildPostCode',
+                  },
                   href: '/c100-rebuild/childaddress',
                   text: ' Golygu',
                   visuallyHiddenText: "Ble mae'r plant yn byw?",
-                  attributes: {},
                 },
               ],
             },
-            key: { text: "Ble mae'r plant yn byw?" },
-            value: {},
+            key: {
+              text: "Ble mae'r plant yn byw?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">1.</span> Manylion lleoliad',
@@ -2251,18 +2715,22 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_writtenAgreement',
+                  },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
             },
-            value: { text: 'Oes' },
+            value: {
+              html: 'Oes',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">2.</span> Math o gais',
@@ -2273,30 +2741,42 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_courtOrder',
+                  },
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: ' Golygu',
                   visuallyHiddenText: "Beth ydych chi'n gofyn i'r llys ei wneud?",
-                  attributes: {},
                 },
               ],
             },
-            key: { text: "Beth ydych chi'n gofyn i'r llys ei wneud?" },
-            value: {},
+            key: {
+              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_shortStatement',
+                  },
                   href: '/c100-rebuild/typeoforder/shortstatement',
                   text: ' Golygu',
                   visuallyHiddenText:
                     'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn' },
-            value: {},
+            key: {
+              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">3.</span> Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
@@ -2307,68 +2787,53 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hu_urgentHearingReasons',
+                  },
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: ' Golygu',
                   visuallyHiddenText: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?' },
-            value: {},
+            key: {
+              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Llenwch yr adran hon</span></div>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwn_reasonsForApplicationWithoutNotice',
+                  },
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: ' Golygu',
                   visuallyHiddenText: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?' },
-            value: {},
+            key: {
+              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Llenwch yr adran hon</span></div>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">4.</span>  Manylion y gwrandawiad',
       },
-      { rows: [], title: '<span class="app-task-list__section-number">5.</span> Manylion y bobl yn y cais' },
-      { rows: [], title: '', subTitle: 'Manylion y plant' },
       {
-        rows: [
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/child-details/further-information',
-                  text: ' Golygu',
-                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
-                  attributes: {},
-                },
-              ],
-            },
-            key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
-            value: {},
-          },
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/child-details/further-information',
-                  text: ' Golygu',
-                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
-                  attributes: {},
-                },
-              ],
-            },
-            key: { text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?' },
-            value: {},
-          },
-        ],
+        rows: [],
+        title: '<span class="app-task-list__section-number">5.</span> Manylion y bobl yn y cais',
+      },
+      {
+        rows: [],
+        subTitle: 'Manylion y plant',
         title: '',
-        subTitle: 'Manylion ychwanegol am y plant',
       },
       {
         rows: [
@@ -2376,45 +2841,114 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'cd_childrenKnownToSocialServices',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'cd_childrenSubjectOfProtectionPlan',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+        ],
+        subTitle: 'Manylion ychwanegol am y plant',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ocd_hasOtherChildren',
+                  },
                   href: '/c100-rebuild/child-details/has-other-children',
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?' },
-            value: {},
+            key: {
+              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Manylion plant eraill',
+        title: '',
       },
-      { rows: [], title: '', subTitle: 'Manylion y ceiswyr' },
-      { rows: [], title: '', subTitle: 'Manylion yr atebwyr' },
+      {
+        rows: [],
+        subTitle: 'Manylion y ceiswyr',
+        title: '',
+      },
+      {
+        rows: [],
+        subTitle: 'Manylion yr atebwyr',
+        title: '',
+      },
       {
         rows: [
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'oprs_otherPersonCheck',
+                  },
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes unrhyw un arall y dylai wybod am eich cais?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes unrhyw un arall y dylai wybod am eich cais?' },
-            value: {},
+            key: {
+              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Manylion y bobl eraill yn y cais',
+        title: '',
       },
       [],
-      { rows: [], title: 'Ble mae’r plant yn byw' },
+      {
+        rows: [],
+        title: 'Ble mae’r plant yn byw',
+      },
       [],
       {
         rows: [
@@ -2422,29 +2956,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_childrenInvolvedCourtCase',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?' },
-            value: {},
+            key: {
+              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_courtOrderProtection',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?' },
-            value: {},
+            key: {
+              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">6.</span> Achosion yn y gorffennol ac achosion cyfredol',
@@ -2455,15 +3001,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_haveSafetyConcerns',
+                  },
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?' },
-            value: {},
+            key: {
+              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">7.</span> Pryderon am ddiogelwch',
@@ -2474,27 +3026,33 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalStart',
+                  },
                   href: '/c100-rebuild/international-elements/start',
                   text: ' Golygu',
                   visuallyHiddenText: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
+            key: {
+              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+            },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalParents',
+                  },
                   href: '/c100-rebuild/international-elements/parents',
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
-                  attributes: {},
                 },
               ],
             },
@@ -2502,18 +3060,20 @@ describe('Content.ts toggle test cases', () => {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalJurisdiction',
+                  },
                   href: '/c100-rebuild/international-elements/jurisdiction',
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
-                  attributes: {},
                 },
               ],
             },
@@ -2521,18 +3081,20 @@ describe('Content.ts toggle test cases', () => {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalRequest',
+                  },
                   href: '/c100-rebuild/international-elements/request',
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
-                  attributes: {},
                 },
               ],
             },
@@ -2540,7 +3102,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
         ],
@@ -2552,60 +3114,82 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_typeOfHearing',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: ' Golygu',
                   visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_languageNeeds',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_specialArrangements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: ' Golygu',
                   visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
-                  attributes: {},
                 },
               ],
             },
-            key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_disabilityRequirements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
             },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title:
@@ -2617,15 +3201,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwf_needHelpWithFees',
+                  },
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: ' Golygu',
                   visuallyHiddenText: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?' },
-            value: {},
+            key: {
+              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">10.</span>  Help i dalu ffioedd',
@@ -2649,15 +3239,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c100RebuildChildPostCode',
+                  },
                   href: '/c100-rebuild/childaddress',
                   text: ' Golygu',
                   visuallyHiddenText: "Ble mae'r plant yn byw?",
-                  attributes: {},
                 },
               ],
             },
-            key: { text: "Ble mae'r plant yn byw?" },
-            value: {},
+            key: {
+              text: "Ble mae'r plant yn byw?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">1.</span> Manylion lleoliad',
@@ -2668,18 +3264,22 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_writtenAgreement',
+                  },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">2.</span> Math o gais',
@@ -2690,15 +3290,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_legalRepresentation',
+                  },
                   href: '/c100-rebuild/screening-questions/legal-representation',
                   text: ' Golygu',
                   visuallyHiddenText: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?' },
-            value: {},
+            key: {
+              text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">3.</span> Manylion cynrychiolydd cyfreithiol',
@@ -2709,16 +3315,22 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_courtPermissionRequired',
+                  },
                   href: '/c100-rebuild/screening-questions/permission',
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?' },
-            value: {},
+            key: {
+              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">4.</span> Caniatâd i wneud cais',
@@ -2733,22 +3345,26 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'miam_otherProceedings',
+                  },
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
             },
-            value: { text: 'Ydyn' },
+            value: {
+              html: 'Ydyn',
+            },
           },
         ],
-        title: '',
         subTitle: 'Mynychu MIAM',
+        title: '',
       },
       {
         rows: [
@@ -2756,29 +3372,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_childrenInvolvedCourtCase',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?' },
-            value: {},
+            key: {
+              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_courtOrderProtection',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?' },
-            value: {},
+            key: {
+              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">6.</span> Achosion yn y gorffennol ac achosion cyfredol',
@@ -2789,30 +3417,42 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_courtOrder',
+                  },
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: ' Golygu',
                   visuallyHiddenText: "Beth ydych chi'n gofyn i'r llys ei wneud?",
-                  attributes: {},
                 },
               ],
             },
-            key: { text: "Beth ydych chi'n gofyn i'r llys ei wneud?" },
-            value: {},
+            key: {
+              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_shortStatement',
+                  },
                   href: '/c100-rebuild/typeoforder/shortstatement',
                   text: ' Golygu',
                   visuallyHiddenText:
                     'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn' },
-            value: {},
+            key: {
+              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">7.</span> Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
@@ -2823,68 +3463,53 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hu_urgentHearingReasons',
+                  },
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: ' Golygu',
                   visuallyHiddenText: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?' },
-            value: {},
+            key: {
+              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Llenwch yr adran hon</span></div>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwn_reasonsForApplicationWithoutNotice',
+                  },
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: ' Golygu',
                   visuallyHiddenText: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?' },
-            value: {},
+            key: {
+              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Llenwch yr adran hon</span></div>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">8.</span>  Manylion y gwrandawiad',
       },
-      { rows: [], title: '<span class="app-task-list__section-number">9.</span> Manylion y bobl yn y cais' },
-      { rows: [], title: '', subTitle: 'Manylion y plant' },
       {
-        rows: [
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/child-details/further-information',
-                  text: ' Golygu',
-                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
-                  attributes: {},
-                },
-              ],
-            },
-            key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
-            value: {},
-          },
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/child-details/further-information',
-                  text: ' Golygu',
-                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
-                  attributes: {},
-                },
-              ],
-            },
-            key: { text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?' },
-            value: {},
-          },
-        ],
+        rows: [],
+        title: '<span class="app-task-list__section-number">9.</span> Manylion y bobl yn y cais',
+      },
+      {
+        rows: [],
+        subTitle: 'Manylion y plant',
         title: '',
-        subTitle: 'Manylion ychwanegol am y plant',
       },
       {
         rows: [
@@ -2892,45 +3517,114 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'cd_childrenKnownToSocialServices',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'cd_childrenSubjectOfProtectionPlan',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+        ],
+        subTitle: 'Manylion ychwanegol am y plant',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ocd_hasOtherChildren',
+                  },
                   href: '/c100-rebuild/child-details/has-other-children',
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?' },
-            value: {},
+            key: {
+              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Manylion plant eraill',
+        title: '',
       },
-      { rows: [], title: '', subTitle: 'Manylion y ceiswyr' },
-      { rows: [], title: '', subTitle: 'Manylion yr atebwyr' },
+      {
+        rows: [],
+        subTitle: 'Manylion y ceiswyr',
+        title: '',
+      },
+      {
+        rows: [],
+        subTitle: 'Manylion yr atebwyr',
+        title: '',
+      },
       {
         rows: [
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'oprs_otherPersonCheck',
+                  },
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes unrhyw un arall y dylai wybod am eich cais?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes unrhyw un arall y dylai wybod am eich cais?' },
-            value: {},
+            key: {
+              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Manylion y bobl eraill yn y cais',
+        title: '',
       },
       [],
-      { rows: [], title: 'Ble mae’r plant yn byw' },
+      {
+        rows: [],
+        title: 'Ble mae’r plant yn byw',
+      },
       [],
       {
         rows: [
@@ -2938,15 +3632,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_haveSafetyConcerns',
+                  },
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?' },
-            value: {},
+            key: {
+              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">10.</span> Pryderon am ddiogelwch',
@@ -2957,27 +3657,33 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalStart',
+                  },
                   href: '/c100-rebuild/international-elements/start',
                   text: ' Golygu',
                   visuallyHiddenText: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
+            key: {
+              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+            },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalParents',
+                  },
                   href: '/c100-rebuild/international-elements/parents',
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
-                  attributes: {},
                 },
               ],
             },
@@ -2985,18 +3691,20 @@ describe('Content.ts toggle test cases', () => {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalJurisdiction',
+                  },
                   href: '/c100-rebuild/international-elements/jurisdiction',
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
-                  attributes: {},
                 },
               ],
             },
@@ -3004,18 +3712,20 @@ describe('Content.ts toggle test cases', () => {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalRequest',
+                  },
                   href: '/c100-rebuild/international-elements/request',
                   text: ' Golygu',
                   visuallyHiddenText:
                     "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
-                  attributes: {},
                 },
               ],
             },
@@ -3023,7 +3733,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
         ],
@@ -3035,60 +3745,82 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_typeOfHearing',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: ' Golygu',
                   visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_languageNeeds',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: ' Golygu',
                   visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_specialArrangements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: ' Golygu',
                   visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
-                  attributes: {},
                 },
               ],
             },
-            key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_disabilityRequirements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: ' Golygu',
                   visuallyHiddenText:
                     'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
             },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title:
@@ -3100,15 +3832,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwf_needHelpWithFees',
+                  },
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: ' Golygu',
                   visuallyHiddenText: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
-                  attributes: {},
                 },
               ],
             },
-            key: { text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?' },
-            value: {},
+            key: {
+              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">13.</span>  Help i dalu ffioedd',
@@ -3133,15 +3871,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c100RebuildChildPostCode',
+                  },
                   href: '/c100-rebuild/childaddress',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: "Ble mae'r plant yn byw?",
                 },
               ],
             },
-            key: { text: "Ble mae'r plant yn byw?" },
-            value: {},
+            key: {
+              text: "Ble mae'r plant yn byw?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">1.</span> Manylion lleoliad',
@@ -3152,9 +3896,11 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_writtenAgreement',
+                  },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
                 },
@@ -3163,7 +3909,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">2.</span> Math o gais',
@@ -3174,15 +3922,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_legalRepresentation',
+                  },
                   href: '/c100-rebuild/screening-questions/legal-representation',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
                 },
               ],
             },
-            key: { text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?' },
-            value: {},
+            key: {
+              text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">3.</span> Manylion cynrychiolydd cyfreithiol',
@@ -3193,16 +3947,22 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_courtPermissionRequired',
+                  },
                   href: '/c100-rebuild/screening-questions/permission',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
                 },
               ],
             },
-            key: { text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?' },
-            value: {},
+            key: {
+              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">4.</span> Caniatâd i wneud cais',
@@ -3217,9 +3977,11 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'miam_otherProceedings',
+                  },
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
                 },
@@ -3228,31 +3990,13 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
             },
-            value: {},
-          },
-        ],
-        title: '',
-        subTitle: 'Mynychu MIAM',
-      },
-      {
-        rows: [
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/miam/general-reasons',
-                  text: ' Golygu',
-                  attributes: {},
-                  visuallyHiddenText: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
-                },
-              ],
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
             },
-            key: { text: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?' },
-            value: {},
           },
         ],
+        subTitle: 'Mynychu MIAM',
         title: '',
-        subTitle: 'Esemptiad MIAM',
       },
       {
         rows: [
@@ -3260,30 +4004,42 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_courtOrder',
+                  },
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: "Beth ydych chi'n gofyn i'r llys ei wneud?",
                 },
               ],
             },
-            key: { text: "Beth ydych chi'n gofyn i'r llys ei wneud?" },
-            value: {},
+            key: {
+              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_shortStatement',
+                  },
                   href: '/c100-rebuild/typeoforder/shortstatement',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
                 },
               ],
             },
-            key: { text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn' },
-            value: {},
+            key: {
+              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">6.</span> Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
@@ -3294,68 +4050,53 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hu_urgentHearingReasons',
+                  },
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
                 },
               ],
             },
-            key: { text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?' },
-            value: {},
+            key: {
+              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Llenwch yr adran hon</span></div>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwn_reasonsForApplicationWithoutNotice',
+                  },
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
                 },
               ],
             },
-            key: { text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?' },
-            value: {},
+            key: {
+              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Llenwch yr adran hon</span></div>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">7.</span>  Manylion y gwrandawiad',
       },
-      { rows: [], title: '<span class="app-task-list__section-number">8.</span> Manylion y bobl yn y cais' },
-      { rows: [], title: '', subTitle: 'Manylion y plant' },
       {
-        rows: [
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/child-details/further-information',
-                  text: ' Golygu',
-                  attributes: {},
-                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
-                },
-              ],
-            },
-            key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
-            value: {},
-          },
-          {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/child-details/further-information',
-                  text: ' Golygu',
-                  attributes: {},
-                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
-                },
-              ],
-            },
-            key: { text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?' },
-            value: {},
-          },
-        ],
+        rows: [],
+        title: '<span class="app-task-list__section-number">8.</span> Manylion y bobl yn y cais',
+      },
+      {
+        rows: [],
+        subTitle: 'Manylion y plant',
         title: '',
-        subTitle: 'Manylion ychwanegol am y plant',
       },
       {
         rows: [
@@ -3363,45 +4104,114 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'cd_childrenKnownToSocialServices',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'cd_childrenSubjectOfProtectionPlan',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+        ],
+        subTitle: 'Manylion ychwanegol am y plant',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ocd_hasOtherChildren',
+                  },
                   href: '/c100-rebuild/child-details/has-other-children',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
                 },
               ],
             },
-            key: { text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?' },
-            value: {},
+            key: {
+              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Manylion plant eraill',
+        title: '',
       },
-      { rows: [], title: '', subTitle: 'Manylion y ceiswyr' },
-      { rows: [], title: '', subTitle: 'Manylion yr atebwyr' },
+      {
+        rows: [],
+        subTitle: 'Manylion y ceiswyr',
+        title: '',
+      },
+      {
+        rows: [],
+        subTitle: 'Manylion yr atebwyr',
+        title: '',
+      },
       {
         rows: [
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'oprs_otherPersonCheck',
+                  },
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A oes unrhyw un arall y dylai wybod am eich cais?',
                 },
               ],
             },
-            key: { text: 'A oes unrhyw un arall y dylai wybod am eich cais?' },
-            value: {},
+            key: {
+              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
-        title: '',
         subTitle: 'Manylion y bobl eraill yn y cais',
+        title: '',
       },
       [],
-      { rows: [], title: 'Ble mae’r plant yn byw' },
+      {
+        rows: [],
+        title: 'Ble mae’r plant yn byw',
+      },
       [],
       {
         rows: [
@@ -3409,29 +4219,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_childrenInvolvedCourtCase',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
                 },
               ],
             },
-            key: { text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?' },
-            value: {},
+            key: {
+              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_courtOrderProtection',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
                 },
               ],
             },
-            key: { text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?' },
-            value: {},
+            key: {
+              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">9.</span> Achosion yn y gorffennol ac achosion cyfredol',
@@ -3442,15 +4264,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_haveSafetyConcerns',
+                  },
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
                 },
               ],
             },
-            key: { text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?' },
-            value: {},
+            key: {
+              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">10.</span> Pryderon am ddiogelwch',
@@ -3461,25 +4289,31 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalStart',
+                  },
                   href: '/c100-rebuild/international-elements/start',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
                 },
               ],
             },
-            key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
+            key: {
+              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+            },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalParents',
+                  },
                   href: '/c100-rebuild/international-elements/parents',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
                 },
@@ -3489,16 +4323,18 @@ describe('Content.ts toggle test cases', () => {
               text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalJurisdiction',
+                  },
                   href: '/c100-rebuild/international-elements/jurisdiction',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
                 },
@@ -3508,16 +4344,18 @@ describe('Content.ts toggle test cases', () => {
               text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalRequest',
+                  },
                   href: '/c100-rebuild/international-elements/request',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
                 },
@@ -3527,7 +4365,7 @@ describe('Content.ts toggle test cases', () => {
               text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Llenwch yr adran hon</span></dd></div></dl>',
             },
           },
         ],
@@ -3539,51 +4377,71 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_typeOfHearing',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
                 },
               ],
             },
-            key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_languageNeeds',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
                 },
               ],
             },
-            key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_specialArrangements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
                 },
               ],
             },
-            key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            key: {
+              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_disabilityRequirements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText:
                     'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
                 },
@@ -3592,7 +4450,9 @@ describe('Content.ts toggle test cases', () => {
             key: {
               text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
             },
-            value: { html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>' },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title:
@@ -3604,15 +4464,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwf_needHelpWithFees',
+                  },
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: ' Golygu',
-                  attributes: {},
                   visuallyHiddenText: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
                 },
               ],
             },
-            key: { text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?' },
-            value: {},
+            key: {
+              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">13.</span>  Help i dalu ffioedd',
@@ -3629,6 +4495,13 @@ describe('Content.ts toggle test cases', () => {
         sq_writtenAgreement: undefined,
         miam_otherProceedings: YesOrNo.NO,
         miam_attendance: YesOrNo.YES,
+        miam_haveDocSigned: YesOrNo.YES,
+        miam_certificate: {
+          id: '123',
+          url: '/123',
+          filename: 'MIAM_cert.pdf',
+          binaryUrl: '/123/binary',
+        },
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
@@ -3638,17 +4511,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c100RebuildChildPostCode',
+                  },
                   href: '/c100-rebuild/childaddress',
                   text: 'Edit',
                   visuallyHiddenText: 'Where do the children live?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Where do the children live?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">1.</span> Location details',
@@ -3659,18 +4536,22 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_writtenAgreement',
+                  },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you have a written agreement with the other people in the case that you want the court to review?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">2.</span> Type of application',
@@ -3681,17 +4562,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_legalRepresentation',
+                  },
                   href: '/c100-rebuild/screening-questions/legal-representation',
                   text: 'Edit',
                   visuallyHiddenText: 'Will you be using a legal representative in these proceedings?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Will you be using a legal representative in these proceedings?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">3.</span> Legal representative details',
@@ -3702,18 +4587,22 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'sq_courtPermissionRequired',
+                  },
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Is there any reason that you would need permission from the court to make this application?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Is there any reason that you would need permission from the court to make this application?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">4.</span> Permission to make the application',
@@ -3729,11 +4618,13 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'miam_otherProceedings',
+                  },
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
-                  attributes: {},
                 },
               ],
             },
@@ -3741,17 +4632,19 @@ describe('Content.ts toggle test cases', () => {
               text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
             },
             value: {
-              text: 'No',
+              html: 'No',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'miam_attendance',
+                  },
                   href: '/c100-rebuild/miam/attendance',
                   text: 'Edit',
                   visuallyHiddenText: 'Have you attended a MIAM?',
-                  attributes: {},
                 },
               ],
             },
@@ -3759,24 +4652,28 @@ describe('Content.ts toggle test cases', () => {
               text: 'Have you attended a MIAM?',
             },
             value: {
-              text: 'Yes',
+              html: 'Yes',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'miam_haveDocSigned',
+                  },
                   href: '/c100-rebuild/miam/mediator-document',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have a document signed by the mediator?  ',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you have a document signed by the mediator?  ',
             },
-            value: {},
+            value: {
+              html: 'Yes',
+            },
           },
         ],
         subTitle: 'MIAM attendance',
@@ -3788,33 +4685,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_childrenInvolvedCourtCase',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: 'Edit',
                   visuallyHiddenText: 'Have the children been involved in a court case?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Have the children been involved in a court case?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'op_courtOrderProtection',
+                  },
                   href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
                   text: 'Edit',
                   visuallyHiddenText: 'Have you had a court order made for your protection?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Have you had a court order made for your protection?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">6.</span> Past and current proceeding',
@@ -3825,34 +4730,42 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_courtOrder',
+                  },
                   href: '/c100-rebuild/typeoforder/select-courtorder',
                   text: 'Edit',
                   visuallyHiddenText: 'What are you asking the court to do?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'What are you asking the court to do?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'too_shortStatement',
+                  },
                   href: '/c100-rebuild/typeoforder/shortstatement',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Describe what you want the court to do regarding the children in this application',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Describe what you want the court to do regarding the children in this application',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">7.</span> What you\'re asking the court to decide',
@@ -3863,33 +4776,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hu_urgentHearingReasons',
+                  },
                   href: '/c100-rebuild/hearing-urgency/urgent',
                   text: 'Edit',
                   visuallyHiddenText: 'Does your situation qualify for an urgent first hearing?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Does your situation qualify for an urgent first hearing?',
             },
-            value: {},
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwn_reasonsForApplicationWithoutNotice',
+                  },
                   href: '/c100-rebuild/hearing-without-notice/hearing-part1',
                   text: 'Edit',
                   visuallyHiddenText: 'Are you asking for a without notice hearing?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Are you asking for a without notice hearing?',
             },
-            value: {},
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">8.</span> Hearing details',
@@ -3900,8 +4821,8 @@ describe('Content.ts toggle test cases', () => {
       },
       {
         rows: [],
-        title: '',
         subTitle: "Children's details",
+        title: '',
       },
       {
         rows: [
@@ -3909,33 +4830,41 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'cd_childrenKnownToSocialServices',
+                  },
                   href: '/c100-rebuild/child-details/further-information',
                   text: 'Edit',
                   visuallyHiddenText: 'Are any of the children known to social services?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Are any of the children known to social services?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'cd_childrenSubjectOfProtectionPlan',
+                  },
                   href: '/c100-rebuild/child-details/further-information',
                   text: 'Edit',
                   visuallyHiddenText: 'Are any of the children the subject of a child protection plan?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Are any of the children the subject of a child protection plan?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         subTitle: 'Additional details about the children',
@@ -3947,18 +4876,22 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ocd_hasOtherChildren',
+                  },
                   href: '/c100-rebuild/child-details/has-other-children',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you or any respondents have other children who are not part of this application?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you or any respondents have other children who are not part of this application?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         subTitle: 'Other Children details',
@@ -3980,17 +4913,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'oprs_otherPersonCheck',
+                  },
                   href: '/c100-rebuild/other-person-details/other-person-check',
                   text: 'Edit',
                   visuallyHiddenText: 'Is there anyone else who should know about your application?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Is there anyone else who should know about your application?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         subTitle: 'Details of the other people in the application',
@@ -4008,17 +4945,21 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'c1A_haveSafetyConcerns',
+                  },
                   href: '/c100-rebuild/safety-concerns/concerns-for-safety',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you have any concerns for your safety or the safety of the children?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">10.</span> Safety concerns',
@@ -4029,10 +4970,12 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalStart',
+                  },
                   href: '/c100-rebuild/international-elements/start',
                   text: 'Edit',
                   visuallyHiddenText: "Are the children's lives mainly based outside of England and Wales?",
-                  attributes: {},
                 },
               ],
             },
@@ -4040,18 +4983,20 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's lives mainly based outside of England and Wales?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalParents',
+                  },
                   href: '/c100-rebuild/international-elements/parents',
                   text: 'Edit',
                   visuallyHiddenText:
                     "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
-                  attributes: {},
                 },
               ],
             },
@@ -4059,18 +5004,20 @@ describe('Content.ts toggle test cases', () => {
               text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalJurisdiction',
+                  },
                   href: '/c100-rebuild/international-elements/jurisdiction',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Could another person in the application apply for a similar order in a country outside England or Wales?',
-                  attributes: {},
                 },
               ],
             },
@@ -4078,18 +5025,20 @@ describe('Content.ts toggle test cases', () => {
               text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ie_internationalRequest',
+                  },
                   href: '/c100-rebuild/international-elements/request',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Has another country asked (or been asked) for information or help for the children?',
-                  attributes: {},
                 },
               ],
             },
@@ -4097,7 +5046,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Has another country asked (or been asked) for information or help for the children?',
             },
             value: {
-              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"></dd></div></dl>',
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
             },
           },
         ],
@@ -4109,10 +5058,12 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_typeOfHearing',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: 'Edit',
                   visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
-                  attributes: {},
                 },
               ],
             },
@@ -4120,17 +5071,19 @@ describe('Content.ts toggle test cases', () => {
               text: 'Would you be able to take part in hearings by video and phone?',
             },
             value: {
-              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+              html: '<span class="govuk-error-message">Complete this section</span>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_languageNeeds',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/language-requirements',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you have any language requirements?',
-                  attributes: {},
                 },
               ],
             },
@@ -4138,17 +5091,19 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you have any language requirements?',
             },
             value: {
-              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+              html: '<span class="govuk-error-message">Complete this section</span>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_specialArrangements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you or the children need special arrangements at court?',
-                  attributes: {},
                 },
               ],
             },
@@ -4156,18 +5111,20 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you or the children need special arrangements at court?',
             },
             value: {
-              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+              html: '<span class="govuk-error-message">Complete this section</span>',
             },
           },
           {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'ra_disabilityRequirements',
+                  },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: 'Edit',
                   visuallyHiddenText:
                     'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-                  attributes: {},
                 },
               ],
             },
@@ -4175,7 +5132,7 @@ describe('Content.ts toggle test cases', () => {
               text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
             },
             value: {
-              html: '<ul class="govuk-list govuk-list--bullet">undefined</ul>',
+              html: '<span class="govuk-error-message">Complete this section</span>',
             },
           },
         ],
@@ -4187,23 +5144,28 @@ describe('Content.ts toggle test cases', () => {
             actions: {
               items: [
                 {
+                  attributes: {
+                    id: 'hwf_needHelpWithFees',
+                  },
                   href: '/c100-rebuild/help-with-fees/need-help-with-fees',
                   text: 'Edit',
                   visuallyHiddenText: 'Do you need help with paying the fee for this application?',
-                  attributes: {},
                 },
               ],
             },
             key: {
               text: 'Do you need help with paying the fee for this application?',
             },
-            value: {},
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
           },
         ],
         title: '<span class="app-task-list__section-number">13.</span> Help with Fees',
       },
     ]);
   });
+
   test('cy should generate sections properly for miam cert upload scenarios', () => {
     const generatedEnContent = generateContent({
       ...commonContent,
@@ -4245,6 +5207,663 @@ describe('Content.ts toggle test cases', () => {
     );
   });
 
+  test('en should generate correct content for flow 4', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      language: 'en',
+      userCase: {
+        miam_validReason: 'Yes',
+        miam_attendance: 'No',
+      } as CaseWithId,
+    });
+    expect(generatedEnContent.sections).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'c100RebuildChildPostCode',
+                  },
+                  href: '/c100-rebuild/childaddress',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Where do the children live?',
+                },
+              ],
+            },
+            key: {
+              text: 'Where do the children live?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">1.</span> Location details',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'sq_writtenAgreement',
+                  },
+                  href: '/c100-rebuild/screening-questions/consent-agreement',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you have a written agreement with the other people in the case that you want the court to review?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">2.</span> Type of application',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'sq_legalRepresentation',
+                  },
+                  href: '/c100-rebuild/screening-questions/legal-representation',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Will you be using a legal representative in these proceedings?',
+                },
+              ],
+            },
+            key: {
+              text: 'Will you be using a legal representative in these proceedings?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">3.</span> Legal representative details',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'sq_courtPermissionRequired',
+                  },
+                  href: '/c100-rebuild/screening-questions/permission',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Is there any reason that you would need permission from the court to make this application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Is there any reason that you would need permission from the court to make this application?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">4.</span> Permission to make the application',
+      },
+      {
+        rows: [],
+        title:
+          '<span class="app-task-list__section-number">5.</span> MIAM: Mediation Information and Assessment Meeting',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'miam_otherProceedings',
+                  },
+                  href: '/c100-rebuild/miam/other-proceedings',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+                },
+              ],
+            },
+            key: {
+              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        subTitle: 'MIAM attendance',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'miam_nonAttendanceReasons',
+                  },
+                  href: '/c100-rebuild/miam/general-reasons',
+                  text: 'Edit',
+                  visuallyHiddenText: 'What are your reasons for not attending a MIAM?',
+                },
+              ],
+            },
+            key: {
+              text: 'What are your reasons for not attending a MIAM?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        subTitle: 'MIAM exemption',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'too_courtOrder',
+                  },
+                  href: '/c100-rebuild/typeoforder/select-courtorder',
+                  text: 'Edit',
+                  visuallyHiddenText: 'What are you asking the court to do?',
+                },
+              ],
+            },
+            key: {
+              text: 'What are you asking the court to do?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'too_shortStatement',
+                  },
+                  href: '/c100-rebuild/typeoforder/shortstatement',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Describe what you want the court to do regarding the children in this application',
+                },
+              ],
+            },
+            key: {
+              text: 'Describe what you want the court to do regarding the children in this application',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">6.</span> What you\'re asking the court to decide',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'hu_urgentHearingReasons',
+                  },
+                  href: '/c100-rebuild/hearing-urgency/urgent',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Does your situation qualify for an urgent first hearing?',
+                },
+              ],
+            },
+            key: {
+              text: 'Does your situation qualify for an urgent first hearing?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'hwn_reasonsForApplicationWithoutNotice',
+                  },
+                  href: '/c100-rebuild/hearing-without-notice/hearing-part1',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are you asking for a without notice hearing?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are you asking for a without notice hearing?',
+            },
+            value: {
+              html: '<div class="govuk-summary-list__row border-bottom--none"><span class="govuk-error-message">Complete this section</span></div>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">7.</span> Hearing details',
+      },
+      {
+        rows: [],
+        title: '<span class="app-task-list__section-number">8.</span> Details of the people in the application ',
+      },
+      {
+        rows: [],
+        subTitle: "Children's details",
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'cd_childrenKnownToSocialServices',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are any of the children known to social services?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are any of the children known to social services?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'cd_childrenSubjectOfProtectionPlan',
+                  },
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are any of the children the subject of a child protection plan?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are any of the children the subject of a child protection plan?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        subTitle: 'Additional details about the children',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ocd_hasOtherChildren',
+                  },
+                  href: '/c100-rebuild/child-details/has-other-children',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you or any respondents have other children who are not part of this application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you or any respondents have other children who are not part of this application?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        subTitle: 'Other Children details',
+        title: '',
+      },
+      {
+        rows: [],
+        subTitle: 'Details of the applicants',
+        title: '',
+      },
+      {
+        rows: [],
+        subTitle: 'Details of the respondents',
+        title: '',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'oprs_otherPersonCheck',
+                  },
+                  href: '/c100-rebuild/other-person-details/other-person-check',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Is there anyone else who should know about your application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Is there anyone else who should know about your application?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        subTitle: 'Details of the other people in the application',
+        title: '',
+      },
+      [],
+      {
+        rows: [],
+        title: 'Where the children live',
+      },
+      [],
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'op_childrenInvolvedCourtCase',
+                  },
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Have the children been involved in a court case?',
+                },
+              ],
+            },
+            key: {
+              text: 'Have the children been involved in a court case?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'op_courtOrderProtection',
+                  },
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Have you had a court order made for your protection?',
+                },
+              ],
+            },
+            key: {
+              text: 'Have you had a court order made for your protection?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">9.</span> Past and current proceeding',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'c1A_haveSafetyConcerns',
+                  },
+                  href: '/c100-rebuild/safety-concerns/concerns-for-safety',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have any concerns for your safety or the safety of the children?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">10.</span> Safety concerns',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ie_internationalStart',
+                  },
+                  href: '/c100-rebuild/international-elements/start',
+                  text: 'Edit',
+                  visuallyHiddenText: "Are the children's lives mainly based outside of England and Wales?",
+                },
+              ],
+            },
+            key: {
+              text: "Are the children's lives mainly based outside of England and Wales?",
+            },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ie_internationalParents',
+                  },
+                  href: '/c100-rebuild/international-elements/parents',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+                },
+              ],
+            },
+            key: {
+              text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+            },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ie_internationalJurisdiction',
+                  },
+                  href: '/c100-rebuild/international-elements/jurisdiction',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Could another person in the application apply for a similar order in a country outside England or Wales?',
+                },
+              ],
+            },
+            key: {
+              text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
+            },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ie_internationalRequest',
+                  },
+                  href: '/c100-rebuild/international-elements/request',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Has another country asked (or been asked) for information or help for the children?',
+                },
+              ],
+            },
+            key: {
+              text: 'Has another country asked (or been asked) for information or help for the children?',
+            },
+            value: {
+              html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dd></div></dl>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">11.</span> International elements',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_typeOfHearing',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
+                },
+              ],
+            },
+            key: {
+              text: 'Would you be able to take part in hearings by video and phone?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_languageNeeds',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you have any language requirements?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have any language requirements?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_specialArrangements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you or the children need special arrangements at court?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you or the children need special arrangements at court?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_disabilityRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">12.</span> Support you need during your case',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'hwf_needHelpWithFees',
+                  },
+                  href: '/c100-rebuild/help-with-fees/need-help-with-fees',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you need help with paying the fee for this application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you need help with paying the fee for this application?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+        ],
+        title: '<span class="app-task-list__section-number">13.</span> Help with Fees',
+      },
+    ]);
+  });
+
   test('generateContent with hwf conditions', () => {
     generatedContent = generateContent({
       ...commonContent,
@@ -4253,6 +5872,8 @@ describe('Content.ts toggle test cases', () => {
         helpWithFeesReferenceNumber: '1234',
       },
     });
+    generatedForm = generatedContent.form as FormContent;
+    fields = generatedForm.fields as FormFields;
 
     expect(fields.statementOftruthHeading.type).toBe('textAndHtml');
     expect(fields.statementOftruthHeading.textAndHtml).toBe(
@@ -4278,8 +5899,8 @@ describe('Content.ts toggle test cases', () => {
     expect((form?.submit?.text as LanguageLookup)(generatedContent)).toBe(enContent.StatementOfTruth.SubmitButton);
   });
 
-  test('generateContent should add error error text for c8 refuge document', () => {
-    const generatedRefugeErrorsContent = generateContent({
+  test('generateContent should add error text for parties', () => {
+    const generatedErrorsContent = generateContent({
       ...commonContent,
       language: 'en',
       userCase: {
@@ -4318,7 +5939,7 @@ describe('Content.ts toggle test cases', () => {
             applicantContactDetail: {
               canProvideEmail: 'No',
               emailAddress: '',
-              telephoneNumber: '+447205308786',
+              telephoneNumber: '447205308786',
               canNotProvideTelephoneNumberReason: '',
               canLeaveVoiceMail: 'Yes',
               canProvideTelephoneNumber: 'Yes',
@@ -4364,23 +5985,86 @@ describe('Content.ts toggle test cases', () => {
             },
             liveInRefuge: 'Yes',
             addressUnknown: 'Yes',
-            cd_children: [
-              {
-                id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
-                firstName: 'Nir',
-                lastName: 'Sin',
-              },
-            ],
+            isOtherPersonAddressConfidential: null,
           },
+        ],
+        cd_children: [
+          {
+            id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+            firstName: 'Nir',
+            lastName: 'Sin',
+            personalDetails: {
+              dateOfBirth: { year: undefined, month: undefined, day: undefined },
+            },
+            childMatters: {},
+            parentialResponsibility: {},
+          },
+        ],
+        resp_Respondents: [
+          {
+            address: {},
+            contactDetails: {},
+            personalDetails: {
+              dateOfBirth: { year: undefined, month: undefined, day: undefined },
+              approxDateOfBirth: { year: undefined, month: undefined, day: undefined },
+            },
+          },
+        ],
+        ocd_otherChildren: [
+          { personalDetails: { dateOfBirth: { year: undefined, month: undefined, day: undefined } } },
         ],
       } as unknown as CaseWithId,
     });
 
-    expect(generatedRefugeErrorsContent.errors?.['c8RefugeDocument-applicant-0']).toStrictEqual({
+    expect(generatedErrorsContent.errors?.['c8RefugeDocument-applicant-0']).toStrictEqual({
       required: 'You must upload a C8 document',
     });
-    expect(generatedRefugeErrorsContent.errors?.['c8RefugeDocument-otherPerson-0']).toStrictEqual({
+    expect(generatedErrorsContent.errors?.['c8RefugeDocument-otherPerson-0']).toStrictEqual({
       required: 'You must upload a C8 document',
+    });
+    expect(generatedErrorsContent.errors?.['otherPersonConfidentiality-otherPerson-0']).toStrictEqual({
+      required: 'Select yes if you want to keep Respondent FirstPage’s identity private',
+    });
+    expect(generatedErrorsContent.errors?.['contactDetails-applicant-0']).toStrictEqual({
+      invalidEmail: 'Enter an email address in the correct format, like name@example.com',
+      invalidPhoneNumber: 'Enter a telephone number in the correct format',
+      required: 'Contact details of Test Applicant',
+    });
+    expect(generatedErrorsContent.errors?.['fullName-applicant-0']).toStrictEqual({
+      required: 'Enter the full name',
+    });
+    expect(generatedErrorsContent.errors?.['fullName-child-0']).toStrictEqual({
+      required: 'Enter the full name',
+    });
+    expect(generatedErrorsContent.errors?.['fullName-respondent-0']).toStrictEqual({
+      required: 'Enter the full name',
+    });
+    expect(generatedErrorsContent.errors?.['fullName-otherPerson-0']).toStrictEqual({
+      required: 'Enter the full name',
+    });
+    expect(generatedErrorsContent.errors?.['fullName-otherChild-0']).toStrictEqual({
+      required: 'Enter the full name',
+    });
+  });
+
+  test('generateContent should add error text for other person and child when arrays empty', () => {
+    const generatedErrorsContent = generateContent({
+      ...commonContent,
+      language: 'en',
+      userCase: {
+        ...commonContent.userCase,
+        oprs_otherPersonCheck: 'Yes',
+        ocd_hasOtherChildren: 'Yes',
+        oprs_otherPersons: [],
+        ocd_otherChildren: [],
+      } as unknown as CaseWithId,
+    });
+
+    expect(generatedErrorsContent.errors?.['fullName-otherPerson-0']).toStrictEqual({
+      required: 'Enter the full name',
+    });
+    expect(generatedErrorsContent.errors?.['fullName-otherChild-0']).toStrictEqual({
+      required: 'Enter the full name',
     });
   });
 
@@ -4424,7 +6108,7 @@ describe('Content.ts toggle test cases', () => {
             applicantContactDetail: {
               canProvideEmail: 'No',
               emailAddress: '',
-              telephoneNumber: '+447205308786',
+              telephoneNumber: '447205308786',
               canNotProvideTelephoneNumberReason: '',
               canLeaveVoiceMail: 'Yes',
               canProvideTelephoneNumber: 'Yes',
@@ -4505,7 +6189,65 @@ describe('Content.ts toggle test cases', () => {
     });
 
     expect(generatedRefugeErrorsContent.errors?.['otherPersonConfidentiality-otherPerson-0']).toStrictEqual({
-      required: 'Select yes if you want to keep Respondent FirstPage’s details private',
+      required: 'Select yes if you want to keep Respondent FirstPage’s identity private',
     });
+  });
+
+  test('en should generate sections properly for consent order with safety concerns when train track enabled', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      additionalData: { req: { session: { enableC100CaseProgressionTrainTrack: true } } },
+    });
+    expect(generatedEnContent.sections?.[4].title).not.toStrictEqual(
+      '<span class="app-task-list__section-number">5.</span> MIAM: Mediation Information and Assessment Meeting'
+    );
+  });
+
+  test('en should generate sections properly for miam_otherProceedings with safety concerns when train track enabled', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        sq_writtenAgreement: undefined,
+        c1A_haveSafetyConcerns: 'Yes' as YesOrNo.YES,
+        c1A_safetyConernAbout: ['applicant' as C1ASafteyConcernsAbout],
+      },
+      additionalData: { req: { session: { enableC100CaseProgressionTrainTrack: true } } },
+    });
+    expect(generatedEnContent.sections?.[6].title).toStrictEqual(
+      '<span class="app-task-list__section-number">6.</span> Past and current proceeding'
+    );
+  });
+
+  test('en should generate sections properly for miam urgency when train track enabled', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        sq_writtenAgreement: undefined,
+        miam_otherProceedings: undefined,
+        miam_urgency: Miam_urgency.freedomPhysicalSafety,
+        miam_nonAttendanceReasons: [MiamNonAttendReason.URGENT],
+      },
+      additionalData: { req: { session: { enableC100CaseProgressionTrainTrack: true } } },
+    });
+    expect(generatedEnContent.sections?.[7].title).toStrictEqual(
+      '<span class="app-task-list__section-number">6.</span> Hearing details'
+    );
+  });
+
+  test('en should generate correct content for default flow when train track enabled', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      language: 'en',
+      userCase: {
+        miam_validReason: 'Yes',
+        miam_attendance: 'No',
+      } as CaseWithId,
+      additionalData: { req: { session: { enableC100CaseProgressionTrainTrack: true } } },
+    });
+    expect(generatedEnContent.sections?.[7].title).toStrictEqual(
+      '<span class="app-task-list__section-number">6.</span> What you\'re asking the court to decide'
+    );
   });
 });

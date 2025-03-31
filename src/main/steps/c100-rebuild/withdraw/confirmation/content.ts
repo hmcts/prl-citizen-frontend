@@ -4,7 +4,7 @@ import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  successMessage: 'Application withdrawn',
+  title: 'Application withdrawn',
   subContent: 'Your application has been withdrawn.',
   secondaryContent: 'If you want to take further action, you will need to start a new application.',
   secondaryBtnLabel: 'Close and return to case overview',
@@ -13,7 +13,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  successMessage: 'Application withdrawn -welsh',
+  title: 'Application withdrawn -welsh',
   subContent: 'Your application has been withdrawn. -welsh',
   secondaryContent: 'If you want to take further action, you will need to start a new application. -welsh',
   secondaryBtnLabel: 'Cau a dychwelyd i drosolwg o’r achos',

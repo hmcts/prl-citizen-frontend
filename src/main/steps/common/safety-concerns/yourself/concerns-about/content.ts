@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../app/case/case';
 import { C1AAbuseTypes } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
@@ -10,7 +11,7 @@ import { generateContent as parentContent } from '../content';
 
 export * from './routeGuard';
 
-const en = () => ({
+export const en = () => ({
   caption: 'Safety concerns',
   title: 'What type of behaviour have you experienced or are at risk of experiencing?',
   paragraph1:
@@ -44,7 +45,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   caption: 'Pryderon diogelwch',
   title: 'Pa fath o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi?',
   paragraph1:

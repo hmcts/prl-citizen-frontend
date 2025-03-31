@@ -105,7 +105,11 @@ const cy = {
 
 /* eslint-disable @typescript-eslint/ban-types */
 describe('applicant personal details > international elements > start', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: { applyingWith: 'alone' },
+    additionalData: { req: { params: { orderType: 'childArrangementOrder' } } },
+  } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent({ ...commonContent, language: 'en' }));

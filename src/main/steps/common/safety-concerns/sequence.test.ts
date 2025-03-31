@@ -1,5 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { CaseWithId } from '../../../app/case/case';
 import { YesOrNo } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 
 import { AohSequence } from './sequence';
 
@@ -42,7 +44,52 @@ describe('respondent1Sequence', () => {
     expect(sequence[1].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.YES })).toBe(
       '/respondent/safety-concerns/concern-about'
     );
-    expect(sequence[1].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.NO })).toBe('/respondent/safety-concerns/review');
+    expect(
+      sequence[1].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.YES }, {
+        originalUrl: '/c100-rebuild',
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest)
+    ).toBe('/c100-rebuild/safety-concerns/concern-about');
+    expect(
+      sequence[1].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.NO }, {
+        originalUrl: '/c100-rebuild',
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest)
+    ).toBe('/c100-rebuild/international-elements/start');
+    expect(
+      sequence[1].getNextStep(
+        {
+          sq_writtenAgreement: 'No',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'No',
+          miam_nonAttendanceReasons: ['domesticViolence', 'previousMIAMOrExempt'],
+          miam_domesticAbuse: ['policeInvolvement'],
+          miam_canProvideDomesticAbuseEvidence: 'Yes',
+          miam_previousAttendance: 'fourMonthsPriorAttended',
+          miam_haveDocSignedByMediatorForPrevAttendance: 'Yes',
+          c1A_haveSafetyConcerns: 'No',
+          c1A_safetyConernAbout: ['children'],
+          c1A_safteyConcerns: { child: { physicalAbuse: {} } },
+          c1A_otherConcernsDrugs: 'Yes',
+          c1A_childSafetyConcerns: 'Yes',
+          c1A_agreementOtherWaysDetails: 'Yes',
+        } as unknown as CaseWithId,
+        {
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+          body: {},
+          originalUrl: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
+    expect(
+      sequence[1].getNextStep({ c1A_haveSafetyConcerns: YesOrNo.NO }, {
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest)
+    ).toBe('/respondent/safety-concerns/review');
 
     expect(sequence[2].url).toBe('/:root/safety-concerns/child/concerns-about');
     expect(sequence[2].showInSection).toBe('c100');
@@ -145,9 +192,48 @@ describe('respondent1Sequence', () => {
 
     expect(sequence[17].url).toBe('/:root/safety-concerns/orders-required/unsupervised');
     expect(sequence[17].showInSection).toBe('c100');
-    expect(sequence[17].getNextStep(safetyConcernsMockData.session.userCase)).toBe(
-      '/respondent/safety-concerns/review'
-    );
+    expect(
+      sequence[17].getNextStep(safetyConcernsMockData.session.userCase, {
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest)
+    ).toBe('/respondent/safety-concerns/review');
+
+    expect(
+      sequence[17].getNextStep(safetyConcernsMockData.session.userCase, {
+        originalUrl: '/c100-rebuild',
+        session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
+      } as unknown as AppRequest)
+    ).toBe('/c100-rebuild/international-elements/start');
+
+    expect(
+      sequence[17].getNextStep(
+        {
+          sq_writtenAgreement: 'No',
+          sq_legalRepresentation: 'No',
+          sq_courtPermissionRequired: 'No',
+          miam_otherProceedings: 'No',
+          miam_nonAttendanceReasons: ['domesticViolence', 'previousMIAMOrExempt'],
+          miam_domesticAbuse: ['policeInvolvement'],
+          miam_canProvideDomesticAbuseEvidence: 'Yes',
+          miam_previousAttendance: 'fourMonthsPriorAttended',
+          miam_haveDocSignedByMediatorForPrevAttendance: 'Yes',
+          c1A_haveSafetyConcerns: 'Yes',
+          c1A_safetyConernAbout: ['children'],
+          c1A_safteyConcerns: { child: { physicalAbuse: {} } },
+          c1A_otherConcernsDrugs: 'Yes',
+          c1A_childSafetyConcerns: 'Yes',
+          c1A_agreementOtherWaysDetails: 'Yes',
+        } as unknown as CaseWithId,
+        {
+          session: {
+            enableC100CaseProgressionTrainTrack: true,
+            applicationSettings: { hasC100ApplicationBeenCompleted: true },
+          },
+          body: {},
+          originalUrl: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
+        } as unknown as AppRequest
+      )
+    ).toBe('/c100-rebuild/check-your-answers');
 
     expect(sequence[18].url).toBe('/:root/safety-concerns/review');
     expect(sequence[18].showInSection).toBe('c100');

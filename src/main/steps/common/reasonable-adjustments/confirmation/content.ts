@@ -13,14 +13,16 @@ const en = {
 };
 
 const cy: typeof en = {
-  successText: 'You have submitted your request to the court - welsh',
-  content1: 'What happens next - welsh',
-  content2: 'Your support needs have been sent to the court. They’ll be reviewed by HMCTS staff or a judge. - welsh',
-  content3: 'We’ll contact you if we need more information or we cannot provide the support you’ve requested. - welsh',
-  content4: 'If your hearing is within 2 days - welsh',
+  successText: 'Rydych wedi cyflwyno eich cais i’r llys',
+  content1: 'Beth fydd yn digwydd nesaf',
+  content2:
+    'Anfonwyd gwybodaeth am eich anghenion cymorth i’r llys. Byddant yn cael ei hadolygu gan staff GLlTEF neu gan farnwr.',
+  content3:
+    'Byddwn yn cysylltu â chi os byddwn angen mwy o wybodaeth neu os na allwn ddarparu’r cymorth rydych wedi gofyn amdano.',
+  content4: 'Os yw eich gwrandawiad o fewn 2 ddiwrnod',
   content5:
-    '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Contact the court (opens in a new tab)</a> to request any support you need for the hearing. - welsh',
-  closeAndReturn: 'Close and return to case overview - welsh',
+    '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Cysylltwch â’r llys (yn agor mewn tab newydd)</a> i ofyn am unrhyw gymorth sydd ei angen arnoch ar gyfer y gwrandawiad.',
+  closeAndReturn: 'Cau a dychwelyd at y trosolwg o’r achos',
 };
 
 export const languages = {

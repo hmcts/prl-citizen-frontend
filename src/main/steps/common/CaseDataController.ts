@@ -91,6 +91,10 @@ export default class CaseDataController {
   public async getC100ApplicantCase(req: AppRequest, res: Response): Promise<void> {
     try {
       const caseData = await req.locals.C100Api.retrieveCaseById(req.params?.caseId);
+      req.session.applicationSettings = {
+        ...req.session.applicationSettings,
+        hasC100ApplicationBeenCompleted: caseData?.c100RebuildReturnUrl?.includes('validApplication=true') ?? false,
+      };
 
       req.session.userCase = caseData;
       req.session.save(() => {

@@ -1,10 +1,60 @@
-import { CaseType } from '../../../../../app/case/definition';
+import { ProgressBarConfigType } from '../../definitions';
 
 const en = {
   complete: 'is completed',
   inProgress: 'is in progress',
   notStarted: 'is not yet started',
-  [CaseType.C100]: {
+  [ProgressBarConfigType.C100_CASE_CREATION]: {
+    childrenPostCode: {
+      label: 'Childs<br/>postcode',
+      ariaLabel: 'Childs postcode',
+    },
+    screeningSection: {
+      label: 'Parties<br/>agreement',
+      ariaLabel: 'Parties agreement',
+    },
+    consentOrder: {
+      label: 'Consent order',
+      ariaLabel: 'Consent order',
+    },
+    miam: {
+      label: 'MIAM',
+      ariaLabel: 'MIAM',
+    },
+    typeOfOrder: {
+      label: 'Type<br/>of<br/>order',
+      ariaLabel: 'Type of order',
+    },
+    otherProceedings: {
+      label: 'Other<br/>proceedings',
+      ariaLabel: 'Other proceedings',
+    },
+    urgencyAndWithoutNotice: {
+      label: 'Hearing<br/>urgency',
+      ariaLabel: 'Hearing urgency',
+    },
+    people: {
+      label: 'People',
+      ariaLabel: 'People',
+    },
+    safetyConcerns: {
+      label: 'Safety<br/>concerns',
+      ariaLabel: 'Safety concerns',
+    },
+    internationalElements: {
+      label: 'International<br/>elements',
+      ariaLabel: 'International elements',
+    },
+    reasonableAdjustments: {
+      label: 'Court<br/>support',
+      ariaLabel: 'Court support',
+    },
+    helpWithFees: {
+      label: 'Payment',
+      ariaLabel: 'Payment',
+    },
+  },
+  [ProgressBarConfigType.C100_CASE_PROGRESSION]: {
     applicationSubmitted: {
       label: 'Application<br/> submitted',
       ariaLabel: 'Application submitted stage',
@@ -26,7 +76,7 @@ const en = {
       ariaLabel: 'Case closed stage',
     },
   },
-  [CaseType.FL401]: {
+  [ProgressBarConfigType.FL401_CASE_PROGRESSION]: {
     caseOpened: {
       label: 'Case<br/> opened',
       ariaLabel: 'Case opened stage',
@@ -50,7 +100,57 @@ const cy: typeof en = {
   complete: 'wedi’i gwblhau',
   inProgress: 'ar y gweill',
   notStarted: 'heb ddechrau eto',
-  [CaseType.C100]: {
+  [ProgressBarConfigType.C100_CASE_CREATION]: {
+    childrenPostCode: {
+      label: 'Cod post<br/> plant',
+      ariaLabel: 'Cod post plant',
+    },
+    screeningSection: {
+      label: 'Cytundeb<br/>partïon',
+      ariaLabel: 'Cytundeb partïon',
+    },
+    consentOrder: {
+      label: 'Gorchymyn caniatâd',
+      ariaLabel: 'Gorchymyn caniatâd',
+    },
+    miam: {
+      label: 'MIAM',
+      ariaLabel: 'MIAM',
+    },
+    typeOfOrder: {
+      label: 'Math o orchymyn',
+      ariaLabel: 'Math o orchymyn',
+    },
+    otherProceedings: {
+      label: 'Achosion eraill',
+      ariaLabel: 'Achosion eraill',
+    },
+    urgencyAndWithoutNotice: {
+      label: 'Brys clyw',
+      ariaLabel: 'Brys clyw',
+    },
+    people: {
+      label: 'Pobl',
+      ariaLabel: 'Pobl',
+    },
+    safetyConcerns: {
+      label: 'Pryderon diogelwch',
+      ariaLabel: 'Pryderon diogelwch',
+    },
+    internationalElements: {
+      label: 'Elfennau rhyngwladol',
+      ariaLabel: 'Elfennau rhyngwladol',
+    },
+    reasonableAdjustments: {
+      label: 'Cefnogaeth llys',
+      ariaLabel: 'Cefnogaeth llys',
+    },
+    helpWithFees: {
+      label: 'Taliad',
+      ariaLabel: 'Taliad',
+    },
+  },
+  [ProgressBarConfigType.C100_CASE_PROGRESSION]: {
     applicationSubmitted: {
       label: "Cais wedi'i<br/> gyflwyno",
       ariaLabel: 'Cam cais wedi’i gyflwyno',
@@ -72,7 +172,7 @@ const cy: typeof en = {
       ariaLabel: 'Cam achos wedi’i gau',
     },
   },
-  [CaseType.FL401]: {
+  [ProgressBarConfigType.FL401_CASE_PROGRESSION]: {
     caseOpened: {
       label: 'Achos<br/> wedi’i agor',
       ariaLabel: 'Cam achos wedi’i agor',

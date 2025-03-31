@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
-const en = () => ({
+export const en = () => ({
   titleList: {
     childArrangementOrder: 'Upload Child Arrangements Order',
     emergencyProtectionOrder: 'Upload Emergency Protection Order',
@@ -50,7 +51,7 @@ const en = () => ({
   },
 });
 
-const cy = () => ({
+export const cy = () => ({
   titleList: {
     childArrangementOrder: 'Llwytho Gorchymyn Trefniadau Plant',
     emergencyProtectionOrder: 'Llwytho Gorchymyn Diogelu Brys',
@@ -112,8 +113,10 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const { orderType } = content.additionalData?.req.params;
   return {
     ...translations,
     form,
+    title: translations.titleList[orderType],
   };
 };
