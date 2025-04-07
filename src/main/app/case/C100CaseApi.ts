@@ -32,6 +32,7 @@ export class CaseApi {
   public async createCase(req: AppRequest<Partial<Case>>): Promise<CreateCaseResponse> {
     const data = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
+      caseAccessCategory: C100_CASE_TYPE.C100,
       c100RebuildReturnUrl: C100_SCREENING_QUESTIONS_CONSENT_AGREEMENT, //added to handle deafult returnURL incase save & come back is not invoked at all
       c100RebuildChildPostCode: req?.session?.userCase?.c100RebuildChildPostCode,
     };
@@ -41,6 +42,7 @@ export class CaseApi {
       const {
         id,
         caseTypeOfApplication,
+        caseAccessCategory,
         c100RebuildReturnUrl,
         state,
         noOfDaysRemainingToSubmitCase,
@@ -49,6 +51,7 @@ export class CaseApi {
       return {
         id,
         caseTypeOfApplication,
+        caseAccessCategory,
         c100RebuildReturnUrl,
         state,
         noOfDaysRemainingToSubmitCase,
@@ -85,11 +88,18 @@ export class CaseApi {
     caseEvent: C100_CASE_EVENT,
     additionalData: Record<string, any> | undefined
   ): Promise<UpdateCaseResponse> {
-    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
+    const {
+      caseTypeOfApplication,
+      caseAccessCategory,
+      c100RebuildChildPostCode,
+      helpWithFeesReferenceNumber,
+      ...rest
+    } = caseData;
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
       applicantPcqId: additionalData?.pcqId,
       caseTypeOfApplication: caseTypeOfApplication as string,
+      caseAccessCategory: caseAccessCategory as string,
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
@@ -123,12 +133,19 @@ export class CaseApi {
     returnUrl: string,
     additionalData: Record<string, any> | undefined
   ): Promise<UpdateCaseResponse> {
-    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantPcqId, ...rest } =
-      caseData;
+    const {
+      caseTypeOfApplication,
+      caseAccessCategory,
+      c100RebuildChildPostCode,
+      helpWithFeesReferenceNumber,
+      applicantPcqId,
+      ...rest
+    } = caseData;
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
       applicantPcqId: applicantPcqId ?? additionalData?.pcqId,
       caseTypeOfApplication: caseTypeOfApplication as string,
+      caseAccessCategory: caseAccessCategory as string,
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
@@ -255,6 +272,7 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
   let detransformedCaseData = {
     caseId: caseData.id,
     caseTypeOfApplication: caseData.caseTypeOfApplication,
+    caseAccessCategory: caseData.caseAccessCategory,
     c100RebuildChildPostCode: caseData.c100RebuildChildPostCode,
     helpWithFeesReferenceNumber: caseData.helpWithFeesReferenceNumber,
     c100RebuildReturnUrl: caseData.c100RebuildReturnUrl,
@@ -276,6 +294,7 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
 interface CreateCaseResponse {
   id: string;
   caseTypeOfApplication: string;
+  caseAccessCategory: string;
   c100RebuildReturnUrl: string;
   state: State;
   noOfDaysRemainingToSubmitCase: string;
@@ -287,6 +306,7 @@ interface UpdateCaseResponse {
 
 export interface RetreiveDraftCase extends CaseWithId {
   caseTypeOfApplication: string;
+  caseAccessCategory: string;
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;
@@ -313,6 +333,7 @@ interface UpdateCase {
 
 interface UpdateCaseRequest extends UpdateCase {
   caseTypeOfApplication: string;
+  caseAccessCategory: string;
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;

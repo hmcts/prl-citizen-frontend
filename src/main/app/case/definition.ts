@@ -761,6 +761,7 @@ export interface CaseData {
   c1AWelshDocument:Document;
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
+  caseAccessCategory: string;
   claimingExemptionMiam: string;
   draftConsentOrderFile: DraftConsentOrderFile;
   otherProceedingsTable: OtherProceedingsTable;
@@ -2337,9 +2338,9 @@ export interface Schedules {
   hearingJudgeId?: string | null;
   hearingJudgeName?: string | null;
   panelMemberIds?: string[] | number[] | null;
-  attendees?: Attendee[] | null;  
+  attendees?: Attendee[] | null;
   hearingTypeValue?: string;
-  nextHearingDate?: string | null 
+  nextHearingDate?: string | null
 
 }
 

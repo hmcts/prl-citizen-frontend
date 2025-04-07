@@ -46,6 +46,7 @@ describe('TSDraftController', () => {
       citizenUserAddressHistory: "Don't want to state",
       applicantCaseName: 'MOCK_CASE_NAME',
       caseTypeOfApplication: 'C100',
+      caseAccessCategory: 'C100',
     };
   });
 
@@ -64,6 +65,7 @@ describe('TSDraftController', () => {
     expect(req.session.userCase).toStrictEqual({
       caseId: '1234',
       caseTypeOfApplication: 'C100',
+      caseAccessCategory: 'C100',
       c100RebuildChildPostCode: undefined,
       c100RebuildReturnUrl: undefined,
       helpWithFeesReferenceNumber: undefined,

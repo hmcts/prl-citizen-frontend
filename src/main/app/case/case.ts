@@ -133,6 +133,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   c1AWelshDocument: 'c1AWelshDocument',
   applicantAttendedMiam: 'applicantAttendedMiam',
   caseTypeOfApplication: 'caseTypeOfApplication',
+  caseAccessCategory: 'caseAccessCategory',
   claimingExemptionMiam: 'claimingExemptionMiam',
   draftConsentOrderFile: 'draftConsentOrderFile',
   otherProceedingsTable: 'otherProceedingsTable',
@@ -307,6 +308,7 @@ export interface Case {
   allocatedJudgeDetails?: AllocatedJudgeDetails;
   applicantAttendedMiam?: string;
   caseTypeOfApplication?: string;
+  caseAccessCategory?: string;
   claimingExemptionMiam?: string;
   miamCertificationDocumentUpload?: Document;
   c1ADocument?: Document;

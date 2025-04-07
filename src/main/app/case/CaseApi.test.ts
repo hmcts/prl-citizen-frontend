@@ -28,6 +28,7 @@ const serviceType = PrivateLaw.PRIVATELAW;
 
 const mockData = {
   caseTypeOfApplication: C100_CASE_TYPE.C100,
+  caseAccessCategory: C100_CASE_TYPE.C100,
   c100RebuildChildPostCode: 'AB2 3BV',
   helpWithFeesReferenceNumber: 'HWF-1234',
   c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
@@ -137,6 +138,7 @@ describe('caseApi', () => {
       id: '1234',
       state: 'Draft',
       caseTypeOfApplication: 'C100',
+      caseAccessCategory: 'C100',
     });
   });
 
@@ -227,6 +229,7 @@ describe('caseApi', () => {
       id: '1234',
       state: 'Draft',
       caseTypeOfApplication: 'C100',
+      caseAccessCategory: 'C100',
     });
   });
 
@@ -296,6 +299,7 @@ describe('caseApi', () => {
       id: '1234',
       state: 'Draft',
       caseTypeOfApplication: 'C100',
+      caseAccessCategory: 'C100',
     });
   });
 
@@ -327,6 +331,7 @@ describe('caseApi', () => {
       id: '1234',
       state: 'Draft',
       caseTypeOfApplication: 'C100',
+      caseAccessCategory: 'C100',
     });
   });
 
@@ -366,6 +371,7 @@ describe('caseApi', () => {
       id: '1234',
       state: 'Draft',
       caseTypeOfApplication: 'C100',
+      caseAccessCategory: 'C100',
     });
   });
 });
