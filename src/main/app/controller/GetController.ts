@@ -152,9 +152,6 @@ export class GetController {
    */
   //TO BE REMOVED
   public clearConfidentialitySessionSaveData(req: AppRequest): void {
-    if (req.originalUrl === Urls.C100_CONFIDENTIALITY_START && req.session.userCase) {
-      req.session.userCase['contactDetailsPrivateAlternative'] = undefined;
-    }
     if (req.originalUrl === Urls.C100_CONFIDENTIALITY_START_ALTERNATIVE && req.session.userCase) {
       req.session.userCase['contactDetailsPrivate'] = undefined;
     }
