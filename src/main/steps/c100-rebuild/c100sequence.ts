@@ -152,8 +152,7 @@ export const C100Sequence: Step[] = [
     //0
     url: C100_CONFIDENTIALITY_DETAILS_KNOW,
     showInSection: Sections.C100,
-    getNextStep: data =>
-      data.detailsKnown === YesOrNo.YES ? C100_CONFIDENTIALITY_START_ALTERNATIVE : C100_CONFIDENTIALITY_START,
+    getNextStep: () => C100_CONFIDENTIALITY_START_ALTERNATIVE,
   },
   {
     url: C100_CONFIDENTIALITY_FEEDBACK,

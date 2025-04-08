@@ -70,7 +70,9 @@ describe('C100Sequence', () => {
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
       '/c100-rebuild/confidentiality/start-alternative'
     );
-    expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.NO })).toBe('/c100-rebuild/confidentiality/start');
+    expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.NO })).toBe(
+      '/c100-rebuild/confidentiality/start-alternative'
+    );
 
     expect(C100Sequence[1].url).toBe('/c100-rebuild/confidentiality/feedback');
     expect(C100Sequence[1].showInSection).toBe('c100');
