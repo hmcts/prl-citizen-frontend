@@ -9,7 +9,6 @@ import {
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
-  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
   C100_APPLICANT_CONTACT_DETAIL,
   C100_APPLICANT_CONTACT_PREFERENCES,
@@ -50,21 +49,17 @@ class ApplicantNavigationController {
 
     switch (currentPageUrl) {
       case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW: {
-        const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
-
-        nextUrl = applyParms(
-          applicantData.detailsKnown === YesOrNo.YES
-            ? C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START
-            : C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
-          { applicantId: this.applicantId }
-        );
+        nextUrl = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE, {
+          applicantId: this.applicantId,
+        });
         break;
       }
-      case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START:
       case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE: {
         const applicantData = getPartyDetails(this.applicantId, this.applicantDetails) as C100Applicant;
         const dataReference =
-          currentPageUrl === C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START ? 'start' : 'startAlternative';
+          currentPageUrl === C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE
+            ? 'startAlternative'
+            : 'start'; // Will probably need to remove this
 
         nextUrl = applyParms(
           applicantData[dataReference] === YesOrNo.YES

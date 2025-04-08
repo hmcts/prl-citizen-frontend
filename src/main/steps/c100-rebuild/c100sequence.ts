@@ -77,7 +77,6 @@ import {
 
   /** @C100 Applicant in people section */
   C100_APPLICANT_ADD_APPLICANTS,
-  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
@@ -602,17 +601,6 @@ export const C100Sequence: Step[] = [
     getNextStep: (caseData, req) =>
       ApplicantNavigationController.getNextUrl(
         C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
-        caseData,
-        req?.params
-      ),
-  },
-  {
-    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
-    showInSection: Sections.C100,
-    postController: ApplicantCommonConfidentialityController,
-    getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(
-        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
         caseData,
         req?.params
       ),
