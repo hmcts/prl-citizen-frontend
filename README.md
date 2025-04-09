@@ -132,6 +132,17 @@ Make sure you have those values set correctly for your application.
 
 #### Troubleshooting
 
+If you encounter the following error in the Jenkins logs:
+`Test suite failed to run
+Jest worker encountered 4 child process exceptions, exceeding retry limit
+at ChildProcessWorker.initialize (node_modules/jest-worker/build/workers/ChildProcessWorker.js:xxx:xx)`
+
+This error message actually masks a different, underlying issue. To see the - possible - issue run the following command:
+
+``` bash
+jest --runInBand
+```
+
 ### Managing Preview environment PODs
 Make sure you have added the label 'enable_keep_helm' while creating the PR. Otherwise, add the label and re-trigger the build.
 

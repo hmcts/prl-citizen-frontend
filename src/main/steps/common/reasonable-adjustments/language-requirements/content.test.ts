@@ -6,7 +6,6 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
-jest.useFakeTimers();
 
 const en = {
   caption: 'Language requirements',
@@ -58,6 +57,16 @@ const cy = {
     },
   },
 };
+
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
+
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Language requirements content', () => {
   const commonContent = {
