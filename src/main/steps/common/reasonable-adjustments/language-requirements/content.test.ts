@@ -6,6 +6,7 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
+jest.useFakeTimers();
 
 const en = {
   caption: 'Language requirements',

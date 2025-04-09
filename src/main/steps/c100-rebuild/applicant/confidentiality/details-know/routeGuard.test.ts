@@ -18,7 +18,7 @@ describe('applicant > confidentiality > details know > route guard', () => {
     };
     req.params.applicantId = '123';
     req.session.userCase = {
-      appl_allApplicants: [{ id: '123', start: 'Yes', contactDetailsPrivate: ['address'] }],
+      appl_allApplicants: [{ id: '123', startAlternative: 'Yes', contactDetailsPrivateAlternative: ['address'] }],
     };
 
     await routeGuard.post(req, res, next);
