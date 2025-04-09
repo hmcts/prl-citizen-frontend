@@ -90,7 +90,7 @@ class ApplicantNavigationController {
               applicantId: this.applicantId,
               childId: nextChild?.id,
             })
-          : applyParms(STAYING_IN_REFUGE, {
+          : applyParms(STAYING_IN_REFUGE, { // Maybe move this call to before the conf flow above.
               root: RootContext.C100_REBUILD,
               id: this.applicantId,
             });

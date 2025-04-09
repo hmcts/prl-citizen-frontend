@@ -570,7 +570,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_ADD_APPLICANTS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, // No!
   },
   {
     //80
