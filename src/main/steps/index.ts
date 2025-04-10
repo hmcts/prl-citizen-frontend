@@ -48,6 +48,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
   const { path, queryString: queryStr } = getPathAndQueryString(req);
   const nextStep = [
     ...citizenSequence,
+    ...C8RefugeSequence.getSequence(),
     ...respondentCaseSequence,
     ...applicantCaseSequence,
     ...responseCaseSequence,
@@ -56,7 +57,6 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...applicationWithinProceedingsSequence,
     ...AohSequence.getSequence(),
     ...RASequence.getSequence(),
-    ...C8RefugeSequence.getSequence(),
   ].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : DASHBOARD_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
