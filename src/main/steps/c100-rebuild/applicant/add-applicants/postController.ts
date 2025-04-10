@@ -9,10 +9,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
-import {
-  C100_APPLICANT_ADD_APPLICANTS,
-  STAYING_IN_REFUGE,
-} from '../../../urls';
+import { C100_APPLICANT_ADD_APPLICANTS, STAYING_IN_REFUGE } from '../../../urls';
 import { setDynamicFormContext } from '../../people/util';
 // eslint-disable-next-line import/no-unresolved
 
