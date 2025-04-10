@@ -175,6 +175,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "resolutions": {
+    "eazy-logger": "^4.1.0",
     "babel-loader/loader-utils": "^2.0.4",
     "@babel/core": "7.26.10",
     "decode-uri-component": "^0.2.1",
