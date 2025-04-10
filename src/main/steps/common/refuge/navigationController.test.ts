@@ -68,7 +68,7 @@ describe('C8 refuge > navigationController', () => {
       ],
     };
     expect(RefugeNavigationController.getNextPageUrl(STAYING_IN_REFUGE, req.session.userCase, req)).toBe(
-      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/confidentiality/details-know'
+      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/address/lookup'
     );
   });
 
@@ -173,7 +173,7 @@ describe('C8 refuge > navigationController', () => {
   test('should redirect from c100 refuge upload doc', async () => {
     req.originalUrl = '/c100-rebuild';
     expect(RefugeNavigationController.getNextPageUrl(C100_REFUGE_UPLOAD_DOC, req.session.userCase, req)).toBe(
-      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/confidentiality/details-know'
+      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/address/lookup'
     );
   });
 
@@ -227,7 +227,7 @@ describe('C8 refuge > navigationController', () => {
       id: '7483640e-0817-4ddc-b709-6723f7925474',
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_DOC_ALREADY_UPLOADED, req.session.userCase, req)).toBe(
-      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/confidentiality/details-know'
+      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/address/lookup'
     );
   });
 
