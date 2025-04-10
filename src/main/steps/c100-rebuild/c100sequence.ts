@@ -121,6 +121,7 @@ import {
   C100_MIAM_PROVIDING_DA_EVIDENCE,
   C100_MIAM_UPLOAD_DA_EVIDENCE,
   C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+  STAYING_IN_REFUGE,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -570,7 +571,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_ADD_APPLICANTS,
     showInSection: Sections.C100,
-    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
+    getNextStep: () => STAYING_IN_REFUGE,
   },
   {
     //80

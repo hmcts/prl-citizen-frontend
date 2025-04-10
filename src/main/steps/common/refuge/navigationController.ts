@@ -15,7 +15,7 @@ import { getPartyDetails } from '../../../steps/c100-rebuild/people/util';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import {
   APPLICANT_ADDRESS_DETAILS,
-  C100_APPLICANT_ADDRESS_LOOKUP,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_REFUGE_UPLOAD_DOC,
   C100_URL,
@@ -43,7 +43,7 @@ class RefugeNavigationController {
       partyType === PartyType.RESPONDENT ? RESPONDENT_ADDRESS_DETAILS : APPLICANT_ADDRESS_DETAILS;
     const c100AddressDetails =
       c100Person?.partyType === PartyType.APPLICANT
-        ? (applyParms(C100_APPLICANT_ADDRESS_LOOKUP, { applicantId: id }) as PageLink)
+        ? (applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, { applicantId: id }) as PageLink)
         : (applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId: id }) as PageLink);
     const addressDetails = C100rebuildJourney ? c100AddressDetails : partyAddressDetails;
     const isPersonLivingInRefuge = C100rebuildJourney
