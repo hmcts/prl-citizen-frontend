@@ -48,6 +48,8 @@ Run the application by executing the following command:
   docker-compose up
 ```
 
+Test push
+
 This will start the frontend container exposing the application's port
 (set to `3001` in this template app).
 
