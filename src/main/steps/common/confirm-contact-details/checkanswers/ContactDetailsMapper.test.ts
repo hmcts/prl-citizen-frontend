@@ -10,6 +10,7 @@ const deleteDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteDocument');
 describe('ContactDetailsMapper', () => {
   let req = mockRequest();
   beforeEach(() => {
+    jest.useFakeTimers();
     req.session.userCase = {
       citizenUserFirstNames: 'John',
       citizenUserLastNames: 'Smith',
@@ -44,6 +45,11 @@ describe('ContactDetailsMapper', () => {
         },
       },
     ];
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   test('user is not staying in same address for 5 years', async () => {

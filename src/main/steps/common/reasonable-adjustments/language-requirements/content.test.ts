@@ -57,6 +57,16 @@ const cy = {
     },
   },
 };
+
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
+
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Language requirements content', () => {
   const commonContent = {

@@ -12,13 +12,13 @@ describe('applicant > confidentiality > details know > route guard', () => {
     res = mockResponse();
   });
 
-  test('should clean alternative confidentiality data if details known is yes', async () => {
+  test('should clean confidentiality data if details known is yes', async () => {
     req.body = {
       detailsKnown: 'Yes',
     };
     req.params.applicantId = '123';
     req.session.userCase = {
-      appl_allApplicants: [{ id: '123', startAlternative: 'Yes', contactDetailsPrivateAlternative: ['address'] }],
+      appl_allApplicants: [{ id: '123', start: 'Yes', contactDetailsPrivate: ['address'] }],
     };
 
     await routeGuard.post(req, res, next);

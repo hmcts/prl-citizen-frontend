@@ -15,6 +15,12 @@ describe('MIAMAttendanceEvidenceUploadController > postController', () => {
     controller = new MIAMAttendanceEvidenceUploadController({});
     req = mockRequest();
     res = mockResponse();
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   test('should upload document and redirect', async () => {
