@@ -121,7 +121,6 @@ import {
   C100_MIAM_PROVIDING_DA_EVIDENCE,
   C100_MIAM_UPLOAD_DA_EVIDENCE,
   C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
-  STAYING_IN_REFUGE,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -137,7 +136,6 @@ import OtherPersonsDetailsNavigationController from './other-person-details/navi
 import PreviousProceedingsNavigationController from './other-proceedings/navigationController';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
-import RefugeNavigationController from '../common/refuge/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
@@ -572,7 +570,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_ADD_APPLICANTS,
     showInSection: Sections.C100,
-    getNextStep: (caseData, req) => RefugeNavigationController.getNextPageUrl(STAYING_IN_REFUGE, caseData, req!),
+    getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
   },
   {
     //80
