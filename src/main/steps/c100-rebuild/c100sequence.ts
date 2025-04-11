@@ -137,6 +137,7 @@ import OtherPersonsDetailsNavigationController from './other-person-details/navi
 import PreviousProceedingsNavigationController from './other-proceedings/navigationController';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
+import RefugeNavigationController from '../common/refuge/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
@@ -571,7 +572,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_ADD_APPLICANTS,
     showInSection: Sections.C100,
-    getNextStep: () => STAYING_IN_REFUGE,
+    getNextStep: (caseData, req) => RefugeNavigationController.getNextPageUrl(STAYING_IN_REFUGE, caseData, req!),
   },
   {
     //80
