@@ -15,7 +15,7 @@ const name = 'Test1 Test2';
 
 const en = {
   caption: 'Keeping your contact details private for',
-  title: `Do you want to keep your contact details private from other people named in the application?`,
+  title: 'Do you want to keep your contact details private from other people named in the application?',
   paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details.',
   paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children,
   you can ask the court to keep your contact details private.`,
