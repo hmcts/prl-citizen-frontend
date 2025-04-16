@@ -207,7 +207,8 @@
     "semver": "^7.5.4",
     "send": "0.19.1",
     "serve-static": "1.16.2",
-    "cross-spawn": "7.0.6"
+    "cross-spawn": "7.0.6",
+    "cookie": "0.7.2"
   },
   "packageManager": "yarn@4.6.0"
 }
