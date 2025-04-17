@@ -95,9 +95,8 @@ class ApplicantNavigationController {
               applicantId: this.applicantId,
               childId: nextChild?.id,
             })
-          : applyParms(STAYING_IN_REFUGE, {
-              root: RootContext.C100_REBUILD,
-              id: this.applicantId,
+          : applyParms(C100_APPLICANT_ADDRESS_LOOKUP, {
+              applicantId: this.applicantId,
             });
         break;
       }
