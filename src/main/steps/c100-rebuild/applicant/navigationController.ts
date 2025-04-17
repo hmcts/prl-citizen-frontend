@@ -48,6 +48,12 @@ class ApplicantNavigationController {
     let nextUrl;
 
     switch (currentPageUrl) {
+      case C100_APPLICANT_ADD_APPLICANTS: {
+        nextUrl = applyParms(STAYING_IN_REFUGE, {
+          id: this.applicantId,
+        });
+        break;
+      }
       case C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW: {
         nextUrl = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE, {
           applicantId: this.applicantId,
