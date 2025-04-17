@@ -768,7 +768,9 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[65].url).toBe('/c100-rebuild/applicant/add-applicants');
     expect(C100Sequence[65].showInSection).toBe('c100');
-    expect(C100Sequence[65].getNextStep({})).toBe('/c100-rebuild/applicant/:applicantId/confidentiality/details-know');
+    expect(C100Sequence[65].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
+      '/c100-rebuild/refuge/staying-in-refuge/2732dd53-2e6c-46f9-88cd-08230e735b08?'
+    );
 
     /*expect(C100Sequence[88].url).toBe('/c100-rebuild/applicant/add-applicants');
     expect(C100Sequence[88].showInSection).toBe('c100');
