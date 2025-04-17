@@ -1,4 +1,6 @@
 /* eslint-disable import/no-named-as-default */
+import fs from 'fs';
+
 import Axios, { AxiosStatic } from 'axios';
 import config from 'config';
 import { when } from 'jest-when';
@@ -7,17 +9,22 @@ import yaml from 'js-yaml';
 import { CALLBACK_URL } from '../../../steps/urls';
 
 import { getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
-import fs from "fs";
 
 jest.mock('axios');
 config.get = jest.fn();
 
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 
+interface Config {
+  port: number;
+  auth: {
+    dummyToken: string;
+  };
+}
+
 // Note: this test won't pass locally unless you manually change the secret in test.yaml
-const secrets = yaml.load(fs.readFileSync('config/test.yaml', 'utf-8'));
-// @ts-ignore - yaml.load returns a result of type 'unknown'
-const token = secrets.auth.dummy_token;
+const secrets = yaml.load(fs.readFileSync('config/test.yaml', 'utf-8')) as Config;
+const token = secrets.auth.dummyToken;
 
 describe('getRedirectUrl', () => {
   test('should create a valid URL to redirect to the login screen', () => {
