@@ -95,8 +95,7 @@ describe('ApplicantDetailsNavigationController', () => {
     ).toBe('/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/contact-preference');
   });
 
-  test('From RELATIONSHIP CHILD screen -> navigate to refuge screen', async () => {
-    dummyRequest.params.childId = '7483640e-0817-4ddc-b709-6723f7925635';
+  test('From RELATIONSHIP CHILD screen -> navigate to applicant address lookup screen', async () => {
     dummyRequest.params.applicantId = '2cd885a0-135e-45f1-85b7-aa46a1f78f46';
     expect(
       ApplicantDetailsNavigationController.getNextUrl(
@@ -104,7 +103,7 @@ describe('ApplicantDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyRequest.params
       )
-    ).toBe('/c100-rebuild/refuge/staying-in-refuge/2cd885a0-135e-45f1-85b7-aa46a1f78f46?');
+    ).toBe('/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/address/lookup');
   });
 
   test('From CONFIDENTIALITY START ALT -> navigate to FEEDBACK screen', async () => {
