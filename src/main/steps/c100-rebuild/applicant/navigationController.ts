@@ -51,6 +51,7 @@ class ApplicantNavigationController {
     switch (currentPageUrl) {
       case C100_APPLICANT_ADD_APPLICANTS: {
         nextUrl = applyParms(STAYING_IN_REFUGE, {
+          root: RootContext.C100_REBUILD,
           id: this.applicantId,
         });
         break;
