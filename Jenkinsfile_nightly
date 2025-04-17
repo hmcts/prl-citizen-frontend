@@ -50,7 +50,8 @@ def secrets = [
     secret('ccd-datastore-client-id', 'CCD_DATASTORE_client_id'),
     secret('ccd-datastore-client-secret', 'CCD_DATASTORE_client_secret'),
     secret('ccd-datastore-username', 'CCD_DATASTORE_username'),
-    secret('ccd-datastore-password', 'CCD_DATASTORE_password')
+    secret('ccd-datastore-password', 'CCD_DATASTORE_password'),
+    secret('dummy-access-token', 'DUMMY_ACCESS_TOKEN')
   ]
 ]
 
