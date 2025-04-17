@@ -121,6 +121,7 @@
     "@stryker-mutator/jest-runner": "^5.3.0",
     "@types/copy-webpack-plugin": "^8.0.1",
     "@types/jest": "^27.5.0",
+    "@types/js-yaml": "^4",
     "@types/mini-css-extract-plugin": "^2.5.1",
     "@types/pino-pretty": "^4.7.5",
     "@types/pino-std-serializers": "^4.0.0",
