@@ -62,7 +62,7 @@ import { cy as detailsKnownCy, en as detailsKnownEn } from '../applicant/confide
 import { cy as startCy, en as startEn } from '../applicant/confidentiality/start/content';
 import {
   cy as startAlternativeCy,
-  en as startAlternativenEn,
+  en as startAlternativeEn,
 } from '../applicant/confidentiality/start-alternative/content';
 import { cy as personalDetailsCy, en as personalDetailsEn } from '../applicant/personal-details/content';
 import { cy as relationShipToChildCy, en as relationShipToChildEn } from '../applicant/relationship-to-child/content';
@@ -344,8 +344,8 @@ export const enContent = {
     miam_attendance: miamAttendanceEn.errors.miam_attendance,
     detailsKnown: detailsKnownEn().errors.detailsKnown,
     start: startEn().errors.start,
-    startAlternative: startAlternativenEn().errors.startAlternative,
-    contactDetailsPrivateAlternative: startAlternativenEn().errors.contactDetailsPrivateAlternative,
+    startAlternative: startAlternativeEn().errors.startAlternative,
+    contactDetailsPrivateAlternative: startAlternativeEn().errors.contactDetailsPrivateAlternative,
     haveYouChangeName: {
       required: personalDetailsEn().haveYouChangeNameLabel,
     },

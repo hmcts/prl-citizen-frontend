@@ -685,18 +685,12 @@ export const ApplicantDetails = (
         changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
       },
       {
-        key: interpolate(keys['doYouWantToKeep'], { name: fullname }),
+        key: keys['doYouWantToKeep'],
         visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['doYouWantToKeep']}`,
         anchorReference: `doYouWantToKeep-applicant-${applicant}`,
         value: '',
-        valueHtml:
-          sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
-            ? parseStartAndStartAlternativeSubFields('start', 'contactDetailsPrivate')
-            : parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
-        changeUrl:
-          sessionApplicantData[applicant]['detailsKnown'] === 'Yes'
-            ? applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START'], { applicantId })
-            : applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], { applicantId }),
+        valueHtml: parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
+        changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], { applicantId }),
       },
       {
         key: keys['haveYouChangeNameLabel'],

@@ -52,7 +52,7 @@ featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
   c100Rebuild: true
   testingSupport: true
-  enableCaseTrainTrack: true  
+  enableCaseTrainTrack: true
   enableRAComponent: true
   enablePcqComponent: true
   enableC100CaseProgressionTrainTrack: true
