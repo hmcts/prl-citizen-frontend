@@ -224,46 +224,140 @@ export const getAllMandatoryFields = (
 };
 
 const isApplicantValid = (applicant: C100Applicant, children: ChildrenDetails[]): boolean => {
-  return (
-    !_.isEmpty(applicant.applicantFirstName) &&
-    !_.isEmpty(applicant.applicantLastName) &&
-    !_.isEmpty(applicant.detailsKnown) &&
-    (!_.isEmpty(applicant.start) || !_.isEmpty(applicant.startAlternative)) &&
-    (applicant.startAlternative === YesOrNo.YES ? !_.isEmpty(applicant.contactDetailsPrivateAlternative) : true) &&
-    (applicant.start === YesOrNo.YES ? !_.isEmpty(applicant.contactDetailsPrivate) : true) &&
-    !_.isEmpty(applicant.personalDetails) &&
-    !_.isEmpty(applicant.personalDetails.haveYouChangeName) &&
-    (applicant.personalDetails.haveYouChangeName === YesNoEmpty.YES
-      ? !_.isEmpty(applicant.personalDetails.applPreviousName)
-      : true) &&
-    !_.isEmpty(applicant.personalDetails.dateOfBirth) &&
-    !_.isEmpty(applicant.personalDetails.gender) &&
-    !_.isEmpty(applicant.personalDetails.applicantPlaceOfBirth) &&
-    !_.isEmpty(applicant.liveInRefuge) &&
-    (applicant.liveInRefuge === YesOrNo.YES ? !_.isEmpty(applicant.refugeConfidentialityC8Form) : true) &&
-    !_.isEmpty(applicant.applicantAddress1) &&
-    !_.isEmpty(applicant.applicantAddressTown) &&
-    !_.isEmpty(applicant.country) &&
-    !_.isEmpty(applicant.applicantAddressHistory) &&
-    (applicant.applicantAddressHistory === YesOrNo.YES
-      ? !_.isEmpty(applicant.applicantProvideDetailsOfPreviousAddresses)
-      : true) &&
-    !_.isEmpty(applicant.applicantContactDetail) &&
-    !_.isEmpty(applicant.applicantContactDetail.canProvideEmail) &&
-    (applicant.applicantContactDetail.canProvideEmail === YesOrNo.YES
-      ? !_.isEmpty(applicant.applicantContactDetail.emailAddress) &&
-        isEmailValid(applicant.applicantContactDetail.emailAddress) !== 'invalid'
-      : true) &&
-    !_.isEmpty(applicant.applicantContactDetail.canProvideTelephoneNumber) &&
-    (applicant.applicantContactDetail.canProvideTelephoneNumber === YesOrNo.YES
-      ? !_.isEmpty(applicant.applicantContactDetail.telephoneNumber) &&
-        isPhoneNoValid(applicant.applicantContactDetail.telephoneNumber) !== 'invalid'
-      : !_.isEmpty(applicant.applicantContactDetail.canNotProvideTelephoneNumberReason)) &&
-    !_.isEmpty(applicant.applicantContactDetail.canLeaveVoiceMail) &&
-    !_.isEmpty(applicant.applicantContactDetail.applicantContactPreferences) &&
-    !_.isEmpty(applicant.relationshipDetails?.relationshipToChildren) &&
-    applicant.relationshipDetails?.relationshipToChildren.length === children.length
-  );
+  /* ────────── BASIC NAME + PERSONAL DETAILS ────────── */
+
+  if (_.isEmpty(applicant.applicantFirstName)) {
+    return false;
+  }
+  if (_.isEmpty(applicant.applicantLastName)) {
+    return false;
+  }
+  const pd = applicant.personalDetails;
+  if (_.isEmpty(pd)) {
+    return false;
+  }
+  if (_.isEmpty(pd.haveYouChangeName)) {
+    return false;
+  }
+  if (pd.haveYouChangeName === YesNoEmpty.YES && _.isEmpty(pd.applPreviousName)) {
+    return false;
+  }
+  if (_.isEmpty(pd.dateOfBirth)) {
+    return false;
+  }
+  if (_.isEmpty(pd.gender)) {
+    return false;
+  }
+  if (_.isEmpty(pd.applicantPlaceOfBirth)) {
+    return false;
+  }
+
+  /* ────────── CONFIDENTIALITY / REFUGE LOGIC ────────── */
+
+  if (_.isEmpty(applicant.liveInRefuge)) {
+    return false;
+  }
+
+  if (applicant.liveInRefuge === YesOrNo.YES) {
+    if (_.isEmpty(applicant.refugeConfidentialityC8Form)) {
+      return false;
+    }
+  } else {
+    if (_.isEmpty(applicant.detailsKnown)) {
+      return false;
+    }
+
+    const hasStartFlag = !_.isEmpty(applicant.start) || !_.isEmpty(applicant.startAlternative);
+    if (!hasStartFlag) {
+      return false;
+    }
+
+    if (applicant.startAlternative === YesOrNo.YES && _.isEmpty(applicant.contactDetailsPrivateAlternative)) {
+      return false;
+    }
+
+    if (applicant.start === YesOrNo.YES && _.isEmpty(applicant.contactDetailsPrivate)) {
+      return false;
+    }
+  }
+
+  /* ────────── ADDRESS ────────── */
+
+  if (_.isEmpty(applicant.applicantAddress1)) {
+    return false;
+  }
+  if (_.isEmpty(applicant.applicantAddressTown)) {
+    return false;
+  }
+  if (_.isEmpty(applicant.country)) {
+    return false;
+  }
+
+  if (_.isEmpty(applicant.applicantAddressHistory)) {
+    return false;
+  }
+  if (
+    applicant.applicantAddressHistory === YesOrNo.YES &&
+    _.isEmpty(applicant.applicantProvideDetailsOfPreviousAddresses)
+  ) {
+    return false;
+  }
+
+  /* ────────── CONTACT DETAILS ────────── */
+
+  const cd = applicant.applicantContactDetail;
+  if (_.isEmpty(cd)) {
+    return false;
+  }
+
+  if (_.isEmpty(cd.canProvideEmail)) {
+    return false;
+  }
+  if (cd.canProvideEmail === YesOrNo.YES) {
+    if (_.isEmpty(cd.emailAddress)) {
+      return false;
+    }
+    if (isEmailValid(cd.emailAddress) === 'invalid') {
+      return false;
+    }
+  }
+
+  if (_.isEmpty(cd.canProvideTelephoneNumber)) {
+    return false;
+  }
+  if (cd.canProvideTelephoneNumber === YesOrNo.YES) {
+    if (_.isEmpty(cd.telephoneNumber)) {
+      return false;
+    }
+    if (isPhoneNoValid(cd.telephoneNumber) === 'invalid') {
+      return false;
+    }
+  } else {
+    if (_.isEmpty(cd.canNotProvideTelephoneNumberReason)) {
+      return false;
+    }
+  }
+
+  if (_.isEmpty(cd.canLeaveVoiceMail)) {
+    return false;
+  }
+  if (_.isEmpty(cd.applicantContactPreferences)) {
+    return false;
+  }
+
+  /* ────────── RELATIONSHIP TO CHILDREN ────────── */
+
+  const rel = applicant.relationshipDetails?.relationshipToChildren;
+  if (!Array.isArray(rel)) {
+    return false;
+  }
+
+  if (rel.length !== children.length) {
+    return false;
+  }
+
+  /* ────────── ALL CHECKS PASSED ────────── */
+  return true;
 };
 
 const isRespondentValid = (
