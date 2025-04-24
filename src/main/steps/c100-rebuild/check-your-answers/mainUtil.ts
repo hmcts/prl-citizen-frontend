@@ -2428,7 +2428,7 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
       errorType: 'required',
     });
   }
-  if (_.isEmpty(applicant.detailsKnown)) {
+  if (_.isEmpty(applicant.detailsKnown) && applicant.liveInRefuge === YesOrNo.NO) {
     error.push({
       propertyName: `anyOtherPeopleKnowDetails-applicant-${index}`,
       errorType: 'required',
@@ -2572,6 +2572,11 @@ const generateApplicantContactDetailErrors = (applicant: C100Applicant, index: n
 
 const generateApplicantConfidentialityError = (applicant: C100Applicant, index: number): FormError[] => {
   const errors: FormError[] = [];
+
+  if (applicant.liveInRefuge === YesOrNo.YES) {
+    return errors;
+  }
+
   if (
     (!applicant.startAlternative && !applicant.start) ||
     (applicant.startAlternative === 'Yes' && _.isEmpty(applicant.contactDetailsPrivateAlternative)) ||
