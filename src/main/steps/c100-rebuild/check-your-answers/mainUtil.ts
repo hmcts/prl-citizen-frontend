@@ -672,26 +672,38 @@ export const ApplicantDetails = (
         anchorReference: `fullName-applicant-${applicant}`,
         valueHtml: fullname,
         changeUrl: Urls['C100_APPLICANT_ADD_APPLICANTS'],
-      },
-      {
-        key: keys['anyOtherPeopleKnowDetails'],
-        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['anyOtherPeopleKnowDetails']}`,
-        anchorReference: `anyOtherPeopleKnowDetails-applicant-${applicant}`,
-        valueHtml: populateError(
-          sessionApplicantData[applicant]['detailsKnown'],
-          getYesNoTranslation(language, sessionApplicantData[applicant]['detailsKnown'], 'ydyntTranslation'),
-          language
-        ),
-        changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
-      },
-      {
-        key: keys['doYouWantToKeep'],
-        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['doYouWantToKeep']}`,
-        anchorReference: `doYouWantToKeep-applicant-${applicant}`,
-        value: '',
-        valueHtml: parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
-        changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], { applicantId }),
-      },
+      }
+    );
+
+    if (sessionApplicantData[applicant]?.liveInRefuge === YesOrNo.NO) {
+      newApplicantData.push(
+        {
+          key: keys['doYouWantToKeep'],
+          visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['doYouWantToKeep']}`,
+          anchorReference: `doYouWantToKeep-applicant-${applicant}`,
+          value: '',
+          valueHtml: parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
+          changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], {
+            applicantId: sessionApplicantData[applicant]['id'],
+          }),
+        },
+        {
+          key: keys['anyOtherPeopleKnowDetails'],
+          visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${
+            keys['anyOtherPeopleKnowDetails']
+          }`,
+          anchorReference: `anyOtherPeopleKnowDetails-applicant-${applicant}`,
+          valueHtml: populateError(
+            sessionApplicantData[applicant]['detailsKnown'],
+            getYesNoTranslation(language, sessionApplicantData[applicant]['detailsKnown'], 'ydyntTranslation'),
+            language
+          ),
+          changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
+        }
+      );
+    }
+
+    newApplicantData.push(
       {
         key: keys['haveYouChangeNameLabel'],
         anchorReference: applicantChangeNameAnchorRef,
