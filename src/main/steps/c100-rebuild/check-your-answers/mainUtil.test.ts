@@ -2982,7 +2982,6 @@ describe('test cases for main util', () => {
 });
 
 describe('generatePeopleErrors', () => {
-
   test('should generate errors for people section when other people arrays are empty', () => {
     expect(
       generatePeopleErrors({
