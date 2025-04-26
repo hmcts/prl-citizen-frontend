@@ -4,37 +4,11 @@ import { CaseWithId } from '../../../app/case/case';
 import { C100Applicant, ChildrenDetails, YesNoEmpty, YesOrNo } from '../../../app/case/definition';
 import { isEmailValid, isPhoneNoValid } from '../../../app/form/validation';
 
-const isApplicantValid = (applicant: C100Applicant, children: ChildrenDetails[]): boolean => {
-  /* ────────── BASIC NAME + PERSONAL DETAILS ────────── */
+const isNameSectionValid = (applicant: C100Applicant): boolean => {
+  return !_.isEmpty(applicant.applicantFirstName) && !_.isEmpty(applicant.applicantLastName);
+};
 
-  if (_.isEmpty(applicant.applicantFirstName)) {
-    return false;
-  }
-  if (_.isEmpty(applicant.applicantLastName)) {
-    return false;
-  }
-  const pd = applicant.personalDetails;
-  if (_.isEmpty(pd)) {
-    return false;
-  }
-  if (_.isEmpty(pd.haveYouChangeName)) {
-    return false;
-  }
-  if (pd.haveYouChangeName === YesNoEmpty.YES && _.isEmpty(pd.applPreviousName)) {
-    return false;
-  }
-  if (_.isEmpty(pd.dateOfBirth)) {
-    return false;
-  }
-  if (_.isEmpty(pd.gender)) {
-    return false;
-  }
-  if (_.isEmpty(pd.applicantPlaceOfBirth)) {
-    return false;
-  }
-
-  /* ────────── CONFIDENTIALITY / REFUGE LOGIC ────────── */
-
+const isRefugeAndConfidentialitySectionValid = (applicant: C100Applicant): boolean => {
   if (_.isEmpty(applicant.liveInRefuge)) {
     return false;
   }
@@ -62,83 +36,89 @@ const isApplicantValid = (applicant: C100Applicant, children: ChildrenDetails[])
     }
   }
 
-  /* ────────── ADDRESS ────────── */
+  return true;
+};
 
-  if (_.isEmpty(applicant.applicantAddress1)) {
-    return false;
-  }
-  if (_.isEmpty(applicant.applicantAddressTown)) {
-    return false;
-  }
-  if (_.isEmpty(applicant.country)) {
+const isPersonalDetailsSectionValid = (applicant: C100Applicant): boolean => {
+  const pd = applicant.personalDetails;
+
+  if (_.isEmpty(pd)) {
     return false;
   }
 
-  if (_.isEmpty(applicant.applicantAddressHistory)) {
-    return false;
-  }
-  if (
-    applicant.applicantAddressHistory === YesOrNo.YES &&
-    _.isEmpty(applicant.applicantProvideDetailsOfPreviousAddresses)
-  ) {
+  if (_.isEmpty(pd.haveYouChangeName)) {
     return false;
   }
 
-  /* ────────── CONTACT DETAILS ────────── */
+  if (pd.haveYouChangeName === YesNoEmpty.YES && _.isEmpty(pd.applPreviousName)) {
+    return false;
+  }
 
+  return !(_.isEmpty(pd.gender) || _.isEmpty(pd.dateOfBirth) || _.isEmpty(pd.applicantPlaceOfBirth));
+};
+
+const isRelationshipToChildrenSectionValid = (applicant: C100Applicant, children: ChildrenDetails[]): boolean => {
+  const rel = applicant.relationshipDetails?.relationshipToChildren;
+
+  return Array.isArray(rel) && rel.length === children.length;
+};
+
+const isAddressSectionValid = (applicant: C100Applicant): boolean => {
+  return !(
+    _.isEmpty(applicant.applicantAddress1) ||
+    _.isEmpty(applicant.applicantAddressTown) ||
+    _.isEmpty(applicant.country) ||
+    _.isEmpty(applicant.applicantAddressHistory) ||
+    (applicant.applicantAddressHistory === YesOrNo.YES &&
+      _.isEmpty(applicant.applicantProvideDetailsOfPreviousAddresses))
+  );
+};
+
+const isContactDetailsSectionValid = (applicant: C100Applicant): boolean => {
   const cd = applicant.applicantContactDetail;
+
   if (_.isEmpty(cd)) {
     return false;
   }
 
-  if (_.isEmpty(cd.canProvideEmail)) {
-    return false;
-  }
-  if (cd.canProvideEmail === YesOrNo.YES) {
-    if (_.isEmpty(cd.emailAddress)) {
-      return false;
-    }
-    if (isEmailValid(cd.emailAddress) === 'invalid') {
-      return false;
-    }
-  }
-
-  if (_.isEmpty(cd.canProvideTelephoneNumber)) {
-    return false;
-  }
-  if (cd.canProvideTelephoneNumber === YesOrNo.YES) {
-    if (_.isEmpty(cd.telephoneNumber)) {
-      return false;
-    }
-    if (isPhoneNoValid(cd.telephoneNumber) === 'invalid') {
-      return false;
-    }
-  } else {
-    if (_.isEmpty(cd.canNotProvideTelephoneNumberReason)) {
-      return false;
-    }
-  }
-
-  if (_.isEmpty(cd.canLeaveVoiceMail)) {
-    return false;
-  }
-  if (_.isEmpty(cd.applicantContactPreferences)) {
+  if (
+    _.isEmpty(cd.canProvideEmail) ||
+    (cd.canProvideEmail === YesOrNo.YES && (_.isEmpty(cd.emailAddress) || isEmailValid(cd.emailAddress) === 'invalid'))
+  ) {
     return false;
   }
 
-  /* ────────── RELATIONSHIP TO CHILDREN ────────── */
-
-  const rel = applicant.relationshipDetails?.relationshipToChildren;
-  if (!Array.isArray(rel)) {
+  if (
+    _.isEmpty(cd.canProvideTelephoneNumber) ||
+    (cd.canProvideTelephoneNumber === YesOrNo.YES &&
+      (_.isEmpty(cd.telephoneNumber) || isPhoneNoValid(cd.telephoneNumber) === 'invalid'))
+  ) {
     return false;
   }
 
-  if (rel.length !== children.length) {
+  return !(cd.canProvideTelephoneNumber === YesOrNo.NO && _.isEmpty(cd.canNotProvideTelephoneNumberReason));
+};
+
+const isContactPreferencesSectionValid = (applicant: C100Applicant): boolean => {
+  const cd = applicant.applicantContactDetail;
+
+  if (_.isEmpty(cd)) {
     return false;
   }
 
-  /* ────────── ALL CHECKS PASSED ────────── */
-  return true;
+  return !_.isEmpty(cd.canLeaveVoiceMail) && !_.isEmpty(cd.applicantContactPreferences);
+};
+
+const isApplicantValid = (applicant: C100Applicant, children: ChildrenDetails[]): boolean => {
+  return (
+    isNameSectionValid(applicant) &&
+    isRefugeAndConfidentialitySectionValid(applicant) &&
+    isPersonalDetailsSectionValid(applicant) &&
+    isRelationshipToChildrenSectionValid(applicant, children) &&
+    isAddressSectionValid(applicant) &&
+    isContactDetailsSectionValid(applicant) &&
+    isContactPreferencesSectionValid(applicant)
+  );
 };
 
 export const areApplicantsValid = (caseData: CaseWithId): boolean =>
