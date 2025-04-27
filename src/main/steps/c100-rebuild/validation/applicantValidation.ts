@@ -112,18 +112,16 @@ export const isContactPreferencesSectionValid = (applicant: C100Applicant): bool
   return !_.isEmpty(cd.canLeaveVoiceMail) && !_.isEmpty(cd.applicantContactPreferences);
 };
 
-const applicantValidationRules = [
-  isNameSectionValid,
-  isRefugeAndConfidentialitySectionValid,
-  isPersonalDetailsSectionValid,
-  isRelationshipToChildrenSectionValid,
-  isAddressSectionValid,
-  isContactDetailsSectionValid,
-  isContactPreferencesSectionValid,
-];
-
 const isApplicantValid = (applicant: C100Applicant, children: ChildrenDetails[]): boolean => {
-  return applicantValidationRules.every(rule => rule(applicant, children));
+  return (
+    isNameSectionValid(applicant) &&
+    isRefugeAndConfidentialitySectionValid(applicant) &&
+    isPersonalDetailsSectionValid(applicant) &&
+    isRelationshipToChildrenSectionValid(applicant, children) &&
+    isAddressSectionValid(applicant) &&
+    isContactDetailsSectionValid(applicant) &&
+    isContactPreferencesSectionValid(applicant)
+  );
 };
 
 export const areApplicantsValid = (caseData: CaseWithId): boolean =>
