@@ -4,11 +4,11 @@ import { CaseWithId } from '../../../app/case/case';
 import { C100Applicant, ChildrenDetails, YesNoEmpty, YesOrNo } from '../../../app/case/definition';
 import { isEmailValid, isPhoneNoValid } from '../../../app/form/validation';
 
-const isNameSectionValid = (applicant: C100Applicant): boolean => {
+export const isNameSectionValid = (applicant: C100Applicant): boolean => {
   return !_.isEmpty(applicant.applicantFirstName) && !_.isEmpty(applicant.applicantLastName);
 };
 
-const isRefugeAndConfidentialitySectionValid = (applicant: C100Applicant): boolean => {
+export const isRefugeAndConfidentialitySectionValid = (applicant: C100Applicant): boolean => {
   if (_.isEmpty(applicant.liveInRefuge)) {
     return false;
   }
@@ -39,7 +39,7 @@ const isRefugeAndConfidentialitySectionValid = (applicant: C100Applicant): boole
   return true;
 };
 
-const isPersonalDetailsSectionValid = (applicant: C100Applicant): boolean => {
+export const isPersonalDetailsSectionValid = (applicant: C100Applicant): boolean => {
   const pd = applicant.personalDetails;
 
   if (_.isEmpty(pd)) {
@@ -57,13 +57,16 @@ const isPersonalDetailsSectionValid = (applicant: C100Applicant): boolean => {
   return !(_.isEmpty(pd.gender) || _.isEmpty(pd.dateOfBirth) || _.isEmpty(pd.applicantPlaceOfBirth));
 };
 
-const isRelationshipToChildrenSectionValid = (applicant: C100Applicant, children: ChildrenDetails[]): boolean => {
+export const isRelationshipToChildrenSectionValid = (
+  applicant: C100Applicant,
+  children: ChildrenDetails[]
+): boolean => {
   const rel = applicant.relationshipDetails?.relationshipToChildren;
 
   return Array.isArray(rel) && rel.length === children.length;
 };
 
-const isAddressSectionValid = (applicant: C100Applicant): boolean => {
+export const isAddressSectionValid = (applicant: C100Applicant): boolean => {
   return !(
     _.isEmpty(applicant.applicantAddress1) ||
     _.isEmpty(applicant.applicantAddressTown) ||
@@ -74,7 +77,7 @@ const isAddressSectionValid = (applicant: C100Applicant): boolean => {
   );
 };
 
-const isContactDetailsSectionValid = (applicant: C100Applicant): boolean => {
+export const isContactDetailsSectionValid = (applicant: C100Applicant): boolean => {
   const cd = applicant.applicantContactDetail;
 
   if (_.isEmpty(cd)) {
@@ -99,7 +102,7 @@ const isContactDetailsSectionValid = (applicant: C100Applicant): boolean => {
   return !(cd.canProvideTelephoneNumber === YesOrNo.NO && _.isEmpty(cd.canNotProvideTelephoneNumberReason));
 };
 
-const isContactPreferencesSectionValid = (applicant: C100Applicant): boolean => {
+export const isContactPreferencesSectionValid = (applicant: C100Applicant): boolean => {
   const cd = applicant.applicantContactDetail;
 
   if (_.isEmpty(cd)) {
