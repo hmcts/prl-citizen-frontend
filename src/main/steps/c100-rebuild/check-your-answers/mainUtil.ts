@@ -672,21 +672,41 @@ export const ApplicantDetails = (
         anchorReference: `fullName-applicant-${applicant}`,
         valueHtml: fullname,
         changeUrl: Urls['C100_APPLICANT_ADD_APPLICANTS'],
+      },
+      {
+        key: keys['refuge'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['refuge']}`,
+        valueHtml: populateError(
+          sessionApplicantData[applicant]['liveInRefuge'],
+          getYesNoTranslation(language, sessionApplicantData[applicant]['liveInRefuge'], 'ydwTranslation'),
+          language
+        ),
+        anchorReference: `refuge-applicant-${applicant}`,
+        changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
+          root: RootContext.C100_REBUILD,
+          id: sessionApplicantData[applicant]['id'],
+        }),
       }
     );
 
+    if (sessionApplicantData[applicant]['liveInRefuge'] === YesOrNo.YES) {
+      newApplicantData.push({
+        key: keys['c8RefugeDocument'],
+        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['c8RefugeDocument']}`,
+        anchorReference: `c8RefugeDocument-applicant-${applicant}`,
+        value: '',
+        valueHtml: !_.isEmpty(sessionApplicantData[applicant]['refugeConfidentialityC8Form'])
+          ? sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename']
+          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
+        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
+          root: RootContext.C100_REBUILD,
+          id: sessionApplicantData[applicant]['id'],
+        }),
+      });
+    }
+
     if (sessionApplicantData[applicant]?.liveInRefuge === YesOrNo.NO) {
       newApplicantData.push(
-        {
-          key: keys['doYouWantToKeep'],
-          visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['doYouWantToKeep']}`,
-          anchorReference: `doYouWantToKeep-applicant-${applicant}`,
-          value: '',
-          valueHtml: parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
-          changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], {
-            applicantId: sessionApplicantData[applicant]['id'],
-          }),
-        },
         {
           key: keys['anyOtherPeopleKnowDetails'],
           visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${
@@ -699,6 +719,16 @@ export const ApplicantDetails = (
             language
           ),
           changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW'], { applicantId }),
+        },
+        {
+          key: keys['doYouWantToKeep'],
+          visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['doYouWantToKeep']}`,
+          anchorReference: `doYouWantToKeep-applicant-${applicant}`,
+          value: '',
+          valueHtml: parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
+          changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], {
+            applicantId: sessionApplicantData[applicant]['id'],
+          }),
         }
       );
     }
@@ -758,38 +788,6 @@ export const ApplicantDetails = (
       )
     );
 
-    const applicantFullName = ` ${fullname} `;
-    newApplicantData.push({
-      key: keys['refuge'],
-      visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['refuge']}`,
-      valueHtml: populateError(
-        sessionApplicantData[applicant]['liveInRefuge'],
-        getYesNoTranslation(language, sessionApplicantData[applicant]['liveInRefuge'], 'ydwTranslation'),
-        language
-      ),
-      anchorReference: `refuge-applicant-${applicant}`,
-      changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
-        root: RootContext.C100_REBUILD,
-        id: sessionApplicantData[applicant]['id'],
-      }),
-    });
-
-    if (sessionApplicantData[applicant]['liveInRefuge'] === YesOrNo.YES) {
-      newApplicantData.push({
-        key: keys['c8RefugeDocument'],
-        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['c8RefugeDocument']}`,
-        anchorReference: `c8RefugeDocument-applicant-${applicant}`,
-        value: '',
-        valueHtml: !_.isEmpty(sessionApplicantData[applicant]['refugeConfidentialityC8Form'])
-          ? sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename']
-          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
-        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
-          root: RootContext.C100_REBUILD,
-          id: sessionApplicantData[applicant]['id'],
-        }),
-      });
-    }
-
     const applicantAddressAnchorRef = `addressDetails-applicant-${applicant}`;
     newApplicantData.push({
       key: keys['addressDetails'],
@@ -802,6 +800,7 @@ export const ApplicantDetails = (
       }),
     });
 
+    const applicantFullName = ` ${fullname} `;
     const applicantContactDetailsAnchorRef = `contactDetails-applicant-${applicant}`;
     newApplicantData.push(
       {
