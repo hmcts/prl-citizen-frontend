@@ -42,12 +42,7 @@ class RefugeNavigationController {
 
     switch (currentPageUrl) {
       case STAYING_IN_REFUGE:
-        return this.isInRefuge(caseData, isC100, id, req, c100Person)
-          ? (applyParms(REFUGE_KEEPING_SAFE, {
-              root: isC100 ? RootContext.C100_REBUILD : partyRoot,
-              id,
-            }) as PageLink)
-          : addressUrl;
+        return this.getStayInRefugeNextUrl(partyRoot, caseData, isC100, id, req, c100Person, addressUrl);
 
       case REFUGE_KEEPING_SAFE:
         return this.getKeepingSafeNextUrl(id, isC100, partyRoot, req, c100Person!, caseData as CaseWithId);
@@ -57,16 +52,32 @@ class RefugeNavigationController {
         return addressUrl;
 
       case REFUGE_DOC_ALREADY_UPLOADED:
-        return caseData.reUploadRefugeDocument === YesOrNo.YES
-          ? (applyParms(isC100 ? C100_REFUGE_UPLOAD_DOC : REFUGE_UPLOAD_DOC, {
-              root: isC100 ? RootContext.C100_REBUILD : partyRoot,
-              id,
-            }) as PageLink)
-          : addressUrl;
+        return this.getDocAlreadyUploadedNextUrl(id, isC100, partyRoot, addressUrl, caseData as CaseWithId);
 
       default:
         return currentPageUrl;
     }
+  }
+
+  private getStayInRefugeNextUrl(
+    partyRoot: RootContext,
+    caseData: Partial<CaseWithId>,
+    isC100: boolean,
+    id: string,
+    req: AppRequest,
+    c100Person: People | undefined,
+    addressUrl: PageLink
+  ): PageLink {
+    return this.isInRefuge(caseData, isC100, id, req, c100Person)
+      ? this.getRefugeKeepingSafeRedirectUrl(isC100, id, partyRoot)
+      : addressUrl;
+  }
+
+  private getRefugeKeepingSafeRedirectUrl(isC100: boolean, id: string, partyRoot: RootContext): PageLink {
+    return applyParms(REFUGE_KEEPING_SAFE, {
+      root: isC100 ? RootContext.C100_REBUILD : partyRoot,
+      id,
+    }) as PageLink;
   }
 
   private getPartyRoot(caseData: Partial<CaseWithId>, userId: string): RootContext {
@@ -82,14 +93,25 @@ class RefugeNavigationController {
     partyRoot: RootContext
   ): PageLink {
     if (!isC100) {
-      return partyRoot === RootContext.RESPONDENT ? RESPONDENT_ADDRESS_DETAILS : APPLICANT_ADDRESS_DETAILS;
+      return this.getDefaultAddressUrl(partyRoot);
     }
 
-    const c100AddressUrl =
-      person?.partyType === PartyType.APPLICANT
-        ? (applyParms(C100_APPLICANTS_PERSONAL_DETAILS, { applicantId: id }) as PageLink)
-        : (applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId: id }) as PageLink);
+    const c100AddressUrl = this.getC100AddressUrl(id, person);
 
+    return this.getC100RedirectUrl(currentPageUrl, id, c100AddressUrl);
+  }
+
+  private getDefaultAddressUrl(partyRoot: RootContext): PageLink {
+    return partyRoot === RootContext.RESPONDENT ? RESPONDENT_ADDRESS_DETAILS : APPLICANT_ADDRESS_DETAILS;
+  }
+
+  private getC100AddressUrl(id: string, person?: People): PageLink {
+    return person?.partyType === PartyType.APPLICANT
+      ? (applyParms(C100_APPLICANTS_PERSONAL_DETAILS, { applicantId: id }) as PageLink)
+      : (applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId: id }) as PageLink);
+  }
+
+  private getC100RedirectUrl(currentPageUrl: PageLink, id: string, c100AddressUrl: PageLink): PageLink {
     return currentPageUrl === STAYING_IN_REFUGE
       ? (applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, { applicantId: id }) as PageLink)
       : c100AddressUrl;
@@ -139,6 +161,23 @@ class RefugeNavigationController {
     return isC100
       ? (applyParms(C100_REFUGE_UPLOAD_DOC, { root: resolvedRoot, id }) as PageLink)
       : (applyParms(REFUGE_UPLOAD_DOC, { root: resolvedRoot, id }) as PageLink);
+  }
+
+  private getDocAlreadyUploadedNextUrl(
+    id: string,
+    isC100: boolean,
+    root: RootContext,
+    addressUrl: PageLink,
+    caseData: CaseWithId
+  ): PageLink {
+    const resolvedRoot = isC100 ? RootContext.C100_REBUILD : root;
+    const needToReuploadRefugeDoc = caseData.reUploadRefugeDocument === YesOrNo.YES;
+    if (needToReuploadRefugeDoc) {
+      return isC100
+        ? (applyParms(C100_REFUGE_UPLOAD_DOC, { root: resolvedRoot, id }) as PageLink)
+        : (applyParms(REFUGE_UPLOAD_DOC, { root: resolvedRoot, id }) as PageLink);
+    }
+    return addressUrl;
   }
 }
 
