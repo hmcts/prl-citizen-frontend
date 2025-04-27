@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-/**
- * import {
-  cy as contentjurdisictionCy,
-  en as contentjurdisictionEn,
-} from '../../international-elements/jurisdiction/content';
- */
 import { cy as addressManualCy, en as addressManualEn } from '../../applicant/address/common/address-manual';
 import {
   cy as contentDetailKnownCy,
@@ -42,12 +36,8 @@ import {
   en as contentPermissionWhyEn,
 } from '../../screening-questions/permissions-why/content';
 
-//consent-agreement
-
 /**
- * It returns an object containing the contents of the English and Welsh versions of the page,
- * depending on the language selected
- * @returns A function that returns an object.
+ * @returns the English or Welsh text from each of the page's content for the applicant's check-your-answers page
  */
 export const ApplicantElements = SystemLanguage => {
   const opContents = {
