@@ -37,6 +37,24 @@ describe('Applicant Validation Functions', () => {
       ).toBe(true);
     });
 
+    it('should return false when living in refuge is not set', () => {
+      expect(
+        isRefugeAndConfidentialitySectionValid({
+          liveInRefuge: null,
+        } as never)
+      ).toBe(false);
+    });
+
+    it('should return false when start or start alternative is not set', () => {
+      expect(
+        isRefugeAndConfidentialitySectionValid({
+          liveInRefuge: YesOrNo.NO,
+          start: null,
+          startAlternative: null,
+        } as never)
+      ).toBe(false);
+    });
+
     it('should return false when living in refuge but no confidentiality form', () => {
       expect(
         isRefugeAndConfidentialitySectionValid({
