@@ -208,7 +208,8 @@
     "send": "0.19.1",
     "serve-static": "1.16.2",
     "cross-spawn": "7.0.6",
-    "cookie": "^0.7.2"
+    "cookie": "^0.7.2",
+    "formidable": "^3.5.4"
   },
   "packageManager": "yarn@4.6.0"
 }
