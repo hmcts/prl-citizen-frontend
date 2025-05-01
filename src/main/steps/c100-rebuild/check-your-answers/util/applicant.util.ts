@@ -1,18 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-/**
- * import {
-  cy as contentjurdisictionCy,
-  en as contentjurdisictionEn,
-} from '../../international-elements/jurisdiction/content';
- */
 import { cy as addressManualCy, en as addressManualEn } from '../../applicant/address/common/address-manual';
 import {
   cy as contentDetailKnownCy,
   en as contentDetailKnownEn,
 } from '../../applicant/confidentiality/details-know/content';
-import { cy as contentStartCy, en as contentStartEn } from '../../applicant/confidentiality/start/content';
+import {
+  cy as contentStartAlternativeCy,
+  en as contentStartAlternativeEn,
+} from '../../applicant/confidentiality/start-alternative/content';
 import { cy as contentContactCy, en as contentContactEn } from '../../applicant/contact-detail/content';
 import { cy as contactPreferencesCY, en as contactPreferencesEN } from '../../applicant/contact-preference/content';
 import {
@@ -39,12 +36,8 @@ import {
   en as contentPermissionWhyEn,
 } from '../../screening-questions/permissions-why/content';
 
-//consent-agreement
-
 /**
- * It returns an object containing the contents of the English and Welsh versions of the page,
- * depending on the language selected
- * @returns A function that returns an object.
+ * @returns the English or Welsh text from each of the page's content for the applicant's check-your-answers page
  */
 export const ApplicantElements = SystemLanguage => {
   const opContents = {
@@ -54,7 +47,7 @@ export const ApplicantElements = SystemLanguage => {
         ...contentPersonalDetailsEn(),
         anyotherPersonYouwantList: opersonDetailsEn().title,
         anyOtherPeopleKnowDetails: contentDetailKnownEn().title,
-        doYouWantToKeep: contentStartEn().title,
+        doYouWantToKeep: contentStartAlternativeEn().headingTitle,
         haveLivedMore: addressManualEn().addressHistoryLabel,
         otherGender: personalDetailsEn().other,
         whereDoChildLive: contentChildLivesEn().title,
@@ -77,7 +70,7 @@ export const ApplicantElements = SystemLanguage => {
         ...opersonDetailsCy(),
         anyotherPersonYouwantList: opersonDetailsCy().title,
         anyOtherPeopleKnowDetails: contentDetailKnownCy().title,
-        doYouWantToKeep: contentStartCy().title,
+        doYouWantToKeep: contentStartAlternativeCy().headingTitle,
         haveLivedMore: addressManualCy().addressHistoryLabel,
         otherGender: personalDetailsCy().other,
         whereDoChildLive: contentChildLivesCy().title,

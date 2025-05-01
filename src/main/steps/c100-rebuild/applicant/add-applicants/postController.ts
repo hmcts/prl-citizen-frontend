@@ -4,15 +4,12 @@ import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Case } from '../../../../app/case/case';
-import { C100Applicant, C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
+import { C100Applicant, C100ListOfApplicants, Gender, RootContext, YesNoEmpty } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
-import {
-  C100_APPLICANT_ADD_APPLICANTS,
-  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
-} from '../../../urls';
+import { C100_APPLICANT_ADD_APPLICANTS, STAYING_IN_REFUGE } from '../../../urls';
 import { setDynamicFormContext } from '../../people/util';
 // eslint-disable-next-line import/no-unresolved
 
@@ -128,8 +125,9 @@ export default class AddApplicantPostController extends PostController<AnyObject
       this.addAnotherApplicant(req);
       this.resetSessionTemporaryFormValues(req);
       delete req.session.userCase.applicantTemporaryFormData;
-      const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
-        applicantId: req.session.userCase?.appl_allApplicants?.[0].id as string,
+      const redirectURI = applyParms(STAYING_IN_REFUGE, {
+        root: RootContext.C100_REBUILD,
+        id: req.session.userCase?.appl_allApplicants?.[0].id as string,
       });
       return super.redirect(req, res, redirectURI);
     }
@@ -190,6 +188,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
   /**
    * It takes the data from the form and maps it to the correct object in the session
    * @param req - AppRequest<AnyObject>
+   * @param {Response} res - Response - this is the response object that is passed to the controller.
    */
   public mapEnteriesToValuesAfterContinuing(req: AppRequest<AnyObject>, res: Response): void {
     const lengthOfApplicantInSession = req.session.userCase.appl_allApplicants?.length;
@@ -217,8 +216,9 @@ export default class AddApplicantPostController extends PostController<AnyObject
       if (errorMessageStorage.length === 0) {
         req.session.userCase.appl_allApplicants = newApplicantStorage;
         delete req.session.userCase.applicantTemporaryFormData;
-        const redirectURI = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, {
-          applicantId: req.session.userCase.appl_allApplicants[0].id!,
+        const redirectURI = applyParms(STAYING_IN_REFUGE, {
+          root: RootContext.C100_REBUILD,
+          id: req.session.userCase.appl_allApplicants[0].id!,
         });
         return super.redirect(req, res, redirectURI);
       } else {

@@ -2630,14 +2630,6 @@ describe('test cases for main util', () => {
         },
         {
           errorType: 'required',
-          propertyName: 'anyOtherPeopleKnowDetails-applicant-0',
-        },
-        {
-          errorType: 'required',
-          propertyName: 'doYouWantToKeep-applicant-0',
-        },
-        {
-          errorType: 'required',
           propertyName: 'haveYouChangeName-applicant-0',
         },
         {
@@ -3009,10 +3001,6 @@ describe('generatePeopleErrors', () => {
       {
         errorType: 'required',
         propertyName: 'fullName-applicant-0',
-      },
-      {
-        errorType: 'required',
-        propertyName: 'anyOtherPeopleKnowDetails-applicant-0',
       },
       {
         errorType: 'required',
