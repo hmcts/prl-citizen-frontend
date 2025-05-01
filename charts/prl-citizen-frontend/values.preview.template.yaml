@@ -21,7 +21,6 @@ nodejs:
     CCD_URL: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     DOCUMENT_MANAGEMENT_URL: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
     COS_URL: 'http://prl-cos-aat.service.core-compute-aat.internal'
-    REASONABLE_ADJUSTMENTS: 'https://cui-ra.aat.platform.hmcts.net'
     FACT_URL: 'http://fact-api-aat.service.core-compute-aat.internal'
     REASONABLE_ADJUSTMENTS: 'https://cui-ra.{{ .Values.global.environment }}.platform.hmcts.net'
     REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
