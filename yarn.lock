@@ -9244,14 +9244,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-http-proxy@npm:^1.6.3":
-  version: 1.6.3
-  resolution: "express-http-proxy@npm:1.6.3"
+"express-http-proxy@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "express-http-proxy@npm:2.1.1"
   dependencies:
     debug: "npm:^3.0.1"
     es6-promise: "npm:^4.1.1"
     raw-body: "npm:^2.3.0"
-  checksum: 10c0/e27d85b923a812aa8d2ce90bc15cc8254bcd1691d43ea1c070760d4e3fe985d913e4e9f4523be649aff36a0c827b0d35222f5f5e62a5b03c8ffe58284aa91ef6
+  checksum: 10c0/c8e21f621e607c7b12d74df105d78b336f0e39b91b16e5a881e0905736f519aab0c5e5d41929ee210a595211127a420618ddb6a52f46f7f9770f0ca3ea9ead7c
   languageName: node
   linkType: hard
 
@@ -15904,7 +15904,7 @@ __metadata:
     eslint-plugin-prettier: "npm:^4.0.0"
     express: "npm:^4.21.1"
     express-fileupload: "npm:^1.4.0"
-    express-http-proxy: "npm:^1.6.3"
+    express-http-proxy: "npm:^2.1.1"
     express-nunjucks: "npm:^2.2.5"
     express-session: "npm:^1.17.2"
     form-data: "npm:^4.0.0"
