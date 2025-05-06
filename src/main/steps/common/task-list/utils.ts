@@ -45,26 +45,35 @@ export const getPartyNameForStatement = (
   partyType: PartyType,
   userDetails: UserDetails
 ): string => {
-  let partyDetails: Record<string, any> | undefined;
+  const fallbackName = {
+    firstName: userDetails.givenName,
+    lastName: userDetails.familyName,
+  };
 
-  if (caseData && doesCaseHaveId(caseData)) {
-    if (caseData.caseTypeOfApplication === CaseType.C100) {
-      if (partyType === PartyType.APPLICANT) {
-        partyDetails = caseData?.applicants?.[0]?.value ?? {
-          firstName: userDetails.givenName,
-          lastName: userDetails.familyName,
-        };
-      } else {
-        partyDetails = caseData?.respondents?.find(party => party.value.user.idamId === userDetails.id)?.value;
-      }
-    } else {
-      partyDetails = caseData?.[partyType === PartyType.APPLICANT ? 'applicantsFL401' : 'respondentsFL401'];
-    }
-  } else if (partyType === PartyType.APPLICANT) {
-    partyDetails = { firstName: userDetails.givenName, lastName: userDetails.familyName };
+  if (!caseData || !doesCaseHaveId(caseData)) {
+    return `${fallbackName.firstName} ${fallbackName.lastName}`;
   }
 
-  return partyDetails ? `${partyDetails.firstName} ${partyDetails.lastName}` : '';
+  const isC100 = caseData.caseTypeOfApplication === CaseType.C100;
+  const isApplicant = partyType === PartyType.APPLICANT;
+
+  let partyDetails: Record<string, any> | undefined;
+
+  if (isC100) {
+    if (isApplicant) {
+      partyDetails = caseData.applicants?.[0]?.value;
+    } else {
+      partyDetails = caseData.respondents?.find(party => party.value.user.idamId === userDetails.id)?.value;
+    }
+  } else {
+    const fl401Party = isApplicant ? caseData.applicantsFL401 : caseData.respondentsFL401;
+    if (fl401Party?.firstName && fl401Party?.lastName) {
+      partyDetails = fl401Party;
+    }
+  }
+
+  const nameToReturn = partyDetails ?? fallbackName;
+  return `${nameToReturn.firstName} ${nameToReturn.lastName}`;
 };
 
 export const isCaseWithdrawn = (caseData: CaseWithId): boolean => {
