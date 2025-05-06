@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../app/case/case';
-import {
-  areApplicantsValid,
-  areChildrenValid,
-  areOtherChildrenValid,
-  areOtherPeopleValid,
-  areRespondentsValid,
-} from '../../util';
+import { areApplicantsValid } from '../../applicantValidation';
+import { areChildrenValid, areOtherChildrenValid, areOtherPeopleValid, areRespondentsValid } from '../../util';
 
 export const PeopleFieldsConfig = {
   section: 'people',

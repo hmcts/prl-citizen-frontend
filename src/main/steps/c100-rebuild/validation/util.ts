@@ -2,7 +2,6 @@ import _ from 'lodash';
 
 import { CaseWithId } from '../../../app/case/case';
 import {
-  C100Applicant,
   C100FlowTypes,
   C100RebuildPartyDetails,
   C1AAbuseTypes,
@@ -223,49 +222,6 @@ export const getAllMandatoryFields = (
   return mandatoryFields;
 };
 
-const isApplicantValid = (applicant: C100Applicant, children: ChildrenDetails[]): boolean => {
-  return (
-    !_.isEmpty(applicant.applicantFirstName) &&
-    !_.isEmpty(applicant.applicantLastName) &&
-    !_.isEmpty(applicant.detailsKnown) &&
-    (!_.isEmpty(applicant.start) || !_.isEmpty(applicant.startAlternative)) &&
-    (applicant.startAlternative === YesOrNo.YES ? !_.isEmpty(applicant.contactDetailsPrivateAlternative) : true) &&
-    (applicant.start === YesOrNo.YES ? !_.isEmpty(applicant.contactDetailsPrivate) : true) &&
-    !_.isEmpty(applicant.personalDetails) &&
-    !_.isEmpty(applicant.personalDetails.haveYouChangeName) &&
-    (applicant.personalDetails.haveYouChangeName === YesNoEmpty.YES
-      ? !_.isEmpty(applicant.personalDetails.applPreviousName)
-      : true) &&
-    !_.isEmpty(applicant.personalDetails.dateOfBirth) &&
-    !_.isEmpty(applicant.personalDetails.gender) &&
-    !_.isEmpty(applicant.personalDetails.applicantPlaceOfBirth) &&
-    !_.isEmpty(applicant.liveInRefuge) &&
-    (applicant.liveInRefuge === YesOrNo.YES ? !_.isEmpty(applicant.refugeConfidentialityC8Form) : true) &&
-    !_.isEmpty(applicant.applicantAddress1) &&
-    !_.isEmpty(applicant.applicantAddressTown) &&
-    !_.isEmpty(applicant.country) &&
-    !_.isEmpty(applicant.applicantAddressHistory) &&
-    (applicant.applicantAddressHistory === YesOrNo.YES
-      ? !_.isEmpty(applicant.applicantProvideDetailsOfPreviousAddresses)
-      : true) &&
-    !_.isEmpty(applicant.applicantContactDetail) &&
-    !_.isEmpty(applicant.applicantContactDetail.canProvideEmail) &&
-    (applicant.applicantContactDetail.canProvideEmail === YesOrNo.YES
-      ? !_.isEmpty(applicant.applicantContactDetail.emailAddress) &&
-        isEmailValid(applicant.applicantContactDetail.emailAddress) !== 'invalid'
-      : true) &&
-    !_.isEmpty(applicant.applicantContactDetail.canProvideTelephoneNumber) &&
-    (applicant.applicantContactDetail.canProvideTelephoneNumber === YesOrNo.YES
-      ? !_.isEmpty(applicant.applicantContactDetail.telephoneNumber) &&
-        isPhoneNoValid(applicant.applicantContactDetail.telephoneNumber) !== 'invalid'
-      : !_.isEmpty(applicant.applicantContactDetail.canNotProvideTelephoneNumberReason)) &&
-    !_.isEmpty(applicant.applicantContactDetail.canLeaveVoiceMail) &&
-    !_.isEmpty(applicant.applicantContactDetail.applicantContactPreferences) &&
-    !_.isEmpty(applicant.relationshipDetails?.relationshipToChildren) &&
-    applicant.relationshipDetails?.relationshipToChildren.length === children.length
-  );
-};
-
 const isRespondentValid = (
   respondent: C100RebuildPartyDetails,
   partyType: PartyType,
@@ -361,9 +317,6 @@ export const areChildrenValid = (caseData: CaseWithId): boolean => {
 
 export const areOtherChildrenValid = (caseData: CaseWithId): boolean =>
   caseData.ocd_otherChildren?.every(child => isOtherChildValid(child)) ?? false;
-
-export const areApplicantsValid = (caseData: CaseWithId): boolean =>
-  caseData?.appl_allApplicants?.every(applicant => isApplicantValid(applicant, caseData.cd_children ?? [])) ?? false;
 
 export const areRespondentsValid = (caseData: CaseWithId): boolean =>
   caseData?.resp_Respondents?.every(respondent =>
