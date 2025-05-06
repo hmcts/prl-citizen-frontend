@@ -2,12 +2,18 @@ import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../../app/case/CosApiClient';
 import { FormFields } from '../../../../../app/form/Form';
+import { getPartyNameForStatement } from '../../../task-list/utils';
 
 import UploadDocumentPostController from './postController';
 
 const generateStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'generateStatementDocument');
 const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadDocument');
 const submitUploadedDocumentsMock = jest.spyOn(CosApiClient.prototype, 'submitUploadedDocuments');
+
+jest.mock('../../../task-list/utils', () => ({
+  getPartyName: jest.fn(),
+  getPartyNameForStatement: jest.fn(),
+}));
 
 describe('documents > upload > upload-your-documents > postController', () => {
   describe('generateDocument', () => {
@@ -638,4 +644,22 @@ describe('documents > upload > upload-your-documents > postController', () => {
       ]);
     });
   });
+});
+
+//test to check call to getPartyNameForStatement instead of getPartyName
+test('should call getPartyNameForStatement', async () => {
+  const req = mockRequest({
+    body: { statementText: 'Test statement', generateDocument: true },
+    params: { docCategory: 'your-position-statements' },
+    session: {
+      user: { id: '1234', accessToken: 'token' },
+      userCase: { id: 'case123' },
+    },
+  });
+  const res = mockResponse();
+
+  const controller = new UploadDocumentPostController({});
+  await controller['generateDocument'](req, res);
+
+  expect(getPartyNameForStatement).toHaveBeenCalledWith(req.session.userCase, expect.any(String), req.session.user);
 });

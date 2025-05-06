@@ -13,7 +13,7 @@ import { isExceedingMaxDocuments } from '../../../../../app/form/validation';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
 import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
-import { getPartyName } from '../../../task-list/utils';
+import { getPartyName, getPartyNameForStatement } from '../../../task-list/utils';
 import { UploadDocumentAPICategory, UploadDocumentCategory } from '../../definitions';
 import { getUploadedFilesDataReference, handleError, removeUploadDocErrors } from '../../upload/utils';
 
@@ -141,7 +141,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
         caseId: caseData.id,
         categoryId: this.getDocumentCategory(docCategory, partyType),
         partyId: user.id,
-        partyName: getPartyName(caseData, partyType, user),
+        partyName: getPartyNameForStatement(caseData, partyType, user),
         partyType,
         freeTextStatements: statementText,
       });

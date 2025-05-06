@@ -40,6 +40,33 @@ export const getPartyName = (
   return partyDetails ? `${partyDetails.firstName} ${partyDetails.lastName}` : '';
 };
 
+export const getPartyNameForStatement = (
+  caseData: Partial<CaseWithId> | undefined,
+  partyType: PartyType,
+  userDetails: UserDetails
+): string => {
+  let partyDetails: Record<string, any> | undefined;
+
+  if (caseData && doesCaseHaveId(caseData)) {
+    if (caseData.caseTypeOfApplication === CaseType.C100) {
+      if (partyType === PartyType.APPLICANT) {
+        partyDetails = caseData?.applicants?.[0]?.value ?? {
+          firstName: userDetails.givenName,
+          lastName: userDetails.familyName,
+        };
+      } else {
+        partyDetails = caseData?.respondents?.find(party => party.value.user.idamId === userDetails.id)?.value;
+      }
+    } else {
+      partyDetails = caseData?.[partyType === PartyType.APPLICANT ? 'applicantsFL401' : 'respondentsFL401'];
+    }
+  } else if (partyType === PartyType.APPLICANT) {
+    partyDetails = { firstName: userDetails.givenName, lastName: userDetails.familyName };
+  }
+
+  return partyDetails ? `${partyDetails.firstName} ${partyDetails.lastName}` : '';
+};
+
 export const isCaseWithdrawn = (caseData: CaseWithId): boolean => {
   if (!caseData) {
     return false;
