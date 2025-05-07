@@ -646,7 +646,6 @@ describe('documents > upload > upload-your-documents > postController', () => {
   });
 });
 
-//test to check call to getPartyNameForStatement instead of getPartyName
 test('should call getPartyNameForStatement', async () => {
   const req = mockRequest({
     body: { statementText: 'Test statement', generateDocument: true },
