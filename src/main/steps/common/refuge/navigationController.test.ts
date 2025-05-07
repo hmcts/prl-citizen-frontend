@@ -68,7 +68,7 @@ describe('C8 refuge > navigationController', () => {
       ],
     };
     expect(RefugeNavigationController.getNextPageUrl(STAYING_IN_REFUGE, req.session.userCase, req)).toBe(
-      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/address/lookup'
+      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/confidentiality/details-know'
     );
   });
 
@@ -79,7 +79,7 @@ describe('C8 refuge > navigationController', () => {
       isCitizenLivingInRefuge: 'Yes',
     };
     expect(RefugeNavigationController.getNextPageUrl(STAYING_IN_REFUGE, req.session.userCase, req)).toBe(
-      '/applicant/refuge/keeping-details-safe'
+      '/applicant/refuge/keeping-details-safe/7483640e-0817-4ddc-b709-6723f7925474?'
     );
   });
 
@@ -173,11 +173,11 @@ describe('C8 refuge > navigationController', () => {
   test('should redirect from c100 upload doc', async () => {
     req.originalUrl = '/c100-rebuild';
     expect(RefugeNavigationController.getNextPageUrl(C100_REFUGE_UPLOAD_DOC, req.session.userCase, req)).toBe(
-      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/address/lookup'
+      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/personal-details'
     );
   });
 
-  test('should redirect from doument already uploaded for C100 other person when yes selected', async () => {
+  test('should redirect from document already uploaded for C100 other person when yes selected', async () => {
     req.originalUrl = '/c100-rebuild';
     req.session.userCase = {
       ...req.session.userCase,
@@ -204,7 +204,7 @@ describe('C8 refuge > navigationController', () => {
     );
   });
 
-  test('should redirect from doument already uploaded for C100 applicant when no selected', async () => {
+  test('should redirect from document already uploaded for C100 applicant when no selected', async () => {
     req.originalUrl = '/c100-rebuild';
     req.session.userCase = {
       ...req.session.userCase,
@@ -227,11 +227,11 @@ describe('C8 refuge > navigationController', () => {
       id: '7483640e-0817-4ddc-b709-6723f7925474',
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_DOC_ALREADY_UPLOADED, req.session.userCase, req)).toBe(
-      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/address/lookup'
+      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/personal-details'
     );
   });
 
-  test('should redirect from doument already uploaded for applicant/respondent when yes selected', async () => {
+  test('should redirect from document already uploaded for applicant/respondent when yes selected', async () => {
     req.originalUrl = '/applicant';
     req.session.userCase = {
       ...req.session.userCase,
@@ -248,7 +248,7 @@ describe('C8 refuge > navigationController', () => {
     );
   });
 
-  test('should redirect from doument already uploaded for applicant/respondent when no selected', async () => {
+  test('should redirect from document already uploaded for applicant/respondent when no selected', async () => {
     req.originalUrl = '/respondent';
     req.session.userCase = {
       ...req.session.userCase,
