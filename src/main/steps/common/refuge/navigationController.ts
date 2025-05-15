@@ -98,7 +98,7 @@ class RefugeNavigationController {
 
     const c100AddressUrl = this.getC100AddressUrl(id, person);
 
-    return this.getC100RedirectUrl(currentPageUrl, id, c100AddressUrl);
+    return this.getC100RedirectUrl(currentPageUrl, id, c100AddressUrl, person);
   }
 
   private getDefaultAddressUrl(partyRoot: RootContext): PageLink {
@@ -111,10 +111,16 @@ class RefugeNavigationController {
       : (applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId: id }) as PageLink);
   }
 
-  private getC100RedirectUrl(currentPageUrl: PageLink, id: string, c100AddressUrl: PageLink): PageLink {
-    return currentPageUrl === STAYING_IN_REFUGE
-      ? (applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, { applicantId: id }) as PageLink)
-      : c100AddressUrl;
+  private getC100RedirectUrl(
+    currentPageUrl: PageLink,
+    id: string,
+    c100AddressUrl: PageLink,
+    person?: People
+  ): PageLink {
+    if (currentPageUrl === STAYING_IN_REFUGE && person?.partyType === PartyType.APPLICANT) {
+      return applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW, { applicantId: id }) as PageLink;
+    }
+    return c100AddressUrl;
   }
 
   private isInRefuge(

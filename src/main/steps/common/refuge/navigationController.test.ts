@@ -204,6 +204,47 @@ describe('C8 refuge > navigationController', () => {
     );
   });
 
+  test('should redirect from staying in refuge page to c8 upload for other person who is in refuge', async () => {
+    const otherPersonId = '6b792169-84df-4e9a-8299-c2c77c9b7e58';
+    req.originalUrl = '/c100-rebuild';
+    req.session.userCase = {
+      ...req.session.userCase,
+      oprs_otherPersons: [
+        {
+          id: otherPersonId,
+          applicantFirstName: 'Test',
+          applicantLastName: 'Test',
+          liveInRefuge: 'Yes',
+        },
+      ],
+    };
+    req.params = { id: otherPersonId };
+    expect(RefugeNavigationController.getNextPageUrl(STAYING_IN_REFUGE, req.session.userCase, req)).toBe(
+      `/c100-rebuild/refuge/keeping-details-safe/${otherPersonId}?`
+    );
+  });
+
+  test('should redirect from staying in refuge page to address lookup for other person who is not in refuge', async () => {
+    const otherPersonId = '6b792169-84df-4e9a-8299-c2c77c9b7e58';
+    req.originalUrl = '/c100-rebuild';
+    req.session.userCase = {
+      ...req.session.userCase,
+      oprs_otherPersons: [
+        {
+          id: otherPersonId,
+          applicantFirstName: 'Test',
+          applicantLastName: 'Test',
+          liveInRefuge: 'No',
+        },
+      ],
+    };
+    req.params = { id: otherPersonId };
+
+    expect(RefugeNavigationController.getNextPageUrl(STAYING_IN_REFUGE, req.session.userCase, req)).toBe(
+      `/c100-rebuild/other-person-details/${otherPersonId}/address/lookup`
+    );
+  });
+
   test('should redirect from document already uploaded for C100 applicant when no selected', async () => {
     req.originalUrl = '/c100-rebuild';
     req.session.userCase = {
