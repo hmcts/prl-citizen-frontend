@@ -56,10 +56,6 @@ def checkForEnableTestsLabel(branch_name) {
   return new GithubAPI(this).getLabelsbyPattern(branch_name, "enable-prl-e2e-tests").contains("enable-prl-e2e-tests")
 }
 
-def checkForEnableFortifyLabel(branch_name) {
-  return new GithubAPI(this).getLabelsbyPattern(branch_name, "enable_fortify_scan").contains("enable_fortify_scan")
-}
-
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   enableAksStagingDeployment()
@@ -68,18 +64,6 @@ withPipeline(type, product, component) {
 
   afterAlways('build') {
     yarnBuilder.yarn('build')
-  }
-
-  before('fortify-scan') {
-    if (checkForEnableFortifyLabel(env.BRANCH_NAME)) {
-      enableFortifyScan()
-    } else {
-      echo "Skipping Fortify scan: 'enable_fortify_scan' label is absent"
-    }
-  }
-  afterAlways('fortify-scan') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/**/*'
   }
 
   before('smoketest:preview') {
