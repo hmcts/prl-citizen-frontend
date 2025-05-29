@@ -18,7 +18,7 @@ nodejs:
     IDAM_WEB_URL: 'https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net/login'
     IDAM_API_URL: 'https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/token'
     EQUALITY_URL: 'https://pcq.aat.platform.hmcts.net'
-    CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2745.preview.platform.hmcts.net'
+    CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2759.preview.platform.hmcts.net'
     DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2745.preview.platform.hmcts.net'
     COS_URL: 'https://prl-ccd-definitions-pr-2745.preview.platform.hmcts.net'
     FACT_URL: 'http://fact-api-aat.service.core-compute-aat.internal'
