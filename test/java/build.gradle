@@ -3,8 +3,11 @@ plugins {
     id 'application'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(21)
+  }
+}
 
 repositories {
     mavenLocal()
@@ -16,7 +19,7 @@ repositories {
 
 dependencies {
     testImplementation 'com.github.hmcts:fortify-client:1.4.9:all'
-    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.4'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.17'
 }
 
 task fortifyScan(type: JavaExec)  {
