@@ -90,7 +90,7 @@ export const isDateInputInvalid: DateValidator = date => {
   const year = parseInt(date.year, 10) || 0;
   const month = parseInt(date.month, 10) || 0;
   const day = parseInt(date.day, 10) || 0;
-  if (year === 0 && month === 0 && day === 0) {
+  if (year === 0 || month === 0 || day === 0) {
     return invalid;
   }
   if (!dayjs(`${year}-${month}-${day}`, 'YYYY-M-D', true).isValid()) {
