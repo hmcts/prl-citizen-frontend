@@ -3,7 +3,13 @@ import { CaseWithId } from '../../../app/case/case';
 import { Applicant, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../app/case/definition';
 import { UserDetails } from '../../../app/controller/AppRequest';
 
-import { getPartyName, hasRespondentRespondedToC7Application, isC7ResponseReviewed, isCaseWithdrawn } from './utils';
+import {
+  getPartyName,
+  getPartyNameForStatement,
+  hasRespondentRespondedToC7Application,
+  isC7ResponseReviewed,
+  isCaseWithdrawn,
+} from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
@@ -527,5 +533,119 @@ describe('isC7ResponseReviewed', () => {
   });
   test('case withdrawn return false when no case data', () => {
     expect(isCaseWithdrawn({} as CaseWithId)).toBe(false);
+  });
+});
+
+describe('getPartyNameForStatement', () => {
+  const userDetails = {
+    accessToken: '1234',
+    id: 'user-123',
+    email: 'abc',
+    givenName: 'John',
+    familyName: 'Doe',
+  };
+
+  test('returns userDetails name if caseData is undefined', () => {
+    const name = getPartyNameForStatement(undefined, PartyType.APPLICANT, userDetails);
+    expect(name).toBe('John Doe');
+  });
+
+  test('returns userDetails name if caseData has no ID', () => {
+    const caseData = { caseTypeOfApplication: CaseType.C100 } as unknown;
+    const name = getPartyNameForStatement(caseData as unknown as Partial<CaseWithId>, PartyType.APPLICANT, userDetails);
+    expect(name).toBe('John Doe');
+  });
+
+  test('returns first applicant for C100 case', () => {
+    const caseData = {
+      id: 'case-1',
+      caseTypeOfApplication: CaseType.C100,
+      applicants: [{ value: { firstName: 'Alice', lastName: 'Smith' } }],
+    } as unknown;
+    const name = getPartyNameForStatement(caseData as unknown as Partial<CaseWithId>, PartyType.APPLICANT, userDetails);
+    expect(name).toBe('Alice Smith');
+  });
+
+  test('returns respondent name for matching user in C100 case', () => {
+    const caseData = {
+      id: 'case-2',
+      caseTypeOfApplication: CaseType.C100,
+      respondents: [
+        {
+          value: {
+            firstName: 'Bob',
+            lastName: 'Jones',
+            user: { idamId: 'user-123' },
+          },
+        },
+      ],
+    } as unknown;
+    const name = getPartyNameForStatement(
+      caseData as unknown as Partial<CaseWithId>,
+      PartyType.RESPONDENT,
+      userDetails
+    );
+    expect(name).toBe('Bob Jones');
+  });
+
+  test('falls back to userDetails if C100 respondent is not found', () => {
+    const caseData = {
+      id: 'case-3',
+      caseTypeOfApplication: CaseType.C100,
+      respondents: [
+        {
+          value: {
+            firstName: 'Jane',
+            lastName: 'Smith',
+            user: { idamId: 'other-user' },
+          },
+        },
+      ],
+    } as unknown;
+    const name = getPartyNameForStatement(
+      caseData as unknown as Partial<CaseWithId>,
+      PartyType.RESPONDENT,
+      userDetails
+    );
+    expect(name).toBe('John Doe');
+  });
+
+  test('returns FL401 applicant', () => {
+    const caseData = {
+      id: 'case-4',
+      caseTypeOfApplication: 'FL401',
+      applicantsFL401: {
+        firstName: 'First',
+        lastName: 'Last',
+      },
+    } as unknown;
+    const name = getPartyNameForStatement(caseData as unknown as Partial<CaseWithId>, PartyType.APPLICANT, userDetails);
+    expect(name).toBe('First Last');
+  });
+
+  test('returns FL401 respondent', () => {
+    const caseData = {
+      id: 'case-5',
+      caseTypeOfApplication: 'FL401',
+      respondentsFL401: {
+        firstName: 'respondentfirst',
+        lastName: 'respondentlast',
+      },
+    } as unknown;
+    const name = getPartyNameForStatement(
+      caseData as unknown as Partial<CaseWithId>,
+      PartyType.RESPONDENT,
+      userDetails
+    );
+    expect(name).toBe('respondentfirst respondentlast');
+  });
+
+  test('falls back to userDetails if FL401 applicant data is missing', () => {
+    const caseData = {
+      id: 'case-6',
+      caseTypeOfApplication: 'FL401',
+    } as unknown;
+    const name = getPartyNameForStatement(caseData as unknown as Partial<CaseWithId>, PartyType.APPLICANT, userDetails);
+    expect(name).toBe('John Doe');
   });
 });
