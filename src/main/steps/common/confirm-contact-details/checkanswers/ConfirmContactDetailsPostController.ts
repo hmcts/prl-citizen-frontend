@@ -66,7 +66,6 @@ export const saveAndRedirectContactDetailsAndPreference = async (
 
   if (partyDetails) {
     const request = prepareRequest(userCase) as PartyDetails;
-    console.log('safeToCallOption in request:', request.response?.safeToCallOption);
     mapDataToPartyDetails(userCase, request, partyDetails, partyType);
 
     const { response, address, ...rest } = request;
