@@ -163,14 +163,17 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
           }),
         stateTag: () => StateTags.OPTIONAL,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
-          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) && !isCaseOffline(caseData as CaseWithId),
+          isCaseLinked(caseData, userDetails) &&
+          !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) &&
+          !isCaseOffline(caseData as CaseWithId),
       },
     ],
   },
   {
     id: TaskListSection.YOUR_DOCUMENTS,
     content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData as CaseWithId),
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+      isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData as CaseWithId),
     tasks: (): Task[] => [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
@@ -190,7 +193,8 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
   {
     id: TaskListSection.YOUR_ORDERS,
     content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData as CaseWithId),
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+      isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData as CaseWithId),
     tasks: (): Task[] => [
       {
         id: Tasks.VIEW_ORDERS,
@@ -208,7 +212,8 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
   {
     id: TaskListSection.THE_RESPONSE,
     content: getContents.bind(null, TaskListSection.THE_RESPONSE),
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData as CaseWithId),
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+      isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData as CaseWithId),
     tasks: (): Task[] => [
       {
         id: Tasks.THE_RESPONSE_PDF,
@@ -235,7 +240,8 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
   {
     id: TaskListSection.YOUR_HEARING,
     content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData as CaseWithId),
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+      isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData as CaseWithId),
     tasks: (): Task[] => [
       {
         id: Tasks.VIEW_HEARING_DETAILS,

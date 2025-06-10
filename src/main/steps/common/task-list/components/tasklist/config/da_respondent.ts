@@ -82,9 +82,9 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
           }),
         stateTag: () => StateTags.OPTIONAL,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
-          isCaseLinked(caseData, userDetails) && 
-          !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
-          && !isCaseOffline(caseData as CaseWithId),
+          isCaseLinked(caseData, userDetails) &&
+          !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) &&
+          !isCaseOffline(caseData as CaseWithId),
       },
     ],
   },

@@ -3,7 +3,13 @@ import { CaseWithId } from '../../../app/case/case';
 import { Applicant, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../app/case/definition';
 import { UserDetails } from '../../../app/controller/AppRequest';
 
-import { getPartyName, hasRespondentRespondedToC7Application, isC7ResponseReviewed, isCaseOffline, isCaseWithdrawn } from './utils';
+import {
+  getPartyName,
+  hasRespondentRespondedToC7Application,
+  isC7ResponseReviewed,
+  isCaseOffline,
+  isCaseWithdrawn,
+} from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {

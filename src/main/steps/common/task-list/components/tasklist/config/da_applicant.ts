@@ -120,16 +120,16 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
           }),
         stateTag: () => StateTags.OPTIONAL,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
-          isCaseLinked(caseData, userDetails) && 
-          !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
-          && !isCaseOffline(caseData as CaseWithId),
+          isCaseLinked(caseData, userDetails) &&
+          !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) &&
+          !isCaseOffline(caseData as CaseWithId),
       },
     ],
   },
   {
     id: TaskListSection.YOUR_HEARING,
     content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => 
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
       isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData),
     tasks: (): Task[] => [
       {

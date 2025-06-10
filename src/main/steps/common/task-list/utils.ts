@@ -59,7 +59,6 @@ export const isCaseWithdrawn = (caseData: CaseWithId): boolean => {
 
 export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   const partyDetails = getPartyDetails(caseData as CaseWithId, userDetails.id);
-  
   return !!(partyDetails && partyDetails.user.idamId === userDetails.id);
 };
 

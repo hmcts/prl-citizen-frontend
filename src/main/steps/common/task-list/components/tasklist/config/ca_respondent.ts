@@ -96,7 +96,7 @@ export const aboutYou: TaskListConfigProps = {
 export const hearing: TaskListConfigProps = {
   id: TaskListSection.YOUR_HEARING,
   content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-  show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => 
+  show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
     isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData),
   tasks: (): Task[] => [
     {
@@ -116,7 +116,7 @@ export const hearing: TaskListConfigProps = {
 export const order: TaskListConfigProps = {
   id: TaskListSection.YOUR_ORDERS,
   content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
-  show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => 
+  show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
     isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData),
   tasks: (): Task[] => [
     {
@@ -230,8 +230,8 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           }),
         stateTag: () => StateTags.OPTIONAL,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
-          isCaseLinked(caseData, userDetails) && 
-          !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) && 
+          isCaseLinked(caseData, userDetails) &&
+          !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) &&
           !isCaseOffline(caseData as CaseWithId),
       },
     ],

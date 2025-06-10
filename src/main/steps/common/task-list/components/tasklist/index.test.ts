@@ -1725,8 +1725,7 @@ describe('tasklist index', () => {
           ],
         },
       ]);
-
-    })
+    });
 
     test('case is in linked state with requested hearing but not listed', () => {
       const data = {
@@ -4785,7 +4784,7 @@ describe('c100 respondent', () => {
 
     const party = PartyType.RESPONDENT;
     const language = 'en';
-    
+
     expect(getTaskListConfig(caseData, userDetails, party, language)).toStrictEqual([
       {
         heading: 'The application',
