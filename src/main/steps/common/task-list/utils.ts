@@ -59,7 +59,7 @@ export const isCaseWithdrawn = (caseData: CaseWithId): boolean => {
 
 export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   const partyDetails = getPartyDetails(caseData as CaseWithId, userDetails.id);
-
+  
   return !!(partyDetails && partyDetails.user.idamId === userDetails.id);
 };
 
@@ -72,6 +72,10 @@ export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
 
 export const isCaseSubmitted = (caseData: Partial<CaseWithId>): boolean => {
   return caseData?.state ? [State.CASE_SUBMITTED_PAID, State.CASE_SUBMITTED_NOT_PAID].includes(caseData.state) : false;
+};
+
+export const isCaseOffline = (caseData: Partial<CaseWithId>): boolean => {
+  return caseData?.state === State.PROCEEDS_IN_HERITAGE_SYSTEM;
 };
 
 export const isDocPresent = (caseData: Partial<CaseWithId>, filename: string): boolean => {
