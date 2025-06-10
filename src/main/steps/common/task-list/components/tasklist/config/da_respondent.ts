@@ -8,6 +8,7 @@ import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-l
 import {
   isCaseClosed,
   isCaseLinked,
+  isCaseOffline,
   isDocPresent,
   isRepresentedBySolicotor,
 } from '../../../../../../steps/common/task-list/utils';
@@ -81,7 +82,9 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
           }),
         stateTag: () => StateTags.OPTIONAL,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
-          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id),
+          isCaseLinked(caseData, userDetails) && 
+          !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
+          && !isCaseOffline(caseData as CaseWithId),
       },
     ],
   },
