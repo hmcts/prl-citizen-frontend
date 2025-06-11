@@ -122,7 +122,7 @@ describe('RA > review > postController', () => {
       citizenUserLastNames: '',
       citizenUserPhoneNumber: undefined,
       citizenUserPlaceOfBirth: undefined,
-      citizenUserSafeToCall: '',
+      citizenUserSafeToCall: null,
       citizenUserSelectAddress: '',
       isAtAddressLessThan5Years: undefined,
       ra_appropriateLighting_subfield: 'ra_appropriateLighting_subfield',
