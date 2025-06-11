@@ -56,10 +56,6 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   });
   //data clean up
 
-  if (!request.response!.safeToCallOption) {
-    delete request.response!.safeToCallOption;
-  }
-
   if (isAtAddressLessThan5Years === YesOrNo.NO) {
     request.addressLivedLessThan5YearsDetails = '';
   }
@@ -113,7 +109,10 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     citizenUserAdditionalName: previousName,
     citizenUserEmailAddress: email,
     citizenUserSelectAddress: '',
-    citizenUserSafeToCall: !response?.safeToCallOption ? '' : response?.safeToCallOption,
+    citizenUserSafeToCall:
+      response?.safeToCallOption === undefined || response?.safeToCallOption.trim() === ''
+        ? null
+        : response.safeToCallOption,
 
     isAtAddressLessThan5Years,
     citizenUserAddressHistory: addressLivedLessThan5YearsDetails,
