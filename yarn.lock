@@ -3810,12 +3810,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.0.0, @types/node@npm:^18.6.1":
+"@types/node@npm:^18.0.0":
   version: 18.19.79
   resolution: "@types/node@npm:18.19.79"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10c0/3db88d80ebaaeb5a72a3f23e1ff655ff6c7c30ed71c2cd2f708eda41d4cb1d3124b20bd565ac25b41abf1e9324b92896637db76eea310364711bcbe07820312d
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^24.0.1":
+  version: 24.0.1
+  resolution: "@types/node@npm:24.0.1"
+  dependencies:
+    undici-types: "npm:~7.8.0"
+  checksum: 10c0/91cd50d1ac32a2172cbc67b65c78391fbd469b24743e3665427aa60bebaf4620cb9ac2e91c09a8081a78d08855c00faca659c287c1725ce8ca5e80ece3a20520
   languageName: node
   linkType: hard
 
@@ -15670,7 +15679,7 @@ __metadata:
     "@types/mini-css-extract-plugin": "npm:^2.5.1"
     "@types/multer": "npm:^1.4.13"
     "@types/negotiator": "npm:^0.6.1"
-    "@types/node": "npm:^18.6.1"
+    "@types/node": "npm:^24.0.1"
     "@types/nunjucks": "npm:^3.2.1"
     "@types/pino-pretty": "npm:^4.7.5"
     "@types/pino-std-serializers": "npm:^4.0.0"
@@ -19171,6 +19180,13 @@ __metadata:
   version: 6.20.0
   resolution: "undici-types@npm:6.20.0"
   checksum: 10c0/68e659a98898d6a836a9a59e6adf14a5d799707f5ea629433e025ac90d239f75e408e2e5ff086afc3cace26f8b26ee52155293564593fbb4a2f666af57fc59bf
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~7.8.0":
+  version: 7.8.0
+  resolution: "undici-types@npm:7.8.0"
+  checksum: 10c0/9d9d246d1dc32f318d46116efe3cfca5a72d4f16828febc1918d94e58f6ffcf39c158aa28bf5b4fc52f410446bc7858f35151367bd7a49f21746cab6497b709b
   languageName: node
   linkType: hard
 
