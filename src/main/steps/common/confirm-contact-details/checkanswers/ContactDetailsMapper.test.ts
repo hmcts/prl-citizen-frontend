@@ -197,7 +197,7 @@ describe('ContactDetailsMapper', () => {
         citizenUserAddressPostcode: 'SW13ND',
         isAtAddressLessThan5Years: 'Yes',
         citizenUserSelectAddress: '',
-        citizenUserSafeToCall: null,
+        citizenUserSafeToCall: '',
       })
     );
   });

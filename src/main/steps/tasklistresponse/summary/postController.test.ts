@@ -149,7 +149,7 @@ describe('ResponseSummaryConfirmationPostController', () => {
       citizenUserLastNames: '',
       citizenUserPhoneNumber: '1234',
       citizenUserPlaceOfBirth: undefined,
-      citizenUserSafeToCall: null,
+      citizenUserSafeToCall: '',
       citizenUserSelectAddress: '',
       id: '12234567890',
       isAtAddressLessThan5Years: undefined,
