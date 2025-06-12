@@ -68,9 +68,7 @@ describe('ResponseSummaryConfirmationPostController', () => {
       id: '12234567890',
       state: {},
       caseTypeOfApplication: 'C100',
-      caseInvites: [
-        { id: '12234567890', value: { invitedUserId: '12234567890', partyId: '12234567890' } }
-      ],
+      caseInvites: [{ id: '12234567890', value: { invitedUserId: '12234567890', partyId: '12234567890' } }],
       respondents: [
         {
           id: '12234567890',
