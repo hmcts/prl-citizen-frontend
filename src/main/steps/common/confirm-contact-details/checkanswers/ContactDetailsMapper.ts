@@ -112,7 +112,6 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     citizenUserSafeToCall: !response?.safeToCallOption ? '' : response?.safeToCallOption,
     isAtAddressLessThan5Years,
     citizenUserAddressHistory: addressLivedLessThan5YearsDetails,
-
     citizenUserAddress1: address.AddressLine1,
     citizenUserAddress2: address.AddressLine2,
     citizenUserAddressTown: address.PostTown,
