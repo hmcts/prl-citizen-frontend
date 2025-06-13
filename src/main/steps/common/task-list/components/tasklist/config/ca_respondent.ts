@@ -27,6 +27,7 @@ import {
   hasRespondentRespondedToC7Application,
   isCaseClosed,
   isCaseLinked,
+  isCaseOffline,
   isDocPresent,
   isRepresentedBySolicotor,
 } from '../../../utils';
@@ -50,7 +51,8 @@ export const aboutYou: TaskListConfigProps = {
     return (
       isCaseLinked(caseData, userDetails) &&
       !isCaseClosed(caseData) &&
-      !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
+      !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) &&
+      !isCaseOffline(caseData as CaseWithId)
     );
   },
   tasks: (): Task[] => [
@@ -94,7 +96,8 @@ export const aboutYou: TaskListConfigProps = {
 export const hearing: TaskListConfigProps = {
   id: TaskListSection.YOUR_HEARING,
   content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-  show: isCaseLinked,
+  show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+    isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData),
   tasks: (): Task[] => [
     {
       id: Tasks.VIEW_HEARING_DETAILS,
@@ -113,7 +116,8 @@ export const hearing: TaskListConfigProps = {
 export const order: TaskListConfigProps = {
   id: TaskListSection.YOUR_ORDERS,
   content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
-  show: isCaseLinked,
+  show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+    isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData),
   tasks: (): Task[] => [
     {
       id: Tasks.VIEW_ORDERS,
@@ -132,7 +136,8 @@ export const order: TaskListConfigProps = {
 export const document: TaskListConfigProps = {
   id: TaskListSection.YOUR_DOCUMENTS,
   content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-  show: isCaseLinked,
+  show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+    isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData),
   tasks: (): Task[] => [
     {
       id: Tasks.UPLOAD_DOCUMENTS,
@@ -225,7 +230,9 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           }),
         stateTag: () => StateTags.OPTIONAL,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
-          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id),
+          isCaseLinked(caseData, userDetails) &&
+          !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) &&
+          !isCaseOffline(caseData as CaseWithId),
       },
     ],
   },
@@ -236,7 +243,8 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
       return (
         isCaseLinked(caseData, userDetails) &&
         !isCaseClosed(caseData) &&
-        !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
+        !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) &&
+        !isCaseOffline(caseData as CaseWithId)
       );
     },
     tasks: (): Task[] => [
