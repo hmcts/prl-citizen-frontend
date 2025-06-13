@@ -109,11 +109,7 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     citizenUserAdditionalName: previousName,
     citizenUserEmailAddress: email,
     citizenUserSelectAddress: '',
-    citizenUserSafeToCall:
-      response?.safeToCallOption === undefined || response?.safeToCallOption.trim() === ''
-        ? ''
-        : response.safeToCallOption,
-
+    citizenUserSafeToCall: response?.safeToCallOption ?? '',
     isAtAddressLessThan5Years,
     citizenUserAddressHistory: addressLivedLessThan5YearsDetails,
 
