@@ -1697,6 +1697,36 @@ describe('tasklist index', () => {
       ]);
     });
 
+    test('when case state is offline', () => {
+      const data = {
+        id: '12',
+        state: State.PROCEEDS_IN_HERITAGE_SYSTEM,
+        caseTypeOfApplication: 'C100',
+      };
+      const party = PartyType.APPLICANT;
+      const language = 'en';
+      expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+        {
+          heading: 'Your application',
+          id: 'yourApplication',
+          tasks: [
+            {
+              id: 'yourApplicationPDF',
+              linkText: 'Your application (PDF)',
+              href: '/applicant/documents/download/type/c100-application/en',
+              openInAnotherTab: true,
+              stateTag: {
+                className: 'govuk-tag--turquoise',
+                label: 'Submitted',
+              },
+              disabled: false,
+              hintText: null,
+            },
+          ],
+        },
+      ]);
+    });
+
     test('case is in linked state with requested hearing but not listed', () => {
       const data = {
         id: '12',
@@ -2900,6 +2930,39 @@ describe('tasklist index', () => {
         },
       ]);
     });
+
+    test('when case state is offline', () => {
+      const data = {
+        id: '12',
+        state: State.PROCEEDS_IN_HERITAGE_SYSTEM,
+        caseTypeOfApplication: 'FL401',
+        applicantsFL401: applicantFL401,
+      };
+
+      const party = PartyType.APPLICANT;
+      const language = 'en';
+
+      expect(getTaskListConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
+        {
+          heading: 'Your application',
+          id: 'yourApplication',
+          tasks: [
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/download/type/fl401-application/en',
+              id: 'yourApplicationPDF',
+              linkText: 'Your application (PDF)',
+              openInAnotherTab: true,
+              stateTag: {
+                className: 'govuk-tag--green',
+                label: 'DOWNLOAD',
+              },
+            },
+          ],
+        },
+      ]);
+    });
   });
 
   describe('FL401 respondent', () => {
@@ -3217,6 +3280,38 @@ describe('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--blue',
                 label: 'Ready to view',
+              },
+            },
+          ],
+        },
+      ]);
+    });
+
+    test('when case state is offline', () => {
+      const data = {
+        id: '12',
+        state: State.PROCEEDS_IN_HERITAGE_SYSTEM,
+        caseTypeOfApplication: 'FL401',
+      };
+
+      const party = PartyType.RESPONDENT;
+      const language = 'en';
+
+      expect(getTaskListConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
+        {
+          heading: 'The application',
+          id: 'theApplication',
+          tasks: [
+            {
+              disabled: true,
+              hintText: null,
+              href: '/respondent/documents/download/type/cada-document/en',
+              id: 'checkTheApplication',
+              linkText: 'Check the application (PDF)',
+              openInAnotherTab: true,
+              stateTag: {
+                className: 'govuk-tag--grey',
+                label: 'Not available yet',
               },
             },
           ],
@@ -4602,6 +4697,116 @@ describe('c100 respondent', () => {
             linkText: 'View all orders from the court',
             openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('should return correct task list when case is offline', () => {
+    const caseData = {
+      id: '1234',
+      state: State.PROCEEDS_IN_HERITAGE_SYSTEM,
+      caseTypeOfApplication: CaseType.C100,
+      finalDocument: {
+        document_url: 'DOC_URL',
+        document_filename: 'DOC_FILENAME',
+        document_binary_url: 'DOC_BINARY_URL',
+      },
+      c1ADocument: {
+        document_url: 'DOC_URL',
+        document_filename: 'DOC_FILENAME',
+        document_binary_url: 'DOC_BINARY_URL',
+      },
+      hearingCollection: [
+        {
+          hearingID: 1234,
+        },
+      ],
+      orderCollection: [
+        {
+          id: '1234',
+          value: {
+            dateCreated: 'MOCK_DATE',
+            orderType: 'ORDER',
+            orderDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            orderDocumentWelsh: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            otherDetails: {
+              createdBy: '1234',
+              orderCreatedDate: 'MOCK_DATE',
+              orderMadeDate: 'MOCK_DATE',
+              orderRecipients: 'RECIPIENTS',
+            },
+          },
+        },
+      ],
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            firstName: 'FirstName',
+            response: {
+              citizenFlags: {
+                isAllegationOfHarmViewed: 'No',
+              },
+              keepDetailsPrivate: {
+                otherPeopleKnowYourContactDetails: 'Yes',
+              },
+              languageRequirements: ['No'],
+              citizenInternationalElements: {
+                childrenLiveOutsideOfEnWl: 'No',
+                parentsAnyOneLiveOutsideEnWl: 'No',
+              },
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          value: {
+            partyId: '1234',
+            invitedUserId: '1234',
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+
+    const party = PartyType.RESPONDENT;
+    const language = 'en';
+
+    expect(getTaskListConfig(caseData, userDetails, party, language)).toStrictEqual([
+      {
+        heading: 'The application',
+        id: 'theApplication',
+        tasks: [
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/documents/download/type/cada-document/en',
+            id: 'checkTheApplication',
+            linkText: 'Check the application (PDF)',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+            openInAnotherTab: true,
+          },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/documents/download/type/aoh-document/en',
+            id: 'checkAllegationsOfHarmAndViolence',
+            linkText: 'Check the allegations of harm and violence (PDF)',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+            openInAnotherTab: true,
           },
         ],
       },
