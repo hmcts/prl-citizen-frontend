@@ -87,6 +87,8 @@ To run E2E tests on your PR build, add the label `enable-prl-e2e-tests`. This wi
 
 The smoke test is run against **AAT** in the master build.
 
+How to single jest test and see details :
+jest src/main/steps/tasklistresponse/summary/postController.test.ts --detectOpenHandles
 
 ### Security
 
