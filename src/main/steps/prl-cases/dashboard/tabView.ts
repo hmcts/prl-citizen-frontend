@@ -17,6 +17,7 @@ const tabGroup = {
   [State.CASE_GATE_KEEPING]: 'draft',
   [State.ALL_FINAL_ORDERS_ISSUED]: 'closed',
   [State.CASE_WITHDRAWN]: 'closed',
+  [State.PROCEEDS_IN_HERITAGE_SYSTEM]: 'draft',
   '*': 'active',
 };
 
