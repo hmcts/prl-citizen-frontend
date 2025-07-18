@@ -58,3 +58,4 @@ export default class KeepDetailsPrivatePostController extends PostController<Any
     }
   }
 }
+
