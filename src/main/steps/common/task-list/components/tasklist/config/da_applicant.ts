@@ -10,6 +10,7 @@ import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-l
 import {
   isCaseClosed,
   isCaseLinked,
+  isCaseOffline,
   isDocPresent,
   isRepresentedBySolicotor,
 } from '../../../../../../steps/common/task-list/utils';
@@ -44,7 +45,8 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
       return (
         isCaseLinked(caseData, userDetails) &&
         !isCaseClosed(caseData) &&
-        !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
+        !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) &&
+        !isCaseOffline(caseData as CaseWithId)
       );
     },
     tasks: (): Task[] => [
@@ -118,14 +120,17 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
           }),
         stateTag: () => StateTags.OPTIONAL,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
-          isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id),
+          isCaseLinked(caseData, userDetails) &&
+          !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id) &&
+          !isCaseOffline(caseData as CaseWithId),
       },
     ],
   },
   {
     id: TaskListSection.YOUR_HEARING,
     content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-    show: isCaseLinked,
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+      isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData),
     tasks: (): Task[] => [
       {
         id: Tasks.VIEW_HEARING_DETAILS,
@@ -144,7 +149,8 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
   {
     id: TaskListSection.YOUR_DOCUMENTS,
     content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-    show: isCaseLinked,
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+      isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData as CaseWithId),
     tasks: (): Task[] => [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
@@ -164,7 +170,8 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
   {
     id: TaskListSection.YOUR_ORDERS,
     content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
-    show: isCaseLinked,
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+      isCaseLinked(caseData, userDetails) && !isCaseOffline(caseData as CaseWithId),
     tasks: (): Task[] => [
       {
         id: Tasks.VIEW_ORDERS,
