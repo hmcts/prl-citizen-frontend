@@ -38,7 +38,10 @@ export default class KeepDetailsPrivatePostController extends PostController<Any
 
     if (partyDetails) {
       const request = prepareKeepDetailsPrivateRequest(userCase);
-      if ((userCase.caseTypeOfApplication === CaseType.C100 || userCase.caseTypeOfApplication === CaseType.FL401) && partyType === PartyType.APPLICANT) {
+      if (
+        (userCase.caseTypeOfApplication === CaseType.C100 || userCase.caseTypeOfApplication === CaseType.FL401) &&
+        partyType === PartyType.APPLICANT
+      ) {
         Object.assign(partyDetails, mapConfidentialListToFields(request));
       }
       Object.assign(partyDetails.response, { keepDetailsPrivate: request });
