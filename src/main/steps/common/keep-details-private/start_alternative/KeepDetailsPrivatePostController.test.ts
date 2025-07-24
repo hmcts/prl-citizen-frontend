@@ -435,11 +435,13 @@ describe('KeepDetailsPrivatePostController', () => {
 
     expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
     expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentialityList).toContain('email');
-    expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentialityList).toContain('phoneNumber');
+    expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentialityList).toContain(
+      'phoneNumber'
+    );
     expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentialityList).toContain('address');
   });
 
-    test('should set confidentiality fields for FL401 respondent when startAlternative is Yes', async () => {
+  test('should set confidentiality fields for FL401 respondent when startAlternative is Yes', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     req.session.userCase.respondentsFL401 = partyDetails[0].value;
     req.session.userCase.startAlternative = 'Yes';
@@ -466,7 +468,9 @@ describe('KeepDetailsPrivatePostController', () => {
 
     expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
     expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentialityList).toContain('email');
-    expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentialityList).toContain('phoneNumber');
+    expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentialityList).toContain(
+      'phoneNumber'
+    );
     expect(req.session.userCase.respondentsFL401.response.keepDetailsPrivate.confidentialityList).toContain('address');
   });
 });
