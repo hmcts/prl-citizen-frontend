@@ -54,7 +54,7 @@
     "@types/serve-favicon": "^2.5.3",
     "@types/session-file-store": "^1.2.2",
     "@types/toobusy-js": "^0.5.2",
-    "@types/uuid": "^8.3.4",
+    "@types/uuid": "^10.0.0",
     "@uppy/core": "^2.3.4",
     "@uppy/drop-target": "^1.1.1",
     "@uppy/file-input": "^2.0.5",
