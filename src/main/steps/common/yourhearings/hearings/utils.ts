@@ -92,13 +92,12 @@ export const generateHearingDaySchedule = (
   for (const schedule of hearing.hearingDaySchedule!) {
     const startDate = schedule.hearingStartDateTime!;
     const formattedDate = new Date(startDate);
-    const amPm = formattedDate.getHours() < 12 ? 'am' : 'pm';
     const endDate = new Date(schedule.hearingEndDateTime!);
     const hearingDate = generateHearingDateDisplayText(req, startDate);
     const startTime = generateHearingTimeDisplayText(formattedDate);
     const lang = req.session.lang === 'cy' ? cy : en;
     const startTimeDisplayText =
-      hearingMethod === lang.inter ? startTime + ' ' + amPm + '<br>' + lang.inPersonTime : startTime + ' ' + amPm;
+      hearingMethod === lang.inter ? startTime + '<br>' + lang.inPersonTime : startTime;
     const diff = Math.abs(formattedDate.valueOf() - endDate.valueOf()) / 1000;
     const durationInDayOrHours = Math.floor(diff / 3600) % 24;
     const minutes = Math.floor(diff / 60) % 60;
@@ -126,7 +125,6 @@ export const generateHearingDaySchedule = (
     hearingDays.push({
       hearingDate,
       startTime,
-      amPm,
       startTimeDisplayText,
       durationInDayOrHours,
       minutes,
@@ -142,15 +140,12 @@ export const generateHearingDaySchedule = (
 };
 
 export const generateHearingTimeDisplayText = (date: Date): string => {
-  let dateString;
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  if (hours > 12) {
-    dateString = hours - 12 + ':' + (minutes < 10 ? '0' + minutes : minutes);
-  } else {
-    dateString = hours + ':' + (minutes < 10 ? '0' + minutes : minutes);
-  }
-  return dateString;
+  return date.toLocaleTimeString('en-GB', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+    timeZone: 'Europe/London',
+  });
 };
 
 export const generateHearingDate = (req: AppRequest<Partial<Case>>, endDate: string): string => {
