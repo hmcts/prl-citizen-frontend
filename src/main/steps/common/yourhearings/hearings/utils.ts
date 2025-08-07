@@ -96,8 +96,7 @@ export const generateHearingDaySchedule = (
     const hearingDate = generateHearingDateDisplayText(req, startDate);
     const startTime = generateHearingTimeDisplayText(formattedDate);
     const lang = req.session.lang === 'cy' ? cy : en;
-    const startTimeDisplayText =
-      hearingMethod === lang.inter ? startTime + '<br>' + lang.inPersonTime : startTime;
+    const startTimeDisplayText = hearingMethod === lang.inter ? startTime + '<br>' + lang.inPersonTime : startTime;
     const diff = Math.abs(formattedDate.valueOf() - endDate.valueOf()) / 1000;
     const durationInDayOrHours = Math.floor(diff / 3600) % 24;
     const minutes = Math.floor(diff / 60) % 60;
