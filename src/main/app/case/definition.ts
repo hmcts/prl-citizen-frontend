@@ -2285,7 +2285,6 @@ export interface Hearing {
 export interface HearingDay {
   hearingDate: string;
   startTime: string;
-  amPm: string;
   startTimeDisplayText: string;
   durationInDayOrHours: number;
   minutes: number;
