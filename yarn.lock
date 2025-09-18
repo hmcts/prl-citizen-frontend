@@ -12799,7 +12799,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:30.1.3":
+"jest@npm:^30.1.3":
   version: 30.1.3
   resolution: "jest@npm:30.1.3"
   dependencies:
@@ -16083,7 +16083,7 @@ __metadata:
     html-webpack-plugin: "npm:^5.5.0"
     http-status-codes: "npm:^2.2.0"
     husky: "npm:^8.0.1"
-    jest: "npm:30.1.3"
+    jest: "npm:^30.1.3"
     jest-extended: "npm:^1.2.0"
     jest-html-reporter: "npm:^4.3.0"
     jest-pact: "npm:^0.11.4"
