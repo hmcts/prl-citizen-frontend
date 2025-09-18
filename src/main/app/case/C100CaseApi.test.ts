@@ -47,7 +47,7 @@ describe('CaseApi', () => {
   });
   test('Should create api', async () => {
     caseApi(userDetails, mockLogger);
-    expect(api).toBeCalled;
+    expect(api).toHaveBeenCalled;
   });
 
   test('Should create a case', async () => {

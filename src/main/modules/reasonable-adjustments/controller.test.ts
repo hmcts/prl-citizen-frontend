@@ -191,15 +191,15 @@ describe('ReasonableAdjustementsController', () => {
     jest.spyOn(RAProvider, 'launch');
     await RAController.launch(appRequest, appResponse);
 
-    expect(RAProvider.launch).toBeCalled;
+    expect(RAProvider.launch).toHaveBeenCalled;
   });
 
   test('when launching RA module and retrieveExistingPartyRAFlags throws error - error scenario', async () => {
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     jest.spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags').mockRejectedValueOnce({ status: 500 });
     await RAController.launch(appRequest, appResponse);
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
-    expect(RAProvider.launch).not.toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
+    expect(RAProvider.launch).not.toHaveBeenCalled;
   });
 
   test('when launching RA module and retrieveExistingPartyRAFlags does not return flags - error scenario', async () => {
@@ -208,8 +208,8 @@ describe('ReasonableAdjustementsController', () => {
       .spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags')
       .mockResolvedValueOnce(undefined as unknown as RAFlags);
     await RAController.launch(appRequest, appResponse);
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
-    expect(RAProvider.launch).not.toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
+    expect(RAProvider.launch).not.toHaveBeenCalled;
   });
 
   test('when launching RA module and retrieveCommonComponentHealthStatus does not return UP - error scenario', async () => {
@@ -218,32 +218,32 @@ describe('ReasonableAdjustementsController', () => {
       .spyOn(RAProvider.service, 'retrieveCommonComponentHealthStatus')
       .mockImplementation(() => Promise.resolve('DOWN'));
     await RAController.launch(appRequest, appResponse);
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
-    expect(RAProvider.launch).not.toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
+    expect(RAProvider.launch).not.toHaveBeenCalled;
   });
 
   test('when launching RA module and retrieveCommonComponentHealthStatus throws error - error scenario', async () => {
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     jest.spyOn(RAProvider.service, 'retrieveCommonComponentHealthStatus').mockRejectedValueOnce('500');
     await RAController.launch(appRequest, appResponse);
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
-    expect(RAProvider.launch).not.toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
+    expect(RAProvider.launch).not.toHaveBeenCalled;
   });
 
   test('when launching RA module with no caseData present - error scenario', async () => {
     delete appRequest.session.userCase;
     await RAController.launch(appRequest, appResponse);
 
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
-    expect(RAProvider.launch).not.toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
+    expect(RAProvider.launch).not.toHaveBeenCalled;
   });
 
   test('when launching RA module with no partyDetails present - error scenario', async () => {
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac0xxx';
     await RAController.launch(appRequest, appResponse);
 
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
-    expect(RAProvider.launch).not.toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
+    expect(RAProvider.launch).not.toHaveBeenCalled;
   });
 
   test('when updating RA flags for both manageFlag & requestFlags scenarios- success scenario', async () => {
@@ -475,21 +475,21 @@ describe('ReasonableAdjustementsController', () => {
     await RAController.fetchData(appRequest, appResponse);
     expect(RAProvider.service.updatePartyRAFlags).toHaveBeenCalledTimes(1);
     expect(appResponse.redirect).not.toHaveBeenCalled;
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
   });
 
   test('when updating RA flags while fetching flags from common component with no caseData present - error scenario', async () => {
     delete appRequest.session.userCase;
     await RAController.fetchData(appRequest, appResponse);
 
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
   });
 
   test('when updating RA flags while fetching flags from common component with no extrernal reference id present - error scenario', async () => {
     delete appRequest.params.id;
     await RAController.fetchData(appRequest, appResponse);
 
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
   });
 
   test('should handle error when updatePartyRAFlags fails', async () => {
@@ -497,7 +497,7 @@ describe('ReasonableAdjustementsController', () => {
     jest.spyOn(RAProvider.utils, 'updatePartyRAFlags').mockRejectedValueOnce({ status: 500 });
     await RAController.fetchData(appRequest, appResponse);
 
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
   });
 
   test('should handle error when retrievePartyRAFlagsFromCommonComponent does not return correlationId', async () => {
@@ -507,7 +507,7 @@ describe('ReasonableAdjustementsController', () => {
       .mockImplementationOnce(() => Promise.resolve({ response: {} } as unknown as RAData));
     await RAController.fetchData(appRequest, appResponse);
 
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
   });
 
   test('should handle error when retrievePartyRAFlagsFromCommonComponent fails', async () => {
@@ -515,7 +515,7 @@ describe('ReasonableAdjustementsController', () => {
     jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockRejectedValueOnce({ status: 500 });
     await RAController.fetchData(appRequest, appResponse);
 
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
   });
 
   test('when updating RA flags while fetching flags from common component when correlationId not present - error scenario', async () => {
@@ -537,7 +537,7 @@ describe('ReasonableAdjustementsController', () => {
     );
     await RAController.fetchData(appRequest, appResponse);
 
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
   });
 
   test('when updating RA flags while fetching flags from common component with no flagsAsSupplied (or) replacementFlags present - error scenario', async () => {
@@ -554,7 +554,7 @@ describe('ReasonableAdjustementsController', () => {
     );
     await RAController.fetchData(appRequest, appResponse);
 
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
   });
 
   test('when updating RA flags while fetching flags from common component on user cancelling the action - error scenario', async () => {
@@ -609,8 +609,8 @@ describe('ReasonableAdjustementsController', () => {
       .spyOn(RAProvider, 'trySettlingRequest')
       .mockImplementation(() => Promise.reject(RACommonComponentUserAction.CANCEL));
     await RAController.fetchData(appRequest, appResponse);
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
-    expect(appRequest.session.save).not.toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
+    expect(appRequest.session.save).not.toHaveBeenCalled;
   });
 
   test('when updating RA flags for c100 application - success scenario', async () => {
@@ -725,8 +725,8 @@ describe('ReasonableAdjustementsController', () => {
     jest.spyOn(RAProvider, 'launch');
     await RAController.launch(appRequest, appResponse);
 
-    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
-    expect(RAProvider.launch).not.toBeCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toHaveBeenCalled;
+    expect(RAProvider.launch).not.toHaveBeenCalled;
   });
 
   test('handleBackNavigation should redirect correctly', () => {

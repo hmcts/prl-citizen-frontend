@@ -196,10 +196,10 @@ describe('ConfirmContactDetailsPostController', () => {
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.url = 'applicant';
     await controller.post(req, res);
-    expect(retrieveByCaseIdMock).toBeCalled;
-    expect(updateCaserMock).toBeCalled;
+    expect(retrieveByCaseIdMock).toHaveBeenCalled;
+    expect(updateCaserMock).toHaveBeenCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toBeCalled;
+    expect(res.redirect).toHaveBeenCalled;
   });
   test('Should redirect c100 respondent', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
@@ -207,10 +207,10 @@ describe('ConfirmContactDetailsPostController', () => {
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.url = 'respondent';
     await controller.post(req, res);
-    expect(retrieveByCaseIdMock).toBeCalled;
-    expect(updateCaserMock).toBeCalled;
+    expect(retrieveByCaseIdMock).toHaveBeenCalled;
+    expect(updateCaserMock).toHaveBeenCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toBeCalled;
+    expect(res.redirect).toHaveBeenCalled;
   });
   test('Should redirect FL401 respondent', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
@@ -218,11 +218,11 @@ describe('ConfirmContactDetailsPostController', () => {
     req.session.userCase.respondentsFL401 = partyDetails[0].value;
     req.session.userCase.caseTypeOfApplication = 'FL401';
     await controller.post(req, res);
-    expect(retrieveByCaseIdMock).toBeCalled;
-    expect(updateCaserMock).toBeCalled;
+    expect(retrieveByCaseIdMock).toHaveBeenCalled;
+    expect(updateCaserMock).toHaveBeenCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
     expect(req.session.userCase.respondentsFL401).toStrictEqual(updated);
-    expect(res.redirect).toBeCalled;
+    expect(res.redirect).toHaveBeenCalled;
   });
   test('Should redirect FL401 applicant', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
@@ -231,10 +231,10 @@ describe('ConfirmContactDetailsPostController', () => {
     req.session.userCase.caseInvites = [];
     req.url = 'applicant';
     await controller.post(req, res);
-    expect(retrieveByCaseIdMock).toBeCalled;
-    expect(updateCaserMock).toBeCalled;
+    expect(retrieveByCaseIdMock).toHaveBeenCalled;
+    expect(updateCaserMock).toHaveBeenCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toBeCalled;
+    expect(res.redirect).toHaveBeenCalled;
   });
   test('Should redirect C100 applicant after choosing post preference', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
@@ -244,8 +244,8 @@ describe('ConfirmContactDetailsPostController', () => {
     req.session.userCase.preferredModeOfContact = 'post';
     req.session.applicationSettings = { navFromContactPreferences: true };
     await controller.post(req, res);
-    expect(retrieveByCaseIdMock).toBeCalled;
-    expect(updateCaserMock).toBeCalled;
+    expect(retrieveByCaseIdMock).toHaveBeenCalled;
+    expect(updateCaserMock).toHaveBeenCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
     expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/review');
   });
@@ -257,8 +257,8 @@ describe('ConfirmContactDetailsPostController', () => {
     req.session.userCase.preferredModeOfContact = 'email';
     req.session.applicationSettings = { navFromContactPreferences: true };
     await controller.post(req, res);
-    expect(retrieveByCaseIdMock).toBeCalled;
-    expect(updateCaserMock).toBeCalled;
+    expect(retrieveByCaseIdMock).toHaveBeenCalled;
+    expect(updateCaserMock).toHaveBeenCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
     expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/review');
   });
@@ -285,8 +285,8 @@ describe('ConfirmContactDetailsPostController', () => {
       },
     ];
     await controller.post(req, res);
-    expect(retrieveByCaseIdMock).toBeCalled;
-    expect(updateCaserMock).toBeCalled;
+    expect(retrieveByCaseIdMock).toHaveBeenCalled;
+    expect(updateCaserMock).toHaveBeenCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
     expect(res.redirect).toHaveBeenLastCalledWith('/respondent/contact-preference/review');
   });
@@ -313,8 +313,8 @@ describe('ConfirmContactDetailsPostController', () => {
       },
     ];
     await controller.post(req, res);
-    expect(retrieveByCaseIdMock).toBeCalled;
-    expect(updateCaserMock).toBeCalled;
+    expect(retrieveByCaseIdMock).toHaveBeenCalled;
+    expect(updateCaserMock).toHaveBeenCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
     expect(res.redirect).toHaveBeenLastCalledWith('/respondent/contact-preference/review');
   });
@@ -329,9 +329,9 @@ describe('ConfirmContactDetailsPostController', () => {
   test('Should not update the userCase when refuge is yes and no refuge document present', async () => {
     req.session.userCase.isCitizenLivingInRefuge = 'Yes';
     await controller.post(req, res);
-    expect(req.session.save).not.toBeCalled;
-    expect(retrieveByCaseIdMock).not.toBeCalled;
-    expect(updateCaserMock).not.toBeCalled;
+    expect(req.session.save).not.toHaveBeenCalled;
+    expect(retrieveByCaseIdMock).not.toHaveBeenCalled;
+    expect(updateCaserMock).not.toHaveBeenCalled;
     expect(res.redirect).toHaveBeenCalledWith('/task-list/applicant');
   });
 });
