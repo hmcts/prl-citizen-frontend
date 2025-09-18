@@ -7,23 +7,23 @@ import { generateHearingDaySchedule, generateHearingTimeDisplayText } from './ut
 
 describe('Generate hearing time display text', () => {
   test('should return time with offset when in BST', () => {
-    const date = new Date('2023-07-11T08:00:00Z');
-    const luxonDate = DateTime.fromJSDate(date);
-    const result = generateHearingTimeDisplayText(luxonDate);
+    const utcDate = DateTime.fromISO('2025-10-22T08:00:00Z', { zone: 'utc' });
+    const londonDateTime = utcDate.setZone('Europe/London');
+    const result = generateHearingTimeDisplayText(londonDateTime);
     expect(result).toBe('9:00 am');
   });
 
   test('should return time without offset when in GMT', () => {
-    const date = new Date('2023-01-15T12:00:00Z');
-    const luxonDate = DateTime.fromJSDate(date);
-    const result = generateHearingTimeDisplayText(luxonDate);
-    expect(result).toBe('12:00 pm');
+    const utcDate = DateTime.fromISO('2025-01-22T14:30:00Z', { zone: 'utc' });
+    const londonDateTime = utcDate.setZone('Europe/London');
+    const result = generateHearingTimeDisplayText(londonDateTime);
+    expect(result).toBe('2:30 pm');
   });
 
   test('should handle midday correctly', () => {
-    const date = new Date('2023-07-11T11:00:00Z');
-    const luxonDate = DateTime.fromJSDate(date);
-    const result = generateHearingTimeDisplayText(luxonDate);
+    const utcDate = DateTime.fromISO('2025-06-22T11:00:00Z', { zone: 'utc' });
+    const londonDateTime = utcDate.setZone('Europe/London');
+    const result = generateHearingTimeDisplayText(londonDateTime);
     expect(result).toBe('12:00 pm');
   });
 });
