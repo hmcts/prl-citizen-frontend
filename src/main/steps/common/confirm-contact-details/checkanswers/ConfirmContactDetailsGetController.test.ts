@@ -388,7 +388,7 @@ describe('ConfirmContactDetailsGetController', () => {
     };
     req.url = 'respondent';
     await controller.get(req, res);
-    expect(res.redirect).toBeCalled;
+    expect(res.redirect).toHaveBeenCalled;
   });
   test('validate data completion', () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';

@@ -113,7 +113,7 @@ describe('DocumentUpload Get Controller', () => {
       deleteDocumentMock.mockRejectedValueOnce;
       await controller.get(req, res);
       expect(req.session.userCase.miam_certificate).toBe(undefined);
-      expect(console.log).toBeCalled;
+      expect(console.log).toHaveBeenCalled;
     });
 
     test('should through error when headers have been sent', async () => {

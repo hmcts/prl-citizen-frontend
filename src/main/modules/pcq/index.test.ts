@@ -49,7 +49,7 @@ describe('PcqProvider', () => {
   test('when enabling Pcq module', async () => {
     jest.spyOn(config, 'get').mockImplementationOnce(() => 'true');
     await PCQProvider.enable(appRequest);
-    expect((PCQProvider as any).route.enable(appRequest)).toBeCalled;
+    expect((PCQProvider as any).route.enable(appRequest)).toHaveBeenCalled;
   });
 
   test('get PcqId from the request', async () => {

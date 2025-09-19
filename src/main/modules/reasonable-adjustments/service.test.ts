@@ -80,7 +80,7 @@ describe('ReasonableAdjustementsService', () => {
     try {
       await RAService.getCommonComponentUrl(req, correlationId, existingFlags, language);
     } catch (error) {
-      expect(RAProvider.log).toBeCalled;
+      expect(RAProvider.log).toHaveBeenCalled;
     }
   });
 
@@ -149,7 +149,7 @@ describe('ReasonableAdjustementsService', () => {
     try {
       await RAService.retrievePartyRAFlagsFromCommonComponent(req, correlationId);
     } catch (error) {
-      expect(RAProvider.log).toBeCalled;
+      expect(RAProvider.log).toHaveBeenCalled;
     }
   });
 
@@ -217,7 +217,7 @@ describe('ReasonableAdjustementsService', () => {
         'test-user-access-token'
       );
     } catch (error) {
-      expect(RAProvider.log).toBeCalled;
+      expect(RAProvider.log).toHaveBeenCalled;
     }
   });
 
@@ -256,7 +256,7 @@ describe('ReasonableAdjustementsService', () => {
         existingFlags.details
       );
     } catch (error) {
-      expect(RAProvider.log).toBeCalled;
+      expect(RAProvider.log).toHaveBeenCalled;
     }
   });
 
@@ -281,7 +281,7 @@ describe('ReasonableAdjustementsService', () => {
     try {
       await RAService.retrieveCommonComponentHealthStatus(req);
     } catch (error) {
-      expect(RAProvider.log).toBeCalled;
+      expect(RAProvider.log).toHaveBeenCalled;
     }
   });
 

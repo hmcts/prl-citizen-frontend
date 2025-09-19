@@ -31,6 +31,6 @@ describe('RespondentConfirmContactDetailsPostController', () => {
 
   test('should return 200', async () => {
     controller.post(req, res);
-    expect(ConfirmContactDetailsPostController).toBeCalled;
+    expect(ConfirmContactDetailsPostController).toHaveBeenCalled;
   });
 });

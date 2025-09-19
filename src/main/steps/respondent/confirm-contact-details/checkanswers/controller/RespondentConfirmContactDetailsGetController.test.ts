@@ -40,6 +40,6 @@ describe('RespondentConfirmContactDetailsGetController', () => {
 
   test('should return 200', async () => {
     controller.get(req, res);
-    expect(ConfirmContactDetailsGetController).toBeCalled;
+    expect(ConfirmContactDetailsGetController).toHaveBeenCalled;
   });
 });
