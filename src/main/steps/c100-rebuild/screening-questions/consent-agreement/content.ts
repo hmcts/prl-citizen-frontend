@@ -50,6 +50,8 @@ export const form: FormContent = {
   fields: {
     sq_writtenAgreement: {
       type: 'radios',
+      label: l => l.title,
+      labelHidden: true,
       classes: 'govuk-radios',
       values: [
         {
