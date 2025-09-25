@@ -51,7 +51,7 @@ export const form: FormContent = {
     sq_writtenAgreement: {
       type: 'radios',
       label: l => l.title,
-      labelHidden: false,
+      labelHidden: true,
       classes: 'govuk-radios',
       values: [
         {
