@@ -34,7 +34,7 @@
   "dependencies": {
     "@hmcts/cookie-manager": "^1.0.0",
     "@hmcts/frontend": "^0.0.50-alpha",
-    "@hmcts/nodejs-healthcheck": "^1.8.0",
+    "@hmcts/nodejs-healthcheck": "^1.8.6",
     "@hmcts/nodejs-logging": "^4.0.2",
     "@hmcts/properties-volume": "^0.0.14",
     "@types/config": "^0.0.41",
@@ -75,7 +75,7 @@
     "express-nunjucks": "^2.2.5",
     "express-session": "^1.18.2",
     "form-data": "^4.0.0",
-    "glob": "^8.0.3",
+    "glob": "^11.0.3",
     "govuk-frontend": "4.9.0",
     "helmet": "^4.6.0",
     "http-status-codes": "^2.2.0",
@@ -131,7 +131,7 @@
     "babel-loader": "^8.2.2",
     "chai": "^4.3.5",
     "chai-as-promised": "^7.1.1",
-    "codeceptjs": "^3.3.7",
+    "codeceptjs": "^3.7.5",
     "concurrently": "^7.0.0",
     "copy-webpack-plugin": "^10.2.1",
     "css-loader": "^6.5.1",
@@ -166,7 +166,7 @@
     "terser-webpack-plugin": "^5.3.14",
     "ts-jest": "^29.4.3",
     "ts-loader": "^9.4.1",
-    "webdriverio": "^7.19.7",
+    "webdriverio": "^8.46.0",
     "webpack": "^5.76.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-middleware": "^5.3.1",
@@ -208,7 +208,8 @@
     "serve-static": "1.16.2",
     "cross-spawn": "7.0.6",
     "cookie": "^0.7.2",
-    "formidable": "^3.5.4"
+    "formidable": "^3.5.4",
+    "glob": "^9.0.0"
   },
   "packageManager": "yarn@4.6.0"
 }
