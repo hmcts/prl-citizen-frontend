@@ -2,13 +2,15 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { AWPApplicationType, PartyType } from '../../../app/case/definition';
+import * as awpUtils from '../utils'
 
 import AWPPayAndSubmitPostController from './postController';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
+
+jest.spyOn(awpUtils, 'processAWPApplication').mockImplementation(jest.fn());
 
 describe('AWPPayAndSubmitPostController controller', () => {
   const mockForm = {
@@ -24,7 +26,6 @@ describe('AWPPayAndSubmitPostController controller', () => {
   const controller = new AWPPayAndSubmitPostController(mockForm.fields);
   let awpRequest;
   let paymentResponse;
-  let paymentData;
 
   beforeEach(() => {
     awpRequest = mockRequest({
@@ -148,14 +149,6 @@ describe('AWPPayAndSubmitPostController controller', () => {
       serviceRequestReference: 'MOCK_REFERENCE',
     };
 
-    paymentData = {
-      caseId: '1234',
-      returnUrl: 'MOCK_URL',
-      applicantCaseName: 'MOCK_CASE_NAME',
-      feeType: 'MOCK_FEE_TYPE',
-      awpType: 'C2' as AWPApplicationType,
-      partyType: 'applicant' as PartyType,
-    };
     jest.clearAllMocks();
   });
 
@@ -164,19 +157,28 @@ describe('AWPPayAndSubmitPostController controller', () => {
       data: paymentResponse,
     });
 
-    paymentData = { ...paymentData, hwfRefNumber: 'MOCK_REF_NUMBER' };
-
     const res = mockResponse();
     await controller.post(awpRequest, res);
 
-    expect(awpRequest.session.userCase.paymentData).toStrictEqual({
-      paymentReference: 'MOCK_REFERENCE',
-      paymentDate: 'MOCK_DATE',
-      externalReference: 'MOCK_REFERENCE',
-      nextActionUrl: '/applicant/application-within-proceedings/C2/request-more-time/application-submitted',
-      paymentStatus: 'Success',
-      paymentServiceRequestReference: 'MOCK_REFERENCE',
-    });
+    // the paymentData object is cleared aat the end of the AWP processing (handlePageRedirection in utils.ts:512)
+    // so would need to intercept the 'processAWPApplication' call to check paymentData before that happens
+    expect(awpUtils.processAWPApplication).toHaveBeenCalledWith(
+      expect.objectContaining({
+        session: expect.objectContaining({
+          userCase: expect.objectContaining({
+            paymentData: {
+              paymentReference: 'MOCK_REFERENCE',
+              paymentDate: 'MOCK_DATE',
+              externalReference: 'MOCK_REFERENCE',
+              nextActionUrl: '/applicant/application-within-proceedings/C2/request-more-time/application-submitted',
+              paymentStatus: 'Success',
+              paymentServiceRequestReference: 'MOCK_REFERENCE',
+            },
+          }),
+        }),
+      }),
+      expect.anything()
+    );
     expect(awpRequest.session.save).toHaveBeenCalled();
   });
 
