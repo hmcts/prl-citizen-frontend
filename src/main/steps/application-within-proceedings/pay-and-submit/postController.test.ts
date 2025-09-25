@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import * as awpUtils from '../utils'
+import * as awpUtils from '../utils';
 
 import AWPPayAndSubmitPostController from './postController';
 
