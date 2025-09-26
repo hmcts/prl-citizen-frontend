@@ -4,14 +4,4 @@
 <p class="govuk-body">{{writtenAgreementDetails}}</p>
 <p class="govuk-body">{{approvalDetails}}</p>
 <a href="https://helpwithchildarrangements.service.justice.gov.uk/" class="govuk-link govuk-body-m" rel="external" target="_blank">{{findOut}}</a><br/><br/><br/>
-  {{ form | safe }}
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const legend = document.querySelector('#sq_writtenAgreement-fieldset legend.hidden');
-      if (legend) {
-        legend.classList.remove('hidden');
-        legend.classList.add('govuk-visually-hidden');
-      }
-    });
-  </script>
 {% endblock %}

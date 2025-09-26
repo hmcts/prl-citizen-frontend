@@ -7,10 +7,11 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 export * from './routeGuard';
 
 export const en = () => ({
-  title: 'Do you have a written agreement with the other people in the case that you want the court to review?',
+  title: 'Written Agreement',
   writtenAgreementDetails:
     'A written agreement between the parties that is made legally binding by the court is called a consent order.',
   approvalDetails: 'If you have a draft consent order, the court will review it and may give approval.',
+  radioLabel: 'Do you have a written agreement with the other people in the case that you want the court to review?',
   one: 'Yes',
   two: 'No',
   infoDetail: 'You will be asked to upload the draft consent order later in the application.',
@@ -50,8 +51,8 @@ export const form: FormContent = {
   fields: {
     sq_writtenAgreement: {
       type: 'radios',
-      label: l => l.title,
-      labelHidden: true,
+      label: l => l.radioLabel,
+      labelHidden: false,
       classes: 'govuk-radios',
       values: [
         {
