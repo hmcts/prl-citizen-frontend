@@ -1365,8 +1365,7 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Written Agreement',
+                  visuallyHiddenText: 'Written Agreement',
                 },
               ],
             },
@@ -4540,8 +4539,7 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Written Agreement',
+                  visuallyHiddenText: 'Written Agreement',
                 },
               ],
             },
@@ -5252,8 +5250,7 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Written Agreement',
+                  visuallyHiddenText: 'Written Agreement',
                 },
               ],
             },
