@@ -147,26 +147,26 @@ describe('PCQController', () => {
     jest.spyOn(PCQProvider, 'getPcqServiceUrl');
     jest.spyOn(config, 'get').mockImplementation(() => 'password');
     await PCQController.launch(appRequest, appResponse, 'http://localhost:3001');
-    expect(PCQProvider.buildRequestParams).toBeCalled;
-    expect(PCQProvider.getPcqServiceUrl).toBeCalled;
+    expect(PCQProvider.buildRequestParams).toHaveBeenCalled;
+    expect(PCQProvider.getPcqServiceUrl).toHaveBeenCalled;
   });
 
   test('when launching Pcq module for c7 - error scenario', async () => {
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     jest.spyOn(PCQProvider.service, 'getPcqHealthStatus').mockRejectedValueOnce({ status: 500 });
     await PCQController.launch(appRequest, appResponse, 'http://localhost:3001');
-    expect((PCQController as any).handleError).toBeCalled;
-    expect(PCQProvider.buildRequestParams).not.toBeCalled;
-    expect(PCQProvider.getPcqServiceUrl).not.toBeCalled;
+    expect((PCQController as any).handleError).toHaveBeenCalled;
+    expect(PCQProvider.buildRequestParams).not.toHaveBeenCalled;
+    expect(PCQProvider.getPcqServiceUrl).not.toHaveBeenCalled;
   });
 
   test('when launching Pcq module for c7 - error scenario when pcq health is down', async () => {
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     jest.spyOn(PCQProvider.service, 'getPcqHealthStatus').mockResolvedValueOnce();
     await PCQController.launch(appRequest, appResponse, 'http://localhost:3001');
-    expect((PCQController as any).handleError).toBeCalled;
-    expect(PCQProvider.buildRequestParams).not.toBeCalled;
-    expect(PCQProvider.getPcqServiceUrl).not.toBeCalled;
+    expect((PCQController as any).handleError).toHaveBeenCalled;
+    expect(PCQProvider.buildRequestParams).not.toHaveBeenCalled;
+    expect(PCQProvider.getPcqServiceUrl).not.toHaveBeenCalled;
   });
 
   test('when launching Pcq module for c100 rebuild - success scenario', async () => {
@@ -175,16 +175,16 @@ describe('PCQController', () => {
     appRequest.url = 'http://localhost:3001/pcq/c100-rebuild';
     jest.spyOn(config, 'get').mockImplementation(() => 'password');
     await PCQController.launch(appRequest, appResponse, 'http://localhost:3001');
-    expect(PCQProvider.buildRequestParams).toBeCalled;
-    expect(PCQProvider.getPcqServiceUrl).toBeCalled;
+    expect(PCQProvider.buildRequestParams).toHaveBeenCalled;
+    expect(PCQProvider.getPcqServiceUrl).toHaveBeenCalled;
   });
 
   test('when launching Pcq module for c100 rebuild - error scenario', async () => {
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     await PCQController.launch(appRequest, appResponse, 'http://localhost:3001');
-    expect((PCQController as any).handleError).toBeCalled;
-    expect(PCQProvider.buildRequestParams).not.toBeCalled;
-    expect(PCQProvider.getPcqServiceUrl).not.toBeCalled;
+    expect((PCQController as any).handleError).toHaveBeenCalled;
+    expect(PCQProvider.buildRequestParams).not.toHaveBeenCalled;
+    expect(PCQProvider.getPcqServiceUrl).not.toHaveBeenCalled;
   });
 
   test('should save pcq id and call Pay and submit controller after pcq if c100-rebuild is the return url', async () => {
