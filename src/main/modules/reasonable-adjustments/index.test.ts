@@ -62,7 +62,7 @@ describe('ReasonableAdjustementsProvider', () => {
 
   test('when enabling RA module', async () => {
     await RAProvider.enable(appRequest);
-    expect((RAProvider as any).route.enable(appRequest)).toBeCalled;
+    expect((RAProvider as any).route.enable(appRequest)).toHaveBeenCalled;
   });
 
   test('when initializing the module', async () => {
@@ -111,7 +111,7 @@ describe('ReasonableAdjustementsProvider', () => {
       .spyOn(RAProvider.service, 'getCommonComponentUrl')
       .mockImplementation(() => Promise.resolve({ url: 'https://cui-ra.aat.platform.hmcts.net/test-id' }));
     await RAProvider.launch(requestData, 'en', appRequest, appResponse);
-    expect(appResponse.redirect).toBeCalled;
+    expect(appResponse.redirect).toHaveBeenCalled;
   });
 
   test('when launching RA component common component API throws error', async () => {
@@ -127,9 +127,9 @@ describe('ReasonableAdjustementsProvider', () => {
     } catch (error) {
       hasError = true;
     }
-    expect(appResponse.redirect).not.toBeCalled;
+    expect(appResponse.redirect).not.toHaveBeenCalled;
     expect(hasError).toEqual(true);
-    expect(logger.error).toBeCalled;
+    expect(logger.error).toHaveBeenCalled;
   });
 
   test('when launching RA component common component API throws error with data', async () => {
@@ -152,9 +152,9 @@ describe('ReasonableAdjustementsProvider', () => {
       hasError = true;
       errorMessage = error.message;
     }
-    expect(appResponse.redirect).not.toBeCalled;
+    expect(appResponse.redirect).not.toHaveBeenCalled;
     expect(hasError).toEqual(true);
-    expect(logger.error).toBeCalled;
+    expect(logger.error).toHaveBeenCalled;
     expect(errorMessage).toBe('"test"');
   });
 

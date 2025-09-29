@@ -117,7 +117,7 @@ describe('caseApi', () => {
 
   test('Should create api', async () => {
     getCaseApi(userDetails, mockLogger);
-    expect(api).toBeCalled;
+    expect(api).toHaveBeenCalled;
   });
 
   test('getOrCreateCase should return usercase if found', async () => {
