@@ -51,10 +51,10 @@ export const form: FormContent = {
     sq_writtenAgreement: {
       type: 'radios',
       classes: 'govuk-radios',
-      fieldset: {
-        legend: {
-          text: l => l.title,
-        },
+      label: {
+        text: 'Do you have a written agreement?',
+        classes: 'govuk-label--m',
+        isPageHeading: false,
       },
       values: [
         {
