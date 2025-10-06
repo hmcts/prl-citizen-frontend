@@ -46,12 +46,18 @@ const languages = {
   cy,
 };
 
+
 export const form: FormContent = {
   fields: {
     sq_writtenAgreement: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.title,
+      fieldset: {
+        legend: {
+          text: l => l.title, // still accessible
+          classes: 'govuk-visually-hidden', // hides it visually
+        },
+      },
       values: [
         {
           label: l => l.one,

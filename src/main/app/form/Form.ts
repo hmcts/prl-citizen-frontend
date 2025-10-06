@@ -238,6 +238,7 @@ export interface FormInput {
   divider?: boolean | Label;
   exclusive?: boolean;
   behaviour?: string;
+  fieldset?: Fieldset;
 }
 
 function isFormOptions(field: FormField): field is FormOptions {
@@ -266,4 +267,14 @@ export interface GenerateDynamicFormFields {
   fields: FormContent['fields'];
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   errors: Record<string, any>;
+}
+
+export interface FieldsetLegend {
+  text?: Label | ((l: never) => string);
+  classes?: string;
+  isPageHeading?: boolean;
+}
+
+export interface Fieldset {
+  legend?: FieldsetLegend;
 }
