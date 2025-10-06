@@ -208,6 +208,7 @@ export interface FormOptions {
   parser?: Parser;
   disabled?: boolean;
   rows?: SummaryListContent;
+  fieldset?: Fieldset;
 }
 
 export interface FormInput {
@@ -238,7 +239,6 @@ export interface FormInput {
   divider?: boolean | Label;
   exclusive?: boolean;
   behaviour?: string;
-  fieldset?: Fieldset;
 }
 
 function isFormOptions(field: FormField): field is FormOptions {
