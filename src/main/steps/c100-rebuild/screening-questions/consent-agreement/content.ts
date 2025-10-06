@@ -54,8 +54,8 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       fieldset: {
         legend: {
-          text: l => l.title, // still accessible
-          classes: 'govuk-visually-hidden', // hides it visually
+          text: l => l.title,
+          classes: 'govuk-visually-hidden',
         },
       },
       values: [
