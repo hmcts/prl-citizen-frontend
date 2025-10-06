@@ -14,13 +14,9 @@
       fieldset: {
         legend: {
           text: field.legend.text,
-          isPageHeading: field.legend.isPageHeading,
           classes: field.legend.classes
         }
       },
-      hint: {
-        html: getContent(field.hint)
-      }
       items: formItems(field.values, userCase[fieldName]),
       errorMessage: getError(fieldName),
       formGroup: {
