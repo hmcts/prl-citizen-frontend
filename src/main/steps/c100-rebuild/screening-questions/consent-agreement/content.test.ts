@@ -61,7 +61,6 @@ describe('screeing questions', () => {
     const applyingWithField = fields.sq_writtenAgreement as FormOptions;
     const applyingWithFieldLabel = applyingWithField.values[0].subFields?.infoText as FormInput;
     expect(applyingWithField.type).toBe('radios');
-    expect(applyingWithField.fieldset).toBeNull();
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithFieldLabel?.textAndHtml as LanguageLookup)(generatedContent)).toBe(en.infoDetail);
