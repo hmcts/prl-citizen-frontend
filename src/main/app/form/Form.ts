@@ -270,7 +270,7 @@ export interface GenerateDynamicFormFields {
 }
 
 export interface FieldsetLegend {
-  text?: Label | ((l: never) => string);
+  text: Label;
   classes?: string;
   isPageHeading?: boolean;
 }

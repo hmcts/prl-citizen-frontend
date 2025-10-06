@@ -53,8 +53,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       fieldset: {
         legend: {
-          text: l => l.title,
-          classes: 'govuk-visually-hidden',
+          text: l => l.title
         },
       },
       values: [
