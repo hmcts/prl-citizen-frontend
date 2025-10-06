@@ -1,7 +1,30 @@
 {% extends "common/template.njk" %}
+
 {% block page_content %}
-<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{title}}</h1>
-<p class="govuk-body">{{writtenAgreementDetails}}</p>
-<p class="govuk-body">{{approvalDetails}}</p>
-<a href="https://helpwithchildarrangements.service.justice.gov.uk/" class="govuk-link govuk-body-m" rel="external" target="_blank">{{findOut}}</a><br/><br/><br/>
+  <form method="post">
+
+    {{ govukRadios({
+      name: "sq_writtenAgreement",
+      fieldset: {
+        legend: {
+          text: title,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        { value: "Yes", text: one },
+        { value: "No", text: two }
+      ]
+    }) }}
+
+    <p class="govuk-body">{{ writtenAgreementDetails }}</p>
+    <p class="govuk-body">{{ approvalDetails }}</p>
+    <a href="https://helpwithchildarrangements.service.justice.gov.uk/" class="govuk-link govuk-body-m" rel="external" target="_blank">{{ findOut }}</a>
+
+    <br/><br/><br/>
+
+    {{ govukButton({ text: onlycontinue }) }}
+
+  </form>
 {% endblock %}
