@@ -46,7 +46,6 @@ const languages = {
   cy,
 };
 
-
 export const form: FormContent = {
   fields: {
     sq_writtenAgreement: {
