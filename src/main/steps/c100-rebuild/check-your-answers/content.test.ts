@@ -551,12 +551,13 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: 'Edit',
-                  visuallyHiddenText: 'Written Agreement',
+                  visuallyHiddenText:
+                    'Do you have a written agreement with the other people in the case that you want the court to review?',
                 },
               ],
             },
             key: {
-              text: 'Written Agreement',
+              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -1365,12 +1366,13 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: 'Edit',
-                  visuallyHiddenText: 'Written Agreement',
+                  visuallyHiddenText:
+                    'Do you have a written agreement with the other people in the case that you want the court to review?',
                 },
               ],
             },
             key: {
-              text: 'Written Agreement',
+              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -4539,12 +4541,13 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: 'Edit',
-                  visuallyHiddenText: 'Written Agreement',
+                  visuallyHiddenText:
+                    'Do you have a written agreement with the other people in the case that you want the court to review?',
                 },
               ],
             },
             key: {
-              text: 'Written Agreement',
+              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -5250,12 +5253,13 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/consent-agreement',
                   text: 'Edit',
-                  visuallyHiddenText: 'Written Agreement',
+                  visuallyHiddenText:
+                    'Do you have a written agreement with the other people in the case that you want the court to review?',
                 },
               ],
             },
             key: {
-              text: 'Written Agreement',
+              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
