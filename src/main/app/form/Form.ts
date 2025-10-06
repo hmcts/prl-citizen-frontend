@@ -208,7 +208,6 @@ export interface FormOptions {
   parser?: Parser;
   disabled?: boolean;
   rows?: SummaryListContent;
-  fieldset?: Fieldset;
 }
 
 export interface FormInput {
@@ -267,14 +266,4 @@ export interface GenerateDynamicFormFields {
   fields: FormContent['fields'];
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   errors: Record<string, any>;
-}
-
-export interface FieldsetLegend {
-  text: Label;
-  classes?: string;
-  isPageHeading?: boolean;
-}
-
-export interface Fieldset {
-  legend?: FieldsetLegend;
 }

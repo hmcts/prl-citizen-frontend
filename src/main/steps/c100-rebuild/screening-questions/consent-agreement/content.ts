@@ -53,7 +53,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       label: {
         text: 'Do you have a written agreement?',
-        classes: 'govuk-label--m',
+        classes: 'govuk-visually-hidden',
         isPageHeading: false,
       },
       values: [
