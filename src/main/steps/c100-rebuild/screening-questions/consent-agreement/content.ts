@@ -51,6 +51,14 @@ export const form: FormContent = {
     sq_writtenAgreement: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelSize: 'l',
+      hint: l => `
+      <p>${l.writtenAgreementDetails}</p>
+      <p>${l.approvalDetails}</p>
+      <a href="https://helpwithchildarrangements.service.justice.gov.uk/"
+       class="govuk-link" target="_blank">${l.findOut}</a>
+       `,
       values: [
         {
           label: l => l.one,

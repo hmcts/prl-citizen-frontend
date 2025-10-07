@@ -1,18 +1,4 @@
 {% extends "common/template.njk" %}
-
-{% block before_fields %}
-  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-    <h1 class="govuk-fieldset__heading">{{ title }}</h1>
-  </legend>
-
-  <p class="govuk-body">{{ writtenAgreementDetails }}</p>
-  <p class="govuk-body">{{ approvalDetails }}</p>
-  <a
-    href="https://helpwithchildarrangements.service.justice.gov.uk/"
-    class="govuk-link govuk-body-m"
-    rel="external"
-    target="_blank"
-  >
-    {{ findOut }}
-  </a>
+{% block page_content %}
+  {{ form | renderForm(content) }}
 {% endblock %}
