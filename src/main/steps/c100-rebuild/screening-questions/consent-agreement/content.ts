@@ -51,11 +51,8 @@ export const form: FormContent = {
     sq_writtenAgreement: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: {
-        text: 'Do you have a written agreement yesssss?',
-        classes: 'govuk-visually-hidden',
-        isPageHeading: false,
-      },
+      label: 'Do you have a written agreement yesssss?',
+      labelHidden: true,
       values: [
         {
           label: l => l.one,
