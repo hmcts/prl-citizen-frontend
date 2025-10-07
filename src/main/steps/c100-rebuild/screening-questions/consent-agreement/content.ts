@@ -8,6 +8,7 @@ export * from './routeGuard';
 
 export const en = () => ({
   title: 'Do you have a written agreement with the other people in the case that you want the court to review?',
+  titleLabel: 'Do you have a written agreement with the other people in the case that you want the court to review?',
   writtenAgreementDetails:
     'A written agreement between the parties that is made legally binding by the court is called a consent order.',
   approvalDetails: 'If you have a draft consent order, the court will review it and may give approval.',
@@ -25,6 +26,8 @@ export const en = () => ({
 
 export const cy = () => ({
   title: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
+  titleLabel:
+    "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
   writtenAgreementDetails:
     "Gelwir cytundeb ysgrifenedig rhwng y partïon sy'n cael ei wneud yn gyfreithiol rwymol gan y llys yn orchymyn cydsynio.",
   approvalDetails:
@@ -51,7 +54,7 @@ export const form: FormContent = {
     sq_writtenAgreement: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.title,
+      label: l => l.titleLabel,
       labelSize: 'l',
       hint: l => `
       <p>${l.writtenAgreementDetails}</p>
