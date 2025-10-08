@@ -13,7 +13,7 @@
   fieldset: {
     legend: {
       text: getContent(field.label),
-      classes: legendClasses
+      classes: "govuk-visually-hidden" if field.labelHidden else legendClasses
     }
   } if not field.labelHidden,
   behaviour: 'exclusive',
