@@ -164,9 +164,9 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
           validator: (value, formData) =>
             formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
               ? areDateFieldsFilledIn(value as CaseDate) ||
-              isDateInputInvalid(value as CaseDate) ||
-              isMoreThan18Years(value as CaseDate) ||
-              isFutureDate(value as CaseDate)
+                isDateInputInvalid(value as CaseDate) ||
+                isMoreThan18Years(value as CaseDate) ||
+                isFutureDate(value as CaseDate)
               : dobUnknown(formData),
         },
         isDateOfBirthUnknown: {
@@ -210,9 +210,9 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                   validator: (value, formData) =>
                     formData?.isDateOfBirthUnknown === YesNoEmpty.YES
                       ? areDateFieldsFilledIn(value as CaseDate) ||
-                      isDateInputInvalid(value as CaseDate) ||
-                      isMoreThan18Years(value as CaseDate) ||
-                      isFutureDate(value as CaseDate)
+                        isDateInputInvalid(value as CaseDate) ||
+                        isMoreThan18Years(value as CaseDate) ||
+                        isFutureDate(value as CaseDate)
                       : '',
                 },
               },
