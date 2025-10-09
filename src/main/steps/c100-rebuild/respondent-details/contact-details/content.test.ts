@@ -112,7 +112,9 @@ describe('respondent details > contact details', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     const { errors } = generateFormFields(
-      (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).contactDetails
+      (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).contactDetails,
+      'Bob',
+      'Silly'
     );
     languageAssertions(
       'en',
@@ -131,7 +133,9 @@ describe('respondent details > contact details', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     const { errors } = generateFormFields(
-      (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).contactDetails
+      (getDataShape(PartyType.RESPONDENT) as C100RebuildPartyDetails).contactDetails,
+      'Bob',
+      'Silly'
     );
     languageAssertions(
       'cy',
