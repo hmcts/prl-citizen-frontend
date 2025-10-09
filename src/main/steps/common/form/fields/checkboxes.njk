@@ -15,7 +15,7 @@
       text: getContent(field.label),
       classes: "govuk-visually-hidden" if field.labelHidden else legendClasses
     }
-  } if not field.labelHidden,
+  },
   behaviour: 'exclusive',
   hint: {
     html: getContent(field.hint)
