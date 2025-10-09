@@ -77,7 +77,6 @@ export const generateFormFields = (
     cy: {},
   };
   const fields = {
-    label: l => l.title + `${firstName} ${lastName}`,
     emailAddress: {
       type: 'text',
       classes: 'govuk-label',
