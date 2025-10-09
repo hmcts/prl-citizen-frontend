@@ -77,6 +77,7 @@ export const generateFormFields = (
     cy: {},
   };
   const fields = {
+    label: l => l.title + `${firstName} ${lastName}`,
     emailAddress: {
       type: 'text',
       classes: 'govuk-label',
@@ -90,7 +91,6 @@ export const generateFormFields = (
     donKnowEmailAddress: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes--small',
-      label: `${firstName} ${lastName}`,
       values: [
         {
           name: 'donKnowEmailAddress',
@@ -114,7 +114,6 @@ export const generateFormFields = (
     donKnowTelephoneNumber: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes--small',
-      label: `${firstName} ${lastName}`,
       values: [
         {
           name: 'donKnowTelephoneNumber',
