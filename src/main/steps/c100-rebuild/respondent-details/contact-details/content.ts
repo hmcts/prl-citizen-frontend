@@ -91,7 +91,6 @@ export const generateFormFields = (
       type: 'checkboxes',
       classes: 'govuk-checkboxes--small',
       label: `${firstName} ${lastName}`,
-      hidden: true,
       values: [
         {
           name: 'donKnowEmailAddress',
@@ -116,7 +115,6 @@ export const generateFormFields = (
       type: 'checkboxes',
       classes: 'govuk-checkboxes--small',
       label: `${firstName} ${lastName}`,
-      hidden: true,
       values: [
         {
           name: 'donKnowTelephoneNumber',
