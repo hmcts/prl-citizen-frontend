@@ -66,9 +66,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 };
 
 export const generateFormFields = (
-  contactDetails: C100RebuildPartyDetails['contactDetails'],
-  firstName: string,
-  lastName: string
+  contactDetails: C100RebuildPartyDetails['contactDetails']
 ): GenerateDynamicFormFields => {
   const { donKnowEmailAddress, emailAddress, telephoneNumber, donKnowTelephoneNumber } = contactDetails!;
 
@@ -90,7 +88,8 @@ export const generateFormFields = (
     donKnowEmailAddress: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes--small',
-      label: l => l.title + `${firstName} ${lastName}`,
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           name: 'donKnowEmailAddress',
@@ -114,7 +113,8 @@ export const generateFormFields = (
     donKnowTelephoneNumber: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes--small',
-      label: l => l.title + `${firstName} ${lastName}`,
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           name: 'donKnowTelephoneNumber',
@@ -144,14 +144,7 @@ export const getFormFields = (
   respondentId: C100RebuildPartyDetails['id']
 ): FormContent => {
   const respondentDetails = getPartyDetails(respondentId, caseData?.resp_Respondents ?? []) as C100RebuildPartyDetails;
-  return updateFormFields(
-    form,
-    generateFormFields(
-      respondentDetails?.contactDetails ?? {},
-      respondentDetails.firstName ?? '',
-      respondentDetails.lastName ?? ''
-    ).fields
-  );
+  return updateFormFields(form, generateFormFields(respondentDetails?.contactDetails ?? {}).fields);
 };
 
 export const generateContent: TranslationFn = content => {
@@ -161,11 +154,7 @@ export const generateContent: TranslationFn = content => {
     respondentId,
     content.userCase!.resp_Respondents ?? []
   ) as C100RebuildPartyDetails;
-  const { fields } = generateFormFields(
-    respondentDetails.contactDetails,
-    respondentDetails.firstName,
-    respondentDetails.lastName
-  );
+  const { fields } = generateFormFields(respondentDetails.contactDetails);
 
   return {
     ...translations,
