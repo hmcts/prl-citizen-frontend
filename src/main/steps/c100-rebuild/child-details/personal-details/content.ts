@@ -131,7 +131,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
     dateOfBirthGroup: {
       type: 'fieldset',
       classes: 'govuk-fieldset__legend--s',
-      label: l => l.dolablel,
+      label: l => l.dobLabel,
       subFields: {
         dateOfBirth: {
           type: 'date',
