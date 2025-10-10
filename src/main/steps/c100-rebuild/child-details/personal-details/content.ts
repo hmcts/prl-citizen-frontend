@@ -130,13 +130,15 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
   const fields = {
     dateOfBirthGroup: {
       type: 'fieldset',
-      label: l => l.dobLabel,
-      labelSize: 's',
-      hint: l => l.dateHint,
+      legend: {
+        text: l => l.dolablel,
+        classes: 'govuk-fieldset__legend--s',
+      },
       subFields: {
         dateOfBirth: {
           type: 'date',
           classes: 'govuk-date-input',
+          hint: l => l.dateHint,
           values: [
             {
               label: l => l.dateFormat['day'],
