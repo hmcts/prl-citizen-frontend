@@ -1064,6 +1064,7 @@ const generateFormFields = (areAllFieldsFilled: boolean): GenerateDynamicFormFie
       validator: atLeastOneFieldIsChecked,
       label: l => l.heading,
       labelSize: 'm',
+      labelHidden: false,
       values: [
         {
           name: 'statementOfTruth',
