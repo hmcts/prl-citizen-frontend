@@ -140,6 +140,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
           values: [
             {
               label: l => l.dateFormat['day'],
+              //label: l => l.day,
               name: 'day',
               value: dateOfBirth?.day,
               classes: 'govuk-input--width-2',
@@ -147,6 +148,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
             },
             {
               label: l => l.dateFormat['month'],
+              //label: l => l.month,
               name: 'month',
               value: dateOfBirth?.month,
               classes: 'govuk-input--width-2',
@@ -154,6 +156,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
             },
             {
               label: l => l.dateFormat['year'],
+              //label: l => l.year,
               name: 'year',
               value: dateOfBirth?.year,
               classes: 'govuk-input--width-4',
@@ -181,11 +184,13 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
               subFields: {
                 approxDateOfBirth: {
                   type: 'date',
-                  label: l => l.approxDobLabel,
+                  classes: 'govuk-date-input',
                   labelSize: 's',
+                  label: l => l.approxDobLabel,
                   values: [
                     {
                       label: l => l.dateFormat['day'],
+                      //label: l => l.day
                       name: 'day',
                       value: approxDateOfBirth?.day,
                       classes: 'govuk-input--width-2',
@@ -193,6 +198,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                     },
                     {
                       label: l => l.dateFormat['month'],
+                      //label: l => l.month,
                       name: 'month',
                       value: approxDateOfBirth?.month,
                       classes: 'govuk-input--width-2',
@@ -200,6 +206,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                     },
                     {
                       label: l => l.dateFormat['year'],
+                      //label: l => l.year,
                       name: 'year',
                       value: approxDateOfBirth?.year,
                       classes: 'govuk-input--width-4',
