@@ -1063,14 +1063,11 @@ const generateFormFields = (areAllFieldsFilled: boolean): GenerateDynamicFormFie
       type: 'checkboxes',
       validator: atLeastOneFieldIsChecked,
       label: l => l.heading,
-      labelSize: 'm',
-      labelHidden: false,
       values: [
         {
           name: 'statementOfTruth',
-          label: l => l.StatementOfTruth['check'],
+          label: l => l.title,
           value: YesOrNo.YES,
-          disabled: !areAllFieldsFilled,
         },
       ],
     },

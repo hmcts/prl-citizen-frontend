@@ -499,7 +499,7 @@ describe('Content.ts toggle test cases', () => {
     expect(statementOfTruthField.type).toBe('checkboxes');
     expect(statementOfTruthField.validator).toBe(atLeastOneFieldIsChecked);
     expect((statementOfTruthField.values[0].label as Function)(generatedContent)).toBe(
-      enContent.StatementOfTruth.check
+      enContent.title
     );
     expect(statementOfTruthField.values[0].value).toBe('Yes');
   });
