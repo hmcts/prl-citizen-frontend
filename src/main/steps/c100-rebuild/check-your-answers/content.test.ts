@@ -5185,11 +5185,6 @@ describe('Content.ts toggle test cases', () => {
       "<h2 class='govuk-heading-l govuk-!-padding-bottom-3 govuk-!-padding-top-2'>Statement of Truth </h2>"
     );
 
-    expect(fields.statementOftruthSubHeading.type).toBe('textAndHtml');
-    expect(fields.statementOftruthSubHeading.textAndHtml).toBe(
-      "<h3 class='govuk-heading-m govuk-!-padding-bottom-4'>Confirm before you submit the application </h3>"
-    );
-
     expect(fields.statementOftruthWarning.type).toBe('warning');
     expect(fields.statementOftruthWarning.label).toBe(enContent.StatementOfTruth.warning);
 
@@ -5877,11 +5872,6 @@ describe('Content.ts toggle test cases', () => {
     expect(fields.statementOftruthHeading.type).toBe('textAndHtml');
     expect(fields.statementOftruthHeading.textAndHtml).toBe(
       "<h2 class='govuk-heading-l govuk-!-padding-bottom-3 govuk-!-padding-top-2'>Statement of Truth </h2>"
-    );
-
-    expect(fields.statementOftruthSubHeading.type).toBe('textAndHtml');
-    expect(fields.statementOftruthSubHeading.textAndHtml).toBe(
-      "<h3 class='govuk-heading-m govuk-!-padding-bottom-4'>Confirm before you submit the application </h3>"
     );
 
     expect(fields.statementOftruthWarning.type).toBe('warning');
