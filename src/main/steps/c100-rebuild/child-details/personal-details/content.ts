@@ -172,8 +172,6 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
     isDateOfBirthUnknown: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes--small',
-      label: l => l.title,
-      labelHidden: true,
       values: [
         {
           name: 'isDateOfBirthUnknown',
