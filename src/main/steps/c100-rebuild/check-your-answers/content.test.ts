@@ -497,6 +497,7 @@ describe('Content.ts toggle test cases', () => {
   test('Form should return correct content if all mandatory fields filled', () => {
     const statementOfTruthField = fields.statementOfTruth as FormOptions;
     expect(statementOfTruthField.type).toBe('checkboxes');
+    expect((statementOfTruthField.label as Function)(generatedContent)).toBe(enContent.StatementOfTruth.heading);
     expect(statementOfTruthField.validator).toBe(atLeastOneFieldIsChecked);
     expect((statementOfTruthField.values[0].label as Function)(generatedContent)).toBe(
       enContent.title
