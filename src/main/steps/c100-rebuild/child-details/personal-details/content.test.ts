@@ -247,6 +247,8 @@ describe('child details > personal details', () => {
     });
 
     expect(isDateOfBirthUnknown.type).toBe('checkboxes');
+    expect((isDateOfBirthUnknown.label as Function)(generatedContent)).toBe(en.dobLabel);
+    expect(isDateOfBirthUnknown.labelHidden).toBe(true);
     expect(isDateOfBirthUnknown.values[0].name).toBe('isDateOfBirthUnknown');
     expect((isDateOfBirthUnknown.values[0].label as Function)(generatedContent)).toBe(en.approxCheckboxLabel);
     expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.type).toBe('date');
