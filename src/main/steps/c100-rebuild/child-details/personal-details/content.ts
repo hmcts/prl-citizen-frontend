@@ -128,47 +128,50 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
     cy: {},
   };
   const fields = {
-    dateOfBirth: {
-      type: 'date',
-      classes: 'govuk-date-input',
-      labelSize: 's',
+    dateOfBirthGroup: {
+      type: 'fieldset',
+      classes: 'govuk-fieldset__legend--s',
       label: l => l.dobLabel,
-      hint: l => l.dateHint,
-      values: [
-        {
-          label: l => l.dateFormat['day'],
-          //label: l => l.day,
-          name: 'day',
-          value: dateOfBirth!.day,
-          classes: 'govuk-input--width-2',
-          attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-        {
-          label: l => l.dateFormat['month'],
-          //label: l => l.month,
-          name: 'month',
-          value: dateOfBirth!.month,
-          classes: 'govuk-input--width-2',
-          attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-        {
-          label: l => l.dateFormat['year'],
-          //label: l => l.year,
-          name: 'year',
-          value: dateOfBirth!.year,
-          classes: 'govuk-input--width-4',
-          attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-      ],
-      parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
-      validator: (value, formData) =>
-        formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
-          ? areDateFieldsFilledIn(value as CaseDate) ||
-            isDateInputInvalid(value as CaseDate) ||
-            isMoreThan18Years(value as CaseDate) ||
-            isFutureDate(value as CaseDate)
-          : dobUnknown(formData),
       subFields: {
+        dateOfBirth: {
+          type: 'date',
+          classes: 'govuk-date-input',
+          hint: l => l.dateHint,
+          values: [
+            {
+              label: l => l.dateFormat['day'],
+              //label: l => l.day,
+              name: 'day',
+              value: dateOfBirth?.day,
+              classes: 'govuk-input--width-2',
+              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+            },
+            {
+              label: l => l.dateFormat['month'],
+              //label: l => l.month,
+              name: 'month',
+              value: dateOfBirth?.month,
+              classes: 'govuk-input--width-2',
+              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+            },
+            {
+              label: l => l.dateFormat['year'],
+              //label: l => l.year,
+              name: 'year',
+              value: dateOfBirth?.year,
+              classes: 'govuk-input--width-4',
+              attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+            },
+          ],
+          parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
+          validator: (value, formData) =>
+            formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
+              ? areDateFieldsFilledIn(value as CaseDate) ||
+                isDateInputInvalid(value as CaseDate) ||
+                isMoreThan18Years(value as CaseDate) ||
+                isFutureDate(value as CaseDate)
+              : dobUnknown(formData),
+        },
         isDateOfBirthUnknown: {
           type: 'checkboxes',
           classes: 'govuk-checkboxes--small',
@@ -187,9 +190,9 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                   values: [
                     {
                       label: l => l.dateFormat['day'],
-                      //label: l => l.day,
+                      //label: l => l.day
                       name: 'day',
-                      value: approxDateOfBirth!.day,
+                      value: approxDateOfBirth?.day,
                       classes: 'govuk-input--width-2',
                       attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
                     },
@@ -197,7 +200,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                       label: l => l.dateFormat['month'],
                       //label: l => l.month,
                       name: 'month',
-                      value: approxDateOfBirth!.month,
+                      value: approxDateOfBirth?.month,
                       classes: 'govuk-input--width-2',
                       attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
                     },
@@ -205,7 +208,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                       label: l => l.dateFormat['year'],
                       //label: l => l.year,
                       name: 'year',
-                      value: approxDateOfBirth!.year,
+                      value: approxDateOfBirth?.year,
                       classes: 'govuk-input--width-4',
                       attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
                     },
