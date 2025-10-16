@@ -22,6 +22,7 @@ import CaseDetailsGetController from './steps/common/task-list/controllers/CaseD
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { ErrorController } from './steps/error/error.controller';
 import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
+import { SessionTimeoutGetController } from './steps/session-timeout/get';
 import { TasklistGetController } from './steps/tasklistresponse/TasklistGetController';
 import {
   APPLICANT_CHECK_ANSWERS,
@@ -49,6 +50,7 @@ import {
   PROCEEDINGS_START,
   RESPONDENT_CHECK_ANSWERS,
   RESPOND_TO_APPLICATION,
+  SESSION_TIMED_OUT_URL,
 } from './steps/urls';
 
 export class Routes {
@@ -64,6 +66,7 @@ export class Routes {
     app.get(DASHBOARD_URL, errorHandler(new DashboardGetController().get));
     app.get(FETCH_CASE_DETAILS, errorHandler(new CaseDetailsGetController().get)); //remove application settings part?
     app.get(PARTY_TASKLIST, errorHandler(new TaskListGetController().load));
+    app.get(SESSION_TIMED_OUT_URL, errorHandler(new SessionTimeoutGetController().get));
 
     app.get(
       `${CA_RESPONDENT_GENERATE_C7_DRAFT}`,
