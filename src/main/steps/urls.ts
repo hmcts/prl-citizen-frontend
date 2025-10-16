@@ -14,6 +14,7 @@ export const DASHBOARD_URL: PageLink = '/dashboard';
 export const DASHBOARD_URL_NEW: PageLink = '/dashboard/new';
 export const ELIGIBILITY_URL: PageLink = '/eligibility';
 export const PRL_CASE_URL: PageLink = '/prl-cases';
+export const SESSION_TIMED_OUT_URL: PageLink = '/session-timeout';
 
 export const MANUAL_ADDRESS: PageLink = '/address/manual';
 
