@@ -9,7 +9,8 @@ import FileStoreFactory from 'session-file-store';
 const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
 
-export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
+// export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
+export const cookieMaxAge = 30 * 1000; // 30 seconds
 
 export class SessionStorage {
   public enableFor(app: Application): void {
