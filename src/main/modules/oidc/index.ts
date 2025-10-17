@@ -23,8 +23,6 @@ import {
 } from '../../steps/urls';
 import * as Urls from '../../steps/urls';
 import { RAProvider } from '../reasonable-adjustments';
-import { generatePageContent, Language } from "steps/common/common.content";
-import { generateContent } from "@c100/childaddress/content";
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -155,26 +153,21 @@ export class OidcMiddleware {
             if (req.originalUrl.includes('.css')) {
               return next();
             }
+
             await RAProvider.destroy(req);
 
             const hadSessionCookie = req.cookies?.['prl-citizen-frontend-session'] !== undefined;
             const isAnonymousPages = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
 
             if (hadSessionCookie && !isAnonymousPages && req.originalUrl !== '/session-timeout') {
-              const language: Language = req.cookies?.lang === 'cy' ? 'cy' : 'en';
-
-              const content = generatePageContent({
-                language,
-                pageContent: generateContent,
-                userCase: req.session?.userCase,
-                userEmail: req.session?.user?.email,
-                additionalData: { req },
-              });
-
-              return res.render('session-timeout/template', content);
+              // User had a session before (expired) → go to timeout page
+              return res.redirect('/session-timeout');
+            } else if (!hadSessionCookie && !isAnonymousPages && req.originalUrl !== '/login') {
+              // User never had a session (fresh visit) → go to login
+              return res.redirect(getLoginUrl(Urls, req));
             }
-
-            return res.redirect(getLoginUrl(Urls, req));
+            // If it's an anonymous page or already on session-timeout/login → continue
+            return next();
           }
         });
       })
