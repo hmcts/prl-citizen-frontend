@@ -7,6 +7,7 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { parseUrl } from '../../steps/common/url-parser';
+import { getLoginUrl } from '../../steps/common/utils';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   ANONYMOUS_URLS,
@@ -16,11 +17,11 @@ import {
   LOCAL_API_SESSION,
   SAFEGAURD_EXCLUDE_URLS,
   SCREENING_QUESTIONS,
-  SESSION_TIME_OUT_URL,
   SIGN_IN_URL,
   SIGN_OUT_URL,
   TESTING_SUPPORT,
 } from '../../steps/urls';
+import * as Urls from '../../steps/urls';
 import { RAProvider } from '../reasonable-adjustments';
 
 /**
@@ -153,7 +154,7 @@ export class OidcMiddleware {
               return next();
             }
             await RAProvider.destroy(req);
-            res.redirect(SESSION_TIME_OUT_URL);
+            res.redirect(getLoginUrl(Urls, req));
           }
         });
       })
