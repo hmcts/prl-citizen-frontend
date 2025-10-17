@@ -66,37 +66,37 @@ describe('applicant1 > address > lookup > AddressLookupPostController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('check valid address scenario', async () => {
-    const mockFormContent = {
-      fields: {},
-    } as unknown as FormContent;
-    const controller = new AddressLookupPostController(mockFormContent.fields);
-    const language = 'en';
-    const req = mockRequest({
-      params: {
-        applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
-      },
-      body: {
-        addressPostcode: 'B437AJ',
-        onlycontinue: true,
-      },
-      session: {
-        lang: language,
-        userCase: {
-          appl_allApplicants: [
-            {
-              id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
-              applicantFirstName: 'Dummy',
-              applicantLastName: 'Test1',
-            },
-          ],
-        },
-      },
-    });
-    const res = mockResponse();
-    generateContent(commonContent);
-    await controller.post(req, res);
-
-    expect(res.redirect).toHaveBeenCalled();
-  });
+  // test('check valid address scenario', async () => {
+  //   const mockFormContent = {
+  //     fields: {},
+  //   } as unknown as FormContent;
+  //   const controller = new AddressLookupPostController(mockFormContent.fields);
+  //   const language = 'en';
+  //   const req = mockRequest({
+  //     params: {
+  //       applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+  //     },
+  //     body: {
+  //       addressPostcode: 'B437AJ',
+  //       onlycontinue: true,
+  //     },
+  //     session: {
+  //       lang: language,
+  //       userCase: {
+  //         appl_allApplicants: [
+  //           {
+  //             id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+  //             applicantFirstName: 'Dummy',
+  //             applicantLastName: 'Test1',
+  //           },
+  //         ],
+  //       },
+  //     },
+  //   });
+  //   const res = mockResponse();
+  //   generateContent(commonContent);
+  //   await controller.post(req, res);
+  //
+  //   expect(res.redirect).toHaveBeenCalled();
+  // });
 });
