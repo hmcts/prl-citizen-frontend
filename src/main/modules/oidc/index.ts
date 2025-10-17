@@ -155,10 +155,10 @@ export class OidcMiddleware {
             }
             await RAProvider.destroy(req);
 
-            const isSessionTimeout =
-              req.originalUrl !== '/session-timeout' && !ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
+            const hadSessionCookie = req.cookies?.['prl-citizen-frontend-session'] !== undefined;
+            const isAnonymousPages = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
 
-            if (isSessionTimeout) {
+            if (hadSessionCookie && !isAnonymousPages && req.originalUrl !== '/session-timeout') {
               return res.redirect('/session-timeout');
             }
 
