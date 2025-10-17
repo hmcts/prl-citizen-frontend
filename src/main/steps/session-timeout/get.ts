@@ -2,19 +2,27 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { AppRequest } from '../../app/controller/AppRequest';
-import { GetController } from '../../app/controller/GetController';
+import { Language, generatePageContent } from '../common/common.content';
 
 import { generateContent } from './content';
 
 @autobind
-export class SessionTimeoutGetController extends GetController {
-  constructor() {
-    super(__dirname + '/template', generateContent);
-  }
-
+export class SessionTimeoutGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    res.locals['lang'] = req.session.lang;
+    const language: Language = req.session?.lang === 'cy' ? 'cy' : 'en';
 
-    req.session.destroy(() => super.get(req, res));
+    const content = generatePageContent({
+      language,
+      pageContent: generateContent,
+      userCase: req.session?.userCase,
+      userEmail: req.session?.user?.email,
+      additionalData: { req },
+    });
+
+    if (req.session) {
+      req.session.destroy(() => res.render('session-timeout/template', content));
+    } else {
+      res.render('session-timeout/template', content);
+    }
   }
 }
