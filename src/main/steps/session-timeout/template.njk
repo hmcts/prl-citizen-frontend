@@ -1,7 +1,5 @@
 {% extends "layouts/main.njk" %}
-
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "hmrc/components/timeout-dialog/macro.njk" import hmrcTimeoutDialog %}
 
 {% block pageTitle %}
   {{ title }}
@@ -12,13 +10,15 @@
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-l">{{ title }}</h1>
 
-      <div class="govuk-form-group">
-        {{ govukButton({
-          text: signInButton,
-          href: "/sign-in",
-          attributes: { id: "timeout-keep-signin-btn1" }
-        }) }}
-      </div>
+      <p class="govuk-body">
+        {{ bodyText or "For your security, you’ve been signed out because your session timed out." }}
+      </p>
+
+      {{ govukButton({
+        text: signInButton or "Sign in again",
+        href: "/login",
+        attributes: { id: "session-timeout-signin-btn" }
+      }) }}
     </div>
   </div>
 {% endblock %}

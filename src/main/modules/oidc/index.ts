@@ -160,13 +160,18 @@ export class OidcMiddleware {
             const isAnonymousPages = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
 
             if (hadSessionCookie && !isAnonymousPages && req.originalUrl !== '/session-timeout') {
-              // User had a session before (expired) → go to timeout page
+              // User's session just expired → show timeout page
               return res.redirect('/session-timeout');
-            } else if (!hadSessionCookie && !isAnonymousPages && req.originalUrl !== '/login') {
-              // User never had a session (fresh visit) → go to login
+            } else if (
+              !hadSessionCookie &&
+              !isAnonymousPages &&
+              req.originalUrl !== '/login' &&
+              req.originalUrl !== '/session-timeout'
+            ) {
+              // No session and not already on timeout page → go to login
               return res.redirect(getLoginUrl(Urls, req));
             }
-            // If it's an anonymous page or already on session-timeout/login → continue
+
             return next();
           }
         });
