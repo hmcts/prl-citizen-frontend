@@ -154,6 +154,14 @@ export class OidcMiddleware {
               return next();
             }
             await RAProvider.destroy(req);
+
+            const isSessionTimeout =
+              req.originalUrl !== '/session-timeout' && !ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
+
+            if (isSessionTimeout) {
+              return res.redirect('/session-timeout');
+            }
+
             res.redirect(getLoginUrl(Urls, req));
           }
         });
