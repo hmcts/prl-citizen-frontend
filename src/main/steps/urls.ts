@@ -501,7 +501,7 @@ export const REFUGE_UPLOAD_DOC: PageLink = `/:root/${REFUGE_BASE_URL}/upload-ref
 export const C100_REFUGE_UPLOAD_DOC: PageLink = `/:root/${REFUGE_BASE_URL}/upload-refuge-document/:id/:removeFileId?`;
 export const REFUGE_DOC_ALREADY_UPLOADED: PageLink = `/:root/${REFUGE_BASE_URL}/refuge-document-already-uploaded/:id?`;
 
-export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
+export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS, SESSION_TIME_OUT_URL];
 export const COMMON_PAGE_URLS = [
   DASHBOARD_URL,
   PIN_ACTIVATION_URL,
