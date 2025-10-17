@@ -23,6 +23,8 @@ import {
 } from '../../steps/urls';
 import * as Urls from '../../steps/urls';
 import { RAProvider } from '../reasonable-adjustments';
+import { generatePageContent, Language } from "steps/common/common.content";
+import { generateContent } from "@c100/childaddress/content";
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -159,10 +161,20 @@ export class OidcMiddleware {
             const isAnonymousPages = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
 
             if (hadSessionCookie && !isAnonymousPages && req.originalUrl !== '/session-timeout') {
-              return res.redirect('/session-timeout');
+              const language: Language = req.cookies?.lang === 'cy' ? 'cy' : 'en';
+
+              const content = generatePageContent({
+                language,
+                pageContent: generateContent,
+                userCase: req.session?.userCase,
+                userEmail: req.session?.user?.email,
+                additionalData: { req },
+              });
+
+              return res.render('session-timeout/template', content);
             }
 
-            res.redirect(getLoginUrl(Urls, req));
+            return res.redirect(getLoginUrl(Urls, req));
           }
         });
       })
