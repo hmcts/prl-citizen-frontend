@@ -150,37 +150,44 @@ export class OidcMiddleware {
             }
             return next();
           } else {
-            // Skip CSS requests
+            // --- Clean and improved else block ---
             if (req.originalUrl.includes('.css')) {
               console.log('Skipping css', req.originalUrl);
               return next();
             }
 
-            // Skip anonymous pages
-            const isAnonymousPages = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
-            if (isAnonymousPages) {
+            const isPageAnonymous = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
+            const hadSessionCookie = req.cookies?.['prl-citizen-frontend-session'] !== undefined;
+
+            console.log('Session check →', {
+              path: req.originalUrl,
+              hadSessionCookie,
+              hasUser: !!req.session?.user,
+              isAnonymousPage,
+            });
+
+            // 🧍 Allow anonymous pages (includes /session-timeout)
+            if (isPageAnonymous) {
               console.log('Anonymous page → continue', req.originalUrl);
               return next();
             }
 
-            // Destroy session only if there was a session
-            if (req.session) {
-              await RAProvider.destroy(req);
-              console.log('Session destroyed for URL', req.originalUrl);
-            }
-
-            const hadSessionCookie = req.cookies?.['prl-citizen-frontend-session'] !== undefined;
-            console.log('Had Session cookie', hadSessionCookie);
-
+            // 💀 Expired session (cookie but no active session.user)
             if (hadSessionCookie && !req.session?.user) {
               console.log('Session expired → redirecting to timeout');
+              await RAProvider.destroy(req);
               res.clearCookie('prl-citizen-frontend-session');
               return res.redirect('/session-timeout');
-            } else if (!hadSessionCookie) {
+            }
+
+            // 🧍 No cookie (fresh visitor) → login
+            if (!hadSessionCookie) {
               console.log('No session → redirecting to login');
+              await RAProvider.destroy(req);
               return res.redirect(getLoginUrl(Urls, req));
             }
 
+            // fallback
             return next();
           }
         });
