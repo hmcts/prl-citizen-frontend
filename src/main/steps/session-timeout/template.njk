@@ -2,22 +2,24 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block pageTitle %}
-  {{ title }}
+  For your security, we signed you out
 {% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">{{ title }}</h1>
+      <h1 class="govuk-heading-l">
+        For your security, we signed you out
+      </h1>
 
       <p class="govuk-body">
-        {{ bodyText or "For your security, you’ve been signed out because your session timed out." }}
+        Your session has timed out because you were inactive for too long. To continue, please sign in again.
       </p>
 
       {{ govukButton({
-        text: signInButton or "Sign in again",
+        text: "Sign in",
         href: "/login",
-        attributes: { id: "session-timeout-signin-btn" }
+        attributes: { id: "timeout-signin-btn" }
       }) }}
     </div>
   </div>
