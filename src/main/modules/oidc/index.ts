@@ -164,17 +164,21 @@ export class OidcMiddleware {
             const isAnonymousPages = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
             console.log('Is anonymous page?', isAnonymousPages);
 
-            if (hadSessionCookie && !isAnonymousPages && req.originalUrl !== '/session-timeout') {
-              console.log('Redirecting to session timout');
+            if (
+              req.cookies?.['prl-citizen-frontend-session'] &&
+              !req.session?.user &&
+              !isAnonymousPages &&
+              req.originalUrl !== '/session-timeout'
+            ) {
+              console.log('Session expired or invalid → redirecting to timeout');
               res.clearCookie('prl-citizen-frontend-session');
               return res.redirect('/session-timeout');
             } else if (
-              !hadSessionCookie &&
+              !req.cookies?.['prl-citizen-frontend-session'] &&
               !isAnonymousPages &&
-              req.originalUrl !== '/login' &&
-              req.originalUrl !== '/session-timeout'
+              req.originalUrl !== '/login'
             ) {
-              console.log('Redirecting to login');
+              console.log('No session → redirecting to login');
               return res.redirect(getLoginUrl(Urls, req));
             }
             return next();
