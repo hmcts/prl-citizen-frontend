@@ -23,6 +23,7 @@ import {
 } from '../../steps/urls';
 import * as Urls from '../../steps/urls';
 import { RAProvider } from '../reasonable-adjustments';
+import { cookieMaxAge } from '../session';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -150,44 +151,50 @@ export class OidcMiddleware {
             }
             return next();
           } else {
-            // --- Clean and improved else block ---
             if (req.originalUrl.includes('.css')) {
-              console.log('Skipping css', req.originalUrl);
+              console.log('Skipping CSS', req.originalUrl);
               return next();
             }
 
             const isPageAnonymous = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
-            const hadSessionCookie = req.cookies?.['prl-citizen-frontend-session'] !== undefined;
-
-            console.log('Session check →', {
-              path: req.originalUrl,
-              hadSessionCookie,
-              hasUser: !!req.session?.user,
-              isAnonymousPage,
-            });
-
-            // 🧍 Allow anonymous pages (includes /session-timeout)
-            if (isPageAnonymous) {
+            if (isAnonymousPage) {
               console.log('Anonymous page → continue', req.originalUrl);
               return next();
             }
 
-            // 💀 Expired session (cookie but no active session.user)
-            if (hadSessionCookie && !req.session?.user) {
-              console.log('Session expired → redirecting to timeout');
-              await RAProvider.destroy(req);
-              res.clearCookie('prl-citizen-frontend-session');
-              return res.redirect('/session-timeout');
+            const hadSessionCookie = req.cookies?.['prl-citizen-frontend-session'] !== undefined;
+            const hasUser = !!req.session?.user;
+            console.log('Session check →', {
+              path: req.originalUrl,
+              hadSessionCookie,
+              hasUser,
+              isPageAnonymous,
+            });
+
+            if (hadSessionCookie && !hasUser) {
+              const now = Date.now();
+              const elapsed = now - (req.session?.lastAccess ?? 0);
+
+              if (elapsed > cookieMaxAge) {
+                console.log('Elapsed time ', elapsed);
+                console.log('Cookie Max Age', cookieMaxAge);
+                console.log('Session idle timeout → redirecting to /session-timeout');
+                await RAProvider.destroy(req);
+                res.clearCookie('prl-citizen-frontend-session');
+                return res.redirect('/session-timeout');
+              }
+
+              req.session.lastAccess = now;
+              return next();
             }
 
-            // 🧍 No cookie (fresh visitor) → login
             if (!hadSessionCookie) {
               console.log('No session → redirecting to login');
               await RAProvider.destroy(req);
               return res.redirect(getLoginUrl(Urls, req));
             }
 
-            // fallback
+            req.session.lastAccess = Date.now();
             return next();
           }
         });
