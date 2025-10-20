@@ -151,16 +151,22 @@ export class OidcMiddleware {
             return next();
           } else {
             if (req.originalUrl.includes('.css')) {
+              console.log('Skipping css', req.originalUrl);
               return next();
             }
 
             await RAProvider.destroy(req);
+            console.log('Session destroyed for URL', req.originalUrl);
 
             const hadSessionCookie = req.cookies?.['prl-citizen-frontend-session'] !== undefined;
+            console.log('Had Session cookie', hadSessionCookie);
+
             const isAnonymousPages = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
+            console.log('Is anonymous page?', isAnonymousPages);
 
             if (hadSessionCookie && !isAnonymousPages && req.originalUrl !== '/session-timeout') {
-              // User's session just expired → show timeout page
+              console.log('Redirecting to session timout');
+              res.clearCookie('prl-citizen-frontend-session');
               return res.redirect('/session-timeout');
             } else if (
               !hadSessionCookie &&
@@ -168,10 +174,9 @@ export class OidcMiddleware {
               req.originalUrl !== '/login' &&
               req.originalUrl !== '/session-timeout'
             ) {
-              // No session and not already on timeout page → go to login
+              console.log('Redirecting to login');
               return res.redirect(getLoginUrl(Urls, req));
             }
-
             return next();
           }
         });
