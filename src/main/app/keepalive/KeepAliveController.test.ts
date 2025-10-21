@@ -29,13 +29,13 @@ describe('KeepAliveController', () => {
   test('should reset cookie expiry', async () => {
     req = mockRequest({ session: { cookie: {} } });
     await keepAliveController.get(req, res);
-    expect(req.session.cookie.expires).toEqual(new Date('2021-01-01T00:03:00.000Z'));
+    expect(req.session.cookie.expires).toEqual(new Date('2021-01-01T00:21:00.000Z'));
   });
 
   test('should reset cookie maxAge', async () => {
     req = mockRequest({ session: { cookie: {} } });
     await keepAliveController.get(req, res);
-    expect(req.session.cookie.maxAge).toEqual(180000);
+    expect(req.session.cookie.maxAge).toEqual(1260000);
   });
 
   test('should end the response', async () => {

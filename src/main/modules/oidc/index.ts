@@ -150,32 +150,11 @@ export class OidcMiddleware {
             }
             return next();
           } else {
-            // Skip CSS requests
             if (req.originalUrl.includes('.css')) {
               return next();
             }
-
-            const isPageAnonymous = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
-            if (isPageAnonymous) {
-              return next();
-            }
-
-            // Session exists but user is missing → let frontend handle redirect to /session-timeout
-            if (req.session && !req.session.user) {
-              // Optional: destroy any stale session data
-              await RAProvider.destroy(req);
-
-              // Respond with a status to let frontend know session expired
-              return res.status(440).end(); // 440 = Login Time-out (non-standard but widely used)
-            }
-
-            // No session cookie → normal fresh visit
-            if (!req.cookies?.['prl-citizen-frontend-session']) {
-              await RAProvider.destroy(req);
-              return res.redirect(getLoginUrl(Urls, req));
-            }
-
-            return next();
+            await RAProvider.destroy(req);
+            res.redirect(getLoginUrl(Urls, req));
           }
         });
       })
