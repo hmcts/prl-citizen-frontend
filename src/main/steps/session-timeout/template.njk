@@ -1,7 +1,17 @@
-{% extends "layouts/main.njk" %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "common/page.njk" %}
 
-{% block pageTitle %}
-  For your security, we signed you out
+{% block header %}
+  {{ govukHeader({
+    containerClasses: "govuk-width-container",
+    serviceName: serviceName,
+    serviceUrl: (globals.basePath if globals.basePath) + "/"
+  }) }}
+{% endblock %}
+
+{% block backLink %}{% endblock %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  <p class="govuk-body"><a class="govuk-link" href="/login">{{ signInButton }}</a></p>
 {% endblock %}
 
