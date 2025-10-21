@@ -6,6 +6,7 @@ import { EventRoutesContext } from './app/case/definition';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
+import { KeepAliveController } from './app/keepalive/KeepAliveController';
 import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
@@ -42,6 +43,7 @@ import {
   FETCH_HEARING_DETAILS,
   HOME_URL,
   INTERNATIONAL_FACTORS_START,
+  KEEP_ALIVE_URL,
   LOCAL_API_SESSION,
   MIAM_START,
   PARTY_TASKLIST,
@@ -67,6 +69,7 @@ export class Routes {
     app.get(FETCH_CASE_DETAILS, errorHandler(new CaseDetailsGetController().get)); //remove application settings part?
     app.get(PARTY_TASKLIST, errorHandler(new TaskListGetController().load));
     app.get(SESSION_TIME_OUT_URL, errorHandler(new SessionTimeoutGetController().get));
+    app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));
 
     app.get(
       `${CA_RESPONDENT_GENERATE_C7_DRAFT}`,
