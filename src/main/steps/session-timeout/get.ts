@@ -13,8 +13,16 @@ export class SessionTimeoutGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    res.locals['lang'] = req.session.lang;
+    res.locals['lang'] = req.session?.lang;
 
-    req.session.destroy(() => super.get(req, res));
+    super.get(req, res);
+
+    if (req.session) {
+      req.session.destroy(err => {
+        if (err) {
+          console.error('Error destroying session after timeout:', err);
+        }
+      });
+    }
   }
 }
