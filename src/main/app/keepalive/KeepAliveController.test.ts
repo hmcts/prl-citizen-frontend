@@ -13,7 +13,7 @@ describe('KeepAliveController', () => {
   beforeEach(() => {
     Date.now = jest.fn(() => +new Date('2021-01-01'));
     res = mockResponse();
-    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(jest.fn());
   });
 
   afterEach(() => {
