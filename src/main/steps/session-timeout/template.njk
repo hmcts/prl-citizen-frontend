@@ -1,13 +1,5 @@
 {% extends "common/page.njk" %}
 
-{% block header %}
-  {{ govukHeader({
-    containerClasses: "govuk-width-container",
-    serviceName: serviceName,
-    serviceUrl: (globals.basePath if globals.basePath) + "/"
-  }) }}
-{% endblock %}
-
 {% block backLink %}{% endblock %}
 
 {% block page_content %}
