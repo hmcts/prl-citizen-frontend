@@ -1164,7 +1164,7 @@ export const generateContent: TranslationFn = content => {
     };
   }
 
-  form.submit.disabled = !isAllFieldsFilled;
+  form.submit.disabled = false;
   const errors = {};
   content.userCase?.appl_allApplicants?.forEach((applicant, index) => {
     errors[`c8RefugeDocument-applicant-${index}`] = translations.errors.refugeDocumentText;
