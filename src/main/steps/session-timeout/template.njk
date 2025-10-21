@@ -11,7 +11,20 @@
 {% block backLink %}{% endblock %}
 
 {% block page_content %}
-  <h1 class="govuk-heading-xl">{{ title }}</h1>
-  <p class="govuk-body"><a class="govuk-link" href="/login">{{ signInButton }}</a></p>
+  <div class="govuk-grid">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">
+        {{ title }}
+      </h1>
+
+      <div class="govuk-form-group">
+        <a id="timeout-keep-signin-btn1"
+           class="govuk-button govuk-!-margin-bottom-0"
+           href="/login">
+          {{ signInButton }}
+        </a>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
