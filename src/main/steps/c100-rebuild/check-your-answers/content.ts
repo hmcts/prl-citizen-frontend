@@ -1067,7 +1067,7 @@ const generateFormFields = (areAllFieldsFilled: boolean): GenerateDynamicFormFie
           name: 'statementOfTruth',
           label: l => l.StatementOfTruth['check'],
           value: YesOrNo.YES,
-          disabled: !areAllFieldsFilled,
+          disabled: false,
         },
       ],
     },
