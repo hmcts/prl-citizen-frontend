@@ -7,6 +7,7 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { parseUrl } from '../../steps/common/url-parser';
+import { getLoginUrl } from '../../steps/common/utils';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   ANONYMOUS_URLS,
@@ -20,6 +21,7 @@ import {
   SIGN_OUT_URL,
   TESTING_SUPPORT,
 } from '../../steps/urls';
+import * as Urls from '../../steps/urls';
 import { RAProvider } from '../reasonable-adjustments';
 
 /**
@@ -148,11 +150,32 @@ export class OidcMiddleware {
             }
             return next();
           } else {
+            // Skip CSS requests
             if (req.originalUrl.includes('.css')) {
               return next();
             }
-            // await RAProvider.destroy(req);
-            // res.redirect(getLoginUrl(Urls, req));
+
+            const isPageAnonymous = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
+            if (isPageAnonymous) {
+              return next();
+            }
+
+            // Session exists but user is missing → let frontend handle redirect to /session-timeout
+            if (req.session && !req.session.user) {
+              // Optional: destroy any stale session data
+              await RAProvider.destroy(req);
+
+              // Respond with a status to let frontend know session expired
+              return res.status(440).end(); // 440 = Login Time-out (non-standard but widely used)
+            }
+
+            // No session cookie → normal fresh visit
+            if (!req.cookies?.['prl-citizen-frontend-session']) {
+              await RAProvider.destroy(req);
+              return res.redirect(getLoginUrl(Urls, req));
+            }
+
+            return next();
           }
         });
       })
