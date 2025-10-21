@@ -5,22 +5,3 @@
   For your security, we signed you out
 {% endblock %}
 
-{% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">
-        For your security, we signed you out
-      </h1>
-
-      <p class="govuk-body">
-        Your session has timed out because you were inactive for too long. To continue, please sign in again.
-      </p>
-
-      {{ govukButton({
-        text: "Sign in",
-        href: "/login",
-        attributes: { id: "timeout-signin-btn" }
-      }) }}
-    </div>
-  </div>
-{% endblock %}
