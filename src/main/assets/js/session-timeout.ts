@@ -1,6 +1,6 @@
 import { throttle } from 'lodash';
 
-const KEEP_ALIVE_URL = '/keep-alive'; // must match your route
+const KEEP_ALIVE_URL = '/keep-alive';
 const SESSION_TIMEOUT_URL = '/session-timeout';
 
 const eventTimer = 1 * 60 * 1000;
