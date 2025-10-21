@@ -7,7 +7,6 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { parseUrl } from '../../steps/common/url-parser';
-import { getLoginUrl } from '../../steps/common/utils';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   ANONYMOUS_URLS,
@@ -17,13 +16,12 @@ import {
   LOCAL_API_SESSION,
   SAFEGAURD_EXCLUDE_URLS,
   SCREENING_QUESTIONS,
+  SESSION_TIME_OUT_URL,
   SIGN_IN_URL,
   SIGN_OUT_URL,
   TESTING_SUPPORT,
 } from '../../steps/urls';
-import * as Urls from '../../steps/urls';
 import { RAProvider } from '../reasonable-adjustments';
-import { cookieMaxAge } from '../session';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -152,50 +150,10 @@ export class OidcMiddleware {
             return next();
           } else {
             if (req.originalUrl.includes('.css')) {
-              console.log('Skipping CSS', req.originalUrl);
               return next();
             }
-
-            const isPageAnonymous = ANONYMOUS_URLS.some(url => req.originalUrl.startsWith(url));
-            if (isAnonymousPage) {
-              console.log('Anonymous page → continue', req.originalUrl);
-              return next();
-            }
-
-            const hadSessionCookie = req.cookies?.['prl-citizen-frontend-session'] !== undefined;
-            const hasUser = !!req.session?.user;
-            console.log('Session check →', {
-              path: req.originalUrl,
-              hadSessionCookie,
-              hasUser,
-              isPageAnonymous,
-            });
-
-            if (hadSessionCookie && !hasUser) {
-              const now = Date.now();
-              const elapsed = now - (req.session?.lastAccess ?? 0);
-
-              if (elapsed > cookieMaxAge) {
-                console.log('Elapsed time ', elapsed);
-                console.log('Cookie Max Age', cookieMaxAge);
-                console.log('Session idle timeout → redirecting to /session-timeout');
-                await RAProvider.destroy(req);
-                res.clearCookie('prl-citizen-frontend-session');
-                return res.redirect('/session-timeout');
-              }
-
-              req.session.lastAccess = now;
-              return next();
-            }
-
-            if (!hadSessionCookie) {
-              console.log('No session → redirecting to login');
-              await RAProvider.destroy(req);
-              return res.redirect(getLoginUrl(Urls, req));
-            }
-
-            req.session.lastAccess = Date.now();
-            return next();
+            await RAProvider.destroy(req);
+            res.redirect(SESSION_TIME_OUT_URL);
           }
         });
       })
