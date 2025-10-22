@@ -43,6 +43,8 @@ export const form: FormContent = {
     miam_otherProceedings: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       hint: l => l.localAuthority,
       values: [
         {
