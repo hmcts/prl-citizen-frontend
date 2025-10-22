@@ -44,14 +44,6 @@
     },
     html: inPageSurveyContent + languageToggle
   }) }}
-
-  {{ hmrcTimeoutDialog({
-    timeout: 180,
-    countdown: 60,
-    keepAliveUrl: '/keep-alive',
-    signOutUrl: '/session-timeout',
-    language: 'en'
-  }) }}
 {% endblock %}
 
 {% block content %}
