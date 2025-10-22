@@ -127,8 +127,8 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
     en: {},
     cy: {},
   };
-  const fields = {
-    dateOfBirthGroup: {
+  const fields: FormContent['fields'] = {
+    'fieldset-dateOfBirth': {
       type: 'fieldset',
       classes: 'govuk-fieldset__legend--s',
       label: l => l.dobLabel,
@@ -142,7 +142,6 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
           values: [
             {
               label: l => l.dateFormat['day'],
-              //label: l => l.day,
               name: 'day',
               value: dateOfBirth?.day,
               classes: 'govuk-input--width-2',
@@ -150,7 +149,6 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
             },
             {
               label: l => l.dateFormat['month'],
-              //label: l => l.month,
               name: 'month',
               value: dateOfBirth?.month,
               classes: 'govuk-input--width-2',
@@ -158,7 +156,6 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
             },
             {
               label: l => l.dateFormat['year'],
-              //label: l => l.year,
               name: 'year',
               value: dateOfBirth?.year,
               classes: 'govuk-input--width-4',
@@ -167,13 +164,14 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
           ],
           parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
           validator: (value, formData) =>
-            formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
+            (formData as { isDateOfBirthUnknown?: YesNoEmpty })?.isDateOfBirthUnknown !== YesNoEmpty.YES
               ? areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isMoreThan18Years(value as CaseDate) ||
                 isFutureDate(value as CaseDate)
               : dobUnknown(formData),
         },
+
         isDateOfBirthUnknown: {
           type: 'checkboxes',
           classes: 'govuk-checkboxes--small',
@@ -181,9 +179,10 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
             {
               name: 'isDateOfBirthUnknown',
               label: l => l.approxCheckboxLabel,
-              selected: isDateOfBirthUnknown === YesNoEmpty.YES,
               value: YesNoEmpty.YES,
+              selected: isDateOfBirthUnknown === YesNoEmpty.YES,
               subFields: {
+                // 3️⃣ Approx DOB revealed when checked
                 approxDateOfBirth: {
                   type: 'date',
                   classes: 'govuk-date-input',
@@ -192,7 +191,6 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                   values: [
                     {
                       label: l => l.dateFormat['day'],
-                      //label: l => l.day
                       name: 'day',
                       value: approxDateOfBirth?.day,
                       classes: 'govuk-input--width-2',
@@ -200,7 +198,6 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                     },
                     {
                       label: l => l.dateFormat['month'],
-                      //label: l => l.month,
                       name: 'month',
                       value: approxDateOfBirth?.month,
                       classes: 'govuk-input--width-2',
@@ -208,7 +205,6 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                     },
                     {
                       label: l => l.dateFormat['year'],
-                      //label: l => l.year,
                       name: 'year',
                       value: approxDateOfBirth?.year,
                       classes: 'govuk-input--width-4',
@@ -217,7 +213,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                   ],
                   parser: body => covertToDateObject('approxDateOfBirth', body as Record<string, unknown>),
                   validator: (value, formData) =>
-                    formData?.isDateOfBirthUnknown === YesNoEmpty.YES
+                    (formData as { isDateOfBirthUnknown?: YesNoEmpty })?.isDateOfBirthUnknown !== YesNoEmpty.YES
                       ? areDateFieldsFilledIn(value as CaseDate) ||
                         isDateInputInvalid(value as CaseDate) ||
                         isMoreThan18Years(value as CaseDate) ||
@@ -264,10 +260,11 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
 
   // mark the selection for the radio buttons based on the option chosen
 
-  fields.gender.values = fields.gender.values.map(config =>
-    config.value === gender ? { ...config, selected: true } : config
-  );
-
+  if ('values' in fields.gender && Array.isArray(fields.gender.values)) {
+    fields.gender.values = fields.gender.values.map(config =>
+      config.value === gender ? { ...config, selected: true } : config
+    );
+  }
   return { fields, errors };
 };
 
