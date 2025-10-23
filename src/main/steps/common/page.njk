@@ -44,6 +44,13 @@
     },
     html: inPageSurveyContent + languageToggle
   }) }}
+  {{ hmrcTimeoutDialog({
+    timeout: 180,
+    countdown: 60,
+    keepAliveUrl: '/keep-alive',
+    signOutUrl: '/session-timeout',
+    language: 'en'
+  }) }}
 {% endblock %}
 
 {% block content %}
@@ -149,4 +156,9 @@
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "./webpack/js.njk" %}
+  {# HMRC Frontend initialization (needed for timeout dialog and other HMRC JS components) #}
+  <script src="/assets/hmrc/hmrc-frontend/hmrc/all.js"></script>
+  <script>
+    window.HMRCFrontend.initAll()
+  </script>
 {% endblock %}
