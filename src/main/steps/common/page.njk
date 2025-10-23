@@ -44,6 +44,9 @@
     },
     html: inPageSurveyContent + languageToggle
   }) }}
+{% endblock %}
+
+{% block content %}
   {{ hmrcTimeoutDialog({
     timeout: 30,
     countdown: 10,
@@ -51,9 +54,6 @@
     signOutUrl: '/session-timeout',
     language: 'en'
   }) }}
-{% endblock %}
-
-{% block content %}
   <div class="govuk-grid-row">
 
     {% if c100CaseProgressTrainTrack.length %}
