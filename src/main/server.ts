@@ -44,12 +44,14 @@ if (process.env.NODE_ENV !== Environment.PRODUCTION) {
 const developmentMode = env === Environment.DEVELOPMENT;
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
+const hmrcAssetsPath = path.join(__dirname, '..', '..', 'node_modules', 'hmrc-frontend', 'hmrc');
 app.locals.ENV = env;
 app.enable('trust proxy');
 app.locals.developmentMode = process.env.NODE_ENV !== Environment.PRODUCTION;
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
+app.use('/assets/hmrc/hmrc-frontend', express.static(hmrcAssetsPath));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(async (req, res, next) => {
