@@ -153,11 +153,12 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-  {% include "./webpack/js.njk" %}
-  {# HMRC Frontend initialization (needed for timeout dialog and other HMRC JS components) #}
+  {# HMRC Frontend initialization (GIVE PRIORITY) #}
   <script src="/assets/hmrc/hmrc-frontend/all.js"></script>
   <script>
     window.HMRCFrontend.initAll()
   </script>
+
+  {# Run application-specific JavaScript AFTER components are initialized #}
+  {% include "./webpack/js.njk" %}
 {% endblock %}
