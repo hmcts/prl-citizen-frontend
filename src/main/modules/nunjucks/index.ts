@@ -36,29 +36,16 @@ export class Nunjucks {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
     const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
-    // const hmrcFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'hmrc-frontend');
-    // const hmrcFrontendSrcPath = path.join(hmrcFrontendPath, 'src');
-    const hmrcTimeoutDialogTemplateDir = path.join(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      '..',
-      'node_modules',
-      'hmrc-frontend',
-      'src',
-      'components',
-      'timeout-dialog'
-    );
+    const hmrcFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'hmrc-frontend');
+    const hmrcFrontendSrcPath = path.join(hmrcFrontendPath, 'src');
     const commonForC100 = path.join(__dirname, '..', '..', 'steps', 'c100-rebuild', 'common');
     const env = nunjucks.configure(
       [
         path.join(__dirname, '..', '..', 'steps'),
-        hmrcTimeoutDialogTemplateDir,
         govUkFrontendPath,
         hmctsFrontendPath,
-        // hmrcFrontendSrcPath,
-        // hmrcFrontendPath,
+        hmrcFrontendSrcPath,
+        hmrcFrontendPath,
         commonForC100,
       ],
       {

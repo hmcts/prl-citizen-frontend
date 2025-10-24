@@ -46,7 +46,7 @@
 {% endblock %}
 
 {% block content %}
-  {% include "template.njk" with {
+  {% include "components/timeout-dialog/template.njk" with {
     params: {
       timeout: 30,
       countdown: 10,
@@ -54,7 +54,8 @@
       signOutUrl: '/session-timeout',
       language: 'en'
     }
-  } %}  <div class="govuk-grid-row">
+  } %}
+  <div class="govuk-grid-row">
 
     {% if c100CaseProgressTrainTrack.length %}
       <div class="govuk-grid-column-full govuk-!-padding-bottom-9">
