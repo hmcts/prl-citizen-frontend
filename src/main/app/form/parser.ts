@@ -9,7 +9,6 @@ export const covertToDateObject: DateParser = (property, body) =>
     (newDateObj: CaseDate, date: string) => {
       const propertyName = `${property}-${date}`;
       newDateObj[date] = body[propertyName];
-      delete body[propertyName];
       return newDateObj;
     },
     { year: '', month: '', day: '' }
