@@ -12,7 +12,7 @@ import {
   isFutureDate,
   isMoreThan18Years,
 } from '../../../../app/form/validation';
-import { dobUnknown, getPartyDetails } from "../../people/util";
+import { dobUnknown, getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
