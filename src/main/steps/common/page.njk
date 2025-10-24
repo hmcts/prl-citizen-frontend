@@ -1,7 +1,6 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 {% from "common/task-list/components/progress-bar/progress-bar.macro.njk" import buildProgressBar with context %}
-{% from "hmrc/components/timeout-dialog/macro.njk" import hmrcTimeoutDialog %}
 
 {% extends "govuk/template.njk" %}
 
@@ -47,14 +46,15 @@
 {% endblock %}
 
 {% block content %}
-  {{ hmrcTimeoutDialog({
-    timeout: 30,
-    countdown: 10,
-    keepAliveUrl: '/keep-alive',
-    signOutUrl: '/session-timeout',
-    language: 'en'
-  }) }}
-  <div class="govuk-grid-row">
+  {% include "components/timeout-dialog/template.njk" with {
+    params: {
+      timeout: 30,
+      countdown: 10,
+      keepAliveUrl: '/keep-alive',
+      signOutUrl: '/session-timeout',
+      language: 'en'
+    }
+  } %}  <div class="govuk-grid-row">
 
     {% if c100CaseProgressTrainTrack.length %}
       <div class="govuk-grid-column-full govuk-!-padding-bottom-9">
