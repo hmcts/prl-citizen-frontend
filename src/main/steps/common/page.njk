@@ -46,15 +46,13 @@
 {% endblock %}
 
 {% block content %}
-  {% include "template.njk" with {
-    params: {
-      timeout: 30,
-      countdown: 10,
-      keepAliveUrl: '/keep-alive',
-      signOutUrl: '/session-timeout',
-      language: 'en'
-    }
-  } %}
+  <div id="timeout-dialog"
+       data-timeout="30"
+       data-countdown="10"
+       data-keep-alive-url="/keep-alive"
+       data-sign-out-url="/session-timeout"
+       data-language="en">
+  </div>
   <div class="govuk-grid-row">
 
     {% if c100CaseProgressTrainTrack.length %}
