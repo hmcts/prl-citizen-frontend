@@ -36,8 +36,8 @@ export class Nunjucks {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
     const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
-    const hmrcFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'hmrc-frontend');
-    const hmrcFrontendSrcPath = path.join(hmrcFrontendPath, 'src');
+    // const hmrcFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'hmrc-frontend');
+    // const hmrcFrontendSrcPath = path.join(hmrcFrontendPath, 'src');
     const hmrcTimeoutDialogTemplateDir = path.join(
       __dirname,
       '..',
@@ -54,11 +54,11 @@ export class Nunjucks {
     const env = nunjucks.configure(
       [
         path.join(__dirname, '..', '..', 'steps'),
+        hmrcTimeoutDialogTemplateDir,
         govUkFrontendPath,
         hmctsFrontendPath,
-        hmrcFrontendSrcPath,
-        hmrcFrontendPath,
-        hmrcTimeoutDialogTemplateDir,
+        // hmrcFrontendSrcPath,
+        // hmrcFrontendPath,
         commonForC100,
       ],
       {
