@@ -46,13 +46,6 @@
 {% endblock %}
 
 {% block content %}
-  <div id="timeout-dialog"
-       data-timeout="30"
-       data-countdown="10"
-       data-keep-alive-url="/keep-alive"
-       data-sign-out-url="/session-timeout"
-       data-language="en">
-  </div>
   <div class="govuk-grid-row">
 
     {% if c100CaseProgressTrainTrack.length %}
@@ -153,7 +146,16 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  {# HMRC Frontend initialization (GIVE PRIORITY) #}
+  <div id="timeout-dialog"
+       class="hmrc-timeout-dialog"
+       data-timeout="30"
+       data-countdown="10"
+       data-keep-alive-url="/keep-alive"
+       data-sign-out-url="/session-timeout"
+       data-language="en">
+  </div>
+
+  {# HMRC Frontend initialization #}
   <script src="/assets/hmrc/hmrc-frontend/all.js"></script>
   <script>
     window.HMRCFrontend.initAll()
