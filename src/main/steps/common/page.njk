@@ -43,6 +43,14 @@
     },
     html: inPageSurveyContent + languageToggle
   }) }}
+  <div id="timeout-dialog"
+       class="hmrc-timeout-dialog"
+       data-timeout="30"
+       data-countdown="10"
+       data-keep-alive-url="/keep-alive"
+       data-sign-out-url="/session-timeout"
+       data-language="en">
+  </div>
 {% endblock %}
 
 {% block content %}
@@ -146,15 +154,6 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  <div id="timeout-dialog"
-       class="hmrc-timeout-dialog"
-       data-timeout="30"
-       data-countdown="10"
-       data-keep-alive-url="/keep-alive"
-       data-sign-out-url="/session-timeout"
-       data-language="en">
-  </div>
-
   {# HMRC Frontend initialization #}
   <script src="/assets/hmrc/hmrc-frontend/all.js"></script>
   <script>
@@ -162,5 +161,5 @@
   </script>
 
   {# Run application-specific JavaScript AFTER components are initialized #}
-{#  {% include "./webpack/js.njk" %}#}
+  {% include "./webpack/js.njk" %}
 {% endblock %}
