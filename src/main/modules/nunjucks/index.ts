@@ -49,7 +49,7 @@ export class Nunjucks {
       'hmrc',
       'components',
       'timeout-dialog' // The directory containing 'template.njk'
-     );
+    );
     const env = nunjucks.configure(
       [
         path.join(__dirname, '..', '..', 'steps'),
