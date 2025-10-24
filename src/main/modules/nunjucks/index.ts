@@ -44,8 +44,8 @@ export class Nunjucks {
         path.join(__dirname, '..', '..', 'steps'),
         govUkFrontendPath,
         hmctsFrontendPath,
-        hmrcFrontendPath,
         hmrcFrontendSrcPath,
+        hmrcFrontendPath,
         commonForC100,
       ],
       {
