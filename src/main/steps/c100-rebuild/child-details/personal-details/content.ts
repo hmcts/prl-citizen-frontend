@@ -12,7 +12,7 @@ import {
   isFutureDate,
   isMoreThan18Years,
 } from '../../../../app/form/validation';
-import { dobUnknown, getPartyDetails } from '../../people/util';
+import { dobUnknown, getPartyDetails } from "../../people/util";
 export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -166,13 +166,21 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
             },
           ],
           parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
-          validator: (value, formData) =>
-            formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
-              ? areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isMoreThan18Years(value as CaseDate) ||
-                isFutureDate(value as CaseDate)
-              : dobUnknown(formData),
+          validator: (value, formData) => {
+            if (formData?.isDateOfBirthUnknown === YesNoEmpty.YES) {
+              const conflictError = dobUnknown(formData);
+              if (conflictError) {
+                return conflictError;
+              }
+              return '';
+            }
+            return (
+              areDateFieldsFilledIn(value as CaseDate) ||
+              isDateInputInvalid(value as CaseDate) ||
+              isMoreThan18Years(value as CaseDate) ||
+              isFutureDate(value as CaseDate)
+            );
+          },
         },
         isDateOfBirthUnknown: {
           type: 'checkboxes',
