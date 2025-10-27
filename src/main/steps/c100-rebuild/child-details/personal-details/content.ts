@@ -167,17 +167,19 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
           ],
           parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
           validator: (value, formData) => {
-            console.log('value', value);
+            console.log('-----------value---------', value);
             console.log('formData', formData);
             console.log(' formData?.isDateOfBirthUnknown', formData?.isDateOfBirthUnknown);
-            console.log(' formData?.subFields', formData?.subFields);
-            console.log(' formData?.subFields?.isDateOfBirthUnknown', formData?.subFields?.isDateOfBirthUnknown);
-            formData?.subFields?.isDateOfBirthUnknown !== YesNoEmpty.YES
+            console.log(' areDateFieldsFilledIn(value as CaseDate)', areDateFieldsFilledIn(value as CaseDate));
+            console.log(' isDateInputInvalid(value as CaseDate)', isDateInputInvalid(value as CaseDate));
+            console.log(' isMoreThan18Years(value as CaseDate)', isMoreThan18Years(value as CaseDate));
+            console.log(' isFutureDate(value as CaseDate)', isFutureDate(value as CaseDate));
+            formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
               ? areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isMoreThan18Years(value as CaseDate) ||
                 isFutureDate(value as CaseDate)
-              : dobUnknown(formData.subFields);
+              : dobUnknown(formData);
           },
         },
         isDateOfBirthUnknown: {
