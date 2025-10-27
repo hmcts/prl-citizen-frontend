@@ -167,7 +167,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
           ],
           parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
           validator: (value, formData) =>
-            formData?.subFields.isDateOfBirthUnknown !== YesNoEmpty.YES
+            formData?.subFields?.isDateOfBirthUnknown !== YesNoEmpty.YES
               ? areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isMoreThan18Years(value as CaseDate) ||
@@ -217,7 +217,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                   ],
                   parser: body => covertToDateObject('approxDateOfBirth', body as Record<string, unknown>),
                   validator: (value, formData) =>
-                    formData?.subFields.isDateOfBirthUnknown === YesNoEmpty.YES
+                    formData?.subFields?.isDateOfBirthUnknown === YesNoEmpty.YES
                       ? areDateFieldsFilledIn(value as CaseDate) ||
                         isDateInputInvalid(value as CaseDate) ||
                         isMoreThan18Years(value as CaseDate) ||
