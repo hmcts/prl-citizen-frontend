@@ -29,7 +29,8 @@
     "test:pact:run-and-publish": "yarn test:pact && yarn pact:publish",
     "broker": "docker-compose -f broker-compose.yaml up -d",
     "broker:stop": "docker-compose -f broker-compose.yaml down",
-    "test:mutation": "yarn build && NODE_ENV=test stryker run src/test/mutation/stryker.conf.js"
+    "test:mutation": "yarn build && NODE_ENV=test stryker run src/test/mutation/stryker.conf.js",
+    "mirrord:dev": "mirrord exec --target pod/prl-citizen-frontend-pr-1923-nodejs-598c8cd5b-55c9d -- npm run start:debug"
   },
   "dependencies": {
     "@hmcts/cookie-manager": "^1.0.0",
