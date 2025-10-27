@@ -178,7 +178,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                 isMoreThan18Years(value as CaseDate) ||
                 isFutureDate(value as CaseDate)
               : dobUnknown(formData.subFields);
-          }
+          },
         },
         isDateOfBirthUnknown: {
           type: 'checkboxes',
