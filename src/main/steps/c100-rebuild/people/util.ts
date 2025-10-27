@@ -163,7 +163,7 @@ export const dobUnknown = (formData: Record<string, any>): string => {
       ? 'cannotHaveBothApproxAndExact'
       : '';
   console.log('isExactDobDataPresent', isExactDobDataPresent);
-  console.log("formData?.isDateOfBirthUnknown", formData?.isDateOfBirthUnknown);
+  console.log('formData?.isDateOfBirthUnknown', formData?.isDateOfBirthUnknown);
   console.log(formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '');
   return formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '';
 };
