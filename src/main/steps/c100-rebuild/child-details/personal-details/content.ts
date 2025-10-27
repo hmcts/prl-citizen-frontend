@@ -169,15 +169,16 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
           validator: (value, formData) => {
             console.log('value', value);
             console.log('formData', formData);
-            console.log(' formData?.isDateOfBirthUnknown',  formData?.isDateOfBirthUnknown);
-            console.log(' formData?.subFields',  formData?.subFields);
-            console.log(' formData?.subFields?.isDateOfBirthUnknown',  formData?.subFields?.isDateOfBirthUnknown);
+            console.log(' formData?.isDateOfBirthUnknown', formData?.isDateOfBirthUnknown);
+            console.log(' formData?.subFields', formData?.subFields);
+            console.log(' formData?.subFields?.isDateOfBirthUnknown', formData?.subFields?.isDateOfBirthUnknown);
             formData?.subFields?.isDateOfBirthUnknown !== YesNoEmpty.YES
               ? areDateFieldsFilledIn(value as CaseDate) ||
                 isDateInputInvalid(value as CaseDate) ||
                 isMoreThan18Years(value as CaseDate) ||
                 isFutureDate(value as CaseDate)
               : dobUnknown(formData.subFields);
+          }
         },
         isDateOfBirthUnknown: {
           type: 'checkboxes',
