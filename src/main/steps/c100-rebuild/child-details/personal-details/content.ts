@@ -166,21 +166,13 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
             },
           ],
           parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
-          validator: (value, formData) => {
-            if (formData?.isDateOfBirthUnknown === YesNoEmpty.YES) {
-              const conflictError = dobUnknown(formData);
-              if (conflictError) {
-                return conflictError;
-              }
-              return '';
-            }
-            return (
-              areDateFieldsFilledIn(value as CaseDate) ||
-              isDateInputInvalid(value as CaseDate) ||
-              isMoreThan18Years(value as CaseDate) ||
-              isFutureDate(value as CaseDate)
-            );
-          },
+          validator: (value, formData) =>
+            formData?.subFields.isDateOfBirthUnknown !== YesNoEmpty.YES
+              ? areDateFieldsFilledIn(value as CaseDate) ||
+                isDateInputInvalid(value as CaseDate) ||
+                isMoreThan18Years(value as CaseDate) ||
+                isFutureDate(value as CaseDate)
+              : dobUnknown(formData.subFields),
         },
         isDateOfBirthUnknown: {
           type: 'checkboxes',
@@ -225,7 +217,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                   ],
                   parser: body => covertToDateObject('approxDateOfBirth', body as Record<string, unknown>),
                   validator: (value, formData) =>
-                    formData?.isDateOfBirthUnknown === YesNoEmpty.YES
+                    formData?.subFields.isDateOfBirthUnknown === YesNoEmpty.YES
                       ? areDateFieldsFilledIn(value as CaseDate) ||
                         isDateInputInvalid(value as CaseDate) ||
                         isMoreThan18Years(value as CaseDate) ||
