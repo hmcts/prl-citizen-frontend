@@ -144,7 +144,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
               label: l => l.dateFormat['day'],
               //label: l => l.day,
               name: 'day',
-              value: dateOfBirth?.day,
+              value: dateOfBirth!.day,
               classes: 'govuk-input--width-2',
               attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
             },
@@ -152,7 +152,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
               label: l => l.dateFormat['month'],
               //label: l => l.month,
               name: 'month',
-              value: dateOfBirth?.month,
+              value: dateOfBirth!.month,
               classes: 'govuk-input--width-2',
               attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
             },
@@ -160,7 +160,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
               label: l => l.dateFormat['year'],
               //label: l => l.year,
               name: 'year',
-              value: dateOfBirth?.year,
+              value: dateOfBirth!.year,
               classes: 'govuk-input--width-4',
               attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
             },
@@ -181,11 +181,11 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
               isMoreThan18Years(value as CaseDate) ||
               isFutureDate(value as CaseDate);
             console.log(' validationError', validationError);
-            formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
+            return formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
               ? areDateFieldsFilledIn(value as CaseDate) ||
-                isDateInputInvalid(value as CaseDate) ||
-                isMoreThan18Years(value as CaseDate) ||
-                isFutureDate(value as CaseDate)
+                  isDateInputInvalid(value as CaseDate) ||
+                  isMoreThan18Years(value as CaseDate) ||
+                  isFutureDate(value as CaseDate)
               : dobUnknown(formData);
           },
         },
@@ -209,7 +209,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                       label: l => l.dateFormat['day'],
                       //label: l => l.day
                       name: 'day',
-                      value: approxDateOfBirth?.day,
+                      value: approxDateOfBirth!.day,
                       classes: 'govuk-input--width-2',
                       attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
                     },
@@ -217,7 +217,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                       label: l => l.dateFormat['month'],
                       //label: l => l.month,
                       name: 'month',
-                      value: approxDateOfBirth?.month,
+                      value: approxDateOfBirth!.month,
                       classes: 'govuk-input--width-2',
                       attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
                     },
@@ -225,14 +225,14 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                       label: l => l.dateFormat['year'],
                       //label: l => l.year,
                       name: 'year',
-                      value: approxDateOfBirth?.year,
+                      value: approxDateOfBirth!.year,
                       classes: 'govuk-input--width-4',
                       attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
                     },
                   ],
                   parser: body => covertToDateObject('approxDateOfBirth', body as Record<string, unknown>),
                   validator: (value, formData) =>
-                    formData?.subFields?.isDateOfBirthUnknown === YesNoEmpty.YES
+                    formData?.isDateOfBirthUnknown === YesNoEmpty.YES
                       ? areDateFieldsFilledIn(value as CaseDate) ||
                         isDateInputInvalid(value as CaseDate) ||
                         isMoreThan18Years(value as CaseDate) ||
