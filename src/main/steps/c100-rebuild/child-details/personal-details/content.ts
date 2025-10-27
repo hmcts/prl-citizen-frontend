@@ -174,7 +174,6 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
             console.log(' isDateInputInvalid(value as CaseDate)', isDateInputInvalid(value as CaseDate));
             console.log(' isMoreThan18Years(value as CaseDate)', isMoreThan18Years(value as CaseDate));
             console.log(' isFutureDate(value as CaseDate)', isFutureDate(value as CaseDate));
-            console.log(' dobUnknown(formData)', dobUnknown(formData));
 
             const validationError =
               areDateFieldsFilledIn(value as CaseDate) ||
