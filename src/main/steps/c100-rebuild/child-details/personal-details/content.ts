@@ -234,7 +234,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                     },
                   ],
                   parser: body => {
-                    console.log('222 body', body);
+                    console.log('-------- 222 body ------ ', body);
                     return covertToDateObject('approxDateOfBirth', body as Record<string, unknown>);
                   },
                   validator: (value, formData) => {

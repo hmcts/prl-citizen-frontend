@@ -12,7 +12,19 @@ export class Form {
    * Pass the form body to any fields with a parser and return mutated body;
    */
   public getParsedBody(body: AnyObject, checkFields?: FormContent['fields']): Partial<CaseWithFormData> {
+    console.log('xxxxxxxxxxxxxxxx getParsedBody xxxxxxxxxxxxxxxxx');
     const fields = checkFields || this.fields;
+    console.log('fields', fields);
+
+    const val1 = Object.entries(fields).reduce((_fields: [string, FormField][], [key, field]) => {
+      _fields =
+        field.type === 'fieldset' && Object.keys(field?.subFields ?? {}).length
+          ? [..._fields, ...(Object.entries(field.subFields) as [])]
+          : [..._fields, [key, field]];
+      return _fields;
+    }, []);
+
+    console.log('val1', val1);
 
     const parsedBody = Object.entries(fields)
       .reduce((_fields: [string, FormField][], [key, field]) => {
@@ -29,6 +41,18 @@ export class Form {
         return Array.isArray(parsed) ? parsed : [[key, parsed]];
       });
 
+    const checkboxFieldsWithSubfieldsWithParser = val1.filter(
+      ([, field]) =>
+        field?.type === 'checkboxes' &&
+        Array.isArray((field as FormOptions)?.values) &&
+        (field as FormOptions).values.some(
+          option =>
+            option.subFields &&
+            Object.values(option.subFields).some(subField => typeof (subField as FormField)?.parser === 'function')
+        )
+    );
+    console.log('checkboxFieldsWithSubfieldsWithParser', checkboxFieldsWithSubfieldsWithParser);
+
     let subFieldsParsedBody = {};
     for (const [, value] of Object.entries(fields)) {
       (value as FormOptions)?.values
@@ -39,6 +63,18 @@ export class Form {
           subFieldsParsedBody = { ...subFieldsParsedBody, ...parsedSubField };
         });
     }
+
+    for (const [, value] of checkboxFieldsWithSubfieldsWithParser) {
+      (value as FormOptions)?.values
+        ?.filter(option => option.subFields !== undefined)
+        .map(fieldWithSubFields => fieldWithSubFields.subFields)
+        .map(subField => this.getParsedBody(body, subField))
+        .forEach(parsedSubField => {
+          subFieldsParsedBody = { ...subFieldsParsedBody, ...parsedSubField };
+        });
+    }
+
+    console.log('subFieldsParsedBody', subFieldsParsedBody);
 
     return { ...body, ...subFieldsParsedBody, ...Object.fromEntries(parsedBody) };
   }
