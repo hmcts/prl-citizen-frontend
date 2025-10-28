@@ -5,7 +5,7 @@ const SESSION_TIMEOUT_URL = '/session-timeout';
 
 const ACTIVITY_PING_INTERVAL = 1 * 60 * 1000; // 1 minute
 const TOTAL_SESSION_TIMEOUT = 3 * 60 * 1000; // 3 minutes (time until redirect)
-const COUNTDOWN_DURATION = 10; // 10 seconds (time dialog is visible)
+const COUNTDOWN_DURATION = 50;
 
 const DIALOG_APPEARANCE_DELAY = TOTAL_SESSION_TIMEOUT - COUNTDOWN_DURATION * 1000;
 
