@@ -197,11 +197,6 @@ describe('Form', () => {
         month: '1',
         year: '2000',
       },
-
-      'dateField-day': '1',
-      'dateField-month': '1',
-      'dateField-year': '2000',
-
       checkboxes: ['checkbox1', 'checkbox2'],
     });
   });
