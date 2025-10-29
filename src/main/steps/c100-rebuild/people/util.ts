@@ -155,16 +155,10 @@ export const transformPartyDetails = (
 };
 
 export const dobUnknown = (formData: Record<string, any>): string => {
-  console.log('formData.dateOfBirth.day', formData.dateOfBirth?.day);
-  console.log('formData.dateOfBirth.month', formData.dateOfBirth?.month);
-  console.log('formData.dateOfBirth.year', formData.dateOfBirth?.year);
   const isExactDobDataPresent =
     formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
       ? 'cannotHaveBothApproxAndExact'
       : '';
-  console.log('isExactDobDataPresent', isExactDobDataPresent);
-  console.log('formData?.isDateOfBirthUnknown', formData?.isDateOfBirthUnknown);
-  console.log(formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '');
   return formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '';
 };
 
