@@ -1,4 +1,5 @@
 import { TranslationFn } from '../../app/controller/GetController';
+import { generateContent as generateDialogContent } from '../session-timeout-dialog/content'; // <-- Import the function
 import { SESSION_TIME_OUT_URL } from '../urls';
 
 const COUNTDOWN_DURATION = 50;
@@ -23,9 +24,11 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const dialogContent = generateDialogContent(content);
   const translation = languages[content.language];
   return {
     ...translation,
+    ...dialogContent,
     SESSION_TIME_OUT_URL,
     COUNTDOWN_DURATION,
   };
