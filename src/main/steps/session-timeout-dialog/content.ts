@@ -1,21 +1,22 @@
 import { TranslationFn } from '../../app/controller/GetController';
-import { generateContent as generateDialogContent } from '../session-timeout-dialog/content'; // <-- Import the function
 import { SESSION_TIME_OUT_URL } from '../urls';
 
 const COUNTDOWN_DURATION = 50;
 
 export const en = {
-  title: 'You’re about to be signed out',
-  forYourSecurity: 'For your security, we will sign you out in',
-  StaySignInButton: 'Stay Signed In ',
-  SignOutButton: 'Sign Out ',
+  dialog_title: 'You’re about to be signed out',
+  dialog_forYourSecurity: 'For your security, we will sign you out in',
+  dialog_StaySignInButton: 'Stay Signed In',
+  dialog_SignOutButton: 'Sign Out',
+  dialog_seconds: 'seconds',
 };
 
 export const cy: typeof en = {
-  title: 'Rydych ar fin cael eich allgofnodi',
-  forYourSecurity: 'Er eich diogelwch, byddwn yn eich allgofnodi cyn pen',
-  StaySignInButton: 'Parhau i fod wedi’ch mewngofnodi',
-  SignOutButton: 'Allgofnodi',
+  dialog_title: 'Rydych ar fin cael eich allgofnodi',
+  dialog_forYourSecurity: 'Er eich diogelwch, byddwn yn eich allgofnodi cyn pen',
+  dialog_StaySignInButton: 'Parhau i fod wedi’ch mewngofnodi',
+  dialog_SignOutButton: 'Allgofnodi',
+  dialog_seconds: 'eiliad',
 };
 
 const languages = {
@@ -24,11 +25,9 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const dialogContent = generateDialogContent(content);
   const translation = languages[content.language];
   return {
     ...translation,
-    ...dialogContent,
     SESSION_TIME_OUT_URL,
     COUNTDOWN_DURATION,
   };

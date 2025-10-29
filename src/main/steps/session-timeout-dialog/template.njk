@@ -1,13 +1,17 @@
 <div id="session-timeout-dialog" class="govuk-!-display-none">
   <div class="timeout-modal-overlay"></div>
   <div class="timeout-modal-content" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
-    <h2 id="dialog-title" class="govuk-heading-m govuk-!-font-size-27">{{ title }}</h2>
 
-    <p class="govuk-body">{{ forYourSecurity }} <span id="countdown-timer">{{ COUNTDOWN_DURATION }}</span> {{ seconds }}.</p>
+    <h2 id="dialog-title" class="govuk-heading-m govuk-!-font-size-27">{{ dialog_title }}</h2>
 
-    <button id="keep-alive-button" class="govuk-button">{{ StaySignInButton }}</button>
+    <p class="govuk-body">
+      {{ dialog_forYourSecurity }}
+      <span id="countdown-timer">{{ COUNTDOWN_DURATION }}</span>
+      {{ dialog_seconds }}.
+    </p>
 
-    <a href="{{ SESSION_TIMEOUT_URL }}" class="govuk-button govuk-button--secondary">{{ SignOutButton }}</a>
+    <button id="keep-alive-button" class="govuk-button">{{ dialog_StaySignInButton }}</button>
+
+    <a href="{{ SESSION_TIMEOUT_URL }}" class="govuk-button govuk-button--secondary">{{ dialog_SignOutButton }}</a>
   </div>
 </div>
-
