@@ -69,6 +69,8 @@ describe('Safety concern > abduction > child-location', () => {
     const courtPermissionRequired = fields.sq_courtPermissionRequired as FormOptions;
     expect(courtPermissionRequired.type).toBe('radios');
     (courtPermissionRequired.validator as Function)('courtPermissionRequired');
+    expect(courtPermissionRequired.labelHidden).toBe(true);
+    expect((courtPermissionRequired.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((courtPermissionRequired.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((courtPermissionRequired.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
   });
