@@ -8,6 +8,7 @@ import BreadcrumbController from '../../steps/common/breadcrumb/BreadcrumbContro
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import { getProgressBarConfig } from '../../steps/common/task-list/components/progress-bar';
 import { validateRedirectUrl } from '../../steps/common/utils';
+import { getDialogContext } from '../../steps/session-timeout-dialog/content';
 import * as Urls from '../../steps/urls';
 import { CITIZEN_UPDATE, PartyType } from '../case/definition';
 
@@ -74,9 +75,11 @@ export class GetController {
     if (_.isArray(content.breadcrumbs) && content.breadcrumbs.length) {
       await BreadcrumbController.add(content.breadcrumbs, req.session);
     }
+    const dialogContext = getDialogContext(language);
 
     const viewData = {
       ...content,
+      ...dialogContext,
       sessionErrors,
       htmlLang: language,
       caseId: req.session.userCase?.caseId ?? req.session.userCase?.id,

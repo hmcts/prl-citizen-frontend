@@ -12,9 +12,9 @@ const DIALOG_APPEARANCE_DELAY = TOTAL_SESSION_TIMEOUT - COUNTDOWN_DURATION * 100
 let mainTimeoutId;
 let countdownIntervalId;
 
-const dialog = document.getElementById('session-timeout-dialog');
-const timerSpan = document.getElementById('countdown-timer');
-const keepAliveButton = document.getElementById('keep-alive-button');
+let dialog;
+let timerSpan;
+let keepAliveButton;
 
 const handleSessionTimeout = () => {
   window.location.href = SESSION_TIMEOUT_URL;
@@ -53,29 +53,55 @@ const resetTimeout = () => {
   mainTimeoutId = setTimeout(startCountdown, DIALOG_APPEARANCE_DELAY);
 };
 
-const pingUserActive = throttle(
-  () => {
-    if (dialog && !dialog.classList.contains('govuk-!-display-none')) {
-      return;
+document.addEventListener('DOMContentLoaded', () => {
+  dialog = document.getElementById('session-timeout-dialog');
+  timerSpan = document.getElementById('countdown-timer');
+  keepAliveButton = document.getElementById('keep-alive-button');
+
+  const handleStaySignedInClick = () => {
+    if (dialog) {
+      dialog.classList.add('govuk-!-display-none');
     }
+
+    clearInterval(countdownIntervalId);
+
     fetch(KEEP_ALIVE_URL, { cache: 'no-store' })
-      .then(() => resetTimeout()) // Reset after successful ping
-      .catch(() => console.warn('Keep-alive failed'));
-  },
+      .then(() => {
+        resetTimeout();
+      })
+      .catch(() => {
+        console.warn('Stay Signed In failed to connect.');
+        resetTimeout();
+      });
+  };
 
-  ACTIVITY_PING_INTERVAL,
-  { trailing: false }
-);
+  const pingUserActive = throttle(
+    () => {
+      if (dialog && !dialog.classList.contains('govuk-!-display-none')) {
+        return;
+      }
+      fetch(KEEP_ALIVE_URL, { cache: 'no-store' })
+        .then(() => resetTimeout()) // Reset after successful ping
+        .catch(() => console.warn('Keep-alive failed'));
+    },
 
-['click', 'mousemove', 'keypress', 'touchstart'].forEach(evt => {
-  document.addEventListener(evt, pingUserActive);
-});
+    ACTIVITY_PING_INTERVAL,
+    { trailing: false }
+  );
 
-if (keepAliveButton) {
-  keepAliveButton.addEventListener('click', event => {
-    event.preventDefault();
-    pingUserActive();
+  // 2. ATTACH GENERAL ACTIVITY LISTENERS
+  ['click', 'mousemove', 'keypress', 'touchstart'].forEach(evt => {
+    document.addEventListener(evt, pingUserActive);
   });
-}
 
-resetTimeout();
+  // 3. ATTACH 'STAY SIGNED IN' BUTTON LISTENER (Now safe)
+  if (keepAliveButton) {
+    keepAliveButton.addEventListener('click', event => {
+      event.preventDefault();
+      handleStaySignedInClick();
+    });
+  }
+
+  // 4. START THE SYSTEM
+  resetTimeout();
+});

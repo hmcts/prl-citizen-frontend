@@ -1,7 +1,8 @@
-import { TranslationFn } from '../../app/controller/GetController';
+import { DialogContext } from '../../app/case/definition';
 import { SESSION_TIME_OUT_URL } from '../urls';
 
 const COUNTDOWN_DURATION = 50;
+const SESSION_TIMEOUT_URL = SESSION_TIME_OUT_URL;
 
 export const en = {
   dialog_title: 'You’re about to be signed out',
@@ -24,11 +25,13 @@ const languages = {
   cy,
 };
 
-export const generateContent: TranslationFn = content => {
-  const translation = languages[content.language];
+export function getDialogContext(language: string): DialogContext {
+  const currentLang = (language === 'cy' ? 'cy' : 'en') as 'en' | 'cy';
+  const translation = languages[currentLang];
+
   return {
     ...translation,
-    SESSION_TIME_OUT_URL,
+    SESSION_TIMEOUT_URL,
     COUNTDOWN_DURATION,
   };
-};
+}
