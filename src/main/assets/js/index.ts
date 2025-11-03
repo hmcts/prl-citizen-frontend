@@ -5,4 +5,5 @@ import './go-back';
 import './data-layer';
 import './cookie';
 import './UploadFiles';
+import './session-timeout';
 initAll();
