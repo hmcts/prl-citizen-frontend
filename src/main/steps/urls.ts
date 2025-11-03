@@ -8,6 +8,7 @@ export const SIGN_IN_URL_WITH_CALLBACK: PageLink = `${SIGN_IN_URL}?callback={url
 
 export const SIGN_OUT_URL: PageLink = '/logout';
 export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
+export const SESSION_TIME_OUT_URL: PageLink = '/session-timeout';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 export const SERVICE_TYPE: PageLink = '/service-type';
 export const DASHBOARD_URL: PageLink = '/dashboard';
@@ -500,7 +501,7 @@ export const REFUGE_UPLOAD_DOC: PageLink = `/:root/${REFUGE_BASE_URL}/upload-ref
 export const C100_REFUGE_UPLOAD_DOC: PageLink = `/:root/${REFUGE_BASE_URL}/upload-refuge-document/:id/:removeFileId?`;
 export const REFUGE_DOC_ALREADY_UPLOADED: PageLink = `/:root/${REFUGE_BASE_URL}/refuge-document-already-uploaded/:id?`;
 
-export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
+export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS, SESSION_TIME_OUT_URL];
 export const COMMON_PAGE_URLS = [
   DASHBOARD_URL,
   PIN_ACTIVATION_URL,
