@@ -6,6 +6,7 @@ import { EventRoutesContext } from './app/case/definition';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
+import { KeepAliveController } from './app/keepalive/KeepAliveController';
 import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
@@ -22,6 +23,7 @@ import CaseDetailsGetController from './steps/common/task-list/controllers/CaseD
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { ErrorController } from './steps/error/error.controller';
 import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
+import { SessionTimeoutGetController } from './steps/session-timeout/get';
 import { TasklistGetController } from './steps/tasklistresponse/TasklistGetController';
 import {
   APPLICANT_CHECK_ANSWERS,
@@ -41,6 +43,7 @@ import {
   FETCH_HEARING_DETAILS,
   HOME_URL,
   INTERNATIONAL_FACTORS_START,
+  KEEP_ALIVE_URL,
   LOCAL_API_SESSION,
   MIAM_START,
   PARTY_TASKLIST,
@@ -49,6 +52,7 @@ import {
   PROCEEDINGS_START,
   RESPONDENT_CHECK_ANSWERS,
   RESPOND_TO_APPLICATION,
+  SESSION_TIME_OUT_URL,
 } from './steps/urls';
 
 export class Routes {
@@ -153,6 +157,9 @@ export class Routes {
     app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
     app.get(APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK, errorHandler(processAWPApplication));
+
+    app.get(SESSION_TIME_OUT_URL, errorHandler(new SessionTimeoutGetController().get));
+    app.get(KEEP_ALIVE_URL, errorHandler(new KeepAliveController().get));
   }
 
   private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
