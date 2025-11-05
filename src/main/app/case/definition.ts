@@ -125,7 +125,7 @@ export interface User {
 }
 
 export interface Response {
-  respondingCitizenAoH?: string;
+  respondingCitizenAoH?:string,
   legalRepresentation?: string;
   consent?: Consent;
   miam?: Miam;
@@ -136,7 +136,7 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
   c7ResponseSubmitted?: YesOrNo;
-  responseToAllegationsOfHarmYesOrNoResponse?: YesOrNo;
+  responseToAllegationsOfHarmYesOrNoResponse? : YesOrNo;
   respondentResponseToAllegationOfHarm?: string;
 }
 
@@ -719,7 +719,7 @@ export type C100ListOfApplicants = C100Applicant[];
 export interface CaseData {
   id: string;
   children: Child[];
-  newChildDetails?: Child[];
+  newChildDetails?:Child[];
   miamTable: MiamTable;
   applicants: Applicant[];
   applicantsFL401: PartyDetails;
@@ -758,7 +758,7 @@ export interface CaseData {
   allocatedJudgeDetails: AllocatedJudgeDetails;
   miamCertificationDocumentUpload: Document;
   c1ADocument: Document;
-  c1AWelshDocument: Document;
+  c1AWelshDocument:Document;
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;
@@ -772,7 +772,7 @@ export interface CaseData {
   miamExemptionsChecklist: string[];
   attendingTheHearingTable: AttendingTheHearingTable;
   caseUrgencyTimeAndReason: string;
-  welshLanguageRequirement: YesOrNo;
+  welshLanguageRequirement:YesOrNo;
   internationalElementTable: InternationalElementTable;
   litigationCapacityFactors: string;
   miamOtherGroundsChecklist: string;
@@ -892,9 +892,9 @@ export interface CaseData {
   submitAndPayDownloadApplicationWelshLink?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions?: YesOrNo | null;
-  applicantDocuments?: CitizenDocuments[];
-  respondentDocuments?: CitizenDocuments[];
-  citizenOtherDocuments?: CitizenDocuments[];
+  applicantDocuments?:CitizenDocuments[];
+  respondentDocuments?:CitizenDocuments[];
+  citizenOtherDocuments?:CitizenDocuments[];
   citizenOrders?: CitizenDocuments[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
@@ -1295,9 +1295,9 @@ export interface DocumentInfo {
   url: string;
   filename: string;
   binaryUrl: string;
-  hash?: string;
-  categoryId?: string;
-  createdDate?: string;
+  hash?:string;
+  categoryId?:string;
+  createdDate?:string;
 }
 export interface Letter {
   divorceDocument: DivorceDocument;
@@ -2300,14 +2300,15 @@ export type Row = {
   displayText: string;
   value: string | null | undefined;
 };
-export type Reason = {
-  title?: string;
-  reasons?: Reasons[];
+export type Reason= {
+  title?:string,
+  reasons?:Reasons[],
+
 };
-export type Reasons = {
-  reason?: string;
-  examption?: string[];
-};
+export type Reasons= {
+  reason?:string,
+  examption?:string[]
+}
 
 export interface CompletedHearings {
   hearingId: number | undefined;
@@ -2336,9 +2337,10 @@ export interface Schedules {
   hearingJudgeId?: string | null;
   hearingJudgeName?: string | null;
   panelMemberIds?: string[] | number[] | null;
-  attendees?: Attendee[] | null;
+  attendees?: Attendee[] | null;  
   hearingTypeValue?: string;
-  nextHearingDate?: string | null;
+  nextHearingDate?: string | null 
+
 }
 
 export interface Attendee {
@@ -2525,13 +2527,13 @@ export interface OtherProceedingsDocumentInfo extends DocumentInfo {
 }
 
 export type DocumentResponse = {
-  document_url: string;
-  document_binary_url: string;
-  document_filename: string;
-  document_hash: string;
-  document_creation_date: string;
-  category_id?: string;
-};
+    document_url: string;
+    document_binary_url: string;
+    document_filename: string;
+    document_hash: string;
+    document_creation_date: string;
+    category_id?:string;
+  };
 
 export interface DocumentUploadResponse {
   status: string;
@@ -2620,7 +2622,7 @@ export const C100MaxFileSize = '20000000';
 export const MAX_DOCUMENT_LIMITS = {
   SUPPORT_DOCUMENTS: 100,
   DEFAULT: 20,
-  OTHER_DOCUMENTS: 100,
+  OTHER_DOCUMENTS: 100
 };
 export interface C100OrderTypeInterface {
   childArrangementOrders?: C100OrderInterface[];
@@ -2686,16 +2688,16 @@ export interface C1ASafteyConcerns {
     somethingElse?: C1ASafteyConcernsAbuse;
   };
 }
-export interface RespDomesticAbuseBehaviours {
-  id?: string;
+ export interface RespDomesticAbuseBehaviours {
+  id?:string;
   value?: RespDomesticAbuseBehavioursDetails;
-}
-export interface RespDomesticAbuseBehavioursDetails {
-  respTypeOfAbuse?: string;
-  respAbuseNatureDescription?: string;
-  respBehavioursStartDateAndLength?: string;
-  respBehavioursApplicantSoughtHelp?: YesOrNo;
-  respBehavioursApplicantHelpSoughtWho?: string;
+ }
+ export interface RespDomesticAbuseBehavioursDetails {
+  respTypeOfAbuse?:string;
+  respAbuseNatureDescription?:string;
+  respBehavioursStartDateAndLength?:string;
+  respBehavioursApplicantSoughtHelp?:YesOrNo;
+  respBehavioursApplicantHelpSoughtWho?:string;
 }
 
 export enum C1AAbuseTypes {
@@ -2733,7 +2735,7 @@ export type Childinfo = {
   id: string;
   firstName: string;
   lastName: string;
-};
+}
 
 export type OtherChildrenDetails = {
   id: string;
@@ -2840,11 +2842,11 @@ export enum CaseEvent {
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
   CITIZEN_PCQ_UPDATE = 'pcqUpdateForCitizen',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
-  CONTACT_PREFERENCE = 'citizenContactPreference',
-  CITIZEN_INTERNAL_FLAG_UPDATES = 'citizenInternalFlagUpdates',
+  CONTACT_PREFERENCE='citizenContactPreference',
+  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates",
   UPLOAD_STATEMENT_OF_SERVICE = 'citizenStatementOfService',
-  CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS = 'citizenCurrentOrPreviousProceeding',
-  CITIZEN_RESPONSE_TO_AOH = 'citizenResponseToAoH',
+  CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding",
+  CITIZEN_RESPONSE_TO_AOH = 'citizenResponseToAoH'
 }
 
 //DO NOT CHANGE VALUES AS THESE ARE USED IN BACKEND TO MAP FIELDS INTO CASE_DATA
@@ -2865,7 +2867,7 @@ export enum AWPApplicationType {
 }
 
 //DO NOT CHANGE VALUES AS THESE ARE USED IN BACKEND TO MAP FIELDS INTO CASE_DATA
-export enum AWPApplicationReason {
+export enum AWPApplicationReason{
   REQUEST_PARENTAL_RESPONSIBILITY = 'request-grant-for-parental-responsibility',
   REQUEST_GUARDIAN_FOR_CHILD = 'request-appoint-a-guardian-for-child',
 
@@ -2902,6 +2904,7 @@ export enum AWPApplicationReason {
   CHANGE_EXTEND_CANCEL_NON_MOLESTATION_OR_OCCUPATION_ORDER = 'change-extend-or-cancel-non-molestation-order-or-occupation-order',
 
   REQUEST_FOR_ARREST_WARRENT = 'request-the-court-issues-an-arrest-warrant',
+
 }
 export enum hearingStatus {
   COMPLETED = 'COMPLETED',
@@ -2974,7 +2977,7 @@ export enum PaymentErrorContext {
 export enum RootContext {
   C100_REBUILD = 'c100-rebuild',
   RESPONDENT = 'respondent',
-  APPLICANT = 'applicant',
+  APPLICANT = 'applicant'
 }
 
 export enum DomesticAbuseExemptions {
@@ -3044,17 +3047,4 @@ export enum C100SectionUrlName {
   REASONABLE_ADJUSTMENTS = 'reasonable-adjustments',
   HELP_WITH_FEES = 'help-with-fees',
   MIAM = 'miam',
-}
-
-export interface DialogStrings {
-  dialog_title: string;
-  dialog_forYourSecurity: string;
-  dialog_StaySignInButton: string;
-  dialog_SignOutButton: string;
-  dialog_seconds: string;
-}
-
-export interface DialogContext extends DialogStrings {
-  SESSION_TIMEOUT_URL: string;
-  COUNTDOWN_DURATION: number;
 }
