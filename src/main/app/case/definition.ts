@@ -2337,9 +2337,9 @@ export interface Schedules {
   hearingJudgeId?: string | null;
   hearingJudgeName?: string | null;
   panelMemberIds?: string[] | number[] | null;
-  attendees?: Attendee[] | null;  
+  attendees?: Attendee[] | null;
   hearingTypeValue?: string;
-  nextHearingDate?: string | null 
+  nextHearingDate?: string | null
 
 }
 
@@ -3047,4 +3047,17 @@ export enum C100SectionUrlName {
   REASONABLE_ADJUSTMENTS = 'reasonable-adjustments',
   HELP_WITH_FEES = 'help-with-fees',
   MIAM = 'miam',
+}
+
+export interface DialogStrings {
+  dialog_title: string;
+  dialog_forYourSecurity: string;
+  dialog_StaySignInButton: string;
+  dialog_SignOutButton: string;
+  dialog_seconds: string;
+}
+
+export interface DialogContext extends DialogStrings {
+  SESSION_TIMEOUT_URL: string;
+  COUNTDOWN_DURATION: number;
 }
