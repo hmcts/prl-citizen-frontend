@@ -9,19 +9,6 @@
   {% include "./webpack/css.njk" %}
   {% include "./views/includes/script-ga_tag_manager.njk" %}
 
-   <meta
-      name="hmrc-timeout-dialog"
-      content="hmrc-timeout-dialog"
-      data-timeout="60"
-      data-countdown="54"
-      data-keep-alive-url="/keep-alive"
-      data-sign-out-url="/sign-out"
-      data-title="You’re about to be signed out"
-      data-message="For your security, your session will end soon."
-      data-keep-alive-button-text="Stay signed in"
-      data-sign-out-button-text="Sign out"
-      data-synchronise-tabs="true"
-    />
 
 {% endblock %}
 
@@ -45,6 +32,20 @@
     ]
 
   }) }}
+       <meta
+          name="hmrc-timeout-dialog"
+          content="hmrc-timeout-dialog"
+          data-timeout="60"
+          data-countdown="54"
+          data-keep-alive-url="/keep-alive"
+          data-sign-out-url="/receiver"
+          data-title="You’re about to be signed out"
+          data-message="For your security, your session will end soon."
+          data-keep-alive-button-text="Stay signed in"
+          data-sign-out-button-text="Sign out"
+          data-synchronise-tabs="true"
+        />
+
 {% endblock %}
 
 {% block pageTitle %}
@@ -165,4 +166,12 @@
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "./webpack/js.njk" %}
+
+  {{ hmrcTimeoutDialog({
+    timeout: 60,
+    countdown: 50,
+    keepAliveUrl: "/keep-alive",
+    signOutUrl: "/receiver",
+    language: "en"
+  }) }}
 {% endblock %}

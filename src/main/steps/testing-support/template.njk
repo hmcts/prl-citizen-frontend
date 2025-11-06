@@ -1,15 +1,6 @@
 {% extends "common/page.njk" %}
-{% from "hmrc/components/timeout-dialog/macro.njk" import hmrcTimeoutDialog %}
 
 {% block page_content %}
-{{ hmrcTimeoutDialog({
-  timeout: 60,
-  countdown: 50,
-  keepAliveUrl: "/keep-alive",
-  signOutUrl: "/sign-out",
-  language: "en"
-}) }}
-
   <h1 class="govuk-heading-l">{{ title }}</h1>
     <div class="grid-row">
       <div class="column-two-thirds">
