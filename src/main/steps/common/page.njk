@@ -9,14 +9,14 @@
  <meta
           name="hmrc-timeout-dialog"
           content="hmrc-timeout-dialog"
-          data-timeout="60"
-          data-countdown="54"
+          data-timeout="{{ timeout }}"
+          data-countdown="{{ countdown }}"
           data-keep-alive-url="/keep-alive"
           data-sign-out-url="/receiver"
-          data-title="You’re about to be signed out"
-          data-message="For your security, your session will end soon."
-          data-keep-alive-button-text="Stay signed in"
-          data-sign-out-button-text="Sign out"
+          data-title="{{ translations.title }}"
+          data-message="{{ translations.message }}"
+          data-keep-alive-button-text="{{ translations.keepAliveButton }}"
+          data-sign-out-button-text="{{ translations.signOutButton }}"
           data-synchronise-tabs="true"
         />
   {% include "./webpack/css.njk" %}

@@ -53,7 +53,7 @@ module.exports = {
     'jest/prefer-to-have-length': 'error',
     'jest/valid-expect': 'off',
     'linebreak-style': ['error', 'unix'],
-    'no-console': 'warn',
+    'no-console': ['warn', { allow: ['warn', 'error','log'] }], // CODE REVIEW REVERT TO MASTER
     'no-prototype-builtins': 'off',
     'no-return-await': 'error',
     'no-unneeded-ternary': [
