@@ -55,22 +55,6 @@ export class GetController {
       },
     });
 
-    // Basic bilingual dictionary
-    const translations = {
-      en: {
-        title: 'You’re about to be signed out',
-        message: 'For your security, your session will end soon.',
-        keepAliveButton: 'Stay signed in',
-        signOutButton: 'Sign out',
-      },
-      cy: {
-        title: 'Rydych ar fin cael eich allgofnodi',
-        message: 'Er eich diogelwch, byddwn yn eich allgofnodi cyn pen',
-        keepAliveButton: 'Arhoswch wedi’ch mewngofnodi',
-        signOutButton: 'Allgofnodi',
-      },
-    };
-
     const sessionErrors = req.session?.errors || [];
 
     if (req.session?.errors) {
@@ -106,9 +90,8 @@ export class GetController {
         req.session.enableC100CaseProgressionTrainTrack && req.originalUrl.startsWith(Urls.C100_URL)
           ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user, true)
           : [],
-      translations: translations[language],
-      timeout: 600, // seconds
-      countdown: 540,
+      timeout: 60, // seconds
+      countdown: 54,
     };
     //Add caption only if it exists else it will be rendered by specific page
     if (captionValue) {
