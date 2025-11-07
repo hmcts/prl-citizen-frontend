@@ -6,20 +6,9 @@
 {% extends "govuk/template.njk" %}
 
 {% block head %}
- <meta
-          name="hmrc-timeout-dialog"
-          content="hmrc-timeout-dialog"
-          data-timeout="{{ timeout }}"
-          data-countdown="{{ countdown }}"
-          data-keep-alive-url="/keep-alive"
-          data-sign-out-url="/receiver"
-          data-language="{{ htmlLang }}"
-          data-synchronise-tabs="true"
-        />
   {% include "./webpack/css.njk" %}
   {% include "./views/includes/script-ga_tag_manager.njk" %}
-
-
+  {% include "./hmrc-timeout-dialog.njk" %}
 {% endblock %}
 
 {% block bodyStart %}
