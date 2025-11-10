@@ -56,6 +56,8 @@ describe('screeing questions', () => {
     const sqLegalRepresentation = fields.sq_legalRepresentation as FormOptions;
     expect(sqLegalRepresentation.type).toBe('radios');
     expect(sqLegalRepresentation.classes).toBe('govuk-radios');
+    expect(sqLegalRepresentation.labelHidden).toBe(true);
+    expect((sqLegalRepresentation.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((sqLegalRepresentation.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((sqLegalRepresentation.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
     (sqLegalRepresentation.validator as Validator)('YES');

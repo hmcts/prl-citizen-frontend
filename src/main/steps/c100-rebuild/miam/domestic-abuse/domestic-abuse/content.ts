@@ -129,6 +129,8 @@ export const form: FormContent = {
           subFields: {
             miam_domesticAbuse_policeInvolvement_subfields: {
               type: 'checkboxes',
+              label: l => l.policeInvolvement,
+              labelHidden: true,
               validator: value => atLeastOneFieldIsChecked(value),
               hint: l => `<p class="govuk-body">${l.selectAllEvidence}</p>`,
               values: [
@@ -174,6 +176,8 @@ export const form: FormContent = {
           subFields: {
             miam_domesticAbuse_courtInvolvement_subfields: {
               type: 'checkboxes',
+              label: l => l.courtInvolvement,
+              labelHidden: true,
               validator: value => atLeastOneFieldIsChecked(value),
               hint: l => `<p class="govuk-body">${l.selectAllEvidence}</p>`,
               values: [
@@ -215,6 +219,8 @@ export const form: FormContent = {
           subFields: {
             miam_domesticAbuse_letterOfBeingVictim_subfields: {
               type: 'checkboxes',
+              label: l => l.letterOfBeingVictim,
+              labelHidden: true,
               validator: value => atLeastOneFieldIsChecked(value),
               hint: l => `<p class="govuk-body">${l.selectAllLetters}</p>`,
               values: [
@@ -242,6 +248,8 @@ export const form: FormContent = {
           subFields: {
             miam_domesticAbuse_letterFromAuthority_subfields: {
               type: 'checkboxes',
+              label: l => l.letterFromAuthority,
+              labelHidden: true,
               validator: value => atLeastOneFieldIsChecked(value),
               hint: l => `<p class="govuk-body">${l.selectAllLetters}</p>`,
               values: [
@@ -274,6 +282,8 @@ export const form: FormContent = {
           subFields: {
             miam_domesticAbuse_letterFromSupportService_subfields: {
               type: 'checkboxes',
+              label: l => l.letterFromSupportService,
+              labelHidden: true,
               validator: value => atLeastOneFieldIsChecked(value),
               hint: l => `<p class="govuk-body">${l.selectAllLetters}</p>`,
               values: [
