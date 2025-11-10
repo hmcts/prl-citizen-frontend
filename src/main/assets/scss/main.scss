@@ -239,22 +239,3 @@ li.list-style--none{
 .border-bottom--none{
   border-bottom: none !important;
 }
-
-.hmrc-timeout-dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-
-  // GOV.UK styling
-  background-color: govuk-colour("white");
-  border: govuk-spacing(1) solid govuk-colour("blue");
-  box-shadow: 0 govuk-spacing(1) govuk-spacing(2) rgba(govuk-colour("black"), 0.25);
-  padding: govuk-spacing(4);
-  max-width: 480px;
-  width: 90%;
-  text-align: left;
-  font-family: $govuk-font-family;
-  color: $govuk-text-colour;
-}
