@@ -139,11 +139,4 @@
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   {% include "./webpack/js.njk" %}
-  {{ hmrcTimeoutDialog({
-      timeout: 60,
-      countdown: 50,
-      keepAliveUrl: "/keep-alive",
-      signOutUrl: "/receiver",
-      language: "en"
-    }) }}
 {% endblock %}
