@@ -21,8 +21,6 @@ export class GetController {
   constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    console.log(`${req.method} ${req.url}`);
-    console.log(req.url);
     if (res.locals.isError || res.headersSent) {
       // If there's an async error, it will have already rendered an error page upstream,
       // so we don't want to call render again
@@ -90,8 +88,6 @@ export class GetController {
         req.session.enableC100CaseProgressionTrainTrack && req.originalUrl.startsWith(Urls.C100_URL)
           ? getProgressBarConfig(req.session.userCase, PartyType.APPLICANT, language, req.session.user, true)
           : [],
-      timeout: 60, // seconds
-      countdown: 54,
     };
     //Add caption only if it exists else it will be rendered by specific page
     if (captionValue) {

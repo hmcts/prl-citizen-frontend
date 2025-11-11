@@ -6,9 +6,8 @@ import './go-back';
 import './data-layer';
 import './cookie';
 import './UploadFiles';
-
+govuk();
 // Initialize GOV.UK and HMRC frontend components
 document.addEventListener('DOMContentLoaded', () => {
-  govuk();
   hmrc();
 });

@@ -240,75 +240,56 @@ li.list-style--none{
   border-bottom: none !important;
 }
 
+// Once govuk-frontend is at least 5.4.0, replace below with
+// @import "~hmrc-frontend/hmrc/components/timeout-dialog/timeout-dialog"
+
 .hmrc-timeout-overlay {
-  background-color: #0b0c0c;
-  filter: alpha(opacity=80);
-  height: 100%;
-  left: 0;
-  opacity: 0.8;
-  -moz-opacity: 0.8;
   position: fixed;
-  top: 0;
-  width: 100%;
   z-index: 1001;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  background-color: govuk-colour("black");
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
 }
 
 .hmrc-timeout-dialog {
-  background-color: #fff;
-  border: 5px solid #0b0c0c;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  left: 50%;
-  max-height: 100%;
-  max-width: 100%;
-  overflow: auto;
-  padding: 30px;
   position: fixed;
+  z-index: 1002;
   top: 50%;
+  left: 50%;
+  width: 280px;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 30px;
+  overflow: auto;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  width: 280px;
-  z-index: 1002;
-}
+  border: 5px solid govuk-colour("black");
+  background-color: govuk-colour("white");
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 
-@media (min-width: 40.0625em) {
-  .hmrc-timeout-dialog {
-    max-width: 100%;
+  @include govuk-media-query($from: tablet) {
     width: 435px;
+    max-width: 100%;
   }
-}
-.hmrc-timeout-dialog:focus {
-  outline: 3px solid #fd0;
+
+  &:focus {
+    outline: $govuk-focus-width solid $govuk-focus-colour;
+  }
 }
 
 .hmrc-timeout-dialog__message {
-  font-family: GDS Transport, arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.25;
+  @include govuk-font($size: 19);
+
   line-height: 1.31579;
 }
 
-@media print {
-  .hmrc-timeout-dialog__message {
-    font-family: sans-serif;
-  }
-}
-@media (min-width: 40.0625em) {
-  .hmrc-timeout-dialog__message {
-    font-size: 1.1875rem;
-    line-height: 1.3157894737;
-  }
-}
-@media print {
-  .hmrc-timeout-dialog__message {
-    font-size: 14pt;
-    line-height: 1.15;
-  }
-}
 .hmrc-timeout-dialog__countdown {
   display: inline-block;
   font-weight: 700;
@@ -316,56 +297,12 @@ li.list-style--none{
 }
 
 .hmrc-timeout-dialog__link {
-  font-family: GDS Transport, arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 1.125rem;
-  font-weight: 400;
-  line-height: 1.1111111111;
-}
+  @include govuk-font($size: 24);
 
-@media print {
-  .hmrc-timeout-dialog__link {
-    font-family: sans-serif;
-  }
-}
-@media (min-width: 40.0625em) {
-  .hmrc-timeout-dialog__link {
-    font-size: 1.5rem;
-    line-height: 1.25;
-  }
-}
-@media print {
-  .hmrc-timeout-dialog__link {
-    font-size: 18pt;
-    line-height: 1.15;
-  }
-}
-@media (min-width: 40.0625em) {
-  .hmrc-timeout-dialog__link {
-    font-family: GDS Transport, arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.25;
-    padding: 8px 10px 7px;
-  }
-}
-@media print and (min-width: 40.0625em) {
-  .hmrc-timeout-dialog__link {
-    font-family: sans-serif;
-  }
-}
-@media (min-width: 40.0625em) and (min-width: 40.0625em) {
-  .hmrc-timeout-dialog__link {
-    font-size: 1.1875rem;
-    line-height: 1.3157894737;
-  }
-}
-@media print and (min-width: 40.0625em) {
-  .hmrc-timeout-dialog__link {
-    font-size: 14pt;
-    line-height: 1.15;
+  @include govuk-media-query($from: tablet) {
+    @include govuk-font($size: 19);
+
+    // Same padding as govuk-button
+    padding: (govuk-spacing(2) - $govuk-border-width-form-element) govuk-spacing(2) (govuk-spacing(2) - $govuk-border-width-form-element - ($govuk-border-width-form-element / 2));
   }
 }
