@@ -184,12 +184,13 @@ describe('child details > personal details', () => {
   });
 
   test('should contain personal details form fields', () => {
-    const { dateOfBirth, isDateOfBirthUnknown, gender } = fields as Record<string, FormFields>;
+    const { dateOfBirth, isDateOfBirthUnknown } = fields.dateOfBirthGroup.subFields as Record<string, FormFields>;
+    const { gender } = fields as Record<string, FormFields>;
 
     expect(dateOfBirth.type).toBe('date');
     expect(dateOfBirth.classes).toBe('govuk-date-input');
     expect((dateOfBirth.hint as Function)(generatedContent)).toBe(en.dateHint);
-    expect((dateOfBirth.label as Function)(generatedContent)).toBe(en.dobLabel);
+    expect((fields.dateOfBirthGroup.label as Function)(generatedContent)).toBe(en.dobLabel);
     expect(
       (dateOfBirth.values[0].label as Function)({
         ...generatedContent,
