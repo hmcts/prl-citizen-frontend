@@ -157,6 +157,9 @@ describe('respondent details > contact details', () => {
     expect(emailAddress.classes).toBe('govuk-label');
     expect((emailAddress.label as Function)(generatedContent)).toBe(en.emailAddress);
     expect((donKnowEmailAddress.values[0].label as Function)(generatedContent)).toBe(en.donKnowEmailAddress);
+    expect(donKnowEmailAddress.type).toBe('checkboxes');
+    expect(donKnowEmailAddress.labelHidden).toBe(true);
+    expect((donKnowEmailAddress.label as Function)(generatedContent)).toBe(en.title + ' Bob Silly');
     (emailAddress.validator as Function)('dummy@mail.com');
     expect(isFieldFilledIn).toHaveBeenCalledWith('dummy@mail.com');
     expect(isEmailValid).toHaveBeenCalledWith('dummy@mail.com');
@@ -165,6 +168,9 @@ describe('respondent details > contact details', () => {
     expect(telephoneNumber.classes).toBe('govuk-input--width-10');
     expect((telephoneNumber.label as Function)(generatedContent)).toBe(en.telephoneNumber);
     expect((donKnowTelephoneNumber.values[0].label as Function)(generatedContent)).toBe(en.donKnowTelephoneNumber);
+    expect(donKnowTelephoneNumber.type).toBe('checkboxes');
+    expect(donKnowTelephoneNumber.labelHidden).toBe(true);
+    expect((donKnowTelephoneNumber.label as Function)(generatedContent)).toBe(en.title + ' Bob Silly');
     (telephoneNumber.validator as Function)('9999999999');
     expect(isFieldFilledIn).toHaveBeenCalledWith('9999999999');
     expect(isPhoneNoValid).toHaveBeenCalledWith('9999999999');
