@@ -3,6 +3,7 @@ export type PageLink = `/${string}`;
 export const HOME_URL: PageLink = '/';
 export const HEALTH_URL: PageLink = '/health';
 export const CALLBACK_URL: PageLink = '/receiver';
+export const KEEP_ALIVE: PageLink = '/keep-alive';
 export const SIGN_IN_URL: PageLink = '/login';
 export const SIGN_IN_URL_WITH_CALLBACK: PageLink = `${SIGN_IN_URL}?callback={url}`;
 

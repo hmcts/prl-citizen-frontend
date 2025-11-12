@@ -14,6 +14,7 @@ import {
   C100_URL,
   CALLBACK_URL,
   DASHBOARD_URL,
+  KEEP_ALIVE,
   LOCAL_API_SESSION,
   SAFEGAURD_EXCLUDE_URLS,
   SCREENING_QUESTIONS,
@@ -72,6 +73,13 @@ export class OidcMiddleware {
         }
       })
     );
+
+    app.get(KEEP_ALIVE, (req, res) => {
+      if (req.session) {
+        req.session.touch(); // extend session expiry
+      }
+      res.sendStatus(200);
+    });
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
