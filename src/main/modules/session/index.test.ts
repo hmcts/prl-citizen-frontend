@@ -70,7 +70,7 @@ describe('session', () => {
       secret: 'MOCK_SECRET',
       cookie: {
         httpOnly: true,
-        maxAge: 120000,
+        maxAge: 1800000,
         sameSite: 'lax',
       },
       rolling: true,
