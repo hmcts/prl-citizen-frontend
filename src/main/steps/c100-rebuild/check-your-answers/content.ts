@@ -1056,12 +1056,13 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 const generateFormFields = (areAllFieldsFilled: boolean): GenerateDynamicFormFields => {
   const fields = {
     statementOftruthHeading: {},
-    statementOftruthSubHeading: {},
     statementOftruthWarning: {},
     statementOftruthInset: {},
     statementOfTruth: {
       type: 'checkboxes',
       validator: atLeastOneFieldIsChecked,
+      label: l => l.StatementOfTruth.heading,
+      labelSize: 'm',
       values: [
         {
           name: 'statementOfTruth',
@@ -1133,11 +1134,6 @@ export const generateContent: TranslationFn = content => {
   form.fields['statementOftruthHeading'] = {
     type: 'textAndHtml',
     textAndHtml: `${HTML.STATEMENT_OF_TRUTH_HEADING_H2}${newContents.StatementOfTruth['title']} ${HTML.H2_CLOSE}`,
-  };
-
-  form.fields['statementOftruthSubHeading'] = {
-    type: 'textAndHtml',
-    textAndHtml: `${HTML.STATEMENT_OF_TRUTH_H3}${newContents.StatementOfTruth['heading']} ${HTML.H3_CLOSE}`,
   };
 
   form.fields['statementOftruthWarning'] = {
