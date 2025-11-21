@@ -92,6 +92,8 @@ export const form: FormContent = {
       id: 'too_courtOrder',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
+      label: l => l.title,
+      labelHidden: true,
       validator: atLeastOneFieldIsChecked,
       values: [
         {

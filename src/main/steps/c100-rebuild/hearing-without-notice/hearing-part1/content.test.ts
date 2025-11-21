@@ -54,6 +54,8 @@ describe('hearing without notice hearing part1', () => {
     expect(hearingPart1Field.classes).toBe('govuk-radios');
     expect((hearingPart1Field.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((hearingPart1Field.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+    expect((hearingPart1Field.label as LanguageLookup)(generatedContent)).toBe(en.title);
+    expect(hearingPart1Field.labelHidden).toBe(true);
   });
 
   test('should contain Continue button', () => {

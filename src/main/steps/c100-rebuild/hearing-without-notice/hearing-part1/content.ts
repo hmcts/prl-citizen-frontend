@@ -51,6 +51,8 @@ export const form: FormContent = {
     hwn_hearingPart1: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.one,

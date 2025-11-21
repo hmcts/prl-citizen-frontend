@@ -50,6 +50,8 @@ describe('maim > attendance > content', () => {
     expect(maim_attendance.classes).toBe('govuk-radios');
     expect((maim_attendance.values[0].label as LanguageLookup)(generatedContent)).toBe(en.yes);
     expect((maim_attendance.values[1].label as LanguageLookup)(generatedContent)).toBe(en.no);
+    expect((maim_attendance.label as LanguageLookup)(generatedContent)).toBe(en.title);
+    expect(maim_attendance.labelHidden).toBe(true);
   });
 
   test('should contain Continue button', () => {

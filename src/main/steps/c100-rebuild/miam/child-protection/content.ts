@@ -54,6 +54,8 @@ export const form: FormContent = {
     miam_childProtectionEvidence: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.subTitle,
+      labelHidden: true,
       values: [
         {
           label: l => l.localAuthority,
