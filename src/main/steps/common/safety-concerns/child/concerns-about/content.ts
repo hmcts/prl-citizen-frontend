@@ -91,6 +91,8 @@ export const form: FormContent = {
       c1A_concernAboutChild: {
         id: 'c1A_concernAboutChild',
         type: 'checkboxes',
+        label: l => l.headingTitle,
+        labelHidden: true,
         hint: l => l.select_all_relevant,
         validator: atLeastOneFieldIsChecked,
         values: [

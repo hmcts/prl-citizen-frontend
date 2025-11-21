@@ -109,6 +109,8 @@ describe('safetyconcerns > child > concern about > content', () => {
 
     expect(childConcernAboutField.type).toBe('checkboxes');
     expect((childConcernAboutField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_relevant);
+    expect((childConcernAboutField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
+    expect(childConcernAboutField.labelHidden).toBe(true);
     expect((childConcernAboutField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.physicalAbuse);
     expect((childConcernAboutField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.psychologicalAbuse);
     expect((childConcernAboutField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.emotionalAbuse);

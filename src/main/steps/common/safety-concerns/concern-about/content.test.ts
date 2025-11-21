@@ -66,6 +66,8 @@ describe('Safety concern about > applying-with > content', () => {
     const concernAboutField = fields.c1A_safetyConernAbout as FormOptions;
     expect(concernAboutField.type).toBe('checkboxes');
     expect((concernAboutField?.hint as Function)(generatedContent)).toBe(en.select_all_relevant);
+    expect((concernAboutField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
+    expect(concernAboutField.labelHidden).toBe(true);
     expect((concernAboutField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.childrenInThisApplication);
     expect((concernAboutField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.yourself);
 
