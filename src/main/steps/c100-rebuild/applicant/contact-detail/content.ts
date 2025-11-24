@@ -130,7 +130,7 @@ export const generateFormFields = (
     canProvideEmail: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.title,
+      label: l => l.emailAdddressLabel,
       labelHidden: true,
       values: [
         {
@@ -158,6 +158,8 @@ export const generateFormFields = (
     canProvideTelephoneNumber: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.telephoneNumberLabel,
+      labelHidden: true,
       values: [
         {
           label: l => l.canProvideTelephoneNumberLabel,

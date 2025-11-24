@@ -105,6 +105,8 @@ export const generateContent: TranslationFn = content => {
       subFields: {
         contactDetailsPrivateAlternative: {
           type: 'checkboxes',
+          label: l => l.headingTitle,
+          labelHidden: true,
           hint: l => l.contact_details_private,
           // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
           validator: (value, formData: Partial<Case>) => {
