@@ -88,6 +88,8 @@ export const generateFormFields = (relationshipTypeOption: RelationshipToChildre
   const fields = {
     relationshipType: {
       type: 'radios',
+      label: l => l.title,
+      labelHidden: true,
       classes: 'govuk-radios',
       labelSize: 's',
       values: [

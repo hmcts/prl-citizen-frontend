@@ -195,12 +195,15 @@ describe('otherPerson details > relationshipDetails details', () => {
 
   test('should contain relationshipDetails details form fields', () => {
     const { relationshipType } = fields as Record<string, FormFields>;
+    const expectedTitle = `${en.title} Amy Root${en.title1} Bob Silly`;
 
     expect(relationshipType.type).toBe('radios');
     expect(relationshipType.classes).toBe('govuk-radios');
 
     expect(relationshipType.type).toBe('radios');
     expect(relationshipType.classes).toBe('govuk-radios');
+    expect(relationshipType.labelHidden).toBe(true);
+    expect((relationshipType.label as LanguageLookup)(generatedContent)).toBe(expectedTitle);
     expect((relationshipType.values[0].label as Function)(generatedContent)).toBe(en.mother);
     expect(relationshipType.values[0].value).toBe(RelationshipType.MOTHER);
     expect((relationshipType.values[1].label as Function)(generatedContent)).toBe(en.father);

@@ -71,6 +71,8 @@ export const generateFormFields = (
   const fields = {
     mainlyLiveWith: {
       type: 'radios',
+      label: l => l.title,
+      labelHidden: true,
       hint: l => l.liveWithHint,
       validator: atLeastOneFieldIsChecked,
       values: getPeople(userCase).map(person => ({
