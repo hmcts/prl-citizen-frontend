@@ -128,7 +128,9 @@ describe('applicant personal details > applying-with > content', () => {
       ?.too_stopOtherPeopleDoingSomethingSubField as FormOptions;
     expect(stopOtherPeopleDoingSomethingSubField.type).toBe('checkboxes');
     expect(stopOtherPeopleDoingSomethingSubField.labelHidden).toBe(true);
-    expect((stopOtherPeopleDoingSomethingSubField.label as LanguageLookup)(generatedContent)).toBe(en.stopOtherPeopleDoingSomething);
+    expect((stopOtherPeopleDoingSomethingSubField.label as LanguageLookup)(generatedContent)).toBe(
+      en.stopOtherPeopleDoingSomething
+    );
     expect((stopOtherPeopleDoingSomethingSubField.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.changeChildrenNameSurname
     );
