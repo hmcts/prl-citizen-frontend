@@ -22,6 +22,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 }
 
 export interface AppSession extends Session {
+  simulatedOnce: boolean;
   enableCaseTrainTrack: boolean;
   enableC100CaseProgressionTrainTrack: boolean;
   testingSupport: boolean;

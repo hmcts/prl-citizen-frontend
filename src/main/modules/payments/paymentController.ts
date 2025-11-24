@@ -106,7 +106,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
       if (paymentStatus && paymentStatus === SUCCESS) {
         req.session.userCase.paymentSuccessDetails = checkPayment['data'];
         //Invoke update case with 'citizen-case-submit' event & reidrect confirmation page
-        submitCase(
+        await submitCase(
           req,
           res,
           req.session.userCase.caseId!,
@@ -134,6 +134,7 @@ export async function submitCase(
 ): Promise<void> {
   try {
     req.session.paymentError = { hasError: false, errorContext: null };
+    throw new Error('Simulated Payment Success but you need to resubmit failure');
     const updatedCase = await req.locals.C100Api.submitC100Case(
       caseId,
       caseData,
