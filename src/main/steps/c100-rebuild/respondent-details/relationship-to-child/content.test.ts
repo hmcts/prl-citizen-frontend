@@ -201,6 +201,8 @@ describe('respondent details > relationshipDetails details', () => {
 
     expect(relationshipType.type).toBe('radios');
     expect(relationshipType.classes).toBe('govuk-radios');
+    expect(relationshipType.labelHidden).toBe(true);
+    expect((relationshipType.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((relationshipType.values[0].label as Function)(generatedContent)).toBe(en.mother);
     expect(relationshipType.values[0].value).toBe(RelationshipType.MOTHER);
     expect((relationshipType.values[1].label as Function)(generatedContent)).toBe(en.father);

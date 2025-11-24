@@ -158,6 +158,8 @@ describe('applicant > contact details', () => {
 
     expect(canProvideEmail.type).toBe('radios');
     expect(canProvideEmail.classes).toBe('govuk-radios');
+    expect(canProvideEmail.labelHidden).toBe(true);
+    expect((canProvideEmail.label as LanguageLookup)(generatedContent)).toBe(`${en.title} Bob Silly`);
     expect((canProvideEmail.values[0].label as Function)(generatedContent)).toBe(en.canProvideEmailLabel);
     expect(canProvideEmail.values[0].value).toBe(YesNoEmpty.YES);
 

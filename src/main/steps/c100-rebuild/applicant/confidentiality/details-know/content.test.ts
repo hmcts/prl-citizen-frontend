@@ -86,6 +86,8 @@ describe('applicant personal details > applying-with > content', () => {
     const detailsKnownField = fields.detailsKnown as FormOptions;
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
+    expect(detailsKnownField.labelHidden).toBe(true);
+    expect((detailsKnownField.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((detailsKnownField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((detailsKnownField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
     expect((detailsKnownField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.three);
