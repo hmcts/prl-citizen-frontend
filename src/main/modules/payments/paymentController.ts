@@ -144,9 +144,15 @@ export async function submitCase(
     //update final document in session for download on confirmation
     req.session.userCase.c100DraftDoc = updatedCase.data?.submitAndPayDownloadApplicationLink;
     //save & redirect to confirmation page
-    req.session.save(() => {
-      res.redirect(C100_CONFIRMATIONPAGE);
+    await new Promise<void>((resolve, reject) => {
+      req.session.save(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
     });
+    res.redirect(C100_CONFIRMATIONPAGE);
   } catch (e) {
     req.locals.logger.error(e);
     populateError(req, res, 'Error in submit case', PaymentErrorContext.APPLICATION_NOT_SUBMITTED);
