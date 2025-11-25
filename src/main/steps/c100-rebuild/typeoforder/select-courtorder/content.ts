@@ -91,8 +91,6 @@ export const form: FormContent = {
     too_courtOrder: {
       id: 'too_courtOrder',
       type: 'checkboxes',
-      label: l => l.title,
-      labelHidden: true,
       hint: l => l.select_all_apply,
       validator: atLeastOneFieldIsChecked,
       values: [
@@ -115,8 +113,6 @@ export const form: FormContent = {
             too_stopOtherPeopleDoingSomethingSubField: {
               id: 'too_stopOtherPeopleDoingSomethingSubField',
               type: 'checkboxes',
-              label: l => l.stopOtherPeopleDoingSomething,
-              labelHidden: true,
               validator: atLeastOneFieldIsChecked,
               values: [
                 {
@@ -157,8 +153,6 @@ export const form: FormContent = {
             too_resolveSpecificIssueSubField: {
               id: 'too_resolveSpecificIssueSubField',
               type: 'checkboxes',
-              label: l => l.resolveSpecificIssue,
-              labelHidden: true,
               validator: atLeastOneFieldIsChecked,
               values: [
                 {

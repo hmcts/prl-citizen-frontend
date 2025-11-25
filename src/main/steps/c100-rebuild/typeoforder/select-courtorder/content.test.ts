@@ -107,8 +107,6 @@ describe('applicant personal details > applying-with > content', () => {
   test('should contain courtOrder field', () => {
     const courtOrderField = fields.too_courtOrder as FormOptions;
     expect(courtOrderField.type).toBe('checkboxes');
-    expect(courtOrderField.labelHidden).toBe(true);
-    expect((courtOrderField.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((courtOrderField?.hint as Function)(generatedContent)).toBe(en.select_all_apply);
     expect((courtOrderField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.whoChildLiveWith);
     expect((courtOrderField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.childTimeSpent);
@@ -127,10 +125,6 @@ describe('applicant personal details > applying-with > content', () => {
     const stopOtherPeopleDoingSomethingSubField = courtOrderField.values[2].subFields
       ?.too_stopOtherPeopleDoingSomethingSubField as FormOptions;
     expect(stopOtherPeopleDoingSomethingSubField.type).toBe('checkboxes');
-    expect(stopOtherPeopleDoingSomethingSubField.labelHidden).toBe(true);
-    expect((stopOtherPeopleDoingSomethingSubField.label as LanguageLookup)(generatedContent)).toBe(
-      en.stopOtherPeopleDoingSomething
-    );
     expect((stopOtherPeopleDoingSomethingSubField.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.changeChildrenNameSurname
     );
@@ -153,8 +147,6 @@ describe('applicant personal details > applying-with > content', () => {
     const resolveSpecificIssueSubField = courtOrderField.values[3].subFields
       ?.too_resolveSpecificIssueSubField as FormOptions;
     expect(resolveSpecificIssueSubField.type).toBe('checkboxes');
-    expect(resolveSpecificIssueSubField.labelHidden).toBe(true);
-    expect((resolveSpecificIssueSubField.label as LanguageLookup)(generatedContent)).toBe(en.resolveSpecificIssue);
     expect((resolveSpecificIssueSubField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.specificHoliday);
     expect((resolveSpecificIssueSubField.values[1].label as LanguageLookup)(generatedContent)).toBe(
       en.whatSchoolChildrenWillGoTo
