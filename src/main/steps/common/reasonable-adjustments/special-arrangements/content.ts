@@ -82,6 +82,8 @@ export const form: FormContent = {
       ra_specialArrangements: {
         id: 'ra_specialArrangements',
         type: 'checkboxes',
+        label: l => l.headingTitle,
+        labelHidden: true,
         hint: l => l.select_all_apply,
         validator: value => atLeastOneFieldIsChecked(value),
         values: [

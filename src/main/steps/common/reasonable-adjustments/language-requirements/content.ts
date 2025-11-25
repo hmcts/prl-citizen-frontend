@@ -73,6 +73,8 @@ export const form: FormContent = {
       ra_languageNeeds: {
         id: 'ra_languageNeeds',
         type: 'checkboxes',
+        label: l => l.headingTitle,
+        labelHidden: true,
         hint: l => l.select_all_apply,
         validator: value => atLeastOneFieldIsChecked(value),
         values: [
