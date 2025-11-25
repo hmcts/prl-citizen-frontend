@@ -120,7 +120,8 @@ describe('Communication help content', () => {
     const communicationHelpField = fields.ra_communicationHelp as FormOptions;
 
     expect(communicationHelpField.type).toBe('checkboxes');
-
+    expect(communicationHelpField.labelHidden).toBe(true);
+    expect((communicationHelpField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect((communicationHelpField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((communicationHelpField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.hearingLoop);
     expect((communicationHelpField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.infraredReceiver);
