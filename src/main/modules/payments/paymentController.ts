@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 import { Response } from 'express';
+import { promisify } from 'node:util';
 import type { LoggerInstance } from 'winston';
 
 import { getTokenFromApi } from '../../app/auth/service/get-service-auth-token';
@@ -144,14 +145,8 @@ export async function submitCase(
     //update final document in session for download on confirmation
     req.session.userCase.c100DraftDoc = updatedCase.data?.submitAndPayDownloadApplicationLink;
     //save & redirect to confirmation page
-    await new Promise<void>((resolve, reject) => {
-      req.session.save(err => {
-        if (err) {
-          return reject(err);
-        }
-        resolve();
-      });
-    });
+    const saveSession = promisify(req.session.save).bind(req.session);
+    await saveSession();
     res.redirect(C100_CONFIRMATIONPAGE);
   } catch (e) {
     req.locals.logger.error(e);
