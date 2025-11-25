@@ -1,7 +1,8 @@
+import { promisify } from 'node:util';
+
 import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 import { Response } from 'express';
-import { promisify } from 'node:util';
 import type { LoggerInstance } from 'winston';
 
 import { getTokenFromApi } from '../../app/auth/service/get-service-auth-token';
