@@ -118,6 +118,8 @@ describe('applicant personal details > applying-with > content', () => {
     );
     expect((courtOrderField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.resolveSpecificIssue);
     expect((courtOrderField.values[3].hint as LanguageLookup)(generatedContent)).toBe(en.resolveSpecificIssueHint);
+    expect((courtOrderField.label as LanguageLookup)(generatedContent)).toBe(en.title);
+    expect(courtOrderField.labelHidden).toBe(true);
 
     (courtOrderField.validator as Function)('resolveSpecificIssue');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('resolveSpecificIssue');
