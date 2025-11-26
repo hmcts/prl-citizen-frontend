@@ -7,8 +7,8 @@
     {% set realtitle = headingTitle%}
 {% endif %}
 {% block pageTitle %}
-  {% if headingTitle %}
-    {{headingTitle }} {{appName}}
+  {% if pageTitle %}
+    {{pageTitle }} {{appName}}
   {% else %}
     {{realtitle }} {{appName}}
   {% endif %}

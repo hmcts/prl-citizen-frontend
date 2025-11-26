@@ -17,7 +17,8 @@ import { getApplicantDetails } from '../util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  headingTitle: 'Provide details for the Applicant',
+  title: 'Provide details for',
+  pageTitle: 'Provide details for the Applicant',
   haveYouChangeNameLabel: 'Have you changed your name?',
   haveYouChangeNameHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
@@ -290,8 +291,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    title: `${translations['title']}`,
-    headingTitle: `${translations['headingTitle']} ${applicantDetails.applicantFirstName} ${applicantDetails.applicantLastName}`,
+    title: `${translations['title']} ${applicantDetails.applicantFirstName} ${applicantDetails.applicantLastName}`,
     form: updateFormFields(form, fields),
   };
 };
