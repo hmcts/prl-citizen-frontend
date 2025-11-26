@@ -123,7 +123,7 @@ describe('Disability requirements content', () => {
 
     expect(documentInformationField.type).toBe('checkboxes');
     expect(documentInformationField.labelHidden).toBe(true);
-    expect((documentInformationField.label as LanguageLookup)(generatedContent)).toBe(en.specifiedColorDocuments);
+    expect((documentInformationField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect((documentInformationField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((documentInformationField.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.specifiedColorDocuments

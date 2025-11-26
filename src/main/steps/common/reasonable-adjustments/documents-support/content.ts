@@ -105,7 +105,7 @@ export const form: FormContent = {
     return {
       ra_documentInformation: {
         type: 'checkboxes',
-        label: l => l.specifiedColorDocuments,
+        label: l => l.headingTitle,
         labelHidden: true,
         hint: l => l.select_all_apply,
         validator: atLeastOneFieldIsChecked,
