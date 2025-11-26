@@ -119,6 +119,8 @@ describe('Urgent Hearing', () => {
     expect((hearingUrgencyCheck.values[1].label as LanguageLookup)(generatedContent)).toBe(en.riskOfChildAbduction);
     expect((hearingUrgencyCheck.values[2].label as LanguageLookup)(generatedContent)).toBe(en.overseasLegalProceeding);
     expect((hearingUrgencyCheck.values[3].label as LanguageLookup)(generatedContent)).toBe(en.otherRisks);
+    expect((hearingUrgencyCheck.label as LanguageLookup)(generatedContent)).toBe(en.reasonForUrgentHearing);
+    expect(hearingUrgencyCheck.labelHidden).toBe(true);
 
     const hearingUrgencyRiskDetails = fields.hu_otherRiskDetails as FormOptions;
     expect(hearingUrgencyRiskDetails.type).toBe('textarea');
