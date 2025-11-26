@@ -17,7 +17,6 @@ import { getApplicantDetails } from '../util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: 'Provide details for',
   headingTitle: 'Provide details for the Applicant',
   haveYouChangeNameLabel: 'Have you changed your name?',
   haveYouChangeNameHint:
@@ -69,7 +68,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Darparwch fanylion am ',
   headingTitle: 'Provide details for the Applicant',
   haveYouChangeNameLabel: 'A ydych wedi newid eich enw?',
   haveYouChangeNameHint:
