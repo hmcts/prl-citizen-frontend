@@ -18,7 +18,8 @@ import { generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  headingTitle: 'Provide details for the Applicant',
+  title: 'Provide details for',
+  pageTitle: 'Provide details for the Applicant',
   haveYouChangeNameLabel: 'Have you changed your name?',
   haveYouChangeNameHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
@@ -69,7 +70,8 @@ const en = {
 };
 
 const cy = {
-  headingTitle: 'Provide details for the Applicant',
+  title: 'Darparwch fanylion am ',
+  pageTitle: 'Provide details for the Applicant',
   haveYouChangeNameLabel: 'A ydych wedi newid eich enw?',
   haveYouChangeNameHint:
     'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
@@ -173,7 +175,8 @@ describe('Applicant details > personal details', () => {
       'en',
       {
         ...en,
-        headingTitle: `${en.headingTitle} dummy Test`,
+        title: `${en.title} dummy Test`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -190,7 +193,8 @@ describe('Applicant details > personal details', () => {
       'cy',
       {
         ...cy,
-        headingTitle: `${cy.headingTitle} dummy Test`,
+        title: `${cy.title} dummy Test`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,

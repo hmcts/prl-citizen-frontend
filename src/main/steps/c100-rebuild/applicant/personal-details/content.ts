@@ -69,7 +69,8 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  headingTitle: 'Provide details for the Applicant',
+  title: 'Darparwch fanylion am ',
+  pageTitle: 'Provide details for the Applicant',
   haveYouChangeNameLabel: 'A ydych wedi newid eich enw?',
   haveYouChangeNameHint:
     'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
