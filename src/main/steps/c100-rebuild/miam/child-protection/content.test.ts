@@ -68,6 +68,8 @@ describe('miam child protection', () => {
   test('should contain miam child protection involved fields', () => {
     const miam_domesticabuse_involvement_field = fields.miam_childProtectionEvidence as FormOptions;
     expect(miam_domesticabuse_involvement_field.type).toBe('radios');
+    expect(miam_domesticabuse_involvement_field.labelHidden).toBe(true);
+    expect((miam_domesticabuse_involvement_field.label as LanguageLookup)(generatedContent)).toBe(en.subTitle);
     expect((miam_domesticabuse_involvement_field.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.localAuthority
     );

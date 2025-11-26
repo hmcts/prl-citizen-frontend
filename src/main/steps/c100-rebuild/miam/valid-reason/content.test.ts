@@ -53,6 +53,8 @@ describe('maim > valid-reason > content', () => {
     expect(miam_validReason.classes).toBe('govuk-radios');
     expect((miam_validReason.values[0].label as LanguageLookup)(generatedContent)).toBe(en.yes);
     expect((miam_validReason.values[1].label as LanguageLookup)(generatedContent)).toBe(en.no);
+    expect((miam_validReason.label as LanguageLookup)(generatedContent)).toBe(en.title);
+    expect(miam_validReason.labelHidden).toBe(true);
   });
 
   test('should contain Continue button', () => {

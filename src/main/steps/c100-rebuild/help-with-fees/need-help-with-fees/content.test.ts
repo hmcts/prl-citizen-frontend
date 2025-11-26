@@ -69,6 +69,8 @@ describe('help-with-fees > need-help-with-fees', () => {
     const needHelpWithFees = fields.hwf_needHelpWithFees as FormOptions;
     expect(needHelpWithFees.type).toBe('radios');
     expect(needHelpWithFees.classes).toBe('govuk-radios');
+    expect(needHelpWithFees.labelHidden).toBe(true);
+    expect((needHelpWithFees.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect((needHelpWithFees.values[0].label as LanguageLookup)(generatedContent)).toBe(en.yesNeedHelpWithFeesPaying);
     expect((needHelpWithFees.values[1].label as LanguageLookup)(generatedContent)).toBe(en.noNeedHelpWithFeesPaying);
     // eslint-disable-next-line @typescript-eslint/ban-types

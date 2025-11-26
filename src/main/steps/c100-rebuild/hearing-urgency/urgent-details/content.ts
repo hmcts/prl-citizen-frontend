@@ -106,6 +106,7 @@ export const form: FormContent = {
   fields: {
     hu_reasonOfUrgentHearing: {
       type: 'checkboxes',
+      label: l => l.reasonForUrgentHearing,
       labelHidden: true,
       validator: atLeastOneFieldIsChecked,
       values: [
