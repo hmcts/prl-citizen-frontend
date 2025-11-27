@@ -58,6 +58,8 @@ export const form: FormContent = {
     ie_internationalJurisdiction: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.one,
