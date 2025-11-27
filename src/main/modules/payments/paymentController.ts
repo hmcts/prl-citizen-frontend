@@ -1,3 +1,5 @@
+import { promisify } from 'node:util';
+
 import axios, { AxiosInstance } from 'axios';
 import config from 'config';
 import { Response } from 'express';
@@ -46,7 +48,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
     //if help with fees opted then submit case & redirect to confirmation page
     if (hwfRefNumber && response?.serviceRequestReference) {
       //help with fess, submit case without payment
-      submitCase(
+      await submitCase(
         req,
         res,
         req.session.userCase.caseId!,
@@ -56,7 +58,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       );
     } else if (response?.serviceRequestReference && response?.payment_reference && response?.status === SUCCESS) {
       //previous payment is success, retry submit case with 'citizen-case-submit' & reidrect confirmation page
-      submitCase(
+      await submitCase(
         req,
         res,
         req.session.userCase.caseId!,
@@ -106,7 +108,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
       if (paymentStatus && paymentStatus === SUCCESS) {
         req.session.userCase.paymentSuccessDetails = checkPayment['data'];
         //Invoke update case with 'citizen-case-submit' event & reidrect confirmation page
-        submitCase(
+        await submitCase(
           req,
           res,
           req.session.userCase.caseId!,
@@ -144,9 +146,9 @@ export async function submitCase(
     //update final document in session for download on confirmation
     req.session.userCase.c100DraftDoc = updatedCase.data?.submitAndPayDownloadApplicationLink;
     //save & redirect to confirmation page
-    req.session.save(() => {
-      res.redirect(C100_CONFIRMATIONPAGE);
-    });
+    const saveSession = promisify(req.session.save).bind(req.session);
+    await saveSession();
+    res.redirect(C100_CONFIRMATIONPAGE);
   } catch (e) {
     req.locals.logger.error(e);
     populateError(req, res, 'Error in submit case', PaymentErrorContext.APPLICATION_NOT_SUBMITTED);
