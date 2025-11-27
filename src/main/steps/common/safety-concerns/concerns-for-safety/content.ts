@@ -80,6 +80,8 @@ export const form: FormContent = {
       c1A_haveSafetyConcerns: {
         type: 'radios',
         classes: 'govuk-radios',
+        label: l => l.headingTitle,
+        labelHidden: true,
         values: [
           {
             label: l => l.yesHaveSafetyConcerns,

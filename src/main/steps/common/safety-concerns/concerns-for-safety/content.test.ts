@@ -86,6 +86,8 @@ describe('Safety concern about > applying-with > content', () => {
     const subFields = applyingWithField.values[0].subFields?.doYouHaveSafetyConcernsYesInfo as FormInput;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
+    expect(applyingWithField.labelHidden).toBe(true);
+    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.yesHaveSafetyConcerns);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.noHaveSafetyConcerns);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.noHaveSafetyConcerns);
