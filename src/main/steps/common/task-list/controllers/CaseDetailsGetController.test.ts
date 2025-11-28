@@ -57,7 +57,7 @@ describe('GetCaseController', () => {
     });
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
-    expect(res.render).toBeCalled;
+    expect(res.render).toHaveBeenCalled;
     expect(res.redirect).toHaveBeenCalledWith('/task-list/applicant');
     expect(req.session.userCase.hearingCollection).toStrictEqual(['MOCK_HEARING']);
   });
@@ -91,7 +91,7 @@ describe('GetCaseController', () => {
     });
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
-    expect(res.render).toBeCalled;
+    expect(res.render).toHaveBeenCalled;
     expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 });

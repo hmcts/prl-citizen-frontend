@@ -165,6 +165,8 @@ describe('C100-rebuild > MIAM >  domestic-abuse > domestic-abuse', () => {
     );
     expect(subFields0.type).toBe('checkboxes');
     expect(miam_domesticabuse_involvement_field.values[0].value).toBe('policeInvolvement');
+    expect(subFields0.labelHidden).toBe(true);
+    expect((subFields0.label as LanguageLookup)(generatedContent)).toBe(commonLanguages.en.policeInvolvement);
 
     expect((miam_domesticabuse_involvement_field.values[1].label as LanguageLookup)(generatedContent)).toBe(
       commonLanguages.en.courtInvolvement
@@ -197,6 +199,8 @@ describe('C100-rebuild > MIAM >  domestic-abuse > domestic-abuse', () => {
     expect((subFields1.values[4].label as LanguageLookup)(generatedContent)).toBe(
       commonLanguages.en.courtInvolvement_subFields['ukPotentialVictim']
     );
+    expect(subFields1.labelHidden).toBe(true);
+    expect((subFields1.label as LanguageLookup)(generatedContent)).toBe(commonLanguages.en.courtInvolvement);
 
     expect((miam_domesticabuse_involvement_field.values[2].label as LanguageLookup)(generatedContent)).toBe(
       commonLanguages.en.letterOfBeingVictim
@@ -217,6 +221,8 @@ describe('C100-rebuild > MIAM >  domestic-abuse > domestic-abuse', () => {
     expect((subFields2.values[1].hint as LanguageLookup)(generatedContent)).toBe(
       commonLanguages.en.letterOfBeingVictim_subFields['referralLetterFromHealthProfessionalHint']
     );
+    expect(subFields2.labelHidden).toBe(true);
+    expect((subFields2.label as LanguageLookup)(generatedContent)).toBe(commonLanguages.en.letterOfBeingVictim);
 
     expect((miam_domesticabuse_involvement_field.values[3].label as LanguageLookup)(generatedContent)).toBe(
       commonLanguages.en.letterFromAuthority
@@ -243,6 +249,8 @@ describe('C100-rebuild > MIAM >  domestic-abuse > domestic-abuse', () => {
     expect((subFields3.values[2].hint as LanguageLookup)(generatedContent)).toBe(
       commonLanguages.en.letterFromAuthority_subFields['letterFromPublicAuthorityHint']
     );
+    expect(subFields3.labelHidden).toBe(true);
+    expect((subFields3.label as LanguageLookup)(generatedContent)).toBe(commonLanguages.en.letterFromAuthority);
 
     expect((miam_domesticabuse_involvement_field.values[4].label as LanguageLookup)(generatedContent)).toBe(
       commonLanguages.en.letterFromSupportService
@@ -272,6 +280,8 @@ describe('C100-rebuild > MIAM >  domestic-abuse > domestic-abuse', () => {
     expect((subFields4.values[3].hint as LanguageLookup)(generatedContent)).toBe(
       commonLanguages.en.letterFromSupportService_subFields['letterFromOrgDomesticViolenceInUkHint']
     );
+    expect(subFields4.labelHidden).toBe(true);
+    expect((subFields4.label as LanguageLookup)(generatedContent)).toBe(commonLanguages.en.letterFromSupportService);
 
     expect((miam_domesticabuse_involvement_field.values[5].label as LanguageLookup)(generatedContent)).toBe(
       commonLanguages.en.ILRDuetoDomesticAbuse

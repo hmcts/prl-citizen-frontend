@@ -1,5 +1,5 @@
 import { Case, CaseDate } from '../case/case';
-import { YesOrNo } from '../case/definition';
+import { YesNoEmpty, YesOrNo } from '../case/definition';
 
 import { Form, FormContent, FormFields, FormFieldsFn } from './Form';
 import { covertToDateObject } from './parser';
@@ -22,6 +22,37 @@ describe('Form', () => {
           input: {
             type: 'text',
             value: 'test',
+          },
+          isDateOfBirthUnknown: {
+            type: 'checkboxes',
+            classes: 'govuk-checkboxes--small',
+            values: [
+              {
+                name: 'isDateOfBirthUnknown',
+                value: YesNoEmpty.YES,
+                subFields: {
+                  approxDateOfBirth: {
+                    type: 'date',
+                    values: [
+                      {
+                        name: 'day',
+                        attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                      },
+                      {
+                        name: 'month',
+                        attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                      },
+                      {
+                        name: 'year',
+                        attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+                      },
+                    ],
+                    parser: body => covertToDateObject('approxDateOfBirth', body as Record<string, unknown>),
+                    validator: value => areDateFieldsFilledIn(value as CaseDate),
+                  },
+                },
+              },
+            ],
           },
         },
       },
@@ -187,9 +218,11 @@ describe('Form', () => {
       'dateField-day': '1',
       'dateField-month': '1',
       'dateField-year': '2000',
+      'approxDateOfBirth-day': '2',
+      'approxDateOfBirth-month': '2',
+      'approxDateOfBirth-year': '2002',
       checkboxes: ['', '', 'checkbox1', 'checkbox2'],
     };
-
     expect(form.getParsedBody(body)).toStrictEqual({
       field: 'Yes',
       dateField: {
@@ -197,7 +230,13 @@ describe('Form', () => {
         month: '1',
         year: '2000',
       },
+      approxDateOfBirth: {
+        day: '2',
+        month: '2',
+        year: '2002',
+      },
       checkboxes: ['checkbox1', 'checkbox2'],
+      isDateOfBirthUnknown: undefined,
     });
   });
 
@@ -216,6 +255,11 @@ describe('Form', () => {
             year: '2000',
           },
           checkboxes: ['checkbox1'],
+          approxDateOfBirth: {
+            day: '2',
+            month: '2',
+            year: '2002',
+          },
         },
         expected: true,
       },

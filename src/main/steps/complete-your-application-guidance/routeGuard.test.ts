@@ -29,9 +29,9 @@ describe('complete-your-application-guidance RouteGuard', () => {
       },
     });
     await routeGuard.get(req, res, next);
-    expect(req.session.userCase).not.toContain('applicationPayOnline');
-    expect(req.session.userCase).not.toContain('legalRepresentativeForProceedings');
-    expect(req.session.userCase).not.toContain('legalRepresentativeForApplication');
+    expect(req.session.userCase).not.toHaveProperty('applicationPayOnline');
+    expect(req.session.userCase).not.toHaveProperty('legalRepresentativeForProceedings');
+    expect(req.session.userCase).not.toHaveProperty('legalRepresentativeForApplication');
     expect(req.session.userCase.c100ApplicationFees).toBe('232');
     expect(next).toHaveBeenCalled();
   });
