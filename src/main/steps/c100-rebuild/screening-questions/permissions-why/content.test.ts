@@ -97,7 +97,8 @@ describe('Screening questions > permissions-why', () => {
   test('should contain sq_permissionsWhy field', () => {
     const permissionsWhyField = fields.sq_permissionsWhy as FormOptions;
     expect(permissionsWhyField.type).toBe('checkboxes');
-
+    expect(permissionsWhyField.labelHidden).toBe(true);
+    expect((permissionsWhyField.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((permissionsWhyField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((permissionsWhyField.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.doNotHaveParentalResponsibility

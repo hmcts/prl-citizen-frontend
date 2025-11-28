@@ -47,6 +47,8 @@ export const form: FormContent = {
       c1A_passportOffice: {
         type: 'radios',
         classes: 'govuk-radios',
+        label: l => l.title,
+        labelHidden: true,
         values: [
           {
             label: l => l.one,
