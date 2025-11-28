@@ -12,6 +12,7 @@ import {
   CaseType,
   FeeDetailsResponse,
   PartyType,
+  PaymentErrorContext,
   YesOrNo,
 } from '../../app/case/definition';
 import { AppSession, UserDetails } from '../../app/controller/AppRequest';
@@ -587,6 +588,28 @@ describe('AWP utils', () => {
       expect(awpRequest.session.userCase.paymentData).toBe(undefined);
       expect(awpRequest.session.userCase.awp_applicationType).toBe(undefined);
       expect(awpRequest.session.userCase.awp_applicationReason).toBe(undefined);
+    });
+
+    test('should validate missing application forms and show CYA with generic error', async () => {
+      awpRequest = {
+        ...awpRequest,
+        params: { partyType: 'applicant', applicationType: 'C2', applicationReason: 'request-more-time' },
+        session: {
+          ...awpRequest.session,
+          user: userDetails,
+          userCase: {
+            ...awpRequest.session.userCase,
+            awp_uploadedApplicationForms: [],
+          },
+        },
+      };
+
+      await processAWPApplication(awpRequest, res);
+
+      expect(awpRequest.session.paymentError.hasError).toBe(true);
+      expect(awpRequest.session.paymentError.errorContext).toBe(PaymentErrorContext.DEFAULT_PAYMENT_ERROR);
+      expect(awpRequest.session.save).toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith('/applicant/application-within-proceedings/C2/request-more-time/checkanswers');
     });
   });
 });
