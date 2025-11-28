@@ -475,6 +475,13 @@ export const processAWPApplication = async (appRequest: AppRequest, appResponse:
     (appRequest.params.applicationReason as AWPApplicationReason) ?? appRequest.session.userCase.awp_applicationReason;
   const partyType = getCasePartyType(caseData, userDetails.id);
 
+  const appForms = caseData.awp_uploadedApplicationForms;
+
+  if (!appForms || appForms.length === 0) {
+    appRequest.session.paymentError = { hasError: true, errorContext: PaymentErrorContext.DEFAULT_PAYMENT_ERROR };
+    return handlePageRedirection('error', partyType, applicationType, applicationReason, appRequest, appResponse);
+  }
+
   try {
     if (
       isFreeApplication(caseData) ||
