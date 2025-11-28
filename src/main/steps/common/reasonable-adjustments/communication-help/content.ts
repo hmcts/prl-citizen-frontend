@@ -105,6 +105,8 @@ export const form: FormContent = {
       ra_communicationHelp: {
         id: 'ra_communicationHelp',
         type: 'checkboxes',
+        label: l => l.headingTitle,
+        labelHidden: true,
         hint: l => l.select_all_apply,
         validator: value => atLeastOneFieldIsChecked(value),
         values: [

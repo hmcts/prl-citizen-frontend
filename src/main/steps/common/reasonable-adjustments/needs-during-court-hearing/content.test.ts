@@ -103,6 +103,8 @@ describe('applicant personal details > applying-with > content', () => {
       ?.ra_appropriateLighting_subfield as FormOptions;
 
     expect(feelComportableField.type).toBe('checkboxes');
+    expect(feelComportableField.labelHidden).toBe(true);
+    expect((feelComportableField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect(appropriateLighting_subfields.type).toBe('textarea');
     expect((appropriateLighting_subfields?.label as Function)(generatedContent)).toBe(en.appropriateLighting_subfield);
 

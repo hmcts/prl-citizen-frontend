@@ -133,6 +133,8 @@ describe('applicant personal details > applying-with > content', () => {
       ?.ra_supportWorkerCarer_subfield as FormOptions;
 
     expect(supportCourtField.type).toBe('checkboxes');
+    expect(supportCourtField.labelHidden).toBe(true);
+    expect((supportCourtField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect(supportWorkerCarer_subfields.type).toBe('textarea');
     expect((supportWorkerCarer_subfields?.label as Function)(generatedContent)).toBe(en.supportWorkerCarer_subfield);
 

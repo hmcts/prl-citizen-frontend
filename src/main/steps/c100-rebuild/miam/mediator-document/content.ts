@@ -42,6 +42,8 @@ export const form: FormContent = {
     miam_haveDocSigned: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       hint: l => l.docSigned,
       values: [
         {

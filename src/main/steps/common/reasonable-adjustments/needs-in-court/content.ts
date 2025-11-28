@@ -107,6 +107,8 @@ export const form: FormContent = {
     return {
       ra_travellingCourt: {
         type: 'checkboxes',
+        label: l => l.headingTitle,
+        labelHidden: true,
         hint: l => l.select_all_apply,
         validator: value => atLeastOneFieldIsChecked(value),
         values: [
