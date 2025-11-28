@@ -78,6 +78,8 @@ describe('applicant personal details > applying-with > content', () => {
     const applyingWithField = fields.withdrawApplication as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
+    expect(applyingWithField.labelHidden).toBe(true);
+    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect(
       (applyingWithField.values[0].subFields?.withdrawApplicationReason.label as LanguageLookup)(generatedContent)

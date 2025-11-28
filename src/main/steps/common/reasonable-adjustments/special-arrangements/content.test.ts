@@ -100,6 +100,8 @@ describe('applicant personal details > applying-with > content', () => {
       ?.ra_specialArrangementsOther_subfield as FormOptions;
 
     expect(specialArrangementsField.type).toBe('checkboxes');
+    expect(specialArrangementsField.labelHidden).toBe(true);
+    expect((specialArrangementsField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect(specialArrangementsOtherSubFields.type).toBe('textarea');
     expect((specialArrangementsOtherSubFields?.label as Function)(generatedContent)).toBe(
       en.specialArrangementsOther_subfield

@@ -91,6 +91,8 @@ describe('Language requirements content', () => {
       ?.ra_needInterpreterInCertainLanguage_subfield as FormOptions;
 
     expect(languageNeedsField.type).toBe('checkboxes');
+    expect(languageNeedsField.labelHidden).toBe(true);
+    expect((languageNeedsField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect(needInterpreterInCertainLanguageDetailsField.type).toBe('textarea');
     expect((needInterpreterInCertainLanguageDetailsField.label as LanguageLookup)(generatedContent)).toBe(
       en.needInterpreterInCertainLanguage_subfield

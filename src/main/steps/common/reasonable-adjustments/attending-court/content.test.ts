@@ -74,6 +74,8 @@ describe('RA > attending-court > content', () => {
       ?.ra_noVideoAndPhoneHearing_subfield as FormOptions;
 
     expect(typeOfHearingField.type).toBe('checkboxes');
+    expect(typeOfHearingField.labelHidden).toBe(true);
+    expect((typeOfHearingField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect(noVideoAndPhoneHearingExplanationField.type).toBe('textarea');
     expect((noVideoAndPhoneHearingExplanationField.label as LanguageLookup)(generatedContent)).toBe(
       en.noVideoAndPhoneHearing_subfield

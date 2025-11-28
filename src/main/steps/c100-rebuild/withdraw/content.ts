@@ -66,6 +66,8 @@ export const form: FormContent = {
     withdrawApplication: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       labelSize: 'm',
       // section: l => l.section,
       values: [
