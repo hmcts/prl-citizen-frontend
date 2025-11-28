@@ -609,7 +609,9 @@ describe('AWP utils', () => {
       expect(awpRequest.session.paymentError.hasError).toBe(true);
       expect(awpRequest.session.paymentError.errorContext).toBe(PaymentErrorContext.DEFAULT_PAYMENT_ERROR);
       expect(awpRequest.session.save).toHaveBeenCalled();
-      expect(res.redirect).toHaveBeenCalledWith('/applicant/application-within-proceedings/C2/request-more-time/checkanswers');
+      expect(res.redirect).toHaveBeenCalledWith(
+        '/applicant/application-within-proceedings/C2/request-more-time/checkanswers'
+      );
     });
   });
 });
