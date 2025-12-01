@@ -3881,11 +3881,11 @@ __metadata:
   linkType: hard
 
 "@types/require-directory@npm:^2.1.2":
-  version: 2.1.6
-  resolution: "@types/require-directory@npm:2.1.6"
+  version: 2.1.7
+  resolution: "@types/require-directory@npm:2.1.7"
   dependencies:
     "@types/node": "npm:*"
-  checksum: 10c0/50a6680b08d0187c9579d50d2650965af3330618482d6ddb00a36e0a0152e532e0577b241ece2e8bdee11ce147145dfad1342e818f86d68887f6b92d81e50587
+  checksum: 10c0/b48d56df143b41ee3ae88dc61aa75b52cf52cbc5e78f7326db4fdde7147e9738a3477a2f62174615562924d817b7d99cb32cf40a29de980eaffa45633e8e2d0d
   languageName: node
   linkType: hard
 
