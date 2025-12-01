@@ -92,8 +92,8 @@ describe('Disability requirements content', () => {
     const disabilityRequirementsField = fields.ra_disabilityRequirements as FormOptions;
 
     expect(disabilityRequirementsField.type).toBe('checkboxes');
-    expect((disabilityRequirementsField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect(disabilityRequirementsField.labelHidden).toBe(true);
+    expect((disabilityRequirementsField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect((disabilityRequirementsField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((disabilityRequirementsField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.documentsHelp);
     expect((disabilityRequirementsField.values[1].label as LanguageLookup)(generatedContent)).toBe(
