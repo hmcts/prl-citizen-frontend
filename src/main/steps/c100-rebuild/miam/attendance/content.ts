@@ -41,7 +41,8 @@ export const form: FormContent = {
     miam_attendance: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
+      label: l => l.title,
+      labelHidden: true,
       labelSize: 'm',
       values: [
         {
