@@ -78,6 +78,8 @@ export const form: FormContent = {
       ra_typeOfHearing: {
         type: 'checkboxes',
         hint: l => l.select_all_apply,
+        label: l => l.headingTitle,
+        labelHidden: true,
         validator: atLeastOneFieldIsChecked,
         values: [
           {

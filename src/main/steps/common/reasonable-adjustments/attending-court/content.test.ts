@@ -80,6 +80,8 @@ describe('RA > attending-court > content', () => {
     );
 
     expect((typeOfHearingField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
+    expect((typeOfHearingField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
+    expect(typeOfHearingField.labelHidden).toBe(true);
     expect((typeOfHearingField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.videoHearing);
     expect((typeOfHearingField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.phoneHearing);
     expect((typeOfHearingField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.noVideoAndPhoneHearing);
