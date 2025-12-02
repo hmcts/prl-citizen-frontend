@@ -10,6 +10,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Contact details of',
+  pageTitle: "Applicant's contact details",
   canProvideEmailLabel: 'I can provide an email address',
   canNotProvideEmailLabel: 'I cannot provide an email address',
   emailAdddressLabel: 'Your email address',

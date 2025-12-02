@@ -13,6 +13,7 @@ import { getPartyDetails } from '../../people/util';
 import { getApplicantDetails } from '../util';
 
 export const en = () => ({
+  pageTitle: "Applicant's relationship to child",
   title: 'What is ',
   title1: "'s relationship to ",
   mother: 'Mother',
