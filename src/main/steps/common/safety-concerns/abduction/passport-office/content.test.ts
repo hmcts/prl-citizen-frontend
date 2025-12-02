@@ -56,6 +56,8 @@ describe('safetyconcerns > abduction > passport-office', () => {
     const applyingWithField = fields.c1A_passportOffice as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
+    expect(applyingWithField.labelHidden).toBe(true);
+    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
   });

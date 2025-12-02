@@ -63,6 +63,8 @@ describe('Safety concern > abduction > passportofficenotified', () => {
   test('should contain safety concern about field', () => {
     const concernAboutField = fields.c1A_abductionPassportOfficeNotified as FormOptions;
     expect(concernAboutField.type).toBe('radios');
+    expect(concernAboutField.labelHidden).toBe(true);
+    expect((concernAboutField.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((concernAboutField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.Yes);
     expect((concernAboutField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.No);
 
