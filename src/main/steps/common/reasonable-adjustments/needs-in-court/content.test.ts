@@ -127,6 +127,8 @@ describe('applicant personal details > applying-with > content', () => {
     const parkingSpace_subfields = travellingCourtField.values[0].subFields?.ra_parkingSpace_subfield as FormOptions;
 
     expect(travellingCourtField.type).toBe('checkboxes');
+    expect(travellingCourtField.labelHidden).toBe(true);
+    expect((travellingCourtField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect(parkingSpace_subfields.type).toBe('textarea');
     expect((parkingSpace_subfields?.label as Function)(generatedContent)).toBe(en.parkingSpace_subfield);
 

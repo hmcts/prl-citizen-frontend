@@ -84,6 +84,8 @@ export const form: FormContent = {
     return {
       ra_feelComportable: {
         type: 'checkboxes',
+        label: l => l.headingTitle,
+        labelHidden: true,
         hint: l => l.select_all_apply,
         validator: value => atLeastOneFieldIsChecked(value),
         values: [
