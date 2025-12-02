@@ -115,6 +115,8 @@ describe('safetyconcerns > child > concern about > content', () => {
   test('should contain respondent field', () => {
     const respondentConcernAboutField = fields.c1A_concernAboutRespondent as FormOptions;
     expect(respondentConcernAboutField.type).toBe('checkboxes');
+    expect(respondentConcernAboutField.labelHidden).toBe(true);
+    expect((respondentConcernAboutField.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((respondentConcernAboutField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_relevant);
     expect((respondentConcernAboutField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.physicalAbuse);
     expect((respondentConcernAboutField.values[1].label as LanguageLookup)(generatedContent)).toBe(
@@ -141,6 +143,8 @@ describe('safetyconcerns > child > concern about > content', () => {
   test('should contain applicant field', () => {
     const applicantConcernAboutField = fields1.c1A_concernAboutApplicant as FormOptions;
     expect(applicantConcernAboutField.type).toBe('checkboxes');
+    expect(applicantConcernAboutField.labelHidden).toBe(true);
+    expect((applicantConcernAboutField.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((applicantConcernAboutField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_relevant);
     expect((applicantConcernAboutField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.physicalAbuse);
     expect((applicantConcernAboutField.values[1].label as LanguageLookup)(generatedContent)).toBe(
