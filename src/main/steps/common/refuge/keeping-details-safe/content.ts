@@ -8,6 +8,7 @@ import { CommonContent } from '../../../common/common.content';
 const en = {
   c100: {
     title: "Keeping {name}'s details safe",
+    pageTitle: "Keeping applicant's details safe",
     understandSafety:
       "We understand how important it is to feel safe, and know that {name}'s details will be kept private.",
     detailsKeptConfidential:
@@ -17,6 +18,7 @@ const en = {
   },
   applicantRespondent: {
     title: 'Keeping your details safe',
+    pageTitle: "Keeping other person's details safe",
     understandSafety:
       'We understand how important it is to feel safe, and know that your details will be kept private.',
     detailsKeptConfidential:
@@ -31,6 +33,7 @@ const en = {
 const cy: typeof en = {
   c100: {
     title: 'Cadw manylion {name} yn ddiogel',
+    pageTitle: "Keeping applicant's details safe",
     understandSafety:
       'Rydym yn deall pa mor bwysig yw hi i deimlo’n ddiogel, a gwybod y bydd manylion {name} yn cael eu cadw’n breifat.',
     detailsKeptConfidential:
@@ -40,6 +43,7 @@ const cy: typeof en = {
   },
   applicantRespondent: {
     title: 'Cadw eich manylion yn ddiogel',
+    pageTitle: "Keeping other person's details safe",
     understandSafety:
       'Rydym yn deall pa mor bwysig yw hi i deimlo’n ddiogel, a gwybod y bydd eich manylion yn cael eu cadw’n breifat.',
     detailsKeptConfidential:

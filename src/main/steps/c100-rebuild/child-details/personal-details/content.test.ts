@@ -11,6 +11,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Provide details for',
+  pageTitle: "Child's details",
   dobLabel: 'Date of birth',
   dateHint: 'For example, 31 3 2016',
   approxCheckboxLabel: 'I don’t know their date of birth',
@@ -157,6 +158,7 @@ describe('child details > personal details', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle} Bob Silly`,
         errors: {
           ...en.errors,
           ...errors.en,

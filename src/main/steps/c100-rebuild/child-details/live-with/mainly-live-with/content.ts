@@ -12,6 +12,7 @@ export * from '../routeGuard';
 
 export const en = {
   title: 'Who does {firstName} {lastName} mainly live with?',
+  pageTitle: "Child's main residence",
   liveWithHint: 'Select the person that the child lives with most of the time.',
   incorrectAddress:
     'If any of the addresses listed here are not correct, you must <a href={editAddressUrl} class="govuk-link" rel="external">update the address details.</a>',

@@ -25,6 +25,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Provide details for',
+  pageTitle: "Respondent's details",
   hasNameChanged: 'Have they changed their name?',
   hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',

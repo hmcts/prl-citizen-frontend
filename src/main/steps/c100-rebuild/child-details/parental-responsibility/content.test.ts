@@ -11,6 +11,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Parental responsibility for',
+  pageTitle: 'Parental responsibility for child',
   parentalResponsibility:
     'State everyone who has parental responsibility for [^^^]  and how they have parental responsibility.',
   subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility.',
@@ -100,6 +101,7 @@ describe('child details > parental responsibility', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle} Bob Silly`,
         parentalResponsibility: interpolatedParentalResponsibility,
         errors: {
           ...en.errors,

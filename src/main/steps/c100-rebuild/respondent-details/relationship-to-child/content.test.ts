@@ -10,6 +10,7 @@ jest.mock('../../../../app/form/validation');
 const en = {
   title: 'What is ',
   title1: "'s relationship to ",
+  pageTitle: "Respondent's relationship to child",
   mother: 'Mother',
   father: 'Father',
   guardian: 'Guardian',

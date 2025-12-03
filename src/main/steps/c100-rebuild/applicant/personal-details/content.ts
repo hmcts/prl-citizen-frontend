@@ -18,6 +18,7 @@ import { getApplicantDetails } from '../util';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Provide details for',
+  pageTitle: "Applicant's details",
   haveYouChangeNameLabel: 'Have you changed your name?',
   haveYouChangeNameHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',

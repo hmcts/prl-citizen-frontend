@@ -11,6 +11,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Which of the decisions you’re asking the court to resolve relate to',
+  pageTitle: 'Orders relating to child',
   bodyHint: 'Select all that apply',
   childArrangementsOrder: {
     whoChildLiveWith: 'Decide who the children live with and when',
@@ -143,6 +144,7 @@ describe('child details > child-matters', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle} Bob Silly`,
         errors: {
           ...en.errors,
           ...errors.en,

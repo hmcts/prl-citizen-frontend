@@ -9,6 +9,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Contact Preferences for',
+  pageTitle: "Applicant's contact preferences",
   paragraphs: [
     'You can choose to receive case updates by email or post.',
     'If you receive updates by email, the updates will also be available to view in your dashboard.',
@@ -88,6 +89,7 @@ describe('Contact Preference > content', () => {
       {
         ...en,
         title: `${en.title} dummy Test`,
+        pageTitle: `${en.pageTitle} dummy Test`,
       },
       () => generateContent(commonContent)
     );
