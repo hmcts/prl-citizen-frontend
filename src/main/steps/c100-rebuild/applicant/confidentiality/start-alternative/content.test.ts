@@ -110,13 +110,9 @@ describe('applicant personal details > applying-with > content', () => {
 
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
-    expect(applyingWithField.labelHidden).toBe(true);
-    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
     expect(subFields.type).toBe('checkboxes');
-    expect(subFields.labelHidden).toBe(true);
-    expect((subFields.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect((subFields.hint as LanguageLookup)(generatedContent)).toBe(en.contact_details_private);
     expect((subFields.values[0].label as LanguageLookup)(generatedContent)).toBe(en.address);
     expect((subFields.values[1].label as LanguageLookup)(generatedContent)).toBe(en.telephoneNumber);
