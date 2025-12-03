@@ -89,7 +89,7 @@ describe('Contact Preference > content', () => {
       {
         ...en,
         title: `${en.title} dummy Test`,
-        pageTitle: `${en.pageTitle} dummy Test`,
+        pageTitle: `${en.pageTitle}`,
       },
       () => generateContent(commonContent)
     );

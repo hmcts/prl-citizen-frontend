@@ -101,7 +101,7 @@ describe('child details > parental responsibility', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
-        pageTitle: `${en.pageTitle} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         parentalResponsibility: interpolatedParentalResponsibility,
         errors: {
           ...en.errors,

@@ -6,8 +6,8 @@ import { CommonContent, generatePageContent } from '../../../../common/common.co
 import { generateContent } from './content';
 
 const en = {
+  pageTitle: "Select applicant's address",
   title: 'Select Address of firstName lastName',
-  pageTitle: "Applicant's details",
   changePostCodeLabel: 'Change postcode',
   errors: {
     selectAddress: {

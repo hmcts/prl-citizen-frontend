@@ -188,7 +188,7 @@ describe('other person details > personal details', () => {
       {
         ...en,
         title: `${en.title} John Doe`,
-        pageTitle: `${en.pageTitle} John Doe`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,

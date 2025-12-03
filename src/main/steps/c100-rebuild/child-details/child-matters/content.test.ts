@@ -144,7 +144,7 @@ describe('child details > child-matters', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
-        pageTitle: `${en.pageTitle} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,

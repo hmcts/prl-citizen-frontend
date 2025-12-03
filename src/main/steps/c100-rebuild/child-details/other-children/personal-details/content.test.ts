@@ -166,7 +166,7 @@ describe('child details > personal details', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
-        pageTitle: `${en.pageTitle} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
