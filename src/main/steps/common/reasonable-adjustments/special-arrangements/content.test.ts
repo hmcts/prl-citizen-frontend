@@ -98,8 +98,6 @@ describe('applicant personal details > applying-with > content', () => {
     const specialArrangementsField = fields.ra_specialArrangements as FormOptions;
     const specialArrangementsOtherSubFields = specialArrangementsField.values[6].subFields
       ?.ra_specialArrangementsOther_subfield as FormOptions;
-    expect((specialArrangementsField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
-    expect(specialArrangementsField.labelHidden).toBe(true);
     expect(specialArrangementsField.type).toBe('checkboxes');
     expect(specialArrangementsField.labelHidden).toBe(true);
     expect((specialArrangementsField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
