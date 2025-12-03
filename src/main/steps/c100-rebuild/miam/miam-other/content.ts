@@ -52,7 +52,7 @@ export const form: FormContent = {
     miam_notAttendingReasons: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.title,
+      label: l => l.subTitle,
       labelHidden: true,
       values: [
         {
