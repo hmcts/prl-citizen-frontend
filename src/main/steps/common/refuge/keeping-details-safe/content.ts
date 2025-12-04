@@ -88,6 +88,11 @@ export const generateContent = (content: CommonContent): PageContent => {
           name: `${c100Person?.firstName} ${c100Person?.lastName}`,
         })
       : translations.applicantRespondent.title,
+    pageTitle: C100rebuildJourney
+      ? interpolate(translations.c100.pageTitle, {
+          name: `${c100Person?.firstName} ${c100Person?.lastName}`,
+        })
+      : translations.applicantRespondent.pageTitle,
     understandSafety: C100rebuildJourney
       ? interpolate(translations.c100.understandSafety, {
           name: `${c100Person?.firstName} ${c100Person?.lastName}`,
