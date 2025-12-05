@@ -92,6 +92,8 @@ export const form: FormContent = {
         c1A_concernAboutApplicant: {
           id: 'c1A_concernAboutApplicant',
           type: 'checkboxes',
+          label: l => l.title,
+          labelHidden: true,
           hint: l => l.select_all_relevant,
           validator: atLeastOneFieldIsChecked,
           values: [
@@ -140,6 +142,8 @@ export const form: FormContent = {
         c1A_concernAboutRespondent: {
           id: 'c1A_concernAboutRespondent',
           type: 'checkboxes',
+          label: l => l.title,
+          labelHidden: true,
           hint: l => l.select_all_relevant,
           validator: atLeastOneFieldIsChecked,
           values: [
