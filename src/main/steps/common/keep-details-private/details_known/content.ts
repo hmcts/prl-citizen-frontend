@@ -58,6 +58,8 @@ export const form: FormContent = {
       type: 'radios',
       classes: 'govuk-radios',
       section: l => l.section,
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.one,
