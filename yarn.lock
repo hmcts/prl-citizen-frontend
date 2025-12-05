@@ -9046,11 +9046,11 @@ __metadata:
   linkType: hard
 
 "express-fileupload@npm:^1.4.0":
-  version: 1.5.1
-  resolution: "express-fileupload@npm:1.5.1"
+  version: 1.5.2
+  resolution: "express-fileupload@npm:1.5.2"
   dependencies:
     busboy: "npm:^1.6.0"
-  checksum: 10c0/6d2cae43958bd6bc7710a45ce71dfd1bb378611ea99c7c81aaa45655eff837ce969af8062b9c882ed05bbf179b4185b01b2d53f41ce5c242f7eac59cf280b1d1
+  checksum: 10c0/faafc5e27f3bd3d53abbf41df1bca23be9456cd293f5c343f8f4aa04ace0f866bf104263128ea79cafb9ead8456eb9b1076bfe2f62d489c7e46c1bef64163cbb
   languageName: node
   linkType: hard
 
