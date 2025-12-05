@@ -8,6 +8,7 @@ import { generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
+  pageTitle: 'What is their relationship to the child',
   title: 'What is ',
   title1: "'s relationship to ",
   mother: 'Mother',
@@ -32,6 +33,7 @@ const en = {
 };
 
 const cy = {
+  pageTitle: 'What is their relationship to the child',
   title: 'Beth yw perthynas',
   title1: ' â',
   mother: 'Mam',
@@ -153,6 +155,7 @@ describe('applicant relationshipDetails details', () => {
       {
         ...en,
         title: `${en.title} Amy Root${en.title1} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -174,6 +177,7 @@ describe('applicant relationshipDetails details', () => {
       {
         ...cy,
         title: `${cy.title} Amy Root${cy.title1} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,
