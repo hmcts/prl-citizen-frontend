@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { DocType, PartyType } from '../../../../../app/case/definition';
-import { FormContent, FormFields } from '../../../../../app/form/Form';
+import { FormContent, FormFields, LanguageLookup } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 import { interpolate } from '../../../string-parser';
@@ -239,6 +239,8 @@ describe('documents > upload > upload-your-documents > content', () => {
   test('should contain continue checkboxes', () => {
     const declarationCheckFields = fields.declarationCheck;
     expect(declarationCheckFields.type).toBe('checkboxes');
+    expect(declarationCheckFields.labelHidden).toBe(true);
+    expect((declarationCheckFields.label as LanguageLookup)(generatedContent)).toBe(en.statementOfTruth);
     expect(declarationCheckFields.values[0].value).toBe('declaration');
     expect((declarationCheckFields.values[0].label as Function)(generatedContent)).toBe(en.declaration);
     expect(declarationCheckFields.validator).toBe(atLeastOneFieldIsChecked);

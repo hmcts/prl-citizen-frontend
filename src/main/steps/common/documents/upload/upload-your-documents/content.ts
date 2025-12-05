@@ -159,6 +159,8 @@ export const form: FormContent = {
       ? {
           declarationCheck: {
             type: 'checkboxes',
+            label: l => l.statementOfTruth,
+            labelHidden: true,
             values: [
               {
                 name: 'declarationCheck',
