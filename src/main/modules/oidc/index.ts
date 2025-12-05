@@ -18,6 +18,7 @@ import {
   LOCAL_API_SESSION,
   SAFEGAURD_EXCLUDE_URLS,
   SCREENING_QUESTIONS,
+  SIGNED_OUT,
   SIGN_IN_URL,
   SIGN_OUT_URL,
   TESTING_SUPPORT,
@@ -104,6 +105,10 @@ export class OidcMiddleware {
           (await getFeatureToggle().isC100CaseProgressionTrainTrackEnabled());
 
         req.session.save(async () => {
+          if (req.path.startsWith(SIGNED_OUT)) {
+            return next();
+          }
+
           const isAnonymousPage = ANONYMOUS_URLS.some(url => url.includes(req.path));
 
           if (isAnonymousPage) {
