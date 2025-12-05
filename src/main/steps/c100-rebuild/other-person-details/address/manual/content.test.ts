@@ -136,6 +136,8 @@ describe('applicant > address > manual > content', () => {
 
     expect(addressUnknown.type).toBe('checkboxes');
     expect(addressUnknown.classes).toBe('govuk-checkboxes');
+    expect(addressUnknown.labelHidden).toBe(true);
+    expect((addressUnknown.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((addressUnknown.values[0].label as LanguageLookup)(generatedContent)).toBe(
       'I dont know where they currently live'
     );

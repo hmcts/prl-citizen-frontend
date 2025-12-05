@@ -355,6 +355,8 @@ export const generateFormFields = (
     respondentPlaceOfBirthUnknown: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes--small',
+      label: l => l.respondentPlaceOfBirth,
+      labelHidden: true,
       values: [
         {
           name: 'respondentPlaceOfBirthUnknown',

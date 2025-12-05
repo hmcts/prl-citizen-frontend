@@ -50,6 +50,8 @@ export const form: FormContent = {
   fields: {
     oprs_otherPersonCheck: {
       type: 'radios',
+      label: l => l.title,
+      labelHidden: true,
       classes: 'govuk-radios',
       section: l => l.section,
       values: [
