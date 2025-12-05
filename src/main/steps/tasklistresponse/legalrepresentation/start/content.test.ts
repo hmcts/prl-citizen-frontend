@@ -69,6 +69,8 @@ describe('tasklistresponse > legalrepresentation >  start > content', () => {
   test('should contain legalRepresentation field', () => {
     const { legalRepresentation } = fields as Record<string, FormFields>;
     expect(legalRepresentation.type).toBe('radios');
+    expect((legalRepresentation.label as LanguageLookup)(generatedContent)).toBe(en.title);
+    expect(legalRepresentation.labelHidden).toBe(true);
     expect((legalRepresentation.values[0].label as LanguageLookup)(generatedContent)).toBe('Yes');
     expect((legalRepresentation.values[1].label as LanguageLookup)(generatedContent)).toBe('No');
     (legalRepresentation.validator as Function)('Yes');

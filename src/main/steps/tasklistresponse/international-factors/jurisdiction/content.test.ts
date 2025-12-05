@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
@@ -84,7 +84,8 @@ describe('citizen-home content', () => {
     const detailsKnownField = fields.jurisdiction as FormOptions;
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
-    expect((detailsKnownField.label as LanguageLookup)(generatedContent)).toBe(undefined);
+    expect((detailsKnownField.label as Function)(generatedContent)).toBe(enContent.title);
+    expect(detailsKnownField.labelHidden).toBe(true);
     expect((detailsKnownField.hint as Function)(generatedContent)).toBe(enContent.twoHint);
     expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
 
