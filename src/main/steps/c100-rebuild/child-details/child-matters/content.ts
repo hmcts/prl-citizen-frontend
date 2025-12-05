@@ -12,6 +12,7 @@ let updatedForm: FormContent;
 
 export const en = () => ({
   title: 'Which of the decisions you’re asking the court to resolve relate to',
+  pageTitle: 'Orders relating to child',
   orderAppliedFor: 'Orders applied for',
   bodyHint: 'Select all that apply',
   childArrangementsOrder: {

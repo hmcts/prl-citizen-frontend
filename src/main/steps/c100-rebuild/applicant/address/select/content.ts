@@ -11,6 +11,7 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Select Address of',
+  pageTitle: "Select applicant's address",
   changePostCodeLabel: 'Change postcode',
   errors: {
     selectAddress: {

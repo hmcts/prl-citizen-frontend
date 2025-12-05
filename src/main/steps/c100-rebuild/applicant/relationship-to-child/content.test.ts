@@ -8,6 +8,7 @@ import { generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
+  pageTitle: "Applicant's relationship to child",
   title: 'What is ',
   title1: "'s relationship to ",
   mother: 'Mother',

@@ -17,6 +17,7 @@ export * from '../routeGuard';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Provide details for',
+  pageTitle: "Other person's details",
   isNameChangedLabelText: 'Have they changed their name?',
   inNameChangedHintText:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',

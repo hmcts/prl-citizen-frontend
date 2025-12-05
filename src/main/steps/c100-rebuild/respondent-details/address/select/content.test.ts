@@ -7,6 +7,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Select Address of John Doe',
+  pageTitle: "Select respondent's address",
   changePostCodeLabel: 'Change postcode',
   errors: {
     selectAddress: {

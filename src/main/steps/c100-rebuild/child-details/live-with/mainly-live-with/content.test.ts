@@ -9,6 +9,7 @@ jest.mock('../../../../../app/form/validation');
 
 const en = {
   title: 'Who does {firstName} {lastName} mainly live with?',
+  pageTitle: "Child's main residence",
   liveWithHint: 'Select the person that the child lives with most of the time.',
   incorrectAddress:
     'If any of the addresses listed here are not correct, you must <a href=/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925678/personal-details class="govuk-link" rel="external">update the address details.</a>',

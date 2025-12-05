@@ -15,6 +15,7 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Address details of',
+  pageTitle: "Respondent's address details",
   subtitle:
     "Include as much detail as you can. If there's information missing, your application may take longer to process.",
   addressLine1Hint: 'Court documents will be sent here',

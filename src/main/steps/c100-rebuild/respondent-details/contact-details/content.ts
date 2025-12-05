@@ -8,6 +8,7 @@ import { getPartyDetails } from '../../people/util';
 
 export const en = () => ({
   title: 'Contact details of',
+  pageTitle: "Respondent's contact details",
   subTitle:
     'Include as much detail as you can. If there’s information missing, your application may take longer to process.',
   donKnowEmailAddress: "I don't know their email",

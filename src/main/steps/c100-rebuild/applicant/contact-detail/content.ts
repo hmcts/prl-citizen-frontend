@@ -8,6 +8,7 @@ import { isAlphaNumeric, isEmailValid, isFieldFilledIn, isPhoneNoValid } from '.
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Contact details of',
+  pageTitle: "Applicant's contact details",
   canProvideEmailLabel: 'I can provide an email address',
   canNotProvideEmailLabel: 'I cannot provide an email address',
   emailAdddressLabel: 'Your email address',

@@ -13,6 +13,7 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Parental responsibility for',
+  pageTitle: 'Parental responsibility for child',
   parentalResponsibility:
     'State everyone who has parental responsibility for {firstname} {lastname} and how they have parental responsibility.',
   subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility.',

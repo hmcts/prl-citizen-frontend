@@ -10,6 +10,7 @@ import { generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
+  pageTitle: "Respondent's contact details",
   title: 'Contact details of',
   subTitle:
     'Include as much detail as you can. If there’s information missing, your application may take longer to process.',

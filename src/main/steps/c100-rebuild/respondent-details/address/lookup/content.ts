@@ -15,6 +15,7 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Address of',
+  pageTitle: "Respondent's address",
   subTitle: 'Documents relating to this application will be sent here.',
   enterAddressManually: "I don't know their postcode or they live outside the UK",
   errors: {

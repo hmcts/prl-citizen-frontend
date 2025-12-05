@@ -9,6 +9,7 @@ jest.mock('../../../../../app/form/validation');
 
 const en = {
   title: "{firstName} {lastName}'s living arrangements",
+  pageTitle: "Child's living arrangements",
   livingArrangements:
     'We need this information so that the court has a complete understanding of the child’s living arrangements.',
   liveWithLabel: 'Select all of the people that the child lives with',

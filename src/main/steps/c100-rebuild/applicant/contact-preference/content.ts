@@ -8,6 +8,7 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Contact Preferences for',
+  pageTitle: "Applicant's contact preferences",
   paragraphs: [
     'You can choose to receive case updates by email or post.',
     'If you receive updates by email, the updates will also be available to view in your dashboard.',

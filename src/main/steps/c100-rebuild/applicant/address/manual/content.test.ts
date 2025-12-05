@@ -7,6 +7,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Address details of Dummy  Test1',
+  pageTitle: "Applicant's address details",
   errors: {
     address1: {
       required: 'Enter the first line of the address',
