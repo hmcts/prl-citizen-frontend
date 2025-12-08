@@ -53,6 +53,8 @@ export const form: FormContent = {
     hwf_needHelpWithFees: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.headingTitle,
+      labelHidden: true,
       values: [
         {
           label: l => l.yesNeedHelpWithFeesPaying,
