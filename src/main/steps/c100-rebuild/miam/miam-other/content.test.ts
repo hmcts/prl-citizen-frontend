@@ -62,6 +62,8 @@ describe('miam should contain miam other reasons content', () => {
     const fields = form.fields as FormFields;
     const miam_domesticabuse_involvement_field = fields.miam_notAttendingReasons as FormOptions;
     expect(miam_domesticabuse_involvement_field.type).toBe('radios');
+    expect(miam_domesticabuse_involvement_field.labelHidden).toBe(true);
+    expect((miam_domesticabuse_involvement_field.label as LanguageLookup)(generatedContent)).toBe(en.subTitle);
     expect((miam_domesticabuse_involvement_field.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.applyingForWithoutNoticeHearing
     );

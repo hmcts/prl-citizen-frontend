@@ -52,6 +52,8 @@ export const form: FormContent = {
     miam_notAttendingReasons: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.subTitle,
+      labelHidden: true,
       values: [
         {
           label: l => l.applyingForWithoutNoticeHearing,
