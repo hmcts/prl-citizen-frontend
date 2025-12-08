@@ -50,6 +50,7 @@ export const form: FormContent = {
   fields: {
     reasonsToNotSeeTheDocument: {
       type: 'checkboxes',
+      label: l => l.reasonsToNotSeeTheDocument,
       labelHidden: true,
       validator: atLeastOneFieldIsChecked,
       values: [
