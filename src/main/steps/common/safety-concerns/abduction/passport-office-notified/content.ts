@@ -45,6 +45,8 @@ export const form: FormContent = {
         id: 'c1A_abductionPassportOfficeNotified',
         type: 'radios',
         classes: 'govuk-radios',
+        label: l => l.title,
+        labelHidden: true,
         validator: atLeastOneFieldIsChecked,
         values: [
           {
