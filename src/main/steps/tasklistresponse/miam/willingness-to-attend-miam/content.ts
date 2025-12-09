@@ -69,7 +69,8 @@ export const form: FormContent = {
     miamWillingness: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
+      label: l => l.title,
+      labelHidden: true,
       section: l => l.section,
       values: [
         {

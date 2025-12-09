@@ -415,6 +415,8 @@ describe('respondent details > personal details', () => {
     expect((respondentPlaceOfBirthUnknown.values[0].label as Function)(generatedContent)).toBe(
       en.respondentPlaceOfBirthUnknown
     );
+    expect(respondentPlaceOfBirthUnknown.labelHidden).toBe(true);
+    expect((respondentPlaceOfBirthUnknown.label as LanguageLookup)(generatedContent)).toBe(en.respondentPlaceOfBirth);
   });
 
   test('should contain Save and continue button', () => {

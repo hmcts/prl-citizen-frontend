@@ -118,6 +118,8 @@ export const generateFormFields = (
   const fields = {
     needsResolution: {
       type: 'checkboxes',
+      label: l => l.title,
+      labelHidden: true,
       hint: l => l.bodyHint,
       validator: atLeastOneFieldIsChecked,
       values: [

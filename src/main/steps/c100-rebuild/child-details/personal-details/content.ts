@@ -137,6 +137,8 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         dateOfBirth: {
           type: 'date',
           classes: 'govuk-date-input',
+          label: l => l.dobLabel,
+          labelHidden: true,
           hint: l => l.dateHint,
           values: [
             {

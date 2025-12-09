@@ -126,6 +126,10 @@ describe('child > live with', () => {
     const mainlyLiveWithValues = mainlyLiveWith.values as FormInput[];
 
     expect(mainlyLiveWith.type).toBe('radios');
+    expect(mainlyLiveWith.labelHidden).toBe(true);
+    expect((mainlyLiveWith.label as LanguageLookup)(generatedContent)).toBe(
+      'Who does Child1-firstName Child1-lastName mainly live with?'
+    );
     expect((mainlyLiveWith.hint as Function)(generatedContent)).toBe(en.liveWithHint);
     (mainlyLiveWith.validator as Validator)('');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('');

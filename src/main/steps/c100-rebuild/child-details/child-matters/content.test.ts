@@ -179,6 +179,8 @@ describe('child details > child-matters', () => {
     const { needsResolution } = fields as Record<string, FormFields>;
 
     expect(needsResolution.type).toBe('checkboxes');
+    expect(needsResolution.labelHidden).toBe(true);
+    expect((needsResolution.label as LanguageLookup)(generatedContent)).toBe(`${en.title} Bob Silly`);
     expect((needsResolution.hint as Function)(generatedContent)).toBe(`${en.bodyHint}`);
     (needsResolution.validator as Function)('whoChildLiveWith');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('whoChildLiveWith');

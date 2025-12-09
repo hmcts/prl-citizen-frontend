@@ -191,6 +191,8 @@ describe('child details > personal details', () => {
 
     expect(dateOfBirth.type).toBe('date');
     expect(dateOfBirth.classes).toBe('govuk-date-input');
+    expect(dateOfBirth.labelHidden).toBe(true);
+    expect((dateOfBirth.label as LanguageLookup)(generatedContent)).toBe(en.dobLabel);
     expect((dateOfBirth.hint as Function)(generatedContent)).toBe(en.dateHint);
     expect((fields.dateOfBirthGroup.label as Function)(generatedContent)).toBe(en.dobLabel);
     expect(
