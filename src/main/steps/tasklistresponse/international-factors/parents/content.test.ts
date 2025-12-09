@@ -82,7 +82,8 @@ describe('citizen-home content', () => {
     const detailsKnownField = fields.parents as FormOptions;
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
-    expect((detailsKnownField.label as Function)(generatedContent)).toBe(undefined);
+    expect((detailsKnownField.label as Function)(generatedContent)).toBe(enContent.title);
+    expect(detailsKnownField.labelHidden).toBe(true);
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
     expect((detailsKnownField.hint as Function)(generatedContent)).toBe(enContent.hint);
     expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
