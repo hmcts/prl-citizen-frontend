@@ -78,6 +78,8 @@ export const form: FormContent = {
     courtProceedingsOrders: {
       id: 'courtProceedingsOrders',
       type: 'checkboxes',
+      label: l => l.title,
+      labelHidden: true,
       hint: l => l.select_all_apply,
       validator: atLeastOneFieldIsChecked,
       values: [

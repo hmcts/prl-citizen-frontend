@@ -92,6 +92,8 @@ describe('citizen-home content', () => {
     expect(miamWillingnessField.classes).toBe('govuk-radios');
     (miamWillingnessField.validator as Function)('Yes');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
+    expect((miamWillingnessField.label as Function)(generatedContent)).toBe(enContent.title);
+    expect(miamWillingnessField.labelHidden).toBe(true);
   });
 
   test('should contain Continue button', () => {
@@ -106,7 +108,8 @@ describe('citizen-home content', () => {
     const miamWillingnessField = fields.miamWillingness as FormOptions;
     expect(miamWillingnessField.type).toBe('radios');
     expect(miamWillingnessField.classes).toBe('govuk-radios');
-    expect((miamWillingnessField.label as Function)(generatedContent)).toBe(undefined);
+    expect((miamWillingnessField.label as Function)(generatedContent)).toBe(enContent.title);
+    expect(miamWillingnessField.labelHidden).toBe(true);
     expect((miamWillingnessField.section as Function)(generatedContent)).toBe(undefined);
     expect((miamWillingnessField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
     expect(miamWillingnessField.values[0].value).toBe('Yes');

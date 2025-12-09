@@ -75,6 +75,8 @@ describe('citizen-home content', () => {
 
     expect(miamStartField.type).toBe('radios');
     expect(miamStartField.classes).toBe('govuk-radios');
+    expect((miamStartField.label as Function)(generatedContent)).toBe(enContent.title);
+    expect(miamStartField.labelHidden).toBe(true);
     (miamStartField.validator as Function)('Yes');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
 
