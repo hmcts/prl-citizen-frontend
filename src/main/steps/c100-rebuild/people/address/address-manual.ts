@@ -86,6 +86,8 @@ export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent =>
     addressUnknown: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes',
+      label: l => l.title,
+      labelHidden: true,
       labelSize: 'm',
       // section: l => l.section,
       values: [

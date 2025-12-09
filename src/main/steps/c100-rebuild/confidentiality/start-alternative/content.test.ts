@@ -10,10 +10,10 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   caption: 'Keeping your contact details private',
-  headingTitle: `Do you want to keep your contact details private from 
+  headingTitle: `Do you want to keep your contact details private from
   the other people named in the application (the respondents)?`,
   paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details.',
-  paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children, 
+  paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children,
   you can ask the court to keep your contact details private.`,
   one: 'Yes',
   two: 'No',
@@ -67,7 +67,8 @@ describe('applicant personal details > applying-with > content', () => {
 
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
-    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(undefined);
+    expect(applyingWithField.labelHidden).toBe(true);
+    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
     expect((applyingWithField.section as LanguageLookup)(generatedContent)).toBe(undefined);
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
