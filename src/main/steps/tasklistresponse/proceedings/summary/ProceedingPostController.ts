@@ -36,11 +36,11 @@ export default class ProceedingPostController extends PostController<AnyObject> 
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
       } catch (error) {
-        this.logger.error('ProceedingPostController - Case could not be updated.', error);
+        this.logger.error('ProceedingPostController - Case could not be updated. userCase.id: ' + userCase.id, error);
         throw new Error('ProceedingPostController - Case could not be updated.');
       }
     } else {
-      this.logger.error('ProceedingPostController - Party details not found.');
+      this.logger.error('ProceedingPostController - Party details not found. userCase.id: ' + userCase.id);
       throw new Error('ProceedingPostController - Party details not found.');
     }
   }

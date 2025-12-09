@@ -27,7 +27,9 @@ export default class RespondToAohReviewPostController extends PostController<Any
 
       try {
         if (partyDetails) {
-          this.logger.info('RespondToAohReviewPostController - Preparing to update case data for AOH response.');
+          this.logger.info(
+            'RespondToAohReviewPostController - Preparing to update case data for AOH response. caseId: ' + caseData.id
+          );
           Object.assign(partyDetails.response, { ...prepareRespondToAOHRequest(caseData) });
           req.session.userCase = await client.updateCaseData(
             caseData.id,
@@ -39,13 +41,18 @@ export default class RespondToAohReviewPostController extends PostController<Any
           mapDataInSession(req.session.userCase, userDetails.id);
           super.redirect(req, res);
         } else {
-          this.logger.error('RespondToAohReviewPostController - Party details not found.');
-          throw new Error('Party details not found.');
+          this.logger.error('RespondToAohReviewPostController - Party details not found. caseId: ' + caseData.id);
+          throw new Error('Party details not found. caseId: ' + caseData.id);
         }
       } catch (error) {
         client.logError(error);
-        this.logger.error('RespondToAohReviewPostController - Error occured, failed to save response to AOH.', error);
-        throw new Error('Error occured, failed to save response to AOH. - RespondToAohReviewPostController');
+        this.logger.error(
+          'RespondToAohReviewPostController - Error occured, failed to save response to AOH. caseId: ' + caseData.id,
+          error
+        );
+        throw new Error(
+          'Error occured, failed to save response to AOH. - RespondToAohReviewPostController caseId: ' + caseData.id
+        );
       }
     }
   }

@@ -69,17 +69,17 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
 
     if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
-      this.logger.info('UploadDocumentController - Multiple file upload attempt detected.');
+      this.logger.info('UploadDocumentController - Multiple file upload attempt detected. order id: ' + orderId);
       req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
       req.session.save(err => {
         if (err) {
-          this.logger.error('UploadDocumentController - Error while saving the session.', err);
+          this.logger.error('UploadDocumentController - Error while saving the session. order id: ' + orderId, err);
           throw err;
         }
         res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
       });
     } else {
-      this.logger.info('UploadDocumentController - Processing new document upload.');
+      this.logger.info('UploadDocumentController - Processing new document upload. order id: ' + orderId);
       await this.processNewDocument(files, req, res, orderType, orderId, courtOrderType, courtOrderId);
     }
   }
