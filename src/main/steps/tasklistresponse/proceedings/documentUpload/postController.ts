@@ -91,9 +91,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       );
       return true;
     }
-    this.logger.info(
-      'UploadDocumentController - No existing document found for this order. Order id: ' + orderDataById.id
-    );
+    this.logger.info('UploadDocumentController - No existing document found for this order.');
     return false;
   };
   /* eslint-disable @typescript-eslint/no-explicit-any*/
