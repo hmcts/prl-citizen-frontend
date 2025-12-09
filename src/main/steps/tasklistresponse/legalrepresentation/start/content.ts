@@ -45,6 +45,8 @@ export const form: FormContent = {
     },
     legalRepresentation: {
       type: 'radios',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.yes,

@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { PartyType } from '../../../../app/case/definition';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -93,6 +93,8 @@ describe('citizen-home content', () => {
     const detailsKnownField = fields.detailsKnown as FormOptions;
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
+    expect(detailsKnownField.labelHidden).toBe(true);
+    expect((detailsKnownField.label as LanguageLookup)(generatedContent)).toBe(enContent[PartyType.APPLICANT].title);
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
     expect((detailsKnownField.label as Function)(generatedContent)).toBe(enContent[PartyType.APPLICANT].title);
     expect(detailsKnownField.labelHidden).toBe(true);

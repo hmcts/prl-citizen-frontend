@@ -90,7 +90,8 @@ describe('proceeding details screen', () => {
   test('should contain op_courtProceedingsOrders field', () => {
     const courtProceedingsOrderField = fields.courtProceedingsOrders as FormOptions;
     expect(courtProceedingsOrderField.type).toBe('checkboxes');
-
+    expect((courtProceedingsOrderField.label as LanguageLookup)(generatedContent)).toBe(en.title);
+    expect(courtProceedingsOrderField.labelHidden).toBe(true);
     expect((courtProceedingsOrderField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((courtProceedingsOrderField.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.childArrangementOrder
