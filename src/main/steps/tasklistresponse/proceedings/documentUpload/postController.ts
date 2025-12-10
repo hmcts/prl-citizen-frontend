@@ -37,7 +37,7 @@ const C100OrderTypeNameMapper = {
   otherOrder: 'Other Order',
 };
 
-const LOG_PREFIX = 'UploadDocumentController - post method - ';
+const LOG_PREFIX = 'UploadDocumentController - ';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 
