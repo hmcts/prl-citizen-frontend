@@ -88,9 +88,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
   public checkIfDocumentAlreadyExist = (orderDataById: ProceedingsOrderInterface): boolean => {
     if (orderDataById?.orderDocument?.id) {
-      this.logger.info(
-        LOG_PREFIX + ' - Document already exists for this order. Order id: ' + orderDataById.id
-      );
+      this.logger.info(LOG_PREFIX + ' - Document already exists for this order. Order id: ' + orderDataById.id);
       return true;
     }
     this.logger.info(LOG_PREFIX + ' - No existing document found for this order.');
