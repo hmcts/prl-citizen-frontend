@@ -147,8 +147,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           ].orderDocument = documentInfo;
         } else {
           this.logger.error(
-            LOG_PREFIX + ' - Order data not found in session. Cannot save document info. Order id: ' +
-              orderId
+            LOG_PREFIX + ' - Order data not found in session. Cannot save document info. Order id: ' + orderId
           );
         }
         this.logger.info(LOG_PREFIX + ' - Document upload successful. Order id: ' + orderId);
