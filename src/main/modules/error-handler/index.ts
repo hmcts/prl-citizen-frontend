@@ -5,6 +5,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { ErrorController } from '../../steps/error/error.controller';
 
 const setupErrorHandler =
+  logger =>
   renderError =>
   render =>
   async (...args): Promise<void> => {
@@ -12,6 +13,13 @@ const setupErrorHandler =
       await render(...args);
     } catch (err) {
       const [req, res] = args as [AppRequest, Response];
+      logger?.error('Unhandled error in wrapped route', {
+        path: req.path,
+        method: req.method,
+        userId: (req as AppRequest).session?.user?.id,
+        caseId: (req as AppRequest).session?.userCase?.id,
+        error: err,
+      });
       renderError(err, req, res);
     }
   };
@@ -30,7 +38,7 @@ export class ErrorHandler {
       logger.error('Unhandled Rejection at: Promise ', p, ' reason: ', reason);
     });
 
-    app.locals.errorHandler = setupErrorHandler(errorController.internalServerError);
+    app.locals.errorHandler = setupErrorHandler(logger)(errorController.internalServerError);
   }
 
   public handleNextErrorsFor(app: Application): void {
