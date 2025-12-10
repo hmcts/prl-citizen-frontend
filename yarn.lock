@@ -13864,9 +13864,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mochawesome-report-generator@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "mochawesome-report-generator@npm:6.2.0"
+"mochawesome-report-generator@npm:^6.3.0":
+  version: 6.3.2
+  resolution: "mochawesome-report-generator@npm:6.3.2"
   dependencies:
     chalk: "npm:^4.1.2"
     dateformat: "npm:^4.5.1"
@@ -13878,17 +13878,16 @@ __metadata:
     prop-types: "npm:^15.7.2"
     tcomb: "npm:^3.2.17"
     tcomb-validation: "npm:^3.3.0"
-    validator: "npm:^13.6.0"
     yargs: "npm:^17.2.1"
   bin:
     marge: bin/cli.js
-  checksum: 10c0/77eb60a1c6d595e727b5d4a12b5ff08da0a4b34a7061890060c90b19e644d1302a403040f99cf59ade394bbee4a20b48e87d5f83f94dc4334904f43b33fc9977
+  checksum: 10c0/93f5dfe59331d624a87c939a23418a883f20da97717fec6ea218c6eae69e365772342f1c51703cd8aa62e04515e1fc03fce350685c1d2cf8fd87dbe69fc6c473
   languageName: node
   linkType: hard
 
 "mochawesome@npm:^7.1.3":
-  version: 7.1.3
-  resolution: "mochawesome@npm:7.1.3"
+  version: 7.1.4
+  resolution: "mochawesome@npm:7.1.4"
   dependencies:
     chalk: "npm:^4.1.2"
     diff: "npm:^5.0.0"
@@ -13897,12 +13896,12 @@ __metadata:
     lodash.isfunction: "npm:^3.0.9"
     lodash.isobject: "npm:^3.0.2"
     lodash.isstring: "npm:^4.0.1"
-    mochawesome-report-generator: "npm:^6.2.0"
+    mochawesome-report-generator: "npm:^6.3.0"
     strip-ansi: "npm:^6.0.1"
     uuid: "npm:^8.3.2"
   peerDependencies:
     mocha: ">=7"
-  checksum: 10c0/908ff730da4c6f911b31fcdac7fedafc5334487b9c577701b305121b1432e6bb2accf7ad365454ee85dcc29e0592f6b468b1636c8c01c3cc76c54bd802c75d87
+  checksum: 10c0/b51bf76ccc449794e4a8c7f59aa8d62e06805987c90c5287889137c28f4b5dda915b6d67d9f749f0fe13beea20fa1ad0224f3a79c57bb82ab78751c7af03760b
   languageName: node
   linkType: hard
 
@@ -19105,13 +19104,6 @@ __metadata:
     spdx-correct: "npm:^3.0.0"
     spdx-expression-parse: "npm:^3.0.0"
   checksum: 10c0/7b91e455a8de9a0beaa9fe961e536b677da7f48c9a493edf4d4d4a87fd80a7a10267d438723364e432c2fcd00b5650b5378275cded362383ef570276e6312f4f
-  languageName: node
-  linkType: hard
-
-"validator@npm:13.15.22":
-  version: 13.15.22
-  resolution: "validator@npm:13.15.22"
-  checksum: 10c0/69c0ad0abff0bc9f96faeb6790f5dd4e11b685031e4a115a056f3ed729aaac4d218e61f3582c051cb593305614a0a0d3b5da6ca7d5e0b426fa21be256a0ad852
   languageName: node
   linkType: hard
 
