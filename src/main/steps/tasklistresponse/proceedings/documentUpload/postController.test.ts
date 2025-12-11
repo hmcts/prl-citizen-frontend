@@ -1,4 +1,6 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import axios from 'axios';
+import { LoggerInstance } from 'winston';
 
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
@@ -11,6 +13,17 @@ const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
+
+const logger = {
+  info: jest.fn(),
+  error: jest.fn(),
+};
+Logger.getLogger.mockReturnValue(logger);
+
+const mockLogger = {
+  error: jest.fn().mockImplementation((message: string) => message),
+  info: jest.fn().mockImplementation((message: string) => message),
+} as unknown as LoggerInstance;
 
 describe('Document upload controller', () => {
   afterEach(() => {
@@ -29,7 +42,7 @@ describe('Document upload controller', () => {
         text: l => l.continue,
       },
     };
-    const controller = new UploadDocumentController(mockForm.fields);
+    const controller = new UploadDocumentController(mockForm.fields, mockLogger);
     const req = mockRequest({
       params: {
         orderType: 'otherOrder',
@@ -81,7 +94,7 @@ describe('Document upload controller', () => {
         text: l => l.continue,
       },
     };
-    const controller = new UploadDocumentController(mockForm.fields);
+    const controller = new UploadDocumentController(mockForm.fields, mockLogger);
     const req = mockRequest({
       params: {
         orderType: 'otherOrder',
@@ -135,7 +148,7 @@ describe('Document upload controller', () => {
         text: l => l.continue,
       },
     };
-    const controller = new UploadDocumentController(mockForm.fields);
+    const controller = new UploadDocumentController(mockForm.fields, mockLogger);
 
     mockedAxios.post.mockImplementation(url => {
       switch (url) {
@@ -204,7 +217,7 @@ describe('Document upload controller', () => {
         text: l => l.continue,
       },
     };
-    const controller = new UploadDocumentController(mockForm.fields);
+    const controller = new UploadDocumentController(mockForm.fields, mockLogger);
 
     mockedAxios.post.mockImplementation(url => {
       switch (url) {
@@ -274,7 +287,7 @@ describe('Document upload controller', () => {
         text: l => l.continue,
       },
     };
-    const controller = new UploadDocumentController(mockForm.fields);
+    const controller = new UploadDocumentController(mockForm.fields, mockLogger);
 
     mockedAxios.post.mockImplementation(url => {
       switch (url) {
@@ -343,7 +356,7 @@ describe('Document upload controller', () => {
         text: l => l.continue,
       },
     };
-    const controller = new UploadDocumentController(mockForm.fields);
+    const controller = new UploadDocumentController(mockForm.fields, mockLogger);
 
     mockedAxios.post.mockImplementation(url => {
       switch (url) {
@@ -419,7 +432,7 @@ describe('Document upload controller', () => {
         text: l => l.continue,
       },
     };
-    const controller = new UploadDocumentController(mockForm.fields);
+    const controller = new UploadDocumentController(mockForm.fields, mockLogger);
 
     mockedAxios.post.mockImplementation(url => {
       switch (url) {
@@ -496,7 +509,7 @@ describe('Document upload controller', () => {
           text: l => l.continue,
         },
       };
-      const controller = new UploadDocumentController(mockForm.fields);
+      const controller = new UploadDocumentController(mockForm.fields, mockLogger);
 
       mockedAxios.post.mockImplementation(url => {
         switch (url) {
@@ -569,7 +582,7 @@ describe('Document upload controller', () => {
           text: l => l.continue,
         },
       };
-      const controller = new UploadDocumentController(mockForm.fields);
+      const controller = new UploadDocumentController(mockForm.fields, mockLogger);
 
       mockedAxios.post.mockImplementation(url => {
         switch (url) {
@@ -632,7 +645,7 @@ describe('Document upload controller', () => {
     });
 
     test('should throw an error after upload document error', async () => {
-      const controller = new UploadDocumentController({});
+      const controller = new UploadDocumentController({}, mockLogger);
       const res = mockResponse();
       const req = mockRequest({
         params: {
