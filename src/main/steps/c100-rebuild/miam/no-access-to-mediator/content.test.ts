@@ -105,6 +105,8 @@ describe('miam should contain miam other reasons content', () => {
     const fields = form.fields as FormFields;
     const miam_noMediatorReasons_field = fields.miam_noMediatorReasons as FormOptions;
     expect(miam_noMediatorReasons_field.type).toBe('radios');
+    expect(miam_noMediatorReasons_field.labelHidden).toBe(true);
+    expect((miam_noMediatorReasons_field.label as LanguageLookup)(generatedContent)).toBe(en.subtitle);
     expect((miam_noMediatorReasons_field.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.noAppointmentAvailable
     );

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormInput, FormOptions } from '../../../app/form/Form';
+import { FormContent, FormFields, FormInput, FormOptions, LanguageLookup } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../common/common.content';
 
@@ -94,6 +94,8 @@ describe('urgent request content', () => {
       ?.awp_urgentRequestReason as FormInput;
 
     expect(isThereReasonForUrgentRequestFields.type).toBe('radios');
+    expect(isThereReasonForUrgentRequestFields.labelHidden).toBe(true);
+    expect((isThereReasonForUrgentRequestFields.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((isThereReasonForUrgentRequestFields.values[0].label as Function)(generatedContent)).toBe(en.yes);
 
     expect(urgentRequestReasonSubField?.type).toBe('textarea');

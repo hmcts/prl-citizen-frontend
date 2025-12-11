@@ -54,6 +54,8 @@ export const form: FormContent = {
     awp_isThereReasonForUrgentRequest: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.yes,
