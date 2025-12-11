@@ -7,6 +7,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Address of firstName lastName',
+  pageTitle: "Applicant's address",
   errors: {
     addressPostcode: {
       required: 'Enter the postcode',
@@ -17,6 +18,7 @@ const en = {
 
 const cy = {
   title: 'Cyfeiriad firstName lastName',
+  pageTitle: 'Cyfeiriad y ceisydd',
   errors: {
     addressPostcode: {
       required: 'Nodwch y cod post',

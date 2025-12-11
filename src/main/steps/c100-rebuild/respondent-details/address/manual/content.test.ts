@@ -47,6 +47,7 @@ const en = {
 
 const cy = {
   title: `Cyfeiriad ${name}`,
+  pageTitle: 'Manylion cyfeiriad yr atebydd',
   subtitle:
     'Dylech gynnwys cymaint o fanylion ag y gallwch. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   addressLine1Hint: 'Bydd dogfennau’r llys yn cael eu hanfon yma',

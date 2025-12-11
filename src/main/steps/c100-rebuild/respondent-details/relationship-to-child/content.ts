@@ -14,6 +14,7 @@ import { getPartyDetails } from '../../people/util';
 const en = () => ({
   title: 'What is ',
   title1: "'s relationship to ",
+  pageTitle: "Respondent's relationship to child",
   mother: 'Mother',
   father: 'Father',
   guardian: 'Guardian',
@@ -37,6 +38,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Beth yw perthynas',
+  pageTitle: 'Perthynas yr atebydd â’r plentyn',
   title1: ' â',
   mother: 'Mam',
   father: 'Tad',

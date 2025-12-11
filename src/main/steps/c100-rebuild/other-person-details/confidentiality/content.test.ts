@@ -7,6 +7,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Keeping {firstName} {lastName}’s identity private',
+  pageTitle: "Keeping other person's identity private",
   answersWillBeShared:
     'Unless you answer ‘Yes’ to the question below, the information you give will be shared with other people named in this application (the respondents). This will include the contact details',
   keepDetailsPrivate:
@@ -22,6 +23,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'Cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol',
+  pageTitle: 'Cadw hunaniaeth y person arall yn breifat',
   answersWillBeShared:
     'Bydd yr atebion a roddwch yn eich ymateb yn cael eu rhannu â’r bobl eraill a enwir yn y cais hwn(yr atebydd), bydd hyn yn cynnwys eich manylion cyswllt',
   keepDetailsPrivate:

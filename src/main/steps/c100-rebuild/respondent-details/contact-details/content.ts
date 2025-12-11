@@ -8,6 +8,7 @@ import { getPartyDetails } from '../../people/util';
 
 export const en = () => ({
   title: 'Contact details of',
+  pageTitle: "Respondent's contact details",
   subTitle:
     'Include as much detail as you can. If there’s information missing, your application may take longer to process.',
   donKnowEmailAddress: "I don't know their email",
@@ -28,6 +29,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Manylion cyswllt',
+  pageTitle: 'Manylion cyswllt yr atebydd',
   subTitle:
     'Dylech gynnwys cymaint o fanylion â phosib. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   donKnowEmailAddress: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',

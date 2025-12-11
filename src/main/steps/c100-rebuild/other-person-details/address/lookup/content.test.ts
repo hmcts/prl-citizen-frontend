@@ -7,6 +7,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Address of John Jones',
+  pageTitle: "Other person's address",
   errors: {
     PostCode: {
       required: 'Enter the postcode',
@@ -17,6 +18,7 @@ const en = {
 
 const cy = {
   title: 'Cyfeiriad John Jones',
+  pageTitle: 'Cyfeiriad y person arall',
   errors: {
     PostCode: {
       required: 'Nodwch y cod post',

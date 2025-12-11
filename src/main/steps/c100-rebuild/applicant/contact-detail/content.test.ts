@@ -10,6 +10,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Contact details of',
+  pageTitle: "Applicant's contact details",
   canProvideEmailLabel: 'I can provide an email address',
   canNotProvideEmailLabel: 'I cannot provide an email address',
   emailAdddressLabel: 'Your email address',
@@ -49,6 +50,7 @@ const en = {
 
 const cy = {
   title: 'Manylion cyswllt ',
+  pageTitle: 'Manylion cyswllt y ceisydd',
   canProvideEmailLabel: 'Gallaf ddarparu cyfeiriad e-bost',
   canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
   emailAdddressLabel: 'Eich cyfeiriad e-bost',
@@ -130,6 +132,7 @@ describe('applicant > contact details', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
         },
@@ -145,6 +148,7 @@ describe('applicant > contact details', () => {
       {
         ...cy,
         title: `${cy.title} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
         },

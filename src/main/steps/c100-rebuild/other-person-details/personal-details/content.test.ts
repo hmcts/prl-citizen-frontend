@@ -18,6 +18,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Provide details for',
+  pageTitle: "Other person's details",
   isNameChangedLabelText: 'Have they changed their name?',
   inNameChangedHintText:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
@@ -72,6 +73,7 @@ const en = {
 };
 
 const cy = {
+  pageTitle: 'Manylion y person arall',
   title: 'Darparwch fanylion am',
   isNameChangedLabelText: 'A ydynt wedi newid eu henw?',
   inNameChangedHintText:
@@ -187,6 +189,7 @@ describe('other person details > personal details', () => {
       {
         ...en,
         title: `${en.title} John Doe`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -206,6 +209,7 @@ describe('other person details > personal details', () => {
       {
         ...cy,
         title: `${cy.title} John Doe`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,
