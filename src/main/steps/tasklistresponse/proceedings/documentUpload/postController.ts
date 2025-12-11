@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
+import type { LoggerInstance } from 'winston';
 
 import { caseApi } from '../../../../app/case/CaseApi';
 import {
@@ -36,13 +37,15 @@ const C100OrderTypeNameMapper = {
   otherOrder: 'Other Order',
 };
 
+const LOG_PREFIX = 'UploadDocumentController - ';
+
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
 export default class UploadDocumentController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+  constructor(protected readonly fields: FormFields | FormFieldsFn, private readonly logger: LoggerInstance) {
     super(fields);
   }
 
@@ -68,22 +71,27 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
 
     if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+      this.logger.info(LOG_PREFIX + ' - Multiple file upload attempt detected. order id: ' + orderId);
       req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
       req.session.save(err => {
         if (err) {
+          this.logger.error(LOG_PREFIX + ' - Error while saving the session. order id: ' + orderId, err);
           throw err;
         }
         res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
       });
     } else {
+      this.logger.info(LOG_PREFIX + ' - Processing new document upload. order id: ' + orderId);
       await this.processNewDocument(files, req, res, orderType, orderId, courtOrderType, courtOrderId);
     }
   }
 
   public checkIfDocumentAlreadyExist = (orderDataById: ProceedingsOrderInterface): boolean => {
     if (orderDataById?.orderDocument?.id) {
+      this.logger.info(LOG_PREFIX + ' - Document already exists for this order. Order id: ' + orderDataById.id);
       return true;
     }
+    this.logger.info(LOG_PREFIX + ' - No existing document found for this order.');
     return false;
   };
   /* eslint-disable @typescript-eslint/no-explicit-any*/
@@ -97,6 +105,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     courtOrderId: string
   ): Promise<void> {
     if (validate(files, req, res, orderType, orderId, true)) {
+      this.logger.info(LOG_PREFIX + ' - Validating uploaded document. Order id: ' + orderId);
       const { documents }: any = files;
 
       const formData: FormData = new FormData();
@@ -132,17 +141,25 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             (courtOrderId as unknown as number) - 1
           ]
         ) {
+          this.logger.info(LOG_PREFIX + ' - Saving uploaded document info to session. Order id: ' + orderId);
           req.session.userCase.otherProceedings.order[ProceedingsOrderTypeKeyMapper[courtOrderType]][
             (courtOrderId as unknown as number) - 1
           ].orderDocument = documentInfo;
+        } else {
+          this.logger.error(
+            LOG_PREFIX + ' - Order data not found in session. Cannot save document info. Order id: ' + orderId
+          );
         }
-
+        this.logger.info(LOG_PREFIX + ' - Document upload successful. Order id: ' + orderId);
         req.session.save(() => {
           res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
         });
       } catch (error) {
+        this.logger.error(LOG_PREFIX + ' - Document upload failed. Order id: ' + orderId, error);
         res.json(error);
       }
+    } else {
+      this.logger.error(LOG_PREFIX + ' - Document validation failed. Order id: ' + orderId);
     }
   }
 
