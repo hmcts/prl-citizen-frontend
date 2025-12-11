@@ -28,6 +28,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Cyfeiriad',
+  pageTitle: 'Cyfeiriad y person arall',
   hint: 'Bydd dogfennau sy’n ymwneud â’r cais hwn yn cael eu hanfon yno.',
   enterAddressManually: 'Nid wyf yn gwybod beth yw eu cod post neu maen nhw’n byw y tu allan i’r DU',
   errors: {

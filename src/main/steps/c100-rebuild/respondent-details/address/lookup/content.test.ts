@@ -19,6 +19,7 @@ const en = {
 
 const cy = {
   title: 'Cyfeiriad John Jolly',
+  pageTitle: 'Cyfeiriad yr atebydd',
   manualAddressUrl: '/c100-rebuild/respondent-details/3d6cc3df-9c11-42c0-be69-84acfcbd6048/address/manual',
   errors: {
     PostCode: {

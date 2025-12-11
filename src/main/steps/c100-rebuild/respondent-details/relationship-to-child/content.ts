@@ -38,6 +38,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Beth yw perthynas',
+  pageTitle: 'Perthynas yr atebydd â’r plentyn',
   title1: ' â',
   mother: 'Mam',
   father: 'Tad',

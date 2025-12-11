@@ -58,6 +58,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Darparwch fanylion am',
+  pageTitle: 'Manylion y plentyn',
   dobLabel: 'Dyddiad geni',
   dateHint: 'Er enghraifft, 31 3 2016',
   approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',

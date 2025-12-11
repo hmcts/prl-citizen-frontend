@@ -47,6 +47,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Pa un o’r penderfyniadau rydych chi’n gofyn i’r llys eu datrys sy’n ymwneud â',
+  pageTitle: "Gorchmynion sy'n ymwneud â’r plentyn",
   orderAppliedFor: 'Gorchmynion y gwnaed cais amdanynt',
   bodyHint: "Dewiswch bob un sy'n berthnasol",
   childArrangementsOrder: {

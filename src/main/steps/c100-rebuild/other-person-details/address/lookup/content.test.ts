@@ -18,6 +18,7 @@ const en = {
 
 const cy = {
   title: 'Cyfeiriad John Jones',
+  pageTitle: 'Cyfeiriad y person arall',
   errors: {
     PostCode: {
       required: 'Nodwch y cod post',

@@ -18,6 +18,7 @@ const en = {
 
 const cy = {
   title: 'Dewiswch gyfeiriad John Doe',
+  pageTitle: 'Dewiswch gyfeiriad yr atebydd',
   changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {

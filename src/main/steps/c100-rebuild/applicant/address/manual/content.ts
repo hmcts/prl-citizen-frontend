@@ -32,6 +32,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Manylion cyfeiriad',
+  pageTitle: 'Manylion cyfeiriad y ceisydd',
   errors: {
     address1: {
       required: 'Nodwch linell gyntaf y cyfeiriad',

@@ -22,6 +22,7 @@ const en = {
 
 const cy = {
   title: "{firstName} {lastName}'s living arrangements (welsh)",
+  pageTitle: 'Trefniadau byw y plentyn',
   livingArrangements:
     'We need this information so that the court has a complete understanding of the child’s living arrangements. (welsh)',
   liveWithLabel: 'Select all of the people that the child lives with (welsh)',

@@ -29,6 +29,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Manylion cyswllt',
+  pageTitle: 'Manylion cyswllt yr atebydd',
   subTitle:
     'Dylech gynnwys cymaint o fanylion â phosib. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   donKnowEmailAddress: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',

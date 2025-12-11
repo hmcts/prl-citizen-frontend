@@ -18,6 +18,7 @@ const en = {
 
 const cy = {
   title: 'Cyfeiriad firstName lastName',
+  pageTitle: 'Cyfeiriad y ceisydd',
   errors: {
     addressPostcode: {
       required: 'Nodwch y cod post',

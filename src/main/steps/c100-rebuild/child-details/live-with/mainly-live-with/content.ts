@@ -27,6 +27,7 @@ export const en = {
 
 export const cy = {
   title: 'Who does {firstName} {lastName} mainly live with? (welsh)',
+  pageTitle: 'Prif breswylfa’r plentyn',
   liveWithHint: 'Select the person that the child lives with most of the time. (welsh)',
   incorrectAddress:
     'If any of the addresses listed here are not correct, you must <a href={editAddressUrl} class="govuk-link" rel="external">update the address details.</a> (welsh)',

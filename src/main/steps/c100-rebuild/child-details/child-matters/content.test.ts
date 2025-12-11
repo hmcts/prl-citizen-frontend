@@ -45,6 +45,7 @@ const en = {
 
 const cy = {
   title: 'Pa un o’r penderfyniadau rydych chi’n gofyn i’r llys eu datrys sy’n ymwneud â',
+  pageTitle: "Gorchmynion sy'n ymwneud â’r plentyn",
   orderAppliedFor: 'Gorchmynion y gwnaed cais amdanynt',
   bodyHint: "Dewiswch bob un sy'n berthnasol",
   childArrangementsOrder: {
@@ -166,6 +167,7 @@ describe('child details > child-matters', () => {
       {
         ...cy,
         title: `${cy.title} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,

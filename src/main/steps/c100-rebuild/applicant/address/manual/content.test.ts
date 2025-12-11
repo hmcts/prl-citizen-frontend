@@ -30,6 +30,7 @@ const en = {
 
 const cy = {
   title: 'Manylion cyfeiriad Dummy  Test1',
+  pageTitle: 'Manylion cyfeiriad y ceisydd',
   errors: {
     address1: {
       required: 'Nodwch linell gyntaf y cyfeiriad',

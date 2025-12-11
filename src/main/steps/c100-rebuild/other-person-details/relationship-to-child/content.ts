@@ -39,6 +39,7 @@ const en = () => ({
 const cy = () => ({
   title: 'Beth yw',
   title1: ' Perthynas efo',
+  pageTitle: 'Perthynas y person arall â’r plentyn',
   mother: 'Mam',
   father: 'Tad',
   guardian: 'Gwarcheidwad',

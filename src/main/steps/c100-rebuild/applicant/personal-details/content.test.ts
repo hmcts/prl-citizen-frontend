@@ -71,6 +71,7 @@ const en = {
 
 const cy = {
   title: 'Darparwch fanylion am ',
+  pageTitle: 'Manylion y ceisydd',
   haveYouChangeNameLabel: 'A ydych wedi newid eich enw?',
   haveYouChangeNameHint:
     'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
@@ -175,6 +176,7 @@ describe('Applicant details > personal details', () => {
       {
         ...en,
         title: `${en.title} dummy Test`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -192,6 +194,7 @@ describe('Applicant details > personal details', () => {
       {
         ...cy,
         title: `${cy.title} dummy Test`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,

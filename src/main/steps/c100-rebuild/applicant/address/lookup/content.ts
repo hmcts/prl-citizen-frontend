@@ -23,7 +23,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Cyfeiriad',
-  pageTitle: "Applicant's address",
+  pageTitle: 'Cyfeiriad y ceisydd',
   errors: {
     addressPostcode: {
       required: 'Nodwch y cod post',

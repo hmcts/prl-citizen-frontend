@@ -33,6 +33,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Manylion cyfeiriad',
+  pageTitle: 'Manylion cyfeiriad y person arall',
   addressLine1Hint: 'Gellir anfon dogfennau’r llys yma',
   errors: {
     AddressLine1: {

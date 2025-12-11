@@ -24,7 +24,7 @@ export const en = {
 
 export const cy: typeof en = {
   title: 'Cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol',
-  pageTitle: "Keeping other person's identity private",
+  pageTitle: 'Cadw hunaniaeth y person arall yn breifat',
   answersWillBeShared:
     'Bydd yr atebion a roddwch yn eich ymateb yn cael eu rhannu â’r bobl eraill a enwir yn y cais hwn(yr atebydd), bydd hyn yn cynnwys eich manylion cyswllt',
   keepDetailsPrivate:

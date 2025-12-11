@@ -73,6 +73,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Darparwch fanylion am',
+  pageTitle: 'Manylion y person arall',
   isNameChangedLabelText: 'A ydynt wedi newid eu henw?',
   inNameChangedHintText:
     'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',

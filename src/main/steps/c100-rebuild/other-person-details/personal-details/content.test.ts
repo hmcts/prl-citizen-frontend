@@ -73,6 +73,7 @@ const en = {
 };
 
 const cy = {
+  pageTitle: 'Manylion y person arall',
   title: 'Darparwch fanylion am',
   isNameChangedLabelText: 'A ydynt wedi newid eu henw?',
   inNameChangedHintText:
@@ -208,6 +209,7 @@ describe('other person details > personal details', () => {
       {
         ...cy,
         title: `${cy.title} John Doe`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,

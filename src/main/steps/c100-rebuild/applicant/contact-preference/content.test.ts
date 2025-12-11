@@ -31,6 +31,7 @@ const en = {
 
 const cy = () => ({
   title: 'Dewisiadau cyswllt ar gyfer',
+  pageTitle: 'Dewisiadau cyswllt y ceisydd',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
     'Os byddwch yn dewis cael diweddariadau drwy e-bost, byddwch hefyd yn gallu gweld y diweddariadau yn eich dangosfwrdd.',

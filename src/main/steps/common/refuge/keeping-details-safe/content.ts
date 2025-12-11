@@ -33,7 +33,7 @@ const en = {
 const cy: typeof en = {
   c100: {
     title: 'Cadw manylion {name} yn ddiogel',
-    pageTitle: "Keeping applicant's details safe",
+    pageTitle: 'Cadw manylion y ceisydd yn ddiogel',
     understandSafety:
       'Rydym yn deall pa mor bwysig yw hi i deimlo’n ddiogel, a gwybod y bydd manylion {name} yn cael eu cadw’n breifat.',
     detailsKeptConfidential:
@@ -43,7 +43,7 @@ const cy: typeof en = {
   },
   applicantRespondent: {
     title: 'Cadw eich manylion yn ddiogel',
-    pageTitle: "Keeping other person's details safe",
+    pageTitle: 'Cadw manylion y person arall yn ddiogel',
     understandSafety:
       'Rydym yn deall pa mor bwysig yw hi i deimlo’n ddiogel, a gwybod y bydd eich manylion yn cael eu cadw’n breifat.',
     detailsKeptConfidential:

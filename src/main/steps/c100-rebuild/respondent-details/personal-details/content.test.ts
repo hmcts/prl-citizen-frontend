@@ -88,6 +88,7 @@ const en = {
 
 const cy = {
   title: 'Darparu manylion am',
+  pageTitle: 'Manylion yr atebydd',
   hasNameChanged: 'A ydynt wedi newid eu henw?',
   hasNameChangedHint:
     'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
@@ -211,6 +212,7 @@ describe('respondent details > personal details', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -230,6 +232,7 @@ describe('respondent details > personal details', () => {
       {
         ...cy,
         title: `${cy.title} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,

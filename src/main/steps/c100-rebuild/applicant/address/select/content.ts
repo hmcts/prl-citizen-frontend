@@ -22,6 +22,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Dewiswch gyfeiriad',
+  pageTitle: 'Dewiswch gyfeiriad y ceisydd',
   changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {

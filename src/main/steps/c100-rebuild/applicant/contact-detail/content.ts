@@ -52,6 +52,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Manylion cyswllt ',
+  pageTitle: 'Manylion cyswllt y ceisydd',
   canProvideEmailLabel: 'Gallaf ddarparu cyfeiriad e-bost',
   canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
   emailAdddressLabel: 'Eich cyfeiriad e-bost',

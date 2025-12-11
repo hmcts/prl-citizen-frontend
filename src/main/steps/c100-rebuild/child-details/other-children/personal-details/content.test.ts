@@ -61,6 +61,7 @@ const en = {
 
 const cy = {
   title: 'Darparwch fanylion am',
+  pageTitle: 'Manylion y plentyn',
   dobLabel: 'Dyddiad geni',
   dateHint: 'Er enghraifft, 31 3 2016',
   approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',
@@ -186,6 +187,7 @@ describe('child details > personal details', () => {
       {
         ...cy,
         title: `${cy.title} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,

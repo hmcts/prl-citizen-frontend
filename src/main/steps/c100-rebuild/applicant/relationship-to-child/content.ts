@@ -38,6 +38,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
+  pageTitle: "Perthynas y ceisydd â'r plentyn",
   title: 'Beth yw perthynas',
   title1: ' â',
   mother: 'Mam',

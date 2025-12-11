@@ -35,6 +35,7 @@ const en = {
 const cy = {
   title: 'Beth yw',
   title1: ' Perthynas efo',
+  pageTitle: 'Perthynas y person arall â’r plentyn',
   mother: 'Mam',
   father: 'Tad',
   guardian: 'Gwarcheidwad',
@@ -164,6 +165,7 @@ describe('otherPerson details > relationshipDetails details', () => {
       {
         ...en,
         title: `${en.title} Amy Root${en.title1} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -185,6 +187,7 @@ describe('otherPerson details > relationshipDetails details', () => {
       {
         ...cy,
         title: `${cy.title} Amy Root${cy.title1} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,

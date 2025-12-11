@@ -50,6 +50,7 @@ const en = {
 
 const cy = {
   title: 'Manylion cyswllt ',
+  pageTitle: 'Manylion cyswllt y ceisydd',
   canProvideEmailLabel: 'Gallaf ddarparu cyfeiriad e-bost',
   canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
   emailAdddressLabel: 'Eich cyfeiriad e-bost',
@@ -131,6 +132,7 @@ describe('applicant > contact details', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
         },
@@ -146,6 +148,7 @@ describe('applicant > contact details', () => {
       {
         ...cy,
         title: `${cy.title} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
         },
