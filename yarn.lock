@@ -3473,10 +3473,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/config@npm:^0.0.41":
-  version: 0.0.41
-  resolution: "@types/config@npm:0.0.41"
-  checksum: 10c0/b25deafde197039358ec93e5f97841701ad2079023d73ea8c8736ba52c61196efdeec17ccef1de57b4ddd1d1624e53099e5d0e881218482ca2b0dc1ad2a21c3c
+"@types/config@npm:^3.0.0":
+  version: 3.3.5
+  resolution: "@types/config@npm:3.3.5"
+  checksum: 10c0/32f57d8bd8a6bd79d29a7f26f945b537f745dbadc33cd8eaad98f6e466e0175fb90ae37952352fa6509a0f5de212b9bd0af320bc3bb5f8579af6affe5e3410f6
   languageName: node
   linkType: hard
 
@@ -15391,7 +15391,7 @@ __metadata:
     "@pact-foundation/pact": "npm:^14.0.0"
     "@stryker-mutator/core": "npm:^5.3.0"
     "@stryker-mutator/jest-runner": "npm:^5.3.0"
-    "@types/config": "npm:^0.0.41"
+    "@types/config": "npm:^3.0.0"
     "@types/connect-redis": "npm:^0.0.23"
     "@types/cookie-parser": "npm:^1.4.2"
     "@types/copy-webpack-plugin": "npm:^8.0.1"
