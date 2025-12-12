@@ -636,15 +636,16 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
-    'a) is still going on? or ' +
-    'b) has finished but the order is still in place?',
+                    'a) is still going on? or ' +
+                    'b) has finished but the order is still in place?',
                 },
               ],
             },
             key: {
-              text: 'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
-    'a) is still going on? or ' +
-    'b) has finished but the order is still in place?',
+              text:
+                'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                'a) is still going on? or ' +
+                'b) has finished but the order is still in place?',
             },
             value: {
               html: 'Yes',
@@ -1455,15 +1456,16 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
-    'a) is still going on? or ' +
-    'b) has finished but the order is still in place?',
+                    'a) is still going on? or ' +
+                    'b) has finished but the order is still in place?',
                 },
               ],
             },
             key: {
-              text: 'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
-    'a) is still going on? or ' +
-    'b) has finished but the order is still in place?',
+              text:
+                'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                'a) is still going on? or ' +
+                'b) has finished but the order is still in place?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -4634,15 +4636,16 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
-    'a) is still going on? or ' +
-    'b) has finished but the order is still in place?',
+                    'a) is still going on? or ' +
+                    'b) has finished but the order is still in place?',
                 },
               ],
             },
             key: {
-              text: 'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
-    'a) is still going on? or ' +
-    'b) has finished but the order is still in place?',
+              text:
+                'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                'a) is still going on? or ' +
+                'b) has finished but the order is still in place?',
             },
             value: {
               html: 'No',
@@ -5345,15 +5348,16 @@ describe('Content.ts toggle test cases', () => {
                   text: 'Edit',
                   visuallyHiddenText:
                     'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
-    'a) is still going on? or ' +
-    'b) has finished but the order is still in place?',
+                    'a) is still going on? or ' +
+                    'b) has finished but the order is still in place?',
                 },
               ],
             },
             key: {
-              text: 'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
-    'a) is still going on? or ' +
-    'b) has finished but the order is still in place?',
+              text:
+                'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                'a) is still going on? or ' +
+                'b) has finished but the order is still in place?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
