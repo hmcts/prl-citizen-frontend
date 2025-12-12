@@ -96,6 +96,8 @@ describe('citizen-home content', () => {
     expect(detailsKnownField.labelHidden).toBe(true);
     expect((detailsKnownField.label as LanguageLookup)(generatedContent)).toBe(enContent[PartyType.APPLICANT].title);
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((detailsKnownField.label as Function)(generatedContent)).toBe(enContent[PartyType.APPLICANT].title);
+    expect(detailsKnownField.labelHidden).toBe(true);
     expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
     expect(detailsKnownField.values[0].value).toBe('yes');
     expect((detailsKnownField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
