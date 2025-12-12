@@ -9,7 +9,8 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+  title:
+    'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: a) is still going on? or b) has finished but the order is still in place?',
   localAuthority: 'These will usually involve a local authority.',
   one: 'Yes',
   two: 'No',
@@ -17,7 +18,7 @@ const en = {
 
 const cy = {
   title:
-    'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+    "A oes unrhyw gais wedi'i wneud ar gyfer gorchymyn gofal, gorchymyn goruchwylio, gorchymyn amddiffyn brys neu orchymyn sy'n ei wneud yn ofynnol i rywun ddatgelu lleoliad plentyn neu i gludo'r plentyn i rywun arall ac sydd: a) dal i fynd rhagddo? neu b) wedi dod i ben ond mae'r gorchymyn dal mewn grym?",
   localAuthority: 'Fel arfer, bydd y rhain yn cynnwys awdurdod lleol.',
   one: 'Ydyn',
   two: 'Nac ydyn',
