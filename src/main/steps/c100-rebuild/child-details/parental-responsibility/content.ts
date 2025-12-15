@@ -13,6 +13,7 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Parental responsibility for',
+  pageTitle: 'Parental responsibility for child',
   parentalResponsibility:
     'State everyone who has parental responsibility for {firstname} {lastname} and how they have parental responsibility.',
   subTitle: 'State everyone who has parental responsibility for  and how they have parental responsibility.',
@@ -28,6 +29,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Cyfrifoldeb rhiant dros',
+  pageTitle: 'Cyfrifoldeb rhiant am blentyn',
   parentalResponsibility: 'Datganwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
   subTitle: 'Nodwch bawb sydd â chyfrifoldeb rhiant, a sut mae ganddynt gyfrifoldeb rhiant.',
   bodyHint: `<p>Er enghraifft, ‘mam y plentyn’ neu ‘tad y plentyn oedd wedi priodi â’r fam pan gafodd y plentyn ei (g)eni’.</p>
