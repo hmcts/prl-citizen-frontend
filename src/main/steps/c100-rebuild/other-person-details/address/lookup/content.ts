@@ -15,6 +15,7 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Address of',
+  pageTitle: "Other person's address",
   hint: 'Documents relating to this application may be sent here',
   enterAddressManually: 'I dont know their postcode or they live outside the UK',
   errors: {
@@ -27,6 +28,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Cyfeiriad',
+  pageTitle: 'Cyfeiriad y person arall',
   hint: 'Bydd dogfennau sy’n ymwneud â’r cais hwn yn cael eu hanfon yno.',
   enterAddressManually: 'Nid wyf yn gwybod beth yw eu cod post neu maen nhw’n byw y tu allan i’r DU',
   errors: {

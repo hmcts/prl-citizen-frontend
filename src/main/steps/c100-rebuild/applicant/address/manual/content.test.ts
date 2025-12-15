@@ -7,6 +7,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Address details of Dummy  Test1',
+  pageTitle: "Applicant's address details",
   errors: {
     address1: {
       required: 'Enter the first line of the address',
@@ -29,6 +30,7 @@ const en = {
 
 const cy = {
   title: 'Manylion cyfeiriad Dummy  Test1',
+  pageTitle: 'Manylion cyfeiriad y ceisydd',
   errors: {
     address1: {
       required: 'Nodwch linell gyntaf y cyfeiriad',
