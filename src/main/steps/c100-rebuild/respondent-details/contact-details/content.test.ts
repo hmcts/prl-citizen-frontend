@@ -10,6 +10,7 @@ import { generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
+  pageTitle: "Respondent's contact details",
   title: 'Contact details of',
   subTitle:
     'Include as much detail as you can. If there’s information missing, your application may take longer to process.',
@@ -31,6 +32,7 @@ const en = {
 
 const cy = {
   title: 'Manylion cyswllt',
+  pageTitle: 'Manylion cyswllt yr atebydd',
   subTitle:
     'Dylech gynnwys cymaint o fanylion â phosib. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   donKnowEmailAddress: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
@@ -119,6 +121,7 @@ describe('respondent details > contact details', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -138,6 +141,7 @@ describe('respondent details > contact details', () => {
       {
         ...cy,
         title: `${cy.title} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,

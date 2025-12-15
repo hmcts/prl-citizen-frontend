@@ -13,6 +13,7 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Address details of',
+  pageTitle: "Other person's address details",
   addressLine1Hint: 'Court documents may be sent here',
   errors: {
     AddressLine1: {
@@ -32,6 +33,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Manylion cyfeiriad',
+  pageTitle: 'Manylion cyfeiriad y person arall',
   addressLine1Hint: 'Gellir anfon dogfennau’r llys yma',
   errors: {
     AddressLine1: {
