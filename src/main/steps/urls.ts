@@ -535,5 +535,5 @@ export const SAFEGAURD_EXCLUDE_URLS = [
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
   isNonProd
-    ? 'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
+    ? 'https://prl-citizen-frontend-pr-1975.preview.platform.hmcts.net/'
     : 'https://apply-to-court-about-child-arrangements.service.justice.gov.uk';
