@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
+import type { LoggerInstance } from 'winston';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseEvent, CaseType } from '../../../../app/case/definition';
@@ -13,7 +14,7 @@ import { prepareProceedingDetailsRequest } from '../ProceedingDetailsMapper';
 
 @autobind
 export default class ProceedingPostController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+  constructor(protected readonly fields: FormFields | FormFieldsFn, private readonly logger: LoggerInstance) {
     super(fields);
   }
   public async post(req: AppRequest, res: Response): Promise<void> {
@@ -35,8 +36,12 @@ export default class ProceedingPostController extends PostController<AnyObject> 
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
       } catch (error) {
+        this.logger.error('ProceedingPostController - Case could not be updated. userCase.id: ' + userCase.id, error);
         throw new Error('ProceedingPostController - Case could not be updated.');
       }
+    } else {
+      this.logger.error('ProceedingPostController - Party details not found. userCase.id: ' + userCase.id);
+      throw new Error('ProceedingPostController - Party details not found.');
     }
   }
 }

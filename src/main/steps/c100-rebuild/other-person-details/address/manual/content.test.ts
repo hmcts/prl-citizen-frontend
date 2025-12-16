@@ -6,6 +6,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Address details of Dummy Test1',
+  pageTitle: "Other person's address details",
   addressLine1Hint: 'Court documents may be sent here',
   errors: {
     AddressLine1: {
@@ -26,6 +27,7 @@ const en = {
 
 const cy = {
   title: 'Manylion cyfeiriad Dummy Test1',
+  pageTitle: 'Manylion cyfeiriad y person arall',
   addressLine1Hint: 'Gellir anfon dogfennau’r llys yma',
   errors: {
     AddressLine1: {

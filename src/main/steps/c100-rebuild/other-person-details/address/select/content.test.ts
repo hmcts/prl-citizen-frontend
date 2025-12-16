@@ -7,6 +7,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Select Address of Dummy Test1',
+  pageTitle: "Select other person's address",
   changePostCodeLabel: 'Change postcode',
   errors: {
     selectAddress: {
@@ -17,6 +18,7 @@ const en = {
 
 const cy = {
   title: 'Dewiswch gyfeiriad Dummy Test1',
+  pageTitle: 'Dewiswch gyfeiriad y person arall',
   changePostCodeLabel: 'Newid y cod post',
   errors: {
     selectAddress: {

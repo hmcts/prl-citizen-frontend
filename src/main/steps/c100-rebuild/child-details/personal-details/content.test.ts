@@ -11,6 +11,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Provide details for',
+  pageTitle: "Child's details",
   dobLabel: 'Date of birth',
   dateHint: 'For example, 31 3 2016',
   approxCheckboxLabel: 'I don’t know their date of birth',
@@ -54,6 +55,7 @@ const en = {
 
 const cy = {
   title: 'Darparwch fanylion am',
+  pageTitle: 'Manylion y plentyn',
   dobLabel: 'Dyddiad geni',
   dateHint: 'Er enghraifft, 31 3 2016',
   approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',
@@ -157,6 +159,7 @@ describe('child details > personal details', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -174,6 +177,7 @@ describe('child details > personal details', () => {
       {
         ...cy,
         title: `${cy.title} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,
