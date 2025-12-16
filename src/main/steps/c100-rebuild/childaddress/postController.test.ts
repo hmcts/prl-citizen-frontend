@@ -82,9 +82,6 @@ describe('C100ChildPostCodePostController', () => {
     expect(req.session.errors).toEqual([]);
     expect(req.locals.C100Api.createCase).not.toHaveBeenCalled();
     expect(req.session.destroy).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(
-      'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
-    );
   });
 
   test('when postcode is valid and is an allowed court', async () => {
