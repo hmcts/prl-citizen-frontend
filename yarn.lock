@@ -4802,6 +4802,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"accessible-autocomplete@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "accessible-autocomplete@npm:3.0.1"
+  peerDependencies:
+    preact: ^8.0.0
+  peerDependenciesMeta:
+    preact:
+      optional: true
+  checksum: 10c0/a90d76f29940cd7c5cb0795f2062d32f8f4904bae3acfc89eab717c56f2b18ce3fd07a4035ec5e30643119cdfe56be3a4bc260eb80e39eeb4009ea5dc09b163c
+  languageName: node
+  linkType: hard
+
 "acorn-import-attributes@npm:^1.9.5":
   version: 1.9.5
   resolution: "acorn-import-attributes@npm:1.9.5"
@@ -10265,6 +10277,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"govuk-frontend@npm:^5.13.0":
+  version: 5.13.0
+  resolution: "govuk-frontend@npm:5.13.0"
+  checksum: 10c0/af1c1495c9b543b442709a8131f4455019e07cd9eeea31a4a43b098496047d3468ed3c162d9b246b178c4a3d4214f64b85360bceea95406b188b3d42353593d4
+  languageName: node
+  linkType: hard
+
 "graceful-fs@npm:4.1.15":
   version: 4.1.15
   resolution: "graceful-fs@npm:4.1.15"
@@ -10461,6 +10480,16 @@ __metadata:
   dependencies:
     hermes-estree: "npm:0.32.0"
   checksum: 10c0/5902d2c5d347c0629fba07a47eaad5569590ac69bc8bfb2e454e08d2dfbe1ebd989d88518dca2cba64061689b5eac5960ae6bd15a4a66600bbf377498a3234b7
+  languageName: node
+  linkType: hard
+
+"hmrc-frontend@npm:^6.100.0":
+  version: 6.103.0
+  resolution: "hmrc-frontend@npm:6.103.0"
+  dependencies:
+    accessible-autocomplete: "npm:^3.0.1"
+    govuk-frontend: "npm:^5.13.0"
+  checksum: 10c0/66c222d5cc691b66ac13d41d637a3e243eb62e0ff907089e1d33fb6be6adfb7576d82e5d4d7f0ab35019560492b1b13a4cde475776f42db26cef835426b2b3cf
   languageName: node
   linkType: hard
 
@@ -15441,6 +15470,7 @@ __metadata:
     glob: "npm:^11.0.3"
     govuk-frontend: "npm:4.9.0"
     helmet: "npm:^4.6.0"
+    hmrc-frontend: "npm:^6.100.0"
     html-webpack-plugin: "npm:^5.5.0"
     http-status-codes: "npm:^2.2.0"
     husky: "npm:^8.0.1"

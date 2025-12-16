@@ -37,8 +37,15 @@ export class Nunjucks {
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
     const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
     const commonForC100 = path.join(__dirname, '..', '..', 'steps', 'c100-rebuild', 'common');
+    const hmrcFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'hmrc-frontend');
     const env = nunjucks.configure(
-      [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, hmctsFrontendPath, commonForC100],
+      [
+        path.join(__dirname, '..', '..', 'steps'),
+        govUkFrontendPath,
+        hmctsFrontendPath,
+        hmrcFrontendPath,
+        commonForC100,
+      ],
       {
         autoescape: true,
         watch: app.locals.developmentMode,
