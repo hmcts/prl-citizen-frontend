@@ -635,12 +635,17 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: 'Edit',
                   visuallyHiddenText:
-                    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+                    'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                    'a) is still going on? or ' +
+                    'b) has finished but the order is still in place?',
                 },
               ],
             },
             key: {
-              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+              text:
+                'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                'a) is still going on? or ' +
+                'b) has finished but the order is still in place?',
             },
             value: {
               html: 'Yes',
@@ -1450,12 +1455,17 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: 'Edit',
                   visuallyHiddenText:
-                    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+                    'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                    'a) is still going on? or ' +
+                    'b) has finished but the order is still in place?',
                 },
               ],
             },
             key: {
-              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+              text:
+                'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                'a) is still going on? or ' +
+                'b) has finished but the order is still in place?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -2130,12 +2140,12 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText:
-                    'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+                    "A oes unrhyw gais wedi'i wneud ar gyfer gorchymyn gofal, gorchymyn goruchwylio, gorchymyn amddiffyn brys neu orchymyn sy'n ei wneud yn ofynnol i rywun ddatgelu lleoliad plentyn neu i gludo'r plentyn i rywun arall ac sydd: a) dal i fynd rhagddo? neu b) wedi dod i ben ond mae'r gorchymyn dal mewn grym?",
                 },
               ],
             },
             key: {
-              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+              text: "A oes unrhyw gais wedi'i wneud ar gyfer gorchymyn gofal, gorchymyn goruchwylio, gorchymyn amddiffyn brys neu orchymyn sy'n ei wneud yn ofynnol i rywun ddatgelu lleoliad plentyn neu i gludo'r plentyn i rywun arall ac sydd: a) dal i fynd rhagddo? neu b) wedi dod i ben ond mae'r gorchymyn dal mewn grym?",
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -3352,12 +3362,12 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText:
-                    'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+                    "A oes unrhyw gais wedi'i wneud ar gyfer gorchymyn gofal, gorchymyn goruchwylio, gorchymyn amddiffyn brys neu orchymyn sy'n ei wneud yn ofynnol i rywun ddatgelu lleoliad plentyn neu i gludo'r plentyn i rywun arall ac sydd: a) dal i fynd rhagddo? neu b) wedi dod i ben ond mae'r gorchymyn dal mewn grym?",
                 },
               ],
             },
             key: {
-              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+              text: "A oes unrhyw gais wedi'i wneud ar gyfer gorchymyn gofal, gorchymyn goruchwylio, gorchymyn amddiffyn brys neu orchymyn sy'n ei wneud yn ofynnol i rywun ddatgelu lleoliad plentyn neu i gludo'r plentyn i rywun arall ac sydd: a) dal i fynd rhagddo? neu b) wedi dod i ben ond mae'r gorchymyn dal mewn grym?",
             },
             value: {
               html: 'Ydyn',
@@ -3984,12 +3994,12 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: ' Golygu',
                   visuallyHiddenText:
-                    'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+                    "A oes unrhyw gais wedi'i wneud ar gyfer gorchymyn gofal, gorchymyn goruchwylio, gorchymyn amddiffyn brys neu orchymyn sy'n ei wneud yn ofynnol i rywun ddatgelu lleoliad plentyn neu i gludo'r plentyn i rywun arall ac sydd: a) dal i fynd rhagddo? neu b) wedi dod i ben ond mae'r gorchymyn dal mewn grym?",
                 },
               ],
             },
             key: {
-              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+              text: "A oes unrhyw gais wedi'i wneud ar gyfer gorchymyn gofal, gorchymyn goruchwylio, gorchymyn amddiffyn brys neu orchymyn sy'n ei wneud yn ofynnol i rywun ddatgelu lleoliad plentyn neu i gludo'r plentyn i rywun arall ac sydd: a) dal i fynd rhagddo? neu b) wedi dod i ben ond mae'r gorchymyn dal mewn grym?",
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -4625,12 +4635,17 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: 'Edit',
                   visuallyHiddenText:
-                    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+                    'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                    'a) is still going on? or ' +
+                    'b) has finished but the order is still in place?',
                 },
               ],
             },
             key: {
-              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+              text:
+                'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                'a) is still going on? or ' +
+                'b) has finished but the order is still in place?',
             },
             value: {
               html: 'No',
@@ -5332,12 +5347,17 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/miam/other-proceedings',
                   text: 'Edit',
                   visuallyHiddenText:
-                    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+                    'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                    'a) is still going on? or ' +
+                    'b) has finished but the order is still in place?',
                 },
               ],
             },
             key: {
-              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+              text:
+                'Has any application been made for a care order, a supervision order, an emergency protection order or an order requiring someone to disclose where a child is or to deliver the child to another person and which: ' +
+                'a) is still going on? or ' +
+                'b) has finished but the order is still in place?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
