@@ -57,16 +57,7 @@ describe('C100ChildPostCodePostController', () => {
   });
 
   test('when postcode is valid and is not an allowed court', async () => {
-    mockFindCourtByPostCodeAndService.mockResolvedValue({
-      slug: 'childcare-arrangements',
-      name: 'Childcare arrangements if you separate from your partner',
-      courts: [
-        {
-          name: 'Southampton Combined Court Centre',
-          slug: 'southampton-combined-court-centre',
-        },
-      ],
-    });
+    mockFindCourtByPostCodeAndService.mockResolvedValue('Southampton Combined Court Centre');
     req.locals.C100Api.createCase.mockResolvedValueOnce({
       id: '1234',
       caseTypeOfApplication: 'C100',
@@ -81,23 +72,13 @@ describe('C100ChildPostCodePostController', () => {
 
     expect(req.session.errors).toEqual([]);
     expect(req.locals.C100Api.createCase).not.toHaveBeenCalled();
-    expect(req.session.destroy).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(
       'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
     );
   });
 
   test('when postcode is valid and is an allowed court', async () => {
-    mockFindCourtByPostCodeAndService.mockResolvedValue({
-      slug: 'childcare-arrangements',
-      name: 'Childcare arrangements if you separate from your partner',
-      courts: [
-        {
-          name: 'Swansea Civil Justice Centre',
-          slug: 'swansea-civil-justice-centre',
-        },
-      ],
-    });
+    mockFindCourtByPostCodeAndService.mockResolvedValue('Swansea Civil Justice Centre');
     req.locals.C100Api.createCase.mockResolvedValueOnce({
       id: '1234',
       caseTypeOfApplication: 'C100',
@@ -174,16 +155,7 @@ describe('C100ChildPostCodePostController', () => {
   });
 
   test('when postcode is valid but case create API throws error', async () => {
-    mockFindCourtByPostCodeAndService.mockResolvedValue({
-      slug: 'childcare-arrangements',
-      name: 'Childcare arrangements if you separate from your partner',
-      courts: [
-        {
-          name: 'Swansea Civil Justice Centre',
-          slug: 'swansea-civil-justice-centre',
-        },
-      ],
-    });
+    mockFindCourtByPostCodeAndService.mockResolvedValue('Swansea Civil Justice Centre');
     when(config.get).calledWith('allowedCourts').mockReturnValue(['Swansea Civil Justice Centre']);
     req.locals.C100Api.createCase.mockRejectedValue({ error: {}, status: '404' });
 

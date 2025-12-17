@@ -910,4 +910,14 @@ describe('createAWPApplication', () => {
     );
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
   });
+
+  test('findCourtByPostCodeAndService', async () => {
+    const response = { data: 'Court Name' };
+    mockedAxios.get.mockReturnValueOnce(response as unknown as Promise<string>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', mockLogger);
+    const actual = await client.findCourtByPostCodeAndService('SA1 3TU', req.session.user);
+    expect(actual).toEqual(response.data);
+
+  });
 });

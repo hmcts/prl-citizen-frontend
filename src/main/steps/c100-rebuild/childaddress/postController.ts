@@ -66,7 +66,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
   public async post(req: AppRequest, res: Response): Promise<void> {
     const { user } = req.session;
     const client = new CosApiClient(user.accessToken, req.locals.logger);
-    let courtNames: string[] = [];
+    let courtName = '';
 
     try {
       const form = new Form(this.fields as FormFields);
@@ -83,20 +83,17 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
       }
 
       if (_.isArray(this.allowedCourts) && !this.allowedCourts.includes('*')) {
-        const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode!);
+        courtName = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode!, user);
 
-        if (courtDetails?.message) {
+        if (!courtName?.length) {
           req.session.errors = this.handleError(req.session.errors, 'invalid');
           return this.redirect(req, res);
         }
-
-        courtNames = courtDetails?.courts?.length ? _.map(courtDetails.courts, 'name') : [];
       }
 
       if (
         _.isArray(this.allowedCourts) &&
-        (this.allowedCourts.includes('*') ||
-          (courtNames.length && this.allowedCourts.some(court => courtNames.includes(court))))
+        (this.allowedCourts.includes('*') || (courtName.length && this.allowedCourts.includes(courtName)))
       ) {
         if (!req.session?.userCase?.caseId) {
           await this.createCaseAndSaveDataInSession(req, client);
