@@ -1,6 +1,3 @@
-import { Logger } from '@hmcts/nodejs-logging';
-import { LoggerInstance } from 'winston';
-
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
@@ -13,20 +10,9 @@ const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseI
 jest.mock('../../../../app/case/CosApiClient');
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 
-const logger = {
-  info: jest.fn(),
-  error: jest.fn(),
-};
-Logger.getLogger.mockReturnValue(logger);
-
-const mockLogger = {
-  error: jest.fn().mockImplementation((message: string) => message),
-  info: jest.fn().mockImplementation((message: string) => message),
-} as unknown as LoggerInstance;
-
 describe('ProceedingPostController', () => {
   let fields;
-  const proceedingPostController = new ProceedingPostController(fields, mockLogger);
+  const proceedingPostController = new ProceedingPostController(fields);
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {
