@@ -3,6 +3,7 @@ const path = require('path');
 const sourcePath = path.resolve(__dirname, 'src/main/assets/js');
 const govukFrontend = require(path.resolve(__dirname, 'webpack/govukFrontend'));
 const hmctsFrontend = require(path.resolve(__dirname, 'webpack/hmctsFrontend'));
+const hmrcFrontend = require(path.resolve(__dirname, 'webpack/hmrcFrontend'));
 
 const scss = require(path.resolve(__dirname, 'webpack/scss'));
 const HtmlWebpack = require(path.resolve(__dirname, 'webpack/htmlWebpack'));
@@ -12,7 +13,7 @@ const fileNameSuffix = devMode ? '-dev' : '.[contenthash]';
 const filename = `[name]${fileNameSuffix}.js`;
 
 module.exports = {
-  plugins: [...govukFrontend.plugins,...hmctsFrontend.plugins, ...scss.plugins, ...HtmlWebpack.plugins],
+  plugins: [...govukFrontend.plugins,...hmctsFrontend.plugins, ...scss.plugins, ...HtmlWebpack.plugins, ...hmrcFrontend.plugins || []],
   entry: path.resolve(sourcePath, 'index.ts'),
   mode: devMode ? 'development' : 'production',
   module: {
@@ -26,7 +27,8 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    modules: ['node_modules'],
+    extensions: ['.ts', '.js']
   },
   output: {
     path: path.resolve(__dirname, 'src/main/public/'),
