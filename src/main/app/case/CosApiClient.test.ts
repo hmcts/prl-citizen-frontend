@@ -918,6 +918,5 @@ describe('createAWPApplication', () => {
     const client = new CosApiClient('abc', mockLogger);
     const actual = await client.findCourtByPostCodeAndService('SA1 3TU', req.session.user);
     expect(actual).toEqual(response.data);
-
   });
 });
