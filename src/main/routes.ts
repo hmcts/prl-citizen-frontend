@@ -18,6 +18,7 @@ import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
 import { C8RefugeSequence } from './steps/common/refuge/sequence';
 import { AohSequence } from './steps/common/safety-concerns/sequence';
+import { SignedOutGetController, SignedOutPostController } from './steps/common/signed-out';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { ErrorController } from './steps/error/error.controller';
@@ -49,6 +50,7 @@ import {
   PROCEEDINGS_START,
   RESPONDENT_CHECK_ANSWERS,
   RESPOND_TO_APPLICATION,
+  SIGNED_OUT,
 } from './steps/urls';
 
 export class Routes {
@@ -108,6 +110,11 @@ export class Routes {
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
     app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
+
+    // Signed-out routes
+    app.get(SIGNED_OUT, errorHandler(new SignedOutGetController().get));
+    app.post(SIGNED_OUT, errorHandler(new SignedOutPostController({}).post));
+
     const steps = [
       ...stepsWithContent,
       ...getStepsWithContent(AohSequence.getSequence(), '/common'),

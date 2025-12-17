@@ -15,11 +15,12 @@
 
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-visually-hidden">{{ viewDocuments.title }}</legend>
       <p class="govuk-body">{{caseNumber}}&nbsp;&nbsp;{{caseId}}</p>
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     </fieldset>
   </div>
-  
+
   <dl class="govuk-summary-list">
     <div class="govuk-summary-list__row">
      <dt class="govuk-summary-list__key govuk-!-width-full">
@@ -30,18 +31,18 @@
       <dd>
       </dd>
       <dd class="govuk-summary-list__key govuk-!-width-one-quarter">
-      
+
         <p >
           {{lastUpdate}}
         </p>
       </dd>
     </div>
-  
+
   {% for section in sections %}
      {% if section.items.length==1 %}
        <div class="govuk-summary-list__row">
           {% for item in section.items %}
-             
+
                 <dt class="govuk-summary-list__key govuk-!-width-full">
                   {% if item.link.openInAnotherTab %}
                   <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status" target="_blank">
@@ -60,15 +61,15 @@
                 <dd class="govuk-summary-list__value govuk-!-width-one-quarter">
                   {{item.link.serveDate}}
                 </dd>
-             
+
           {% endfor %}
-      </div>  
+      </div>
 
       {% else %}
       {% for item in section.items %}
                   <div class="govuk-summary-list__row">
-          
-             
+
+
                 <dt class="govuk-summary-list__key govuk-!-width-full">
                   {% if item.link.openInAnotherTab %}
                   <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status" target="_blank">
@@ -87,16 +88,16 @@
                 <dd class="govuk-summary-list__value govuk-!-width-one-quarter">
                   {{item.link.serveDate}}
                 </dd>
-             
-          
-      </div> 
+
+
+      </div>
       {% endfor %}
                 {% endif %}
   {% endfor %}
-     
-    
+
+
 </dl>
-      
-      
+
+
 
 {% endblock %}
