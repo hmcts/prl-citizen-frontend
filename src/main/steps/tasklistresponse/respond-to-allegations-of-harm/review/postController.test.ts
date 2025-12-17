@@ -1,6 +1,3 @@
-import { Logger } from '@hmcts/nodejs-logging';
-import { LoggerInstance } from 'winston';
-
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
@@ -10,19 +7,8 @@ import RespondToAohReviewPostController from './postController';
 
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 
-const logger = {
-  info: jest.fn(),
-  error: jest.fn(),
-};
-Logger.getLogger.mockReturnValue(logger);
-
-const mockLogger = {
-  error: jest.fn().mockImplementation((message: string) => message),
-  info: jest.fn().mockImplementation((message: string) => message),
-} as unknown as LoggerInstance;
-
 describe('tasklistresponse > respond-to-allegations-of-harm > review > postController', () => {
-  const controller = new RespondToAohReviewPostController({}, mockLogger);
+  const controller = new RespondToAohReviewPostController({});
   const partyDetails = {
     id: '1234',
     value: {
