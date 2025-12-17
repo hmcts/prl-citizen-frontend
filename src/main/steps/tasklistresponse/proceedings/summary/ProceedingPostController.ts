@@ -24,19 +24,15 @@ export default class ProceedingPostController extends PostController<AnyObject> 
 
     if (partyDetails) {
       Object.assign(partyDetails.response, { currentOrPreviousProceedings: prepareProceedingDetailsRequest(userCase) });
-      try {
-        req.session.userCase = await client.updateCaseData(
-          userCase.id,
-          partyDetails,
-          partyType,
-          userCase.caseTypeOfApplication as CaseType,
-          CaseEvent.CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS
-        );
-        mapDataInSession(req.session.userCase, user.id);
-        req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
-      } catch (error) {
-        throw new Error('ProceedingPostController - Case could not be updated.');
-      }
+      req.session.userCase = await client.updateCaseData(
+        userCase.id,
+        partyDetails,
+        partyType,
+        userCase.caseTypeOfApplication as CaseType,
+        CaseEvent.CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS
+      );
+      mapDataInSession(req.session.userCase, user.id);
+      req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
     } else {
       throw new Error('ProceedingPostController - Party details not found.');
     }
