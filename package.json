@@ -9,6 +9,7 @@
     "prepare": "husky install",
     "start": "NODE_ENV=production ts-node --transpile-only -r tsconfig-paths/register src/main/server.ts",
     "start:dev": "NODE_ENV=development yarn start:watch",
+    "start:cftlib": "NODE_ENV=development NODE_CONFIG_ENV=cftlib yarn start:watch",
     "start:docker": "NODE_ENV=docker yarn start:watch",
     "start:debug": "nodemon --config nodemon.express.json",
     "start:watch": "concurrently --handle-input \"nodemon --config nodemon.express.json\" \"nodemon --config nodemon.assets.json\"",
