@@ -41,6 +41,8 @@ The application can be run so it works in a local development environment that u
 ```bash
 $ yarn start:cftlib
 ```
+The applications's home page will be available at https://localhost:3005
+
 
 ### Running with Docker
 
