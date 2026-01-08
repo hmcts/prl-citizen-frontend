@@ -34,6 +34,16 @@ $ yarn start
 
 The applications's home page will be available at https://localhost:3001
 
+### Running with CFTLib
+
+The application can be run so it works in a local development environment that uses [CFTLib](https://github.com/hmcts/prl-cos-api/tree/master?tab=readme-ov-file#running-the-application-with-rse-cft-lib) to provide the backend services.
+
+```bash
+$ yarn start:cftlib
+```
+The applications's home page will be available at https://localhost:3005
+
+
 ### Running with Docker
 
 Create docker image:
