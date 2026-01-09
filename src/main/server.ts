@@ -85,7 +85,7 @@ RAProvider.enable(app);
 PCQProvider.enable(app);
 
 setupDev(app, developmentMode);
-const port: number = parseInt(process.env.PORT || '3001', 10);
+const port: number = config.get('port');
 if (app.locals.ENV === 'development') {
   const server = app.listen(port, () => {
     logger.info(`Application started: http://localhost:${port}`);

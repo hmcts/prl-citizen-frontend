@@ -36,3 +36,5 @@ coverage
 output/
 src/test/end-to-end/exuiSupport/localEnvSetup_demo_1.sh
 src/test/end-to-end/exuiSupport/localEnvSetup_1.sh
+
+.env
