@@ -491,13 +491,14 @@ export class CosApiClient {
     }
   }
 
-  public async findCourtByPostCodeAndService(postCode: string): Promise<FindCourtByPostCodeAndServiceResponse> {
+  public async findCourtByPostCodeAndService(postCode: string, user: UserDetails): Promise<string> {
     try {
-      const response = await this.client.get(
-        `${config.get('services.fact.url')}/search/results?postcode=${encodeURIComponent(
-          postCode
-        )}&serviceArea=childcare-arrangements`
-      );
+      const response = await this.client.get(`${config.get('services.cos.url')}/search/${postCode}/results`, {
+        headers: {
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+        },
+      });
 
       return response.data;
     } catch (err) {
