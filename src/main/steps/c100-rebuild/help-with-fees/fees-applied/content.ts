@@ -48,6 +48,8 @@ export const form: FormContent = {
     hwf_feesAppliedDetails: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.one,

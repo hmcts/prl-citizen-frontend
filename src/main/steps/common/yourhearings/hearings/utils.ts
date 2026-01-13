@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { DateTime } from 'luxon';
 
 import { Case } from '../../../../app/case/case';
 import {
@@ -90,16 +91,20 @@ export const generateHearingDaySchedule = (
   hearingMethod: string
 ): HearingDay[] => {
   for (const schedule of hearing.hearingDaySchedule!) {
-    const startDate = schedule.hearingStartDateTime!;
-    const formattedDate = new Date(startDate);
-    const endDate = new Date(schedule.hearingEndDateTime!);
-    const hearingDate = generateHearingDateDisplayText(req, startDate);
-    const startTime = generateHearingTimeDisplayText(formattedDate);
+    const utcStartDateTime = DateTime.fromISO(schedule.hearingStartDateTime!, { zone: 'utc' });
+    const startDate = utcStartDateTime.setZone('Europe/London');
+    const utcEndDateTime = DateTime.fromISO(schedule.hearingEndDateTime!, { zone: 'utc' });
+    const endDate = utcEndDateTime.setZone('Europe/London');
+    const hearingDate = startDate.toFormat('cccc, d LLLL yyyy');
+    const startTime = generateHearingTimeDisplayText(startDate);
     const lang = req.session.lang === 'cy' ? cy : en;
     const startTimeDisplayText = hearingMethod === lang.inter ? startTime + '<br>' + lang.inPersonTime : startTime;
-    const diff = Math.abs(formattedDate.valueOf() - endDate.valueOf()) / 1000;
-    const durationInDayOrHours = Math.floor(diff / 3600) % 24;
-    const minutes = Math.floor(diff / 60) % 60;
+    const durationObject = endDate.diff(startDate);
+    const totalHours = durationObject.as('hours');
+    const durationInDayOrHours = Math.floor(totalHours);
+    const durationInUnits = durationObject.shiftTo('hours', 'minutes', 'seconds');
+
+    const minutes = durationInUnits.minutes;
     const hearingDurationDisplayText = generateHearingScheduleDisplayText(
       durationInDayOrHours,
       minutes,
@@ -138,13 +143,8 @@ export const generateHearingDaySchedule = (
   return hearingDays;
 };
 
-export const generateHearingTimeDisplayText = (date: Date): string => {
-  return date.toLocaleTimeString('en-GB', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-    timeZone: 'Europe/London',
-  });
+export const generateHearingTimeDisplayText = (date: DateTime): string => {
+  return date.toFormat('t').toLowerCase();
 };
 
 export const generateHearingDate = (req: AppRequest<Partial<Case>>, endDate: string): string => {
@@ -205,9 +205,8 @@ export const prepareHearingData = (
   hearingsFuture = hearingsFuture.sort(
     (a, b) => new Date(a.nextHearingDate!).valueOf() - new Date(b.nextHearingDate!).valueOf()
   );
-  //sorting shddules of particular hearing
+  //sorting schedules of particular hearing
   prepareFutureHearingData(hearingsFuture, req, futureHearings, nextHearing);
-  //Generating completed hearing data
   prepareCompletedHearingData(hearingsCompleted, req, completedHearings);
   return {
     nextHearing,

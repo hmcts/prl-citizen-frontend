@@ -18,6 +18,7 @@ export * from '../routeGuard';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Provide details for',
+  pageTitle: "Child's details",
   dobLabel: 'Date of birth',
   dateHint: 'For example, 31 3 2016',
   approxCheckboxLabel: 'I don’t know their date of birth',
@@ -61,6 +62,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Darparwch fanylion am',
+  pageTitle: 'Manylion y plentyn',
   dobLabel: 'Dyddiad geni',
   dateHint: 'Er enghraifft, 31 3 2016',
   approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',
@@ -128,100 +130,107 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
     cy: {},
   };
   const fields = {
-    dateOfBirth: {
-      type: 'date',
-      classes: 'govuk-date-input',
-      labelSize: 's',
+    dateOfBirthGroup: {
+      type: 'fieldset',
+      classes: 'govuk-fieldset__legend--s',
       label: l => l.dobLabel,
-      hint: l => l.dateHint,
-      values: [
-        {
-          label: l => l.dateFormat['day'],
-          //label: l => l.day,
-          name: 'day',
-          value: dateOfBirth!.day,
-          classes: 'govuk-input--width-2',
-          attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-        {
-          label: l => l.dateFormat['month'],
-          //label: l => l.month,
-          name: 'month',
-          value: dateOfBirth!.month,
-          classes: 'govuk-input--width-2',
-          attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-        {
-          label: l => l.dateFormat['year'],
-          //label: l => l.year,
-          name: 'year',
-          value: dateOfBirth!.year,
-          classes: 'govuk-input--width-4',
-          attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-        },
-      ],
-      parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
-      validator: (value, formData) =>
-        formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
-          ? areDateFieldsFilledIn(value as CaseDate) ||
-            isDateInputInvalid(value as CaseDate) ||
-            isMoreThan18Years(value as CaseDate) ||
-            isFutureDate(value as CaseDate)
-          : dobUnknown(formData),
-    },
-    isDateOfBirthUnknown: {
-      type: 'checkboxes',
-      classes: 'govuk-checkboxes--small',
-      values: [
-        {
-          name: 'isDateOfBirthUnknown',
-          label: l => l.approxCheckboxLabel,
-          selected: isDateOfBirthUnknown === YesNoEmpty.YES,
-          value: YesNoEmpty.YES,
-          subFields: {
-            approxDateOfBirth: {
-              type: 'date',
-              classes: 'govuk-date-input',
-              labelSize: 's',
-              label: l => l.approxDobLabel,
-              values: [
-                {
-                  label: l => l.dateFormat['day'],
-                  //label: l => l.day,
-                  name: 'day',
-                  value: approxDateOfBirth!.day,
-                  classes: 'govuk-input--width-2',
-                  attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-                },
-                {
-                  label: l => l.dateFormat['month'],
-                  //label: l => l.month,
-                  name: 'month',
-                  value: approxDateOfBirth!.month,
-                  classes: 'govuk-input--width-2',
-                  attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-                },
-                {
-                  label: l => l.dateFormat['year'],
-                  //label: l => l.year,
-                  name: 'year',
-                  value: approxDateOfBirth!.year,
-                  classes: 'govuk-input--width-4',
-                  attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-                },
-              ],
-              parser: body => covertToDateObject('approxDateOfBirth', body as Record<string, unknown>),
-              validator: (value, formData) =>
-                formData?.isDateOfBirthUnknown === YesNoEmpty.YES
-                  ? areDateFieldsFilledIn(value as CaseDate) ||
-                    isDateInputInvalid(value as CaseDate) ||
-                    isMoreThan18Years(value as CaseDate) ||
-                    isFutureDate(value as CaseDate)
-                  : '',
+      subFields: {
+        dateOfBirth: {
+          type: 'date',
+          classes: 'govuk-date-input',
+          label: l => l.dobLabel,
+          labelHidden: true,
+          hint: l => l.dateHint,
+          values: [
+            {
+              label: l => l.dateFormat['day'],
+              //label: l => l.day,
+              name: 'day',
+              value: dateOfBirth?.day,
+              classes: 'govuk-input--width-2',
+              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
             },
-          },
+            {
+              label: l => l.dateFormat['month'],
+              //label: l => l.month,
+              name: 'month',
+              value: dateOfBirth?.month,
+              classes: 'govuk-input--width-2',
+              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+            },
+            {
+              label: l => l.dateFormat['year'],
+              //label: l => l.year,
+              name: 'year',
+              value: dateOfBirth?.year,
+              classes: 'govuk-input--width-4',
+              attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+            },
+          ],
+          parser: body => covertToDateObject('dateOfBirth', body as Record<string, unknown>),
+          validator: (value, formData) =>
+            formData?.isDateOfBirthUnknown !== YesNoEmpty.YES
+              ? areDateFieldsFilledIn(value as CaseDate) ||
+                isDateInputInvalid(value as CaseDate) ||
+                isMoreThan18Years(value as CaseDate) ||
+                isFutureDate(value as CaseDate)
+              : dobUnknown(formData),
         },
-      ],
+        isDateOfBirthUnknown: {
+          type: 'checkboxes',
+          classes: 'govuk-checkboxes--small',
+          values: [
+            {
+              name: 'isDateOfBirthUnknown',
+              label: l => l.approxCheckboxLabel,
+              selected: isDateOfBirthUnknown === YesNoEmpty.YES,
+              value: YesNoEmpty.YES,
+              subFields: {
+                approxDateOfBirth: {
+                  type: 'date',
+                  classes: 'govuk-date-input',
+                  labelSize: 's',
+                  label: l => l.approxDobLabel,
+                  values: [
+                    {
+                      label: l => l.dateFormat['day'],
+                      //label: l => l.day
+                      name: 'day',
+                      value: approxDateOfBirth?.day,
+                      classes: 'govuk-input--width-2',
+                      attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                    },
+                    {
+                      label: l => l.dateFormat['month'],
+                      //label: l => l.month,
+                      name: 'month',
+                      value: approxDateOfBirth?.month,
+                      classes: 'govuk-input--width-2',
+                      attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+                    },
+                    {
+                      label: l => l.dateFormat['year'],
+                      //label: l => l.year,
+                      name: 'year',
+                      value: approxDateOfBirth?.year,
+                      classes: 'govuk-input--width-4',
+                      attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+                    },
+                  ],
+                  parser: body => covertToDateObject('approxDateOfBirth', body as Record<string, unknown>),
+                  validator: (value, formData) =>
+                    formData?.isDateOfBirthUnknown === YesNoEmpty.YES
+                      ? areDateFieldsFilledIn(value as CaseDate) ||
+                        isDateInputInvalid(value as CaseDate) ||
+                        isMoreThan18Years(value as CaseDate) ||
+                        isFutureDate(value as CaseDate)
+                      : '',
+                },
+              },
+            },
+          ],
+        },
+      },
     },
     gender: {
       type: 'radios',

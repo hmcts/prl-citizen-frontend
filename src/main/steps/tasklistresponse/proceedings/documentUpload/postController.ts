@@ -136,7 +136,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             (courtOrderId as unknown as number) - 1
           ].orderDocument = documentInfo;
         }
-
         req.session.save(() => {
           res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
         });

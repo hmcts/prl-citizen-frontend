@@ -1,0 +1,61 @@
+security:
+  referrerPolicy: 'origin'
+port: 3005
+timeout: 30000
+services:
+  postcodeLookup:
+    url: 'https://api.os.uk/search/places/v1'
+    token: ${PRL_POSTCODE_LOOKUP_API_KEY}
+  authProvider:
+    url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
+    microservice: 'prl_citizen_frontend'
+    secret: ${PRL_CITIZEN_FRONTEND_S2S_SECRET}
+  idam:
+    authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
+    tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
+    clientID: 'prl-citizen-frontend'
+    citizenClientSecret: ${PRL_CITIZEN_FRONTEND_IDAM_SECRET}
+    cosApiClientSecret: ${PRL_COS_API_IDAM_SECRET}
+    systemUsername: ${SYSTEM_USERNAME}
+    systemPassword: ${SYSTEM_PASSWORD}
+  citizen:
+    uploadDocsEmail: ${UPLOAD_DOCUMENTS_EMAIL}
+  case:
+    url: http://localhost:4452
+  cos:
+    url: http://localhost:4044
+  documentManagement:
+    url: http://localhost:4455
+  fact:
+    url: 'http://fact-api-aat.service.core-compute-aat.internal'
+  reasonableAdjustments:
+    url: 'https://cui-ra.aat.platform.hmcts.net'
+  equalityAndDiversity:
+    name: 'Equality and Diversity Service'
+    url: 'https://pcq.aat.platform.hmcts.net'
+    path: '/service-endpoint'
+    tokenKey: ${PRL_PCQ_TOKEN_KEY}
+health:
+  timeout: 5000
+  deadline: 15000
+session:
+  secret: 'local'
+  redis:
+    host:
+    key:
+  secureCookie: false
+e2e:
+  userTestPassword: ''
+appInsights:
+  instrumentationKey: false
+featureToggles:
+  launchDarklyKey: ${PRL_LAUNCH_DARKLY_SDK_KEY}
+  c100Rebuild: true
+  testingSupport: true
+  enableCaseTrainTrack: true
+  enableRAComponent: true
+  enablePcqComponent: true
+  enableC100CaseProgressionTrainTrack: true
+launchDarkly:
+  offline: true
+allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre

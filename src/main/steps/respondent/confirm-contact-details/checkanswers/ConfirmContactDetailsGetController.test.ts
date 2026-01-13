@@ -47,6 +47,6 @@ describe('ConfirmContactDetailsGetController', () => {
       .spyOn(commonContent, 'generatePageContent')
       .mockReturnValueOnce({ breadcrumbs: [{ id: 'home', href: '/test' }] });
     await controller.get(req, res);
-    expect(res.redirect).toBeCalled;
+    expect(res.redirect).toHaveBeenCalled;
   });
 });

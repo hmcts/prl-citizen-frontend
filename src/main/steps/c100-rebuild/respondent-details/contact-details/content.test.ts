@@ -10,6 +10,7 @@ import { generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
+  pageTitle: "Respondent's contact details",
   title: 'Contact details of',
   subTitle:
     'Include as much detail as you can. If there’s information missing, your application may take longer to process.',
@@ -31,6 +32,7 @@ const en = {
 
 const cy = {
   title: 'Manylion cyswllt',
+  pageTitle: 'Manylion cyswllt yr atebydd',
   subTitle:
     'Dylech gynnwys cymaint o fanylion â phosib. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   donKnowEmailAddress: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
@@ -119,6 +121,7 @@ describe('respondent details > contact details', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -138,6 +141,7 @@ describe('respondent details > contact details', () => {
       {
         ...cy,
         title: `${cy.title} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,
@@ -157,6 +161,9 @@ describe('respondent details > contact details', () => {
     expect(emailAddress.classes).toBe('govuk-label');
     expect((emailAddress.label as Function)(generatedContent)).toBe(en.emailAddress);
     expect((donKnowEmailAddress.values[0].label as Function)(generatedContent)).toBe(en.donKnowEmailAddress);
+    expect(donKnowEmailAddress.type).toBe('checkboxes');
+    expect(donKnowEmailAddress.labelHidden).toBe(true);
+    expect((donKnowEmailAddress.label as Function)(generatedContent)).toBe(en.title + ' Bob Silly');
     (emailAddress.validator as Function)('dummy@mail.com');
     expect(isFieldFilledIn).toHaveBeenCalledWith('dummy@mail.com');
     expect(isEmailValid).toHaveBeenCalledWith('dummy@mail.com');
@@ -165,6 +172,9 @@ describe('respondent details > contact details', () => {
     expect(telephoneNumber.classes).toBe('govuk-input--width-10');
     expect((telephoneNumber.label as Function)(generatedContent)).toBe(en.telephoneNumber);
     expect((donKnowTelephoneNumber.values[0].label as Function)(generatedContent)).toBe(en.donKnowTelephoneNumber);
+    expect(donKnowTelephoneNumber.type).toBe('checkboxes');
+    expect(donKnowTelephoneNumber.labelHidden).toBe(true);
+    expect((donKnowTelephoneNumber.label as Function)(generatedContent)).toBe(en.title + ' Bob Silly');
     (telephoneNumber.validator as Function)('9999999999');
     expect(isFieldFilledIn).toHaveBeenCalledWith('9999999999');
     expect(isPhoneNoValid).toHaveBeenCalledWith('9999999999');

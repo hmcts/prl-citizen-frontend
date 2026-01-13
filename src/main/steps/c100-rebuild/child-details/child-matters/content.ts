@@ -12,6 +12,7 @@ let updatedForm: FormContent;
 
 export const en = () => ({
   title: 'Which of the decisions you’re asking the court to resolve relate to',
+  pageTitle: 'Orders relating to child',
   orderAppliedFor: 'Orders applied for',
   bodyHint: 'Select all that apply',
   childArrangementsOrder: {
@@ -46,6 +47,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Pa un o’r penderfyniadau rydych chi’n gofyn i’r llys eu datrys sy’n ymwneud â',
+  pageTitle: "Gorchmynion sy'n ymwneud â’r plentyn",
   orderAppliedFor: 'Gorchmynion y gwnaed cais amdanynt',
   bodyHint: "Dewiswch bob un sy'n berthnasol",
   childArrangementsOrder: {
@@ -117,6 +119,8 @@ export const generateFormFields = (
   const fields = {
     needsResolution: {
       type: 'checkboxes',
+      label: l => l.title,
+      labelHidden: true,
       hint: l => l.bodyHint,
       validator: atLeastOneFieldIsChecked,
       values: [

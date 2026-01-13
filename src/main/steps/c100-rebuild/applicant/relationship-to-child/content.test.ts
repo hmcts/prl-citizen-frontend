@@ -8,6 +8,7 @@ import { generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
+  pageTitle: "Applicant's relationship to child",
   title: 'What is ',
   title1: "'s relationship to ",
   mother: 'Mother',
@@ -32,6 +33,7 @@ const en = {
 };
 
 const cy = {
+  pageTitle: "Perthynas y ceisydd â'r plentyn",
   title: 'Beth yw perthynas',
   title1: ' â',
   mother: 'Mam',
@@ -153,6 +155,7 @@ describe('applicant relationshipDetails details', () => {
       {
         ...en,
         title: `${en.title} Amy Root${en.title1} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -174,6 +177,7 @@ describe('applicant relationshipDetails details', () => {
       {
         ...cy,
         title: `${cy.title} Amy Root${cy.title1} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,
@@ -191,6 +195,10 @@ describe('applicant relationshipDetails details', () => {
 
     expect(relationshipType.type).toBe('radios');
     expect(relationshipType.classes).toBe('govuk-radios');
+    expect(relationshipType.labelHidden).toBe(true);
+    expect((relationshipType.label as LanguageLookup)(generatedContent)).toBe(
+      `${en.title} Amy Root${en.title1} Bob Silly`
+    );
     expect((relationshipType.values[0].label as Function)(generatedContent)).toBe(en.mother);
     expect(relationshipType.values[0].value).toBe(RelationshipType.MOTHER);
     expect((relationshipType.values[1].label as Function)(generatedContent)).toBe(en.father);

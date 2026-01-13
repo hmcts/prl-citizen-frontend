@@ -84,6 +84,8 @@ describe('Safety concern > other-concerns> drugs', () => {
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+    expect((applyingWithField.label as LanguageLookup)(generatedContent)).toBe(en.title);
+    expect(applyingWithField.labelHidden).toBe(true);
     const field2 = applyingWithField.values[0].subFields!.c1A_otherConcernsDrugsDetails;
     expect((field2?.label as Function)(generatedContent)).toBe(en.description);
     expect(field2.type).toBe('textarea');

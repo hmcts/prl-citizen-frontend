@@ -94,6 +94,8 @@ export const form: FormContent = {
     miam_noMediatorReasons: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.subtitle,
+      labelHidden: true,
       values: [
         {
           label: l => l.noAppointmentAvailable,

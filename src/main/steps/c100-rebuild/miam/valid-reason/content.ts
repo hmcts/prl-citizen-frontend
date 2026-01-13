@@ -43,6 +43,8 @@ export const form: FormContent = {
     miam_validReason: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.title,
+      labelHidden: true,
       values: [
         {
           label: l => l.yes,

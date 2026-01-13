@@ -14,14 +14,15 @@ export class Form {
   public getParsedBody(body: AnyObject, checkFields?: FormContent['fields']): Partial<CaseWithFormData> {
     const fields = checkFields || this.fields;
 
-    const parsedBody = Object.entries(fields)
-      .reduce((_fields: [string, FormField][], [key, field]) => {
-        _fields =
-          field.type === 'fieldset' && Object.keys(field?.subFields ?? {}).length
-            ? [..._fields, ...(Object.entries(field.subFields) as [])]
-            : [..._fields, [key, field]];
-        return _fields;
-      }, [])
+    const allFields = Object.entries(fields).reduce((_fields: [string, FormField][], [key, field]) => {
+      _fields =
+        field.type === 'fieldset' && Object.keys(field?.subFields ?? {}).length
+          ? [..._fields, ...(Object.entries(field.subFields) as [])]
+          : [..._fields, [key, field]];
+      return _fields;
+    }, []);
+
+    const parsedBody = allFields
       .map(setupCheckboxParser(!!body.saveAndSignOut))
       .filter(([, field]) => typeof field?.parser === 'function')
       .flatMap(([key, field]) => {
@@ -29,18 +30,39 @@ export class Form {
         return Array.isArray(parsed) ? parsed : [[key, parsed]];
       });
 
-    let subFieldsParsedBody = {};
+    const checkboxFieldsWithSubfieldsHavingParser = allFields.filter(
+      ([, field]) =>
+        field?.type === 'checkboxes' &&
+        Array.isArray((field as FormOptions)?.values) &&
+        (field as FormOptions).values.some(
+          option =>
+            option.subFields && Object.values(option.subFields).some(subField => typeof subField?.parser === 'function')
+        )
+    );
+
+    const combinedFields = {
+      ...fields,
+      ...Object.fromEntries(checkboxFieldsWithSubfieldsHavingParser),
+    };
+
+    const subFieldsParsedBody = this.parseSubFields(body, combinedFields);
+
+    return { ...body, ...subFieldsParsedBody, ...Object.fromEntries(parsedBody) };
+  }
+
+  private parseSubFields(body: AnyObject, fields: FormContent['fields']): Record<string, unknown> {
+    let parsed = {};
+
     for (const [, value] of Object.entries(fields)) {
       (value as FormOptions)?.values
         ?.filter(option => option.subFields !== undefined)
         .map(fieldWithSubFields => fieldWithSubFields.subFields)
         .map(subField => this.getParsedBody(body, subField))
         .forEach(parsedSubField => {
-          subFieldsParsedBody = { ...subFieldsParsedBody, ...parsedSubField };
+          parsed = { ...parsed, ...parsedSubField };
         });
     }
-
-    return { ...body, ...subFieldsParsedBody, ...Object.fromEntries(parsedBody) };
+    return parsed;
   }
 
   /**

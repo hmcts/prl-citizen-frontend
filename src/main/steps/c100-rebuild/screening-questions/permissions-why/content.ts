@@ -83,6 +83,8 @@ export const form: FormContent = {
     sq_permissionsWhy: {
       id: 'sq_permissionsWhy',
       type: 'checkboxes',
+      label: l => l.title,
+      labelHidden: true,
       hint: l => l.select_all_apply,
       values: [
         {
