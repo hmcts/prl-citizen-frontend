@@ -7,7 +7,6 @@ export const logError = (error: AxiosError, logger: LoggerInstance): void => {
     logger.info('Response: ', error.response.data);
     logger.info('status: ', error.response.status);
     logger.info('status text: ', error.response.statusText);
-    logger.info('request: ', error.response.request);
   } else if (error.request) {
     logger.error(`API Error ${error.config?.method} ${error.config?.url}`);
   } else {
