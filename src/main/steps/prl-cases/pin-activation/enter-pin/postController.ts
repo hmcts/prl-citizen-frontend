@@ -74,6 +74,8 @@ export default class LinkCaseToAccountPostController extends PostController<AnyO
       this.redirect(req, res);
     } catch (error) {
       client.logError(error);
+      // eslint-disable-next-line no-console
+      console.log('Error occured from post ' + error);
       req.session.errors = this.handleError('invalidCaseCode', 'caseCode', req);
       req.session.errors = this.handleError('invalidAccessCode', 'accessCode', req);
       this.redirect(req, res);
