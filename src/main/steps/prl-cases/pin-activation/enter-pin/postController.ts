@@ -51,9 +51,11 @@ export default class LinkCaseToAccountPostController extends PostController<AnyO
         req.session.user
       );
 
-      if (accessCode === 'Linked' || accessCode === 'Invalid') {
+      if (accessCode === 'Linked' || accessCode === 'Invalid' || accessCode === 'Duplicate') {
         if (accessCode === 'Linked') {
           req.session.errors = this.handleError('accesscodeAlreadyLinked', 'accessCode', req);
+        } else if (accessCode === 'Duplicate') {
+          req.session.errors = this.handleError('accesscodeAlreadyUsed', 'accessCode', req);
         } else {
           req.session.errors = this.handleError('invalidCaseCode', 'caseCode', req);
           req.session.errors = this.handleError('invalidAccessCode', 'accessCode', req);
