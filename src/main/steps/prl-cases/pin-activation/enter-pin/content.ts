@@ -28,6 +28,8 @@ const en = {
       required: 'Enter your access code',
       invalid: 'The access code must be made up of 8 characters and must be alphanumeric',
       accesscodeAlreadyLinked: 'Provided access code is already linked to the case.',
+      accesscodeAlreadyUsed:
+        'The email address used has already been linked to an account, please register with a different email and try the access code again.',
       invalidAccessCode: 'Enter your access code',
     },
   },
@@ -52,6 +54,8 @@ const cy = {
       required: 'Nodwch eich cod mynediad',
       invalid: 'Mae’n rhaid i’r cod mynediad gynnwys 8 nod a bod yn gyfuniad o rifau a llythrennau',
       accesscodeAlreadyLinked: 'Mae’r cod mynediad a ddarparwyd eisoes yn gysylltiedig â’r achos.',
+      accesscodeAlreadyUsed:
+        'Wales The email address used has already been linked to an account, please register with a different email and try the access code again.',
       invalidAccessCode: 'Nodwch eich cod mynediad',
     },
   },
