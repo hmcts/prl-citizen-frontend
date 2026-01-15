@@ -55,8 +55,7 @@ const cy = {
       invalid: 'Mae’n rhaid i’r cod mynediad gynnwys 8 nod a bod yn gyfuniad o rifau a llythrennau',
       accesscodeAlreadyLinked: 'Mae’r cod mynediad a ddarparwyd eisoes yn gysylltiedig â’r achos.',
       accesscodeAlreadyUsed:
-        'Wales The email address used has already been linked to an account, please register with a different email and try the access code again.',
-      invalidAccessCode: 'Nodwch eich cod mynediad',
+        'Mae’r cyfeiriad e-bost a ddefnyddiwyd wedi’i gysylltu â chyfrif eisoes, a fyddech cystal â chofrestru gydag e-bost gwahanol a rhoi cynnig ar y cod mynediad eto.',
     },
   },
 };
