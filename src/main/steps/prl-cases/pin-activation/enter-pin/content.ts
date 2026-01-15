@@ -56,6 +56,7 @@ const cy = {
       accesscodeAlreadyLinked: 'Mae’r cod mynediad a ddarparwyd eisoes yn gysylltiedig â’r achos.',
       accesscodeAlreadyUsed:
         'Mae’r cyfeiriad e-bost a ddefnyddiwyd wedi’i gysylltu â chyfrif eisoes, a fyddech cystal â chofrestru gydag e-bost gwahanol a rhoi cynnig ar y cod mynediad eto.',
+      invalidAccessCode: 'Nodwch eich cod mynediad',
     },
   },
 };
