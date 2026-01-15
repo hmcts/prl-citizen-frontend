@@ -1,8 +1,8 @@
 /* eslint-disable import/no-named-as-default */
 import { Logger } from '@hmcts/nodejs-logging';
+import { authenticator } from '@otplib/v12-adapter';
 import Axios from 'axios';
 import config from 'config';
-import { authenticator } from 'otplib';
 
 const logger = Logger.getLogger('service-auth-token');
 let token;
