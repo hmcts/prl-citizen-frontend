@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
-import { AppRequest } from '../../../app/controller/AppRequest';
+import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormError, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { getFeatureToggle } from '../../../app/utils/featureToggles';
@@ -67,54 +67,22 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
   public async post(req: AppRequest, res: Response): Promise<void> {
     const { user } = req.session;
     const client = new CosApiClient(user.accessToken, req.locals.logger);
-    let courtNames: string[] = [];
 
     try {
-      const form = new Form(this.fields as FormFields);
-      const { _csrf, ...formData } = form.getParsedBody(req.body);
+      const formData = this.parseAndValidateForm(req);
 
-      req.session.userCase = {
-        ...req.session.userCase,
-        c100RebuildChildPostCode: formData.c100RebuildChildPostCode,
-      };
-      req.session.errors = form.getErrors(formData);
-
-      if (req.session.errors.length) {
+      if (req.session.errors?.length) {
         return this.redirect(req, res);
       }
 
-      if (
-        (await getFeatureToggle().isOsCourtLookupEnabled()) &&
-        _.isArray(this.allowedCourts) &&
-        !this.allowedCourts.includes('*')
-      ) {
-        const courtName = await client.findOsCourtByPostCodeAndService(formData.c100RebuildChildPostCode!, user);
+      const courtNames = await this.getCourtNames(client, formData, user, req);
 
-        if (!courtName?.length) {
-          req.session.errors = this.handleError(req.session.errors, 'invalid');
-          return this.redirect(req, res);
-        }
-        courtNames.push(courtName);
-      } else if (_.isArray(this.allowedCourts) && !this.allowedCourts.includes('*')) {
-        const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode!);
-
-        if (courtDetails?.message) {
-          req.session.errors = this.handleError(req.session.errors, 'invalid');
-          return this.redirect(req, res);
-        }
-
-        courtNames = courtDetails?.courts?.length ? _.map(courtDetails.courts, 'name') : [];
+      if (req.session.errors?.length) {
+        return this.redirect(req, res);
       }
 
-      if (
-        _.isArray(this.allowedCourts) &&
-        (this.allowedCourts.includes('*') ||
-          (courtNames.length && this.allowedCourts.some(court => courtNames.includes(court))))
-      ) {
-        if (!req.session?.userCase?.caseId) {
-          await this.createCaseAndSaveDataInSession(req, client);
-        }
-
+      if (this.isCourtAllowed(courtNames)) {
+        await this.ensureCaseExists(req, client);
         return this.redirect(req, res);
       }
 
@@ -123,6 +91,84 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
       client.logError(error);
       req.session.errors = this.handleError(req.session.errors, 'generic');
       this.redirect(req, res);
+    }
+  }
+
+  private parseAndValidateForm(req: AppRequest): Record<string, unknown> {
+    const form = new Form(this.fields as FormFields);
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
+
+    req.session.userCase = {
+      ...req.session.userCase,
+      c100RebuildChildPostCode: formData.c100RebuildChildPostCode,
+    };
+    req.session.errors = form.getErrors(formData);
+
+    return formData;
+  }
+
+  private async getCourtNames(
+    client: CosApiClient,
+    formData: Record<string, unknown>,
+    user: UserDetails,
+    req: AppRequest
+  ): Promise<string[]> {
+    if (!_.isArray(this.allowedCourts) || this.allowedCourts.includes('*')) {
+      return [];
+    }
+
+    if (await getFeatureToggle().isOsCourtLookupEnabled()) {
+      return this.getOsCourtNames(client, formData, user, req);
+    }
+
+    return this.getStandardCourtNames(client, formData, req);
+  }
+
+  private async getOsCourtNames(
+    client: CosApiClient,
+    formData: Record<string, unknown>,
+    user: UserDetails,
+    req: AppRequest
+  ): Promise<string[]> {
+    const courtName = await client.findOsCourtByPostCodeAndService(formData.c100RebuildChildPostCode as string, user);
+
+    if (!courtName?.length) {
+      req.session.errors = this.handleError(req.session.errors, 'invalid');
+      return [];
+    }
+
+    return [courtName];
+  }
+
+  private async getStandardCourtNames(
+    client: CosApiClient,
+    formData: Record<string, unknown>,
+    req: AppRequest
+  ): Promise<string[]> {
+    const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode as string);
+
+    if (courtDetails?.message) {
+      req.session.errors = this.handleError(req.session.errors, 'invalid');
+      return [];
+    }
+
+    return courtDetails?.courts?.length ? _.map(courtDetails.courts, 'name') : [];
+  }
+
+  private isCourtAllowed(courtNames: string[]): boolean {
+    if (!_.isArray(this.allowedCourts)) {
+      return false;
+    }
+
+    return (
+      this.allowedCourts.includes('*') ||
+      (courtNames.length > 0 && this.allowedCourts.some(court => courtNames.includes(court)))
+    );
+  }
+
+  private async ensureCaseExists(req: AppRequest, client: CosApiClient): Promise<void> {
+    if (!req.session?.userCase?.caseId) {
+      await this.createCaseAndSaveDataInSession(req, client);
     }
   }
 }
