@@ -7,6 +7,7 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { State } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
+import * as featureToggle from '../../../app/utils/featureToggles';
 
 import C100ChildPostCodePostController from './postController';
 
@@ -16,6 +17,8 @@ describe('C100ChildPostCodePostController', () => {
   let req;
   let res;
   const mockFindCourtByPostCodeAndService = jest.spyOn(CosApiClient.prototype, 'findCourtByPostCodeAndService');
+  const mockFindOsCourtByPostCodeAndService = jest.spyOn(CosApiClient.prototype, 'findOsCourtByPostCodeAndService');
+  const mockOsCourtLookupEnabled = jest.spyOn(featureToggle, 'getFeatureToggle');
   const mockFormContent = {
     fields: {
       c100RebuildChildPostCode: {
@@ -24,6 +27,9 @@ describe('C100ChildPostCodePostController', () => {
       },
     },
   } as unknown as FormContent;
+  const mockFeatureToggle = {
+    isOsCourtLookupEnabled: jest.fn<Promise<boolean>, []>(),
+  };
   config.get = jest.fn();
 
   jest.mock('config');
@@ -33,11 +39,13 @@ describe('C100ChildPostCodePostController', () => {
   beforeEach(() => {
     req = mockRequest();
     res = mockResponse();
+    mockOsCourtLookupEnabled.mockReturnValue(mockFeatureToggle as never);
   });
 
   afterEach(() => {
     req.locals.C100Api.createCase.mockClear();
     mockFindCourtByPostCodeAndService.mockClear();
+    mockOsCourtLookupEnabled.mockClear();
   });
 
   test('when postcode is empty', async () => {
@@ -57,7 +65,16 @@ describe('C100ChildPostCodePostController', () => {
   });
 
   test('when postcode is valid and is not an allowed court', async () => {
-    mockFindCourtByPostCodeAndService.mockResolvedValue('Southampton Combined Court Centre');
+    mockFindCourtByPostCodeAndService.mockResolvedValue({
+      slug: 'childcare-arrangements',
+      name: 'Childcare arrangements if you separate from your partner',
+      courts: [
+        {
+          name: 'Southampton Combined Court Centre',
+          slug: 'southampton-combined-court-centre',
+        },
+      ],
+    });
     req.locals.C100Api.createCase.mockResolvedValueOnce({
       id: '1234',
       caseTypeOfApplication: 'C100',
@@ -68,17 +85,53 @@ describe('C100ChildPostCodePostController', () => {
     req.session.testingSupport = true;
     req.body.c100RebuildChildPostCode = 'SO15 2XQ';
 
+    mockFeatureToggle.isOsCourtLookupEnabled.mockResolvedValue(false);
+
     await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
 
     expect(req.session.errors).toEqual([]);
     expect(req.locals.C100Api.createCase).not.toHaveBeenCalled();
+    expect(req.session.destroy).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(
+      'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
+    );
+  });
+
+  test('when postcode is valid, os flag is enabled and is not an allowed court', async () => {
+    mockFindOsCourtByPostCodeAndService.mockResolvedValue('Southampton Combined Court Centre');
+    req.locals.C100Api.createCase.mockResolvedValueOnce({
+      id: '1234',
+      caseTypeOfApplication: 'C100',
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
+      noOfDaysRemainingToSubmitCase: '3',
+    });
+    when(config.get).calledWith('allowedCourts').mockReturnValue(['Swansea Civil Justice Centre']);
+    req.session.testingSupport = true;
+    req.body.c100RebuildChildPostCode = 'SO15 2XQ';
+
+    mockFeatureToggle.isOsCourtLookupEnabled.mockResolvedValue(true);
+
+    await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
+
+    expect(req.session.errors).toEqual([]);
+    expect(req.locals.C100Api.createCase).not.toHaveBeenCalled();
+    expect(req.session.destroy).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith(
       'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
     );
   });
 
   test('when postcode is valid and is an allowed court', async () => {
-    mockFindCourtByPostCodeAndService.mockResolvedValue('Swansea Civil Justice Centre');
+    mockFindCourtByPostCodeAndService.mockResolvedValue({
+      slug: 'childcare-arrangements',
+      name: 'Childcare arrangements if you separate from your partner',
+      courts: [
+        {
+          name: 'Swansea Civil Justice Centre',
+          slug: 'swansea-civil-justice-centre',
+        },
+      ],
+    });
     req.locals.C100Api.createCase.mockResolvedValueOnce({
       id: '1234',
       caseTypeOfApplication: 'C100',
@@ -88,6 +141,33 @@ describe('C100ChildPostCodePostController', () => {
     when(config.get).calledWith('allowedCourts').mockReturnValue(['Swansea Civil Justice Centre']);
 
     req.body.c100RebuildChildPostCode = 'SA1 2DZ';
+    mockFeatureToggle.isOsCourtLookupEnabled.mockResolvedValue(false);
+
+    await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
+
+    expect(req.session.errors).toEqual([]);
+    expect(req.locals.C100Api.createCase).toHaveBeenCalled();
+    expect(req.session.userCase).toEqual({
+      caseId: '1234',
+      caseTypeOfApplication: 'C100',
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
+      noOfDaysRemainingToSubmitCase: '3',
+    });
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('when postcode is valid, os flag is enabled and is an allowed court', async () => {
+    mockFindOsCourtByPostCodeAndService.mockResolvedValue('Swansea Civil Justice Centre');
+    req.locals.C100Api.createCase.mockResolvedValueOnce({
+      id: '1234',
+      caseTypeOfApplication: 'C100',
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
+      noOfDaysRemainingToSubmitCase: '3',
+    });
+    when(config.get).calledWith('allowedCourts').mockReturnValue(['Swansea Civil Justice Centre']);
+
+    req.body.c100RebuildChildPostCode = 'SA1 2DZ';
+    mockFeatureToggle.isOsCourtLookupEnabled.mockResolvedValue(true);
 
     await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
 
@@ -155,12 +235,21 @@ describe('C100ChildPostCodePostController', () => {
   });
 
   test('when postcode is valid but case create API throws error', async () => {
-    mockFindCourtByPostCodeAndService.mockResolvedValue('Swansea Civil Justice Centre');
+    mockFindCourtByPostCodeAndService.mockResolvedValue({
+      slug: 'childcare-arrangements',
+      name: 'Childcare arrangements if you separate from your partner',
+      courts: [
+        {
+          name: 'Swansea Civil Justice Centre',
+          slug: 'swansea-civil-justice-centre',
+        },
+      ],
+    });
     when(config.get).calledWith('allowedCourts').mockReturnValue(['Swansea Civil Justice Centre']);
     req.locals.C100Api.createCase.mockRejectedValue({ error: {}, status: '404' });
 
     req.body.c100RebuildChildPostCode = 'SA1 2DZ';
-
+    mockFeatureToggle.isOsCourtLookupEnabled.mockResolvedValue(false);
     await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
 
     expect(req.session.errors).toEqual([{ propertyName: 'c100RebuildChildPostCode', errorType: 'generic' }]);

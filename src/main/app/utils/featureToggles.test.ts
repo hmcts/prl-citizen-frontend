@@ -105,3 +105,13 @@ describe('isC100CaseProgressionTrainTrackEnabled', () => {
     ).to.be.false;
   });
 });
+
+describe('isOsCourtLookupEnabled', () => {
+  it('should throw and error if isOsCourtLookupEnabled does not exist', async () => {
+    new FeatureToggles(new mockedLaunchDarklyClient()).isOsCourtLookupEnabled().then(data => {
+      expect(data).to.be.false;
+    });
+    await expect(await new FeatureToggles(new mockedLaunchDarklyClient()).isOsCourtLookupEnabled().then(() => true)).to
+      .be.true;
+  });
+});

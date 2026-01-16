@@ -8,6 +8,7 @@ import { CaseWithId } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormError, FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { getFeatureToggle } from '../../../app/utils/featureToggles';
 import { getMOJForkingScreenUrl } from '../../../steps/urls';
 
 @autobind
@@ -66,7 +67,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
   public async post(req: AppRequest, res: Response): Promise<void> {
     const { user } = req.session;
     const client = new CosApiClient(user.accessToken, req.locals.logger);
-    let courtName = '';
+    let courtNames: string[] = [];
 
     try {
       const form = new Form(this.fields as FormFields);
@@ -82,18 +83,33 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
         return this.redirect(req, res);
       }
 
-      if (_.isArray(this.allowedCourts) && !this.allowedCourts.includes('*')) {
-        courtName = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode!, user);
+      if (
+        (await getFeatureToggle().isOsCourtLookupEnabled()) &&
+        _.isArray(this.allowedCourts) &&
+        !this.allowedCourts.includes('*')
+      ) {
+        const courtName = await client.findOsCourtByPostCodeAndService(formData.c100RebuildChildPostCode!, user);
 
         if (!courtName?.length) {
           req.session.errors = this.handleError(req.session.errors, 'invalid');
           return this.redirect(req, res);
         }
+        courtNames.push(courtName);
+      } else if (_.isArray(this.allowedCourts) && !this.allowedCourts.includes('*')) {
+        const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode!);
+
+        if (courtDetails?.message) {
+          req.session.errors = this.handleError(req.session.errors, 'invalid');
+          return this.redirect(req, res);
+        }
+
+        courtNames = courtDetails?.courts?.length ? _.map(courtDetails.courts, 'name') : [];
       }
 
       if (
         _.isArray(this.allowedCourts) &&
-        (this.allowedCourts.includes('*') || (courtName.length && this.allowedCourts.includes(courtName)))
+        (this.allowedCourts.includes('*') ||
+          (courtNames.length && this.allowedCourts.some(court => courtNames.includes(court))))
       ) {
         if (!req.session?.userCase?.caseId) {
           await this.createCaseAndSaveDataInSession(req, client);
