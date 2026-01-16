@@ -614,12 +614,37 @@ describe('CosApiClient', () => {
     expect(flag).toEqual(true);
   });
 
+  test('findCourtByPostCodeAndService throws error', async () => {
+    mockedAxios.post.mockRejectedValueOnce;
+    const client = new CosApiClient('abc', mockLogger);
+    let flag = false;
+    try {
+      await client.findCourtByPostCodeAndService('SA1 3TU');
+    } catch (error) {
+      flag = true;
+    }
+    expect(flag).toEqual(true);
+  });
+
   test('findCourtByPostCodeAndService', async () => {
     const response = { data: 'Court Name' };
     mockedAxios.get.mockReturnValueOnce(response as unknown as Promise<string>);
     const client = new CosApiClient('abc', mockLogger);
     const actual = await client.findCourtByPostCodeAndService('SA1 3TU');
     expect(actual).toEqual(response.data);
+  });
+
+  test('findOsCourtByPostCodeAndService throws error', async () => {
+    mockedAxios.post.mockRejectedValueOnce;
+    const client = new CosApiClient('abc', mockLogger);
+    const req = mockRequest();
+    let flag = false;
+    try {
+      await client.findOsCourtByPostCodeAndService('SA1 3TU', req.session.user);
+    } catch (error) {
+      flag = true;
+    }
+    expect(flag).toEqual(true);
   });
 
   test('findOsCourtByPostCodeAndService', async () => {
