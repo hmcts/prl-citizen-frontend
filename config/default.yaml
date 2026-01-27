@@ -58,6 +58,7 @@ featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
   enableRAComponent: ENABLE_RA_COMPONENT
   enablePcqComponent: ENABLE_PCQ_COMPONENT
+  enableOsCourtLookup: ENABLE_OS_COURT_LOOKUP
 launchDarkly:
   offline: false
 allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre

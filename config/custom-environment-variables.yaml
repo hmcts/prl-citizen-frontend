@@ -51,6 +51,7 @@ featureToggles:
   enableC100CaseProgressionTrainTrack: ENABLE_C100_CASE_PROGRESSION_TRAIN_TRACK
   enableRAComponent: ENABLE_RA_COMPONENT
   enablePcqComponent: ENABLE_PCQ_COMPONENT
+  enableOsCourtLookup: ENABLE_OS_COURT_LOOKUP
 
 launchDarkly:
   offline: LAUNCH_DARKLY_OFFLINE_MODE
