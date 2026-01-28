@@ -407,7 +407,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       expect(res.redirect).not.toHaveBeenCalledWith('/some-redirect-url');
     });
 
-    test('should  set error when  exceeding max documents', async () => {
+    test('should set error when exceeding max documents', async () => {
       const req = mockRequest({
         body: {
           uploadFile: true,
@@ -439,6 +439,43 @@ describe('documents > upload > upload-your-documents > postController', () => {
       expect(req.session.errors).toStrictEqual([
         {
           errorType: 'maxDocumentsReached',
+          propertyName: 'uploadDocumentFileUpload',
+        },
+      ]);
+    });
+
+    test('should set error when exceeding uploading invalid file type', async () => {
+      const req = mockRequest({
+        body: {
+          uploadFile: true,
+        },
+        params: {
+          docCategory: 'your-position-statements',
+        },
+        session: {
+          user: { id: '1234' },
+          userCase: {
+            id: '1234',
+            caseType: 'FL401',
+            applicantsFL401: {
+              firstName: 'test',
+              lastName: 'user',
+            },
+            applicantUploadFiles: new Array(3).fill({}),
+          },
+        },
+      });
+      req.files = {
+        statementDocument: { name: 'file_example_MP4_1MB.mp4', data: '', mimetype: 'video/mp4' },
+      };
+      const res = mockResponse();
+      const controller = new UploadDocumentPostController({});
+
+      await controller.post(req, res);
+      await new Promise(process.nextTick);
+      expect(req.session.errors).toStrictEqual([
+        {
+          errorType: 'invalidFileType',
           propertyName: 'uploadDocumentFileUpload',
         },
       ]);
