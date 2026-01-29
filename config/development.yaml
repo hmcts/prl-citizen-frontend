@@ -56,6 +56,7 @@ featureToggles:
   enableRAComponent: true
   enablePcqComponent: true
   enableC100CaseProgressionTrainTrack: true
+  enableOsCourtLookup: false
 launchDarkly:
   offline: true
 allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre
