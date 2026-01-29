@@ -205,7 +205,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       });
 
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
 
       const res = mockResponse();
@@ -293,7 +293,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       });
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
       const res = mockResponse();
 
@@ -343,7 +343,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       });
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
       const res = mockResponse();
 
@@ -385,7 +385,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       });
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
       uploadDocumentListFromCitizenMock.mockResolvedValue({
         status: 'Success',
@@ -429,7 +429,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       });
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
       const res = mockResponse();
       const controller = new UploadDocumentPostController({});
@@ -466,7 +466,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       });
       req.files = {
-        statementDocument: { name: 'file_example_MP4_1MB.mp4', data: '', mimetype: 'video/mp4' },
+        documents: { name: 'file_example_TIFF_1MB.txt', data: '', mimetype: 'text' },
       };
       const res = mockResponse();
       const controller = new UploadDocumentPostController({});
@@ -475,7 +475,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await new Promise(process.nextTick);
       expect(req.session.errors).toStrictEqual([
         {
-          errorType: 'invalidFileType',
+          errorType: 'fileFormat',
           propertyName: 'uploadDocumentFileUpload',
         },
       ]);

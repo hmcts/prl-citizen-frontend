@@ -184,7 +184,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       req.session.errors = handleError(req.session.errors, 'multipleFiles');
       return this.redirect(req, res, redirectUrl);
     }
-    if (!isValidFileFormat(caseData[documentDataRef])) {
+    if (!isValidFileFormat(files)) {
       req.session.errors = handleError(req.session.errors, 'fileFormat');
       return this.redirect(req, res, redirectUrl);
     }
