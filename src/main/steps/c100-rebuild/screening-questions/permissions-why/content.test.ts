@@ -20,6 +20,9 @@ const en = {
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
   errors: {
+    sq_permissionsWhy: {
+      required: 'Select why you need permission from the court to make this application.',
+    },
     sq_doNotHaveParentalResponsibility_subfield: {
       required: "Provide details for 'I do not have parental responsibility for the children'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
@@ -27,8 +30,6 @@ const en = {
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     sq_courtOrderPrevent_subfield: {
-      required:
-        "Provide details for 'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
@@ -63,6 +64,9 @@ const cy = {
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
   errors: {
+    sq_permissionsWhy: {
+      required: '(welsh translation)',
+    },
     sq_doNotHaveParentalResponsibility_subfield: {
       required: 'Rhowch fanylion pam nad oes gennych gyfrifoldeb rhiant dros y plant',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
@@ -70,7 +74,6 @@ const cy = {
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     sq_courtOrderPrevent_subfield: {
-      required: '(Need Welsh translation)',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
