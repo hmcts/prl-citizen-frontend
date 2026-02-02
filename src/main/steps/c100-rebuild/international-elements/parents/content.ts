@@ -8,7 +8,7 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 export const en = () => ({
   title:
     "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
-  titleHint: "This includes Scotland and Northern Ireland.",
+  titleHint: 'This includes Scotland and Northern Ireland.',
   line1:
     'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales.',
   one: 'Yes',
@@ -32,7 +32,7 @@ export const en = () => ({
 export const cy = () => ({
   title:
     "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
-  titleHint: "This includes Scotland and Northern Ireland.",
+  titleHint: 'This includes Scotland and Northern Ireland.',
   line1:
     "Er enghraifft, gallai hyn gynnwys nain neu berthynas agos arall. Efallai bod ganddynt waith, eiddo neu ysgol sydd wedi'i leoli'n bennaf y tu allan i Gymru a Lloegr.",
   one: 'Ydynt',
