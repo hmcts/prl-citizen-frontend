@@ -8,7 +8,7 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Why do you need a permission from the court to make this application? (optional)',
+  title: 'Why do you need a permission from the court to make this application?',
   line: 'Consult <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">the CB1 guidance</a> if you are not sure if you need permission to apply',
   select_all_apply: 'Select all that apply',
   doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
@@ -39,11 +39,19 @@ const en = {
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
+    sq_courtOrderPreventDoc: {
+      required: 'You must upload a document',
+      multipleFiles: 'You can only upload one document',
+      maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
+      invalidFileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
+      uploadError: 'Document could not be uploaded',
+      deleteFile: 'Document could not be deleted',
+    },
   },
 };
 
 const cy = {
-  title: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn? (dewisol)',
+  title: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn?',
   line: 'Edrychwch <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">arganllawiau CB1</a> os nad ydych yn siŵr a oes angen caniatâd arnoch i wneud cais',
   select_all_apply: "Dewiswch bob un sy'n berthnasol",
   doNotHaveParentalResponsibility: 'Does gen i ddim cyfrifoldeb rhiant dros y plant',
@@ -72,6 +80,15 @@ const cy = {
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
+    },
+    sq_courtOrderPreventDoc: {
+      required: 'Mae’n rhaid i chi uwchlwytho dogfen',
+      multipleFiles: 'Gallwch uwchlwytho un ddogfen yn unig',
+      maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
+      invalidFileFormat:
+        "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
+      uploadError: "Nid oedd modd uwchlwytho'r ddogfen",
+      deleteError: "Nid oedd modd dileu'r ddogfen",
     },
   },
 };
