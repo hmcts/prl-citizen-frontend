@@ -15,8 +15,8 @@ const en = {
   doNotHaveParentalResponsibilityLabelText: 'Provide details',
   section: 'parental responsibility means that you are responsible for the children and their property',
   courtOrderPrevent:
-    'There is a court order preventing me from making an application without first getting the permission of the court',
-  courtOrderPreventLabelText: 'Provide details of the court order in place',
+    'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application',
+  courtOrderPreventLabelText: 'Provide case number and name of the court',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
   errors: {
@@ -27,7 +27,7 @@ const en = {
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     sq_courtOrderPrevent_subfield: {
-      required: "Provide details for 'There is a court order preventing me from making an application'",
+      required: "Provide details for 'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
@@ -48,8 +48,8 @@ const cy = {
   doNotHaveParentalResponsibility: 'Does gen i ddim cyfrifoldeb rhiant dros y plant',
   doNotHaveParentalResponsibilityLabelText: 'Rhowch fanylion',
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
-  courtOrderPrevent: 'Mae yna orchymyn llys yn fy atal rhag gwneud cais heb gael caniatâd y llys yn gyntaf',
-  courtOrderPreventLabelText: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
+  courtOrderPrevent: 'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application? (Need Welsh translation)',
+  courtOrderPreventLabelText: 'Provide case number and name of the court (Need Welsh translation)',
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
   errors: {
@@ -60,7 +60,7 @@ const cy = {
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     sq_courtOrderPrevent_subfield: {
-      required: 'Rhowch fanylion am y gorchymyn llys sy’n eich atal rhag gwneud cais',
+      required: '(Need Welsh translation)',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
@@ -113,7 +113,7 @@ describe('Screening questions > permissions-why', () => {
       ?.sq_courtOrderPrevent_subfield as FormOptions;
     expect(sq_courtOrderPrevent_subfield.type).toBe('textarea');
     expect((sq_courtOrderPrevent_subfield.label as LanguageLookup)(generatedContent)).toBe(
-      'Provide details of the court order in place'
+      en.courtOrderPreventLabelText
     );
     expect(sq_courtOrderPrevent_subfield.attributes).toStrictEqual({
       rows: 4,
