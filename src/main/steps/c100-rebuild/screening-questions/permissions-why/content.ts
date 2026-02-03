@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid, atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 export * from './routeGuard';
 
@@ -165,7 +165,7 @@ export const form: FormContent = {
           },
         },
       ],
-      validator: isFieldFilledIn,
+      validator: atLeastOneFieldIsChecked,
     },
   },
   onlycontinue: {
