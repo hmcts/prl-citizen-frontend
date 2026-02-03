@@ -2,6 +2,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD } from '../../../../steps/urls';
 
 export * from './routeGuard';
 
@@ -42,7 +44,7 @@ export const en = () => ({
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
-    sq_courtOrderPreventDoc: {
+    sq_uploadDocument: {
       required: 'You must upload a document',
       multipleFiles: 'You can only upload one document',
       maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
@@ -89,7 +91,7 @@ export const cy = () => ({
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
-    sq_courtOrderPreventDoc: {
+    sq_uploadDocument: {
       required: 'Mae’n rhaid i chi uwchlwytho dogfen',
       multipleFiles: 'Gallwch uwchlwytho un ddogfen yn unig',
       maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
@@ -178,8 +180,33 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const session = content.additionalData?.req.session;
+  const uploadError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument') ?? null;
+  const uploadedDocument = session?.userCase?.sq_uploadDocument;
+
   return {
     ...translations,
     form,
+    fileUploadConfig: {
+      labelText: translations.uploadButton,
+      uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD),
+
+      noFilesText: translations.noFiles,
+      removeFileText: translations.remove,
+      uploadFileButtonText: translations.uploadButton,
+
+      errorMessage: uploadError ? translations.errors.sq_uploadDocument?.[uploadError.errorType] : null,
+
+      uploadedFiles: uploadedDocument
+        ? [
+            {
+              filename: uploadedDocument.filename,
+              fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD, {
+                removeId: uploadedDocument.id,
+              }),
+            },
+          ]
+        : [],
+    },
   };
 };

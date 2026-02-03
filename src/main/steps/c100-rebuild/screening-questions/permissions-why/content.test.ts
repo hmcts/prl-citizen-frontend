@@ -1,6 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD } from '../../../../steps/urls';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -19,6 +20,9 @@ const en = {
   courtOrderPreventLabelText: 'Provide case number and name of the court',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
+  uploadButton: 'Upload file',
+  noFiles: 'No files uploaded',
+  remove: 'Remove',
   errors: {
     sq_permissionsWhy: {
       required: 'Select why you need permission from the court to make this application.',
@@ -40,7 +44,7 @@ const en = {
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
-    sq_courtOrderPreventDoc: {
+    sq_uploadDocument: {
       required: 'You must upload a document',
       multipleFiles: 'You can only upload one document',
       maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
@@ -63,6 +67,9 @@ const cy = {
   courtOrderPreventLabelText: 'Provide case number and name of the court (Need Welsh translation)',
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
+  uploadButton: 'Uwchlwytho ffeil',
+  noFiles: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
+  remove: 'Remove',
   errors: {
     sq_permissionsWhy: {
       required: '(welsh translation)',
@@ -84,7 +91,7 @@ const cy = {
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
-    sq_courtOrderPreventDoc: {
+    sq_uploadDocument: {
       required: 'Mae’n rhaid i chi uwchlwytho dogfen',
       multipleFiles: 'Gallwch uwchlwytho un ddogfen yn unig',
       maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
@@ -151,6 +158,12 @@ describe('Screening questions > permissions-why', () => {
     expect(response2).toEqual(undefined);
     expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
     expect(isTextAreaValid).toHaveBeenCalledWith('Test');
+
+    expect(generatedContent.fileUploadConfig).toBeDefined();
+
+    const uploadConfig = generatedContent.fileUploadConfig;
+    expect(uploadConfig.uploadUrl).toBe(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD);
+    expect(uploadConfig.uploadedFiles).toStrictEqual([]);
 
     expect(
       (
