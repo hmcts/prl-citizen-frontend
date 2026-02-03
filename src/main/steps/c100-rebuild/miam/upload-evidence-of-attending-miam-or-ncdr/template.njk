@@ -15,7 +15,7 @@
     {% endif %}
 
     {{ fileUpload({
-      name: "miam_previousAttendanceEvidenceDoc",
+      name: "sq_uploadDocument",
       uploadButtonText: fileUploadConfig.uploadButtonText,
       labelText: fileUploadConfig.labelText,
       hintText: fileUploadConfig.hintText,
@@ -27,7 +27,7 @@
       removeFileText: fileUploadConfig.removeFileText,
       token: csrfToken
     }) }}
-    
+
     {% if fileUploadConfig.errorMessage != undefined %}
     </div>
   {% endif %}
