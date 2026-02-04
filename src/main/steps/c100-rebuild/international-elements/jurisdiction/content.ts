@@ -29,7 +29,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
-  titleHint: 'This includes Scotland and Northern Ireland.',
+  titleHint: 'Mae hyn yn cynnwys Yr Alban a Gogledd Iwerddon.',
   line1:
     'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
   one: 'Gallai',

@@ -34,7 +34,7 @@ const en = {
 const cy = {
   title:
     "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
-  titleHint: 'This includes Scotland and Northern Ireland.',
+  titleHint: 'Mae hyn yn cynnwys Yr Alban a Gogledd Iwerddon.',
   line1:
     "Er enghraifft, gallai hyn gynnwys nain neu berthynas agos arall. Efallai bod ganddynt waith, eiddo neu ysgol sydd wedi'i leoli'n bennaf y tu allan i Gymru a Lloegr.",
   one: 'Ydynt',

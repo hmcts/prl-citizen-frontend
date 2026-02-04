@@ -29,7 +29,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
-  titleHint: 'This includes Scotland and Northern Ireland.',
+  titleHint: 'Mae hyn yn cynnwys Yr Alban a Gogledd Iwerddon.',
   line1: "Er enghraifft, a yw eu bywyd teuluol wedi'i leoli yn bennaf y tu allan i Gymru a Lloegr?",
   one: 'Ydynt',
   two: 'Nac ydynt',
