@@ -176,6 +176,9 @@
     "webpack-dev-middleware": "^5.3.1",
     "webpack-node-externals": "^3.0.0"
   },
+  "overrides": {
+    "glob": "^11.1.0"
+  },
   "resolutions": {
     "eazy-logger": "^4.1.0",
     "babel-loader/loader-utils": "^2.0.4",
