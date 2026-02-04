@@ -75,8 +75,8 @@ export const cy = () => ({
   doNotHaveParentalResponsibilityLabelText: 'Rhowch fanylion',
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
   courtOrderPrevent:
-    'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application? (Need Welsh translation)',
-  courtOrderPreventLabelText: 'Provide case number and name of the court (Need Welsh translation)',
+    "Mae gorchymyn o dan adran 91(14) Deddf Plant 1989, gorchymyn atal sifil cyfyngedig, gorchymyn atal sifil cyffredinol, neu orchymyn atal sifil estynedig mewn grym sy'n golygu bod angen caniatâd arnaf i wneud y cais hwn?",
+  courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
   uploadButton: 'Uwchlwytho ffeil',

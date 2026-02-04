@@ -158,8 +158,7 @@ describe('Screening questions > permissions-why', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
     expect(isTextAreaValid).toHaveBeenCalledWith('Test');
 
-    const uploadField =
-      generatedContent.form.fields['sq_permissionsWhy'].values[1].subFields!['sq_uploadDocument'];
+    const uploadField = generatedContent.form.fields['sq_permissionsWhy'].values[1].subFields!['sq_uploadDocument'];
     expect(uploadField.type).toBe('fileUpload');
     expect(uploadField['fileUploadConfig']).toBeDefined();
 
