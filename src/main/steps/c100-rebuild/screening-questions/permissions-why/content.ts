@@ -75,7 +75,7 @@ export const cy = () => ({
   doNotHaveParentalResponsibilityLabelText: 'Rhowch fanylion',
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
   courtOrderPrevent:
-    "Mae gorchymyn o dan adran 91(14) Deddf Plant 1989, gorchymyn atal sifil cyfyngedig, gorchymyn atal sifil cyffredinol, neu orchymyn atal sifil estynedig mewn grym sy'n golygu bod angen caniatâd arnaf i wneud y cais hwn?",
+    "Mae gorchymyn o dan adran 91(14) Deddf Plant 1989, gorchymyn atal sifil cyfyngedig, gorchymyn atal sifil cyffredinol, neu orchymyn atal sifil estynedig mewn grym sy'n golygu bod angen caniatâd arnaf i wneud y cais hwn",
   courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
