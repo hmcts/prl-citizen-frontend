@@ -16,9 +16,9 @@ export const en = () => ({
   need at a hearing. Consider remote and in-person hearings, in case your preferred
   hearing type is not possible.`,
   select_all_apply: 'Select all that apply to you',
-  speakInWelsh: 'I need to speak in Welsh',
-  readAndWriteInWelsh: 'I need to read and write in Welsh',
-  needInterpreterInCertainLanguage: 'I need an interpreter in a certain language',
+  speakInWelsh: 'I want to speak in Welsh',
+  readAndWriteInWelsh: 'I want to read and write in Welsh',
+  needInterpreterInCertainLanguage: 'I want an interpreter in a certain language',
   needInterpreterInCertainLanguage_subfield:
     'Give details of the language you require (including dialect, if applicable)',
   noLanguageRequirements: 'No, I do not have any language requirements at this time',
