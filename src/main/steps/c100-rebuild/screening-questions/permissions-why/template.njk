@@ -1,5 +1,3 @@
-{% from "common/fileupload/macro-v1.njk" import fileUpload with context %}
-
 {% extends "common/template.njk" %}
 
 
@@ -7,25 +5,5 @@
   <h1 class="govuk-heading-xl govuk-!-margin-bottom-9">{{ title }}</h1>
   <p class="govuk-body">{{line | safe}}</p>
 
-  {% if fileUploadConfig.errorMessage != undefined %}
-      <div class="govuk-form-group--error">
-  {% endif %}
-
-  {{ fileUpload({
-      name: "sq_uploadDocument",
-      uploadButtonText: fileUploadConfig.uploadButtonText,
-      labelText: fileUploadConfig.labelText,
-      hintText: fileUploadConfig.hintText,
-      allowedFileTypes: "image/jpg,image/jpeg,image/bmp,image/png,image/tiff,application/pdf,application/msword",
-      uploadUrl: "",
-      uploadedFiles: fileUploadConfig.uploadedFiles,
-      errorMessage: fileUploadConfig.errorMessage,
-      noFilesText: fileUploadConfig.noFilesText,
-      removeFileText: fileUploadConfig.removeFileText,
-      token: csrfToken
-  }) }}
-
-  {% if fileUploadConfig.errorMessage != undefined %}
-  </div>
   {% endif %}
 {% endblock %}

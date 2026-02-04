@@ -1,11 +1,23 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
+import { FormContent, FormField, FormFields, FormOptions } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD } from '../../../../steps/urls';
 
 export * from './routeGuard';
+
+type FileUploadFormField = FormField & {
+  fileUploadConfig?: {
+    labelText: string;
+    uploadUrl: string;
+    noFilesText: string;
+    removeFileText: string;
+    uploadFileButtonText: string;
+    errorMessage?: string | null;
+    uploadedFiles?: unknown[];
+  };
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -148,6 +160,9 @@ export const form: FormContent = {
               },
               validator: value => isTextAreaValid(value),
             },
+            sq_uploadDocument: {
+              type: 'fileUpload',
+            },
           },
         },
         {
@@ -183,30 +198,31 @@ export const generateContent: TranslationFn = content => {
   const session = content.additionalData?.req.session;
   const uploadError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument') ?? null;
   const uploadedDocument = session?.userCase?.sq_uploadDocument;
+  const localForm = { ...form };
+  const fields = localForm.fields as FormFields;
+  const permissionsWhyField = fields['sq_permissionsWhy'] as FormOptions;
+
+  (permissionsWhyField.values[1].subFields!.sq_uploadDocument as FileUploadFormField).fileUploadConfig = {
+    labelText: translations.uploadButton,
+    uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD),
+    noFilesText: translations.noFiles,
+    removeFileText: translations.remove,
+    uploadFileButtonText: translations.uploadButton,
+    errorMessage: uploadError ? translations.errors.sq_uploadDocument?.[uploadError.errorType] : null,
+    uploadedFiles: uploadedDocument
+      ? [
+          {
+            filename: uploadedDocument.filename,
+            fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD, {
+              removeId: uploadedDocument.id,
+            }),
+          },
+        ]
+      : [],
+  };
 
   return {
     ...translations,
-    form,
-    fileUploadConfig: {
-      labelText: translations.uploadButton,
-      uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD),
-
-      noFilesText: translations.noFiles,
-      removeFileText: translations.remove,
-      uploadFileButtonText: translations.uploadButton,
-
-      errorMessage: uploadError ? translations.errors.sq_uploadDocument?.[uploadError.errorType] : null,
-
-      uploadedFiles: uploadedDocument
-        ? [
-            {
-              filename: uploadedDocument.filename,
-              fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD, {
-                removeId: uploadedDocument.id,
-              }),
-            },
-          ]
-        : [],
-    },
+    form: localForm,
   };
 };

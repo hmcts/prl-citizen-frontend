@@ -1,7 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD } from '../../../../steps/urls';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -159,11 +158,10 @@ describe('Screening questions > permissions-why', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
     expect(isTextAreaValid).toHaveBeenCalledWith('Test');
 
-    expect(generatedContent.fileUploadConfig).toBeDefined();
-
-    const uploadConfig = generatedContent.fileUploadConfig;
-    expect(uploadConfig.uploadUrl).toBe(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD);
-    expect(uploadConfig.uploadedFiles).toStrictEqual([]);
+    const uploadField =
+      generatedContent.form.fields['sq_permissionsWhy'].values[1].subFields!['sq_uploadDocument'];
+    expect(uploadField.type).toBe('fileUpload');
+    expect(uploadField['fileUploadConfig']).toBeDefined();
 
     expect(
       (
