@@ -9,7 +9,7 @@ import { PartyType, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { isExceedingMaxDocuments } from '../../../../../app/form/validation';
+import { isExceedingMaxDocuments, isValidFileFormat } from '../../../../../app/form/validation';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
 import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
@@ -182,6 +182,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
     if (docCategory === UploadDocumentCategory.FM5_DOCUMENT && caseData[documentDataRef].length) {
       req.session.errors = handleError(req.session.errors, 'multipleFiles');
+      return this.redirect(req, res, redirectUrl);
+    }
+    if (!isValidFileFormat(files)) {
+      req.session.errors = handleError(req.session.errors, 'fileFormat');
       return this.redirect(req, res, redirectUrl);
     }
     if (isExceedingMaxDocuments(caseData[documentDataRef]?.length, docCategory)) {
