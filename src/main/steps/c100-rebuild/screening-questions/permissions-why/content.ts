@@ -1,23 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent, FormField, FormFields, FormOptions } from '../../../../app/form/Form';
+import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD } from '../../../../steps/urls';
 
 export * from './routeGuard';
-
-type FileUploadFormField = FormField & {
-  fileUploadConfig?: {
-    labelText: string;
-    uploadUrl: string;
-    noFilesText: string;
-    removeFileText: string;
-    uploadFileButtonText: string;
-    errorMessage?: string | null;
-    uploadedFiles?: unknown[];
-  };
-};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -29,6 +17,8 @@ export const en = () => ({
   section: 'parental responsibility means that you are responsible for the children and their property',
   courtOrderPrevent:
     'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application',
+  courtOrderPreventHint:
+    "Permission is required if there is an order in place stating that an application cannot be made without the court's permission.",
   courtOrderPreventLabelText: 'Provide case number and name of the court',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
@@ -76,6 +66,7 @@ export const cy = () => ({
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
   courtOrderPrevent:
     "Mae gorchymyn o dan adran 91(14) Deddf Plant 1989, gorchymyn atal sifil cyfyngedig, gorchymyn atal sifil cyffredinol, neu orchymyn atal sifil estynedig mewn grym sy'n golygu bod angen caniatâd arnaf i wneud y cais hwn",
+  courtOrderPreventHint: '(welsh translation)',
   courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
@@ -150,6 +141,7 @@ export const form: FormContent = {
           name: 'sq_permissionsWhy',
           label: l => l.courtOrderPrevent,
           value: 'courtOrderPrevent',
+          hint: l => l.courtOrderPreventHint,
           subFields: {
             sq_courtOrderPrevent_subfield: {
               type: 'textarea',
@@ -198,30 +190,30 @@ export const generateContent: TranslationFn = content => {
   const session = content.additionalData?.req.session;
   const uploadError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument') ?? null;
   const uploadedDocument = session?.userCase?.sq_uploadDocument;
-  const fields = form.fields as FormFields;
-  const permissionsWhyField = fields['sq_permissionsWhy'] as FormOptions;
-
-  (permissionsWhyField.values[1].subFields!.sq_uploadDocument as FileUploadFormField).fileUploadConfig = {
-    labelText: translations.uploadButton,
-    uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD),
-    noFilesText: translations.noFiles,
-    removeFileText: translations.remove,
-    uploadFileButtonText: translations.uploadButton,
-    errorMessage: uploadError ? translations.errors.sq_uploadDocument?.[uploadError.errorType] : null,
-    uploadedFiles: uploadedDocument
-      ? [
-          {
-            filename: uploadedDocument.filename,
-            fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD, {
-              removeId: uploadedDocument.id,
-            }),
-          },
-        ]
-      : [],
-  };
 
   return {
     ...translations,
     form,
+    fileUploadConfig: {
+      labelText: translations.uploadButton,
+      uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD),
+
+      noFilesText: translations.noFiles,
+      removeFileText: translations.remove,
+      uploadFileButtonText: translations.uploadButton,
+
+      errorMessage: uploadError ? translations.errors.sq_uploadDocument?.[uploadError.errorType] : null,
+
+      uploadedFiles: uploadedDocument
+        ? [
+            {
+              filename: uploadedDocument.filename,
+              fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD, {
+                removeId: uploadedDocument.id,
+              }),
+            },
+          ]
+        : [],
+    },
   };
 };

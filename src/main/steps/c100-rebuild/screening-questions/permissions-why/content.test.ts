@@ -16,6 +16,8 @@ const en = {
   section: 'parental responsibility means that you are responsible for the children and their property',
   courtOrderPrevent:
     'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application',
+  courtOrderPreventHint:
+    "Permission is required if there is an order in place stating that an application cannot be made without the court's permission.",
   courtOrderPreventLabelText: 'Provide case number and name of the court',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
@@ -63,6 +65,7 @@ const cy = {
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
   courtOrderPrevent:
     "Mae gorchymyn o dan adran 91(14) Deddf Plant 1989, gorchymyn atal sifil cyfyngedig, gorchymyn atal sifil cyffredinol, neu orchymyn atal sifil estynedig mewn grym sy'n golygu bod angen caniatâd arnaf i wneud y cais hwn",
+  courtOrderPreventHint: '(welsh translation)',
   courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
@@ -133,6 +136,7 @@ describe('Screening questions > permissions-why', () => {
     );
     expect((permissionsWhyField.values[0].hint as LanguageLookup)(generatedContent)).toBe(en.section);
     expect((permissionsWhyField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.courtOrderPrevent);
+    expect((permissionsWhyField.values[1].hint as LanguageLookup)(generatedContent)).toBe(en.courtOrderPreventHint);
     expect((permissionsWhyField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.anotherReason);
     const sq_doNotHaveParentalResponsibility_subfield = permissionsWhyField.values[0].subFields
       ?.sq_doNotHaveParentalResponsibility_subfield as FormOptions;
@@ -157,10 +161,6 @@ describe('Screening questions > permissions-why', () => {
     expect(response2).toEqual(undefined);
     expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
     expect(isTextAreaValid).toHaveBeenCalledWith('Test');
-
-    const uploadField = generatedContent.form.fields['sq_permissionsWhy'].values[1].subFields!['sq_uploadDocument'];
-    expect(uploadField.type).toBe('fileUpload');
-    expect(uploadField['fileUploadConfig']).toBeDefined();
 
     expect(
       (
