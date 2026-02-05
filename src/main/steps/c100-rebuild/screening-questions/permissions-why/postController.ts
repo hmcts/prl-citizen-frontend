@@ -37,52 +37,52 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
     const fileUploaded = _.get(req, 'files.sq_uploadDocument') as Record<string, any>;
 
     if (removeId) {
-      req.session.userCase.sq_uploadDocument = undefined;
+      delete req.session.userCase.sq_uploadDocument;
       return super.redirect(req, res);
     }
 
-    const error = this.hasError(req);
+    if (fileUploaded) {
+      const error = this.hasError(req);
 
-    if (error) {
-      req.session.errors = [
-        {
-          propertyName: 'sq_uploadDocument',
-          errorType: error,
-        },
-      ];
-      return super.redirect(req, res);
+      if (error) {
+        req.session.errors = [
+          {
+            propertyName: 'sq_uploadDocument',
+            errorType: error,
+          },
+        ];
+        return super.redirect(req, res);
+      }
+
+      const formData = new FormData();
+
+      formData.append('file', fileUploaded.data, {
+        contentType: fileUploaded.mimetype,
+        filename: fileUploaded.name,
+      });
+
+      try {
+        const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
+
+        req.session.userCase = {
+          ...req.session.userCase,
+          sq_uploadDocument: response.document,
+        };
+
+        req.session.errors = [];
+
+        return super.redirect(req, res);
+      } catch {
+        req.session.errors = [
+          {
+            propertyName: 'sq_uploadDocument',
+            errorType: 'uploadError',
+          },
+        ];
+        return super.redirect(req, res);
+      }
     }
 
-    if (!fileUploaded) {
-      return super.redirect(req, res);
-    }
-
-    const formData: FormData = new FormData();
-
-    formData.append('file', fileUploaded.data, {
-      contentType: fileUploaded.mimetype,
-      filename: fileUploaded.name,
-    });
-
-    try {
-      const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
-
-      req.session.userCase = {
-        ...req.session.userCase,
-        sq_uploadDocument: response.document,
-      };
-
-      req.session.errors = [];
-
-      super.redirect(req, res);
-    } catch {
-      req.session.errors = [
-        {
-          propertyName: 'sq_uploadDocument',
-          errorType: 'uploadError',
-        },
-      ];
-      super.redirect(req, res);
-    }
+    return super.post(req, res);
   }
 }

@@ -3,7 +3,7 @@ import { NextFunction, Response } from 'express';
 import { caseApi } from '../../../../app/case/CaseApi';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD } from '../../../../steps/urls';
+import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY } from '../../../../steps/urls';
 import { cleanPermissionsWhy } from '../utils';
 
 export const routeGuard = {
@@ -17,7 +17,7 @@ export const routeGuard = {
         delete req.session.userCase.sq_uploadDocument;
 
         req.session.save(() => {
-          res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD));
+          res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
         });
         return;
       } catch {
@@ -28,7 +28,7 @@ export const routeGuard = {
           },
         ];
 
-        res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD));
+        res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
         return;
       }
     }

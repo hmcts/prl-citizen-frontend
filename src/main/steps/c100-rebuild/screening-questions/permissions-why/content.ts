@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD } from '../../../../steps/urls';
+import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY } from '../../../../steps/urls';
 
 export * from './routeGuard';
 
@@ -193,7 +193,7 @@ export const generateContent: TranslationFn = content => {
     form,
     fileUploadConfig: {
       labelText: translations.uploadButton,
-      uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD),
+      uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY),
 
       noFilesText: translations.noFiles,
       removeFileText: translations.remove,
@@ -205,7 +205,7 @@ export const generateContent: TranslationFn = content => {
         ? [
             {
               filename: uploadedDocument.filename,
-              fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD, {
+              fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY, {
                 removeId: uploadedDocument.id,
               }),
             },

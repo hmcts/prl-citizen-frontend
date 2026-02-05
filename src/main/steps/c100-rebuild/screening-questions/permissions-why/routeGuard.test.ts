@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CaseApi } from '../../../../app/case/CaseApi';
 import { CaseWithId } from '../../../../app/case/case';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD } from '../../../../steps/urls';
+import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY } from '../../../../steps/urls';
 
 import { routeGuard } from './routeGuard';
 
@@ -52,7 +52,7 @@ describe('c100 > screening questions > permissions why > route guard', () => {
 
     expect(deleteDocumentMock).toHaveBeenCalledWith('123');
     expect(req.session.userCase.sq_uploadDocument).toBeUndefined();
-    expect(res.redirect).toHaveBeenCalledWith(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD));
+    expect(res.redirect).toHaveBeenCalledWith(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
   });
 
   test('should set error and redirect when delete fails', async () => {
@@ -75,7 +75,7 @@ describe('c100 > screening questions > permissions why > route guard', () => {
       },
     ]);
 
-    expect(res.redirect).toHaveBeenCalledWith(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_UPLOAD));
+    expect(res.redirect).toHaveBeenCalledWith(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
   });
 
   test('should call next when no removeId provided', async () => {
