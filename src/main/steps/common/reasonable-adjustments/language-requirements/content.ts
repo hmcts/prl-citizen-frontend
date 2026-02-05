@@ -41,9 +41,9 @@ export const cy = () => ({
   line1:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
-  speakInWelsh: "Rwyf eisiau siarad Cymraeg",
-  readAndWriteInWelsh: "Rwyf eisiau darllen ac ysgrifennu yn Gymraeg",
-  needInterpreterInCertainLanguage: "Rwyf eisiau cyfieithydd mewn iaith benodol",
+  speakInWelsh: 'Rwyf eisiau siarad Cymraeg',
+  readAndWriteInWelsh: 'Rwyf eisiau darllen ac ysgrifennu yn Gymraeg',
+  needInterpreterInCertainLanguage: 'Rwyf eisiau cyfieithydd mewn iaith benodol',
   needInterpreterInCertainLanguage_subfield:
     'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yn berthnasol)',
   noLanguageRequirements: 'Nac oes, nid oes gennyf unrhyw ofynion ieithyddol ar hyn o bryd',
