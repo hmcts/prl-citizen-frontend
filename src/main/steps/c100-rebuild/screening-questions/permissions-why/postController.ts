@@ -9,6 +9,8 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY } from '../../../../steps/urls';
 
 @autobind
 export default class PermissionsWhyUploadController extends PostController<AnyObject> {
@@ -34,13 +36,12 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { removeId } = req.params;
+    const { uploadFile } = req.body;
     const fileUploaded = _.get(req, 'files.sq_uploadDocument') as Record<string, any>;
-
-    const stayOnPage = () => res.redirect(req.originalUrl);
 
     if (removeId) {
       delete req.session.userCase.sq_uploadDocument;
-      return stayOnPage();
+      return super.redirect(req, res);
     }
 
     if (fileUploaded) {
@@ -53,7 +54,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
             errorType: error,
           },
         ];
-        return stayOnPage();
+        return super.redirect(req, res);
       }
 
       const formData = new FormData();
@@ -73,7 +74,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
 
         req.session.errors = [];
 
-        return stayOnPage();
+        super.redirect(req, res, uploadFile ? applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY) : undefined);
       } catch {
         req.session.errors = [
           {
@@ -81,10 +82,9 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
             errorType: 'uploadError',
           },
         ];
-        return stayOnPage();
+        return super.redirect(req, res);
       }
     }
-
     return super.post(req, res);
   }
 }
