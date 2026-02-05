@@ -200,7 +200,7 @@ export const generateContent: TranslationFn = content => {
 
       noFilesText: translations.noFiles,
       removeFileText: translations.remove,
-      uploadFileButtonText: translations.uploadButton,
+      uploadButtonText: translations.uploadButton,
 
       errorMessage: uploadError ? translations.errors.sq_uploadDocument?.[uploadError.errorType] : null,
 
