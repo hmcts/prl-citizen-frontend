@@ -137,7 +137,7 @@ const enContent = {
     addressDetails: 'Address details',
     doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
     courtOrderPrevent:
-      'There is a court order preventing me from making an application without first getting the permission of the court',
+      'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means I need permission to make this application',
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
     contactPrefernces: 'Contact preferences',
@@ -259,7 +259,8 @@ const cyContent = {
     contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
     addressDetails: 'Manylion cyfeiriad',
     doNotHaveParentalResponsibility: 'Nid oes gennyf gyfrifoldeb rhiant dros y plant',
-    courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',
+    courtOrderPrevent:
+      "Mae gorchymyn o dan adran 91(14) Deddf Plant 1989, gorchymyn atal sifil cyfyngedig, gorchymyn atal sifil cyffredinol, neu orchymyn atal sifil estynedig mewn grym sy'n golygu bod angen caniatâd arnaf i wneud y cais hwn",
     anotherReason: 'Rheswm arall',
     dontKnow: 'Ddim yn gwybod',
     contactPrefernces: 'Dewisiadau cyswllt',
