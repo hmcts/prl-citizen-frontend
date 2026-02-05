@@ -198,7 +198,7 @@ export const generateContent: TranslationFn = content => {
   const session = content.additionalData?.req.session;
   const uploadError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument') ?? null;
   const uploadedDocument = session?.userCase?.sq_uploadDocument;
-  const localForm = { ...form };
+  const localForm = structuredClone(form);
   const fields = localForm.fields as FormFields;
   const permissionsWhyField = fields['sq_permissionsWhy'] as FormOptions;
 
