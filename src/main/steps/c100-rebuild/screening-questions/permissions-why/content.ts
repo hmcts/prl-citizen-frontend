@@ -152,9 +152,6 @@ export const form: FormContent = {
               },
               validator: value => isTextAreaValid(value),
             },
-            sq_uploadDocument: {
-              type: 'fileUpload',
-            },
           },
         },
         {
