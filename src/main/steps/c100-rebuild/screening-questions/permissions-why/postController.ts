@@ -36,9 +36,11 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
     const { removeId } = req.params;
     const fileUploaded = _.get(req, 'files.sq_uploadDocument') as Record<string, any>;
 
+    const stayOnPage = () => res.redirect(req.originalUrl);
+
     if (removeId) {
       delete req.session.userCase.sq_uploadDocument;
-      return super.redirect(req, res);
+      return stayOnPage();
     }
 
     if (fileUploaded) {
@@ -51,7 +53,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
             errorType: error,
           },
         ];
-        return super.redirect(req, res);
+        return stayOnPage();
       }
 
       const formData = new FormData();
@@ -71,7 +73,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
 
         req.session.errors = [];
 
-        return super.redirect(req, res);
+        return stayOnPage();
       } catch {
         req.session.errors = [
           {
@@ -79,7 +81,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
             errorType: 'uploadError',
           },
         ];
-        return super.redirect(req, res);
+        return stayOnPage();
       }
     }
 
