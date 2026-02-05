@@ -198,8 +198,7 @@ export const generateContent: TranslationFn = content => {
   const session = content.additionalData?.req.session;
   const uploadError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument') ?? null;
   const uploadedDocument = session?.userCase?.sq_uploadDocument;
-  const localForm = structuredClone(form);
-  const fields = localForm.fields as FormFields;
+  const fields = form.fields as FormFields;
   const permissionsWhyField = fields['sq_permissionsWhy'] as FormOptions;
 
   (permissionsWhyField.values[1].subFields!.sq_uploadDocument as FileUploadFormField).fileUploadConfig = {
@@ -223,6 +222,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    form: localForm,
+    form,
   };
 };
