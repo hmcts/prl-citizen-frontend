@@ -20,20 +20,20 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
   }
 
   private hasError(req: AppRequest): string | undefined {
-    let errorType;
     const documentUploaded = _.get(req, 'files.sq_uploadDocument');
 
-    if (req.session.userCase.sq_uploadDocument) {
-      errorType = 'multipleFiles';
-    } else if (!documentUploaded) {
+    if (!documentUploaded) {
       return;
-    } else if (!isValidFileFormat({ documents: documentUploaded })) {
-      errorType = 'invalidFileFormat';
-    } else if (isFileSizeGreaterThanMaxAllowed({ documents: documentUploaded })) {
-      errorType = 'maxFileSize';
     }
-
-    return errorType;
+    if (req.session.userCase.sq_uploadDocument) {
+      return 'multipleFiles';
+    }
+    if (!isValidFileFormat({ documents: documentUploaded })) {
+      return 'invalidFileFormat';
+    }
+    if (isFileSizeGreaterThanMaxAllowed({ documents: documentUploaded })) {
+      return 'maxFileSize';
+    }
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
@@ -42,7 +42,6 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
 
     if (onlyContinue && uploadedDocument) {
       removeEvidenceDocErrors(req, 'sq_uploadDocument');
-
       return super.redirect(req, res);
     }
 
@@ -55,6 +54,10 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
 
     const fileUploaded = _.get(req, 'files.sq_uploadDocument') as unknown as Record<string, any>;
     const formData: FormData = new FormData();
+
+    if (!fileUploaded) {
+      return super.redirect(req, res);
+    }
 
     formData.append('file', fileUploaded.data, {
       contentType: fileUploaded.mimetype,
@@ -72,6 +75,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
         ...req.session.userCase,
         sq_uploadDocument: response.document,
       };
+
       removeEvidenceDocErrors(req, 'sq_uploadDocument');
       super.redirect(req, res, uploadFile ? applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY) : undefined);
     } catch (e) {

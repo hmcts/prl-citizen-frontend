@@ -16,6 +16,7 @@ export const routeGuard = {
         removeEvidenceDocErrors(req, 'sq_uploadDocument');
         await caseApi(req?.session?.user, req.locals.logger).deleteDocument(removeFileId.toString());
         delete req.session.userCase.sq_uploadDocument;
+
         return req.session.save(() => {
           res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
         });
@@ -24,7 +25,6 @@ export const routeGuard = {
         return res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
       }
     }
-
     next();
   },
 };

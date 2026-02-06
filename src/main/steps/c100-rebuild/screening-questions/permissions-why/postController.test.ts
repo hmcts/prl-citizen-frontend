@@ -45,6 +45,15 @@ describe('PermissionsWhyUploadController > postController', () => {
     expect(req.session.errors).toStrictEqual([]);
   });
 
+  test('should allow continue without uploading a document', async () => {
+    req.body = { uploadFile: false };
+
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
+    expect(req.session.errors).toStrictEqual(undefined);
+  });
+
   test('should not upload document and add error if document already present', async () => {
     req.body = { uploadFile: true };
     req.files = { sq_uploadDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
@@ -131,6 +140,20 @@ describe('PermissionsWhyUploadController > postController', () => {
     expect(req.session.errors).toStrictEqual([]);
   });
 
+  test('should not throw error when no document is provided', async () => {
+    req.body = { uploadFile: false };
+
+    req.files = { sq_uploadDocument: undefined };
+
+    uploadDocumentMock.mockRejectedValue({
+      status: 'Success',
+    });
+
+    await controller.post(req, res);
+
+    expect(req.session.errors).toStrictEqual(undefined);
+  });
+
   test('should catch error when uploading non allowed document type', async () => {
     req.body = { uploadFile: true };
 
@@ -149,6 +172,7 @@ describe('PermissionsWhyUploadController > postController', () => {
       },
     ]);
   });
+
   test('should catch error when uploading beyond allowed size document', async () => {
     req.body = { uploadFile: true };
 
