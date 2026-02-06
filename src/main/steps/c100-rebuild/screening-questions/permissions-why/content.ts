@@ -202,7 +202,7 @@ export const generateContent: TranslationFn = content => {
       uploadedFiles: uploadedDocument
         ? [
             {
-              filename: uploadedDocument.filename,
+              filename: uploadedDocument.document_filename,
               fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY, {
                 removeId: uploadedDocument.id,
               }),
