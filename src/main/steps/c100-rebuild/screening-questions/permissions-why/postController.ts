@@ -23,12 +23,16 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
       return;
     }
 
+    if (req.session.userCase.sq_uploadDocument) {
+      return 'multipleFiles';
+    }
+
     if (!isValidFileFormat({ documents: fileUploaded })) {
-      return 'fileFormat';
+      return 'invalidFileFormat';
     }
 
     if (isFileSizeGreaterThanMaxAllowed({ documents: fileUploaded })) {
-      return 'fileSize';
+      return 'maxFileSize';
     }
   }
 

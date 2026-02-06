@@ -47,7 +47,6 @@ export const en = () => ({
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     sq_uploadDocument: {
-      required: 'You must upload a document',
       multipleFiles: 'You can only upload one document',
       maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
       invalidFileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
@@ -95,7 +94,6 @@ export const cy = () => ({
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     sq_uploadDocument: {
-      required: 'Mae’n rhaid i chi uwchlwytho dogfen',
       multipleFiles: 'Gallwch uwchlwytho un ddogfen yn unig',
       maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
       invalidFileFormat:

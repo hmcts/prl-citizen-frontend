@@ -65,7 +65,7 @@ describe('PermissionsWhyUploadController > postController', () => {
     expect(req.session.errors).toStrictEqual([
       {
         propertyName: 'sq_uploadDocument',
-        errorType: 'fileFormat',
+        errorType: 'invalidFileFormat',
       },
     ]);
 
@@ -87,7 +87,7 @@ describe('PermissionsWhyUploadController > postController', () => {
     expect(req.session.errors).toStrictEqual([
       {
         propertyName: 'sq_uploadDocument',
-        errorType: 'fileSize',
+        errorType: 'maxFileSize',
       },
     ]);
 
