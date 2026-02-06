@@ -16,7 +16,7 @@ const en = {
   select_all_apply: 'Select all that apply to you',
   speakInWelsh: 'I want to speak in Welsh',
   readAndWriteInWelsh: 'I want to read and write in Welsh',
-  needInterpreterInCertainLanguage: 'I want an interpreter in a certain language',
+  needInterpreterInCertainLanguage: 'I need an interpreter in a certain language',
   needInterpreterInCertainLanguage_subfield:
     'Give details of the language you require (including dialect, if applicable)',
   noLanguageRequirements: 'No, I do not have any language requirements at this time',
@@ -41,7 +41,7 @@ const cy = {
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   speakInWelsh: 'Rwyf eisiau siarad Cymraeg',
   readAndWriteInWelsh: 'Rwyf eisiau darllen ac ysgrifennu yn Gymraeg',
-  needInterpreterInCertainLanguage: 'Rwyf eisiau cyfieithydd mewn iaith benodol',
+  needInterpreterInCertainLanguage: "Rwy'n dymuno cael cyfieithydd mewn iaith benodol",
   needInterpreterInCertainLanguage_subfield:
     'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yn berthnasol)',
   noLanguageRequirements: 'Nac oes, nid oes gennyf unrhyw ofynion ieithyddol ar hyn o bryd',

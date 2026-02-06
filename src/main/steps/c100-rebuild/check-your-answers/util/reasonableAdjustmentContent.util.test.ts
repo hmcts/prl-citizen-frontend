@@ -66,7 +66,7 @@ const TestReasonableAdjustmentElement = language => {
         lipSpeaker: 'Lip speaker',
         lipSpeakerHint: 'hearing person who has been trained to be easily lip read',
         needExtraTime: 'Extra time to think and explain myself',
-        needInterpreterInCertainLanguage: 'I want an interpreter in a certain language',
+        needInterpreterInCertainLanguage: 'I need an interpreter in a certain language',
         needInterpreterInCertainLanguage_subfield:
           'Give details of the language you require (including dialect, if applicable)',
         needToBeClosedWithSpeaker: 'Need to be close to who is speaking',
@@ -182,7 +182,7 @@ const TestReasonableAdjustmentElement = language => {
         lipSpeaker: 'Darllen gwefusau',
         lipSpeakerHint: 'Clywed rhywun sydd wedi cael ei hyfforddi i allu darllen gwefusau yn rhwydd',
         needExtraTime: 'Amser ychwanegol i feddwl ac egluro fy hun',
-        needInterpreterInCertainLanguage: 'Rwyf eisiau cyfieithydd mewn iaith benodol',
+        needInterpreterInCertainLanguage: "Rwy'n dymuno cael cyfieithydd mewn iaith benodol",
         needInterpreterInCertainLanguage_subfield:
           'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yn berthnasol)',
         needToBeClosedWithSpeaker: "Angen bod yn agos at bwy bynnag sy'n siarad",
