@@ -9,6 +9,8 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY } from '../../../../steps/urls';
 
 @autobind
 export default class PermissionsWhyUploadController extends PostController<AnyObject> {
@@ -71,7 +73,8 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
 
         req.session.errors = [];
 
-        return super.redirect(req, res);
+        const { uploadFile } = req.body;
+        return super.redirect(req, res, uploadFile ? applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY) : undefined);
       } catch {
         req.session.errors = [
           {
