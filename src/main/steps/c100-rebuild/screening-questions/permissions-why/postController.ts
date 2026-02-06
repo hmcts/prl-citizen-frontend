@@ -34,11 +34,14 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { removeId } = req.params;
+    const { uploadFile } = req.body;
     const fileUploaded = _.get(req, 'files.sq_uploadDocument') as Record<string, any>;
 
     if (removeId) {
       delete req.session.userCase.sq_uploadDocument;
-      return super.redirect(req, res);
+      req.session.errors = [];
+
+      return super.redirect(req, res, req.originalUrl);
     }
 
     if (fileUploaded) {
@@ -51,7 +54,8 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
             errorType: error,
           },
         ];
-        return super.redirect(req, res);
+
+        return super.redirect(req, res, req.originalUrl);
       }
 
       const formData = new FormData();
@@ -71,7 +75,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
 
         req.session.errors = [];
 
-        return super.redirect(req, res);
+        return super.redirect(req, res, uploadFile ? req.originalUrl : undefined);
       } catch {
         req.session.errors = [
           {
@@ -79,9 +83,11 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
             errorType: 'uploadError',
           },
         ];
-        return super.redirect(req, res);
+
+        return super.redirect(req, res, req.originalUrl);
       }
     }
+
     return super.post(req, res);
   }
 }
