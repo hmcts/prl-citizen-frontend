@@ -15,19 +15,11 @@ describe('PermissionsWhyUploadController > postController', () => {
     controller = new PermissionsWhyUploadController({});
     req = mockRequest();
     res = mockResponse();
-
-    req.session.userCase = {};
-    req.session.errors = [];
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test('should upload document and store in session', async () => {
-    req.files = {
-      sq_uploadDocument: { name: 'test.pdf', data: '', mimetype: 'application/pdf' },
-    };
+  test('should upload document and redirect', async () => {
+    req.body = { uploadFile: true, onlyContinue: true };
+    req.files = { sq_uploadDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
@@ -36,49 +28,34 @@ describe('PermissionsWhyUploadController > postController', () => {
         document_binary_url: 'binary/test/1234',
         document_filename: 'test_document',
         document_hash: '1234',
-        document_creation_date: '1/1/2026',
+        document_creation_date: '1/1/2024',
       },
     });
 
     await controller.post(req, res);
 
-    expect(req.session.userCase.sq_uploadDocument).toBeDefined();
+    expect(req.session.userCase.sq_uploadDocument).toStrictEqual({
+      document_url: 'test/1234',
+      document_binary_url: 'binary/test/1234',
+      document_filename: 'test_document',
+      document_hash: '1234',
+      document_creation_date: '1/1/2024',
+    });
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/screening-questions/permissions-why');
     expect(req.session.errors).toStrictEqual([]);
-    expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('should simply redirect when no file uploaded (optional)', async () => {
-    await controller.post(req, res);
+  test('should not upload document and add error if document already present', async () => {
+    req.body = { uploadFile: true };
+    req.files = { sq_uploadDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
 
-    expect(req.session.errors).toStrictEqual([]);
-    expect(uploadDocumentMock).not.toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalled();
-  });
-
-  test('should set error for invalid file format', async () => {
-    req.files = {
-      sq_uploadDocument: { name: 'test.exe', data: '', mimetype: 'application/x-msdownload' },
-    };
-
-    await controller.post(req, res);
-
-    expect(req.session.errors).toStrictEqual([
-      {
-        propertyName: 'sq_uploadDocument',
-        errorType: 'invalidFileFormat',
-      },
-    ]);
-
-    expect(uploadDocumentMock).not.toHaveBeenCalled();
-  });
-
-  test('should set error for oversized file', async () => {
-    req.files = {
+    req.session.userCase = {
       sq_uploadDocument: {
-        name: 'test.pdf',
-        data: '',
-        mimetype: 'application/pdf',
-        size: 999999999999,
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
       },
     };
 
@@ -86,42 +63,110 @@ describe('PermissionsWhyUploadController > postController', () => {
 
     expect(req.session.errors).toStrictEqual([
       {
+        errorType: 'multipleFiles',
         propertyName: 'sq_uploadDocument',
-        errorType: 'maxFileSize',
       },
     ]);
-
-    expect(uploadDocumentMock).not.toHaveBeenCalled();
   });
 
-  test('should set uploadError if API fails', async () => {
-    req.files = {
-      sq_uploadDocument: { name: 'test.pdf', data: '', mimetype: 'application/pdf' },
-    };
+  test('should set error when document upload status is not Success', async () => {
+    req.body = { uploadFile: true };
+    req.files = { sq_uploadDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
 
-    uploadDocumentMock.mockRejectedValue(new Error('fail'));
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Failure',
+      document: {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    });
 
     await controller.post(req, res);
 
     expect(req.session.errors).toStrictEqual([
       {
-        propertyName: 'sq_uploadDocument',
         errorType: 'uploadError',
+        propertyName: 'sq_uploadDocument',
       },
     ]);
   });
 
-  test('should remove file when removeId provided', async () => {
-    req.params = { removeId: '1234' };
+  test('should catch error when uploading document', async () => {
+    req.body = { uploadFile: true };
 
-    req.session.userCase.sq_uploadDocument = {
-      id: '1234',
-      filename: 'test.pdf',
+    req.files = { sq_uploadDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
+
+    uploadDocumentMock.mockRejectedValue({
+      status: 'Failure',
+    });
+
+    await controller.post(req, res);
+
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'uploadError',
+        propertyName: 'sq_uploadDocument',
+      },
+    ]);
+  });
+
+  test('should redirect without error when onlyContinue is true and document is present', async () => {
+    req.body = { onlyContinue: true };
+    req.session.userCase = {
+      sq_uploadDocument: {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
     };
 
     await controller.post(req, res);
 
-    expect(req.session.userCase.sq_uploadDocument).toBeUndefined();
-    expect(res.redirect).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
+    expect(req.session.errors).toStrictEqual([]);
+  });
+
+  test('should catch error when uploading non allowed document type', async () => {
+    req.body = { uploadFile: true };
+
+    req.files = { sq_uploadDocument: { name: 'test.rtf', data: '', mimetype: 'text' } };
+
+    uploadDocumentMock.mockRejectedValue({
+      status: 'Failure',
+    });
+
+    await controller.post(req, res);
+
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'invalidFileFormat',
+        propertyName: 'sq_uploadDocument',
+      },
+    ]);
+  });
+  test('should catch error when uploading beyond allowed size document', async () => {
+    req.body = { uploadFile: true };
+
+    req.files = {
+      sq_uploadDocument: { name: 'test.jpg', data: '', size: '3000000000000000', mimetype: 'text' },
+    };
+
+    uploadDocumentMock.mockRejectedValue({
+      status: 'Failure',
+    });
+
+    await controller.post(req, res);
+
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'maxFileSize',
+        propertyName: 'sq_uploadDocument',
+      },
+    ]);
   });
 });

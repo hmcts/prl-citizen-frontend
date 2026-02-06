@@ -1,9 +1,6 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CaseApi } from '../../../../app/case/CaseApi';
-import { CaseWithId } from '../../../../app/case/case';
-import { applyParms } from '../../../../steps/common/url-parser';
-import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY } from '../../../../steps/urls';
 
 import { routeGuard } from './routeGuard';
 
@@ -19,79 +16,61 @@ describe('c100 > screening questions > permissions why > route guard', () => {
     res = mockResponse();
   });
 
-  test('should clean permissions why subfields and call next', async () => {
-    req.body.sq_permissionsWhy = [];
-    req.session.userCase = {
-      sq_permissionsWhy: ['doNotHaveParentalResponsibility', 'courtOrderPrevent', 'anotherReason'],
-      sq_doNotHaveParentalResponsibility_subfield: 'test',
-      sq_courtOrderPrevent_subfield: 'test',
-      sq_anotherReason_subfield: 'test',
-    } as unknown as CaseWithId;
-
-    await routeGuard.post(req, res, next);
-
-    expect(req.session.userCase).toStrictEqual({
-      sq_permissionsWhy: ['doNotHaveParentalResponsibility', 'courtOrderPrevent', 'anotherReason'],
-    });
-    expect(req.session.save).toHaveBeenCalled();
-    expect(next).toHaveBeenCalled();
-  });
-
-  test('should delete document and redirect when removeId exists', async () => {
-    req.params = { removeId: '123' };
-
-    req.session.userCase = {
-      sq_uploadDocument: {
-        id: '123',
+  test('should delete document', async () => {
+    req.params.removeFileId = '1234';
+    req.session.userCase.sq_uploadDocument = [
+      {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
       },
-    } as unknown as CaseWithId;
+    ];
 
     deleteDocumentMock.mockResolvedValue();
-
     await routeGuard.get(req, res, next);
 
-    expect(deleteDocumentMock).toHaveBeenCalledWith('123');
-    expect(req.session.userCase.sq_uploadDocument).toBeUndefined();
-    expect(res.redirect).toHaveBeenCalledWith(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
+    expect(req.session.save).toHaveBeenCalled();
+    expect(req.session.userCase.sq_uploadDocument).toStrictEqual(undefined);
+    expect(req.session.errors).toStrictEqual([]);
   });
 
-  test('should set error and redirect when delete fails', async () => {
-    req.params = { removeId: '123' };
-
-    req.session.userCase = {
-      sq_uploadDocument: {
-        id: '123',
+  test('should catch error when deleting document', async () => {
+    req.params.removeFileId = '1234';
+    req.session.userCase.sq_uploadDocument = [
+      {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
       },
-    } as unknown as CaseWithId;
+    ];
 
-    deleteDocumentMock.mockRejectedValue(new Error('fail'));
-
+    deleteDocumentMock.mockRejectedValue({ status: 'Error' });
     await routeGuard.get(req, res, next);
 
-    expect(req.session.errors).toStrictEqual([
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/screening-questions/permissions-why');
+    expect(req.session.userCase.sq_uploadDocument).toStrictEqual([
       {
-        propertyName: 'sq_uploadDocument',
-        errorType: 'deleteFile',
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
       },
     ]);
-
-    expect(res.redirect).toHaveBeenCalledWith(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'deleteFile',
+        propertyName: 'sq_uploadDocument',
+      },
+    ]);
   });
 
-  test('should call next when no removeId provided', async () => {
-    req.params = {};
-
+  test('should call next if no removeFileId present', async () => {
     await routeGuard.get(req, res, next);
-
-    expect(next).toHaveBeenCalled();
-  });
-
-  test('should call next when no document in session', async () => {
-    req.params = { removeId: '123' };
-    req.session.userCase = {} as CaseWithId;
-
-    await routeGuard.get(req, res, next);
-
     expect(next).toHaveBeenCalled();
   });
 });
