@@ -110,18 +110,4 @@ describe('PermissionsWhyUploadController > postController', () => {
       },
     ]);
   });
-
-  test('should remove file when removeId provided', async () => {
-    req.params = { removeId: '1234' };
-
-    req.session.userCase.sq_uploadDocument = {
-      id: '1234',
-      filename: 'test.pdf',
-    };
-
-    await controller.post(req, res);
-
-    expect(req.session.userCase.sq_uploadDocument).toBeUndefined();
-    expect(res.redirect).toHaveBeenCalled();
-  });
 });

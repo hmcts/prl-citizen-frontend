@@ -35,13 +35,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { removeId } = req.params;
     const fileUploaded = _.get(req, 'files.sq_uploadDocument') as Record<string, any>;
-
-    if (removeId) {
-      delete req.session.userCase.sq_uploadDocument;
-      return super.redirect(req, res);
-    }
 
     if (fileUploaded) {
       const error = this.hasError(req);
@@ -73,8 +67,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
 
         req.session.errors = [];
 
-        const { uploadFile } = req.body;
-        return super.redirect(req, res, uploadFile ? applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY) : undefined);
+        return super.redirect(req, res, applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
       } catch {
         req.session.errors = [
           {
