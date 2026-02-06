@@ -71,7 +71,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
 
         req.session.errors = [];
 
-        super.redirect(req, res);
+        return super.redirect(req, res);
       } catch {
         req.session.errors = [
           {
