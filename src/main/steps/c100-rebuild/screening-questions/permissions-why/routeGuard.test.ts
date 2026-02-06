@@ -37,8 +37,8 @@ describe('c100 > screening questions > permissions why > route guard', () => {
     expect(next).toHaveBeenCalled();
   });
 
-  test('should delete document and redirect when removeId exists', async () => {
-    req.params = { removeId: '123' };
+  test('should delete document and redirect when removeFileId exists', async () => {
+    req.params = { removeFileId: '123' };
 
     req.session.userCase = {
       sq_uploadDocument: {
@@ -56,7 +56,7 @@ describe('c100 > screening questions > permissions why > route guard', () => {
   });
 
   test('should set error and redirect when delete fails', async () => {
-    req.params = { removeId: '123' };
+    req.params = { removeFileId: '123' };
 
     req.session.userCase = {
       sq_uploadDocument: {
@@ -78,7 +78,7 @@ describe('c100 > screening questions > permissions why > route guard', () => {
     expect(res.redirect).toHaveBeenCalledWith(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
   });
 
-  test('should call next when no removeId provided', async () => {
+  test('should call next when no removeFileId provided', async () => {
     req.params = {};
 
     await routeGuard.get(req, res, next);
@@ -87,7 +87,7 @@ describe('c100 > screening questions > permissions why > route guard', () => {
   });
 
   test('should call next when no document in session', async () => {
-    req.params = { removeId: '123' };
+    req.params = { removeFileId: '123' };
     req.session.userCase = {} as CaseWithId;
 
     await routeGuard.get(req, res, next);

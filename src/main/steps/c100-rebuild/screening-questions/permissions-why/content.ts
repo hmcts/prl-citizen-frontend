@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
@@ -204,7 +206,7 @@ export const generateContent: TranslationFn = content => {
             {
               filename: uploadedDocument.document_filename,
               fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY, {
-                removeId: uploadedDocument.id,
+                removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
               }),
             },
           ]
