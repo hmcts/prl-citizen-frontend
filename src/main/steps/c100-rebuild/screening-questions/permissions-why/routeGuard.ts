@@ -16,9 +16,10 @@ export const routeGuard = {
         await caseApi(req.session.user, req.locals.logger).deleteDocument(removeId.toString());
         delete req.session.userCase.sq_uploadDocument;
 
-        return req.session.save(() => {
+        req.session.save(() => {
           res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
         });
+        return;
       } catch {
         req.session.errors = [
           {
@@ -27,7 +28,8 @@ export const routeGuard = {
           },
         ];
 
-        return res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
+        res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
+        return;
       }
     }
     next();
