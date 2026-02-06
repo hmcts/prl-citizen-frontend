@@ -9,9 +9,6 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
-import { applyParms } from '../../../../steps/common/url-parser';
-import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY } from '../../../../steps/urls';
-import { handleEvidenceDocError, removeEvidenceDocErrors } from '../../miam/util';
 
 @autobind
 export default class PermissionsWhyUploadController extends PostController<AnyObject> {
@@ -20,67 +17,71 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
   }
 
   private hasError(req: AppRequest): string | undefined {
-    const documentUploaded = _.get(req, 'files.sq_uploadDocument');
+    const fileUploaded = _.get(req, 'files.sq_uploadDocument');
 
-    if (!documentUploaded) {
+    if (!fileUploaded) {
       return;
     }
-    if (req.session.userCase.sq_uploadDocument) {
-      return 'multipleFiles';
-    }
-    if (!isValidFileFormat({ documents: documentUploaded })) {
+
+    if (!isValidFileFormat({ documents: fileUploaded })) {
       return 'invalidFileFormat';
     }
-    if (isFileSizeGreaterThanMaxAllowed({ documents: documentUploaded })) {
+
+    if (isFileSizeGreaterThanMaxAllowed({ documents: fileUploaded })) {
       return 'maxFileSize';
     }
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { uploadFile, onlyContinue } = req.body;
-    const uploadedDocument = _.get(req, 'session.userCase.sq_uploadDocument');
+    const { removeId } = req.params;
+    const fileUploaded = _.get(req, 'files.sq_uploadDocument') as Record<string, any>;
 
-    if (onlyContinue && uploadedDocument) {
-      removeEvidenceDocErrors(req, 'sq_uploadDocument');
+    if (removeId) {
+      delete req.session.userCase.sq_uploadDocument;
       return super.redirect(req, res);
     }
 
-    const error = this.hasError(req);
+    if (fileUploaded) {
+      const error = this.hasError(req);
 
-    if (error) {
-      handleEvidenceDocError(error, req, 'sq_uploadDocument');
-      return super.redirect(req, res);
-    }
-
-    const fileUploaded = _.get(req, 'files.sq_uploadDocument') as unknown as Record<string, any>;
-    const formData: FormData = new FormData();
-
-    if (!fileUploaded) {
-      return super.redirect(req, res);
-    }
-
-    formData.append('file', fileUploaded.data, {
-      contentType: fileUploaded.mimetype,
-      filename: fileUploaded.name,
-    });
-
-    try {
-      const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
-      if (response.status !== 'Success') {
-        handleEvidenceDocError('uploadError', req, 'sq_uploadDocument');
+      if (error) {
+        req.session.errors = [
+          {
+            propertyName: 'sq_uploadDocument',
+            errorType: error,
+          },
+        ];
         return super.redirect(req, res);
       }
 
-      req.session.userCase = {
-        ...req.session.userCase,
-        sq_uploadDocument: response.document,
-      };
+      const formData = new FormData();
 
-      removeEvidenceDocErrors(req, 'sq_uploadDocument');
-      super.redirect(req, res, uploadFile ? applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY) : undefined);
-    } catch (e) {
-      handleEvidenceDocError('uploadError', req, 'sq_uploadDocument');
-      super.redirect(req, res);
+      formData.append('file', fileUploaded.data, {
+        contentType: fileUploaded.mimetype,
+        filename: fileUploaded.name,
+      });
+
+      try {
+        const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
+
+        req.session.userCase = {
+          ...req.session.userCase,
+          sq_uploadDocument: response.document,
+        };
+
+        req.session.errors = [];
+
+        return super.redirect(req, res);
+      } catch {
+        req.session.errors = [
+          {
+            propertyName: 'sq_uploadDocument',
+            errorType: 'uploadError',
+          },
+        ];
+        return super.redirect(req, res);
+      }
     }
+    return super.post(req, res);
   }
 }

@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
@@ -185,7 +183,7 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const session = content.additionalData?.req.session;
-  const uploadDocError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument') ?? null;
+  const uploadError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument') ?? null;
   const uploadedDocument = session?.userCase?.sq_uploadDocument;
 
   return {
@@ -193,16 +191,20 @@ export const generateContent: TranslationFn = content => {
     form,
     fileUploadConfig: {
       labelText: translations.uploadButton,
-      uploadButtonText: translations.uploadButton,
+      uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY),
+
       noFilesText: translations.noFiles,
       removeFileText: translations.remove,
-      errorMessage: uploadDocError ? translations.errors.sq_uploadDocument?.[uploadDocError.errorType] ?? null : null,
+      uploadButtonText: translations.uploadButton,
+
+      errorMessage: uploadError ? translations.errors.sq_uploadDocument?.[uploadError.errorType] : null,
+
       uploadedFiles: uploadedDocument
         ? [
             {
-              filename: uploadedDocument.document_filename,
+              filename: uploadedDocument.filename,
               fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY, {
-                removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
+                removeId: uploadedDocument.id,
               }),
             },
           ]
