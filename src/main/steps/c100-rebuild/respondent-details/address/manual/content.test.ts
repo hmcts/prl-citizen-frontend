@@ -47,6 +47,7 @@ const en = {
 
 const cy = {
   title: `Cyfeiriad ${name}`,
+  pageTitle: 'Manylion cyfeiriad yr atebydd',
   subtitle:
     'Dylech gynnwys cymaint o fanylion ag y gallwch. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
   addressLine1Hint: 'Bydd dogfennau’r llys yn cael eu hanfon yma',
@@ -133,6 +134,7 @@ describe('respondent > address > manual > content', () => {
   });
   test('should contain address1 field', () => {
     const addressHistoryFields = fields.addressHistory as FormOptions;
+    const { addressUnknown } = fields as Record<string, FormFields>;
 
     expect(addressHistoryFields.type).toBe('radios');
     expect(addressHistoryFields.classes).toBe('govuk-radios');
@@ -155,6 +157,11 @@ describe('respondent > address > manual > content', () => {
 
     expect((addressHistoryFields.values[2].label as Function)(generatedContent)).toBe(en.three);
     expect(addressHistoryFields.values[2].value).toBe('dontKnow');
+
+    expect(addressUnknown.type).toBe('checkboxes');
+    expect(addressUnknown.classes).toBe('govuk-checkboxes');
+    expect(addressUnknown.labelHidden).toBe(true);
+    expect((addressUnknown.label as LanguageLookup)(generatedContent)).toBe(en.title);
   });
 
   test('should contain saveAndComeLater button', () => {

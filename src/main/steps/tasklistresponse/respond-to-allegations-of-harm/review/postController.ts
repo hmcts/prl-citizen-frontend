@@ -36,10 +36,14 @@ export default class RespondToAohReviewPostController extends PostController<Any
           );
           mapDataInSession(req.session.userCase, userDetails.id);
           super.redirect(req, res);
+        } else {
+          throw new Error('Party details not found. caseId: ' + caseData.id);
         }
       } catch (error) {
         client.logError(error);
-        throw new Error('Error occured, failed to save response to AOH. - RespondToAohReviewPostController');
+        throw new Error(
+          'Error occured, failed to save response to AOH. - RespondToAohReviewPostController caseId: ' + caseData.id
+        );
       }
     }
   }

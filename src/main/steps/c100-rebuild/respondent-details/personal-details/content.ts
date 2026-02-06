@@ -18,6 +18,7 @@ import { dobUnknown, getPartyDetails } from '../../people/util';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Provide details for',
+  pageTitle: "Respondent's details",
   hasNameChanged: 'Have they changed their name?',
   hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
@@ -80,6 +81,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Darparu manylion am',
+  pageTitle: 'Manylion yr atebydd',
   hasNameChanged: 'A ydynt wedi newid eu henw?',
   hasNameChangedHint:
     'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
@@ -355,6 +357,8 @@ export const generateFormFields = (
     respondentPlaceOfBirthUnknown: {
       type: 'checkboxes',
       classes: 'govuk-checkboxes--small',
+      label: l => l.respondentPlaceOfBirth,
+      labelHidden: true,
       values: [
         {
           name: 'respondentPlaceOfBirthUnknown',

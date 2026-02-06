@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { DocCategory, DocType } from '../../../../../app/case/definition';
-import { FormContent, FormFields, FormOptions } from '../../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
@@ -81,6 +81,8 @@ describe('documents > upload > other-party-not-see-this-document > content', () 
   test('should contain reasonsToNotSeeTheDocument field', () => {
     const reasonsToNotSeeTheDocument = fields.reasonsToNotSeeTheDocument as FormOptions;
     expect(reasonsToNotSeeTheDocument.type).toBe('checkboxes');
+    expect(reasonsToNotSeeTheDocument.labelHidden).toBe(true);
+    expect((reasonsToNotSeeTheDocument.label as LanguageLookup)(generatedContent)).toBe(en.reasonsToNotSeeTheDocument);
     expect((reasonsToNotSeeTheDocument.values[0].label as Function)(generatedContent)).toBe(
       en.confidentialDetailsLabel
     );

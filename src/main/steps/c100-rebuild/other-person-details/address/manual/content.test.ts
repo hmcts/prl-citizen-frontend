@@ -6,6 +6,7 @@ import { generateContent } from './content';
 
 const en = {
   title: 'Address details of Dummy Test1',
+  pageTitle: "Other person's address details",
   addressLine1Hint: 'Court documents may be sent here',
   errors: {
     AddressLine1: {
@@ -26,6 +27,7 @@ const en = {
 
 const cy = {
   title: 'Manylion cyfeiriad Dummy Test1',
+  pageTitle: 'Manylion cyfeiriad y person arall',
   addressLine1Hint: 'Gellir anfon dogfennau’r llys yma',
   errors: {
     AddressLine1: {
@@ -136,6 +138,8 @@ describe('applicant > address > manual > content', () => {
 
     expect(addressUnknown.type).toBe('checkboxes');
     expect(addressUnknown.classes).toBe('govuk-checkboxes');
+    expect(addressUnknown.labelHidden).toBe(true);
+    expect((addressUnknown.label as LanguageLookup)(generatedContent)).toBe(en.title);
     expect((addressUnknown.values[0].label as LanguageLookup)(generatedContent)).toBe(
       'I dont know where they currently live'
     );

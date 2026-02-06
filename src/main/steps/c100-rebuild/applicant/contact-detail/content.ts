@@ -8,6 +8,7 @@ import { isAlphaNumeric, isEmailValid, isFieldFilledIn, isPhoneNoValid } from '.
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Contact details of',
+  pageTitle: "Applicant's contact details",
   canProvideEmailLabel: 'I can provide an email address',
   canNotProvideEmailLabel: 'I cannot provide an email address',
   emailAdddressLabel: 'Your email address',
@@ -51,6 +52,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Manylion cyswllt ',
+  pageTitle: 'Manylion cyswllt y ceisydd',
   canProvideEmailLabel: 'Gallaf ddarparu cyfeiriad e-bost',
   canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
   emailAdddressLabel: 'Eich cyfeiriad e-bost',
@@ -130,6 +132,8 @@ export const generateFormFields = (
     canProvideEmail: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.emailAdddressLabel,
+      labelHidden: true,
       values: [
         {
           label: l => l.canProvideEmailLabel,
@@ -156,6 +160,8 @@ export const generateFormFields = (
     canProvideTelephoneNumber: {
       type: 'radios',
       classes: 'govuk-radios',
+      label: l => l.telephoneNumberLabel,
+      labelHidden: true,
       values: [
         {
           label: l => l.canProvideTelephoneNumberLabel,

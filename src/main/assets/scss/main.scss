@@ -239,3 +239,70 @@ li.list-style--none{
 .border-bottom--none{
   border-bottom: none !important;
 }
+
+// Once govuk-frontend is at least 5.4.0, replace below with
+// @import "~hmrc-frontend/hmrc/components/timeout-dialog/timeout-dialog"
+
+.hmrc-timeout-overlay {
+  position: fixed;
+  z-index: 1001;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  background-color: govuk-colour("black");
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+}
+
+.hmrc-timeout-dialog {
+  position: fixed;
+  z-index: 1002;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 30px;
+  overflow: auto;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border: 5px solid govuk-colour("black");
+  background-color: govuk-colour("white");
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+
+  @include govuk-media-query($from: tablet) {
+    width: 435px;
+    max-width: 100%;
+  }
+
+  &:focus {
+    outline: $govuk-focus-width solid $govuk-focus-colour;
+  }
+}
+
+.hmrc-timeout-dialog__message {
+  @include govuk-font($size: 19);
+
+  line-height: 1.31579;
+}
+
+.hmrc-timeout-dialog__countdown {
+  display: inline-block;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hmrc-timeout-dialog__link {
+  @include govuk-font($size: 24);
+
+  @include govuk-media-query($from: tablet) {
+    @include govuk-font($size: 19);
+
+    // Same padding as govuk-button
+    padding: (govuk-spacing(2) - $govuk-border-width-form-element) govuk-spacing(2) (govuk-spacing(2) - $govuk-border-width-form-element - ($govuk-border-width-form-element / 2));
+  }
+}

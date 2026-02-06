@@ -14,6 +14,7 @@ import { getPartyDetails } from '../../people/util';
 const en = () => ({
   title: 'What is ',
   title1: "'s relationship to ",
+  pageTitle: "Other person's relationship to child",
   mother: 'Mother',
   father: 'Father',
   guardian: 'Guardian',
@@ -38,6 +39,7 @@ const en = () => ({
 const cy = () => ({
   title: 'Beth yw',
   title1: ' Perthynas efo',
+  pageTitle: 'Perthynas y person arall â’r plentyn',
   mother: 'Mam',
   father: 'Tad',
   guardian: 'Gwarcheidwad',
@@ -88,6 +90,8 @@ export const generateFormFields = (relationshipTypeOption: RelationshipToChildre
   const fields = {
     relationshipType: {
       type: 'radios',
+      label: l => l.title,
+      labelHidden: true,
       classes: 'govuk-radios',
       labelSize: 's',
       values: [

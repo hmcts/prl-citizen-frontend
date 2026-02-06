@@ -18,6 +18,7 @@ export * from '../routeGuard';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Provide details for',
+  pageTitle: "Child's details",
   dobLabel: 'Date of birth',
   dateHint: 'For example, 31 3 2016',
   approxCheckboxLabel: 'I don’t know their date of birth',
@@ -61,6 +62,7 @@ export const en = () => ({
 
 export const cy = () => ({
   title: 'Darparwch fanylion am',
+  pageTitle: 'Manylion y plentyn',
   dobLabel: 'Dyddiad geni',
   dateHint: 'Er enghraifft, 31 3 2016',
   approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',
@@ -136,6 +138,8 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         dateOfBirth: {
           type: 'date',
           classes: 'govuk-date-input',
+          label: l => l.dobLabel,
+          labelHidden: true,
           hint: l => l.dateHint,
           values: [
             {

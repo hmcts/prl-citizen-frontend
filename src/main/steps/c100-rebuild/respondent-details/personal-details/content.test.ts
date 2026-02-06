@@ -25,6 +25,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Provide details for',
+  pageTitle: "Respondent's details",
   hasNameChanged: 'Have they changed their name?',
   hasNameChangedHint:
     'For example, through marriage or adoption or by deed poll. This includes first name, surname and any middle names',
@@ -87,6 +88,7 @@ const en = {
 
 const cy = {
   title: 'Darparu manylion am',
+  pageTitle: 'Manylion yr atebydd',
   hasNameChanged: 'A ydynt wedi newid eu henw?',
   hasNameChangedHint:
     'Er enghraifft, trwy briodas neu fabwysiadu neu drwy weithred newid enw. Mae hyn yn cynnwys enw cyntaf, cyfenw ac unrhyw enwau canol',
@@ -210,6 +212,7 @@ describe('respondent details > personal details', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -229,6 +232,7 @@ describe('respondent details > personal details', () => {
       {
         ...cy,
         title: `${cy.title} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,
@@ -414,6 +418,8 @@ describe('respondent details > personal details', () => {
     expect((respondentPlaceOfBirthUnknown.values[0].label as Function)(generatedContent)).toBe(
       en.respondentPlaceOfBirthUnknown
     );
+    expect(respondentPlaceOfBirthUnknown.labelHidden).toBe(true);
+    expect((respondentPlaceOfBirthUnknown.label as LanguageLookup)(generatedContent)).toBe(en.respondentPlaceOfBirth);
   });
 
   test('should contain Save and continue button', () => {

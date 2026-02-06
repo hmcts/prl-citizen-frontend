@@ -7,10 +7,10 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/
 
 export const en = () => ({
   caption: 'Keeping your contact details private',
-  headingTitle: `Do you want to keep your contact details private from 
+  headingTitle: `Do you want to keep your contact details private from
   the other people named in the application (the respondents)?`,
   paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details.',
-  paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children, 
+  paragraph2: `For example, if you believe the other people in the case pose a risk to you or the children,
   you can ask the court to keep your contact details private.`,
   one: 'Yes',
   two: 'No',
@@ -69,7 +69,8 @@ export const form: FormContent = {
       id: 'startAlternative',
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
+      label: l => l.headingTitle,
+      labelHidden: true,
       section: l => l.section,
       values: [
         {

@@ -12,6 +12,7 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Address of',
+  pageTitle: "Applicant's address",
   errors: {
     addressPostcode: {
       required: 'Enter the postcode',
@@ -22,6 +23,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Cyfeiriad',
+  pageTitle: 'Cyfeiriad y ceisydd',
   errors: {
     addressPostcode: {
       required: 'Nodwch y cod post',

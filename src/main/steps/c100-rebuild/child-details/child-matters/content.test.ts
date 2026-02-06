@@ -11,6 +11,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Which of the decisions you’re asking the court to resolve relate to',
+  pageTitle: 'Orders relating to child',
   bodyHint: 'Select all that apply',
   childArrangementsOrder: {
     whoChildLiveWith: 'Decide who the children live with and when',
@@ -44,6 +45,7 @@ const en = {
 
 const cy = {
   title: 'Pa un o’r penderfyniadau rydych chi’n gofyn i’r llys eu datrys sy’n ymwneud â',
+  pageTitle: "Gorchmynion sy'n ymwneud â’r plentyn",
   orderAppliedFor: 'Gorchmynion y gwnaed cais amdanynt',
   bodyHint: "Dewiswch bob un sy'n berthnasol",
   childArrangementsOrder: {
@@ -143,6 +145,7 @@ describe('child details > child-matters', () => {
       {
         ...en,
         title: `${en.title} Bob Silly`,
+        pageTitle: `${en.pageTitle}`,
         errors: {
           ...en.errors,
           ...errors.en,
@@ -164,6 +167,7 @@ describe('child details > child-matters', () => {
       {
         ...cy,
         title: `${cy.title} Bob Silly`,
+        pageTitle: `${cy.pageTitle}`,
         errors: {
           ...cy.errors,
           ...errors.cy,
@@ -177,6 +181,8 @@ describe('child details > child-matters', () => {
     const { needsResolution } = fields as Record<string, FormFields>;
 
     expect(needsResolution.type).toBe('checkboxes');
+    expect(needsResolution.labelHidden).toBe(true);
+    expect((needsResolution.label as LanguageLookup)(generatedContent)).toBe(`${en.title} Bob Silly`);
     expect((needsResolution.hint as Function)(generatedContent)).toBe(`${en.bodyHint}`);
     (needsResolution.validator as Function)('whoChildLiveWith');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('whoChildLiveWith');

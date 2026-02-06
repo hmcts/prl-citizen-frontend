@@ -1,0 +1,29 @@
+{% extends "../dashboard-page.njk" %}
+
+{% block head %}
+  {% include "../webpack/css.njk" %}
+  {% include "../views/includes/script-ga_tag_manager.njk" %}
+{% endblock %}
+
+{% block header %}
+  {% include "../../cookie-banner/template.njk" %}
+  {{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
+    containerClasses: "govuk-width-container",
+    serviceName: serviceName,
+    serviceUrl: (globals.basePath if globals.basePath) + "/",
+    navigation: [
+      {
+        href: "/",
+        text: ''
+      }
+    ]
+
+  }) }}
+{% endblock %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">
+    {{ title }}
+  </h1>
+{% endblock %}

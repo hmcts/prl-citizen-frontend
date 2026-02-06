@@ -37,6 +37,8 @@ export default class ProceedingPostController extends PostController<AnyObject> 
       } catch (error) {
         throw new Error('ProceedingPostController - Case could not be updated.');
       }
+    } else {
+      throw new Error('ProceedingPostController - Party details not found.');
     }
   }
 }

@@ -1,12 +1,14 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 {% from "common/task-list/components/progress-bar/progress-bar.macro.njk" import buildProgressBar with context %}
+{% from "hmrc/components/timeout-dialog/macro.njk" import hmrcTimeoutDialog %}
 
 {% extends "govuk/template.njk" %}
 
 {% block head %}
   {% include "./webpack/css.njk" %}
   {% include "./views/includes/script-ga_tag_manager.njk" %}
+  {% include "./hmrc-timeout-dialog.njk" %}
 {% endblock %}
 
 {% block bodyStart %}
