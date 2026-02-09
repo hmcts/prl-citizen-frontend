@@ -8,7 +8,7 @@ import { cleanPermissionsWhy } from '../utils';
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  get: async (req: AppRequest, res: Response, next: NextFunction): Promise<void> => {
+  get: async (req: AppRequest, res: Response, next: NextFunction) => {
     const { removeFileId } = req.params;
 
     if (removeFileId && req.session?.userCase?.sq_uploadDocument) {
@@ -16,10 +16,9 @@ export const routeGuard = {
         await caseApi(req.session.user, req.locals.logger).deleteDocument(removeFileId.toString());
         delete req.session.userCase.sq_uploadDocument;
 
-        req.session.save(() => {
+        return req.session.save(() => {
           res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
         });
-        return;
       } catch {
         req.session.errors = [
           {
@@ -28,8 +27,7 @@ export const routeGuard = {
           },
         ];
 
-        res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
-        return;
+        return res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
       }
     }
     next();
