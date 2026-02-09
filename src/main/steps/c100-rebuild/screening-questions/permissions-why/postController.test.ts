@@ -94,6 +94,29 @@ describe('PermissionsWhyUploadController > postController', () => {
     expect(uploadDocumentMock).not.toHaveBeenCalled();
   });
 
+  test('should not upload document and add error if document already present', async () => {
+    req.files = { sq_uploadDocument: { name: 'test.jpg', data: '', mimetype: 'text' } };
+
+    req.session.userCase = {
+      sq_uploadDocument: {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    };
+
+    await controller.post(req, res);
+
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'multipleFiles',
+        propertyName: 'sq_uploadDocument',
+      },
+    ]);
+  });
+
   test('should set uploadError if API fails', async () => {
     req.files = {
       sq_uploadDocument: { name: 'test.pdf', data: '', mimetype: 'application/pdf' },

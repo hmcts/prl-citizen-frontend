@@ -554,7 +554,7 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_SCREENING_QUESTIONS_LEGAL_RESPRESENTATION,
   },
   {
-    url: C100_SCREENING_QUESTIONS_PERMISSIONS_WHY,
+    url: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY),
     showInSection: Sections.C100,
     getNextStep: () => C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST,
   },
