@@ -152,6 +152,14 @@ export const form: FormContent = {
               },
               validator: value => isTextAreaValid(value),
             },
+            sq_courtOrderPrevent_fileUpload: {
+              type: 'upload',
+              label: l => l.courtOrderPreventFileUploadLabel,
+              attributes: {
+                accept: '.pdf,.doc,.docx,.jpg,.png', // optional
+                multiple: false, // or true if allowed
+              },
+            },
           },
         },
         {
