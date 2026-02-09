@@ -1,11 +1,7 @@
-import _ from 'lodash';
-
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-import { applyParms } from '../../../../steps/common/url-parser';
-import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY } from '../../../../steps/urls';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 export * from './routeGuard';
 
@@ -179,7 +175,6 @@ export const form: FormContent = {
           },
         },
       ],
-      validator: atLeastOneFieldIsChecked,
     },
   },
   onlycontinue: {
@@ -192,33 +187,8 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const session = content.additionalData?.req.session;
-  const uploadError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument') ?? null;
-  const uploadedDocument = session?.userCase?.sq_uploadDocument;
-
   return {
     ...translations,
     form,
-    fileUploadConfig: {
-      labelText: translations.uploadButton,
-      uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY),
-
-      noFilesText: translations.noFiles,
-      removeFileText: translations.remove,
-      uploadButtonText: translations.uploadButton,
-
-      errorMessage: uploadError ? translations.errors.sq_uploadDocument?.[uploadError.errorType] : null,
-
-      uploadedFiles: uploadedDocument
-        ? [
-            {
-              filename: uploadedDocument.document_filename,
-              fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY, {
-                removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
-              }),
-            },
-          ]
-        : [],
-    },
   };
 };
