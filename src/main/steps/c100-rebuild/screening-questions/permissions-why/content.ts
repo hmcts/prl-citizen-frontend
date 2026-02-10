@@ -18,6 +18,7 @@ export const en = () => ({
   courtOrderPreventHint:
     "Permission is required if there is an order in place stating that an application cannot be made without the court's permission.",
   courtOrderPreventLabelText: 'Provide case number and name of the court',
+  courtOrderPreventFileUploadLabel: 'Upload the court order', // need to confirm
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
   uploadButton: 'Upload file',
@@ -148,12 +149,13 @@ export const form: FormContent = {
               },
               validator: value => isTextAreaValid(value),
             },
-            sq_courtOrderPrevent_fileUpload: {
+            sq_uploadDocument: {
               type: 'upload',
               label: l => l.courtOrderPreventFileUploadLabel,
+              labelHidden: true,
               attributes: {
-                accept: '.pdf,.doc,.docx,.jpg,.png', // optional
-                multiple: false, // or true if allowed
+                accept: '.pdf,.doc,.docx,.jpg,.png',
+                multiple: false,
               },
             },
           },
