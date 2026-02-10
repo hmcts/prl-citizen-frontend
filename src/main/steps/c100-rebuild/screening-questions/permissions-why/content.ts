@@ -149,15 +149,6 @@ export const form: FormContent = {
               },
               validator: value => isTextAreaValid(value),
             },
-            sq_uploadDocument: {
-              type: 'upload',
-              label: l => l.courtOrderPreventFileUploadLabel,
-              labelHidden: true,
-              attributes: {
-                accept: '.pdf,.doc,.docx,.jpg,.png',
-                multiple: false,
-              },
-            },
           },
         },
         {
