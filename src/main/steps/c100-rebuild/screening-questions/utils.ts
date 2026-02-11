@@ -36,9 +36,6 @@ export const cleanPermissionsWhy = (caseData: CaseWithId, permissionsWhy: string
   if (!permissionsWhy?.includes('anotherReason')) {
     delete caseData.sq_anotherReason_subfield;
   }
-  if (!permissionsWhy?.includes('uploadDocument')) {
-    delete caseData.sq_uploadDocument;
-  }
 
   return caseData;
 };

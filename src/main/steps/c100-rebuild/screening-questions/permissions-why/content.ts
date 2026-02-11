@@ -21,9 +21,6 @@ export const en = () => ({
   courtOrderPreventLabelText: 'Provide case number and name of the court',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
-  uploadButton: 'Upload file',
-  noFiles: 'No files uploaded',
-  remove: 'Remove',
   errors: {
     sq_permissionsWhy: {
       required: 'Select why you need permission from the court to make this application.',
@@ -69,9 +66,6 @@ export const cy = () => ({
   courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
-  uploadButton: 'Uwchlwytho ffeil',
-  noFiles: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
-  remove: 'Remove',
   errors: {
     sq_permissionsWhy: {
       required: '(welsh translation)',

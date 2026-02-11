@@ -22,9 +22,6 @@ const en = {
   courtOrderPreventLabelText: 'Provide case number and name of the court',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
-  uploadButton: 'Upload file',
-  noFiles: 'No files uploaded',
-  remove: 'Remove',
   errors: {
     sq_permissionsWhy: {
       required: 'Select why you need permission from the court to make this application.',
@@ -70,9 +67,6 @@ const cy = {
   courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
-  uploadButton: 'Uwchlwytho ffeil',
-  noFiles: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
-  remove: 'Remove',
   errors: {
     sq_permissionsWhy: {
       required: '(welsh translation)',
@@ -161,6 +155,15 @@ describe('Screening questions > permissions-why', () => {
     expect(response2).toEqual(undefined);
     expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
     expect(isTextAreaValid).toHaveBeenCalledWith('Test');
+
+    const sq_uploadDocument = permissionsWhyField.values[1].subFields?.sq_uploadDocument as FormOptions;
+    expect(sq_uploadDocument.type).toBe('upload');
+    expect((sq_uploadDocument.label as LanguageLookup)(generatedContent)).toBe(en.courtOrderPreventLabelText);
+    expect(sq_uploadDocument.labelHidden).toBe(true);
+    expect(sq_uploadDocument.attributes).toStrictEqual({
+      accept: '.pdf,.doc,.docx,.jpg,.png',
+      multiple: false,
+    });
 
     expect(
       (
