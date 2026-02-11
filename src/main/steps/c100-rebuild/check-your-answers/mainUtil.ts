@@ -3191,6 +3191,7 @@ export const prepareProp = (property: string): string => {
 
     case 'sq_doNotHaveParentalResponsibility_subfield':
     case 'sq_courtOrderPrevent_subfield':
+    case 'sq_uploadDocument':
     case 'sq_anotherReason_subfield':
       return 'sq_permissionsWhy';
 

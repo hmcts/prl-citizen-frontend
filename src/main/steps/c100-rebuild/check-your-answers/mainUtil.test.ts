@@ -294,6 +294,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
       sq_courtPermissionRequired: 'Yes',
+      sq_uploadDocument: 'test.pdf',
       sq_permissionsWhy: ['doNotHaveParentalResponsibility'],
       sq_doNotHaveParentalResponsibility_subfield: 'responsnibility subfield',
       sq_permissionsRequest: 'MOCK_VALUE',
@@ -3478,6 +3479,7 @@ describe('prepareProp', () => {
     { property: 'c1A_policeOrInvestigatorOtherDetails', expected: 'c1A_policeOrInvestigatorInvolved' },
     { property: 'sq_doNotHaveParentalResponsibility_subfield', expected: 'sq_permissionsWhy' },
     { property: 'sq_courtOrderPrevent_subfield', expected: 'sq_permissionsWhy' },
+    { property: 'sq_uploadDocument', expected: 'sq_permissionsWhy' },
     { property: 'sq_anotherReason_subfield', expected: 'sq_permissionsWhy' },
 
     { property: 'ra_noVideoAndPhoneHearing_subfield', expected: 'ra_typeOfHearing' },
