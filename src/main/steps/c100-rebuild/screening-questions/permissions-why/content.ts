@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
@@ -155,8 +153,9 @@ export const form: FormContent = {
               label: l => l.courtOrderPreventFileUploadLabel,
               labelHidden: true,
               attributes: {
-              accept: '.pdf,.doc,.docx,.jpg,.png',
-              multiple: false,
+                accept: '.pdf,.doc,.docx,.jpg,.png',
+                multiple: false,
+              },
             },
           },
         },
