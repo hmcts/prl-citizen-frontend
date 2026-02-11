@@ -9,7 +9,8 @@ export * from './routeGuard';
 export const en = () => ({
   title: 'Why do you need a permission from the court to make this application?',
   line: 'Consult <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">the CB1 guidance</a> if you are not sure if you need permission to apply',
-  select_all_apply: 'Select all that apply',
+  select_all_apply:
+    "Select all that apply \n Permission is required if there is an order in place stating that an application cannot be made without the court's permission.",
   doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
   doNotHaveParentalResponsibilityLabelText: 'Provide details',
   section: 'parental responsibility means that you are responsible for the children and their property',
@@ -57,7 +58,8 @@ export const en = () => ({
 export const cy = () => ({
   title: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn?',
   line: 'Edrychwch <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">arganllawiau CB1</a> os nad ydych yn siŵr a oes angen caniatâd arnoch i wneud cais',
-  select_all_apply: "Dewiswch bob un sy'n berthnasol",
+  select_all_apply:
+    "Dewiswch bob un sy'n berthnasol \n Mae angen caniatâd os oes gorchymyn ar waith yn nodi na ellir gwneud cais heb ganiatâd y llys.",
   doNotHaveParentalResponsibility: 'Does gen i ddim cyfrifoldeb rhiant dros y plant',
   doNotHaveParentalResponsibilityLabelText: 'Rhowch fanylion',
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
