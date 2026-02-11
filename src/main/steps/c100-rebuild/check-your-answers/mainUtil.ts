@@ -154,18 +154,17 @@ export const PermissionForApplication = (
     ? HTML.UNORDER_LIST +
       userCase['sq_permissionsWhy']
         ?.map(props => {
-          // Grab the standard subfield dynamically
           const subfieldKey = `sq_${props}_subfield`;
           const textValue = userCase[subfieldKey];
-
-          // If there's an upload subfield for this checkbox, append it dynamically
           let uploadValue = '';
-          const uploadKey = 'sq_uploadDocument';
-          if (props === 'courtOrderPrevent' && userCase[uploadKey]) {
-            const file = userCase[uploadKey];
-            uploadValue = file?.document_filename || '';
-          }
 
+          if (props === 'courtOrderPrevent' && userCase['sq_uploadDocument']) {
+            console.log('we should be showing document in CYA');
+            const file = userCase['sq_uploadDocument'];
+            uploadValue = file?.document_filename;
+          }
+          console.log('UploadedValue:');
+          console.log(uploadValue);
           const combinedValue = [textValue, uploadValue].filter(Boolean).join('<br/>');
 
           return (
@@ -176,7 +175,7 @@ export const PermissionForApplication = (
             HTML.LIST_ITEM_END
           );
         })
-        .join('') + // join array into string
+        .join('') +
       HTML.UNORDER_LIST_END
     : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
 

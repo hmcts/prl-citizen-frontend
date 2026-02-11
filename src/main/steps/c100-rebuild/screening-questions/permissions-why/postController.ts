@@ -42,6 +42,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
     const fileUploaded = _.get(req, 'files.sq_uploadDocument') as Record<string, any>;
 
     if (fileUploaded) {
+      console.log('A file has been uploaded');
       const error = this.hasError(req);
 
       if (error) {
@@ -60,7 +61,8 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
         contentType: fileUploaded.mimetype,
         filename: fileUploaded.name,
       });
-
+      console.log('formData:');
+      console.log(formData);
       try {
         const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
 
@@ -70,7 +72,8 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
         };
 
         req.session.errors = [];
-
+        console.log('post document successful');
+        console.log(response.document);
         return super.redirect(req, res, applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
       } catch {
         req.session.errors = [
