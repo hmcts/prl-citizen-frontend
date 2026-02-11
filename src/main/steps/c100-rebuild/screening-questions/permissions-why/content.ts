@@ -150,7 +150,7 @@ export const form: FormContent = {
               },
               validator: value => isTextAreaValid(value),
             },
-            sq_uploadDocument_subfield: {
+            sq_uploadDocument: {
               type: 'upload',
               label: l => l.courtOrderPreventLabelText,
               labelHidden: true,

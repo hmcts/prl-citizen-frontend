@@ -151,21 +151,35 @@ export const PermissionForApplication = (
   language
 ): SummaryList | undefined => {
   const valForPermissionWhy = userCase.hasOwnProperty('sq_permissionsWhy')
-    ? (
-        HTML.UNORDER_LIST +
-        userCase['sq_permissionsWhy']?.map(
-          props =>
+    ? HTML.UNORDER_LIST +
+      userCase['sq_permissionsWhy']
+        ?.map(props => {
+          // Grab the standard subfield dynamically
+          const subfieldKey = `sq_${props}_subfield`;
+          const textValue = userCase[subfieldKey];
+
+          // If there's an upload subfield for this checkbox, append it dynamically
+          let uploadValue = '';
+          const uploadKey = 'sq_uploadDocument';
+          if (props === 'courtOrderPrevent' && userCase[uploadKey]) {
+            const file = userCase[uploadKey];
+            uploadValue = file?.document_filename || '';
+          }
+
+          const combinedValue = [textValue, uploadValue].filter(Boolean).join('<br/>');
+
+          return (
             HTML.LIST_ITEM +
             keys[props] +
             ': ' +
-            populateError(userCase[`sq_${props}_subfield`], userCase[`sq_${props}_subfield`], language) +
+            populateError(combinedValue, combinedValue, language) +
             HTML.LIST_ITEM_END
-        ) +
-        HTML.UNORDER_LIST_END
-      )
-        .split(',')
-        .join('')
+          );
+        })
+        .join('') + // join array into string
+      HTML.UNORDER_LIST_END
     : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
+
   let SummaryData;
   if (userCase['sq_courtPermissionRequired'] === YesOrNo.YES) {
     SummaryData = [

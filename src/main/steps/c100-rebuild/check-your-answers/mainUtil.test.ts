@@ -127,6 +127,7 @@ const keys = {
   isOtherPersonAddressConfidential:
     'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
   doYouWantToKeep: 'Do the other people named in the application (the respondents) know any contact details of {name}?',
+  courtOrderPrevent: 'courtOrderPrevent',
 };
 const language = 'en';
 const content = {
@@ -353,6 +354,132 @@ describe('test cases for main util', () => {
       },
     ]);
     expect(PermissionForApplicationObj?.title).toBe(undefined);
+  });
+
+  test('PermissionForApplication includes upload filename for courtOrderPrevent', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      sq_courtPermissionRequired: 'Yes',
+      sq_uploadDocument: {
+        document_url: 'DUMMY_URL',
+        document_binary_url: 'DUMMY_BINARY_URL',
+        document_filename: 'filename.docx',
+      },
+      sq_permissionsWhy: ['courtOrderPrevent'],
+      sq_courtOrderPrevent_subfield: 'Some explanation text',
+      sq_permissionsRequest: 'MOCK_VALUE',
+    } as unknown as CaseWithId;
+
+    const result = PermissionForApplication({ sectionTitles, keys, content }, userCase, language);
+
+    expect(result?.rows).toStrictEqual([
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/screening-questions/permission',
+              text: undefined,
+              visuallyHiddenText: 'reasonPermissionRequired',
+              attributes: { id: 'sq_courtPermissionRequired' },
+            },
+          ],
+        },
+        key: { text: 'reasonPermissionRequired' },
+        value: { html: 'Yes' },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/screening-questions/permissions-why',
+              text: undefined,
+              visuallyHiddenText: 'whyPermissionRequiredFromCourt',
+              attributes: { id: 'sq_permissionsWhy' },
+            },
+          ],
+        },
+        key: { text: 'whyPermissionRequiredFromCourt' },
+        value: {
+          html: '<ul class="govuk-list govuk-list--bullet"><li>courtOrderPrevent: Some explanation text<br/>filename.docx</li></ul>',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/screening-questions/permissions-request',
+              text: undefined,
+              visuallyHiddenText: 'whyCourtGrantSubmittingPermission',
+              attributes: { id: 'sq_permissionsRequest' },
+            },
+          ],
+        },
+        key: { text: 'whyCourtGrantSubmittingPermission' },
+        value: { html: 'MOCK_VALUE' },
+      },
+    ]);
+  });
+
+  test('PermissionForApplication does not include upload filename when no file is uploaded', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      sq_courtPermissionRequired: 'Yes',
+      sq_permissionsWhy: ['courtOrderPrevent'],
+      sq_courtOrderPrevent_subfield: 'Some explanation text',
+      sq_permissionsRequest: 'MOCK_VALUE',
+      // sq_uploadDocument is intentionally missing
+    } as unknown as CaseWithId;
+
+    const result = PermissionForApplication({ sectionTitles, keys, content }, userCase, language);
+
+    expect(result?.rows).toStrictEqual([
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/screening-questions/permission',
+              text: undefined,
+              visuallyHiddenText: 'reasonPermissionRequired',
+              attributes: { id: 'sq_courtPermissionRequired' },
+            },
+          ],
+        },
+        key: { text: 'reasonPermissionRequired' },
+        value: { html: 'Yes' },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/screening-questions/permissions-why',
+              text: undefined,
+              visuallyHiddenText: 'whyPermissionRequiredFromCourt',
+              attributes: { id: 'sq_permissionsWhy' },
+            },
+          ],
+        },
+        key: { text: 'whyPermissionRequiredFromCourt' },
+        value: {
+          html: '<ul class="govuk-list govuk-list--bullet"><li>courtOrderPrevent: Some explanation text</li></ul>',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/screening-questions/permissions-request',
+              text: undefined,
+              visuallyHiddenText: 'whyCourtGrantSubmittingPermission',
+              attributes: { id: 'sq_permissionsRequest' },
+            },
+          ],
+        },
+        key: { text: 'whyCourtGrantSubmittingPermission' },
+        value: { html: 'MOCK_VALUE' },
+      },
+    ]);
   });
 
   test('ApplicantDetails', () => {
