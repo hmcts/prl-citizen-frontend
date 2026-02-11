@@ -321,7 +321,7 @@ describe('test cases for main util', () => {
         actions: {
           items: [
             {
-              href: '/c100-rebuild/screening-questions/permissions-why/:removeFileId?',
+              href: '/c100-rebuild/screening-questions/permissions-why',
               text: undefined,
               visuallyHiddenText: 'whyPermissionRequiredFromCourt',
               attributes: { id: 'sq_permissionsWhy' },
