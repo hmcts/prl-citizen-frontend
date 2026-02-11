@@ -36,13 +36,13 @@ describe('c100 > screening questions > permissions why > route guard', () => {
 
   test('should call next when no file provided', async () => {
     req.body.sq_permissionsWhy = [];
-        req.session.userCase = {
-          sq_permissionsWhy: ['doNotHaveParentalResponsibility', 'courtOrderPrevent', 'anotherReason'],
-          sq_doNotHaveParentalResponsibility_subfield: 'test',
-          sq_courtOrderPrevent_subfield: 'test',
-          sq_anotherReason_subfield: 'test',
-          sq_uploadDocument: undefined,
-        } as unknown as CaseWithId;
+    req.session.userCase = {
+      sq_permissionsWhy: ['doNotHaveParentalResponsibility', 'courtOrderPrevent', 'anotherReason'],
+      sq_doNotHaveParentalResponsibility_subfield: 'test',
+      sq_courtOrderPrevent_subfield: 'test',
+      sq_anotherReason_subfield: 'test',
+      sq_uploadDocument: undefined,
+    } as unknown as CaseWithId;
 
     await routeGuard.get(req, res, next);
 
