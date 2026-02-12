@@ -303,10 +303,12 @@ export const isPermissionWhyCompleted = (caseData: CaseWithId): boolean => {
 };
 
 export const isPermissionWhyMandatory = (caseData: CaseWithId): boolean => {
+  const selected = caseData?.sq_permissionsWhy ?? [];
+  const hasMandatorySelection = selected.some(key => key !== 'courtOrderPrevent');
   return (
     caseData?.sq_writtenAgreement === YesOrNo.NO &&
     !_.isEmpty(caseData?.sq_courtPermissionRequired) &&
-    !_.isEmpty(caseData?.sq_permissionsWhy)
+    hasMandatorySelection
   );
 };
 
