@@ -288,15 +288,18 @@ const isOtherChildValid = (child: OtherChildrenDetails): boolean => {
 };
 
 export const isPermissionWhyCompleted = (caseData: CaseWithId): boolean => {
-  const selectedKeys = caseData.sq_permissionsWhy || [];
-
-  if (selectedKeys.length === 0) {
-    return false;
-  }
-  const mandatorySubfields = ['doNotHaveParentalResponsibility', 'anotherReason'];
-  return mandatorySubfields
-    .filter(key => selectedKeys.includes(key))
-    .every(key => !_.isEmpty(caseData[`sq_${key}_subfield`]));
+  return (
+    caseData?.sq_writtenAgreement === YesOrNo.NO &&
+    !_.isEmpty(caseData?.sq_courtPermissionRequired) &&
+    (_.isEmpty(caseData?.sq_permissionsWhy) ||
+      (caseData.sq_permissionsWhy?.every(subField => {
+        if (subField === 'courtOrderPrevent') {
+          return true;
+        }
+        return !_.isEmpty(caseData[`sq_${subField}_subfield`]);
+      }) ??
+        true))
+  );
 };
 
 export const isPermissionWhyMandatory = (caseData: CaseWithId): boolean => {
