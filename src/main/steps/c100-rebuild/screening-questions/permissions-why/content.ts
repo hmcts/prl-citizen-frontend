@@ -142,7 +142,7 @@ export const form: FormContent = {
               attributes: {
                 rows: 4,
               },
-              validator: value => isTextAreaValid(value),
+              validator: value => (value ? isTextAreaValid(value) : undefined),
             },
             sq_uploadDocument: {
               type: 'upload',
