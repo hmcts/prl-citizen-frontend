@@ -154,26 +154,17 @@ export const PermissionForApplication = (
     ? HTML.UNORDER_LIST +
       userCase['sq_permissionsWhy']
         ?.map(props => {
-          const subfieldKey = `sq_${props}_subfield`;
-          const textValue = userCase[subfieldKey];
+          const textValue = userCase[`sq_${props}_subfield`];
           let uploadValue = '';
 
           if (props === 'courtOrderPrevent' && userCase['sq_uploadDocument']) {
-            console.log('we should be showing document in CYA');
-            const file = userCase['sq_uploadDocument'];
-            uploadValue = file?.document_filename;
+            uploadValue = userCase['sq_uploadDocument']?.document_filename;
           }
-          console.log('UploadedValue:');
-          console.log(uploadValue);
-          const combinedValue = [textValue, uploadValue].filter(Boolean).join('<br/>');
 
-          return (
-            HTML.LIST_ITEM +
-            keys[props] +
-            ': ' +
-            populateError(combinedValue, combinedValue, language) +
-            HTML.LIST_ITEM_END
-          );
+          const combinedValue = [textValue, uploadValue].filter(Boolean).join('<br/>');
+          const displayValue =
+            props === 'courtOrderPrevent' ? combinedValue : populateError(combinedValue, combinedValue, language);
+          return HTML.LIST_ITEM + keys[props] + ': ' + displayValue + HTML.LIST_ITEM_END;
         })
         .join('') +
       HTML.UNORDER_LIST_END
