@@ -63,13 +63,13 @@ const cy = {
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
   courtOrderPrevent:
     "Mae gorchymyn o dan adran 91(14) Deddf Plant 1989, gorchymyn atal sifil cyfyngedig, gorchymyn atal sifil cyffredinol, neu orchymyn atal sifil estynedig mewn grym sy'n golygu bod angen caniatâd arnaf i wneud y cais hwn",
-  courtOrderPreventHint: '(welsh translation)',
+  courtOrderPreventHint: 'Mae angen caniatâd os oes gorchymyn ar waith yn nodi na ellir gwneud cais heb ganiatâd y llys.',
   courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
   errors: {
     sq_permissionsWhy: {
-      required: '(welsh translation)',
+      required: 'Dewiswch pam bod angen caniatâd arnoch gan y llys i wneud y cais hwn.',
     },
     sq_doNotHaveParentalResponsibility_subfield: {
       required: 'Rhowch fanylion pam nad oes gennych gyfrifoldeb rhiant dros y plant',
