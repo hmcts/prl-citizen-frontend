@@ -5,6 +5,7 @@ import FormData from 'form-data';
 import _ from 'lodash';
 
 import { caseApi } from '../../../../app/case/CaseApi';
+import { DocumentUploadResponse } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -61,15 +62,15 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
       });
 
       try {
-        const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
-        req.session.userCase = {
-          ...req.session.userCase,
-          sq_uploadDocument_subfield: response.document,
-        };
-
+        const response: DocumentUploadResponse = await caseApi(req.session.user, req.locals.logger).uploadDocument(
+          formData
+        );
+        req.session.userCase.sq_uploadDocument_subfield = response.document;
         req.session.errors = [];
 
-        return super.redirect(req, res, applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
+        req.session.save(() => {
+          res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
+        });
       } catch {
         req.session.errors = [
           {
@@ -80,6 +81,8 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
         return super.redirect(req, res);
       }
     }
-    return super.post(req, res);
+    req.session.save(() => {
+      res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
+    });
   }
 }

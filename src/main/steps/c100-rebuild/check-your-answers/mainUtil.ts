@@ -156,7 +156,6 @@ export const PermissionForApplication = (
         ?.map(props => {
           const textValue = userCase[`sq_${props}_subfield`];
           let uploadValue = '';
-          console.log(userCase);
           if (props === 'courtOrderPrevent' && userCase['sq_uploadDocument_subfield']) {
             uploadValue = userCase['sq_uploadDocument_subfield']?.document_filename;
           }

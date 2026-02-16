@@ -136,71 +136,101 @@ describe('PersonaldetailsPostController Post Controller', () => {
     });
   });
 
-  //   test('Should navigate to the next page when there are no errors when continue button is clicked > liveWith > !Array', async () => {
-  //     const mockFormContent = {
-  //       fields: {},
-  //     } as unknown as FormContent;
-  //     const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
-  //     const language = 'en';
-  //     const req = mockRequest({
-  //       params: {
-  //         childId: '7483640e-0817-4ddc-b709-6723f7925474',
-  //       },
-  //       body: {
-  //         onlycontinue: true,
-  //         liveWith: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
-  //       },
-  //       session: {
-  //         lang: language,
-  //         userCase: {
-  //           ...commonContent.userCase,
-  //         },
-  //       },
-  //     });
-  //     const res = mockResponse();
-  //     generateContent(commonContent);
-  //     await controller.post(req, res);
-  //
-  //     expect(res.redirect).toHaveBeenCalled();
-  //     expect(req.session.userCase).toEqual({
-  //       appl_allApplicants: [
-  //         {
-  //           applicantAddressPostcode: 'AG11NB',
-  //           applicantFirstName: 'Dummy ',
-  //           applicantLastName: 'Test1',
-  //           id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
-  //         },
-  //       ],
-  //       cd_children: [
-  //         {
-  //           childMatters: {
-  //             needsResolution: [],
-  //           },
-  //           firstName: 'Bob',
-  //           id: '7483640e-0817-4ddc-b709-6723f7925474',
-  //           lastName: 'Silly',
-  //           liveWith: [],
-  //           parentialResponsibility: {
-  //             statement: 'test',
-  //           },
-  //           personalDetails: {
-  //             approxDateOfBirth: {
-  //               day: '12',
-  //               month: '12',
-  //               year: '1987',
-  //             },
-  //             dateOfBirth: {
-  //               day: '',
-  //               month: '',
-  //               year: '',
-  //             },
-  //             isDateOfBirthUnknown: 'Yes',
-  //             sex: 'Male',
-  //           },
-  //         },
-  //       ],
-  //     });
-  //   });
+  test('Should navigate to the next page when there are no errors when continue button is clicked > liveWith > !Array', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
+      body: {
+        onlycontinue: true,
+        liveWith: [],
+      },
+      session: {
+        lang: language,
+        userCase: {
+          ...commonContent.userCase,
+        },
+      },
+    });
+    const res = mockResponse();
+
+    generateContent(commonContent);
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalled();
+    expect(req.session.userCase).toEqual({
+      appl_allApplicants: [
+        {
+          applicantAddressPostcode: 'AG11NB',
+          applicantFirstName: 'Dummy ',
+          applicantLastName: 'Test1',
+          id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        },
+      ],
+      cd_children: [
+        {
+          childMatters: {
+            needsResolution: [],
+          },
+          firstName: 'Bob',
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          lastName: 'Silly',
+          liveWith: [],
+          parentialResponsibility: {
+            statement: 'test',
+          },
+          personalDetails: {
+            approxDateOfBirth: {
+              day: '12',
+              month: '12',
+              year: '1987',
+            },
+            dateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            sex: 'Male',
+          },
+        },
+      ],
+    });
+  });
+
+  test('Should navigate to the next page when there is an error when continue button is clicked > liveWith', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
+      body: {
+        onlycontinue: true,
+      },
+      session: {
+        lang: language,
+        userCase: {
+          ...commonContent.userCase,
+        },
+      },
+    });
+    const res = mockResponse();
+
+    generateContent(commonContent);
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalled();
+    expect(req.session.errors).toEqual([{ errorType: 'required', propertyName: 'liveWith' }]);
+  });
 
   test('Should update case when save and come back button is clicked', async () => {
     const mockFormContent = {
