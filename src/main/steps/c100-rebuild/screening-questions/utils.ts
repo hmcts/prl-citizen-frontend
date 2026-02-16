@@ -32,6 +32,7 @@ export const cleanPermissionsWhy = (caseData: CaseWithId, permissionsWhy: string
   }
   if (!permissionsWhy?.includes('courtOrderPrevent')) {
     delete caseData.sq_courtOrderPrevent_subfield;
+    delete caseData.sq_uploadDocument_subfield;
   }
   if (!permissionsWhy?.includes('anotherReason')) {
     delete caseData.sq_anotherReason_subfield;
