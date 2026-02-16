@@ -23,7 +23,6 @@ export const setupCheckboxParser: CheckboxParser =
     if ((field as FormOptions)?.type === 'checkboxes') {
       field.parser = formData => {
         let checkbox = formData[key] ?? [];
-
         // HANDLE ALL INPUT TYPES
         if (typeof checkbox === 'string' && checkbox) {
           checkbox = [checkbox];
