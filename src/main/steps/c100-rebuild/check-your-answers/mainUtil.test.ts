@@ -295,7 +295,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
       sq_courtPermissionRequired: 'Yes',
-      sq_uploadDocument: 'test.pdf',
+      sq_uploadDocument_subfield: 'test.pdf',
       sq_permissionsWhy: ['doNotHaveParentalResponsibility'],
       sq_doNotHaveParentalResponsibility_subfield: 'responsnibility subfield',
       sq_permissionsRequest: 'MOCK_VALUE',
@@ -361,7 +361,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
       sq_courtPermissionRequired: 'Yes',
-      sq_uploadDocument: {
+      sq_uploadDocument_subfield: {
         document_url: 'DUMMY_URL',
         document_binary_url: 'DUMMY_BINARY_URL',
         document_filename: 'filename.docx',
@@ -429,7 +429,6 @@ describe('test cases for main util', () => {
       sq_permissionsWhy: ['courtOrderPrevent'],
       sq_courtOrderPrevent_subfield: 'Some explanation text',
       sq_permissionsRequest: 'MOCK_VALUE',
-      // sq_uploadDocument is intentionally missing
     } as unknown as CaseWithId;
 
     const result = PermissionForApplication({ sectionTitles, keys, content }, userCase, language);
@@ -480,6 +479,20 @@ describe('test cases for main util', () => {
         value: { html: 'MOCK_VALUE' },
       },
     ]);
+  });
+
+  test('PermissionForApplication does not render courtOrderPrevent when no subfield or file', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      sq_courtPermissionRequired: 'Yes',
+      sq_permissionsWhy: ['courtOrderPrevent'],
+      sq_permissionsRequest: 'MOCK_VALUE',
+    } as unknown as CaseWithId;
+
+    const result = PermissionForApplication({ sectionTitles, keys, content }, userCase, language);
+
+    expect(result?.rows[1].value.html).toBe('<ul class="govuk-list govuk-list--bullet"></ul>');
   });
 
   test('ApplicantDetails', () => {
@@ -3606,7 +3619,6 @@ describe('prepareProp', () => {
     { property: 'c1A_policeOrInvestigatorOtherDetails', expected: 'c1A_policeOrInvestigatorInvolved' },
     { property: 'sq_doNotHaveParentalResponsibility_subfield', expected: 'sq_permissionsWhy' },
     { property: 'sq_courtOrderPrevent_subfield', expected: 'sq_permissionsWhy' },
-    { property: 'sq_uploadDocument', expected: 'sq_permissionsWhy' },
     { property: 'sq_anotherReason_subfield', expected: 'sq_permissionsWhy' },
 
     { property: 'ra_noVideoAndPhoneHearing_subfield', expected: 'ra_typeOfHearing' },

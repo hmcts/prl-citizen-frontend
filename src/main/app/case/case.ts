@@ -585,7 +585,7 @@ export interface Case {
   sq_doNotHaveParentalResponsibility_subfield?: string;
   sq_courtOrderPrevent_subfield?: string;
   sq_anotherReason_subfield?: string;
-  sq_uploadDocument?: Document;
+  sq_uploadDocument_subfield?: DocumentResponse;
 
   co_certificate?: C100DocumentInfo;
   too_courtOrder?: string[];

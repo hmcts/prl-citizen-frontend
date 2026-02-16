@@ -145,7 +145,7 @@ export const form: FormContent = {
               },
               validator: value => isTextAreaValid(value),
             },
-            sq_uploadDocument: {
+            sq_uploadDocument_subfield: {
               type: 'upload',
               label: l => l.courtOrderPreventLabelText,
               labelHidden: true,
@@ -153,6 +153,14 @@ export const form: FormContent = {
                 accept: '.pdf,.doc,.docx,.jpg,.png',
                 multiple: false,
               },
+            },
+            upload: {
+              label: l => l.buttonFileUploadLabel,
+              classes: 'govuk-button--secondary',
+              id: 'upload',
+              type: 'button',
+              name: 'upload',
+              value: 'true',
             },
           },
         },

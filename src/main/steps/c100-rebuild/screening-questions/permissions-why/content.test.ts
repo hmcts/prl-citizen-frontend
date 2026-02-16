@@ -157,11 +157,12 @@ describe('Screening questions > permissions-why', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('Test');
     expect(isTextAreaValid).toHaveBeenCalledWith('Test');
 
-    const sq_uploadDocument = permissionsWhyField.values[1].subFields?.sq_uploadDocument as FormOptions;
-    expect(sq_uploadDocument.type).toBe('upload');
-    expect((sq_uploadDocument.label as LanguageLookup)(generatedContent)).toBe(en.courtOrderPreventLabelText);
-    expect(sq_uploadDocument.labelHidden).toBe(true);
-    expect(sq_uploadDocument.attributes).toStrictEqual({
+    const sq_uploadDocument_subfield = permissionsWhyField.values[1].subFields
+      ?.sq_uploadDocument_subfield as FormOptions;
+    expect(sq_uploadDocument_subfield.type).toBe('upload');
+    expect((sq_uploadDocument_subfield.label as LanguageLookup)(generatedContent)).toBe(en.courtOrderPreventLabelText);
+    expect(sq_uploadDocument_subfield.labelHidden).toBe(true);
+    expect(sq_uploadDocument_subfield.attributes).toStrictEqual({
       accept: '.pdf,.doc,.docx,.jpg,.png',
       multiple: false,
     });
