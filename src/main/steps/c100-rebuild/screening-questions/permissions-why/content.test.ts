@@ -43,7 +43,7 @@ const en = {
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
-    sq_uploadDocument: {
+    sq_uploadDocument_subfield: {
       multipleFiles: 'You can only upload one document',
       maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
       invalidFileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
@@ -89,7 +89,7 @@ const cy = {
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
-    sq_uploadDocument: {
+    sq_uploadDocument_subfield: {
       multipleFiles: 'Gallwch uwchlwytho un ddogfen yn unig',
       maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
       invalidFileFormat:

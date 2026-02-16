@@ -22,7 +22,15 @@ export const setupCheckboxParser: CheckboxParser =
   ([key, field]) => {
     if ((field as FormOptions)?.type === 'checkboxes') {
       field.parser = formData => {
-        const checkbox = formData[key] ?? [];
+        let checkbox = formData[key] ?? [];
+
+        // HANDLE ALL INPUT TYPES
+        if (typeof checkbox === 'string' && checkbox) {
+          checkbox = [checkbox];
+        } else if (!Array.isArray(checkbox)) {
+          checkbox = [];
+        }
+
         let checkboxValues;
         if ((field as FormOptions).values.length > 1) {
           checkboxValues = checkbox.filter(Boolean);
@@ -30,7 +38,7 @@ export const setupCheckboxParser: CheckboxParser =
           checkboxValues = checkbox[checkbox.length - 1];
         }
 
-        if (isSavingAndSigningOut && !checkboxValues) {
+        if (isSavingAndSigningOut && (!checkboxValues || checkboxValues.length === 0)) {
           checkboxValues = null;
         }
 

@@ -154,17 +154,16 @@ export const PermissionForApplication = (
     ? HTML.UNORDER_LIST +
       userCase['sq_permissionsWhy']
         ?.map(props => {
-          const text = userCase[`sq_${props}_subfield`];
-          const fileName =
-            props === 'courtOrderPrevent' ? userCase['sq_uploadDocument_subfield']?.document_filename : undefined;
-
-          const combined = [text, fileName].filter(Boolean).join('<br/>');
-
-          if (props === 'courtOrderPrevent' && !combined) {
-            return '';
+          const textValue = userCase[`sq_${props}_subfield`];
+          let uploadValue = '';
+          if (props === 'courtOrderPrevent' && userCase['sq_uploadDocument_subfield']) {
+            uploadValue = userCase['sq_uploadDocument_subfield']?.document_filename;
           }
 
-          return HTML.LIST_ITEM + keys[props] + ': ' + populateError(combined, combined, language) + HTML.LIST_ITEM_END;
+          const combinedValue = [textValue, uploadValue].filter(Boolean).join('<br/>');
+          const displayValue =
+            props === 'courtOrderPrevent' ? combinedValue : populateError(combinedValue, combinedValue, language);
+          return HTML.LIST_ITEM + keys[props] + ': ' + displayValue + HTML.LIST_ITEM_END;
         })
         .join('') +
       HTML.UNORDER_LIST_END
@@ -3194,6 +3193,7 @@ export const prepareProp = (property: string): string => {
 
     case 'sq_doNotHaveParentalResponsibility_subfield':
     case 'sq_courtOrderPrevent_subfield':
+    case 'sq_uploadDocument_subfield':
     case 'sq_anotherReason_subfield':
       return 'sq_permissionsWhy';
 

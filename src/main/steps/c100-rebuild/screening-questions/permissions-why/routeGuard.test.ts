@@ -21,14 +21,14 @@ describe('c100 > screening questions > permissions why > route guard', () => {
       sq_doNotHaveParentalResponsibility_subfield: 'test',
       sq_courtOrderPrevent_subfield: 'test',
       sq_anotherReason_subfield: 'test',
-      sq_uploadDocument: { id: 'file123', document_filename: 'test.docx' },
+      sq_uploadDocument_subfield: { id: 'file123', document_filename: 'test.docx' },
     } as unknown as CaseWithId;
 
     await routeGuard.post(req, res, next);
 
     expect(req.session.userCase).toStrictEqual({
       sq_permissionsWhy: ['doNotHaveParentalResponsibility', 'courtOrderPrevent', 'anotherReason'],
-      sq_uploadDocument: { id: 'file123', document_filename: 'test.docx' },
+      sq_uploadDocument_subfield: { id: 'file123', document_filename: 'test.docx' }
     });
     expect(req.session.save).toHaveBeenCalled();
     expect(next).toHaveBeenCalled();
@@ -41,7 +41,7 @@ describe('c100 > screening questions > permissions why > route guard', () => {
       sq_doNotHaveParentalResponsibility_subfield: 'test',
       sq_courtOrderPrevent_subfield: 'test',
       sq_anotherReason_subfield: 'test',
-      sq_uploadDocument: undefined,
+      sq_uploadDocument_subfield: undefined,
     } as unknown as CaseWithId;
 
     await routeGuard.get(req, res, next);

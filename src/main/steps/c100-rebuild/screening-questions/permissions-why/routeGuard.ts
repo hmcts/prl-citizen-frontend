@@ -12,6 +12,7 @@ export const routeGuard = {
   post: async (req: AppRequest, res: Response, next: NextFunction): Promise<void> => {
     req.session.userCase = {
       ...cleanPermissionsWhy(req.session.userCase, req.body.sq_permissionsWhy),
+      sq_uploadDocument_subfield: req.session.userCase?.sq_uploadDocument_subfield,
     };
     req.session.save(next);
   },

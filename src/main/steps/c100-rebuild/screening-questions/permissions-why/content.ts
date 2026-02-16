@@ -21,6 +21,7 @@ export const en = () => ({
   courtOrderPreventLabelText: 'Provide case number and name of the court',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
+  buttonFileUploadLabel: 'Upload',
   errors: {
     sq_permissionsWhy: {
       required: 'Select why you need permission from the court to make this application.',
@@ -42,7 +43,7 @@ export const en = () => ({
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
-    sq_uploadDocument: {
+    sq_uploadDocument_subfield: {
       multipleFiles: 'You can only upload one document',
       maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
       invalidFileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
@@ -67,6 +68,7 @@ export const cy = () => ({
   courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
+  buttonFileUploadLabel: 'Uwchlwytho',
   errors: {
     sq_permissionsWhy: {
       required: 'Dewiswch pam bod angen caniatâd arnoch gan y llys i wneud y cais hwn.',
@@ -88,7 +90,7 @@ export const cy = () => ({
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
-    sq_uploadDocument: {
+    sq_uploadDocument_subfield: {
       multipleFiles: 'Gallwch uwchlwytho un ddogfen yn unig',
       maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
       invalidFileFormat:

@@ -481,20 +481,6 @@ describe('test cases for main util', () => {
     ]);
   });
 
-  test('PermissionForApplication does not render courtOrderPrevent when no subfield or file', () => {
-    const userCase = {
-      id: 'id',
-      state: undefined,
-      sq_courtPermissionRequired: 'Yes',
-      sq_permissionsWhy: ['courtOrderPrevent'],
-      sq_permissionsRequest: 'MOCK_VALUE',
-    } as unknown as CaseWithId;
-
-    const result = PermissionForApplication({ sectionTitles, keys, content }, userCase, language);
-
-    expect(result?.rows[1].value.html).toBe('<ul class="govuk-list govuk-list--bullet"></ul>');
-  });
-
   test('ApplicantDetails', () => {
     const userCase = {
       id: 'id',
