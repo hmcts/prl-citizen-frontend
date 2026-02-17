@@ -48,4 +48,29 @@ describe('c100 > screening questions > permissions why > route guard', () => {
 
     expect(next).toHaveBeenCalled();
   });
+
+  test('should keep upload document undefined if not present', async () => {
+    req.body.sq_permissionsWhy = [];
+
+    req.session.userCase = {
+      sq_permissionsWhy: ['anotherReason'],
+      sq_uploadDocument_subfield: undefined,
+    } as unknown as CaseWithId;
+
+    await routeGuard.post(req, res, next);
+
+    expect(req.session.userCase?.sq_uploadDocument_subfield).toBeUndefined();
+    expect(req.session.save).toHaveBeenCalledWith(next);
+  });
+
+  test('should handle empty userCase object', async () => {
+    req.body.sq_permissionsWhy = [];
+
+    req.session.userCase = {} as CaseWithId;
+
+    await routeGuard.post(req, res, next);
+
+    expect(req.session.userCase).toBeDefined();
+    expect(req.session.save).toHaveBeenCalledWith(next);
+  });
 });

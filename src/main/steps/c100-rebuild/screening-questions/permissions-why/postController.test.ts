@@ -133,4 +133,34 @@ describe('PermissionsWhyUploadController > postController', () => {
       },
     ]);
   });
+
+  test('should call session.save and redirect when no file exists', async () => {
+    await controller.post(req, res);
+
+    expect(req.session.save).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('should call session.save after successful upload', async () => {
+    req.files = {
+      sq_uploadDocument_subfield: { name: 'test.pdf', data: '', mimetype: 'application/pdf' },
+    };
+
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Success',
+      document: {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2026',
+      },
+    });
+
+    await controller.post(req, res);
+
+    expect(req.session.save).toHaveBeenCalled();
+    expect(req.session.userCase.sq_uploadDocument_subfield).toBeDefined();
+    expect(req.session.errors).toStrictEqual([]);
+  });
 });

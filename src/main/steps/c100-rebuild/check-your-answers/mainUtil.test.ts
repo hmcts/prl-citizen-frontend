@@ -481,6 +481,49 @@ describe('test cases for main util', () => {
     ]);
   });
 
+  test('PermissionForApplication returns error when sq_permissionsWhy is missing', () => {
+    const userCase = {
+      id: 'id',
+      sq_courtPermissionRequired: 'Yes',
+      sq_permissionsRequest: 'MOCK_VALUE',
+    } as unknown as CaseWithId;
+
+    const result = PermissionForApplication({ sectionTitles, keys, content }, userCase, language);
+    expect(result?.rows?.[1].value.html).toContain('<span class="govuk-error-message">Complete this section</span>');
+  });
+
+  test('PermissionForApplication handles multiple permissions', () => {
+    const userCase = {
+      id: 'id',
+      sq_courtPermissionRequired: 'Yes',
+      sq_permissionsWhy: ['courtOrderPrevent', 'doNotHaveParentalResponsibility'],
+      sq_courtOrderPrevent_subfield: 'Court explanation',
+      sq_doNotHaveParentalResponsibility_subfield: 'No PR explanation',
+      sq_uploadDocument_subfield: {
+        document_filename: 'file.pdf',
+      },
+      sq_permissionsRequest: 'MOCK_VALUE',
+    } as unknown as CaseWithId;
+
+    const result = PermissionForApplication({ sectionTitles, keys, content }, userCase, language);
+    expect(result?.rows?.[1].value.html).toContain('Court explanation');
+    expect(result?.rows?.[1].value.html).toContain('No PR explanation');
+    expect(result?.rows?.[1].value.html).toContain('file.pdf');
+  });
+
+  test('PermissionForApplication handles empty subfield gracefully', () => {
+    const userCase = {
+      id: 'id',
+      sq_courtPermissionRequired: 'Yes',
+      sq_permissionsWhy: ['doNotHaveParentalResponsibility'],
+      sq_doNotHaveParentalResponsibility_subfield: '',
+      sq_permissionsRequest: 'MOCK_VALUE',
+    } as unknown as CaseWithId;
+
+    const result = PermissionForApplication({ sectionTitles, keys, content }, userCase, language);
+    expect(result?.rows?.[1].value.html).toBeDefined();
+  });
+
   test('ApplicantDetails', () => {
     const userCase = {
       id: 'id',
