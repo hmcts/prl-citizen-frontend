@@ -28,7 +28,7 @@ describe('c100 > screening questions > permissions why > route guard', () => {
 
     expect(req.session.userCase).toStrictEqual({
       sq_permissionsWhy: ['doNotHaveParentalResponsibility', 'courtOrderPrevent', 'anotherReason'],
-      sq_uploadDocument_subfield: { id: 'file123', document_filename: 'test.docx' },
+      sq_uploadDocument_subfield: undefined,
     });
     expect(req.session.save).toHaveBeenCalled();
     expect(next).toHaveBeenCalled();

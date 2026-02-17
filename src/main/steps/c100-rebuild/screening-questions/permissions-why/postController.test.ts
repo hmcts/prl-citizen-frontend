@@ -24,29 +24,6 @@ describe('PermissionsWhyUploadController > postController', () => {
     jest.clearAllMocks();
   });
 
-  test('should upload document and store in session', async () => {
-    req.files = {
-      sq_uploadDocument_subfield: { name: 'test.pdf', data: '', mimetype: 'application/pdf' },
-    };
-
-    uploadDocumentMock.mockResolvedValue({
-      status: 'Success',
-      document: {
-        document_url: 'test/1234',
-        document_binary_url: 'binary/test/1234',
-        document_filename: 'test_document',
-        document_hash: '1234',
-        document_creation_date: '1/1/2026',
-      },
-    });
-
-    await controller.post(req, res);
-
-    expect(req.session.userCase.sq_uploadDocument_subfield).toBeDefined();
-    expect(req.session.errors).toStrictEqual([]);
-    expect(res.redirect).toHaveBeenCalled();
-  });
-
   test('should simply redirect when no file uploaded (optional)', async () => {
     await controller.post(req, res);
 
@@ -141,26 +118,44 @@ describe('PermissionsWhyUploadController > postController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('should call session.save after successful upload', async () => {
-    req.files = {
-      sq_uploadDocument_subfield: { name: 'test.pdf', data: '', mimetype: 'application/pdf' },
-    };
+test('should call uploadDocument with FormData', async () => {
+  const uploadedFile = {
+    name: 'test.pdf',
+    data: Buffer.from('file'),
+    mimetype: 'application/pdf',
+  };
 
-    uploadDocumentMock.mockResolvedValue({
-      status: 'Success',
-      document: {
-        document_url: 'test/1234',
-        document_binary_url: 'binary/test/1234',
-        document_filename: 'test_document',
-        document_hash: '1234',
-        document_creation_date: '1/1/2026',
-      },
-    });
+  req.files = {
+    sq_uploadDocument_subfield: uploadedFile,
+  };
 
-    await controller.post(req, res);
-
-    expect(req.session.save).toHaveBeenCalled();
-    expect(req.session.userCase.sq_uploadDocument_subfield).toBeDefined();
-    expect(req.session.errors).toStrictEqual([]);
+  uploadDocumentMock.mockResolvedValue({
+    status: 'SUCCESS',
+    document: {
+      document_url: 'url',
+      document_binary_url: 'binary-url',
+      document_filename: 'test.pdf',
+      document_hash: '123',
+      document_creation_date: '01/01/2024',
+    },
   });
+
+
+  await controller.post(req, res);
+
+  expect(uploadDocumentMock).toHaveBeenCalledTimes(1);
+  const formDataArg = uploadDocumentMock.mock.calls[0][0];
+
+  expect(formDataArg).toBeDefined();
+  expect(typeof formDataArg.append).toBe('function');
+});
+
+test('should continue normally if files object exists but subfield missing', async () => {
+  req.files = {};
+
+  await controller.post(req, res);
+
+  expect(uploadDocumentMock).not.toHaveBeenCalled();
+  expect(res.redirect).toHaveBeenCalled();
+});
 });

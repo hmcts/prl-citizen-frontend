@@ -5,13 +5,10 @@ import FormData from 'form-data';
 import _ from 'lodash';
 
 import { caseApi } from '../../../../app/case/CaseApi';
-import { DocumentUploadResponse } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
-import { applyParms } from '../../../../steps/common/url-parser';
-import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY } from '../../../../steps/urls';
 
 @autobind
 export default class PermissionsWhyUploadController extends PostController<AnyObject> {
@@ -54,7 +51,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
         return super.redirect(req, res);
       }
 
-      const formData = new FormData();
+      const formData: FormData = new FormData();
 
       formData.append('file', fileUploaded.data, {
         contentType: fileUploaded.mimetype,
@@ -62,15 +59,17 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
       });
 
       try {
-        const response: DocumentUploadResponse = await caseApi(req.session.user, req.locals.logger).uploadDocument(
-          formData
-        );
-        req.session.userCase.sq_uploadDocument_subfield = response.document;
-        req.session.errors = [];
+        const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
 
-        req.session.save(() => {
-          res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
-        });
+        req.session.userCase = {
+          ...req.session.userCase,
+          sq_uploadDocument_subfield: response.document,
+        };
+
+        req.session.errors = [];
+        req.body.sq_uploadDocument_subfield = req.session.userCase?.sq_uploadDocument_subfield;
+        req.session.save();
+        return super.post(req, res);
       } catch {
         req.session.errors = [
           {
@@ -81,8 +80,6 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
         return super.redirect(req, res);
       }
     }
-    req.session.save(() => {
-      res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
-    });
+    return super.post(req, res);
   }
 }
