@@ -457,7 +457,7 @@ export const enContent = {
     c8RefugeDocument: 'C8 refuge document',
     doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
     courtOrderPrevent:
-      'There is a court order preventing me from making an application without first getting the permission of the court',
+      'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application',
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
     contactPrefernces: 'Contact preferences',
@@ -721,7 +721,8 @@ export const cyContent = {
     refuge: 'Byw mewn lloches',
     c8RefugeDocument: 'Dogfen lloches C8',
     doNotHaveParentalResponsibility: 'Nid oes gennyf gyfrifoldeb rhiant dros y plant',
-    courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',
+    courtOrderPrevent:
+      'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application? (Need Welsh translation)',
     anotherReason: 'Rheswm arall',
     dontKnow: 'Ddim yn gwybod',
     contactPrefernces: 'Dewisiadau cyswllt',

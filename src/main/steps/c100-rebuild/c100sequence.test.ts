@@ -721,7 +721,7 @@ describe('C100Sequence', () => {
       } as unknown as AppRequest)
     ).toBe('/c100-rebuild/screening-questions/legal-representation');
 
-    expect(C100Sequence[62].url).toBe('/c100-rebuild/screening-questions/permissions-why');
+    expect(C100Sequence[62].url).toBe('/c100-rebuild/screening-questions/permissions-why/:removeFileId?');
     expect(C100Sequence[62].showInSection).toBe('c100');
     expect(C100Sequence[62].getNextStep({})).toBe('/c100-rebuild/screening-questions/permissions-request');
 
@@ -736,7 +736,7 @@ describe('C100Sequence', () => {
       C100Sequence[63].getNextStep({ sq_courtPermissionRequired: YesOrNo.YES }, {
         session: { applicationSettings: { hasC100ApplicationBeenCompleted: false } },
       } as unknown as AppRequest)
-    ).toBe('/c100-rebuild/screening-questions/permissions-why');
+    ).toBe('/c100-rebuild/screening-questions/permissions-why/:removeFileId?');
 
     expect(
       C100Sequence[63].getNextStep(
