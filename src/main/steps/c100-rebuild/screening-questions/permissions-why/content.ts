@@ -118,6 +118,23 @@ export const form: FormContent = {
               },
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
+            sq_uploadDocument_subfield: {
+              type: 'upload',
+              label: l => l.courtOrderPreventFileUploadLabel,
+              labelHidden: true,
+              attributes: {
+                accept: '.pdf,.doc,.docx,.jpg,.png',
+                multiple: false,
+              },
+            },
+            upload: {
+              label: l => l.buttonFileUploadLabel,
+              classes: 'govuk-button--secondary',
+              id: 'upload',
+              type: 'button',
+              name: 'upload',
+              value: 'true',
+            },
           },
         },
         {

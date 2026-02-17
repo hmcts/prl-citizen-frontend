@@ -584,6 +584,7 @@ export interface Case {
   sq_permissionsWhy?: string[]; //check
   sq_doNotHaveParentalResponsibility_subfield?: string;
   sq_courtOrderPrevent_subfield?: string;
+  sq_uploadDocument_subfield?: DocumentResponse;
   sq_anotherReason_subfield?: string;
 
   co_certificate?: C100DocumentInfo;
