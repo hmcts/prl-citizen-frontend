@@ -118,44 +118,43 @@ describe('PermissionsWhyUploadController > postController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-test('should call uploadDocument with FormData', async () => {
-  const uploadedFile = {
-    name: 'test.pdf',
-    data: Buffer.from('file'),
-    mimetype: 'application/pdf',
-  };
+  test('should call uploadDocument with FormData', async () => {
+    const uploadedFile = {
+      name: 'test.pdf',
+      data: Buffer.from('file'),
+      mimetype: 'application/pdf',
+    };
 
-  req.files = {
-    sq_uploadDocument_subfield: uploadedFile,
-  };
+    req.files = {
+      sq_uploadDocument_subfield: uploadedFile,
+    };
 
-  uploadDocumentMock.mockResolvedValue({
-    status: 'SUCCESS',
-    document: {
-      document_url: 'url',
-      document_binary_url: 'binary-url',
-      document_filename: 'test.pdf',
-      document_hash: '123',
-      document_creation_date: '01/01/2024',
-    },
+    uploadDocumentMock.mockResolvedValue({
+      status: 'SUCCESS',
+      document: {
+        document_url: 'url',
+        document_binary_url: 'binary-url',
+        document_filename: 'test.pdf',
+        document_hash: '123',
+        document_creation_date: '01/01/2024',
+      },
+    });
+
+    await controller.post(req, res);
+
+    expect(uploadDocumentMock).toHaveBeenCalledTimes(1);
+    const formDataArg = uploadDocumentMock.mock.calls[0][0];
+
+    expect(formDataArg).toBeDefined();
+    expect(typeof formDataArg.append).toBe('function');
   });
 
+  test('should continue normally if files object exists but subfield missing', async () => {
+    req.files = {};
 
-  await controller.post(req, res);
+    await controller.post(req, res);
 
-  expect(uploadDocumentMock).toHaveBeenCalledTimes(1);
-  const formDataArg = uploadDocumentMock.mock.calls[0][0];
-
-  expect(formDataArg).toBeDefined();
-  expect(typeof formDataArg.append).toBe('function');
-});
-
-test('should continue normally if files object exists but subfield missing', async () => {
-  req.files = {};
-
-  await controller.post(req, res);
-
-  expect(uploadDocumentMock).not.toHaveBeenCalled();
-  expect(res.redirect).toHaveBeenCalled();
-});
+    expect(uploadDocumentMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalled();
+  });
 });
