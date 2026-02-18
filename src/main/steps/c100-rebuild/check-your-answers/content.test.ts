@@ -260,7 +260,7 @@ const cyContent = {
     addressDetails: 'Manylion cyfeiriad',
     doNotHaveParentalResponsibility: 'Nid oes gennyf gyfrifoldeb rhiant dros y plant',
     courtOrderPrevent:
-      'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application? (Need Welsh translation)',
+      "Mae gorchymyn o dan adran 91(14) Deddf Plant 1989, gorchymyn atal sifil cyfyngedig, gorchymyn atal sifil cyffredinol, neu orchymyn atal sifil estynedig mewn grym sy'n golygu bod angen caniatâd arnaf i wneud y cais hwn",
     anotherReason: 'Rheswm arall',
     dontKnow: 'Ddim yn gwybod',
     contactPrefernces: 'Dewisiadau cyswllt',
