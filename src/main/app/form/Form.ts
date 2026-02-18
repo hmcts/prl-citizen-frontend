@@ -159,6 +159,7 @@ export type FormFields = Record<string, FormField>;
 export type FormFieldsFn = (userCase: Partial<Case>, req: AppRequest) => FormFields;
 
 export interface FormContent {
+  enctype?: string;
   accessCodeCheck?: {
     text: Label;
     classes?: string;

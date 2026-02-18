@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import _ from 'lodash';
+
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import {
+  C100_SCREENING_QUESTIONS_PERMISSIONS_WHY,
+  C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_REMOVE,
+} from '../../../../steps/urls';
+import { applyParms } from '../../../common/url-parser';
 
 export * from './routeGuard';
 
@@ -21,7 +28,15 @@ export const en = () => ({
   courtOrderPreventLabelText: 'Provide case number and name of the court',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
-  buttonFileUploadLabel: 'Upload',
+  upload: {
+    labelText: 'Upload a file',
+    hintText:
+      'Give each document a file name that makes it clear what it is about. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
+    uploadButtonText: 'Upload file',
+    noFilesText: 'No files uploaded',
+    removeFileText: 'Remove',
+    errorMessage: 'Error:',
+  },
   errors: {
     sq_permissionsWhy: {
       required: 'Select why you need permission from the court to make this application.',
@@ -68,7 +83,15 @@ export const cy = () => ({
   courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
-  buttonFileUploadLabel: 'Uwchlwytho',
+  upload: {
+    labelText: 'Llwytho ffeil',
+    hintText:
+      'Rhowch enw ffeil i bob dogfen sy’n dweud yn glir beth ydyw. Rhaid i’r ffeiliau fod yn ffeiliau JPG, JPEG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
+    uploadButtonText: 'Welsh Uwchlwytho ffeil',
+    noFilesText: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
+    removeFileText: 'Dileu',
+    errorMessage: 'Error:',
+  },
   errors: {
     sq_permissionsWhy: {
       required: 'Dewiswch pam bod angen caniatâd arnoch gan y llys i wneud y cais hwn.',
@@ -107,6 +130,7 @@ const languages = {
 };
 
 export const form: FormContent = {
+  enctype: 'multipart/form-data',
   fields: {
     sq_permissionsWhy: {
       id: 'sq_permissionsWhy',
@@ -151,18 +175,6 @@ export const form: FormContent = {
               type: 'upload',
               label: l => l.courtOrderPreventLabelText,
               labelHidden: true,
-              attributes: {
-                accept: '.pdf,.doc,.docx,.jpg,.png',
-                multiple: false,
-              },
-            },
-            upload: {
-              label: l => l.buttonFileUploadLabel,
-              classes: 'govuk-button--secondary',
-              id: 'upload',
-              type: 'button',
-              name: 'upload',
-              value: 'true',
             },
           },
         },
@@ -196,9 +208,32 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const session = content.additionalData?.req.session;
+  const uploadError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument_subfield') ?? null;
+  const uploadedDocument = session?.userCase?.sq_uploadDocument_subfield;
 
   return {
     ...translations,
     form,
+    fileUploadConfig: {
+      token: content.additionalData?.req.csrfToken(),
+      labelText: translations.upload.labelText,
+      uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY),
+      hintText: translations.upload.hintText,
+      uploadButtonText: translations.upload.uploadButtonText,
+      noFilesText: translations.upload.noFilesText,
+      removeFileText: translations.upload.removeFileText,
+      errorMessage: uploadError ? translations.errors.sq_uploadDocument_subfield?.[uploadError.errorType] : null,
+      uploadedFiles: uploadedDocument?.document_url
+        ? [
+            {
+              filename: uploadedDocument.document_filename,
+              fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_REMOVE, {
+                removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
+              }),
+            },
+          ]
+        : [],
+    },
   };
 };

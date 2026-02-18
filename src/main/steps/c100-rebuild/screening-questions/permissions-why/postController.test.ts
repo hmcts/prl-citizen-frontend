@@ -34,7 +34,11 @@ describe('PermissionsWhyUploadController > postController', () => {
 
   test('should set error for invalid file format', async () => {
     req.files = {
-      sq_uploadDocument_subfield: { name: 'test.exe', data: '', mimetype: 'application/x-msdownload' },
+      file: {
+        name: 'test.exe',
+        data: Buffer.from('file'),
+        mimetype: 'application/x-msdownload',
+      },
     };
 
     await controller.post(req, res);
@@ -51,11 +55,11 @@ describe('PermissionsWhyUploadController > postController', () => {
 
   test('should set error for oversized file', async () => {
     req.files = {
-      sq_uploadDocument_subfield: {
+      file: {
         name: 'test.pdf',
-        data: '',
+        data: Buffer.from('file'),
         mimetype: 'application/pdf',
-        size: 999999999999,
+        size: 9999999999999,
       },
     };
 
@@ -72,7 +76,13 @@ describe('PermissionsWhyUploadController > postController', () => {
   });
 
   test('should not upload document and add error if document already present', async () => {
-    req.files = { sq_uploadDocument_subfield: { name: 'test.jpg', data: '', mimetype: 'text' } };
+    req.files = {
+      file: {
+        name: 'test.pdf',
+        data: '',
+        mimetype: 'application/pdf',
+      },
+    };
 
     req.session.userCase = {
       sq_uploadDocument_subfield: {
@@ -96,13 +106,16 @@ describe('PermissionsWhyUploadController > postController', () => {
 
   test('should set uploadError if API fails', async () => {
     req.files = {
-      sq_uploadDocument_subfield: { name: 'test.pdf', data: '', mimetype: 'application/pdf' },
+      file: {
+        name: 'test.pdf',
+        data: Buffer.from('file'),
+        mimetype: 'application/pdf',
+      },
     };
 
     uploadDocumentMock.mockRejectedValue(new Error('fail'));
 
     await controller.post(req, res);
-
     expect(req.session.errors).toStrictEqual([
       {
         propertyName: 'sq_uploadDocument_subfield',
@@ -126,7 +139,7 @@ describe('PermissionsWhyUploadController > postController', () => {
     };
 
     req.files = {
-      sq_uploadDocument_subfield: uploadedFile,
+      file: uploadedFile,
     };
 
     uploadDocumentMock.mockResolvedValue({
@@ -141,10 +154,8 @@ describe('PermissionsWhyUploadController > postController', () => {
     });
 
     await controller.post(req, res);
-
     expect(uploadDocumentMock).toHaveBeenCalledTimes(1);
     const formDataArg = uploadDocumentMock.mock.calls[0][0];
-
     expect(formDataArg).toBeDefined();
     expect(typeof formDataArg.append).toBe('function');
   });
