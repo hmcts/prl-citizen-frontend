@@ -5,9 +5,3 @@
 <h1 class="govuk-heading-xl govuk-!-margin-bottom-9">{{ title }}</h1>
 <p class="govuk-body">{{line | safe}}</p>
 {% endblock %}
-
-{% block form %}
-  <form method="post" enctype="multipart/form-data" novalidate>
-    {% include "common/form/form.njk" %}
-  </form>
-{% endblock %}

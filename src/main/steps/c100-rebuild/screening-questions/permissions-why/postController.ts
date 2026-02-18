@@ -19,7 +19,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
   }
 
   private hasError(req: AppRequest): string | undefined {
-    const fileUploaded = _.get(req, 'files.sq_uploadDocument_subfield');
+    const fileUploaded = _.get(req, 'files.file');
     if (!fileUploaded) {
       return;
     }
@@ -38,7 +38,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const fileUploaded = _.get(req, 'files.sq_uploadDocument_subfield') as Record<string, any>;
+    const fileUploaded = _.get(req, 'files.file') as Record<string, any>;
 
     if (fileUploaded) {
       const error = this.hasError(req);
@@ -66,7 +66,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
           ...req.session.userCase,
           sq_uploadDocument_subfield: response.document,
         };
-
+        req.body.sq_uploadDocument_subfield = req.session.userCase?.sq_uploadDocument_subfield;
         req.session.errors = [];
 
         return super.redirect(req, res, applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
@@ -79,6 +79,9 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
         ];
         return super.redirect(req, res);
       }
+    }
+    if (req.session.userCase?.sq_uploadDocument_subfield) {
+      req.body.sq_uploadDocument_subfield = req.session.userCase?.sq_uploadDocument_subfield;
     }
     return super.post(req, res);
   }
