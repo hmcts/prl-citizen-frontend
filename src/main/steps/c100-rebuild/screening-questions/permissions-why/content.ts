@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import _ from 'lodash';
+
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import {
+  C100_SCREENING_QUESTIONS_PERMISSIONS_WHY,
+  C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_REMOVE,
+} from '../../../../steps/urls';
+import { applyParms } from '../../../common/url-parser';
 
 export * from './routeGuard';
 
@@ -18,6 +25,16 @@ export const en = () => ({
   courtOrderPreventLabelText: 'Provide details of the court order in place',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
+  uploadText: 'File upload text',
+  upload: {
+    labelText: 'labelText',
+    hintText: 'hintText',
+    uploadButtonText: 'Upload file',
+    uploadedFilesCaption: 'uploadedFilesCaption',
+    noFilesText: 'No files uploaded',
+    removeFileText: 'remove',
+    errorMessage: 'errorMessage',
+  },
   errors: {
     sq_doNotHaveParentalResponsibility_subfield: {
       required: "Provide details for 'I do not have parental responsibility for the children'",
@@ -37,6 +54,13 @@ export const en = () => ({
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
+    sq_uploadDocument_subfield: {
+      multipleFiles: 'You can only upload one document',
+      maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
+      invalidFileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
+      uploadError: 'Document could not be uploaded',
+      deleteFile: 'Document could not be deleted',
+    },
   },
 });
 
@@ -51,6 +75,16 @@ export const cy = () => ({
   courtOrderPreventLabelText: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
+  uploadText: 'Welsh File upload text',
+  upload: {
+    labelText: 'Welsh  labelText',
+    hintText: 'Welsh hintText',
+    uploadButtonText: 'Welsh Uwchlwytho ffeil',
+    uploadedFilesCaption: 'Welsh uploadedFilesCaption',
+    noFilesText: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
+    removeFileText: 'Welsh  Remove',
+    errorMessage: 'Welsh errorMessage',
+  },
   errors: {
     sq_doNotHaveParentalResponsibility_subfield: {
       required: 'Rhowch fanylion pam nad oes gennych gyfrifoldeb rhiant dros y plant',
@@ -70,6 +104,14 @@ export const cy = () => ({
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
+    sq_uploadDocument_subfield: {
+      multipleFiles: 'Gallwch uwchlwytho un ddogfen yn unig',
+      maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
+      invalidFileFormat:
+        "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
+      uploadError: "Nid oedd modd uwchlwytho'r ddogfen",
+      deleteError: "Nid oedd modd dileu'r ddogfen",
+    },
   },
 });
 
@@ -79,6 +121,7 @@ const languages = {
 };
 
 export const form: FormContent = {
+  enctype: 'multipart/form-data',
   fields: {
     sq_permissionsWhy: {
       id: 'sq_permissionsWhy',
@@ -118,6 +161,11 @@ export const form: FormContent = {
               },
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
+            sq_uploadDocument_subfield: {
+              type: 'upload',
+              label: l => l.uploadText,
+              labelHidden: true,
+            },
           },
         },
         {
@@ -149,8 +197,33 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const session = content.additionalData?.req.session;
+  const uploadError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument_subfield') ?? null;
+  const uploadedDocument = session?.userCase?.sq_uploadDocument_subfield;
+
   return {
     ...translations,
     form,
+    fileUploadConfig: {
+      token: content.additionalData?.req.csrfToken(),
+      labelText: translations.upload.labelText,
+      uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY),
+      hintText: translations.upload.hintText,
+      uploadButtonText: translations.upload.uploadButtonText,
+      uploadedFilesCaption: translations.upload.uploadedFilesCaption,
+      noFilesText: translations.upload.noFilesText,
+      removeFileText: translations.upload.removeFileText,
+      errorMessage: uploadError ? translations.errors.sq_uploadDocument_subfield?.[uploadError.errorType] : null,
+      uploadedFiles: uploadedDocument?.document_url
+        ? [
+            {
+              filename: uploadedDocument.document_filename,
+              fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_REMOVE, {
+                removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
+              }),
+            },
+          ]
+        : [],
+    },
   };
 };
