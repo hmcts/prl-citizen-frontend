@@ -69,7 +69,7 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
         req.body.sq_uploadDocument_subfield = req.session.userCase?.sq_uploadDocument_subfield;
         req.session.errors = [];
 
-        return super.redirect(req, res, applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
+        super.redirect(req, res, applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
       } catch {
         req.session.errors = [
           {
