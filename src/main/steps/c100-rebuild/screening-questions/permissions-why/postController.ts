@@ -67,9 +67,28 @@ export default class PermissionsWhyUploadController extends PostController<AnyOb
           sq_uploadDocument_subfield: response.document,
         };
         req.body.sq_uploadDocument_subfield = req.session.userCase?.sq_uploadDocument_subfield;
-        req.session.errors = [];
 
-        super.redirect(req, res, applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
+        req.session.errors = [];
+        req.session.userCase.sq_permissionsWhy = [];
+
+        if (Array.isArray(req.body.sq_permissionsWhy)) {
+          req.session.userCase?.sq_permissionsWhy.push(...req.body.sq_permissionsWhy);
+        } else {
+          req.session.userCase?.sq_permissionsWhy.push(<string>req.body.sq_permissionsWhy);
+        }
+        if (req.body.sq_courtOrderPrevent_subfield) {
+          req.session.userCase.sq_courtOrderPrevent_subfield = <string>req.body.sq_courtOrderPrevent_subfield;
+        }
+        if (req.body.sq_doNotHaveParentalResponsibility_subfield) {
+          req.session.userCase.sq_doNotHaveParentalResponsibility_subfield = <string>(
+            req.body.sq_doNotHaveParentalResponsibility_subfield
+          );
+        }
+        if (req.body.sq_anotherReason_subfield) {
+          req.session.userCase.sq_anotherReason_subfield = <string>req.body.sq_anotherReason_subfield;
+        }
+
+        return super.redirect(req, res, applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
       } catch {
         req.session.errors = [
           {
