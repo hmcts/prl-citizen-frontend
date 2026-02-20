@@ -716,6 +716,16 @@ describe('c100 validation > util', () => {
         } as CaseWithId)
       ).toBe(false);
     });
+
+    test('should return true if permission why is completed when using optional fields', () => {
+      expect(
+        isPermissionWhyCompleted({
+          sq_writtenAgreement: 'No',
+          sq_courtPermissionRequired: 'Yes',
+          sq_permissionsWhy: ['courtOrderPrevent'],
+        } as CaseWithId)
+      ).toBe(true);
+    });
   });
 
   describe('isPermissionWhyMandatory', () => {
@@ -734,6 +744,15 @@ describe('c100 validation > util', () => {
       expect(
         isPermissionWhyMandatory({
           sq_writtenAgreement: 'No',
+        } as CaseWithId)
+      ).toBe(false);
+    });
+
+    test('should return false if no mandatory checkboxes were selected', () => {
+      expect(
+        isPermissionWhyMandatory({
+          sq_writtenAgreement: 'No',
+          sq_courtPermissionRequired: 'Yes',
         } as CaseWithId)
       ).toBe(false);
     });

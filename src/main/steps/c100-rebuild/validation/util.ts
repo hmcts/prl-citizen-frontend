@@ -292,15 +292,23 @@ export const isPermissionWhyCompleted = (caseData: CaseWithId): boolean => {
     caseData?.sq_writtenAgreement === YesOrNo.NO &&
     !_.isEmpty(caseData?.sq_courtPermissionRequired) &&
     (_.isEmpty(caseData?.sq_permissionsWhy) ||
-      (caseData?.sq_permissionsWhy?.every(subField => !_.isEmpty(caseData[`sq_${subField}_subfield`])) ?? true))
+      (caseData.sq_permissionsWhy?.every(subField => {
+        if (subField === 'courtOrderPrevent') {
+          return true;
+        }
+        return !_.isEmpty(caseData[`sq_${subField}_subfield`]);
+      }) ??
+        true))
   );
 };
 
 export const isPermissionWhyMandatory = (caseData: CaseWithId): boolean => {
+  const selected = caseData?.sq_permissionsWhy ?? [];
+  const hasMandatorySelection = selected.some(key => key !== 'courtOrderPrevent');
   return (
     caseData?.sq_writtenAgreement === YesOrNo.NO &&
     !_.isEmpty(caseData?.sq_courtPermissionRequired) &&
-    !_.isEmpty(caseData?.sq_permissionsWhy)
+    hasMandatorySelection
   );
 };
 
