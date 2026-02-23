@@ -16,8 +16,8 @@ export const en = () => ({
   need at a hearing. Consider remote and in-person hearings, in case your preferred
   hearing type is not possible.`,
   select_all_apply: 'Select all that apply to you',
-  speakInWelsh: 'I need to speak in Welsh',
-  readAndWriteInWelsh: 'I need to read and write in Welsh',
+  speakInWelsh: 'I want to speak in Welsh',
+  readAndWriteInWelsh: 'I want to read and write in Welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language',
   needInterpreterInCertainLanguage_subfield:
     'Give details of the language you require (including dialect, if applicable)',
@@ -41,8 +41,8 @@ export const cy = () => ({
   line1:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
-  speakInWelsh: "Rwy'n dymuno siarad Cymraeg",
-  readAndWriteInWelsh: "Rwy'n dymuno darllen ac ysgrifennu yn Gymraeg",
+  speakInWelsh: 'Rwyf eisiau siarad Cymraeg',
+  readAndWriteInWelsh: 'Rwyf eisiau darllen ac ysgrifennu yn Gymraeg',
   needInterpreterInCertainLanguage: "Rwy'n dymuno cael cyfieithydd mewn iaith benodol",
   needInterpreterInCertainLanguage_subfield:
     'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yn berthnasol)',

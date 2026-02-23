@@ -1,24 +1,46 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import _ from 'lodash';
+
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import {
+  C100_SCREENING_QUESTIONS_PERMISSIONS_WHY,
+  C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_REMOVE,
+} from '../../../../steps/urls';
+import { applyParms } from '../../../common/url-parser';
 
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: 'Why do you need a permission from the court to make this application? (optional)',
+  title: 'Why do you need a permission from the court to make this application?',
   line: 'Consult <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">the CB1 guidance</a> if you are not sure if you need permission to apply',
-  select_all_apply: 'Select all that apply',
+  select_all_apply:
+    "Permission is required if there is an order in place stating that an application cannot be made without the court's permission.<br/><br/> Select all that apply",
   doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
   doNotHaveParentalResponsibilityLabelText: 'Provide details',
   section: 'parental responsibility means that you are responsible for the children and their property',
   courtOrderPrevent:
-    'There is a court order preventing me from making an application without first getting the permission of the court',
-  courtOrderPreventLabelText: 'Provide details of the court order in place',
+    'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means you need permission to make this application',
+  courtOrderPreventHint:
+    "Permission is required if there is an order in place stating that an application cannot be made without the court's permission.",
+  courtOrderPreventLabelText: 'Provide case number and name of the court',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
+  upload: {
+    labelText: 'Upload a file',
+    hintText:
+      'Give each document a file name that makes it clear what it is about. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
+    uploadButtonText: 'Upload file',
+    noFilesText: 'No files uploaded',
+    removeFileText: 'Remove',
+    errorMessage: 'Error:',
+  },
   errors: {
+    sq_permissionsWhy: {
+      required: 'Select why you need permission from the court to make this application.',
+    },
     sq_doNotHaveParentalResponsibility_subfield: {
       required: "Provide details for 'I do not have parental responsibility for the children'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
@@ -26,7 +48,6 @@ export const en = () => ({
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     sq_courtOrderPrevent_subfield: {
-      required: "Provide details for 'There is a court order preventing me from making an application'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
@@ -37,21 +58,44 @@ export const en = () => ({
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
+    sq_uploadDocument_subfield: {
+      multipleFiles: 'You can only upload one document',
+      maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
+      invalidFileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
+      uploadError: 'Document could not be uploaded',
+      deleteFile: 'Document could not be deleted',
+    },
   },
 });
 
 export const cy = () => ({
-  title: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn? (dewisol)',
+  title: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn?',
   line: 'Edrychwch <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">arganllawiau CB1</a> os nad ydych yn siŵr a oes angen caniatâd arnoch i wneud cais',
-  select_all_apply: "Dewiswch bob un sy'n berthnasol",
+  select_all_apply:
+    "Mae angen caniatâd os oes gorchymyn ar waith yn nodi na ellir gwneud cais heb ganiatâd y llys.<br/><br/> Dewiswch bob un sy'n berthnasol",
   doNotHaveParentalResponsibility: 'Does gen i ddim cyfrifoldeb rhiant dros y plant',
   doNotHaveParentalResponsibilityLabelText: 'Rhowch fanylion',
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
-  courtOrderPrevent: 'Mae yna orchymyn llys yn fy atal rhag gwneud cais heb gael caniatâd y llys yn gyntaf',
-  courtOrderPreventLabelText: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
+  courtOrderPrevent:
+    "Mae gorchymyn o dan adran 91(14) Deddf Plant 1989, gorchymyn atal sifil cyfyngedig, gorchymyn atal sifil cyffredinol, neu orchymyn atal sifil estynedig mewn grym sy'n golygu bod angen caniatâd arnaf i wneud y cais hwn",
+  courtOrderPreventHint:
+    'Mae angen caniatâd os oes gorchymyn ar waith yn nodi na ellir gwneud cais heb ganiatâd y llys.',
+  courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
+  upload: {
+    labelText: 'Llwytho ffeil',
+    hintText:
+      'Rhowch enw ffeil i bob dogfen sy’n dweud yn glir beth ydyw. Rhaid i’r ffeiliau fod yn ffeiliau JPG, JPEG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
+    uploadButtonText: 'Uwchlwytho ffeil',
+    noFilesText: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
+    removeFileText: 'Dileu',
+    errorMessage: 'Error:',
+  },
   errors: {
+    sq_permissionsWhy: {
+      required: 'Dewiswch pam bod angen caniatâd arnoch gan y llys i wneud y cais hwn.',
+    },
     sq_doNotHaveParentalResponsibility_subfield: {
       required: 'Rhowch fanylion pam nad oes gennych gyfrifoldeb rhiant dros y plant',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
@@ -59,7 +103,6 @@ export const cy = () => ({
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     sq_courtOrderPrevent_subfield: {
-      required: 'Rhowch fanylion am y gorchymyn llys sy’n eich atal rhag gwneud cais',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
@@ -70,6 +113,14 @@ export const cy = () => ({
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
+    sq_uploadDocument_subfield: {
+      multipleFiles: 'Gallwch uwchlwytho un ddogfen yn unig',
+      maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
+      invalidFileFormat:
+        "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
+      uploadError: "Nid oedd modd uwchlwytho'r ddogfen",
+      deleteError: "Nid oedd modd dileu'r ddogfen",
+    },
   },
 });
 
@@ -79,6 +130,7 @@ const languages = {
 };
 
 export const form: FormContent = {
+  enctype: 'multipart/form-data',
   fields: {
     sq_permissionsWhy: {
       id: 'sq_permissionsWhy',
@@ -108,6 +160,7 @@ export const form: FormContent = {
           name: 'sq_permissionsWhy',
           label: l => l.courtOrderPrevent,
           value: 'courtOrderPrevent',
+          hint: l => l.courtOrderPreventHint,
           subFields: {
             sq_courtOrderPrevent_subfield: {
               type: 'textarea',
@@ -116,7 +169,12 @@ export const form: FormContent = {
               attributes: {
                 rows: 4,
               },
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              validator: value => isTextAreaValid(value),
+            },
+            sq_uploadDocument_subfield: {
+              type: 'upload',
+              label: l => l.courtOrderPreventLabelText,
+              labelHidden: true,
             },
           },
         },
@@ -137,6 +195,7 @@ export const form: FormContent = {
           },
         },
       ],
+      validator: atLeastOneFieldIsChecked,
     },
   },
   onlycontinue: {
@@ -149,8 +208,32 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const session = content.additionalData?.req.session;
+  const uploadError = session?.errors?.find(error => error.propertyName === 'sq_uploadDocument_subfield') ?? null;
+  const uploadedDocument = session?.userCase?.sq_uploadDocument_subfield;
+
   return {
     ...translations,
     form,
+    fileUploadConfig: {
+      token: content.additionalData?.req.csrfToken(),
+      labelText: translations.upload.labelText,
+      uploadUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY),
+      hintText: translations.upload.hintText,
+      uploadButtonText: translations.upload.uploadButtonText,
+      noFilesText: translations.upload.noFilesText,
+      removeFileText: translations.upload.removeFileText,
+      errorMessage: uploadError ? translations.errors.sq_uploadDocument_subfield?.[uploadError.errorType] : null,
+      uploadedFiles: uploadedDocument?.document_url
+        ? [
+            {
+              filename: uploadedDocument.document_filename,
+              fileremoveUrl: applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY_REMOVE, {
+                removeFileId: _.toString(_.last(uploadedDocument.document_url.split('/'))),
+              }),
+            },
+          ]
+        : [],
+    },
   };
 };
