@@ -87,7 +87,7 @@ export const cy = () => ({
     labelText: 'Llwytho ffeil',
     hintText:
       'Rhowch enw ffeil i bob dogfen sy’n dweud yn glir beth ydyw. Rhaid i’r ffeiliau fod yn ffeiliau JPG, JPEG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
-    uploadButtonText: 'Welsh Uwchlwytho ffeil',
+    uploadButtonText: 'Uwchlwytho ffeil',
     noFilesText: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
     removeFileText: 'Dileu',
     errorMessage: 'Error:',
