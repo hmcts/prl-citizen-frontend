@@ -1,24 +1,29 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: 'Why do you need a permission from the court to make this application? (optional)',
+  title: 'Why do you need a permission from the court to make this application?',
   line: 'Consult <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">the CB1 guidance</a> if you are not sure if you need permission to apply',
   select_all_apply: 'Select all that apply',
   doNotHaveParentalResponsibility: 'I do not have parental responsibility for the children',
   doNotHaveParentalResponsibilityLabelText: 'Provide details',
   section: 'parental responsibility means that you are responsible for the children and their property',
   courtOrderPrevent:
-    'There is a court order preventing me from making an application without first getting the permission of the court',
-  courtOrderPreventLabelText: 'Provide details of the court order in place',
+    'There is an order under section 91(14) Children Act 1989, a limited civil restraint order, a general civil restraint order or an extended civil restraint order in force which means I need permission to make this application',
+  courtOrderPreventHint:
+    "Permission is required if there is an order in place stating that an application cannot be made without the court's permission.",
+  courtOrderPreventLabelText: 'Provide case number and name of the court',
   anotherReason: 'Another reason',
   anotherReasonLabelText: 'Provide details for why you need permission to make this application',
   errors: {
+    sq_permissionsWhy: {
+      required: 'Select why you need permission from the court to make this application.',
+    },
     sq_doNotHaveParentalResponsibility_subfield: {
       required: "Provide details for 'I do not have parental responsibility for the children'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
@@ -26,7 +31,6 @@ export const en = () => ({
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     sq_courtOrderPrevent_subfield: {
-      required: "Provide details for 'There is a court order preventing me from making an application'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
@@ -41,17 +45,22 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn? (dewisol)',
+  title: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn?',
   line: 'Edrychwch <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">arganllawiau CB1</a> os nad ydych yn siŵr a oes angen caniatâd arnoch i wneud cais',
   select_all_apply: "Dewiswch bob un sy'n berthnasol",
   doNotHaveParentalResponsibility: 'Does gen i ddim cyfrifoldeb rhiant dros y plant',
   doNotHaveParentalResponsibilityLabelText: 'Rhowch fanylion',
   section: "Ystyr cyfrifoldeb rhiant yw eich bod yn gyfrifol am y plant a'u heiddo",
-  courtOrderPrevent: 'Mae yna orchymyn llys yn fy atal rhag gwneud cais heb gael caniatâd y llys yn gyntaf',
-  courtOrderPreventLabelText: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
+  courtOrderPrevent:
+    "Mae gorchymyn o dan adran 91(14) Deddf Plant 1989, gorchymyn atal sifil cyfyngedig, gorchymyn atal sifil cyffredinol, neu orchymyn atal sifil estynedig mewn grym sy'n golygu bod angen caniatâd arnaf i wneud y cais hwn",
+  courtOrderPreventHint: 'welsh translation',
+  courtOrderPreventLabelText: "Rhowch rif yr achos ac enw'r llys",
   anotherReason: 'Rheswm arall',
   anotherReasonLabelText: 'Eglurwch pam bod angen caniatâd arnoch i wneud y cais hwn',
   errors: {
+    sq_permissionsWhy: {
+      required: '(welsh translation) Select why you need permission from the court to make this application.',
+    },
     sq_doNotHaveParentalResponsibility_subfield: {
       required: 'Rhowch fanylion pam nad oes gennych gyfrifoldeb rhiant dros y plant',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
@@ -59,7 +68,6 @@ export const cy = () => ({
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     sq_courtOrderPrevent_subfield: {
-      required: 'Rhowch fanylion am y gorchymyn llys sy’n eich atal rhag gwneud cais',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
@@ -108,6 +116,7 @@ export const form: FormContent = {
           name: 'sq_permissionsWhy',
           label: l => l.courtOrderPrevent,
           value: 'courtOrderPrevent',
+          hint: l => l.courtOrderPreventHint,
           subFields: {
             sq_courtOrderPrevent_subfield: {
               type: 'textarea',
@@ -116,7 +125,7 @@ export const form: FormContent = {
               attributes: {
                 rows: 4,
               },
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              validator: value => isTextAreaValid(value),
             },
           },
         },
@@ -137,6 +146,7 @@ export const form: FormContent = {
           },
         },
       ],
+      validator: atLeastOneFieldIsChecked,
     },
   },
   onlycontinue: {
