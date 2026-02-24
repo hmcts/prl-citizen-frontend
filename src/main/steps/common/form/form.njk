@@ -1,6 +1,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-<form class="form" id="main-form" method="post" action="" novalidate="novalidate">
+<form class="form" id="main-form" method="post" action="" novalidate="novalidate"
+  {% if form.enctype %} enctype="{{ form.enctype }}"{% endif %}>
   <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
 
   {% block before_fields %}{% endblock %}
