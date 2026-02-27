@@ -604,12 +604,12 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
                   visuallyHiddenText:
-                    'Is there any reason that you would need permission from the court to make this application?',
+                    'Permission to apply',
                 },
               ],
             },
             key: {
-              text: 'Is there any reason that you would need permission from the court to make this application?',
+              text: 'Permission to apply',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -1424,12 +1424,12 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
                   visuallyHiddenText:
-                    'Is there any reason that you would need permission from the court to make this application?',
+                    'Permission to apply',
                 },
               ],
             },
             key: {
-              text: 'Is there any reason that you would need permission from the court to make this application?',
+              text: 'Permission to apply',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -2110,12 +2110,12 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/screening-questions/permission',
                   text: ' Golygu',
                   visuallyHiddenText:
-                    'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+                    'Caniatâd i wneud cais',
                 },
               ],
             },
             key: {
-              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+              text: 'Caniatâd i wneud cais',
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -3332,12 +3332,12 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/screening-questions/permission',
                   text: ' Golygu',
                   visuallyHiddenText:
-                    'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+                    'Caniatâd i wneud cais',
                 },
               ],
             },
             key: {
-              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+              text: 'Caniatâd i wneud cais',
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -3964,12 +3964,12 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/screening-questions/permission',
                   text: ' Golygu',
                   visuallyHiddenText:
-                    'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+                    'Caniatâd i wneud cais',
                 },
               ],
             },
             key: {
-              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+              text: 'Caniatâd i wneud cais',
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -4604,12 +4604,12 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
                   visuallyHiddenText:
-                    'Is there any reason that you would need permission from the court to make this application?',
+                    'Permission to apply',
                 },
               ],
             },
             key: {
-              text: 'Is there any reason that you would need permission from the court to make this application?',
+              text: 'Permission to apply',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -5316,12 +5316,12 @@ describe('Content.ts toggle test cases', () => {
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
                   visuallyHiddenText:
-                    'Is there any reason that you would need permission from the court to make this application?',
+                    'Permission to apply',
                 },
               ],
             },
             key: {
-              text: 'Is there any reason that you would need permission from the court to make this application?',
+              text: 'Permission to apply',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
