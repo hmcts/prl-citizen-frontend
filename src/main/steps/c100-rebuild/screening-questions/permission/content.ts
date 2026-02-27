@@ -7,15 +7,19 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 export * from './routeGuard';
 
 export const en = () => ({
-  title: 'Is there any reason that you would need permission from the court to make this application?',
-  paragraphsOne: [
-    'In some cases, the court will need to give permission before the application can be made.',
-    'You will not need permission if you are the:',
-  ],
+  title: 'Permission to apply',
+  paragraphsOne: ['You will not normally need permission if you are the child’s:'],
   bulletPoints: ['parent', 'guardian', 'special guardian'],
   paragraphsTwo: [
-    'If you are not sure if you need permission, see <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Section C of the Form CB1 guidance</a>',
+    "However, this does not apply if there is an order in place stating that you cannot make an application without the court's permission. For example:",
   ],
+  bulletPointsTwo: [
+    'an order under section 91(14) of the Children Act 1989',
+    'a limited civil restraint order',
+    'a general civil restraint order',
+    'an extended civil restraint order',
+  ],
+  question: 'Is there any reason that you would need permission from the court to make this application?',
   one: 'Yes',
   two: 'No',
   errors: {
@@ -36,6 +40,13 @@ export const cy = () => ({
   paragraphsTwo: [
     'Os nad ydych yn siŵr os oes angen caniatâd arnoch, gweler <a  target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1"> Adran C canllawiau Ffurflen CB1</a>',
   ],
+  bulletPointsTwo: [
+    'an order under section 91(14) of the Children Act 1989',
+    'a limited civil restraint order',
+    'a general civil restraint order',
+    'an extended civil restraint order',
+  ],
+  question: 'Is there any reason that you would need permission from the court to make this application?',
   one: 'Oes',
   two: 'Nac oes',
   errors: {
@@ -55,8 +66,8 @@ export const form: FormContent = {
     sq_courtPermissionRequired: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.title,
-      labelHidden: true,
+      label: l => l.question,
+      labelSize: 's',
       values: [
         {
           label: l => l.one,
