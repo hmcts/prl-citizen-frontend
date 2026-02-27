@@ -9,7 +9,8 @@ import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
 import { FormError } from '../form/Form';
 
-export interface AppRequest<T = Partial<Case>> extends Request {
+export interface AppRequest<T = Partial<Case>>
+  extends Request<Record<string, string>> {
   session: AppSession;
   locals: {
     env: string;
