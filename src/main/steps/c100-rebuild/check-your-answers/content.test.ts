@@ -603,8 +603,7 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Is there any reason that you would need permission from the court to make this application?',
+                  visuallyHiddenText: 'Permission to apply',
                 },
               ],
             },
@@ -1423,8 +1422,7 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Is there any reason that you would need permission from the court to make this application?',
+                  visuallyHiddenText: 'Permission to apply',
                 },
               ],
             },
@@ -4603,8 +4601,7 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Is there any reason that you would need permission from the court to make this application?',
+                  visuallyHiddenText: 'Permission to apply',
                 },
               ],
             },
@@ -5315,8 +5312,7 @@ describe('Content.ts toggle test cases', () => {
                   },
                   href: '/c100-rebuild/screening-questions/permission',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Is there any reason that you would need permission from the court to make this application?',
+                  visuallyHiddenText: 'Permission to apply',
                 },
               ],
             },
