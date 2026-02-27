@@ -122,7 +122,7 @@
     "@types/luxon": "^3",
     "@types/mini-css-extract-plugin": "^2.5.1",
     "@types/multer": "^1.4.13",
-    "@types/node": "^20.19.35",
+    "@types/node": "^22.19.13",
     "@types/pino-pretty": "^5.0.0",
     "@types/pino-std-serializers": "^4.0.0",
     "@types/webpack-dev-middleware": "^5.0.2",
