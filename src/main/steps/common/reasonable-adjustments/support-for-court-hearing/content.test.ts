@@ -14,8 +14,6 @@ const en = {
   select_all_apply: 'Select all that apply to you',
   supportWorkerCarer: 'A support worker or carer',
   supportWorkerCarer_subfield: 'Tell us who you will bring',
-  friendFamilyMember: 'A friend or family member',
-  friendFamilyMember_subfield: 'Tell us who you will bring',
   assistanceGuideDog: 'Assistance / guide dog',
   therapyAnimal: 'Therapy animal',
   therapyAnimal_subfield: 'Describe what you need',
@@ -25,12 +23,6 @@ const en = {
   errors: {
     ra_supportWorkerCarer_subfield: {
       required: 'Enter the name of the support worker or carer you will bring',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
-      invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
-    },
-    ra_friendFamilyMember_subfield: {
-      required: 'Enter the name of a friend or family member you will bring',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
@@ -61,8 +53,6 @@ const cy = {
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   supportWorkerCarer: 'Gweithiwr cymorth neu ofalwr',
   supportWorkerCarer_subfield: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
-  friendFamilyMember: "ffrind neu aelod o'r teulu",
-  friendFamilyMember_subfield: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
   assistanceGuideDog: 'Ci cymorth / ci tywys',
   therapyAnimal: 'Anifail therapi',
   therapyAnimal_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
@@ -72,12 +62,6 @@ const cy = {
   errors: {
     ra_supportWorkerCarer_subfield: {
       required: "Rhowch enw'r gweithiwr cymorth neu'r gofalwr y byddwch yn dod efo chi",
-      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
-      invalid:
-        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
-    },
-    ra_friendFamilyMember_subfield: {
-      required: "Rhowch enw ffrind neu aelod o'r teulu byddwch yn dod efo chi",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
@@ -144,17 +128,7 @@ describe('applicant personal details > applying-with > content', () => {
     (supportWorkerCarer_subfields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
-    const friendFamilyMemberSubFields = supportCourtField.values[1].subFields
-      ?.ra_friendFamilyMember_subfield as FormOptions;
-
-    expect(supportCourtField.type).toBe('checkboxes');
-    expect(friendFamilyMemberSubFields.type).toBe('textarea');
-    expect((friendFamilyMemberSubFields?.label as Function)(generatedContent)).toBe(en.friendFamilyMember_subfield);
-
-    (friendFamilyMemberSubFields.validator as Function)('test text area');
-    expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
-
-    const therapyAnimal_subfields = supportCourtField.values[3].subFields?.ra_therapyAnimal_subfield as FormOptions;
+    const therapyAnimal_subfields = supportCourtField.values[2].subFields?.ra_therapyAnimal_subfield as FormOptions;
 
     expect(therapyAnimal_subfields.type).toBe('textarea');
     expect((therapyAnimal_subfields?.label as Function)(generatedContent)).toBe(en.therapyAnimal_subfield);
@@ -162,7 +136,7 @@ describe('applicant personal details > applying-with > content', () => {
     (therapyAnimal_subfields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
-    const supportCourtOther_subfields = supportCourtField.values[4].subFields
+    const supportCourtOther_subfields = supportCourtField.values[3].subFields
       ?.ra_supportCourtOther_subfield as FormOptions;
 
     expect(supportCourtOther_subfields.type).toBe('textarea');
@@ -170,20 +144,14 @@ describe('applicant personal details > applying-with > content', () => {
 
     (supportCourtOther_subfields.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
-
-    expect(supportCourtField.type).toBe('checkboxes');
-    expect(friendFamilyMemberSubFields.type).toBe('textarea');
-    expect((friendFamilyMemberSubFields?.label as Function)(generatedContent)).toBe(en.friendFamilyMember_subfield);
-
     expect((supportCourtField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((supportCourtField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.supportWorkerCarer);
-    expect((supportCourtField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.friendFamilyMember);
-    expect((supportCourtField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.assistanceGuideDog);
-    expect((supportCourtField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.therapyAnimal);
-    expect((supportCourtField.values[4].label as LanguageLookup)(generatedContent)).toBe(en.supportCourtOther);
-    expect((supportCourtField.values[6].label as LanguageLookup)(generatedContent)).toBe(en.supportCourtNoOption);
+    expect((supportCourtField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.assistanceGuideDog);
+    expect((supportCourtField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.therapyAnimal);
+    expect((supportCourtField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.supportCourtOther);
+    expect((supportCourtField.values[5].label as LanguageLookup)(generatedContent)).toBe(en.supportCourtNoOption);
 
-    expect(supportCourtField.values[6].exclusive).toBe(true);
+    expect(supportCourtField.values[5].exclusive).toBe(true);
   });
 
   test('should contain correct values when not c100 journey', () => {
@@ -192,11 +160,10 @@ describe('applicant personal details > applying-with > content', () => {
     const supportCourtField = generatedContent.form.fields.ra_supportCourt as FormOptions;
 
     expect(supportCourtField.values[0].value).toBe('supportworker');
-    expect(supportCourtField.values[1].value).toBe('familymember');
-    expect(supportCourtField.values[2].value).toBe('assistance');
-    expect(supportCourtField.values[3].value).toBe('animal');
-    expect(supportCourtField.values[4].value).toBe('other');
-    expect(supportCourtField.values[6].value).toBe('nosupport');
+    expect(supportCourtField.values[1].value).toBe('assistance');
+    expect(supportCourtField.values[2].value).toBe('animal');
+    expect(supportCourtField.values[3].value).toBe('other');
+    expect(supportCourtField.values[5].value).toBe('nosupport');
   });
 
   test('should contain Save and continue button', () => {
