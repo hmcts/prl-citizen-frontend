@@ -278,6 +278,10 @@ export const getDocuments = (
   const docs: Document[] = [];
   if (documents?.length) {
     documents.forEach(doc => {
+      if (isRedactedDocument(doc)) {
+        return;
+      }
+
       const document: Document = {
         documentId: generateDocumentID(doc),
         documentName: generateDocumentName(doc),
@@ -291,6 +295,17 @@ export const getDocuments = (
   }
 
   return docs;
+};
+
+export const isRedactedDocument = (document: CitizenDocuments): boolean => {
+  if (
+    generateDocumentName(document)?.toLowerCase() === 'redacted' ||
+    generateDocumentID(document) === '00000000-0000-0000-0000-000000000000'
+  ) {
+    return true;
+  }
+
+  return false;
 };
 
 export const getDownloadDocUrl = (document: CitizenDocuments, loggedInUserPartyType: PartyType): string => {
