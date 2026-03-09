@@ -299,7 +299,7 @@ export const getDocuments = (
 
 export const isRedactedDocument = (document: CitizenDocuments): boolean => {
   if (
-    generateDocumentName(document)?.toLowerCase() === 'redacted' ||
+    generateDocumentName(document)?.toLowerCase() === '*redacted*' ||
     generateDocumentID(document) === '00000000-0000-0000-0000-000000000000'
   ) {
     return true;

@@ -318,7 +318,7 @@ describe('documents > view > utils', () => {
               document: {
                 document_url: 'MOCK_DOCUMENT_URL/00000000-0000-0000-0000-000000000000',
                 document_binary_url: 'MOCK_DOCUMENT_BINARY_URL/00000000-0000-0000-0000-000000000000/binary',
-                document_filename: 'Redacted',
+                document_filename: '*Redacted*',
                 document_hash: null,
                 category_id: 'positionStatements' as DocumentCategory,
                 document_creation_date: '01/01/2024',
