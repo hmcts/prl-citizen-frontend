@@ -336,7 +336,7 @@ describe('documents > view > utils', () => {
           documentName: 'MOCK_FILENAME',
           documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
           uploadedBy: 'test user',
-        }
+        },
       ]);
     });
   });
