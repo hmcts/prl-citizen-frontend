@@ -59,4 +59,4 @@ featureToggles:
   enableOsCourtLookup: false
 launchDarkly:
   offline: true
-allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre
+allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre,Chelmsford Justice Centre,Chelmsford Magistrates' Court and Family Court,Wolverhampton Combined Court Centre,Wolverhampton Magistrates' Court
