@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 import _ from 'lodash';
+import toBoolean from 'to-boolean';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
@@ -116,8 +117,10 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     if (!_.isArray(this.allowedCourts) || this.allowedCourts.includes('*')) {
       return [];
     }
-
-    if (await getFeatureToggle().isOsCourtLookupEnabled()) {
+    if (
+      (await getFeatureToggle()?.isOsCourtLookupEnabled()) ??
+      toBoolean(config.get<boolean>('featureToggles.enableOsCourtLookup'))
+    ) {
       return this.getOsCourtNames(client, formData, user, req);
     }
 
@@ -146,7 +149,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     req: AppRequest
   ): Promise<string[]> {
     const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode as string);
-
+    console.log('courtDetails-----------------' + courtDetails);
     if (courtDetails?.message) {
       req.session.errors = this.handleError(req.session.errors, 'invalid');
       return [];
