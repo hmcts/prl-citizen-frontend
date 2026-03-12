@@ -149,7 +149,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     req: AppRequest
   ): Promise<string[]> {
     const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode as string);
-    console.log('courtDetails-----------------' + courtDetails);
+    console.log('courtDetails-----------------' + JSON.stringify(courtDetails));
     if (courtDetails?.message) {
       req.session.errors = this.handleError(req.session.errors, 'invalid');
       return [];
