@@ -35,7 +35,7 @@ nodejs:
     ENABLE_RA_COMPONENT: true
     ENABLE_PCQ_COMPONENT: true
     ENABLE_OS_COURT_LOOKUP: false
-    ALLOWED_COURTS: *
+    ALLOWED_COURTS: "*"
   keyVaults:
     prl:
       resourceGroup: prl
