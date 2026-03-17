@@ -1,5 +1,5 @@
 nodejs:
-  image: 'hmctspublic.azurecr.io/prl/citizen-frontend:latest'
+  image: 'hmctsprod.azurecr.io/prl/citizen-frontend:latest'
   applicationPort: 3001
   readinessDelay: 130
   livenessDelay: 130
