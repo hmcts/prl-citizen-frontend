@@ -151,20 +151,22 @@ export const PermissionForApplication = (
   language
 ): SummaryList | undefined => {
   const valForPermissionWhy = userCase.hasOwnProperty('sq_permissionsWhy')
-    ? (
-        HTML.UNORDER_LIST +
-        userCase['sq_permissionsWhy']?.map(
-          props =>
-            HTML.LIST_ITEM +
-            keys[props] +
-            ': ' +
-            populateError(userCase[`sq_${props}_subfield`], userCase[`sq_${props}_subfield`], language) +
-            HTML.LIST_ITEM_END
-        ) +
-        HTML.UNORDER_LIST_END
-      )
-        .split(',')
-        .join('')
+    ? HTML.UNORDER_LIST +
+      userCase['sq_permissionsWhy']
+        ?.map(props => {
+          const textValue = userCase[`sq_${props}_subfield`];
+          let uploadValue = '';
+          if (props === 'courtOrderPrevent' && userCase['sq_uploadDocument_subfield']) {
+            uploadValue = userCase['sq_uploadDocument_subfield']?.document_filename;
+          }
+
+          const combinedValue = [textValue, uploadValue].filter(Boolean).join('<br/>');
+          const displayValue =
+            props === 'courtOrderPrevent' ? combinedValue : populateError(combinedValue, combinedValue, language);
+          return HTML.LIST_ITEM + keys[props] + ': ' + displayValue + HTML.LIST_ITEM_END;
+        })
+        .join('') +
+      HTML.UNORDER_LIST_END
     : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE;
   let SummaryData;
   if (userCase['sq_courtPermissionRequired'] === YesOrNo.YES) {
@@ -3191,6 +3193,7 @@ export const prepareProp = (property: string): string => {
 
     case 'sq_doNotHaveParentalResponsibility_subfield':
     case 'sq_courtOrderPrevent_subfield':
+    case 'sq_uploadDocument_subfield':
     case 'sq_anotherReason_subfield':
       return 'sq_permissionsWhy';
 
