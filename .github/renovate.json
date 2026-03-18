@@ -1,10 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>hmcts/.github:renovate-config",
-    "local>hmcts/.github//renovate/automerge-minor"
-  ],
-  "prConcurrentLimit": 6,
+  "extends": ["local>hmcts/.github:renovate-config", "local>hmcts/.github//renovate/automerge-minor"],
+  "prConcurrentLimit": 15,
   "schedule": ["after 6pm"],
-  "rebaseWhen": "behind-base-branch"
+  "rebaseWhen": "behind-base-branch",
+  "packageRules": [
+    {
+      "description": "Trigger security fixes immediately and bypass the concurrency limit",
+      "matchVulnerabilities": true,
+      "schedule": null,
+      "dependencyDashboardApproval": false,
+      "prConcurrentLimit": 25,
+      "commitMessagePrefix": "SEC-FIX: "
+    }
+  ]
 }
