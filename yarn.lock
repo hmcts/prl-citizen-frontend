@@ -362,12 +362,12 @@ __metadata:
   linkType: hard
 
 "@babel/helpers@npm:^7.26.10":
-  version: 7.28.6
-  resolution: "@babel/helpers@npm:7.28.6"
+  version: 7.29.2
+  resolution: "@babel/helpers@npm:7.29.2"
   dependencies:
     "@babel/template": "npm:^7.28.6"
-    "@babel/types": "npm:^7.28.6"
-  checksum: 10c0/c4a779c66396bb0cf619402d92f1610601ff3832db2d3b86b9c9dd10983bf79502270e97ac6d5280cea1b1a37de2f06ecbac561bd2271545270407fbe64027cb
+    "@babel/types": "npm:^7.29.0"
+  checksum: 10c0/dab0e65b9318b2502a62c58bc0913572318595eec0482c31f0ad416b72636e6698a1d7c57cd2791d4528eb8c548bca88d338dc4d2a55a108dc1f6702f9bc5512
   languageName: node
   linkType: hard
 
@@ -383,7 +383,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.25.3, @babel/parser@npm:^7.26.10, @babel/parser@npm:^7.28.6, @babel/parser@npm:^7.29.0, @babel/parser@npm:^7.7.0, @babel/parser@npm:^7.8.3":
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.25.3, @babel/parser@npm:^7.28.6, @babel/parser@npm:^7.29.0, @babel/parser@npm:^7.7.0, @babel/parser@npm:^7.8.3":
   version: 7.29.0
   resolution: "@babel/parser@npm:7.29.0"
   dependencies:
@@ -391,6 +391,17 @@ __metadata:
   bin:
     parser: ./bin/babel-parser.js
   checksum: 10c0/333b2aa761264b91577a74bee86141ef733f9f9f6d4fc52548e4847dc35dfbf821f58c46832c637bfa761a6d9909d6a68f7d1ed59e17e4ffbb958dc510c17b62
+  languageName: node
+  linkType: hard
+
+"@babel/parser@npm:^7.26.10":
+  version: 7.29.2
+  resolution: "@babel/parser@npm:7.29.2"
+  dependencies:
+    "@babel/types": "npm:^7.29.0"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: 10c0/e5a4e69e3ac7acdde995f37cf299a68458cfe7009dff66bd0962fd04920bef287201169006af365af479c08ff216bfefbb595e331f87f6ae7283858aebbc3317
   languageName: node
   linkType: hard
 
@@ -2397,6 +2408,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@npmcli/redact@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@npmcli/redact@npm:4.0.0"
+  checksum: 10c0/a1e9ba9c70a6b40e175bda2c3dd8cfdaf096e6b7f7a132c855c083c8dfe545c3237cd56702e2e6627a580b1d63373599d49a1192c4078a85bf47bbde824df31c
+  languageName: node
+  linkType: hard
+
 "@one-ini/wasm@npm:0.1.1":
   version: 0.1.1
   resolution: "@one-ini/wasm@npm:0.1.1"
@@ -3406,14 +3424,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/copy-webpack-plugin@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "@types/copy-webpack-plugin@npm:8.0.1"
+"@types/copy-webpack-plugin@npm:^10.0.0":
+  version: 10.1.3
+  resolution: "@types/copy-webpack-plugin@npm:10.1.3"
   dependencies:
-    "@types/node": "npm:*"
-    tapable: "npm:^2.0.0"
-    webpack: "npm:^5.1.0"
-  checksum: 10c0/0dd8a39e52ed46306fff19347f8614bbd74544f9732b99d395ff2421873c518646163c334c296cb630aa6f80c6be60f00a2fc5d5d519f110a4221097b3c4c299
+    copy-webpack-plugin: "npm:*"
+  checksum: 10c0/ed96fd91acad1746847d05a11afb46ba9209f0c244d598fde9afa10f64d3202921f37f2679bbb76dcabd0ca3b802b45063f72338f21e93adfd5e4031495e577f
   languageName: node
   linkType: hard
 
@@ -7085,7 +7101,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copy-webpack-plugin@npm:^10.2.1":
+"copy-webpack-plugin@npm:*, copy-webpack-plugin@npm:^10.2.1":
   version: 10.2.4
   resolution: "copy-webpack-plugin@npm:10.2.4"
   dependencies:
@@ -12619,9 +12635,9 @@ __metadata:
   linkType: hard
 
 "lru-cache@npm:^11.1.0, lru-cache@npm:^11.2.1":
-  version: 11.2.6
-  resolution: "lru-cache@npm:11.2.6"
-  checksum: 10c0/73bbffb298760e71b2bfe8ebc16a311c6a60ceddbba919cfedfd8635c2d125fbfb5a39b71818200e67973b11f8d59c5a9e31d6f90722e340e90393663a66e5cd
+  version: 11.2.7
+  resolution: "lru-cache@npm:11.2.7"
+  checksum: 10c0/549cdb59488baa617135fc12159cafb1a97f91079f35093bb3bcad72e849fc64ace636d244212c181dfdf1a99bbfa90757ff303f98561958ee4d0f885d9bd5f7
   languageName: node
   linkType: hard
 
@@ -12690,11 +12706,12 @@ __metadata:
   linkType: hard
 
 "make-fetch-happen@npm:^15.0.0":
-  version: 15.0.4
-  resolution: "make-fetch-happen@npm:15.0.4"
+  version: 15.0.5
+  resolution: "make-fetch-happen@npm:15.0.5"
   dependencies:
     "@gar/promise-retry": "npm:^1.0.0"
     "@npmcli/agent": "npm:^4.0.0"
+    "@npmcli/redact": "npm:^4.0.0"
     cacache: "npm:^20.0.1"
     http-cache-semantics: "npm:^4.1.1"
     minipass: "npm:^7.0.2"
@@ -12704,7 +12721,7 @@ __metadata:
     negotiator: "npm:^1.0.0"
     proc-log: "npm:^6.0.0"
     ssri: "npm:^13.0.0"
-  checksum: 10c0/b874bf6879fc0b8ef3a3cafdddadea4d956acf94790f8dede1a9d3c74c7886b6cd3eb992616b8e5935e6fd550016a465f10ba51bf6723a0c6f4d98883ae2926b
+  checksum: 10c0/527580eb5e5476e6ad07a4e3bd017d13e935f4be815674b442081ae5a721c13d3af5715006619e6be79a85723067e047f83a0c9e699f41d8cec43609a8de4f7b
   languageName: node
   linkType: hard
 
@@ -13456,19 +13473,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"multer@npm:^2.0.2":
-  version: 2.1.0
-  resolution: "multer@npm:2.1.0"
-  dependencies:
-    append-field: "npm:^1.0.0"
-    busboy: "npm:^1.6.0"
-    concat-stream: "npm:^2.0.0"
-    type-is: "npm:^1.6.18"
-  checksum: 10c0/5b374b9a3dbdfe28bbcacbc070cfa8d81a94f74d2fbf979d96802750b7a463ea54c996faee9d25f323a0c67f55e4f82b2b5f034d91e174daf7bcfb7e0f52c165
-  languageName: node
-  linkType: hard
-
-"multer@npm:^2.1.1":
+"multer@npm:^2.0.2, multer@npm:^2.1.1":
   version: 2.1.1
   resolution: "multer@npm:2.1.1"
   dependencies:
@@ -14814,7 +14819,7 @@ __metadata:
     "@types/config": "npm:^0.0.41"
     "@types/connect-redis": "npm:^0.0.23"
     "@types/cookie-parser": "npm:^1.4.2"
-    "@types/copy-webpack-plugin": "npm:^8.0.1"
+    "@types/copy-webpack-plugin": "npm:^10.0.0"
     "@types/csurf": "npm:^1.11.2"
     "@types/es6-promisify": "npm:^6.0.1"
     "@types/express": "npm:^5.0.0"
@@ -16544,12 +16549,12 @@ __metadata:
   linkType: hard
 
 "socket.io-parser@npm:^4.2.3":
-  version: 4.2.5
-  resolution: "socket.io-parser@npm:4.2.5"
+  version: 4.2.6
+  resolution: "socket.io-parser@npm:4.2.6"
   dependencies:
     "@socket.io/component-emitter": "npm:~3.1.0"
     debug: "npm:~4.4.1"
-  checksum: 10c0/fce2b7a76eed9babc7b4156e82e5cd478b0bc5eb877d52ae48aa0d90fe2d11be5a9e576fbc8bdbf3dd656863965ad133ba6c7d45172a1e020270e7c7891c1b35
+  checksum: 10c0/ba0a0b541b0a8e9d02b45c04c4c93a02331be5ea3478073c65bb9ff87032f12469c9adb309728eb90c0a352618d645ab88999c167a11c783cac861d7fd35c9d1
   languageName: node
   linkType: hard
 
@@ -18508,7 +18513,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.1.0, webpack@npm:^5.38.1, webpack@npm:^5.76.0":
+"webpack@npm:^5.38.1, webpack@npm:^5.76.0":
   version: 5.105.3
   resolution: "webpack@npm:5.105.3"
   dependencies:
