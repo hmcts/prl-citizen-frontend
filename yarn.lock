@@ -14875,7 +14875,7 @@ __metadata:
     express-nunjucks: "npm:^2.2.5"
     express-session: "npm:^1.18.2"
     form-data: "npm:^4.0.0"
-    glob: "npm:^11.0.3"
+    glob: "npm:^13.0.6"
     govuk-frontend: "npm:4.9.0"
     helmet: "npm:^4.6.0"
     hmrc-frontend: "npm:^6.100.0"
