@@ -34,7 +34,7 @@ describe('LaunchDarkly', function () {
     (init as jest.Mock).mockReturnValue(mockLdClient);
   });
 
-  test('Should get a flag value from mockLdClient directly', async function () {
+  test('Should get a flag value', async function () {
     when(config.get as jest.Mock)
       .calledWith('launchDarkly.ldUser')
       .mockReturnValue('citizen-frontend');
@@ -47,7 +47,7 @@ describe('LaunchDarkly', function () {
   });
 
   describe('LaunchDarkly1', function () {
-    test('Should call async functions through LaunchDarklyClient', async function () {
+    test('Should call async functions', async function () {
       const launchC = new LaunchDarklyClient();
       await launchC.initializeLD();
       const variationResult = await launchC.serviceVariation('a', 'b');
