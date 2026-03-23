@@ -37,7 +37,7 @@
     "@hmcts/frontend": "^0.0.50-alpha",
     "@hmcts/nodejs-healthcheck": "^1.8.6",
     "@hmcts/nodejs-logging": "^4.0.2",
-    "@hmcts/properties-volume": "^0.0.14",
+    "@hmcts/properties-volume": "^1.0.0",
     "@types/config": "^0.0.41",
     "@types/connect-redis": "^0.0.23",
     "@types/cookie-parser": "^1.4.2",
