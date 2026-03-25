@@ -1,7 +1,8 @@
 import { createGuardrails } from '@otplib/core';
 
 // The secret is only 10 bytes, but otplib v13 requires a minimum of 16 bytes.
-// This guardrail override is a temporary workaround until the secret is rotated to a valid length
+// This guardrail override allows the current key to be used
+// Ticket: https://tools.hmcts.net/jira/browse/FPVTL-2512
 const customGuardrails = createGuardrails({
   MIN_SECRET_BYTES: 10,
 });
