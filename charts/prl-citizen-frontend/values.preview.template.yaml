@@ -59,3 +59,4 @@ idam-pr:
     prl-citizen-frontend:
       - https://${SERVICE_FQDN}/receiver
 
+
