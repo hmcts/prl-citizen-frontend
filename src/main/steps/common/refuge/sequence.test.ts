@@ -25,7 +25,7 @@ describe('C8 refuge > sequence', () => {
     expect(sequence[1].url).toBe('/:root/refuge/keeping-details-safe/:id?');
     expect(sequence[1].showInSection).toBe('c100');
     expect(sequence[1].getNextStep(refugeMockData.session.userCase, refugeMockData)).toBe(
-      '/applicant/refuge/upload-refuge-document'
+      '/applicant/confirm-contact-details/addressdetails'
     );
 
     expect(sequence[2].url).toBe('/:root/refuge/upload-refuge-document/:removeFileId?');
