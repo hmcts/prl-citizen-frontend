@@ -18,5 +18,10 @@
             <p class="govuk-body">{{ paragraph | safe }}</p>
     {% endfor %}
 
+<ul class="govuk-list govuk-list--bullet govuk-!-margin-left-7 govuk-!-margin-bottom-6">
+    {% for bullet in bulletPointsTwo %}
+            <li>{{ bullet }}</li>
+    {% endfor %}
+</ul>
 
 {% endblock %}
