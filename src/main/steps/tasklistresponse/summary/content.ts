@@ -1,7 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import _ from 'lodash';
 
-import { CaseWithId } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -9,7 +8,6 @@ import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { HTML } from '../../../steps/c100-rebuild/check-your-answers/common/htmlSelectors';
 import { CommonContent } from '../../../steps/common/common.content';
 import { removeFields } from '../../../steps/common/confirm-contact-details/checkanswers/content';
-import { isMandatoryFieldsFilled } from '../../../steps/common/confirm-contact-details/checkanswers/utils';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
   CONSENT_TO_APPLICATION,
@@ -633,9 +631,6 @@ const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childCo
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
-  userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
-    ? userCase.refugeDocument.document_filename
-    : HTML.ERROR_MESSAGE_SPAN + enContent.completeSectionError + HTML.SPAN_CLOSE;
   populateSummaryData(userCase, content.userIdamId);
 
   const sections = [] as ANYTYPE;
@@ -704,9 +699,6 @@ const en = (content: CommonContent) => {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
-    ? userCase.refugeDocument.document_filename
-    : HTML.ERROR_MESSAGE_SPAN + cyContent.completeSectionError + HTML.SPAN_CLOSE;
   populateSummaryData(userCase, content.userIdamId);
 
   const sections = [] as ANYTYPE;
@@ -820,8 +812,6 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const caseData = content.userCase as CaseWithId;
-  form.onlyContinue!.disabled = !isMandatoryFieldsFilled(caseData);
 
   return {
     ...translations,

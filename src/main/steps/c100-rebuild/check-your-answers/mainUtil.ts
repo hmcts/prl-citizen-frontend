@@ -689,22 +689,6 @@ export const ApplicantDetails = (
       }
     );
 
-    if (sessionApplicantData[applicant]['liveInRefuge'] === YesOrNo.YES) {
-      newApplicantData.push({
-        key: keys['c8RefugeDocument'],
-        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['c8RefugeDocument']}`,
-        anchorReference: `c8RefugeDocument-applicant-${applicant}`,
-        value: '',
-        valueHtml: !_.isEmpty(sessionApplicantData[applicant]['refugeConfidentialityC8Form'])
-          ? sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename']
-          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
-        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
-          root: RootContext.C100_REBUILD,
-          id: sessionApplicantData[applicant]['id'],
-        }),
-      });
-    }
-
     if (sessionApplicantData[applicant]?.liveInRefuge === YesOrNo.NO) {
       newApplicantData.push(
         {
@@ -1905,11 +1889,6 @@ export const OtherPeopleDetails = (
           id: sessionOtherPeopleData[respondent]['id'],
         }),
       });
-      if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
-        newOtherPeopleStorage.push(
-          generateOtherPersonC8RefugeContent(sessionOtherPeopleData, respondent, keys, language)
-        );
-      }
       newOtherPeopleStorage.push(
         generateOtherPersonAddressContent(sessionOtherPeopleData, respondent, keys, id, language)
       );
@@ -1936,22 +1915,6 @@ export const OtherPeopleDetails = (
   return {
     title: '',
     rows: getSectionSummaryList(SummaryData, content),
-  };
-};
-
-const generateOtherPersonC8RefugeContent = (sessionOtherPeopleData, index, keys, language): SummaryListRow => {
-  return {
-    key: keys['c8RefugeDocument'],
-    anchorReference: `c8RefugeDocument-otherPerson-${index}`,
-    visuallyHiddenText: `${keys['otherPerson']} ${parseInt(index) + 1} ${keys['c8RefugeDocument']}`,
-    value: '',
-    valueHtml: !_.isEmpty(sessionOtherPeopleData[index]['refugeConfidentialityC8Form'])
-      ? sessionOtherPeopleData[index]['refugeConfidentialityC8Form']?.['document_filename']
-      : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
-    changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
-      root: RootContext.C100_REBUILD,
-      id: sessionOtherPeopleData[index]['id'],
-    }),
   };
 };
 
@@ -2497,13 +2460,6 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     });
   }
 
-  if (applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)) {
-    error.push({
-      propertyName: `c8RefugeDocument-applicant-${index}`,
-      errorType: 'required',
-    });
-  }
-
   if (
     _.isEmpty(applicant.applicantAddress1) ||
     _.isEmpty(applicant.applicantAddressTown) ||
@@ -2822,13 +2778,6 @@ export const generateOtherPersonErrors = (
   if (!otherperson.liveInRefuge) {
     error.push({
       propertyName: `refuge-otherPerson-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (otherperson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherperson.refugeConfidentialityC8Form)) {
-    error.push({
-      propertyName: `c8RefugeDocument-otherPerson-${index}`,
       errorType: 'required',
     });
   }

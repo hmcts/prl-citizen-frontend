@@ -194,10 +194,6 @@ export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
     req.session.userCase.citizenUserLivingInRefugeText = req.session.userCase.isCitizenLivingInRefuge;
   }
 
-  req.session.userCase.refugeDocumentText = !_.isEmpty(req.session.userCase.refugeDocument)
-    ? req.session.userCase.refugeDocument.document_filename
-    : '';
-
   if (req.session.userCase.isCitizenLivingInRefuge === YesOrNo.NO) {
     delete req.session.userCase.refugeDocument;
     delete req.session.userCase.refugeDocumentText;

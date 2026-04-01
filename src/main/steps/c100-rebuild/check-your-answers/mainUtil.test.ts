@@ -1137,26 +1137,6 @@ describe('test cases for main util', () => {
         actions: {
           items: [
             {
-              href: '/c100-rebuild/refuge/upload-refuge-document/3b32bc4f-7417-443b-ba94-5eacfcee04c4',
-              text: undefined,
-              visuallyHiddenText: 'Other person 1 c8RefugeDocument',
-              attributes: {
-                id: 'c8RefugeDocument-otherPerson-0',
-              },
-            },
-          ],
-        },
-        key: {
-          text: 'c8RefugeDocument',
-        },
-        value: {
-          html: 'filename.docx',
-        },
-      },
-      {
-        actions: {
-          items: [
-            {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/address/manual',
               text: undefined,
               visuallyHiddenText: 'Other person 1 addressDetails',
@@ -2390,23 +2370,6 @@ describe('test cases for main util', () => {
       expect(areRefugeDocumentsNotPresent({ appl_allApplicants: [{ liveInRefuge: 'No' }] } as CaseWithId)).toBe(false);
     });
 
-    test('should return false if refuge document is present for applicant', () => {
-      expect(
-        areRefugeDocumentsNotPresent({
-          appl_allApplicants: [
-            {
-              liveInRefuge: 'Yes',
-              refugeConfidentialityC8Form: {
-                document_url: 'MOCK_URL',
-                document_binary_url: 'MOCK_BINARY_URL',
-                document_filename: 'MOCK_FILENAME',
-              },
-            },
-          ],
-        } as CaseWithId)
-      ).toBe(false);
-    });
-
     test('should return true if refuge document not present for other person', () => {
       expect(areRefugeDocumentsNotPresent({ oprs_otherPersons: [{ liveInRefuge: 'Yes' }] } as CaseWithId)).toBe(true);
     });
@@ -2643,10 +2606,6 @@ describe('test cases for main util', () => {
         {
           errorType: 'required',
           propertyName: 'placeOfBirth-applicant-0',
-        },
-        {
-          errorType: 'required',
-          propertyName: 'c8RefugeDocument-applicant-0',
         },
         {
           errorType: 'required',
@@ -2963,10 +2922,6 @@ describe('test cases for main util', () => {
         {
           errorType: 'required',
           propertyName: 'relationshipTo-otherPerson-0',
-        },
-        {
-          errorType: 'required',
-          propertyName: 'c8RefugeDocument-otherPerson-0',
         },
         {
           errorType: 'required',
