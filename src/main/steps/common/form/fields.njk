@@ -1,4 +1,5 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "../fileupload/macro-v2.njk" import fileUpload with context %}
 
 {% for fieldName, field in form.fields %}
   {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}
@@ -9,13 +10,17 @@
             classes: field.classes,
             isPageHeading: true if field.isPageHeading == true else false
           }
-        }) 
+        })
       %}
       {% for fieldName, field in field.subFields %}
       {% set labelClasses %}{% if field.labelSize !== null %}govuk-label--{{ field.labelSize if field.labelSize else "m" }}{% endif %}{% endset %}
       {% include "./fields/" + field.type + ".njk" %}
       {% endfor %}
       {% endcall %}
+
+    {% elseif field.type === 'upload' %}
+      {{ fileUpload(fileUploadConfig) }}
+
     {% else %}
       {% include "./fields/" + field.type + ".njk" %}
     {% endif%}
