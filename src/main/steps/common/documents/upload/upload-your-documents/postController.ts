@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { CosApiClient } from '../../../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../../../app/case/case';
-import { PartyType, YesOrNo } from '../../../../../app/case/definition';
+import { DocumentUploadResponse, PartyType, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -126,7 +126,9 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const partyType = getCasePartyType(caseData, user.id);
     const redirectUrl = this.setRedirectUrl(partyType, req);
     const statementText = _.get(body, 'statementText', '') as string;
-
+    console.dir("Yogesh ==> Request");
+    console.dir(req);
+    console.dir("Yogesh ==> Request123");
     req.url = redirectUrl;
     this.initializeData(caseData);
 
@@ -146,11 +148,14 @@ export default class UploadDocumentPostController extends PostController<AnyObje
         freeTextStatements: statementText,
       });
 
-      if (response.status !== 'Success') {
+      if (this.hasNonSuccessStatus(response)) {
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
       }
-      req.session.userCase?.[getUploadedFilesDataReference(partyType)]?.push(response.document);
+      response.forEach(result => {
+        req.session.userCase?.[getUploadedFilesDataReference(partyType)]?.push(result.document);
+      });
+      
       req.session.applicationSettings = {
         ...req.session.applicationSettings,
         isDocumentGeneratedAndUplaoded: true,
@@ -161,6 +166,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     } finally {
       this.redirect(req, res, redirectUrl);
     }
+  }
+
+  private hasNonSuccessStatus(response: DocumentUploadResponse[]): boolean {
+    return response.some(result => result.status !== "Success");
   }
 
   private async uploadDocument(req: AppRequest, res: Response): Promise<void> {
