@@ -10,6 +10,7 @@ jest.mock('../../../../app/form/validation');
 const en = {
   title:
     "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+  titleHint: 'This includes Scotland and Northern Ireland.',
   line1:
     'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales.',
   one: 'Yes',
@@ -33,6 +34,7 @@ const en = {
 const cy = {
   title:
     "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+  titleHint: 'Mae hyn yn cynnwys Yr Alban a Gogledd Iwerddon.',
   line1:
     "Er enghraifft, gallai hyn gynnwys nain neu berthynas agos arall. Efallai bod ganddynt waith, eiddo neu ysgol sydd wedi'i leoli'n bennaf y tu allan i Gymru a Lloegr.",
   one: 'Ydynt',
