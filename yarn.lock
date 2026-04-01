@@ -16553,7 +16553,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"socket.io@npm:^4.6.2":
+"socket.io@npm:^4.8.3":
   version: 4.8.3
   resolution: "socket.io@npm:4.8.3"
   dependencies:
