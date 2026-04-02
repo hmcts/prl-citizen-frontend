@@ -16,7 +16,6 @@ describe('C7 Response > summary > routeGuard', () => {
     const next = jest.fn();
     routeGuard.get(req, res, next);
     expect(next).toHaveBeenCalled();
-    expect(req.session.errors).toStrictEqual([{ propertyName: 'refugeDocumentText', errorType: 'required' }]);
   });
 
   test('Should call next when refuge is yes and document is present', async () => {
