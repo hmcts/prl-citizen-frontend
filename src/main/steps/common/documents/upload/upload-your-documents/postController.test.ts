@@ -34,7 +34,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       });
       const res = mockResponse();
 
-      const documentDetail = {
+      const documentDetail = [{
         status: 'Success',
         document: {
           document_url: 'string',
@@ -44,7 +44,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
           document_creation_date: 'string',
           name: 'uploaded.pdf',
         },
-      };
+      }];
       generateStatementDocumentMock.mockResolvedValue(documentDetail);
 
       const controller = new UploadDocumentPostController({});
@@ -119,7 +119,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       });
       const res = mockResponse();
 
-      const documentDetail = {
+      const documentDetail = [{
         status: '',
         document: {
           document_url: 'string',
@@ -129,7 +129,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
           document_creation_date: 'string',
           name: 'uploaded.pdf',
         },
-      };
+      }];
       generateStatementDocumentMock.mockResolvedValue(documentDetail);
 
       const controller = new UploadDocumentPostController({});
