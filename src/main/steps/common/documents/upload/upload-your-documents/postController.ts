@@ -167,7 +167,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
   }
 
   private hasNonSuccessStatus(response: DocumentUploadResponse[]): boolean {
-    return response.some(result => result.status !== "Success");
+    return response.some(result => result.status !== 'Success');
   }
 
   private async uploadDocument(req: AppRequest, res: Response): Promise<void> {
