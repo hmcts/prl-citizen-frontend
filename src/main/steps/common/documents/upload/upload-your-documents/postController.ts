@@ -126,9 +126,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const partyType = getCasePartyType(caseData, user.id);
     const redirectUrl = this.setRedirectUrl(partyType, req);
     const statementText = _.get(body, 'statementText', '') as string;
-    console.dir("Yogesh ==> Request");
-    console.dir(req);
-    console.dir("Yogesh ==> Request123");
+
     req.url = redirectUrl;
     this.initializeData(caseData);
 
@@ -152,10 +150,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
       }
-      response.forEach(result => {
-        req.session.userCase?.[getUploadedFilesDataReference(partyType)]?.push(result.document);
+      response.forEach(documentUploadResponseElement => {
+        req.session.userCase?.[getUploadedFilesDataReference(partyType)]?.push(documentUploadResponseElement.document);
       });
-      
+
       req.session.applicationSettings = {
         ...req.session.applicationSettings,
         isDocumentGeneratedAndUplaoded: true,
