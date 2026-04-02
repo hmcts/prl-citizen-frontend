@@ -1,6 +1,4 @@
 /* eslint-disable import/no-unresolved */
-import _ from 'lodash';
-
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';

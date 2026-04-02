@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId } from '../../../app/case/case';
 import { Respondent, YesOrNo } from '../../../app/case/definition';
