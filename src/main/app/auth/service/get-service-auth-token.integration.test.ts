@@ -1,4 +1,7 @@
 /* eslint-disable import/no-named-as-default */
+jest.mock('./otp', () => ({
+  generateOTP: jest.fn().mockResolvedValue('123456'),
+}));
 jest.mock('axios');
 jest.mock('@hmcts/nodejs-logging');
 jest.useFakeTimers();
@@ -12,7 +15,7 @@ import Axios, { AxiosStatic } from 'axios';
 import config from 'config';
 import { when } from 'jest-when';
 
-import { getServiceAuthToken, initAuthToken } from './get-service-auth-token';
+import { getServiceAuthToken, getTokenFromApi } from './get-service-auth-token';
 
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 
@@ -29,10 +32,10 @@ describe('initAuthToken', () => {
       .mockReturnValue('mock-secret');
   });
 
-  test('Should set an interval to start fetching a token', () => {
-    mockedAxios.post.mockResolvedValue('token');
+  test('Should set an interval to start fetching a token', async () => {
+    mockedAxios.post.mockResolvedValue({ data: 'token' });
 
-    initAuthToken();
+    await getTokenFromApi();
     expect(mockedAxios.post).toHaveBeenCalledWith('http://rpe-service-auth-provider/lease', {
       microservice: 'prl_citizen_frontend',
       oneTimePassword: expect.anything(),
@@ -42,7 +45,7 @@ describe('initAuthToken', () => {
   test('Should log errors', async () => {
     mockedAxios.post.mockRejectedValue({ message: 'MOCK_ERROR', response: { status: 500, data: 'Error' } });
 
-    await initAuthToken();
+    await getTokenFromApi();
     jest.setTimeout(5000);
     setTimeout(() => {
       expect(logger.error).toHaveBeenCalledWith('Error in refreshing service auth token ', 'MOCK_ERROR', 500, 'Error');
@@ -65,7 +68,7 @@ describe('getServiceAuthToken', () => {
   test('Should return a token', async () => {
     mockedAxios.post.mockResolvedValue({ data: 'token' });
 
-    await initAuthToken();
+    await getTokenFromApi();
     setTimeout(() => {
       expect(getServiceAuthToken()).not.toBeUndefined();
     }, 2000);
