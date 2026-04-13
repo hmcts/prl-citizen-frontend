@@ -4,6 +4,8 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERATIVE,
   C100_CHECK_YOUR_ANSWER,
   C100_CHILDERN_MAINLY_LIVE_WITH,
   C100_OTHER_PERSON_CHECK,
@@ -82,12 +84,29 @@ class OtherPersonsDetailsNavigationController {
         break;
       }
       case C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL: {
-        const nextPerson = getNextPerson(this.otherPersonsDetails, this.otherPersonId);
-        nextUrl = nextPerson
-          ? applyParms(C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS, {
-              otherPersonId: nextPerson.id as C100RebuildPartyDetails['id'],
-            })
-          : applyParms(C100_CHILDERN_MAINLY_LIVE_WITH, { childId: this.childrenDetails[0].id });
+        // If the other person has a known address (i.e. addressUnknown !== YES), navigate to the
+        // other-person confidentiality start-alternative page. Otherwise preserve the existing
+        // flow (move to next other person or proceed to children section).
+        const currentOtherPerson = this.otherPersonsDetails.find(p => p.id === this.otherPersonId);
+
+        if (currentOtherPerson && currentOtherPerson.addressUnknown !== YesOrNo.YES) {
+          nextUrl = applyParms(C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERATIVE, {
+            otherPersonId: this.otherPersonId,
+          });
+        } else {
+          const nextPerson = getNextPerson(this.otherPersonsDetails, this.otherPersonId);
+          nextUrl = nextPerson
+            ? applyParms(C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS, {
+                otherPersonId: nextPerson.id as C100RebuildPartyDetails['id'],
+              })
+            : applyParms(C100_CHILDERN_MAINLY_LIVE_WITH, { childId: this.childrenDetails[0].id });
+        }
+        break;
+      }
+      case C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERATIVE: {
+        nextUrl = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE, {
+          otherPersonId: this.otherPersonId,
+        });
         break;
       }
       case C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY: {

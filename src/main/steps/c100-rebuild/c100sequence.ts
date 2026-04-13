@@ -124,6 +124,7 @@ import {
   C100_MIAM_PROVIDING_DA_EVIDENCE,
   C100_MIAM_UPLOAD_DA_EVIDENCE,
   C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERATIVE,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -136,6 +137,7 @@ import ChildrenDetailsNavigationController from './child-details/navigationContr
 import OtherChildrenDetailsNavigationController from './child-details/other-children/navigationController';
 import MIAMNavigationController from './miam/navigationController';
 import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
+import OtherPersonCommonConfidentialityController from './other-person-details/confidentiality/common/commonConfidentialityPostController';
 import PreviousProceedingsNavigationController from './other-proceedings/navigationController';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
@@ -774,6 +776,17 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL, caseData, req),
+  },
+  {
+    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERATIVE,
+    showInSection: Sections.C100,
+    postController: OtherPersonCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERATIVE,
+        caseData,
+        req
+      ),
   },
   {
     url: C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
