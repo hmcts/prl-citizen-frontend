@@ -1,3 +1,6 @@
+jest.mock('../../app/auth/service/otp', () => ({
+  generateOTP: jest.fn().mockResolvedValue('123456'),
+}));
 import { Logger } from '@hmcts/nodejs-logging';
 import axios from 'axios';
 import { LoggerInstance } from 'winston';
