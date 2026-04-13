@@ -63,7 +63,7 @@
     "@uppy/xhr-upload": "^2.0.7",
     "applicationinsights": "^2.3.5",
     "autobind-decorator": "^2.4.0",
-    "axios": "^1.13.5",
+    "axios": "^1.15.0",
     "config": "^3.3.7",
     "connect-redis": "^6.1.3",
     "cookie-parser": "^1.4.5",
@@ -84,7 +84,8 @@
     "jest-html-reporter": "^4.3.0",
     "jest-when": "^3.7.0",
     "jwt-decode": "^3.1.2",
-    "lodash": "^4.17.23",
+    "launchdarkly-node-server-sdk": "^6.3.0",
+    "lodash": "^4.18.1",
     "luxon": "^3.7.2",
     "negotiator": "^0.6.2",
     "node-emoji": "^2.2.0",
@@ -200,7 +201,7 @@
     "word-wrap": "1.2.5",
     "tough-cookie": "4.1.4",
     "follow-redirects": "^1.15.4",
-    "axios": "^1.13.5",
+    "axios": "^1.15.0",
     "braces": "^3.0.3",
     "pac-resolver": "^7.0.1",
     "socks": "^2.7.4",
@@ -217,7 +218,8 @@
     "js-yaml": "^4.1.1",
     "diff": "^8.0.3",
     "tar": "^7.5.10",
-    "immutable": "^3.8.3"
+    "immutable": "^3.8.3",
+    "lodash": "^4.18.1"
   },
   "packageManager": "yarn@4.6.0"
 }
