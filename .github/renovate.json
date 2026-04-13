@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["local>hmcts/.github:renovate-config", "local>hmcts/.github//renovate/automerge-minor"],
   "prConcurrentLimit": 15,
-  "schedule": ["after 4pm and before 7pm on every weekday"],
+  "schedule": ["after 4pm and before 7pm every weekday"],
   "rebaseWhen": "behind-base-branch",
   "packageRules": [
     {
