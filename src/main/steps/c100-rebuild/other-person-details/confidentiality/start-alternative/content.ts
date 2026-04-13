@@ -161,9 +161,8 @@ export const generateContent: TranslationFn = content => {
   }
   form.fields['startAlternative'].values = detailKnownFormField;
   const translations = languages[content.language]();
-  const otherPersonsData = content.userCase?.oprs_otherPersons?.filter(user => user['id'] === userId)[0];
-  const otherPersonsName = otherPersonsData?.['otherPersonFirstName'] + ' ' + otherPersonsData?.['otherPersonLastName'];
-  translations['applicantName'] = otherPersonsName;
+  const otherPersonsData = content.userCase?.oprs_otherPersons?.find(user => user['id'] === userId);
+  translations['applicantName'] = `${otherPersonsData?.firstName ?? ''} ${otherPersonsData?.lastName ?? ''}`.trim();
   return {
     ...translations,
     form,

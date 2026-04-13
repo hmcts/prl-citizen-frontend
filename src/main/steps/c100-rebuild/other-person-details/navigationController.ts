@@ -4,8 +4,8 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { applyParms } from '../../common/url-parser';
 import {
-  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
-  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERATIVE,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERNATIVE,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
   C100_CHECK_YOUR_ANSWER,
   C100_CHILDERN_MAINLY_LIVE_WITH,
   C100_OTHER_PERSON_CHECK,
@@ -90,7 +90,7 @@ class OtherPersonsDetailsNavigationController {
         const currentOtherPerson = this.otherPersonsDetails.find(p => p.id === this.otherPersonId);
 
         if (currentOtherPerson && currentOtherPerson.addressUnknown !== YesOrNo.YES) {
-          nextUrl = applyParms(C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERATIVE, {
+          nextUrl = applyParms(C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE, {
             otherPersonId: this.otherPersonId,
           });
         } else {
@@ -103,8 +103,8 @@ class OtherPersonsDetailsNavigationController {
         }
         break;
       }
-      case C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERATIVE: {
-        nextUrl = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE, {
+      case C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE: {
+        nextUrl = applyParms(C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERNATIVE, {
           otherPersonId: this.otherPersonId,
         });
         break;
