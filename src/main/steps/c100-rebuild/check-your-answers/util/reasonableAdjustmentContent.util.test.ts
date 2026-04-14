@@ -58,6 +58,7 @@ const TestReasonableAdjustmentElement = language => {
         intermediary: 'Intermediary',
         intermediaryHint:
           'a person to help you if you have communication needs by providing professional support to participate in a hearing',
+        intermediaryRequirementsHeading: 'Are you aware of whether an intermediary will be required?',
         langaugeRequirementHeading: 'Do you have any language requirements?',
         largePrintDocuments: 'Documents in large print',
         line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
@@ -70,6 +71,7 @@ const TestReasonableAdjustmentElement = language => {
         needInterpreterInCertainLanguage_subfield:
           'Give details of the language you require (including dialect, if applicable)',
         needToBeClosedWithSpeaker: 'Need to be close to who is speaking',
+        no: 'No',
         noLanguageRequirements: 'No, I do not have any language requirements at this time',
         noSafetyRequirements: 'No, I do not have any safety requirements at this time',
         noSupportRequired: 'No, I do not need any support at this time',
@@ -114,6 +116,7 @@ const TestReasonableAdjustmentElement = language => {
           "to join the hearing by video link rather than in person (it is the judge's decision whether to allow a hearing by video link).",
         visitCourtBeforeHearing: 'Visit to court before the hearing',
         wheelchairAccess: 'Step free / wheelchair access',
+        yes: 'Yes',
         courtGuidanceText: 'Court staff may get in touch with you about the requirements',
         errors: {
           ra_disabilityRequirements: {
@@ -172,6 +175,7 @@ const TestReasonableAdjustmentElement = language => {
         intermediary: 'Cyfryngwr',
         intermediaryHint:
           'Rhywun i’ch helpu os oes gennych anghenion cyfathrebu drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
+        intermediaryRequirementsHeading: 'A ydych yn gwybod a fydd angen cyfryngwr?',
         langaugeRequirementHeading: 'A oes gennych chi unrhyw ofynion ieithyddol?',
         largePrintDocuments: 'Dogfennau mewn print bras',
         line1:
@@ -185,6 +189,7 @@ const TestReasonableAdjustmentElement = language => {
         needInterpreterInCertainLanguage_subfield:
           'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yn berthnasol)',
         needToBeClosedWithSpeaker: "Angen bod yn agos at bwy bynnag sy'n siarad",
+        no: 'Nac ydw',
         noLanguageRequirements: 'Nac oes, nid oes gennyf unrhyw ofynion ieithyddol ar hyn o bryd',
         noSafetyRequirements: 'Nac oes, nid oes arnaf angen unrhyw ofynion o ran diogelwch ar hyn o bryd',
         noSupportRequired: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
@@ -233,6 +238,7 @@ const TestReasonableAdjustmentElement = language => {
           'ymuno â’r gwrandawiad drwy gyswllt fideo yn hytrach na bod yno wyneb yn wyneb (penderfyniad y barnwr yw p’un a ddylid caniatáu gwrandawiad drwy gyswllt fideo ai peidio).',
         visitCourtBeforeHearing: "Ymweld â'r llys cyn y gwrandawiad",
         wheelchairAccess: 'Dim gris / mynediad ar gyfer cadair olwyn',
+        yes: 'Ydw',
         courtGuidanceText: 'Efallai y bydd staff y llys yn cysylltu â chi ynghylch eich gofynion.',
         errors: {
           ra_disabilityRequirements: {

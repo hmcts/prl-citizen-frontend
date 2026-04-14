@@ -4,6 +4,7 @@
 import { languages as attendingCourtLanguages } from '../../../../steps/common/reasonable-adjustments/attending-court/content';
 import { languages as communicationHelpLanguages } from '../../../../steps/common/reasonable-adjustments/communication-help/content';
 import { languages as docsSupportLanguages } from '../../../../steps/common/reasonable-adjustments/documents-support/content';
+import { languages as intermediaryRequirementsLanguages } from '../../../../steps/common/reasonable-adjustments/intermediary/content';
 import { languages as langRequirementsLanguages } from '../../../../steps/common/reasonable-adjustments/language-requirements/content';
 import { languages as needsDuringHearingLanguages } from '../../../../steps/common/reasonable-adjustments/needs-during-court-hearing/content';
 import { languages as needsInCourtLanguages } from '../../../../steps/common/reasonable-adjustments/needs-in-court/content';
@@ -23,6 +24,8 @@ export const ReasonableAdjustmentElement = language => {
   const langRequirementsCy = langRequirementsLanguages.cy();
   const specialArrangementsEn = specialArrangementsLanguages.en();
   const specialArrangementsCy = specialArrangementsLanguages.cy();
+  const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
+  const intermediaryRequirementsCy = intermediaryRequirementsLanguages.cy();
   const supportDuringCaseEn = supportDuringCaseLanguages.en();
   const supportDuringCaseCy = supportDuringCaseLanguages.cy();
   const docsSupportEn = docsSupportLanguages.en();
@@ -42,6 +45,7 @@ export const ReasonableAdjustmentElement = language => {
         attendingCourtHeading: attendingCourtEn.headingTitle,
         langaugeRequirementHeading: langRequirementsEn.headingTitle,
         specialArrangementsHeading: specialArrangementsEn.headingTitle,
+        intermediaryRequirementsHeading: intermediaryRequirementsEn.headingTitle,
         disabilityRequirementHeading: supportDuringCaseEn.headingTitle,
         documentInformationHeading: docsSupportEn.headingTitle,
         communicationHelpHeading: communicationHelpEn.headingTitle,
@@ -51,6 +55,7 @@ export const ReasonableAdjustmentElement = language => {
         ...attendingCourtEn,
         ...langRequirementsEn,
         ...specialArrangementsEn,
+        ...intermediaryRequirementsEn,
         ...supportDuringCaseEn,
         ...docsSupportEn,
         ...communicationHelpEn,
@@ -67,6 +72,7 @@ export const ReasonableAdjustmentElement = language => {
         attendingCourtHeading: attendingCourtCy.headingTitle,
         langaugeRequirementHeading: langRequirementsCy.headingTitle,
         specialArrangementsHeading: specialArrangementsCy.headingTitle,
+        intermediaryRequirementsHeading: intermediaryRequirementsCy.headingTitle,
         disabilityRequirementHeading: supportDuringCaseCy.headingTitle,
         documentInformationHeading: docsSupportCy.headingTitle,
         communicationHelpHeading: communicationHelpCy.headingTitle,
@@ -76,6 +82,7 @@ export const ReasonableAdjustmentElement = language => {
         ...attendingCourtCy,
         ...langRequirementsCy,
         ...specialArrangementsCy,
+        ...intermediaryRequirementsCy,
         ...supportDuringCaseCy,
         ...docsSupportCy,
         ...communicationHelpCy,

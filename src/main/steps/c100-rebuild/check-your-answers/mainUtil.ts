@@ -2163,6 +2163,19 @@ export const reasonableAdjustment = (
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS, { root: RARootContext.C100_REBUILD }),
     },
     {
+      key: keys['intermediaryRequirementsHeading'],
+      anchorReference: 'ra_intermediaryRequirements',
+      valueHtml: populateError(
+        userCase.ra_intermediaryRequirements,
+        HTML.UNORDER_LIST +
+          resonableAdjustmentHelper(userCase, keys, 'ra_intermediaryRequirements', language) +
+          HTML.UNORDER_LIST_END,
+        language
+      ),
+
+      changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_INTERMEDIARY, { root: RARootContext.C100_REBUILD }),
+    },
+    {
       key: keys['disabilityRequirementHeading'],
       anchorReference: 'ra_disabilityRequirements',
       valueHtml: populateError(

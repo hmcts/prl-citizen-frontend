@@ -1277,6 +1277,26 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
+                    id: 'ra_intermediaryRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are you aware of whether an intermediary will be required?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are you aware of whether an intermediary will be required?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
                     id: 'ra_disabilityRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
@@ -1950,6 +1970,26 @@ describe('Content.ts toggle test cases', () => {
             },
             key: {
               text: 'Do you or the children need special arrangements at court?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_intermediaryRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are you aware of whether an intermediary will be required?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are you aware of whether an intermediary will be required?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -2639,6 +2679,26 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
+                    id: 'ra_intermediaryRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A ydych yn gwybod a fydd angen cyfryngwr?',
+                },
+              ],
+            },
+            key: {
+              text: 'A ydych yn gwybod a fydd angen cyfryngwr?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
                     id: 'ra_disabilityRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
@@ -3174,6 +3234,26 @@ describe('Content.ts toggle test cases', () => {
             },
             key: {
               text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_intermediaryRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A ydych yn gwybod a fydd angen cyfryngwr?',
+                },
+              ],
+            },
+            key: {
+              text: 'A ydych yn gwybod a fydd angen cyfryngwr?',
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -3814,6 +3894,26 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
+                    id: 'ra_intermediaryRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A ydych yn gwybod a fydd angen cyfryngwr?',
+                },
+              ],
+            },
+            key: {
+              text: 'A ydych yn gwybod a fydd angen cyfryngwr?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
                     id: 'ra_disabilityRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
@@ -4435,6 +4535,26 @@ describe('Content.ts toggle test cases', () => {
             },
             key: {
               text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_intermediaryRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A ydych yn gwybod a fydd angen cyfryngwr?',
+                },
+              ],
+            },
+            key: {
+              text: 'A ydych yn gwybod a fydd angen cyfryngwr?',
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -5120,6 +5240,26 @@ describe('Content.ts toggle test cases', () => {
             },
             key: {
               text: 'Do you or the children need special arrangements at court?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_intermediaryRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are you aware of whether an intermediary will be required?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are you aware of whether an intermediary will be required?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -5817,6 +5957,26 @@ describe('Content.ts toggle test cases', () => {
             },
             key: {
               text: 'Do you or the children need special arrangements at court?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_intermediaryRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are you aware of whether an intermediary will be required?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are you aware of whether an intermediary will be required?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',

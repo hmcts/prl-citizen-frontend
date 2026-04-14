@@ -11,6 +11,7 @@ import {
   REASONABLE_ADJUSTMENTS_COURT_NEEDS,
   REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT,
   REASONABLE_ADJUSTMENTS_ERROR,
+  REASONABLE_ADJUSTMENTS_INTERMEDIARY,
   REASONABLE_ADJUSTMENTS_INTRO,
   REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS,
   REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS,
@@ -41,6 +42,11 @@ export class ReasonableAdjustementsSequence {
       },
       {
         url: REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
+        showInSection: Sections.RA,
+        getNextStep: (caseData, req) => RAProvider.navigationController.getNextUrl(caseData, req),
+      },
+      {
+        url: REASONABLE_ADJUSTMENTS_INTERMEDIARY,
         showInSection: Sections.RA,
         getNextStep: (caseData, req) => RAProvider.navigationController.getNextUrl(caseData, req),
       },

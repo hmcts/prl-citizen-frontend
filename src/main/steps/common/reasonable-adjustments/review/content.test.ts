@@ -19,6 +19,7 @@ const en = {
     ra_needInterpreterInCertainLanguage_subfield: 'Please provide language details',
     ra_specialArrangements: 'Do you or the children need special safety arrangements at court?',
     ra_specialArrangementsOther_subfield: 'Please describe your need in detail',
+    ra_intermediaryRequirements: 'Are you aware of whether an intermediary will be required?',
     ra_disabilityRequirements:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
     ra_documentInformation: 'I need documents in an alternative format',
@@ -59,6 +60,7 @@ const cy = {
     ra_needInterpreterInCertainLanguage_subfield: 'Rhowch fanylion eich gofynion ieithyddol',
     ra_specialArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
     ra_specialArrangementsOther_subfield: 'Disgrifiwch eich anghenion yn fanwl',
+    ra_intermediaryRequirements: '--Welsh-- Select whether or not an intermediary will be required',
     ra_disabilityRequirements:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
     ra_documentInformation: 'Rwyf angen dogfennau mewn fformat amgen',
