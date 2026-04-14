@@ -3,7 +3,7 @@ import { CaseWithId } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { RAProvider } from '../../../../modules/reasonable-adjustments';
 import { C100_URL } from '../../../../steps/urls';
 export * from './routeGuard';
@@ -15,24 +15,16 @@ export const en = () => ({
   line1:
     'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
   select_all_apply: 'Select all that apply to you',
-  separateWaitingRoom: 'Separate waiting room',
-  separateExitEntrance: 'Separate exits and entrances',
-  screenWithOtherPeople: 'Screens so you and the other people in the case cannot see each other',
+  separateWaitingRoom: 'a separate waiting room in the court building',
+  separateExitEntrance: 'a separate entrance and exit from the court building',
+  screenWithOtherPeople:
+    'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
   screenWithOtherPeopleHint: 'This needs to be approved by a judge',
-  separateToilets: 'Separate toilets',
-  visitCourtBeforeHearing: 'Visit to court before the hearing',
-  videoLinks: 'Video links',
-  videoLinksHint: 'This needs to be approved by a judge',
-  specialArrangementsOther: 'Other',
-  specialArrangementsOther_subfield: 'Provide details of what you or the children need',
+  videoLinks:
+    "to join the hearing by video link rather than in person (it is the judge's decision whether to allow a hearing by video link).",
   noSafetyRequirements: 'No, I do not have any safety requirements at this time',
+  courtGuidanceText: 'Court staff may get in touch with you about the requirements',
   errors: {
-    ra_specialArrangementsOther_subfield: {
-      required: 'Give details of the special arrangements you or the children need',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
-      invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
-    },
     ra_specialArrangements: {
       required: 'Select whether you or the children need special arrangements at court',
     },
@@ -45,24 +37,17 @@ export const cy = () => ({
   line1:
     "Efallai y bydd angen trefniadau penodol arnoch chi neu'r plant pan fyddwch chi'n dod i'r llys. Rhaid i rai o’r addasiadau hyn gael eu cymeradwyo gan farnwr neu GLlTEF. Os yw eich anghenion yn newid, gallwch drafod hyn gyda'r llys.",
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
-  separateWaitingRoom: 'Ystafell aros ar wahân',
-  separateExitEntrance: "Drysau ar wahân i fynd i mewn ac allan o'r llys",
-  screenWithOtherPeople: 'Sgriniau i atal chi a’r bobl eraill yn yr achos rhag gweld eich gilydd',
+  separateWaitingRoom: 'ystafell aros ar wahân yn yr adeilad llys',
+  separateExitEntrance: 'mynedfa ac allanfa ar wahân o’r adeilad llys',
+  screenWithOtherPeople:
+    'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
   screenWithOtherPeopleHint: 'Mae angen i farnwr gymeradwyo hyn',
-  separateToilets: 'Toiledau ar wahân',
   visitCourtBeforeHearing: "Ymweld â'r llys cyn y gwrandawiad",
-  videoLinks: 'Cyswllt fideo',
-  videoLinksHint: 'Mae angen i farnwr gymeradwyo hyn',
-  specialArrangementsOther: 'Arall',
-  specialArrangementsOther_subfield: 'Darparwch fanylion am yr hyn rydych chi neu’r plant ei angen',
+  videoLinks:
+    'ymuno â’r gwrandawiad drwy gyswllt fideo yn hytrach na bod yno wyneb yn wyneb (penderfyniad y barnwr yw p’un a ddylid caniatáu gwrandawiad drwy gyswllt fideo ai peidio).',
   noSafetyRequirements: 'Nac oes, nid oes arnaf angen unrhyw ofynion o ran diogelwch ar hyn o bryd',
+  courtGuidanceText: 'Efallai y bydd staff y llys yn cysylltu â chi ynghylch eich gofynion.',
   errors: {
-    ra_specialArrangementsOther_subfield: {
-      required: "Rhowch fanylion y trefniadau arbennig sydd eu hangen arnoch chi neu'r plant",
-      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
-      invalid:
-        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
-    },
     ra_specialArrangements: {
       required: "Dewiswch p'un a oes angen trefniadau arbennig arnoch chi neu'r plant yn y llys",
     },
@@ -105,35 +90,8 @@ export const form: FormContent = {
           },
           {
             name: 'ra_specialArrangements',
-            label: l => l.separateToilets,
-            value: isC100Journey ? 'separateToilets' : 'separatetoilets',
-          },
-          {
-            name: 'ra_specialArrangements',
-            label: l => l.visitCourtBeforeHearing,
-            value: isC100Journey ? 'visitCourtBeforeHearing' : 'visitToCourt',
-          },
-          {
-            name: 'ra_specialArrangements',
             label: l => l.videoLinks,
-            hint: l => l.videoLinksHint,
             value: isC100Journey ? 'videoLinks' : 'videolinks',
-          },
-          {
-            name: 'ra_specialArrangements',
-            label: l => l.specialArrangementsOther,
-            value: isC100Journey ? 'specialArrangementsOther' : 'other',
-            subFields: {
-              ra_specialArrangementsOther_subfield: {
-                type: 'textarea',
-                label: l => l.specialArrangementsOther_subfield,
-                labelSize: null,
-                attributes: {
-                  rows: 3,
-                },
-                validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
-              },
-            },
           },
           {
             divider: l => l.divider,
@@ -145,6 +103,12 @@ export const form: FormContent = {
             exclusive: true,
           },
         ],
+      },
+      ra_specialArrangementsCourtGuidanceText: {
+        type: 'label',
+        classes: 'govuk-!-margin-bottom-6 govuk-!-font-weight-bold',
+        label: l => l.courtGuidanceText,
+        labelSize: 'm',
       },
     };
   },

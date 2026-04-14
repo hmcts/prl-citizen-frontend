@@ -136,12 +136,14 @@ const displayText = {
     breaks: 'Regular breaks',
     space: 'Space to be able to get up and move around',
     //Safety Arrangements
-    waitingroom: 'Separate waiting room',
-    separateexitentry: 'Separate exits and entrances',
-    screens: 'Screens so you and the other people in the case cannot see each other',
+    waitingroom: 'a separate waiting room in the court building',
+    separateexitentry: 'a separate entrance and exit from the court building',
+    screens:
+      'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
     separatetoilets: 'Separate toilets',
     visitToCourt: 'Visit to court before the hearing',
-    videolinks: 'Video links',
+    videolinks:
+      "to join the hearing by video link rather than in person (it is the judge's decision whether to allow a hearing by video link).",
     noSafetyrequirements: 'No, I do not have any safety requirements at this time',
     //Docs support
     docsreadformat: 'Documents in an easy read format',
@@ -198,9 +200,10 @@ const displayText = {
     breaks: 'Seibiannau rheolaidd',
     space: 'Lle i allu codi a symud o gwmpas',
     //Safety Arrangements
-    waitingroom: 'Ystafell aros ar wahân',
-    separateexitentry: "Drysau ar wahân i fynd i mewn ac allan o'r llys",
-    screens: "Sgriniau i'ch atal chi a’r bobl eraill yn yr achos rhag gweld eich gilydd",
+    waitingroom: 'ystafell aros ar wahân yn yr adeilad llys',
+    separateexitentry: 'mynedfa ac allanfa ar wahân o’r adeilad llys',
+    screens:
+      'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
     separatetoilets: 'Toiledau ar wahân',
     visitToCourt: "Ymweld â'r llys cyn y gwrandawiad",
     videolinks: 'Cyswllt fideo',
