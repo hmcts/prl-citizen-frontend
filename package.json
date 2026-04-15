@@ -199,7 +199,7 @@
     "socket.io-parser": "^4.2.6",
     "word-wrap": "1.2.5",
     "tough-cookie": "4.1.4",
-    "follow-redirects": "^1.15.4",
+    "follow-redirects": "^1.16.0",
     "axios": "^1.15.0",
     "braces": "^3.0.3",
     "pac-resolver": "^7.0.1",
