@@ -2168,11 +2168,10 @@ export const reasonableAdjustment = (
       valueHtml: populateError(
         userCase.ra_intermediaryRequirements,
         HTML.UNORDER_LIST +
-          resonableAdjustmentHelper(userCase, keys, 'ra_intermediaryRequirements', language) +
+          getYesNoTranslation(language, userCase['ra_intermediaryRequirements'], 'oesTranslation') +
           HTML.UNORDER_LIST_END,
         language
       ),
-
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_INTERMEDIARY, { root: RARootContext.C100_REBUILD }),
     },
     {
