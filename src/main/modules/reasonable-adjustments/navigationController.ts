@@ -153,35 +153,36 @@ export class ReasonableAdjustementsNavigationController {
     const currentPageUrlParts = currentPageUrl.split('/');
     currentPageUrlParts.splice(1, 1).unshift('');
     const currentPage = parseUrl(currentPageUrlParts.join('/')).url as PageLink;
+    const rootContext = isC100Journey ? RARootContext.C100_REBUILD : RARootContext.RESPONDENT;
 
     switch (currentPage) {
       case parseUrl(REASONABLE_ADJUSTMENTS_ATTENDING_COURT).url: {
         nextUrl = applyParms(REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS, {
-          root: isC100Journey ? RARootContext.C100_REBUILD : RARootContext.RESPONDENT,
+          root: rootContext,
         });
         break;
       }
       case parseUrl(REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS).url: {
         nextUrl = applyParms(REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS, {
-          root: isC100Journey ? RARootContext.C100_REBUILD : RARootContext.RESPONDENT,
+          root: rootContext,
         });
         break;
       }
       case parseUrl(REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS).url: {
         nextUrl = applyParms(REASONABLE_ADJUSTMENTS_INTERMEDIARY, {
-          root: isC100Journey ? RARootContext.C100_REBUILD : RARootContext.RESPONDENT,
+          root: rootContext,
         });
         break;
       }
       case parseUrl(REASONABLE_ADJUSTMENTS_INTERMEDIARY).url: {
         nextUrl = applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, {
-          root: isC100Journey ? RARootContext.C100_REBUILD : RARootContext.RESPONDENT,
+          root: rootContext,
         });
         break;
       }
       case parseUrl(REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE).url: {
-        nextUrl = applyParms(this.getNextPageUrl(currentPageUrl, currentPage, caseData, req), {
-          root: isC100Journey ? RARootContext.C100_REBUILD : RARootContext.RESPONDENT,
+        nextUrl = applyParms(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, {
+          root: rootContext,
         });
         break;
       }
@@ -191,7 +192,7 @@ export class ReasonableAdjustementsNavigationController {
       case parseUrl(REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING).url:
       case parseUrl(REASONABLE_ADJUSTMENTS_COURT_NEEDS).url: {
         nextUrl = applyParms(this.getNextPageUrl(currentPageUrl, currentPage, caseData, req), {
-          root: isC100Journey ? RARootContext.C100_REBUILD : RARootContext.RESPONDENT,
+          root: rootContext,
         });
         break;
       }

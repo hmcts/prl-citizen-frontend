@@ -110,13 +110,13 @@ describe('RA > sequence', () => {
         ...req,
         originalUrl: '/:root/reasonable-adjustments/support-during-your-case',
       })
-    ).toBe('/respondent/reasonable-adjustments/support-during-your-case');
+    ).toBe('/respondent/reasonable-adjustments/documents-support');
     expect(
       raSequence[4].getNextStep(req.session.userCase, {
         ...req,
         originalUrl: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
       })
-    ).toBe('/c100-rebuild/reasonable-adjustments/support-during-your-case');
+    ).toBe('/c100-rebuild/reasonable-adjustments/documents-support');
 
     expect(raSequence[5].url).toBe('/:root/reasonable-adjustments/documents-support');
     expect(raSequence[5].showInSection).toBe('cuira');
