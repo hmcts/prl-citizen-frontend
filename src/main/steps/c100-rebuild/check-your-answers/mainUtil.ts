@@ -2167,7 +2167,14 @@ export const reasonableAdjustment = (
       anchorReference: 'ra_intermediaryRequirements',
       valueHtml: populateError(
         userCase.ra_intermediaryRequirements,
-        getYesNoTranslation(language, userCase['ra_intermediaryRequirements'], 'oesTranslation'),
+        getYesNoTranslation(language, userCase['ra_intermediaryRequirements'], 'oesTranslation') +
+          (userCase.ra_intermediaryRequirements === YesOrNo.YES
+            ? HTML.UNORDER_LIST +
+              HTML.LIST_ITEM +
+              userCase.ra_intermediaryRequired_subfield +
+              HTML.LIST_ITEM_END +
+              HTML.UNORDER_LIST_END
+            : ''),
         language
       ),
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_INTERMEDIARY, { root: RARootContext.C100_REBUILD }),
@@ -2178,12 +2185,15 @@ export const reasonableAdjustment = (
       valueHtml: populateError(
         userCase.ra_disabilityRequirements,
         getYesNoTranslation(language, userCase['ra_disabilityRequirements'], 'oesTranslation') +
-          HTML.UNORDER_LIST +
-          resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements', language) +
-          HTML.UNORDER_LIST_END,
+          (userCase.ra_disabilityRequirements === YesOrNo.YES
+            ? HTML.UNORDER_LIST +
+              HTML.LIST_ITEM +
+              userCase.ra_assistanceRequired_subfield +
+              HTML.LIST_ITEM_END +
+              HTML.UNORDER_LIST_END
+            : ''),
         language
       ),
-
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, { root: RARootContext.C100_REBUILD }),
     },
   ];

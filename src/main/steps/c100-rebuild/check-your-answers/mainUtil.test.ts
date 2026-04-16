@@ -659,13 +659,8 @@ describe('test cases for main util', () => {
     const userCase = {
       id: 'id',
       state: undefined,
-      ra_disabilityRequirements: [
-        'documentsHelp',
-        'communicationHelp',
-        'extraSupport',
-        'feelComfortableSupport',
-        'helpTravellingMovingBuildingSupport',
-      ],
+      ra_disabilityRequirements: YesOrNo.YES,
+      ra_assistanceRequired_subfield: 'text area',
     };
     const PermissionForApplicationObj = reasonableAdjustment({ sectionTitles, keys, content }, userCase, 'en');
     expect(PermissionForApplicationObj?.rows).not.toBe([]);
