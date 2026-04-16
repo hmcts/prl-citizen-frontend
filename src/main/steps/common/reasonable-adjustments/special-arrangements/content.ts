@@ -42,7 +42,6 @@ export const cy = () => ({
   screenWithOtherPeople:
     'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
   screenWithOtherPeopleHint: 'Mae angen i farnwr gymeradwyo hyn',
-  visitCourtBeforeHearing: "Ymweld â'r llys cyn y gwrandawiad",
   videoLinks:
     'ymuno â’r gwrandawiad drwy gyswllt fideo yn hytrach na bod yno wyneb yn wyneb (penderfyniad y barnwr yw p’un a ddylid caniatáu gwrandawiad drwy gyswllt fideo ai peidio).',
   noSafetyRequirements: 'Nac oes, nid oes arnaf angen unrhyw ofynion o ran diogelwch ar hyn o bryd',

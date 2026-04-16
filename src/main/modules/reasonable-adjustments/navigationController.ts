@@ -107,7 +107,8 @@ export class ReasonableAdjustementsNavigationController {
       return nextPageUrl;
     }
 
-    const dataRefValues = [...(caseData?.[this.page.dataReference]?.filter(val => !!val) ?? [])];
+    const rawValue = caseData?.[this.page.dataReference];
+    const dataRefValues = Array.isArray(rawValue) ? [...rawValue.filter(val => !!val)] : rawValue ? [rawValue] : [];
     let nextPageIndex = -1;
 
     if (pageConfig.values.includes('*')) {
