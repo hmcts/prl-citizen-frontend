@@ -284,6 +284,61 @@ describe('documents > view > utils', () => {
         },
       ]);
     });
+
+    test('should get documents but ignore redacted documents', () => {
+      expect(
+        getDocuments(
+          [
+            {
+              partyId: '1',
+              partyType: 'respondent' as PartyType,
+              partyName: 'testname1',
+              categoryId: 'applicantStatements' as DocumentCategory,
+              uploadedBy: 'test user',
+              uploadedDate: '2024-01-01T16:24:33.122506',
+              reviewedDate: null,
+              document: {
+                document_url: 'MOCK_DOCUMENT_URL',
+                document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                document_filename: 'MOCK_FILENAME',
+                document_hash: null,
+                category_id: 'applicantStatements' as DocumentCategory,
+                document_creation_date: '01/01/2024',
+              },
+              documentWelsh: null,
+            },
+            {
+              partyId: '2',
+              partyName: 'testname2',
+              partyType: 'applicant' as PartyType,
+              categoryId: 'positionStatements' as DocumentCategory,
+              uploadedBy: 'test user2',
+              uploadedDate: '2024-01-01T16:24:33.122506',
+              reviewedDate: null,
+              document: {
+                document_url: 'MOCK_DOCUMENT_URL/00000000-0000-0000-0000-000000000000',
+                document_binary_url: 'MOCK_DOCUMENT_BINARY_URL/00000000-0000-0000-0000-000000000000/binary',
+                document_filename: '*Redacted*',
+                document_hash: null,
+                category_id: 'positionStatements' as DocumentCategory,
+                document_creation_date: '01/01/2024',
+              },
+              documentWelsh: null,
+            },
+          ],
+          PartyType.RESPONDENT,
+          'en'
+        )
+      ).toStrictEqual([
+        {
+          createdDate: '01 Jan 2024',
+          documentId: 'MOCK_DOCUMENT_URL',
+          documentName: 'MOCK_FILENAME',
+          documentDownloadUrl: '/respondent/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
+          uploadedBy: 'test user',
+        },
+      ]);
+    });
   });
 
   describe('getViewDocumentCategoryList', () => {
