@@ -74,7 +74,6 @@ const sectionTitles = {
 const keys = {
   whatAreYouAsking: 'whatAreYouAsking',
   wantingCourtToDo: 'wantingCourtToDo',
-  documentInformationHeading: 'documentInformationHeading',
   anyotherPersonYouwantList: 'anyotherPersonYouwantList',
   permissionForApplication: 'permissionForApplication',
   whereDoChildLive: 'whereDoChildLive',
@@ -3648,20 +3647,8 @@ describe('prepareProp', () => {
     { property: 'ra_noVideoAndPhoneHearing_subfield', expected: 'ra_typeOfHearing' },
     { property: 'ra_needInterpreterInCertainLanguage_subfield', expected: 'ra_languageNeeds' },
     { property: 'ra_specialArrangementsOther_subfield', expected: 'ra_specialArrangements' },
-    { property: 'ra_specifiedColorDocuments_subfield', expected: 'ra_documentInformation' },
-    { property: 'ra_largePrintDocuments_subfield', expected: 'ra_documentInformation' },
-    { property: 'ra_documentHelpOther_subfield', expected: 'ra_documentInformation' },
-    { property: 'ra_signLanguageInterpreter_subfield', expected: 'ra_communicationHelp' },
-    { property: 'ra_communicationHelpOther_subfield', expected: 'ra_communicationHelp' },
-    { property: 'ra_supportWorkerCarer_subfield', expected: 'ra_supportCourt' },
-    { property: 'ra_friendFamilyMember_subfield', expected: 'ra_supportCourt' },
-    { property: 'ra_therapyAnimal_subfield', expected: 'ra_supportCourt' },
-    { property: 'ra_supportCourtOther_subfield', expected: 'ra_supportCourt' },
-    { property: 'ra_appropriateLighting_subfield', expected: 'ra_feelComportable' },
-    { property: 'ra_feelComportableOther_subfield', expected: 'ra_feelComportable' },
-    { property: 'ra_parkingSpace_subfield', expected: 'ra_travellingCourt' },
-    { property: 'ra_differentTypeChair_subfield', expected: 'ra_travellingCourt' },
-    { property: 'ra_travellingCourtOther_subfield', expected: 'ra_travellingCourt' },
+    { property: 'ra_intermediaryRequired_subfield', expected: 'ra_intermediaryRequirements' },
+    { property: 'ra_assistanceRequired_subfield', expected: 'ra_disabilityRequirements' },
   ])('config for consent order flow should have the correct sections', ({ property, expected }) => {
     expect(prepareProp(property)).toBe(expected);
   });

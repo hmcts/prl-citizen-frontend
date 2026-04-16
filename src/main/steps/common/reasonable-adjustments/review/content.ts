@@ -5,7 +5,6 @@ import { PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { RAProvider } from '../../../../modules/reasonable-adjustments';
-import { RALocalComponentRespondentSupportNeeds } from '../../../../modules/reasonable-adjustments/definitions';
 import {
   GovUkNunjucksSummary,
   SummaryList,
@@ -14,14 +13,9 @@ import {
 import { applyParms } from '../../../../steps/common/url-parser';
 import {
   REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
-  REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
-  REASONABLE_ADJUSTMENTS_COURT_NEEDS,
-  REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT,
   REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS,
-  REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING,
   REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
   REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE,
-  REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING,
 } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
 
@@ -286,8 +280,6 @@ export const summaryList = (
   const contents = language === 'en' ? enContent : cyContent;
   const isReasonableAdjustmentsNeedsPresent = RAProvider.utils.isReasonableAdjustmentsNeedsPresent(userCase);
 
-  Object.assign(url, ammendUrls(userCase));
-
   for (const key in contents.keys) {
     const row = {
       key: contents.keys[key],
@@ -333,77 +325,6 @@ const getValue = (key: string, userCase: Partial<CaseWithId>, language = 'en'): 
     }
   }
   return temp;
-};
-
-const ammendUrls = (caseData: Partial<CaseWithId>): Record<string, string> => {
-  const urls = {};
-  const supportNeeds = caseData?.ra_disabilityRequirements;
-
-  if (supportNeeds?.includes(RALocalComponentRespondentSupportNeeds.DOCUMENTS_SUPPORT)) {
-    Object.assign(urls, {
-      ra_documentInformation: applyParms(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, { root: PartyType.RESPONDENT }),
-      ra_specifiedColorDocuments_subfield: applyParms(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_largePrintDocuments_subfield: applyParms(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_documentHelpOther_subfield: applyParms(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, {
-        root: PartyType.RESPONDENT,
-      }),
-    });
-  }
-
-  if (supportNeeds?.includes(RALocalComponentRespondentSupportNeeds.COMMUNICATION_HELP)) {
-    Object.assign(urls, {
-      ra_communicationHelp: applyParms(REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, { root: PartyType.RESPONDENT }),
-      ra_signLanguageInterpreter_subfield: applyParms(REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_communicationHelpOther_subfield: applyParms(REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, {
-        root: PartyType.RESPONDENT,
-      }),
-    });
-  }
-
-  if (supportNeeds?.includes(RALocalComponentRespondentSupportNeeds.COURT_HEARING_SUPPORT)) {
-    Object.assign(urls, {
-      ra_supportCourt: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, { root: PartyType.RESPONDENT }),
-      ra_supportWorkerCarer_subfield: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_friendFamilyMember_subfield: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_therapyAnimal_subfield: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, { root: PartyType.RESPONDENT }),
-      ra_supportCourtOther_subfield: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, {
-        root: PartyType.RESPONDENT,
-      }),
-    });
-  }
-
-  if (supportNeeds?.includes(RALocalComponentRespondentSupportNeeds.COURT_HEARING_COMFORT)) {
-    Object.assign(urls, {
-      ra_feelComportable: applyParms(REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING, { root: PartyType.RESPONDENT }),
-      ra_appropriateLighting_subfield: applyParms(REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_feelComportableOther_subfield: applyParms(REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING, {
-        root: PartyType.RESPONDENT,
-      }),
-    });
-  }
-
-  if (supportNeeds?.includes(RALocalComponentRespondentSupportNeeds.TRAVELLING_TO_COURT)) {
-    Object.assign(urls, {
-      ra_travellingCourt: applyParms(REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: PartyType.RESPONDENT }),
-      ra_parkingSpace_subfield: applyParms(REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: PartyType.RESPONDENT }),
-      ra_differentTypeChair_subfield: applyParms(REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: PartyType.RESPONDENT }),
-      ra_travellingCourtOther_subfield: applyParms(REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: PartyType.RESPONDENT }),
-    });
-  }
-
-  return urls;
 };
 
 const getContents = (language: string, content: CommonContent): Record<string, any> => {

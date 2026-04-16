@@ -15,19 +15,14 @@ import {
   PageLink,
   REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH,
-  REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
-  REASONABLE_ADJUSTMENTS_COURT_NEEDS,
-  REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT,
   REASONABLE_ADJUSTMENTS_ERROR,
   REASONABLE_ADJUSTMENTS_INTERMEDIARY,
   REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS,
   REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS,
   REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS_REVIEW,
-  REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING,
   REASONABLE_ADJUSTMENTS_RESPONDENT_RESPONSE_REVIEW,
   REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
   REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE,
-  REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING,
 } from '../../steps/urls';
 
 import { RALocalComponentC100SupportNeeds, RALocalComponentRespondentSupportNeeds, RARootContext } from './definitions';
@@ -39,41 +34,6 @@ export class ReasonableAdjustementsNavigationController {
       {
         url: REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE,
         values: ['*'],
-      },
-      {
-        url: REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT,
-        values: [
-          RALocalComponentC100SupportNeeds.DOCUMENTS_SUPPORT,
-          RALocalComponentRespondentSupportNeeds.DOCUMENTS_SUPPORT,
-        ],
-      },
-      {
-        url: REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
-        values: [
-          RALocalComponentC100SupportNeeds.COMMUNICATION_HELP,
-          RALocalComponentRespondentSupportNeeds.COMMUNICATION_HELP,
-        ],
-      },
-      {
-        url: REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING,
-        values: [
-          RALocalComponentC100SupportNeeds.COURT_HEARING_SUPPORT,
-          RALocalComponentRespondentSupportNeeds.COURT_HEARING_SUPPORT,
-        ],
-      },
-      {
-        url: REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING,
-        values: [
-          RALocalComponentC100SupportNeeds.COURT_HEARING_COMFORT,
-          RALocalComponentRespondentSupportNeeds.COURT_HEARING_COMFORT,
-        ],
-      },
-      {
-        url: REASONABLE_ADJUSTMENTS_COURT_NEEDS,
-        values: [
-          RALocalComponentC100SupportNeeds.TRAVELLING_TO_COURT,
-          RALocalComponentRespondentSupportNeeds.TRAVELLING_TO_COURT,
-        ],
       },
       {
         url: C100_CHECK_YOUR_ANSWER,
@@ -181,16 +141,6 @@ export class ReasonableAdjustementsNavigationController {
         break;
       }
       case parseUrl(REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE).url: {
-        nextUrl = applyParms(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, {
-          root: rootContext,
-        });
-        break;
-      }
-      case parseUrl(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT).url:
-      case parseUrl(REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP).url:
-      case parseUrl(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING).url:
-      case parseUrl(REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING).url:
-      case parseUrl(REASONABLE_ADJUSTMENTS_COURT_NEEDS).url: {
         nextUrl = applyParms(this.getNextPageUrl(currentPageUrl, currentPage, caseData, req), {
           root: rootContext,
         });

@@ -483,11 +483,6 @@ export const REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS: PageLink = `/:root/${
 export const REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/special-arrangements`;
 export const REASONABLE_ADJUSTMENTS_INTERMEDIARY: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/intermediary`;
 export const REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/support-during-your-case`;
-export const REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/documents-support`;
-export const REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/communication-help`;
-export const REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/support-for-court-hearing`;
-export const REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/needs-during-court-hearing`;
-export const REASONABLE_ADJUSTMENTS_COURT_NEEDS: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/needs-in-court`;
 export const REASONABLE_ADJUSTMENTS_RESPONDENT_RESPONSE_REVIEW: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/review`;
 /** Reasonable Adjustments end */
 

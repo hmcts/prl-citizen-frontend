@@ -41,7 +41,7 @@ describe('RA > sequence', () => {
 
   test('should contain 1 entries in respondent 1 screen sequence', () => {
     const raSequence = RASequence.getSequence();
-    expect(raSequence).toHaveLength(16);
+    expect(raSequence).toHaveLength(11);
 
     expect(raSequence[0].url).toBe('/:root/reasonable-adjustments/attending-court');
     expect(raSequence[0].showInSection).toBe('cuira');
@@ -110,83 +110,36 @@ describe('RA > sequence', () => {
         ...req,
         originalUrl: '/:root/reasonable-adjustments/support-during-your-case',
       })
-    ).toBe('/respondent/reasonable-adjustments/documents-support');
+    ).toBe('/respondent/reasonable-adjustments/support-during-your-case');
     expect(
       raSequence[4].getNextStep(req.session.userCase, {
         ...req,
         originalUrl: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
       })
-    ).toBe('/c100-rebuild/reasonable-adjustments/documents-support');
+    ).toBe('/c100-rebuild/reasonable-adjustments/support-during-your-case');
 
-    expect(raSequence[5].url).toBe('/:root/reasonable-adjustments/documents-support');
+    expect(raSequence[5].url).toBe('/:root/reasonable-adjustments/review');
     expect(raSequence[5].showInSection).toBe('cuira');
     expect(
       raSequence[5].getNextStep(req.session.userCase, {
-        ...req,
-        originalUrl: '/:root/reasonable-adjustments/documents-support',
-      })
-    ).toBe('/respondent/reasonable-adjustments/documents-support');
-
-    expect(raSequence[6].url).toBe('/:root/reasonable-adjustments/communication-help');
-    expect(raSequence[6].showInSection).toBe('cuira');
-    expect(
-      raSequence[6].getNextStep(req.session.userCase, {
-        ...req,
-        originalUrl: '/:root/reasonable-adjustments/communication-help',
-      })
-    ).toBe('/respondent/reasonable-adjustments/communication-help');
-
-    expect(raSequence[7].url).toBe('/:root/reasonable-adjustments/support-for-court-hearing');
-    expect(raSequence[7].showInSection).toBe('cuira');
-    expect(
-      raSequence[7].getNextStep(req.session.userCase, {
-        ...req,
-        originalUrl: '/:root/reasonable-adjustments/support-for-court-hearing',
-      })
-    ).toBe('/respondent/reasonable-adjustments/support-for-court-hearing');
-
-    expect(raSequence[8].url).toBe('/:root/reasonable-adjustments/needs-during-court-hearing');
-    expect(raSequence[8].showInSection).toBe('cuira');
-    expect(
-      raSequence[8].getNextStep(req.session.userCase, {
-        ...req,
-        originalUrl: '/:root/reasonable-adjustments/needs-during-court-hearing',
-      })
-    ).toBe('/respondent/reasonable-adjustments/needs-during-court-hearing');
-
-    expect(raSequence[9].url).toBe('/:root/reasonable-adjustments/needs-in-court');
-    expect(raSequence[9].showInSection).toBe('cuira');
-    expect(
-      raSequence[9].getNextStep(req.session.userCase, {
-        ...req,
-        originalUrl: '/:root/reasonable-adjustments/needs-in-court',
-      })
-    ).toBe('/respondent/reasonable-adjustments/needs-in-court');
-
-    expect(raSequence[10].url).toBe('/:root/reasonable-adjustments/review');
-    expect(raSequence[10].showInSection).toBe('cuira');
-    expect(
-      raSequence[10].getNextStep(req.session.userCase, {
         ...req,
         originalUrl: '/:root/reasonable-adjustments/review',
       })
     ).toBe('/tasklistresponse/start');
 
-    expect(raSequence[11].url).toBe('/:partyType/reasonable-adjustments/intro');
-    expect(raSequence[11].showInSection).toBe('cuira');
+    expect(raSequence[6].url).toBe('/:partyType/reasonable-adjustments/intro');
+    expect(raSequence[6].showInSection).toBe('cuira');
     expect(
-      raSequence[11].getNextStep(req.session.userCase, {
+      raSequence[6].getNextStep(req.session.userCase, {
         ...req,
         originalUrl: '/:partyType/reasonable-adjustments/intro',
       })
     ).toBe('/applicant/reasonable-adjustments/language-requirements-and-special-arrangements');
 
-    expect(raSequence[12].url).toBe(
-      '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements'
-    );
-    expect(raSequence[12].showInSection).toBe('cuira');
+    expect(raSequence[7].url).toBe('/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements');
+    expect(raSequence[7].showInSection).toBe('cuira');
     expect(
-      raSequence[12].getNextStep(
+      raSequence[7].getNextStep(
         {
           ra_languageReqAndSpecialArrangements: 'ra_languageReqAndSpecialArrangements',
         },
@@ -197,27 +150,27 @@ describe('RA > sequence', () => {
       )
     ).toBe('/applicant/reasonable-adjustments/language-requirements-and-special-arrangements/review');
     expect(
-      raSequence[12].getNextStep(req.session.userCase, {
+      raSequence[7].getNextStep(req.session.userCase, {
         ...req,
         originalUrl: '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements',
       })
     ).toBe('/reasonable-adjustments/launch');
 
-    expect(raSequence[13].url).toBe(
+    expect(raSequence[8].url).toBe(
       '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements/review'
     );
-    expect(raSequence[13].showInSection).toBe('cuira');
+    expect(raSequence[8].showInSection).toBe('cuira');
     expect(
-      raSequence[13].getNextStep(req.session.userCase, {
+      raSequence[8].getNextStep(req.session.userCase, {
         ...req,
         originalUrl: '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements/review',
       })
     ).toBe('/reasonable-adjustments/launch');
 
-    expect(raSequence[14].url).toBe('/:partyType/reasonable-adjustments/confirmation');
-    expect(raSequence[14].showInSection).toBe('cuira');
+    expect(raSequence[9].url).toBe('/:partyType/reasonable-adjustments/confirmation');
+    expect(raSequence[9].showInSection).toBe('cuira');
     expect(
-      raSequence[14].getNextStep(
+      raSequence[9].getNextStep(
         { id: '1234' },
         {
           ...req,
@@ -226,10 +179,10 @@ describe('RA > sequence', () => {
       )
     ).toBe('/case/1234');
 
-    expect(raSequence[15].url).toBe('/reasonable-adjustments/error');
-    expect(raSequence[15].showInSection).toBe('cuira');
+    expect(raSequence[10].url).toBe('/reasonable-adjustments/error');
+    expect(raSequence[10].showInSection).toBe('cuira');
     expect(
-      raSequence[15].getNextStep(
+      raSequence[10].getNextStep(
         { id: '1234' },
         {
           ...req,

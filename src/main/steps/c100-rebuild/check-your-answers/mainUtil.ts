@@ -2169,11 +2169,7 @@ export const reasonableAdjustment = (
         userCase.ra_intermediaryRequirements,
         getYesNoTranslation(language, userCase['ra_intermediaryRequirements'], 'oesTranslation') +
           (userCase.ra_intermediaryRequirements === YesOrNo.YES
-            ? HTML.UNORDER_LIST +
-              HTML.LIST_ITEM +
-              userCase.ra_intermediaryRequired_subfield +
-              HTML.LIST_ITEM_END +
-              HTML.UNORDER_LIST_END
+            ? ' : ' + userCase.ra_intermediaryRequired_subfield
             : ''),
         language
       ),
@@ -2185,102 +2181,13 @@ export const reasonableAdjustment = (
       valueHtml: populateError(
         userCase.ra_disabilityRequirements,
         getYesNoTranslation(language, userCase['ra_disabilityRequirements'], 'oesTranslation') +
-          (userCase.ra_disabilityRequirements === YesOrNo.YES
-            ? HTML.UNORDER_LIST +
-              HTML.LIST_ITEM +
-              userCase.ra_assistanceRequired_subfield +
-              HTML.LIST_ITEM_END +
-              HTML.UNORDER_LIST_END
-            : ''),
+          (userCase.ra_disabilityRequirements === YesOrNo.YES ? ' : ' + userCase.ra_assistanceRequired_subfield : ''),
         language
       ),
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, { root: RARootContext.C100_REBUILD }),
     },
   ];
-  const disabilityRequirements = userCase['ra_disabilityRequirements'];
-  if (userCase.hasOwnProperty('ra_disabilityRequirements') && Array.isArray(disabilityRequirements)) {
-    disabilityRequirements.forEach(requirement => {
-      switch (requirement) {
-        case 'documentsHelp': {
-          SummaryData.push({
-            key: keys['documentInformationHeading'],
-            anchorReference: 'ra_documentInformation',
-            valueHtml: populateError(
-              userCase.ra_documentInformation,
-              HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation', language) +
-                HTML.UNORDER_LIST_END,
-              language
-            ),
-            changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, { root: RARootContext.C100_REBUILD }),
-          });
-          break;
-        }
-        case 'communicationHelp': {
-          SummaryData.push({
-            key: keys['communicationHelpHeading'],
-            anchorReference: 'ra_communicationHelp',
-            valueHtml: populateError(
-              userCase.ra_communicationHelp,
-              HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp', language) +
-                HTML.UNORDER_LIST_END,
-              language
-            ),
-            changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, { root: RARootContext.C100_REBUILD }),
-          });
-          break;
-        }
-        case 'extraSupport': {
-          SummaryData.push({
-            key: keys['supportCourtHeading'],
-            anchorReference: 'ra_supportCourt',
-            valueHtml: populateError(
-              userCase.ra_supportCourt,
-              HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt', language) +
-                HTML.UNORDER_LIST_END,
-              language
-            ),
-            changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, {
-              root: RARootContext.C100_REBUILD,
-            }),
-          });
-          break;
-        }
-        case 'feelComfortableSupport': {
-          SummaryData.push({
-            key: keys['feelComfortableHeading'],
-            anchorReference: 'ra_feelComportable',
-            valueHtml: populateError(
-              userCase.ra_feelComportable,
-              HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable', language) +
-                HTML.UNORDER_LIST_END,
-              language
-            ),
-            changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING, { root: RARootContext.C100_REBUILD }),
-          });
-          break;
-        }
-        case 'helpTravellingMovingBuildingSupport': {
-          SummaryData.push({
-            key: keys['travellingCourtHeading'],
-            anchorReference: 'ra_travellingCourt',
-            valueHtml: populateError(
-              userCase.ra_travellingCourt,
-              HTML.UNORDER_LIST +
-                resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt', language) +
-                HTML.UNORDER_LIST_END,
-              language
-            ),
-            changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: RARootContext.C100_REBUILD }),
-          });
-          break;
-        }
-      }
-    });
-  }
+
   return {
     title: sectionTitles['reasonAbleAdjustment'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -3224,25 +3131,10 @@ export const prepareProp = (property: string): string => {
       return 'ra_languageNeeds';
     case 'ra_specialArrangementsOther_subfield':
       return 'ra_specialArrangements';
-    case 'ra_specifiedColorDocuments_subfield':
-    case 'ra_largePrintDocuments_subfield':
-    case 'ra_documentHelpOther_subfield':
-      return 'ra_documentInformation';
-    case 'ra_signLanguageInterpreter_subfield':
-    case 'ra_communicationHelpOther_subfield':
-      return 'ra_communicationHelp';
-    case 'ra_supportWorkerCarer_subfield':
-    case 'ra_friendFamilyMember_subfield':
-    case 'ra_therapyAnimal_subfield':
-    case 'ra_supportCourtOther_subfield':
-      return 'ra_supportCourt';
-    case 'ra_appropriateLighting_subfield':
-    case 'ra_feelComportableOther_subfield':
-      return 'ra_feelComportable';
-    case 'ra_parkingSpace_subfield':
-    case 'ra_differentTypeChair_subfield':
-    case 'ra_travellingCourtOther_subfield':
-      return 'ra_travellingCourt';
+    case 'ra_intermediaryRequired_subfield':
+      return 'ra_intermediaryRequirements';
+    case 'ra_assistanceRequired_subfield':
+      return 'ra_disabilityRequirements';
 
     default:
       return property;
