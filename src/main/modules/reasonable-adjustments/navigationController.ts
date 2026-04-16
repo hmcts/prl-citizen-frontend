@@ -107,8 +107,7 @@ export class ReasonableAdjustementsNavigationController {
       return nextPageUrl;
     }
 
-    const rawValue = caseData?.[this.page.dataReference];
-    const dataRefValues = Array.isArray(rawValue) ? [...rawValue.filter(val => !!val)] : rawValue ? [rawValue] : [];
+    const dataRefValues = [...(caseData?.[this.page.dataReference]?.filter(val => !!val) ?? [])];
     let nextPageIndex = -1;
 
     if (pageConfig.values.includes('*')) {
@@ -180,7 +179,12 @@ export class ReasonableAdjustementsNavigationController {
         });
         break;
       }
-      case parseUrl(REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE).url:
+      case parseUrl(REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE).url: {
+        nextUrl = applyParms(this.getNextPageUrl(currentPageUrl, currentPage, caseData, req), {
+          root: isC100Journey ? RARootContext.C100_REBUILD : RARootContext.RESPONDENT,
+        });
+        break;
+      }
       case parseUrl(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT).url:
       case parseUrl(REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP).url:
       case parseUrl(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING).url:
