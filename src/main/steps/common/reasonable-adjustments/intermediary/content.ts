@@ -2,7 +2,7 @@
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { RAProvider } from '../../../../modules/reasonable-adjustments';
 export * from './routeGuard';
 
@@ -12,8 +12,15 @@ export const en = () => ({
   headingTitle: 'Are you aware of whether an intermediary will be required?',
   yes: 'Yes',
   no: 'No',
+  intermediaryRequired: 'Give details in the box below.',
   errors: {
-    ra_disabilityRequirements: {
+    ra_intermediaryRequired_subfield: {
+      required: "Provide details for 'Are you aware of whether an intermediary will be required?'",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    ra_intermediaryRequirements: {
       required: 'Select whether or not an intermediary will be required',
     },
   },
@@ -24,9 +31,16 @@ export const cy = () => ({
   headingTitle: 'A ydych yn gwybod a fydd angen cyfryngwr?',
   yes: 'Ydw',
   no: 'Nac ydw',
+  intermediaryRequired: 'Os Oes, nodwch beth yw’r anghenion hynny',
   errors: {
-    ra_disabilityRequirements: {
-      required: '--Welsh-- Select whether or not an intermediary will be required',
+    ra_intermediaryRequired_subfield: {
+      required: "Rhowch fanylion 'A ydych yn gwybod a fydd angen cyfryngwr?'",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
+    },
+    ra_intermediaryRequirements: {
+      required: "Dewiswch p'un a fydd angen cyfryngwr ai peidio",
     },
   },
 });
@@ -49,6 +63,17 @@ export const form: FormContent = {
           {
             label: l => l.yes,
             value: YesOrNo.YES,
+            subFields: {
+              ra_intermediaryRequired_subfield: {
+                type: 'textarea',
+                labelSize: null,
+                label: l => l.intermediaryRequired,
+                attributes: {
+                  rows: 4,
+                },
+                validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              },
+            },
           },
           {
             label: l => l.no,

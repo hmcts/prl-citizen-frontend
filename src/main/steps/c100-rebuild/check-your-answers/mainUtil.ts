@@ -2167,9 +2167,7 @@ export const reasonableAdjustment = (
       anchorReference: 'ra_intermediaryRequirements',
       valueHtml: populateError(
         userCase.ra_intermediaryRequirements,
-        HTML.UNORDER_LIST +
-          getYesNoTranslation(language, userCase['ra_intermediaryRequirements'], 'oesTranslation') +
-          HTML.UNORDER_LIST_END,
+        getYesNoTranslation(language, userCase['ra_intermediaryRequirements'], 'oesTranslation'),
         language
       ),
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_INTERMEDIARY, { root: RARootContext.C100_REBUILD }),
@@ -2179,7 +2177,8 @@ export const reasonableAdjustment = (
       anchorReference: 'ra_disabilityRequirements',
       valueHtml: populateError(
         userCase.ra_disabilityRequirements,
-        HTML.UNORDER_LIST +
+        getYesNoTranslation(language, userCase['ra_disabilityRequirements'], 'oesTranslation') +
+          HTML.UNORDER_LIST +
           resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements', language) +
           HTML.UNORDER_LIST_END,
         language

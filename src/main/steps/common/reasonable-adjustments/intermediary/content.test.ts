@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent, en as commonContentEN, generatePageContent } from '../../common.content';
 
 import { generateContent } from './content';
@@ -13,8 +13,15 @@ const en = {
   headingTitle: 'Are you aware of whether an intermediary will be required?',
   yes: 'Yes',
   no: 'No',
+  intermediaryRequired: 'Give details in the box below.',
   errors: {
-    ra_disabilityRequirements: {
+    ra_intermediaryRequired_subfield: {
+      required: "Provide details for 'Are you aware of whether an intermediary will be required?'",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    ra_intermediaryRequirements: {
       required: 'Select whether or not an intermediary will be required',
     },
   },
@@ -25,9 +32,16 @@ const cy = {
   headingTitle: 'A ydych yn gwybod a fydd angen cyfryngwr?',
   yes: 'Ydw',
   no: 'Nac ydw',
+  intermediaryRequired: 'Os Oes, nodwch beth yw’r anghenion hynny',
   errors: {
-    ra_disabilityRequirements: {
-      required: '--Welsh-- Select whether or not an intermediary will be required',
+    ra_intermediaryRequired_subfield: {
+      required: "Rhowch fanylion 'A ydych yn gwybod a fydd angen cyfryngwr?'",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
+    },
+    ra_intermediaryRequirements: {
+      required: "Dewiswch p'un a fydd angen cyfryngwr ai peidio",
     },
   },
 };
@@ -61,19 +75,25 @@ describe('Intermediary requirements content', () => {
 
   test('should contain intermediaryRequirements field', () => {
     const intermediaryRequirementsField = fields.ra_intermediaryRequirements as FormOptions;
+    const intermediaryRequiredField = intermediaryRequirementsField.values[0].subFields
+      ?.ra_intermediaryRequired_subfield as FormOptions;
 
     expect(intermediaryRequirementsField.labelHidden).toBe(true);
     expect(intermediaryRequirementsField.type).toBe('radios');
     expect(intermediaryRequirementsField.classes).toBe('govuk-radios');
-    expect((intermediaryRequirementsField.label as Function)(generatedContent)).toBe(
-      'Are you aware of whether an intermediary will be required?'
-    );
+    expect((intermediaryRequirementsField.label as Function)(generatedContent)).toBe(en.headingTitle);
 
     (intermediaryRequirementsField.validator as Validator)(generatedContent);
     expect(isFieldFilledIn).toHaveBeenCalled();
 
     expect((intermediaryRequirementsField.values[0].label as Function)(commonContentEN)).toBe(YesOrNo.YES);
     expect((intermediaryRequirementsField.values[1].label as Function)(commonContentEN)).toBe(YesOrNo.NO);
+
+    expect(intermediaryRequiredField.type).toBe('textarea');
+    expect((intermediaryRequiredField.label as LanguageLookup)(generatedContent)).toBe(en.intermediaryRequired);
+    (intermediaryRequiredField.validator as Function)('test text area');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
+    expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
   });
 
   test('should contain continue button', () => {
