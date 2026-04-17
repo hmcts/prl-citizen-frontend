@@ -50,52 +50,6 @@ export class ReasonableAdjustementsNavigationController {
     ],
   };
 
-  private getNextPageUrl(
-    currentPageUrl: PageLink,
-    currentPage: PageLink,
-    caseData: Partial<CaseWithId>,
-    req: AppRequest
-  ): PageLink {
-    const pageConfig = this.page.pages.find(page => currentPage === parseUrl(page.url).url);
-    let nextPageUrl = currentPageUrl;
-
-    if (!pageConfig) {
-      return nextPageUrl;
-    }
-
-    const dataRefValues = [...(caseData?.[this.page.dataReference]?.filter(val => !!val) ?? [])];
-    let nextPageIndex = -1;
-
-    if (pageConfig.values.includes('*')) {
-      nextPageIndex = 0;
-    } else {
-      const currentPageIndex = _.findIndex(dataRefValues, value => pageConfig.values.includes(value));
-      if (currentPageIndex >= 0 && currentPageIndex < dataRefValues.length - 1) {
-        nextPageIndex = currentPageIndex + 1;
-      }
-    }
-
-    nextPageUrl =
-      nextPageIndex >= 0
-        ? _.find(
-            this.page.pages,
-            page =>
-              page.values.includes(dataRefValues[nextPageIndex]) &&
-              (this.doesPageHaveFunction(page, currentPageUrl)
-                ? page.isExitPage(currentPageUrl, caseData, req) === true
-                : true)
-          ).url
-        : this.page.pages.find(page => {
-            return _.isFunction(page.isExitPage) && page.isExitPage(currentPageUrl, caseData, req) === true;
-          })?.url ?? currentPageUrl;
-
-    return nextPageUrl;
-  }
-
-  private doesPageHaveFunction(page, currentPageUrl: string): boolean {
-    return currentPageUrl.includes(C100_URL) ? _.isFunction(page.isExitPage) : false;
-  }
-
   public getNextUrl(caseData: Partial<CaseWithId> | undefined, req: AppRequest | undefined): PageLink {
     let nextUrl;
     const currentPageUrl = req?.originalUrl as PageLink;
@@ -137,9 +91,10 @@ export class ReasonableAdjustementsNavigationController {
         break;
       }
       case parseUrl(REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE).url: {
-        nextUrl = applyParms(this.getNextPageUrl(currentPageUrl, currentPage, caseData, req), {
-          root: rootContext,
+        const exitPage = this.page.pages.find(page => {
+          return _.isFunction(page.isExitPage) && page.isExitPage(currentPageUrl, caseData, req) === true;
         });
+        nextUrl = exitPage ? applyParms(exitPage.url, { root: rootContext }) : currentPageUrl;
         break;
       }
       case parseUrl(REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS).url: {

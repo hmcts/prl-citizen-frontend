@@ -1,4 +1,5 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { YesOrNo } from '../../app/case/definition';
 
 import { RASequence } from './sequence';
 
@@ -12,7 +13,7 @@ describe('RA > sequence', () => {
         ra_specialArrangementsOther_subfield: ['ra_specialArrangementsOther_subfield'],
         ra_languageNeeds: ['ra_languageNeeds'],
         ra_needInterpreterInCertainLanguage_subfield: ['ra_needInterpreterInCertainLanguage_subfield'],
-        ra_disabilityRequirements: ['*'],
+        ra_disabilityRequirements: YesOrNo.NO,
         ra_documentInformation: ['ra_documentInformation'],
         ra_specifiedColorDocuments_subfield: ['ra_specifiedColorDocuments_subfield'],
         ra_largePrintDocuments_subfield: ['ra_largePrintDocuments_subfield'],
@@ -110,13 +111,13 @@ describe('RA > sequence', () => {
         ...req,
         originalUrl: '/:root/reasonable-adjustments/support-during-your-case',
       })
-    ).toBe('/respondent/reasonable-adjustments/support-during-your-case');
+    ).toBe('/:root/reasonable-adjustments/support-during-your-case');
     expect(
       raSequence[4].getNextStep(req.session.userCase, {
         ...req,
         originalUrl: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
       })
-    ).toBe('/c100-rebuild/reasonable-adjustments/support-during-your-case');
+    ).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
 
     expect(raSequence[5].url).toBe('/:root/reasonable-adjustments/review');
     expect(raSequence[5].showInSection).toBe('cuira');
