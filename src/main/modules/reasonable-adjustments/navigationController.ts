@@ -32,10 +32,6 @@ export class ReasonableAdjustementsNavigationController {
     dataReference: 'ra_disabilityRequirements',
     pages: [
       {
-        url: REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE,
-        values: ['*'],
-      },
-      {
         url: C100_CHECK_YOUR_ANSWER,
         values: [RALocalComponentC100SupportNeeds.NO_SUPPORT],
         isExitPage: (currentPageUrl: PageLink, caseData: CaseWithId, req: AppRequest): boolean =>
