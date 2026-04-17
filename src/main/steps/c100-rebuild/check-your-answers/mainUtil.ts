@@ -2159,7 +2159,6 @@ export const reasonableAdjustment = (
           HTML.UNORDER_LIST_END,
         language
       ),
-
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS, { root: RARootContext.C100_REBUILD }),
     },
     {
@@ -2179,7 +2178,7 @@ export const reasonableAdjustment = (
       key: keys['disabilityRequirementHeading'],
       anchorReference: 'ra_disabilityRequirements',
       valueHtml: populateError(
-        userCase.ra_disabilityRequirements,
+        typeof userCase.ra_disabilityRequirements === 'string' ? userCase.ra_disabilityRequirements : undefined,
         getYesNoTranslation(language, userCase['ra_disabilityRequirements'], 'oesTranslation') +
           (userCase.ra_disabilityRequirements === YesOrNo.YES ? ' : ' + userCase.ra_assistanceRequired_subfield : ''),
         language
