@@ -3,7 +3,7 @@
 import _ from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
-import { PartyType } from '../../app/case/definition';
+import { PartyType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { isC100ApplicationValid } from '../../steps/c100-rebuild/utils';
 import { applyParms, parseUrl } from '../../steps/common/url-parser';
@@ -25,7 +25,7 @@ import {
   REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE,
 } from '../../steps/urls';
 
-import { RALocalComponentC100SupportNeeds, RALocalComponentRespondentSupportNeeds, RARootContext } from './definitions';
+import { RARootContext } from './definitions';
 
 export class ReasonableAdjustementsNavigationController {
   private page: Record<string, any> = {
@@ -33,18 +33,18 @@ export class ReasonableAdjustementsNavigationController {
     pages: [
       {
         url: C100_CHECK_YOUR_ANSWER,
-        values: [RALocalComponentC100SupportNeeds.NO_SUPPORT],
+        values: [YesOrNo.NO],
         isExitPage: (currentPageUrl: PageLink, caseData: CaseWithId, req: AppRequest): boolean =>
           currentPageUrl.startsWith(C100_URL) && isC100ApplicationValid(caseData, req),
       },
       {
         url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
-        values: [RALocalComponentC100SupportNeeds.NO_SUPPORT],
+        values: [YesOrNo.NO, YesOrNo.YES],
         isExitPage: (currentPageUrl: PageLink): boolean => currentPageUrl.startsWith(C100_URL),
       },
       {
         url: REASONABLE_ADJUSTMENTS_RESPONDENT_RESPONSE_REVIEW,
-        values: [RALocalComponentRespondentSupportNeeds.NO_SUPPORT],
+        values: [YesOrNo.NO, YesOrNo.YES],
         isExitPage: (currentPageUrl: PageLink): boolean => currentPageUrl.includes(PartyType.RESPONDENT),
       },
     ],
