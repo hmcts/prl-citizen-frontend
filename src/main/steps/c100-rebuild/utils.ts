@@ -313,7 +313,7 @@ const isReasonableAdjustmentsValid = (caseData: CaseWithId) => {
     caseData.ra_typeOfHearing !== undefined &&
     caseData.ra_typeOfHearing.length > 0 &&
     caseData.ra_disabilityRequirements !== undefined &&
-    caseData.ra_disabilityRequirements.length > 0
+    caseData.ra_intermediaryRequirements !== undefined
   );
 };
 

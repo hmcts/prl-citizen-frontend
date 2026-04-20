@@ -633,10 +633,13 @@ export interface Case {
   ra_noVideoAndPhoneHearing_subfield?: string;
   ra_specialArrangements?: string[];
   ra_specialArrangementsOther_subfield?: string;
+  ra_intermediaryRequirements?: YesOrNo;
+  ra_intermediaryRequired_subfield?: string;
   ra_languageNeeds?: string[];
   ra_needInterpreterInCertainLanguage_subfield?: string;
   ra_documentInformation?: string[];
-  ra_disabilityRequirements?: string[];
+  ra_disabilityRequirements?: YesOrNo;
+  ra_disabilityRequirements_subfield?: string;
   ra_specifiedColorDocuments_subfield?: string;
   ra_largePrintDocuments_subfield?: string;
   ra_documentHelpOther_subfield?: string;

@@ -1295,21 +1295,11 @@ export const generateContent: TranslationFn = content => {
       ra_specialArrangements: {
         required: raContent.specialArrangementsHeading,
       },
-      ra_disabilityRequirements: raContent.errors.ra_disabilityRequirements,
-      ra_documentInformation: {
-        required: raContent.documentInformationHeading,
+      ra_intermediaryRequirements: {
+        required: raContent.intermediaryRequirementsHeading,
       },
-      ra_communicationHelp: {
-        required: raContent.communicationHelpHeading,
-      },
-      ra_supportCourt: {
-        required: raContent.supportCourtHeading,
-      },
-      ra_feelComportable: {
-        required: raContent.feelComfortableHeading,
-      },
-      ra_travellingCourt: {
-        required: raContent.travellingCourtHeading,
+      ra_disabilityRequirements: {
+        required: raContent.disabilityRequirementHeading,
       },
     },
   };

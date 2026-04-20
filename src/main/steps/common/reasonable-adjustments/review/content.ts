@@ -5,7 +5,6 @@ import { PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { RAProvider } from '../../../../modules/reasonable-adjustments';
-import { RALocalComponentRespondentSupportNeeds } from '../../../../modules/reasonable-adjustments/definitions';
 import {
   GovUkNunjucksSummary,
   SummaryList,
@@ -14,14 +13,9 @@ import {
 import { applyParms } from '../../../../steps/common/url-parser';
 import {
   REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
-  REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
-  REASONABLE_ADJUSTMENTS_COURT_NEEDS,
-  REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT,
   REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS,
-  REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING,
   REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
   REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE,
-  REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING,
 } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
 
@@ -40,6 +34,7 @@ export const enContent = {
     ra_needInterpreterInCertainLanguage_subfield: 'Please provide language details',
     ra_specialArrangements: 'Do you or the children need special safety arrangements at court?',
     ra_specialArrangementsOther_subfield: 'Please describe your need in detail',
+    ra_intermediaryRequirements: 'Are you aware of whether an intermediary will be required?',
     ra_disabilityRequirements:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
     ra_documentInformation: 'I need documents in an alternative format',
@@ -80,6 +75,7 @@ export const cyContent: typeof enContent = {
     ra_needInterpreterInCertainLanguage_subfield: 'Rhowch fanylion eich gofynion ieithyddol',
     ra_specialArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
     ra_specialArrangementsOther_subfield: 'Disgrifiwch eich anghenion yn fanwl',
+    ra_intermediaryRequirements: '--Welsh-- Select whether or not an intermediary will be required',
     ra_disabilityRequirements:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
     ra_documentInformation: 'Rwyf angen dogfennau mewn fformat amgen',
@@ -136,12 +132,14 @@ const displayText = {
     breaks: 'Regular breaks',
     space: 'Space to be able to get up and move around',
     //Safety Arrangements
-    waitingroom: 'Separate waiting room',
-    separateexitentry: 'Separate exits and entrances',
-    screens: 'Screens so you and the other people in the case cannot see each other',
+    waitingroom: 'a separate waiting room in the court building',
+    separateexitentry: 'a separate entrance and exit from the court building',
+    screens:
+      'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
     separatetoilets: 'Separate toilets',
     visitToCourt: 'Visit to court before the hearing',
-    videolinks: 'Video links',
+    videolinks:
+      "to join the hearing by video link rather than in person (it is the judge's decision whether to allow a hearing by video link).",
     noSafetyrequirements: 'No, I do not have any safety requirements at this time',
     //Docs support
     docsreadformat: 'Documents in an easy read format',
@@ -198,9 +196,10 @@ const displayText = {
     breaks: 'Seibiannau rheolaidd',
     space: 'Lle i allu codi a symud o gwmpas',
     //Safety Arrangements
-    waitingroom: 'Ystafell aros ar wahân',
-    separateexitentry: "Drysau ar wahân i fynd i mewn ac allan o'r llys",
-    screens: "Sgriniau i'ch atal chi a’r bobl eraill yn yr achos rhag gweld eich gilydd",
+    waitingroom: 'ystafell aros ar wahân yn yr adeilad llys',
+    separateexitentry: 'mynedfa ac allanfa ar wahân o’r adeilad llys',
+    screens:
+      'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
     separatetoilets: 'Toiledau ar wahân',
     visitToCourt: "Ymweld â'r llys cyn y gwrandawiad",
     videolinks: 'Cyswllt fideo',
@@ -281,8 +280,6 @@ export const summaryList = (
   const contents = language === 'en' ? enContent : cyContent;
   const isReasonableAdjustmentsNeedsPresent = RAProvider.utils.isReasonableAdjustmentsNeedsPresent(userCase);
 
-  Object.assign(url, ammendUrls(userCase));
-
   for (const key in contents.keys) {
     const row = {
       key: contents.keys[key],
@@ -328,77 +325,6 @@ const getValue = (key: string, userCase: Partial<CaseWithId>, language = 'en'): 
     }
   }
   return temp;
-};
-
-const ammendUrls = (caseData: Partial<CaseWithId>): Record<string, string> => {
-  const urls = {};
-  const supportNeeds = caseData?.ra_disabilityRequirements;
-
-  if (supportNeeds?.includes(RALocalComponentRespondentSupportNeeds.DOCUMENTS_SUPPORT)) {
-    Object.assign(urls, {
-      ra_documentInformation: applyParms(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, { root: PartyType.RESPONDENT }),
-      ra_specifiedColorDocuments_subfield: applyParms(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_largePrintDocuments_subfield: applyParms(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_documentHelpOther_subfield: applyParms(REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, {
-        root: PartyType.RESPONDENT,
-      }),
-    });
-  }
-
-  if (supportNeeds?.includes(RALocalComponentRespondentSupportNeeds.COMMUNICATION_HELP)) {
-    Object.assign(urls, {
-      ra_communicationHelp: applyParms(REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, { root: PartyType.RESPONDENT }),
-      ra_signLanguageInterpreter_subfield: applyParms(REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_communicationHelpOther_subfield: applyParms(REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, {
-        root: PartyType.RESPONDENT,
-      }),
-    });
-  }
-
-  if (supportNeeds?.includes(RALocalComponentRespondentSupportNeeds.COURT_HEARING_SUPPORT)) {
-    Object.assign(urls, {
-      ra_supportCourt: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, { root: PartyType.RESPONDENT }),
-      ra_supportWorkerCarer_subfield: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_friendFamilyMember_subfield: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_therapyAnimal_subfield: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, { root: PartyType.RESPONDENT }),
-      ra_supportCourtOther_subfield: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, {
-        root: PartyType.RESPONDENT,
-      }),
-    });
-  }
-
-  if (supportNeeds?.includes(RALocalComponentRespondentSupportNeeds.COURT_HEARING_COMFORT)) {
-    Object.assign(urls, {
-      ra_feelComportable: applyParms(REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING, { root: PartyType.RESPONDENT }),
-      ra_appropriateLighting_subfield: applyParms(REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING, {
-        root: PartyType.RESPONDENT,
-      }),
-      ra_feelComportableOther_subfield: applyParms(REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING, {
-        root: PartyType.RESPONDENT,
-      }),
-    });
-  }
-
-  if (supportNeeds?.includes(RALocalComponentRespondentSupportNeeds.TRAVELLING_TO_COURT)) {
-    Object.assign(urls, {
-      ra_travellingCourt: applyParms(REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: PartyType.RESPONDENT }),
-      ra_parkingSpace_subfield: applyParms(REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: PartyType.RESPONDENT }),
-      ra_differentTypeChair_subfield: applyParms(REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: PartyType.RESPONDENT }),
-      ra_travellingCourtOther_subfield: applyParms(REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: PartyType.RESPONDENT }),
-    });
-  }
-
-  return urls;
 };
 
 const getContents = (language: string, content: CommonContent): Record<string, any> => {

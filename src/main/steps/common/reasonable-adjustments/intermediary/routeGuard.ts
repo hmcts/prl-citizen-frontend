@@ -7,10 +7,7 @@ export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   post: async (req: AppRequest, res: Response, next: NextFunction) => {
     req.session.userCase = {
-      ...RAProvider.utils.cleanSessionForCommunicationHelpSubFields(
-        req.body?.ra_communicationHelp,
-        req.session.userCase
-      ),
+      ...RAProvider.utils.cleanSessionForLocalComponent(req),
     };
     req.session.save(next);
   },
