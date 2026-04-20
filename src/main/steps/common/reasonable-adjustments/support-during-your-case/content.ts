@@ -15,7 +15,7 @@ export const en = () => ({
   no: 'No',
   assistanceRequired: 'Give details in the box below.',
   errors: {
-    ra_assistanceRequired_subfield: {
+    ra_disabilityRequirements_subfield: {
       required:
         "Provide details for 'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
@@ -37,7 +37,7 @@ export const cy = () => ({
   no: 'Nac ydw',
   assistanceRequired: 'Os Oes, nodwch beth yw’r anghenion hynny',
   errors: {
-    ra_assistanceRequired_subfield: {
+    ra_disabilityRequirements_subfield: {
       required:
         "Rhowch fanylion 'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?'",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
@@ -70,7 +70,7 @@ export const form: FormContent = {
             label: l => l.yes,
             value: YesOrNo.YES,
             subFields: {
-              ra_assistanceRequired_subfield: {
+              ra_disabilityRequirements_subfield: {
                 type: 'textarea',
                 labelSize: null,
                 label: l => l.assistanceRequired,

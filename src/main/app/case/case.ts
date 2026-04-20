@@ -639,7 +639,7 @@ export interface Case {
   ra_needInterpreterInCertainLanguage_subfield?: string;
   ra_documentInformation?: string[];
   ra_disabilityRequirements?: YesOrNo;
-  ra_assistanceRequired_subfield?: string;
+  ra_disabilityRequirements_subfield?: string;
   ra_specifiedColorDocuments_subfield?: string;
   ra_largePrintDocuments_subfield?: string;
   ra_documentHelpOther_subfield?: string;

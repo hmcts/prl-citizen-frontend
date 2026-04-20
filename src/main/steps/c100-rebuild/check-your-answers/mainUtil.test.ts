@@ -659,7 +659,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
       ra_disabilityRequirements: YesOrNo.YES,
-      ra_assistanceRequired_subfield: 'text area',
+      ra_disabilityRequirements_subfield: 'text area',
     };
     const PermissionForApplicationObj = reasonableAdjustment({ sectionTitles, keys, content }, userCase, 'en');
     expect(PermissionForApplicationObj?.rows).not.toBe([]);
@@ -3646,9 +3646,8 @@ describe('prepareProp', () => {
 
     { property: 'ra_noVideoAndPhoneHearing_subfield', expected: 'ra_typeOfHearing' },
     { property: 'ra_needInterpreterInCertainLanguage_subfield', expected: 'ra_languageNeeds' },
-    { property: 'ra_specialArrangementsOther_subfield', expected: 'ra_specialArrangements' },
     { property: 'ra_intermediaryRequired_subfield', expected: 'ra_intermediaryRequirements' },
-    { property: 'ra_assistanceRequired_subfield', expected: 'ra_disabilityRequirements' },
+    { property: 'ra_disabilityRequirements_subfield', expected: 'ra_disabilityRequirements' },
   ])('config for consent order flow should have the correct sections', ({ property, expected }) => {
     expect(prepareProp(property)).toBe(expected);
   });

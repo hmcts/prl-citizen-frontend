@@ -198,7 +198,7 @@ export class ReasonableAdjustementsUtility {
   }
 
   private cleanSessionForSupportDuringCase(caseData: CaseWithId): CaseWithId {
-    delete caseData.ra_assistanceRequired_subfield;
+    delete caseData.ra_disabilityRequirements_subfield;
     delete caseData.ra_disabilityRequirements;
     return caseData;
   }

@@ -52,7 +52,7 @@ const TestReasonableAdjustmentElement = language => {
         yes: 'Yes',
         courtGuidanceText: 'Court staff may get in touch with you about the requirements',
         errors: {
-          ra_assistanceRequired_subfield: {
+          ra_disabilityRequirements_subfield: {
             required:
               "Provide details for 'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?'",
             invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
@@ -112,7 +112,7 @@ const TestReasonableAdjustmentElement = language => {
         yes: 'Ydw',
         courtGuidanceText: 'Efallai y bydd staff y llys yn cysylltu â chi ynghylch eich gofynion.',
         errors: {
-          ra_assistanceRequired_subfield: {
+          ra_disabilityRequirements_subfield: {
             required:
               "Rhowch fanylion 'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?'",
             invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',

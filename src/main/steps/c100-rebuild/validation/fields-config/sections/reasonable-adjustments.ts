@@ -46,7 +46,7 @@ export const ReasonableAdjustmentsFieldsConfig = {
       fieldType: 'string',
     },
     {
-      fieldName: 'ra_assistanceRequired_subfield',
+      fieldName: 'ra_disabilityRequirements_subfield',
       fieldType: 'string',
       mandatory_if: {
         fieldName: 'ra_disabilityRequirements',

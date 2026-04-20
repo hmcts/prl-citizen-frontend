@@ -2180,7 +2180,9 @@ export const reasonableAdjustment = (
       valueHtml: populateError(
         typeof userCase.ra_disabilityRequirements === 'string' ? userCase.ra_disabilityRequirements : undefined,
         getYesNoTranslation(language, userCase['ra_disabilityRequirements'], 'oesTranslation') +
-          (userCase.ra_disabilityRequirements === YesOrNo.YES ? ' : ' + userCase.ra_assistanceRequired_subfield : ''),
+          (userCase.ra_disabilityRequirements === YesOrNo.YES
+            ? ' : ' + userCase.ra_disabilityRequirements_subfield
+            : ''),
         language
       ),
       changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, { root: RARootContext.C100_REBUILD }),
@@ -3128,11 +3130,9 @@ export const prepareProp = (property: string): string => {
       return 'ra_typeOfHearing';
     case 'ra_needInterpreterInCertainLanguage_subfield':
       return 'ra_languageNeeds';
-    case 'ra_specialArrangementsOther_subfield':
-      return 'ra_specialArrangements';
     case 'ra_intermediaryRequired_subfield':
       return 'ra_intermediaryRequirements';
-    case 'ra_assistanceRequired_subfield':
+    case 'ra_disabilityRequirements_subfield':
       return 'ra_disabilityRequirements';
 
     default:

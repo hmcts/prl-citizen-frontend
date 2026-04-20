@@ -94,7 +94,7 @@ describe('RA > review > content', () => {
         originalUrl: '/c100-rebuild/reasonable-adjustments/guidance',
         session: {
           userCase: {
-            ra_disabilityRequirements: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
+            ra_disabilityRequirements: 'Yes',
           },
         },
       },
