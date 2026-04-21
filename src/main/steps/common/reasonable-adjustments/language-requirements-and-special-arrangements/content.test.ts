@@ -1,54 +1,48 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { isTextAreaValid } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../common.content';
 
 import { generateContent } from './content';
+
+jest.mock('../../../../app/form/validation');
 
 const en = {
   caption: 'Support you need during the case',
   title: 'Language requirements and special arrangements',
   content1: 'Language requirements',
   content2: 'Think about all communication with the court, as well as what you might need at a hearing.',
-  content3: 'For example, tell us if you need:',
+  content3: 'Tell us if you:',
   list: [
     {
-      content: 'to speak, read or write in Welsh',
+      content: 'want to speak, read or write in Welsh',
     },
     {
-      content: 'an interpreter in a language that is not English',
+      content: 'need an interpreter in a language that is not English',
     },
   ],
-  content4: 'Special arrangements',
+  content4: 'Support needs',
   content5:
-    'You may need special arrangements to feel safe at court. Some of these arrangements will need to be agreed by the judge or HMCTS staff. If your needs change, you can tell the court before your hearing date.',
+    'Tell us if you or any other party involved in the case have a health condition or disability that means you need support to take part in the hearing or communicate with the court.',
   content6: 'Tell us if you need:',
   specialArrangementsList: [
     {
-      content: 'separate entrances and exits',
+      content: 'a separate waiting room in the court building',
     },
     {
-      content: 'separate toilets',
+      content: 'a separate entrance and exit from the court building',
     },
     {
-      content: 'a separate waiting room',
+      content:
+        'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
     },
     {
-      content: 'a visit to the court before the hearing',
-    },
-    {
-      content: 'screens so you and the other people in the case cannot see each other',
-    },
-    {
-      content: 'a hearing by phone or video',
-    },
-    {
-      content: 'anything else to help make you feel safe during the hearing',
+      content:
+        'to join the hearing by video link rather than in person (it is the judge’s decision whether to allow a hearing by video link).',
     },
   ],
-  supportYouNeed: 'Tell us what support you need (optional)',
-  supportYouNeedHint:
-    'Provide as much detail as possible, including why the support is needed. If you have already asked for support, your request has been sent to the court.',
+  supportYouNeed: 'Tell us what support you need',
+  supportYouNeedHint: 'Provide as much detail as possible to help us understand what you need.',
   errors: {
     ra_languageReqAndSpecialArrangements: {
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
@@ -63,40 +57,50 @@ const cy = {
   title: 'Gofynion ieithyddol a threfniadau arbennig',
   content1: 'Gofynion ieithyddol',
   content2: 'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad.',
-  content3: 'Er enghraifft, dywedwch wrthym os oes arnoch angen:',
+  content3: '--welsh-- Tell us if you need:',
   list: [
     {
-      content: 'siarad, darllen neu ysgrifennu yn Gymraeg',
+      content: '--welsh-- want to speak, read or write in Welsh',
     },
     {
-      content: 'cyfieithydd mewn iaith ar wahan i Saesneg',
+      content: '--welsh-- need an interpreter in a language that is not English',
     },
   ],
-  content4: 'Trefniadau arbennig',
+  content4: '--welsh-- Support needs',
   content5:
-    "Efallai y bydd angen trefniadau arbennig arnoch i deimlo'n ddiogel yn y llys. Rhaid i rai o’r addasiadau hyn gael eu cytuno gan y barnwr neu staff GLlTEF. Os bydd eich anghenion yn newid, gallwch ddweud wrth y llys cyn dyddiad eich gwrandawiad.",
-  content6: 'Dywedwch wrthym os oes arnoch angen:',
+    '--welsh-- Tell us if you or any other party involved in the case have a health condition or disability that means you need support to take part in the hearing or communicate with the court.',
+  content6: '--welsh-- Tell us if you need:',
+  supportNeedsList: [
+    {
+      content: '--welsh-- an intermediary',
+    },
+    {
+      content: '--welsh-- special assistance',
+    },
+    {
+      content: '--welsh-- special facilities',
+    },
+  ],
+  content7: '--welsh-- Special Measures',
+  content8:
+    '--welsh-- Please say whether there is a need for the court to make any special measures for you or any relevant children to attend court.',
+  content9:
+    '--welsh-- Special measures can be put in place to keep you separate from the respondent when you attend court.',
+  content10: '--welsh-- Select any of the following measures you would like to request.',
   specialArrangementsList: [
     {
-      content: "drysau ar wahân i fynd i mewn ac allan o'r llys",
+      content: '--welsh-- a separate waiting room in the court building',
     },
     {
-      content: 'toiledau ar wahân',
+      content: '--welsh-- a separate entrance and exit from the court building',
     },
     {
-      content: 'ystafell aros ar wahân',
+      content:
+        '--welsh-- to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
     },
     {
-      content: "ymweld â'r llys cyn y gwrandawiad",
-    },
-    {
-      content: 'sgriniau i atal chi a’r bobl eraill yn yr achos rhag gweld eich gilydd',
-    },
-    {
-      content: 'gwrandawiad dros y ffôn neu drwy fideo',
-    },
-    {
-      content: "unrhyw beth arall i'ch helpu i deimlo'n ddiogel yn ystod y gwrandawiad",
+      content:
+        '--welsh-- to join the hearing by video link rather than in person (it is the judge’s decision whether to allow a hearing by video link).',
     },
   ],
   supportYouNeed: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch (dewisol)',
@@ -151,6 +155,9 @@ describe('RA > language-requirements-and-special-arrangements > content', () => 
     expect(raSpecialArrangementsField.type).toBe('textarea');
     expect((raSpecialArrangementsField?.label as Function)(generatedContent)).toBe(en.supportYouNeed);
     expect((raSpecialArrangementsField?.hint as Function)(generatedContent)).toBe(en.supportYouNeedHint);
-    expect(raSpecialArrangementsField.validator).toBe(isTextAreaValid);
+
+    (raSpecialArrangementsField.validator as Function)('test text area');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
+    expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
   });
 });
