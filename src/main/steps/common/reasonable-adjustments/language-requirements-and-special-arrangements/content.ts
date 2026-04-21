@@ -60,6 +60,7 @@ const en = {
   supportYouNeedHint: 'Provide as much detail as possible to help us understand what you need.',
   errors: {
     ra_languageReqAndSpecialArrangements: {
+      required: 'Enter what support you need.',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
@@ -123,6 +124,7 @@ const cy: typeof en = {
     "Rhowch gymaint o fanylion â phosibl, gan gynnwys pam fod angen y cymorth. Os ydych eisoes wedi gofyn am gymorth, anfonwyd eich cais i'r llys.",
   errors: {
     ra_languageReqAndSpecialArrangements: {
+      required: '--welsh-- Enter what support you need.',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
