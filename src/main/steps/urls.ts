@@ -374,6 +374,8 @@ export const C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL: PageLink = `${C100_OTHER_
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/select`;
 export const C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/confidentiality`;
 export const C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/confidentiality/start-alternative`;
+export const C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/confidentiality/feedback-no`;
+export const C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/confidentiality/feedback`;
 /** @C100 Consent Order */
 export const C100_CONSENT_ORDER: PageLink = `${C100_URL}/consent-order`;
 export const C100_CONSENT_ORDER_UPLOAD: PageLink = `${C100_CONSENT_ORDER}/upload`;

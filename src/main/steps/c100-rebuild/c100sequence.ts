@@ -125,6 +125,8 @@ import {
   C100_MIAM_UPLOAD_DA_EVIDENCE,
   C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
   C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -137,7 +139,6 @@ import ChildrenDetailsNavigationController from './child-details/navigationContr
 import OtherChildrenDetailsNavigationController from './child-details/other-children/navigationController';
 import MIAMNavigationController from './miam/navigationController';
 import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
-import OtherPersonCommonConfidentialityController from './other-person-details/confidentiality/common/commonConfidentialityPostController';
 import PreviousProceedingsNavigationController from './other-proceedings/navigationController';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
@@ -145,6 +146,7 @@ import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
 import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
+import OtherPersonCommonConfidentialityController from './other-person-details/confidentiality/common/commonConfidentialityOtherPersonPostController';
 import UploadDocumentController from './uploadDocumentController';
 import { applyParms } from '../../steps/common/url-parser';
 import { RARootContext } from '../../modules/reasonable-adjustments/definitions';
@@ -780,10 +782,31 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
     showInSection: Sections.C100,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     postController: OtherPersonCommonConfidentialityController,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+        caseData,
+        req
+      ),
+  },
+  {
+    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+        caseData,
+        req
+      ),
+  },
+  {
+    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
         caseData,
         req
       ),
