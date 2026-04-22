@@ -1,5 +1,4 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { CaseType } from '../../app/case/definition';
 
 import { RAUtility } from './util';
 
@@ -203,24 +202,6 @@ describe('RA util', () => {
           })
         )
       ).toBe('/task-list/applicant');
-    });
-  });
-
-  describe('getUpdateFlagsEventID', () => {
-    test('should return correct event for c100 manage support', () => {
-      expect(RAUtility.getUpdateFlagsEventID('C100' as CaseType, 'manage')).toBe('c100ManageSupport');
-    });
-
-    test('should return correct event for c100 request support', () => {
-      expect(RAUtility.getUpdateFlagsEventID('C100' as CaseType, 'request')).toBe('c100RequestSupport');
-    });
-
-    test('should return correct event for fl401 manage support', () => {
-      expect(RAUtility.getUpdateFlagsEventID('FL401' as CaseType, 'manage')).toBe('fl401ManageSupport');
-    });
-
-    test('should return correct event for fl401 request support', () => {
-      expect(RAUtility.getUpdateFlagsEventID('FL401' as CaseType, 'request')).toBe('fl401RequestSupport');
     });
   });
 });

@@ -1,73 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import _ from 'lodash';
-import { v4 as uuid } from 'uuid';
-
 import { CaseWithId } from '../../app/case/case';
-import { CaseType, PartyDetails, ReasonableAdjustmentsSupport } from '../../app/case/definition';
-import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
+import { PartyDetails, ReasonableAdjustmentsSupport } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { PageContent } from '../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../app/form/Form';
 import { CommonContent } from '../../steps/common/common.content';
 import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
-import { getPartyDetails } from '../../steps/tasklistresponse/utils';
 import { C100_URL, PARTY_TASKLIST, PageLink, RESPOND_TO_APPLICATION } from '../../steps/urls';
 
-import {
-  RAData,
-  RADataTransformContext,
-  RAFlagDetail,
-  RAFlagValue,
-  RAFlags,
-  RALocalComponentC100SupportNeeds,
-  RALocalComponentRespondentSupportNeeds,
-  RASupportCaseEvent,
-  RASupportContext,
-} from './definitions';
-
-import { RAProvider } from '.';
+import { RALocalComponentC100SupportNeeds, RALocalComponentRespondentSupportNeeds } from './definitions';
 
 export class ReasonableAdjustementsUtility {
-  private preprocessFlags(flag: RAFlagValue, context: RADataTransformContext): RAFlagValue {
-    return Object.entries(flag).reduce((_flag: Partial<RAFlagValue>, [key, value]) => {
-      if (!_.isNull(value)) {
-        _flag[key] = value;
-      }
-
-      if (key === 'path' && value.length) {
-        _flag.path = _flag.path!.map(_path => {
-          const { value: pathValue, name, ...rest } = _path;
-
-          if (context === RADataTransformContext.FLATTEN) {
-            // for c100 application creation journey
-            return name;
-          }
-
-          if (context === RADataTransformContext.EXTERNAL) {
-            return pathValue
-              ? {
-                  ...rest,
-                  name: pathValue,
-                }
-              : {
-                  name: _path,
-                };
-          }
-
-          if (context === RADataTransformContext.INTERNAL) {
-            return {
-              ...rest,
-              value: name ?? pathValue ?? '',
-            };
-          }
-        });
-      }
-
-      return _flag;
-    }, {}) as RAFlagValue;
-  }
-
   private hasRAValueInSessionForLocalComponent(raValues: string[], raData: string[]): boolean {
     return raValues.some(val => raData!.includes(val));
   }
@@ -213,89 +157,6 @@ export class ReasonableAdjustementsUtility {
     }
 
     return caseData;
-  }
-
-  preprocessData(flags: RAFlags['details'], context: RADataTransformContext): RAFlags['details'] | RAFlagValue[] {
-    return flags?.length
-      ? (flags.map((flag: RAFlagDetail | RAFlagDetail['value']) => {
-          const { value, ...rest } = flag as RAFlagDetail;
-
-          return value
-            ? {
-                ...rest,
-                value: this.preprocessFlags(value, context),
-              }
-            : {
-                id: rest?.id ?? uuid(),
-                value: this.preprocessFlags(flag as RAFlagValue, context),
-              };
-        }) as RAFlags['details'] | RAFlagValue[])
-      : [];
-  }
-
-  getUpdateFlagsEventID(caseType: CaseType, context: string): RASupportCaseEvent {
-    let eventId;
-
-    switch (caseType) {
-      case CaseType.C100:
-        eventId =
-          context === RASupportContext.MANAGE_SUPPORT
-            ? RASupportCaseEvent.RA_CA_MANAGE_SUPPORT
-            : RASupportCaseEvent.RA_CA_REQUEST_SUPPORT;
-        break;
-      case CaseType.FL401:
-        eventId =
-          context === RASupportContext.MANAGE_SUPPORT
-            ? RASupportCaseEvent.RA_DA_MANAGE_SUPPORT
-            : RASupportCaseEvent.RA_DA_REQUEST_SUPPORT;
-        break;
-    }
-
-    return eventId;
-  }
-
-  async updatePartyRAFlags(
-    req: AppRequest,
-    caseData: CaseWithId,
-    userDetails: UserDetails,
-    raData: RAData
-  ): Promise<void> {
-    return new Promise((resolve, reject) => {
-      (async () => {
-        const partyIdamId = getPartyDetails(caseData, userDetails.id)!.user.idamId;
-        try {
-          if (raData.flagsAsSupplied.details.length) {
-            await RAProvider.service.updatePartyRAFlags(
-              req,
-              caseData.id,
-              caseData.caseTypeOfApplication! as CaseType,
-              partyIdamId,
-              userDetails.accessToken,
-              RASupportContext.MANAGE_SUPPORT,
-              this.preprocessData(raData.flagsAsSupplied.details, RADataTransformContext.INTERNAL) as RAFlags['details']
-            );
-          }
-
-          if (raData?.replacementFlags?.details?.length) {
-            await RAProvider.service.updatePartyRAFlags(
-              req,
-              caseData.id,
-              caseData.caseTypeOfApplication! as CaseType,
-              partyIdamId,
-              userDetails.accessToken,
-              RASupportContext.REQUEST_SUPPORT,
-              this.preprocessData(
-                raData.replacementFlags.details,
-                RADataTransformContext.INTERNAL
-              ) as RAFlags['details']
-            );
-          }
-          resolve();
-        } catch (error) {
-          reject(error);
-        }
-      })();
-    });
   }
 
   getNavigationUrl(req: AppRequest): string | PageLink {

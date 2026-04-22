@@ -1,8 +1,5 @@
-import _ from 'lodash';
-
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-export * from './routeGuard';
 
 const en = {
   caption: 'Support you need during the case',
@@ -91,11 +88,9 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const hasRAData = _.get(content.additionalData, 'req.session.userCase.ra_existingFlags.details.length', 0);
 
   return {
     ...translations,
-    title: !hasRAData ? translations.title : translations.title2,
     form,
   };
 };

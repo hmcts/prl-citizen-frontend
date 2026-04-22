@@ -103,22 +103,4 @@ describe('RA > intro > content', () => {
       )
     ).toBe(en.startNow);
   });
-
-  test('should have correct title when RA data present', () => {
-    const raContent = generateContent({
-      language: 'en',
-      additionalData: {
-        req: {
-          session: {
-            userCase: {
-              ra_existingFlags: {
-                details: ['MOCK_RA_FLAG'],
-              },
-            },
-          },
-        },
-      },
-    } as unknown as CommonContent);
-    expect(raContent.title).toBe(en.title2);
-  });
 });
