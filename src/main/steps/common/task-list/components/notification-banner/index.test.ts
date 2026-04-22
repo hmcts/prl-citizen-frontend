@@ -2464,11 +2464,10 @@ describe('FL401 banners', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text:
-                  '<strong>You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.\n' +
-                  '\n' +
-                  'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court. Which means you will be fined or sent to prison.\n' +
-                  '\n</strong>',
+                text: '<strong>You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: '<strong>You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court. Which means you will be fined or sent to prison.</strong>',
               },
             ],
             links: [],
