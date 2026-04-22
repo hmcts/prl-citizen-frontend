@@ -6948,8 +6948,8 @@ __metadata:
   linkType: hard
 
 "compressing@npm:^1.10.0":
-  version: 1.10.4
-  resolution: "compressing@npm:1.10.4"
+  version: 1.10.5
+  resolution: "compressing@npm:1.10.5"
   dependencies:
     "@eggjs/yauzl": "npm:^2.11.0"
     flushwritable: "npm:^1.0.0"
@@ -6960,7 +6960,7 @@ __metadata:
     streamifier: "npm:^0.1.1"
     tar-stream: "npm:^1.5.2"
     yazl: "npm:^2.4.2"
-  checksum: 10c0/ecfeaac43fe4230ecb4d18b9041467b9904d8e79ebd65db27c6d2e6f5f16373beb521ad02c94c8060357ceca173a2440c179153068d8232c52bddd3e3477ba1e
+  checksum: 10c0/3a2efac4932171dcaa576e445ac907906e26a0e9c5d8e653a3acb105fae63fba49647ebb412a0ceb56b568454a0dac307348522da28a2adc9c072d3c79acbc20
   languageName: node
   linkType: hard
 
