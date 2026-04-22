@@ -13,11 +13,7 @@ export const isRefugeAndConfidentialitySectionValid = (applicant: C100Applicant)
     return false;
   }
 
-  if (applicant.liveInRefuge === YesOrNo.YES) {
-    if (_.isEmpty(applicant.refugeConfidentialityC8Form)) {
-      return false;
-    }
-  } else {
+  if (applicant.liveInRefuge !== YesOrNo.YES) {
     if (_.isEmpty(applicant.detailsKnown)) {
       return false;
     }
