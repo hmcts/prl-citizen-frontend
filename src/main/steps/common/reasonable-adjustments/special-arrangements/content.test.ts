@@ -16,7 +16,6 @@ const en = {
   separateExitEntrance: 'a separate entrance and exit from the court building',
   screenWithOtherPeople:
     'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
-  screenWithOtherPeopleHint: 'This needs to be approved by a judge',
   videoLinks:
     "to join the hearing by video link rather than in person (it is the judge's decision whether to allow a hearing by video link).",
   noSafetyRequirements: 'No, I do not have any safety requirements at this time',
@@ -38,7 +37,6 @@ const cy = {
   separateExitEntrance: 'mynedfa ac allanfa ar wahân o’r adeilad llys',
   screenWithOtherPeople:
     'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
-  screenWithOtherPeopleHint: 'Mae angen i farnwr gymeradwyo hyn',
   videoLinks:
     'ymuno â’r gwrandawiad drwy gyswllt fideo yn hytrach na bod yno wyneb yn wyneb (penderfyniad y barnwr yw p’un a ddylid caniatáu gwrandawiad drwy gyswllt fideo ai peidio).',
   noSafetyRequirements: 'Nac oes, nid oes arnaf angen unrhyw ofynion o ran diogelwch ar hyn o bryd',
@@ -91,9 +89,6 @@ describe('applicant personal details > applying-with > content', () => {
     );
     expect((specialArrangementsField.values[2].label as LanguageLookup)(generatedContent)).toBe(
       en.screenWithOtherPeople
-    );
-    expect((specialArrangementsField.values[2].hint as LanguageLookup)(generatedContent)).toBe(
-      en.screenWithOtherPeopleHint
     );
     expect((specialArrangementsField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.videoLinks);
     expect((specialArrangementsField.values[5].label as LanguageLookup)(generatedContent)).toBe(

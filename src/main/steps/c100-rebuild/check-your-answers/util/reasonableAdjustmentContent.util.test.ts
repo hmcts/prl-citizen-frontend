@@ -39,7 +39,6 @@ const TestReasonableAdjustmentElement = language => {
         readAndWriteInWelsh: 'I want to read and write in Welsh',
         screenWithOtherPeople:
           'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
-        screenWithOtherPeopleHint: 'This needs to be approved by a judge',
         select_all_apply: 'Select all that apply to you',
         separateExitEntrance: 'a separate entrance and exit from the court building',
         separateWaitingRoom: 'a separate waiting room in the court building',
@@ -99,7 +98,6 @@ const TestReasonableAdjustmentElement = language => {
         readAndWriteInWelsh: 'Rwyf eisiau darllen ac ysgrifennu yn Gymraeg',
         screenWithOtherPeople:
           'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
-        screenWithOtherPeopleHint: 'Mae angen i farnwr gymeradwyo hyn',
         select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
         separateExitEntrance: 'mynedfa ac allanfa ar wahân o’r adeilad llys',
         separateWaitingRoom: 'ystafell aros ar wahân yn yr adeilad llys',
