@@ -39,9 +39,15 @@ export default class RALangReqSplArrangementsReviewPostController extends PostCo
           userCase.caseTypeOfApplication as CaseType,
           CaseEvent.SUPPORT_YOU_DURING_CASE
         );
-        console.log('ra_languageReqAndSpecialArrangements after object assign:', userCase?.ra_languageReqAndSpecialArrangements);
+        console.log(
+          'ra_languageReqAndSpecialArrangements after object assign:',
+          userCase?.ra_languageReqAndSpecialArrangements
+        );
         mapDataInSession(req.session.userCase, user.id);
-        console.log('ra_languageReqAndSpecialArrangements after map data:', userCase?.ra_languageReqAndSpecialArrangements);
+        console.log(
+          'ra_languageReqAndSpecialArrangements after map data:',
+          userCase?.ra_languageReqAndSpecialArrangements
+        );
         req.session.save(() => super.redirect(req, res));
       }
     } catch (err) {
