@@ -43,6 +43,18 @@ export default class RALangReqSplArrangementsReviewPostController extends PostCo
           'ra_languageReqAndSpecialArrangements after object assign:',
           userCase?.ra_languageReqAndSpecialArrangements
         );
+
+        if (userCase.ra_languageReqAndSpecialArrangements) {
+          console.log('partyDetails.user:', partyDetails.user);
+          console.log('calling submitLanguageSupportNotes with:', userCase.ra_languageReqAndSpecialArrangements);
+          await client.submitLanguageSupportNotes(
+            userCase.id,
+            partyDetails.user.idamId,
+            userCase.ra_languageReqAndSpecialArrangements,
+            user.accessToken
+          );
+        }
+
         mapDataInSession(req.session.userCase, user.id);
         console.log(
           'ra_languageReqAndSpecialArrangements after map data:',
