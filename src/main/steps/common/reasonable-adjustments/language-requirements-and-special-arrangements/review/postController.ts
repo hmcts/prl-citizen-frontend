@@ -36,6 +36,7 @@ export default class RALangReqSplArrangementsReviewPostController extends PostCo
         req.session.save(() => super.redirect(req, res));
       }
     } catch (err) {
+      RAProvider.log('error', err);
       res.redirect(REASONABLE_ADJUSTMENTS_ERROR);
     }
   }
