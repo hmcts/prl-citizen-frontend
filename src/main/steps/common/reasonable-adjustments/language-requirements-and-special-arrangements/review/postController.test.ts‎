@@ -1,0 +1,51 @@
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+import { CosApiClient } from '../../../../../app/case/CosApiClient';
+import { RAProvider } from '../../../../../modules/reasonable-adjustments';
+
+import RALangReqSplArrangementsReviewPostController from './postController';
+
+jest.mock('../../../../../app/case/CosApiClient');
+
+describe('RA > language-requirements-and-special-arrangements > review > postController', () => {
+  test('should save language preferences and special arrangements and redirect', async () => {
+    const req = mockRequest({
+      body: {
+        onlyContinue: true,
+      },
+      session: {
+        userCase: {
+          ra_languageReqAndSpecialArrangements: 'ra_languageReqAndSpecialArrangements',
+        },
+      },
+    });
+    const res = mockResponse();
+    const controller = new RALangReqSplArrangementsReviewPostController({});
+
+    jest.spyOn(CosApiClient.prototype, 'updateCaseData').mockResolvedValueOnce(req.session.userCase);
+    jest.spyOn(RAProvider.utils, 'prepareRARespondentRequest').mockReturnValueOnce({});
+
+    await controller.post(req, res);
+    await new Promise(process.nextTick);
+
+    expect(CosApiClient.prototype.updateCaseData).toHaveBeenCalled();
+    expect(req.session.save).toHaveBeenCalled();
+  });
+
+  test('should redirect to error screen if an error is thrown', async () => {
+    const req = mockRequest({
+      body: {
+        onlyContinue: true,
+      },
+    });
+    const res = mockResponse();
+    const controller = new RALangReqSplArrangementsReviewPostController({});
+
+    jest.spyOn(CosApiClient.prototype, 'updateCaseData').mockRejectedValueOnce(new Error('update failed'));
+    jest.spyOn(RAProvider.utils, 'prepareRARespondentRequest').mockReturnValueOnce({});
+
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith('/reasonable-adjustments/error');
+  });
+});
