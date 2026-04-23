@@ -124,7 +124,7 @@ const cy: typeof en = {
     "Rhowch gymaint o fanylion â phosibl, gan gynnwys pam fod angen y cymorth. Os ydych eisoes wedi gofyn am gymorth, anfonwyd eich cais i'r llys.",
   errors: {
     ra_languageReqAndSpecialArrangements: {
-      required: '--welsh-- Enter what support you need.',
+      required: 'Nodwch pa gymorth rydych ei angen.',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',

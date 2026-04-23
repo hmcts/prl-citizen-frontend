@@ -4,11 +4,12 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../../../app/case/CosApiClient';
-import { CaseEvent, CaseType, PartyType } from '../../../../../app/case/definition';
+import { CaseEvent, CaseType } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { RAProvider } from '../../../../../modules/reasonable-adjustments';
+import { getCasePartyType } from '../../../../prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../../tasklistresponse/utils';
 import { REASONABLE_ADJUSTMENTS_ERROR } from '../../../../urls';
 
@@ -24,14 +25,17 @@ export default class RALangReqSplArrangementsReviewPostController extends PostCo
       console.log('review page ra_languageReqAndSpecialArrangements:', userCase?.ra_languageReqAndSpecialArrangements);
       const partyDetails = getPartyDetails(userCase, user.id);
       console.log('partyDetails:', partyDetails);
+      const partyType = getCasePartyType(userCase, user.id);
+      console.log('partyType:', partyType);
       const client = new CosApiClient(user.accessToken, req.locals.logger);
+
       if (partyDetails) {
         console.log('supportYouNeed:', RAProvider.utils.prepareRARespondentRequest(userCase));
         Object.assign(partyDetails.response, { supportYouNeed: RAProvider.utils.prepareRARespondentRequest(userCase) });
         req.session.userCase = await client.updateCaseData(
           userCase.id,
           partyDetails,
-          PartyType.RESPONDENT,
+          partyType,
           userCase.caseTypeOfApplication as CaseType,
           CaseEvent.SUPPORT_YOU_DURING_CASE
         );
