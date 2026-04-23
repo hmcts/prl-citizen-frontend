@@ -220,6 +220,7 @@ export class ReasonableAdjustementsUtility {
       differentChairDetails,
       languageDetails,
     } = partyDetails?.response?.supportYouNeed ?? {};
+    const languageSupportNotes = partyDetails?.response?.supportYouNeed?.languageSupportNotes;
 
     Object.assign(reasonableAdjustmentsNeeds, {
       ra_typeOfHearing: attendingToCourt,
@@ -248,6 +249,7 @@ export class ReasonableAdjustementsUtility {
       ra_parkingSpace_subfield: parkingDetails,
       ra_differentTypeChair_subfield: differentChairDetails,
       ra_travellingCourtOther_subfield: travellingOtherDetails,
+      ra_languageReqAndSpecialArrangements: languageSupportNotes,
     });
 
     return reasonableAdjustmentsNeeds;
@@ -283,6 +285,7 @@ export class ReasonableAdjustementsUtility {
       parkingDetails: caseData?.ra_parkingSpace_subfield,
       differentChairDetails: caseData?.ra_differentTypeChair_subfield,
       travellingOtherDetails: caseData?.ra_travellingCourtOther_subfield,
+      languageSupportNotes: caseData?.ra_languageReqAndSpecialArrangements,
     });
 
     return request;

@@ -170,6 +170,7 @@ export interface ReasonableAdjustmentsSupport {
   differentChairDetails?: string;
   describeSignLanguageDetails?: string;
   lightingProvideDetails?: string;
+  languageSupportNotes?: string;
 }
 
 export interface CurrentOrPreviousProceedings {
@@ -2337,9 +2338,9 @@ export interface Schedules {
   hearingJudgeId?: string | null;
   hearingJudgeName?: string | null;
   panelMemberIds?: string[] | number[] | null;
-  attendees?: Attendee[] | null;  
+  attendees?: Attendee[] | null;
   hearingTypeValue?: string;
-  nextHearingDate?: string | null 
+  nextHearingDate?: string | null
 
 }
 
