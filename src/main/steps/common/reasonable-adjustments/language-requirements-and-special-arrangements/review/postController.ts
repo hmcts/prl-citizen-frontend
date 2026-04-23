@@ -21,9 +21,12 @@ export default class RALangReqSplArrangementsReviewPostController extends PostCo
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     try {
       const { user, userCase } = req.session;
+      console.log('review page ra_languageReqAndSpecialArrangements:', userCase?.ra_languageReqAndSpecialArrangements);
       const partyDetails = getPartyDetails(userCase, user.id);
+      console.log('partyDetails:', partyDetails);
       const client = new CosApiClient(user.accessToken, req.locals.logger);
       if (partyDetails) {
+        console.log('supportYouNeed:', RAProvider.utils.prepareRARespondentRequest(userCase));
         Object.assign(partyDetails.response, { supportYouNeed: RAProvider.utils.prepareRARespondentRequest(userCase) });
         req.session.userCase = await client.updateCaseData(
           userCase.id,
