@@ -1,90 +1,64 @@
-
-
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
+import { FormContent, LanguageLookup } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { cy, en, generateContent } from './content';
 
 jest.mock('../../../../../app/form/validation');
 
-const dummyApplicantData = [
+const otherPersonId = 'op-1';
+
+const dummyOtherPersons = [
   {
-    id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
-    applicantFirstName: 'Test1',
-    applicantLastName: 'Test2',
-    detailsKnown: '',
-    startAlternative: '',
-    start: 'Yes',
-    contactDetailsPrivate: ['email'],
-    contactDetailsPrivateAlternative: ['email'],
-  },
-  {
-    id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
-    applicantFirstName: 'Test2',
-    applicantLastName: 'Test2',
-    detailsKnown: '',
-    startAlternative: '',
-    start: 'Yes',
-    contactDetailsPrivate: ['email'],
-    contactDetailsPrivateAlternative: ['email'],
+    id: otherPersonId,
+    firstName: 'Jordan',
+    lastName: 'Smith',
   },
 ];
 
 const enLanguageContent = {
-  caption: 'Keeping your contact details private for',
-  headingTitle: 'The court will keep your contact details private',
-  p1: 'You have told us you want to keep these contact details private',
+  caption: "Keeping {name}'s address private",
+  headingTitle: "The court will keep {name}'s address private",
+  p1: "You have told us you want to keep {name}'s address private",
   heading3: 'What the court will do',
-  p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass Cymru unless it is by order of the court.',
-  listOfCofidentialInfromations: [
-    { key: 'address', value: 'Address' },
-    { key: 'telephone', value: 'Telephone number' },
-    { key: 'email', value: 'Email' },
-  ],
+  p2: 'The court will hold this information securely and will not share it with anyone except Cafcass or Cafcass Cymru and the local authority, if they are involved in your case, unless it is by order of the court.',
 };
 
 const cyLanguageContent = {
-  caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
-  headingTitle: 'Bydd y llys yn cadw eich manylion cyswllt yn breifat ar gyfer.',
-  p1: "Rydych wedi dweud wrthym eich bod eisiau cadw'r manylion cyswllt yma yn breifat:",
+  caption: 'Cadw cyfeiriad {name} yn breifat',
+  headingTitle: 'Bydd y llys yn cadw cyfeiriad {name} yn breifat.',
+  p1: 'Rydych wedi dweud wrthym eich bod am gadw cyfeiriad {name} yn breifat.',
   heading3: 'Beth fydd y llys yn ei wneud',
-  p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass (Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd) neu Cafcass Cymru oni bai ei fod trwy orchymyn y llys.",
-  listOfCofidentialInfromations: [
-    { key: 'address', value: 'Cyfeiriad' },
-    { key: 'telephone', value: 'Ffôn' },
-    { key: 'email', value: 'E-bost' },
-  ],
+  p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass neu Cafcass Cymru a'r awdurdod lleol, os ydynt yn ymwneud â'ch achos, oni bai ei fod trwy orchymyn y llys.",
 };
 
-describe('applicant personal details > confidentiality > feedback', () => {
+describe('other-person confidentiality > feedback', () => {
   const commonContent = {
     language: 'en',
-    userCase: { appl_allApplicants: dummyApplicantData },
+    userCase: { oprs_otherPersons: dummyOtherPersons },
     additionalData: {
       req: {
         params: {
-          applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+          otherPersonId,
         },
       },
     },
   } as unknown as CommonContent;
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct english content', () => {
+
+  test('should return correct english content template', () => {
     expect(en()).toEqual(enLanguageContent);
   });
 
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct welsh content', () => {
+  test('should return correct welsh content template', () => {
     expect(cy()).toEqual(cyLanguageContent);
   });
 
-  test('should contain applyingWith field', () => {
-    const generatedContent = generateContent(commonContent) as Record<string, never>;
-    const form = generatedContent.form as FormContent;
-    const fields = form.fields as FormFields;
-    const applyingWithField = fields.fields as FormOptions;
-    expect(applyingWithField?.type).not.toBe('radios');
+  test('should inject name into generated content', () => {
+    const generatedContent = generateContent(commonContent) as Record<string, unknown>;
+    expect(generatedContent.caption as string).toContain("Keeping Jordan Smith's address private");
+    expect(generatedContent.headingTitle as string).toContain("The court will keep Jordan Smith's address private");
+    expect(generatedContent.p1 as string).toContain("You have told us you want to keep Jordan Smith's address private");
   });
+
   test('should contain SaveAndComeLater button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;

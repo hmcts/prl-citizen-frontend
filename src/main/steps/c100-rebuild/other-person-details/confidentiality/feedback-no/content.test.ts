@@ -1,43 +1,57 @@
-import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
+import { FormContent, LanguageLookup } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
 jest.mock('../../../../../app/form/validation');
 
-const en = {
-  caption: 'Keeping your contact details private',
-  headingTitle: 'The court will not keep your contact details private',
-  p1: 'You have told us you do not want to keep your contact details private from the other people in this application.',
-};
+const otherPersonId = 'op-1';
 
-const cy = {
-  caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
-  headingTitle: 'Ni fydd y llys yn cadw eich manylion cyswllt yn breifat ar gyfer',
-  p1: 'Rydych wedi dweud wrthym nad ydych eisiau cadw eich manylion cyswllt yn breifat ar gyfer oddi wrth y bobl eraill yn y cais hwn.',
-};
+const dummyOtherPersons = [
+  {
+    id: otherPersonId,
+    firstName: 'Jordan',
+    lastName: 'Smith',
+  },
+];
 
-describe('applicant personal details > confidentiality > feedback', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct english content', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
+// language template placeholders are defined in content.ts; tests assert generated strings with injected name
+
+describe('other-person confidentiality > feedback-no', () => {
+  const commonContent = {
+    language: 'en',
+    userCase: { oprs_otherPersons: dummyOtherPersons },
+    additionalData: { req: { params: { otherPersonId } } },
+  } as unknown as CommonContent;
+
+  test('should return correct english content template (with injected name)', () => {
+    const generated = generateContent(commonContent) as Record<string, unknown>;
+    expect(generated.caption as string).toEqual("Keeping Jordan Smith's address private");
+    expect(generated.headingTitle as string).toEqual("The court will not keep Jordan Smith's address private");
+    expect(generated.p1 as string).toEqual(
+      "You have told us you do not want to keep Jordan Smith's address private from the other people in this application."
+    );
   });
 
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  test('should return correct welsh content template (with injected name)', () => {
+    const generated = generateContent({ ...commonContent, language: 'cy' } as CommonContent) as Record<string, unknown>;
+    expect(generated.caption as string).toEqual('Cadw cyfeiriad Jordan Smith yn breifat');
+    expect(generated.headingTitle as string).toEqual('Ni fydd y llys yn cadw cyfeiriad Jordan Smith yn breifat');
+    expect(generated.p1 as string).toEqual(
+      'Rydych wedi dweud wrthym nad ydych am gadw cyfeiriad Jordan Smith yn breifat oddi wrth y bobl eraill yn y cais hwn'
+    );
   });
 
-  test('should contain applyingWith field', () => {
-    const generatedContent = generateContent(commonContent) as Record<string, never>;
-    const form = generatedContent.form as FormContent;
-    const fields = form.fields as FormFields;
-    const applyingWithField = fields.fields as FormOptions;
-    expect(applyingWithField?.type).not.toBe('radios');
+  test('should inject name into generated content', () => {
+    const generatedContent = generateContent(commonContent) as Record<string, unknown>;
+    expect(generatedContent.caption as string).toContain("Keeping Jordan Smith's address private");
+    expect(generatedContent.headingTitle as string).toContain("The court will not keep Jordan Smith's address private");
+    expect(generatedContent.p1 as string).toContain(
+      "You have told us you do not want to keep Jordan Smith's address private from the other people in this application."
+    );
   });
-  test('should contain SaveAndComeLater button', () => {
+
+  test('should contain SaveAndComeLater and continue buttons', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
     expect(
