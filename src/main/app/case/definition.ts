@@ -170,7 +170,6 @@ export interface ReasonableAdjustmentsSupport {
   differentChairDetails?: string;
   describeSignLanguageDetails?: string;
   lightingProvideDetails?: string;
-  languageSupportNotes?: string;
 }
 
 export interface CurrentOrPreviousProceedings {
