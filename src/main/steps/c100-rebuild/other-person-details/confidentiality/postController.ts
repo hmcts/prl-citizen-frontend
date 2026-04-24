@@ -2,7 +2,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100RebuildPartyDetails } from '../../../../app/case/definition';
+import { C100RebuildPartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -21,19 +21,34 @@ export default class OtherPersonConfidentialityPostController extends PostContro
     const form = new Form(getFormFields(req.session.userCase, otherPersonId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    const { confidentiality } = formData as Record<string, any>;
     req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
 
+    const otherPersons = req.session.userCase.oprs_otherPersons ?? [];
+
+    const currentOtherPerson = getPartyDetails(
+      otherPersonId,
+      req.session.userCase.oprs_otherPersons
+    ) as C100RebuildPartyDetails;
+
+    const rawData = formData as any;
+
+    const submittedValue = (rawData.confidentiality || rawData.startAlternative) as YesOrNo | undefined;
+
+    const existingConfidentiality = currentOtherPerson.isOtherPersonAddressConfidential;
+
+    const otherConfidentialityValue =
+      submittedValue === YesOrNo.YES || existingConfidentiality === YesOrNo.YES ? YesOrNo.YES : YesOrNo.NO;
+
     req.session.userCase.oprs_otherPersons = updatePartyDetails(
       {
-        ...(getPartyDetails(otherPersonId, req.session.userCase.oprs_otherPersons) as C100RebuildPartyDetails),
-        isOtherPersonAddressConfidential: confidentiality,
+        ...currentOtherPerson,
+        isOtherPersonAddressConfidential: otherConfidentialityValue,
       },
-      req.session.userCase.oprs_otherPersons
+      otherPersons
     ) as C100RebuildPartyDetails[];
 
     if (onlycontinue) {

@@ -1,5 +1,5 @@
 module.exports = {
-  roots: ['<rootDir>/src/main'],
+  roots: ['<rootDir>/src/main', '<rootDir>/src/test'],
   testRegex: '(/src/test/.*|\\.test)\\.(ts|js)$',
   testEnvironment: 'node',
   preset: "ts-jest/presets/js-with-ts",
