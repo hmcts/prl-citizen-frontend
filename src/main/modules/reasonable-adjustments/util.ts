@@ -199,13 +199,11 @@ export class ReasonableAdjustementsUtility {
 
   private cleanSessionForSupportDuringCase(caseData: CaseWithId): CaseWithId {
     delete caseData.ra_disabilityRequirements_subfield;
-    delete caseData.ra_disabilityRequirements;
     return caseData;
   }
 
   private cleanSessionForIntermediarySupport(caseData: CaseWithId): CaseWithId {
     delete caseData.ra_intermediaryRequired_subfield;
-    delete caseData.ra_intermediaryRequirements;
     return caseData;
   }
 
@@ -469,17 +467,16 @@ export class ReasonableAdjustementsUtility {
       }
     }
 
-    if (hasDisabilityRequirements) {
-      caseData = this.cleanSessionForSupportDuringCase(caseData);
-    } else {
+    if (!hasDisabilityRequirements) {
       caseData = this.cleanSessionForDocumentSupport(caseData);
       caseData = this.cleanSessionForCommunicationHelp(caseData);
       caseData = this.cleanSessionForSupportForCourtHearing(caseData);
       caseData = this.cleanSessionForNeedsDuringCourtHearing(caseData);
       caseData = this.cleanSessionForNeedsInCourt(caseData);
+      caseData = this.cleanSessionForSupportDuringCase(caseData);
     }
 
-    if (hasIntermediaryRequirements) {
+    if (!hasIntermediaryRequirements) {
       caseData = this.cleanSessionForIntermediarySupport(caseData);
     }
 
