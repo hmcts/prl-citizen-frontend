@@ -1,5 +1,5 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { CaseType } from '../../app/case/definition';
+import { CaseType, YesOrNo } from '../../app/case/definition';
 
 import { RAUtility } from './util';
 
@@ -8,7 +8,7 @@ describe('RA util', () => {
     test('should clean session for document support', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['MOCK_SUPPORT_REQUIREMENT'],
+          ra_disabilityRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -31,7 +31,7 @@ describe('RA util', () => {
     test('should clean session for communication help', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['MOCK_SUPPORT_REQUIREMENT'],
+          ra_disabilityRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -52,7 +52,7 @@ describe('RA util', () => {
     test('should clean session for support for court hearing', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['MOCK_SUPPORT_REQUIREMENT'],
+          ra_disabilityRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -77,7 +77,7 @@ describe('RA util', () => {
     test('should clean session for needs during court hearing', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['MOCK_SUPPORT_REQUIREMENT'],
+          ra_disabilityRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -98,7 +98,7 @@ describe('RA util', () => {
     test('should clean session for needs in court', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['MOCK_SUPPORT_REQUIREMENT'],
+          ra_disabilityRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -118,10 +118,44 @@ describe('RA util', () => {
       expect(cleanedUserCase.ra_travellingCourtOther_subfield).toBe(undefined);
     });
 
+    test('should clean session for intermediary support when no is selected', () => {
+      const req = mockRequest({
+        body: {
+          ra_intermediaryRequirements: YesOrNo.NO,
+        },
+        session: {
+          userCase: {
+            ra_intermediaryRequired_subfield: 'test',
+          },
+        },
+      });
+
+      const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
+
+      expect(cleanedUserCase.ra_intermediaryRequired_subfield).toBe(undefined);
+    });
+
+    test('should clean session for disability subfield when no is selected', () => {
+      const req = mockRequest({
+        body: {
+          ra_disabilityRequirements: YesOrNo.NO,
+        },
+        session: {
+          userCase: {
+            ra_disabilityRequirements_subfield: 'test',
+          },
+        },
+      });
+
+      const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
+
+      expect(cleanedUserCase.ra_disabilityRequirements_subfield).toBe(undefined);
+    });
+
     test('should clean session for all support requirements when no support is selected', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['noSupportRequired'],
+          ra_disabilityRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {

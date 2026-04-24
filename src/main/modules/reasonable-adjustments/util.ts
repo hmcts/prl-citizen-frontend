@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 
 import { CaseWithId } from '../../app/case/case';
-import { CaseType, PartyDetails, ReasonableAdjustmentsSupport } from '../../app/case/definition';
+import { CaseType, PartyDetails, ReasonableAdjustmentsSupport, YesOrNo } from '../../app/case/definition';
 import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { PageContent } from '../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../app/form/Form';
@@ -20,8 +20,6 @@ import {
   RAFlagDetail,
   RAFlagValue,
   RAFlags,
-  RALocalComponentC100SupportNeeds,
-  RALocalComponentRespondentSupportNeeds,
   RASupportCaseEvent,
   RASupportContext,
 } from './definitions';
@@ -196,6 +194,16 @@ export class ReasonableAdjustementsUtility {
     delete caseData.ra_parkingSpace_subfield;
     delete caseData.ra_differentTypeChair_subfield;
     delete caseData.ra_travellingCourtOther_subfield;
+    return caseData;
+  }
+
+  private cleanSessionForSupportDuringCase(caseData: CaseWithId): CaseWithId {
+    delete caseData.ra_disabilityRequirements_subfield;
+    return caseData;
+  }
+
+  private cleanSessionForIntermediarySupport(caseData: CaseWithId): CaseWithId {
+    delete caseData.ra_intermediaryRequired_subfield;
     return caseData;
   }
 
@@ -433,7 +441,8 @@ export class ReasonableAdjustementsUtility {
     const attendingToCourt = body?.ra_typeOfHearing?.filter(val => !!val);
     const languageNeeds = body?.ra_languageNeeds?.filter(val => !!val);
     const specialArrangements = body?.ra_specialArrangements?.filter(val => !!val);
-    const supportRequirements = body?.ra_disabilityRequirements?.filter(val => !!val);
+    const hasDisabilityRequirements = body?.ra_disabilityRequirements === YesOrNo.YES;
+    const hasIntermediaryRequirements = body?.ra_intermediaryRequirements === YesOrNo.YES;
 
     if (attendingToCourt?.length) {
       if (!this.hasRAValueInSessionForLocalComponent(['noVideoAndPhoneHearing', 'nohearings'], attendingToCourt)) {
@@ -458,79 +467,17 @@ export class ReasonableAdjustementsUtility {
       }
     }
 
-    if (supportRequirements?.length) {
-      if (
-        !this.hasRAValueInSessionForLocalComponent(
-          [
-            RALocalComponentC100SupportNeeds.DOCUMENTS_SUPPORT,
-            RALocalComponentRespondentSupportNeeds.DOCUMENTS_SUPPORT,
-          ],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForDocumentSupport(caseData);
-      }
+    if (!hasDisabilityRequirements) {
+      caseData = this.cleanSessionForDocumentSupport(caseData);
+      caseData = this.cleanSessionForCommunicationHelp(caseData);
+      caseData = this.cleanSessionForSupportForCourtHearing(caseData);
+      caseData = this.cleanSessionForNeedsDuringCourtHearing(caseData);
+      caseData = this.cleanSessionForNeedsInCourt(caseData);
+      caseData = this.cleanSessionForSupportDuringCase(caseData);
+    }
 
-      if (
-        !this.hasRAValueInSessionForLocalComponent(
-          [
-            RALocalComponentC100SupportNeeds.COMMUNICATION_HELP,
-            RALocalComponentRespondentSupportNeeds.COMMUNICATION_HELP,
-          ],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForCommunicationHelp(caseData);
-      }
-
-      if (
-        !this.hasRAValueInSessionForLocalComponent(
-          [
-            RALocalComponentC100SupportNeeds.COURT_HEARING_SUPPORT,
-            RALocalComponentRespondentSupportNeeds.COURT_HEARING_SUPPORT,
-          ],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForSupportForCourtHearing(caseData);
-      }
-
-      if (
-        !this.hasRAValueInSessionForLocalComponent(
-          [
-            RALocalComponentC100SupportNeeds.COURT_HEARING_COMFORT,
-            RALocalComponentRespondentSupportNeeds.COURT_HEARING_COMFORT,
-          ],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForNeedsDuringCourtHearing(caseData);
-      }
-
-      if (
-        !this.hasRAValueInSessionForLocalComponent(
-          [
-            RALocalComponentC100SupportNeeds.TRAVELLING_TO_COURT,
-            RALocalComponentRespondentSupportNeeds.TRAVELLING_TO_COURT,
-          ],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForNeedsInCourt(caseData);
-      }
-
-      if (
-        this.hasRAValueInSessionForLocalComponent(
-          [RALocalComponentC100SupportNeeds.NO_SUPPORT, RALocalComponentRespondentSupportNeeds.NO_SUPPORT],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForDocumentSupport(caseData);
-        caseData = this.cleanSessionForCommunicationHelp(caseData);
-        caseData = this.cleanSessionForSupportForCourtHearing(caseData);
-        caseData = this.cleanSessionForNeedsDuringCourtHearing(caseData);
-        caseData = this.cleanSessionForNeedsInCourt(caseData);
-      }
+    if (!hasIntermediaryRequirements) {
+      caseData = this.cleanSessionForIntermediarySupport(caseData);
     }
 
     return caseData;

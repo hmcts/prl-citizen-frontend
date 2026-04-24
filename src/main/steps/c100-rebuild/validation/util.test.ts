@@ -402,7 +402,13 @@ describe('c100 validation > util', () => {
         },
         {
           fieldMeta: {
-            fieldType: 'array',
+            fieldType: 'string',
+          },
+          fieldName: 'ra_intermediaryRequirements',
+        },
+        {
+          fieldMeta: {
+            fieldType: 'string',
           },
           fieldName: 'ra_disabilityRequirements',
         },
@@ -555,7 +561,13 @@ describe('c100 validation > util', () => {
         },
         {
           fieldMeta: {
-            fieldType: 'array',
+            fieldType: 'string',
+          },
+          fieldName: 'ra_intermediaryRequirements',
+        },
+        {
+          fieldMeta: {
+            fieldType: 'string',
           },
           fieldName: 'ra_disabilityRequirements',
         },
@@ -674,7 +686,13 @@ describe('c100 validation > util', () => {
         },
         {
           fieldMeta: {
-            fieldType: 'array',
+            fieldType: 'string',
+          },
+          fieldName: 'ra_intermediaryRequirements',
+        },
+        {
+          fieldMeta: {
+            fieldType: 'string',
           },
           fieldName: 'ra_disabilityRequirements',
         },
