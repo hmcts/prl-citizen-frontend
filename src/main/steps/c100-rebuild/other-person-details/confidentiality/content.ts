@@ -107,7 +107,6 @@ export const getFormFields = (
       ? YesOrNo.YES
       : otherPerson?.isOtherPersonAddressConfidential ?? YesOrNo.NO;
 
-  // 3. Return the updated fields
   return updateFormFields(form, generateFormFields(isConfidential).fields);
 };
 
@@ -119,11 +118,22 @@ export const generateContent: TranslationFn = content => {
   const otherPerson = getPartyDetails(otherPersonId, userCase.oprs_otherPersons) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPerson;
 
-  // NEW: Many-to-One Lookup Logic
   const children = userCase.cd_children ?? [];
 
-  // --- HIGHLIGHTED CHANGE: FILTER CHILDREN WHO MAINLY LIVE WITH THIS PERSON ---
-  const childrenWhoLiveWithPerson = children.filter(child => child.mainlyLiveWith?.id === otherPersonId);
+  const childrenWhoLiveWithPerson = children.filter(child => {
+    const mv: any = child.mainlyLiveWith;
+    if (!mv) {
+      return false;
+    }
+    if (Array.isArray(mv)) {
+      return mv.some((m: any) => (typeof m === 'string' ? m === otherPersonId : m?.id === otherPersonId));
+    }
+    if (typeof mv === 'object') {
+      return mv?.id === otherPersonId;
+    }
+    // primitive (string/number)
+    return mv === otherPersonId;
+  });
   const childNames = childrenWhoLiveWithPerson.map(child => `${child.firstName} ${child.lastName}`);
 
   let childNameStr = '';
@@ -131,8 +141,11 @@ export const generateContent: TranslationFn = content => {
     childNameStr = 'the child';
   } else if (childNames.length === 1) {
     childNameStr = childNames[0];
+  } else if (childNames.length === 2) {
+    // Exactly two children: "A and B"
+    childNameStr = `${childNames[0]} and ${childNames[1]}`;
   } else {
-    // slice(0, -1) creates a new array, leaving the original childNames intact
+    // Three or more: "A, B and C" (comma separated with final 'and')
     const allButLast = childNames.slice(0, -1).join(', ');
     const last = childNames[childNames.length - 1];
     childNameStr = `${allButLast} and ${last}`;
@@ -148,7 +161,6 @@ export const generateContent: TranslationFn = content => {
 
   const livesWith = isPlural ? verbMapping[language].plural : verbMapping[language].singular;
 
-  // CHANGED: Ensure state consistency
   const isConfidential =
     otherPerson?.isOtherPersonAddressConfidential === YesOrNo.YES
       ? YesOrNo.YES
