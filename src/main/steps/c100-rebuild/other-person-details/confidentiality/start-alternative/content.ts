@@ -63,12 +63,12 @@ export const generateFormFields = (confidential: YesOrNo): GenerateDynamicFormFi
         {
           label: l => l.one, // Points to 'Yes' in English and 'Ydw' in Welsh
           value: YesOrNo.YES,
-          // selected: confidential === YesOrNo.YES,
+          selected: confidential === YesOrNo.YES,
         },
         {
           label: l => l.two, // Points to 'No' in English and 'Nac ydw' in Welsh
           value: YesOrNo.NO,
-          // selected: confidential === YesOrNo.NO,
+          selected: confidential === YesOrNo.NO,
         },
       ],
       validator: isFieldFilledIn,

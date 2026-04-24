@@ -782,7 +782,6 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
     showInSection: Sections.C100,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     postController: OtherPersonCommonConfidentialityController,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
@@ -891,8 +890,9 @@ export const C100Sequence: Step[] = [
     getNextStep: () => '/',
   },
   {
-    url: C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+    url: C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, // Identity screen
     showInSection: Sections.C100,
+    postController: OtherPersonCommonConfidentialityController,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, caseData, req),
   },
