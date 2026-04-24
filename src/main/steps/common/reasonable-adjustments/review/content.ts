@@ -38,7 +38,7 @@ export const enContent = {
     ra_intermediaryRequired_subfield: 'Give details in the box below.',
     ra_disabilityRequirements:
       'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
-    ra_assistanceRequired_subfield: 'Give details in the box below.',
+    ra_disabilityRequirements_subfield: 'Give details in the box below.',
   },
   errors: {},
 };
@@ -61,7 +61,7 @@ export const cyContent: typeof enContent = {
     ra_intermediaryRequired_subfield: 'Os Oes, nodwch beth yw’r anghenion hynny',
     ra_disabilityRequirements:
       'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
-    ra_assistanceRequired_subfield: 'Os Oes, nodwch beth yw’r anghenion hynny',
+    ra_disabilityRequirements_subfield: 'Os Oes, nodwch beth yw’r anghenion hynny',
   },
   errors: {},
 };
@@ -209,7 +209,7 @@ const url = {
   ra_intermediaryRequired_subfield: applyParms(REASONABLE_ADJUSTMENTS_INTERMEDIARY, { root: PartyType.RESPONDENT }),
   ra_specialArrangements: applyParms(REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS, { root: PartyType.RESPONDENT }),
   ra_disabilityRequirements: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, { root: PartyType.RESPONDENT }),
-  ra_assistanceRequired_subfield: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, {
+  ra_disabilityRequirements_subfield: applyParms(REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, {
     root: PartyType.RESPONDENT,
   }),
 };
