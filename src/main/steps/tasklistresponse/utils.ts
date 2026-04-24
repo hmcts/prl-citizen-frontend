@@ -39,7 +39,6 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
   }
 
   if (partyDetails?.response?.supportYouNeed) {
-    console.log('mapDataInSession supportYouNeed:', partyDetails?.response?.supportYouNeed);
     Object.assign(userCase, RAProvider.utils.mapRADetailsForRespondent(partyDetails));
   }
 
