@@ -5,6 +5,7 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
+
 import { generateContent } from './content';
 
 jest.mock('../../../../../app/form/validation');

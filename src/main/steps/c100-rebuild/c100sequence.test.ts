@@ -82,7 +82,6 @@ describe('C100Sequence - Logic Migration', () => {
   describe('MIAM & Urgency Logic', () => {
     test('miam urgency routing', () => {
       const urgency = getStep('/c100-rebuild/miam/urgency');
-      // Using miamMockData but casting correctly to avoid session property misses
       expect(
         urgency.getNextStep(miamMockData.session.userCase as CaseWithId, miamMockData as unknown as AppRequest)
       ).toBe('/c100-rebuild/miam/previous-attendance');

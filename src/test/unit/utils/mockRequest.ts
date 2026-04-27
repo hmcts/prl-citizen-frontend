@@ -48,11 +48,8 @@ export const mockRequest: any = ({
         id: '1234',
         ...userCase,
       },
-      // Some code calls session.save()/destroy() without a callback. Ensure the
-      // mock is safe to call with or without a callback to avoid "done is not
-      // a function" errors when tests run in sequence.
-      save: jest.fn((cb?: (...args: unknown[]) => void) => cb && cb()),
-      destroy: jest.fn((cb?: (...args: unknown[]) => void) => cb && cb()),
+      save: jest.fn(done => done()),
+      destroy: jest.fn(done => done()),
       ...session,
     },
     app: {

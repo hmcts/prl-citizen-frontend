@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { ChildrenDetails } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { interpolate } from '../../../common/string-parser';
@@ -43,6 +44,13 @@ describe('other person details > confidentiality > content', () => {
   const commonContent = {
     language: 'en',
     userCase: {
+      cd_children: [
+        {
+          firstName: 'the',
+          lastName: 'child',
+          mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678',
+        },
+      ],
       oprs_otherPersons: [
         {
           id: '7483640e-0817-4ddc-b709-6723f7945678',
@@ -164,5 +172,53 @@ describe('other person details > confidentiality > content', () => {
     expect(
       (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
+  });
+
+  test('1 child -> child full name and singular verb', () => {
+    const caseData = {
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        cd_children: [
+          { firstName: 'Alice', lastName: 'Brown', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+        ] as unknown as ChildrenDetails[],
+      },
+    };
+    const out = generateContent(caseData);
+    expect(out.line2).toContain('Alice Brown');
+    expect(out.line2).toContain('lives with');
+  });
+
+  test('2 children -> "A and B" and plural verb', () => {
+    const caseData = {
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        cd_children: [
+          { firstName: 'Tom', lastName: 'Thumb', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Jerry', lastName: 'Mouse', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+        ] as unknown as ChildrenDetails[],
+      },
+    };
+    const out = generateContent(caseData);
+    expect(out.line2).toContain('Tom Thumb and Jerry Mouse');
+    expect(out.line2).toContain('live with');
+  });
+
+  test('3 children -> "A, B and C" (No Oxford Comma) and plural verb', () => {
+    const caseData = {
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        cd_children: [
+          { firstName: 'Ann', lastName: 'One', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Ben', lastName: 'Two', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Cara', lastName: 'Three', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+        ] as unknown as ChildrenDetails[],
+      },
+    };
+    const out = generateContent(caseData);
+    expect(out.line2).toContain('Ann One, Ben Two and Cara Three'); // Verifies your grammar fix!
+    expect(out.line2).toContain('live with');
   });
 });

@@ -52,7 +52,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
     ...form,
     fields: {
       ...formFields,
-      ...(form.fields ?? {}),
+      ...form.fields,
     },
   };
 
@@ -112,8 +112,8 @@ export const getFormFields = (
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const otherPersonId = content.additionalData!.req.params.otherPersonId;
-  const userCase = content.userCase!;
+  const otherPersonId = content.additionalData?.req.params.otherPersonId;
+  const userCase = content.userCase ?? {};
 
   const otherPerson = getPartyDetails(otherPersonId, userCase.oprs_otherPersons) as C100RebuildPartyDetails;
   const { firstName, lastName } = otherPerson;
@@ -121,31 +121,39 @@ export const generateContent: TranslationFn = content => {
   const children = userCase.cd_children ?? [];
 
   const childrenWhoLiveWithPerson = children.filter(child => {
-    const mv: any = child.mainlyLiveWith;
-    if (!mv) {
+    const childrenMainlyLiveWith = child.mainlyLiveWith as
+      | string
+      | string[]
+      | Record<string, unknown>
+      | Record<string, unknown>[];
+
+    if (!childrenMainlyLiveWith) {
       return false;
     }
-    if (Array.isArray(mv)) {
-      return mv.some((m: any) => (typeof m === 'string' ? m === otherPersonId : m?.id === otherPersonId));
+
+    if (Array.isArray(childrenMainlyLiveWith)) {
+      return childrenMainlyLiveWith.some(mainlyLiveWith =>
+        typeof mainlyLiveWith === 'string'
+          ? mainlyLiveWith === otherPersonId
+          : (mainlyLiveWith as Record<string, unknown>)?.id === otherPersonId
+      );
     }
-    if (typeof mv === 'object') {
-      return mv?.id === otherPersonId;
+    if (typeof childrenMainlyLiveWith === 'object') {
+      return childrenMainlyLiveWith?.id === otherPersonId;
     }
-    // primitive (string/number)
-    return mv === otherPersonId;
+
+    return childrenMainlyLiveWith === otherPersonId;
   });
   const childNames = childrenWhoLiveWithPerson.map(child => `${child.firstName} ${child.lastName}`);
 
-  let childNameStr = '';
-  if (childNames.length === 0) {
-    childNameStr = 'the child';
-  } else if (childNames.length === 1) {
+  let childNameStr: string;
+  if (childNames.length === 1) {
     childNameStr = childNames[0];
   } else if (childNames.length === 2) {
     // Exactly two children: "A and B"
     childNameStr = `${childNames[0]} and ${childNames[1]}`;
   } else {
-    // Three or more: "A, B and C" (comma separated with final 'and')
+    // Three or more: "A, B and C"
     const allButLast = childNames.slice(0, -1).join(', ');
     const last = childNames[childNames.length - 1];
     childNameStr = `${allButLast} and ${last}`;
