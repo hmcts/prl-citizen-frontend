@@ -118,7 +118,7 @@ const cy: typeof en = {
         'ymuno â’r gwrandawiad drwy gyswllt fideo yn hytrach na bod yno wyneb yn wyneb (penderfyniad y barnwr yw p’un a ddylid caniatáu gwrandawiad drwy gyswllt fideo ai peidio).',
     },
   ],
-  supportYouNeed: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch (dewisol)',
+  supportYouNeed: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch',
   supportYouNeedHint:
     "Rhowch gymaint o fanylion â phosibl, gan gynnwys pam fod angen y cymorth. Os ydych eisoes wedi gofyn am gymorth, anfonwyd eich cais i'r llys.",
   errors: {
