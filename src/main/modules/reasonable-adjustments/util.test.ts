@@ -152,6 +152,41 @@ describe('RA util', () => {
       expect(cleanedUserCase.ra_disabilityRequirements_subfield).toBe(undefined);
     });
 
+    test('should not clean disability subfield when yes', () => {
+      const req = mockRequest({
+        body: {
+          ra_disabilityRequirements: YesOrNo.YES,
+        },
+        session: {
+          userCase: {
+            ra_disabilityRequirements: YesOrNo.YES,
+            ra_disabilityRequirements_subfield: 'Needs wheelchair access',
+          },
+        },
+      });
+
+      const result = RAUtility.cleanSessionForLocalComponent(req);
+
+      expect(result.ra_disabilityRequirements_subfield).toBe('Needs wheelchair access');
+    });
+
+    test('should clear subfield after changing yes to no', () => {
+      const req = mockRequest({
+        body: {
+          ra_disabilityRequirements: YesOrNo.NO,
+        },
+        session: {
+          userCase: {
+            ra_disabilityRequirements: YesOrNo.YES,
+            ra_disabilityRequirements_subfield: 'Some details',
+          },
+        },
+      });
+
+      const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
+      expect(cleanedUserCase.ra_disabilityRequirements_subfield).toBe(undefined);
+    });
+
     test('should clean session for all support requirements when no support is selected', () => {
       const req = mockRequest({
         body: {
