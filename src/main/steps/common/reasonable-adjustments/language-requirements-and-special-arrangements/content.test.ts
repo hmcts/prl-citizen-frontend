@@ -58,50 +58,49 @@ const cy = {
   title: 'Gofynion ieithyddol a threfniadau arbennig',
   content1: 'Gofynion ieithyddol',
   content2: 'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad.',
-  content3: '--welsh-- Tell us if you need:',
+  content3: 'Dywedwch wrthym os oes arnoch angen:',
   list: [
     {
-      content: '--welsh-- want to speak, read or write in Welsh',
+      content: 'eisiau siarad, darllen neu ysgrifennu yn Gymraeg',
     },
     {
-      content: '--welsh-- need an interpreter in a language that is not English',
+      content: 'angen cyfieithydd mewn iaith ar wahan i Saesneg',
     },
   ],
-  content4: '--welsh-- Support needs',
+  content4: 'Anghenion cefnogaeth',
   content5:
-    '--welsh-- Tell us if you or any other party involved in the case have a health condition or disability that means you need support to take part in the hearing or communicate with the court.',
-  content6: '--welsh-- Tell us if you need:',
+    "Dywedwch wrthym os oes gennych chi, neu unrhyw barti arall sy'n rhan o'r achos, gyflwr iechyd neu anabledd sy'n golygu bod arnoch angen cefnogaeth i gymryd rhan yn y gwrandawiad neu i gyfathrebu â'r llys.",
+  content6: 'Dywedwch wrthym os oes arnoch angen:',
   supportNeedsList: [
     {
-      content: '--welsh-- an intermediary',
+      content: 'cyfryngwr',
     },
     {
-      content: '--welsh-- special assistance',
+      content: 'efnogaeth arbennig',
     },
     {
-      content: '--welsh-- special facilities',
+      content: 'cyfleusterau arbennig',
     },
   ],
-  content7: '--welsh-- Special Measures',
+  content7: 'Mesurau Arbennig',
   content8:
-    '--welsh-- Please say whether there is a need for the court to make any special measures for you or any relevant children to attend court.',
-  content9:
-    '--welsh-- Special measures can be put in place to keep you separate from the respondent when you attend court.',
-  content10: '--welsh-- Select any of the following measures you would like to request.',
+    'Dywedwch a oes angen i’r llys wneud unrhyw fesurau arbennig ar eich cyfer chi neu i unrhyw blant perthnasol fynychu’r llys.',
+  content9: 'Gallwn roi mesurau arbennig mewn lle i’ch cadw chi ar wahân i’r atebydd pan fyddwch yn mynychu’r llys.',
+  content10: 'Dewiswch unrhyw un o’r mesurau canlynol yr hoffech wneud cais amdanynt.',
   specialArrangementsList: [
     {
-      content: '--welsh-- a separate waiting room in the court building',
+      content: 'ystafell aros ar wahân yn yr adeilad llys',
     },
     {
-      content: '--welsh-- a separate entrance and exit from the court building',
-    },
-    {
-      content:
-        '--welsh-- to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
+      content: 'mynedfa ac allanfa ar wahân o adeilad y llys',
     },
     {
       content:
-        '--welsh-- to join the hearing by video link rather than in person (it is the judge’s decision whether to allow a hearing by video link).',
+        'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin preifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
+    },
+    {
+      content:
+        'ymuno â’r gwrandawiad drwy gyswllt fideo yn hytrach na bod yno wyneb yn wyneb (penderfyniad y barnwr yw p’un a ddylid caniatáu gwrandawiad drwy gyswllt fideo ai peidio).',
     },
   ],
   supportYouNeed: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch (dewisol)',
