@@ -505,6 +505,25 @@ export class CosApiClient {
       throw new Error('Error occured, could not find court by post code - findCourtByPostCodeAndService');
     }
   }
+
+  public async findOsCourtByPostCodeAndService(postCode: string, user: UserDetails): Promise<string> {
+    try {
+      const response = await this.client.get(`${config.get('services.cos.url')}/search/${postCode}/results`, {
+        headers: {
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+        },
+      });
+
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      if (err?.response?.data?.message) {
+        return err.response.data;
+      }
+      throw new Error('Error occured, could not find court by post code - findOsCourtByPostCodeAndService');
+    }
+  }
 }
 
 interface DocumentUploadRequest {
