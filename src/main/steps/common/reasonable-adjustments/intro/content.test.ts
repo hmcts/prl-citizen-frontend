@@ -15,11 +15,10 @@ const en = {
       content: 'language requirements, for example if you need an interpreter in a particular language',
     },
     {
-      content:
-        'support for people with a health condition or disability (known as ‘reasonable adjustments’), for example access and mobility needs',
+      content: 'support for people with a health condition or disability',
     },
     {
-      content: 'special arrangements for you to feel safe at court, for example a separate waiting room',
+      content: 'special Measure for you to feel safe at court, for example a separate waiting room',
     },
   ],
   content3: 'Requesting support',

@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import config from 'config';
 import _ from 'lodash';
+import toBoolean from 'to-boolean';
 
 import { CaseWithId } from '../../app/case/case';
 import { PartyType } from '../../app/case/definition';
@@ -25,6 +27,7 @@ import {
   REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING,
   REASONABLE_ADJUSTMENTS_RESPONDENT_RESPONSE_REVIEW,
   REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
+  REASONABLE_ADJUSTMENTS_SUCCESS_CONFIRMATION,
   REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE,
   REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING,
 } from '../../steps/urls';
@@ -184,11 +187,15 @@ export class ReasonableAdjustementsNavigationController {
         break;
       }
       case parseUrl(REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS).url: {
-        nextUrl = caseData?.ra_languageReqAndSpecialArrangements
-          ? applyParms(REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS_REVIEW, {
-              partyType,
-            })
-          : REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH;
+        const isEnabled = toBoolean(config.get<boolean>('featureToggles.enableRAComponent'));
+        nextUrl =
+          isEnabled && !caseData?.ra_languageReqAndSpecialArrangements
+            ? REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH
+            : applyParms(REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS_REVIEW, { partyType });
+        break;
+      }
+      case parseUrl(REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS_REVIEW).url: {
+        nextUrl = REASONABLE_ADJUSTMENTS_SUCCESS_CONFIRMATION;
         break;
       }
       default:

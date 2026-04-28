@@ -5,7 +5,12 @@ import { RAProvider } from '../../../../modules/reasonable-adjustments';
 import { routeGuard } from './routeGuard';
 
 describe('RA > intro > routeGuard', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('should get existing RA flags and set isManageSupport to true when they are present', async () => {
+    jest.spyOn(RAProvider, 'isComponentEnabled').mockResolvedValue(true);
     jest.spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags').mockImplementation(() =>
       Promise.resolve({
         partyName: 'testuser citizen',
@@ -102,6 +107,7 @@ describe('RA > intro > routeGuard', () => {
   });
 
   test('should get existing RA flags and set isManageSupport to true when they are not present', async () => {
+    jest.spyOn(RAProvider, 'isComponentEnabled').mockResolvedValue(true);
     jest.spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags').mockImplementation(() =>
       Promise.resolve({
         partyName: 'testuser citizen',
@@ -138,6 +144,7 @@ describe('RA > intro > routeGuard', () => {
   });
 
   test('should catch error and redirect to RA error page', async () => {
+    jest.spyOn(RAProvider, 'isComponentEnabled').mockResolvedValue(true);
     jest.spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags').mockImplementation(() =>
       Promise.resolve({
         partyName: 'testuser citizen',
@@ -154,5 +161,20 @@ describe('RA > intro > routeGuard', () => {
 
     await routeGuard.get(req, res, mockNext);
     expect(res.redirect).toHaveBeenCalledWith('/reasonable-adjustments/error');
+  });
+
+  test('should skip fetching RA flags and call next when component is disabled', async () => {
+    jest.spyOn(RAProvider, 'isComponentEnabled').mockResolvedValue(false);
+    const retrieveFlagsSpy = jest.spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags');
+
+    const req = mockRequest({
+      session: {},
+    });
+    const res = mockResponse();
+    const mockNext = jest.fn();
+
+    await routeGuard.get(req, res, mockNext);
+    expect(retrieveFlagsSpy).not.toHaveBeenCalled();
+    expect(mockNext).toHaveBeenCalled();
   });
 });
