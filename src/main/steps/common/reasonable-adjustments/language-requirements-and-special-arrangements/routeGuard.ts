@@ -1,8 +1,8 @@
 import { NextFunction, Response } from 'express';
 
 import { AppRequest } from '../../../../app/controller/AppRequest';
+import { RAProvider } from '../../../../modules/reasonable-adjustments';
 import { REASONABLE_ADJUSTMENTS_ERROR } from '../../../../steps/urls';
-import {RAProvider} from "../../../../modules/reasonable-adjustments";
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
