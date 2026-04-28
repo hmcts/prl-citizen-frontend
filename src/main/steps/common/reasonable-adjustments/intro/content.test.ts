@@ -1,3 +1,9 @@
+jest.mock('config', () => ({
+  get: jest.fn(),
+}));
+
+import config from 'config';
+
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../common.content';
@@ -82,6 +88,7 @@ describe('RA > intro > content', () => {
   } as unknown as CommonContent;
   let generatedContent;
   let form;
+  (config.get as jest.Mock).mockReturnValue(true);
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;

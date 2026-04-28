@@ -188,6 +188,12 @@ describe('RA > sequence', () => {
         }
       )
     ).toBe('/applicant/reasonable-adjustments/language-requirements-and-special-arrangements/review');
+    expect(
+      raSequence[11].getNextStep(req.session.userCase, {
+        ...req,
+        originalUrl: '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements',
+      })
+    ).toBe('/reasonable-adjustments/launch');
 
     expect(raSequence[12].url).toBe(
       '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements/review'
