@@ -1,5 +1,5 @@
-import { FormContent, LanguageLookup } from '../../../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../../../common/common.content';
+import { FormContent } from '../../../../../app/form/Form';
+import { CommonContent } from '../../../../common/common.content';
 
 import { cy, en, generateContent } from './content';
 
@@ -59,11 +59,37 @@ describe('other-person confidentiality > feedback', () => {
     expect(generatedContent.p1 as string).toContain("You have told us you want to keep Jordan Smith's address private");
   });
 
-  test('should contain SaveAndComeLater button', () => {
+  test('should handle missing otherPersonId or missing person gracefully (Branch Coverage)', () => {
+    const generatedContent = generateContent({
+      ...commonContent,
+      userCase: {
+        oprs_otherPersons: [], // Empty array ensures find() fails
+      },
+      additionalData: {
+        req: {
+          params: {
+            otherPersonId: undefined, // Forces the ?? '' branch on line 37
+          },
+        },
+      },
+    } as unknown as CommonContent);
+
+    // This forces execution of line 40's fallback: otherPerson || {}
+    expect(generatedContent.caption).toBeDefined();
+  });
+
+  test('should return correct button text for onlyContinue and saveAndComeLater', () => {
     const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent | undefined;
-    expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
+    const form = generatedContent.form as FormContent;
+
+    // Create a mock language lookup object
+    const langMock = { onlyContinue: 'Continue', saveAndComeLater: 'Save and come back later' };
+
+    // Define the shape: a function that takes one arg and returns a string
+    const onlyContinueTextFn = form.onlyContinue?.text as (l: Record<string, unknown>) => string;
+    const saveAndComeLaterTextFn = form.saveAndComeLater?.text as (l: Record<string, unknown>) => string;
+
+    expect(onlyContinueTextFn(langMock)).toBe('Continue');
+    expect(saveAndComeLaterTextFn(langMock)).toBe('Save and come back later');
   });
 });

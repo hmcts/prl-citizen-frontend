@@ -17,7 +17,7 @@ const dummyOtherPersons = [
 
 // language template placeholders are defined in content.ts; tests assert generated strings with injected name
 
-describe('other-person confidentiality > feedback-no', () => {
+describe('other-person confidentiality > feedbackno', () => {
   const commonContent = {
     language: 'en',
     userCase: { oprs_otherPersons: dummyOtherPersons },
@@ -49,6 +49,26 @@ describe('other-person confidentiality > feedback-no', () => {
     expect(generatedContent.p1 as string).toContain(
       "You have told us you do not want to keep Jordan Smith's address private from the other people in this application."
     );
+  });
+
+  test('should handle missing otherPersonId or missing person for branch coverage', () => {
+    const generatedContent = generateContent({
+      ...commonContent,
+      userCase: {
+        oprs_otherPersons: [], // Empty array to make find() fail
+      },
+      additionalData: {
+        req: {
+          params: {
+            otherPersonId: undefined, // Triggers the ?? '' on line 37
+          },
+        },
+      },
+    } as unknown as CommonContent);
+
+    // This executes line 40's fallback: otherPerson || {}
+    // and covers the destructuring branches for firstName/lastName
+    expect(generatedContent.caption).toBeDefined();
   });
 
   test('should contain SaveAndComeLater and continue buttons', () => {

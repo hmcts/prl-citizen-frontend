@@ -99,6 +99,29 @@ describe('Keeping Address Private Content', () => {
     expect(confidentialityField.values[1].selected).toBe(false);
   });
 
+  test('should handle missing otherPerson data for branch coverage without using any', () => {
+    const emptyContent = {
+      language: 'en',
+      userCase: {
+        oprs_otherPersons: [],
+      },
+      additionalData: {
+        req: {
+          params: {},
+        },
+      },
+    } as unknown as CommonContent;
+
+    // Use Record<string, unknown> instead of any
+    const generatedContent = generateContent(emptyContent) as Record<string, unknown>;
+
+    expect(generatedContent.caption).toBeDefined();
+
+    // Cast specifically to FormContent for the fields check
+    const form = generatedContent.form as FormContent;
+    expect(form.fields).toBeDefined();
+  });
+
   test('should render "Continue" and "Save and come back later" buttons', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;

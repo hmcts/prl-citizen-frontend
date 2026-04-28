@@ -147,7 +147,7 @@ class OtherPersonsDetailsNavigationController {
           nextUrl = applyParms(C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, {
             otherPersonId: nextPersonId,
           });
-        } else if (isC100ApplicationValid(caseData as CaseWithId, req!)) {
+        } else if (req && isC100ApplicationValid(caseData as CaseWithId, req)) {
           nextUrl = C100_CHECK_YOUR_ANSWER;
         } else if (caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES) {
           nextUrl = applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink;

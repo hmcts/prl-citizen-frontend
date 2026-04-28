@@ -96,7 +96,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
     ...form,
     fields: {
       ...formFields,
-      ...(form.fields ?? {}),
+      ...form.fields,
     },
   };
 

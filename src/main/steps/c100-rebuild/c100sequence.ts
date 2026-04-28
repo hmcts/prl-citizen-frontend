@@ -780,37 +780,6 @@ export const C100Sequence: Step[] = [
       OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL, caseData, req),
   },
   {
-    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
-    showInSection: Sections.C100,
-    postController: OtherPersonCommonConfidentialityController,
-    getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
-        caseData,
-        req
-      ),
-  },
-  {
-    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
-        caseData,
-        req
-      ),
-  },
-  {
-    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
-        caseData,
-        req
-      ),
-  },
-  {
     url: C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
@@ -895,5 +864,36 @@ export const C100Sequence: Step[] = [
     postController: OtherPersonCommonConfidentialityController,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, caseData, req),
+  },
+  {
+    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+    showInSection: Sections.C100,
+    postController: OtherPersonCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+        caseData,
+        req
+      ),
+  },
+  {
+    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+        caseData,
+        req
+      ),
+  },
+  {
+    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
+    showInSection: Sections.C100,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
+        caseData,
+        req
+      ),
   },
 ];
