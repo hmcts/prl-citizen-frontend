@@ -30,7 +30,7 @@ export const routeGuard = {
         return res.redirect(REASONABLE_ADJUSTMENTS_ERROR);
       }
     } else {
-      next();
+      req.session.save(next);
     }
   },
 };
