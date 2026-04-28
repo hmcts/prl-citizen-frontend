@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { getFormattedDate } from '../../../app/case/answers/formatDate';
 import { CaseWithId } from '../../../app/case/case';
 import { Respondent, YesOrNo } from '../../../app/case/definition';
@@ -172,9 +170,6 @@ const mapContactDetailsTextFields = (userCase: Partial<CaseWithId>) => {
   userCase.citizenUserPhoneNumberText = !userCase.citizenUserPhoneNumber ? '' : userCase.citizenUserPhoneNumber;
   userCase.citizenUserEmailAddressText = !userCase.citizenUserEmailAddress ? '' : userCase.citizenUserEmailAddress;
   userCase.citizenUserLivingInRefugeText = !userCase.isCitizenLivingInRefuge ? '' : userCase.isCitizenLivingInRefuge;
-  userCase.refugeDocumentText = !_.isEmpty(userCase.refugeDocument)
-    ? userCase.refugeDocument.document_filename
-    : userCase.refugeDocumentText;
 
   if (userCase.isCitizenLivingInRefuge === YesOrNo.NO) {
     delete userCase.refugeDocument;
