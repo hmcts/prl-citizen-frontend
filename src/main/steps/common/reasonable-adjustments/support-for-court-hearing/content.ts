@@ -16,8 +16,6 @@ export const en = () => ({
   select_all_apply: 'Select all that apply to you',
   supportWorkerCarer: 'A support worker or carer',
   supportWorkerCarer_subfield: 'Tell us who you will bring',
-  friendFamilyMember: 'A friend or family member',
-  friendFamilyMember_subfield: 'Tell us who you will bring',
   assistanceGuideDog: 'Assistance / guide dog',
   therapyAnimal: 'Therapy animal',
   therapyAnimal_subfield: 'Describe what you need',
@@ -27,12 +25,6 @@ export const en = () => ({
   errors: {
     ra_supportWorkerCarer_subfield: {
       required: 'Enter the name of the support worker or carer you will bring',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
-      invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
-    },
-    ra_friendFamilyMember_subfield: {
-      required: 'Enter the name of a friend or family member you will bring',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
@@ -63,8 +55,6 @@ export const cy = () => ({
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
   supportWorkerCarer: 'Gweithiwr cymorth neu ofalwr',
   supportWorkerCarer_subfield: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
-  friendFamilyMember: "ffrind neu aelod o'r teulu",
-  friendFamilyMember_subfield: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
   assistanceGuideDog: 'Ci cymorth / ci tywys',
   therapyAnimal: 'Anifail therapi',
   therapyAnimal_subfield: 'Disgrifiwch yr hyn sydd ei angen arnoch',
@@ -74,12 +64,6 @@ export const cy = () => ({
   errors: {
     ra_supportWorkerCarer_subfield: {
       required: "Rhowch enw'r gweithiwr cymorth neu'r gofalwr y byddwch yn dod efo chi",
-      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
-      invalid:
-        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
-    },
-    ra_friendFamilyMember_subfield: {
-      required: "Rhowch enw ffrind neu aelod o'r teulu byddwch yn dod efo chi",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
@@ -127,22 +111,6 @@ export const form: FormContent = {
               ra_supportWorkerCarer_subfield: {
                 type: 'textarea',
                 label: l => l.supportWorkerCarer_subfield,
-                labelSize: null,
-                attributes: {
-                  rows: 1,
-                },
-                validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
-              },
-            },
-          },
-          {
-            name: 'ra_supportCourt',
-            label: l => l.friendFamilyMember,
-            value: isC100Journey ? 'friendFamilyMember' : 'familymember',
-            subFields: {
-              ra_friendFamilyMember_subfield: {
-                type: 'textarea',
-                label: l => l.friendFamilyMember_subfield,
                 labelSize: null,
                 attributes: {
                   rows: 1,
