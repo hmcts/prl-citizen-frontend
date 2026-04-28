@@ -132,12 +132,7 @@ class ReasonableAdjustmentsProvider {
   }
 
   async getSequence(): Promise<Step[] | []> {
-    const isEnabled = await this.isComponentEnabled();
     const sequence = this.sequence.getSequence();
-
-    if (!isEnabled) {
-      sequence.splice(-5);
-    }
 
     return sequence;
   }
