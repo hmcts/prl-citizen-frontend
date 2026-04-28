@@ -2,6 +2,7 @@ import { NextFunction, Response } from 'express';
 
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { REASONABLE_ADJUSTMENTS_ERROR } from '../../../../steps/urls';
+import {RAProvider} from "../../../../modules/reasonable-adjustments";
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -9,7 +10,7 @@ export const routeGuard = {
     try {
       req.session.save(next);
     } catch (error) {
-
+      RAProvider.log('error', error);
       return res.redirect(REASONABLE_ADJUSTMENTS_ERROR);
     }
   },
