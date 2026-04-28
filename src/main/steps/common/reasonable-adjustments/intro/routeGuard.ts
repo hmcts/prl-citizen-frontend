@@ -7,11 +7,13 @@ import { REASONABLE_ADJUSTMENTS_ERROR } from '../../../../steps/urls';
 
 export const routeGuard = {
   get: async (req: AppRequest, res: Response, next: NextFunction): Promise<void> => {
-    const isEnabled = await RAProvider.isComponentEnabled();
-    if (isEnabled) {
-      try {
+    try {
+      const isEnabled = await RAProvider.isComponentEnabled();
+
+      if (isEnabled) {
         const { userCase: caseData, user: userDetails } = req.session;
         const partyDetails = getPartyDetails(caseData, userDetails.id);
+
         const existingRAFlags = await RAProvider.service.retrieveExistingPartyRAFlags(
           req,
           caseData.id,
@@ -23,14 +25,12 @@ export const routeGuard = {
           ...req.session.userCase,
           ra_existingFlags: existingRAFlags,
         };
-
-        req.session.save(next);
-      } catch (error) {
-        RAProvider.log('error', error);
-        return res.redirect(REASONABLE_ADJUSTMENTS_ERROR);
       }
-    } else {
+
       req.session.save(next);
+    } catch (error) {
+      RAProvider.log('error', error);
+      return res.redirect(REASONABLE_ADJUSTMENTS_ERROR);
     }
   },
 };

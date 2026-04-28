@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+export * from './routeGuard';
 
 const en = {
   caption: 'Support you need during the case',
