@@ -126,8 +126,8 @@ const displayText = {
     assistance: 'Assistance / guide dog',
     animal: 'Therapy animal',
     //languagerequirements
-    speakwelsh: 'I need to speak in Welsh',
-    readandwritewelsh: 'I need to read and write in Welsh',
+    speakwelsh: 'I want to speak in Welsh',
+    readandwritewelsh: 'I want to read and write in Welsh',
     languageinterpreter: 'I need an interpreter in a certain language',
     nointerpreter: 'No, I do not have any language requirements at this time',
   },
