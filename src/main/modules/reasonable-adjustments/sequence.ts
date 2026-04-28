@@ -1,6 +1,4 @@
-import config from 'config';
 import _ from 'lodash';
-import toBoolean from 'to-boolean';
 
 import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../../steps/constants';
@@ -98,7 +96,7 @@ export class ReasonableAdjustementsSequence {
         url: REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS_REVIEW,
         showInSection: Sections.RA,
         getNextStep: (caseData, req) => {
-          const isEnabled = toBoolean(config.get<boolean>('featureToggles.enableRAComponent'));
+          const isEnabled = RAProvider.isComponentEnabledSync();
           return isEnabled
             ? REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH
             : RAProvider.navigationController.getNextUrl(caseData, req);

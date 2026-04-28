@@ -1,9 +1,8 @@
-import config from 'config';
 import _ from 'lodash';
-import toBoolean from 'to-boolean';
 
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { RAProvider } from '../../../../modules/reasonable-adjustments';
 export * from './routeGuard';
 
 const en = {
@@ -93,7 +92,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const isEnabled = toBoolean(config.get<boolean>('featureToggles.enableRAComponent'));
+  const isEnabled = RAProvider.isComponentEnabledSync();
 
   if (!isEnabled) {
     return {

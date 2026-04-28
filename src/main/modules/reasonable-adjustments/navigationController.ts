@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import config from 'config';
 import _ from 'lodash';
-import toBoolean from 'to-boolean';
 
 import { CaseWithId } from '../../app/case/case';
 import { PartyType } from '../../app/case/definition';
@@ -33,6 +31,8 @@ import {
 } from '../../steps/urls';
 
 import { RALocalComponentC100SupportNeeds, RALocalComponentRespondentSupportNeeds, RARootContext } from './definitions';
+
+import { RAProvider } from './index';
 
 export class ReasonableAdjustementsNavigationController {
   private page: Record<string, any> = {
@@ -187,7 +187,7 @@ export class ReasonableAdjustementsNavigationController {
         break;
       }
       case parseUrl(REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS).url: {
-        const isEnabled = toBoolean(config.get<boolean>('featureToggles.enableRAComponent'));
+        const isEnabled = RAProvider.isComponentEnabledSync();
         nextUrl =
           isEnabled && !caseData?.ra_languageReqAndSpecialArrangements
             ? REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH
