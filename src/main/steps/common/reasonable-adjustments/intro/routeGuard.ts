@@ -6,7 +6,8 @@ import { getPartyDetails } from '../../../../steps/tasklistresponse/utils';
 import { REASONABLE_ADJUSTMENTS_ERROR } from '../../../../steps/urls';
 
 export const routeGuard = {
-  get: async (req: AppRequest, res: Response, next: NextFunction): Promise<void> => {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  get: async (req: AppRequest, res: Response, next: NextFunction) => {
     try {
       const isEnabled = await RAProvider.isComponentEnabled();
 
@@ -25,9 +26,10 @@ export const routeGuard = {
           ...req.session.userCase,
           ra_existingFlags: existingRAFlags,
         };
-      }
 
-      req.session.save(next);
+        return req.session.save(next);
+      }
+      return next();
     } catch (error) {
       RAProvider.log('error', error);
       return res.redirect(REASONABLE_ADJUSTMENTS_ERROR);
