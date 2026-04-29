@@ -115,6 +115,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 };
 
 export const generateContent: TranslationFn = content => {
+  const { errors: originalErrors, ...translations } = languages[content.language];
   const respondentId = content.additionalData?.req.params.respondentId ?? '';
   const respondentDetails = getPartyDetails(respondentId, content.userCase!.resp_Respondents) as C100RebuildPartyDetails;
   
@@ -196,9 +197,7 @@ export const generateContent: TranslationFn = content => {
   }
 
   form.fields['startAlternative'].values = detailKnownFormField;
-  const { errors: originalErrors, ...translations } = languages[content.language];
-  const respondentsData = content.userCase?.resp_Respondents?.find(user => user['id'] === respondentId);
-  translations['respondentName'] = `${respondentsData?.firstName ?? ''} ${respondentsData?.lastName ?? ''}`.trim();
+
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields((isRespondentAddressConfidential || isResponentTelephoneNumberConfidential || isRespondentEmailAddressConfidential) ?? YesOrNo.NO).fields),
