@@ -17,6 +17,8 @@ export default class OtherPersonConfidentialityPostController extends PostContro
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    // eslint-disable-next-line no-console
+    console.log('WTF dude!!!!');
     const otherPersonId = req.params.otherPersonId;
     const form = new Form(getFormFields(req.session.userCase, otherPersonId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
@@ -40,8 +42,14 @@ export default class OtherPersonConfidentialityPostController extends PostContro
 
     const existingConfidentiality = currentOtherPerson.isOtherPersonAddressConfidential;
 
-    const otherConfidentialityValue =
-      submittedValue === YesOrNo.YES || existingConfidentiality === YesOrNo.YES ? YesOrNo.YES : YesOrNo.NO;
+    const otherConfidentialityValue = submittedValue ?? existingConfidentiality ?? YesOrNo.NO;
+
+    // eslint-disable-next-line no-console
+    console.log('DEBUG: req.body content ->', JSON.stringify(req.body));
+    // eslint-disable-next-line no-console
+    console.log('DEBUG: formData content ->', JSON.stringify(formData));
+    // eslint-disable-next-line no-console
+    console.log('DEBUG: submittedValue ->', submittedValue);
 
     req.session.userCase.oprs_otherPersons = updatePartyDetails(
       {

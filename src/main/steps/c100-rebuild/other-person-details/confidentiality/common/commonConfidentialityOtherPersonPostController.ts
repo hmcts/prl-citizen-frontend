@@ -19,6 +19,8 @@ export default class OtherPersonCommonConfidentialityController {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    // eslint-disable-next-line no-console
+    console.log('FOUND THE REAL CONTROLLER');
     const otherPersonId = req.params.otherPersonId;
     const otherPeople = req.session.userCase.oprs_otherPersons ?? [];
 
@@ -31,10 +33,7 @@ export default class OtherPersonCommonConfidentialityController {
       req.body['confidentiality'] ??
       req.body['startAlternative']) as string | undefined;
 
-    const finalValue =
-      rawValue === YesOrNo.YES || existing.isOtherPersonAddressConfidential === YesOrNo.YES
-        ? YesOrNo.YES
-        : (rawValue as YesOrNo);
+    const finalValue = (rawValue as YesOrNo) ?? existing.isOtherPersonAddressConfidential ?? YesOrNo.NO;
 
     const updatedPerson: C100RebuildPartyDetails = {
       ...existing,
