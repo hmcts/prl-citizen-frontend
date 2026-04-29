@@ -362,6 +362,9 @@ export const C100_RESPONDENT_DETAILS_ADDRESS_MANUAL: PageLink = `${C100_RESPONDE
 export const C100_RESPONDENT_DETAILS_PERSONAL_DETAILS: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/personal-details`;
 export const C100_RESPONDENT_DETAILS_CONTACT_DETAILS: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/contact-details`;
 export const C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/relationship-to-child/:childId`;
+export const C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/confidentiality/start-alternative`;
+export const C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/confidentiality/feedback`;
+export const C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/confidentiality/feedback-no`;
 
 /** @C100 OTher Person Details */
 export const C100_OTHER_PERSON_DETAILS: PageLink = `${C100_URL}/other-person-details`;
