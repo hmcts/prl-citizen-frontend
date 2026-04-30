@@ -225,7 +225,7 @@ export const checkYourAnswerFlow3 = mockRequest({
       ra_typeOfHearing: ['phoneHearing'],
       ra_languageNeeds: ['readAndWriteInWelsh'],
       ra_specialArrangements: ['separateExitEntrance'],
-      ra_disabilityRequirements: 'No',
+      ra_assistanceRequirements: 'No',
       ra_intermediaryRequirements: 'Yes',
       ra_intermediaryRequired_subfield: 'test',
       ra_communicationHelp: ['needToBeClosedWithSpeaker', 'lipSpeaker'],

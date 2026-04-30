@@ -29,7 +29,7 @@ import { RARootContext } from './definitions';
 
 export class ReasonableAdjustementsNavigationController {
   private page: Record<string, any> = {
-    dataReference: 'ra_disabilityRequirements',
+    dataReference: 'ra_assistanceRequirements',
     pages: [
       {
         url: C100_CHECK_YOUR_ANSWER,

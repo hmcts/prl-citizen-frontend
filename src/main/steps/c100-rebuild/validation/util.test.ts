@@ -410,7 +410,7 @@ describe('c100 validation > util', () => {
           fieldMeta: {
             fieldType: 'string',
           },
-          fieldName: 'ra_disabilityRequirements',
+          fieldName: 'ra_assistanceRequirements',
         },
         {
           fieldMeta: {
@@ -569,7 +569,7 @@ describe('c100 validation > util', () => {
           fieldMeta: {
             fieldType: 'string',
           },
-          fieldName: 'ra_disabilityRequirements',
+          fieldName: 'ra_assistanceRequirements',
         },
         {
           fieldMeta: {
@@ -694,7 +694,7 @@ describe('c100 validation > util', () => {
           fieldMeta: {
             fieldType: 'string',
           },
-          fieldName: 'ra_disabilityRequirements',
+          fieldName: 'ra_assistanceRequirements',
         },
         {
           fieldMeta: {

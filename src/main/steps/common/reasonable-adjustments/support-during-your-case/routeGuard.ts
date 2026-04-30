@@ -7,8 +7,8 @@ import { RAProvider } from '../../../../modules/reasonable-adjustments';
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   post: async (req: AppRequest, res: Response, next: NextFunction) => {
-    if (req.body?.ra_disabilityRequirements === YesOrNo.NO) {
-      delete req.body.ra_disabilityRequirements_subfield;
+    if (req.body?.ra_assistanceRequirements === YesOrNo.NO) {
+      delete req.body.ra_assistanceRequirements_subfield;
     }
     req.session.userCase = {
       ...RAProvider.utils.cleanSessionForLocalComponent(req),

@@ -8,7 +8,7 @@ describe('RA util', () => {
     test('should clean session for document support', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: YesOrNo.NO,
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -31,7 +31,7 @@ describe('RA util', () => {
     test('should clean session for communication help', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: YesOrNo.NO,
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -52,7 +52,7 @@ describe('RA util', () => {
     test('should clean session for support for court hearing', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: YesOrNo.NO,
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -77,7 +77,7 @@ describe('RA util', () => {
     test('should clean session for needs during court hearing', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: YesOrNo.NO,
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -98,7 +98,7 @@ describe('RA util', () => {
     test('should clean session for needs in court', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: YesOrNo.NO,
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -138,59 +138,59 @@ describe('RA util', () => {
     test('should clean session for disability subfield when no is selected', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: YesOrNo.NO,
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
-            ra_disabilityRequirements_subfield: 'test',
+            ra_assistanceRequirements_subfield: 'test',
           },
         },
       });
 
       const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
 
-      expect(cleanedUserCase.ra_disabilityRequirements_subfield).toBe(undefined);
+      expect(cleanedUserCase.ra_assistanceRequirements_subfield).toBe(undefined);
     });
 
     test('should not clean disability subfield when yes', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: YesOrNo.YES,
+          ra_assistanceRequirements: YesOrNo.YES,
         },
         session: {
           userCase: {
-            ra_disabilityRequirements: YesOrNo.YES,
-            ra_disabilityRequirements_subfield: 'Needs wheelchair access',
+            ra_assistanceRequirements: YesOrNo.YES,
+            ra_assistanceRequirements_subfield: 'Needs wheelchair access',
           },
         },
       });
 
       const result = RAUtility.cleanSessionForLocalComponent(req);
 
-      expect(result.ra_disabilityRequirements_subfield).toBe('Needs wheelchair access');
+      expect(result.ra_assistanceRequirements_subfield).toBe('Needs wheelchair access');
     });
 
     test('should clear subfield after changing yes to no', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: YesOrNo.NO,
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
-            ra_disabilityRequirements: YesOrNo.YES,
-            ra_disabilityRequirements_subfield: 'Some details',
+            ra_assistanceRequirements: YesOrNo.YES,
+            ra_assistanceRequirements_subfield: 'Some details',
           },
         },
       });
 
       const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
-      expect(cleanedUserCase.ra_disabilityRequirements_subfield).toBe(undefined);
+      expect(cleanedUserCase.ra_assistanceRequirements_subfield).toBe(undefined);
     });
 
     test('should clean session for all support requirements when no support is selected', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: YesOrNo.NO,
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {

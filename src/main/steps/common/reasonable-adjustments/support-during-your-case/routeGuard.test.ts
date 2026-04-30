@@ -19,43 +19,43 @@ describe('RA > support-during-your-case > routeGuard', () => {
     expect(mockNext).toHaveBeenCalled();
   });
 
-  test('should delete subfield from body when ra_disabilityRequirements is No', () => {
+  test('should delete subfield from body when ra_assistanceRequirements is No', () => {
     const req = mockRequest({
       body: {
-        ra_disabilityRequirements: YesOrNo.NO,
-        ra_disabilityRequirements_subfield: 'test',
+        ra_assistanceRequirements: YesOrNo.NO,
+        ra_assistanceRequirements_subfield: 'test',
       },
       session: {
         userCase: {
-          ra_disabilityRequirements_subfield: 'test',
+          ra_assistanceRequirements_subfield: 'test',
         },
       },
     });
     const res = mockResponse();
     const mockNext = jest.fn();
     routeGuard.post(req, res, mockNext);
-    expect(req.body.ra_disabilityRequirements_subfield).toBeUndefined();
-    expect(req.session.userCase.ra_disabilityRequirements_subfield).toBeUndefined();
+    expect(req.body.ra_assistanceRequirements_subfield).toBeUndefined();
+    expect(req.session.userCase.ra_assistanceRequirements_subfield).toBeUndefined();
     expect(req.session.save).toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
   });
 
-  test('should not delete subfield from body when ra_disabilityRequirements is Yes', () => {
+  test('should not delete subfield from body when ra_assistanceRequirements is Yes', () => {
     const req = mockRequest({
       body: {
-        ra_disabilityRequirements: YesOrNo.YES,
-        ra_disabilityRequirements_subfield: 'test',
+        ra_assistanceRequirements: YesOrNo.YES,
+        ra_assistanceRequirements_subfield: 'test',
       },
       session: {
         userCase: {
-          ra_disabilityRequirements_subfield: 'test',
+          ra_assistanceRequirements_subfield: 'test',
         },
       },
     });
     const res = mockResponse();
     const mockNext = jest.fn();
     routeGuard.post(req, res, mockNext);
-    expect(req.body.ra_disabilityRequirements_subfield).toBe('test');
+    expect(req.body.ra_assistanceRequirements_subfield).toBe('test');
     expect(req.session.save).toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
   });

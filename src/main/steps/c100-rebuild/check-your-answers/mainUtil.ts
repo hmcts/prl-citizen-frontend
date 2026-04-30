@@ -2176,12 +2176,12 @@ export const reasonableAdjustment = (
     },
     {
       key: keys['disabilityRequirementHeading'],
-      anchorReference: 'ra_disabilityRequirements',
+      anchorReference: 'ra_assistanceRequirements',
       valueHtml: populateError(
-        typeof userCase.ra_disabilityRequirements === 'string' ? userCase.ra_disabilityRequirements : undefined,
-        getYesNoTranslation(language, userCase['ra_disabilityRequirements'], 'oesTranslation') +
-          (userCase.ra_disabilityRequirements === YesOrNo.YES
-            ? ' : ' + userCase.ra_disabilityRequirements_subfield
+        typeof userCase.ra_assistanceRequirements === 'string' ? userCase.ra_assistanceRequirements : undefined,
+        getYesNoTranslation(language, userCase['ra_assistanceRequirements'], 'oesTranslation') +
+          (userCase.ra_assistanceRequirements === YesOrNo.YES
+            ? ' : ' + userCase.ra_assistanceRequirements_subfield
             : ''),
         language
       ),
@@ -3132,8 +3132,8 @@ export const prepareProp = (property: string): string => {
       return 'ra_languageNeeds';
     case 'ra_intermediaryRequired_subfield':
       return 'ra_intermediaryRequirements';
-    case 'ra_disabilityRequirements_subfield':
-      return 'ra_disabilityRequirements';
+    case 'ra_assistanceRequirements_subfield':
+      return 'ra_assistanceRequirements';
 
     default:
       return property;

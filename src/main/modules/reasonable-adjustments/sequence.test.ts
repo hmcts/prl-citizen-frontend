@@ -12,7 +12,7 @@ describe('RA > sequence', () => {
         ra_specialArrangementsOther_subfield: ['ra_specialArrangementsOther_subfield'],
         ra_languageNeeds: ['ra_languageNeeds'],
         ra_needInterpreterInCertainLanguage_subfield: ['ra_needInterpreterInCertainLanguage_subfield'],
-        ra_disabilityRequirements: ['ra_disabilityRequirements'],
+        ra_assistanceRequirements: ['ra_assistanceRequirements'],
         ra_documentInformation: ['ra_documentInformation'],
         ra_specifiedColorDocuments_subfield: ['ra_specifiedColorDocuments_subfield'],
         ra_largePrintDocuments_subfield: ['ra_largePrintDocuments_subfield'],

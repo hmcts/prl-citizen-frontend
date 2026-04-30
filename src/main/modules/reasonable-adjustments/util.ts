@@ -198,7 +198,7 @@ export class ReasonableAdjustementsUtility {
   }
 
   private cleanSessionForSupportDuringCase(caseData: CaseWithId): CaseWithId {
-    delete caseData.ra_disabilityRequirements_subfield;
+    delete caseData.ra_assistanceRequirements_subfield;
     return caseData;
   }
 
@@ -375,7 +375,7 @@ export class ReasonableAdjustementsUtility {
       ra_specialArrangementsOther_subfield: safetyArrangementsDetails,
       ra_languageNeeds: languageRequirements,
       ra_needInterpreterInCertainLanguage_subfield: languageDetails,
-      ra_disabilityRequirements: reasonableAdjustments,
+      ra_assistanceRequirements: reasonableAdjustments,
       ra_documentInformation: docsSupport,
       ra_specifiedColorDocuments_subfield: docsDetails,
       ra_largePrintDocuments_subfield: largePrintDetails,
@@ -410,7 +410,7 @@ export class ReasonableAdjustementsUtility {
       safetyArrangementsDetails: caseData?.ra_specialArrangementsOther_subfield,
       languageRequirements: caseData?.ra_languageNeeds,
       languageDetails: caseData?.ra_needInterpreterInCertainLanguage_subfield,
-      reasonableAdjustments: caseData?.ra_disabilityRequirements,
+      reasonableAdjustments: caseData?.ra_assistanceRequirements,
       docsSupport: caseData?.ra_documentInformation,
       docsDetails: caseData?.ra_specifiedColorDocuments_subfield,
       largePrintDetails: caseData?.ra_largePrintDocuments_subfield,
@@ -441,7 +441,7 @@ export class ReasonableAdjustementsUtility {
     const attendingToCourt = body?.ra_typeOfHearing?.filter(val => !!val);
     const languageNeeds = body?.ra_languageNeeds?.filter(val => !!val);
     const specialArrangements = body?.ra_specialArrangements?.filter(val => !!val);
-    const hasDisabilityRequirements = body?.ra_disabilityRequirements;
+    const hasDisabilityRequirements = body?.ra_assistanceRequirements;
     const hasIntermediaryRequirements = body?.ra_intermediaryRequirements;
 
     if (attendingToCourt?.length) {
@@ -466,10 +466,7 @@ export class ReasonableAdjustementsUtility {
         caseData = this.cleanSessionForSpecialArrangementsSubFields(caseData);
       }
     }
-    console.log('support-during-case: ', hasDisabilityRequirements);
-    console.log('intermediary: ', hasIntermediaryRequirements);
-    console.log('equals NO?', hasIntermediaryRequirements === YesOrNo.NO);
-    console.log('subfield before clean:', caseData.ra_intermediaryRequired_subfield);
+
     if (hasDisabilityRequirements === YesOrNo.NO) {
       caseData = this.cleanSessionForDocumentSupport(caseData);
       caseData = this.cleanSessionForCommunicationHelp(caseData);
@@ -483,8 +480,6 @@ export class ReasonableAdjustementsUtility {
       caseData = this.cleanSessionForIntermediarySupport(caseData);
     }
 
-    console.log('casedata after cleaning: ', caseData);
-    console.log('subfield after clean:', caseData.ra_intermediaryRequired_subfield);
     return caseData;
   }
 
@@ -493,7 +488,7 @@ export class ReasonableAdjustementsUtility {
       userCase?.ra_typeOfHearing?.length ||
       userCase?.ra_languageNeeds?.length ||
       userCase?.ra_specialArrangements?.length ||
-      userCase?.ra_disabilityRequirements?.length ||
+      userCase?.ra_assistanceRequirements?.length ||
       userCase?.ra_documentInformation?.length ||
       userCase?.ra_communicationHelp?.length ||
       userCase?.ra_supportCourt?.length ||

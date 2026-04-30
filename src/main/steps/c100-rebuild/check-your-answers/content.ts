@@ -1298,7 +1298,7 @@ export const generateContent: TranslationFn = content => {
       ra_intermediaryRequirements: {
         required: raContent.intermediaryRequirementsHeading,
       },
-      ra_disabilityRequirements: {
+      ra_assistanceRequirements: {
         required: raContent.disabilityRequirementHeading,
       },
     },

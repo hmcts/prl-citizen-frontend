@@ -51,14 +51,14 @@ const TestReasonableAdjustmentElement = language => {
         yes: 'Yes',
         courtGuidanceText: 'Court staff may get in touch with you about the requirements',
         errors: {
-          ra_disabilityRequirements_subfield: {
+          ra_assistanceRequirements_subfield: {
             required:
               "Provide details for 'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?'",
             invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
             invalid:
               'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
           },
-          ra_disabilityRequirements: {
+          ra_assistanceRequirements: {
             required:
               'Select whether any of the parties involved have a disability for which you require special assistance or special facilities',
           },
@@ -110,14 +110,14 @@ const TestReasonableAdjustmentElement = language => {
         yes: 'Ydw',
         courtGuidanceText: 'Efallai y bydd staff y llys yn cysylltu â chi ynghylch eich gofynion.',
         errors: {
-          ra_disabilityRequirements_subfield: {
+          ra_assistanceRequirements_subfield: {
             required:
               "Rhowch fanylion 'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?'",
             invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
             invalid:
               'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
           },
-          ra_disabilityRequirements: {
+          ra_assistanceRequirements: {
             required:
               "Dewiswch a oes gan unrhyw un o'r partïon dan sylw anabledd y mae angen cymorth arbennig neu gyfleusterau arbennig arnynt",
           },

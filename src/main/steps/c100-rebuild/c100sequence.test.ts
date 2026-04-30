@@ -54,7 +54,7 @@ describe('C100Sequence', () => {
     op_childrenInvolvedCourtCase: 'No',
     c1A_haveSafetyConcerns: 'No',
     ra_typeOfHearing: ['test'],
-    ra_disabilityRequirements: 'No',
+    ra_assistanceRequirements: 'No',
     ra_intermediaryRequirements: 'No',
     ie_internationalStart: 'No',
     ie_internationalParents: 'Yes',

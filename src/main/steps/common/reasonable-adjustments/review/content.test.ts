@@ -20,9 +20,9 @@ const en = {
     ra_specialArrangements: 'Do you or the children need special safety arrangements at court?',
     ra_intermediaryRequirements: 'Are you aware of whether an intermediary will be required?',
     ra_intermediaryRequired_subfield: 'Give details in the box below.',
-    ra_disabilityRequirements:
+    ra_assistanceRequirements:
       'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
-    ra_disabilityRequirements_subfield: 'Give details in the box below.',
+    ra_assistanceRequirements_subfield: 'Give details in the box below.',
   },
   errors: {},
 };
@@ -43,9 +43,9 @@ const cy = {
     ra_specialArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
     ra_intermediaryRequirements: "Dewiswch p'un a fydd angen cyfryngwr ai peidio",
     ra_intermediaryRequired_subfield: 'Os Oes, nodwch beth yw’r anghenion hynny',
-    ra_disabilityRequirements:
+    ra_assistanceRequirements:
       'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
-    ra_disabilityRequirements_subfield: 'Os Oes, nodwch beth yw’r anghenion hynny',
+    ra_assistanceRequirements_subfield: 'Os Oes, nodwch beth yw’r anghenion hynny',
   },
   errors: {},
 };
@@ -58,7 +58,7 @@ describe('RA > review > content', () => {
         originalUrl: '/c100-rebuild/reasonable-adjustments/guidance',
         session: {
           userCase: {
-            ra_disabilityRequirements: 'Yes',
+            ra_assistanceRequirements: 'Yes',
           },
         },
       },

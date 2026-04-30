@@ -1297,7 +1297,7 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_assistanceRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: 'Edit',
@@ -2000,7 +2000,7 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_assistanceRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: 'Edit',
@@ -2699,7 +2699,7 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_assistanceRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: ' Golygu',
@@ -3264,7 +3264,7 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_assistanceRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: ' Golygu',
@@ -3914,7 +3914,7 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_assistanceRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: ' Golygu',
@@ -4565,7 +4565,7 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_assistanceRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: ' Golygu',
@@ -5270,7 +5270,7 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_assistanceRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: 'Edit',
@@ -5987,7 +5987,7 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_assistanceRequirements',
                   },
                   href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
                   text: 'Edit',

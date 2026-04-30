@@ -299,7 +299,7 @@ export const checkYourAnswerFlow1 = mockRequest({
       ra_typeOfHearing: ['videoHearing'],
       ra_languageNeeds: ['speakInWelsh'],
       ra_specialArrangements: ['separateWaitingRoom'],
-      ra_disabilityRequirements: 'No',
+      ra_assistanceRequirements: 'No',
       ra_intermediaryRequirements: 'No',
       ra_documentInformation: ['audioTranslationDocuments'],
       c100ApplicationFees: '232.00',
