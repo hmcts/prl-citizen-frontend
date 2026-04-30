@@ -356,7 +356,10 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -452,7 +455,10 @@ describe('testcase for notification Banner', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
+                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+              },
+              {
+                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, <strong>sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -549,7 +555,10 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -645,7 +654,10 @@ describe('testcase for notification Banner', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
+                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+              },
+              {
+                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, <strong>sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -727,7 +739,10 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -831,7 +846,10 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -948,7 +966,10 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -1076,7 +1097,10 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -1156,7 +1180,10 @@ describe('testcase for notification Banner', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
+                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+              },
+              {
+                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, <strong>sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -1260,7 +1287,10 @@ describe('testcase for notification Banner', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
+                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+              },
+              {
+                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, <strong>sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -1458,7 +1488,10 @@ describe('testcase for notification Banner', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -1610,7 +1643,10 @@ describe('testcase for notification Banner', () => {
                   text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
                 },
                 {
-                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                  text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+                },
+                {
+                  text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
                 },
               ],
               links: [],
@@ -1673,7 +1709,10 @@ describe('testcase for notification Banner', () => {
                   text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
                 },
                 {
-                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
+                  text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                },
+                {
+                  text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, <strong>sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
                 },
               ],
               links: [],
@@ -1736,7 +1775,10 @@ describe('testcase for notification Banner', () => {
                   text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
                 },
                 {
-                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                  text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+                },
+                {
+                  text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
                 },
               ],
               links: [],
@@ -1799,7 +1841,10 @@ describe('testcase for notification Banner', () => {
                   text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
                 },
                 {
-                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
+                  text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                },
+                {
+                  text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, <strong>sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
                 },
               ],
               links: [],
@@ -1879,7 +1924,10 @@ describe('testcase for notification Banner', () => {
                   text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
                 },
                 {
-                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                  text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+                },
+                {
+                  text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
                 },
               ],
               links: [],
@@ -1959,7 +2007,10 @@ describe('testcase for notification Banner', () => {
                   text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
                 },
                 {
-                  text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
+                  text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                },
+                {
+                  text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, <strong>sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
                 },
               ],
               links: [],
@@ -2021,7 +2072,10 @@ describe('testcase for notification Banner', () => {
                   text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
                 },
                 {
-                  text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                  text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+                },
+                {
+                  text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
                 },
               ],
               links: [],
@@ -2086,7 +2140,10 @@ describe('FL401 banners', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -2122,7 +2179,10 @@ describe('FL401 banners', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -2170,7 +2230,10 @@ describe('FL401 banners', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
+                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+              },
+              {
+                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, <strong>sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -2206,7 +2269,10 @@ describe('FL401 banners', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
+                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+              },
+              {
+                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, <strong>sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -2283,7 +2349,10 @@ describe('FL401 banners', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -2395,7 +2464,10 @@ describe('FL401 banners', () => {
                 text: 'If you’re coming to a court or tribunal for a hearing, bring your hearing letter with your case number – the case number helps you find where you need to go in the building.',
               },
               {
-                text: '<strong>You must also bring any papers that you need for your hearing as the court will not provide you with electronic devices to view them. For final hearings only, the court can print any bundle it provides if you do not have access to printing facilities.</strong>',
+                text: 'You must bring all the papers you need for your hearing. The court will not give you an electronic device to read your documents, and it will not print your papers for you. <strong>Papers will only be printed if a judge gives specific permission, and only when you cannot print them yourself.</strong>',
+              },
+              {
+                text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. Recording or filming any part of the hearing without permission is contempt of court, <strong>which means you can be fined or sent to prison.</strong>',
               },
             ],
             links: [],
@@ -2434,7 +2506,10 @@ describe('FL401 banners', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: '<strong>Rhaid i chi hefyd ddod ag unrhyw bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad gan na fydd y llys yn darparu dyfeisiau electronig i chi eu gweld. Ar gyfer gwrandawiadau terfynol yn unig, gall y llys argraffu unrhyw fwndel a ddarperir ganddo os nad oes gennych fynediad at gyfleusterau argraffu.</strong>',
+                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+              },
+              {
+                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, <strong>sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
