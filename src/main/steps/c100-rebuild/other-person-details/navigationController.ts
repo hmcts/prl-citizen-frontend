@@ -1,3 +1,5 @@
+import { Logger } from '@hmcts/nodejs-logging';
+
 import { Case, CaseWithId } from '../../../app/case/case';
 import { C100RebuildPartyDetails, ChildrenDetails, RootContext, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -25,6 +27,8 @@ import {
 import { getNextPerson, getPartyDetails } from '../people/util';
 
 import { getNextPersonLivingWithChild, getOtherPeopleLivingWithChildren } from './utils';
+
+const logger = Logger.getLogger('OtherPersonsDetailsNavigationController');
 
 class OtherPersonsDetailsNavigationController {
   private otherPersonsDetails: C100RebuildPartyDetails[] | [] = [];
@@ -111,7 +115,8 @@ class OtherPersonsDetailsNavigationController {
         ) as C100RebuildPartyDetails | null;
 
         if (!otherPersonData) {
-          throw new Error(`Other person not found: ${this.otherPersonId}`);
+          logger.error(`Data integrity check failed for OtherPersonID: ${this.otherPersonId}. Redirecting to safety.`);
+          return C100_OTHER_PERSON_CHECK;
         }
 
         const isConfidential = otherPersonData.isOtherPersonAddressConfidential;

@@ -879,6 +879,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
     showInSection: Sections.C100,
+    postController: OtherPersonCommonConfidentialityController,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
@@ -889,6 +890,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
     showInSection: Sections.C100,
+    postController: OtherPersonCommonConfidentialityController,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,

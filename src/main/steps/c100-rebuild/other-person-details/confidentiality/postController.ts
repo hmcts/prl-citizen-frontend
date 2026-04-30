@@ -8,6 +8,7 @@ import { AnyObject, PostController } from '../../../../app/controller/PostContro
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { C100_OTHER_PERSON_CHECK } from '../../../urls';
 import { getPartyDetails, updatePartyDetails } from '../../people/util';
+import { hasRequiredState } from '../../utils';
 
 import { getFormFields } from './content';
 
@@ -18,7 +19,7 @@ export default class OtherPersonConfidentialityPostController extends PostContro
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    if (!req.session.userCase?.oprs_otherPersons) {
+    if (!hasRequiredState(req, ['oprs_otherPersons'])) {
       return res.redirect('/login');
     }
 

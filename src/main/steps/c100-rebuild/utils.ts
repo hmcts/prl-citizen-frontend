@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import _ from 'lodash';
 
 import { Case, CaseWithId } from '../../app/case/case';
@@ -11,6 +12,8 @@ import {
   YesOrNo,
 } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+
+const logger = Logger.getLogger('StateGuard');
 
 export const getC100FlowType = (caseData: CaseWithId | undefined, req?: AppRequest): C100FlowTypes => {
   // guard against undefined caseData in unit tests or callers that only provide req
@@ -467,4 +470,25 @@ const hasC100ApplicationBeenCompleted = (flow: C100FlowTypes, req: AppRequest<Pa
     default:
       return false;
   }
+};
+
+/**
+ * Higher-order Guard to verify the presence of specific entities in the session.
+ * Prevents runtime errors across different C100/C1A sections.
+ */
+export const hasRequiredState = <K extends keyof Case>(req: AppRequest, requiredKeys: K[]): boolean => {
+  const userCase = req.session?.userCase;
+  if (!userCase) {
+    logger.warn(`[StateGuard] Session userCase is missing. Redirecting user from: ${req.url}`);
+    return false;
+  }
+
+  const missingKeys = requiredKeys.filter(key => userCase[key] === undefined || userCase[key] === null);
+
+  if (missingKeys.length > 0) {
+    logger.error(`[StateGuard] Integrity check failed. Missing keys: [${missingKeys.join(', ')}] on page: ${req.url}`);
+    return false;
+  }
+
+  return true;
 };

@@ -345,18 +345,17 @@ describe('OtherPersonsDetailsNavigationController', () => {
     ).toBe('/c100-rebuild/other-person-details/123/confidentiality/feedback-no');
   });
 
-  test('Should throw error when other person ID is not found in session', () => {
+  test('Should redirect to OTHER_PERSON_CHECK when other person ID is not found in session', () => {
     const caseData = { oprs_otherPersons: [] } as unknown as CaseWithId;
-    const req = mockRequest();
-    req.params.otherPersonId = 'invalid-id';
+    const req = mockRequest({ params: { otherPersonId: 'invalid-id' } });
 
-    expect(() =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
-        caseData,
-        req
-      )
-    ).toThrow('Other person not found: invalid-id');
+    const navigationResult = OtherPersonsDetailsNavigationController.getNextUrl(
+      C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+      caseData,
+      req
+    );
+
+    expect(navigationResult).toBe(C100_OTHER_PERSON_CHECK);
   });
 
   test('From feedback (YES) when another person exists -> loops to next person', async () => {

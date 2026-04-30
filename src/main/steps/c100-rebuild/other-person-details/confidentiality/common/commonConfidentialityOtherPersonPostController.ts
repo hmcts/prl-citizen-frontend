@@ -1,6 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
@@ -10,6 +7,7 @@ import { AnyObject, PostController } from '../../../../../app/controller/PostCon
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { C100_OTHER_PERSON_CHECK } from '../../../../urls';
 import { getPartyDetails, updatePartyDetails } from '../../../people/util';
+import { hasRequiredState } from '../../../utils';
 import { getFormFields } from '../content';
 
 @autobind
@@ -21,7 +19,7 @@ export default class OtherPersonCommonConfidentialityController {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    if (!req.session.userCase?.oprs_otherPersons) {
+    if (!hasRequiredState(req, ['oprs_otherPersons'])) {
       return res.redirect('/login');
     }
     const otherPersonId = req.params.otherPersonId;
