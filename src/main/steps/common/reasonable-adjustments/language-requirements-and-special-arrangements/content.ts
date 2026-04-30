@@ -39,7 +39,7 @@ const en = {
   content8:
     'Please say whether there is a need for the court to make any special measures for you or any relevant children to attend court.',
   content9: 'Special measures can be put in place to keep you separate from the respondent when you attend court.',
-  content10: 'Select any of the following measures you would like to request.',
+  content10: 'Select any of the following measures you would like to request:',
   specialArrangementsList: [
     {
       content: 'a separate waiting room in the court building',
@@ -101,7 +101,7 @@ const cy: typeof en = {
   content8:
     'Dywedwch a oes angen i’r llys wneud unrhyw fesurau arbennig ar eich cyfer chi neu i unrhyw blant perthnasol fynychu’r llys.',
   content9: 'Gallwn roi mesurau arbennig mewn lle i’ch cadw chi ar wahân i’r atebydd pan fyddwch yn mynychu’r llys.',
-  content10: 'Dewiswch unrhyw un o’r mesurau canlynol yr hoffech wneud cais amdanynt.',
+  content10: 'Dewiswch unrhyw un o’r mesurau canlynol yr hoffech wneud cais amdanynt:',
   specialArrangementsList: [
     {
       content: 'ystafell aros ar wahân yn yr adeilad llys',

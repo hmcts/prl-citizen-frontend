@@ -19,7 +19,7 @@ const en = {
       content: 'support for people with a health condition or disability',
     },
     {
-      content: 'special Measure for you to feel safe at court, for example a separate waiting room',
+      content: 'special measure for you to feel safe at court, for example a separate waiting room',
     },
   ],
   content3: 'Requesting support',
