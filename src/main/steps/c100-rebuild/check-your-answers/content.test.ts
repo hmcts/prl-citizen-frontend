@@ -1277,17 +1277,37 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_intermediaryRequirements',
                   },
-                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+                  visuallyHiddenText: 'Are you aware of whether an intermediary will be required?',
                 },
               ],
             },
             key: {
-              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+              text: 'Are you aware of whether an intermediary will be required?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_assistanceRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
+                },
+              ],
+            },
+            key: {
+              text: 'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -1960,17 +1980,37 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_intermediaryRequirements',
                   },
-                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+                  visuallyHiddenText: 'Are you aware of whether an intermediary will be required?',
                 },
               ],
             },
             key: {
-              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+              text: 'Are you aware of whether an intermediary will be required?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_assistanceRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
+                },
+              ],
+            },
+            key: {
+              text: 'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -2639,17 +2679,37 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_intermediaryRequirements',
                   },
-                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
                   text: ' Golygu',
-                  visuallyHiddenText:
-                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                  visuallyHiddenText: 'A ydych yn gwybod a fydd angen cyfryngwr?',
                 },
               ],
             },
             key: {
-              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+              text: 'A ydych yn gwybod a fydd angen cyfryngwr?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_assistanceRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
+                },
+              ],
+            },
+            key: {
+              text: 'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -3184,17 +3244,37 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_intermediaryRequirements',
                   },
-                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
                   text: ' Golygu',
-                  visuallyHiddenText:
-                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                  visuallyHiddenText: 'A ydych yn gwybod a fydd angen cyfryngwr?',
                 },
               ],
             },
             key: {
-              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+              text: 'A ydych yn gwybod a fydd angen cyfryngwr?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_assistanceRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
+                },
+              ],
+            },
+            key: {
+              text: 'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -3814,17 +3894,37 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_intermediaryRequirements',
                   },
-                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
                   text: ' Golygu',
-                  visuallyHiddenText:
-                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                  visuallyHiddenText: 'A ydych yn gwybod a fydd angen cyfryngwr?',
                 },
               ],
             },
             key: {
-              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+              text: 'A ydych yn gwybod a fydd angen cyfryngwr?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_assistanceRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
+                },
+              ],
+            },
+            key: {
+              text: 'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -4445,17 +4545,37 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_intermediaryRequirements',
                   },
-                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
                   text: ' Golygu',
-                  visuallyHiddenText:
-                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                  visuallyHiddenText: 'A ydych yn gwybod a fydd angen cyfryngwr?',
                 },
               ],
             },
             key: {
-              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+              text: 'A ydych yn gwybod a fydd angen cyfryngwr?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_assistanceRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
+                },
+              ],
+            },
+            key: {
+              text: 'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
             },
             value: {
               html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
@@ -5130,17 +5250,37 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_intermediaryRequirements',
                   },
-                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+                  visuallyHiddenText: 'Are you aware of whether an intermediary will be required?',
                 },
               ],
             },
             key: {
-              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+              text: 'Are you aware of whether an intermediary will be required?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_assistanceRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
+                },
+              ],
+            },
+            key: {
+              text: 'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
@@ -5827,17 +5967,37 @@ describe('Content.ts toggle test cases', () => {
               items: [
                 {
                   attributes: {
-                    id: 'ra_disabilityRequirements',
+                    id: 'ra_intermediaryRequirements',
                   },
-                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  href: '/c100-rebuild/reasonable-adjustments/intermediary',
                   text: 'Edit',
-                  visuallyHiddenText:
-                    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+                  visuallyHiddenText: 'Are you aware of whether an intermediary will be required?',
                 },
               ],
             },
             key: {
-              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+              text: 'Are you aware of whether an intermediary will be required?',
+            },
+            value: {
+              html: '<span class="govuk-error-message">Complete this section</span>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  attributes: {
+                    id: 'ra_assistanceRequirements',
+                  },
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
+                },
+              ],
+            },
+            key: {
+              text: 'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
             },
             value: {
               html: '<span class="govuk-error-message">Complete this section</span>',
