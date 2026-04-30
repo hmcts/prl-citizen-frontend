@@ -116,6 +116,14 @@ export const generateContent: TranslationFn = content => {
   const userCase = content.userCase ?? {};
 
   const otherPerson = getPartyDetails(otherPersonId, userCase.oprs_otherPersons) as C100RebuildPartyDetails;
+
+  if (!otherPerson) {
+    return {
+      ...translations,
+      form: updateFormFields(form, generateFormFields(YesOrNo.NO).fields),
+    };
+  }
+
   const { firstName, lastName } = otherPerson;
 
   const children = userCase.cd_children ?? [];

@@ -7,8 +7,10 @@ import { Response } from 'express';
 import { C100RebuildPartyDetails, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { C100_OTHER_PERSON_CHECK } from '../../../../urls';
 import { getPartyDetails, updatePartyDetails } from '../../../people/util';
+import { getFormFields } from '../content';
 
 @autobind
 export default class OtherPersonCommonConfidentialityController {
@@ -19,14 +21,24 @@ export default class OtherPersonCommonConfidentialityController {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    // eslint-disable-next-line no-console
-    console.log('FOUND THE REAL CONTROLLER');
+    if (!req.session.userCase?.oprs_otherPersons) {
+      return res.redirect('/login');
+    }
     const otherPersonId = req.params.otherPersonId;
+
+    const form = new Form(getFormFields(req.session.userCase, otherPersonId).fields as FormFields);
+    const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
+    req.session.errors = form.getErrors(formData);
+
+    if (req.session.errors.length) {
+      return this.parent.redirect(req, res);
+    }
     const otherPeople = req.session.userCase.oprs_otherPersons ?? [];
 
     const existing = getPartyDetails(otherPersonId, otherPeople) as C100RebuildPartyDetails;
     if (!existing) {
-      return (this.parent as any).redirect(req, res);
+      return res.redirect(C100_OTHER_PERSON_CHECK);
     }
 
     const rawValue = (req.body['isOtherPersonAddressConfidential'] ??
@@ -37,10 +49,9 @@ export default class OtherPersonCommonConfidentialityController {
 
     const updatedPerson: C100RebuildPartyDetails = {
       ...existing,
-      isOtherPersonAddressConfidential: finalValue, // ✅ Saved at ROOT
+      isOtherPersonAddressConfidential: finalValue,
     };
 
-    // 5. CLEANUP: Delete legacy nested version if it exists
     if (updatedPerson.personalDetails?.['isOtherPersonAddressConfidential']) {
       delete updatedPerson.personalDetails['isOtherPersonAddressConfidential'];
     }
@@ -53,7 +64,7 @@ export default class OtherPersonCommonConfidentialityController {
 
     // 7. Standard redirect and session save
     req.session.save(() => {
-      (this.parent as any).redirect(req, res);
+      this.parent.redirect(req, res);
     });
   }
 }

@@ -109,6 +109,13 @@ export const generateContent: TranslationFn = content => {
 
   const otherPerson = getPartyDetails(otherPersonId, content.userCase?.oprs_otherPersons) as C100RebuildPartyDetails;
 
+  if (!otherPerson) {
+    return {
+      ...translations,
+      form: updateFormFields(form, generateFormFields(YesOrNo.NO).fields),
+    };
+  }
+
   const { firstName = '', lastName = '', isOtherPersonAddressConfidential } = otherPerson || {};
   const nameData = { firstName, lastName };
 

@@ -25,7 +25,50 @@ describe('OtherPersonCommonConfidentialityController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('saves YES when raw value is YES and removes legacy personalDetails flag', async () => {
+  test('Updates from YES to NO correctly and maintains root-level structure', async () => {
+    const controller = new OtherPersonCommonConfidentialityController({} as any);
+
+    // 1. Start with YES at the root
+    const existing = {
+      id: otherPersonId,
+      firstName: 'Jordan',
+      lastName: 'Smith',
+      isOtherPersonAddressConfidential: YesOrNo.YES,
+    };
+
+    const req: any = {
+      params: { otherPersonId },
+      // 2. User selects NO
+      body: { isOtherPersonAddressConfidential: YesOrNo.NO, onlycontinue: true },
+      session: {
+        userCase: { oprs_otherPersons: [existing] },
+        save: (cb: any) => cb && cb(),
+        errors: [],
+      },
+      url: '/test',
+      path: '/test',
+      originalUrl: '/test',
+      route: { path: '/test' },
+    };
+
+    const res: any = { redirect: jest.fn() };
+
+    const { Form } = require('../../../../../app/form/Form');
+    jest.spyOn(Form.prototype, 'getErrors').mockReturnValue([]);
+    jest.spyOn(Form.prototype, 'getParsedBody').mockReturnValue({
+      isOtherPersonAddressConfidential: YesOrNo.NO,
+    });
+
+    await controller.post(req as any, res as any);
+
+    const updated = req.session.userCase.oprs_otherPersons.find((p: any) => p.id === otherPersonId);
+
+    // 4. Assert the value was flipped to NO
+    expect(updated.isOtherPersonAddressConfidential).toBe(YesOrNo.NO);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Updates from No to Yes correctly and maintains root-level structure', async () => {
     const controller = new OtherPersonCommonConfidentialityController({} as any);
 
     const existing = {
@@ -38,8 +81,9 @@ describe('OtherPersonCommonConfidentialityController', () => {
 
     const req: any = {
       params: { otherPersonId },
-      body: { isOtherPersonAddressConfidential: YesOrNo.YES },
-      session: { userCase: { oprs_otherPersons: [existing] }, save: (cb: any) => cb && cb() },
+      // 2. User selects YES
+      body: { isOtherPersonAddressConfidential: YesOrNo.YES, onlycontinue: true },
+      session: { userCase: { oprs_otherPersons: [existing] }, save: (cb: any) => cb && cb(), errors: [] },
       url: '/test',
       path: '/test',
       originalUrl: '/test',
@@ -48,9 +92,15 @@ describe('OtherPersonCommonConfidentialityController', () => {
 
     const res: any = { redirect: jest.fn() };
 
+    const { Form } = require('../../../../../app/form/Form');
+    jest.spyOn(Form.prototype, 'getErrors').mockReturnValue([]);
+    jest.spyOn(Form.prototype, 'getParsedBody').mockReturnValue({
+      isOtherPersonAddressConfidential: YesOrNo.YES,
+    });
     await controller.post(req as any, res as any);
 
     const updated = req.session.userCase.oprs_otherPersons.find((p: any) => p.id === otherPersonId);
+
     expect(updated.isOtherPersonAddressConfidential).toBe(YesOrNo.YES);
     // legacy flag should be removed
     expect(updated.personalDetails?.isOtherPersonAddressConfidential).toBeUndefined();

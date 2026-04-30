@@ -6,6 +6,7 @@ import { C100RebuildPartyDetails, YesOrNo } from '../../../../app/case/definitio
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { C100_OTHER_PERSON_CHECK } from '../../../urls';
 import { getPartyDetails, updatePartyDetails } from '../../people/util';
 
 import { getFormFields } from './content';
@@ -17,9 +18,12 @@ export default class OtherPersonConfidentialityPostController extends PostContro
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    // eslint-disable-next-line no-console
-    console.log('WTF dude!!!!');
+    if (!req.session.userCase?.oprs_otherPersons) {
+      return res.redirect('/login');
+    }
+
     const otherPersonId = req.params.otherPersonId;
+
     const form = new Form(getFormFields(req.session.userCase, otherPersonId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
@@ -36,6 +40,10 @@ export default class OtherPersonConfidentialityPostController extends PostContro
       req.session.userCase.oprs_otherPersons
     ) as C100RebuildPartyDetails;
 
+    if (!currentOtherPerson) {
+      return res.redirect(C100_OTHER_PERSON_CHECK);
+    }
+
     const rawData = formData as any;
 
     const submittedValue = (rawData.confidentiality || rawData.startAlternative) as YesOrNo | undefined;
@@ -43,13 +51,6 @@ export default class OtherPersonConfidentialityPostController extends PostContro
     const existingConfidentiality = currentOtherPerson.isOtherPersonAddressConfidential;
 
     const otherConfidentialityValue = submittedValue ?? existingConfidentiality ?? YesOrNo.NO;
-
-    // eslint-disable-next-line no-console
-    console.log('DEBUG: req.body content ->', JSON.stringify(req.body));
-    // eslint-disable-next-line no-console
-    console.log('DEBUG: formData content ->', JSON.stringify(formData));
-    // eslint-disable-next-line no-console
-    console.log('DEBUG: submittedValue ->', submittedValue);
 
     req.session.userCase.oprs_otherPersons = updatePartyDetails(
       {

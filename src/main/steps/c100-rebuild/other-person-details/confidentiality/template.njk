@@ -1,6 +1,4 @@
 {% extends "common/template.njk" %}
-
-{# These paths worked in your previous test #}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -10,7 +8,6 @@
   <h1 class="govuk-heading-xl">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
 
-  {# This is your dynamic 'lives with' / 'live with' text #}
   <p class="govuk-body">{{ line2 }}</p>
 
   <form class="form" method="post" action="" novalidate>
@@ -18,7 +15,6 @@
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
     {% block form_content %}
-      {# Passing the fields from your TS controller #}
       {{ govukRadios(form.fields.confidentiality) }}
     {% endblock %}
 

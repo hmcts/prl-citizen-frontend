@@ -111,7 +111,6 @@ class OtherPersonsDetailsNavigationController {
         ) as C100RebuildPartyDetails | null;
 
         if (!otherPersonData) {
-          // defensively fail early so you see an informative error instead of surprising behaviour
           throw new Error(`Other person not found: ${this.otherPersonId}`);
         }
 

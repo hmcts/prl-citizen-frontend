@@ -35,6 +35,13 @@ export const generateContent: TranslationFn = content => {
   const otherPersonId = content.additionalData?.req.params?.otherPersonId ?? '';
   const otherPerson = content.userCase?.oprs_otherPersons?.find(p => p.id === otherPersonId);
 
+  if (!otherPerson) {
+    return {
+      ...translations,
+      form,
+    };
+  }
+
   const { firstName = '', lastName = '' } = otherPerson || {};
   const fullName = `${firstName} ${lastName}`.trim();
 
