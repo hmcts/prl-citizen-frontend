@@ -23,10 +23,13 @@ export default class RespondentCommonConfidentialityController {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     this.request = req;
     const form = new Form(<FormFields>this.fields);
-    const { ...formData } = form.getParsedBody(this.request.body);
+    const { onlycontinue, saveAndComeLater, ...formFields } = this.request.body;
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    if (!this.request.body['saveAndComeLater']) {
-      this.request.session.errors = form.getErrors(formData);
+    this.request.session.errors = form.getErrors(formData);
+
+    if (this.request.session.errors.length) {
+      return this.parent.redirect(this.request, res);
     }
 
     const respondentId = this.request.params.respondentId;
@@ -34,7 +37,7 @@ export default class RespondentCommonConfidentialityController {
     const existing = getPartyDetails(respondentId, respondents) as C100RebuildPartyDetails;
 
     if (!existing) {
-      return (this.parent as any).redirect(req, res);
+      return this.parent.redirect(this.request, res);
     }
 
     const rawAddressConfidentialValue = (this.request.body['isRespondentAddressConfidential'] ??
@@ -60,13 +63,13 @@ export default class RespondentCommonConfidentialityController {
       isRespondentEmailAddressConfidential: finalEmailAddressConfidentialValue,
     };
 
-    this.request.session.userCase.oprs_otherPersons = updatePartyDetails(
+    this.request.session.userCase.resp_Respondents = updatePartyDetails(
       updatedRespondent,
       respondents
     ) as C100RebuildPartyDetails[];
 
     this.request.session.save(() => {
-      (this.parent as any).redirect(this.request, res);
+      this.parent.redirect(this.request, res);
     });
   }
 }
