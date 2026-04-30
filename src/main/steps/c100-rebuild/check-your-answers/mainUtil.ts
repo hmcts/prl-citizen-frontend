@@ -712,7 +712,7 @@ export const ApplicantDetails = (
           anchorReference: `doYouWantToKeep-applicant-${applicant}`,
           value: '',
           valueHtml: parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
-          changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], {
+          changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERNATIVE'], {
             applicantId: sessionApplicantData[applicant]['id'],
           }),
         }

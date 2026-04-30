@@ -1,9 +1,13 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { CaseWithId } from '../../../app/case/case';
-import { RelationshipType } from '../../../app/case/definition';
+import { RelationshipType, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import {
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
   C100_CHILDERN_MAINLY_LIVE_WITH,
+  C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_ADD,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
@@ -12,8 +16,11 @@ import {
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
 } from '../../urls';
+import { isC100ApplicationValid } from '../utils';
 
 import OtherPersonsDetailsNavigationController from './navigationController';
+
+jest.mock('../../c100-rebuild/utils'); // Ensure this is at the top
 
 const dummyRequest = mockRequest({
   params: {
@@ -202,7 +209,23 @@ describe('OtherPersonsDetailsNavigationController', () => {
     ).toBe('/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/manual');
   });
 
-  test('From OtherPerson1 manual screen -> navigate to other proceedings', async () => {
+  test('From Other Person Manual Address screen when address is KNOWN -> navigates to confidentiality start alternative', async () => {
+    const caseData = {
+      oprs_otherPersons: [
+        {
+          id: '123',
+          addressUnknown: YesOrNo.NO,
+        },
+      ],
+    } as unknown as CaseWithId;
+    const req = mockRequest({ params: { otherPersonId: '123' } });
+
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL, caseData, req)
+    ).toBe('/c100-rebuild/other-person-details/123/confidentiality/start-alternative');
+  });
+
+  test('From OtherPerson1 manual screen -> navigate to mainly live with', async () => {
     const dummyparams = mockRequest({
       params: {
         otherPersonId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
@@ -215,6 +238,37 @@ describe('OtherPersonsDetailsNavigationController', () => {
         { ...dummyRequest, params: dummyparams.params }
       )
     ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with');
+  });
+
+  test('From Manual Address screen when address is UNKNOWN and another person exists -> loops to next person', async () => {
+    const caseData = {
+      oprs_otherPersons: [
+        { id: 'person-1', addressUnknown: YesOrNo.YES }, // Current person has unknown address
+        { id: 'person-2' }, // Next person
+      ],
+      cd_children: [{ id: 'child-1' }],
+    } as unknown as CaseWithId;
+
+    const req = mockRequest({ params: { otherPersonId: 'person-1' } });
+
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL, caseData, req)
+    ).toBe('/c100-rebuild/other-person-details/person-2/personal-details');
+  });
+
+  test('From Manual Address screen when address is UNKNOWN and no more persons -> navigates to children section', async () => {
+    const caseData = {
+      oprs_otherPersons: [
+        { id: 'person-1', addressUnknown: YesOrNo.YES }, // Only one person, unknown address
+      ],
+      cd_children: [{ id: 'child-1' }],
+    } as unknown as CaseWithId;
+
+    const req = mockRequest({ params: { otherPersonId: 'person-1' } });
+
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL, caseData, req)
+    ).toBe('/c100-rebuild/child-details/child-1/live-with/mainly-live-with');
   });
 
   test('from other person confidentiality screen -> navigate to next other person confidentiality screen', async () => {
@@ -237,6 +291,135 @@ describe('OtherPersonsDetailsNavigationController', () => {
         } as unknown as AppRequest
       )
     ).toBe('/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b09/confidentiality');
+  });
+
+  test('From Other Person Check with YES -> navigate to ADD screen', () => {
+    const caseData = { oprs_otherPersonCheck: YesOrNo.YES } as unknown as CaseWithId;
+    expect(OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_CHECK, caseData)).toBe(
+      '/c100-rebuild/other-person-details/add-other-persons'
+    );
+  });
+
+  test('From other person check screen when NO other persons -> navigates to mainly live with', async () => {
+    const caseData = {
+      oprs_otherPersonCheck: YesOrNo.NO, // This triggers the : branch on line 47
+      cd_children: [{ id: 'child-1' }],
+    } as unknown as CaseWithId;
+
+    const req = mockRequest({});
+
+    expect(OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_CHECK, caseData, req)).toBe(
+      '/c100-rebuild/child-details/child-1/live-with/mainly-live-with'
+    );
+  });
+
+  test('From START_ALTERNATIVE with YES -> navigate to feedback', () => {
+    const caseData = {
+      oprs_otherPersons: [{ id: '123', isOtherPersonAddressConfidential: YesOrNo.YES }],
+    } as unknown as CaseWithId;
+    const req = mockRequest({});
+    req.params.otherPersonId = '123';
+
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+        caseData,
+        req
+      )
+    ).toBe('/c100-rebuild/other-person-details/123/confidentiality/feedback');
+  });
+
+  test('From START_ALTERNATIVE with NO -> navigate to feedbackno', () => {
+    const caseData = {
+      oprs_otherPersons: [{ id: '123', isOtherPersonAddressConfidential: YesOrNo.NO }],
+    } as unknown as CaseWithId;
+    const req = mockRequest();
+    req.params.otherPersonId = '123';
+
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+        caseData,
+        req
+      )
+    ).toBe('/c100-rebuild/other-person-details/123/confidentiality/feedback-no');
+  });
+
+  test('Should redirect to OTHER_PERSON_CHECK when other person ID is not found in session', () => {
+    const caseData = { oprs_otherPersons: [] } as unknown as CaseWithId;
+    const req = mockRequest({ params: { otherPersonId: 'invalid-id' } });
+
+    const navigationResult = OtherPersonsDetailsNavigationController.getNextUrl(
+      C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+      caseData,
+      req
+    );
+
+    expect(navigationResult).toBe(C100_OTHER_PERSON_CHECK);
+  });
+
+  test('From feedback (YES) when another person exists -> loops to next person', async () => {
+    const caseData = {
+      oprs_otherPersons: [{ id: '1' }, { id: '2' }],
+      cd_children: [{ id: 'c1' }],
+    } as unknown as CaseWithId;
+    const req = mockRequest({ params: { otherPersonId: '1' } });
+
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+        caseData,
+        req
+      )
+    ).toBe('/c100-rebuild/other-person-details/2/personal-details');
+  });
+
+  test('From feedback (YES) when no more persons exist -> moves to children section', async () => {
+    const caseData = {
+      oprs_otherPersons: [{ id: '1' }],
+      cd_children: [{ id: 'c1' }],
+    } as unknown as CaseWithId;
+    const req = mockRequest({ params: { otherPersonId: '1' } });
+
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+        caseData,
+        req
+      )
+    ).toBe('/c100-rebuild/child-details/c1/live-with/mainly-live-with');
+  });
+
+  test('From feedback (NO) when another person exists -> loops to next person', async () => {
+    const caseData = {
+      oprs_otherPersons: [{ id: '1' }, { id: '2' }],
+      cd_children: [{ id: 'c1' }],
+    } as unknown as CaseWithId;
+    const req = mockRequest({ params: { otherPersonId: '1' } });
+
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
+        caseData,
+        req
+      )
+    ).toBe('/c100-rebuild/other-person-details/2/personal-details');
+  });
+
+  test('From feedback (NO) when no more persons exist -> moves to children section', async () => {
+    const caseData = {
+      oprs_otherPersons: [{ id: '1' }],
+      cd_children: [{ id: 'c1' }],
+    } as unknown as CaseWithId;
+    const req = mockRequest({ params: { otherPersonId: '1' } });
+
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
+        caseData,
+        req
+      )
+    ).toBe('/c100-rebuild/child-details/c1/live-with/mainly-live-with');
   });
 
   test('from other person confidentiality screen -> navigate to safety concerns', async () => {
@@ -270,6 +453,18 @@ describe('OtherPersonsDetailsNavigationController', () => {
         } as unknown as AppRequest
       )
     ).toBe('/c100-rebuild/other-proceedings/current-previous-proceedings');
+  });
+
+  test('should navigate to check-your-answers when the application is valid', async () => {
+    // Force the utility to return true for this test
+    (isC100ApplicationValid as jest.Mock).mockReturnValue(true);
+
+    const caseData = { oprs_otherPersons: [{ id: '123' }] } as unknown as CaseWithId;
+    const req = mockRequest({ params: { otherPersonId: '123' } });
+
+    expect(
+      OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, caseData, req)
+    ).toBe('/c100-rebuild/check-your-answers');
   });
 
   test('default', async () => {

@@ -1,9 +1,14 @@
+import { Logger } from '@hmcts/nodejs-logging';
+
 import { Case, CaseWithId } from '../../../app/case/case';
 import { C100RebuildPartyDetails, ChildrenDetails, RootContext, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
   C100_CHECK_YOUR_ANSWER,
   C100_CHILDERN_MAINLY_LIVE_WITH,
   C100_OTHER_PERSON_CHECK,
@@ -19,9 +24,11 @@ import {
   PageLink,
   STAYING_IN_REFUGE,
 } from '../../urls';
-import { getNextPerson } from '../people/util';
+import { getNextPerson, getPartyDetails } from '../people/util';
 
 import { getNextPersonLivingWithChild, getOtherPeopleLivingWithChildren } from './utils';
+
+const logger = Logger.getLogger('OtherPersonsDetailsNavigationController');
 
 class OtherPersonsDetailsNavigationController {
   private otherPersonsDetails: C100RebuildPartyDetails[] | [] = [];
@@ -82,7 +89,51 @@ class OtherPersonsDetailsNavigationController {
         break;
       }
       case C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL: {
+        // If the other person has a known address (i.e. addressUnknown !== YES), navigate to the
+        // other-person confidentiality start-alternative page. Otherwise preserve the existing
+        // flow (move to next other person or proceed to children section).
+        const currentOtherPerson = this.otherPersonsDetails.find(p => p.id === this.otherPersonId);
+
+        if (currentOtherPerson && currentOtherPerson.addressUnknown !== YesOrNo.YES) {
+          nextUrl = applyParms(C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE, {
+            otherPersonId: this.otherPersonId,
+          });
+        } else {
+          const nextPerson = getNextPerson(this.otherPersonsDetails, this.otherPersonId);
+          nextUrl = nextPerson
+            ? applyParms(C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS, {
+                otherPersonId: nextPerson.id as C100RebuildPartyDetails['id'],
+              })
+            : applyParms(C100_CHILDERN_MAINLY_LIVE_WITH, { childId: this.childrenDetails[0].id });
+        }
+        break;
+      }
+      case C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE: {
+        const otherPersonData = getPartyDetails(
+          this.otherPersonId,
+          this.otherPersonsDetails
+        ) as C100RebuildPartyDetails | null;
+
+        if (!otherPersonData) {
+          logger.error(`Data integrity check failed for OtherPersonID: ${this.otherPersonId}. Redirecting to safety.`);
+          return C100_OTHER_PERSON_CHECK;
+        }
+
+        const isConfidential = otherPersonData.isOtherPersonAddressConfidential;
+
+        nextUrl =
+          isConfidential === YesOrNo.YES
+            ? applyParms(C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK, { otherPersonId: this.otherPersonId })
+            : applyParms(C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO, {
+                otherPersonId: this.otherPersonId,
+              });
+        break;
+      }
+      case C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK:
+      case C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO: {
+        // Check if there is another person in the oprs_otherPersons array
         const nextPerson = getNextPerson(this.otherPersonsDetails, this.otherPersonId);
+
         nextUrl = nextPerson
           ? applyParms(C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS, {
               otherPersonId: nextPerson.id as C100RebuildPartyDetails['id'],
@@ -100,7 +151,7 @@ class OtherPersonsDetailsNavigationController {
           nextUrl = applyParms(C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, {
             otherPersonId: nextPersonId,
           });
-        } else if (isC100ApplicationValid(caseData as CaseWithId, req!)) {
+        } else if (req && isC100ApplicationValid(caseData as CaseWithId, req)) {
           nextUrl = C100_CHECK_YOUR_ANSWER;
         } else if (caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES) {
           nextUrl = applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink;

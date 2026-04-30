@@ -81,7 +81,7 @@ import {
   C100_APPLICANT_ADD_APPLICANTS,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
-  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+  C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERNATIVE,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
   C100_APPLICANT_ADDRESS_LOOKUP,
@@ -124,6 +124,9 @@ import {
   C100_MIAM_PROVIDING_DA_EVIDENCE,
   C100_MIAM_UPLOAD_DA_EVIDENCE,
   C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+  C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -143,6 +146,7 @@ import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
 import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
+import OtherPersonCommonConfidentialityController from './other-person-details/confidentiality/common/commonConfidentialityOtherPersonPostController';
 import UploadDocumentController from './uploadDocumentController';
 import { applyParms } from '../../steps/common/url-parser';
 import { RARootContext } from '../../modules/reasonable-adjustments/definitions';
@@ -633,12 +637,12 @@ export const C100Sequence: Step[] = [
       ),
   },
   {
-    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+    url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERNATIVE,
     showInSection: Sections.C100,
     postController: ApplicantCommonConfidentialityController,
     getNextStep: (caseData, req) =>
       ApplicantNavigationController.getNextUrl(
-        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
+        C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERNATIVE,
         caseData,
         req?.params
       ),
@@ -855,9 +859,43 @@ export const C100Sequence: Step[] = [
     getNextStep: () => '/',
   },
   {
-    url: C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY,
+    url: C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, // Identity screen
     showInSection: Sections.C100,
+    postController: OtherPersonCommonConfidentialityController,
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY, caseData, req),
+  },
+  {
+    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+    showInSection: Sections.C100,
+    postController: OtherPersonCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE,
+        caseData,
+        req
+      ),
+  },
+  {
+    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+    showInSection: Sections.C100,
+    postController: OtherPersonCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK,
+        caseData,
+        req
+      ),
+  },
+  {
+    url: C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
+    showInSection: Sections.C100,
+    postController: OtherPersonCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      OtherPersonsDetailsNavigationController.getNextUrl(
+        C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO,
+        caseData,
+        req
+      ),
   },
 ];

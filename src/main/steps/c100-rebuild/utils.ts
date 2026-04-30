@@ -1,3 +1,4 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import _ from 'lodash';
 
 import { Case, CaseWithId } from '../../app/case/case';
@@ -12,18 +13,28 @@ import {
 } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 
-export const getC100FlowType = (caseData: CaseWithId, req?: AppRequest): C100FlowTypes => {
-  if (
-    (caseData.hasOwnProperty('sq_writtenAgreement') && caseData.sq_writtenAgreement === YesOrNo.YES) ||
-    req?.body.sq_writtenAgreement === YesOrNo.YES
-  ) {
+const logger = Logger.getLogger('StateGuard');
+
+export const getC100FlowType = (caseData: CaseWithId | undefined, req?: AppRequest): C100FlowTypes => {
+  // guard against undefined caseData in unit tests or callers that only provide req
+  const caseHasWrittenAgreement =
+    !!caseData &&
+    Object.prototype.hasOwnProperty.call(caseData, 'sq_writtenAgreement') &&
+    caseData.sq_writtenAgreement === YesOrNo.YES;
+  const bodyHasWrittenAgreement = req?.body?.sq_writtenAgreement === YesOrNo.YES;
+  const sessionHasWrittenAgreement = req?.session?.userCase?.sq_writtenAgreement === YesOrNo.YES;
+
+  if (caseHasWrittenAgreement || bodyHasWrittenAgreement || sessionHasWrittenAgreement) {
     return C100FlowTypes.C100_WITH_CONSENT_ORDER;
   } else if (
-    (caseData.hasOwnProperty('miam_otherProceedings') && caseData.miam_otherProceedings === YesOrNo.YES) ||
-    req?.body.miam_otherProceedings === YesOrNo.YES
+    (caseData &&
+      Object.prototype.hasOwnProperty.call(caseData, 'miam_otherProceedings') &&
+      caseData.miam_otherProceedings === YesOrNo.YES) ||
+    req?.body?.miam_otherProceedings === YesOrNo.YES ||
+    req?.session?.userCase?.miam_otherProceedings === YesOrNo.YES
   ) {
     return C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE;
-  } else if (isMiamUrgencyValid(caseData)) {
+  } else if (caseData && isMiamUrgencyValid(caseData)) {
     return C100FlowTypes.C100_WITH_MIAM_URGENCY;
   } else {
     return C100FlowTypes.C100_WITH_MIAM;
@@ -428,26 +439,56 @@ const hasC100ApplicationInProgress = (flow: C100FlowTypes, caseData: CaseWithId)
 };
 
 const hasC100ApplicationBeenCompleted = (flow: C100FlowTypes, req: AppRequest<Partial<Case>>, caseData: CaseWithId) => {
+  // prefer the session-stored userCase when available (this represents the persisted/complete application)
+  const sessionCase = req.session?.userCase as CaseWithId | undefined;
+  const dataToValidate = sessionCase ?? caseData;
+
   switch (flow) {
     case C100FlowTypes.C100_WITH_CONSENT_ORDER:
       return isInSummeryScreen(
         req.originalUrl,
-        caseData,
+        dataToValidate,
         c100WithConsentOrderSections,
         isC100WithConsentOrderFlowValid
       );
     case C100FlowTypes.C100_WITH_MIAM_OTHER_PROCEEDINGS_OR_ATTENDANCE:
       return isInSummeryScreen(
         req.originalUrl,
-        caseData,
+        dataToValidate,
         c100WithMiamOtherProceedingsSections,
         isC100WithMiamOtherProceedingsFlowValid
       );
     case C100FlowTypes.C100_WITH_MIAM_URGENCY:
-      return isInSummeryScreen(req.originalUrl, caseData, c100WithMiamUrgencySections, isC100WithMiamUrgencyFlowValid);
+      return isInSummeryScreen(
+        req.originalUrl,
+        dataToValidate,
+        c100WithMiamUrgencySections,
+        isC100WithMiamUrgencyFlowValid
+      );
     case C100FlowTypes.C100_WITH_MIAM:
-      return isInSummeryScreen(req.originalUrl, caseData, c100WithMiamSections, isC100MiamFlowValid);
+      return isInSummeryScreen(req.originalUrl, dataToValidate, c100WithMiamSections, isC100MiamFlowValid);
     default:
       return false;
   }
+};
+
+/**
+ * Higher-order Guard to verify the presence of specific entities in the session.
+ * Prevents runtime errors across different C100/C1A sections.
+ */
+export const hasRequiredState = <K extends keyof Case>(req: AppRequest, requiredKeys: K[]): boolean => {
+  const userCase = req.session?.userCase;
+  if (!userCase) {
+    logger.warn(`[StateGuard] Session userCase is missing. Redirecting user from: ${req.url}`);
+    return false;
+  }
+
+  const missingKeys = requiredKeys.filter(key => userCase[key] === undefined || userCase[key] === null);
+
+  if (missingKeys.length > 0) {
+    logger.error(`[StateGuard] Integrity check failed. Missing keys: [${missingKeys.join(', ')}] on page: ${req.url}`);
+    return false;
+  }
+
+  return true;
 };

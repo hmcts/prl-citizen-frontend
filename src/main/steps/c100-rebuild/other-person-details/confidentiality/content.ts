@@ -9,10 +9,11 @@ import { getPartyDetails } from '../../../c100-rebuild/people/util';
 export const en = {
   title: 'Keeping {firstName} {lastName}’s identity private',
   pageTitle: "Keeping other person's identity private",
-  answersWillBeShared:
-    'Unless you answer ‘Yes’ to the question below, the information you give will be shared with other people named in this application (the respondents). This will include the contact details',
+  line1: 'The information you give us will be shared with the other people named in this application.',
+  line2:
+    'As you have told us that {childName} mainly {livesWith} {firstName} {lastName}, you can choose to keep {firstName} {lastName}’s identity private. This includes their address.',
   keepDetailsPrivate:
-    'Do you want to keep {firstName} {lastName}’s identity private from the other people named in the application (the respondents)?',
+    'Do you want to keep {firstName} {lastName}’s identity private from the other people named in the application?',
   yes: 'Yes',
   no: 'No',
   errors: {
@@ -25,15 +26,16 @@ export const en = {
 export const cy: typeof en = {
   title: 'Cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol',
   pageTitle: 'Cadw hunaniaeth y person arall yn breifat',
-  answersWillBeShared:
-    'Bydd yr atebion a roddwch yn eich ymateb yn cael eu rhannu â’r bobl eraill a enwir yn y cais hwn(yr atebydd), bydd hyn yn cynnwys eich manylion cyswllt',
+  line1: 'Bydd yr wybodaeth a ddarperir gennych yn cael ei rhannu â’r bobl eraill yn y cais hwn.',
+  line2:
+    'Gan eich bod wedi dweud wrthym fod {childName} yn {livesWith} yn bennaf gyda {firstName} {lastName}, gallwch ddewis cadw hunaniaeth {firstName} {lastName} yn breifat. Mae hyn yn cynnwys eu cyfeiriad.',
   keepDetailsPrivate:
-    'Ydych chi eisiau cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol oddi wrth yr unigolyn arall a enwir yn y cais(yr atebydd)',
+    'Ydych chi eisiau cadw hunaniaeth {firstName} {lastName} yn breifat oddi wrth y bobl eraill a enwir yn y cais?',
   yes: 'Oes',
   no: 'Nac oes',
   errors: {
     confidentiality: {
-      required: 'Dewiswch ydw os ydych eisiau cadw {firstName} {lastName} manylion yn gyfrinachol',
+      required: 'Dewiswch ydw os ydych eisiau cadw manylion {firstName} {lastName} yn breifat',
     },
   },
 };
@@ -50,7 +52,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
     ...form,
     fields: {
       ...formFields,
-      ...(form.fields ?? {}),
+      ...form.fields,
     },
   };
 
@@ -94,24 +96,101 @@ export const getFormFields = (
   caseData: Partial<CaseWithId>,
   otherPersonId: C100RebuildPartyDetails['id']
 ): FormContent => {
-  const { isOtherPersonAddressConfidential } = getPartyDetails(
-    otherPersonId,
-    caseData?.oprs_otherPersons
-  ) as C100RebuildPartyDetails;
-  return updateFormFields(form, generateFormFields(isOtherPersonAddressConfidential!).fields);
+  const otherPerson = getPartyDetails(otherPersonId, caseData?.oprs_otherPersons) as C100RebuildPartyDetails;
+
+  if (!otherPerson) {
+    return updateFormFields(form, generateFormFields(YesOrNo.NO).fields);
+  }
+
+  const isConfidential =
+    otherPerson?.isOtherPersonAddressConfidential === YesOrNo.YES
+      ? YesOrNo.YES
+      : otherPerson?.isOtherPersonAddressConfidential ?? YesOrNo.NO;
+
+  return updateFormFields(form, generateFormFields(isConfidential).fields);
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const otherPersonId = content.additionalData!.req.params.otherPersonId;
-  const { firstName, lastName, isOtherPersonAddressConfidential } = getPartyDetails(
-    otherPersonId,
-    content.userCase!.oprs_otherPersons
-  ) as C100RebuildPartyDetails;
+  const otherPersonId = content.additionalData?.req.params.otherPersonId;
+  const userCase = content.userCase ?? {};
+
+  const otherPerson = getPartyDetails(otherPersonId, userCase.oprs_otherPersons) as C100RebuildPartyDetails;
+
+  if (!otherPerson) {
+    return {
+      ...translations,
+      form: updateFormFields(form, generateFormFields(YesOrNo.NO).fields),
+    };
+  }
+
+  const { firstName, lastName } = otherPerson;
+
+  const children = userCase.cd_children ?? [];
+
+  const childrenWhoLiveWithPerson = children.filter(child => {
+    const childrenMainlyLiveWith = child.mainlyLiveWith as
+      | string
+      | string[]
+      | Record<string, unknown>
+      | Record<string, unknown>[];
+
+    if (!childrenMainlyLiveWith) {
+      return false;
+    }
+
+    if (Array.isArray(childrenMainlyLiveWith)) {
+      return childrenMainlyLiveWith.some(mainlyLiveWith =>
+        typeof mainlyLiveWith === 'string'
+          ? mainlyLiveWith === otherPersonId
+          : (mainlyLiveWith as Record<string, unknown>)?.id === otherPersonId
+      );
+    }
+    if (typeof childrenMainlyLiveWith === 'object') {
+      return childrenMainlyLiveWith?.id === otherPersonId;
+    }
+
+    return childrenMainlyLiveWith === otherPersonId;
+  });
+  const childNames = childrenWhoLiveWithPerson.map(child => `${child.firstName} ${child.lastName}`);
+
+  let childNameStr: string;
+  if (childNames.length === 1) {
+    childNameStr = childNames[0];
+  } else if (childNames.length === 2) {
+    // Exactly two children: "A and B"
+    childNameStr = `${childNames[0]} and ${childNames[1]}`;
+  } else {
+    // Three or more: "A, B and C"
+    const allButLast = childNames.slice(0, -1).join(', ');
+    const last = childNames[childNames.length - 1];
+    childNameStr = `${allButLast} and ${last}`;
+  }
+
+  const isPlural = childrenWhoLiveWithPerson.length > 1;
+  const language = content.language as string;
+
+  const verbMapping = {
+    en: { singular: 'lives with', plural: 'live with' },
+    cy: { singular: 'byw', plural: 'byw' },
+  };
+
+  const livesWith = isPlural ? verbMapping[language].plural : verbMapping[language].singular;
+
+  const isConfidential =
+    otherPerson?.isOtherPersonAddressConfidential === YesOrNo.YES
+      ? YesOrNo.YES
+      : otherPerson?.isOtherPersonAddressConfidential ?? YesOrNo.NO;
 
   return {
     ...translations,
     title: interpolate(translations.title, { firstName, lastName }),
+    line2: interpolate(translations.line2, {
+      childName: childNameStr,
+      livesWith,
+      firstName,
+      lastName,
+    }),
     keepDetailsPrivate: interpolate(translations.keepDetailsPrivate, { firstName, lastName }),
     errors: {
       ...translations.errors,
@@ -120,6 +199,6 @@ export const generateContent: TranslationFn = content => {
         required: interpolate(translations.errors.confidentiality.required, { firstName, lastName }),
       },
     },
-    form: updateFormFields(form, generateFormFields(isOtherPersonAddressConfidential!).fields),
+    form: updateFormFields(form, generateFormFields(isConfidential).fields),
   };
 };

@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { ChildrenDetails } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { interpolate } from '../../../common/string-parser';
@@ -8,10 +9,11 @@ import { generateContent } from './content';
 const en = {
   title: 'Keeping {firstName} {lastName}’s identity private',
   pageTitle: "Keeping other person's identity private",
-  answersWillBeShared:
-    'Unless you answer ‘Yes’ to the question below, the information you give will be shared with other people named in this application (the respondents). This will include the contact details',
+  line1: 'The information you give us will be shared with the other people named in this application.',
+  line2:
+    'As you have told us that {childName} mainly {livesWith} {firstName} {lastName}, you can choose to keep {firstName} {lastName}’s identity private. This includes their address.',
   keepDetailsPrivate:
-    'Do you want to keep {firstName} {lastName}’s identity private from the other people named in the application (the respondents)?',
+    'Do you want to keep {firstName} {lastName}’s identity private from the other people named in the application?',
   yes: 'Yes',
   no: 'No',
   errors: {
@@ -24,15 +26,16 @@ const en = {
 const cy: typeof en = {
   title: 'Cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol',
   pageTitle: 'Cadw hunaniaeth y person arall yn breifat',
-  answersWillBeShared:
-    'Bydd yr atebion a roddwch yn eich ymateb yn cael eu rhannu â’r bobl eraill a enwir yn y cais hwn(yr atebydd), bydd hyn yn cynnwys eich manylion cyswllt',
+  line1: 'Bydd yr wybodaeth a ddarperir gennych yn cael ei rhannu â’r bobl eraill yn y cais hwn.',
+  line2:
+    'Gan eich bod wedi dweud wrthym fod {childName} yn {livesWith} yn bennaf gyda {firstName} {lastName}, gallwch ddewis cadw hunaniaeth {firstName} {lastName} yn breifat. Mae hyn yn cynnwys eu cyfeiriad.',
   keepDetailsPrivate:
-    'Ydych chi eisiau cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol oddi wrth yr unigolyn arall a enwir yn y cais(yr atebydd)',
+    'Ydych chi eisiau cadw hunaniaeth {firstName} {lastName} yn breifat oddi wrth y bobl eraill a enwir yn y cais?',
   yes: 'Oes',
   no: 'Nac oes',
   errors: {
     confidentiality: {
-      required: 'Dewiswch ydw os ydych eisiau cadw {firstName} {lastName} manylion yn gyfrinachol',
+      required: 'Dewiswch ydw os ydych eisiau cadw manylion {firstName} {lastName} yn breifat',
     },
   },
 };
@@ -41,6 +44,13 @@ describe('other person details > confidentiality > content', () => {
   const commonContent = {
     language: 'en',
     userCase: {
+      cd_children: [
+        {
+          firstName: 'the',
+          lastName: 'child',
+          mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678',
+        },
+      ],
       oprs_otherPersons: [
         {
           id: '7483640e-0817-4ddc-b709-6723f7945678',
@@ -82,6 +92,13 @@ describe('other person details > confidentiality > content', () => {
       {
         ...en,
         title: interpolate(en.title, { firstName: 'otherPerson-firstName', lastName: 'otherPerson-lastName' }),
+        line1: en.line1,
+        line2: interpolate(en.line2, {
+          childName: 'the child',
+          livesWith: 'lives with',
+          firstName: 'otherPerson-firstName',
+          lastName: 'otherPerson-lastName',
+        }),
         keepDetailsPrivate: interpolate(en.keepDetailsPrivate, {
           firstName: 'otherPerson-firstName',
           lastName: 'otherPerson-lastName',
@@ -108,6 +125,13 @@ describe('other person details > confidentiality > content', () => {
       {
         ...cy,
         title: interpolate(cy.title, { firstName: 'otherPerson-firstName', lastName: 'otherPerson-lastName' }),
+        line1: cy.line1,
+        line2: interpolate(cy.line2, {
+          childName: 'the child',
+          livesWith: 'byw',
+          firstName: 'otherPerson-firstName',
+          lastName: 'otherPerson-lastName',
+        }),
         keepDetailsPrivate: interpolate(cy.keepDetailsPrivate, {
           firstName: 'otherPerson-firstName',
           lastName: 'otherPerson-lastName',
@@ -148,5 +172,53 @@ describe('other person details > confidentiality > content', () => {
     expect(
       (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
+  });
+
+  test('1 child -> child full name and singular verb', () => {
+    const caseData = {
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        cd_children: [
+          { firstName: 'Alice', lastName: 'Brown', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+        ] as unknown as ChildrenDetails[],
+      },
+    };
+    const out = generateContent(caseData);
+    expect(out.line2).toContain('Alice Brown');
+    expect(out.line2).toContain('lives with');
+  });
+
+  test('2 children -> "A and B" and plural verb', () => {
+    const caseData = {
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        cd_children: [
+          { firstName: 'Tom', lastName: 'Thumb', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Jerry', lastName: 'Mouse', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+        ] as unknown as ChildrenDetails[],
+      },
+    };
+    const out = generateContent(caseData);
+    expect(out.line2).toContain('Tom Thumb and Jerry Mouse');
+    expect(out.line2).toContain('live with');
+  });
+
+  test('3 children -> "A, B and C" (No Oxford Comma) and plural verb', () => {
+    const caseData = {
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        cd_children: [
+          { firstName: 'Ann', lastName: 'One', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Ben', lastName: 'Two', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Cara', lastName: 'Three', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+        ] as unknown as ChildrenDetails[],
+      },
+    };
+    const out = generateContent(caseData);
+    expect(out.line2).toContain('Ann One, Ben Two and Cara Three'); // Verifies your grammar fix!
+    expect(out.line2).toContain('live with');
   });
 });

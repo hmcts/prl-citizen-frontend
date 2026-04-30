@@ -63,7 +63,7 @@ describe('C100Sequence', () => {
     hwf_needHelpWithFees: 'No',
   };
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(104);
+    expect(C100Sequence).toHaveLength(107);
 
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
@@ -928,7 +928,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[90].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/address/manual');
     expect(C100Sequence[90].showInSection).toBe('c100');
     expect(C100Sequence[90].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with'
+      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/confidentiality/start-alternative'
     );
 
     expect(C100Sequence[91].url).toBe(
@@ -1031,6 +1031,39 @@ describe('C100Sequence', () => {
     expect(C100Sequence[103].showInSection).toBe('c100');
     expect(C100Sequence[103].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
       '/c100-rebuild/other-proceedings/current-previous-proceedings'
+    );
+    // --- NEW SCREENS COVERAGE ---
+
+    // Index 120: start-alternative
+    // 1. Find the steps by their URL string
+    const startAltStep = C100Sequence.find(s => s.url === '/c100-rebuild/confidentiality/start-alternative');
+    const feedbackStep = C100Sequence.find(s => s.url === '/c100-rebuild/confidentiality/feedback');
+    const feedbackNoStep = C100Sequence.find(s => s.url === '/c100-rebuild/confidentiality/feedbackno');
+    const startStep = C100Sequence.find(s => s.url === '/c100-rebuild/confidentiality/start');
+
+    // 2. Test start-alternative
+    expect(startAltStep).toBeDefined();
+    expect(startAltStep?.getNextStep({ startAlternative: YesOrNo.YES }, applicantMockRequest)).toBe(
+      '/c100-rebuild/confidentiality/feedback'
+    );
+    expect(startAltStep?.getNextStep({ startAlternative: YesOrNo.NO }, applicantMockRequest)).toBe(
+      '/c100-rebuild/confidentiality/feedbackno'
+    );
+
+    // 3. Test feedback redirects
+    expect(feedbackStep).toBeDefined();
+    expect(feedbackStep?.getNextStep({}, applicantMockRequest)).toBe('/c100-rebuild/international-elements/start');
+
+    expect(feedbackNoStep).toBeDefined();
+    expect(feedbackNoStep?.getNextStep({}, applicantMockRequest)).toBe('/c100-rebuild/international-elements/start');
+
+    // 4. Test start
+    expect(startStep).toBeDefined();
+    expect(startStep?.getNextStep({ start: YesOrNo.YES }, applicantMockRequest)).toBe(
+      '/c100-rebuild/confidentiality/feedback'
+    );
+    expect(startStep?.getNextStep({ start: YesOrNo.NO }, applicantMockRequest)).toBe(
+      '/c100-rebuild/confidentiality/feedbackno'
     );
   });
 });

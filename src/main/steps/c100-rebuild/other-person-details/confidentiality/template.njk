@@ -1,5 +1,22 @@
 {% extends "common/template.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
 {% block page_content %}
-  <h1 class="govuk-heading-xl">{{title}}</h1>
-  <p class="govuk-body">{{answersWillBeShared}}</p>
+  {% include "common/error/summary.njk" %}
+
+  <h1 class="govuk-heading-xl">{{ title }}</h1>
+  <p class="govuk-body">{{ line1 }}</p>
+
+  <p class="govuk-body">{{ line2 }}</p>
+
+  <form class="form" method="post" action="" novalidate>
+    {# RAW CSRF INPUT: This replaces the broken 'macros/csrf.njk' import #}
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    {% block form_content %}
+      {{ govukRadios(form.fields.confidentiality) }}
+    {% endblock %}
+
+  </form>
 {% endblock %}
