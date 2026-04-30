@@ -95,7 +95,12 @@ export class ReasonableAdjustementsSequence {
       {
         url: REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS_REVIEW,
         showInSection: Sections.RA,
-        getNextStep: () => REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH,
+        getNextStep: (caseData, req) => {
+          const isEnabled = RAProvider.isComponentEnabledSync();
+          return isEnabled
+            ? REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH
+            : RAProvider.navigationController.getNextUrl(caseData, req);
+        },
       },
       {
         url: REASONABLE_ADJUSTMENTS_SUCCESS_CONFIRMATION,

@@ -1,8 +1,15 @@
+jest.mock('config', () => ({
+  get: jest.fn(),
+}));
+
+import config from 'config';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 
 import { RASequence } from './sequence';
 
 describe('RA > sequence', () => {
+  (config.get as jest.Mock).mockReturnValue(true);
   const req = mockRequest({
     session: {
       userCase: {
@@ -198,6 +205,14 @@ describe('RA > sequence', () => {
         originalUrl: '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements/review',
       })
     ).toBe('/reasonable-adjustments/launch');
+
+    (config.get as jest.Mock).mockReturnValue(false);
+    expect(
+      raSequence[12].getNextStep(req.session.userCase, {
+        ...req,
+        originalUrl: '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements/review',
+      })
+    ).toBe('/:partyType/reasonable-adjustments/confirmation');
 
     expect(raSequence[13].url).toBe('/:partyType/reasonable-adjustments/confirmation');
     expect(raSequence[13].showInSection).toBe('cuira');

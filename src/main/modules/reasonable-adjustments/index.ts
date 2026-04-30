@@ -131,13 +131,12 @@ class ReasonableAdjustmentsProvider {
     return isEnabled;
   }
 
-  async getSequence(): Promise<Step[] | []> {
-    const isEnabled = await this.isComponentEnabled();
-    const sequence = this.sequence.getSequence();
+  isComponentEnabledSync(): boolean {
+    return toBoolean(config.get<boolean>('featureToggles.enableRAComponent'));
+  }
 
-    if (!isEnabled) {
-      sequence.splice(-5);
-    }
+  async getSequence(): Promise<Step[] | []> {
+    const sequence = this.sequence.getSequence();
 
     return sequence;
   }

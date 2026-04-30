@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { RAProvider } from '../../../../modules/reasonable-adjustments';
 export * from './routeGuard';
 
 const en = {
@@ -15,11 +16,10 @@ const en = {
       content: 'language requirements, for example if you need an interpreter in a particular language',
     },
     {
-      content:
-        'support for people with a health condition or disability (known as ‘reasonable adjustments’), for example access and mobility needs',
+      content: 'support for people with a health condition or disability',
     },
     {
-      content: 'special arrangements for you to feel safe at court, for example a separate waiting room',
+      content: 'special measure for you to feel safe at court, for example a separate waiting room',
     },
   ],
   content3: 'Requesting support',
@@ -51,11 +51,10 @@ const cy: typeof en = {
       content: 'ofynion ieithyddol, er enghraifft os oes angen cyfieithydd arnoch mewn iaith benodol',
     },
     {
-      content:
-        'cymorth i bobl â chyflwr iechyd neu anabledd (a elwir yn ‘addasiadau rhesymol’), er enghraifft, anghenion mynediad a symudedd',
+      content: 'cefnogaeth i bobl gyda chyflwr iechyd neu anabledd',
     },
     {
-      content: 'trefniadau arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
+      content: 'mesur arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
     },
   ],
   content3: 'Gofyn am gymorth',
@@ -92,11 +91,20 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const hasRAData = _.get(content.additionalData, 'req.session.userCase.ra_existingFlags.details.length', 0);
+  const isEnabled = RAProvider.isComponentEnabledSync();
+
+  if (!isEnabled) {
+    return {
+      ...translations,
+      form,
+    };
+  }
+
+  const hasRAData = _.get(content.additionalData, 'req.session.userCase.ra_existingFlags.details.length', 0) > 0;
 
   return {
     ...translations,
-    title: !hasRAData ? translations.title : translations.title2,
+    title: hasRAData ? translations.title2 : translations.title,
     form,
   };
 };
