@@ -58,7 +58,7 @@ const cy = {
   title: 'Gofynion ieithyddol a threfniadau arbennig',
   content1: 'Gofynion ieithyddol',
   content2: 'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad.',
-  content3: 'Dywedwch wrthym os oes arnoch angen:',
+  content3: 'Dywedwch wrthym os ydych:',
   list: [
     {
       content: 'eisiau siarad, darllen neu ysgrifennu yn Gymraeg',
@@ -76,7 +76,7 @@ const cy = {
       content: 'cyfryngwr',
     },
     {
-      content: 'efnogaeth arbennig',
+      content: 'cefnogaeth arbennig',
     },
     {
       content: 'cyfleusterau arbennig',

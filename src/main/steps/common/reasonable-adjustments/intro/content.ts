@@ -51,11 +51,10 @@ const cy: typeof en = {
       content: 'ofynion ieithyddol, er enghraifft os oes angen cyfieithydd arnoch mewn iaith benodol',
     },
     {
-      content:
-        'cymorth i bobl â chyflwr iechyd neu anabledd (a elwir yn ‘addasiadau rhesymol’), er enghraifft, anghenion mynediad a symudedd',
+      content: 'cefnogaeth i bobl gyda chyflwr iechyd neu anabledd',
     },
     {
-      content: 'trefniadau arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
+      content: 'mesur arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
     },
   ],
   content3: 'Gofyn am gymorth',
