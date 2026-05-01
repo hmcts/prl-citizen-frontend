@@ -102,6 +102,9 @@ import {
   C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
   C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
   C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
+  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE,
+  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK,
+  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO,
 
   /** Other Person Details */
   C100_OTHER_PERSON_DETAILS_ADD,
@@ -138,6 +141,7 @@ import MIAMNavigationController from './miam/navigationController';
 import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
 import PreviousProceedingsNavigationController from './other-proceedings/navigationController';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
+import RespondentCommonConfidentialityController from './respondent-details/confidentiality/common/respondentCommonConfidentialityPostController';
 import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
@@ -734,6 +738,27 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_CONTACT_DETAILS, caseData, req?.params),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE,
+    showInSection: Sections.C100,
+    postController: RespondentCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE, caseData, req?.params),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK,
+    showInSection: Sections.C100,
+    postController: RespondentCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK, caseData, req?.params),
+  },
+  {
+    url: C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO,
+    showInSection: Sections.C100,
+    postController: RespondentCommonConfidentialityController,
+    getNextStep: (caseData, req) =>
+      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
   },
   {
     url: C100_OTHER_PERSON_CHECK,

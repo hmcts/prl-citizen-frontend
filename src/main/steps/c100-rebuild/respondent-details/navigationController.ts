@@ -1,5 +1,5 @@
 import { Case } from '../../../app/case/case';
-import { C100RebuildPartyDetails, ChildrenDetails } from '../../../app/case/definition';
+import { C100RebuildPartyDetails, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_OTHER_PERSON_CHECK,
@@ -7,12 +7,15 @@ import {
   C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
   C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
   C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
+  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE,
+  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK,
+  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO,
   C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
   C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
   PageLink,
 } from '../../urls';
-import { getNextPerson } from '../people/util';
+import { getNextPerson, getPartyDetails } from '../people/util';
 
 class RespondentsDetailsNavigationController {
   private respondentsDetails: C100RebuildPartyDetails[] | [] = [];
@@ -74,6 +77,49 @@ class RespondentsDetailsNavigationController {
         break;
       }
       case C100_RESPONDENT_DETAILS_CONTACT_DETAILS: {
+        const currentRespondent = this.respondentsDetails.find(p => p.id === this.respondentId);
+        const currentRespondentHasContactDetails =
+          currentRespondent?.contactDetails?.donKnowEmailAddress !== YesOrNo.YES ||
+          currentRespondent?.contactDetails?.donKnowTelephoneNumber !== YesOrNo.YES;
+
+        if (currentRespondent && currentRespondentHasContactDetails) {
+          nextUrl = applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE, {
+            respondentId: this.respondentId,
+          });
+        } else {
+          const nextRespondent = getNextPerson(this.respondentsDetails, this.respondentId);
+          nextUrl = nextRespondent
+            ? applyParms(C100_RESPONDENT_DETAILS_PERSONAL_DETAILS, {
+                respondentId: nextRespondent?.id as C100RebuildPartyDetails['id'],
+              })
+            : C100_OTHER_PERSON_CHECK;
+        }
+        break;
+      }
+      case C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE: {
+        const respondentData = getPartyDetails(
+          this.respondentId,
+          this.respondentsDetails
+        ) as C100RebuildPartyDetails | null;
+
+        if (!respondentData) {
+          // defensively fail early so you see an informative error instead of surprising behaviour
+          throw new Error(`Respondent not found: ${this.respondentId}`);
+        }
+
+        const isConfidential = 
+          respondentData.isRespondentAddressConfidential === YesOrNo.YES ||
+          respondentData.isResponentTelephoneNumberConfidential === YesOrNo.YES ||
+          respondentData.isRespondentEmailAddressConfidential === YesOrNo.YES;
+
+        nextUrl =
+          isConfidential
+            ? applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK, { respondentId: this.respondentId })
+            : applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO, { respondentId: this.respondentId });
+        break;
+      }
+      case C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK:
+      case C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO: {
         const nextRespondent = getNextPerson(this.respondentsDetails, this.respondentId);
         nextUrl = nextRespondent
           ? applyParms(C100_RESPONDENT_DETAILS_PERSONAL_DETAILS, {
