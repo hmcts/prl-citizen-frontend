@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { YesOrNo } from '../../../../../app/case/definition';
+import { C100RebuildPartyDetails, YesOrNo } from '../../../../../app/case/definition';
 
 export type FieldLabel = {
   name: string;
@@ -34,4 +34,17 @@ export const generateDetailsKnownYesField = (fieldSet, contactDetailsList, isAlt
   }
 
   return fieldSet;
+};
+
+export const getAddress = (respondent: C100RebuildPartyDetails): string => {
+  return [
+    respondent.address.AddressLine1,
+    respondent.address.AddressLine2,
+    respondent.address.County,
+    respondent.address.PostCode,
+      respondent.address.PostTown,
+      respondent.address.Country,
+    ]
+    .filter(addressDetail => addressDetail !== '')
+    .join(', ')
 };

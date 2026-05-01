@@ -6,7 +6,7 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateDetailsKnownYesField } from '../common/utils';
 import { getPartyDetails } from '../../../people/util';
-import { interpolate } from 'steps/common/string-parser';
+import { interpolate } from '../../../../common/string-parser';
 
 export const en = {
   caption: "Keeping {firstName} {lastName}'s contact details private",
@@ -196,7 +196,9 @@ export const generateContent: TranslationFn = content => {
       detailKnownFormField = formFieldValues;
   }
 
-  form.fields['startAlternative'].values = detailKnownFormField;
+  if (form.fields['startAlternative']) {
+    form.fields['startAlternative'].values = detailKnownFormField;
+  }
 
   return {
     ...translations,
