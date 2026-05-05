@@ -27,7 +27,7 @@ nodejs:
     C100_REBUILD_FLAG: false
     TESTING_SUPPORT_FLAG: false
     ENABLE_CASE_TRAIN_TRACK: false
-    ENABLE_RA_COMPONENT: false
+    ENABLE_RA_COMPONENT: true
     ENABLE_PCQ_COMPONENT: false
     ALLOWED_COURTS: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre
   keyVaults:
