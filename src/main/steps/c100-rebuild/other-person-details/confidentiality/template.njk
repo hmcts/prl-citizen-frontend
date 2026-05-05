@@ -11,7 +11,7 @@
   <p class="govuk-body">{{ line2 }}</p>
 
   <form class="form" method="post" action="" novalidate>
-    {# RAW CSRF INPUT: This replaces the broken 'macros/csrf.njk' import #}
+    {# Standard CSRF injection: using the csrfToken variable provided by the CSRF middleware #}
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
     {% block form_content %}
