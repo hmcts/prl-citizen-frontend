@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { CaseWithId } from '../../../app/case/case';
 import {
   C100Applicant,
@@ -29,8 +27,6 @@ import {
 } from '../../urls';
 import { applyParms } from '../url-parser';
 
-import { getC8DocumentForC100 } from './utils';
-
 class RefugeNavigationController {
   public getNextPageUrl(currentPageUrl: PageLink, caseData: Partial<CaseWithId>, req: AppRequest): PageLink {
     const userId = req.session.user.id;
@@ -45,8 +41,6 @@ class RefugeNavigationController {
         return this.getStayInRefugeNextUrl(partyRoot, caseData, isC100, id, req, c100Person, addressUrl);
 
       case REFUGE_KEEPING_SAFE:
-        return this.getKeepingSafeNextUrl(id, isC100, partyRoot, req, c100Person!, caseData as CaseWithId);
-
       case REFUGE_UPLOAD_DOC:
       case C100_REFUGE_UPLOAD_DOC:
         return addressUrl;
@@ -142,31 +136,6 @@ class RefugeNavigationController {
         : (getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails);
 
     return details.liveInRefuge === YesOrNo.YES;
-  }
-
-  private getKeepingSafeNextUrl(
-    id: string,
-    isC100: boolean,
-    root: RootContext,
-    req: AppRequest,
-    person: People,
-    caseData: CaseWithId
-  ): PageLink {
-    const resolvedRoot = isC100 ? RootContext.C100_REBUILD : root;
-
-    const isDocUploaded = !_.isEmpty(
-      isC100 ? getC8DocumentForC100(id, req.session.userCase, person) : caseData.refugeDocument
-    );
-
-    if (isDocUploaded) {
-      return isC100
-        ? (applyParms(REFUGE_DOC_ALREADY_UPLOADED, { root: resolvedRoot, id }) as PageLink)
-        : (applyParms(REFUGE_DOC_ALREADY_UPLOADED, { root: resolvedRoot }) as PageLink);
-    }
-
-    return isC100
-      ? (applyParms(C100_REFUGE_UPLOAD_DOC, { root: resolvedRoot, id }) as PageLink)
-      : (applyParms(REFUGE_UPLOAD_DOC, { root: resolvedRoot, id }) as PageLink);
   }
 
   private getDocAlreadyUploadedNextUrl(

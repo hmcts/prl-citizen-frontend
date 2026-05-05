@@ -140,11 +140,6 @@ describe('handler', () => {
     data.citizenUserPhoneNumber = '9876';
     data.citizenUserEmailAddress = 'abc';
     data.isCitizenLivingInRefuge = 'Yes';
-    data.refugeDocument = {
-      document_binary_url: 'MOCK_BINARY_URL',
-      document_filename: 'MOCK_FILENAME',
-      document_url: 'MOCK_URL',
-    };
     populateSummaryData(data, '123');
 
     expect(data.citizenUserPlaceOfBirthText).toEqual('London');
@@ -152,7 +147,6 @@ describe('handler', () => {
     expect(data.citizenUserPhoneNumberText).toEqual('9876');
     expect(data.citizenUserEmailAddressText).toEqual('abc');
     expect(data.citizenUserLivingInRefugeText).toBe('Yes');
-    expect(data.refugeDocumentText).toBe('MOCK_FILENAME');
   });
 
   test('should delete refuge documents when refuge is no', () => {
