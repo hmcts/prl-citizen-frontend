@@ -1,22 +1,17 @@
 {% extends "common/template.njk" %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block page_content %}
   {% include "common/error/summary.njk" %}
 
   <h1 class="govuk-heading-xl">{{ title }}</h1>
   <p class="govuk-body">{{ line1 }}</p>
-
   <p class="govuk-body">{{ line2 }}</p>
 
-  <form class="form" method="post" action="" novalidate>
-    {# Standard CSRF injection: using the csrfToken variable provided by the CSRF middleware #}
-    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-
-    {% block form_content %}
-      {{ govukRadios(form.fields.confidentiality) }}
-    {% endblock %}
-
-  </form>
 {% endblock %}
+
+{% block form_content %}
+  {{ govukRadios(form.fields.confidentiality) }}
+{% endblock %}
+
+
