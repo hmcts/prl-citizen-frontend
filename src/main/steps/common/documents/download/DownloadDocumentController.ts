@@ -87,7 +87,13 @@ export default class DownloadDocumentController {
         documentId,
         req.session.user.id
       );
-      res.setHeader('Content-Type', String(document.headers['content-type'] ?? ''));
+      const contentType = document.headers?.['content-type'];
+
+      if (contentType) {
+        // Handle the case where Axios returns an array or a single string
+        const normalizedType = Array.isArray(contentType) ? contentType[0] : String(contentType);
+        res.setHeader('Content-Type', normalizedType);
+      }
       res.setHeader(
         'Content-Disposition',
         `${forceDownload === 'forceDownload' ? 'attachment' : 'inline'}; filename=${deTransformFileName(documentName)};` //check with vivek
