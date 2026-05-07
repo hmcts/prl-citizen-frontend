@@ -40,27 +40,17 @@ export default class RespondentCommonConfidentialityController {
       return this.parent.redirect(this.request, res);
     }
 
-    const rawAddressConfidentialValue = (this.request.body['isRespondentAddressConfidential'] ??
-      this.request.body['confidentiality'] ??
-      this.request.body['startAlternative']) as string | undefined;
-
-    const rawTelephoneNumberConfidentialValue = (this.request.body['isResponentTelephoneNumberConfidential'] ??
-      this.request.body['confidentiality'] ??
-      this.request.body['startAlternative']) as string | undefined;
-
-    const rawEmailAddressConfidentialValue = (this.request.body['isRespondentEmailAddressConfidential'] ??
-      this.request.body['confidentiality'] ??
-      this.request.body['startAlternative']) as string | undefined;
-
-    const finalAddressConfidentialValue = (rawAddressConfidentialValue as YesOrNo) ?? existing.isRespondentAddressConfidential ?? YesOrNo.NO;
-    const finalTelephoneNumberConfidentialValue = (rawTelephoneNumberConfidentialValue as YesOrNo) ?? existing.isResponentTelephoneNumberConfidential ?? YesOrNo.NO;
-    const finalEmailAddressConfidentialValue = (rawEmailAddressConfidentialValue as YesOrNo) ?? existing.isRespondentEmailAddressConfidential ?? YesOrNo.NO;
+    const rawContactDetailsPrivateValue = this.request.body['contactDetailsPrivateAlternative'] as string[] | undefined;
+    const rawStartAlternativeValue = this.request.body['startAlternative'] as YesOrNo | undefined;
+    const finalAddressConfidentialValue = (rawContactDetailsPrivateValue?.includes('address') ? YesOrNo.YES : YesOrNo.NO) ?? existing.isRespondentAddressConfidential ?? YesOrNo.NO;
+    const finalTelephoneNumberConfidentialValue = (rawContactDetailsPrivateValue?.includes('telephone') ? YesOrNo.YES : YesOrNo.NO) ?? existing.isResponentTelephoneNumberConfidential ?? YesOrNo.NO;
+    const finalEmailAddressConfidentialValue = (rawContactDetailsPrivateValue?.includes('email') ? YesOrNo.YES : YesOrNo.NO) ?? existing.isRespondentEmailAddressConfidential ?? YesOrNo.NO;
 
     const updatedRespondent: C100RebuildPartyDetails = {
       ...existing,
-      isRespondentAddressConfidential: finalAddressConfidentialValue,
-      isResponentTelephoneNumberConfidential: finalTelephoneNumberConfidentialValue,
-      isRespondentEmailAddressConfidential: finalEmailAddressConfidentialValue,
+      isRespondentAddressConfidential: rawStartAlternativeValue === YesOrNo.YES ? finalAddressConfidentialValue : YesOrNo.NO,
+      isResponentTelephoneNumberConfidential: rawStartAlternativeValue === YesOrNo.YES ? finalTelephoneNumberConfidentialValue : YesOrNo.NO,
+      isRespondentEmailAddressConfidential: rawStartAlternativeValue === YesOrNo.YES ? finalEmailAddressConfidentialValue : YesOrNo.NO,
     };
 
     this.request.session.userCase.resp_Respondents = updatePartyDetails(

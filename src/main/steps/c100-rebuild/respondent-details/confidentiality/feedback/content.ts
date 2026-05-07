@@ -1,4 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+import { YesOrNo } from 'app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { interpolate } from '../../../../common/string-parser';
@@ -53,9 +54,9 @@ export const generateContent: TranslationFn = content => {
 
   const { firstName = '', lastName = '' } = respondent || {};
   const fullName = `${firstName} ${lastName}`.trim();
-  const fullAddress = "" + (respondent.isRespondentAddressConfidential ? getAddress(respondent) : "");
-  const fullTelephoneNumber = "" + (respondent.isResponentTelephoneNumberConfidential ? respondent.contactDetails?.telephoneNumber : "");
-  const fullEmail = "" + (respondent.isRespondentEmailAddressConfidential ? respondent.contactDetails?.emailAddress : "");
+  const fullAddress = "" + (respondent.isRespondentAddressConfidential == YesOrNo.YES ? getAddress(respondent) : "");
+  const fullTelephoneNumber = "" + (respondent.isResponentTelephoneNumberConfidential == YesOrNo.YES ? respondent.contactDetails?.telephoneNumber : "");
+  const fullEmail = "" + (respondent.isRespondentEmailAddressConfidential == YesOrNo.YES ? respondent.contactDetails?.emailAddress : "");
 
   const injectName = (str: string) => interpolate(str, { name: fullName });
   const updateAddress = (str: string) => interpolate(str, { address: fullAddress });
