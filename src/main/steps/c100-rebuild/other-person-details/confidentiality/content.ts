@@ -26,16 +26,16 @@ export const en = {
 export const cy: typeof en = {
   title: 'Cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol',
   pageTitle: 'Cadw hunaniaeth y person arall yn breifat',
-  line1: 'Bydd yr wybodaeth a ddarperir gennych yn cael ei rhannu â’r bobl eraill yn y cais hwn.',
+  line1: "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r bobl eraill a enwir yn y cais hwn.",
   line2:
-    'Gan eich bod wedi dweud wrthym fod {childName} yn {livesWith} yn bennaf gyda {firstName} {lastName}, gallwch ddewis cadw hunaniaeth {firstName} {lastName} yn breifat. Mae hyn yn cynnwys eu cyfeiriad.',
+    'Gan eich bod wedi dweud wrthym fod {childName} {livesWith} yyn byw gyda  {firstName} {lastName}, yn bennaf, gallwch ddewis cadw hunaniaeth {firstName} {lastName} yn breifat. Mae hyn yn cynnwys eu cyfeiriad.',
   keepDetailsPrivate:
-    'Ydych chi eisiau cadw hunaniaeth {firstName} {lastName} yn breifat oddi wrth y bobl eraill a enwir yn y cais?',
+    'Ydych chi eisiau cadw hunaniaeth {firstName} {lastName} yn breifat oddi wrth y bobl eraill a enwir yn y cais hwn?',
   yes: 'Oes',
   no: 'Nac oes',
   errors: {
     confidentiality: {
-      required: 'Dewiswch ydw os ydych eisiau cadw manylion {firstName} {lastName} yn breifat',
+      required: 'Dewiswch ‘Ydw’ os ydych chi eisiau cadw cyfeiriad {firstName} {lastName} yn breifat.',
     },
   },
 };
