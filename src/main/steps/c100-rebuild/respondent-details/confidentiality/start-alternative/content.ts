@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Case } from '../../../../../app/case/case';
+//import { Case } from '../../../../../app/case/case';
 import { C100RebuildPartyDetails, YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
-import { generateDetailsKnownYesField } from '../common/utils';
+//import { generateDetailsKnownYesField } from '../common/utils';
 import { getPartyDetails } from '../../../people/util';
 import { interpolate } from '../../../../common/string-parser';
 
@@ -14,15 +14,15 @@ export const en = {
   paragraphOne: "The information you give us will be shared with the other people named in this application. This includes {firstName} {lastName}'s contact details, unless you ask the court to keep them private.",
   paragraphTwo: "You can request this if, for example, you believe sharing these details may lead to unwanted contact or a risk of harm to {firstName} {lastName} or the children.",
   keepContactDetailsPrivate: "Do you want to request to keep {firstName} {lastName}'s contact details private from the other people named in the application?",
-  one: 'Yes',
-  two: 'No',
+  yes: 'Yes',
+  no: 'No',
   whichDetailsPrivate: 'Select which contact details you want to keep private',
   address: 'Address',
   telephoneNumber: 'Telephone number',
   email: 'Email',
   errors: {
     startAlternative: {
-      required: 'Select yes if you want to keep {firstName} {lastName} address private',
+      required: "Select yes if you want to keep {firstName} {lastName}'s details private, or no if not.",
     },
     contactDetailsPrivateAlternative: {
       required: 'Select which contact details you want to keep private.',
@@ -32,23 +32,23 @@ export const en = {
 
 //TODO remember to put welsh translations here
 export const cy = {
-  caption: "Keeping {firstName} {lastName}'s contact details private",
-  headingTitle: 'Keeping contact details private',
-  paragraphOne: "The information you give us will be shared with the other people named in this application. This includes {firstName} {lastName}'s contact details, unless you ask the court to keep them private.",
-  paragraphTwo: "You can request this if, for example, you believe sharing these details may lead to unwanted contact or a risk of harm to {firstName} {lastName} or the children.",
-  keepContactDetailsPrivate: "Do you want to request to keep {firstName} {lastName}'s contact details private from the other people named in the application?",
-  one: 'Yes',
-  two: 'No',
-  whichDetailsPrivate: 'Select which contact details you want to keep private',
-  address: 'Address',
-  telephoneNumber: 'Telephone number',
-  email: 'Email',
+  caption: "Cadw manylion cyswllt {firstName} {lastName} yn breifat",
+  headingTitle: 'Cadw manylion cyswllt yn breifat',
+  paragraphOne: "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r bobl eraill a enwir yn y cais hwn. Mae hyn yn cynnwys manylion cyswllt {firstName} {lastName}, oni bai eich bod yn gofyn i'r llys eu cadw'n breifat.",
+  paragraphTwo: "Gallwch ofyn am hyn os, er enghraifft, rydych chi'n credu y gallai rhannu'r manylion hyn arwain at gyswllt diangen neu risg o niwed i {firstName} {lastName} neu'r plant.",
+  keepContactDetailsPrivate: "Ydych chi eisiau gofyn am gadw manylion cyswllt {firstName} {lastName} yn breifat gan y bobl eraill a enwir yn y cais?",
+  yes: 'Ydw',
+  no: 'Nac ydw',
+  whichDetailsPrivate: "Dewiswch pa fanylion cyswllt yr hoffech eu cadw'n breifat",
+  address: 'Cyfeiriad',
+  telephoneNumber: 'Rhif Ffôn',
+  email: 'E-bost',
   errors: {
     startAlternative: {
-      required: 'Select yes if you want to keep your details private, or no if not.',
+      required: "Dewiswch ydw os ydych eisiau gofyn am gadw manylion {firstName} {lastName} yn breifat, neu nac ydw os nad ydych eisiau gofyn am hyn.",
     },
     contactDetailsPrivateAlternative: {
-      required: 'Select which contact details you want to keep private.',
+      required: "Dewiswch pa fanylion cyswllt yr hoffech eu cadw'n breifat.",
     },
   },
 };
@@ -58,31 +58,69 @@ const languages = {
   cy,
 };
 
-export const generateFormFields = (confidential: YesOrNo): GenerateDynamicFormFields => {
+let updatedForm: FormContent;
+
+const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
+  updatedForm = {
+    ...form,
+    fields: {
+      ...formFields,
+      ...(form.fields ?? {}),
+    },
+  };
+
+  return updatedForm;
+};
+
+export const generateFormFields = (isRespondentAddressConfidential?: YesOrNo, isResponentTelephoneNumberConfidential?: YesOrNo, isRespondentEmailAddressConfidential?: YesOrNo): GenerateDynamicFormFields => {
   const errors = {
     en: {},
     cy: {},
   };
 
   const fields = {
-    confidentiality: {
+    startAlternative: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.keepContactDetailsPrivate,
       labelSize: 's',
       values: [
         {
-          label: l => l.one, // Points to 'Yes' in English and 'Ydw' in Welsh
+          label: l => l.yes,
           value: YesOrNo.YES,
-          // selected: confidential === YesOrNo.YES,
+          subFields: {
+            contactDetailsPrivateAlternative: {
+              type: 'checkboxes',
+              label: l => l.keepContactDetailsPrivate,
+              labelHidden: true,
+              hint: l => l.whichDetailsPrivate,
+              validator: value => atLeastOneFieldIsChecked(value),
+              values: [
+                {
+                  name: 'contactDetailsPrivateAlternative',
+                  label: l => l.address,
+                  value: 'address',
+                },
+                {
+                  name: 'contactDetailsPrivateAlternative',
+                  label: l => l.telephoneNumber,
+                  value: 'telephone',
+                },
+                {
+                  name: 'contactDetailsPrivateAlternative',
+                  label: l => l.email,
+                  value: 'email',
+                },
+              ],
+            },
+          },
         },
         {
-          label: l => l.two, // Points to 'No' in English and 'Nac ydw' in Welsh
+          label: l => l.no,
           value: YesOrNo.NO,
-          // selected: confidential === YesOrNo.NO,
         },
       ],
-      validator: isFieldFilledIn,
+      validator: value => isFieldFilledIn(value),
     },
   };
 
@@ -99,21 +137,6 @@ export const form: FormContent = {
   },
 };
 
-let updatedForm: FormContent;
-
-// eslint-disable-next-line @typescript-eslint/no-shadow
-const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
-  updatedForm = {
-    ...form,
-    fields: {
-      ...formFields,
-      ...(form.fields ?? {}),
-    },
-  };
-
-  return updatedForm;
-};
-
 export const generateContent: TranslationFn = content => {
   const { errors: originalErrors, ...translations } = languages[content.language];
   const respondentId = content.additionalData?.req.params.respondentId ?? '';
@@ -124,92 +147,15 @@ export const generateContent: TranslationFn = content => {
 
   const injectName = (str: string) => interpolate(str, nameData);
 
-  const startOption = content.userCase!.resp_Respondents?.filter(user => user['id'] === respondentId)[0]?.[
-    'startAlternative'
-  ];
-  const contactDetailsPrivateAlternative = content.userCase?.resp_Respondents?.filter(
-    user => user['id'] === respondentId
-  )[0]?.['contactDetailsPrivateAlternative'] as [];
-
-  const formFieldValues = [
-    {
-      label: l => l.one,
-      value: YesOrNo.YES,
-      subFields: {
-        contactDetailsPrivateAlternative: {
-          type: 'checkboxes',
-          label: l => l.keepContactDetailsPrivate,
-          labelHidden: true,
-          hint: l => l.whichDetailsPrivate,
-          // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-          validator: (value, formData: Partial<Case>) => {
-            if (formData.startAlternative === 'Yes') {
-              return atLeastOneFieldIsChecked(formData?.contactDetailsPrivateAlternative);
-            }
-          },
-          values: [
-            {
-              name: 'contactDetailsPrivateAlternative',
-              label: l => l.address,
-              value: 'address',
-            },
-            {
-              name: 'contactDetailsPrivateAlternative',
-              label: l => l.telephoneNumber,
-              value: 'telephone',
-            },
-            {
-              name: 'contactDetailsPrivateAlternative',
-              label: l => l.email,
-              value: 'email',
-            },
-          ],
-        },
-      },
-    },
-    {
-      label: l => l.two,
-      value: YesOrNo.NO,
-    },
-  ];
-
-  let detailKnownFormField;
-
-  switch (startOption) {
-    case YesOrNo.YES:
-      detailKnownFormField = formFieldValues.map(fieldSet => {
-        return generateDetailsKnownYesField(fieldSet, contactDetailsPrivateAlternative, true);
-      });
-      break;
-
-    case YesOrNo.NO:
-      detailKnownFormField = formFieldValues.map(fieldSet => {
-        const { value } = fieldSet;
-        if (value === YesOrNo.NO) {
-          fieldSet['attributes'] = { checked: true };
-        }
-        return fieldSet;
-      });
-      break;
-
-    default:
-      detailKnownFormField = formFieldValues;
-  }
-
-  if (form.fields['startAlternative']) {
-    form.fields['startAlternative'].values = detailKnownFormField;
-  }
-
   return {
     ...translations,
-    form: updateFormFields(form, generateFormFields((isRespondentAddressConfidential || isResponentTelephoneNumberConfidential || isRespondentEmailAddressConfidential) ?? YesOrNo.NO).fields),
+    form: updateFormFields(form, generateFormFields(isRespondentAddressConfidential, isResponentTelephoneNumberConfidential, isRespondentEmailAddressConfidential).fields),
     caption: injectName(translations.caption),
     paragraphOne: injectName(translations.paragraphOne),
     paragraphTwo: injectName(translations.paragraphTwo),
     keepContactDetailsPrivate: injectName(translations.keepContactDetailsPrivate),
     errors: {
-      confidentiality: {
-        ...originalErrors.startAlternative,
+      startAlternative: {
         required: injectName(originalErrors.startAlternative.required),
       },
     },
