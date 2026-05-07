@@ -89,10 +89,10 @@ export default class DownloadDocumentController {
       );
       const contentType = document.headers?.['content-type'];
 
-      if (contentType) {
-        // Handle the case where Axios returns an array or a single string
-        const normalizedType = Array.isArray(contentType) ? contentType[0] : String(contentType);
-        res.setHeader('Content-Type', normalizedType);
+      if (typeof contentType === 'string') {
+        res.setHeader('Content-Type', contentType);
+      } else if (Array.isArray(contentType) && contentType.length > 0) {
+        res.setHeader('Content-Type', contentType[0]);
       }
       res.setHeader(
         'Content-Disposition',
