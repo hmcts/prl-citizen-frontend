@@ -28,7 +28,7 @@ export const cy: typeof en = {
   pageTitle: 'Cadw hunaniaeth y person arall yn breifat',
   line1: "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r bobl eraill a enwir yn y cais hwn.",
   line2:
-    'Gan eich bod wedi dweud wrthym fod {childName} {livesWith} yyn byw gyda  {firstName} {lastName}, yn bennaf, gallwch ddewis cadw hunaniaeth {firstName} {lastName} yn breifat. Mae hyn yn cynnwys eu cyfeiriad.',
+    'Gan eich bod wedi dweud wrthym fod {childName} {livesWith} yn byw gyda  {firstName} {lastName}, yn bennaf, gallwch ddewis cadw hunaniaeth {firstName} {lastName} yn breifat. Mae hyn yn cynnwys eu cyfeiriad.',
   keepDetailsPrivate:
     'Ydych chi eisiau cadw hunaniaeth {firstName} {lastName} yn breifat oddi wrth y bobl eraill a enwir yn y cais hwn?',
   yes: 'Oes',
