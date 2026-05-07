@@ -87,7 +87,13 @@ export default class DownloadDocumentController {
         documentId,
         req.session.user.id
       );
-      res.setHeader('Content-Type', document.headers['content-type'] ?? '');
+      const contentType = document.headers?.['content-type'];
+
+      if (typeof contentType === 'string') {
+        res.setHeader('Content-Type', contentType);
+      } else if (Array.isArray(contentType) && contentType.length > 0) {
+        res.setHeader('Content-Type', contentType[0]);
+      }
       res.setHeader(
         'Content-Disposition',
         `${forceDownload === 'forceDownload' ? 'attachment' : 'inline'}; filename=${deTransformFileName(documentName)};` //check with vivek
