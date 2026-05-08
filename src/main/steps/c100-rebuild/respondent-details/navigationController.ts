@@ -80,7 +80,6 @@ class RespondentsDetailsNavigationController {
         const currentRespondent = this.respondentsDetails.find(p => p.id === this.respondentId);
         const hasEmail = currentRespondent?.contactDetails?.donKnowEmailAddress !== YesOrNo.YES;
         const hasPhone = currentRespondent?.contactDetails?.donKnowTelephoneNumber !== YesOrNo.YES;
-        // Add the check for the address here
         const hasAddress = !!currentRespondent?.address?.AddressLine1;
 
         if (currentRespondent && (hasEmail || hasPhone || hasAddress)) {
