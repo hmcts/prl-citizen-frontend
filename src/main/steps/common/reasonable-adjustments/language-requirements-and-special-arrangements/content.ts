@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isTextAreaValid } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
@@ -11,47 +11,56 @@ const en = {
   title: 'Language requirements and special arrangements',
   content1: 'Language requirements',
   content2: 'Think about all communication with the court, as well as what you might need at a hearing.',
-  content3: 'For example, tell us if you need:',
+  content3: 'Tell us if you:',
   list: [
     {
-      content: 'to speak, read or write in Welsh',
+      content: 'want to speak, read or write in Welsh',
     },
     {
-      content: 'an interpreter in a language that is not English',
+      content: 'need an interpreter in a language that is not English',
     },
   ],
-  content4: 'Special arrangements',
+  content4: 'Support needs',
   content5:
-    'You may need special arrangements to feel safe at court. Some of these arrangements will need to be agreed by the judge or HMCTS staff. If your needs change, you can tell the court before your hearing date.',
+    'Tell us if you or any other party involved in the case have a health condition or disability that means you need support to take part in the hearing or communicate with the court.',
   content6: 'Tell us if you need:',
+  supportNeedsList: [
+    {
+      content: 'an intermediary',
+    },
+    {
+      content: 'special assistance',
+    },
+    {
+      content: 'special facilities',
+    },
+  ],
+  content7: 'Special Measures',
+  content8:
+    'Please say whether there is a need for the court to make any special measures for you or any relevant children to attend court.',
+  content9: 'Special measures can be put in place to keep you separate from the respondent when you attend court.',
+  content10: 'Select any of the following measures you would like to request:',
   specialArrangementsList: [
     {
-      content: 'separate entrances and exits',
+      content: 'a separate waiting room in the court building',
     },
     {
-      content: 'separate toilets',
+      content: 'a separate entrance and exit from the court building',
     },
     {
-      content: 'a separate waiting room',
+      content:
+        'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
     },
     {
-      content: 'a visit to the court before the hearing',
-    },
-    {
-      content: 'screens so you and the other people in the case cannot see each other',
-    },
-    {
-      content: 'a hearing by phone or video',
-    },
-    {
-      content: 'anything else to help make you feel safe during the hearing',
+      content:
+        'to join the hearing by video link rather than in person (it is the judge’s decision whether to allow a hearing by video link).',
     },
   ],
-  supportYouNeed: 'Tell us what support you need (optional)',
-  supportYouNeedHint:
-    'Provide as much detail as possible, including why the support is needed. If you have already asked for support, your request has been sent to the court.',
+  supportYouNeed: 'Tell us what support you need',
+  supportYouNeedHint: 'Provide as much detail as possible to help us understand what you need.',
   errors: {
     ra_languageReqAndSpecialArrangements: {
+      required: 'Enter what support you need.',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
@@ -64,47 +73,57 @@ const cy: typeof en = {
   title: 'Gofynion ieithyddol a threfniadau arbennig',
   content1: 'Gofynion ieithyddol',
   content2: 'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad.',
-  content3: 'Er enghraifft, dywedwch wrthym os oes arnoch angen:',
+  content3: 'Dywedwch wrthym os ydych:',
   list: [
     {
-      content: 'siarad, darllen neu ysgrifennu yn Gymraeg',
+      content: 'eisiau siarad, darllen neu ysgrifennu yn Gymraeg',
     },
     {
-      content: 'cyfieithydd mewn iaith ar wahan i Saesneg',
+      content: 'angen cyfieithydd mewn iaith ar wahan i Saesneg',
     },
   ],
-  content4: 'Trefniadau arbennig',
+  content4: 'Anghenion cefnogaeth',
   content5:
-    "Efallai y bydd angen trefniadau arbennig arnoch i deimlo'n ddiogel yn y llys. Rhaid i rai o’r addasiadau hyn gael eu cytuno gan y barnwr neu staff GLlTEF. Os bydd eich anghenion yn newid, gallwch ddweud wrth y llys cyn dyddiad eich gwrandawiad.",
+    "Dywedwch wrthym os oes gennych chi, neu unrhyw barti arall sy'n rhan o'r achos, gyflwr iechyd neu anabledd sy'n golygu bod arnoch angen cefnogaeth i gymryd rhan yn y gwrandawiad neu i gyfathrebu â'r llys.",
   content6: 'Dywedwch wrthym os oes arnoch angen:',
+  supportNeedsList: [
+    {
+      content: 'cyfryngwr',
+    },
+    {
+      content: 'cefnogaeth arbennig',
+    },
+    {
+      content: 'cyfleusterau arbennig',
+    },
+  ],
+  content7: 'Mesurau Arbennig',
+  content8:
+    'Dywedwch a oes angen i’r llys wneud unrhyw fesurau arbennig ar eich cyfer chi neu i unrhyw blant perthnasol fynychu’r llys.',
+  content9: 'Gallwn roi mesurau arbennig mewn lle i’ch cadw chi ar wahân i’r atebydd pan fyddwch yn mynychu’r llys.',
+  content10: 'Dewiswch unrhyw un o’r mesurau canlynol yr hoffech wneud cais amdanynt:',
   specialArrangementsList: [
     {
-      content: "drysau ar wahân i fynd i mewn ac allan o'r llys",
+      content: 'ystafell aros ar wahân yn yr adeilad llys',
     },
     {
-      content: 'toiledau ar wahân',
+      content: 'mynedfa ac allanfa ar wahân o adeilad y llys',
     },
     {
-      content: 'ystafell aros ar wahân',
+      content:
+        'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin preifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
     },
     {
-      content: "ymweld â'r llys cyn y gwrandawiad",
-    },
-    {
-      content: 'sgriniau i atal chi a’r bobl eraill yn yr achos rhag gweld eich gilydd',
-    },
-    {
-      content: 'gwrandawiad dros y ffôn neu drwy fideo',
-    },
-    {
-      content: "unrhyw beth arall i'ch helpu i deimlo'n ddiogel yn ystod y gwrandawiad",
+      content:
+        'ymuno â’r gwrandawiad drwy gyswllt fideo yn hytrach na bod yno wyneb yn wyneb (penderfyniad y barnwr yw p’un a ddylid caniatáu gwrandawiad drwy gyswllt fideo ai peidio).',
     },
   ],
-  supportYouNeed: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch (dewisol)',
+  supportYouNeed: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch',
   supportYouNeedHint:
     "Rhowch gymaint o fanylion â phosibl, gan gynnwys pam fod angen y cymorth. Os ydych eisoes wedi gofyn am gymorth, anfonwyd eich cais i'r llys.",
   errors: {
     ra_languageReqAndSpecialArrangements: {
+      required: 'Nodwch pa gymorth rydych ei angen.',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
@@ -127,7 +146,7 @@ export const form: FormContent = {
       attributes: {
         rows: 4,
       },
-      validator: isTextAreaValid,
+      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
   },
   onlyContinue: {

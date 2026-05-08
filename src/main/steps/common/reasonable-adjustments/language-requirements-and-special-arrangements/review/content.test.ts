@@ -12,22 +12,22 @@ import { generateContent } from './content';
 const en = {
   caption: 'Support you need during the case',
   title: 'Review your language requirements and special arrangements',
-  content1: 'Tell us what support you need (optional)',
+  content1: 'Tell us what support you need',
   content2: 'If your hearing is within 2 days',
   content3:
     '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Contact the court (opens in a new tab)</a> to request any support you need for the hearing.',
-  submitAndContinue: 'Submit and continue',
+  submitAndContinue: 'Continue',
   change: commonContentEn.change,
 };
 
 const cy = {
   caption: 'Cymorth y mae arnoch angen yn ystod yr achos',
   title: "Adolygu eich gofynion ieithyddol a'ch trefniadau arbennig",
-  content1: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch (dewisol)',
+  content1: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch',
   content2: "Os yw'ch gwrandawiad o fewn 2 ddiwrnod",
   content3:
     '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Cysylltwch â’r llys (yn agor mewn tab newydd)</a> i ofyn am unrhyw gymorth sydd ei angen arnoch ar gyfer y gwrandawiad.',
-  submitAndContinue: 'Cyflwyno a pharhau',
+  submitAndContinue: 'Parhau',
   change: commonContentCy.change,
 };
 

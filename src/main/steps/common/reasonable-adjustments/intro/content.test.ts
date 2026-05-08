@@ -1,3 +1,9 @@
+jest.mock('config', () => ({
+  get: jest.fn(),
+}));
+
+import config from 'config';
+
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../common.content';
@@ -15,11 +21,10 @@ const en = {
       content: 'language requirements, for example if you need an interpreter in a particular language',
     },
     {
-      content:
-        'support for people with a health condition or disability (known as ‘reasonable adjustments’), for example access and mobility needs',
+      content: 'support for people with a health condition or disability',
     },
     {
-      content: 'special arrangements for you to feel safe at court, for example a separate waiting room',
+      content: 'special measure for you to feel safe at court, for example a separate waiting room',
     },
   ],
   content3: 'Requesting support',
@@ -51,11 +56,10 @@ const cy = {
       content: 'ofynion ieithyddol, er enghraifft os oes angen cyfieithydd arnoch mewn iaith benodol',
     },
     {
-      content:
-        'cymorth i bobl â chyflwr iechyd neu anabledd (a elwir yn ‘addasiadau rhesymol’), er enghraifft, anghenion mynediad a symudedd',
+      content: 'cefnogaeth i bobl gyda chyflwr iechyd neu anabledd',
     },
     {
-      content: 'trefniadau arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
+      content: 'mesur arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
     },
   ],
   content3: 'Gofyn am gymorth',
@@ -83,6 +87,7 @@ describe('RA > intro > content', () => {
   } as unknown as CommonContent;
   let generatedContent;
   let form;
+  (config.get as jest.Mock).mockReturnValue(true);
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
