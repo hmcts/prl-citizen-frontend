@@ -104,7 +104,8 @@ describe('DocumentUpload Get Controller', () => {
       ra_typeOfHearing: ['videoHearing'],
       ra_languageNeeds: ['speakInWelsh'],
       ra_specialArrangements: ['separateWaitingRoom'],
-      ra_disabilityRequirements: ['documentsHelp'],
+      ra_intermediaryRequirements: 'No',
+      ra_assistanceRequirements: 'No',
       ra_documentInformation: ['specifiedColorDocuments'],
       ra_specifiedColorDocuments_subfield: 'Test',
       miam_otherProceedings: 'No',
@@ -352,7 +353,11 @@ describe('DocumentUpload Get Controller', () => {
       },
       {
         errorType: 'required',
-        propertyName: 'ra_disabilityRequirements',
+        propertyName: 'ra_intermediaryRequirements',
+      },
+      {
+        errorType: 'required',
+        propertyName: 'ra_assistanceRequirements',
       },
       {
         errorType: 'required',
