@@ -182,7 +182,6 @@ describe('RA > sequence', () => {
       })
     ).toBe('/:partyType/reasonable-adjustments/confirmation');
 
-
     expect(raSequence[9].url).toBe('/:partyType/reasonable-adjustments/confirmation');
     expect(raSequence[9].showInSection).toBe('cuira');
     expect(
