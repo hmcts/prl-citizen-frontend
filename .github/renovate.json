@@ -1,17 +1,23 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>hmcts/.github:renovate-config", "local>hmcts/.github//renovate/automerge-minor"],
-  "prConcurrentLimit": 15,
+  "extends": [
+    "local>hmcts/.github:renovate-config",
+    "local>hmcts/.github//renovate/automerge-minor"],
+  "prConcurrentLimit": 25,
   "schedule": ["after 4pm and before 7pm every weekday"],
   "rebaseWhen": "behind-base-branch",
   "packageRules": [
     {
-      "description": "Trigger security fixes immediately and bypass the concurrency limit",
       "matchVulnerabilities": true,
-      "schedule": null,
+      "description": "VIP Lane: Allow up to 25 total PRs if they are security fixes",
+      "schedule": "at any time",
       "dependencyDashboardApproval": false,
-      "prConcurrentLimit": 25,
       "commitMessagePrefix": "SEC-FIX: "
+    },
+    {
+      "matchVulnerabilities": false,
+      "description": "Standard Lane: Cap non-security PRs at 15",
+      "prConcurrentLimit": 15
     }
   ]
 }
