@@ -63,7 +63,7 @@ const languages = {
   cy,
 };
 
-const fields = {
+const fields = (respondentDetails: C100RebuildPartyDetails) => ({
   startAlternative: {
     type: 'radios',
     classes: 'govuk-radios',
@@ -81,9 +81,24 @@ const fields = {
             hint: l => l.whichDetailsPrivate,
             validator: value => atLeastOneFieldIsChecked(value),
             values: [
-              { name: 'contactDetailsPrivateAlternative', label: l => l.address, value: 'address' },
-              { name: 'contactDetailsPrivateAlternative', label: l => l.telephoneNumber, value: 'telephone' },
-              { name: 'contactDetailsPrivateAlternative', label: l => l.email, value: 'email' },
+              {
+                name: 'contactDetailsPrivateAlternative',
+                label: l => l.address,
+                value: 'address',
+                disabled: !respondentDetails?.address?.AddressLine1,
+              },
+              {
+                name: 'contactDetailsPrivateAlternative',
+                label: l => l.telephoneNumber,
+                value: 'telephone',
+                disabled: !respondentDetails?.contactDetails?.telephoneNumber,
+              },
+              {
+                name: 'contactDetailsPrivateAlternative',
+                label: l => l.email,
+                value: 'email',
+                disabled: !respondentDetails?.contactDetails?.emailAddress,
+              },
             ],
           },
         },
@@ -95,10 +110,10 @@ const fields = {
     ],
     validator: value => isFieldFilledIn(value),
   },
-};
+});
 
 export const form: FormContent = {
-  fields,
+  fields: fields({} as C100RebuildPartyDetails),
   onlyContinue: {
     text: l => l.onlyContinue,
   },
@@ -124,7 +139,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    form,
+    form: { ...form, fields: fields(respondentDetails) },
     caption: injectName(translations.caption),
     paragraphOne: injectName(translations.paragraphOne),
     paragraphTwo: injectName(translations.paragraphTwo),
