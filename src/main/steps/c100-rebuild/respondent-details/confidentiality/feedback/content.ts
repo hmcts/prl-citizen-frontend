@@ -17,12 +17,12 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  caption: "Keeping {name}'s contact details private",
-  headingTitle: "The court will keep {name}'s contact details private",
+  caption: "Cadw manylion cyswllt {name} yn breifat",
+  headingTitle: 'Bydd y llys yn cadw manylion cyswllt {name} yn breifat',
   paragraphOne: "You have told us you want to keep these contact details private:",
   listOfBullets: ['{address}', '{telephoneNumber}', '{email}'],
-  heading3: 'What the court will do',
-  paragraphTwo: 'The court will hold this information securely and will not share it with anyone except Cafcass or Cafcass Cymru and the local authority, if they are involved in your case, unless it is by order of the court.',
+  heading3: 'Beth fydd y llys yn ei wneud',
+  paragraphTwo: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass neu Cafcass Cymru a'r awdurdod lleol, os ydynt yn ymwneud â'ch achos, oni bai ei fod trwy orchymyn y llys.",
 });
 
 const languages = {
