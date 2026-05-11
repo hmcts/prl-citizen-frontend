@@ -78,11 +78,11 @@ class RespondentsDetailsNavigationController {
       }
       case C100_RESPONDENT_DETAILS_CONTACT_DETAILS: {
         const currentRespondent = this.respondentsDetails.find(p => p.id === this.respondentId);
-        const currentRespondentHasContactDetails =
-          currentRespondent?.contactDetails?.donKnowEmailAddress !== YesOrNo.YES ||
-          currentRespondent?.contactDetails?.donKnowTelephoneNumber !== YesOrNo.YES;
+        const hasEmail = currentRespondent?.contactDetails?.donKnowEmailAddress !== YesOrNo.YES;
+        const hasPhone = currentRespondent?.contactDetails?.donKnowTelephoneNumber !== YesOrNo.YES;
+        const hasAddress = !!currentRespondent?.address?.AddressLine1;
 
-        if (currentRespondent && currentRespondentHasContactDetails) {
+        if (currentRespondent && (hasEmail || hasPhone || hasAddress)) {
           nextUrl = applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE, {
             respondentId: this.respondentId,
           });
@@ -107,7 +107,7 @@ class RespondentsDetailsNavigationController {
           throw new Error(`Respondent not found: ${this.respondentId}`);
         }
 
-        const isConfidential = 
+        const isConfidential =
           respondentData.isRespondentAddressConfidential === YesOrNo.YES ||
           respondentData.isResponentTelephoneNumberConfidential === YesOrNo.YES ||
           respondentData.isRespondentEmailAddressConfidential === YesOrNo.YES;
