@@ -6,13 +6,15 @@ import { interpolate } from '../../../../common/string-parser';
 const en = () => ({
   caption: "Keeping {name}'s contact details private",
   headingTitle: "The court will not keep {name}'s contact details private",
-  paragraph: "You have told us you do not want to keep {name}'s contact details private from the other people in this application.",
+  paragraph:
+    "You have told us you do not want to keep {name}'s contact details private from the other people in this application.",
 });
 
 const cy = () => ({
   caption: 'Cadw manylion cyswllt {name} yn breifat',
   headingTitle: 'Ni fydd y llys yn cadw manylion cyswllt {name} yn breifat',
-  paragraph: 'Rydych wedi dweud wrthym nad ydych am gadw manylion cyswllt {name} yn breifat oddi wrth y bobl eraill yn y cais hwn',
+  paragraph:
+    'Rydych wedi dweud wrthym nad ydych am gadw manylion cyswllt {name} yn breifat oddi wrth y bobl eraill yn y cais hwn',
 });
 
 const languages = {

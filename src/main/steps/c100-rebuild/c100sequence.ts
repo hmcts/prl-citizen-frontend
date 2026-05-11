@@ -744,21 +744,33 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     postController: RespondentCommonConfidentialityController,
     getNextStep: (caseData, req) =>
-      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE, caseData, req?.params),
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK,
     showInSection: Sections.C100,
     postController: RespondentCommonConfidentialityController,
     getNextStep: (caseData, req) =>
-      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK, caseData, req?.params),
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO,
     showInSection: Sections.C100,
     postController: RespondentCommonConfidentialityController,
     getNextStep: (caseData, req) =>
-      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO, caseData, req?.params),
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO,
+        caseData,
+        req?.params
+      ),
   },
   {
     url: C100_OTHER_PERSON_CHECK,

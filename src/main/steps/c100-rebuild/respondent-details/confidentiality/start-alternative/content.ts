@@ -31,7 +31,6 @@ export const en = {
   },
 };
 
-//TODO remember to put welsh translations here
 export const cy = {
   caption: 'Cadw manylion cyswllt {firstName} {lastName} yn breifat',
   headingTitle: 'Cadw manylion cyswllt yn breifat',
