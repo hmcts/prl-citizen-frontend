@@ -43,26 +43,38 @@ export default class RespondentCommonConfidentialityController {
     const rawContactDetailsPrivateValue = this.request.body['contactDetailsPrivateAlternative'] as string[] | undefined;
     const rawStartAlternativeValue = this.request.body['startAlternative'] as YesOrNo | undefined;
     const finalAddressConfidentialValue =
-      (rawContactDetailsPrivateValue?.includes('address') ? YesOrNo.YES : YesOrNo.NO) ??
+      (rawContactDetailsPrivateValue
+        ? rawContactDetailsPrivateValue?.includes('address')
+          ? YesOrNo.YES
+          : YesOrNo.NO
+        : undefined) ??
       existing.isRespondentAddressConfidential ??
       YesOrNo.NO;
     const finalTelephoneNumberConfidentialValue =
-      (rawContactDetailsPrivateValue?.includes('telephone') ? YesOrNo.YES : YesOrNo.NO) ??
+      (rawContactDetailsPrivateValue
+        ? rawContactDetailsPrivateValue?.includes('telephone')
+          ? YesOrNo.YES
+          : YesOrNo.NO
+        : undefined) ??
       existing.isRespondentTelephoneNumberConfidential ??
       YesOrNo.NO;
     const finalEmailAddressConfidentialValue =
-      (rawContactDetailsPrivateValue?.includes('email') ? YesOrNo.YES : YesOrNo.NO) ??
+      (rawContactDetailsPrivateValue
+        ? rawContactDetailsPrivateValue?.includes('email')
+          ? YesOrNo.YES
+          : YesOrNo.NO
+        : undefined) ??
       existing.isRespondentEmailAddressConfidential ??
       YesOrNo.NO;
 
     const updatedRespondent: C100RebuildPartyDetails = {
       ...existing,
       isRespondentAddressConfidential:
-        rawStartAlternativeValue === YesOrNo.YES ? finalAddressConfidentialValue : YesOrNo.NO,
+        rawStartAlternativeValue === YesOrNo.NO ? YesOrNo.NO : finalAddressConfidentialValue,
       isRespondentTelephoneNumberConfidential:
-        rawStartAlternativeValue === YesOrNo.YES ? finalTelephoneNumberConfidentialValue : YesOrNo.NO,
+        rawStartAlternativeValue === YesOrNo.NO ? YesOrNo.NO : finalTelephoneNumberConfidentialValue,
       isRespondentEmailAddressConfidential:
-        rawStartAlternativeValue === YesOrNo.YES ? finalEmailAddressConfidentialValue : YesOrNo.NO,
+        rawStartAlternativeValue === YesOrNo.NO ? YesOrNo.NO : finalEmailAddressConfidentialValue,
     };
 
     this.request.session.userCase.resp_Respondents = updatePartyDetails(
