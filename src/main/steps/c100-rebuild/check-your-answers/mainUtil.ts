@@ -1899,13 +1899,17 @@ export const OtherPeopleDetails = (
       newOtherPeopleStorage.push({
         key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
         anchorReference: `isAddressConfidential-otherPerson-${respondent}`,
-        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${keys['isOtherPersonAddressConfidential']}`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
+          keys['isOtherPersonAddressConfidential']
+        }`,
         valueHtml: populateError(
           isAddressConfidential,
           getYesNoTranslation(language, isAddressConfidential, 'doTranslation'),
           language
         ),
-        changeUrl: applyParms(Urls.C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE, { otherPersonId: id }),
+        changeUrl: applyParms(Urls.C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE, {
+          otherPersonId: id,
+        }),
       });
     }
   } else {

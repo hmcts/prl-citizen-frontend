@@ -1338,7 +1338,7 @@ describe('test cases for main util', () => {
         value: {
           html: '<span class="govuk-error-message">Complete this section</span>',
         },
-      }
+      },
     ]);
   });
 
@@ -1617,7 +1617,7 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/other-person-details/7483640e-0817-4ddc-b709-6723f7925474/confidentiality',
                 text: undefined,
-                visuallyHiddenText:'isOtherPersonIdentityConfidential',
+                visuallyHiddenText: 'isOtherPersonIdentityConfidential',
                 attributes: { id: 'otherPersonConfidentiality-otherPerson-0' },
               },
             ],

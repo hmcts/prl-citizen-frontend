@@ -450,7 +450,8 @@ export const enContent = {
     whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with?',
     isOtherPersonIdentityConfidential:
       'Do you want to keep {firstName} {lastName}’s identity private from the other people named in the application (the respondents)?',
-    isOtherPersonAddressConfidential: 'Do you want to request to keep {firstName} {lastName}’s address private from the other people named in this application?',
+    isOtherPersonAddressConfidential:
+      'Do you want to request to keep {firstName} {lastName}’s address private from the other people named in this application?',
     otherPerson: 'Other person',
     contactDetailsOf: 'Contact details of [^applicantName^]',
     addressDetails: 'Address details',
@@ -716,7 +717,8 @@ export const cyContent = {
     whoDoesChildMainlyLiveWith: 'Who does {firstname} {lastname} mainly live with? (welsh)',
     isOtherPersonIdentityConfidential:
       'Ydych chi eisiau cadw manylion cyswllt {firstName} {lastName} yn gyfrinachol oddi wrth yr unigolyn arall a enwir yn y cais(yr atebydd)',
-    isOtherPersonAddressConfidential: "Ydych chi am ofyn am gadw cyfeiriad {firstName} {lastName} yn breifat oddi wrth y bobl eraill a enwir yn y cais hwn?",
+    isOtherPersonAddressConfidential:
+      'Ydych chi am ofyn am gadw cyfeiriad {firstName} {lastName} yn breifat oddi wrth y bobl eraill a enwir yn y cais hwn?',
     otherPerson: 'Rhywun arall',
     contactDetailsOf: 'Manylion cyswllt [^applicantName^]',
     addressDetails: 'Manylion cyfeiriad',
