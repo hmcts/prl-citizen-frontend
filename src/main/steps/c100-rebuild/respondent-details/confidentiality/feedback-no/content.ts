@@ -10,9 +10,9 @@ const en = () => ({
 });
 
 const cy = () => ({
-  caption: 'Cadw cyfeiriad {name} yn breifat',
-  headingTitle: 'Ni fydd y llys yn cadw cyfeiriad {name} yn breifat',
-  paragraph: 'Rydych wedi dweud wrthym nad ydych am gadw cyfeiriad {name} yn breifat oddi wrth y bobl eraill yn y cais hwn',
+  caption: 'Cadw manylion cyswllt {name} yn breifat',
+  headingTitle: 'Ni fydd y llys yn cadw manylion cyswllt {name} yn breifat',
+  paragraph: 'Rydych wedi dweud wrthym nad ydych am gadw manylion cyswllt {name} yn breifat oddi wrth y bobl eraill yn y cais hwn',
 });
 
 const languages = {
