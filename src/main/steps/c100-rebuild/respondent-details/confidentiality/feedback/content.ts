@@ -55,7 +55,7 @@ export const generateContent: TranslationFn = content => {
   const { firstName = '', lastName = '' } = respondent || {};
   const fullName = `${firstName} ${lastName}`.trim();
   const fullAddress = "" + (respondent.isRespondentAddressConfidential == YesOrNo.YES ? getAddress(respondent) : "");
-  const fullTelephoneNumber = "" + (respondent.isResponentTelephoneNumberConfidential == YesOrNo.YES ? respondent.contactDetails?.telephoneNumber : "");
+  const fullTelephoneNumber = "" + (respondent.isRespondentTelephoneNumberConfidential == YesOrNo.YES ? respondent.contactDetails?.telephoneNumber : "");
   const fullEmail = "" + (respondent.isRespondentEmailAddressConfidential == YesOrNo.YES ? respondent.contactDetails?.emailAddress : "");
 
   const injectName = (str: string) => interpolate(str, { name: fullName });

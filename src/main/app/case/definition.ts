@@ -2780,7 +2780,7 @@ export type C100RebuildPartyDetails = {
   refugeConfidentialityC8Form?: Document;
   isOtherPersonAddressConfidential?: YesOrNo;
   isRespondentAddressConfidential?: YesOrNo;
-  isResponentTelephoneNumberConfidential?: YesOrNo;
+  isRespondentTelephoneNumberConfidential?: YesOrNo;
   isRespondentEmailAddressConfidential?: YesOrNo;
 };
 

@@ -7,9 +7,9 @@ import {
   C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
   C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
   C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
-  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE,
   C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK,
   C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO,
+  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE,
   C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
   C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
@@ -80,7 +80,7 @@ class RespondentsDetailsNavigationController {
         const currentRespondent = this.respondentsDetails.find(p => p.id === this.respondentId);
         const hasEmail = currentRespondent?.contactDetails?.donKnowEmailAddress !== YesOrNo.YES;
         const hasPhone = currentRespondent?.contactDetails?.donKnowTelephoneNumber !== YesOrNo.YES;
-        const hasAddress = !!currentRespondent?.address?.AddressLine1;
+        const hasAddress = currentRespondent?.address?.AddressLine1;
 
         if (currentRespondent && (hasEmail || hasPhone || hasAddress)) {
           nextUrl = applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE, {
@@ -109,13 +109,12 @@ class RespondentsDetailsNavigationController {
 
         const isConfidential =
           respondentData.isRespondentAddressConfidential === YesOrNo.YES ||
-          respondentData.isResponentTelephoneNumberConfidential === YesOrNo.YES ||
+          respondentData.isRespondentTelephoneNumberConfidential === YesOrNo.YES ||
           respondentData.isRespondentEmailAddressConfidential === YesOrNo.YES;
 
-        nextUrl =
-          isConfidential
-            ? applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK, { respondentId: this.respondentId })
-            : applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO, { respondentId: this.respondentId });
+        nextUrl = isConfidential
+          ? applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK, { respondentId: this.respondentId })
+          : applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO, { respondentId: this.respondentId });
         break;
       }
       case C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK:

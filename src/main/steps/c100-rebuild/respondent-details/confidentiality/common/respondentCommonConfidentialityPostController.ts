@@ -43,13 +43,13 @@ export default class RespondentCommonConfidentialityController {
     const rawContactDetailsPrivateValue = this.request.body['contactDetailsPrivateAlternative'] as string[] | undefined;
     const rawStartAlternativeValue = this.request.body['startAlternative'] as YesOrNo | undefined;
     const finalAddressConfidentialValue = (rawContactDetailsPrivateValue?.includes('address') ? YesOrNo.YES : YesOrNo.NO) ?? existing.isRespondentAddressConfidential ?? YesOrNo.NO;
-    const finalTelephoneNumberConfidentialValue = (rawContactDetailsPrivateValue?.includes('telephone') ? YesOrNo.YES : YesOrNo.NO) ?? existing.isResponentTelephoneNumberConfidential ?? YesOrNo.NO;
+    const finalTelephoneNumberConfidentialValue = (rawContactDetailsPrivateValue?.includes('telephone') ? YesOrNo.YES : YesOrNo.NO) ?? existing.isRespondentTelephoneNumberConfidential ?? YesOrNo.NO;
     const finalEmailAddressConfidentialValue = (rawContactDetailsPrivateValue?.includes('email') ? YesOrNo.YES : YesOrNo.NO) ?? existing.isRespondentEmailAddressConfidential ?? YesOrNo.NO;
 
     const updatedRespondent: C100RebuildPartyDetails = {
       ...existing,
       isRespondentAddressConfidential: rawStartAlternativeValue === YesOrNo.YES ? finalAddressConfidentialValue : YesOrNo.NO,
-      isResponentTelephoneNumberConfidential: rawStartAlternativeValue === YesOrNo.YES ? finalTelephoneNumberConfidentialValue : YesOrNo.NO,
+      isRespondentTelephoneNumberConfidential: rawStartAlternativeValue === YesOrNo.YES ? finalTelephoneNumberConfidentialValue : YesOrNo.NO,
       isRespondentEmailAddressConfidential: rawStartAlternativeValue === YesOrNo.YES ? finalEmailAddressConfidentialValue : YesOrNo.NO,
     };
 
