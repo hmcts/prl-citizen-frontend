@@ -1781,8 +1781,8 @@ export const OtherPeopleDetails = (
   const newOtherPeopleStorage: SummaryListRow[] = [];
   if (!_.isEmpty(sessionOtherPeopleData)) {
     for (const respondent in sessionOtherPeopleData) {
-      const firstname = sessionOtherPeopleData[respondent]['firstName'],
-        lastname = sessionOtherPeopleData[respondent]['lastName'],
+      const firstName = sessionOtherPeopleData[respondent]['firstName'],
+        lastName = sessionOtherPeopleData[respondent]['lastName'],
         id = sessionOtherPeopleData[respondent]['id'],
         personalDetails = sessionOtherPeopleData[respondent]['personalDetails'];
       const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
@@ -1790,9 +1790,9 @@ export const OtherPeopleDetails = (
 
       const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML, language);
       const fullName =
-        _.isEmpty(firstname) || _.isEmpty(lastname)
+        _.isEmpty(firstName) || _.isEmpty(lastName)
           ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
-          : firstname + ' ' + lastname;
+          : firstName + ' ' + lastName;
 
       newOtherPeopleStorage.push(
         {
@@ -1894,6 +1894,23 @@ export const OtherPeopleDetails = (
       newOtherPeopleStorage.push(
         generateOtherPersonAddressContent(sessionOtherPeopleData, respondent, keys, id, language)
       );
+
+      const isAddressConfidential: YesOrNo = sessionOtherPeopleData[respondent]['isOtherPersonAddressConfidential'];
+      newOtherPeopleStorage.push({
+        key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
+        anchorReference: `isAddressConfidential-otherPerson-${respondent}`,
+        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
+          keys['isOtherPersonAddressConfidential']
+        }`,
+        valueHtml: populateError(
+          isAddressConfidential,
+          getYesNoTranslation(language, isAddressConfidential, 'doTranslation'),
+          language
+        ),
+        changeUrl: applyParms(Urls.C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE, {
+          otherPersonId: id,
+        }),
+      });
     }
   } else {
     newOtherPeopleStorage.push(
@@ -2066,7 +2083,7 @@ export const otherPersonConfidentiality = (
         sessionOtherPeopleData[otherPerson]?.['isOtherPersonAddressConfidential'];
 
       newOtherPeopleStorage.push({
-        key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
+        key: interpolate(keys['isOtherPersonIdentityConfidential'], { firstName, lastName }),
         anchorReference: `otherPersonConfidentiality-otherPerson-${otherPerson}`,
         valueHtml: !_.isEmpty(isOtherPersonAddressConfidential)
           ? getYesNoTranslation(language, isOtherPersonAddressConfidential, 'oesTranslation')
