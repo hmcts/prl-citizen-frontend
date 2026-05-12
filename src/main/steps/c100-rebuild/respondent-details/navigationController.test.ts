@@ -6,6 +6,10 @@ import {
   C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
   C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE,
+  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK,
+  C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO,
+  C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
 } from '../../urls';
 
 import RespondentsDetailsNavigationController from './navigationController';
@@ -89,6 +93,12 @@ const dummyRequest = mockRequest({
             gender: '',
             otherGenderDetails: '',
           },
+          contactDetails: {
+            donKnowEmailAddress: 'No',
+            emailAddress: 'email@example.com',
+            telephoneNumber: '00000000000',
+            donKnowTelephoneNumber: 'No',
+          },
           relationshipDetails: {
             relationshipToChildren: [
               {
@@ -108,6 +118,7 @@ const dummyRequest = mockRequest({
               },
             ],
           },
+          isRespondentEmailAddressConfidential: 'Yes',
         },
         {
           id: '2cd885a0-135e-45f1-85b7-aa46a1f78f46',
@@ -234,6 +245,86 @@ describe('RespondentsDetailsNavigationController', () => {
         dummyparams.params
       )
     ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/contact-details');
+  });
+
+  test('From Respondent contact details screen -> navigate to Respondent confidentiality start screen', async () => {
+    const dummyparams = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925635',
+        respondentId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+      },
+    });
+    expect(
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
+        dummyRequest.session.userCase,
+        dummyparams.params
+      )
+    ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/confidentiality/start-alternative');
+  });
+
+  test('From Respondent confidentiality start screen -> navigate to Respondent confidentiality feedback screen', async () => {
+    const dummyparams = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925635',
+        respondentId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+      },
+    });
+    expect(
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE,
+        dummyRequest.session.userCase,
+        dummyparams.params
+      )
+    ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/confidentiality/feedback');
+  });
+
+  test('From Respondent confidentiality start screen -> navigate to Respondent confidentiality feedback no screen', async () => {
+    const dummyparams = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925635',
+        respondentId: '2cd885a0-135e-45f1-85b7-aa46a1f78f46',
+      },
+    });
+    expect(
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE,
+        dummyRequest.session.userCase,
+        dummyparams.params
+      )
+    ).toBe('/c100-rebuild/respondent-details/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/feedback-no');
+  });
+
+  test('From Respondent confidentiality feedback screen -> navigate to next Respondent personal details screen when other respondents exist', async () => {
+    const dummyparams = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925635',
+        respondentId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+      },
+    });
+    expect(
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK,
+        dummyRequest.session.userCase,
+        dummyparams.params
+      )
+    ).toBe('/c100-rebuild/respondent-details/2cd885a0-135e-45f1-85b7-aa46a1f78f46/personal-details');
+  });
+
+  test('From Respondent confidentiality feedback no screen -> navigate to other person check screen when no other respondents exist', async () => {
+    const dummyparams = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925635',
+        respondentId: '2cd885a0-135e-45f1-85b7-aa46a1f78f46',
+      },
+    });
+    expect(
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO,
+        dummyRequest.session.userCase,
+        dummyparams.params
+      )
+    ).toBe('/c100-rebuild/other-person-details/other-person-check');
   });
 
   test('default', async () => {
