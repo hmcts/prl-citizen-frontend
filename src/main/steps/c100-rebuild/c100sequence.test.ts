@@ -889,7 +889,9 @@ describe('C100Sequence', () => {
       '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/confidentiality/start-alternative'
     );
 
-    expect(C100Sequence[85].url).toBe('/c100-rebuild/respondent-details/:respondentId/confidentiality/start-alternative');
+    expect(C100Sequence[85].url).toBe(
+      '/c100-rebuild/respondent-details/:respondentId/confidentiality/start-alternative'
+    );
     expect(C100Sequence[85].showInSection).toBe('c100');
     expect(C100Sequence[85].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
       '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/confidentiality/feedback'
