@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { CosApiClient } from '../../../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../../../app/case/case';
-import { PartyType, YesOrNo } from '../../../../../app/case/definition';
+import { DocumentUploadResponse, PartyType, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -146,11 +146,14 @@ export default class UploadDocumentPostController extends PostController<AnyObje
         freeTextStatements: statementText,
       });
 
-      if (response.status !== 'Success') {
+      if (this.hasNonSuccessStatus(response)) {
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
       }
-      req.session.userCase?.[getUploadedFilesDataReference(partyType)]?.push(response.document);
+      response.forEach(documentUploadResponseElement => {
+        req.session.userCase?.[getUploadedFilesDataReference(partyType)]?.push(documentUploadResponseElement.document);
+      });
+
       req.session.applicationSettings = {
         ...req.session.applicationSettings,
         isDocumentGeneratedAndUplaoded: true,
@@ -161,6 +164,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     } finally {
       this.redirect(req, res, redirectUrl);
     }
+  }
+
+  private hasNonSuccessStatus(response: DocumentUploadResponse[]): boolean {
+    return response.some(result => result.status !== 'Success');
   }
 
   private async uploadDocument(req: AppRequest, res: Response): Promise<void> {
