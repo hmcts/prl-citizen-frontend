@@ -20,7 +20,7 @@ export const en = () => ({
 export const cy = () => ({
   caption: 'Cadw manylion cyswllt {name} yn breifat',
   headingTitle: 'Bydd y llys yn cadw manylion cyswllt {name} yn breifat',
-  paragraphOne: 'You have told us you want to keep these contact details private:',
+  paragraphOne: "Rydych wedi dweud wrthym eich bod eisiau cadw'r manylion cyswllt yma yn breifat:",
   listOfBullets: ['{address}', '{telephoneNumber}', '{email}'],
   heading3: 'Beth fydd y llys yn ei wneud',
   paragraphTwo:
