@@ -305,7 +305,7 @@ describe('RespondentsDetailsNavigationController', () => {
     ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/contact-details');
   });
 
-  test('From Respondent contact details screen -> navigate to Other Person check screen when less than one respondent exists', async () => {
+  test('From Respondent contact details screen -> navigate to Other Person check screen when just one respondent exists', async () => {
     const dummyparams = mockRequest({
       params: {
         respondentId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
