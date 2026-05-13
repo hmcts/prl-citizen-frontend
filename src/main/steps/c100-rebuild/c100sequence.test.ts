@@ -5,6 +5,7 @@ import { otherChildrenMockData } from '../../../test/unit/mocks/mocked-requests/
 import { otherPersonMockData } from '../../../test/unit/mocks/mocked-requests/other-person-mock';
 import { otherProceedingsMockData } from '../../../test/unit/mocks/mocked-requests/other-proceedings-mock';
 import { respondentMockData } from '../../../test/unit/mocks/mocked-requests/respondent-details-mock';
+import { multipleRespondentMockData } from '../../../test/unit/mocks/mocked-requests/multiple-respondent-details-mock';
 import { CaseWithId, Miam_urgency } from '../../app/case/case';
 import { MiamNonAttendReason, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -885,7 +886,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[84].url).toBe('/c100-rebuild/respondent-details/:respondentId/contact-details');
     expect(C100Sequence[84].showInSection).toBe('c100');
-    expect(C100Sequence[84].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
+    expect(C100Sequence[84].getNextStep(multipleRespondentMockData.session.userCase, multipleRespondentMockData)).toBe(
       '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/confidentiality/start-alternative'
     );
 
