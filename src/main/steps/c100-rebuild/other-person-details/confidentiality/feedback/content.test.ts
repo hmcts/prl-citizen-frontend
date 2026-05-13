@@ -83,7 +83,7 @@ describe('other-person confidentiality > feedback', () => {
     const form = generatedContent.form as FormContent;
 
     // Create a mock language lookup object
-    const langMock = { onlyContinue: 'Continue', saveAndComeLater: 'Save and come back later' };
+    const langMock = { onlycontinue: 'Continue', saveAndComeLater: 'Save and come back later' };
 
     // Define the shape: a function that takes one arg and returns a string
     const onlyContinueTextFn = form.onlyContinue?.text as (l: Record<string, unknown>) => string;
