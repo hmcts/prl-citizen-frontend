@@ -81,8 +81,9 @@ class RespondentsDetailsNavigationController {
         const hasEmail = currentRespondent?.contactDetails?.donKnowEmailAddress !== YesOrNo.YES;
         const hasPhone = currentRespondent?.contactDetails?.donKnowTelephoneNumber !== YesOrNo.YES;
         const hasAddress = currentRespondent?.address?.AddressLine1;
+        const hasMoreThanOneRespondent = this.respondentsDetails.length > 1;
 
-        if (currentRespondent && (hasEmail || hasPhone || hasAddress)) {
+        if (currentRespondent && hasMoreThanOneRespondent && (hasEmail || hasPhone || hasAddress)) {
           nextUrl = applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE, {
             respondentId: this.respondentId,
           });
