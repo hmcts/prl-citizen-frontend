@@ -30,7 +30,7 @@ export default class OtherPersonCommonConfidentialityController {
   
     const { onlycontinue, onlyContinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-
+    req.session.errors = isFeedbackPage && isContinue ? [] : form.getErrors(formData);
     if (req.session.errors.length) {
       return this.parent.redirect(req, res);
     }
