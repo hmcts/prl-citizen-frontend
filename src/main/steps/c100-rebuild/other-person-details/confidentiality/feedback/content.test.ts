@@ -86,7 +86,7 @@ describe('other-person confidentiality > feedback', () => {
     const langMock = { onlycontinue: 'Continue', saveAndComeLater: 'Save and come back later' };
 
     // Define the shape: a function that takes one arg and returns a string
-    const onlyContinueTextFn = form.onlyContinue?.text as (l: Record<string, unknown>) => string;
+    const onlyContinueTextFn = form.onlycontinue?.text as (l: Record<string, unknown>) => string;
     const saveAndComeLaterTextFn = form.saveAndComeLater?.text as (l: Record<string, unknown>) => string;
 
     expect(onlyContinueTextFn(langMock)).toBe('Continue');
