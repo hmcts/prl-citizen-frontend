@@ -24,8 +24,8 @@ const languages = { en, cy };
 
 export const form: FormContent = {
   fields: {},
-  onlyContinue: {
-    text: l => l.onlyContinue,
+  onlycontinue: {
+    text: l => l.onlycontinue,
   },
   saveAndComeLater: {
     text: l => l.saveAndComeLater,
