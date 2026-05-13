@@ -1775,19 +1775,21 @@ export const RespondentDetails = (
     newRespondentStorage.push(
       ...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails, language)
     );
-    newRespondentStorage.push({
-      key: interpolate(keys['doYouWantToKeepResp'], { firstName, lastName }),
-      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${interpolate(
-        keys['doYouWantToKeepResp'],
-        { firstName, lastName }
-      )}`,
-      anchorReference: `doYouWantToKeep-respondent-${respondent}`,
-      value: '',
-      valueHtml: parseRespondentConfidentiality(),
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE'], {
-        respondentId: sessionRespondentData[respondent]['id'],
-      }),
-    });
+    if (sessionRespondentData.length > 1) {
+      newRespondentStorage.push({
+        key: interpolate(keys['doYouWantToKeepResp'], { firstName, lastName }),
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${interpolate(
+          keys['doYouWantToKeepResp'],
+          { firstName, lastName }
+        )}`,
+        anchorReference: `doYouWantToKeep-respondent-${respondent}`,
+        value: '',
+        valueHtml: parseRespondentConfidentiality(),
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE'], {
+          respondentId: sessionRespondentData[respondent]['id'],
+        }),
+      });
+    }
   }
 
   const SummaryData = newRespondentStorage;
