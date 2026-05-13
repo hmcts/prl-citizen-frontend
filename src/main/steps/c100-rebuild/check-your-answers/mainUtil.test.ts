@@ -128,6 +128,8 @@ const keys = {
     'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
   doYouWantToKeep: 'Do the other people named in the application (the respondents) know any contact details of {name}?',
   courtOrderPrevent: 'courtOrderPrevent',
+  doYouWantToKeepResp:
+    "Do you want to request to keep {firstName} {lastName}'s contact details private from the other people named in the application?",
 };
 const language = 'en';
 const content = {
@@ -2178,6 +2180,27 @@ describe('test cases for main util', () => {
         value: {
           html: '+447205308786',
           text: '+447205308786',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/confidentiality/start-alternative',
+              text: undefined,
+              visuallyHiddenText:
+                "respondents 1 Do you want to request to keep Respondent FirstPage's contact details private from the other people named in the application?",
+              attributes: {
+                id: 'doYouWantToKeep-respondent-0',
+              },
+            },
+          ],
+        },
+        key: {
+          text: "Do you want to request to keep Respondent FirstPage's contact details private from the other people named in the application?",
+        },
+        value: {
+          html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dl>',
         },
       },
     ]);
