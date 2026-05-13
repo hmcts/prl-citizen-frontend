@@ -25,9 +25,11 @@ export default class OtherPersonCommonConfidentialityController {
     const otherPersonId = req.params.otherPersonId;
 
     const form = new Form(getFormFields(req.session.userCase, otherPersonId).fields as FormFields);
-    const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
+    const isFeedbackPage = req.path.includes('/confidentiality/feedback');
+    const isContinue = req.body.onlycontinue || req.body.onlyContinue;
+  
+    const { onlycontinue, onlyContinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
-    req.session.errors = form.getErrors(formData);
 
     if (req.session.errors.length) {
       return this.parent.redirect(req, res);
