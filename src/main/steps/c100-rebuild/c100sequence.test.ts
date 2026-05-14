@@ -1,6 +1,7 @@
 import { applicantMockRequest } from '../../../test/unit/mocks/mocked-requests/applicant-details-mock';
 import { childrenMockData } from '../../../test/unit/mocks/mocked-requests/child-details-mock';
 import { miamMockData } from '../../../test/unit/mocks/mocked-requests/miam-mock';
+import { multipleRespondentsMockData } from '../../../test/unit/mocks/mocked-requests/multiple-respondents-details-mock';
 import { otherChildrenMockData } from '../../../test/unit/mocks/mocked-requests/other-child-mock';
 import { otherPersonMockData } from '../../../test/unit/mocks/mocked-requests/other-person-mock';
 import { otherProceedingsMockData } from '../../../test/unit/mocks/mocked-requests/other-proceedings-mock';
@@ -885,9 +886,9 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[84].url).toBe('/c100-rebuild/respondent-details/:respondentId/contact-details');
     expect(C100Sequence[84].showInSection).toBe('c100');
-    expect(C100Sequence[84].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/confidentiality/start-alternative'
-    );
+    expect(
+      C100Sequence[84].getNextStep(multipleRespondentsMockData.session.userCase, multipleRespondentsMockData)
+    ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/confidentiality/start-alternative');
 
     expect(C100Sequence[85].url).toBe(
       '/c100-rebuild/respondent-details/:respondentId/confidentiality/start-alternative'
