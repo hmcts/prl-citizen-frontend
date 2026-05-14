@@ -128,6 +128,8 @@ const keys = {
     'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
   doYouWantToKeep: 'Do the other people named in the application (the respondents) know any contact details of {name}?',
   courtOrderPrevent: 'courtOrderPrevent',
+  doYouWantToKeepResp:
+    "Do you want to request to keep {firstName} {lastName}'s contact details private from the other people named in the application?",
 };
 const language = 'en';
 const content = {
@@ -2182,6 +2184,139 @@ describe('test cases for main util', () => {
       },
     ]);
     expect(respondentDetailsObj?.title).toBe('');
+  });
+
+  test('Confidential questions are mandatory for multiple respondents', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      resp_Respondents: [
+        {
+          id: '974b73a9-730e-4db0-b703-19ed3eab0342',
+          firstName: 'Respondent',
+          lastName: 'FirstPage',
+          personalDetails: {
+            dateOfBirth: {
+              year: '1999',
+              month: '01',
+              day: '11',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            approxDateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            gender: 'Male',
+            otherGenderDetails: '',
+            hasNameChanged: 'no',
+            previousFullName: '',
+            respondentPlaceOfBirth: 'ok',
+            respondentPlaceOfBirthUnknown: 'Yes',
+          },
+          address: {
+            AddressLine1: 'dsadas',
+            AddressLine2: '',
+            PostTown: 'ILFORD',
+            County: '',
+            PostCode: '',
+            Country: 'United Kingdom',
+            addressHistory: 'dontKnow',
+            provideDetailsOfPreviousAddresses: '',
+          },
+          relationshipDetails: {
+            relationshipToChildren: [
+              {
+                childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                relationshipType: 'Other',
+                otherRelationshipTypeDetails: '',
+              },
+            ],
+          },
+          contactDetails: {
+            emailAddress: 'abc@gmail.com',
+            telephoneNumber: '+447205308786',
+          },
+        },
+        {
+          id: '974b73a9-730e-4db0-b703-19ed3eab0342',
+          firstName: 'Respondent',
+          lastName: 'SecondPage',
+          personalDetails: {
+            dateOfBirth: {
+              year: '1999',
+              month: '01',
+              day: '11',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            approxDateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            gender: 'Male',
+            otherGenderDetails: '',
+            hasNameChanged: 'no',
+            previousFullName: '',
+            respondentPlaceOfBirth: 'ok',
+            respondentPlaceOfBirthUnknown: 'Yes',
+          },
+          address: {
+            AddressLine1: 'dsadas',
+            AddressLine2: '',
+            PostTown: 'ILFORD',
+            County: '',
+            PostCode: '',
+            Country: 'United Kingdom',
+            addressHistory: 'dontKnow',
+            provideDetailsOfPreviousAddresses: '',
+          },
+          relationshipDetails: {
+            relationshipToChildren: [
+              {
+                childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                relationshipType: 'Other',
+                otherRelationshipTypeDetails: '',
+              },
+            ],
+          },
+          contactDetails: {
+            emailAddress: 'abc@gmail.com',
+            telephoneNumber: '+447205308786',
+          },
+        },
+      ],
+      cd_children: [
+        {
+          id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+          firstName: 'Nir',
+          lastName: 'Sin',
+        },
+      ],
+    } as ANYTYPE;
+
+    const respondentDetailsObj = RespondentDetails({ sectionTitles, keys, content }, userCase, language);
+    expect(respondentDetailsObj?.rows).toContainEqual({
+      actions: {
+        items: [
+          {
+            href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/confidentiality/start-alternative',
+            text: undefined,
+            visuallyHiddenText:
+              "respondents 1 Do you want to request to keep Respondent FirstPage's contact details private from the other people named in the application?",
+            attributes: {
+              id: 'doYouWantToKeep-respondent-0',
+            },
+          },
+        ],
+      },
+      key: {
+        text: "Do you want to request to keep Respondent FirstPage's contact details private from the other people named in the application?",
+      },
+      value: {
+        html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dl>',
+      },
+    });
   });
 
   //SafetyConcerns_yours
