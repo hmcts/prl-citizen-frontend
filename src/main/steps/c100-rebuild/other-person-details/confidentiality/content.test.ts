@@ -11,7 +11,7 @@ const en = {
   pageTitle: "Keeping other person's identity private",
   line1: 'The information you give us will be shared with the other people named in this application.',
   line2:
-    'As you have told us that {childName} mainly {livesWith} {firstName} {lastName}, you can choose to keep {firstName} {lastName}’s identity private. This includes their address.',
+    'As you have told us that {childName} {livesWith} {firstName} {lastName}, you can choose to keep {firstName} {lastName}’s identity private. This includes their address.',
   keepDetailsPrivate:
     'Do you want to keep {firstName} {lastName}’s identity private from the other people named in the application?',
   yes: 'Yes',
@@ -28,7 +28,7 @@ const cy: typeof en = {
   pageTitle: 'Cadw hunaniaeth y person arall yn breifat',
   line1: "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r bobl eraill a enwir yn y cais hwn.",
   line2:
-    'Gan eich bod wedi dweud wrthym fod {childName} {livesWith} yn byw gyda  {firstName} {lastName}, yn bennaf, gallwch ddewis cadw hunaniaeth {firstName} {lastName} yn breifat. Mae hyn yn cynnwys eu cyfeiriad.',
+    'Gan eich bod wedi dweud wrthym fod {childName} {livesWith} yn byw gyda  {firstName} {lastName}, gallwch ddewis cadw hunaniaeth {firstName} {lastName} yn breifat. Mae hyn yn cynnwys eu cyfeiriad.',
   keepDetailsPrivate:
     'Ydych chi eisiau cadw hunaniaeth {firstName} {lastName} yn breifat oddi wrth y bobl eraill a enwir yn y cais hwn?',
   yes: 'Oes',
@@ -48,7 +48,7 @@ describe('other person details > confidentiality > content', () => {
         {
           firstName: 'the',
           lastName: 'child',
-          mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678',
+          liveWith: '7483640e-0817-4ddc-b709-6723f7945678',
         },
       ],
       oprs_otherPersons: [
@@ -180,7 +180,7 @@ describe('other person details > confidentiality > content', () => {
       userCase: {
         ...commonContent.userCase,
         cd_children: [
-          { firstName: 'Alice', lastName: 'Brown', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Alice', lastName: 'Brown', liveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
         ] as unknown as ChildrenDetails[],
       },
     };
@@ -195,8 +195,8 @@ describe('other person details > confidentiality > content', () => {
       userCase: {
         ...commonContent.userCase,
         cd_children: [
-          { firstName: 'Tom', lastName: 'Thumb', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
-          { firstName: 'Jerry', lastName: 'Mouse', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Tom', lastName: 'Thumb', liveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Jerry', lastName: 'Mouse', liveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
         ] as unknown as ChildrenDetails[],
       },
     };
@@ -211,9 +211,9 @@ describe('other person details > confidentiality > content', () => {
       userCase: {
         ...commonContent.userCase,
         cd_children: [
-          { firstName: 'Ann', lastName: 'One', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
-          { firstName: 'Ben', lastName: 'Two', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
-          { firstName: 'Cara', lastName: 'Three', mainlyLiveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Ann', lastName: 'One', liveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Ben', lastName: 'Two', liveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
+          { firstName: 'Cara', lastName: 'Three', liveWith: '7483640e-0817-4ddc-b709-6723f7945678' },
         ] as unknown as ChildrenDetails[],
       },
     };

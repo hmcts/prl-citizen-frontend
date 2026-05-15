@@ -11,7 +11,7 @@ export const en = {
   pageTitle: "Keeping other person's identity private",
   line1: 'The information you give us will be shared with the other people named in this application.',
   line2:
-    'As you have told us that {childName} mainly {livesWith} {firstName} {lastName}, you can choose to keep {firstName} {lastName}’s identity private. This includes their address.',
+    'As you have told us that {childName} {livesWith} {firstName} {lastName}, you can choose to keep {firstName} {lastName}’s identity private. This includes their address.',
   keepDetailsPrivate:
     'Do you want to keep {firstName} {lastName}’s identity private from the other people named in the application?',
   yes: 'Yes',
@@ -28,7 +28,7 @@ export const cy: typeof en = {
   pageTitle: 'Cadw hunaniaeth y person arall yn breifat',
   line1: "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r bobl eraill a enwir yn y cais hwn.",
   line2:
-    'Gan eich bod wedi dweud wrthym fod {childName} {livesWith} yn byw gyda  {firstName} {lastName}, yn bennaf, gallwch ddewis cadw hunaniaeth {firstName} {lastName} yn breifat. Mae hyn yn cynnwys eu cyfeiriad.',
+    'Gan eich bod wedi dweud wrthym fod {childName} {livesWith} yn byw gyda  {firstName} {lastName}, gallwch ddewis cadw hunaniaeth {firstName} {lastName} yn breifat. Mae hyn yn cynnwys eu cyfeiriad.',
   keepDetailsPrivate:
     'Ydych chi eisiau cadw hunaniaeth {firstName} {lastName} yn breifat oddi wrth y bobl eraill a enwir yn y cais hwn?',
   yes: 'Oes',
@@ -129,28 +129,24 @@ export const generateContent: TranslationFn = content => {
   const children = userCase.cd_children ?? [];
 
   const childrenWhoLiveWithPerson = children.filter(child => {
-    const childrenMainlyLiveWith = child.mainlyLiveWith as
-      | string
-      | string[]
-      | Record<string, unknown>
-      | Record<string, unknown>[];
+    const childrenLiveWith = child.liveWith as string | string[] | Record<string, unknown> | Record<string, unknown>[];
 
-    if (!childrenMainlyLiveWith) {
+    if (!childrenLiveWith) {
       return false;
     }
 
-    if (Array.isArray(childrenMainlyLiveWith)) {
-      return childrenMainlyLiveWith.some(mainlyLiveWith =>
-        typeof mainlyLiveWith === 'string'
-          ? mainlyLiveWith === otherPersonId
-          : (mainlyLiveWith as Record<string, unknown>)?.id === otherPersonId
+    if (Array.isArray(childrenLiveWith)) {
+      return childrenLiveWith.some(liveWith =>
+        typeof liveWith === 'string'
+          ? liveWith === otherPersonId
+          : (liveWith as Record<string, unknown>)?.id === otherPersonId
       );
     }
-    if (typeof childrenMainlyLiveWith === 'object') {
-      return childrenMainlyLiveWith?.id === otherPersonId;
+    if (typeof childrenLiveWith === 'object') {
+      return (childrenLiveWith as Record<string, unknown>)?.id === otherPersonId;
     }
 
-    return childrenMainlyLiveWith === otherPersonId;
+    return childrenLiveWith === otherPersonId;
   });
   const childNames = childrenWhoLiveWithPerson.map(child => `${child.firstName} ${child.lastName}`);
 
