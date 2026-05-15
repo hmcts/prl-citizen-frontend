@@ -11,7 +11,7 @@ import { generateContent } from './content';
 
 const en = {
   caption: 'Support you need during the case',
-  title: 'Review your language requirements and special arrangements',
+  title: 'Review language requirements and support needs',
   content1: 'Tell us what support you need',
   content2: 'If your hearing is within 2 days',
   content3:
