@@ -59,7 +59,7 @@ const cy = {
       content: 'cefnogaeth i bobl gyda chyflwr iechyd neu anabledd',
     },
     {
-      content: 'mesur arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
+      content: 'mesurau arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
     },
   ],
   content3: 'Gofyn am gymorth',
