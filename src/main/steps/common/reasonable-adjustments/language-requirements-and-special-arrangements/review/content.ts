@@ -23,7 +23,7 @@ const en = {
 
 const cy: typeof en = {
   caption: 'Cymorth y mae arnoch angen yn ystod yr achos',
-  title: "Adolygu eich gofynion ieithyddol a'ch trefniadau arbennig",
+  title: "Adolygu gofynion iaith ac anghenion cymorth",
   content1: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch',
   content2: "Os yw'ch gwrandawiad o fewn 2 ddiwrnod",
   content3:
