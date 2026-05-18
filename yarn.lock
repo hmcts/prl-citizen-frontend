@@ -3876,10 +3876,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:^9.0.7":
-  version: 9.0.8
-  resolution: "@types/uuid@npm:9.0.8"
-  checksum: 10c0/b411b93054cb1d4361919579ef3508a1f12bf15b5fdd97337d3d351bece6c921b52b6daeef89b62340fd73fd60da407878432a1af777f40648cbe53a01723489
+"@types/uuid@npm:9.0.1":
+  version: 9.0.1
+  resolution: "@types/uuid@npm:9.0.1"
+  checksum: 10c0/234e14e053504a98532bb5d1490c8d649fe24ae04a94ba042b09b380a900094df1032aa7c3864b74b7a85a0a5e97530b2d1340048ed9d07855140cb99b2cefc8
   languageName: node
   linkType: hard
 
@@ -5320,7 +5320,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.15.1":
+"axios@npm:^1.15.2":
   version: 1.16.0
   resolution: "axios@npm:1.16.0"
   dependencies:
@@ -7483,6 +7483,13 @@ __metadata:
   version: 1.11.19
   resolution: "dayjs@npm:1.11.19"
   checksum: 10c0/7d8a6074a343f821f81ea284d700bd34ea6c7abbe8d93bce7aba818948957c1b7f56131702e5e890a5622cdfc05dcebe8aed0b8313bdc6838a594d7846b0b000
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.11.7":
+  version: 1.11.20
+  resolution: "dayjs@npm:1.11.20"
+  checksum: 10c0/8af525e2aa100c8db9923d706c42b2b2d30579faf89456619413a5c10916efc92c2b166e193c27c02eb3174b30aa440ee1e7b72b0a2876b3da651d204db848a0
   languageName: node
   linkType: hard
 
@@ -10229,18 +10236,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"htmlparser2@npm:^8.0.0":
-  version: 8.0.2
-  resolution: "htmlparser2@npm:8.0.2"
-  dependencies:
-    domelementtype: "npm:^2.3.0"
-    domhandler: "npm:^5.0.3"
-    domutils: "npm:^3.0.1"
-    entities: "npm:^4.4.0"
-  checksum: 10c0/609cca85886d0bf2c9a5db8c6926a89f3764596877492e2caa7a25a789af4065bc6ee2cdc81807fe6b1d03a87bf8a373b5a754528a4cc05146b713c20575aab4
-  languageName: node
-  linkType: hard
-
 "http-cache-semantics@npm:^4.0.0, http-cache-semantics@npm:^4.1.1":
   version: 4.2.0
   resolution: "http-cache-semantics@npm:4.2.0"
@@ -10606,10 +10601,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ip-address@npm:^10.0.1":
-  version: 10.1.0
-  resolution: "ip-address@npm:10.1.0"
-  checksum: 10c0/0103516cfa93f6433b3bd7333fa876eb21263912329bfa47010af5e16934eeeff86f3d2ae700a3744a137839ddfad62b900c7a445607884a49b5d1e32a3d7566
+"ip-address@npm:^10.1.1":
+  version: 10.2.0
+  resolution: "ip-address@npm:10.2.0"
+  checksum: 10c0/5a00aada6e922c9c69dfc800ed5d0fa3348675ebdeed0e1575f503f27ca385b5f534363c9af7ad1daf64c1f1409388cdd3cc2e9b9b0fe1c924a431378d55075a
   languageName: node
   linkType: hard
 
@@ -12229,6 +12224,15 @@ __metadata:
   version: 2.2.0
   resolution: "launchdarkly-eventsource@npm:2.2.0"
   checksum: 10c0/fce94e58ef5eb560349b2f5405276c01b86d83afc3f7149c6e58ce4fcdf69f1ef8c97c9800bedf0986b41fa7a1f14740aee804d8c74f9fc81b6cf22f4bd5a7f1
+  languageName: node
+  linkType: hard
+
+"launder@npm:^1.7.1":
+  version: 1.7.1
+  resolution: "launder@npm:1.7.1"
+  dependencies:
+    dayjs: "npm:^1.11.7"
+  checksum: 10c0/c4884c08cc5a1a19cbec840aac7fa97db4928c25fc99ea2981a0482df3ebdbf1cf6605226a3c968e3281025126ff10055686e81f428ecc0e8f8666ca05bae8cc
   languageName: node
   linkType: hard
 
@@ -14854,7 +14858,7 @@ __metadata:
     "@types/serve-favicon": "npm:^2.5.3"
     "@types/session-file-store": "npm:^1.2.2"
     "@types/toobusy-js": "npm:^0.5.2"
-    "@types/uuid": "npm:^9.0.7"
+    "@types/uuid": "npm:^9.0.1"
     "@types/webpack-dev-middleware": "npm:^5.0.2"
     "@typescript-eslint/eslint-plugin": "npm:^5.21.0"
     "@typescript-eslint/parser": "npm:^5.31.0"
@@ -14867,7 +14871,7 @@ __metadata:
     allure-commandline: "npm:^2.13.8"
     applicationinsights: "npm:^2.3.5"
     autobind-decorator: "npm:^2.4.0"
-    axios: "npm:^1.15.1"
+    axios: "npm:^1.15.2"
     axios-debug-log: "npm:^1.0.0"
     babel-eslint: "npm:^10.1.0"
     babel-loader: "npm:^8.2.2"
@@ -14932,7 +14936,7 @@ __metadata:
     query-string: "npm:^7.1.1"
     redis: "npm:^3.1.2"
     require-directory: "npm:^2.1.1"
-    sanitize-html: "npm:^2.13.1"
+    sanitize-html: "npm:^2.17.4"
     sass: "npm:^1.49.10"
     sass-loader: "npm:^13.1.0"
     semver: "npm:^7.6.2"
@@ -16023,17 +16027,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sanitize-html@npm:^2.13.1":
-  version: 2.17.1
-  resolution: "sanitize-html@npm:2.17.1"
+"sanitize-html@npm:^2.17.4":
+  version: 2.17.4
+  resolution: "sanitize-html@npm:2.17.4"
   dependencies:
     deepmerge: "npm:^4.2.2"
     escape-string-regexp: "npm:^4.0.0"
-    htmlparser2: "npm:^8.0.0"
+    htmlparser2: "npm:^10.1.0"
     is-plain-object: "npm:^5.0.0"
+    launder: "npm:^1.7.1"
     parse-srcset: "npm:^1.0.2"
     postcss: "npm:^8.3.11"
-  checksum: 10c0/8186a4f1687a6328c3bd2c7e98d4050975534cc3a07f44f7d41f7d88338c0a42e6013ef06555ee4164d34241bedfb278bc2892d04162f6eb5b3d13b2fb4eee5e
+  checksum: 10c0/5c352376a44bf8a70644f6d4421684000a982f6bda59beac051693d8fc08acbe48dc6358f5c8eb8ae4a815746260167926747a858e6a6e2daf01ccfb775100dd
   languageName: node
   linkType: hard
 
@@ -18220,7 +18225,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^9.0.1":
+"uuid@npm:9.0.1":
   version: 9.0.1
   resolution: "uuid@npm:9.0.1"
   bin:

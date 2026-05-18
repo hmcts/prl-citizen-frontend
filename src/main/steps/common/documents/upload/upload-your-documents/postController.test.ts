@@ -34,17 +34,19 @@ describe('documents > upload > upload-your-documents > postController', () => {
       });
       const res = mockResponse();
 
-      const documentDetail = {
-        status: 'Success',
-        document: {
-          document_url: 'string',
-          document_binary_url: 'string',
-          document_filename: 'string',
-          document_hash: 'string',
-          document_creation_date: 'string',
-          name: 'uploaded.pdf',
+      const documentDetail = [
+        {
+          status: 'Success',
+          document: {
+            document_url: 'string',
+            document_binary_url: 'string',
+            document_filename: 'string',
+            document_hash: 'string',
+            document_creation_date: 'string',
+            name: 'uploaded.pdf',
+          },
         },
-      };
+      ];
       generateStatementDocumentMock.mockResolvedValue(documentDetail);
 
       const controller = new UploadDocumentPostController({});
@@ -119,17 +121,19 @@ describe('documents > upload > upload-your-documents > postController', () => {
       });
       const res = mockResponse();
 
-      const documentDetail = {
-        status: '',
-        document: {
-          document_url: 'string',
-          document_binary_url: 'string',
-          document_filename: 'string',
-          document_hash: 'string',
-          document_creation_date: 'string',
-          name: 'uploaded.pdf',
+      const documentDetail = [
+        {
+          status: '',
+          document: {
+            document_url: 'string',
+            document_binary_url: 'string',
+            document_filename: 'string',
+            document_hash: 'string',
+            document_creation_date: 'string',
+            name: 'uploaded.pdf',
+          },
         },
-      };
+      ];
       generateStatementDocumentMock.mockResolvedValue(documentDetail);
 
       const controller = new UploadDocumentPostController({});
