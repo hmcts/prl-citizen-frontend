@@ -19,7 +19,7 @@ const en = {
       content: 'support for people with a health condition or disability',
     },
     {
-      content: 'special measure for you to feel safe at court, for example a separate waiting room',
+      content: 'special measures for you to feel safe at court, for example a separate waiting room',
     },
   ],
   content3: 'Requesting support',
@@ -54,7 +54,7 @@ const cy: typeof en = {
       content: 'cefnogaeth i bobl gyda chyflwr iechyd neu anabledd',
     },
     {
-      content: 'mesur arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
+      content: 'mesurau arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
     },
   ],
   content3: 'Gofyn am gymorth',
