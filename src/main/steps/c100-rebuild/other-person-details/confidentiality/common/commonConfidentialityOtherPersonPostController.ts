@@ -40,16 +40,25 @@ export default class OtherPersonCommonConfidentialityController {
       return res.redirect(C100_OTHER_PERSON_CHECK);
     }
 
+    const isAddressOnlyPage = req.path.includes('/confidentiality/start-alternative');
+
     const rawValue = (req.body['isOtherPersonAddressConfidential'] ??
       req.body['confidentiality'] ??
       req.body['startAlternative']) as string | undefined;
 
-    const finalValue = (rawValue as YesOrNo) ?? existing.isOtherPersonAddressConfidential ?? YesOrNo.NO;
+    const submittedValue = rawValue as YesOrNo | undefined;
 
     const updatedPerson: C100RebuildPartyDetails = {
       ...existing,
-      isOtherPersonAddressConfidential: finalValue,
     };
+
+    if (isAddressOnlyPage) {
+      updatedPerson.isOtherPersonAddressOnlyConfidential =
+        submittedValue ?? existing.isOtherPersonAddressOnlyConfidential ?? YesOrNo.NO;
+    } else {
+      updatedPerson.isOtherPersonAddressConfidential =
+        submittedValue ?? existing.isOtherPersonAddressConfidential ?? YesOrNo.NO;
+    }
 
     if (updatedPerson.personalDetails?.['isOtherPersonAddressConfidential']) {
       delete updatedPerson.personalDetails['isOtherPersonAddressConfidential'];
@@ -61,9 +70,13 @@ export default class OtherPersonCommonConfidentialityController {
       otherPeople
     ) as C100RebuildPartyDetails[];
 
-    // 7. Standard redirect and session save
-    req.session.save(() => {
-      this.parent.redirect(req, res);
-    });
+    // 7. Handle navigation
+    if (saveAndComeLater) {
+      this.parent.saveAndComeLater(req, res, { oprs_otherPersons: req.session.userCase.oprs_otherPersons });
+    } else {
+      req.session.save(() => {
+        this.parent.redirect(req, res);
+      });
+    }
   }
 }

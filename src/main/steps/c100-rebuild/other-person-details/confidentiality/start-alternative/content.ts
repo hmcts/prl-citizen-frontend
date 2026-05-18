@@ -116,7 +116,7 @@ export const generateContent: TranslationFn = content => {
     };
   }
 
-  const { firstName = '', lastName = '', isOtherPersonAddressConfidential } = otherPerson || {};
+  const { firstName = '', lastName = '', isOtherPersonAddressOnlyConfidential } = otherPerson || {};
   const nameData = { firstName, lastName };
 
   const injectName = (str: string) => interpolate(str, nameData);
@@ -133,6 +133,6 @@ export const generateContent: TranslationFn = content => {
         required: injectName(originalErrors.startAlternative.required),
       },
     },
-    form: updateFormFields(form, generateFormFields(isOtherPersonAddressConfidential ?? YesOrNo.NO).fields),
+    form: updateFormFields(form, generateFormFields(isOtherPersonAddressOnlyConfidential ?? YesOrNo.NO).fields),
   };
 };

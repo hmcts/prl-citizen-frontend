@@ -55,7 +55,7 @@ describe('Keeping Address Private Content', () => {
           id: '123',
           firstName: 'John',
           lastName: 'Doe',
-          isOtherPersonAddressConfidential: 'Yes',
+          isOtherPersonAddressOnlyConfidential: 'Yes',
         },
       ],
     },

@@ -1895,7 +1895,8 @@ export const OtherPeopleDetails = (
         generateOtherPersonAddressContent(sessionOtherPeopleData, respondent, keys, id, language)
       );
 
-      const isAddressConfidential: YesOrNo = sessionOtherPeopleData[respondent]['isOtherPersonAddressConfidential'];
+      const isAddressOnlyConfidential: YesOrNo =
+        sessionOtherPeopleData[respondent]['isOtherPersonAddressOnlyConfidential'];
       newOtherPeopleStorage.push({
         key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
         anchorReference: `isAddressConfidential-otherPerson-${respondent}`,
@@ -1903,8 +1904,8 @@ export const OtherPeopleDetails = (
           keys['isOtherPersonAddressConfidential']
         }`,
         valueHtml: populateError(
-          isAddressConfidential,
-          getYesNoTranslation(language, isAddressConfidential, 'doTranslation'),
+          isAddressOnlyConfidential,
+          getYesNoTranslation(language, isAddressOnlyConfidential, 'doTranslation'),
           language
         ),
         changeUrl: applyParms(Urls.C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE, {
