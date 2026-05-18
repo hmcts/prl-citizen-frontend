@@ -20,6 +20,7 @@ export default class RARespondentPostController extends PostController<AnyObject
       const { user, userCase } = req.session;
       const partyDetails = getPartyDetails(userCase, user.id);
       const client = new CosApiClient(user.accessToken, req.locals.logger);
+
       if (partyDetails) {
         Object.assign(partyDetails.response, { supportYouNeed: RAProvider.utils.prepareRARespondentRequest(userCase) });
         req.session.userCase = await client.updateCaseData(
@@ -29,11 +30,23 @@ export default class RARespondentPostController extends PostController<AnyObject
           userCase.caseTypeOfApplication as CaseType,
           CaseEvent.SUPPORT_YOU_DURING_CASE
         );
+
+        if (RAProvider.utils.isReasonableAdjustmentsNeedsPresent(userCase)) {
+          await client.submitLanguageSupportNotes(
+            userCase.id,
+            partyDetails.user.idamId,
+            RAProvider.utils.prepareCaseNoteText(userCase),
+            user.accessToken
+          );
+        }
+
         mapDataInSession(req.session.userCase, user.id);
 
         req.session.save(() => super.redirect(req, res));
       }
     } catch (err) {
+      console.log(err);
+      RAProvider.log('error', err);
       throw new Error('RA for respondent while submit response - Case could not be updated.');
     }
   }

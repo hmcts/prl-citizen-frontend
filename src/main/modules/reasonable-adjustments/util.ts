@@ -339,32 +339,16 @@ export class ReasonableAdjustementsUtility {
   mapRADetailsForRespondent(partyDetails: PartyDetails): Partial<CaseWithId> {
     const reasonableAdjustmentsNeeds = {};
     const {
-      helpCommunication,
-      describeOtherNeed,
-      courtComfort,
-      otherProvideDetails,
-      courtHearing,
-      communicationSupportOther,
-      docsSupport,
-      otherDetails,
       languageRequirements,
       //describeSignLanguageDetails,
-      reasonableAdjustments,
+      assistanceRequirements,
+      assistanceRequirementsDetails,
+      intermediaryRequirements,
+      intermediaryRequirementsDetails,
       safetyArrangements,
       safetyArrangementsDetails,
-      travellingToCourt,
-      travellingOtherDetails,
       attendingToCourt,
       hearingDetails,
-      signLanguageDetails,
-      lightingDetails,
-      supportWorkerDetails,
-      familyProviderDetails,
-      therapyDetails,
-      docsDetails,
-      largePrintDetails,
-      parkingDetails,
-      differentChairDetails,
       languageDetails,
     } = partyDetails?.response?.supportYouNeed ?? {};
 
@@ -375,26 +359,10 @@ export class ReasonableAdjustementsUtility {
       ra_specialArrangementsOther_subfield: safetyArrangementsDetails,
       ra_languageNeeds: languageRequirements,
       ra_needInterpreterInCertainLanguage_subfield: languageDetails,
-      ra_assistanceRequirements: reasonableAdjustments,
-      ra_documentInformation: docsSupport,
-      ra_specifiedColorDocuments_subfield: docsDetails,
-      ra_largePrintDocuments_subfield: largePrintDetails,
-      ra_documentHelpOther_subfield: otherDetails,
-      ra_communicationHelp: helpCommunication,
-      ra_signLanguageInterpreter_subfield: signLanguageDetails,
-      ra_communicationHelpOther_subfield: describeOtherNeed,
-      ra_supportCourt: courtHearing,
-      ra_supportWorkerCarer_subfield: supportWorkerDetails,
-      ra_friendFamilyMember_subfield: familyProviderDetails,
-      ra_therapyAnimal_subfield: therapyDetails,
-      ra_supportCourtOther_subfield: communicationSupportOther,
-      ra_feelComportable: courtComfort,
-      ra_appropriateLighting_subfield: lightingDetails,
-      ra_feelComportableOther_subfield: otherProvideDetails,
-      ra_travellingCourt: travellingToCourt,
-      ra_parkingSpace_subfield: parkingDetails,
-      ra_differentTypeChair_subfield: differentChairDetails,
-      ra_travellingCourtOther_subfield: travellingOtherDetails,
+      ra_assistanceRequirements: assistanceRequirements,
+      ra_assistanceRequirements_subfield: assistanceRequirementsDetails,
+      ra_intermediaryRequirements: intermediaryRequirements,
+      ra_intermediaryRequired_subfield: intermediaryRequirementsDetails,
     });
 
     return reasonableAdjustmentsNeeds;
@@ -411,26 +379,9 @@ export class ReasonableAdjustementsUtility {
       languageRequirements: caseData?.ra_languageNeeds,
       languageDetails: caseData?.ra_needInterpreterInCertainLanguage_subfield,
       reasonableAdjustments: caseData?.ra_assistanceRequirements,
-      docsSupport: caseData?.ra_documentInformation,
-      docsDetails: caseData?.ra_specifiedColorDocuments_subfield,
-      largePrintDetails: caseData?.ra_largePrintDocuments_subfield,
-      otherDetails: caseData?.ra_documentHelpOther_subfield,
-      helpCommunication: caseData?.ra_communicationHelp,
-      signLanguageDetails: caseData?.ra_signLanguageInterpreter_subfield,
-      describeOtherNeed: caseData?.ra_communicationHelpOther_subfield,
-      courtHearing: caseData?.ra_supportCourt,
-      supportWorkerDetails: caseData?.ra_supportWorkerCarer_subfield,
-      familyProviderDetails: caseData?.ra_friendFamilyMember_subfield,
-      therapyDetails: caseData?.ra_therapyAnimal_subfield,
-      communicationSupportOther: caseData?.ra_supportCourtOther_subfield,
-      courtComfort: caseData?.ra_feelComportable,
-      lightingDetails: caseData?.ra_appropriateLighting_subfield,
-      otherProvideDetails: caseData?.ra_feelComportableOther_subfield,
-      travellingToCourt: caseData?.ra_travellingCourt,
-      parkingDetails: caseData?.ra_parkingSpace_subfield,
-      differentChairDetails: caseData?.ra_differentTypeChair_subfield,
-      travellingOtherDetails: caseData?.ra_travellingCourtOther_subfield,
-      languageSupportNotes: caseData?.ra_languageReqAndSpecialArrangements,
+      reasonableAdjustmentsDetails: caseData?.ra_assistanceRequirements_subfield,
+      intermediaryRequirements: caseData?.ra_intermediaryRequirements,
+      intermediaryRequirementsDetails: caseData?.ra_intermediaryRequired_subfield,
     });
 
     return request;
@@ -484,12 +435,27 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
+  prepareCaseNoteText(userCase: Partial<CaseWithId>): string {
+    let note = '';
+
+    // For spike purposes:
+    note = note.concat('line 1');
+    note = note.concat('line 2');
+
+    note = note.concat('\n');
+    note = note.concat('new line?');
+    note = note.concat(<string>userCase.ra_intermediaryRequired_subfield);
+
+    return note;
+  }
+
   isReasonableAdjustmentsNeedsPresent(userCase: Partial<CaseWithId>): boolean {
     return !!(
       userCase?.ra_typeOfHearing?.length ||
       userCase?.ra_languageNeeds?.length ||
       userCase?.ra_specialArrangements?.length ||
       userCase?.ra_assistanceRequirements?.length ||
+      userCase?.ra_intermediaryRequirements?.length ||
       userCase?.ra_documentInformation?.length ||
       userCase?.ra_communicationHelp?.length ||
       userCase?.ra_supportCourt?.length ||
