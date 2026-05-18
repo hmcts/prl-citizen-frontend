@@ -315,7 +315,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
 
   test('From START_ALTERNATIVE with YES -> navigate to feedback', () => {
     const caseData = {
-      oprs_otherPersons: [{ id: '123', isOtherPersonAddressConfidential: YesOrNo.YES }],
+      oprs_otherPersons: [{ id: '123', isOtherPersonAddressOnlyConfidential: YesOrNo.YES }],
     } as unknown as CaseWithId;
     const req = mockRequest({});
     req.params.otherPersonId = '123';
@@ -331,7 +331,7 @@ describe('OtherPersonsDetailsNavigationController', () => {
 
   test('From START_ALTERNATIVE with NO -> navigate to feedbackno', () => {
     const caseData = {
-      oprs_otherPersons: [{ id: '123', isOtherPersonAddressConfidential: YesOrNo.NO }],
+      oprs_otherPersons: [{ id: '123', isOtherPersonAddressOnlyConfidential: YesOrNo.NO }],
     } as unknown as CaseWithId;
     const req = mockRequest();
     req.params.otherPersonId = '123';
