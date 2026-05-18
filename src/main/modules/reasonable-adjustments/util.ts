@@ -439,12 +439,41 @@ export class ReasonableAdjustementsUtility {
     let note = '';
 
     // For spike purposes:
-    note = note.concat('line 1');
-    note = note.concat('line 2');
-
+    note = note.concat('Would you be able to take part in hearings by video and phone?');
     note = note.concat('\n');
-    note = note.concat('new line?');
-    note = note.concat(<string>userCase.ra_intermediaryRequired_subfield);
+    note = note.concat('Yes, I can take part in video hearings');
+    note = note.concat('\n');
+    note = note.concat('\n');
+
+    note = note.concat('Do you have any language requirements?');
+    note = note.concat('\n');
+    note = note.concat('No, I do not have any language requirements at this time');
+    note = note.concat('\n');
+    note = note.concat('\n');
+
+    note = note.concat('Do you or the children need special arrangements at court?');
+    note = note.concat('\n');
+    note = note.concat('a separate waiting room in the court building');
+    note = note.concat('\n');
+    note = note.concat('a separate entrance and exit from the court building');
+    note = note.concat('\n');
+    note = note.concat('\n');
+
+    note = note.concat('Are you aware of whether an intermediary will be required?');
+    note = note.concat('\n');
+    note = note.concat('Yes');
+    note = note.concat('\n');
+    note = note.concat('Intermediary text field');
+    note = note.concat('\n');
+    note = note.concat('\n');
+
+    note = note.concat(
+      'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?'
+    );
+    note = note.concat('\n');
+    note = note.concat('No');
+
+    console.log(userCase);
 
     return note;
   }
