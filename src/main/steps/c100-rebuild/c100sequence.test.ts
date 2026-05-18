@@ -943,7 +943,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[93].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/address/manual');
     expect(C100Sequence[93].showInSection).toBe('c100');
     expect(C100Sequence[93].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with/mainly-live-with'
+      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/confidentiality/start-alternative'
     );
 
     expect(C100Sequence[94].url).toBe(
