@@ -114,7 +114,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
           applicantFirstName: 'Dummy2',
           applicantLastName: 'Test2',
           id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
-        }
+        },
       ],
       cd_children: [
         {
@@ -206,7 +206,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
           applicantFirstName: 'Dummy2',
           applicantLastName: 'Test2',
           id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
-        }
+        },
       ],
       cd_children: [
         {
@@ -566,7 +566,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
           applicantFirstName: 'Dummy2',
           applicantLastName: 'Test2',
           id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
-        }
+        },
       ],
       cd_children: [
         {
@@ -624,9 +624,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
       },
       body: {
         onlycontinue: true,
-        liveWith: [
-          '480e8295-4c5b-4b9b-827f-f9be423ec1c5'
-        ],
+        liveWith: ['480e8295-4c5b-4b9b-827f-f9be423ec1c5'],
       },
       session: {
         lang: language,
@@ -652,7 +650,7 @@ describe('PersonaldetailsPostController Post Controller', () => {
           applicantFirstName: 'Dummy2',
           applicantLastName: 'Test2',
           id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
-        }
+        },
       ],
       cd_children: [
         {
