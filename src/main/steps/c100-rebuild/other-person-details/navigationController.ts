@@ -119,7 +119,7 @@ class OtherPersonsDetailsNavigationController {
           return C100_OTHER_PERSON_CHECK;
         }
 
-        const isConfidential = otherPersonData.isOtherPersonAddressConfidential;
+        const isConfidential = otherPersonData.isOtherPersonAddressOnlyConfidential;
 
         nextUrl =
           isConfidential === YesOrNo.YES
