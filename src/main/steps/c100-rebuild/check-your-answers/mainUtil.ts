@@ -1603,17 +1603,58 @@ export const RespondentDetails = (
   const sessionRespondentData = userCase['resp_Respondents'];
   const newRespondentStorage: SummaryListRow[] = [];
   for (const respondent in sessionRespondentData) {
-    const firstname = sessionRespondentData[respondent]['firstName'],
-      lastname = sessionRespondentData[respondent]['lastName'],
+    const firstName = sessionRespondentData[respondent]['firstName'],
+      lastName = sessionRespondentData[respondent]['lastName'],
       id = sessionRespondentData[respondent]['id'],
       personalDetails = sessionRespondentData[respondent]['personalDetails'];
     const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
     const respondentNo = Number(respondent) + 1;
     const contactDetails = sessionRespondentData[respondent]['contactDetails'];
     const respondentFullName =
-      _.isEmpty(firstname) || _.isEmpty(lastname)
+      _.isEmpty(firstName) || _.isEmpty(lastName)
         ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
-        : firstname + ' ' + lastname;
+        : firstName + ' ' + lastName;
+
+    const parseRespondentConfidentiality = () => {
+      const confidentialityQs = {
+        addressConf: sessionRespondentData[respondent]['isRespondentAddressConfidential'],
+        phoneConf: sessionRespondentData[respondent]['isRespondentTelephoneNumberConfidential'],
+        emailConf: sessionRespondentData[respondent]['isRespondentEmailAddressConfidential'],
+      };
+      const hasConfidentialInfo =
+        confidentialityQs.addressConf === YesOrNo.YES ||
+        confidentialityQs.phoneConf === YesOrNo.YES ||
+        confidentialityQs.emailConf === YesOrNo.YES
+          ? YesOrNo.YES
+          : YesOrNo.NO;
+      let html = '';
+      html +=
+        HTML.DESCRIPTION_LIST +
+        (hasConfidentialInfo === YesOrNo.YES ? HTML.ROW_START : HTML.ROW_START_NO_BORDER) +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        populateError(
+          confidentialityQs,
+          getYesNoTranslation(language, hasConfidentialInfo, 'ydwTranslation') +
+            HTML.DESCRIPTION_TERM_DETAIL_END +
+            HTML.ROW_END,
+          language
+        );
+      if (hasConfidentialInfo === YesOrNo.YES) {
+        html += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
+
+        if (confidentialityQs.addressConf === YesOrNo.YES) {
+          html += HTML.LIST_ITEM + content['address'] + HTML.LIST_ITEM_END;
+        }
+        if (confidentialityQs.phoneConf === YesOrNo.YES) {
+          html += HTML.LIST_ITEM + content['telephone'] + HTML.LIST_ITEM_END;
+        }
+        if (confidentialityQs.emailConf === YesOrNo.YES) {
+          html += HTML.LIST_ITEM + content['email'] + HTML.LIST_ITEM_END;
+        }
+        html += HTML.UNORDER_LIST_END + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+      }
+      return html + HTML.DESCRIPTION_LIST_END;
+    };
 
     const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML, language);
     newRespondentStorage.push(
@@ -1734,6 +1775,21 @@ export const RespondentDetails = (
     newRespondentStorage.push(
       ...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails, language)
     );
+    if (sessionRespondentData.length > 1) {
+      newRespondentStorage.push({
+        key: interpolate(keys['doYouWantToKeepResp'], { firstName, lastName }),
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${interpolate(
+          keys['doYouWantToKeepResp'],
+          { firstName, lastName }
+        )}`,
+        anchorReference: `doYouWantToKeep-respondent-${respondent}`,
+        value: '',
+        valueHtml: parseRespondentConfidentiality(),
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE'], {
+          respondentId: sessionRespondentData[respondent]['id'],
+        }),
+      });
+    }
   }
 
   const SummaryData = newRespondentStorage;
