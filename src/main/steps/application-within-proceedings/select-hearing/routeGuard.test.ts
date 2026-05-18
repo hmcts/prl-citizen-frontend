@@ -67,7 +67,7 @@ describe('Select hearing Route Guard', () => {
     const req = mockRequest();
 
     const res = mockResponse();
-    getHearings.mockRejectedValueOnce;
+    getHearings.mockRejectedValueOnce(new Error('API error'));
     const next = jest.fn();
     await routeGuard.get(req, res, next);
     expect(req.session.userCase.hearingCollection).toBe(undefined);
