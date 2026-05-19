@@ -257,7 +257,20 @@ describe('RespondentsDetailsNavigationController', () => {
     );
   });
 
-  test('From Respondent1 relationship to child 2 screen -> navigate to Respondent address/lookup screen', async () => {
+  test('From Respondent1 relationship to child 2 screen -> navigate to refuge screen', async () => {
+    expect(
+      RespondentsDetailsNavigationController.getNextUrl(
+        C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+        dummyRequest.session.userCase,
+        {
+          childId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+          respondentId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
+        }
+      )
+    ).toBe('/c100-rebuild/refuge/staying-in-refuge/2732dd53-2e6c-46f9-88cd-08230e735b08?');
+  });
+
+  test('From Respondent1 relationship to child 2 screen -> navigate to refuge', async () => {
     const dummyparams = mockRequest({
       params: {
         childId: '7483640e-0817-4ddc-b709-6723f7925635',
@@ -270,7 +283,7 @@ describe('RespondentsDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyparams.params
       )
-    ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/lookup');
+    ).toBe('/c100-rebuild/refuge/staying-in-refuge/2732dd53-2e6c-46f9-88cd-08230e735b08?');
   });
 
   test('From Respondent address/lookup screen -> navigate to Respondent address/select screen', async () => {

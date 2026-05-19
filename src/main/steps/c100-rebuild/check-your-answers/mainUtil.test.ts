@@ -1327,24 +1327,6 @@ describe('test cases for main util', () => {
           html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
-      {
-        actions: {
-          items: [
-            {
-              href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/confidentiality/start-alternative',
-              text: undefined,
-              visuallyHiddenText: 'Other person 1 isOtherPersonAddressConfidential',
-              attributes: { id: 'isAddressConfidential-otherPerson-0' },
-            },
-          ],
-        },
-        key: {
-          text: 'isOtherPersonAddressConfidential',
-        },
-        value: {
-          html: '<span class="govuk-error-message">Complete this section</span>',
-        },
-      },
     ]);
   });
 
@@ -2136,6 +2118,26 @@ describe('test cases for main util', () => {
         },
         key: {
           text: 'relationshipTo Nir Sin',
+        },
+        value: {
+          html: '<span class="govuk-error-message">Complete this section</span>',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/refuge/staying-in-refuge/974b73a9-730e-4db0-b703-19ed3eab0342?',
+              text: undefined,
+              visuallyHiddenText: 'respondents 1 refuge',
+              attributes: {
+                id: 'refuge-respondent-0',
+              },
+            },
+          ],
+        },
+        key: {
+          text: 'refuge',
         },
         value: {
           html: '<span class="govuk-error-message">Complete this section</span>',
