@@ -303,9 +303,9 @@ describe('RA util', () => {
       const req = mockRequest({
         session: {
           userCase: {
-            ra_typeOfHearing: ['videoHearing', 'phoneHearing'],
-            ra_languageNeeds: ['speakInWelsh', 'readAndWriteInWelsh'],
-            ra_specialArrangements: ['separateWaitingRoom', 'separateExitEntrance'],
+            ra_typeOfHearing: ['videohearings', 'phonehearings'],
+            ra_languageNeeds: ['speakwelsh', 'readandwritewelsh'],
+            ra_specialArrangements: ['waitingroom', 'separateexitentry'],
             ra_intermediaryRequirements: YesOrNo.YES,
             ra_intermediaryRequired_subfield: 'test',
             ra_assistanceRequirements: YesOrNo.YES,
@@ -326,43 +326,40 @@ describe('RA util', () => {
         `${attendingCourtEn.videoHearing}` +
         '\n' +
         `${attendingCourtEn.phoneHearing}` +
-        '\n' +
-        '\n' +
+        '\n\n' +
         `${langRequirementsEn.headingTitle}` +
         '\n' +
         `${langRequirementsEn.speakInWelsh}` +
         '\n' +
         `${langRequirementsEn.readAndWriteInWelsh}` +
-        '\n' +
-        '\n' +
+        '\n\n' +
         `${specialArrangementsEn.headingTitle}` +
         '\n' +
         `${specialArrangementsEn.separateWaitingRoom}` +
         '\n' +
         `${specialArrangementsEn.separateExitEntrance}` +
-        '\n' +
-        '\n' +
+        '\n\n' +
         `${intermediaryRequirementsEn.headingTitle}` +
         '\n' +
         `${YesOrNo.YES}` +
-        '\n' +
-        'test\n\n' +
+        '\ntest\n\n' +
         `${supportDuringCaseEn.headingTitle}` +
         '\n' +
         `${YesOrNo.YES}` +
-        '\n' +
-        'test\n\n';
+        '\ntest\n\n';
 
       expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe(expected);
     });
 
-    test('should return case note text without subfields', () => {
+    test('should return case note text without new RA subfields', () => {
       const req = mockRequest({
         session: {
           userCase: {
-            ra_typeOfHearing: ['videoHearing'],
-            ra_languageNeeds: ['speakInWelsh'],
-            ra_specialArrangements: ['separateWaitingRoom'],
+            ra_typeOfHearing: ['nohearings'],
+            ra_noVideoAndPhoneHearing_subfield: 'test',
+            ra_languageNeeds: ['languageinterpreter'],
+            ra_needInterpreterInCertainLanguage_subfield: 'test',
+            ra_specialArrangements: ['waitingroom'],
             ra_intermediaryRequirements: YesOrNo.NO,
             ra_assistanceRequirements: YesOrNo.NO,
           },
@@ -378,29 +375,25 @@ describe('RA util', () => {
       const expected =
         `${attendingCourtEn.headingTitle}` +
         '\n' +
-        `${attendingCourtEn.videoHearing}` +
-        '\n' +
-        '\n' +
+        `${attendingCourtEn.noVideoAndPhoneHearing}` +
+        '\n\ntest\n\n' +
         `${langRequirementsEn.headingTitle}` +
         '\n' +
-        `${langRequirementsEn.speakInWelsh}` +
-        '\n' +
-        '\n' +
+        `${langRequirementsEn.needInterpreterInCertainLanguage}` +
+        '\n\ntest\n\n' +
         `${specialArrangementsEn.headingTitle}` +
         '\n' +
         `${specialArrangementsEn.separateWaitingRoom}` +
-        '\n' +
-        '\n' +
+        '\n\n' +
         `${intermediaryRequirementsEn.headingTitle}` +
         '\n' +
         `${YesOrNo.NO}` +
-        '\n' +
-        '\n' +
+        '\n\n' +
         `${supportDuringCaseEn.headingTitle}` +
         '\n' +
         `${YesOrNo.NO}` +
-        '\n' +
-        '\n';
+        '\n\n';
+
       expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe(expected);
     });
 

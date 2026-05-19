@@ -37,11 +37,10 @@ export default class RALangReqSplArrangementsReviewPostController extends PostCo
         );
 
         if (userCase.ra_languageReqAndSpecialArrangements) {
-          // purely for spike testing purposes
           await client.submitLanguageSupportNotes(
             userCase.id,
             partyDetails.user.idamId,
-            RAProvider.utils.prepareCaseNoteText(userCase),
+            userCase.ra_languageReqAndSpecialArrangements,
             user.accessToken
           );
         }

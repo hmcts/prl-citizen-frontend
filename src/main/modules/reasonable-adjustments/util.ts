@@ -12,6 +12,7 @@ import { CommonContent } from '../../steps/common/common.content';
 import { languages as attendingCourtLanguages } from '../../steps/common/reasonable-adjustments/attending-court/content';
 import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
 import { languages as langRequirementsLanguages } from '../../steps/common/reasonable-adjustments/language-requirements/content';
+import { displayText } from '../../steps/common/reasonable-adjustments/review/content';
 import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
 import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
 import { applyParms } from '../../steps/common/url-parser';
@@ -513,9 +514,9 @@ export class ReasonableAdjustementsUtility {
       note = note.concat('\n');
     };
 
-    const addFields = (fields: string[], translations: Record<string, any>) => {
+    const addFields = (fields: string[]) => {
       for (const field of fields) {
-        addLine(translations[field]);
+        addLine(displayText['en'][field] ?? field);
       }
       note = note.concat('\n');
     };
@@ -531,17 +532,27 @@ export class ReasonableAdjustementsUtility {
 
     if (userCase.ra_typeOfHearing !== undefined) {
       addLine(attendingCourtEn.headingTitle);
-      addFields(userCase.ra_typeOfHearing, attendingCourtEn);
+      addFields(userCase.ra_typeOfHearing);
+
+      if (userCase.ra_noVideoAndPhoneHearing_subfield !== undefined) {
+        addLine(userCase.ra_noVideoAndPhoneHearing_subfield);
+        note = note.concat('\n');
+      }
     }
 
     if (userCase.ra_languageNeeds !== undefined) {
       addLine(langRequirementsEn.headingTitle);
-      addFields(userCase.ra_languageNeeds, langRequirementsEn);
+      addFields(userCase.ra_languageNeeds);
+
+      if (userCase.ra_needInterpreterInCertainLanguage_subfield !== undefined) {
+        addLine(userCase.ra_needInterpreterInCertainLanguage_subfield);
+        note = note.concat('\n');
+      }
     }
 
     if (userCase.ra_specialArrangements !== undefined) {
       addLine(specialArrangementsEn.headingTitle);
-      addFields(userCase.ra_specialArrangements, specialArrangementsEn);
+      addFields(userCase.ra_specialArrangements);
     }
 
     if (userCase.ra_intermediaryRequirements !== undefined) {
@@ -555,6 +566,7 @@ export class ReasonableAdjustementsUtility {
     }
 
     console.log(userCase);
+    console.log(note);
 
     return note;
   }
