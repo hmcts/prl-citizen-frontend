@@ -518,7 +518,6 @@ export class ReasonableAdjustementsUtility {
       for (const field of fields) {
         addLine(displayText['en'][field] ?? field);
       }
-      note = note.concat('\n');
     };
 
     const addYesOrNoSubField = (field: string, subfield: string | undefined) => {
@@ -527,7 +526,6 @@ export class ReasonableAdjustementsUtility {
       if (field === YesOrNo.YES && subfield !== undefined) {
         addLine(subfield);
       }
-      note = note.concat('\n');
     };
 
     if (userCase.ra_typeOfHearing !== undefined) {
@@ -536,8 +534,8 @@ export class ReasonableAdjustementsUtility {
 
       if (userCase.ra_noVideoAndPhoneHearing_subfield !== undefined) {
         addLine(userCase.ra_noVideoAndPhoneHearing_subfield);
-        note = note.concat('\n');
       }
+      note = note.concat('\n');
     }
 
     if (userCase.ra_languageNeeds !== undefined) {
@@ -546,23 +544,26 @@ export class ReasonableAdjustementsUtility {
 
       if (userCase.ra_needInterpreterInCertainLanguage_subfield !== undefined) {
         addLine(userCase.ra_needInterpreterInCertainLanguage_subfield);
-        note = note.concat('\n');
       }
+      note = note.concat('\n');
     }
 
     if (userCase.ra_specialArrangements !== undefined) {
       addLine(specialArrangementsEn.headingTitle);
       addFields(userCase.ra_specialArrangements);
+      note = note.concat('\n');
     }
 
     if (userCase.ra_intermediaryRequirements !== undefined) {
       addLine(intermediaryRequirementsEn.headingTitle);
       addYesOrNoSubField(userCase.ra_intermediaryRequirements, userCase.ra_intermediaryRequired_subfield);
+      note = note.concat('\n');
     }
 
     if (userCase.ra_assistanceRequirements !== undefined) {
       addLine(supportDuringCaseEn.headingTitle);
       addYesOrNoSubField(userCase.ra_assistanceRequirements, userCase.ra_assistanceRequirements_subfield);
+      note = note.concat('\n');
     }
 
     console.log(userCase);

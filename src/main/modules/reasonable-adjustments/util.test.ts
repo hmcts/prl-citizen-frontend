@@ -376,11 +376,11 @@ describe('RA util', () => {
         `${attendingCourtEn.headingTitle}` +
         '\n' +
         `${attendingCourtEn.noVideoAndPhoneHearing}` +
-        '\n\ntest\n\n' +
+        '\ntest\n\n' +
         `${langRequirementsEn.headingTitle}` +
         '\n' +
         `${langRequirementsEn.needInterpreterInCertainLanguage}` +
-        '\n\ntest\n\n' +
+        '\ntest\n\n' +
         `${specialArrangementsEn.headingTitle}` +
         '\n' +
         `${specialArrangementsEn.separateWaitingRoom}` +
