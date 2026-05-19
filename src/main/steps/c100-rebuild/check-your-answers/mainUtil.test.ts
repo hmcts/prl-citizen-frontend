@@ -137,7 +137,7 @@ const content = {
   address: 'ADDRESS',
   telephone: 'TELEPHONE',
   email: 'EMAIL',
-  yes: 'Yes'
+  yes: 'Yes',
 };
 
 describe('test cases for main util', () => {
@@ -2323,7 +2323,7 @@ describe('test cases for main util', () => {
     });
   });
 
-    test('Confidential questions are mandatory for multiple respondents, confidential info filled in', () => {
+  test('Confidential questions are mandatory for multiple respondents, confidential info filled in', () => {
     const userCase = {
       id: 'id',
       state: undefined,
@@ -2454,11 +2454,10 @@ describe('test cases for main util', () => {
         text: "Do you want to request to keep Respondent SecondPage's contact details private from the other people named in the application?",
       },
       value: {
-        html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class=\"govuk-summary-list__row border-bottom--none\"><dd class=\"govuk-summary-list__value\"><ul class=\"govuk-list govuk-list--bullet\"><li>ADDRESS</li><li>TELEPHONE</li><li>EMAIL</li></ul></dd></div></dl>',
+        html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><li>ADDRESS</li><li>TELEPHONE</li><li>EMAIL</li></ul></dd></div></dl>',
       },
     });
   });
-
 
   //SafetyConcerns_yours
   test('SafetyConcerns_yours', () => {
