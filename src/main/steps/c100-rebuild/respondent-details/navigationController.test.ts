@@ -267,11 +267,8 @@ describe('RespondentsDetailsNavigationController', () => {
           respondentId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
         }
       )
-    ).toBe(
-      '/c100-rebuild/refuge/staying-in-refuge/2732dd53-2e6c-46f9-88cd-08230e735b08?'
-    );
+    ).toBe('/c100-rebuild/refuge/staying-in-refuge/2732dd53-2e6c-46f9-88cd-08230e735b08?');
   });
-
 
   test('From Respondent1 relationship to child 2 screen -> navigate to refuge', async () => {
     const dummyparams = mockRequest({
