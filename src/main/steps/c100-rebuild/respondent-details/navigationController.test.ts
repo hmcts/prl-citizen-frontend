@@ -257,7 +257,7 @@ describe('RespondentsDetailsNavigationController', () => {
     );
   });
 
-  test('From Respondent1 relationship to child 2 screen -> navigate to Respondent address/lookup screen', async () => {
+  test('From Respondent1 relationship to child 2 screen -> navigate to staying in refuge screen', async () => {
     const dummyparams = mockRequest({
       params: {
         childId: '7483640e-0817-4ddc-b709-6723f7925635',
@@ -270,7 +270,7 @@ describe('RespondentsDetailsNavigationController', () => {
         dummyRequest.session.userCase,
         dummyparams.params
       )
-    ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/lookup');
+    ).toBe('/c100-rebuild/refuge/staying-in-refuge/2732dd53-2e6c-46f9-88cd-08230e735b08?');
   });
 
   test('From Respondent address/lookup screen -> navigate to Respondent address/select screen', async () => {
