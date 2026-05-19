@@ -124,8 +124,8 @@ const keys = {
   otherPerson: 'Other person',
   refuge: 'refuge',
   c8RefugeDocument: 'c8RefugeDocument',
-  isOtherPersonAddressConfidential:
-    'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
+  isOtherPersonAddressConfidential: 'isOtherPersonAddressConfidential',
+  isOtherPersonIdentityConfidential: 'isOtherPersonIdentityConfidential',
   doYouWantToKeep: 'Do the other people named in the application (the respondents) know any contact details of {name}?',
   courtOrderPrevent: 'courtOrderPrevent',
   doYouWantToKeepResp:
@@ -1327,6 +1327,24 @@ describe('test cases for main util', () => {
           html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
+      {
+        actions: {
+          items: [
+            {
+              href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/confidentiality/start-alternative',
+              text: undefined,
+              visuallyHiddenText: 'Other person 1 isOtherPersonAddressConfidential',
+              attributes: { id: 'isAddressConfidential-otherPerson-0' },
+            },
+          ],
+        },
+        key: {
+          text: 'isOtherPersonAddressConfidential',
+        },
+        value: {
+          html: '<span class="govuk-error-message">Complete this section</span>',
+        },
+      },
     ]);
   });
 
@@ -1605,14 +1623,13 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/other-person-details/7483640e-0817-4ddc-b709-6723f7925474/confidentiality',
                 text: undefined,
-                visuallyHiddenText:
-                  'Do you want to keep Bob Silly’s contact details private from the other people named in the application (the respondents)?',
+                visuallyHiddenText: 'isOtherPersonIdentityConfidential',
                 attributes: { id: 'otherPersonConfidentiality-otherPerson-0' },
               },
             ],
           },
           key: {
-            text: 'Do you want to keep Bob Silly’s contact details private from the other people named in the application (the respondents)?',
+            text: 'isOtherPersonIdentityConfidential',
           },
           value: {
             html: 'Yes',
