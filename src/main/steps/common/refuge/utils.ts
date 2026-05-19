@@ -62,7 +62,11 @@ export const deleteDocument = async (
 export const deleteC100RefugeDoc = (req: AppRequest, caseData: CaseWithId, id: string): void => {
   const c100Person = getPeople(caseData).find(person => person.id === id);
   const isApplicant = c100Person?.partyType === PartyType.APPLICANT;
-  const partyDetailsList = isApplicant ? caseData.appl_allApplicants : caseData.oprs_otherPersons;
+  const partyDetailsList = isApplicant
+    ? caseData.appl_allApplicants
+    : c100Person?.partyType === PartyType.RESPONDENT
+    ? caseData.resp_Respondents
+    : caseData.oprs_otherPersons;
   const partyDetails = getPartyDetails(id, partyDetailsList) as C100Applicant | C100RebuildPartyDetails;
 
   if (partyDetails.hasOwnProperty('refugeConfidentialityC8Form')) {

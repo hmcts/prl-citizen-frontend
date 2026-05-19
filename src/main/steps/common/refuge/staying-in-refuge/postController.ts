@@ -31,10 +31,9 @@ export default class StayingInRefugeController extends PostController<AnyObject>
       if (req?.originalUrl?.startsWith(C100_URL)) {
         const c100Person = getPeople(userCase).find(person => person.id === id);
         const isApplicant = c100Person?.partyType === PartyType.APPLICANT;
-        const isRespondent = c100Person?.partyType === PartyType.RESPONDENT;
         const partyDetailsList = isApplicant
           ? userCase.appl_allApplicants
-          : isRespondent
+          : c100Person?.partyType === PartyType.RESPONDENT
           ? userCase.resp_Respondents
           : userCase.oprs_otherPersons;
         const partyDetails = getPartyDetails(id, partyDetailsList) as C100Applicant | C100RebuildPartyDetails;
