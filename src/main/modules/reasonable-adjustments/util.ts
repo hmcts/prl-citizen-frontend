@@ -9,6 +9,11 @@ import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { PageContent } from '../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../app/form/Form';
 import { CommonContent } from '../../steps/common/common.content';
+import { languages as attendingCourtLanguages } from '../../steps/common/reasonable-adjustments/attending-court/content';
+import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
+import { languages as langRequirementsLanguages } from '../../steps/common/reasonable-adjustments/language-requirements/content';
+import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
+import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
 import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../steps/tasklistresponse/utils';
@@ -496,42 +501,58 @@ export class ReasonableAdjustementsUtility {
   }
 
   prepareCaseNoteText(userCase: Partial<CaseWithId>): string {
+    const attendingCourtEn = attendingCourtLanguages.en();
+    const langRequirementsEn = langRequirementsLanguages.en();
+    const specialArrangementsEn = specialArrangementsLanguages.en();
+    const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
+    const supportDuringCaseEn = supportDuringCaseLanguages.en();
     let note = '';
 
-    // For spike purposes:
-    note = note.concat('Would you be able to take part in hearings by video and phone?');
-    note = note.concat('\n');
-    note = note.concat('Yes, I can take part in video hearings');
-    note = note.concat('\n');
-    note = note.concat('\n');
+    const addLine = (line: string) => {
+      note = note.concat(line);
+      note = note.concat('\n');
+    };
 
-    note = note.concat('Do you have any language requirements?');
-    note = note.concat('\n');
-    note = note.concat('No, I do not have any language requirements at this time');
-    note = note.concat('\n');
-    note = note.concat('\n');
+    const addFields = (fields: string[], translations: Record<string, any>) => {
+      for (const field of fields) {
+        addLine(translations[field]);
+      }
+      note = note.concat('\n');
+    };
 
-    note = note.concat('Do you or the children need special arrangements at court?');
-    note = note.concat('\n');
-    note = note.concat('a separate waiting room in the court building');
-    note = note.concat('\n');
-    note = note.concat('a separate entrance and exit from the court building');
-    note = note.concat('\n');
-    note = note.concat('\n');
+    const addYesOrNoSubField = (field: string, subfield: string | undefined) => {
+      addLine(field);
 
-    note = note.concat('Are you aware of whether an intermediary will be required?');
-    note = note.concat('\n');
-    note = note.concat('Yes');
-    note = note.concat('\n');
-    note = note.concat('Intermediary text field');
-    note = note.concat('\n');
-    note = note.concat('\n');
+      if (field === YesOrNo.YES && subfield !== undefined) {
+        addLine(subfield);
+      }
+      note = note.concat('\n');
+    };
 
-    note = note.concat(
-      'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?'
-    );
-    note = note.concat('\n');
-    note = note.concat('No');
+    if (userCase.ra_typeOfHearing !== undefined) {
+      addLine(attendingCourtEn.headingTitle);
+      addFields(userCase.ra_typeOfHearing, attendingCourtEn);
+    }
+
+    if (userCase.ra_languageNeeds !== undefined) {
+      addLine(langRequirementsEn.headingTitle);
+      addFields(userCase.ra_languageNeeds, langRequirementsEn);
+    }
+
+    if (userCase.ra_specialArrangements !== undefined) {
+      addLine(specialArrangementsEn.headingTitle);
+      addFields(userCase.ra_specialArrangements, specialArrangementsEn);
+    }
+
+    if (userCase.ra_intermediaryRequirements !== undefined) {
+      addLine(intermediaryRequirementsEn.headingTitle);
+      addYesOrNoSubField(userCase.ra_intermediaryRequirements, userCase.ra_intermediaryRequired_subfield);
+    }
+
+    if (userCase.ra_assistanceRequirements !== undefined) {
+      addLine(supportDuringCaseEn.headingTitle);
+      addYesOrNoSubField(userCase.ra_assistanceRequirements, userCase.ra_assistanceRequirements_subfield);
+    }
 
     console.log(userCase);
 
