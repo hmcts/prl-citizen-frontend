@@ -13,7 +13,7 @@ export const en = () => ({
   listOfBullets: ['{address}', '{telephoneNumber}', '{email}'],
   heading3: 'What the court will do',
   paragraphTwo:
-    'The court will hold this information securely and will not share it with anyone except Cafcass or Cafcass Cymru and the local authority, if they are involved in your case, unless it is by order of the court.',
+    'The court will hold this information securely and will not share it with anyone except Cafcass or Cafcass Cymru or the local authority, if they are involved in your case, unless it is by order of the court.',
 });
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -24,7 +24,7 @@ export const cy = () => ({
   listOfBullets: ['{address}', '{telephoneNumber}', '{email}'],
   heading3: 'Beth fydd y llys yn ei wneud',
   paragraphTwo:
-    "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass neu Cafcass Cymru a'r awdurdod lleol, os ydynt yn ymwneud â'ch achos, oni bai ei fod trwy orchymyn y llys.",
+    "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass neu Cafcass Cymru neu'r awdurdod lleol, os ydynt yn ymwneud â'ch achos, oni bai ei fod trwy orchymyn y llys.",
 });
 
 const languages = {

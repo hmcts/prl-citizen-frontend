@@ -20,7 +20,7 @@ const enLanguageContent = {
   headingTitle: "The court will keep {name}'s address private",
   p1: "You have told us you want to keep {name}'s address private",
   heading3: 'What the court will do',
-  p2: 'The court will hold this information securely and will not share it with anyone except Cafcass or Cafcass Cymru and the local authority, if they are involved in your case, unless it is by order of the court.',
+  p2: 'The court will hold this information securely and will not share it with anyone except Cafcass or Cafcass Cymru or the local authority, if they are involved in your case, unless it is by order of the court.',
 };
 
 const cyLanguageContent = {
@@ -28,7 +28,7 @@ const cyLanguageContent = {
   headingTitle: 'Bydd y llys yn cadw cyfeiriad {name} yn breifat.',
   p1: 'Rydych wedi dweud wrthym eich bod am gadw cyfeiriad {name} yn breifat.',
   heading3: 'Beth fydd y llys yn ei wneud',
-  p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass neu Cafcass Cymru a'r awdurdod lleol, os ydynt yn ymwneud â'ch achos, oni bai ei fod trwy orchymyn y llys.",
+  p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass neu Cafcass Cymru neu'r awdurdod lleol, os ydynt yn ymwneud â'ch achos, oni bai ei fod trwy orchymyn y llys.",
 };
 
 describe('other-person confidentiality > feedback', () => {
