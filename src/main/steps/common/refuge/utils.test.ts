@@ -181,6 +181,24 @@ describe('C8 refuge > utils', () => {
       deleteC100RefugeDoc(req, req.session.userCase, '6b792169-84df-4e9a-8299-c2c77c9b7e58');
       expect(req.session.userCase.oprs_otherPersons[0].refugeConfidentialityC8Form).toBe(undefined);
     });
+
+    test('should delete document for c100 respondent', () => {
+      req.session.userCase.resp_Respondents = [
+        {
+          id: '6b792169-84df-4e9a-8299-c2c77c9b7e59',
+          firstName: 'Respondent',
+          lastName: 'Test',
+          liveInRefuge: 'Yes',
+          refugeConfidentialityC8Form: {
+            document_url: 'MOCK_URL',
+            document_binary_url: 'MOCK_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+          },
+        },
+      ];
+      deleteC100RefugeDoc(req, req.session.userCase, '6b792169-84df-4e9a-8299-c2c77c9b7e59');
+      expect(req.session.userCase.resp_Respondents[0].refugeConfidentialityC8Form).toBe(undefined);
+    });
   });
 
   describe('getC8DocumentForC100', () => {
@@ -240,6 +258,35 @@ describe('C8 refuge > utils', () => {
           firstName: 'dummy',
           lastName: 'Test',
           partyType: PartyType.OTHER_PERSON,
+        })
+      ).toStrictEqual({
+        document_url: 'MOCK_URL',
+        document_binary_url: 'MOCK_BINARY_URL',
+        document_filename: 'MOCK_FILENAME',
+      });
+    });
+
+    test('should get c8 document for respondent', () => {
+      req.session.userCase.resp_Respondents = [
+        {
+          id: '6b792169-84df-4e9a-8299-c2c77c9b7e59',
+          firstName: 'Respondent',
+          lastName: 'Test',
+          liveInRefuge: 'Yes',
+          refugeConfidentialityC8Form: {
+            document_url: 'MOCK_URL',
+            document_binary_url: 'MOCK_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+          },
+        },
+      ];
+
+      expect(
+        getC8DocumentForC100('6b792169-84df-4e9a-8299-c2c77c9b7e59', req.session.userCase, {
+          id: '6b792169-84df-4e9a-8299-c2c77c9b7e59',
+          firstName: 'Respondent',
+          lastName: 'Test',
+          partyType: PartyType.RESPONDENT,
         })
       ).toStrictEqual({
         document_url: 'MOCK_URL',
@@ -398,6 +445,58 @@ describe('C8 refuge > utils', () => {
               document_filename: 'MOCK_FILENAME',
               document_url: 'MOCK_URL',
             },
+          },
+        ],
+        id: '1234',
+      });
+    });
+
+    test('should update respondent details', () => {
+      req.session.userCase.resp_Respondents = [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925476',
+          firstName: 'Respondent',
+          lastName: 'Test',
+          liveInRefuge: 'Yes',
+          refugeConfidentialityC8Form: {
+            document_url: 'MOCK_URL',
+            document_binary_url: 'MOCK_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+          },
+        },
+      ];
+
+      expect(
+        updateApplicantOtherPersonDetails(
+          req.session.userCase,
+          {
+            id: '7483640e-0817-4ddc-b709-6723f7925476',
+            firstName: 'Respondent',
+            lastName: 'Test',
+            liveInRefuge: 'No',
+          } as unknown as C100RebuildPartyDetails,
+          [
+            {
+              id: '7483640e-0817-4ddc-b709-6723f7925476',
+              firstName: 'Respondent',
+              lastName: 'Test',
+              liveInRefuge: 'Yes',
+              refugeConfidentialityC8Form: {
+                document_url: 'MOCK_URL',
+                document_binary_url: 'MOCK_BINARY_URL',
+                document_filename: 'MOCK_FILENAME',
+              },
+            },
+          ] as unknown as People[],
+          PartyType.RESPONDENT
+        )
+      ).toStrictEqual({
+        resp_Respondents: [
+          {
+            firstName: 'Respondent',
+            lastName: 'Test',
+            id: '7483640e-0817-4ddc-b709-6723f7925476',
+            liveInRefuge: 'No',
           },
         ],
         id: '1234',
