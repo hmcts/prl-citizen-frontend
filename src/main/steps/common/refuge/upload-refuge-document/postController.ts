@@ -64,7 +64,7 @@ export default class C8RefugeploadDocumentPostController extends PostController<
           caseData,
           partyDetails,
           partyDetailsList!,
-          isApplicant
+          c100Person?.partyType as PartyType
         );
       } else {
         req.session.userCase.refugeDocument = response.document;

@@ -304,7 +304,7 @@ describe('C8 refuge > utils', () => {
               },
             },
           ] as unknown as People[],
-          true
+          PartyType.APPLICANT
         )
       ).toStrictEqual({
         appl_allApplicants: [
@@ -378,7 +378,7 @@ describe('C8 refuge > utils', () => {
               },
             },
           ] as unknown as People[],
-          false
+          PartyType.OTHER_PERSON
         )
       ).toStrictEqual({
         oprs_otherPersons: [

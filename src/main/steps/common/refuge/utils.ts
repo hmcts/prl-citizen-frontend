@@ -68,7 +68,12 @@ export const deleteC100RefugeDoc = (req: AppRequest, caseData: CaseWithId, id: s
   if (partyDetails.hasOwnProperty('refugeConfidentialityC8Form')) {
     delete partyDetails.refugeConfidentialityC8Form;
 
-    req.session.userCase = updateApplicantOtherPersonDetails(caseData, partyDetails, partyDetailsList!, isApplicant);
+    req.session.userCase = updateApplicantOtherPersonDetails(
+      caseData,
+      partyDetails,
+      partyDetailsList!,
+      c100Person?.partyType as PartyType
+    );
   }
 };
 
@@ -76,10 +81,12 @@ export const updateApplicantOtherPersonDetails = (
   caseData: CaseWithId,
   partyDetails: C100Applicant | C100RebuildPartyDetails,
   partyDetailsList: CombinedPeople[],
-  isApplicant: boolean
+  partyType: PartyType
 ): CaseWithId => {
-  if (isApplicant) {
+  if (partyType === PartyType.APPLICANT) {
     caseData.appl_allApplicants = updatePartyDetails(partyDetails, partyDetailsList) as C100Applicant[];
+  } else if (partyType === PartyType.RESPONDENT) {
+    caseData.resp_Respondents = updatePartyDetails(partyDetails, partyDetailsList) as C100RebuildPartyDetails[];
   } else {
     caseData.oprs_otherPersons = updatePartyDetails(partyDetails, partyDetailsList) as C100RebuildPartyDetails[];
   }
@@ -89,5 +96,7 @@ export const updateApplicantOtherPersonDetails = (
 export const getC8DocumentForC100 = (id: string, caseData: CaseWithId, person: People): Document | undefined => {
   return person.partyType === PartyType.APPLICANT
     ? (getPartyDetails(id, caseData.appl_allApplicants) as C100Applicant).refugeConfidentialityC8Form
+    : person.partyType === PartyType.RESPONDENT
+    ? (getPartyDetails(id, caseData.resp_Respondents) as C100RebuildPartyDetails).refugeConfidentialityC8Form
     : (getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails).refugeConfidentialityC8Form;
 };

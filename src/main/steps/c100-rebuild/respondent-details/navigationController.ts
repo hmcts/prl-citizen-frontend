@@ -1,5 +1,5 @@
 import { Case } from '../../../app/case/case';
-import { C100RebuildPartyDetails, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
+import { C100RebuildPartyDetails, ChildrenDetails, RootContext, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
   C100_OTHER_PERSON_CHECK,
@@ -14,6 +14,7 @@ import {
   C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
   PageLink,
+  STAYING_IN_REFUGE,
 } from '../../urls';
 import { getNextPerson, getPartyDetails } from '../people/util';
 
@@ -53,8 +54,9 @@ class RespondentsDetailsNavigationController {
               respondentId: this.respondentId,
               childId: nextChild.id as ChildrenDetails['id'],
             })
-          : applyParms(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, {
-              respondentId: this.respondentId,
+          : applyParms(STAYING_IN_REFUGE, {
+              root: RootContext.C100_REBUILD,
+              id: this.respondentId,
             });
         break;
       }

@@ -17,6 +17,7 @@ import {
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_REFUGE_UPLOAD_DOC,
+  C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
   C100_URL,
   PageLink,
   REFUGE_DOC_ALREADY_UPLOADED,
@@ -102,6 +103,8 @@ class RefugeNavigationController {
   private getC100AddressUrl(id: string, person?: People): PageLink {
     return person?.partyType === PartyType.APPLICANT
       ? (applyParms(C100_APPLICANTS_PERSONAL_DETAILS, { applicantId: id }) as PageLink)
+      : person?.partyType === PartyType.RESPONDENT
+      ? (applyParms(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, { respondentId: id }) as PageLink)
       : (applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId: id }) as PageLink);
   }
 
@@ -133,6 +136,8 @@ class RefugeNavigationController {
     const details =
       person.partyType === PartyType.APPLICANT
         ? (getPartyDetails(id, caseData.appl_allApplicants) as C100Applicant)
+        : person.partyType === PartyType.RESPONDENT
+        ? (getPartyDetails(id, caseData.resp_Respondents) as C100RebuildPartyDetails)
         : (getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails);
 
     return details.liveInRefuge === YesOrNo.YES;
