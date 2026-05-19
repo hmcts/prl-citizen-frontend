@@ -1327,24 +1327,6 @@ describe('test cases for main util', () => {
           html: '<span class="govuk-error-message">Complete this section</span>',
         },
       },
-      {
-        actions: {
-          items: [
-            {
-              href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/confidentiality/start-alternative',
-              text: undefined,
-              visuallyHiddenText: 'Other person 1 isOtherPersonAddressConfidential',
-              attributes: { id: 'isAddressConfidential-otherPerson-0' },
-            },
-          ],
-        },
-        key: {
-          text: 'isOtherPersonAddressConfidential',
-        },
-        value: {
-          html: '<span class="govuk-error-message">Complete this section</span>',
-        },
-      },
     ]);
   });
 

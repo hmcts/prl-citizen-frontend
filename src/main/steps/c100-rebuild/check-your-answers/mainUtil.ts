@@ -1966,23 +1966,28 @@ export const OtherPeopleDetails = (
         generateOtherPersonAddressContent(sessionOtherPeopleData, respondent, keys, id, language)
       );
 
-      const isAddressOnlyConfidential: YesOrNo =
-        sessionOtherPeopleData[respondent]['isOtherPersonAddressOnlyConfidential'];
-      newOtherPeopleStorage.push({
-        key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
-        anchorReference: `isAddressConfidential-otherPerson-${respondent}`,
-        visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
-          keys['isOtherPersonAddressConfidential']
-        }`,
-        valueHtml: populateError(
-          isAddressOnlyConfidential,
-          getYesNoTranslation(language, isAddressOnlyConfidential, 'doTranslation'),
-          language
-        ),
-        changeUrl: applyParms(Urls.C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE, {
-          otherPersonId: id,
-        }),
-      });
+      const otherLiveInRefuge = sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES;
+      const addressKnown = sessionOtherPeopleData[respondent].addressUnknown !== YesOrNo.YES;
+
+      if (addressKnown && !otherLiveInRefuge) {
+        const isAddressOnlyConfidential: YesOrNo =
+          sessionOtherPeopleData[respondent]['isOtherPersonAddressOnlyConfidential'];
+        newOtherPeopleStorage.push({
+          key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
+          anchorReference: `isAddressConfidential-otherPerson-${respondent}`,
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
+            keys['isOtherPersonAddressConfidential']
+          }`,
+          valueHtml: populateError(
+            isAddressOnlyConfidential,
+            getYesNoTranslation(language, isAddressOnlyConfidential, 'doTranslation'),
+            language
+          ),
+          changeUrl: applyParms(Urls.C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE, {
+            otherPersonId: id,
+          }),
+        });
+      }
     }
   } else {
     newOtherPeopleStorage.push(

@@ -93,8 +93,9 @@ class OtherPersonsDetailsNavigationController {
         // other-person confidentiality start-alternative page. Otherwise preserve the existing
         // flow (move to next other person or proceed to children section).
         const currentOtherPerson = this.otherPersonsDetails.find(p => p.id === this.otherPersonId);
+        const liveInRefuge = currentOtherPerson?.liveInRefuge === YesOrNo.YES;
 
-        if (currentOtherPerson && currentOtherPerson.addressUnknown !== YesOrNo.YES) {
+        if (currentOtherPerson && currentOtherPerson.addressUnknown !== YesOrNo.YES && !liveInRefuge) {
           nextUrl = applyParms(C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE, {
             otherPersonId: this.otherPersonId,
           });
