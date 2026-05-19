@@ -863,7 +863,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[80].url).toBe('/c100-rebuild/respondent-details/:respondentId/relationship-to-child/:childId');
     expect(C100Sequence[80].showInSection).toBe('c100');
     expect(C100Sequence[80].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/lookup'
+      '/c100-rebuild/refuge/staying-in-refuge/2732dd53-2e6c-46f9-88cd-08230e735b08?'
     );
 
     expect(C100Sequence[81].url).toBe('/c100-rebuild/respondent-details/:respondentId/address/lookup');
