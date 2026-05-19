@@ -532,35 +532,35 @@ export class ReasonableAdjustementsUtility {
       addLine(attendingCourtEn.headingTitle);
       addFields(userCase.ra_typeOfHearing);
 
-      if (userCase.ra_noVideoAndPhoneHearing_subfield !== undefined) {
+      if (userCase.ra_noVideoAndPhoneHearing_subfield) {
         addLine(userCase.ra_noVideoAndPhoneHearing_subfield);
       }
       note = note.concat('\n');
     }
 
-    if (userCase.ra_languageNeeds !== undefined) {
+    if (userCase.ra_languageNeeds) {
       addLine(langRequirementsEn.headingTitle);
       addFields(userCase.ra_languageNeeds);
 
-      if (userCase.ra_needInterpreterInCertainLanguage_subfield !== undefined) {
+      if (userCase.ra_needInterpreterInCertainLanguage_subfield) {
         addLine(userCase.ra_needInterpreterInCertainLanguage_subfield);
       }
       note = note.concat('\n');
     }
 
-    if (userCase.ra_specialArrangements !== undefined) {
+    if (userCase.ra_specialArrangements) {
       addLine(specialArrangementsEn.headingTitle);
       addFields(userCase.ra_specialArrangements);
       note = note.concat('\n');
     }
 
-    if (userCase.ra_intermediaryRequirements !== undefined) {
+    if (userCase.ra_intermediaryRequirements) {
       addLine(intermediaryRequirementsEn.headingTitle);
       addYesOrNoSubField(userCase.ra_intermediaryRequirements, userCase.ra_intermediaryRequired_subfield);
       note = note.concat('\n');
     }
 
-    if (userCase.ra_assistanceRequirements !== undefined) {
+    if (userCase.ra_assistanceRequirements) {
       addLine(supportDuringCaseEn.headingTitle);
       addYesOrNoSubField(userCase.ra_assistanceRequirements, userCase.ra_assistanceRequirements_subfield);
       note = note.concat('\n');
