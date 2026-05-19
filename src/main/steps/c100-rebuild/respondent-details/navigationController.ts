@@ -82,10 +82,11 @@ class RespondentsDetailsNavigationController {
         const currentRespondent = this.respondentsDetails.find(p => p.id === this.respondentId);
         const hasEmail = currentRespondent?.contactDetails?.donKnowEmailAddress !== YesOrNo.YES;
         const hasPhone = currentRespondent?.contactDetails?.donKnowTelephoneNumber !== YesOrNo.YES;
+        const isRefuge = currentRespondent?.liveInRefuge === YesOrNo.YES;
         const hasAddress = currentRespondent?.address?.AddressLine1;
         const hasMoreThanOneRespondent = this.respondentsDetails.length > 1;
 
-        if (currentRespondent && hasMoreThanOneRespondent && (hasEmail || hasPhone || hasAddress)) {
+        if (currentRespondent && hasMoreThanOneRespondent && (hasEmail || hasPhone || hasAddress) && !isRefuge) {
           nextUrl = applyParms(C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE, {
             respondentId: this.respondentId,
           });

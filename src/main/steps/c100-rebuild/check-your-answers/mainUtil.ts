@@ -1610,6 +1610,7 @@ export const RespondentDetails = (
     const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
     const respondentNo = Number(respondent) + 1;
     const contactDetails = sessionRespondentData[respondent]['contactDetails'];
+    const liveInRefuge = sessionRespondentData[respondent]['liveInRefuge'] === YesOrNo.YES;
     const respondentFullName =
       _.isEmpty(firstName) || _.isEmpty(lastName)
         ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
@@ -1772,10 +1773,24 @@ export const RespondentDetails = (
         PartyType.RESPONDENT
       )
     );
+    newRespondentStorage.push({
+      key: keys['refuge'],
+      anchorReference: `refuge-respondent-${respondent}`,
+      valueHtml: populateError(
+        sessionRespondentData[respondent]['liveInRefuge'],
+        getYesNoTranslation(language, sessionRespondentData[respondent]['liveInRefuge'], 'ydwTranslation'),
+        language
+      ),
+      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['refuge']}`,
+      changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
+        root: RootContext.C100_REBUILD,
+        id: sessionRespondentData[respondent]['id'],
+      }),
+    });
     newRespondentStorage.push(
       ...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails, language)
     );
-    if (sessionRespondentData.length > 1) {
+    if (sessionRespondentData.length > 1 && !liveInRefuge) {
       newRespondentStorage.push({
         key: interpolate(keys['doYouWantToKeepResp'], { firstName, lastName }),
         visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${interpolate(

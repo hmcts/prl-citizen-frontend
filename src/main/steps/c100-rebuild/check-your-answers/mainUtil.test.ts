@@ -2145,6 +2145,26 @@ describe('test cases for main util', () => {
         actions: {
           items: [
             {
+              href: '/c100-rebuild/refuge/staying-in-refuge/974b73a9-730e-4db0-b703-19ed3eab0342?',
+              text: undefined,
+              visuallyHiddenText: 'respondents 1 refuge',
+              attributes: {
+                id: 'refuge-respondent-0',
+              },
+            },
+          ],
+        },
+        key: {
+          text: 'refuge',
+        },
+        value: {
+          html: '<span class="govuk-error-message">Complete this section</span>',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/address/manual',
               text: undefined,
               visuallyHiddenText: 'respondents 0 addressDetails',
