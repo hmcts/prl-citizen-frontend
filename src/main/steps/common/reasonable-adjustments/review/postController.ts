@@ -58,7 +58,6 @@ export default class RARespondentPostController extends PostController<AnyObject
         req.session.save(() => super.redirect(req, res));
       }
     } catch (err) {
-      console.log(err);
       RAProvider.log('error', err);
       throw new Error('RA for respondent while submit response - Case could not be updated.');
     }

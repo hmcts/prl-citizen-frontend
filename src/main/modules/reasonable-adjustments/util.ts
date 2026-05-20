@@ -448,6 +448,7 @@ export class ReasonableAdjustementsUtility {
       parkingDetails: caseData?.ra_parkingSpace_subfield,
       differentChairDetails: caseData?.ra_differentTypeChair_subfield,
       travellingOtherDetails: caseData?.ra_travellingCourtOther_subfield,
+      languageSupportNotes: caseData?.ra_languageReqAndSpecialArrangements,
     });
 
     return request;
