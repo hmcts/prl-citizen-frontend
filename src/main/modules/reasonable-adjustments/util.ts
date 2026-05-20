@@ -9,9 +9,7 @@ import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { PageContent } from '../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../app/form/Form';
 import { CommonContent } from '../../steps/common/common.content';
-import { languages as attendingCourtLanguages } from '../../steps/common/reasonable-adjustments/attending-court/content';
 import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
-import { languages as langRequirementsLanguages } from '../../steps/common/reasonable-adjustments/language-requirements/content';
 import { displayText } from '../../steps/common/reasonable-adjustments/review/content';
 import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
 import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
@@ -503,8 +501,6 @@ export class ReasonableAdjustementsUtility {
   }
 
   prepareCaseNoteText(userCase: Partial<CaseWithId>): string {
-    const attendingCourtEn = attendingCourtLanguages.en();
-    const langRequirementsEn = langRequirementsLanguages.en();
     const specialArrangementsEn = specialArrangementsLanguages.en();
     const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
     const supportDuringCaseEn = supportDuringCaseLanguages.en();
@@ -539,24 +535,6 @@ export class ReasonableAdjustementsUtility {
       addYesOrNoSubField(field, subfield);
       note = note.concat('\n');
     };
-
-    if (userCase.ra_typeOfHearing) {
-      addSection(attendingCourtEn.headingTitle, userCase.ra_typeOfHearing);
-
-      if (userCase.ra_noVideoAndPhoneHearing_subfield) {
-        addLine(userCase.ra_noVideoAndPhoneHearing_subfield);
-      }
-      note = note.concat('\n');
-    }
-
-    if (userCase.ra_languageNeeds) {
-      addSection(langRequirementsEn.headingTitle, userCase.ra_languageNeeds);
-
-      if (userCase.ra_needInterpreterInCertainLanguage_subfield) {
-        addLine(userCase.ra_needInterpreterInCertainLanguage_subfield);
-      }
-      note = note.concat('\n');
-    }
 
     if (userCase.ra_specialArrangements) {
       addSection(specialArrangementsEn.headingTitle, userCase.ra_specialArrangements);

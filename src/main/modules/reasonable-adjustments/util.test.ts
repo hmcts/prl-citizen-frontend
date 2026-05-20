@@ -1,8 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { CaseType, YesOrNo } from '../../app/case/definition';
-import { languages as attendingCourtLanguages } from '../../steps/common/reasonable-adjustments/attending-court/content';
 import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
-import { languages as langRequirementsLanguages } from '../../steps/common/reasonable-adjustments/language-requirements/content';
 import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
 import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
 
@@ -314,25 +312,11 @@ describe('RA util', () => {
         },
       });
 
-      const attendingCourtEn = attendingCourtLanguages.en();
-      const langRequirementsEn = langRequirementsLanguages.en();
       const specialArrangementsEn = specialArrangementsLanguages.en();
       const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
       const supportDuringCaseEn = supportDuringCaseLanguages.en();
 
       const expected =
-        `${attendingCourtEn.headingTitle}` +
-        '\n' +
-        `${attendingCourtEn.videoHearing}` +
-        '\n' +
-        `${attendingCourtEn.phoneHearing}` +
-        '\n\n' +
-        `${langRequirementsEn.headingTitle}` +
-        '\n' +
-        `${langRequirementsEn.speakInWelsh}` +
-        '\n' +
-        `${langRequirementsEn.readAndWriteInWelsh}` +
-        '\n\n' +
         `${specialArrangementsEn.headingTitle}` +
         '\n' +
         `${specialArrangementsEn.separateWaitingRoom}` +
@@ -366,21 +350,11 @@ describe('RA util', () => {
         },
       });
 
-      const attendingCourtEn = attendingCourtLanguages.en();
-      const langRequirementsEn = langRequirementsLanguages.en();
       const specialArrangementsEn = specialArrangementsLanguages.en();
       const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
       const supportDuringCaseEn = supportDuringCaseLanguages.en();
 
       const expected =
-        `${attendingCourtEn.headingTitle}` +
-        '\n' +
-        `${attendingCourtEn.noVideoAndPhoneHearing}` +
-        '\ntest\n\n' +
-        `${langRequirementsEn.headingTitle}` +
-        '\n' +
-        `${langRequirementsEn.needInterpreterInCertainLanguage}` +
-        '\ntest\n\n' +
         `${specialArrangementsEn.headingTitle}` +
         '\n' +
         `${specialArrangementsEn.separateWaitingRoom}` +
