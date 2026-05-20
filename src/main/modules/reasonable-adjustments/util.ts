@@ -523,14 +523,24 @@ export class ReasonableAdjustementsUtility {
     const addYesOrNoSubField = (field: string, subfield: string | undefined) => {
       addLine(field);
 
-      if (field === YesOrNo.YES && subfield !== undefined) {
+      if (field === YesOrNo.YES && subfield) {
         addLine(subfield);
       }
     };
 
-    if (userCase.ra_typeOfHearing !== undefined) {
-      addLine(attendingCourtEn.headingTitle);
-      addFields(userCase.ra_typeOfHearing);
+    const addSection = (heading: string, fields: string[]) => {
+      addLine(heading);
+      addFields(fields);
+    };
+
+    const addYesOrNoSection = (heading: string, field: string, subfield: string | undefined) => {
+      addLine(heading);
+      addYesOrNoSubField(field, subfield);
+      note = note.concat('\n');
+    };
+
+    if (userCase.ra_typeOfHearing) {
+      addSection(attendingCourtEn.headingTitle, userCase.ra_typeOfHearing);
 
       if (userCase.ra_noVideoAndPhoneHearing_subfield) {
         addLine(userCase.ra_noVideoAndPhoneHearing_subfield);
@@ -539,8 +549,7 @@ export class ReasonableAdjustementsUtility {
     }
 
     if (userCase.ra_languageNeeds) {
-      addLine(langRequirementsEn.headingTitle);
-      addFields(userCase.ra_languageNeeds);
+      addSection(langRequirementsEn.headingTitle, userCase.ra_languageNeeds);
 
       if (userCase.ra_needInterpreterInCertainLanguage_subfield) {
         addLine(userCase.ra_needInterpreterInCertainLanguage_subfield);
@@ -549,25 +558,25 @@ export class ReasonableAdjustementsUtility {
     }
 
     if (userCase.ra_specialArrangements) {
-      addLine(specialArrangementsEn.headingTitle);
-      addFields(userCase.ra_specialArrangements);
+      addSection(specialArrangementsEn.headingTitle, userCase.ra_specialArrangements);
       note = note.concat('\n');
     }
 
     if (userCase.ra_intermediaryRequirements) {
-      addLine(intermediaryRequirementsEn.headingTitle);
-      addYesOrNoSubField(userCase.ra_intermediaryRequirements, userCase.ra_intermediaryRequired_subfield);
-      note = note.concat('\n');
+      addYesOrNoSection(
+        intermediaryRequirementsEn.headingTitle,
+        userCase.ra_intermediaryRequirements,
+        userCase.ra_intermediaryRequired_subfield
+      );
     }
 
     if (userCase.ra_assistanceRequirements) {
-      addLine(supportDuringCaseEn.headingTitle);
-      addYesOrNoSubField(userCase.ra_assistanceRequirements, userCase.ra_assistanceRequirements_subfield);
-      note = note.concat('\n');
+      addYesOrNoSection(
+        supportDuringCaseEn.headingTitle,
+        userCase.ra_assistanceRequirements,
+        userCase.ra_assistanceRequirements_subfield
+      );
     }
-
-    console.log(userCase);
-    console.log(note);
 
     return note;
   }
