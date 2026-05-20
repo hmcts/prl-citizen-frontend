@@ -2778,8 +2778,8 @@ export type C100RebuildPartyDetails = {
   addressUnknown?: YesOrNo;
   liveInRefuge?: YesOrNo;
   refugeConfidentialityC8Form?: Document;
-  isOtherPersonAddressConfidential?: YesOrNo;
-  isOtherPersonAddressOnlyConfidential?: YesOrNo;
+  isOtherPersonAddressConfidential?: YesOrNo; // identity
+  isOtherPersonAddressOnlyConfidential?: YesOrNo; // address
   isRespondentAddressConfidential?: YesOrNo;
   isRespondentTelephoneNumberConfidential?: YesOrNo;
   isRespondentEmailAddressConfidential?: YesOrNo;
