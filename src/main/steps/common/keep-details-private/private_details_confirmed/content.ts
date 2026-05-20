@@ -30,7 +30,7 @@ export const cy: typeof en = {
   email: 'E-bost',
   line2: 'Beth fydd y llys yn ei wneud',
   line3:
-    "Bydd y llys yn cadw’r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass neu Cafcass Cymru, neu’r awdurdod lleol os ydynt yn ymwneud â’ch achos, oni bai ei fod trwy orchymyn y llys.",
+    'Bydd y llys yn cadw’r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass neu Cafcass Cymru, neu’r awdurdod lleol os ydynt yn ymwneud â’ch achos, oni bai ei fod trwy orchymyn y llys.',
   [PartyType.APPLICANT]: {
     continue: 'Cadw a pharhau',
     phoneNumber: 'Rhif ffôn',
