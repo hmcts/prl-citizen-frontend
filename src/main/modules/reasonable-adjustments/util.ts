@@ -507,8 +507,7 @@ export class ReasonableAdjustementsUtility {
     let note = '';
 
     const addLine = (line: string) => {
-      note = note.concat(line);
-      note = note.concat('\n');
+      note = note.concat(line, '\n');
     };
 
     const addFields = (fields: string[]) => {
@@ -517,28 +516,23 @@ export class ReasonableAdjustementsUtility {
       }
     };
 
-    const addYesOrNoSubField = (field: string, subfield: string | undefined) => {
-      addLine(field);
-
-      if (field === YesOrNo.YES && subfield) {
-        addLine(subfield);
-      }
-    };
-
     const addSection = (heading: string, fields: string[]) => {
       addLine(heading);
       addFields(fields);
+      note = note.concat('\n');
     };
 
     const addYesOrNoSection = (heading: string, field: string, subfield: string | undefined) => {
       addLine(heading);
-      addYesOrNoSubField(field, subfield);
+      addLine(field);
+      if (field === YesOrNo.YES && subfield) {
+        addLine(subfield);
+      }
       note = note.concat('\n');
     };
 
     if (userCase.ra_specialArrangements) {
       addSection(specialArrangementsEn.headingTitle, userCase.ra_specialArrangements);
-      note = note.concat('\n');
     }
 
     if (userCase.ra_intermediaryRequirements) {
