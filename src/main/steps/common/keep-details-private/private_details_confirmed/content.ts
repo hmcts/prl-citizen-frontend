@@ -11,7 +11,7 @@ export const en = {
   email: 'Email',
   line2: 'What the court will do',
   line3:
-    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass Cymru, or the local authority if they are involved in your case, unless it is by order of the court.',
+    'The court will hold this information securely and will not share it with anyone except the Children and Family Court Advisory and Support Service (Cafcass), Cafcass Cymru, or the local authority, if they are involved in your case, unless it is by order of the court.',
   [PartyType.APPLICANT]: {
     continue: 'Save and continue',
     phoneNumber: 'Telephone number',
@@ -30,7 +30,7 @@ export const cy: typeof en = {
   email: 'E-bost',
   line2: 'Beth fydd y llys yn ei wneud',
   line3:
-    'Bydd y llys yn cadw’r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass neu Cafcass Cymru, neu’r awdurdod lleol os ydynt yn ymwneud â’ch achos, oni bai ei fod trwy orchymyn y llys.',
+    'Bydd y llys yn cadw’r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio’r Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass), Cafcass Cymru, neu’r awdurdod lleol, os ydynt yn ymwneud â’ch achos, oni bai ei fod trwy orchymyn y llys.',
   [PartyType.APPLICANT]: {
     continue: 'Cadw a pharhau',
     phoneNumber: 'Rhif ffôn',
