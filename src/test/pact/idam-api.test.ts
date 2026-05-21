@@ -7,9 +7,15 @@ import { getSystemUser, getUserDetails } from '../../main/app/auth/user/oidc';
 
 const { pactWith } = require('jest-pact');
 
-const idamApiTestUsername = process.env.IDAM_API_TEST_USERNAME as string;
-const idamApiTestPassword = process.env.IDAM_API_TEST_PASSWORD as string;
-const idamApiTestClientSecret = process.env.IDAM_API_TEST_CLIENT_SECRET as string;
+const idamApiTestUsername = (process.env.IDAM_API_TEST_USERNAME || process.env.CITIZEN_USERNAME) as string;
+const idamApiTestPassword = (process.env.IDAM_API_TEST_PASSWORD || process.env.CITIZEN_PW) as string;
+const idamApiTestClientSecret = (process.env.IDAM_API_TEST_CLIENT_SECRET || process.env.CITIZEN_IDAM_SECRET) as string;
+
+if (!idamApiTestUsername || !idamApiTestPassword || !idamApiTestClientSecret) {
+  throw new Error(
+    'Missing IDAM pact test credentials. Set IDAM_API_TEST_* vars (preferred) or CI fallbacks CITIZEN_USERNAME/CITIZEN_PW/CITIZEN_IDAM_SECRET.'
+  );
+}
 
 jest.setTimeout(10000);
 pactWith(

@@ -89,7 +89,7 @@ $ yarn test
 
 #### Test credential environment variables
 
-Some pact/integration tests require test credentials. In CI these are loaded globally from Azure Key Vault.
+Credential-dependent pact tests require test credentials. In CI these are loaded globally from Azure Key Vault.
 For local runs, add them to your untracked `.env` file (see `.env.example`):
 
 - `IDAM_API_TEST_USERNAME` (Key Vault secret: `idam-api-test-username`)
@@ -97,7 +97,7 @@ For local runs, add them to your untracked `.env` file (see `.env.example`):
 - `IDAM_API_TEST_CLIENT_SECRET` (Key Vault secret: `idam-api-test-client-secret`)
 - `OIDC_INTEGRATION_TEST_USERNAME` (Key Vault secret: `oidc-integration-test-username`)
 
-These values are treated as required and tests fail fast when they are missing.
+Preferred variables are `IDAM_API_TEST_*`. CI fallback vars are also supported for pact tests: `CITIZEN_USERNAME`, `CITIZEN_PW`, and `CITIZEN_IDAM_SECRET`.
 
 #### Functional End-to-End (E2E) Tests
 
