@@ -87,6 +87,18 @@ the following command:
 $ yarn test
 ```
 
+#### Test credential environment variables
+
+Some pact/integration tests require test credentials. In CI these are loaded globally from Azure Key Vault.
+For local runs, add them to your untracked `.env` file (see `.env.example`):
+
+- `IDAM_API_TEST_USERNAME` (Key Vault secret: `idam-api-test-username`)
+- `IDAM_API_TEST_PASSWORD` (Key Vault secret: `idam-api-test-password`)
+- `IDAM_API_TEST_CLIENT_SECRET` (Key Vault secret: `idam-api-test-client-secret`)
+- `OIDC_INTEGRATION_TEST_USERNAME` (Key Vault secret: `oidc-integration-test-username`)
+
+These values are treated as required and tests fail fast when they are missing.
+
 #### Functional End-to-End (E2E) Tests
 
 Functional end-to-end (E2E) tests are hosted in the [prl-e2e-tests](https://github.com/hmcts/prl-e2e-tests) repository.

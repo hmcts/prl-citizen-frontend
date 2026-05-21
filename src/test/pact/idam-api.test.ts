@@ -1,9 +1,16 @@
+import http from 'node:http';
+
+import axios from 'axios';
 import config from 'config';
-import { when } from 'jest-when';
 
 import { getSystemUser, getUserDetails } from '../../main/app/auth/user/oidc';
 
 const { pactWith } = require('jest-pact');
+
+const idamApiTestUsername = process.env.IDAM_API_TEST_USERNAME as string;
+const idamApiTestPassword = process.env.IDAM_API_TEST_PASSWORD as string;
+const idamApiTestClientSecret = process.env.IDAM_API_TEST_CLIENT_SECRET as string;
+
 jest.setTimeout(10000);
 pactWith(
   {
@@ -16,7 +23,7 @@ pactWith(
       const EXPECTED_USER_DETAILS = {
         accessToken: 'mock_access_token',
         id: '267491aa-b696-4235-83a6-3b9253709798',
-        email: 'citizen.automation@mailinator.com',
+        email: idamApiTestUsername,
         givenName: 'citizen',
         familyName: 'automation',
       };
@@ -46,19 +53,23 @@ pactWith(
             Accept: 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          data: 'client_id=prl-citizen-frontend&client_secret=ssshhhh&grant_type=authorization_code&redirect_uri=http://localhost:3001/receiver&code=raw_code',
+          body: `client_id=prl-citizen-frontend&client_secret=${idamApiTestClientSecret}&grant_type=authorization_code&redirect_uri=http://localhost:3001/receiver&code=raw-code`,
         },
       };
 
       beforeEach(() => {
-        config.get = jest.fn();
-        when(config.get)
-          .calledWith('services.idam.tokenURL')
-          .mockReturnValue(`${provider.mockService.baseUrl}/o/token`)
-          .calledWith('services.idam.clientID')
-          .mockReturnValue('prl-citizen-frontend')
-          .calledWith('services.idam.clientSecret')
-          .mockReturnValue('ssshhhh');
+        // Pact spins up/down mock servers between tests; disable keep-alive so Axios does not reuse stale sockets.
+        axios.defaults.httpAgent = new http.Agent({ keepAlive: false });
+        config.get = jest.fn() as never;
+        (config.get as jest.Mock).mockImplementation((configPath: string) => {
+          const configMap: Record<string, string> = {
+            'services.idam.tokenURL': `${provider.mockService.baseUrl}/o/token`,
+            'services.idam.clientID': 'prl-citizen-frontend',
+            'services.idam.citizenClientSecret': idamApiTestClientSecret,
+          };
+
+          return configMap[configPath];
+        });
 
         const interaction = {
           state: 'adoption-web request user details from idam',
@@ -78,7 +89,7 @@ pactWith(
       const EXPECTED_USER_DETAILS = {
         accessToken: 'mock_access_token',
         id: '267491aa-b696-4235-83a6-3b9253709798',
-        email: 'citizen.automation@mailinator.com',
+        email: idamApiTestUsername,
         givenName: 'citizen',
         familyName: 'automation',
       };
@@ -108,23 +119,24 @@ pactWith(
             Accept: 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          data: 'grant_type=password&username=citizen.automation@mailinator.com&password=mock_password&client_id=prl-citizen-frontend&client_secret=ssshhhh&scope=openid%20profile%20roles%20openid%20roles%20profile',
+          body: `grant_type=password&username=${idamApiTestUsername}&password=${idamApiTestPassword}&client_id=prl-citizen-frontend&client_secret=${idamApiTestClientSecret}&scope=openid%20profile%20roles%20openid%20roles%20profile`,
         },
       };
 
       beforeEach(() => {
-        config.get = jest.fn();
-        when(config.get)
-          .calledWith('services.idam.tokenURL')
-          .mockReturnValue(`${provider.mockService.baseUrl}/o/token`)
-          .calledWith('services.idam.clientID')
-          .mockReturnValue('prl-citizen-frontend')
-          .calledWith('services.idam.clientSecret')
-          .mockReturnValue('ssshhhh')
-          .calledWith('services.idam.systemUsername')
-          .mockReturnValue('someone@hmcts.net')
-          .calledWith('services.idam.systemPassword')
-          .mockReturnValue('mock_password');
+        axios.defaults.httpAgent = new http.Agent({ keepAlive: false });
+        config.get = jest.fn() as never;
+        (config.get as jest.Mock).mockImplementation((configPath: string) => {
+          const configMap: Record<string, string> = {
+            'services.idam.tokenURL': `${provider.mockService.baseUrl}/o/token`,
+            'services.idam.clientID': 'prl-citizen-frontend',
+            'services.idam.citizenClientSecret': idamApiTestClientSecret,
+            'services.idam.systemUsername': idamApiTestUsername,
+            'services.idam.systemPassword': idamApiTestPassword,
+          };
+
+          return configMap[configPath];
+        });
 
         const interaction = {
           state: 'prl-citizen-frontend request system-user details from idam',

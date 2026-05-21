@@ -144,6 +144,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^27.1.2",
     "eslint-plugin-prettier": "^4.0.0",
+    "graphql": "^16.14.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.1",
     "jest": "^30.1.3",
