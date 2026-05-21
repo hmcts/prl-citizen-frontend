@@ -8,7 +8,7 @@ import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 const en = {
   caption: 'Support you need during the case',
-  title: 'Language requirements and special arrangements',
+  title: 'Language requirements and support needs',
   content1: 'Language requirements',
   content2: 'Think about all communication with the court, as well as what you might need at a hearing.',
   content3: 'For example, tell us if you need:',
