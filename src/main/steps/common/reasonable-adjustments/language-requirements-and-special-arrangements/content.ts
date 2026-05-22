@@ -8,7 +8,7 @@ import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 const en = {
   caption: 'Support you need during the case',
-  title: 'Language requirements and special arrangements',
+  title: 'Language requirements and support needs',
   content1: 'Language requirements',
   content2: 'Think about all communication with the court, as well as what you might need at a hearing.',
   content3: 'Tell us if you:',
@@ -70,7 +70,7 @@ const en = {
 
 const cy: typeof en = {
   caption: 'Cymorth y mae arnoch ei angen yn ystod yr achos',
-  title: 'Gofynion ieithyddol a threfniadau arbennig',
+  title: 'Gofynion iaith ac anghenion cymorth',
   content1: 'Gofynion ieithyddol',
   content2: 'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad.',
   content3: 'Dywedwch wrthym os ydych:',
