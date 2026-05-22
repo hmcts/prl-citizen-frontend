@@ -5,13 +5,15 @@
   "prConcurrentLimit": 25,
   "schedule": ["after 4pm and before 7pm every weekday"],
   "rebaseWhen": "behind-base-branch",
+  "rangeStrategy": "pin",
   "vulnerabilityAlerts": {
     "enabled": true,
     "schedule": "at any time",
     "prConcurrentLimit": 25,
     "vulnerabilityFixStrategy": "lowest",
     "dependencyDashboardApproval": false,
-    "commitMessagePrefix": "SEC-FIX: "
+    "commitMessagePrefix": "SEC-FIX: ",
+    "rangeStrategy": "pin"
   },
   "packageRules": [
     {
