@@ -73,6 +73,7 @@ export const respondentMockData = mockRequest({
               },
             ],
           },
+          isRespondentAddressConfidential: 'Yes',
         },
       ],
     },

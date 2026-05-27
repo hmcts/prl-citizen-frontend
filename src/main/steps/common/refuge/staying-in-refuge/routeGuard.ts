@@ -15,7 +15,11 @@ export const routeGuard = {
     if (req?.originalUrl?.startsWith(C100_URL)) {
       const c100Person = getPeople(userCase).find(person => person.id === id);
       const partyDetailsList =
-        c100Person?.partyType === PartyType.APPLICANT ? userCase.appl_allApplicants : userCase.oprs_otherPersons;
+        c100Person?.partyType === PartyType.APPLICANT
+          ? userCase.appl_allApplicants
+          : c100Person?.partyType === PartyType.RESPONDENT
+          ? userCase.resp_Respondents
+          : userCase.oprs_otherPersons;
       const partyDetails = getPartyDetails(id, partyDetailsList) as C100Applicant | C100RebuildPartyDetails;
       userCase.isCitizenLivingInRefuge = partyDetails.liveInRefuge;
 

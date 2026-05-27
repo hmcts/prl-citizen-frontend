@@ -8,8 +8,6 @@ import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { CommonContent } from '../../../common/common.content';
 import { getFormattedDate, summaryList } from '../../../common/summary/utils';
 
-import { isMandatoryFieldsFilled } from './utils';
-
 export const enContent = {
   title: 'Check your details',
   subTitle: 'Read the information to make sure it is correct, and add any missing details',
@@ -143,7 +141,6 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  form.submit!.disabled = !isMandatoryFieldsFilled(content.userCase!);
   return {
     ...translations,
     form,

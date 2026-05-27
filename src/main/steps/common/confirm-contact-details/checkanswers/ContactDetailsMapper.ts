@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import _ from 'lodash';
-
 import { CaseWithId } from '../../../../app/case/case';
 import { ContactPreference, PartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { fromApiDate } from '../../../../app/case/from-api-format';
@@ -193,10 +191,6 @@ export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
   } else {
     req.session.userCase.citizenUserLivingInRefugeText = req.session.userCase.isCitizenLivingInRefuge;
   }
-
-  req.session.userCase.refugeDocumentText = !_.isEmpty(req.session.userCase.refugeDocument)
-    ? req.session.userCase.refugeDocument.document_filename
-    : '';
 
   if (req.session.userCase.isCitizenLivingInRefuge === YesOrNo.NO) {
     delete req.session.userCase.refugeDocument;
