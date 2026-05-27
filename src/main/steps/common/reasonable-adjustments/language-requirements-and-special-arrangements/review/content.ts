@@ -12,7 +12,7 @@ import { cy as commonContentCy, en as commonContentEn } from '../../../common.co
 
 const en = {
   caption: 'Support you need during the case',
-  title: 'Review your language requirements and special arrangements',
+  title: 'Review language requirements and support needs',
   content1: 'Tell us what support you need',
   content2: 'If your hearing is within 2 days',
   content3:
@@ -23,7 +23,7 @@ const en = {
 
 const cy: typeof en = {
   caption: 'Cymorth y mae arnoch angen yn ystod yr achos',
-  title: "Adolygu eich gofynion ieithyddol a'ch trefniadau arbennig",
+  title: 'Adolygu gofynion iaith ac anghenion cymorth',
   content1: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch',
   content2: "Os yw'ch gwrandawiad o fewn 2 ddiwrnod",
   content3:
