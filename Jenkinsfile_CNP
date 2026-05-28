@@ -8,7 +8,6 @@ import uk.gov.hmcts.contino.GithubAPI
 def type = "nodejs"
 def product = "prl"
 def component = "citizen-frontend"
-
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -33,6 +32,10 @@ def secrets = [
     secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PW'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
     secret('citizen-password', 'CITIZEN_PW'),
+    secret('idam-api-test-username', 'IDAM_API_TEST_USERNAME'),
+    secret('idam-api-test-password', 'IDAM_API_TEST_PASSWORD'),
+    secret('idam-api-test-client-secret', 'IDAM_API_TEST_CLIENT_SECRET'),
+    secret('oidc-integration-test-username', 'OIDC_INTEGRATION_TEST_USERNAME'),
     secret('pact-broker-username', 'PACT_BROKER_YAML_USERNAME'),
     secret('pact-broker-password', 'PACT_BROKER_YAML_PW'),
     secret('prl-pcq-token-key', 'PCQ_TOKEN'),
@@ -76,10 +79,6 @@ withPipeline(type, product, component) {
   }
   afterAlways('smoketest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-  before('smoketest:aat') {
-    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net"
-    build job: 'HMCTS_j_to_z/prl-e2e-tests/master', wait: true, propogate: true, parameters: [booleanParam(name: "skipManageCasesTests", value: true), string(name: "CITIZEN_FRONTEND_BASE_URL", value: env.PRL_CITIZEN_URL)]
   }
   afterAlways('smoketest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'

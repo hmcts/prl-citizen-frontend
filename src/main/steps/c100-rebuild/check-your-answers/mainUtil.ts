@@ -691,22 +691,6 @@ export const ApplicantDetails = (
       }
     );
 
-    if (sessionApplicantData[applicant]['liveInRefuge'] === YesOrNo.YES) {
-      newApplicantData.push({
-        key: keys['c8RefugeDocument'],
-        visuallyHiddenText: `${keys['applicantLabel']} ${parseInt(applicant) + 1} ${keys['c8RefugeDocument']}`,
-        anchorReference: `c8RefugeDocument-applicant-${applicant}`,
-        value: '',
-        valueHtml: !_.isEmpty(sessionApplicantData[applicant]['refugeConfidentialityC8Form'])
-          ? sessionApplicantData[applicant]['refugeConfidentialityC8Form']?.['document_filename']
-          : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
-        changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
-          root: RootContext.C100_REBUILD,
-          id: sessionApplicantData[applicant]['id'],
-        }),
-      });
-    }
-
     if (sessionApplicantData[applicant]?.liveInRefuge === YesOrNo.NO) {
       newApplicantData.push(
         {
@@ -728,7 +712,7 @@ export const ApplicantDetails = (
           anchorReference: `doYouWantToKeep-applicant-${applicant}`,
           value: '',
           valueHtml: parseStartAndStartAlternativeSubFields('startAlternative', 'contactDetailsPrivateAlternative'),
-          changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE'], {
+          changeUrl: applyParms(Urls['C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERNATIVE'], {
             applicantId: sessionApplicantData[applicant]['id'],
           }),
         }
@@ -1619,17 +1603,59 @@ export const RespondentDetails = (
   const sessionRespondentData = userCase['resp_Respondents'];
   const newRespondentStorage: SummaryListRow[] = [];
   for (const respondent in sessionRespondentData) {
-    const firstname = sessionRespondentData[respondent]['firstName'],
-      lastname = sessionRespondentData[respondent]['lastName'],
+    const firstName = sessionRespondentData[respondent]['firstName'],
+      lastName = sessionRespondentData[respondent]['lastName'],
       id = sessionRespondentData[respondent]['id'],
       personalDetails = sessionRespondentData[respondent]['personalDetails'];
     const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
     const respondentNo = Number(respondent) + 1;
     const contactDetails = sessionRespondentData[respondent]['contactDetails'];
+    const liveInRefuge = sessionRespondentData[respondent]['liveInRefuge'] === YesOrNo.YES;
     const respondentFullName =
-      _.isEmpty(firstname) || _.isEmpty(lastname)
+      _.isEmpty(firstName) || _.isEmpty(lastName)
         ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
-        : firstname + ' ' + lastname;
+        : firstName + ' ' + lastName;
+
+    const parseRespondentConfidentiality = () => {
+      const confidentialityQs = {
+        addressConf: sessionRespondentData[respondent]['isRespondentAddressConfidential'],
+        phoneConf: sessionRespondentData[respondent]['isRespondentTelephoneNumberConfidential'],
+        emailConf: sessionRespondentData[respondent]['isRespondentEmailAddressConfidential'],
+      };
+      const hasConfidentialInfo =
+        confidentialityQs.addressConf === YesOrNo.YES ||
+        confidentialityQs.phoneConf === YesOrNo.YES ||
+        confidentialityQs.emailConf === YesOrNo.YES
+          ? YesOrNo.YES
+          : YesOrNo.NO;
+      let html = '';
+      html +=
+        HTML.DESCRIPTION_LIST +
+        (hasConfidentialInfo === YesOrNo.YES ? HTML.ROW_START : HTML.ROW_START_NO_BORDER) +
+        HTML.DESCRIPTION_TERM_DETAIL +
+        populateError(
+          confidentialityQs,
+          getYesNoTranslation(language, hasConfidentialInfo, 'ydwTranslation') +
+            HTML.DESCRIPTION_TERM_DETAIL_END +
+            HTML.ROW_END,
+          language
+        );
+      if (hasConfidentialInfo === YesOrNo.YES) {
+        html += HTML.ROW_START_NO_BORDER + HTML.DESCRIPTION_TERM_DETAIL + HTML.UNORDER_LIST;
+
+        if (confidentialityQs.addressConf === YesOrNo.YES) {
+          html += HTML.LIST_ITEM + content['address'] + HTML.LIST_ITEM_END;
+        }
+        if (confidentialityQs.phoneConf === YesOrNo.YES) {
+          html += HTML.LIST_ITEM + content['telephone'] + HTML.LIST_ITEM_END;
+        }
+        if (confidentialityQs.emailConf === YesOrNo.YES) {
+          html += HTML.LIST_ITEM + content['email'] + HTML.LIST_ITEM_END;
+        }
+        html += HTML.UNORDER_LIST_END + HTML.DESCRIPTION_TERM_DETAIL_END + HTML.ROW_END;
+      }
+      return html + HTML.DESCRIPTION_LIST_END;
+    };
 
     const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML, language);
     newRespondentStorage.push(
@@ -1747,9 +1773,38 @@ export const RespondentDetails = (
         PartyType.RESPONDENT
       )
     );
+    newRespondentStorage.push({
+      key: keys['refuge'],
+      anchorReference: `refuge-respondent-${respondent}`,
+      valueHtml: populateError(
+        sessionRespondentData[respondent]['liveInRefuge'],
+        getYesNoTranslation(language, sessionRespondentData[respondent]['liveInRefuge'], 'ydwTranslation'),
+        language
+      ),
+      visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${keys['refuge']}`,
+      changeUrl: applyParms(Urls.STAYING_IN_REFUGE, {
+        root: RootContext.C100_REBUILD,
+        id: sessionRespondentData[respondent]['id'],
+      }),
+    });
     newRespondentStorage.push(
       ...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails, language)
     );
+    if (sessionRespondentData.length > 1 && !liveInRefuge) {
+      newRespondentStorage.push({
+        key: interpolate(keys['doYouWantToKeepResp'], { firstName, lastName }),
+        visuallyHiddenText: `${keys['respondents']} ${parseInt(respondent) + 1} ${interpolate(
+          keys['doYouWantToKeepResp'],
+          { firstName, lastName }
+        )}`,
+        anchorReference: `doYouWantToKeep-respondent-${respondent}`,
+        value: '',
+        valueHtml: parseRespondentConfidentiality(),
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE'], {
+          respondentId: sessionRespondentData[respondent]['id'],
+        }),
+      });
+    }
   }
 
   const SummaryData = newRespondentStorage;
@@ -1797,8 +1852,8 @@ export const OtherPeopleDetails = (
   const newOtherPeopleStorage: SummaryListRow[] = [];
   if (!_.isEmpty(sessionOtherPeopleData)) {
     for (const respondent in sessionOtherPeopleData) {
-      const firstname = sessionOtherPeopleData[respondent]['firstName'],
-        lastname = sessionOtherPeopleData[respondent]['lastName'],
+      const firstName = sessionOtherPeopleData[respondent]['firstName'],
+        lastName = sessionOtherPeopleData[respondent]['lastName'],
         id = sessionOtherPeopleData[respondent]['id'],
         personalDetails = sessionOtherPeopleData[respondent]['personalDetails'];
       const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
@@ -1806,9 +1861,9 @@ export const OtherPeopleDetails = (
 
       const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML, language);
       const fullName =
-        _.isEmpty(firstname) || _.isEmpty(lastname)
+        _.isEmpty(firstName) || _.isEmpty(lastName)
           ? HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE
-          : firstname + ' ' + lastname;
+          : firstName + ' ' + lastName;
 
       newOtherPeopleStorage.push(
         {
@@ -1907,14 +1962,32 @@ export const OtherPeopleDetails = (
           id: sessionOtherPeopleData[respondent]['id'],
         }),
       });
-      if (sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES) {
-        newOtherPeopleStorage.push(
-          generateOtherPersonC8RefugeContent(sessionOtherPeopleData, respondent, keys, language)
-        );
-      }
       newOtherPeopleStorage.push(
         generateOtherPersonAddressContent(sessionOtherPeopleData, respondent, keys, id, language)
       );
+
+      const otherLiveInRefuge = sessionOtherPeopleData[respondent]['liveInRefuge'] === YesOrNo.YES;
+      const addressKnown = sessionOtherPeopleData[respondent].addressUnknown !== YesOrNo.YES;
+
+      if (addressKnown && !otherLiveInRefuge) {
+        const isAddressOnlyConfidential: YesOrNo =
+          sessionOtherPeopleData[respondent]['isOtherPersonAddressOnlyConfidential'];
+        newOtherPeopleStorage.push({
+          key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
+          anchorReference: `isAddressConfidential-otherPerson-${respondent}`,
+          visuallyHiddenText: `${keys['otherPerson']} ${parseInt(respondent) + 1} ${
+            keys['isOtherPersonAddressConfidential']
+          }`,
+          valueHtml: populateError(
+            isAddressOnlyConfidential,
+            getYesNoTranslation(language, isAddressOnlyConfidential, 'doTranslation'),
+            language
+          ),
+          changeUrl: applyParms(Urls.C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE, {
+            otherPersonId: id,
+          }),
+        });
+      }
     }
   } else {
     newOtherPeopleStorage.push(
@@ -1938,22 +2011,6 @@ export const OtherPeopleDetails = (
   return {
     title: '',
     rows: getSectionSummaryList(SummaryData, content),
-  };
-};
-
-const generateOtherPersonC8RefugeContent = (sessionOtherPeopleData, index, keys, language): SummaryListRow => {
-  return {
-    key: keys['c8RefugeDocument'],
-    anchorReference: `c8RefugeDocument-otherPerson-${index}`,
-    visuallyHiddenText: `${keys['otherPerson']} ${parseInt(index) + 1} ${keys['c8RefugeDocument']}`,
-    value: '',
-    valueHtml: !_.isEmpty(sessionOtherPeopleData[index]['refugeConfidentialityC8Form'])
-      ? sessionOtherPeopleData[index]['refugeConfidentialityC8Form']?.['document_filename']
-      : HTML.ERROR_MESSAGE_SPAN + translation('completeSectionError', language) + HTML.SPAN_CLOSE,
-    changeUrl: applyParms(Urls.C100_REFUGE_UPLOAD_DOC, {
-      root: RootContext.C100_REBUILD,
-      id: sessionOtherPeopleData[index]['id'],
-    }),
   };
 };
 
@@ -2103,7 +2160,7 @@ export const otherPersonConfidentiality = (
         sessionOtherPeopleData[otherPerson]?.['isOtherPersonAddressConfidential'];
 
       newOtherPeopleStorage.push({
-        key: interpolate(keys['isOtherPersonAddressConfidential'], { firstName, lastName }),
+        key: interpolate(keys['isOtherPersonIdentityConfidential'], { firstName, lastName }),
         anchorReference: `otherPersonConfidentiality-otherPerson-${otherPerson}`,
         valueHtml: !_.isEmpty(isOtherPersonAddressConfidential)
           ? getYesNoTranslation(language, isOtherPersonAddressConfidential, 'oesTranslation')
@@ -2499,13 +2556,6 @@ export const generateApplicantErrors = (applicant: C100Applicant, index: number)
     });
   }
 
-  if (applicant.liveInRefuge === YesOrNo.YES && _.isEmpty(applicant.refugeConfidentialityC8Form)) {
-    error.push({
-      propertyName: `c8RefugeDocument-applicant-${index}`,
-      errorType: 'required',
-    });
-  }
-
   if (
     _.isEmpty(applicant.applicantAddress1) ||
     _.isEmpty(applicant.applicantAddressTown) ||
@@ -2824,13 +2874,6 @@ export const generateOtherPersonErrors = (
   if (!otherperson.liveInRefuge) {
     error.push({
       propertyName: `refuge-otherPerson-${index}`,
-      errorType: 'required',
-    });
-  }
-
-  if (otherperson.liveInRefuge === YesOrNo.YES && _.isEmpty(otherperson.refugeConfidentialityC8Form)) {
-    error.push({
-      propertyName: `c8RefugeDocument-otherPerson-${index}`,
       errorType: 'required',
     });
   }
