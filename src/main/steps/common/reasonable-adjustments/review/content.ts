@@ -66,7 +66,7 @@ export const cyContent: typeof enContent = {
   errors: {},
 };
 
-const displayText = {
+export const displayText = {
   en: {
     videohearings: 'Yes, I can take part in video hearings',
     phonehearings: 'Yes, I can take part in phone hearings',

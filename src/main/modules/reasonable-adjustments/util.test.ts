@@ -1,5 +1,8 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { CaseType, YesOrNo } from '../../app/case/definition';
+import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
+import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
+import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
 
 import { RAUtility } from './util';
 
@@ -290,6 +293,92 @@ describe('RA util', () => {
 
     test('should return correct event for fl401 request support', () => {
       expect(RAUtility.getUpdateFlagsEventID('FL401' as CaseType, 'request')).toBe('fl401RequestSupport');
+    });
+  });
+
+  describe('prepareCaseNoteText', () => {
+    test('should return case note text', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {
+            ra_typeOfHearing: ['videohearings', 'phonehearings'],
+            ra_languageNeeds: ['speakwelsh', 'readandwritewelsh'],
+            ra_specialArrangements: ['waitingroom', 'separateexitentry'],
+            ra_intermediaryRequirements: YesOrNo.YES,
+            ra_intermediaryRequired_subfield: 'test',
+            ra_assistanceRequirements: YesOrNo.YES,
+            ra_assistanceRequirements_subfield: 'test',
+          },
+        },
+      });
+
+      const specialArrangementsEn = specialArrangementsLanguages.en();
+      const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
+      const supportDuringCaseEn = supportDuringCaseLanguages.en();
+
+      const expected =
+        `${specialArrangementsEn.headingTitle}` +
+        '\n' +
+        `${specialArrangementsEn.separateWaitingRoom}` +
+        '\n' +
+        `${specialArrangementsEn.separateExitEntrance}` +
+        '\n\n' +
+        `${intermediaryRequirementsEn.headingTitle}` +
+        '\n' +
+        `${YesOrNo.YES}` +
+        '\ntest\n\n' +
+        `${supportDuringCaseEn.headingTitle}` +
+        '\n' +
+        `${YesOrNo.YES}` +
+        '\ntest\n\n';
+
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe(expected);
+    });
+
+    test('should return case note text without new RA subfields', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {
+            ra_typeOfHearing: ['nohearings'],
+            ra_noVideoAndPhoneHearing_subfield: 'test',
+            ra_languageNeeds: ['languageinterpreter'],
+            ra_needInterpreterInCertainLanguage_subfield: 'test',
+            ra_specialArrangements: ['waitingroom'],
+            ra_intermediaryRequirements: YesOrNo.NO,
+            ra_assistanceRequirements: YesOrNo.NO,
+          },
+        },
+      });
+
+      const specialArrangementsEn = specialArrangementsLanguages.en();
+      const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
+      const supportDuringCaseEn = supportDuringCaseLanguages.en();
+
+      const expected =
+        `${specialArrangementsEn.headingTitle}` +
+        '\n' +
+        `${specialArrangementsEn.separateWaitingRoom}` +
+        '\n\n' +
+        `${intermediaryRequirementsEn.headingTitle}` +
+        '\n' +
+        `${YesOrNo.NO}` +
+        '\n\n' +
+        `${supportDuringCaseEn.headingTitle}` +
+        '\n' +
+        `${YesOrNo.NO}` +
+        '\n\n';
+
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe(expected);
+    });
+
+    test('should handle empty case note sections', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {},
+        },
+      });
+
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe('');
     });
   });
 });
