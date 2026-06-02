@@ -135,6 +135,7 @@ export async function submitCase(
   caseEvent: C100_CASE_EVENT
 ): Promise<void> {
   try {
+    req.locals.logger.info(`${req.session.userCase.caseId}: Submitting case`);
     req.session.paymentError = { hasError: false, errorContext: null };
     const updatedCase = await req.locals.C100Api.submitC100Case(
       caseId,
@@ -143,6 +144,7 @@ export async function submitCase(
       caseEvent,
       req.session.applicationSettings
     );
+    req.locals.logger.info(`${req.session.userCase.caseId}: Case submission successful`);
     //update final document in session for download on confirmation
     req.session.userCase.c100DraftDoc = updatedCase.data?.submitAndPayDownloadApplicationLink;
     //save & redirect to confirmation page
