@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "EIO",
+    "summary": "write EIO",
+    "detail": ""
+  }
+}
