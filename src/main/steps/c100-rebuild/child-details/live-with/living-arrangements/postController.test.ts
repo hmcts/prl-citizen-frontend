@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { PartyType } from '../../../../../app/case/definition';
+import { PartyType, YesOrNo } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
@@ -35,6 +35,12 @@ const commonContent = {
         parentialResponsibility: {
           statement: 'test',
         },
+        mainlyLiveWith: {
+          id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+          firstName: 'Dummy2',
+          lastName: 'Test2',
+          partyType: PartyType.APPLICANT,
+        },
         liveWith: [
           {
             id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
@@ -50,6 +56,12 @@ const commonContent = {
         applicantFirstName: 'Dummy ',
         id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
         applicantLastName: 'Test1',
+        applicantAddressPostcode: 'AG11NB',
+      },
+      {
+        applicantFirstName: 'Dummy2',
+        id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+        applicantLastName: 'Test2',
         applicantAddressPostcode: 'AG11NB',
       },
     ],
@@ -97,6 +109,12 @@ describe('PersonaldetailsPostController Post Controller', () => {
           applicantLastName: 'Test1',
           id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
         },
+        {
+          applicantAddressPostcode: 'AG11NB',
+          applicantFirstName: 'Dummy2',
+          applicantLastName: 'Test2',
+          id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+        },
       ],
       cd_children: [
         {
@@ -108,12 +126,24 @@ describe('PersonaldetailsPostController Post Controller', () => {
           lastName: 'Silly',
           liveWith: [
             {
+              id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+              firstName: 'Dummy2',
+              lastName: 'Test2',
+              partyType: 'applicant',
+            },
+            {
               firstName: 'Dummy ',
               id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
               lastName: 'Test1',
               partyType: 'applicant',
             },
           ],
+          mainlyLiveWith: {
+            id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+            firstName: 'Dummy2',
+            lastName: 'Test2',
+            partyType: 'applicant',
+          },
           parentialResponsibility: {
             statement: 'test',
           },
@@ -171,6 +201,12 @@ describe('PersonaldetailsPostController Post Controller', () => {
           applicantLastName: 'Test1',
           id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
         },
+        {
+          applicantAddressPostcode: 'AG11NB',
+          applicantFirstName: 'Dummy2',
+          applicantLastName: 'Test2',
+          id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+        },
       ],
       cd_children: [
         {
@@ -180,7 +216,20 @@ describe('PersonaldetailsPostController Post Controller', () => {
           firstName: 'Bob',
           id: '7483640e-0817-4ddc-b709-6723f7925474',
           lastName: 'Silly',
-          liveWith: [],
+          liveWith: [
+            {
+              id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+              firstName: 'Dummy2',
+              lastName: 'Test2',
+              partyType: 'applicant',
+            },
+          ],
+          mainlyLiveWith: {
+            id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+            firstName: 'Dummy2',
+            lastName: 'Test2',
+            partyType: 'applicant',
+          },
           parentialResponsibility: {
             statement: 'test',
           },
@@ -436,8 +485,220 @@ describe('PersonaldetailsPostController Post Controller', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalled();
+    // Confidentiality flag should remain (deletion logic has changed)
     expect(req.session.userCase.oprs_otherPersons).toEqual([
-      { id: '7483640e-0817-4ddc-b709-6723f7925476', firstName: 'test', lastName: 'other' },
+      {
+        id: '7483640e-0817-4ddc-b709-6723f7925476',
+        firstName: 'test',
+        lastName: 'other',
+        isOtherPersonAddressConfidential: true,
+      },
     ]);
+  });
+
+  test('NEW LOGIC: preserves isOtherPersonAddressConfidential using YesOrNo enum', async () => {
+    const mockFormContent = { fields: {} } as unknown as FormContent;
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
+
+    const req = mockRequest({
+      params: { childId: '7483640e-0817-4ddc-b709-6723f7925474' },
+      body: {
+        liveWith: [], // Removing the child from everyone
+      },
+      session: {
+        userCase: {
+          ...commonContent.userCase,
+          oprs_otherPersons: [
+            {
+              id: '7483640e-0817-4ddc-b709-6723f7925476',
+              firstName: 'Other',
+              lastName: 'Person',
+              // Using the specific Enum Copilot wanted to test
+              isOtherPersonAddressConfidential: YesOrNo.YES,
+            },
+          ],
+        },
+      },
+    });
+
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    const updatedPerson = req.session.userCase.oprs_otherPersons[0];
+    expect(updatedPerson.isOtherPersonAddressConfidential).toEqual(YesOrNo.YES);
+  });
+
+  test('Should return person who mainly lives with the child when no one else is specified', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
+      body: {
+        onlycontinue: true,
+        liveWith: [''],
+      },
+      session: {
+        lang: language,
+        userCase: {
+          ...commonContent.userCase,
+        },
+      },
+    });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalled();
+    expect(req.session.userCase).toEqual({
+      appl_allApplicants: [
+        {
+          applicantAddressPostcode: 'AG11NB',
+          applicantFirstName: 'Dummy ',
+          applicantLastName: 'Test1',
+          id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        },
+        {
+          applicantAddressPostcode: 'AG11NB',
+          applicantFirstName: 'Dummy2',
+          applicantLastName: 'Test2',
+          id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+        },
+      ],
+      cd_children: [
+        {
+          childMatters: {
+            needsResolution: [],
+          },
+          firstName: 'Bob',
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          lastName: 'Silly',
+          liveWith: [
+            {
+              firstName: 'Dummy2',
+              id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+              lastName: 'Test2',
+              partyType: 'applicant',
+            },
+          ],
+          mainlyLiveWith: {
+            id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+            firstName: 'Dummy2',
+            lastName: 'Test2',
+            partyType: 'applicant',
+          },
+          parentialResponsibility: {
+            statement: 'test',
+          },
+          personalDetails: {
+            approxDateOfBirth: {
+              day: '12',
+              month: '12',
+              year: '1987',
+            },
+            dateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            sex: 'Male',
+          },
+        },
+      ],
+    });
+  });
+
+  test('Should return person who mainly lives with the child in addition to other people who live with child', async () => {
+    const mockFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    const controller = new ChildLivingArrangementsPostController(mockFormContent.fields);
+    const language = 'en';
+    const req = mockRequest({
+      params: {
+        childId: '7483640e-0817-4ddc-b709-6723f7925474',
+      },
+      body: {
+        onlycontinue: true,
+        liveWith: ['480e8295-4c5b-4b9b-827f-f9be423ec1c5'],
+      },
+      session: {
+        lang: language,
+        userCase: {
+          ...commonContent.userCase,
+        },
+      },
+    });
+    const res = mockResponse();
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalled();
+    expect(req.session.userCase).toEqual({
+      appl_allApplicants: [
+        {
+          applicantAddressPostcode: 'AG11NB',
+          applicantFirstName: 'Dummy ',
+          applicantLastName: 'Test1',
+          id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+        },
+        {
+          applicantAddressPostcode: 'AG11NB',
+          applicantFirstName: 'Dummy2',
+          applicantLastName: 'Test2',
+          id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+        },
+      ],
+      cd_children: [
+        {
+          childMatters: {
+            needsResolution: [],
+          },
+          firstName: 'Bob',
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          lastName: 'Silly',
+          liveWith: [
+            {
+              firstName: 'Dummy2',
+              id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+              lastName: 'Test2',
+              partyType: 'applicant',
+            },
+            {
+              firstName: 'Dummy ',
+              id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+              lastName: 'Test1',
+              partyType: 'applicant',
+            },
+          ],
+          mainlyLiveWith: {
+            id: '356e8295-4c5b-4b9b-827f-f9be423ec1c7',
+            firstName: 'Dummy2',
+            lastName: 'Test2',
+            partyType: 'applicant',
+          },
+          parentialResponsibility: {
+            statement: 'test',
+          },
+          personalDetails: {
+            approxDateOfBirth: {
+              day: '12',
+              month: '12',
+              year: '1987',
+            },
+            dateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            sex: 'Male',
+          },
+        },
+      ],
+    });
   });
 });

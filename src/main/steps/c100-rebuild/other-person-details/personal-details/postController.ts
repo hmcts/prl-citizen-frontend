@@ -7,6 +7,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { PartyDetailsVariant, getPartyDetails, transformPartyDetails, updatePartyDetails } from '../../people/util';
+import { hasRequiredState } from '../../utils';
 
 import { getFormFields } from './content';
 
@@ -17,7 +18,16 @@ export default class PersonaldetailsPostController extends PostController<AnyObj
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    if (!hasRequiredState(req, ['oprs_otherPersons'])) {
+      return res.redirect('/login');
+    }
     const otherPersonId = req.params.otherPersonId;
+
+    const partyDetails = getPartyDetails(otherPersonId, req.session.userCase.oprs_otherPersons);
+    if (!partyDetails) {
+      return res.redirect('/login'); // or a safe "not found" page
+    }
+
     const form = new Form(getFormFields(req.session.userCase, otherPersonId).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
