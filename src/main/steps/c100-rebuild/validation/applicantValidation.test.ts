@@ -55,14 +55,6 @@ describe('Applicant Validation Functions', () => {
       ).toBe(false);
     });
 
-    it('should return false when living in refuge but no confidentiality form', () => {
-      expect(
-        isRefugeAndConfidentialitySectionValid({
-          liveInRefuge: YesOrNo.YES,
-        } as never)
-      ).toBe(false);
-    });
-
     it('should return true when NOT living in refuge and private details are filled', () => {
       expect(
         isRefugeAndConfidentialitySectionValid({

@@ -2,7 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { cy as contentAddressCy, en as contentAddressEn } from '../../respondent-details/address/manual/content';
+import {
+  cy as contentStartAlternativeCy,
+  en as contentStartAlternativeEn,
+} from '../../respondent-details/confidentiality/start-alternative/content';
 import { cy as personalDetailsCy, en as personalDetailsEn } from '../../respondent-details/personal-details/content';
+
 /**
  * It returns an object containing the contents of the English and Welsh versions of the page,
  * depending on the language selected
@@ -14,6 +19,7 @@ export const RespondentsElements = SystemLanguage => {
       return {
         ...contentAddressEn(),
         ...personalDetailsEn(),
+        doYouWantToKeepResp: contentStartAlternativeEn.keepContactDetailsPrivate,
         respondentAddressLabel: contentAddressEn().addressHistoryLabel,
         errors: '',
       };
@@ -22,6 +28,7 @@ export const RespondentsElements = SystemLanguage => {
       return {
         ...contentAddressCy(),
         ...personalDetailsCy(),
+        doYouWantToKeepResp: contentStartAlternativeCy.keepContactDetailsPrivate,
         respondentAddressLabel: contentAddressCy().addressHistoryLabel,
         errors: '',
       };

@@ -31,7 +31,11 @@ export default class StayingInRefugeController extends PostController<AnyObject>
       if (req?.originalUrl?.startsWith(C100_URL)) {
         const c100Person = getPeople(userCase).find(person => person.id === id);
         const isApplicant = c100Person?.partyType === PartyType.APPLICANT;
-        const partyDetailsList = isApplicant ? userCase.appl_allApplicants : userCase.oprs_otherPersons;
+        const partyDetailsList = isApplicant
+          ? userCase.appl_allApplicants
+          : c100Person?.partyType === PartyType.RESPONDENT
+          ? userCase.resp_Respondents
+          : userCase.oprs_otherPersons;
         const partyDetails = getPartyDetails(id, partyDetailsList) as C100Applicant | C100RebuildPartyDetails;
         Object.assign(partyDetails, { liveInRefuge: isCitizenLivingInRefuge });
 
@@ -39,7 +43,7 @@ export default class StayingInRefugeController extends PostController<AnyObject>
           userCase,
           partyDetails,
           partyDetailsList!,
-          isApplicant
+          c100Person?.partyType as PartyType
         );
 
         await this.deleteC8RefugeDocument(req, id, userCase, c100Person!, isCitizenLivingInRefuge as YesOrNo);
@@ -57,6 +61,7 @@ export default class StayingInRefugeController extends PostController<AnyObject>
     } else if (saveAndComeLater) {
       super.saveAndComeLater(req, res, {
         appl_allApplicants: req.session.userCase.appl_allApplicants,
+        resp_Respondents: req.session.userCase.resp_Respondents,
         oprs_otherPersons: req.session.userCase.oprs_otherPersons,
       });
     }

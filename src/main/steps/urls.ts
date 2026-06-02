@@ -337,7 +337,7 @@ export const C100_SCREENING_QUESTIONS_CONTACT_REPRESENTATIVE: PageLink = `${C100
 export const C100_APPLICANT_ADD_APPLICANTS: PageLink = `${C100_URL}/applicant/add-applicants`;
 export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/details-know`;
 export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/start`;
-export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/start-alternative`;
+export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERNATIVE: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/start-alternative`;
 export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/feedback`;
 export const C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO: PageLink = `${C100_URL}/applicant/:applicantId/confidentiality/feedbackno`;
 export const C100_APPLICANT_RELATIONSHIP_TO_CHILD: PageLink = `${C100_URL}/applicant/:applicantId/relationship-to-child/:childId`;
@@ -362,6 +362,9 @@ export const C100_RESPONDENT_DETAILS_ADDRESS_MANUAL: PageLink = `${C100_RESPONDE
 export const C100_RESPONDENT_DETAILS_PERSONAL_DETAILS: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/personal-details`;
 export const C100_RESPONDENT_DETAILS_CONTACT_DETAILS: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/contact-details`;
 export const C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/relationship-to-child/:childId`;
+export const C100_RESPONDENT_DETAILS_CONFIDENTIALITY_START_ALTERNATIVE: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/confidentiality/start-alternative`;
+export const C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/confidentiality/feedback`;
+export const C100_RESPONDENT_DETAILS_CONFIDENTIALITY_FEEDBACK_NO: PageLink = `${C100_RESPONDENT_DETAILS}/:respondentId/confidentiality/feedback-no`;
 
 /** @C100 OTher Person Details */
 export const C100_OTHER_PERSON_DETAILS: PageLink = `${C100_URL}/other-person-details`;
@@ -373,7 +376,9 @@ export const C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP: PageLink = `${C100_OTHER_
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/manual`;
 export const C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/address/select`;
 export const C100_OTHER_PERSON_DETAILS_CONFIDENTIALITY: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/confidentiality`;
-
+export const C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_START_ALTERNATIVE: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/confidentiality/start-alternative`;
+export const C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK_NO: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/confidentiality/feedback-no`;
+export const C100_APPLICANT_OTHER_PERSONS_CONFIDENTIALITY_FEEDBACK: PageLink = `${C100_OTHER_PERSON_DETAILS}/:otherPersonId/confidentiality/feedback`;
 /** @C100 Consent Order */
 export const C100_CONSENT_ORDER: PageLink = `${C100_URL}/consent-order`;
 export const C100_CONSENT_ORDER_UPLOAD: PageLink = `${C100_CONSENT_ORDER}/upload`;

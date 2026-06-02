@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { CaseWithId } from '../../../app/case/case';
 import {
   C100Applicant,
@@ -19,6 +17,7 @@ import {
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
   C100_REFUGE_UPLOAD_DOC,
+  C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
   C100_URL,
   PageLink,
   REFUGE_DOC_ALREADY_UPLOADED,
@@ -28,8 +27,6 @@ import {
   STAYING_IN_REFUGE,
 } from '../../urls';
 import { applyParms } from '../url-parser';
-
-import { getC8DocumentForC100 } from './utils';
 
 class RefugeNavigationController {
   public getNextPageUrl(currentPageUrl: PageLink, caseData: Partial<CaseWithId>, req: AppRequest): PageLink {
@@ -45,8 +42,6 @@ class RefugeNavigationController {
         return this.getStayInRefugeNextUrl(partyRoot, caseData, isC100, id, req, c100Person, addressUrl);
 
       case REFUGE_KEEPING_SAFE:
-        return this.getKeepingSafeNextUrl(id, isC100, partyRoot, req, c100Person!, caseData as CaseWithId);
-
       case REFUGE_UPLOAD_DOC:
       case C100_REFUGE_UPLOAD_DOC:
         return addressUrl;
@@ -108,6 +103,8 @@ class RefugeNavigationController {
   private getC100AddressUrl(id: string, person?: People): PageLink {
     return person?.partyType === PartyType.APPLICANT
       ? (applyParms(C100_APPLICANTS_PERSONAL_DETAILS, { applicantId: id }) as PageLink)
+      : person?.partyType === PartyType.RESPONDENT
+      ? (applyParms(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, { respondentId: id }) as PageLink)
       : (applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId: id }) as PageLink);
   }
 
@@ -139,34 +136,11 @@ class RefugeNavigationController {
     const details =
       person.partyType === PartyType.APPLICANT
         ? (getPartyDetails(id, caseData.appl_allApplicants) as C100Applicant)
+        : person.partyType === PartyType.RESPONDENT
+        ? (getPartyDetails(id, caseData.resp_Respondents) as C100RebuildPartyDetails)
         : (getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails);
 
     return details.liveInRefuge === YesOrNo.YES;
-  }
-
-  private getKeepingSafeNextUrl(
-    id: string,
-    isC100: boolean,
-    root: RootContext,
-    req: AppRequest,
-    person: People,
-    caseData: CaseWithId
-  ): PageLink {
-    const resolvedRoot = isC100 ? RootContext.C100_REBUILD : root;
-
-    const isDocUploaded = !_.isEmpty(
-      isC100 ? getC8DocumentForC100(id, req.session.userCase, person) : caseData.refugeDocument
-    );
-
-    if (isDocUploaded) {
-      return isC100
-        ? (applyParms(REFUGE_DOC_ALREADY_UPLOADED, { root: resolvedRoot, id }) as PageLink)
-        : (applyParms(REFUGE_DOC_ALREADY_UPLOADED, { root: resolvedRoot }) as PageLink);
-    }
-
-    return isC100
-      ? (applyParms(C100_REFUGE_UPLOAD_DOC, { root: resolvedRoot, id }) as PageLink)
-      : (applyParms(REFUGE_UPLOAD_DOC, { root: resolvedRoot, id }) as PageLink);
   }
 
   private getDocAlreadyUploadedNextUrl(
