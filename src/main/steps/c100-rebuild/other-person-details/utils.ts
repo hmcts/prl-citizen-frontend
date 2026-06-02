@@ -13,7 +13,7 @@ export const cleanOtherPeopleDetails = (caseData: CaseWithId, otherPersonCheck: 
 };
 
 export const doesAnyChildLiveWithOtherPerson = (caseData: CaseWithId, otherPersonId: string): boolean => {
-  return caseData.cd_children!.some(child => child.liveWith?.some(person => person.id === otherPersonId));
+  return !!caseData.cd_children?.some(child => child.liveWith?.some(person => person.id === otherPersonId));
 };
 
 export const getOtherPeopleLivingWithChildren = (caseData: CaseWithId): string[] => {

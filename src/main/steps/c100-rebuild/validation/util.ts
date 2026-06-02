@@ -337,7 +337,6 @@ export const areOtherPeopleValid = (caseData: CaseWithId): boolean => {
       respondent =>
         isRespondentValid(respondent, PartyType.OTHER_PERSON, caseData.cd_children ?? []) &&
         !_.isEmpty(respondent.liveInRefuge) &&
-        (respondent.liveInRefuge === YesOrNo.YES ? !_.isEmpty(respondent.refugeConfidentialityC8Form) : true) &&
         !caseData.oprs_otherPersons?.find(
           otherPerson =>
             doesAnyChildLiveWithOtherPerson(caseData, otherPerson.id) &&

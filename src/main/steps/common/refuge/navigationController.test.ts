@@ -113,7 +113,7 @@ describe('C8 refuge > navigationController', () => {
       ],
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_KEEPING_SAFE, req.session.userCase, req)).toBe(
-      '/c100-rebuild/refuge/refuge-document-already-uploaded/7483640e-0817-4ddc-b709-6723f7925474?'
+      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/personal-details'
     );
   });
 
@@ -131,7 +131,7 @@ describe('C8 refuge > navigationController', () => {
       ],
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_KEEPING_SAFE, req.session.userCase, req)).toBe(
-      '/c100-rebuild/refuge/upload-refuge-document/7483640e-0817-4ddc-b709-6723f7925474'
+      '/c100-rebuild/applicant/7483640e-0817-4ddc-b709-6723f7925474/personal-details'
     );
   });
 
@@ -147,7 +147,7 @@ describe('C8 refuge > navigationController', () => {
       },
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_KEEPING_SAFE, req.session.userCase, req)).toBe(
-      '/applicant/refuge/refuge-document-already-uploaded'
+      '/applicant/confirm-contact-details/addressdetails'
     );
   });
 
@@ -159,7 +159,7 @@ describe('C8 refuge > navigationController', () => {
       refugeDocument: undefined,
     };
     expect(RefugeNavigationController.getNextPageUrl(REFUGE_KEEPING_SAFE, req.session.userCase, req)).toBe(
-      '/applicant/refuge/upload-refuge-document'
+      '/applicant/confirm-contact-details/addressdetails'
     );
   });
 

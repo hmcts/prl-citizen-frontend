@@ -94,32 +94,6 @@ describe('citizen-home content', () => {
     const generatedRefugeContent = generateContent(refugeContent);
     form = generatedRefugeContent.form as FormContent;
     expect(form.onlyContinue.disabled).toBe(false);
-    expect(generatedRefugeContent.sections?.[4].rows[0].value).toStrictEqual({
-      html: 'MOCK_FILENAME',
-    });
-  });
-
-  test('should return correct english content when refuge document not present', () => {
-    const refugeContent = { language: 'en' } as CommonContent;
-    refugeContent.userCase = {
-      ...mockUserCase,
-      attendingToCourt: [''],
-      hearingDetails: '',
-      languageRequirements: [''],
-      languageDetails: '',
-      safetyArrangements: [''],
-      safetyArrangementsDetails: 'Please describe your need in detail',
-      reasonableAdjustments: [''],
-      c1A_haveSafetyConcerns: YesOrNo.YES,
-      c1A_safetyConernAbout: [C1ASafteyConcernsAbout.RESPONDENT],
-      isCitizenLivingInRefuge: YesOrNo.YES,
-    };
-    const generatedRefugeContent = generateContent(refugeContent);
-    form = generatedRefugeContent.form as FormContent;
-    expect(form.onlyContinue.disabled).toBe(true);
-    expect(generatedRefugeContent.sections?.[4].rows[0].value).toStrictEqual({
-      html: '<span class="govuk-error-message">Complete this section</span>',
-    });
   });
 
   test('should return correct welsh content when refuge document is present', () => {
@@ -145,32 +119,6 @@ describe('citizen-home content', () => {
     const generatedRefugeContent = generateContent(refugeContent);
     form = generatedRefugeContent.form as FormContent;
     expect(form.onlyContinue.disabled).toBe(false);
-    expect(generatedRefugeContent.sections?.[4].rows[0].value).toStrictEqual({
-      html: 'MOCK_FILENAME',
-    });
-  });
-
-  test('should return correct welsh content when refuge document not present', () => {
-    const refugeContent = { language: 'cy' } as CommonContent;
-    refugeContent.userCase = {
-      ...mockUserCase,
-      attendingToCourt: [''],
-      hearingDetails: '',
-      languageRequirements: [''],
-      languageDetails: '',
-      safetyArrangements: [''],
-      safetyArrangementsDetails: 'Please describe your need in detail',
-      reasonableAdjustments: [''],
-      c1A_haveSafetyConcerns: YesOrNo.YES,
-      c1A_safetyConernAbout: [C1ASafteyConcernsAbout.RESPONDENT],
-      isCitizenLivingInRefuge: YesOrNo.YES,
-    };
-    const generatedRefugeContent = generateContent(refugeContent);
-    form = generatedRefugeContent.form as FormContent;
-    expect(form.onlyContinue.disabled).toBe(true);
-    expect(generatedRefugeContent.sections?.[4].rows[0].value).toStrictEqual({
-      html: '<span class="govuk-error-message">Llenwch yr adran hon</span>',
-    });
   });
 });
 

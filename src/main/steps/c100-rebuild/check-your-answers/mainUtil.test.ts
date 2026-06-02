@@ -123,14 +123,20 @@ const keys = {
   otherPerson: 'Other person',
   refuge: 'refuge',
   c8RefugeDocument: 'c8RefugeDocument',
-  isOtherPersonAddressConfidential:
-    'Do you want to keep {firstName} {lastName}’s contact details private from the other people named in the application (the respondents)?',
+  isOtherPersonAddressConfidential: 'isOtherPersonAddressConfidential',
+  isOtherPersonIdentityConfidential: 'isOtherPersonIdentityConfidential',
   doYouWantToKeep: 'Do the other people named in the application (the respondents) know any contact details of {name}?',
   courtOrderPrevent: 'courtOrderPrevent',
+  doYouWantToKeepResp:
+    "Do you want to request to keep {firstName} {lastName}'s contact details private from the other people named in the application?",
 };
 const language = 'en';
 const content = {
   x: 'aaa',
+  address: 'ADDRESS',
+  telephone: 'TELEPHONE',
+  email: 'EMAIL',
+  yes: 'Yes',
 };
 
 describe('test cases for main util', () => {
@@ -1301,26 +1307,6 @@ describe('test cases for main util', () => {
         actions: {
           items: [
             {
-              href: '/c100-rebuild/refuge/upload-refuge-document/3b32bc4f-7417-443b-ba94-5eacfcee04c4',
-              text: undefined,
-              visuallyHiddenText: 'Other person 1 c8RefugeDocument',
-              attributes: {
-                id: 'c8RefugeDocument-otherPerson-0',
-              },
-            },
-          ],
-        },
-        key: {
-          text: 'c8RefugeDocument',
-        },
-        value: {
-          html: 'filename.docx',
-        },
-      },
-      {
-        actions: {
-          items: [
-            {
               href: '/c100-rebuild/other-person-details/3b32bc4f-7417-443b-ba94-5eacfcee04c4/address/manual',
               text: undefined,
               visuallyHiddenText: 'Other person 1 addressDetails',
@@ -1613,14 +1599,13 @@ describe('test cases for main util', () => {
               {
                 href: '/c100-rebuild/other-person-details/7483640e-0817-4ddc-b709-6723f7925474/confidentiality',
                 text: undefined,
-                visuallyHiddenText:
-                  'Do you want to keep Bob Silly’s contact details private from the other people named in the application (the respondents)?',
+                visuallyHiddenText: 'isOtherPersonIdentityConfidential',
                 attributes: { id: 'otherPersonConfidentiality-otherPerson-0' },
               },
             ],
           },
           key: {
-            text: 'Do you want to keep Bob Silly’s contact details private from the other people named in the application (the respondents)?',
+            text: 'isOtherPersonIdentityConfidential',
           },
           value: {
             html: 'Yes',
@@ -2136,6 +2121,26 @@ describe('test cases for main util', () => {
         actions: {
           items: [
             {
+              href: '/c100-rebuild/refuge/staying-in-refuge/974b73a9-730e-4db0-b703-19ed3eab0342?',
+              text: undefined,
+              visuallyHiddenText: 'respondents 1 refuge',
+              attributes: {
+                id: 'refuge-respondent-0',
+              },
+            },
+          ],
+        },
+        key: {
+          text: 'refuge',
+        },
+        value: {
+          html: '<span class="govuk-error-message">Complete this section</span>',
+        },
+      },
+      {
+        actions: {
+          items: [
+            {
               href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/address/manual',
               text: undefined,
               visuallyHiddenText: 'respondents 0 addressDetails',
@@ -2196,6 +2201,275 @@ describe('test cases for main util', () => {
       },
     ]);
     expect(respondentDetailsObj?.title).toBe('');
+  });
+
+  test('Confidential questions are mandatory for multiple respondents', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      resp_Respondents: [
+        {
+          id: '974b73a9-730e-4db0-b703-19ed3eab0342',
+          firstName: 'Respondent',
+          lastName: 'FirstPage',
+          personalDetails: {
+            dateOfBirth: {
+              year: '1999',
+              month: '01',
+              day: '11',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            approxDateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            gender: 'Male',
+            otherGenderDetails: '',
+            hasNameChanged: 'no',
+            previousFullName: '',
+            respondentPlaceOfBirth: 'ok',
+            respondentPlaceOfBirthUnknown: 'Yes',
+          },
+          address: {
+            AddressLine1: 'dsadas',
+            AddressLine2: '',
+            PostTown: 'ILFORD',
+            County: '',
+            PostCode: '',
+            Country: 'United Kingdom',
+            addressHistory: 'dontKnow',
+            provideDetailsOfPreviousAddresses: '',
+          },
+          relationshipDetails: {
+            relationshipToChildren: [
+              {
+                childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                relationshipType: 'Other',
+                otherRelationshipTypeDetails: '',
+              },
+            ],
+          },
+          contactDetails: {
+            emailAddress: 'abc@gmail.com',
+            telephoneNumber: '+447205308786',
+          },
+        },
+        {
+          id: '974b73a9-730e-4db0-b703-19ed3eab0342',
+          firstName: 'Respondent',
+          lastName: 'SecondPage',
+          personalDetails: {
+            dateOfBirth: {
+              year: '1999',
+              month: '01',
+              day: '11',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            approxDateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            gender: 'Male',
+            otherGenderDetails: '',
+            hasNameChanged: 'no',
+            previousFullName: '',
+            respondentPlaceOfBirth: 'ok',
+            respondentPlaceOfBirthUnknown: 'Yes',
+          },
+          address: {
+            AddressLine1: 'dsadas',
+            AddressLine2: '',
+            PostTown: 'ILFORD',
+            County: '',
+            PostCode: '',
+            Country: 'United Kingdom',
+            addressHistory: 'dontKnow',
+            provideDetailsOfPreviousAddresses: '',
+          },
+          relationshipDetails: {
+            relationshipToChildren: [
+              {
+                childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                relationshipType: 'Other',
+                otherRelationshipTypeDetails: '',
+              },
+            ],
+          },
+          contactDetails: {
+            emailAddress: 'abc@gmail.com',
+            telephoneNumber: '+447205308786',
+          },
+        },
+      ],
+      cd_children: [
+        {
+          id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+          firstName: 'Nir',
+          lastName: 'Sin',
+        },
+      ],
+    } as ANYTYPE;
+
+    const respondentDetailsObj = RespondentDetails({ sectionTitles, keys, content }, userCase, language);
+    expect(respondentDetailsObj?.rows).toContainEqual({
+      actions: {
+        items: [
+          {
+            href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/confidentiality/start-alternative',
+            text: undefined,
+            visuallyHiddenText:
+              "respondents 1 Do you want to request to keep Respondent FirstPage's contact details private from the other people named in the application?",
+            attributes: {
+              id: 'doYouWantToKeep-respondent-0',
+            },
+          },
+        ],
+      },
+      key: {
+        text: "Do you want to request to keep Respondent FirstPage's contact details private from the other people named in the application?",
+      },
+      value: {
+        html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><span class="govuk-error-message">Complete this section</span></dl>',
+      },
+    });
+  });
+
+  test('Confidential questions are mandatory for multiple respondents, confidential info filled in', () => {
+    const userCase = {
+      id: 'id',
+      state: undefined,
+      resp_Respondents: [
+        {
+          id: '974b73a9-730e-4db0-b703-19ed3eab0342',
+          firstName: 'Respondent',
+          lastName: 'FirstPage',
+          personalDetails: {
+            dateOfBirth: {
+              year: '1999',
+              month: '01',
+              day: '11',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            approxDateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            gender: 'Male',
+            otherGenderDetails: '',
+            hasNameChanged: 'no',
+            previousFullName: '',
+            respondentPlaceOfBirth: 'ok',
+            respondentPlaceOfBirthUnknown: 'Yes',
+          },
+          address: {
+            AddressLine1: 'dsadas',
+            AddressLine2: '',
+            PostTown: 'ILFORD',
+            County: '',
+            PostCode: '',
+            Country: 'United Kingdom',
+            addressHistory: 'dontKnow',
+            provideDetailsOfPreviousAddresses: '',
+          },
+          relationshipDetails: {
+            relationshipToChildren: [
+              {
+                childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                relationshipType: 'Other',
+                otherRelationshipTypeDetails: '',
+              },
+            ],
+          },
+          contactDetails: {
+            emailAddress: 'abc@gmail.com',
+            telephoneNumber: '+447205308786',
+          },
+        },
+        {
+          id: '974b73a9-730e-4db0-b703-19ed3eab0342',
+          firstName: 'Respondent',
+          lastName: 'SecondPage',
+          isRespondentAddressConfidential: 'Yes',
+          isRespondentTelephoneNumberConfidential: 'Yes',
+          isRespondentEmailAddressConfidential: 'Yes',
+          personalDetails: {
+            dateOfBirth: {
+              year: '1999',
+              month: '01',
+              day: '11',
+            },
+            isDateOfBirthUnknown: 'Yes',
+            approxDateOfBirth: {
+              day: '',
+              month: '',
+              year: '',
+            },
+            gender: 'Male',
+            otherGenderDetails: '',
+            hasNameChanged: 'no',
+            previousFullName: '',
+            respondentPlaceOfBirth: 'ok',
+            respondentPlaceOfBirthUnknown: 'Yes',
+          },
+          address: {
+            AddressLine1: 'dsadas',
+            AddressLine2: '',
+            PostTown: 'ILFORD',
+            County: '',
+            PostCode: '',
+            Country: 'United Kingdom',
+            addressHistory: 'dontKnow',
+            provideDetailsOfPreviousAddresses: '',
+          },
+          relationshipDetails: {
+            relationshipToChildren: [
+              {
+                childId: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+                relationshipType: 'Other',
+                otherRelationshipTypeDetails: '',
+              },
+            ],
+          },
+          contactDetails: {
+            emailAddress: 'abc@gmail.com',
+            telephoneNumber: '+447205308786',
+          },
+        },
+      ],
+      cd_children: [
+        {
+          id: '39bc0ed2-503e-4d6e-a957-b57e8f35bc70',
+          firstName: 'Nir',
+          lastName: 'Sin',
+        },
+      ],
+    } as ANYTYPE;
+
+    const respondentDetailsObj = RespondentDetails({ sectionTitles, keys, ...content }, userCase, language);
+    expect(respondentDetailsObj?.rows).toContainEqual({
+      actions: {
+        items: [
+          {
+            href: '/c100-rebuild/respondent-details/974b73a9-730e-4db0-b703-19ed3eab0342/confidentiality/start-alternative',
+            text: undefined,
+            visuallyHiddenText:
+              "respondents 2 Do you want to request to keep Respondent SecondPage's contact details private from the other people named in the application?",
+            attributes: {
+              id: 'doYouWantToKeep-respondent-1',
+            },
+          },
+        ],
+      },
+      key: {
+        text: "Do you want to request to keep Respondent SecondPage's contact details private from the other people named in the application?",
+      },
+      value: {
+        html: '<dl class="govuk-summary-list"><div class="govuk-summary-list__row"><dd class="govuk-summary-list__value">Yes</dd></div><div class="govuk-summary-list__row border-bottom--none"><dd class="govuk-summary-list__value"><ul class="govuk-list govuk-list--bullet"><li>ADDRESS</li><li>TELEPHONE</li><li>EMAIL</li></ul></dd></div></dl>',
+      },
+    });
   });
 
   //SafetyConcerns_yours
@@ -2554,23 +2828,6 @@ describe('test cases for main util', () => {
       expect(areRefugeDocumentsNotPresent({ appl_allApplicants: [{ liveInRefuge: 'No' }] } as CaseWithId)).toBe(false);
     });
 
-    test('should return false if refuge document is present for applicant', () => {
-      expect(
-        areRefugeDocumentsNotPresent({
-          appl_allApplicants: [
-            {
-              liveInRefuge: 'Yes',
-              refugeConfidentialityC8Form: {
-                document_url: 'MOCK_URL',
-                document_binary_url: 'MOCK_BINARY_URL',
-                document_filename: 'MOCK_FILENAME',
-              },
-            },
-          ],
-        } as CaseWithId)
-      ).toBe(false);
-    });
-
     test('should return true if refuge document not present for other person', () => {
       expect(areRefugeDocumentsNotPresent({ oprs_otherPersons: [{ liveInRefuge: 'Yes' }] } as CaseWithId)).toBe(true);
     });
@@ -2807,10 +3064,6 @@ describe('test cases for main util', () => {
         {
           errorType: 'required',
           propertyName: 'placeOfBirth-applicant-0',
-        },
-        {
-          errorType: 'required',
-          propertyName: 'c8RefugeDocument-applicant-0',
         },
         {
           errorType: 'required',
@@ -3127,10 +3380,6 @@ describe('test cases for main util', () => {
         {
           errorType: 'required',
           propertyName: 'relationshipTo-otherPerson-0',
-        },
-        {
-          errorType: 'required',
-          propertyName: 'c8RefugeDocument-otherPerson-0',
         },
         {
           errorType: 'required',
