@@ -29,6 +29,7 @@ export class PcqController {
           req.locals.logger.error('Error', err);
           throw err;
         }
+        req.locals.logger.info(`${req.session.userCase.caseId}: Redirecting to PCQ service`);
         return res.redirect(pcqServiceUrl);
       });
     } catch (error) {
