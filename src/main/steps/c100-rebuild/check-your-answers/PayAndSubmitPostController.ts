@@ -54,6 +54,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
      * 1. Create only service request for case with help with fees opted
      * 2. Create service request & payment request ref in case of pay & submit
      * */
+    req.locals.logger.info(`${req.session.userCase.caseId}: Initiating payment process for case submission`);
     PaymentHandler(req, res);
   }
 }
