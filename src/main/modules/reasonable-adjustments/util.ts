@@ -11,6 +11,7 @@ import { FormContent, FormFieldsFn } from '../../app/form/Form';
 import { CommonContent } from '../../steps/common/common.content';
 import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
 import { displayText } from '../../steps/common/reasonable-adjustments/review/content';
+import { languages as languageRequirementsLanguages } from '../../steps/common/reasonable-adjustments/language-requirements/content';
 import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
 import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
 import { applyParms } from '../../steps/common/url-parser';
@@ -501,6 +502,7 @@ export class ReasonableAdjustementsUtility {
   }
 
   prepareCaseNoteText(userCase: Partial<CaseWithId>): string {
+    const languageRequirementsEn = languageRequirementsLanguages.en();
     const specialArrangementsEn = specialArrangementsLanguages.en();
     const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
     const supportDuringCaseEn = supportDuringCaseLanguages.en();
@@ -530,6 +532,12 @@ export class ReasonableAdjustementsUtility {
       }
       note = note.concat('\n');
     };
+
+    if (userCase.ra_needInterpreterInCertainLanguage_subfield) {
+      addLine(languageRequirementsEn.needInterpreterInCertainLanguage);
+      addLine(userCase.ra_needInterpreterInCertainLanguage_subfield);
+      note = note.concat('\n');
+    }
 
     if (userCase.ra_specialArrangements) {
       addSection(specialArrangementsEn.headingTitle, userCase.ra_specialArrangements);

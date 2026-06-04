@@ -5,6 +5,9 @@ import { languages as specialArrangementsLanguages } from '../../steps/common/re
 import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
 
 import { RAUtility } from './util';
+import {
+  languages as languageRequirementsLanguages
+} from "../../steps/common/reasonable-adjustments/language-requirements/content";
 
 describe('RA util', () => {
   describe('cleanSessionForLocalComponent', () => {
@@ -301,7 +304,8 @@ describe('RA util', () => {
       const req = mockRequest({
         session: {
           userCase: {
-            ra_typeOfHearing: ['videohearings', 'phonehearings'],
+            ra_typeOfHearing: ['videohearings', 'phonehearings', 'languageinterpreter'],
+            ra_needInterpreterInCertainLanguage_subfield: 'Polish',
             ra_languageNeeds: ['speakwelsh', 'readandwritewelsh'],
             ra_specialArrangements: ['waitingroom', 'separateexitentry'],
             ra_intermediaryRequirements: YesOrNo.YES,
@@ -312,11 +316,14 @@ describe('RA util', () => {
         },
       });
 
+      const languageRequirementsEn = languageRequirementsLanguages.en();
       const specialArrangementsEn = specialArrangementsLanguages.en();
       const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
       const supportDuringCaseEn = supportDuringCaseLanguages.en();
 
       const expected =
+        `${languageRequirementsEn.needInterpreterInCertainLanguage}` +
+        '\nPolish\n\n' +
         `${specialArrangementsEn.headingTitle}` +
         '\n' +
         `${specialArrangementsEn.separateWaitingRoom}` +
@@ -341,8 +348,7 @@ describe('RA util', () => {
           userCase: {
             ra_typeOfHearing: ['nohearings'],
             ra_noVideoAndPhoneHearing_subfield: 'test',
-            ra_languageNeeds: ['languageinterpreter'],
-            ra_needInterpreterInCertainLanguage_subfield: 'test',
+            ra_languageNeeds: ['noLanguageRequirements'],
             ra_specialArrangements: ['waitingroom'],
             ra_intermediaryRequirements: YesOrNo.NO,
             ra_assistanceRequirements: YesOrNo.NO,

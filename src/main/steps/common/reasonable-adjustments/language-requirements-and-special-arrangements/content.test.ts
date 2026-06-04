@@ -25,6 +25,11 @@ const en = {
   content5:
     'Tell us if you or any other party involved in the case have a health condition or disability that means you need support to take part in the hearing or communicate with the court.',
   content6: 'Tell us if you need:',
+  content7: 'Special Measures',
+  content8:
+    'Please say whether there is a need for the court to make any special measures for you or any relevant children to attend court.',
+  content9: 'Special measures can be put in place to keep you separate from the applicant when you attend court.',
+  content10: 'Select any of the following measures you would like to request:',
   specialArrangementsList: [
     {
       content: 'a separate waiting room in the court building',
@@ -34,7 +39,7 @@ const en = {
     },
     {
       content:
-        'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
+        'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the applicant would not be able to see you while in the courtroom).',
     },
     {
       content:
@@ -71,6 +76,11 @@ const cy = {
   content5:
     "Dywedwch wrthym os oes gennych chi, neu unrhyw barti arall sy'n rhan o'r achos, gyflwr iechyd neu anabledd sy'n golygu bod arnoch angen cefnogaeth i gymryd rhan yn y gwrandawiad neu i gyfathrebu â'r llys.",
   content6: 'Dywedwch wrthym os oes arnoch angen:',
+  content7: 'Mesurau Arbennig',
+  content8:
+    'Dywedwch a oes angen i’r llys wneud unrhyw fesurau arbennig ar eich cyfer chi neu i unrhyw blant perthnasol fynychu’r llys.',
+  content9: 'Gallwn roi mesurau arbennig mewn lle i’ch cadw chi ar wahân i’r ceisydd pan fyddwch yn mynychu’r llys.',
+  content10: 'Dewiswch unrhyw un o’r mesurau canlynol yr hoffech wneud cais amdanynt:',
   supportNeedsList: [
     {
       content: 'cyfryngwr',
@@ -82,11 +92,6 @@ const cy = {
       content: 'cyfleusterau arbennig',
     },
   ],
-  content7: 'Mesurau Arbennig',
-  content8:
-    'Dywedwch a oes angen i’r llys wneud unrhyw fesurau arbennig ar eich cyfer chi neu i unrhyw blant perthnasol fynychu’r llys.',
-  content9: 'Gallwn roi mesurau arbennig mewn lle i’ch cadw chi ar wahân i’r atebydd pan fyddwch yn mynychu’r llys.',
-  content10: 'Dewiswch unrhyw un o’r mesurau canlynol yr hoffech wneud cais amdanynt:',
   specialArrangementsList: [
     {
       content: 'ystafell aros ar wahân yn yr adeilad llys',
@@ -96,7 +101,7 @@ const cy = {
     },
     {
       content:
-        'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin preifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
+        'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin preifatrwydd yn golygu na fyddai’r ceisydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
     },
     {
       content:
