@@ -1,13 +1,11 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { CaseType, YesOrNo } from '../../app/case/definition';
 import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
+import { languages as languageRequirementsLanguages } from '../../steps/common/reasonable-adjustments/language-requirements/content';
 import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
 import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
 
 import { RAUtility } from './util';
-import {
-  languages as languageRequirementsLanguages
-} from "../../steps/common/reasonable-adjustments/language-requirements/content";
 
 describe('RA util', () => {
   describe('cleanSessionForLocalComponent', () => {

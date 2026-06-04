@@ -4,8 +4,9 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
-import {C100_URL, FETCH_CASE_DETAILS} from '../../../../steps/urls';
+import { C100_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = (isC100Journey: boolean) => {
   const otherParty = isC100Journey ? 'respondent' : 'applicant';
   return {
@@ -50,8 +51,7 @@ const en = (isC100Journey: boolean) => {
         content: 'a separate entrance and exit from the court building',
       },
       {
-        content:
-          `to be shielded by a privacy screen in the courtroom (a privacy screen would mean the ${otherParty} would not be able to see you while in the courtroom).`,
+        content: `to be shielded by a privacy screen in the courtroom (a privacy screen would mean the ${otherParty} would not be able to see you while in the courtroom).`,
       },
       {
         content:
@@ -68,7 +68,7 @@ const en = (isC100Journey: boolean) => {
           'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
       },
     },
-  }
+  };
 };
 
 const cy = (isC100Journey: boolean): ReturnType<typeof en> => {
@@ -115,8 +115,7 @@ const cy = (isC100Journey: boolean): ReturnType<typeof en> => {
         content: 'mynedfa ac allanfa ar wahân o adeilad y llys',
       },
       {
-        content:
-          `cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin preifatrwydd yn golygu na fyddai’r ${otherParty} yn gallu eich gweld tra byddech yn yr ystafell llys).`,
+        content: `cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin preifatrwydd yn golygu na fyddai’r ${otherParty} yn gallu eich gweld tra byddech yn yr ystafell llys).`,
       },
       {
         content:
@@ -134,7 +133,7 @@ const cy = (isC100Journey: boolean): ReturnType<typeof en> => {
           'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
       },
     },
-  }
+  };
 };
 
 export const languages = {
