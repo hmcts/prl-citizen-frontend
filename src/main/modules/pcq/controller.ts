@@ -18,6 +18,7 @@ export class PcqController {
 
   async launch(req: AppRequest, res: Response, returnUrl: string): Promise<void> {
     try {
+      req.locals.logger.info(`${req.session.userCase.caseId}: PCQ return URL ${returnUrl}`);
       PCQProvider.initialiseLogger(req);
       const url = config.get('services.equalityAndDiversity.url');
       const path: string = config.get('services.equalityAndDiversity.path');
@@ -28,6 +29,7 @@ export class PcqController {
           req.locals.logger.error('Error', err);
           throw err;
         }
+        req.locals.logger.info(`${req.session.userCase.caseId}: Redirecting to PCQ service`);
         return res.redirect(pcqServiceUrl);
       });
     } catch (error) {
@@ -38,6 +40,7 @@ export class PcqController {
   async onPcqCompletion(req: AppRequest, res: Response): Promise<void> {
     if (req.params.context === 'c100-rebuild') {
       try {
+        req.locals.logger.info(`${req.session.userCase.caseId}: Saving draft application after PCQ completion`);
         await req.locals.C100Api.saveC100DraftApplication(
           req.session.userCase.caseId!,
           req.session.userCase,
