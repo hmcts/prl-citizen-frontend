@@ -100,7 +100,7 @@ export const displayText = {
     waitingroom: 'a separate waiting room in the court building',
     separateexitentry: 'a separate entrance and exit from the court building',
     screens:
-      'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
+      'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the applicant would not be able to see you while in the courtroom).',
     separatetoilets: 'Separate toilets',
     visitToCourt: 'Visit to court before the hearing',
     videolinks:

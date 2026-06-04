@@ -8,7 +8,6 @@ import { AnyObject, PostController } from '../../../../app/controller/PostContro
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { RAProvider } from '../../../../modules/reasonable-adjustments';
 import { getPartyDetails, mapDataInSession } from '../../../../steps/tasklistresponse/utils';
-import { C100_URL } from '../../../urls';
 
 @autobind
 export default class RARespondentPostController extends PostController<AnyObject> {
@@ -36,7 +35,7 @@ export default class RARespondentPostController extends PostController<AnyObject
           await client.submitLanguageSupportNotes(
             userCase.id,
             partyDetails.user.idamId,
-            RAProvider.utils.prepareCaseNoteText(userCase, req.originalUrl.startsWith(C100_URL)),
+            RAProvider.utils.prepareCaseNoteText(userCase, false),
             user.accessToken
           );
         }
