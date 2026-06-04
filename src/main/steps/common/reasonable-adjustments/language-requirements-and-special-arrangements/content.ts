@@ -1,10 +1,11 @@
 import _ from 'lodash';
 
+import { PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { C100_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';
+import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = (isC100Journey: boolean) => {
@@ -165,7 +166,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const isC100Journey = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
+  const isC100Journey = content.additionalData?.req?.originalUrl?.includes(PartyType.APPLICANT);
   const translations = languages[content.language](isC100Journey);
 
   Object.assign(form.link!, {

@@ -164,7 +164,7 @@ export const displayText = {
     waitingroom: 'ystafell aros ar wahân yn yr adeilad llys',
     separateexitentry: 'mynedfa ac allanfa ar wahân o’r adeilad llys',
     screens:
-      'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
+      'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r ceisydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
     separatetoilets: 'Toiledau ar wahân',
     visitToCourt: "Ymweld â'r llys cyn y gwrandawiad",
     videolinks: 'Cyswllt fideo',
