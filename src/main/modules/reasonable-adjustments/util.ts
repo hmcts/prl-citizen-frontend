@@ -324,7 +324,8 @@ export class ReasonableAdjustementsUtility {
     languages: Record<string, any>,
     form: FormContent
   ): PageContent {
-    const translations = languages[content.language]();
+    const isC100Journey = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
+    const translations = languages[content.language](isC100Journey);
     const request = content.additionalData?.req;
 
     if (request.originalUrl.startsWith(C100_URL)) {
@@ -501,9 +502,9 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
-  prepareCaseNoteText(userCase: Partial<CaseWithId>): string {
+  prepareCaseNoteText(userCase: Partial<CaseWithId>, isC100Journey: boolean): string {
     const languageRequirementsEn = languageRequirementsLanguages.en();
-    const specialArrangementsEn = specialArrangementsLanguages.en();
+    const specialArrangementsEn = specialArrangementsLanguages.en(isC100Journey);
     const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
     const supportDuringCaseEn = supportDuringCaseLanguages.en();
     let note = '';

@@ -12,13 +12,13 @@ import { languages as supportDuringCaseLanguages } from '../../../../steps/commo
  * depending on the language selected
  * @returns A function that returns an object.
  */
-export const ReasonableAdjustmentElement = language => {
+export const ReasonableAdjustmentElement = (language, isC100Journey: boolean) => {
   const attendingCourtEn = attendingCourtLanguages.en();
   const attendingCourtCy = attendingCourtLanguages.cy();
   const langRequirementsEn = langRequirementsLanguages.en();
   const langRequirementsCy = langRequirementsLanguages.cy();
-  const specialArrangementsEn = specialArrangementsLanguages.en();
-  const specialArrangementsCy = specialArrangementsLanguages.cy();
+  const specialArrangementsEn = specialArrangementsLanguages.en(isC100Journey);
+  const specialArrangementsCy = specialArrangementsLanguages.cy(isC100Journey);
   const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
   const intermediaryRequirementsCy = intermediaryRequirementsLanguages.cy();
   const supportDuringCaseEn = supportDuringCaseLanguages.en();

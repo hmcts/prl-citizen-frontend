@@ -313,9 +313,9 @@ describe('RA util', () => {
           },
         },
       });
-
+      const isC100Journey = true;
       const languageRequirementsEn = languageRequirementsLanguages.en();
-      const specialArrangementsEn = specialArrangementsLanguages.en();
+      const specialArrangementsEn = specialArrangementsLanguages.en(isC100Journey);
       const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
       const supportDuringCaseEn = supportDuringCaseLanguages.en();
 
@@ -337,7 +337,7 @@ describe('RA util', () => {
         `${YesOrNo.YES}` +
         '\ntest\n\n';
 
-      expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe(expected);
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase, isC100Journey)).toBe(expected);
     });
 
     test('should return case note text without new RA subfields', () => {
@@ -353,8 +353,8 @@ describe('RA util', () => {
           },
         },
       });
-
-      const specialArrangementsEn = specialArrangementsLanguages.en();
+      const isC100Journey = false;
+      const specialArrangementsEn = specialArrangementsLanguages.en(isC100Journey);
       const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
       const supportDuringCaseEn = supportDuringCaseLanguages.en();
 
@@ -372,7 +372,7 @@ describe('RA util', () => {
         `${YesOrNo.NO}` +
         '\n\n';
 
-      expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe(expected);
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase, isC100Journey)).toBe(expected);
     });
 
     test('should handle empty case note sections', () => {
@@ -382,7 +382,7 @@ describe('RA util', () => {
         },
       });
 
-      expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe('');
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase, true)).toBe('');
     });
   });
 });

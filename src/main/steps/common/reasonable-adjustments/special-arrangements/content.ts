@@ -9,47 +9,51 @@ import { C100_URL } from '../../../../steps/urls';
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const en = () => ({
-  caption: 'Special arrangements',
-  headingTitle: 'Do you or the children need special arrangements at court?',
-  line1:
-    'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
-  select_all_apply: 'Select all that apply to you',
-  separateWaitingRoom: 'a separate waiting room in the court building',
-  separateExitEntrance: 'a separate entrance and exit from the court building',
-  screenWithOtherPeople:
-    'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
-  videoLinks:
-    "to join the hearing by video link rather than in person (it is the judge's decision whether to allow a hearing by video link).",
-  noSafetyRequirements: 'No, I do not have any safety requirements at this time',
-  courtGuidanceText: 'Court staff may get in touch with you about the requirements',
-  errors: {
-    ra_specialArrangements: {
-      required: 'Select whether you or the children need special arrangements at court',
+export const en = (isC100Journey: boolean) => {
+  const otherParty = isC100Journey ? 'respondent' : 'applicant';
+  return {
+    caption: 'Special arrangements',
+    headingTitle: 'Do you or the children need special arrangements at court?',
+    line1:
+      'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
+    select_all_apply: 'Select all that apply to you',
+    separateWaitingRoom: 'a separate waiting room in the court building',
+    separateExitEntrance: 'a separate entrance and exit from the court building',
+    screenWithOtherPeople: `to be shielded by a privacy screen in the courtroom (a privacy screen would mean the ${otherParty} would not be able to see you while in the courtroom).`,
+    videoLinks:
+      "to join the hearing by video link rather than in person (it is the judge's decision whether to allow a hearing by video link).",
+    noSafetyRequirements: 'No, I do not have any safety requirements at this time',
+    courtGuidanceText: 'Court staff may get in touch with you about the requirements',
+    errors: {
+      ra_specialArrangements: {
+        required: 'Select whether you or the children need special arrangements at court',
+      },
     },
-  },
-});
+  };
+};
 
-export const cy = () => ({
-  caption: 'Trefniadau arbennig',
-  headingTitle: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
-  line1:
-    "Efallai y bydd angen trefniadau penodol arnoch chi neu'r plant pan fyddwch chi'n dod i'r llys. Rhaid i rai o’r addasiadau hyn gael eu cymeradwyo gan farnwr neu GLlTEF. Os yw eich anghenion yn newid, gallwch drafod hyn gyda'r llys.",
-  select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
-  separateWaitingRoom: 'ystafell aros ar wahân yn yr adeilad llys',
-  separateExitEntrance: 'mynedfa ac allanfa ar wahân o’r adeilad llys',
-  screenWithOtherPeople:
-    'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
-  videoLinks:
-    'ymuno â’r gwrandawiad drwy gyswllt fideo yn hytrach na bod yno wyneb yn wyneb (penderfyniad y barnwr yw p’un a ddylid caniatáu gwrandawiad drwy gyswllt fideo ai peidio).',
-  noSafetyRequirements: 'Nac oes, nid oes arnaf angen unrhyw ofynion o ran diogelwch ar hyn o bryd',
-  courtGuidanceText: 'Efallai y bydd staff y llys yn cysylltu â chi ynghylch eich gofynion.',
-  errors: {
-    ra_specialArrangements: {
-      required: "Dewiswch p'un a oes angen trefniadau arbennig arnoch chi neu'r plant yn y llys",
+export const cy = (isC100Journey: boolean) => {
+  const otherParty = isC100Journey ? 'atebydd' : 'ceisydd';
+  return {
+    caption: 'Trefniadau arbennig',
+    headingTitle: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+    line1:
+      "Efallai y bydd angen trefniadau penodol arnoch chi neu'r plant pan fyddwch chi'n dod i'r llys. Rhaid i rai o’r addasiadau hyn gael eu cymeradwyo gan farnwr neu GLlTEF. Os yw eich anghenion yn newid, gallwch drafod hyn gyda'r llys.",
+    select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",
+    separateWaitingRoom: 'ystafell aros ar wahân yn yr adeilad llys',
+    separateExitEntrance: 'mynedfa ac allanfa ar wahân o’r adeilad llys',
+    screenWithOtherPeople: `cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r ${otherParty} yn gallu eich gweld tra byddech yn yr ystafell llys).`,
+    videoLinks:
+      'ymuno â’r gwrandawiad drwy gyswllt fideo yn hytrach na bod yno wyneb yn wyneb (penderfyniad y barnwr yw p’un a ddylid caniatáu gwrandawiad drwy gyswllt fideo ai peidio).',
+    noSafetyRequirements: 'Nac oes, nid oes arnaf angen unrhyw ofynion o ran diogelwch ar hyn o bryd',
+    courtGuidanceText: 'Efallai y bydd staff y llys yn cysylltu â chi ynghylch eich gofynion.',
+    errors: {
+      ra_specialArrangements: {
+        required: "Dewiswch p'un a oes angen trefniadau arbennig arnoch chi neu'r plant yn y llys",
+      },
     },
-  },
-});
+  };
+};
 
 export const languages = {
   en,
