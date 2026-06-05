@@ -476,16 +476,24 @@ export class ReasonableAdjustementsUtility {
     }
     console.log('--- inside cleanSessionForLocalComponent');
     if (languageNeeds?.length) {
-      console.log('--- language needs has been defined');
       if (
         !this.hasRAValueInSessionForLocalComponent(
           ['needInterpreterInCertainLanguage', 'languageinterpreter'],
           languageNeeds
         )
       ) {
-        console.log('--- interpreter subfield is getting cleared');
-        caseData = this.cleanSessionForLanguageNeedsSubFields(caseData, req);
-        delete req.session.userCase.ra_needInterpreterInCertainLanguage_subfield;
+        caseData = this.cleanSessionForLanguageNeedsSubFields(caseData);
+      }
+    } else if (caseData.ra_needInterpreterInCertainLanguage_subfield) {
+      const sessionLanguageNeeds = caseData.ra_languageNeeds as string[];
+      if (
+        !sessionLanguageNeeds?.length ||
+        !this.hasRAValueInSessionForLocalComponent(
+          ['needInterpreterInCertainLanguage', 'languageinterpreter'],
+          sessionLanguageNeeds
+        )
+      ) {
+        caseData = this.cleanSessionForLanguageNeedsSubFields(caseData);
       }
     }
 

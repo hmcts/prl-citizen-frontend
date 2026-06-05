@@ -9,6 +9,21 @@ import { RAUtility } from './util';
 
 describe('RA util', () => {
   describe('cleanSessionForLocalComponent', () => {
+    test('should clean session for interpreter', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {
+            ra_documentInformation: ['nointerpreter'],
+            ra_needInterpreterInCertainLanguage_subfield: 'test',
+          },
+        },
+      });
+
+      const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
+
+      expect(cleanedUserCase.ra_needInterpreterInCertainLanguage_subfield).toBe(undefined);
+    });
+
     test('should clean session for document support', () => {
       const req = mockRequest({
         body: {
