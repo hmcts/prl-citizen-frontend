@@ -80,9 +80,14 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
-  private cleanSessionForLanguageNeedsSubFields(caseData: CaseWithId): CaseWithId {
+  private cleanSessionForLanguageNeedsSubFields(caseData: CaseWithId, req?: AppRequest): CaseWithId {
     console.log('--- about to delete interpreter subfield');
     delete caseData.ra_needInterpreterInCertainLanguage_subfield;
+    if (req?.session?.userCase) {
+      delete req.session.userCase.ra_needInterpreterInCertainLanguage_subfield;
+      console.log('session data:', req.session.userCase.ra_needInterpreterInCertainLanguage_subfield);
+    }
+    console.log('case data:', caseData.ra_needInterpreterInCertainLanguage_subfield);
     return caseData;
   }
 
@@ -479,7 +484,12 @@ export class ReasonableAdjustementsUtility {
         )
       ) {
         console.log('--- interpreter subfield is getting cleared');
-        caseData = this.cleanSessionForLanguageNeedsSubFields(caseData);
+        caseData = this.cleanSessionForLanguageNeedsSubFields(caseData, req);
+      }
+
+      if (!this.hasRAValueInSessionForLocalComponent(['noLanguageRequirements', 'nointerpreter'], languageNeeds)) {
+        console.log('--- no language requirements is getting cleared');
+        caseData = this.cleanSessionForLanguageNeedsSubFields(caseData, req);
       }
     }
 
@@ -564,7 +574,7 @@ export class ReasonableAdjustementsUtility {
         userCase.ra_assistanceRequirements_subfield
       );
     }
-
+    console.log('--- note: ', note);
     return note;
   }
 

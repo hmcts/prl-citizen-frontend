@@ -8,8 +8,8 @@ import { applyParms } from '../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const en = (isC100Journey: boolean) => {
-  const otherParty = isC100Journey ? 'respondent' : 'applicant';
+const en = (isApplicantJourney: boolean) => {
+  const otherParty = isApplicantJourney ? 'respondent' : 'applicant';
   return {
     caption: 'Support you need during the case',
     title: 'Language requirements and support needs',
@@ -72,8 +72,8 @@ const en = (isC100Journey: boolean) => {
   };
 };
 
-const cy = (isC100Journey: boolean): ReturnType<typeof en> => {
-  const otherParty = isC100Journey ? 'atebydd' : 'ceisydd';
+const cy = (isApplicantJourney: boolean): ReturnType<typeof en> => {
+  const otherParty = isApplicantJourney ? 'atebydd' : 'ceisydd';
   return {
     caption: 'Cymorth y mae arnoch ei angen yn ystod yr achos',
     title: 'Gofynion iaith ac anghenion cymorth',
@@ -166,8 +166,10 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const isC100Journey = content.additionalData?.req?.originalUrl?.includes(PartyType.APPLICANT);
-  const translations = languages[content.language](isC100Journey);
+  const url = content.additionalData?.req?.originalUrl;
+  const isApplicantJourney = content.additionalData?.req?.originalUrl?.includes(PartyType.APPLICANT);
+  console.log('URL:', url, 'isApplicantJourney:', isApplicantJourney);
+  const translations = languages[content.language](isApplicantJourney);
 
   Object.assign(form.link!, {
     href: applyParms(FETCH_CASE_DETAILS, { caseId: _.get(content, 'userCase.id', '') }),
