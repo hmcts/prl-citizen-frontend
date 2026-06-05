@@ -485,11 +485,7 @@ export class ReasonableAdjustementsUtility {
       ) {
         console.log('--- interpreter subfield is getting cleared');
         caseData = this.cleanSessionForLanguageNeedsSubFields(caseData, req);
-      }
-
-      if (!this.hasRAValueInSessionForLocalComponent(['noLanguageRequirements', 'nointerpreter'], languageNeeds)) {
-        console.log('--- no language requirements is getting cleared');
-        caseData = this.cleanSessionForLanguageNeedsSubFields(caseData, req);
+        delete req.session.userCase.ra_needInterpreterInCertainLanguage_subfield;
       }
     }
 
