@@ -10,6 +10,7 @@ import { PageContent } from '../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../app/form/Form';
 import { CommonContent } from '../../steps/common/common.content';
 import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
+import { languages as languageRequirementsLanguages } from '../../steps/common/reasonable-adjustments/language-requirements/content';
 import { displayText } from '../../steps/common/reasonable-adjustments/review/content';
 import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
 import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
@@ -79,8 +80,11 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
-  private cleanSessionForLanguageNeedsSubFields(caseData: CaseWithId): CaseWithId {
+  private cleanSessionForLanguageNeedsSubFields(caseData: CaseWithId, req?: AppRequest): CaseWithId {
     delete caseData.ra_needInterpreterInCertainLanguage_subfield;
+    if (req?.session?.userCase) {
+      delete req.session.userCase.ra_needInterpreterInCertainLanguage_subfield;
+    }
     return caseData;
   }
 
@@ -323,7 +327,8 @@ export class ReasonableAdjustementsUtility {
     languages: Record<string, any>,
     form: FormContent
   ): PageContent {
-    const translations = languages[content.language]();
+    const isC100Journey = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
+    const translations = languages[content.language](isC100Journey);
     const request = content.additionalData?.req;
 
     if (request.originalUrl.startsWith(C100_URL)) {
@@ -476,6 +481,17 @@ export class ReasonableAdjustementsUtility {
       ) {
         caseData = this.cleanSessionForLanguageNeedsSubFields(caseData);
       }
+    } else if (caseData.ra_needInterpreterInCertainLanguage_subfield) {
+      const sessionLanguageNeeds = caseData.ra_languageNeeds as string[];
+      if (
+        !sessionLanguageNeeds?.length ||
+        !this.hasRAValueInSessionForLocalComponent(
+          ['needInterpreterInCertainLanguage', 'languageinterpreter'],
+          sessionLanguageNeeds
+        )
+      ) {
+        caseData = this.cleanSessionForLanguageNeedsSubFields(caseData);
+      }
     }
 
     if (specialArrangements?.length) {
@@ -500,8 +516,9 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
-  prepareCaseNoteText(userCase: Partial<CaseWithId>): string {
-    const specialArrangementsEn = specialArrangementsLanguages.en();
+  prepareCaseNoteText(userCase: Partial<CaseWithId>, isC100Journey: boolean): string {
+    const languageRequirementsEn = languageRequirementsLanguages.en();
+    const specialArrangementsEn = specialArrangementsLanguages.en(isC100Journey);
     const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
     const supportDuringCaseEn = supportDuringCaseLanguages.en();
     let note = '';
@@ -530,6 +547,11 @@ export class ReasonableAdjustementsUtility {
       }
       note = note.concat('\n');
     };
+    if (userCase.ra_needInterpreterInCertainLanguage_subfield) {
+      addLine(languageRequirementsEn.needInterpreterInCertainLanguage);
+      addLine(userCase.ra_needInterpreterInCertainLanguage_subfield);
+      note = note.concat('\n');
+    }
 
     if (userCase.ra_specialArrangements) {
       addSection(specialArrangementsEn.headingTitle, userCase.ra_specialArrangements);
@@ -550,7 +572,6 @@ export class ReasonableAdjustementsUtility {
         userCase.ra_assistanceRequirements_subfield
       );
     }
-
     return note;
   }
 

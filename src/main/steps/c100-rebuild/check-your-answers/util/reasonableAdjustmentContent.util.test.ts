@@ -130,9 +130,9 @@ const TestReasonableAdjustmentElement = language => {
 
 describe('test cases for otherProceedingsContents', () => {
   test('english contents', () => {
-    expect(ReasonableAdjustmentElement('en')).toStrictEqual(TestReasonableAdjustmentElement('en'));
+    expect(ReasonableAdjustmentElement('en', true)).toStrictEqual(TestReasonableAdjustmentElement('en'));
   });
   test('Welsh contents', () => {
-    expect(ReasonableAdjustmentElement('cy')).toStrictEqual(TestReasonableAdjustmentElement('cy'));
+    expect(ReasonableAdjustmentElement('cy', true)).toStrictEqual(TestReasonableAdjustmentElement('cy'));
   });
 });

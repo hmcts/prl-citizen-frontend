@@ -35,7 +35,7 @@ export default class RARespondentPostController extends PostController<AnyObject
           await client.submitLanguageSupportNotes(
             userCase.id,
             partyDetails.user.idamId,
-            RAProvider.utils.prepareCaseNoteText(userCase),
+            RAProvider.utils.prepareCaseNoteText(userCase, false),
             user.accessToken
           );
         }

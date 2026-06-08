@@ -100,7 +100,7 @@ export const displayText = {
     waitingroom: 'a separate waiting room in the court building',
     separateexitentry: 'a separate entrance and exit from the court building',
     screens:
-      'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the respondent would not be able to see you while in the courtroom).',
+      'to be shielded by a privacy screen in the courtroom (a privacy screen would mean the applicant would not be able to see you while in the courtroom).',
     separatetoilets: 'Separate toilets',
     visitToCourt: 'Visit to court before the hearing',
     videolinks:
@@ -164,7 +164,7 @@ export const displayText = {
     waitingroom: 'ystafell aros ar wahân yn yr adeilad llys',
     separateexitentry: 'mynedfa ac allanfa ar wahân o’r adeilad llys',
     screens:
-      'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r atebydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
+      'cael eich cysgodi gan sgrin breifatrwydd yn ystafell y llys (byddai sgrin breifatrwydd yn golygu na fyddai’r ceisydd yn gallu eich gweld tra byddech yn yr ystafell llys).',
     separatetoilets: 'Toiledau ar wahân',
     visitToCourt: "Ymweld â'r llys cyn y gwrandawiad",
     videolinks: 'Cyswllt fideo',

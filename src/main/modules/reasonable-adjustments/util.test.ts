@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { CaseType, YesOrNo } from '../../app/case/definition';
 import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
+import { languages as languageRequirementsLanguages } from '../../steps/common/reasonable-adjustments/language-requirements/content';
 import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
 import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
 
@@ -8,6 +9,21 @@ import { RAUtility } from './util';
 
 describe('RA util', () => {
   describe('cleanSessionForLocalComponent', () => {
+    test('should clean session for interpreter', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {
+            ra_documentInformation: ['nointerpreter'],
+            ra_needInterpreterInCertainLanguage_subfield: 'test',
+          },
+        },
+      });
+
+      const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
+
+      expect(cleanedUserCase.ra_needInterpreterInCertainLanguage_subfield).toBe(undefined);
+    });
+
     test('should clean session for document support', () => {
       const req = mockRequest({
         body: {
@@ -301,7 +317,8 @@ describe('RA util', () => {
       const req = mockRequest({
         session: {
           userCase: {
-            ra_typeOfHearing: ['videohearings', 'phonehearings'],
+            ra_typeOfHearing: ['videohearings', 'phonehearings', 'languageinterpreter'],
+            ra_needInterpreterInCertainLanguage_subfield: 'Polish',
             ra_languageNeeds: ['speakwelsh', 'readandwritewelsh'],
             ra_specialArrangements: ['waitingroom', 'separateexitentry'],
             ra_intermediaryRequirements: YesOrNo.YES,
@@ -311,12 +328,15 @@ describe('RA util', () => {
           },
         },
       });
-
-      const specialArrangementsEn = specialArrangementsLanguages.en();
+      const isC100Journey = true;
+      const languageRequirementsEn = languageRequirementsLanguages.en();
+      const specialArrangementsEn = specialArrangementsLanguages.en(isC100Journey);
       const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
       const supportDuringCaseEn = supportDuringCaseLanguages.en();
 
       const expected =
+        `${languageRequirementsEn.needInterpreterInCertainLanguage}` +
+        '\nPolish\n\n' +
         `${specialArrangementsEn.headingTitle}` +
         '\n' +
         `${specialArrangementsEn.separateWaitingRoom}` +
@@ -332,7 +352,7 @@ describe('RA util', () => {
         `${YesOrNo.YES}` +
         '\ntest\n\n';
 
-      expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe(expected);
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase, isC100Journey)).toBe(expected);
     });
 
     test('should return case note text without new RA subfields', () => {
@@ -341,16 +361,15 @@ describe('RA util', () => {
           userCase: {
             ra_typeOfHearing: ['nohearings'],
             ra_noVideoAndPhoneHearing_subfield: 'test',
-            ra_languageNeeds: ['languageinterpreter'],
-            ra_needInterpreterInCertainLanguage_subfield: 'test',
+            ra_languageNeeds: ['noLanguageRequirements'],
             ra_specialArrangements: ['waitingroom'],
             ra_intermediaryRequirements: YesOrNo.NO,
             ra_assistanceRequirements: YesOrNo.NO,
           },
         },
       });
-
-      const specialArrangementsEn = specialArrangementsLanguages.en();
+      const isC100Journey = false;
+      const specialArrangementsEn = specialArrangementsLanguages.en(isC100Journey);
       const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
       const supportDuringCaseEn = supportDuringCaseLanguages.en();
 
@@ -368,7 +387,7 @@ describe('RA util', () => {
         `${YesOrNo.NO}` +
         '\n\n';
 
-      expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe(expected);
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase, isC100Journey)).toBe(expected);
     });
 
     test('should handle empty case note sections', () => {
@@ -378,7 +397,7 @@ describe('RA util', () => {
         },
       });
 
-      expect(RAUtility.prepareCaseNoteText(req.session.userCase)).toBe('');
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase, true)).toBe('');
     });
   });
 });
