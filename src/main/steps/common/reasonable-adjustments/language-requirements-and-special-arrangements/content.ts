@@ -166,9 +166,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const url = content.additionalData?.req?.originalUrl;
   const isApplicantJourney = content.additionalData?.req?.originalUrl?.includes(PartyType.APPLICANT);
-  console.log('URL:', url, 'isApplicantJourney:', isApplicantJourney);
   const translations = languages[content.language](isApplicantJourney);
 
   Object.assign(form.link!, {

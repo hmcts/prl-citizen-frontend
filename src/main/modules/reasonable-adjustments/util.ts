@@ -81,13 +81,10 @@ export class ReasonableAdjustementsUtility {
   }
 
   private cleanSessionForLanguageNeedsSubFields(caseData: CaseWithId, req?: AppRequest): CaseWithId {
-    console.log('--- about to delete interpreter subfield');
     delete caseData.ra_needInterpreterInCertainLanguage_subfield;
     if (req?.session?.userCase) {
       delete req.session.userCase.ra_needInterpreterInCertainLanguage_subfield;
-      console.log('session data:', req.session.userCase.ra_needInterpreterInCertainLanguage_subfield);
     }
-    console.log('case data:', caseData.ra_needInterpreterInCertainLanguage_subfield);
     return caseData;
   }
 
@@ -474,7 +471,7 @@ export class ReasonableAdjustementsUtility {
         caseData = this.cleanSessionForAttendingToCourtSubFields(caseData);
       }
     }
-    console.log('--- inside cleanSessionForLocalComponent');
+
     if (languageNeeds?.length) {
       if (
         !this.hasRAValueInSessionForLocalComponent(
@@ -550,10 +547,7 @@ export class ReasonableAdjustementsUtility {
       }
       note = note.concat('\n');
     };
-    console.log('--- Creating case note...');
-    console.log('interpreter subfield: ', userCase.ra_needInterpreterInCertainLanguage_subfield);
     if (userCase.ra_needInterpreterInCertainLanguage_subfield) {
-      console.log('--- interpreter subfield exists');
       addLine(languageRequirementsEn.needInterpreterInCertainLanguage);
       addLine(userCase.ra_needInterpreterInCertainLanguage_subfield);
       note = note.concat('\n');
@@ -578,7 +572,6 @@ export class ReasonableAdjustementsUtility {
         userCase.ra_assistanceRequirements_subfield
       );
     }
-    console.log('--- note: ', note);
     return note;
   }
 
