@@ -15,6 +15,7 @@ describe('c100 > screening questions > permissions why > route guard', () => {
   beforeEach(() => {
     req = mockRequest();
     res = mockResponse();
+    deleteDocumentMock.mockClear();
   });
 
   test('should clean permissions why subfields and call next', async () => {
@@ -94,5 +95,53 @@ describe('c100 > screening questions > permissions why > route guard', () => {
     expect(req.session.save).toHaveBeenCalled();
     expect(req.session.userCase.sq_uploadDocument_subfield).toStrictEqual(undefined);
     expect(req.session.errors).toStrictEqual([]);
+  });
+
+  test('should reject delete when document ID does not match session documents', async () => {
+    req.params.removeFileId = 'tampered-id';
+    req.session.userCase.sq_uploadDocument_subfield = [
+      {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    ];
+
+    await routeGuard.get(req, res, next);
+
+    expect(deleteDocumentMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/screening-questions/permissions-why');
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'deleteFile',
+        propertyName: 'sq_uploadDocument_subfield',
+      },
+    ]);
+  });
+
+  test('should catch error when deleting document', async () => {
+    req.params.removeFileId = '1234';
+    req.session.userCase.sq_uploadDocument_subfield = [
+      {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    ];
+
+    deleteDocumentMock.mockRejectedValue({ status: 'Error' });
+    await routeGuard.get(req, res, next);
+
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/screening-questions/permissions-why');
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'deleteFile',
+        propertyName: 'sq_uploadDocument_subfield',
+      },
+    ]);
   });
 });
