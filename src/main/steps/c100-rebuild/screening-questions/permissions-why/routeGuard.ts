@@ -21,6 +21,15 @@ export const routeGuard = {
     const { removeFileId } = req.params;
 
     if (removeFileId && req.session?.userCase?.sq_uploadDocument_subfield) {
+      const doc = req.session.userCase.sq_uploadDocument_subfield;
+      const docs = Array.isArray(doc) ? doc : [doc];
+      const documentBelongsToUser = docs.some(d => d.document_url?.split('/').pop() === removeFileId);
+
+      if (!documentBelongsToUser) {
+        handleEvidenceDocError('deleteFile', req, 'sq_uploadDocument_subfield');
+        return res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
+      }
+
       try {
         removeEvidenceDocErrors(req, 'sq_uploadDocument_subfield');
         await caseApi(req?.session?.user, req.locals.logger).deleteDocument(removeFileId.toString());

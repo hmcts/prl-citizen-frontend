@@ -12,6 +12,15 @@ export const routeGuard = {
     const { removeFileId } = req.params;
 
     if (removeFileId && req.session?.userCase?.miam_previousAttendanceEvidenceDoc) {
+      const doc = req.session.userCase.miam_previousAttendanceEvidenceDoc;
+      const docs = Array.isArray(doc) ? doc : [doc];
+      const documentBelongsToUser = docs.some(d => d.document_url?.split('/').pop() === removeFileId);
+
+      if (!documentBelongsToUser) {
+        handleEvidenceDocError('deleteFile', req, 'miam_previousAttendanceEvidenceDoc');
+        return res.redirect(applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING));
+      }
+
       try {
         removeEvidenceDocErrors(req, 'miam_previousAttendanceEvidenceDoc');
         await caseApi(req?.session?.user, req.locals.logger).deleteDocument(removeFileId.toString());

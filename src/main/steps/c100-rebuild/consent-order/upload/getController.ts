@@ -32,6 +32,11 @@ export default class DocumentUpload extends GetController {
   }
 
   public removeExistingConsentDocument = async (documentId: string, req: AppRequest, res: Response): Promise<void> => {
+    const sessionDocId = req.session.userCase?.co_certificate?.url?.split('/').pop();
+    if (documentId !== sessionDocId) {
+      return res.redirect(C100_CONSENT_ORDER_UPLOAD);
+    }
+
     try {
       await caseApi(req?.session?.user, req.locals.logger).deleteDocument(documentId);
 

@@ -31,6 +31,11 @@ export default class DocumentUpload extends GetController {
   }
 
   public removeExistingDocument = async (docId: string, req: AppRequest, res: Response): Promise<void> => {
+    const sessionDocId = req.session.userCase?.miam_certificate?.url?.split('/').pop();
+    if (docId !== sessionDocId) {
+      return res.redirect(`${C100_MIAM_UPLOAD}`);
+    }
+
     try {
       await caseApi(req?.session?.user, req.locals.logger).deleteDocument(docId);
 
