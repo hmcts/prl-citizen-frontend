@@ -1,7 +1,8 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { CommonContent, generatePageContent } from '../../common.content';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { CommonContent, en as commonContentEN, generatePageContent } from '../../common.content';
 
 import { generateContent } from './content';
 
@@ -10,26 +11,21 @@ jest.mock('../../../../app/form/validation');
 const en = {
   caption: 'Reasonable adjustments',
   headingTitle:
-    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-  line1:
-    'We know some people need support to access information and use our services. We often call this a reasonable adjustment. Some reasonable adjustments need to be agreed by the judge or HMCTS. You can discuss with the court if your needs change.',
-  select_all_apply: 'Select all that apply to you - specific requirements can be given next',
-  documentsHelp: 'I need documents in an alternative format',
-  documentsHelpHint: 'for example, braille or different colours and text sizes',
-  communicationHelp: 'I need help communicating and understanding',
-  communicationHelpHint: 'for example, hearing, speaking or interpretation',
-  extraSupport: 'I need to bring support with me to a hearing',
-  extraSupportHint: 'for example, someone you know or an assistance dog',
-  feelComfortableSupport: 'I need something to feel comfortable during a hearing',
-  feelComfortableSupportHint: 'for example, extra breaks or extra space',
-  helpTravellingMovingBuildingSupport: 'I need help travelling to, or moving around court buildings',
-  helpTravellingMovingBuildingSupportHint:
-    'for example, access and mobility support if a hearing takes place in person',
-  noSupportRequired: 'No, I do not need any support at this time',
+    'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
+  yes: 'Yes',
+  no: 'No',
+  assistanceRequired: 'Give details in the box below.',
   errors: {
-    ra_disabilityRequirements: {
+    ra_assistanceRequirements_subfield: {
       required:
-        'Select whether or not you have a physical, mental or learning disability or health condition that means you need support during your case',
+        "Provide details for 'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?'",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    ra_assistanceRequirements: {
+      required:
+        'Select whether any of the parties involved have a disability for which you require special assistance or special facilities',
     },
   },
 };
@@ -37,26 +33,21 @@ const en = {
 const cy = {
   caption: 'Addasiadau rhesymol',
   headingTitle:
-    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-  line1:
-    'Gwyddom fod rhai pobl angen cymorth i gael mynediad at wybodaeth ac i ddefnyddio ein gwasanaethau. Gelwir hyn yn aml yn addasiad rhesymol. Rhaid i rai addasiadau rhesymol gael eu cytuno gan farnwr neu GLlTEF. Gallwch drafod gyda’r llys os bydd eich anghenion yn newid.',
-  select_all_apply: 'Dewiswch bob un sy’n berthnasol - gellir nodi gofynion penodol nesaf',
-  documentsHelp: 'Rwyf angen dogfennau mewn fformat arall',
-  documentsHelpHint: 'er enghraifft, Braille neu wahanol liwiau a maint testun ',
-  communicationHelp: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
-  communicationHelpHint: 'er enghraifft, gwrando, siarad neu gymorth gan gyfieithydd/dehonglydd',
-  extraSupport: 'Rwyf angen dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad',
-  extraSupportHint: "er enghraifft, rhywun rydych chi'n ei adnabod neu gi cymorth",
-  feelComfortableSupport: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad',
-  feelComfortableSupportHint: 'er enghraifft, seibiannau ychwanegol neu mwy o le',
-  helpTravellingMovingBuildingSupport: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
-  helpTravellingMovingBuildingSupportHint:
-    'er enghraifft, cymorth gyda mynediad a symudedd os bydd gwrandawiad yn cael ei gynnal wyneb yn wyneb',
-  noSupportRequired: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
+    'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
+  yes: 'Ydw',
+  no: 'Nac ydw',
+  assistanceRequired: 'Os Oes, nodwch beth yw’r anghenion hynny',
   errors: {
-    ra_disabilityRequirements: {
+    ra_assistanceRequirements_subfield: {
       required:
-        "Dewiswch p'un a oes gennych anabledd corfforol, meddyliol neu addysgol ai peidio neu gyflwr iechyd sy'n golygu eich bod angen cymorth yn ystod eich achos",
+        "Rhowch fanylion 'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?'",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
+    },
+    ra_assistanceRequirements: {
+      required:
+        "Dewiswch a oes gan unrhyw un o'r partïon dan sylw anabledd y mae angen cymorth arbennig neu gyfleusterau arbennig arnynt",
     },
   },
 };
@@ -88,57 +79,27 @@ describe('Disability requirements content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain disabilityRequirements field', () => {
-    const disabilityRequirementsField = fields.ra_disabilityRequirements as FormOptions;
+  test('should contain assistanceRequirements field', () => {
+    const assistanceRequirementsField = fields.ra_assistanceRequirements as FormOptions;
+    const assistanceRequiredField = assistanceRequirementsField.values[0].subFields
+      ?.ra_assistanceRequirements_subfield as FormOptions;
 
-    expect(disabilityRequirementsField.type).toBe('checkboxes');
-    expect(disabilityRequirementsField.labelHidden).toBe(true);
-    expect((disabilityRequirementsField.label as LanguageLookup)(generatedContent)).toBe(en.headingTitle);
-    expect((disabilityRequirementsField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
-    expect((disabilityRequirementsField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.documentsHelp);
-    expect((disabilityRequirementsField.values[1].label as LanguageLookup)(generatedContent)).toBe(
-      en.communicationHelp
-    );
-    expect((disabilityRequirementsField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.extraSupport);
-    expect((disabilityRequirementsField.values[3].label as LanguageLookup)(generatedContent)).toBe(
-      en.feelComfortableSupport
-    );
-    expect((disabilityRequirementsField.values[4].label as LanguageLookup)(generatedContent)).toBe(
-      en.helpTravellingMovingBuildingSupport
-    );
-    expect(disabilityRequirementsField.values[6].exclusive).toBe(true);
-    expect((disabilityRequirementsField.values[6].label as LanguageLookup)(generatedContent)).toBe(
-      en.noSupportRequired
-    );
+    expect(assistanceRequirementsField.labelHidden).toBe(true);
+    expect(assistanceRequirementsField.type).toBe('radios');
+    expect(assistanceRequirementsField.classes).toBe('govuk-radios');
+    expect((assistanceRequirementsField.label as Function)(generatedContent)).toBe(en.headingTitle);
 
-    expect((disabilityRequirementsField.values[0].hint as LanguageLookup)(generatedContent)).toBe(en.documentsHelpHint);
+    (assistanceRequirementsField.validator as Validator)(generatedContent);
+    expect(isFieldFilledIn).toHaveBeenCalled();
 
-    expect((disabilityRequirementsField.values[1].hint as LanguageLookup)(generatedContent)).toBe(
-      en.communicationHelpHint
-    );
-    expect((disabilityRequirementsField.values[2].hint as LanguageLookup)(generatedContent)).toBe(en.extraSupportHint);
-    expect((disabilityRequirementsField.values[3].hint as LanguageLookup)(generatedContent)).toBe(
-      en.feelComfortableSupportHint
-    );
-    expect((disabilityRequirementsField.values[4].hint as LanguageLookup)(generatedContent)).toBe(
-      en.helpTravellingMovingBuildingSupportHint
-    );
+    expect((assistanceRequirementsField.values[0].label as Function)(commonContentEN)).toBe(YesOrNo.YES);
+    expect((assistanceRequirementsField.values[1].label as Function)(commonContentEN)).toBe(YesOrNo.NO);
 
-    (disabilityRequirementsField.validator as Function)('documentsHelp');
-    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('documentsHelp');
-  });
-
-  test('should contain correct values when not c100 journey', () => {
-    commonContent.additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/support-during-your-case';
-    generatedContent = generateContent(commonContent);
-    const disabilityRequirementsField = generatedContent.form.fields.ra_disabilityRequirements as FormOptions;
-
-    expect(disabilityRequirementsField.values[0].value).toBe('docsformat');
-    expect(disabilityRequirementsField.values[1].value).toBe('commhelp');
-    expect(disabilityRequirementsField.values[2].value).toBe('hearingsupport');
-    expect(disabilityRequirementsField.values[3].value).toBe('hearingcomfort');
-    expect(disabilityRequirementsField.values[4].value).toBe('travellinghelp');
-    expect(disabilityRequirementsField.values[6].value).toBe('nosupport');
+    expect(assistanceRequiredField.type).toBe('textarea');
+    expect((assistanceRequiredField.label as LanguageLookup)(generatedContent)).toBe(en.assistanceRequired);
+    (assistanceRequiredField.validator as Function)('test text area');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
+    expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
   });
 
   test('should contain continue button', () => {

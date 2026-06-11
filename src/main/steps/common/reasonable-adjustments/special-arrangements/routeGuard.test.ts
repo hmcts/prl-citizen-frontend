@@ -12,7 +12,6 @@ describe('RA > special-arrangements > routeGuard', () => {
       session: {
         userCase: {
           ra_specialArrangements: ['screens'],
-          ra_specialArrangementsOther_subfield: 'test',
         },
       },
     });
@@ -22,6 +21,5 @@ describe('RA > special-arrangements > routeGuard', () => {
     expect(req.session.save).toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
     expect(req.session.userCase.ra_specialArrangements).toStrictEqual(['screens']);
-    expect(req.session.userCase.ra_specialArrangementsOther_subfield).toBe(undefined);
   });
 });

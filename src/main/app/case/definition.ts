@@ -152,6 +152,10 @@ export interface ReasonableAdjustmentsSupport {
   languageRequirements?: string[];
   languageDetails?: string;
   reasonableAdjustments?: string[];
+  assistanceRequirements?: YesOrNo,
+  assistanceRequirementsDetails?: string,
+  intermediaryRequirements?: YesOrNo,
+  intermediaryRequirementsDetails?: string,
   safetyArrangements?: string[];
   safetyArrangementsDetails?: string;
   travellingToCourt?: string[];
@@ -2337,9 +2341,9 @@ export interface Schedules {
   hearingJudgeId?: string | null;
   hearingJudgeName?: string | null;
   panelMemberIds?: string[] | number[] | null;
-  attendees?: Attendee[] | null;  
+  attendees?: Attendee[] | null;
   hearingTypeValue?: string;
-  nextHearingDate?: string | null 
+  nextHearingDate?: string | null
 
 }
 
@@ -2779,6 +2783,10 @@ export type C100RebuildPartyDetails = {
   liveInRefuge?: YesOrNo;
   refugeConfidentialityC8Form?: Document;
   isOtherPersonAddressConfidential?: YesOrNo;
+  isOtherPersonAddressOnlyConfidential?: YesOrNo;
+  isRespondentAddressConfidential?: YesOrNo;
+  isRespondentTelephoneNumberConfidential?: YesOrNo;
+  isRespondentEmailAddressConfidential?: YesOrNo;
 };
 
 export interface RelationshipToChildren {
