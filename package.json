@@ -204,7 +204,7 @@
     "axios": "^1.15.2",
     "braces": "^3.0.3",
     "pac-resolver": "^7.0.1",
-    "socks": "^2.7.4",
+    "socks": "^2.8.7",
     "jest-environment-jsdom": "30.1.2",
     "socket.io": "^4.6.2",
     "ws": "^8.20.1",
