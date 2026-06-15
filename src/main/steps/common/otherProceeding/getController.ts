@@ -108,24 +108,47 @@ export default class OtherProceedingsGetController extends GetController {
   ): Promise<void> => {
     try {
       const userDetails = req?.session?.user;
+      const courtOrderType: any = orderType;
+      const courtOrderIdx = Number(orderId) - 1;
+      let sessionDocId: string | undefined;
+
+      if (req.originalUrl.startsWith(C100_URL)) {
+        sessionDocId =
+          req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]]?.[courtOrderIdx]
+            ?.orderDocument?.id;
+      } else if (req.originalUrl.startsWith(RESPONSE_TASKLIST)) {
+        sessionDocId =
+          req.session.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[courtOrderType]]?.[
+            courtOrderIdx
+          ]?.orderDocument?.id;
+      }
+
+      if (!sessionDocId || docId !== sessionDocId) {
+        return res.redirect(
+          applyParms(
+            req.originalUrl.startsWith(C100_URL)
+              ? C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD
+              : OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+            { orderType, orderId }
+          )
+        );
+      }
 
       await caseApi(userDetails, req.locals.logger).deleteDocument(docId);
 
-      const courtOrderType: any = orderType;
-      const courtOrderId: any = orderId;
       if (
         req.originalUrl.startsWith(C100_URL) &&
-        req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
+        req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]]?.[courtOrderIdx]
       ) {
         req.session.userCase.op_otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
-          courtOrderId - 1
+          courtOrderIdx
         ].orderDocument = undefined;
       } else if (
         req.originalUrl.startsWith(RESPONSE_TASKLIST) &&
-        req.session.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
+        req.session.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[courtOrderType]]?.[courtOrderIdx]
       ) {
         req.session.userCase.otherProceedings.order[ProceedingsOrderTypeKeyMapper[courtOrderType]][
-          courtOrderId - 1
+          courtOrderIdx
         ].orderDocument = undefined;
       }
 

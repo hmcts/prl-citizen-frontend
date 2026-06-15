@@ -3,6 +3,7 @@ import { NextFunction, Response } from 'express';
 import { caseApi } from '../../../../app/case/CaseApi';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { applyParms } from '../../../common/url-parser';
+import { documentBelongsToCase } from '../../../common/utils';
 import { C100_SCREENING_QUESTIONS_PERMISSIONS_WHY } from '../../../urls';
 import { handleEvidenceDocError, removeEvidenceDocErrors } from '../../miam/util';
 import { cleanPermissionsWhy } from '../utils';
@@ -21,11 +22,7 @@ export const routeGuard = {
     const { removeFileId } = req.params;
 
     if (removeFileId && req.session?.userCase?.sq_uploadDocument_subfield) {
-      const doc = req.session.userCase.sq_uploadDocument_subfield;
-      const docs = Array.isArray(doc) ? doc : [doc];
-      const documentBelongsToUser = docs.some(d => d.document_url?.split('/').pop() === removeFileId);
-
-      if (!documentBelongsToUser) {
+      if (!documentBelongsToCase(removeFileId, req.session.userCase.sq_uploadDocument_subfield)) {
         handleEvidenceDocError('deleteFile', req, 'sq_uploadDocument_subfield');
         return res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));
       }

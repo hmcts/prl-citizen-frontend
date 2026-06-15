@@ -121,6 +121,28 @@ describe('c100 > screening questions > permissions why > route guard', () => {
     ]);
   });
 
+  test('should reject delete when document ID does not match session document (single object)', async () => {
+    req.params.removeFileId = 'tampered-id';
+    req.session.userCase.sq_uploadDocument_subfield = {
+      document_url: 'test2/1234',
+      document_binary_url: 'binary/test2/1234',
+      document_filename: 'test_document_2',
+      document_hash: '1234',
+      document_creation_date: '1/1/2024',
+    };
+
+    await routeGuard.get(req, res, next);
+
+    expect(deleteDocumentMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/screening-questions/permissions-why');
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'deleteFile',
+        propertyName: 'sq_uploadDocument_subfield',
+      },
+    ]);
+  });
+
   test('should catch error when deleting document', async () => {
     req.params.removeFileId = '1234';
     req.session.userCase.sq_uploadDocument_subfield = [

@@ -48,7 +48,7 @@ describe('C8 Refuge > upload refuge doc > routeGuard', () => {
               applicantFirstName: 'Test',
               applicantLastName: 'Test',
               refugeConfidentialityC8Form: {
-                document_url: 'MOCK_URL',
+                document_url: 'MOCK_URL/1234',
                 document_binary_url: 'MOCK_BINARY_URL',
                 document_filename: 'MOCK_FILENAME',
               },
@@ -86,7 +86,7 @@ describe('C8 Refuge > upload refuge doc > routeGuard', () => {
               applicantFirstName: 'Test',
               applicantLastName: 'Test',
               refugeConfidentialityC8Form: {
-                document_url: 'MOCK_URL',
+                document_url: 'MOCK_URL/1234',
                 document_binary_url: 'MOCK_BINARY_URL',
                 document_filename: 'MOCK_FILENAME',
               },

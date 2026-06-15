@@ -16,7 +16,7 @@ import { People as CombinedPeople, getPartyDetails, updatePartyDetails } from '.
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import { C100_REFUGE_UPLOAD_DOC, C100_URL, REFUGE_UPLOAD_DOC } from '../../urls';
 import { applyParms } from '../url-parser';
-import { handleError, removeErrors } from '../utils';
+import { documentBelongsToCase, handleError, removeErrors } from '../utils';
 
 export const deleteDocument = async (
   req: AppRequest,
@@ -32,9 +32,22 @@ export const deleteDocument = async (
 
   try {
     if (C100rebuildJourney) {
+      const person = getPeople(caseData).find(p => p.id === id);
+      const sessionDoc = person ? getC8DocumentForC100(id!, caseData, person) : undefined;
+
+      if (!documentBelongsToCase(removeFileId, sessionDoc)) {
+        req.session.errors = handleError(req.session.errors, 'deleteError', 'c8RefugeDocument', true);
+        return;
+      }
+
       await client.deleteDocument(removeFileId);
       deleteC100RefugeDoc(req, caseData, id!);
-    } else if (req.session.userCase.hasOwnProperty('refugeDocument')) {
+    } else {
+      if (!documentBelongsToCase(removeFileId, caseData?.refugeDocument)) {
+        req.session.errors = handleError(req.session.errors, 'deleteError', 'c8RefugeDocument', true);
+        return;
+      }
+
       delete req.session.userCase.refugeDocument;
     }
 

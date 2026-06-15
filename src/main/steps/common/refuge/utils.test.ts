@@ -16,6 +16,7 @@ describe('C8 refuge > utils', () => {
     beforeEach(() => {
       req = mockRequest();
       res = mockResponse();
+      deleteDocumentMock.mockClear();
     });
 
     test('should delete document with no errors', async () => {
@@ -47,7 +48,7 @@ describe('C8 refuge > utils', () => {
           applicantLastName: 'Test',
           liveInRefuge: 'Yes',
           refugeConfidentialityC8Form: {
-            document_url: 'MOCK_URL',
+            document_url: 'MOCK_URL/1234',
             document_binary_url: 'MOCK_BINARY_URL',
             document_filename: 'MOCK_FILENAME',
           },
@@ -75,7 +76,7 @@ describe('C8 refuge > utils', () => {
           lastName: 'Test',
           liveInRefuge: 'Yes',
           refugeConfidentialityC8Form: {
-            document_url: 'MOCK_URL',
+            document_url: 'MOCK_URL/1234',
             document_binary_url: 'MOCK_BINARY_URL',
             document_filename: 'MOCK_FILENAME',
           },
@@ -103,7 +104,7 @@ describe('C8 refuge > utils', () => {
           lastName: 'Test',
           liveInRefuge: 'Yes',
           refugeConfidentialityC8Form: {
-            document_url: 'MOCK_URL',
+            document_url: 'MOCK_URL/1234',
             document_binary_url: 'MOCK_BINARY_URL',
             document_filename: 'MOCK_FILENAME',
           },
@@ -124,12 +125,59 @@ describe('C8 refuge > utils', () => {
           lastName: 'Test',
           liveInRefuge: 'Yes',
           refugeConfidentialityC8Form: {
-            document_url: 'MOCK_URL',
+            document_url: 'MOCK_URL/1234',
             document_binary_url: 'MOCK_BINARY_URL',
             document_filename: 'MOCK_FILENAME',
           },
         },
       ]);
+      expect(req.session.errors).toStrictEqual([
+        {
+          errorType: 'deleteError',
+          propertyName: 'c8RefugeDocument',
+        },
+      ]);
+    });
+
+    test('should reject delete when document ID does not match session document (c100)', async () => {
+      req.params = { id: '7483640e-0817-4ddc-b709-6723f7925474', removeFileId: 'tampered-id' };
+      req.originalUrl = '/c100-rebuild';
+      req.session.userCase.appl_allApplicants = [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          applicantFirstName: 'dummy',
+          applicantLastName: 'Test',
+          liveInRefuge: 'Yes',
+          refugeConfidentialityC8Form: {
+            document_url: 'MOCK_URL/1234',
+            document_binary_url: 'MOCK_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+          },
+        },
+      ];
+
+      await deleteDocument(req, res, 'tampered-id', '7483640e-0817-4ddc-b709-6723f7925474');
+
+      expect(deleteDocumentMock).not.toHaveBeenCalled();
+      expect(req.session.errors).toStrictEqual([
+        {
+          errorType: 'deleteError',
+          propertyName: 'c8RefugeDocument',
+        },
+      ]);
+    });
+
+    test('should reject delete when document ID does not match session document (non-c100)', async () => {
+      req.params = { removeFileId: 'tampered-id' };
+      req.session.userCase.refugeDocument = {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+      };
+
+      await deleteDocument(req, res, 'tampered-id');
+
+      expect(deleteDocumentMock).not.toHaveBeenCalled();
       expect(req.session.errors).toStrictEqual([
         {
           errorType: 'deleteError',

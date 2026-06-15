@@ -5,6 +5,7 @@ import { caseApi } from '../../../../app/case/CaseApi';
 import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
+import { documentBelongsToCase } from '../../../common/utils';
 import { C100_MIAM_UPLOAD } from '../../../urls';
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -31,8 +32,7 @@ export default class DocumentUpload extends GetController {
   }
 
   public removeExistingDocument = async (docId: string, req: AppRequest, res: Response): Promise<void> => {
-    const sessionDocId = req.session.userCase?.miam_certificate?.url?.split('/').pop();
-    if (docId !== sessionDocId) {
+    if (!documentBelongsToCase(docId, req.session.userCase?.miam_certificate)) {
       return res.redirect(`${C100_MIAM_UPLOAD}`);
     }
 
