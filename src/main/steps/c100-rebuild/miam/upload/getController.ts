@@ -33,7 +33,9 @@ export default class DocumentUpload extends GetController {
 
   public removeExistingDocument = async (docId: string, req: AppRequest, res: Response): Promise<void> => {
     if (!documentBelongsToCase(docId, req.session.userCase?.miam_certificate)) {
-      return res.redirect(`${C100_MIAM_UPLOAD}`);
+      req.session.errors = [{ propertyName: 'miam_certificate', errorType: 'deleteError' }];
+      req.session.save(() => res.redirect(C100_MIAM_UPLOAD));
+      return;
     }
 
     try {
@@ -47,7 +49,7 @@ export default class DocumentUpload extends GetController {
         if (err) {
           throw err;
         }
-        res.redirect(`${C100_MIAM_UPLOAD}`);
+        res.redirect(C100_MIAM_UPLOAD);
       });
     } catch (error) {
       console.log(error);

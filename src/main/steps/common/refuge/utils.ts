@@ -37,7 +37,7 @@ export const deleteDocument = async (
 
       if (!documentBelongsToCase(removeFileId, sessionDoc)) {
         req.session.errors = handleError(req.session.errors, 'deleteError', 'c8RefugeDocument', true);
-        return;
+        return; // finally block handles session.save and redirect
       }
 
       await client.deleteDocument(removeFileId);
@@ -45,9 +45,10 @@ export const deleteDocument = async (
     } else {
       if (!documentBelongsToCase(removeFileId, caseData?.refugeDocument)) {
         req.session.errors = handleError(req.session.errors, 'deleteError', 'c8RefugeDocument', true);
-        return;
+        return; // finally block handles session.save and redirect
       }
 
+      await client.deleteDocument(removeFileId);
       delete req.session.userCase.refugeDocument;
     }
 

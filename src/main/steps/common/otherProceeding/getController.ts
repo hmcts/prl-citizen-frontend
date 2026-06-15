@@ -124,6 +124,7 @@ export default class OtherProceedingsGetController extends GetController {
       }
 
       if (!sessionDocId || docId !== sessionDocId) {
+        req.locals.logger.warn('Document delete rejected: ID does not match session document');
         return res.redirect(
           applyParms(
             req.originalUrl.startsWith(C100_URL)
