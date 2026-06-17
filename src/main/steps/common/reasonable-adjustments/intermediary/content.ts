@@ -9,44 +9,38 @@ export * from './routeGuard';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Reasonable adjustments',
-  headingTitle:
-    'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
+  headingTitle: 'Are you aware of whether an intermediary will be required?',
   yes: 'Yes',
   no: 'No',
-  assistanceRequired: 'Give details in the box below.',
+  intermediaryRequired: 'Give details in the box below.',
   errors: {
-    ra_assistanceRequirements_subfield: {
-      required:
-        "Provide details for 'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?'",
+    ra_intermediaryRequired_subfield: {
+      required: "Provide details for 'Are you aware of whether an intermediary will be required?'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
-    ra_assistanceRequirements: {
-      required:
-        'Select whether any of the parties involved have a disability for which you require special assistance or special facilities',
+    ra_intermediaryRequirements: {
+      required: 'Select whether or not an intermediary will be required',
     },
   },
 });
 
 export const cy = () => ({
   caption: 'Addasiadau rhesymol',
-  headingTitle:
-    'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
+  headingTitle: 'A ydych yn gwybod a fydd angen cyfryngwr?',
   yes: 'Ydw',
   no: 'Nac ydw',
-  assistanceRequired: 'Os Oes, nodwch beth yw’r anghenion hynny',
+  intermediaryRequired: 'Os Oes, nodwch beth yw’r anghenion hynny',
   errors: {
-    ra_assistanceRequirements_subfield: {
-      required:
-        "Rhowch fanylion 'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?'",
+    ra_intermediaryRequired_subfield: {
+      required: "Rhowch fanylion 'A ydych yn gwybod a fydd angen cyfryngwr?'",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
-    ra_assistanceRequirements: {
-      required:
-        "Dewiswch a oes gan unrhyw un o'r partïon dan sylw anabledd y mae angen cymorth arbennig neu gyfleusterau arbennig arnynt",
+    ra_intermediaryRequirements: {
+      required: "Dewiswch p'un a fydd angen cyfryngwr ai peidio",
     },
   },
 });
@@ -59,7 +53,7 @@ export const languages = {
 export const form: FormContent = {
   fields: (): FormFields => {
     return {
-      ra_assistanceRequirements: {
+      ra_intermediaryRequirements: {
         type: 'radios',
         classes: 'govuk-radios',
         label: l => l.headingTitle,
@@ -70,10 +64,10 @@ export const form: FormContent = {
             label: l => l.yes,
             value: YesOrNo.YES,
             subFields: {
-              ra_assistanceRequirements_subfield: {
+              ra_intermediaryRequired_subfield: {
                 type: 'textarea',
                 labelSize: null,
-                label: l => l.assistanceRequired,
+                label: l => l.intermediaryRequired,
                 attributes: {
                   rows: 4,
                 },
