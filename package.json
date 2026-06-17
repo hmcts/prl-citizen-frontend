@@ -223,7 +223,8 @@
     "postcss": "^8.5.10",
     "uuid": "9.0.1",
     "@types/uuid": "9.0.1",
-    "ip-address": "^10.1.1"
+    "ip-address": "^10.1.1",
+    "form-data": "^4.0.6"
   },
   "packageManager": "yarn@4.6.0"
 }
