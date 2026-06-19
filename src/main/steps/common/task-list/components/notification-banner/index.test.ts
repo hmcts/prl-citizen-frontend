@@ -455,10 +455,10 @@ describe('testcase for notification Banner', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                text: "Rhaid i chi ddod â'r holl bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig i chi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau i chi. <strong>Dim ond os bydd barnwr yn rhoi caniatâd penodol y bydd papurau'n cael eu hargraffu, a dim ond pan na allwch eu hargraffu eich hun.</strong>",
               },
               {
-                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
+                text: "Cewch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais fod â sgrin o faint addas, fel gliniadur yn hytrach na ffôn symudol. Rhaid i chi fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad at bwyntiau pŵer, ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu dynnu unrhyw ddyfais dros dro os oes angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -654,10 +654,10 @@ describe('testcase for notification Banner', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                text: "Rhaid i chi ddod â'r holl bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig i chi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau i chi. <strong>Dim ond os bydd barnwr yn rhoi caniatâd penodol y bydd papurau'n cael eu hargraffu, a dim ond pan na allwch eu hargraffu eich hun.</strong>",
               },
               {
-                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
+                text: "Cewch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais fod â sgrin o faint addas, fel gliniadur yn hytrach na ffôn symudol. Rhaid i chi fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad at bwyntiau pŵer, ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu dynnu unrhyw ddyfais dros dro os oes angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -1180,10 +1180,10 @@ describe('testcase for notification Banner', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                text: "Rhaid i chi ddod â'r holl bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig i chi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau i chi. <strong>Dim ond os bydd barnwr yn rhoi caniatâd penodol y bydd papurau'n cael eu hargraffu, a dim ond pan na allwch eu hargraffu eich hun.</strong>",
               },
               {
-                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
+                text: "Cewch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais fod â sgrin o faint addas, fel gliniadur yn hytrach na ffôn symudol. Rhaid i chi fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad at bwyntiau pŵer, ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu dynnu unrhyw ddyfais dros dro os oes angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -1287,10 +1287,10 @@ describe('testcase for notification Banner', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                text: "Rhaid i chi ddod â'r holl bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig i chi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau i chi. <strong>Dim ond os bydd barnwr yn rhoi caniatâd penodol y bydd papurau'n cael eu hargraffu, a dim ond pan na allwch eu hargraffu eich hun.</strong>",
               },
               {
-                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
+                text: "Cewch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais fod â sgrin o faint addas, fel gliniadur yn hytrach na ffôn symudol. Rhaid i chi fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad at bwyntiau pŵer, ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu dynnu unrhyw ddyfais dros dro os oes angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -1709,10 +1709,10 @@ describe('testcase for notification Banner', () => {
                   text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
                 },
                 {
-                  text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                  text: "Rhaid i chi ddod â'r holl bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig i chi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau i chi. <strong>Dim ond os bydd barnwr yn rhoi caniatâd penodol y bydd papurau'n cael eu hargraffu, a dim ond pan na allwch eu hargraffu eich hun.</strong>",
                 },
                 {
-                  text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
+                  text: "Cewch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais fod â sgrin o faint addas, fel gliniadur yn hytrach na ffôn symudol. Rhaid i chi fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad at bwyntiau pŵer, ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu dynnu unrhyw ddyfais dros dro os oes angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
                 },
               ],
               links: [],
@@ -1841,10 +1841,10 @@ describe('testcase for notification Banner', () => {
                   text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
                 },
                 {
-                  text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                  text: "Rhaid i chi ddod â'r holl bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig i chi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau i chi. <strong>Dim ond os bydd barnwr yn rhoi caniatâd penodol y bydd papurau'n cael eu hargraffu, a dim ond pan na allwch eu hargraffu eich hun.</strong>",
                 },
                 {
-                  text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
+                  text: "Cewch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais fod â sgrin o faint addas, fel gliniadur yn hytrach na ffôn symudol. Rhaid i chi fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad at bwyntiau pŵer, ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu dynnu unrhyw ddyfais dros dro os oes angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
                 },
               ],
               links: [],
@@ -2007,10 +2007,10 @@ describe('testcase for notification Banner', () => {
                   text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
                 },
                 {
-                  text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                  text: "Rhaid i chi ddod â'r holl bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig i chi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau i chi. <strong>Dim ond os bydd barnwr yn rhoi caniatâd penodol y bydd papurau'n cael eu hargraffu, a dim ond pan na allwch eu hargraffu eich hun.</strong>",
                 },
                 {
-                  text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
+                  text: "Cewch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais fod â sgrin o faint addas, fel gliniadur yn hytrach na ffôn symudol. Rhaid i chi fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad at bwyntiau pŵer, ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu dynnu unrhyw ddyfais dros dro os oes angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
                 },
               ],
               links: [],
@@ -2230,10 +2230,10 @@ describe('FL401 banners', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                text: "Rhaid i chi ddod â'r holl bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig i chi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau i chi. <strong>Dim ond os bydd barnwr yn rhoi caniatâd penodol y bydd papurau'n cael eu hargraffu, a dim ond pan na allwch eu hargraffu eich hun.</strong>",
               },
               {
-                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
+                text: "Cewch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais fod â sgrin o faint addas, fel gliniadur yn hytrach na ffôn symudol. Rhaid i chi fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad at bwyntiau pŵer, ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu dynnu unrhyw ddyfais dros dro os oes angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -2269,10 +2269,10 @@ describe('FL401 banners', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                text: "Rhaid i chi ddod â'r holl bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig i chi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau i chi. <strong>Dim ond os bydd barnwr yn rhoi caniatâd penodol y bydd papurau'n cael eu hargraffu, a dim ond pan na allwch eu hargraffu eich hun.</strong>",
               },
               {
-                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
+                text: "Cewch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais fod â sgrin o faint addas, fel gliniadur yn hytrach na ffôn symudol. Rhaid i chi fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad at bwyntiau pŵer, ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu dynnu unrhyw ddyfais dros dro os oes angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
@@ -2506,10 +2506,10 @@ describe('FL401 banners', () => {
                 text: "Os ydych chi'n dod i lys neu dribiwnlys ar gyfer gwrandawiad, dewch â'ch llythyr gwrandawiad gyda'ch rhif achos arno efo chi - mae rhif yr achos yn eich helpu i ddod o hyd i ble mae angen i chi fynd yn yr adeilad.",
               },
               {
-                text: "Mae'n rhaid ichi ddod â'r holl bapurau rydych eu hangen ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig ichi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau ichi. <strong>Caiff papurau ond eu hargraffu os bydd barnwr yn rhoi caniatâd penodol, a dim ond pan na fyddwch yn gallu eu hargraffu eich hun.</strong>",
+                text: "Rhaid i chi ddod â'r holl bapurau sydd eu hangen arnoch ar gyfer eich gwrandawiad. Ni fydd y llys yn rhoi dyfais electronig i chi ddarllen eich dogfennau, ac ni fydd yn argraffu eich papurau i chi. <strong>Dim ond os bydd barnwr yn rhoi caniatâd penodol y bydd papurau'n cael eu hargraffu, a dim ond pan na allwch eu hargraffu eich hun.</strong>",
               },
               {
-                text: "Gallwch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais gynnwys sgrîn addas o ran maint, fel gliniadur yn hytrach na ffôn symudol. Dylech fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad i bwyntiau pŵer ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu symud unrhyw ddyfais os bydd angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
+                text: "Cewch ddod â'ch dyfais electronig eich hun i'r llys i weld papurau achos yn ystod y gwrandawiad. Dylai'r ddyfais fod â sgrin o faint addas, fel gliniadur yn hytrach na ffôn symudol. Rhaid i chi fod yn gyfarwydd â'r ddyfais a sicrhau ei bod wedi'i gwefru'n llawn. Ni all y llys warantu mynediad at bwyntiau pŵer, ac ni all staff gynorthwyo gyda'ch dyfais. Gall staff diogelwch archwilio neu dynnu unrhyw ddyfais dros dro os oes angen. <strong>Mae recordio neu ffilmio unrhyw ran o'r gwrandawiad heb ganiatâd yn ddirmyg llys, sy'n golygu y gallwch gael dirwy neu gael eich anfon i'r carchar.</strong>",
               },
             ],
             links: [],
