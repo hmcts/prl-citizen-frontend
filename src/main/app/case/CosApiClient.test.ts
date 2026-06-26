@@ -422,6 +422,18 @@ describe('CosApiClient', () => {
       'Error occured, document could not be deleted. - deleteDocument'
     );
   });
+
+  test('deleteDocument with case id', async () => {
+    mockedAxios.delete.mockResolvedValueOnce({ data: 'SUCCESS' });
+    const client = new CosApiClient('abc', mockLogger);
+    const docId = 'c9f56483-6e2d-43ce-9de8-72661755b87c';
+
+    await expect(client.deleteDocument(docId, '123456789')).resolves.toEqual('SUCCESS');
+    expect(mockedAxios.delete).toHaveBeenCalledWith(expect.stringContaining(`/${docId}/delete`), {
+      params: { caseId: '123456789' },
+    });
+  });
+
   test('submitUploadedDocuments-', async () => {
     const response = { status: 'success' };
     mockedAxios.post.mockReturnValueOnce({ status: 'success' } as unknown as Promise<any>);

@@ -360,9 +360,11 @@ export class CosApiClient {
     }
   }
 
-  public async deleteDocument(documentId: string): Promise<string> {
+  public async deleteDocument(documentId: string, caseId?: string): Promise<string> {
     try {
-      const response = await this.client.delete(config.get('services.cos.url') + `/${documentId}/delete`);
+      const response = await this.client.delete(config.get('services.cos.url') + `/${documentId}/delete`, {
+        params: caseId ? { caseId } : undefined,
+      });
       return response.data;
     } catch (error) {
       this.logError(error);

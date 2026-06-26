@@ -195,6 +195,7 @@ export const generateContent: TranslationFn = content => {
   const { sectionTitle, categoryLabel } = getUploadDocumentCategoryDetails(content.language, docCategory);
   const request = content.additionalData?.req;
   const userCase = request.session.userCase;
+  const caseId = userCase?.id ?? content.userCase?.id;
   const uploadedFilesDataReference =
     partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles';
   let title: string;
@@ -234,10 +235,15 @@ export const generateContent: TranslationFn = content => {
     documentAvailableText: interpolate(translations.documentAvailableText, { docCategory: title.toLowerCase() }),
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, request) },
     filesUploaded:
-      content.userCase?.[uploadedFilesDataReference]?.map(file => ({
-        id: file.document_url.substring(file.document_url.lastIndexOf('/') + 1),
-        ...file,
-      })) ?? [],
+      content.userCase?.[uploadedFilesDataReference]?.map(file => {
+        const documentId = file.document_url.substring(file.document_url.lastIndexOf('/') + 1);
+        return {
+          id: documentId,
+          removeUrl: `?documentId=${documentId}${caseId ? `&caseId=${caseId}` : ''}`,
+          ...file,
+        };
+      }) ?? [],
+    caseId,
     docCategory,
     allowGenerateDocs,
     errorMessage:

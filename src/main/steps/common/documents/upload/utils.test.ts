@@ -34,6 +34,7 @@ describe('documents > upload > utils', () => {
         },
         query: {
           documentId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+          caseId: '1234',
         },
       });
       const res = mockResponse();
@@ -41,6 +42,7 @@ describe('documents > upload > utils', () => {
 
       await deleteDocument(req, res);
       await new Promise(process.nextTick);
+      expect(deleteDocumentMock).toHaveBeenCalledWith('c9f56483-6e2d-43ce-9de8-72661755b87c', '1234');
       expect(req.session.userCase.applicantUploadFiles).toStrictEqual(undefined);
     });
 

@@ -283,6 +283,7 @@ describe('documents > upload > upload-your-documents > content', () => {
         document_hash: 'MOCK_HASH',
         document_url: 'MOCK_URL',
         id: 'MOCK_URL',
+        removeUrl: '?documentId=MOCK_URL&caseId=123',
       },
       {
         document_binary_url: 'MOCK_BINARY_URL2',
@@ -291,10 +292,12 @@ describe('documents > upload > upload-your-documents > content', () => {
         document_hash: 'MOCK_HASH2',
         document_url: 'MOCK_URL2',
         id: 'MOCK_URL2',
+        removeUrl: '?documentId=MOCK_URL2&caseId=123',
       },
     ]);
     expect(content.errorMessage).toBe('Enter the statement as text or upload the statement as a file.');
     expect(content.docCategory).toBe('drug-and-alcohol-tests');
+    expect(content.caseId).toBe('123');
   });
 
   test('should get correct title for position statements', () => {
