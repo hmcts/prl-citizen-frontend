@@ -1,64 +1,88 @@
-import axios, { AxiosInstance } from 'axios';
-
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+import { CosApiClient } from '../../../../../app/case/CosApiClient';
 
 import RALangReqSplArrangementsPostController from './postController';
 
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-mockedAxios.create = jest.fn(() => mockedAxios);
-
 describe('RA > language-requirements-and-special-arrangements > review > postController', () => {
-  test('should save language preferences and special arrangements', async () => {
-    const req = mockRequest({
-      body: {
-        onlyContinue: true,
+  const controller = new RALangReqSplArrangementsPostController({});
+
+  const mockUserCase = {
+    applicantsFL401: {
+      firstName: '',
+      lastName: '',
+      response: {},
+      user: {
+        idamId: '123',
       },
+      address: {
+        addressLine1: '',
+        AddressLine2: '',
+        PostTown: '',
+        County: '',
+        PostCode: '',
+      },
+    },
+    ra_languageReqAndSpecialArrangements: 'test language support notes',
+  };
+
+  const mockUser = { id: '123' };
+
+  let updateCaseMock;
+  let submitLanguageSupportNotesMock;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    updateCaseMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
+    submitLanguageSupportNotesMock = jest
+      .spyOn(CosApiClient.prototype, 'submitLanguageSupportNotes')
+      .mockResolvedValue('success');
+  });
+
+  test('should save language preferences and special arrangements and redirect', async () => {
+    const req = mockRequest({ session: { user: mockUser, userCase: mockUserCase } });
+    const res = mockResponse();
+    updateCaseMock.mockResolvedValue(req.session.userCase);
+
+    await controller.post(req, res);
+    expect(submitLanguageSupportNotesMock).toHaveBeenCalled();
+    expect(req.session.save).toHaveBeenCalled();
+  });
+
+  test('should not call submitLanguageSupportNotes if ra_languageReqAndSpecialArrangements not present', async () => {
+    const req = mockRequest({
       session: {
-        userCase: {
-          ra_languageReqAndSpecialArrangements: 'ra_languageReqAndSpecialArrangements',
-        },
+        user: mockUser,
+        userCase: { ...mockUserCase, ra_languageReqAndSpecialArrangements: undefined },
       },
     });
     const res = mockResponse();
-    const controller = new RALangReqSplArrangementsPostController({});
-
-    const mockGet = jest.fn().mockResolvedValueOnce({ data: 200 });
-    mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
+    updateCaseMock.mockResolvedValue(req.session.userCase);
 
     await controller.post(req, res);
-    await new Promise(process.nextTick);
-    expect(req.session.userCase.ra_languageReqAndSpecialArrangements).toBe('ra_languageReqAndSpecialArrangements');
+    expect(req.session.save).toHaveBeenCalled();
+    expect(submitLanguageSupportNotesMock).not.toHaveBeenCalled();
   });
 
-  test('should not save language preferences and special arrangements if ra_languageReqAndSpecialArrangements not present', async () => {
-    const req = mockRequest({
-      body: {
-        onlyContinue: true,
-      },
-    });
+  test('should redirect to error screen if updateCaseData throws', async () => {
+    const req = mockRequest({ session: { user: mockUser, userCase: mockUserCase } });
     const res = mockResponse();
-    const controller = new RALangReqSplArrangementsPostController({});
-
-    const mockGet = jest.fn().mockResolvedValueOnce({ data: 200 });
-    mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
-
-    await controller.post(req, res);
-    expect(req.session.userCase.ra_languageReqAndSpecialArrangements).toBe(undefined);
-  });
-
-  test('should redirect to error screen if an error is thrown', async () => {
-    const req = mockRequest({
-      body: {
-        onlyContinue: true,
-        ra_languageReqAndSpecialArrangements: 'ra_languageReqAndSpecialArrangements',
-      },
-    });
-    delete req.session.userCase;
-    const res = mockResponse();
-    const controller = new RALangReqSplArrangementsPostController({});
+    updateCaseMock.mockRejectedValue(new Error('update failed'));
 
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith('/reasonable-adjustments/error');
+  });
+
+  test('should not call updateCaseData if partyDetails not found', async () => {
+    const req = mockRequest({
+      session: {
+        user: { id: 'non-existent-id' },
+        userCase: { ra_languageReqAndSpecialArrangements: 'test language support notes' },
+      },
+    });
+    const res = mockResponse();
+
+    await controller.post(req, res);
+    expect(updateCaseMock).not.toHaveBeenCalled();
   });
 });
