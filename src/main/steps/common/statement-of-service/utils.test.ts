@@ -18,6 +18,7 @@ describe('statement-of-service > utils', () => {
     beforeEach(() => {
       req = mockRequest();
       res = mockResponse();
+      deleteDocumentMock.mockClear();
     });
 
     test('should delete document with no errors', async () => {
@@ -61,6 +62,46 @@ describe('statement-of-service > utils', () => {
         document_hash: '1234',
         document_url: 'test2/1234',
       });
+      expect(req.session.errors).toStrictEqual([
+        {
+          errorType: 'deleteError',
+          propertyName: 'statementOfServiceDoc',
+        },
+      ]);
+    });
+
+    test('should reject delete when document ID does not match session document', async () => {
+      req.params = { context: 'context', removeFileId: 'tampered-id' };
+      req.session.userCase.sos_document = {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      };
+
+      await deleteDocument(req, res);
+
+      expect(deleteDocumentMock).not.toHaveBeenCalled();
+      expect(req.session.save).toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith('/applicant/statement-of-service/upload/context');
+      expect(req.session.errors).toStrictEqual([
+        {
+          errorType: 'deleteError',
+          propertyName: 'statementOfServiceDoc',
+        },
+      ]);
+    });
+
+    test('should reject delete when no document in session', async () => {
+      req.params = { context: 'context', removeFileId: '1234' };
+      req.session.userCase.sos_document = undefined;
+
+      await deleteDocument(req, res);
+
+      expect(deleteDocumentMock).not.toHaveBeenCalled();
+      expect(req.session.save).toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith('/applicant/statement-of-service/upload/context');
       expect(req.session.errors).toStrictEqual([
         {
           errorType: 'deleteError',

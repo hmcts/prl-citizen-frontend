@@ -11,13 +11,25 @@ import { GovUkNunjucksSummary } from '../../../steps/c100-rebuild/check-your-ans
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { STATEMENT_OF_SERVICE_WHO_WAS_SERVED, UPLOAD_STATEMENT_OF_SERVICE } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
-import { handleError, removeErrors } from '../utils';
+import { documentBelongsToCase, handleError, removeErrors } from '../utils';
 
 export const deleteDocument = async (req: AppRequest, res: Response): Promise<void> => {
   const { params, session } = req;
   const { user: userDetails, userCase: caseData } = session;
   const partyType = getCasePartyType(caseData, userDetails.id);
   const client = new CosApiClient(userDetails.accessToken, req.locals.logger);
+  const redirectUrl = applyParms(UPLOAD_STATEMENT_OF_SERVICE, {
+    partyType,
+    context: params.context,
+  });
+
+  if (!documentBelongsToCase(params.removeFileId, caseData?.sos_document)) {
+    req.session.errors = handleError(req.session.errors, 'deleteError', 'statementOfServiceDoc', true);
+    req.session.save(() => {
+      res.redirect(redirectUrl);
+    });
+    return;
+  }
 
   try {
     await client.deleteDocument(params.removeFileId);
@@ -31,12 +43,7 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
     req.session.errors = handleError(req.session.errors, 'deleteError', 'statementOfServiceDoc', true);
   } finally {
     req.session.save(() => {
-      res.redirect(
-        applyParms(UPLOAD_STATEMENT_OF_SERVICE, {
-          partyType,
-          context: params.context,
-        })
-      );
+      res.redirect(redirectUrl);
     });
   }
 };

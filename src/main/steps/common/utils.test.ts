@@ -73,3 +73,31 @@ describe('handleError', () => {
     });
   });
 });
+
+describe('documentBelongsToCase', () => {
+  let documentBelongsToCase;
+
+  beforeAll(async () => {
+    ({ documentBelongsToCase } = await import('./utils'));
+  });
+
+  test('should return true when document_url matches', () => {
+    expect(documentBelongsToCase('1234', [{ document_url: 'http://dm-store/documents/1234' }])).toBe(true);
+  });
+
+  test('should return true when url matches (single object)', () => {
+    expect(documentBelongsToCase('abcd', { url: 'http://dm-store/documents/abcd' })).toBe(true);
+  });
+
+  test('should return false when ID does not match', () => {
+    expect(documentBelongsToCase('tampered', [{ document_url: 'http://dm-store/documents/1234' }])).toBe(false);
+  });
+
+  test('should return false when documents undefined', () => {
+    expect(documentBelongsToCase('1234', undefined)).toBe(false);
+  });
+
+  test('should return false when documentId is empty', () => {
+    expect(documentBelongsToCase('', [{ document_url: 'http://dm-store/documents/1234' }])).toBe(false);
+  });
+});
