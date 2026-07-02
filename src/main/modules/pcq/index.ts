@@ -68,10 +68,7 @@ export class PcqProvider {
     });
   }
 
-  async enable(app: Application, logger?: LoggerInstance): Promise<void> {
-    if (logger) {
-      this.logger = logger;
-    }
+  async enable(app: Application): Promise<void> {
     this.isEnabled = await this.isComponentEnabled();
     if (this.isEnabled) {
       this.route.enable(app);
@@ -82,7 +79,6 @@ export class PcqProvider {
     const isEnabled =
       (await getFeatureToggle()?.isPcqComponentEnabled()) ??
       toBoolean(config.get<boolean>('featureToggles.enablePcqComponent'));
-    this.logger.info?.(`PCQ component is ${isEnabled ? 'enabled' : 'disabled'}`);
     return new Promise(resolve => {
       resolve(isEnabled);
     });

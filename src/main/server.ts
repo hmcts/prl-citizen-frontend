@@ -82,7 +82,7 @@ new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
 new FeatureToggleProvider().enable(app);
 RAProvider.enable(app);
-PCQProvider.enable(app, logger);
+PCQProvider.enable(app);
 
 setupDev(app, developmentMode);
 const port: number = config.get('port');
