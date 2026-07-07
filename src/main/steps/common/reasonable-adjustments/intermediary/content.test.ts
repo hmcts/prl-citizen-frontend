@@ -10,54 +10,48 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   caption: 'Reasonable adjustments',
-  headingTitle:
-    'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?',
+  headingTitle: 'Are you aware of whether an intermediary will be required?',
   yes: 'Yes',
   no: 'No',
-  assistanceRequired: 'Give details in the box below.',
+  intermediaryRequired: 'Give details in the box below.',
   errors: {
-    ra_assistanceRequirements_subfield: {
-      required:
-        "Provide details for 'If attending the court, do you or any of the parties involved have a disability for which you require special assistance or special facilities?'",
+    ra_intermediaryRequired_subfield: {
+      required: "Provide details for 'Are you aware of whether an intermediary will be required?'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
-    ra_assistanceRequirements: {
-      required:
-        'Select whether any of the parties involved have a disability for which you require special assistance or special facilities',
+    ra_intermediaryRequirements: {
+      required: 'Select whether or not an intermediary will be required',
     },
   },
 };
 
 const cy = {
   caption: 'Addasiadau rhesymol',
-  headingTitle:
-    'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?',
+  headingTitle: 'A ydych yn gwybod a fydd angen cyfryngwr?',
   yes: 'Ydw',
   no: 'Nac ydw',
-  assistanceRequired: 'Os Oes, nodwch beth yw’r anghenion hynny',
+  intermediaryRequired: 'Os Oes, nodwch beth yw’r anghenion hynny',
   errors: {
-    ra_assistanceRequirements_subfield: {
-      required:
-        "Rhowch fanylion 'Os byddwch yn mynychu’r llys, a oes gennych chi neu unrhywun o’r partïon cysylltiedig anabledd y bydd angen cymorth neu gyfleusterau arbennig arnoch ar ei gyfer?'",
+    ra_intermediaryRequired_subfield: {
+      required: "Rhowch fanylion 'A ydych yn gwybod a fydd angen cyfryngwr?'",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
-    ra_assistanceRequirements: {
-      required:
-        "Dewiswch a oes gan unrhyw un o'r partïon dan sylw anabledd y mae angen cymorth arbennig neu gyfleusterau arbennig arnynt",
+    ra_intermediaryRequirements: {
+      required: "Dewiswch p'un a fydd angen cyfryngwr ai peidio",
     },
   },
 };
 /* eslint-disable @typescript-eslint/ban-types */
-describe('Disability requirements content', () => {
+describe('Intermediary requirements content', () => {
   const commonContent = {
     language: 'en',
     additionalData: {
       req: {
-        originalUrl: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+        originalUrl: '/c100-rebuild/reasonable-adjustments/intermediary',
       },
     },
   } as unknown as CommonContent;
@@ -79,25 +73,25 @@ describe('Disability requirements content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain assistanceRequirements field', () => {
-    const assistanceRequirementsField = fields.ra_assistanceRequirements as FormOptions;
-    const assistanceRequiredField = assistanceRequirementsField.values[0].subFields
-      ?.ra_assistanceRequirements_subfield as FormOptions;
+  test('should contain intermediaryRequirements field', () => {
+    const intermediaryRequirementsField = fields.ra_intermediaryRequirements as FormOptions;
+    const intermediaryRequiredField = intermediaryRequirementsField.values[0].subFields
+      ?.ra_intermediaryRequired_subfield as FormOptions;
 
-    expect(assistanceRequirementsField.labelHidden).toBe(true);
-    expect(assistanceRequirementsField.type).toBe('radios');
-    expect(assistanceRequirementsField.classes).toBe('govuk-radios');
-    expect((assistanceRequirementsField.label as Function)(generatedContent)).toBe(en.headingTitle);
+    expect(intermediaryRequirementsField.labelHidden).toBe(true);
+    expect(intermediaryRequirementsField.type).toBe('radios');
+    expect(intermediaryRequirementsField.classes).toBe('govuk-radios');
+    expect((intermediaryRequirementsField.label as Function)(generatedContent)).toBe(en.headingTitle);
 
-    (assistanceRequirementsField.validator as Validator)(generatedContent);
+    (intermediaryRequirementsField.validator as Validator)(generatedContent);
     expect(isFieldFilledIn).toHaveBeenCalled();
 
-    expect((assistanceRequirementsField.values[0].label as Function)(commonContentEN)).toBe(YesOrNo.YES);
-    expect((assistanceRequirementsField.values[1].label as Function)(commonContentEN)).toBe(YesOrNo.NO);
+    expect((intermediaryRequirementsField.values[0].label as Function)(commonContentEN)).toBe(YesOrNo.YES);
+    expect((intermediaryRequirementsField.values[1].label as Function)(commonContentEN)).toBe(YesOrNo.NO);
 
-    expect(assistanceRequiredField.type).toBe('textarea');
-    expect((assistanceRequiredField.label as LanguageLookup)(generatedContent)).toBe(en.assistanceRequired);
-    (assistanceRequiredField.validator as Function)('test text area');
+    expect(intermediaryRequiredField.type).toBe('textarea');
+    expect((intermediaryRequiredField.label as LanguageLookup)(generatedContent)).toBe(en.intermediaryRequired);
+    (intermediaryRequiredField.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
   });

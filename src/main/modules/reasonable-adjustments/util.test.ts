@@ -1,14 +1,33 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { CaseType } from '../../app/case/definition';
+import { CaseType, YesOrNo } from '../../app/case/definition';
+import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
+import { languages as languageRequirementsLanguages } from '../../steps/common/reasonable-adjustments/language-requirements/content';
+import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
+import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
 
 import { RAUtility } from './util';
 
 describe('RA util', () => {
   describe('cleanSessionForLocalComponent', () => {
+    test('should clean session for interpreter', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {
+            ra_documentInformation: ['nointerpreter'],
+            ra_needInterpreterInCertainLanguage_subfield: 'test',
+          },
+        },
+      });
+
+      const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
+
+      expect(cleanedUserCase.ra_needInterpreterInCertainLanguage_subfield).toBe(undefined);
+    });
+
     test('should clean session for document support', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['MOCK_SUPPORT_REQUIREMENT'],
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -31,7 +50,7 @@ describe('RA util', () => {
     test('should clean session for communication help', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['MOCK_SUPPORT_REQUIREMENT'],
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -52,7 +71,7 @@ describe('RA util', () => {
     test('should clean session for support for court hearing', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['MOCK_SUPPORT_REQUIREMENT'],
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -77,7 +96,7 @@ describe('RA util', () => {
     test('should clean session for needs during court hearing', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['MOCK_SUPPORT_REQUIREMENT'],
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -98,7 +117,7 @@ describe('RA util', () => {
     test('should clean session for needs in court', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['MOCK_SUPPORT_REQUIREMENT'],
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -118,10 +137,79 @@ describe('RA util', () => {
       expect(cleanedUserCase.ra_travellingCourtOther_subfield).toBe(undefined);
     });
 
+    test('should clean session for intermediary support when no is selected', () => {
+      const req = mockRequest({
+        body: {
+          ra_intermediaryRequirements: YesOrNo.NO,
+        },
+        session: {
+          userCase: {
+            ra_intermediaryRequired_subfield: 'test',
+          },
+        },
+      });
+
+      const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
+
+      expect(cleanedUserCase.ra_intermediaryRequired_subfield).toBe(undefined);
+    });
+
+    test('should clean session for disability subfield when no is selected', () => {
+      const req = mockRequest({
+        body: {
+          ra_assistanceRequirements: YesOrNo.NO,
+        },
+        session: {
+          userCase: {
+            ra_assistanceRequirements_subfield: 'test',
+          },
+        },
+      });
+
+      const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
+
+      expect(cleanedUserCase.ra_assistanceRequirements_subfield).toBe(undefined);
+    });
+
+    test('should not clean disability subfield when yes', () => {
+      const req = mockRequest({
+        body: {
+          ra_assistanceRequirements: YesOrNo.YES,
+        },
+        session: {
+          userCase: {
+            ra_assistanceRequirements: YesOrNo.YES,
+            ra_assistanceRequirements_subfield: 'Needs wheelchair access',
+          },
+        },
+      });
+
+      const result = RAUtility.cleanSessionForLocalComponent(req);
+
+      expect(result.ra_assistanceRequirements_subfield).toBe('Needs wheelchair access');
+    });
+
+    test('should clear subfield after changing yes to no', () => {
+      const req = mockRequest({
+        body: {
+          ra_assistanceRequirements: YesOrNo.NO,
+        },
+        session: {
+          userCase: {
+            ra_assistanceRequirements: YesOrNo.YES,
+            ra_assistanceRequirements_subfield: 'Some details',
+          },
+        },
+      });
+
+      const cleanedUserCase = RAUtility.cleanSessionForLocalComponent(req);
+      expect(cleanedUserCase.ra_assistanceRequirements_subfield).toBe(undefined);
+    });
+
     test('should clean session for all support requirements when no support is selected', () => {
       const req = mockRequest({
         body: {
-          ra_disabilityRequirements: ['noSupportRequired'],
+          ra_assistanceRequirements: YesOrNo.NO,
         },
         session: {
           userCase: {
@@ -221,6 +309,95 @@ describe('RA util', () => {
 
     test('should return correct event for fl401 request support', () => {
       expect(RAUtility.getUpdateFlagsEventID('FL401' as CaseType, 'request')).toBe('fl401RequestSupport');
+    });
+  });
+
+  describe('prepareCaseNoteText', () => {
+    test('should return case note text', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {
+            ra_typeOfHearing: ['videohearings', 'phonehearings', 'languageinterpreter'],
+            ra_needInterpreterInCertainLanguage_subfield: 'Polish',
+            ra_languageNeeds: ['speakwelsh', 'readandwritewelsh'],
+            ra_specialArrangements: ['waitingroom', 'separateexitentry'],
+            ra_intermediaryRequirements: YesOrNo.YES,
+            ra_intermediaryRequired_subfield: 'test',
+            ra_assistanceRequirements: YesOrNo.YES,
+            ra_assistanceRequirements_subfield: 'test',
+          },
+        },
+      });
+      const isC100Journey = true;
+      const languageRequirementsEn = languageRequirementsLanguages.en();
+      const specialArrangementsEn = specialArrangementsLanguages.en(isC100Journey);
+      const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
+      const supportDuringCaseEn = supportDuringCaseLanguages.en();
+
+      const expected =
+        `${languageRequirementsEn.needInterpreterInCertainLanguage}` +
+        '\nPolish\n\n' +
+        `${specialArrangementsEn.headingTitle}` +
+        '\n' +
+        `${specialArrangementsEn.separateWaitingRoom}` +
+        '\n' +
+        `${specialArrangementsEn.separateExitEntrance}` +
+        '\n\n' +
+        `${intermediaryRequirementsEn.headingTitle}` +
+        '\n' +
+        `${YesOrNo.YES}` +
+        '\ntest\n\n' +
+        `${supportDuringCaseEn.headingTitle}` +
+        '\n' +
+        `${YesOrNo.YES}` +
+        '\ntest\n\n';
+
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase, isC100Journey)).toBe(expected);
+    });
+
+    test('should return case note text without new RA subfields', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {
+            ra_typeOfHearing: ['nohearings'],
+            ra_noVideoAndPhoneHearing_subfield: 'test',
+            ra_languageNeeds: ['noLanguageRequirements'],
+            ra_specialArrangements: ['waitingroom'],
+            ra_intermediaryRequirements: YesOrNo.NO,
+            ra_assistanceRequirements: YesOrNo.NO,
+          },
+        },
+      });
+      const isC100Journey = false;
+      const specialArrangementsEn = specialArrangementsLanguages.en(isC100Journey);
+      const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
+      const supportDuringCaseEn = supportDuringCaseLanguages.en();
+
+      const expected =
+        `${specialArrangementsEn.headingTitle}` +
+        '\n' +
+        `${specialArrangementsEn.separateWaitingRoom}` +
+        '\n\n' +
+        `${intermediaryRequirementsEn.headingTitle}` +
+        '\n' +
+        `${YesOrNo.NO}` +
+        '\n\n' +
+        `${supportDuringCaseEn.headingTitle}` +
+        '\n' +
+        `${YesOrNo.NO}` +
+        '\n\n';
+
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase, isC100Journey)).toBe(expected);
+    });
+
+    test('should handle empty case note sections', () => {
+      const req = mockRequest({
+        session: {
+          userCase: {},
+        },
+      });
+
+      expect(RAUtility.prepareCaseNoteText(req.session.userCase, true)).toBe('');
     });
   });
 });

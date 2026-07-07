@@ -4,11 +4,16 @@ import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 
 import { CaseWithId } from '../../app/case/case';
-import { CaseType, PartyDetails, ReasonableAdjustmentsSupport } from '../../app/case/definition';
+import { CaseType, PartyDetails, ReasonableAdjustmentsSupport, YesOrNo } from '../../app/case/definition';
 import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { PageContent } from '../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../app/form/Form';
 import { CommonContent } from '../../steps/common/common.content';
+import { languages as intermediaryRequirementsLanguages } from '../../steps/common/reasonable-adjustments/intermediary/content';
+import { languages as languageRequirementsLanguages } from '../../steps/common/reasonable-adjustments/language-requirements/content';
+import { displayText } from '../../steps/common/reasonable-adjustments/review/content';
+import { languages as specialArrangementsLanguages } from '../../steps/common/reasonable-adjustments/special-arrangements/content';
+import { languages as supportDuringCaseLanguages } from '../../steps/common/reasonable-adjustments/support-during-your-case/content';
 import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../steps/tasklistresponse/utils';
@@ -20,8 +25,6 @@ import {
   RAFlagDetail,
   RAFlagValue,
   RAFlags,
-  RALocalComponentC100SupportNeeds,
-  RALocalComponentRespondentSupportNeeds,
   RASupportCaseEvent,
   RASupportContext,
 } from './definitions';
@@ -77,8 +80,11 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
-  private cleanSessionForLanguageNeedsSubFields(caseData: CaseWithId): CaseWithId {
+  private cleanSessionForLanguageNeedsSubFields(caseData: CaseWithId, req?: AppRequest): CaseWithId {
     delete caseData.ra_needInterpreterInCertainLanguage_subfield;
+    if (req?.session?.userCase) {
+      delete req.session.userCase.ra_needInterpreterInCertainLanguage_subfield;
+    }
     return caseData;
   }
 
@@ -199,6 +205,16 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
+  private cleanSessionForSupportDuringCase(caseData: CaseWithId): CaseWithId {
+    delete caseData.ra_assistanceRequirements_subfield;
+    return caseData;
+  }
+
+  private cleanSessionForIntermediarySupport(caseData: CaseWithId): CaseWithId {
+    delete caseData.ra_intermediaryRequired_subfield;
+    return caseData;
+  }
+
   public cleanSessionForNeedsInCourtSubFields(needsInCourt: string[] | undefined, caseData: CaseWithId): CaseWithId {
     if (!['parkingSpace', 'parkingspace'].some(val => needsInCourt?.includes(val))) {
       delete caseData?.ra_parkingSpace_subfield;
@@ -311,7 +327,8 @@ export class ReasonableAdjustementsUtility {
     languages: Record<string, any>,
     form: FormContent
   ): PageContent {
-    const translations = languages[content.language]();
+    const isC100Journey = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
+    const translations = languages[content.language](isC100Journey);
     const request = content.additionalData?.req;
 
     if (request.originalUrl.startsWith(C100_URL)) {
@@ -358,6 +375,10 @@ export class ReasonableAdjustementsUtility {
       parkingDetails,
       differentChairDetails,
       languageDetails,
+      assistanceRequirements,
+      assistanceRequirementsDetails,
+      intermediaryRequirements,
+      intermediaryRequirementsDetails,
     } = partyDetails?.response?.supportYouNeed ?? {};
 
     Object.assign(reasonableAdjustmentsNeeds, {
@@ -367,6 +388,10 @@ export class ReasonableAdjustementsUtility {
       ra_specialArrangementsOther_subfield: safetyArrangementsDetails,
       ra_languageNeeds: languageRequirements,
       ra_needInterpreterInCertainLanguage_subfield: languageDetails,
+      ra_assistanceRequirements: assistanceRequirements,
+      ra_assistanceRequirements_subfield: assistanceRequirementsDetails,
+      ra_intermediaryRequirements: intermediaryRequirements,
+      ra_intermediaryRequired_subfield: intermediaryRequirementsDetails,
       ra_disabilityRequirements: reasonableAdjustments,
       ra_documentInformation: docsSupport,
       ra_specifiedColorDocuments_subfield: docsDetails,
@@ -403,6 +428,10 @@ export class ReasonableAdjustementsUtility {
       languageRequirements: caseData?.ra_languageNeeds,
       languageDetails: caseData?.ra_needInterpreterInCertainLanguage_subfield,
       reasonableAdjustments: caseData?.ra_disabilityRequirements,
+      assistanceRequirements: caseData?.ra_assistanceRequirements,
+      assistanceRequirementsDetails: caseData?.ra_assistanceRequirements_subfield,
+      intermediaryRequirements: caseData?.ra_intermediaryRequirements,
+      intermediaryRequirementsDetails: caseData?.ra_intermediaryRequired_subfield,
       docsSupport: caseData?.ra_documentInformation,
       docsDetails: caseData?.ra_specifiedColorDocuments_subfield,
       largePrintDetails: caseData?.ra_largePrintDocuments_subfield,
@@ -422,6 +451,7 @@ export class ReasonableAdjustementsUtility {
       parkingDetails: caseData?.ra_parkingSpace_subfield,
       differentChairDetails: caseData?.ra_differentTypeChair_subfield,
       travellingOtherDetails: caseData?.ra_travellingCourtOther_subfield,
+      languageSupportNotes: caseData?.ra_languageReqAndSpecialArrangements,
     });
 
     return request;
@@ -433,7 +463,8 @@ export class ReasonableAdjustementsUtility {
     const attendingToCourt = body?.ra_typeOfHearing?.filter(val => !!val);
     const languageNeeds = body?.ra_languageNeeds?.filter(val => !!val);
     const specialArrangements = body?.ra_specialArrangements?.filter(val => !!val);
-    const supportRequirements = body?.ra_disabilityRequirements?.filter(val => !!val);
+    const hasDisabilityRequirements = body?.ra_assistanceRequirements;
+    const hasIntermediaryRequirements = body?.ra_intermediaryRequirements;
 
     if (attendingToCourt?.length) {
       if (!this.hasRAValueInSessionForLocalComponent(['noVideoAndPhoneHearing', 'nohearings'], attendingToCourt)) {
@@ -450,6 +481,17 @@ export class ReasonableAdjustementsUtility {
       ) {
         caseData = this.cleanSessionForLanguageNeedsSubFields(caseData);
       }
+    } else if (caseData.ra_needInterpreterInCertainLanguage_subfield) {
+      const sessionLanguageNeeds = caseData.ra_languageNeeds as string[];
+      if (
+        !sessionLanguageNeeds?.length ||
+        !this.hasRAValueInSessionForLocalComponent(
+          ['needInterpreterInCertainLanguage', 'languageinterpreter'],
+          sessionLanguageNeeds
+        )
+      ) {
+        caseData = this.cleanSessionForLanguageNeedsSubFields(caseData);
+      }
     }
 
     if (specialArrangements?.length) {
@@ -458,82 +500,79 @@ export class ReasonableAdjustementsUtility {
       }
     }
 
-    if (supportRequirements?.length) {
-      if (
-        !this.hasRAValueInSessionForLocalComponent(
-          [
-            RALocalComponentC100SupportNeeds.DOCUMENTS_SUPPORT,
-            RALocalComponentRespondentSupportNeeds.DOCUMENTS_SUPPORT,
-          ],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForDocumentSupport(caseData);
-      }
+    if (hasDisabilityRequirements === YesOrNo.NO) {
+      caseData = this.cleanSessionForDocumentSupport(caseData);
+      caseData = this.cleanSessionForCommunicationHelp(caseData);
+      caseData = this.cleanSessionForSupportForCourtHearing(caseData);
+      caseData = this.cleanSessionForNeedsDuringCourtHearing(caseData);
+      caseData = this.cleanSessionForNeedsInCourt(caseData);
+      caseData = this.cleanSessionForSupportDuringCase(caseData);
+    }
 
-      if (
-        !this.hasRAValueInSessionForLocalComponent(
-          [
-            RALocalComponentC100SupportNeeds.COMMUNICATION_HELP,
-            RALocalComponentRespondentSupportNeeds.COMMUNICATION_HELP,
-          ],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForCommunicationHelp(caseData);
-      }
-
-      if (
-        !this.hasRAValueInSessionForLocalComponent(
-          [
-            RALocalComponentC100SupportNeeds.COURT_HEARING_SUPPORT,
-            RALocalComponentRespondentSupportNeeds.COURT_HEARING_SUPPORT,
-          ],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForSupportForCourtHearing(caseData);
-      }
-
-      if (
-        !this.hasRAValueInSessionForLocalComponent(
-          [
-            RALocalComponentC100SupportNeeds.COURT_HEARING_COMFORT,
-            RALocalComponentRespondentSupportNeeds.COURT_HEARING_COMFORT,
-          ],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForNeedsDuringCourtHearing(caseData);
-      }
-
-      if (
-        !this.hasRAValueInSessionForLocalComponent(
-          [
-            RALocalComponentC100SupportNeeds.TRAVELLING_TO_COURT,
-            RALocalComponentRespondentSupportNeeds.TRAVELLING_TO_COURT,
-          ],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForNeedsInCourt(caseData);
-      }
-
-      if (
-        this.hasRAValueInSessionForLocalComponent(
-          [RALocalComponentC100SupportNeeds.NO_SUPPORT, RALocalComponentRespondentSupportNeeds.NO_SUPPORT],
-          supportRequirements
-        )
-      ) {
-        caseData = this.cleanSessionForDocumentSupport(caseData);
-        caseData = this.cleanSessionForCommunicationHelp(caseData);
-        caseData = this.cleanSessionForSupportForCourtHearing(caseData);
-        caseData = this.cleanSessionForNeedsDuringCourtHearing(caseData);
-        caseData = this.cleanSessionForNeedsInCourt(caseData);
-      }
+    if (hasIntermediaryRequirements === YesOrNo.NO) {
+      caseData = this.cleanSessionForIntermediarySupport(caseData);
     }
 
     return caseData;
+  }
+
+  prepareCaseNoteText(userCase: Partial<CaseWithId>, isC100Journey: boolean): string {
+    const languageRequirementsEn = languageRequirementsLanguages.en();
+    const specialArrangementsEn = specialArrangementsLanguages.en(isC100Journey);
+    const intermediaryRequirementsEn = intermediaryRequirementsLanguages.en();
+    const supportDuringCaseEn = supportDuringCaseLanguages.en();
+    let note = '';
+
+    const addLine = (line: string) => {
+      note = note.concat(line, '\n');
+    };
+
+    const addFields = (fields: string[]) => {
+      for (const field of fields) {
+        addLine(displayText['en'][field] ?? field);
+      }
+    };
+
+    const addSection = (heading: string, fields: string[]) => {
+      addLine(heading);
+      addFields(fields);
+      note = note.concat('\n');
+    };
+
+    const addYesOrNoSection = (heading: string, field: string, subfield: string | undefined) => {
+      addLine(heading);
+      addLine(field);
+      if (field === YesOrNo.YES && subfield) {
+        addLine(subfield);
+      }
+      note = note.concat('\n');
+    };
+    if (userCase.ra_needInterpreterInCertainLanguage_subfield) {
+      addLine(languageRequirementsEn.needInterpreterInCertainLanguage);
+      addLine(userCase.ra_needInterpreterInCertainLanguage_subfield);
+      note = note.concat('\n');
+    }
+
+    if (userCase.ra_specialArrangements) {
+      addSection(specialArrangementsEn.headingTitle, userCase.ra_specialArrangements);
+    }
+
+    if (userCase.ra_intermediaryRequirements) {
+      addYesOrNoSection(
+        intermediaryRequirementsEn.headingTitle,
+        userCase.ra_intermediaryRequirements,
+        userCase.ra_intermediaryRequired_subfield
+      );
+    }
+
+    if (userCase.ra_assistanceRequirements) {
+      addYesOrNoSection(
+        supportDuringCaseEn.headingTitle,
+        userCase.ra_assistanceRequirements,
+        userCase.ra_assistanceRequirements_subfield
+      );
+    }
+    return note;
   }
 
   isReasonableAdjustmentsNeedsPresent(userCase: Partial<CaseWithId>): boolean {
@@ -541,7 +580,8 @@ export class ReasonableAdjustementsUtility {
       userCase?.ra_typeOfHearing?.length ||
       userCase?.ra_languageNeeds?.length ||
       userCase?.ra_specialArrangements?.length ||
-      userCase?.ra_disabilityRequirements?.length ||
+      userCase?.ra_assistanceRequirements?.length ||
+      userCase?.ra_intermediaryRequirements?.length ||
       userCase?.ra_documentInformation?.length ||
       userCase?.ra_communicationHelp?.length ||
       userCase?.ra_supportCourt?.length ||

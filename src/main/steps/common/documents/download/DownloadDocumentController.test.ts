@@ -433,4 +433,62 @@ describe('DownloadDocumentController', () => {
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
   });
+
+  describe('content-type header handling', () => {
+    beforeEach(() => {
+      req.params = {
+        documentId: '123',
+        documentName: 'test_file.pdf',
+        documentType: '',
+        forceDownload: '',
+        language: DOCUMENT_LANGUAGE.ENGLISH,
+      };
+      req.session.user = {
+        ...req.session.user,
+        id: '1234',
+      };
+    });
+
+    test('should set Content-Type when content-type header is a string', async () => {
+      downloadDocumentMock.mockResolvedValueOnce({
+        data: Buffer.from('document-bytes'),
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      } as unknown as AxiosResponse);
+
+      await controller.download(req, res);
+
+      expect(res.setHeader).toHaveBeenCalledWith('Content-Type', 'application/pdf');
+      expect(res.end).toHaveBeenCalledWith(Buffer.from('document-bytes'));
+    });
+
+    test('should set Content-Type using first array value when content-type header is an array', async () => {
+      downloadDocumentMock.mockResolvedValueOnce({
+        data: Buffer.from('document-bytes'),
+        headers: {
+          'content-type': ['application/pdf', 'text/plain'],
+        },
+      } as unknown as AxiosResponse);
+
+      await controller.download(req, res);
+
+      expect(res.setHeader).toHaveBeenCalledWith('Content-Type', 'application/pdf');
+      expect(res.end).toHaveBeenCalledWith(Buffer.from('document-bytes'));
+    });
+
+    test('should not set Content-Type when content-type header is missing', async () => {
+      downloadDocumentMock.mockResolvedValueOnce({
+        data: Buffer.from('document-bytes'),
+        headers: {
+          'user-id': 'userId',
+        },
+      } as unknown as AxiosResponse);
+
+      await controller.download(req, res);
+
+      expect(res.setHeader).not.toHaveBeenCalledWith('Content-Type', expect.anything());
+      expect(res.end).toHaveBeenCalledWith(Buffer.from('document-bytes'));
+    });
+  });
 });

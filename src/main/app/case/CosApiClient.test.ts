@@ -952,4 +952,57 @@ describe('createAWPApplication', () => {
     );
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
   });
+
+  test('submitLanguageSupportNotes', async () => {
+    const mockPost = jest.fn().mockResolvedValueOnce({
+      data: { success: true },
+    });
+
+    mockedAxios.create.mockReturnValueOnce({
+      post: mockPost,
+    } as unknown as AxiosInstance);
+
+    const client = new CosApiClient('abc', mockLogger);
+
+    const caseId = '12345';
+    const partyIdamId = 'party123';
+    const languageSupportNotes = 'Needs interpreter';
+    const userAccessToken = 'user-token';
+
+    const result = await client.submitLanguageSupportNotes(caseId, partyIdamId, languageSupportNotes, userAccessToken);
+
+    expect(mockPost).toHaveBeenCalledWith(
+      expect.stringContaining(caseId),
+      {
+        languageSupportNotes,
+        partyIdamId,
+      },
+      {
+        headers: {
+          Authorization: 'Bearer ' + userAccessToken,
+          ServiceAuthorization: expect.stringContaining('Bearer'),
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    expect(result).toEqual({ success: true });
+  });
+
+  test('submitLanguageSupportNotes throws error', async () => {
+    const mockPost = jest.fn().mockRejectedValueOnce(new Error('API error'));
+
+    mockedAxios.create.mockReturnValueOnce({
+      post: mockPost,
+    } as unknown as AxiosInstance);
+
+    const client = new CosApiClient('abc', mockLogger);
+
+    await expect(
+      client.submitLanguageSupportNotes('12345', 'party123', 'Needs interpreter', 'user-token')
+    ).rejects.toThrow('Could not save RA language pref - submitLanguageSupportNotes');
+
+    expect(mockLogger.error).toHaveBeenCalled();
+  });
 });

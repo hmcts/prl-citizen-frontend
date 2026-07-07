@@ -19,6 +19,8 @@ import {
   UserRole,
   YesOrNo,
 } from '../../app/case/definition';
+import { applyParms } from '../../steps/common/url-parser';
+import { REASONABLE_ADJUSTMENTS_SUBMIT_LANGUAGE_REQ } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
@@ -150,6 +152,39 @@ export class CosApiClient {
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, case could not be updated - updateCaseData');
+    }
+  }
+
+  public async submitLanguageSupportNotes(
+    caseId: string,
+    partyIdamId: string,
+    languageSupportNotes: string,
+    userAccessToken: string
+  ): Promise<string> {
+    try {
+      const data = {
+        languageSupportNotes,
+        partyIdamId,
+      };
+      const response = await this.client.post<string>(
+        applyParms(REASONABLE_ADJUSTMENTS_SUBMIT_LANGUAGE_REQ, {
+          appBaseUrl: config.get('services.cos.url'),
+          caseId,
+        }),
+        data,
+        {
+          headers: {
+            Authorization: 'Bearer ' + userAccessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Could not save RA language pref - submitLanguageSupportNotes');
     }
   }
 

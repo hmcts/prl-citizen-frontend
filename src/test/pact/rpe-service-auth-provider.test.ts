@@ -5,10 +5,8 @@ import { getTokenFromApi } from '../../main/app/auth/service/get-service-auth-to
 
 const { pactWith } = require('jest-pact');
 
-jest.mock('otplib', () => ({
-  authenticator: {
-    generate: jest.fn(() => '123456'),
-  },
+jest.mock('../../main/app/auth/service/otp', () => ({
+  generateOTP: jest.fn().mockResolvedValue('123456'),
 }));
 
 config.get = jest.fn();
@@ -35,7 +33,7 @@ pactWith(
         uponReceiving: 'a request for service auth token',
         withRequest: {
           method: 'POST',
-          path: '/testing-support/lease',
+          path: '/lease',
           headers: {
             Accept: 'application/json, text/plain, */*',
             'content-type': 'application/json',

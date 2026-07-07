@@ -53,7 +53,7 @@ featureToggles:
   c100Rebuild: true
   testingSupport: true
   enableCaseTrainTrack: true
-  enableRAComponent: true
+  enableRAComponent: false
   enablePcqComponent: true
   enableC100CaseProgressionTrainTrack: true
   enableOsCourtLookup: true

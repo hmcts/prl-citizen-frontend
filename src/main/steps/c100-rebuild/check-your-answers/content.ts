@@ -210,6 +210,7 @@ import { cy as consentOrderUploadCy, en as consentOrderUploadEn } from '../conse
 import { MandatoryFieldsConfig } from '../validation/definitions';
 import { getAllMandatoryFields, isAllMandatoryFieldsFilled } from '../validation/util';
 import _ from 'lodash';
+import { C100_URL } from '../../urls';
 
 export const enContent = {
   section: '',
@@ -1116,7 +1117,8 @@ export const generateContent: TranslationFn = content => {
   } else {
     newContents.StatementOfTruth.inset = newContents.StatementOfTruth.insetTextPayAndSubmit;
   }
-  const raContent = ReasonableAdjustmentElement(content['language']);
+  const isC100Journey = content.additionalData?.req?.originalUrl?.startsWith(C100_URL);
+  const raContent = ReasonableAdjustmentElement(content['language'], isC100Journey);
   newContents['keys'] = {
     ...newContents.keys,
     ...MiamFieldsLoader(SystemLanguageContent, content),
@@ -1299,21 +1301,11 @@ export const generateContent: TranslationFn = content => {
       ra_specialArrangements: {
         required: raContent.specialArrangementsHeading,
       },
-      ra_disabilityRequirements: raContent.errors.ra_disabilityRequirements,
-      ra_documentInformation: {
-        required: raContent.documentInformationHeading,
+      ra_intermediaryRequirements: {
+        required: raContent.intermediaryRequirementsHeading,
       },
-      ra_communicationHelp: {
-        required: raContent.communicationHelpHeading,
-      },
-      ra_supportCourt: {
-        required: raContent.supportCourtHeading,
-      },
-      ra_feelComportable: {
-        required: raContent.feelComfortableHeading,
-      },
-      ra_travellingCourt: {
-        required: raContent.travellingCourtHeading,
+      ra_assistanceRequirements: {
+        required: raContent.disabilityRequirementHeading,
       },
     },
   };

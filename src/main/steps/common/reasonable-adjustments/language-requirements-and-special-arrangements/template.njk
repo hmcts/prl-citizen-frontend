@@ -20,7 +20,20 @@
       <h2 class="govuk-heading-m">{{ content4 }}</h2>
       <p class="govuk-body">{{ content5}}</p>
 
-      <span class="govuk-body">{{ content6}}</span>
+      <p class="govuk-body">{{ content6}}</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+           {% for item in supportNeedsList %}
+                <li>{{ item.content }}</li>
+           {% endfor %}
+      </ul>
+
+      <h2 class="govuk-heading-m">{{ content7 }}</h2>
+      <p class="govuk-body">{{ content8}}</p>
+      <p class="govuk-body">{{ content9}}</p>
+
+      <p class="govuk-body">{{ content10}}</p>
+
       <ul class="govuk-list govuk-list--bullet">
             {% for item in specialArrangementsList %}
                   <li>{{ item.content }}</li>
