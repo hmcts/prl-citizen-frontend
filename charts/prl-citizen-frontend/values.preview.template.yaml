@@ -21,7 +21,8 @@ nodejs:
     DOCUMENT_MANAGEMENT_URL: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
     CCD_URL: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
     COS_URL: 'http://prl-cos-aat.service.core-compute-aat.internal'
-    # Uncomment to point to PR specific prl-ccd-definitions and ccd
+    # Uncomment to point to PR specific prl-ccd-definitions and ccd. cdam is also required to view documents
+#    DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-3422.preview.platform.hmcts.net'
 #    CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-3422.preview.platform.hmcts.net'
 #    COS_URL: 'https://prl-ccd-definitions-pr-3422.preview.platform.hmcts.net'
     FACT_URL: 'http://fact-api-aat.service.core-compute-aat.internal'
