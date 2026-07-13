@@ -18,6 +18,7 @@ const en = {
   newFamilyInjunctionLinkText:
     "Apply for a court order if you've been the victim of domestic abuse (Form FL401)(opens in a new tab)",
   familyInjunctionDetailText: 'Contact us for help',
+  familyInjunctionDetailContentText: 'What goes here?',
   draftApplicationTabLabel: 'Draft applications',
   activeCasesTabLabel: 'Active cases',
   closedCasesTabLabel: 'Closed cases',
@@ -55,6 +56,7 @@ const cy: typeof en = {
   pinActivateLinkText: '--welsh Activate a PIN',
   newFamilyInjunctionLinkText: 'Cais gwaharddeb teulu newydd (FL401)',
   familyInjunctionDetailText: '--welsh Contact us for help',
+  familyInjunctionDetailContentText: '--welsh What goes here?',
   draftApplicationTabLabel: 'Ceisiadau drafft',
   activeCasesTabLabel: 'Achosion gweithredol',
   closedCasesTabLabel: 'Achosion sydd wedi dod i ben',

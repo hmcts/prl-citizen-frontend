@@ -41,9 +41,9 @@
         <h1>{{injunctionHeading}}</h1>
         <a class="govuk-link" href="https://www.gov.uk/injunction-domestic-violence">{{newFamilyInjunctionLinkText}}</a>
         {% call govukDetails({
-          summaryText: {{familyInjunctionDetailText}}
+          summaryText: familyInjunctionDetailText
         }) %}
-          What content goes here?
+          {{ familyInjunctionDetailContentText }}
         {% endcall %}
       </div>
     </div>
