@@ -3,7 +3,8 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { prepareCaseView } from './tabView';
 
 const en = {
-  title: "'s account",
+  title: '\'s account',
+  injunctionHeading: 'I want to...',
   dashboardDescriptionText: 'This dashboard has all your child arrangement cases.',
   applyCAHeading: 'Apply for a child arrangements court order (Form C100)',
   courtDecisionText:
@@ -14,7 +15,8 @@ const en = {
   linkCaseHeading: 'Link a case to your account',
   pinInstructionsText: "If you've received a PIN and instructions to link a case to your account.",
   pinActivateLinkText: 'Activate a PIN',
-  newFamilyInjunctionLinkText: 'New family injunction application (FL401)',
+  newFamilyInjunctionLinkText: 'Apply for a court order if you\'ve been the victim of domestic abuse (Form FL401)(opens in a new tab)',
+  familyInjunctionDetailText: 'Contact us for help',
   draftApplicationTabLabel: 'Draft applications',
   activeCasesTabLabel: 'Active cases',
   closedCasesTabLabel: 'Closed cases',
@@ -39,6 +41,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'Achosion trefniadau plant a gwaharddebau teulu',
+  injunctionHeading: '--welsh I want to...',
   dashboardDescriptionText: '--welsh This dashboard has all your child arrangement cases',
   applyCAHeading: '--welsh Apply for a child arrangements court order (Form C100)',
   courtDecisionText:
@@ -50,6 +53,7 @@ const cy: typeof en = {
   pinInstructionsText: "--welsh If you've received a PIN and instructions to link a case to your account.",
   pinActivateLinkText: '--welsh Activate a PIN',
   newFamilyInjunctionLinkText: 'Cais gwaharddeb teulu newydd (FL401)',
+  familyInjunctionDetailText: '--welsh Contact us for help',
   draftApplicationTabLabel: 'Ceisiadau drafft',
   activeCasesTabLabel: 'Achosion gweithredol',
   closedCasesTabLabel: 'Achosion sydd wedi dod i ben',
