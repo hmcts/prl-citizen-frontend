@@ -4,7 +4,7 @@ import { prepareCaseView } from './tabView';
 
 const en = {
   title: "'s account",
-  dashboardDescriptionText: 'This dashboard has all your child arrangement cases',
+  dashboardDescriptionText: 'This dashboard has all your child arrangement cases.',
   applyCAHeading: 'Apply for a child arrangements court order (Form C100)',
   courtDecisionText:
     'If you need the court to decide on child arrangements and how your children are looked after, you can apply for a court order.',
@@ -18,7 +18,7 @@ const en = {
   draftApplicationTabLabel: 'Draft applications',
   activeCasesTabLabel: 'Active cases',
   closedCasesTabLabel: 'Closed cases',
-  draftApplicationTabHeading: 'Your applications',
+  draftApplicationTabHeading: 'Your cases',
   draftApplicationTabContent: '<p class="govuk-body">You have 28 days to submit the application.</p>',
   activeCasesTabHeading: 'Ongoing cases',
   closedCasesTabHeading: 'Closed cases',

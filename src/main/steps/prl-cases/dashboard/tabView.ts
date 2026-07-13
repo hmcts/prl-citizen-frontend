@@ -66,7 +66,6 @@ const prepareTabContent = (content): Tabs => {
   const {
     draftApplicationTabLabel,
     draftApplicationTabHeading,
-    draftApplicationTabContent,
     activeCasesTabLabel,
     activeCasesTabHeading,
     closedCasesTabLabel,
@@ -84,7 +83,6 @@ const prepareTabContent = (content): Tabs => {
       label: draftApplicationTabLabel,
       id: 'draft-cases',
       heading: draftApplicationTabHeading,
-      body: draftApplicationTabContent,
       head: [
         {
           text: caseNumber,

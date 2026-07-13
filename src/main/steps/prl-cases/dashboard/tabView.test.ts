@@ -96,8 +96,7 @@ describe('Dashboard tab content', () => {
         draft: {
           label: 'Draft applications',
           id: 'draft-cases',
-          heading: 'Your applications',
-          body: '<p class="govuk-body">You have 28 days to submit the application.</p>',
+          heading: 'Your cases',
           head: [
             {
               text: 'Case number',
