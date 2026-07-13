@@ -3,10 +3,17 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { prepareCaseView } from './tabView';
 
 const en = {
-  title: 'Child arrangements and family injunction cases',
+  title: '\'s account',
+  dashboardDescriptionText: 'This dashboard has all your child arrangement cases',
+  applyCAHeading: 'Apply for a child arrangements court order (Form C100)',
+  courtDecisionText:
+    'If you need the court to decide on child arrangements and how your children are looked after, you can apply for a court order.',
   sectionTitle: 'Activate an access code or start an application:',
   activateAccessCodeLinkText: 'Activate access code',
-  newChildArrangementsLinkText: 'New child arrangements application (C100)',
+  newChildArrangementsLinkText: 'Start a new child arrangements application',
+  linkCaseHeading: 'Link a case to your account',
+  pinInstructionsText: 'If you\'ve received a PIN and instructions to link a case to your account.',
+  pinActivateLinkText: 'Activate a PIN',
   newFamilyInjunctionLinkText: 'New family injunction application (FL401)',
   draftApplicationTabLabel: 'Draft applications',
   activeCasesTabLabel: 'Active cases',
@@ -32,9 +39,16 @@ const en = {
 
 const cy: typeof en = {
   title: 'Achosion trefniadau plant a gwaharddebau teulu',
+  dashboardDescriptionText: '--welsh This dashboard has all your child arrangement cases',
+  applyCAHeading: '--welsh Apply for a child arrangements court order (Form C100)',
+  courtDecisionText:
+    '--welsh If you need the court to decide on child arrangements and how your children are looked after, you can apply for a court order.',
   sectionTitle: 'Actifadu cod mynediad neu gychwyn cais:',
   activateAccessCodeLinkText: 'Actifadu cod mynediad',
-  newChildArrangementsLinkText: 'Cais trefniadau plant newydd (C100)',
+  newChildArrangementsLinkText: '--welsh Cais trefniadau plant newydd (C100)',
+  linkCaseHeading: '--welsh Link a case to your account',
+  pinInstructionsText: '--welsh If you\'ve received a PIN and instructions to link a case to your account.',
+  pinActivateLinkText: '--welsh Activate a PIN',
   newFamilyInjunctionLinkText: 'Cais gwaharddeb teulu newydd (FL401)',
   draftApplicationTabLabel: 'Ceisiadau drafft',
   activeCasesTabLabel: 'Achosion gweithredol',

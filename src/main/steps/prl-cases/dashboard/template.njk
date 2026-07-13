@@ -1,4 +1,3 @@
-{% from "govuk/components/tabs/macro.njk" import govukTabs %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% extends "../../common/dashboard-page.njk" %}
 
@@ -15,7 +14,13 @@
 
     <ul class="govuk-list">
       <li>
-        <a class="govuk-link" href="/pin-activation/enter-pin">{{activateAccessCodeLinkText}}</a>
+        <p class="govuk-body">{{dashboardDescriptionText}}</p>
+      </li>
+      <li>
+        <h2 class="govuk-heading-m">{{applyCAHeading}}</h2>
+      </li>
+      <li>
+        <p class="govuk-body">{{courtDecisionText}}</p>
       </li>
       {% if c100Rebuild %}
         <li>
@@ -23,35 +28,30 @@
         </li>
       {% endif %}
       <li>
-        <a class="govuk-link" href="https://www.gov.uk/injunction-domestic-violence">{{newFamilyInjunctionLinkText}}</a>
+        <h2 class="govuk-heading-m">{{linkCaseHeading}}</h2>
+      </li>
+      <li>
+        <a class="govuk-link" href="/pin-activation/enter-pin">{{pinActivateLinkText}}</a>
       </li>
     </ul>
 
-    {% set tabItems = [] %}
+    <a class="govuk-link" href="https://www.gov.uk/injunction-domestic-violence">{{newFamilyInjunctionLinkText}}</a>
+
     {% for caseState, tab in tabs %}
-      {% set panelContent %}
-      <h2 class="govuk-heading-m">{{tab.heading}}</h2>
-      {% if tab.body %}
-        <p class="govuk-body">{{tab.body | safe}}</p>
-      {% endif %}
-      {{ govukTable({
-          head: tab.head,
-          rows: tab.rows
-        }) }}
-      {% endset %}
-      {% set tabItems = (tabItems.push(
-        {
-          label: tab.label,
-          id: tab.id,
-          panel: {
-            html: panelContent
-          }
-        }
-      ), tabItems) %}
+      <div class="dashboard-card govuk-!-margin-top-8" id="{{tab.id}}">
+        <h2 class="govuk-heading-m dashboard-card__title">{{tab.heading}}</h2>
+
+        {% if tab.body %}
+          <p class="govuk-body">{{tab.body | safe}}</p>
+        {% endif %}
+
+        {% if tab.rows.length %}
+          {{ govukTable({
+              head: tab.head,
+              rows: tab.rows
+            }) }}
+        {% endif %}
+      </div>
     {% endfor %}
-    {{ govukTabs({
-      classes: 'govuk-!-margin-top-8',
-      items: tabItems
-    }) }}
   {% endblock %}
 {% endblock %}
