@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { prepareCaseView } from './tabView';
 
 const en = {
-  title: '\'s account',
+  title: "'s account",
   dashboardDescriptionText: 'This dashboard has all your child arrangement cases',
   applyCAHeading: 'Apply for a child arrangements court order (Form C100)',
   courtDecisionText:
@@ -12,7 +12,7 @@ const en = {
   activateAccessCodeLinkText: 'Activate access code',
   newChildArrangementsLinkText: 'Start a new child arrangements application',
   linkCaseHeading: 'Link a case to your account',
-  pinInstructionsText: 'If you\'ve received a PIN and instructions to link a case to your account.',
+  pinInstructionsText: "If you've received a PIN and instructions to link a case to your account.",
   pinActivateLinkText: 'Activate a PIN',
   newFamilyInjunctionLinkText: 'New family injunction application (FL401)',
   draftApplicationTabLabel: 'Draft applications',
@@ -47,7 +47,7 @@ const cy: typeof en = {
   activateAccessCodeLinkText: 'Actifadu cod mynediad',
   newChildArrangementsLinkText: '--welsh Cais trefniadau plant newydd (C100)',
   linkCaseHeading: '--welsh Link a case to your account',
-  pinInstructionsText: '--welsh If you\'ve received a PIN and instructions to link a case to your account.',
+  pinInstructionsText: "--welsh If you've received a PIN and instructions to link a case to your account.",
   pinActivateLinkText: '--welsh Activate a PIN',
   newFamilyInjunctionLinkText: 'Cais gwaharddeb teulu newydd (FL401)',
   draftApplicationTabLabel: 'Ceisiadau drafft',
