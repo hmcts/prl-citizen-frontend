@@ -3,7 +3,8 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { prepareCaseView } from './tabView';
 
 const en = {
-  title: "'s account",
+  title: 'Child arrangements and family injunction cases',
+  subTitle: "'s account",
   injunctionHeading: 'I want to...',
   dashboardDescriptionText: 'This dashboard has all your child arrangement cases.',
   applyCAHeading: 'Apply for a child arrangements court order (Form C100)',
@@ -43,6 +44,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'Achosion trefniadau plant a gwaharddebau teulu',
+  subTitle: "--welsh 's account",
   injunctionHeading: '--welsh I want to...',
   dashboardDescriptionText: '--welsh This dashboard has all your child arrangement cases',
   applyCAHeading: '--welsh Apply for a child arrangements court order (Form C100)',

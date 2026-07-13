@@ -9,7 +9,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-          {{additionalData.user.fullname}}{{title}}
+          {{additionalData.user.fullname}}{{subTitle}}
         </h1>
 
         <ul class="govuk-list">
@@ -31,6 +31,9 @@
             <h2 class="govuk-heading-m govuk-!-margin-top-5">{{linkCaseHeading}}</h2>
           </li>
           <li>
+            <p class="govuk-body">{{pinInstructionsText}}</p>
+          </li>
+          <li>
             <a class="govuk-link" href="/pin-activation/enter-pin">{{pinActivateLinkText}}</a>
           </li>
         </ul>
@@ -39,11 +42,12 @@
       <div class="govuk-grid-column-one-third">
         <ul class="govuk-list">
           <li>
-            <h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{injunctionHeading}}</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{injunctionHeading}}</h1>
           </li>
           <li>
-            <a class="govuk-link govuk-!-margin-bottom-5" href="https://www.gov.uk/injunction-domestic-violence">{{newFamilyInjunctionLinkText}}</a>
+            <a class="govuk-link" href="https://www.gov.uk/injunction-domestic-violence">{{newFamilyInjunctionLinkText}}</a>
           </li>
+          <br>
           <li>
             {% call govukDetails({
               summaryText: familyInjunctionDetailText
