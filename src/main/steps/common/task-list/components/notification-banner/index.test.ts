@@ -2405,8 +2405,7 @@ describe('FL401 banners', () => {
                 text: 'You may bring your own electronic device to court to view case papers during the hearing. The device should have a suitably sized screen, such as a laptop rather than a mobile phone. You must be familiar with the device and ensure it is fully charged. The court cannot guarantee access to power points, and staff cannot assist with your device. Security staff may inspect or temporarily remove any device if required. <strong>Recording or filming any part of the hearing without permission is contempt of court, which means you can be fined or sent to prison.</strong>',
               },
             ],
-            links: [
-            ],
+            links: [],
           },
         ],
       },
