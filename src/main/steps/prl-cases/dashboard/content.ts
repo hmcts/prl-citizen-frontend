@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { prepareCaseView } from './tabView';
 
 const en = {
-  title: '\'s account',
+  title: "'s account",
   injunctionHeading: 'I want to...',
   dashboardDescriptionText: 'This dashboard has all your child arrangement cases.',
   applyCAHeading: 'Apply for a child arrangements court order (Form C100)',
@@ -15,7 +15,8 @@ const en = {
   linkCaseHeading: 'Link a case to your account',
   pinInstructionsText: "If you've received a PIN and instructions to link a case to your account.",
   pinActivateLinkText: 'Activate a PIN',
-  newFamilyInjunctionLinkText: 'Apply for a court order if you\'ve been the victim of domestic abuse (Form FL401)(opens in a new tab)',
+  newFamilyInjunctionLinkText:
+    "Apply for a court order if you've been the victim of domestic abuse (Form FL401)(opens in a new tab)",
   familyInjunctionDetailText: 'Contact us for help',
   draftApplicationTabLabel: 'Draft applications',
   activeCasesTabLabel: 'Active cases',
