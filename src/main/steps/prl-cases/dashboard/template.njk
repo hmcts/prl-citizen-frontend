@@ -6,12 +6,12 @@
 
 {% block content %}
   {% block page_content %}
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-      {{additionalData.user.fullname}}{{title}}
-    </h1>
-
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+          {{additionalData.user.fullname}}{{title}}
+        </h1>
+
         <ul class="govuk-list">
           <li>
             <p class="govuk-body">{{dashboardDescriptionText}}</p>
@@ -28,8 +28,7 @@
             </li>
           {% endif %}
           <li>
-            <br>
-            <h2 class="govuk-heading-m">{{linkCaseHeading}}</h2>
+            <h2 class="govuk-heading-m govuk-!-margin-top-5">{{linkCaseHeading}}</h2>
           </li>
           <li>
             <a class="govuk-link" href="/pin-activation/enter-pin">{{pinActivateLinkText}}</a>
@@ -38,18 +37,26 @@
       </div>
 
       <div class="govuk-grid-column-one-third">
-        <h1>{{injunctionHeading}}</h1>
-        <a class="govuk-link" href="https://www.gov.uk/injunction-domestic-violence">{{newFamilyInjunctionLinkText}}</a>
-        {% call govukDetails({
-          summaryText: familyInjunctionDetailText
-        }) %}
-          {{ familyInjunctionDetailContentText }}
-        {% endcall %}
+        <ul class="govuk-list">
+          <li>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{injunctionHeading}}</h1>
+          </li>
+          <li>
+            <a class="govuk-link govuk-!-margin-bottom-5" href="https://www.gov.uk/injunction-domestic-violence">{{newFamilyInjunctionLinkText}}</a>
+          </li>
+          <li>
+            {% call govukDetails({
+              summaryText: familyInjunctionDetailText
+              }) %}
+              {{ familyInjunctionDetailContentText }}
+            {% endcall %}
+          </li>
+        </ul>
       </div>
     </div>
 
     {% for caseState, tab in tabs %}
-      <div class="dashboard-card govuk-!-margin-top-8" id="{{tab.id}}">
+      <div class="dashboard-card govuk-!-margin-top-5" id="{{tab.id}}">
         <h2 class="govuk-heading-m dashboard-card__title">{{tab.heading}}</h2>
 
         {% if tab.body %}
