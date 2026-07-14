@@ -91,6 +91,6 @@ export const generateContent: TranslationFn = content => {
   const session = content.additionalData!.req.session;
   return {
     ...translations,
-    tabs: prepareCaseView(session.userCaseList, session.user, translations),
+    cases: prepareCaseView(session.userCaseList, session.user, translations),
   };
 };
