@@ -59,21 +59,33 @@
       </div>
     </div>
 
-    {% for caseState, tab in tabs %}
-      <div class="dashboard-card govuk-!-margin-top-5" id="{{tab.id}}">
-        <h2 class="govuk-heading-m dashboard-card__title">{{tab.heading}}</h2>
-
-        {% if tab.body %}
-          <p class="govuk-body">{{tab.body | safe}}</p>
-        {% endif %}
-
-        {% if tab.rows.length %}
-          {{ govukTable({
-              head: tab.head,
-              rows: tab.rows
+    <h2 class="govuk-heading-l govuk-!-margin-top-8">{{draftApplicationTabHeading}}</h2>
+    {% if cases.length %}
+          {% for case in cases %}
+            {{ govukSummaryList({
+              card: {
+                title: { text: case.caseTypeHeading + " " + case.caseNumber },
+                actions: {
+                  items: [
+                    { href: case.actionUrl, text: case.actionText }
+                  ]
+                }
+              },
+              rows: [
+                { key: { text: yourRoleLabel }, value: { text: case.role } },
+                { key: { text: lastUpdateLabel }, value: { text: case.lastUpdate } },
+                {
+                  key: { text: statusLabel },
+                  html: (govukTag({ text: case.status.text, classes: case.status.classes }) +
+                    '<p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0">' +
+                    case.status.description + '</p>')
+                }
+              ]
             }) }}
+          {% endfor %}
+        {% else %}
+          <p class="govuk-body">{{ noCasesText }}</p>
         {% endif %}
-      </div>
-    {% endfor %}
+
   {% endblock %}
 {% endblock %}

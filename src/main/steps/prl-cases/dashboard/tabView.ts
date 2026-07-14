@@ -2,17 +2,17 @@ import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../app/case/definition';
-import { isCaseLinked } from '../../../steps/common/task-list/utils';
+import { UserDetails } from '../../../app/controller/AppRequest';
+import { isCaseLinked } from '../../common/task-list/utils';
 import { applyParms } from '../../common/url-parser';
 import { C100_RETRIVE_CASE, FETCH_CASE_DETAILS, PageLink } from '../../urls';
 
-import { UserDetails } from './../../../app/controller/AppRequest';
 import { getCasePartyType } from './utils';
 
 const tabGroup = {
   [State.CASE_DRAFT]: 'draft',
-  [State.CASE_SUBMITTED_NOT_PAID]: 'draft',
-  [State.CASE_SUBMITTED_PAID]: 'draft',
+  [State.CASE_SUBMITTED_NOT_PAID]: 'submitted',
+  [State.CASE_SUBMITTED_PAID]: 'submitted',
   [State.CASE_ISSUED_TO_LOCAL_COURT]: 'draft',
   [State.CASE_GATE_KEEPING]: 'draft',
   [State.ALL_FINAL_ORDERS_ISSUED]: 'closed',
@@ -29,216 +29,45 @@ const caseStatusTranslation = {
   [State.CASE_GATE_KEEPING]: 'caseGatekeeping',
   [State.CASE_SERVED]: 'caseServed',
 };
-interface CaseDetails {
-  caseNumber: string;
-  caseType: CaseType;
-  caseApplicantName: string;
-  caseStatus: string; //This is to group cases based on caseStatus.state like draft, active & closed
-  createdDate: string;
-  lastModifiedDate: string;
-  casePartyType: PartyType;
-}
 
-interface TabFields {
-  label: string;
-  id: string;
-  heading: string;
-  body?: string;
-  head?: TableHeaderFields[];
-  rows?: TableRowFields[][];
-}
+const caseStatusTagColour = {
+  draft: 'govuk-tag--yellow',
+  submitted: 'govuk-tag--blue',
+  closed: 'govuk-tag--grey',
+  active: 'govuk-tag--green',
+};
 
-interface TableHeaderFields {
+const caseStatusDescription = {
+  [State.CASE_DRAFT]: 'draftCaseStatusDescription',
+  [State.CASE_SUBMITTED_NOT_PAID]: 'submittedCaseStatusDescription',
+  [State.CASE_SUBMITTED_PAID]: 'submittedCaseStatusDescription',
+  [State.CASE_ISSUED_TO_LOCAL_COURT]: 'caseIssuedDescription',
+  [State.CASE_GATE_KEEPING]: 'caseGatekeepingDescription',
+  [State.CASE_SERVED]: 'caseServedDescription',
+};
+
+const partyTypeTranslation = {
+  [PartyType.APPLICANT]: 'applicantRoleLabel',
+  [PartyType.RESPONDENT]: 'respondentRoleLabel',
+};
+
+interface CardStatus {
   text: string;
+  classes: string;
+  description: string;
 }
 
-interface TableRowFields {
-  text?: string;
-  html?: string;
+export interface CaseCard {
+  id: string;
+  caseTypeHeading: string;
+  caseNumber: string;
+  actionText: string;
+  actionUrl: PageLink;
+  role: string;
+  lastUpdate: string;
+  status: CardStatus;
 }
-interface Tabs {
-  draft: TabFields;
-  active: TabFields;
-  closed: TabFields;
-}
 
-const prepareTabContent = (content): Tabs => {
-  const {
-    draftApplicationTabLabel,
-    draftApplicationTabHeading,
-    activeCasesTabLabel,
-    activeCasesTabHeading,
-    closedCasesTabLabel,
-    closedCasesTabHeading,
-    caseNumber,
-    caseType,
-    caseStatus,
-    createdDate,
-    applicant,
-    lastUpdated,
-    closeDate,
-  } = content;
-  const tabs: Record<keyof Tabs, TabFields> = {
-    draft: {
-      label: draftApplicationTabLabel,
-      id: 'draft-cases',
-      heading: draftApplicationTabHeading,
-      head: [
-        {
-          text: caseNumber,
-        },
-        {
-          text: caseType,
-        },
-        {
-          text: caseStatus,
-        },
-        {
-          text: createdDate,
-        },
-      ],
-      rows: [],
-    },
-    active: {
-      label: activeCasesTabLabel,
-      id: 'active-cases',
-      heading: activeCasesTabHeading,
-      head: [
-        {
-          text: caseNumber,
-        },
-        {
-          text: caseType,
-        },
-        {
-          text: applicant,
-        },
-        {
-          text: lastUpdated,
-        },
-      ],
-      rows: [],
-    },
-    closed: {
-      label: closedCasesTabLabel,
-      id: 'closed-cases',
-      heading: closedCasesTabHeading,
-      head: [
-        {
-          text: caseNumber,
-        },
-        {
-          text: caseType,
-        },
-        {
-          text: applicant,
-        },
-        {
-          text: closeDate,
-        },
-      ],
-      rows: [],
-    },
-  };
-
-  return tabs;
-};
-
-const prepareTableData = (caseData: CaseDetails, tab: string): TableRowFields[] => {
-  const { caseNumber, caseType, casePartyType, caseStatus, caseApplicantName, createdDate, lastModifiedDate } =
-    caseData;
-  const rows: TableRowFields[] = [
-    {
-      html: `<a class="govuk-link" href="${getTaskListUrl(
-        caseType,
-        casePartyType,
-        caseNumber,
-        caseStatus
-      )}">${caseNumber}</a>`,
-    },
-    {
-      text: caseType,
-    },
-  ];
-
-  if (tab === 'draft') {
-    rows.push({
-      text: caseStatus,
-    });
-    rows.push({
-      text: createdDate,
-    });
-  } else {
-    rows.push({
-      text: caseApplicantName,
-    });
-    rows.push({
-      text: lastModifiedDate,
-    });
-  }
-
-  return rows;
-};
-
-export const prepareCaseView = (
-  caseData: Partial<CaseWithId>[],
-  userDetails: UserDetails,
-  content: Record<string, string>
-): Tabs => {
-  let tabs = prepareTabContent(content);
-
-  if (caseData?.length) {
-    tabs = caseData.reduce(
-      (_tabs: Tabs, _case: Partial<CaseWithId>) => {
-        const { caseTypeOfApplication, ...rest } = _case;
-        const state = _case.state;
-        const caseStatus = content?.[caseStatusTranslation?.[state!]] ?? (state as string);
-        const casePartyType = getCasePartyType(_case, userDetails.id);
-        const tab = getCaseTabGrouping(_case, userDetails, casePartyType);
-        let caseApplicantName = rest.applicantName;
-
-        if (!caseApplicantName) {
-          if (rest?.applicants?.length) {
-            caseApplicantName = `${rest.applicants[0].value.firstName} ${rest.applicants[0].value.lastName}`;
-          } else if (rest?.applicantsFL401?.firstName) {
-            caseApplicantName = `${rest.applicantsFL401.firstName} ${rest.applicantsFL401.lastName}`;
-          } else {
-            caseApplicantName = '';
-          }
-        }
-
-        if (_tabs[tab]) {
-          _tabs[tab].rows.push(
-            prepareTableData(
-              {
-                caseNumber: rest.id!,
-                caseType: caseTypeOfApplication as CaseType,
-                casePartyType,
-                caseApplicantName,
-                caseStatus,
-                createdDate: dayjs(rest.createdDate).format('DD MMM YYYY'),
-                lastModifiedDate: dayjs(rest.lastModifiedDate).format('DD MMM YYYY'),
-              },
-              tab
-            )
-          );
-        }
-
-        return _tabs;
-      },
-      { ...tabs }
-    );
-  }
-
-  Object.values(tabs).forEach(tab => {
-    if (!tab.rows.length) {
-      tab.body = content.noCase;
-      tab.head = [];
-    }
-  });
-
-  return tabs;
-};
 const getCaseTabGrouping = (
   caseData: Partial<CaseWithId>,
   userDetails: UserDetails,
@@ -258,18 +87,91 @@ const getCaseTabGrouping = (
   return tab;
 };
 
-const getTaskListUrl = (
-  caseType: CaseType,
-  linkPartyType: PartyType,
-  caseNumber: CaseDetails['caseNumber'],
-  caseStatus: CaseDetails['caseStatus']
-): PageLink => {
+const getTaskListUrl = (caseType: CaseType, linkPartyType: PartyType, caseNumber: string, state: string): PageLink => {
   let url;
 
-  if (caseType === CaseType.C100 && State.AWAITING_SUBMISSION_TO_HMCTS === caseStatus) {
+  if (caseType === CaseType.C100 && State.AWAITING_SUBMISSION_TO_HMCTS === state) {
     url = applyParms(`${C100_RETRIVE_CASE}`, { caseId: caseNumber });
   } else {
     url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
   }
   return url;
+};
+
+const getCaseTypeHeading = (caseType: CaseType, content: Record<string, string>): string => {
+  const headings: Partial<Record<CaseType, string>> = {
+    [CaseType.C100]: content.childArrangementsCaseHeading,
+  };
+  return headings[caseType] ?? content.defaultCaseHeading;
+};
+
+const getActionLink = (
+  tabGroupName: string,
+  caseType: CaseType,
+  casePartyType: PartyType,
+  caseNumber: string,
+  state: string,
+  content: Record<string, string>
+): { text: string; url: PageLink } => {
+  let text: string;
+  switch (tabGroupName) {
+    case 'draft':
+      text = content.continueApplicationText;
+      break;
+    case 'submitted':
+      text = content.viewApplicationText;
+      break;
+    case 'active':
+      text = content.viewCaseText;
+      break;
+    case 'closed':
+    default:
+      text = content.viewApplicationText;
+      break;
+  }
+
+  return {
+    text,
+    url: getTaskListUrl(caseType, casePartyType, caseNumber, state),
+  };
+};
+
+export const prepareCaseView = (
+  caseData: Partial<CaseWithId>[],
+  userDetails: UserDetails,
+  content: Record<string, string>
+): CaseCard[] => {
+  if (!caseData?.length) {
+    return [];
+  }
+
+  const sortedCaseData = [...caseData].sort(
+    (a, b) => dayjs(b.lastModifiedDate).valueOf() - dayjs(a.lastModifiedDate).valueOf()
+  );
+
+  return sortedCaseData.map((_case: Partial<CaseWithId>): CaseCard => {
+    const { caseTypeOfApplication, ...rest } = _case;
+    const state = _case.state as string;
+    const casePartyType = getCasePartyType(_case, userDetails.id);
+    const tab = getCaseTabGrouping(_case, userDetails, casePartyType);
+
+    const role = content[partyTypeTranslation[casePartyType]] ?? casePartyType;
+
+    const action = getActionLink(tab, caseTypeOfApplication as CaseType, casePartyType, rest.id!, state, content);
+
+    return {
+      id: rest.id!,
+      caseTypeHeading: getCaseTypeHeading(caseTypeOfApplication as CaseType, content),
+      caseNumber: rest.id!,
+      actionText: action.text,
+      actionUrl: action.url,
+      role,
+      lastUpdate: dayjs(rest.lastModifiedDate).format('DD MMM YYYY'),
+      status: {
+        text: content[caseStatusTranslation[state]] ?? state,
+        classes: caseStatusTagColour[tab] ?? caseStatusTagColour.active,
+        description: content[caseStatusDescription[state]] ?? '',
+      },
+    };
+  });
 };
