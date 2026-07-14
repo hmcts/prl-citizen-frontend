@@ -44,6 +44,7 @@ const caseStatusDescription = {
   [State.CASE_ISSUED_TO_LOCAL_COURT]: 'caseIssuedDescription',
   [State.CASE_GATE_KEEPING]: 'caseGatekeepingDescription',
   [State.CASE_SERVED]: 'caseServedDescription',
+  [State.PROCEEDS_IN_HERITAGE_SYSTEM]: 'heritageCaseStatusDescription',
 };
 
 const partyTypeTranslation = {
