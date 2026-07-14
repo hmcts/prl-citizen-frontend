@@ -1,5 +1,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
 {% extends "../../common/dashboard-page.njk" %}
 
 {% block backLink %}{% endblock %}
@@ -84,7 +86,7 @@
             }) }}
           {% endfor %}
         {% else %}
-          <p class="govuk-body">{{ noCasesText }}</p>
+          <p class="govuk-body">{{ noCase }}</p>
         {% endif %}
 
   {% endblock %}
