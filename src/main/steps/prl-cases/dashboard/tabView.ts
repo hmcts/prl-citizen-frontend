@@ -28,6 +28,7 @@ const caseStatusTranslation = {
   [State.CASE_ISSUED_TO_LOCAL_COURT]: 'caseIssued',
   [State.CASE_GATE_KEEPING]: 'caseGatekeeping',
   [State.CASE_SERVED]: 'caseServed',
+  [State.PROCEEDS_IN_HERITAGE_SYSTEM]: 'caseClosed',
 };
 
 const caseStatusTagColour = {
@@ -158,8 +159,12 @@ export const prepareCaseView = (
     const tab = getCaseTabGrouping(_case, userDetails, casePartyType);
 
     const role = content[partyTypeTranslation[casePartyType]] ?? casePartyType;
-
     const action = getActionLink(tab, caseTypeOfApplication as CaseType, casePartyType, rest.id!, state, content);
+
+    const description = (content[caseStatusDescription[state]] ?? '').replace(
+      '{noOfDaysRemainingToSubmitCase}',
+      String(rest.noOfDaysRemainingToSubmitCase ?? '')
+    );
 
     return {
       id: rest.id!,
@@ -172,7 +177,7 @@ export const prepareCaseView = (
       status: {
         text: content[caseStatusTranslation[state]] ?? state,
         classes: caseStatusTagColour[tab] ?? caseStatusTagColour.active,
-        description: content[caseStatusDescription[state]] ?? '',
+        description,
       },
     };
   });
