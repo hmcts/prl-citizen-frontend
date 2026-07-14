@@ -101,8 +101,9 @@ const getTaskListUrl = (caseType: CaseType, linkPartyType: PartyType, caseNumber
 const getCaseTypeHeading = (caseType: CaseType, content: Record<string, string>): string => {
   const headings: Partial<Record<CaseType, string>> = {
     [CaseType.C100]: content.childArrangementsCaseHeading,
+    [CaseType.FL401]: content.domesticAbuseCaseHeading,
   };
-  return headings[caseType] ?? content.defaultCaseHeading;
+  return headings[caseType] ?? '';
 };
 
 const getActionLink = (

@@ -48,6 +48,8 @@ const en = {
   continueApplicationText: 'Continue application',
   viewApplicationText: 'View application',
   viewCaseText: 'View case',
+  childArrangementsCaseHeading: 'Child arrangements case',
+  domesticAbuseCaseHeading: '--FL401 heading needed',
 };
 
 const cy: typeof en = {
@@ -95,6 +97,8 @@ const cy: typeof en = {
   continueApplicationText: '--welsh Continue application',
   viewApplicationText: '--welsh View application',
   viewCaseText: '--welsh View case',
+  childArrangementsCaseHeading: '--welsh Child arrangements case',
+  domesticAbuseCaseHeading: '--welsh FL401 heading needed',
 };
 
 export const languages = {
