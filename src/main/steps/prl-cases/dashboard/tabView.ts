@@ -122,11 +122,11 @@ const getActionLink = (
       text = content.viewApplicationText;
       break;
     case 'active':
+    case 'closed':
       text = content.viewCaseText;
       break;
-    case 'closed':
     default:
-      text = content.viewApplicationText;
+      text = content.viewCaseText;
       break;
   }
 

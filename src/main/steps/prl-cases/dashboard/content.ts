@@ -36,10 +36,18 @@ const en = {
   closeDate: 'Close date',
   noCase: 'No case available.',
   draftCaseStatus: 'Draft',
-  submittedCaseStatus: 'Application submitted',
-  caseIssued: 'Application submitted',
-  caseGatekeeping: 'Application submitted',
-  caseServed: 'Application submitted',
+  submittedCaseStatus: 'Submitted',
+  caseIssued: 'Submitted',
+  caseGatekeeping: 'Submitted',
+  caseServed: 'Submitted',
+  draftCaseStatusDescription: 'You have x days to submit this draft application',
+  submittedCaseStatusDescription: 'The will review your application and contact you with the next steps',
+  heritageCaseStatusDescription: 'This case cannot progress online, contact the court for updates',
+  yourRoleLabel: 'Your role',
+  lastUpdateLabel: 'Last update',
+  continueApplicationText: 'Continue application',
+  viewApplicationText: 'View application',
+  viewCaseText: 'View case',
 };
 
 const cy: typeof en = {
@@ -79,6 +87,14 @@ const cy: typeof en = {
   caseIssued: 'Cyflwynwyd y cais',
   caseGatekeeping: 'Cyflwynwyd y cais',
   caseServed: 'Cyflwynwyd y cais',
+  draftCaseStatusDescription: '--welsh You have x days to submit this draft application',
+  submittedCaseStatusDescription: '--welsh The will review your application and contact you with the next steps',
+  heritageCaseStatusDescription: '--welsh This case cannot progress online, contact the court for updates',
+  yourRoleLabel: '--welsh Your role',
+  lastUpdateLabel: '--welsh Last update',
+  continueApplicationText: '--welsh Continue application',
+  viewApplicationText: '--welsh View application',
+  viewCaseText: '--welsh View case',
 };
 
 export const languages = {

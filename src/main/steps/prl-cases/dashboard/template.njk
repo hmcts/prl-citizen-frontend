@@ -77,7 +77,7 @@
                 { key: { text: yourRoleLabel }, value: { text: case.role } },
                 { key: { text: lastUpdateLabel }, value: { text: case.lastUpdate } },
                 {
-                  key: { text: statusLabel },
+                  key: { text: caseStatus },
                   html: (govukTag({ text: case.status.text, classes: case.status.classes }) +
                     '<p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0">' +
                     case.status.description + '</p>')
