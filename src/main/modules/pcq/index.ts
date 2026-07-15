@@ -77,7 +77,7 @@ export class PcqProvider {
 
   async isComponentEnabled(): Promise<boolean> {
     const isEnabled =
-      getFeatureToggle()?.isPcqComponentEnabled() ??
+      (await getFeatureToggle()?.isPcqComponentEnabled()) ??
       toBoolean(config.get<boolean>('featureToggles.enablePcqComponent'));
     return new Promise(resolve => {
       resolve(isEnabled);
