@@ -18,7 +18,7 @@ export default class TaskListGetController extends GetController {
       ...req.session.applicationSettings,
       navfromRespondToApplication: false,
     };
-
+    console.log(JSON.stringify(req.session.userCase));
     req.session.save(() => {
       super.get(req, res);
     });

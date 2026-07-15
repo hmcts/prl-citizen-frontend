@@ -162,7 +162,7 @@ export const prepareCaseView = (
 
     const role = content[partyTypeTranslation[casePartyType]] ?? casePartyType;
     const action = getActionLink(tab, caseTypeOfApplication as CaseType, casePartyType, rest.id!, state, content);
-
+    // switch replace to interpolate
     const description = (content[caseStatusDescription[state]] ?? '').replace(
       '{noOfDaysRemainingToSubmitCase}',
       String(rest.noOfDaysRemainingToSubmitCase ?? '')
