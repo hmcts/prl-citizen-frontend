@@ -64,10 +64,9 @@
     <h2 class="govuk-heading-l govuk-!-margin-top-8">{{draftApplicationTabHeading}}</h2>
     {% if cases.length %}
           {% for case in cases %}
-          {{ case | dump }}
             {{ govukSummaryList({
               card: {
-                title: { text: case.caseTypeHeading + " " + case.caseNumber },
+                title: { html: case.caseTypeHeading + "<br>" + case.caseNumber },
                 actions: {
                   items: [
                     { href: case.actionUrl, text: case.actionText }

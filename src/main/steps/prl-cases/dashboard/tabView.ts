@@ -139,6 +139,8 @@ const getActionLink = (
   };
 };
 
+const formatCaseNumber = (caseNumber: string): string => String(caseNumber).replace(/(\d{4})(?=\d)/g, '$1-');
+
 export const prepareCaseView = (
   caseData: Partial<CaseWithId>[],
   userDetails: UserDetails,
@@ -172,7 +174,7 @@ export const prepareCaseView = (
     return {
       id: rest.id!,
       caseTypeHeading: getCaseTypeHeading(caseTypeOfApplication as CaseType, content),
-      caseNumber: rest.id!,
+      caseNumber: formatCaseNumber(rest.id!),
       actionText: action.text,
       actionUrl: action.url,
       role,
