@@ -166,6 +166,9 @@ export const prepareCaseView = (
       String(rest.noOfDaysRemainingToSubmitCase ?? '')
     );
 
+    console.log('noOfDaysRemainingToSubmitCase for case', _case.id, ':', rest.noOfDaysRemainingToSubmitCase);
+    console.log('does _case have it instead of rest? ', _case.noOfDaysRemainingToSubmitCase);
+
     return {
       id: rest.id!,
       caseTypeHeading: getCaseTypeHeading(caseTypeOfApplication as CaseType, content),
