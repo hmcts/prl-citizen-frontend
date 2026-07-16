@@ -89,12 +89,16 @@ const getCaseTabGrouping = (
   return tab;
 };
 
+// problem area seems to be here. The link is case/:caseId/ not case/:caseId/retrive like how it is in AAT
 const getTaskListUrl = (caseType: CaseType, linkPartyType: PartyType, caseNumber: string, state: string): PageLink => {
   let url;
-
+  console.log('state in task list: ', state);
   if (caseType === CaseType.C100 && State.AWAITING_SUBMISSION_TO_HMCTS === state) {
+    console.log('retrieving case...');
     url = applyParms(`${C100_RETRIVE_CASE}`, { caseId: caseNumber });
   } else {
+    // which means for drafts, for some reason it's entering here but it's suppose to have the one above
+    console.log('fetching case details...');
     url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
   }
   return url;
@@ -168,6 +172,7 @@ export const prepareCaseView = (
       String(rest.noOfDaysRemainingToSubmitCase ?? '')
     );
 
+    console.log('state for case', _case.id, ':', rest.state);
     console.log('noOfDaysRemainingToSubmitCase for case', _case.id, ':', rest.noOfDaysRemainingToSubmitCase);
     console.log('does _case have it instead of rest? ', _case.noOfDaysRemainingToSubmitCase);
 

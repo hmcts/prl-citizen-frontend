@@ -17,6 +17,7 @@ export default class CaseDetailsGetController {
     }
 
     try {
+      console.log('req params: ', req.params.caseId);
       const { caseData } = await new CaseDataController().fetchAndSaveData(req);
       req.session.applicationSettings = {
         ...req.session.applicationSettings,

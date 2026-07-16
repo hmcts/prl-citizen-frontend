@@ -72,11 +72,12 @@ export default class CaseDataController {
         caseId,
         this.isDataRequired('caseAndHearingDetails') ? YesOrNo.YES : YesOrNo.NO
       );
-
+      console.log('response case data: ', response.caseData);
+      console.log('API returned noOfDaysRemainingToSubmitCase:', response.caseData?.noOfDaysRemainingToSubmitCase);
       if (this.isDataRequired('hearingDetails')) {
         response.hearingData = (await client.retrieveCaseHearingsByCaseId(caseId)).hearingData;
       }
-
+      console.log('Session noOfDaysRemainingToSubmitCase:', req.session.userCase?.noOfDaysRemainingToSubmitCase);
       await this.saveDataInSession(req, response.caseData, response.hearingData);
 
       return Promise.resolve({
