@@ -136,6 +136,9 @@ export default class OtherProceedingsGetController extends GetController {
       }
 
       await caseApi(userDetails, req.locals.logger).deleteDocument(docId);
+      req.locals.logger.info(
+        `other-proceedings doc ${docId} (${orderType}/${orderId}) deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
 
       if (
         req.originalUrl.startsWith(C100_URL) &&

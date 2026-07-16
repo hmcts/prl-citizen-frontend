@@ -30,6 +30,9 @@ export const routeGuard = {
       try {
         removeEvidenceDocErrors(req, 'sq_uploadDocument_subfield');
         await caseApi(req?.session?.user, req.locals.logger).deleteDocument(removeFileId.toString());
+        req.locals.logger.info(
+          `[FPVTL-3062] screening-questions doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+        );
         delete req.session.userCase.sq_uploadDocument_subfield;
         return req.session.save(() => {
           res.redirect(applyParms(C100_SCREENING_QUESTIONS_PERMISSIONS_WHY));

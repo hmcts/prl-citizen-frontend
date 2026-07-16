@@ -40,6 +40,9 @@ export default class DocumentUpload extends GetController {
 
     try {
       await caseApi(req?.session?.user, req.locals.logger).deleteDocument(docId);
+      req.locals.logger.info(
+        `miam certificate ${docId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
 
       if (req.session.userCase?.miam_certificate) {
         req.session.userCase.miam_certificate = undefined;

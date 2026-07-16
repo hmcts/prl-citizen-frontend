@@ -21,6 +21,9 @@ export const routeGuard = {
       try {
         removeEvidenceDocErrors(req, 'miam_previousAttendanceEvidenceDoc');
         await caseApi(req?.session?.user, req.locals.logger).deleteDocument(removeFileId.toString());
+        req.locals.logger.info(
+          `miam attendance doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+        );
         delete req.session.userCase.miam_previousAttendanceEvidenceDoc;
         return req.session.save(() => {
           res.redirect(applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING));

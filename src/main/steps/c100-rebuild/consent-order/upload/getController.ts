@@ -41,6 +41,9 @@ export default class DocumentUpload extends GetController {
 
     try {
       await caseApi(req?.session?.user, req.locals.logger).deleteDocument(documentId);
+      req.locals.logger.info(
+        `consent-order doc ${documentId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
 
       if (req.session.userCase?.co_certificate) {
         req.session.userCase.co_certificate = undefined;
