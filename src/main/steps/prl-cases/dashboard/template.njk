@@ -58,38 +58,38 @@
             {% endcall %}
           </li>
         </ul>
+
+      <h2 class="govuk-heading-l govuk-!-margin-top-8">{{draftApplicationTabHeading}}</h2>
+          {% if cases.length %}
+                {% for case in cases %}
+                  {{ govukSummaryList({
+                    card: {
+                      title: { html: case.caseTypeHeading + "<br>" + case.caseNumber },
+                      actions: {
+                        items: [
+                          { href: case.actionUrl, text: case.actionText }
+                        ]
+                      }
+                    },
+                    rows: [
+                      { key: { text: yourRoleLabel }, value: { text: case.role } },
+                      { key: { text: lastUpdateLabel }, value: { text: case.lastUpdate } },
+                      {
+                        key: { text: caseStatus },
+                        value: {
+                          html: (govukTag({ text: case.status.text, classes: case.status.classes }) +
+                            '<p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0">' +
+                            case.status.description + '</p>')
+                        }
+                      }
+                    ]
+                  }) }}
+                {% endfor %}
+              {% else %}
+                <p class="govuk-body">{{ noCase }}</p>
+              {% endif %}
       </div>
     </div>
-
-    <h2 class="govuk-heading-l govuk-!-margin-top-8">{{draftApplicationTabHeading}}</h2>
-    {% if cases.length %}
-          {% for case in cases %}
-            {{ govukSummaryList({
-              card: {
-                title: { html: case.caseTypeHeading + "<br>" + case.caseNumber },
-                actions: {
-                  items: [
-                    { href: case.actionUrl, text: case.actionText }
-                  ]
-                }
-              },
-              rows: [
-                { key: { text: yourRoleLabel }, value: { text: case.role } },
-                { key: { text: lastUpdateLabel }, value: { text: case.lastUpdate } },
-                {
-                  key: { text: caseStatus },
-                  value: {
-                    html: (govukTag({ text: case.status.text, classes: case.status.classes }) +
-                      '<p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0">' +
-                      case.status.description + '</p>')
-                  }
-                }
-              ]
-            }) }}
-          {% endfor %}
-        {% else %}
-          <p class="govuk-body">{{ noCase }}</p>
-        {% endif %}
 
   {% endblock %}
 {% endblock %}
