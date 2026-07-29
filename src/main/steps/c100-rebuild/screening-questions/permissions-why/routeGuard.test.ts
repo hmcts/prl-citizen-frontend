@@ -16,6 +16,7 @@ describe('c100 > screening questions > permissions why > route guard', () => {
     req = mockRequest();
     res = mockResponse();
     deleteDocumentMock.mockClear();
+    next.mockClear();
   });
 
   test('should clean permissions why subfields and call next', async () => {
@@ -158,6 +159,23 @@ describe('c100 > screening questions > permissions why > route guard', () => {
     deleteDocumentMock.mockRejectedValue({ status: 'Error' });
     await routeGuard.get(req, res, next);
 
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/screening-questions/permissions-why');
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'deleteFile',
+        propertyName: 'sq_uploadDocument_subfield',
+      },
+    ]);
+  });
+
+  test('should reject delete when session has no doc (prevents cross-case deletion)', async () => {
+    req.params.removeFileId = 'someone-elses-doc-id';
+    req.session.userCase.sq_uploadDocument_subfield = undefined;
+
+    await routeGuard.get(req, res, next);
+
+    expect(deleteDocumentMock).not.toHaveBeenCalled();
+    expect(next).not.toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/screening-questions/permissions-why');
     expect(req.session.errors).toStrictEqual([
       {

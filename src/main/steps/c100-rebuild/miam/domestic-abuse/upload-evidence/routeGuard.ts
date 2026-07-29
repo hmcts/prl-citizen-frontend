@@ -13,32 +13,32 @@ export const routeGuard = {
   get: async (req: AppRequest, res: Response, next: NextFunction) => {
     const { removeFileId } = req.params;
 
-    if (removeFileId && req.session?.userCase?.miam_domesticAbuseEvidenceDocs) {
-      if (!documentBelongsToCase(removeFileId, req.session.userCase.miam_domesticAbuseEvidenceDocs)) {
-        handleEvidenceDocError('deleteFile', req, 'miam_domesticAbuseEvidenceDocs');
-        return res.redirect(applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
-      }
-
-      try {
-        removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
-        await caseApi(req?.session?.user, req.locals.logger).deleteDocument(removeFileId.toString());
-        req.locals.logger.info(
-          `miam DA doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
-        );
-        req.session.userCase.miam_domesticAbuseEvidenceDocs =
-          req.session.userCase.miam_domesticAbuseEvidenceDocs.filter(
-            document => _.toString(_.last(document.document_url.split('/'))) !== removeFileId
-          );
-
-        return req.session.save(() => {
-          res.redirect(applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
-        });
-      } catch (error) {
-        handleEvidenceDocError('deleteFile', req, 'miam_domesticAbuseEvidenceDocs');
-        return res.redirect(applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
-      }
+    if (!removeFileId) {
+      return next();
     }
 
-    next();
+    const userDocs = req.session?.userCase?.miam_domesticAbuseEvidenceDocs ?? [];
+
+    if (!documentBelongsToCase(removeFileId, userDocs)) {
+      handleEvidenceDocError('deleteFile', req, 'miam_domesticAbuseEvidenceDocs');
+      return res.redirect(applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
+    }
+
+    try {
+      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
+      await caseApi(req?.session?.user, req.locals.logger).deleteDocument(removeFileId.toString());
+      req.locals.logger.info(
+        `miam DA doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
+      req.session.userCase.miam_domesticAbuseEvidenceDocs = userDocs.filter(
+        document => _.toString(_.last(document.document_url.split('/'))) !== removeFileId
+      );
+      return req.session.save(() => {
+        res.redirect(applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
+      });
+    } catch (error) {
+      handleEvidenceDocError('deleteFile', req, 'miam_domesticAbuseEvidenceDocs');
+      return res.redirect(applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
+    }
   },
 };

@@ -12,28 +12,30 @@ export const routeGuard = {
   get: async (req: AppRequest, res: Response, next: NextFunction) => {
     const { removeFileId } = req.params;
 
-    if (removeFileId && req.session?.userCase?.miam_previousAttendanceEvidenceDoc) {
-      if (!documentBelongsToCase(removeFileId, req.session.userCase.miam_previousAttendanceEvidenceDoc)) {
-        handleEvidenceDocError('deleteFile', req, 'miam_previousAttendanceEvidenceDoc');
-        return res.redirect(applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING));
-      }
-
-      try {
-        removeEvidenceDocErrors(req, 'miam_previousAttendanceEvidenceDoc');
-        await caseApi(req?.session?.user, req.locals.logger).deleteDocument(removeFileId.toString());
-        req.locals.logger.info(
-          `miam attendance doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
-        );
-        delete req.session.userCase.miam_previousAttendanceEvidenceDoc;
-        return req.session.save(() => {
-          res.redirect(applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING));
-        });
-      } catch (error) {
-        handleEvidenceDocError('deleteFile', req, 'miam_previousAttendanceEvidenceDoc');
-        return res.redirect(applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING));
-      }
+    if (!removeFileId) {
+      return next();
     }
 
-    next();
+    const userDoc = req.session?.userCase?.miam_previousAttendanceEvidenceDoc;
+
+    if (!documentBelongsToCase(removeFileId, userDoc)) {
+      handleEvidenceDocError('deleteFile', req, 'miam_previousAttendanceEvidenceDoc');
+      return res.redirect(applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING));
+    }
+
+    try {
+      removeEvidenceDocErrors(req, 'miam_previousAttendanceEvidenceDoc');
+      await caseApi(req?.session?.user, req.locals.logger).deleteDocument(removeFileId.toString());
+      req.locals.logger.info(
+        `miam attendance doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
+      delete req.session.userCase.miam_previousAttendanceEvidenceDoc;
+      return req.session.save(() => {
+        res.redirect(applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING));
+      });
+    } catch (error) {
+      handleEvidenceDocError('deleteFile', req, 'miam_previousAttendanceEvidenceDoc');
+      return res.redirect(applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING));
+    }
   },
 };
