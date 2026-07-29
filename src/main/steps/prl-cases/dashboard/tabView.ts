@@ -25,10 +25,10 @@ const caseStatusTranslation = {
   [State.CASE_DRAFT]: 'draftCaseStatus',
   [State.CASE_SUBMITTED_NOT_PAID]: 'submittedCaseStatus',
   [State.CASE_SUBMITTED_PAID]: 'submittedCaseStatus',
-  [State.CASE_ISSUED_TO_LOCAL_COURT]: 'caseIssued',
-  [State.CASE_GATE_KEEPING]: 'caseGatekeeping',
-  [State.CASE_SERVED]: 'caseServed',
-  [State.PROCEEDS_IN_HERITAGE_SYSTEM]: 'caseClosed',
+  [State.CASE_ISSUED_TO_LOCAL_COURT]: 'submittedCaseStatus',
+  [State.CASE_GATE_KEEPING]: 'submittedCaseStatus',
+  [State.CASE_SERVED]: 'activeCaseStatus',
+  [State.PROCEEDS_IN_HERITAGE_SYSTEM]: 'closedCaseStatus',
 };
 
 const caseStatusTagColour = {
