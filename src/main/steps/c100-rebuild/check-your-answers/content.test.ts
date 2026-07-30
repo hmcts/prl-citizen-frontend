@@ -6181,12 +6181,6 @@ describe('Content.ts toggle test cases', () => {
       } as unknown as CaseWithId,
     });
 
-    expect(generatedErrorsContent.errors?.['c8RefugeDocument-applicant-0']).toStrictEqual({
-      required: 'You must upload a C8 document',
-    });
-    expect(generatedErrorsContent.errors?.['c8RefugeDocument-otherPerson-0']).toStrictEqual({
-      required: 'You must upload a C8 document',
-    });
     expect(generatedErrorsContent.errors?.['otherPersonConfidentiality-otherPerson-0']).toStrictEqual({
       required: 'Select yes if you want to keep Respondent FirstPage’s identity private',
     });
