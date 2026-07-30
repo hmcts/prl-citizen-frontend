@@ -93,7 +93,10 @@ const getCaseTabGrouping = (
 const getTaskListUrl = (caseType: CaseType, linkPartyType: PartyType, caseNumber: string, state: string): PageLink => {
   let url;
   console.log('state in task list: ', state);
-  if (caseType === CaseType.C100 && State.AWAITING_SUBMISSION_TO_HMCTS === state) {
+  const isAwaitingSubmission = (value: string): boolean =>
+    value === State.AWAITING_SUBMISSION_TO_HMCTS || value === 'AWAITING_SUBMISSION_TO_HMCTS';
+
+  if (caseType === CaseType.C100 && isAwaitingSubmission(state)) {
     console.log('retrieving case...');
     url = applyParms(`${C100_RETRIVE_CASE}`, { caseId: caseNumber });
   } else {
@@ -166,7 +169,6 @@ export const prepareCaseView = (
 
     const role = content[partyTypeTranslation[casePartyType]] ?? casePartyType;
     const action = getActionLink(tab, caseTypeOfApplication as CaseType, casePartyType, rest.id!, state, content);
-    // switch replace to interpolate
     const description = (content[caseStatusDescription[state]] ?? '').replace(
       '{noOfDaysRemainingToSubmitCase}',
       String(rest.noOfDaysRemainingToSubmitCase ?? '')
