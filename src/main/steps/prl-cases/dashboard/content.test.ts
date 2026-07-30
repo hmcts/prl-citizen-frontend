@@ -1,7 +1,8 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { CommonContent } from '../../common/common.content';
 
-// import { generateContent } from './content';
+import { generateContent } from './content';
+import {UserDetails} from "../../../app/controller/AppRequest";
 
 describe('Dashboard content', () => {
   const req = mockRequest();
@@ -12,6 +13,11 @@ describe('Dashboard content', () => {
     },
   } as unknown as CommonContent;
 
+  commonContent.additionalData!.req.session.user = {
+    id: 'test-user-id',
+    accessToken: 'test-token',
+  } as UserDetails;
+
   commonContent.additionalData!.req.session.userCaseList = [
     {
       id: 1675576280723116,
@@ -19,6 +25,8 @@ describe('Dashboard content', () => {
       caseTypeOfApplication: 'C100',
       caseCreatedBy: 'CITIZEN',
       createdDate: '2023-02-06T14:32:57.227543Z',
+      lastModifiedDate: '2023-02-07T09:00:00.000Z',
+      noOfDaysRemainingToSubmitCase: 21,
       caseStatus: {
         state: 'Draft',
       },
@@ -79,99 +87,47 @@ describe('Dashboard content', () => {
   ];
 
   test('should return correct english content', () => {
-    // const generatedContent = generateContent({ ...commonContent, language: 'en' });
-    // expect(generatedContent.title).toEqual('Child arrangements and family injunction cases');
+    const generatedContent = generateContent({ ...commonContent, language: 'en' });
+    expect(generatedContent.title).toEqual('Child arrangements and family injunction cases');
   });
-  //
-  // test('should return correct welsh content', () => {
-  //   const generatedContent = generateContent({ ...commonContent, language: 'cy' });
-  //   expect(generatedContent.title).toEqual('Achosion trefniadau plant a gwaharddebau teulu');
-  // });
 
-  // test('should return the appropriate tab contents for caseView', () => {
-  //   const generatedContent = generateContent({ ...commonContent, language: 'en' });
-  //
-  //   expect(generatedContent.tabs).toEqual(
-  //     expect.objectContaining({
-  //       draft: {
-  //         label: 'Draft applications',
-  //         id: 'draft-cases',
-  //         heading: 'Your cases',
-  //         head: [
-  //           {
-  //             text: 'Case number',
-  //           },
-  //           {
-  //             text: 'Case type',
-  //           },
-  //           {
-  //             text: 'Status',
-  //           },
-  //           {
-  //             text: 'Created date',
-  //           },
-  //         ],
-  //         rows: [
-  //           [
-  //             {
-  //               html: '<a class="govuk-link" href="/c100-rebuild/case/1675576280723116/retrive">1675576280723116</a>',
-  //             },
-  //             {
-  //               text: 'C100',
-  //             },
-  //             {
-  //               text: 'Draft',
-  //             },
-  //             {
-  //               text: '06 Feb 2023',
-  //             },
-  //           ],
-  //         ],
-  //       },
-  //       active: {
-  //         label: 'Active cases',
-  //         id: 'active-cases',
-  //         heading: 'Ongoing cases',
-  //         head: [
-  //           {
-  //             text: 'Case number',
-  //           },
-  //           {
-  //             text: 'Case type',
-  //           },
-  //           {
-  //             text: 'Applicant',
-  //           },
-  //           {
-  //             text: 'Last updated',
-  //           },
-  //         ],
-  //         rows: [
-  //           [
-  //             {
-  //               html: '<a class="govuk-link" href="/case/1675347915490145">1675347915490145</a>',
-  //             },
-  //             {
-  //               text: 'FL401',
-  //             },
-  //             {
-  //               text: 'S A',
-  //             },
-  //             {
-  //               text: '06 Feb 2023',
-  //             },
-  //           ],
-  //         ],
-  //       },
-  //       closed: {
-  //         label: 'Closed cases',
-  //         id: 'closed-cases',
-  //         heading: 'Closed cases',
-  //         head: [],
-  //         rows: [],
-  //         body: 'No case available.',
-  //       },
-  //     })
-  //   );
-  // });
+  test('should return correct welsh content', () => {
+    const generatedContent = generateContent({ ...commonContent, language: 'cy' });
+    expect(generatedContent.title).toEqual('Achosion trefniadau plant a gwaharddebau teulu');
+  });
+
+  test('should return the appropriate case cards for caseView', () => {
+    const generatedContent = generateContent({ ...commonContent, language: 'en' });
+
+    expect(generatedContent.cases).toEqual([
+      {
+        id: 1675576280723116,
+        caseTypeHeading: 'Child arrangements case',
+        caseNumber: '1675-5762-8072-3116',
+        actionText: 'Continue application',
+        actionUrl: '/c100-rebuild/case/1675576280723116/retrive',
+        role: 'Applicant',
+        lastUpdate: '07 Feb 2023',
+        status: {
+          text: 'Draft',
+          classes: 'govuk-tag--yellow',
+          description: 'You have 21 days to submit this draft application',
+        },
+      },
+      {
+        id: 1675347915490145,
+        caseTypeHeading: '--FL401 heading needed',
+        caseNumber: '1675-3479-1549-0145',
+        actionText: 'View case',
+        actionUrl: '/case/1675347915490145',
+        role: 'Applicant',
+        lastUpdate: '06 Feb 2023',
+        status: {
+          text: 'Active',
+          classes: 'govuk-tag--green',
+          description: '',
+        },
+      },
+    ]);
+  });
 });

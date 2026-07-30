@@ -1,18 +1,19 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { UserDetails } from '../../../app/controller/AppRequest';
 
-// import { languages } from './content';
-// import { prepareCaseView } from './tabView';
+import { languages } from './content';
+import { prepareCaseView } from './tabView';
 
 describe('Dashboard tab content', () => {
   const req = mockRequest();
-  // const userDetails = {
-  //   id: '123',
-  //   accessToken: 'mock-user-access-token',
-  //   name: 'test',
-  //   givenName: 'First name',
-  //   familyName: 'Last name',
-  //   email: 'test@example.com',
-  // };
+  const userDetails = {
+    id: 'test-user-id',
+    accessToken: 'mock-user-access-token',
+    name: 'test',
+    givenName: 'First name',
+    familyName: 'Last name',
+    email: 'test@example.com',
+  } as UserDetails;
 
   req.session.userCaseList = [
     {
@@ -21,6 +22,8 @@ describe('Dashboard tab content', () => {
       caseTypeOfApplication: 'C100',
       caseCreatedBy: 'CITIZEN',
       createdDate: '2023-02-06T14:32:57.227543Z',
+      lastModifiedDate: '2023-02-06T14:32:57.227543Z',
+      noOfDaysRemainingToSubmitCase: 21,
       caseStatus: {
         state: 'Draft',
       },
@@ -31,6 +34,7 @@ describe('Dashboard tab content', () => {
       caseTypeOfApplication: 'C100',
       caseCreatedBy: 'CITIZEN',
       createdDate: '2023-02-06T14:32:57.227543Z',
+      lastModifiedDate: '2023-02-07T14:32:57.227543Z',
       caseStatus: {
         state: 'Submitted',
       },
@@ -40,7 +44,7 @@ describe('Dashboard tab content', () => {
       state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
       dateSubmitted: '2023-02-02',
       caseSubmittedTimeStamp: '2023-02-02T14:32:57.227543Z',
-      lastModifiedDate: '2023-02-06T14:32:57.227543Z',
+      lastModifiedDate: '2023-02-08T14:32:57.227543Z',
       caseTypeOfApplication: 'FL401',
       selectedCaseTypeID: 'FL401',
       applicantCaseName: 'Case Test welsh',
@@ -90,102 +94,58 @@ describe('Dashboard tab content', () => {
     },
   ];
 
-  test('prepareCaseView method should return the appropriate tab contents for caseView', () => {
-    // expect(prepareCaseView(req.session.userCaseList, userDetails, languages.en)).toEqual(
-    //   expect.objectContaining({
-    //     draft: {
-    //       label: 'Draft applications',
-    //       id: 'draft-cases',
-    //       heading: 'Your cases',
-    //       head: [
-    //         {
-    //           text: 'Case number',
-    //         },
-    //         {
-    //           text: 'Case type',
-    //         },
-    //         {
-    //           text: 'Status',
-    //         },
-    //         {
-    //           text: 'Created date',
-    //         },
-    //       ],
-    //       rows: [
-    //         [
-    //           {
-    //             html: '<a class="govuk-link" href="/c100-rebuild/case/1675576280723116/retrive">1675576280723116</a>',
-    //           },
-    //           {
-    //             text: 'C100',
-    //           },
-    //           {
-    //             text: 'Draft',
-    //           },
-    //           {
-    //             text: '06 Feb 2023',
-    //           },
-    //         ],
-    //         [
-    //           {
-    //             html: '<a class="govuk-link" href="/case/1675576280723115">1675576280723115</a>',
-    //           },
-    //           {
-    //             text: 'C100',
-    //           },
-    //           {
-    //             text: 'Application submitted',
-    //           },
-    //           {
-    //             text: '06 Feb 2023',
-    //           },
-    //         ],
-    //       ],
-    //     },
-    //     active: {
-    //       label: 'Active cases',
-    //       id: 'active-cases',
-    //       heading: 'Ongoing cases',
-    //       head: [
-    //         {
-    //           text: 'Case number',
-    //         },
-    //         {
-    //           text: 'Case type',
-    //         },
-    //         {
-    //           text: 'Applicant',
-    //         },
-    //         {
-    //           text: 'Last updated',
-    //         },
-    //       ],
-    //       rows: [
-    //         [
-    //           {
-    //             html: '<a class="govuk-link" href="/case/1675347915490145">1675347915490145</a>',
-    //           },
-    //           {
-    //             text: 'FL401',
-    //           },
-    //           {
-    //             text: 'S A',
-    //           },
-    //           {
-    //             text: '06 Feb 2023',
-    //           },
-    //         ],
-    //       ],
-    //     },
-    //     closed: {
-    //       label: 'Closed cases',
-    //       id: 'closed-cases',
-    //       heading: 'Closed cases',
-    //       head: [],
-    //       rows: [],
-    //       body: 'No case available.',
-    //     },
-    //   })
-    // );
+  test('prepareCaseView should return the appropriate case cards, most-recently-updated first', () => {
+    expect(prepareCaseView(req.session.userCaseList, userDetails, languages.en)).toEqual([
+      {
+        id: 1675347915490145,
+        caseTypeHeading: '--FL401 heading needed',
+        caseNumber: '1675-3479-1549-0145',
+        actionText: 'View case',
+        actionUrl: '/case/1675347915490145',
+        role: 'Applicant',
+        lastUpdate: '08 Feb 2023',
+        status: {
+          text: 'Active',
+          classes: 'govuk-tag--green',
+          description: '',
+        },
+      },
+      {
+        id: 1675576280723115,
+        caseTypeHeading: 'Child arrangements case',
+        caseNumber: '1675-5762-8072-3115',
+        actionText: 'View application',
+        actionUrl: '/case/1675576280723115',
+        role: 'Applicant',
+        lastUpdate: '07 Feb 2023',
+        status: {
+          text: 'Submitted',
+          classes: 'govuk-tag--blue',
+          description: 'The court will review your application and contact you with the next steps',
+        },
+      },
+      {
+        id: 1675576280723116,
+        caseTypeHeading: 'Child arrangements case',
+        caseNumber: '1675-5762-8072-3116',
+        actionText: 'Continue application',
+        actionUrl: '/c100-rebuild/case/1675576280723116/retrive',
+        role: 'Applicant',
+        lastUpdate: '06 Feb 2023',
+        status: {
+          text: 'Draft',
+          classes: 'govuk-tag--yellow',
+          description: 'You have 21 days to submit this draft application',
+        },
+      },
+    ]);
+  });
+
+  test('prepareCaseView should return an empty array when there are no cases', () => {
+    expect(prepareCaseView([], userDetails, languages.en)).toEqual([]);
+  });
+
+  test('prepareCaseView should return an empty array when caseData is undefined', () => {
+    expect(prepareCaseView(undefined as unknown as [], userDetails, languages.en)).toEqual([]);
   });
 });

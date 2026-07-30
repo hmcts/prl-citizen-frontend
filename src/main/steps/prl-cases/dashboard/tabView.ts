@@ -9,6 +9,7 @@ import { C100_RETRIVE_CASE, FETCH_CASE_DETAILS, PageLink } from '../../urls';
 
 import { getCasePartyType } from './utils';
 
+// Assign what group a state is in (DEFAULT: Active)
 const tabGroup = {
   [State.CASE_DRAFT]: 'draft',
   [State.CASE_SUBMITTED_NOT_PAID]: 'submitted',
@@ -21,21 +22,12 @@ const tabGroup = {
   '*': 'active',
 };
 
-const caseStatusTranslation = {
-  [State.CASE_DRAFT]: 'draftCaseStatus',
-  [State.CASE_SUBMITTED_NOT_PAID]: 'submittedCaseStatus',
-  [State.CASE_SUBMITTED_PAID]: 'submittedCaseStatus',
-  [State.CASE_ISSUED_TO_LOCAL_COURT]: 'submittedCaseStatus',
-  [State.CASE_GATE_KEEPING]: 'submittedCaseStatus',
-  [State.CASE_SERVED]: 'activeCaseStatus',
-  [State.PROCEEDS_IN_HERITAGE_SYSTEM]: 'closedCaseStatus',
-};
-
-const caseStatusTagColour = {
-  draft: 'govuk-tag--yellow',
-  submitted: 'govuk-tag--blue',
-  closed: 'govuk-tag--grey',
-  active: 'govuk-tag--green',
+// Change colours / labels of groups
+const caseStatusByTab = {
+  draft: { text: 'draftCaseStatus', classes: 'govuk-tag--yellow' },
+  submitted: { text: 'submittedCaseStatus', classes: 'govuk-tag--blue' },
+  active: { text: 'activeCaseStatus', classes: 'govuk-tag--green' },
+  closed: { text: 'closedCaseStatus', classes: 'govuk-tag--grey' },
 };
 
 const caseStatusDescription = {
@@ -178,6 +170,8 @@ export const prepareCaseView = (
     console.log('noOfDaysRemainingToSubmitCase for case', _case.id, ':', rest.noOfDaysRemainingToSubmitCase);
     console.log('does _case have it instead of rest? ', _case.noOfDaysRemainingToSubmitCase);
 
+    const statusDisplay = caseStatusByTab[tab] ?? caseStatusByTab.active;
+
     return {
       id: rest.id!,
       caseTypeHeading: getCaseTypeHeading(caseTypeOfApplication as CaseType, content),
@@ -187,8 +181,8 @@ export const prepareCaseView = (
       role,
       lastUpdate: dayjs(rest.lastModifiedDate).format('DD MMM YYYY'),
       status: {
-        text: content[caseStatusTranslation[state]] ?? state,
-        classes: caseStatusTagColour[tab] ?? caseStatusTagColour.active,
+        text: content[statusDisplay.text] ?? state,
+        classes: statusDisplay.classes,
         description,
       },
     };
