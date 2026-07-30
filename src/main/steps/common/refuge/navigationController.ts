@@ -16,13 +16,10 @@ import {
   C100_APPLICANTS_PERSONAL_DETAILS,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
   C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
-  C100_REFUGE_UPLOAD_DOC,
   C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
   C100_URL,
   PageLink,
-  REFUGE_DOC_ALREADY_UPLOADED,
   REFUGE_KEEPING_SAFE,
-  REFUGE_UPLOAD_DOC,
   RESPONDENT_ADDRESS_DETAILS,
   STAYING_IN_REFUGE,
 } from '../../urls';
@@ -42,12 +39,7 @@ class RefugeNavigationController {
         return this.getStayInRefugeNextUrl(partyRoot, caseData, isC100, id, req, c100Person, addressUrl);
 
       case REFUGE_KEEPING_SAFE:
-      case REFUGE_UPLOAD_DOC:
-      case C100_REFUGE_UPLOAD_DOC:
         return addressUrl;
-
-      case REFUGE_DOC_ALREADY_UPLOADED:
-        return this.getDocAlreadyUploadedNextUrl(id, isC100, partyRoot, addressUrl, caseData as CaseWithId);
 
       default:
         return currentPageUrl;
@@ -141,23 +133,6 @@ class RefugeNavigationController {
         : (getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails);
 
     return details.liveInRefuge === YesOrNo.YES;
-  }
-
-  private getDocAlreadyUploadedNextUrl(
-    id: string,
-    isC100: boolean,
-    root: RootContext,
-    addressUrl: PageLink,
-    caseData: CaseWithId
-  ): PageLink {
-    const resolvedRoot = isC100 ? RootContext.C100_REBUILD : root;
-    const needToReuploadRefugeDoc = caseData.reUploadRefugeDocument === YesOrNo.YES;
-    if (needToReuploadRefugeDoc) {
-      return isC100
-        ? (applyParms(C100_REFUGE_UPLOAD_DOC, { root: resolvedRoot, id }) as PageLink)
-        : (applyParms(REFUGE_UPLOAD_DOC, { root: resolvedRoot, id }) as PageLink);
-    }
-    return addressUrl;
   }
 }
 

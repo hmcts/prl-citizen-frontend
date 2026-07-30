@@ -156,7 +156,6 @@ import {
   cy as otherProceedingDocumentCy,
   en as otherProceedingDocumentEn,
 } from '../other-proceedings/documentUpload/content';
-import { cy as uploadRefugeCy, en as uploadRefugeEn } from '../../common/refuge/upload-refuge-document/content';
 import {
   cy as otherPersonConifidentialityCy,
   en as otherPersonConifidentialityEn,
@@ -277,9 +276,6 @@ export const enContent = {
       defaultPaymentError: 'Your application is not submitted. Please try again',
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application',
       paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
-    },
-    refugeDocumentText: {
-      required: uploadRefugeEn.errors.c8RefugeDocument.empty,
     },
     sq_legalRepresentation: sq_legalRepEn().errors.sq_legalRepresentation,
     c100RebuildChildPostCode: childAddressEn().errors.c100RebuildChildPostCode,
@@ -544,9 +540,6 @@ export const cyContent = {
       applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application (welsh)',
       paymentUnsuccessful:
         'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
-    },
-    refugeDocumentText: {
-      required: uploadRefugeCy.errors.c8RefugeDocument.empty,
     },
     otherPersonConfidentiality: otherPersonConifidentialityCy.errors.confidentiality,
     fullName: {
@@ -1170,7 +1163,6 @@ export const generateContent: TranslationFn = content => {
   form.submit.disabled = !isAllFieldsFilled;
   const errors = {};
   content.userCase?.appl_allApplicants?.forEach((applicant, index) => {
-    errors[`c8RefugeDocument-applicant-${index}`] = translations.errors.refugeDocumentText;
     errors[`fullName-applicant-${index}`] = translations.errors.fullName;
     errors[`anyOtherPeopleKnowDetails-applicant-${index}`] = translations.errors.detailsKnown;
     errors[`doYouWantToKeep-applicant-${index}`] = translations.errors.contactDetailsPrivateAlternative;
@@ -1242,7 +1234,6 @@ export const generateContent: TranslationFn = content => {
       errors[`isDateOfBirthUnknown-otherPerson-${index}`] = translations.errors.isDateOfBirthUnknown;
       errors[`approxDateOfBirth-otherPerson-${index}`] = translations.errors.approxDateOfBirth;
       errors[`dateOfBirth-otherPerson-${index}`] = translations.errors.dateOfBirth;
-      errors[`c8RefugeDocument-otherPerson-${index}`] = translations.errors.refugeDocumentText;
       errors[`addressDetails-otherPerson-${index}`] = {
         required: translations.keys.addressDetails,
       };
