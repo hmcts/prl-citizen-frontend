@@ -1,8 +1,8 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { UserDetails } from '../../../app/controller/AppRequest';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
-import {UserDetails} from "../../../app/controller/AppRequest";
 
 describe('Dashboard content', () => {
   const req = mockRequest();
