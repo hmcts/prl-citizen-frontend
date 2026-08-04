@@ -226,7 +226,6 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const docCategory = req.params.docCategory as UploadDocumentCategory;
     const fields = typeof this.fields === 'function' ? this.fields(caseData, req) : this.fields;
     const form = new Form(fields);
-    //const { _csrf, ...formData } = form.getParsedBody(req.body);
     const parsedBody = form.getParsedBody(req.body);
     const partyType = getCasePartyType(caseData, user.id);
     const uploadedDocuments = caseData?.[getUploadedFilesDataReference(partyType)] ?? [];
