@@ -76,4 +76,42 @@ describe('documents > upload > upload-your-documents > routeGuard', () => {
     await new Promise(process.nextTick);
     expect(next).toHaveBeenCalled();
   });
+
+  test('should reject deletion when documentId does not belong to user session', async () => {
+    deleteDocumentMock.mockClear();
+    const req = mockRequest({
+      session: {
+        user: { id: '1234' },
+        userCase: {
+          id: '1234',
+          caseType: 'FL401',
+          applicantsFL401: {
+            firstName: 'test',
+            lastName: 'user',
+          },
+          applicantUploadFiles: [
+            {
+              document_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+              document_binary_url: 'string',
+              document_filename: 'string',
+              document_hash: 'string',
+              document_creation_date: 'string',
+              name: 'file_example_TIFF_1MB',
+            },
+          ],
+        },
+      },
+      query: {
+        documentId: 'tampered-document-id-1234',
+      },
+    });
+    const res = mockResponse();
+    const next = jest.fn();
+
+    routeGuard.get(req, res, next);
+    await new Promise(process.nextTick);
+    expect(deleteDocumentMock).not.toHaveBeenCalled();
+    expect(req.session.errors).toStrictEqual([{ errorType: 'deleteError', propertyName: 'uploadDocumentFileUpload' }]);
+  });
 });

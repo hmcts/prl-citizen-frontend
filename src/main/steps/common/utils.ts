@@ -96,3 +96,22 @@ export const handleUploadDocument = async (
 
   return response;
 };
+
+/**
+ * Validates that a document ID belongs to the case by checking it against document URLs in the session.
+ * Supports single documents, arrays, and documents with either `document_url` or `url` properties.
+ */
+export const documentBelongsToCase = (
+  documentId: string,
+  sessionDocuments: { document_url?: string; url?: string } | { document_url?: string; url?: string }[] | undefined
+): boolean => {
+  if (!documentId || !sessionDocuments) {
+    return false;
+  }
+
+  const docs = Array.isArray(sessionDocuments) ? sessionDocuments : [sessionDocuments];
+  return docs.some(doc => {
+    const docUrl = doc.document_url || doc.url || '';
+    return docUrl.split('/').pop() === documentId;
+  });
+};
