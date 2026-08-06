@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 
-import { caseApi } from '../../../app/case/CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
+import { deleteAwpDocument } from '../utils';
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -9,32 +9,7 @@ export const routeGuard = {
     const { removeId } = req.params;
 
     if (removeId) {
-      let documentToDelete;
-
-      if (req.session.userCase.awp_uploadedApplicationForms) {
-        documentToDelete = req.session.userCase.awp_uploadedApplicationForms.find(
-          document => document.url.split('/')[document.url.split('/').length - 1] === removeId
-        );
-      }
-
-      if (documentToDelete) {
-        try {
-          req.session.errors = [];
-          const userDetails = req?.session?.user;
-          await caseApi(userDetails, req.locals.logger).deleteDocument(removeId.toString());
-          req.locals.logger.info(
-            `AWP application doc ${removeId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
-          );
-        } catch (error) {
-          return next();
-        }
-
-        req.session.userCase.awp_uploadedApplicationForms = req.session.userCase?.awp_uploadedApplicationForms?.filter(
-          application => application.url.split('/')[application.url.split('/').length - 1] !== removeId
-        );
-
-        return req.session.save(next);
-      }
+      return deleteAwpDocument(req, next, removeId, 'awp_uploadedApplicationForms', 'AWP application doc');
     }
 
     next();

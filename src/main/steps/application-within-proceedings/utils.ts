@@ -1,6 +1,7 @@
-import { Response } from 'express';
+import { NextFunction, Response } from 'express';
 import _ from 'lodash';
 
+import { caseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { CaseWithId } from '../../app/case/case';
 import {
@@ -23,6 +24,42 @@ import {
 } from '../../steps/urls';
 
 import { languages as applicationReasonTranslation } from './content';
+
+export const deleteAwpDocument = async (
+  req: AppRequest,
+  next: NextFunction,
+  removeId: string,
+  docField: 'awp_uploadedApplicationForms' | 'awp_supportingDocuments',
+  logLabel: string
+): Promise<void> => {
+  const documents = req.session.userCase[docField];
+  const documentToDelete = documents?.find(
+    document => document.url.split('/')[document.url.split('/').length - 1] === removeId
+  );
+
+  if (documentToDelete) {
+    try {
+      req.session.errors = [];
+      await caseApi(req?.session?.user, req.locals.logger).deleteDocument(removeId.toString());
+      req.locals.logger.info(
+        `${logLabel} ${removeId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
+    } catch (error) {
+      next();
+      return;
+    }
+
+    req.session.userCase[docField] = documents?.filter(
+      application => application.url.split('/')[application.url.split('/').length - 1] !== removeId
+    );
+
+    await new Promise<void>(resolve => req.session.save(() => resolve()));
+    next();
+    return;
+  }
+
+  next();
+};
 
 interface AWPApplicationTypesConfig {
   applicationType: AWPApplicationType;
