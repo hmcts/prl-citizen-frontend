@@ -10,7 +10,7 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { AppRequest, AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
-import { C100_CASE_EVENT, C100_CASE_TYPE, State, YesOrNo } from './definition';
+import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
 import { logError } from './utils';
 
 export class CaseApi {
@@ -222,45 +222,22 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
   );
 };
 
-const combineOtherPersonConfidentiality = (caseData: Partial<Case>): Partial<Case> => {
-  if (!caseData.oprs_otherPersons) {
-    return caseData;
-  }
-
-  return {
-    ...caseData,
-    oprs_otherPersons: caseData.oprs_otherPersons.map(person => {
-      const isIdentityConfidential = person.isOtherPersonAddressConfidential === YesOrNo.YES;
-      const isAddressOnlyConfidential = person.isOtherPersonAddressOnlyConfidential === YesOrNo.YES;
-      const combinedValue: YesOrNo = isIdentityConfidential || isAddressOnlyConfidential ? YesOrNo.YES : YesOrNo.NO;
-      return {
-        ...person,
-        isOtherPersonAddressConfidential: combinedValue,
-      };
-    }),
-  };
-};
-
 const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
-  const preparedCaseData = combineOtherPersonConfidentiality(caseData);
   const caseDataMapperKeys = Object.keys(updateCaseDataMapper);
-  let transformedCaseData = Object.entries(preparedCaseData).reduce(
-    (transformedData: Record<string, any>, [field, data]) => {
-      const [type] = field.split('_');
-      const key = updateCaseDataMapper[type];
+  let transformedCaseData = Object.entries(caseData).reduce((transformedData: Record<string, any>, [field, data]) => {
+    const [type] = field.split('_');
+    const key = updateCaseDataMapper[type];
 
-      if (caseDataMapperKeys.includes(type) && !transformedData[key]) {
-        transformedData[key] = {};
-      }
+    if (caseDataMapperKeys.includes(type) && !transformedData[key]) {
+      transformedData[key] = {};
+    }
 
-      if (transformedData[key]) {
-        transformedData[key][field] = data;
-      }
+    if (transformedData[key]) {
+      transformedData[key][field] = data;
+    }
 
-      return transformedData;
-    },
-    {}
-  );
+    return transformedData;
+  }, {});
 
   if (!Object.keys(transformedCaseData).includes(updateCaseDataMapper.co)) {
     transformedCaseData = { ...transformedCaseData, c100RebuildConsentOrderDetails: {} };
