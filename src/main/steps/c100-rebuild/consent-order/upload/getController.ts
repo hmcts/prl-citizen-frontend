@@ -5,6 +5,7 @@ import { caseApi } from '../../../../app/case/CaseApi';
 import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
+import { documentBelongsToCase } from '../../../common/utils';
 import { C100_CONSENT_ORDER_UPLOAD } from '../../../urls';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,8 +33,17 @@ export default class DocumentUpload extends GetController {
   }
 
   public removeExistingConsentDocument = async (documentId: string, req: AppRequest, res: Response): Promise<void> => {
+    if (!documentBelongsToCase(documentId, req.session.userCase?.co_certificate)) {
+      req.session.errors = [{ propertyName: 'co_certificate', errorType: 'deleteError' }];
+      req.session.save(() => res.redirect(C100_CONSENT_ORDER_UPLOAD));
+      return;
+    }
+
     try {
       await caseApi(req?.session?.user, req.locals.logger).deleteDocument(documentId);
+      req.locals.logger.info(
+        `consent-order doc ${documentId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
 
       if (req.session.userCase?.co_certificate) {
         req.session.userCase.co_certificate = undefined;

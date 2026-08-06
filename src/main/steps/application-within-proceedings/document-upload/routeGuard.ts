@@ -22,6 +22,9 @@ export const routeGuard = {
           req.session.errors = [];
           const userDetails = req?.session?.user;
           await caseApi(userDetails, req.locals.logger).deleteDocument(removeId.toString());
+          req.locals.logger.info(
+            `AWP application doc ${removeId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+          );
         } catch (error) {
           return next();
         }

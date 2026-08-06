@@ -14,6 +14,8 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > routeGuard', 
   beforeEach(() => {
     req = mockRequest();
     res = mockResponse();
+    deleteDocumentMock.mockClear();
+    next.mockClear();
   });
 
   test('should delete document', async () => {
@@ -70,8 +72,49 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > routeGuard', 
     ]);
   });
 
+  test('should reject delete when document ID does not match session documents', async () => {
+    req.params.removeFileId = 'tampered-id';
+    req.session.userCase.miam_domesticAbuseEvidenceDocs = [
+      {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    ];
+
+    await routeGuard.get(req, res, next);
+
+    expect(deleteDocumentMock).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/domestic-abuse/upload-evidence');
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'deleteFile',
+        propertyName: 'miam_domesticAbuseEvidenceDocs',
+      },
+    ]);
+  });
+
   test('should call next if no removeFileId present', async () => {
     await routeGuard.get(req, res, next);
     expect(next).toHaveBeenCalled();
+  });
+
+  test('should reject delete when session has no docs (prevents cross-case deletion)', async () => {
+    req.params.removeFileId = 'someone-elses-doc-id';
+    req.session.userCase.miam_domesticAbuseEvidenceDocs = undefined;
+
+    await routeGuard.get(req, res, next);
+
+    expect(deleteDocumentMock).not.toHaveBeenCalled();
+    expect(next).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/domestic-abuse/upload-evidence');
+    expect(req.session.errors).toStrictEqual([
+      {
+        errorType: 'deleteFile',
+        propertyName: 'miam_domesticAbuseEvidenceDocs',
+      },
+    ]);
   });
 });
