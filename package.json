@@ -184,7 +184,7 @@
     "decode-uri-component": "^0.2.1",
     "qs": "^6.15.2",
     "got": "^11.8.5",
-    "brace-expansion": "1.1.13",
+    "brace-expansion": "1.1.18",
     "flat": "^5.0.1",
     "serialize-javascript": "^7.0.0",
     "json5": "^2.2.2",
