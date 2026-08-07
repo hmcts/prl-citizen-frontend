@@ -118,7 +118,7 @@
     "@stryker-mutator/jest-runner": "^5.3.0",
     "@types/copy-webpack-plugin": "^8.0.1",
     "@types/jest": "^30.0.0",
-    "@types/luxon": "^3",
+    "@types/luxon": "^3.7.1",
     "@types/mini-css-extract-plugin": "^2.5.1",
     "@types/multer": "^1.4.13",
     "@types/node": "^22.19.13",
