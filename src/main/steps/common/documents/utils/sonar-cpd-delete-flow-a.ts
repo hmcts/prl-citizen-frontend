@@ -1,8 +1,11 @@
-import { caseApi } from '../../../../app/case/CaseApi';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 
 type SonarCpdDocument = {
   document_url?: string;
+};
+
+const getDocumentId = (document: SonarCpdDocument): string | undefined => {
+  return document.document_url?.substring((document.document_url.lastIndexOf('/') || 0) + 1);
 };
 
 export const sonarCpdDeleteFlowA = async (
@@ -10,16 +13,19 @@ export const sonarCpdDeleteFlowA = async (
   removeFileId: string,
   userDocs: SonarCpdDocument[]
 ): Promise<void> => {
-  const userDetails = req?.session?.user;
+  const remainingDocuments: SonarCpdDocument[] = [];
 
-  await caseApi(userDetails, req.locals.logger).deleteDocument(removeFileId.toString());
+  for (const document of userDocs) {
+    if (getDocumentId(document) !== removeFileId) {
+      remainingDocuments.push(document);
+    }
+  }
+
   req.locals.logger.info(
-    `sonar CPD doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+    `AWP supporting doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
   );
 
-  (req.session.userCase as unknown as Record<string, unknown>).sonarCpdDuplicateConfigTestDocs = userDocs.filter(
-    document => document.document_url?.split('/')[document.document_url.split('/').length - 1] !== removeFileId
-  );
+  (req.session.userCase as unknown as Record<string, unknown>).sonarCpdDuplicateConfigTestDocs = remainingDocuments;
 
   await new Promise<void>((resolve, reject) => {
     req.session.save(error => {
