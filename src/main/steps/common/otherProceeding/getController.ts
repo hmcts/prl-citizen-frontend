@@ -139,6 +139,9 @@ export default class OtherProceedingsGetController extends GetController {
       req.locals.logger.info(
         `other-proceedings doc ${docId} (${orderType}/${orderId}) deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
       );
+      req.locals.logger.info(
+        `other-proceedings doc ${docId} (${orderType}/${orderId}) deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
 
       if (
         req.originalUrl.startsWith(C100_URL) &&

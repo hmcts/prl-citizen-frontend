@@ -44,18 +44,9 @@ export default class DocumentUpload extends GetController {
       req.locals.logger.info(
         `consent-order doc ${documentId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
       );
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion request received');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion user validated');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion case validated');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion evidence validated');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion metadata prepared');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion audit context prepared');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion service invoked');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion service completed');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion session updated');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion redirect prepared');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion response prepared');
-      req.locals.logger.info('Sonar CPD duplicate config test: document deletion request completed');
+      req.locals.logger.info(
+        `consent-order doc ${documentId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
 
       if (req.session.userCase?.co_certificate) {
         req.session.userCase.co_certificate = undefined;
