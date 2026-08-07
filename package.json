@@ -215,7 +215,7 @@
     "cookie": "^0.7.2",
     "formidable": "^3.5.4",
     "glob": "^13.0.6",
-    "js-yaml": "^4.2.0",
+    "js-yaml": "4.3.1",
     "diff": "^8.0.3",
     "immutable": "^3.8.3",
     "lodash": "^4.18.1",
