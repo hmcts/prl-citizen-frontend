@@ -19,6 +19,9 @@ describe('sonar CPD delete flow test helpers', () => {
     expect(req.locals.logger.info).toHaveBeenCalledWith(
       'AWP supporting doc remove-me deleted by user undefined on case 1234'
     );
+    expect(req.locals.logger.info).toHaveBeenCalledWith(
+      'Sonar CPD config check remove-me deleted by user undefined on case 1234'
+    );
     expect(req.session.userCase.sonarCpdDuplicateConfigTestDocs).toEqual([
       { document_url: 'http://example.com/documents/keep-me' },
     ]);

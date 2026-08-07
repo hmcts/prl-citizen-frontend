@@ -29,9 +29,6 @@ export const routeGuard = {
       req.locals.logger.info(
         `miam attendance doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
       );
-      req.locals.logger.info(
-        `Sonar CPD config check ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
-      );
       delete req.session.userCase.miam_previousAttendanceEvidenceDoc;
       return req.session.save(() => {
         res.redirect(applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING));
