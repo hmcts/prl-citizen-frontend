@@ -21,9 +21,6 @@ export const routeGuard = {
         try {
           req.session.errors = [];
           await deleteAWPDocument(req, removeId, 'AWP supporting doc');
-          req.locals.logger.info(
-            `AWP supporting doc ${removeId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
-          );
         } catch (error) {
           return next();
         }

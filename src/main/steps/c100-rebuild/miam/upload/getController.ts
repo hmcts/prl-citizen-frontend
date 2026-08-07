@@ -43,9 +43,6 @@ export default class DocumentUpload extends GetController {
       req.locals.logger.info(
         `miam certificate ${docId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
       );
-      req.locals.logger.info(
-        `miam certificate ${docId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
-      );
 
       if (req.session.userCase?.miam_certificate) {
         req.session.userCase.miam_certificate = undefined;
