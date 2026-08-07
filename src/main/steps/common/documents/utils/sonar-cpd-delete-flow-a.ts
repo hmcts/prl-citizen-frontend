@@ -24,9 +24,6 @@ export const sonarCpdDeleteFlowA = async (
   req.locals.logger.info(
     `AWP supporting doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
   );
-  req.locals.logger.info(
-    `Sonar CPD config check ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
-  );
 
   (req.session.userCase as unknown as Record<string, unknown>).sonarCpdDuplicateConfigTestDocs = remainingDocuments;
 

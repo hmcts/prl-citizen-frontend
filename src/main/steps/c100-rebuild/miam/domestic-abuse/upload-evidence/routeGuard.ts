@@ -30,9 +30,6 @@ export const routeGuard = {
       req.locals.logger.info(
         `miam DA doc ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
       );
-      req.locals.logger.info(
-        `Sonar CPD config check ${removeFileId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
-      );
       req.session.userCase.miam_domesticAbuseEvidenceDocs = userDocs.filter(
         document => _.toString(_.last(document.document_url.split('/'))) !== removeFileId
       );

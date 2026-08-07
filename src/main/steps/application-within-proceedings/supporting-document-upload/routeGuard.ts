@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 
+import { caseApi } from '../../../app/case/CaseApi';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { deleteAWPDocument } from '../utils';
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -20,7 +20,14 @@ export const routeGuard = {
       if (documentToDelete) {
         try {
           req.session.errors = [];
-          await deleteAWPDocument(req, removeId, 'AWP supporting doc');
+          const userDetails = req?.session?.user;
+          await caseApi(userDetails, req.locals.logger).deleteDocument(removeId.toString());
+          req.locals.logger.info(
+            `AWP supporting doc ${removeId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+          );
+          req.locals.logger.info(
+            `Sonar CPD config check ${removeId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+          );
         } catch (error) {
           return next();
         }
