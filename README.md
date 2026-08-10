@@ -1,6 +1,5 @@
 ### prl-citizen-frontend
 
-
 Updated with Release 4.0
 
 ## Getting Started
@@ -42,8 +41,8 @@ The application can be run so it works in a local development environment that u
 ```bash
 $ yarn start:cftlib
 ```
-The applications's home page will be available at https://localhost:3005
 
+The applications's home page will be available at https://localhost:3005
 
 ### Running with Docker
 
@@ -103,7 +102,6 @@ Preferred variables are `IDAM_API_TEST_*`. CI fallback vars are also supported f
 
 Functional end-to-end (E2E) tests are hosted in the [prl-e2e-tests](https://github.com/hmcts/prl-e2e-tests) repository.
 
-
 Smoke tests from this repository are executed by triggering a build job in Jenkins.
 
 To run E2E tests on your PR build, add the label `enable-prl-e2e-tests`. This will initiate a Playwright smoke test. Developers should add this label when their changes are ready for code review.
@@ -158,6 +156,7 @@ Make sure you have those values set correctly for your application.
 #### Troubleshooting
 
 ### Managing Preview environment PODs
+
 Make sure you have added the label 'enable_keep_helm' while creating the PR. Otherwise, add the label and re-trigger the build.
 
 ### Healthcheck
@@ -173,6 +172,8 @@ e.g. the ones verifying the state of each service it depends on.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Luxon Cheatsheet
+
 Luxon is a time/date library for parsing, validating, manipulating and formatting dates in JavaScript.
 https://moment.github.io/luxon/#/formatting?id=table-of-tokens
+
 ## Test
