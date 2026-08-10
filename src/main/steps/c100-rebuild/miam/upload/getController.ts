@@ -5,6 +5,7 @@ import { caseApi } from '../../../../app/case/CaseApi';
 import { FieldPrefix } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
+import { documentBelongsToCase } from '../../../common/utils';
 import { C100_MIAM_UPLOAD } from '../../../urls';
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -31,8 +32,17 @@ export default class DocumentUpload extends GetController {
   }
 
   public removeExistingDocument = async (docId: string, req: AppRequest, res: Response): Promise<void> => {
+    if (!documentBelongsToCase(docId, req.session.userCase?.miam_certificate)) {
+      req.session.errors = [{ propertyName: 'miam_certificate', errorType: 'deleteError' }];
+      req.session.save(() => res.redirect(C100_MIAM_UPLOAD));
+      return;
+    }
+
     try {
       await caseApi(req?.session?.user, req.locals.logger).deleteDocument(docId);
+      req.locals.logger.info(
+        `miam certificate ${docId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
 
       if (req.session.userCase?.miam_certificate) {
         req.session.userCase.miam_certificate = undefined;
@@ -42,7 +52,7 @@ export default class DocumentUpload extends GetController {
         if (err) {
           throw err;
         }
-        res.redirect(`${C100_MIAM_UPLOAD}`);
+        res.redirect(C100_MIAM_UPLOAD);
       });
     } catch (error) {
       console.log(error);

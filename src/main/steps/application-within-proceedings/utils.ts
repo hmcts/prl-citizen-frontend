@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import _ from 'lodash';
 
+import { caseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { CaseWithId } from '../../app/case/case';
 import {
@@ -438,6 +439,14 @@ export const resetAWPApplicationData = (req: AppRequest): void => {
   delete req.session?.userCase?.awp_urgentRequestReason;
   delete req.session?.userCase?.awp_hasSupportingDocuments;
   delete req.session?.userCase?.awp_supportingDocuments;
+};
+
+export const deleteAWPDocument = async (req: AppRequest, removeId: string, documentLabel: string): Promise<void> => {
+  const userDetails = req?.session?.user;
+  await caseApi(userDetails, req.locals.logger).deleteDocument(removeId.toString());
+  req.locals.logger.info(
+    `${documentLabel} ${removeId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+  );
 };
 
 const createAWPApplication = async (

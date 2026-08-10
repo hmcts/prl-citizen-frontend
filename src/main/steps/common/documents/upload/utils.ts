@@ -40,19 +40,41 @@ export const getUploadDocumentCategoryDetails = (
   };
 };
 
+export const getDocumentIdFromUrl = (documentUrl: string): string => {
+  return documentUrl.substring(documentUrl.lastIndexOf('/') + 1);
+};
+
+export const isDocumentInSession = (documentId: string, documents: { document_url: string }[] | undefined): boolean => {
+  return !!documents?.some(document => getDocumentIdFromUrl(document.document_url) === documentId);
+};
+
 export const deleteDocument = async (req: AppRequest, res: Response): Promise<void> => {
   const { query, session } = req;
   const { user: userDetails, userCase: caseData } = session;
   const partyType = getCasePartyType(caseData, userDetails.id);
   const client = new CosApiClient(userDetails.accessToken, req.locals.logger);
   const uploadedFilesDataReference = getUploadedFilesDataReference(partyType);
+  const documentId = query.documentId as string;
+
+  if (!isDocumentInSession(documentId, caseData?.[uploadedFilesDataReference])) {
+    req.session.errors = handleError(req.session.errors, 'deleteError', true);
+    req.session.save(() => {
+      res.redirect(
+        applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
+          partyType,
+          docCategory: req.params.docCategory,
+        })
+      );
+    });
+    return;
+  }
 
   try {
-    await client.deleteDocument(query.documentId as string);
+    await client.deleteDocument(documentId);
 
     if (req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
       req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(
-        document => query.documentId !== document.document_url.substring(document.document_url.lastIndexOf('/') + 1)
+        document => documentId !== getDocumentIdFromUrl(document.document_url)
       );
 
       if (req.session.userCase?.[uploadedFilesDataReference]?.length === 0) {
