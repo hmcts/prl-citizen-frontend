@@ -641,5 +641,51 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       ]);
     });
+
+    test('should ignore all request body fields except declarationCheck when updating userCase', async () => {
+      const req = mockRequest({
+        body: {
+          onlyContinue: true,
+          id: '5678',
+          declarationCheck: 'new declaration',
+          caseType: 'C100',
+        },
+        params: {
+          docCategory: 'other-documents',
+        },
+        session: {
+          user: { id: '1234' },
+          userCase: {
+            id: '1234',
+            caseType: 'FL401',
+            applicantsFL401: {
+              firstName: 'test',
+              lastName: 'user',
+            },
+            applicantUploadFiles: [
+              {
+                document_url: 'string',
+                document_binary_url: 'string',
+                document_filename: 'string',
+                document_hash: 'string',
+                document_creation_date: 'string',
+                name: 'file_example_TIFF_1MB',
+              },
+            ],
+          },
+        },
+      });
+
+      submitUploadedDocumentsMock.mockResolvedValue({ data: 'Success' });
+
+      const controller = new UploadDocumentPostController(mockFormContent);
+
+      await controller.post(req, mockResponse());
+      await new Promise(process.nextTick);
+
+      expect(req.session.userCase.declarationCheck).toBe('new declaration');
+      expect(req.session.userCase.id).toBe('1234');
+      expect(req.session.userCase.caseType).toBe('FL401');
+    });
   });
 });
