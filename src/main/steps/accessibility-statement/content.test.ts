@@ -81,7 +81,7 @@ const en = {
   ],
   toImproveAccessibility: 'What we’re doing to improve accessibility',
   improveAccessibilityDescription:
-    'We are working to improve accessibility on this website, and plan to fix the identified issues by 30 November 2025.',
+    'We are working to improve accessibility on this website, and plan to fix the identified issues by Autumn 2027.',
   preparationAccessibilityStatement: 'Preparation of this accessibility statement',
   statementPreparationInfo: [
     'This statement was prepared on Wednesday 4 January 2023. It was last reviewed on 24 January 2025.',
