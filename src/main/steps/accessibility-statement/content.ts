@@ -157,7 +157,7 @@ const cy = {
   ],
   toImproveAccessibility: 'Beth rydym yn ei wneud i wella hygyrchedd',
   improveAccessibilityDescription: [
-    'Rydym yn gweithio i wella hygyrchedd ar y wefan hon, ac yn bwriadu trwsio’r problemau a nodwyd erbyn Hydref 2027.',
+    'Rydym yn gweithio i wella hygyrchedd ar y wefan hon, a’r cynllun yw datrys y problemau a adnabuwyd erbyn yr hydref',
   ],
   preparationAccessibilityStatement: "Paratoi'r datganiad hygyrchedd hwn",
   statementPreparationInfo: [
