@@ -126,7 +126,7 @@
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "@wdio/sauce-service": "8.46.0",
-    "allure-commandline": "2.37.0",
+    "allure-commandline": "2.43.0",
     "axios-debug-log": "1.0.0",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.4.1",
