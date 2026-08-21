@@ -1,11 +1,21 @@
+import axios from 'axios';
 import config from 'config';
 
 import { CheckPaymentStatusApi, PaymentSystemAPIInstance, PaymentTaskResolver } from './paymentApi';
 
+jest.mock('axios');
+
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+const mockPost = jest.fn();
 const mockToken = 'Bearer authToken';
 const mockServiceToken = 'Bearer serviceToken';
 
 const paymentURL: string = config.get('services.cos.url');
+
+beforeEach(() => {
+  mockPost.mockReset();
+  mockedAxios.create.mockReturnValue({ post: mockPost } as never);
+});
 
 /* Testing the CheckPaymentStatusApi class. */
 describe('CheckPaymentStatusApi class testing', () => {
@@ -40,6 +50,8 @@ describe('PaymentTaskResolver class testing', () => {
   const hwfRefNumber = 'HWF-1234';
   const feeType = 'C100_SUBMISSION_FEE';
   test('Should be an Instance of Axios', async () => {
+    mockPost.mockRejectedValue({ status: 405 });
+
     const InstanceOfPaymentSystemAPIInstance = new PaymentTaskResolver(
       paymentURL,
       mockToken,
