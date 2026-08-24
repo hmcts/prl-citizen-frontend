@@ -226,12 +226,15 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const docCategory = req.params.docCategory as UploadDocumentCategory;
     const fields = typeof this.fields === 'function' ? this.fields(caseData, req) : this.fields;
     const form = new Form(fields);
-    const { _csrf, ...formData } = form.getParsedBody(req.body);
+    const parsedBody = form.getParsedBody(req.body);
     const partyType = getCasePartyType(caseData, user.id);
     const uploadedDocuments = caseData?.[getUploadedFilesDataReference(partyType)] ?? [];
+    const allowedFormData = {
+      declarationCheck: parsedBody.declarationCheck,
+    };
 
-    Object.assign(req.session.userCase, formData);
-    req.session.errors = form.getErrors(formData);
+    Object.assign(req.session.userCase, allowedFormData);
+    req.session.errors = form.getErrors(allowedFormData);
 
     if (!uploadedDocuments?.length) {
       req.session.errors = handleError(req.session.errors, this.getEmptyFileErrorType(docCategory), true);
@@ -242,11 +245,12 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     }
 
     const categoryId = this.getDocumentCategory(docCategory, partyType);
+    const trustedCaseId = req.session.userCase.id;
 
     try {
       const client = new CosApiClient(user.accessToken, req.locals.logger);
       const response = await client.submitUploadedDocuments(user, {
-        caseId: caseData.id,
+        caseId: trustedCaseId,
         categoryId,
         partyId: user.id,
         partyName: getPartyName(caseData, partyType, user),
