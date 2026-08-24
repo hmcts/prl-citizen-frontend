@@ -3,7 +3,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { validate as isValidEmail } from 'email-validator';
 
 import { Case, CaseDate } from '../case/case';
-import { AllowedFileExtentionList, MAX_UPLOAD_BYTES, MAX_DOCUMENT_LIMITS, OtherName } from '../case/definition';
+import { AllowedFileExtentionList, MAX_DOCUMENT_LIMITS, MAX_UPLOAD_BYTES, OtherName } from '../case/definition';
 
 dayjs.extend(customParseFormat);
 

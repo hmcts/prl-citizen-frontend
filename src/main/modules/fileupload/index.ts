@@ -1,5 +1,6 @@
 import { Application } from 'express';
 import fileUpload from 'express-fileupload';
+
 import { MAX_UPLOAD_BYTES } from '../../app/case/definition';
 
 /**
