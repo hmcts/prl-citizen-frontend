@@ -426,13 +426,20 @@ describe('isTextAreaValid()', () => {
 });
 
 describe('should return valid files', () => {
-  const files = { documents: { name: 'test.pdf', size: '812300', data: '', mimetype: 'text' } };
-  test('isFileSizeGreaterThanMaxAllowed', async () => {
+  test('isFileSizeGreaterThanMaxAllowed should return true when file is over limit', async () => {
+    const files = { documents: { name: 'test.pdf', size: 25000000, data: '', mimetype: 'text' } };
     const isValidFile = isFileSizeGreaterThanMaxAllowed(files);
     expect(isValidFile).toStrictEqual(true);
   });
 
+  test('isFileSizeGreaterThanMaxAllowed should return false when file is within limit', async () => {
+    const files = { documents: { name: 'test.pdf', size: 812300, data: '', mimetype: 'text' } };
+    const isValidFile = isFileSizeGreaterThanMaxAllowed(files);
+    expect(isValidFile).toStrictEqual(false);
+  });
+
   test('Should check if value does not exist', async () => {
+    const files = { documents: { name: 'test.pdf', size: 812300, data: '', mimetype: 'text' } };
     const isValidFile = isValidFileFormat(files);
     expect(isValidFile).toStrictEqual(true);
   });
