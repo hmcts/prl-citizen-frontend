@@ -11,9 +11,9 @@ export class FileUpload {
   public enableFor(app: Application): void {
     app.use(
       fileUpload({
-        limits: { fileSize: MAX_UPLOAD_BYTES }, // 20 MB file size limit
+        limits: { fileSize: MAX_UPLOAD_BYTES + 1 }, // 20 MB file size limit (+1 because the limit is inclusive)
         abortOnLimit: true,
-        responseOnLimit: `File size limit of ${MAX_UPLOAD_BYTES} bytes has been reached.`,
+        responseOnLimit: `File size limit of ${MAX_UPLOAD_BYTES} bytes has been exceeded.`,
       })
     );
   }
