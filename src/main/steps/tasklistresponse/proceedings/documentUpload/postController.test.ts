@@ -2,8 +2,8 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import * as steps from '../../../../steps';
 import { MAX_UPLOAD_BYTES } from '../../../../app/case/definition';
+import * as steps from '../../../../steps';
 
 import UploadDocumentController from './postController';
 
