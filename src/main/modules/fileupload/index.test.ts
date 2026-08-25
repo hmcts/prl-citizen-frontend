@@ -1,5 +1,4 @@
-import { Application, Request } from 'express';
-import express from 'express';
+import express, { Application, Request } from 'express';
 import request from 'supertest';
 
 import { MAX_UPLOAD_BYTES } from '../../app/case/definition';
