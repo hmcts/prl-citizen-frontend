@@ -3,6 +3,7 @@ import axios from 'axios';
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import * as steps from '../../../../steps';
+import { MAX_UPLOAD_BYTES } from '../../../../app/case/definition';
 
 import UploadDocumentController from './postController';
 
@@ -469,7 +470,7 @@ describe('Document upload controller', () => {
         },
       },
     });
-    req.files = { documents: { name: 'test.docx', size: '812300', data: '', mimetype: 'text' } };
+    req.files = { documents: { name: 'test.docx', size: MAX_UPLOAD_BYTES + 1, data: '', mimetype: 'text' } };
     const errors = [{ errorType: 'fileSize', propertyName: 'document' }];
     const res = mockResponse();
 
