@@ -1,4 +1,12 @@
 @import 'govuk-frontend';
+@import 'sass-mq';
+
+@mixin govuk-if-ie8 {
+  @if false {
+    @content;
+  }
+}
+
 @import '~@hmcts/frontend/all';
 
 @import './banner';
@@ -10,6 +18,7 @@
 .uppy-FileInput-btn {
   @extend %govuk-body-m;
 }
+
 section {
   margin-bottom: 2em;
 }
