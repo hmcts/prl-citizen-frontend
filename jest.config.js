@@ -4,7 +4,7 @@ module.exports = {
   testEnvironment: 'node',
   preset: "ts-jest/presets/js-with-ts",
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'json'],
   setupFilesAfterEnv: ['jest-extended', '<rootDir>/src/test/setup/load-test-env.js'],
@@ -14,5 +14,5 @@ module.exports = {
   coverageThreshold: {
   },
   verbose: true,
-  transformIgnorePatterns: ['<rootDir>/node_modules/(?!node-emoji|axios|otplib|@otplib|@scure)'],
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!node-emoji|axios|otplib|@otplib|@scure|decode-uri-component)'],
 };
