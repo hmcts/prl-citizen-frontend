@@ -12,7 +12,7 @@ describe('DashboardGetController', () => {
   const controller = new DashboardGetController();
   const req = mockRequest();
   const res = mockResponse();
-  req.session.reload = jest.fn(done => done());
+  req.session.reload = jest.fn((done?: () => void) => done?.());
 
   jest.spyOn(controller, 'get');
   jest.spyOn(BreadcrumbController, 'enable').mockResolvedValue();
