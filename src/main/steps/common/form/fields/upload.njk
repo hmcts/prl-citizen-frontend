@@ -2,6 +2,7 @@
 
 {{ govukFileUpload({
   id: field.id if field.id else fieldName,
+  javascript: true,
   name: fieldName,
   type: field.type,
   classes: field.classes,

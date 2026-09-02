@@ -10856,13 +10856,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:4.9.0":
-  version: 4.9.0
-  resolution: "govuk-frontend@npm:4.9.0"
-  checksum: 10c0/d4c2634c096e50734fc65b3c1c8ceb60ea173726746bb8e75db8c39cf0d60862e81aa52f48c683f2dce5a11ba9f7e478a16d158fb53a41c9055daceacf745227
-  languageName: node
-  linkType: hard
-
 "govuk-frontend@npm:^5.14.0":
   version: 5.14.0
   resolution: "govuk-frontend@npm:5.14.0"
@@ -16001,7 +15994,7 @@ __metadata:
     express-session: "npm:1.19.0"
     form-data: "npm:4.0.6"
     glob: "npm:13.0.6"
-    govuk-frontend: "npm:4.9.0"
+    govuk-frontend: "npm:^5.14.0"
     graphql: "npm:16.14.0"
     helmet: "npm:4.6.0"
     hmrc-frontend: "npm:6.117.0"
@@ -16041,6 +16034,7 @@ __metadata:
     sanitize-html: "npm:2.17.5"
     sass: "npm:1.97.3"
     sass-loader: "npm:13.3.3"
+    sass-mq: "npm:6"
     semver: "npm:7.7.4"
     serve-favicon: "npm:2.5.1"
     session-file-store: "npm:1.5.0"
@@ -17166,6 +17160,13 @@ __metadata:
     sass-embedded:
       optional: true
   checksum: 10c0/5e955a4ffce35ee0a46fce677ce51eaa69587fb5371978588c83af00f49e7edc36dcf3bb559cbae27681c5e24a71284463ebe03a1fb65e6ecafa1db0620e3fc8
+  languageName: node
+  linkType: hard
+
+"sass-mq@npm:6":
+  version: 6.0.0
+  resolution: "sass-mq@npm:6.0.0"
+  checksum: 10c0/0f8ec468bb479327e988e2533b93a7eb84c64d6db45b52af16bff0ec8cd1eae18e806e29b0a1cf0136645f9a529e446ea4ce51b1d72c7f96798149b3616255c5
   languageName: node
   linkType: hard
 

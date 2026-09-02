@@ -33,7 +33,7 @@
   {{ govukTable({
       caption: params.uploadedFilesCaption if params.uploadedFilesCaption,
       rows: tableRows
-    }) 
+    })
   }}
   {% endset %}
 
@@ -42,6 +42,7 @@
       <input type="hidden" name="_csrf" id="csrfToken" value="{{ params.token }}">
       {{ govukFileUpload({
           id: params.id if params.id else "fileupload" ,
+          javascript: true,
           name: params.name if params.name else "file" ,
           attributes: {
             accept: params.allowedFileTypes if params.allowedFileTypes else allowedFileTypes
