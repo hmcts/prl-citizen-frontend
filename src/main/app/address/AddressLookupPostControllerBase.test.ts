@@ -54,7 +54,7 @@ describe('AddressLookupPostControllerBase', () => {
     });
 
     test('should redirect to correct screen', async () => {
-      req = mockRequest({ session: { save: jest.fn(done => done()) } });
+      req = mockRequest({ session: { save: jest.fn((done?: () => void) => done?.()) } });
       req.body.citizenUserAddressPostcode = 'NE65LA';
       mockGetNextStepUrl.mockReturnValue('/MOCK_ENDPOINT');
       await controller.post(req, res);
@@ -76,7 +76,7 @@ describe('AddressLookupPostControllerBase', () => {
     });
 
     test('should redirect to same page', async () => {
-      req = mockRequest({ session: { save: jest.fn(done => done()) } });
+      req = mockRequest({ session: { save: jest.fn((done?: () => void) => done?.()) } });
       await controller.post(req, res);
       expect(res.redirect).toHaveBeenCalledWith('/applicant/confirm-contact-details/address/lookup');
     });
