@@ -2622,7 +2622,7 @@ export const C100OrderTypeKeyMapper = {
   otherOrder: 'otherOrders',
 };
 export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'tif', 'tiff', 'pdf', 'doc', 'docx'];
-export const C100MaxFileSize = '20000000';
+export const MAX_UPLOAD_BYTES = 20000000;
 export const MAX_DOCUMENT_LIMITS = {
   SUPPORT_DOCUMENTS: 100,
   DEFAULT: 20,

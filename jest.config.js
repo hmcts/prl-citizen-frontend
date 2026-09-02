@@ -15,6 +15,6 @@ module.exports = {
   },
   verbose: true,
   transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!node-emoji|axios|otplib|@otplib|@scure|decode-uri-component|sanitize-html|htmlparser2|deepmerge|escape-string-regexp|is-plain-object|parse-srcset|postcss|launder)',
+    '<rootDir>/node_modules/(?!node-emoji|axios|otplib|@otplib|@scure|query-string|sanitize-html|htmlparser2|deepmerge|escape-string-regexp|is-plain-object|parse-srcset|postcss|launder)',
   ],
 };
