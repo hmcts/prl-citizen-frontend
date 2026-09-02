@@ -178,7 +178,7 @@
     "babel-loader/loader-utils": "2.0.4",
     "babel-plugin-istanbul/test-exclude": "7.0.2",
     "@babel/core": "7.29.7",
-    "decode-uri-component": "0.2.2",
+    "decode-uri-component": "0.5.0",
     "qs": "6.15.2",
     "got": "11.8.6",
     "brace-expansion": "1.1.18",
