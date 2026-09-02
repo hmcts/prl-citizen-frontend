@@ -23,10 +23,12 @@ describe('getRedirectUrl', () => {
       .calledWith('services.idam.clientID')
       .mockReturnValue('prl-citizen-frontend')
       .calledWith('services.idam.authorizationURL')
-      .mockReturnValue('https://idam-web-public/login');
+      .mockReturnValue('https://idam-web-public/login')
+      .calledWith('services.idam.authorizationScope')
+      .mockReturnValue('openid profile roles');
 
     expect(getRedirectUrl('http://localhost', CALLBACK_URL)).toBe(
-      'https://idam-web-public/login?client_id=prl-citizen-frontend&response_type=code&redirect_uri=http://localhost/receiver'
+      'https://idam-web-public/login?client_id=prl-citizen-frontend&response_type=code&scope=openid+profile+roles&redirect_uri=http%3A%2F%2Flocalhost%2Freceiver'
     );
   });
 });
