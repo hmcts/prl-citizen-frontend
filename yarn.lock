@@ -5709,12 +5709,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"allure-commandline@npm:2.37.0":
-  version: 2.37.0
-  resolution: "allure-commandline@npm:2.37.0"
+"allure-commandline@npm:2.43.0":
+  version: 2.43.0
+  resolution: "allure-commandline@npm:2.43.0"
   bin:
     allure: bin/allure
-  checksum: 10c0/3673e2096a5b807ac876b56ae30282ddf24789f6113655a9f4e7d384aecaab57741caa079cce2ccfa80246a3918d6286c877d8ad61099d23846139e5efa92dd2
+  checksum: 10c0/d06d5a193366a67ca2ea9ecbe5c33cbba8c25fd0ee6a85915beb4b514b9ad87013f275e066bbeaccddf0a406857719fba10140cf6a4ad7e4204d524f2a223bd6
   languageName: node
   linkType: hard
 
@@ -15588,7 +15588,7 @@ __metadata:
     "@uppy/progress-bar": "npm:2.1.2"
     "@uppy/xhr-upload": "npm:2.1.3"
     "@wdio/sauce-service": "npm:8.46.0"
-    allure-commandline: "npm:2.37.0"
+    allure-commandline: "npm:2.43.0"
     applicationinsights: "npm:3.16.0"
     autobind-decorator: "npm:2.4.0"
     axios: "npm:1.18.1"
