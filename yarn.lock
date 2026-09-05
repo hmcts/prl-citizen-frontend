@@ -4732,14 +4732,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-dev-middleware@npm:5.0.2":
-  version: 5.0.2
-  resolution: "@types/webpack-dev-middleware@npm:5.0.2"
+"@types/webpack-dev-middleware@npm:5.3.0":
+  version: 5.3.0
+  resolution: "@types/webpack-dev-middleware@npm:5.3.0"
   dependencies:
-    "@types/connect": "npm:*"
-    tapable: "npm:^2.1.1"
-    webpack: "npm:^5.38.1"
-  checksum: 10c0/3840a91df42a6c6249cf928b9481fe55aff8f90450a30e13a31afe2e2faca8ca74f8e792bbefacf4e2d84b917cc52a26f564f5c385c1fff4dd1cbf9ec5460d1a
+    webpack-dev-middleware: "npm:*"
+  checksum: 10c0/338d8d067192a767c54285ef39116f4d09fe170297a22a6fafc6f2bfdaa64f01dea415767921e076380515e7e83e7fa03ce83eb1efc40665508c0daec48f57ee
   languageName: node
   linkType: hard
 
@@ -15581,7 +15579,7 @@ __metadata:
     "@types/serve-favicon": "npm:2.5.7"
     "@types/session-file-store": "npm:1.2.6"
     "@types/toobusy-js": "npm:0.5.4"
-    "@types/webpack-dev-middleware": "npm:5.0.2"
+    "@types/webpack-dev-middleware": "npm:5.3.0"
     "@typescript-eslint/eslint-plugin": "npm:5.62.0"
     "@typescript-eslint/parser": "npm:5.62.0"
     "@uppy/core": "npm:2.3.4"
@@ -17848,7 +17846,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tapable@npm:^2.0.0, tapable@npm:^2.1.1, tapable@npm:^2.2.1, tapable@npm:^2.3.0":
+"tapable@npm:^2.0.0, tapable@npm:^2.2.1, tapable@npm:^2.3.0":
   version: 2.3.0
   resolution: "tapable@npm:2.3.0"
   checksum: 10c0/cb9d67cc2c6a74dedc812ef3085d9d681edd2c1fa18e4aef57a3c0605fdbe44e6b8ea00bd9ef21bc74dd45314e39d31227aa031ebf2f5e38164df514136f2681
@@ -19114,7 +19112,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:5.3.4":
+"webpack-dev-middleware@npm:*, webpack-dev-middleware@npm:5.3.4":
   version: 5.3.4
   resolution: "webpack-dev-middleware@npm:5.3.4"
   dependencies:
@@ -19154,7 +19152,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.105.3, webpack@npm:^5.1.0, webpack@npm:^5.38.1":
+"webpack@npm:5.105.3, webpack@npm:^5.1.0":
   version: 5.105.3
   resolution: "webpack@npm:5.105.3"
   dependencies:
