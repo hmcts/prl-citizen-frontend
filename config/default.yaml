@@ -47,6 +47,7 @@ session:
 e2e:
   userTestPassword: ''
 appInsights:
+  connectionString: false
   instrumentationKey: false
 
 uploadTimeout: 60000

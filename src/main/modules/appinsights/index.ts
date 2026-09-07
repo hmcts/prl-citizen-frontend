@@ -4,11 +4,11 @@ const appInsights = require('applicationinsights');
 
 export class AppInsights {
   enable(): void {
-    const appInsightsKey = config.get('appInsights.instrumentationKey');
+    const appInsightsConnectionString = this.getConnectionString();
 
-    if (appInsightsKey) {
+    if (appInsightsConnectionString) {
       const appInsightsConfig = appInsights
-        .setup(appInsightsKey)
+        .setup(appInsightsConnectionString)
         .setSendLiveMetrics(true)
         .setAutoCollectConsole(true, true)
         .setAutoCollectExceptions(true);
@@ -16,5 +16,23 @@ export class AppInsights {
       appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'prl-citizen-frontend';
       appInsightsConfig.start();
     }
+  }
+
+  private getConnectionString(): string | false {
+    const connectionString = config.get('appInsights.connectionString') as string | false;
+
+    if (connectionString) {
+      return connectionString;
+    }
+
+    const instrumentationKey = config.get('appInsights.instrumentationKey') as string | false;
+
+    if (!instrumentationKey) {
+      return false;
+    }
+
+    return instrumentationKey.includes('InstrumentationKey=')
+      ? instrumentationKey
+      : `InstrumentationKey=${instrumentationKey}`;
   }
 }
