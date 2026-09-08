@@ -1,5 +1,6 @@
 import * as path from 'path';
 
+import 'applicationinsights';
 import * as bodyParser from 'body-parser';
 import config = require('config');
 import express, { RequestHandler } from 'express';

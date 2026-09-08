@@ -59,7 +59,25 @@ describe('AppInsights', () => {
 
     new AppInsights().enable();
 
-    expect(mockSetup).toHaveBeenCalledWith('InstrumentationKey=test-key');
+    expect(mockSetup).toHaveBeenCalledWith(
+      'InstrumentationKey=test-key;IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/'
+    );
+  });
+
+  test('should add endpoints when legacy instrumentation key is already partly formatted', () => {
+    config.get = jest.fn().mockImplementation((key: string) => {
+      if (key === 'appInsights.instrumentationKey') {
+        return 'InstrumentationKey=test-key';
+      }
+
+      return false;
+    });
+
+    new AppInsights().enable();
+
+    expect(mockSetup).toHaveBeenCalledWith(
+      'InstrumentationKey=test-key;IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/'
+    );
   });
 
   test('should not initialise app insights when no config is present', () => {
