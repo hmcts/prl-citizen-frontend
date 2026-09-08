@@ -47,7 +47,6 @@ session:
 e2e:
   userTestPassword: ''
 appInsights:
-  connectionString: false
   instrumentationKey: false
 featureToggles:
   launchDarklyKey: ${PRL_LAUNCH_DARKLY_SDK_KEY}
