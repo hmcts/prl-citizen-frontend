@@ -29,55 +29,18 @@ describe('AppInsights', () => {
     delete mockTags['cloudRole'];
   });
 
-  test('should initialise app insights with connection string', () => {
-    config.get = jest.fn().mockImplementation((key: string) => {
-      if (key === 'appInsights.connectionString') {
-        return 'InstrumentationKey=test-key;IngestionEndpoint=https://example.com';
-      }
-
-      return false;
-    });
+  test('should initialise app insights with instrumentation key', () => {
+    config.get = jest.fn().mockReturnValue('test-key');
 
     new AppInsights().enable();
 
-    expect(mockSetup).toHaveBeenCalledWith('InstrumentationKey=test-key;IngestionEndpoint=https://example.com');
+    expect(config.get).toHaveBeenCalledWith('appInsights.instrumentationKey');
+    expect(mockSetup).toHaveBeenCalledWith('test-key');
     expect(mockSetSendLiveMetrics).toHaveBeenCalledWith(true);
     expect(mockSetAutoCollectConsole).toHaveBeenCalledWith(true, true);
     expect(mockSetAutoCollectExceptions).toHaveBeenCalledWith(true);
     expect(mockTags['cloudRole']).toBe('prl-citizen-frontend');
     expect(mockStart).toHaveBeenCalled();
-  });
-
-  test('should convert legacy instrumentation key to connection string', () => {
-    config.get = jest.fn().mockImplementation((key: string) => {
-      if (key === 'appInsights.instrumentationKey') {
-        return 'test-key';
-      }
-
-      return false;
-    });
-
-    new AppInsights().enable();
-
-    expect(mockSetup).toHaveBeenCalledWith(
-      'InstrumentationKey=test-key;IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/'
-    );
-  });
-
-  test('should add endpoints when legacy instrumentation key is already partly formatted', () => {
-    config.get = jest.fn().mockImplementation((key: string) => {
-      if (key === 'appInsights.instrumentationKey') {
-        return 'InstrumentationKey=test-key';
-      }
-
-      return false;
-    });
-
-    new AppInsights().enable();
-
-    expect(mockSetup).toHaveBeenCalledWith(
-      'InstrumentationKey=test-key;IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/'
-    );
   });
 
   test('should not initialise app insights when no config is present', () => {
