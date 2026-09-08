@@ -3,6 +3,9 @@ import config from 'config';
 const appInsights = require('applicationinsights');
 
 export class AppInsights {
+  private static readonly INGESTION_ENDPOINT = 'https://uksouth-0.in.applicationinsights.azure.com/';
+  private static readonly LIVE_ENDPOINT = 'https://uksouth.livediagnostics.monitor.azure.com/';
+
   enable(): void {
     const appInsightsConnectionString = this.getConnectionString();
 
@@ -32,7 +35,15 @@ export class AppInsights {
     }
 
     return instrumentationKey.includes('InstrumentationKey=')
-      ? instrumentationKey
-      : `InstrumentationKey=${instrumentationKey}`;
+      ? this.withEndpoints(instrumentationKey)
+      : this.withEndpoints(`InstrumentationKey=${instrumentationKey}`);
+  }
+
+  private withEndpoints(connectionString: string): string {
+    if (connectionString.includes('IngestionEndpoint=')) {
+      return connectionString;
+    }
+
+    return `${connectionString};IngestionEndpoint=${AppInsights.INGESTION_ENDPOINT};LiveEndpoint=${AppInsights.LIVE_ENDPOINT}`;
   }
 }
