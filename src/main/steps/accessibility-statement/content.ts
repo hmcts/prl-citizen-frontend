@@ -39,7 +39,7 @@ export const en = {
   ],
   phone: [
     'Telephone: 0300 323 0185',
-    "email: <a class='govuk-link' href='mailto:email: HMCTSforms@justice.gov.uk'>HMCTSforms@justice.gov.uk</a>",
+    "email: <a class='govuk-link' href='mailto:HMCTSforms@justice.gov.uk'>HMCTSforms@justice.gov.uk</a>",
   ],
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
@@ -125,7 +125,7 @@ const cy = {
   ],
   phone: [
     'Rhif ffôn: 01634 887900',
-    "Ebost: <a class='govuk-link' href='mailto:email: HMCTSforms@justice.gov.uk'>HMCTSforms@justice.gov.uk</a>",
+    "Ebost: <a class='govuk-link' href='mailto:HMCTSforms@justice.gov.uk'>HMCTSforms@justice.gov.uk</a>",
   ],
   considerYourRequest: 'Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.',
   reportingAccessibility: "Riportio problemau hygyrchedd gyda'r wefan hon",
