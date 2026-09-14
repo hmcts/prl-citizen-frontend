@@ -34,7 +34,7 @@ import { FormInput } from '../../app/form/Form';
 export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
-    const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
+    const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend/dist');
     const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
     const commonForC100 = path.join(__dirname, '..', '..', 'steps', 'c100-rebuild', 'common');
     const hmrcFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'hmrc-frontend');

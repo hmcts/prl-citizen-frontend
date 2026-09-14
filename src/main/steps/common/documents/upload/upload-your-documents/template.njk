@@ -96,8 +96,11 @@
             method="post"
             enctype="multipart/form-data"
             novalidate>
-              {{ govukFileUpload({
+
+
+          {{ govukFileUpload({
           id: "uploadDocumentFileUpload",
+          javascript: true,
           name: "uploadDocumentFileUpload",
           attributes: {
             accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -111,7 +114,7 @@
           text: uploadFileButtontext,
           name: "uploadFile",
           value: "true",
-          type: "submit", 
+          type: "submit",
           classes: "govuk-button--secondary govuk-!-margin-bottom-0",
           attributes:  {
             "aria-describedby": "fileUploadLabel"
