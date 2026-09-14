@@ -37,7 +37,10 @@ export const en = {
     'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
     'If you require support when visiting or need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille contact us at:',
   ],
-  phone: ['Telephone: 0300 323 0185'],
+  phone: [
+    'Telephone: 0300 323 0185',
+    "<a class='govuk-link' href='mailto:email: HMCTSforms@justice.gov.uk'>email: HMCTSforms@justice.gov.uk</a>",
+  ],
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
   improvements: [
@@ -75,13 +78,14 @@ export const en = {
     'Empty links may be encountered when navigating the service. This means that assistive technology users may experience unexpected functionality when interacting with the links. This fails WCAG 2.2 success criterion 2.4.3 Focus Order (Level A).',
   ],
   toImproveAccessibility: 'What we’re doing to improve accessibility',
-  improveAccessibilityDescription:
+  improveAccessibilityDescription: [
+    'The team also conduct frequent manual and automated accessibility testing as changes come in (confirm automated)',
     'We are working to improve accessibility on this website, and plan to fix the identified issues by Autumn 2027.',
+  ],
   preparationAccessibilityStatement: 'Preparation of this accessibility statement',
   statementPreparationInfo: [
-    'This statement was prepared on Wednesday 4 January 2023. It was last reviewed on 24 January 2025.',
+    'This statement was prepared on Thursday 1 October 2026. It was last reviewed on 15 September 2025.',
     'This website was last tested by the Digital Accessibility Centre (DAC) on 31st July 2024 across a range of assistive technologies and with disabled users.',
-    'Fixes were reviewed by the HMCTS accessibility testing team in the Testing Centre of Excellence.',
   ],
 };
 
@@ -119,7 +123,10 @@ const cy = {
     'Mae yna ddolenni sain yn ein swyddfeydd, neu os byddwch yn cysylltu â ni cyn eich ymweliad, gallwn drefnu cyfieithydd Iaith Arwyddion Prydain (BSL) ar eich cyfer.',
     "Os ydych angen cymorth wrth ymweld â'r wefan, neu eich bod angen gwybodaeth sydd ar y wefan hon mewn fformat arall megis ar ffurf PDF hygyrch, print bras, fformat hawdd ei ddeall, recordiad sain neu braille cysylltwch â ni yn: ",
   ],
-  phone: ['Rhif ffôn: 01634 887900'],
+  phone: [
+    'Rhif ffôn: 01634 887900',
+    "<a class='govuk-link' href='mailto:email: HMCTSforms@justice.gov.uk'>Ebost: HMCTSforms@justice.gov.uk</a>",
+  ],
   considerYourRequest: 'Byddwn yn ystyried eich cais ac yn ymateb o fewn 10 diwrnod gwaith.',
   reportingAccessibility: "Riportio problemau hygyrchedd gyda'r wefan hon",
   improvements: [
@@ -157,13 +164,13 @@ const cy = {
   ],
   toImproveAccessibility: 'Beth rydym yn ei wneud i wella hygyrchedd',
   improveAccessibilityDescription: [
+    'Mae’r tîm hefyd yn cynnal profion hygyrchedd â llaw ac awtomataidd aml wrth i newidiadau ddod i rym (confirm automated/cadarnhau awtomataidd)',
     'Rydym yn gweithio i wella hygyrchedd ar y wefan hon, a’r cynllun yw datrys y problemau a adnabuwyd erbyn yr hydref',
   ],
   preparationAccessibilityStatement: "Paratoi'r datganiad hygyrchedd hwn",
   statementPreparationInfo: [
     'Cafodd y datganiad hwn ei baratoi ar Ddydd Mercher 4 Ionawr 2023. Cafodd ei adolygu ddiwethaf ar 24 Ionawr 2025.',
     'Cafodd y wefan ei phrofi ddiwethaf gan y Ganolfan Hygyrchedd Digidol (DAC) ar 31 Gorffennaf 2024 ar draws amrywiaeth o dechnolegau cynorthwyol a gyda defnyddwyr anabl.',
-    'Adolygwyd atebion gan dîm profi hygyrchedd GLlTEM yn y Ganolfan Profi Rhagoriaeth.',
   ],
 };
 
