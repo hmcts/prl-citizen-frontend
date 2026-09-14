@@ -469,7 +469,7 @@ describe('Document upload controller', () => {
             },
           },
         },
-        save: jest.fn(done => done()),
+        save: jest.fn((done?: () => void) => done?.()),
       },
     });
     req.files = { documents: { name: 'test.pdf', data: '', mimetype: 'text' } };
@@ -537,7 +537,7 @@ describe('Document upload controller', () => {
             },
           },
         },
-        save: jest.fn(done => done()),
+        save: jest.fn((done?: () => void) => done?.()),
       },
     });
     req.files = { documents: { name: 'test.pdf', data: '', mimetype: 'text' } };
