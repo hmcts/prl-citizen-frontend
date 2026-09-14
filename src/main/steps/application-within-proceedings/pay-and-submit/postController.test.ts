@@ -34,7 +34,7 @@ describe('AWPPayAndSubmitPostController controller', () => {
     awpRequest = mockRequest({
       params: { partyType: 'applicant', applicationType: 'C2', applicationReason: 'request-more-time' },
       session: {
-        save: jest.fn(done => done()),
+        save: jest.fn((done?: () => void) => done?.()),
         applicationSettings: {
           awpSelectedApplicationDetails: {
             language: 'en',

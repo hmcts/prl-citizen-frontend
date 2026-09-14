@@ -39,7 +39,7 @@ describe('PcqProvider', () => {
           email: 'user@gmail.com',
         },
         lang: 'cy',
-        save: jest.fn(done => done()),
+        save: jest.fn((done?: () => void) => done?.()),
       },
     } as unknown as Application;
     jest.clearAllMocks();
@@ -71,7 +71,7 @@ describe('PcqProvider', () => {
         },
         applicationSettings: {},
         lang: 'cy',
-        save: jest.fn(done => done()),
+        save: jest.fn((done?: () => void) => done?.()),
       },
     });
     req.get = jest.fn();

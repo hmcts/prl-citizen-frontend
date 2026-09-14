@@ -101,7 +101,7 @@ describe('SelectAddressPostController', () => {
     });
 
     test('should redirect to correct screen', async () => {
-      req = mockRequest({ session: { save: jest.fn(done => done()) } });
+      req = mockRequest({ session: { save: jest.fn((done?: () => void) => done?.()) } });
       mockGetNextStepUrl.mockReturnValue('/MOCK_ENDPOINT');
       await controller.post(req, res);
       expect(mockGetNextStepUrl).toHaveBeenCalledWith(req, req.session.userCase);
@@ -120,7 +120,7 @@ describe('SelectAddressPostController', () => {
     });
 
     test('should redirect to same page', async () => {
-      req = mockRequest({ session: { save: jest.fn(done => done()) } });
+      req = mockRequest({ session: { save: jest.fn((done?: () => void) => done?.()) } });
       mockGetNextStepUrl.mockReturnValue('/MOCK_ENDPOINT');
       await controller.post(req, res);
       expect(mockGetNextStepUrl).not.toHaveBeenCalled();

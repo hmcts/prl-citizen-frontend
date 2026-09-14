@@ -50,7 +50,7 @@ describe('ReasonableAdjustementsProvider', () => {
           accessToken: 'testUserToken',
         },
         lang: 'cy',
-        save: jest.fn(done => done()),
+        save: jest.fn((done?: () => void) => done?.()),
       },
     } as unknown as Application;
     appResponse = mockResponse();
@@ -82,7 +82,7 @@ describe('ReasonableAdjustementsProvider', () => {
           accessToken: 'testUserToken',
         },
         lang: 'cy',
-        save: jest.fn(done => done()),
+        save: jest.fn((done?: () => void) => done?.()),
       },
     });
     req.get = jest.fn();
