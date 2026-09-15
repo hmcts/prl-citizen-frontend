@@ -44,7 +44,7 @@ const en = {
   ],
   phone: [
     'Telephone: 0300 323 0185',
-    "email: <a class='govuk-link' href='mailto:HMCTSforms@justice.gov.uk'>HMCTSforms@justice.gov.uk</a>",
+    "Email: <a class='govuk-link' href='mailto:HMCTSforms@justice.gov.uk'>HMCTSforms@justice.gov.uk</a>",
   ],
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
@@ -83,10 +83,8 @@ const en = {
     'Empty links may be encountered when navigating the service. This means that assistive technology users may experience unexpected functionality when interacting with the links. This fails WCAG 2.2 success criterion 2.4.3 Focus Order (Level A).',
   ],
   toImproveAccessibility: 'What we’re doing to improve accessibility',
-  improveAccessibilityDescription: [
-    'The team also conduct frequent manual and automated accessibility testing as changes come in.',
-    'We are working to improve accessibility on this website, and plan to fix the identified issues by Autumn 2027.',
-  ],
+  improveAccessibilityDescription:
+    'The team also conduct frequent manual and automated accessibility testing as changes come in. We are working to improve accessibility on this website, and plan to fix the identified issues by Autumn 2027.',
   preparationAccessibilityStatement: 'Preparation of this accessibility statement',
   statementPreparationInfo: [
     'This statement was prepared on Wednesday 4 January 2023. It was last reviewed on 15 September 2025.',
@@ -169,8 +167,7 @@ const cy = {
   ],
   toImproveAccessibility: 'Beth rydym yn ei wneud i wella hygyrchedd',
   improveAccessibilityDescription: [
-    'Mae’r tîm hefyd yn cynnal profion hygyrchedd â llaw ac awtomataidd aml wrth i newidiadau ddod i rym.',
-    'Rydym yn gweithio i wella hygyrchedd ar y wefan hon, a’r cynllun yw datrys y problemau a adnabuwyd erbyn yr hydref.',
+    'Mae’r tîm hefyd yn cynnal profion hygyrchedd â llaw ac awtomataidd aml wrth i newidiadau ddod i rym. Rydym yn gweithio i wella hygyrchedd ar y wefan hon, a’r cynllun yw datrys y problemau a adnabuwyd erbyn yr hydref.',
   ],
   preparationAccessibilityStatement: "Paratoi'r datganiad hygyrchedd hwn",
   statementPreparationInfo: [
