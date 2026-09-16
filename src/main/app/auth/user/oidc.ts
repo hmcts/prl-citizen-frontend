@@ -10,7 +10,9 @@ import { AppRequest, UserDetails } from '../../controller/AppRequest';
 
 export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink): string => {
   const clientId: string = config.get('services.idam.clientID');
-  const loginUrl: string = config.get('services.idam.authorizationURL');
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const loginUrl: string = config.get('services.idam.authorizationURL').replace('login', 'o/authorize');
   const callbackUrl = serviceUrl + callbackUrlPageLink;
   const scope: string = config.get('services.idam.authorizationScope');
 
