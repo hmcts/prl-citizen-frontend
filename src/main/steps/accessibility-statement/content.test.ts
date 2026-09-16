@@ -167,7 +167,7 @@ const cy = {
   ],
   toImproveAccessibility: 'Beth rydym yn ei wneud i wella hygyrchedd',
   improveAccessibilityDescription: [
-    'Mae’r tîm hefyd yn cynnal profion hygyrchedd â llaw ac awtomataidd aml wrth i newidiadau ddod i rym. Rydym yn gweithio i wella hygyrchedd ar y wefan hon, a’r cynllun yw datrys y problemau a adnabuwyd erbyn yr hydref.',
+    'Mae’r tîm hefyd yn cynnal profion hygyrchedd â llaw ac awtomataidd aml wrth i newidiadau ddod i rym. Rydym yn gweithio i wella hygyrchedd ar y wefan hon, a’r cynllun yw datrys y problemau a adnabuwyd erbyn hydref 2027.',
   ],
   preparationAccessibilityStatement: "Paratoi'r datganiad hygyrchedd hwn",
   statementPreparationInfo: [
