@@ -82,7 +82,7 @@ export const en = {
     'The team also conduct frequent manual and automated accessibility testing as changes come in. We are working to improve accessibility on this website, and plan to fix the identified issues by Autumn 2027.',
   preparationAccessibilityStatement: 'Preparation of this accessibility statement',
   statementPreparationInfo: [
-    'This statement was prepared on Wednesday 4 January 2023. It was last reviewed on 15 September 2025.',
+    'This statement was prepared on Wednesday 4 January 2023. It was last reviewed on 15 September 2026.',
     'This website was last tested by the Digital Accessibility Centre (DAC) on 31st July 2024 across a range of assistive technologies and with disabled users.',
   ],
 };
@@ -166,7 +166,7 @@ const cy = {
   ],
   preparationAccessibilityStatement: "Paratoi'r datganiad hygyrchedd hwn",
   statementPreparationInfo: [
-    'Cafodd y datganiad hwn ei baratoi ar Ddydd Mercher 4 Ionawr 2023. Cafodd ei adolygu ddiwethaf ar 15 Medi 2025.',
+    'Cafodd y datganiad hwn ei baratoi ar Ddydd Mercher 4 Ionawr 2023. Cafodd ei adolygu ddiwethaf ar 15 Medi 2026.',
     'Cafodd y wefan ei phrofi ddiwethaf gan y Ganolfan Hygyrchedd Digidol (DAC) ar 31 Gorffennaf 2024 ar draws amrywiaeth o dechnolegau cynorthwyol a gyda defnyddwyr anabl.',
   ],
 };
