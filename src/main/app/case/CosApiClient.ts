@@ -31,7 +31,10 @@ import { logError } from './utils';
 export class CosApiClient {
   client: AxiosInstance;
 
-  constructor(authToken: string, private readonly logger: LoggerInstance) {
+  constructor(
+    authToken: string,
+    private readonly logger: LoggerInstance
+  ) {
     this.client = Axios.create({
       baseURL: config.get('services.cos.url'),
       headers: {

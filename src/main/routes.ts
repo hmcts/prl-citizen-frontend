@@ -127,7 +127,7 @@ export class Routes {
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
       const getController = getControllerFileName
         ? require(`${step.stepDir}/${getControllerFileName}`).default
-        : step.getController ?? GetController;
+        : (step.getController ?? GetController);
 
       if (step && getController) {
         app.get(
@@ -140,7 +140,7 @@ export class Routes {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
         const postController = postControllerFileName
           ? require(`${step.stepDir}/${postControllerFileName}`).default
-          : step.postController ?? PostController;
+          : (step.postController ?? PostController);
         app.post(
           step.url,
           this.sanitizeRequestBody.bind(this),

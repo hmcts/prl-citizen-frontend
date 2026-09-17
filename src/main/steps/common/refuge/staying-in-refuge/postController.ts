@@ -34,8 +34,8 @@ export default class StayingInRefugeController extends PostController<AnyObject>
         const partyDetailsList = isApplicant
           ? userCase.appl_allApplicants
           : c100Person?.partyType === PartyType.RESPONDENT
-          ? userCase.resp_Respondents
-          : userCase.oprs_otherPersons;
+            ? userCase.resp_Respondents
+            : userCase.oprs_otherPersons;
         const partyDetails = getPartyDetails(id, partyDetailsList) as C100Applicant | C100RebuildPartyDetails;
         Object.assign(partyDetails, { liveInRefuge: isCitizenLivingInRefuge });
 

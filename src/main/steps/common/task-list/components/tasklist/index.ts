@@ -172,6 +172,6 @@ const prepareHyperLinkConfig = (
   return {
     openInAnotherTab: _.isFunction(task.openInAnotherTab)
       ? task.openInAnotherTab(caseData, userDetails)
-      : task.openInAnotherTab ?? false,
+      : (task.openInAnotherTab ?? false),
   };
 };
