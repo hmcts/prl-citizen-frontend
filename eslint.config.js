@@ -1,10 +1,24 @@
 const js = require('@eslint/js');
+const { SourceCode } = require('eslint');
 const tseslint = require('@typescript-eslint/eslint-plugin');
 const importPlugin = require('eslint-plugin-import');
 const jest = require('eslint-plugin-jest');
 const prettier = require('eslint-plugin-prettier');
 const prettierConfig = require('eslint-config-prettier');
 const globals = require('globals');
+
+// eslint-plugin-import currently calls legacy token/comment helpers removed in ESLint 10.
+if (!SourceCode.prototype.getTokenOrCommentAfter) {
+  SourceCode.prototype.getTokenOrCommentAfter = function (node, skip = 0) {
+    return this.getTokenAfter(node, { includeComments: true, skip });
+  };
+}
+
+if (!SourceCode.prototype.getTokenOrCommentBefore) {
+  SourceCode.prototype.getTokenOrCommentBefore = function (node, skip = 0) {
+    return this.getTokenBefore(node, { includeComments: true, skip });
+  };
+}
 
 // `ban-types` was removed in typescript-eslint v8. Keep existing disable comments
 // valid until they can be removed from the source files independently.
@@ -82,7 +96,10 @@ module.exports = [
       'no-constant-binary-expression': 'off',
       'no-empty-static-block': 'off',
       'no-new-native-nonconstructor': 'off',
+      'no-unassigned-vars': 'off',
       'no-unused-private-class-members': 'off',
+      'no-useless-assignment': 'off',
+      'preserve-caught-error': 'off',
       ...importPlugin.configs.errors.rules,
       ...importPlugin.configs.warnings.rules,
       ...importPlugin.configs.typescript.rules,
