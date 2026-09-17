@@ -197,7 +197,10 @@ interface PaymentStatusResponse {
 }
 
 export class PaymentController {
-  constructor(private readonly client: AxiosInstance, private readonly logger: LoggerInstance) {}
+  constructor(
+    private readonly client: AxiosInstance,
+    private readonly logger: LoggerInstance
+  ) {}
 
   static async getPaymentStatus(
     userDetails: UserDetails,

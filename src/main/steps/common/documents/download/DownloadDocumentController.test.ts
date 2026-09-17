@@ -58,7 +58,7 @@ describe('DownloadDocumentController', () => {
         document_binary_url: 'document_url/123/binary',
       },
     };
-    (req.session.user = {
+    ((req.session.user = {
       idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
       email: 'test@example.net',
     }),
@@ -68,7 +68,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'c100-application',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.ENGLISH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -82,7 +82,7 @@ describe('DownloadDocumentController', () => {
         document_binary_url: 'document_url/123/binary',
       },
     };
-    (req.session.user = {
+    ((req.session.user = {
       idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
       email: 'test@example.net',
     }),
@@ -92,7 +92,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'c100-application',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.WELSH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -106,7 +106,7 @@ describe('DownloadDocumentController', () => {
         document_binary_url: 'document_url/123/binary',
       },
     };
-    (req.session.user = {
+    ((req.session.user = {
       idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
       email: 'test@example.net',
     }),
@@ -116,7 +116,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'fl401-application',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.WELSH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -130,7 +130,7 @@ describe('DownloadDocumentController', () => {
         document_binary_url: 'document_url/123/binary',
       },
     };
-    (req.session.user = {
+    ((req.session.user = {
       idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
       email: 'test@example.net',
     }),
@@ -140,7 +140,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'cada-document',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.ENGLISH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -154,7 +154,7 @@ describe('DownloadDocumentController', () => {
         document_binary_url: 'document_url/123/binary',
       },
     };
-    (req.session.user = {
+    ((req.session.user = {
       idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
       email: 'test@example.net',
     }),
@@ -164,7 +164,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'aoh-document',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.ENGLISH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -178,7 +178,7 @@ describe('DownloadDocumentController', () => {
         document_binary_url: 'document_url/123/binary',
       },
     };
-    (req.session.user = {
+    ((req.session.user = {
       idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
       email: 'test@example.net',
     }),
@@ -188,7 +188,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'aoh-document',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.WELSH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -217,7 +217,7 @@ describe('DownloadDocumentController', () => {
         },
       ],
     };
-    (req.session.user = {
+    ((req.session.user = {
       id: '1234',
       idamId: '1234',
       email: 'test@example.net',
@@ -228,7 +228,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'c7-response-document',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.ENGLISH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -257,7 +257,7 @@ describe('DownloadDocumentController', () => {
         },
       ],
     };
-    (req.session.user = {
+    ((req.session.user = {
       id: '1234',
       idamId: '1234',
       email: 'test@example.net',
@@ -268,7 +268,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'c7-response-document',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.WELSH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -297,7 +297,7 @@ describe('DownloadDocumentController', () => {
         },
       ],
     };
-    (req.session.user = {
+    ((req.session.user = {
       id: '1234',
       idamId: '1234',
       email: 'test@example.net',
@@ -308,7 +308,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'c1a-application-document',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.WELSH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -337,7 +337,7 @@ describe('DownloadDocumentController', () => {
         },
       ],
     };
-    (req.session.user = {
+    ((req.session.user = {
       id: '1234',
       idamId: '1234',
       email: 'test@example.net',
@@ -348,7 +348,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'c1a-application-document',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.ENGLISH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -377,7 +377,7 @@ describe('DownloadDocumentController', () => {
         },
       ],
     };
-    (req.session.user = {
+    ((req.session.user = {
       id: '1234',
       idamId: '1234',
       email: 'test@example.net',
@@ -388,7 +388,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'c1a-response-document',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.ENGLISH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
@@ -417,7 +417,7 @@ describe('DownloadDocumentController', () => {
         },
       ],
     };
-    (req.session.user = {
+    ((req.session.user = {
       id: '1234',
       idamId: '1234',
       email: 'test@example.net',
@@ -428,7 +428,7 @@ describe('DownloadDocumentController', () => {
         documentType: 'c1a-response-document',
         forceDownload: '',
         language: DOCUMENT_LANGUAGE.WELSH,
-      });
+      }));
     controller.download(req, res);
     expect(downloadDocumentMock).toHaveBeenCalled;
     expect(res.end).toHaveBeenCalled;
