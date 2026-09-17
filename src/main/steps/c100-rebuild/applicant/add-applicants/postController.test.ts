@@ -288,8 +288,8 @@ describe('PostController', () => {
       applicantFirstName: '',
       applicantLastName: '',
     };
-    (req.session.errors = [{ errorType: 'required', propertyName: 'needsResolution' }]),
-      controller.post(req, mockResponse());
+    ((req.session.errors = [{ errorType: 'required', propertyName: 'needsResolution' }]),
+      controller.post(req, mockResponse()));
     expect(req.session.userCase['appl_allApplicants']).toHaveLength(0);
   });
 
@@ -311,8 +311,8 @@ describe('PostController', () => {
       applicantLastName: '',
       addAnotherApplicant: YesOrNo.YES,
     };
-    (req.session.errors = [{ errorType: 'required', propertyName: 'needsResolution' }]),
-      controller.post(req, mockResponse());
+    ((req.session.errors = [{ errorType: 'required', propertyName: 'needsResolution' }]),
+      controller.post(req, mockResponse()));
     expect(req.session.userCase['appl_allApplicants']).toHaveLength(1);
   });
 

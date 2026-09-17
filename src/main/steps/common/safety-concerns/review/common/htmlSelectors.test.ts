@@ -18,7 +18,7 @@ const BOTTOM_PADDING_CLOSE = '</div>';
 const BREAK = '<br>';
 
 test('htmlSelectorpositivetest', () => {
-  expect(HTML.LIST_ITEM).toBe(LIST_ITEM),
+  (expect(HTML.LIST_ITEM).toBe(LIST_ITEM),
     expect(HTML.LIST_ITEM_END).toBe(LIST_ITEM_END),
     expect(HTML.UNORDER_LIST).toBe(UNORDER_LIST),
     expect(HTML.UNORDER_LIST_END).toBe(UNORDER_LIST_END),
@@ -33,10 +33,10 @@ test('htmlSelectorpositivetest', () => {
     expect(HTML.BOTTOM_PADDING_3).toBe(BOTTOM_PADDING_3),
     expect(HTML.BOTTOM_TOP_3).toBe(BOTTOM_TOP_3),
     expect(HTML.BOTTOM_PADDING_CLOSE).toBe(BOTTOM_PADDING_CLOSE),
-    expect(HTML.BREAK).toBe(BREAK);
+    expect(HTML.BREAK).toBe(BREAK));
 });
 test('htmlSelectornegativetest', () => {
-  expect(HTML.LIST_ITEM).not.toBe(LIST_ITEM_END),
+  (expect(HTML.LIST_ITEM).not.toBe(LIST_ITEM_END),
     expect(HTML.LIST_ITEM_END).not.toBe(LIST_ITEM),
     expect(HTML.UNORDER_LIST).not.toBe(UNORDER_LIST_END),
     expect(HTML.UNORDER_LIST_END).not.toBe(UNORDER_LIST),
@@ -50,5 +50,5 @@ test('htmlSelectornegativetest', () => {
     expect(HTML.BOTTOM_PADDING_3).not.toBe(BOTTOM_TOP_3),
     expect(HTML.BOTTOM_TOP_3).not.toBe(BOTTOM_PADDING_3),
     expect(HTML.BOTTOM_PADDING_CLOSE).not.toBe(BOTTOM_TOP_3),
-    expect(HTML.BREAK).not.toBe(RULER);
+    expect(HTML.BREAK).not.toBe(RULER));
 });

@@ -70,7 +70,10 @@ export class ErrorController {
 }
 
 export class HTTPError extends Error {
-  constructor(public message: string, public status = StatusCodes.INTERNAL_SERVER_ERROR) {
+  constructor(
+    public message: string,
+    public status = StatusCodes.INTERNAL_SERVER_ERROR
+  ) {
     super(message);
     this.name = 'HTTPError';
     this.status = status;

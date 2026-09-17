@@ -14,7 +14,10 @@ import { C100_CASE_EVENT, C100_CASE_TYPE, State, YesOrNo } from './definition';
 import { logError } from './utils';
 
 export class CaseApi {
-  constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
+  constructor(
+    private readonly axios: AxiosInstance,
+    private readonly logger: LoggerInstance
+  ) {}
 
   public async retrieveCaseById(caseId: string): Promise<RetreiveDraftCase> {
     if (!caseId) {
