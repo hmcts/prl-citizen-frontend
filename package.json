@@ -75,7 +75,7 @@
     "express-session": "1.19.0",
     "form-data": "4.0.6",
     "glob": "13.0.6",
-    "govuk-frontend": "4.9.0",
+    "govuk-frontend": "4.10.1",
     "helmet": "4.6.0",
     "hmrc-frontend": "6.117.0",
     "http-status-codes": "2.3.0",
