@@ -185,7 +185,8 @@
     "glob": "13.0.6",
     "minimatch": "10.2.6",
     "picomatch": "4.0.7",
-    "qs": "6.16.0"
+    "qs": "6.16.0",
+    "uuid": "14.0.2"
   },
   "packageManager": "yarn@4.6.0"
 }
