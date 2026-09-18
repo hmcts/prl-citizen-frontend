@@ -11,6 +11,7 @@ module.exports = {
   moduleNameMapper: {
     '@hmcts/nodejs-logging': '<rootDir>/src/test/unit/mocks/hmcts/nodejs-logging',
   },
+  coverageProvider: 'v8',
   coverageThreshold: {
   },
   verbose: true,
