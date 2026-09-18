@@ -29,8 +29,7 @@
     "pact:publish": "pact-broker publish pact/pacts --consumer-app-version=0.0.1 --broker-base-url=https://pact-broker.platform.hmcts.net/",
     "test:pact:run-and-publish": "yarn test:pact && yarn pact:publish",
     "broker": "docker-compose -f broker-compose.yaml up -d",
-    "broker:stop": "docker-compose -f broker-compose.yaml down",
-    "test:mutation": "yarn build && NODE_ENV=test stryker run src/test/mutation/stryker.conf.js"
+    "broker:stop": "docker-compose -f broker-compose.yaml down"
   },
   "dependencies": {
     "@dr.pogodin/csurf": "1.17.1",
@@ -113,8 +112,6 @@
     "@babel/preset-typescript": "7.29.7",
     "@eslint/js": "10.0.1",
     "@pact-foundation/pact": "14.0.0",
-    "@stryker-mutator/core": "5.6.1",
-    "@stryker-mutator/jest-runner": "5.6.1",
     "@types/copy-webpack-plugin": "8.0.1",
     "@types/jest": "30.0.0",
     "@types/luxon": "3.7.5",
