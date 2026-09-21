@@ -27,14 +27,14 @@ export const en = {
   notAccessibleParts: [
     'some heading labels are non-descriptive',
     'some content becomes obscured when resizing text',
-    "some PDF documents aren't fully accessible to screen reader software",
+    'some PDF documents are not fully accessible to screen reader software',
     'a language attribute for some Welsh text is missing which will impact some text to speech software pronunciation',
     'error messages require improvement to convey suggestions on how to correct the error',
   ],
   feedbackAndContactInformation: 'Feedback and contact information',
   contactInfo: [
     'We provide a text relay service for people who are d/Deaf, hearing impaired or have a speech impediment.',
-    'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
+    'Our offices have audio induction loops, or if you contact us before your visit, we can arrange a British Sign Language (BSL) interpreter.',
     'If you require support when visiting or need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille contact us at:',
   ],
   phone: [
@@ -63,7 +63,7 @@ export const en = {
   nonAccessibleDescription: 'The content listed below is non-accessible for the following reasons.',
   issuesWithDocuments: 'Non-compliance with the accessibility regulations',
   issuesWithDocumentDescriptions: [
-    'Heading labels are provided however they are non-descriptive. This means that assistive technology users may struggle to understand the content. This fails WCAG 2.2 success criterion 2.4.6 Headings and Labels (Level AA).',
+    'Heading labels are provided, however, they are non-descriptive. This means that assistive technology users may struggle to understand the content. This fails WCAG 2.2 success criterion 2.4.6 Headings and Labels (Level AA).',
     'An autocomplete attribute has been supplied an invalid value for ‘property name or number’ which may cause issues for screen reader users. This fails WCAG 2.2 success criterion 1.3.5 Identify Input Purpose (Level AA).',
     'Text was found to fail the minimum text contrast requirements within ‘draft’ marked PDF documents which means that users who are colourblind may struggle to see the content. This fails WCAG 2.2 success criterion 1.4.3 Contrast (Minimum) (Level AA).',
     'Content becomes obscured when resizing text on the page, which means that some users with low vision may struggle to read the content. This fails WCAG 2.2 success criterion 1.4.4 Resize text (Level AA).',
@@ -79,11 +79,11 @@ export const en = {
   ],
   toImproveAccessibility: 'What we’re doing to improve accessibility',
   improveAccessibilityDescription:
-    'The team also conduct frequent manual and automated accessibility testing as changes come in. We are working to improve accessibility on this website, and plan to fix the identified issues by Autumn 2027.',
+    'The team also conduct frequent manual and automated accessibility testing as changes come in. We are working to improve accessibility on this website, and plan to fix the identified issues by autumn 2027.',
   preparationAccessibilityStatement: 'Preparation of this accessibility statement',
   statementPreparationInfo: [
     'This statement was prepared on Wednesday 4 January 2023. It was last reviewed on 15 September 2026.',
-    'This website was last tested by the Digital Accessibility Centre (DAC) on 31st July 2024 across a range of assistive technologies and with disabled users.',
+    'This website was last tested by the Digital Accessibility Centre (DAC) on 31 July 2024 across a range of assistive technologies and with disabled users.',
   ],
 };
 
