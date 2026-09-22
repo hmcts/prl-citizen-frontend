@@ -79,8 +79,8 @@ export const deleteC100RefugeDoc = (req: AppRequest, caseData: CaseWithId, id: s
   const partyDetailsList = isApplicant
     ? caseData.appl_allApplicants
     : c100Person?.partyType === PartyType.RESPONDENT
-    ? caseData.resp_Respondents
-    : caseData.oprs_otherPersons;
+      ? caseData.resp_Respondents
+      : caseData.oprs_otherPersons;
   const partyDetails = getPartyDetails(id, partyDetailsList) as C100Applicant | C100RebuildPartyDetails;
 
   if (partyDetails.hasOwnProperty('refugeConfidentialityC8Form')) {
@@ -115,6 +115,6 @@ export const getC8DocumentForC100 = (id: string, caseData: CaseWithId, person: P
   return person.partyType === PartyType.APPLICANT
     ? (getPartyDetails(id, caseData.appl_allApplicants) as C100Applicant).refugeConfidentialityC8Form
     : person.partyType === PartyType.RESPONDENT
-    ? (getPartyDetails(id, caseData.resp_Respondents) as C100RebuildPartyDetails).refugeConfidentialityC8Form
-    : (getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails).refugeConfidentialityC8Form;
+      ? (getPartyDetails(id, caseData.resp_Respondents) as C100RebuildPartyDetails).refugeConfidentialityC8Form
+      : (getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails).refugeConfidentialityC8Form;
 };

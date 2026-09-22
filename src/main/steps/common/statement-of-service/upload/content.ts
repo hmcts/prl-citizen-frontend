@@ -109,7 +109,7 @@ export const generateContent: TranslationFn = content => {
       noFilesText: translations.noFilesUploaded,
       removeFileText: translations.removeDocumentLabel,
       errorMessage: uploadDocError
-        ? translations.errors.statementOfServiceDoc?.[uploadDocError.errorType] ?? null
+        ? (translations.errors.statementOfServiceDoc?.[uploadDocError.errorType] ?? null)
         : null,
       uploadedFiles: uploadedDocument?.document_url
         ? [
