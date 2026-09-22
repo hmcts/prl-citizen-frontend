@@ -105,7 +105,7 @@ export const getFormFields = (
   const isConfidential =
     otherPerson?.isOtherPersonAddressConfidential === YesOrNo.YES
       ? YesOrNo.YES
-      : otherPerson?.isOtherPersonAddressConfidential ?? YesOrNo.NO;
+      : (otherPerson?.isOtherPersonAddressConfidential ?? YesOrNo.NO);
 
   return updateFormFields(form, generateFormFields(isConfidential).fields);
 };
@@ -176,7 +176,7 @@ export const generateContent: TranslationFn = content => {
   const isConfidential =
     otherPerson?.isOtherPersonAddressConfidential === YesOrNo.YES
       ? YesOrNo.YES
-      : otherPerson?.isOtherPersonAddressConfidential ?? YesOrNo.NO;
+      : (otherPerson?.isOtherPersonAddressConfidential ?? YesOrNo.NO);
 
   return {
     ...translations,

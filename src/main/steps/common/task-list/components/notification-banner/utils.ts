@@ -119,7 +119,7 @@ export const isCafcassCymruServed = (caseData: CaseWithId): boolean =>
 export const showNotification = (notificationType: NotificationType, caseData: CaseWithId): boolean => {
   const notificationId = NotificationTypeIDMap?.[notificationType];
 
-  return notificationId ? findNotification(caseData, notificationId)?.show ?? false : false;
+  return notificationId ? (findNotification(caseData, notificationId)?.show ?? false) : false;
 };
 export function showPreDashBoardNotification(notificationType: NotificationType, caseData: CaseWithId): boolean {
   let allowNotification = false;

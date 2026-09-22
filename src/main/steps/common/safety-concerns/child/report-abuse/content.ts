@@ -283,7 +283,7 @@ export const getFormFields = (
     form,
     generateFormFields(
       sessionData ?? getDataShape().abuse,
-      C100RebuildJourney ? c100ChildrenDetails : CARespChildrenDetails ?? []
+      C100RebuildJourney ? c100ChildrenDetails : (CARespChildrenDetails ?? [])
     ).fields
   );
 };
