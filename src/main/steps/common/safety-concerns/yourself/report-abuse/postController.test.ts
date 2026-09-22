@@ -110,7 +110,7 @@ describe('SafteyConcernsApplicantAbusePostController Post Controller', () => {
       },
     });
     const res = mockResponse();
-    (req.originalUrl = '/c100-rebuild/dummy'), generateContent(commonContent);
+    ((req.originalUrl = '/c100-rebuild/dummy'), generateContent(commonContent));
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalled();

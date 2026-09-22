@@ -39,8 +39,8 @@ export default class ChildLivingArrangementsPostController extends PostControlle
             ? [existingChildDetails.mainlyLiveWith]
             : []
           : existingChildDetails.mainlyLiveWith
-          ? [existingChildDetails.mainlyLiveWith, ...liveWithPeople]
-          : liveWithPeople,
+            ? [existingChildDetails.mainlyLiveWith, ...liveWithPeople]
+            : liveWithPeople,
       },
       req.session.userCase.cd_children
     ) as ChildrenDetails[];

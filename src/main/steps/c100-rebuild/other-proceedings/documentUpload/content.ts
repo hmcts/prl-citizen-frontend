@@ -40,13 +40,10 @@ export const en = () => ({
   errors: {
     document: {
       required: 'Please choose a file.',
-      multipleFiles: `You can upload only one file. 
-            If you wish to upload a new file, delete the existing 
-            file and upload a new one`,
-      fileFormat: `The file you uploaded is in the wrong format.
-                Upload your file again in the correct format`,
-      fileSize: `The file you uploaded is too large.
-                Maximum file size allowed is 20MB`,
+      multipleFiles:
+        'You can upload only one file. If you wish to upload a new file, delete the existing file and upload a new one',
+      fileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
+      fileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
     },
   },
 });
@@ -113,7 +110,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const { orderType } = content.additionalData?.req.params;
+  const { orderType } = content.additionalData?.req.params ?? {};
   return {
     ...translations,
     form,

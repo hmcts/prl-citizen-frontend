@@ -25,7 +25,7 @@ const en = {
     occupationOrder: 'Upload Occupation Order',
     forcedMarriageProtectionOrder: 'Upload Forced Marriage Protection Order',
     restrainingOrder: 'Upload Restraining Order',
-    otherInjuctionOrder: 'Upload Other Injuction Order',
+    otherInjuctionOrder: 'Upload Other Injunction Order',
     undertakingOrder: 'Upload Undertaking Order',
     otherOrder: 'Upload Other Order',
   },
@@ -45,13 +45,10 @@ const en = {
   errors: {
     document: {
       required: 'Please choose a file.',
-      multipleFiles: `You can upload only one file. 
-            If you wish to upload a new file, delete the existing 
-            file and upload a new one`,
-      fileFormat: `The file you uploaded is in the wrong format.
-                Upload your file again in the correct format`,
-      fileSize: `The file you uploaded is too large.
-                Maximum file size allowed is 20MB`,
+      multipleFiles:
+        'You can upload only one file. If you wish to upload a new file, delete the existing file and upload a new one',
+      fileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
+      fileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
     },
   },
   selectFile: 'Select documents to upload',
