@@ -9867,10 +9867,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:4.9.0":
-  version: 4.9.0
-  resolution: "govuk-frontend@npm:4.9.0"
-  checksum: 10c0/d4c2634c096e50734fc65b3c1c8ceb60ea173726746bb8e75db8c39cf0d60862e81aa52f48c683f2dce5a11ba9f7e478a16d158fb53a41c9055daceacf745227
+"govuk-frontend@npm:4.10.1":
+  version: 4.10.1
+  resolution: "govuk-frontend@npm:4.10.1"
+  checksum: 10c0/41925507adcdf8bdfddcd81f416ed4857708209ad5a4fb87bdf5ea2908b62eb380f40c22c4d37128e1b30718b7aeaa9460afc8c0978bb4faf1d0428ce165d961
   languageName: node
   linkType: hard
 
@@ -14804,7 +14804,7 @@ __metadata:
     form-data: "npm:4.0.6"
     glob: "npm:13.0.6"
     globals: "npm:16.5.0"
-    govuk-frontend: "npm:4.9.0"
+    govuk-frontend: "npm:4.10.1"
     graphql: "npm:16.14.2"
     helmet: "npm:4.6.0"
     hmrc-frontend: "npm:6.117.0"
