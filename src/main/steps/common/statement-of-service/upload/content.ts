@@ -90,7 +90,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const { session, params } = content.additionalData?.req;
+  const { session, params } = content.additionalData?.req ?? {};
   const uploadDocError = session?.errors?.find(error => error.propertyName === 'statementOfServiceDoc') ?? null;
   const uploadedDocument = session?.userCase?.sos_document;
 
@@ -109,7 +109,7 @@ export const generateContent: TranslationFn = content => {
       noFilesText: translations.noFilesUploaded,
       removeFileText: translations.removeDocumentLabel,
       errorMessage: uploadDocError
-        ? translations.errors.statementOfServiceDoc?.[uploadDocError.errorType] ?? null
+        ? (translations.errors.statementOfServiceDoc?.[uploadDocError.errorType] ?? null)
         : null,
       uploadedFiles: uploadedDocument?.document_url
         ? [

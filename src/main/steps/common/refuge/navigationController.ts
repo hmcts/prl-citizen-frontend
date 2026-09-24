@@ -104,8 +104,8 @@ class RefugeNavigationController {
     return person?.partyType === PartyType.APPLICANT
       ? (applyParms(C100_APPLICANTS_PERSONAL_DETAILS, { applicantId: id }) as PageLink)
       : person?.partyType === PartyType.RESPONDENT
-      ? (applyParms(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, { respondentId: id }) as PageLink)
-      : (applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId: id }) as PageLink);
+        ? (applyParms(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, { respondentId: id }) as PageLink)
+        : (applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, { otherPersonId: id }) as PageLink);
   }
 
   private getC100RedirectUrl(
@@ -137,8 +137,8 @@ class RefugeNavigationController {
       person.partyType === PartyType.APPLICANT
         ? (getPartyDetails(id, caseData.appl_allApplicants) as C100Applicant)
         : person.partyType === PartyType.RESPONDENT
-        ? (getPartyDetails(id, caseData.resp_Respondents) as C100RebuildPartyDetails)
-        : (getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails);
+          ? (getPartyDetails(id, caseData.resp_Respondents) as C100RebuildPartyDetails)
+          : (getPartyDetails(id, caseData.oprs_otherPersons) as C100RebuildPartyDetails);
 
     return details.liveInRefuge === YesOrNo.YES;
   }

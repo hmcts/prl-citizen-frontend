@@ -8,7 +8,10 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
 @autobind
 export default class SelectAddressPostControllerBase extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn, protected readonly fieldPrefix: FieldPrefix) {
+  constructor(
+    protected readonly fields: FormFields | FormFieldsFn,
+    protected readonly fieldPrefix: FieldPrefix
+  ) {
     super(fields);
   }
 
