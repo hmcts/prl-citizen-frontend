@@ -11,10 +11,11 @@ module.exports = {
   moduleNameMapper: {
     '@hmcts/nodejs-logging': '<rootDir>/src/test/unit/mocks/hmcts/nodejs-logging',
   },
+  coverageProvider: 'v8',
   coverageThreshold: {
   },
   verbose: true,
   transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!node-emoji|axios|otplib|@otplib|@scure|query-string|sanitize-html|htmlparser2|deepmerge|escape-string-regexp|is-plain-object|parse-srcset|postcss|launder)',
+    '<rootDir>/node_modules/(?!node-emoji|axios|otplib|@otplib|@scure|query-string|sanitize-html|htmlparser2|deepmerge|escape-string-regexp|is-plain-object|parse-srcset|postcss|launder|entities|uuid)',
   ],
 };

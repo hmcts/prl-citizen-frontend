@@ -8,7 +8,7 @@ import { generateContent } from './content';
 
 jest.mock('../../../../../app/form/validation');
 
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-unused-vars */
 const en = {
   pageTitle: 'Sharing your documents',
   infoContent:
@@ -101,4 +101,4 @@ describe('documents > upload > sharing-your-documents > content', () => {
     expect(form.link.href).toBe('/case/1234');
   });
 });
-/* eslint-enable @typescript-eslint/ban-types */
+/* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-unused-vars */

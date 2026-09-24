@@ -94,7 +94,7 @@ export const generateContent: TranslationFn = content => {
       noFilesText: translations.noFiles,
       removeFileText: translations.remove,
       errorMessage: uploadDocError
-        ? translations.errors.miam_domesticAbuseEvidenceDocs?.[uploadDocError.errorType] ?? null
+        ? (translations.errors.miam_domesticAbuseEvidenceDocs?.[uploadDocError.errorType] ?? null)
         : null,
       uploadedFiles: uploadedDocuments
         ? uploadedDocuments.map(document => {

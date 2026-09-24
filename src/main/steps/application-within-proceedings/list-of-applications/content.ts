@@ -324,7 +324,7 @@ const generateApplicationList = (
               partyType,
             })
           )
-        : rest?.[application.contentMappingKey]?.contents ?? [],
+        : (rest?.[application.contentMappingKey]?.contents ?? []),
       links: [],
     });
 

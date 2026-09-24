@@ -19,7 +19,7 @@ export interface GovUkNunjucksSummary {
         attributes?: {
           id?: string;
         };
-      }
+      },
     ];
   };
   classes?: string;

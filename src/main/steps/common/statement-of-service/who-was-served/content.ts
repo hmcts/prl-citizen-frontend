@@ -78,15 +78,15 @@ export const form: FormContent = {
                   : caseData?.sos_respondentsServed?.includes(respondent.id) || false,
             }))
           : caseData?.respondentsFL401
-          ? [
-              {
-                name: 'sos_respondentsServed',
-                value: caseData.respondentsFL401!.partyId,
-                label: `${caseData.respondentsFL401!.firstName} ${caseData.respondentsFL401!.lastName}`,
-                selected: true,
-              },
-            ]
-          : [],
+            ? [
+                {
+                  name: 'sos_respondentsServed',
+                  value: caseData.respondentsFL401!.partyId,
+                  label: `${caseData.respondentsFL401!.firstName} ${caseData.respondentsFL401!.lastName}`,
+                  selected: true,
+                },
+              ]
+            : [],
         validator: atLeastOneFieldIsChecked,
       },
       sos_respondentsServedDate: {

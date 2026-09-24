@@ -33,9 +33,9 @@ export const getUploadDocumentCategoryDetails = (
   return {
     sectionTitle: config ? config.sectionTitle(documentSectionTitles) : '',
     categoryLabel: config
-      ? config.documentCategoryList
+      ? (config.documentCategoryList
           .find(category => category.categoryId === categoryId)
-          ?.documentCategoryLabel(documentCategoryLabels) ?? ''
+          ?.documentCategoryLabel(documentCategoryLabels) ?? '')
       : '',
   };
 };

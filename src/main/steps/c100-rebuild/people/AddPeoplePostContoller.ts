@@ -74,9 +74,7 @@ export default class AddPersonPostController {
       ...(this.request.session.userCase[this.contextReference.dataReference] ?? []),
       {
         ...(getDataShape(this.contextReference.context) as
-          | ChildrenDetails
-          | OtherChildrenDetails
-          | C100RebuildPartyDetails),
+          ChildrenDetails | OtherChildrenDetails | C100RebuildPartyDetails),
         firstName,
         lastName,
       },
