@@ -34,6 +34,19 @@ import { FormInput } from '../../app/form/Form';
 export class Nunjucks {
   enableFor(app: express.Express): void {
     app.set('view engine', 'njk');
+
+    const mojFrontendPath = path.dirname(require.resolve('@ministryofjustice/frontend/moj/template.njk'));
+    const mojFrontendRoot = path.resolve(mojFrontendPath, '..');
+
+    app.locals.nunjucksEnv = nunjucks.configure(
+      [path.join(__dirname, '..', '..', 'views'), path.join(__dirname, '..', '..', 'steps'), mojFrontendRoot],
+      {
+        autoescape: true,
+        watch: false,
+        express: app,
+      }
+    );
+
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend/dist');
     const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
     const commonForC100 = path.join(__dirname, '..', '..', 'steps', 'c100-rebuild', 'common');
