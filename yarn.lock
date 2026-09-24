@@ -8418,13 +8418,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:4.10.1":
-  version: 4.10.1
-  resolution: "govuk-frontend@npm:4.10.1"
-  checksum: 10c0/41925507adcdf8bdfddcd81f416ed4857708209ad5a4fb87bdf5ea2908b62eb380f40c22c4d37128e1b30718b7aeaa9460afc8c0978bb4faf1d0428ce165d961
-  languageName: node
-  linkType: hard
-
 "govuk-frontend@npm:^5.14.0":
   version: 5.14.0
   resolution: "govuk-frontend@npm:5.14.0"
@@ -12068,8 +12061,8 @@ __metadata:
     express-session: "npm:1.19.0"
     form-data: "npm:4.0.6"
     glob: "npm:13.0.6"
-    govuk-frontend: "npm:^5.14.0"
     globals: "npm:16.5.0"
+    govuk-frontend: "npm:^5.14.0"
     graphql: "npm:16.14.2"
     helmet: "npm:4.6.0"
     hmrc-frontend: "npm:6.117.0"
