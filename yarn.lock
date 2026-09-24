@@ -2282,6 +2282,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ministryofjustice/frontend@npm:^11.0.0":
+  version: 11.1.0
+  resolution: "@ministryofjustice/frontend@npm:11.1.0"
+  peerDependencies:
+    govuk-frontend: ^6.0.0
+    moment: ^2.30.1
+  checksum: 10c0/46e7c90f93ed0ba830c6e4ea4ba30b6074be37b0b4d3673fdabb8203a757c73912f1b139e8d9912faf9f602fefee67dbe04ec7e320a358102b7c5bd98caba9c9
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^1.1.4":
   version: 1.2.4
   resolution: "@napi-rs/wasm-runtime@npm:1.2.4"
@@ -8418,10 +8428,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:4.10.1":
-  version: 4.10.1
-  resolution: "govuk-frontend@npm:4.10.1"
-  checksum: 10c0/41925507adcdf8bdfddcd81f416ed4857708209ad5a4fb87bdf5ea2908b62eb380f40c22c4d37128e1b30718b7aeaa9460afc8c0978bb4faf1d0428ce165d961
+"govuk-frontend@npm:6.5.1":
+  version: 6.5.1
+  resolution: "govuk-frontend@npm:6.5.1"
+  checksum: 10c0/3654d9bf8f185923fe76a6c1da8fabfc8fee59a15ab1f3b1ed663a095a543546c570848b6cd483b66af6c11879e0b98650526627c44090a50c79f74b020f1bae
   languageName: node
   linkType: hard
 
@@ -12011,6 +12021,7 @@ __metadata:
     "@hmcts/nodejs-logging": "npm:4.0.4"
     "@hmcts/properties-volume": "npm:0.0.14"
     "@launchdarkly/node-server-sdk": "npm:9.13.6"
+    "@ministryofjustice/frontend": "npm:^11.0.0"
     "@pact-foundation/pact": "npm:14.0.0"
     "@types/config": "npm:0.0.41"
     "@types/connect-redis": "npm:0.0.23"
@@ -12069,7 +12080,7 @@ __metadata:
     form-data: "npm:4.0.6"
     glob: "npm:13.0.6"
     globals: "npm:16.5.0"
-    govuk-frontend: "npm:4.10.1"
+    govuk-frontend: "npm:6.5.1"
     graphql: "npm:16.14.2"
     helmet: "npm:4.6.0"
     hmrc-frontend: "npm:6.117.0"
@@ -12102,6 +12113,7 @@ __metadata:
     sanitize-html: "npm:2.17.7"
     sass: "npm:1.97.3"
     sass-loader: "npm:13.3.3"
+    sass-mq: "npm:6"
     semver: "npm:7.8.5"
     serve-favicon: "npm:2.5.1"
     session-file-store: "npm:1.5.0"
@@ -13000,6 +13012,13 @@ __metadata:
     sass-embedded:
       optional: true
   checksum: 10c0/5e955a4ffce35ee0a46fce677ce51eaa69587fb5371978588c83af00f49e7edc36dcf3bb559cbae27681c5e24a71284463ebe03a1fb65e6ecafa1db0620e3fc8
+  languageName: node
+  linkType: hard
+
+"sass-mq@npm:6":
+  version: 6.0.0
+  resolution: "sass-mq@npm:6.0.0"
+  checksum: 10c0/0f8ec468bb479327e988e2533b93a7eb84c64d6db45b52af16bff0ec8cd1eae18e806e29b0a1cf0136645f9a529e446ea4ce51b1d72c7f96798149b3616255c5
   languageName: node
   linkType: hard
 
