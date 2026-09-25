@@ -2247,31 +2247,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-sdk-common@npm:2.26.0":
-  version: 2.26.0
-  resolution: "@launchdarkly/js-sdk-common@npm:2.26.0"
-  checksum: 10c0/a8facef8ed4e533125d0e91db74ba6235ead62d1e813edbd2215cd4aa57f623cf38fb4e3e7fe08e2ee96fb27f210c432e902cf59bd7adc6a746334421f0897a7
+"@launchdarkly/js-sdk-common@npm:2.26.1":
+  version: 2.26.1
+  resolution: "@launchdarkly/js-sdk-common@npm:2.26.1"
+  checksum: 10c0/c8d34fd2e470facf95cacda752c0625289e780dff19dd4624b9b3b3cb1a1e611f91aeeea04dfa7555a89c7115f67dec755ee22569d5f57698ed63d7f4158b515
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.21.4":
-  version: 2.21.4
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.21.4"
+"@launchdarkly/js-server-sdk-common@npm:2.21.5":
+  version: 2.21.5
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.21.5"
   dependencies:
-    "@launchdarkly/js-sdk-common": "npm:2.26.0"
+    "@launchdarkly/js-sdk-common": "npm:2.26.1"
     semver: "npm:7.5.4"
-  checksum: 10c0/fba0947cc5eb4db2c5fd1da3fcdeed14d1c3166b0f9fcb8fe30f2aaa1f5149bd602954b8a79c7d5a22a3285355b6e94e7d49522cc8c8d1db3176dba186ad2fe9
+  checksum: 10c0/f10e5e3869f75d9b0dba38d5610516557723b280430d348cdce6a68690156336a62f56549cc4841d555f6f321d113342517ba6ff380e3c2e3e3459e9dc9ff334
   languageName: node
   linkType: hard
 
-"@launchdarkly/node-server-sdk@npm:9.13.6":
-  version: 9.13.6
-  resolution: "@launchdarkly/node-server-sdk@npm:9.13.6"
+"@launchdarkly/node-server-sdk@npm:9.13.7":
+  version: 9.13.7
+  resolution: "@launchdarkly/node-server-sdk@npm:9.13.7"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": "npm:2.21.4"
+    "@launchdarkly/js-server-sdk-common": "npm:2.21.5"
     https-proxy-agent: "npm:^7.0.6"
     launchdarkly-eventsource: "npm:2.2.0"
-  checksum: 10c0/3e1ca18dff18afbd103169ea00efc64d88c54d25c7d6e5c4f381c0d3e98eeb4952196cfa88104055c4ce1facc8c51d242cc841b9228e83e5f1a351606269abb3
+  checksum: 10c0/bbaf674bc4eb602ec0b1824a282475831dd87d8d6bf5508f3fd71b9de685dd28ab4f01c8c0b7444115366f925be2dd1c1d56eaa34188437316df8999dfd46a17
   languageName: node
   linkType: hard
 
@@ -11942,12 +11942,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.9.8":
-  version: 3.9.8
-  resolution: "prettier@npm:3.9.8"
+"prettier@npm:3.9.9":
+  version: 3.9.9
+  resolution: "prettier@npm:3.9.9"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10c0/257e5ef11ba5006d0b0712271705701c065c8003e07763f996ce185d39633902f3fe1f814839eed76f75c97b6d5376d6157bd9f44db18cacb1dbdcb263cc66ae
+  checksum: 10c0/d50ea2537b2ff7dbd5088a214f4d936484e55c665cea2185b477a55b0770be55f3b156a71f63a9a639def6b334667bb327139dc85f2a1041c0a34752cdc74647
   languageName: node
   linkType: hard
 
@@ -12010,7 +12010,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": "npm:1.8.6"
     "@hmcts/nodejs-logging": "npm:4.0.4"
     "@hmcts/properties-volume": "npm:0.0.14"
-    "@launchdarkly/node-server-sdk": "npm:9.13.6"
+    "@launchdarkly/node-server-sdk": "npm:9.13.7"
     "@pact-foundation/pact": "npm:14.0.0"
     "@types/config": "npm:0.0.41"
     "@types/connect-redis": "npm:0.0.23"
@@ -12095,7 +12095,7 @@ __metadata:
     otplib: "npm:13.4.0"
     pa11y: "npm:10.0.0"
     pino-std-serializers: "npm:7.1.0"
-    prettier: "npm:3.9.8"
+    prettier: "npm:3.9.9"
     query-string: "npm:9.5.1"
     redis: "npm:3.1.2"
     require-directory: "npm:2.1.1"
