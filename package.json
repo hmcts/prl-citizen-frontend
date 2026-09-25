@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": ">=20.0.0"
+    "node": "v26.10.0"
   },
   "scripts": {
     "prepare": "husky install",
@@ -163,7 +163,7 @@
   },
   "resolutions": {
     "@opentelemetry/core": "2.11.0",
-    "encoding-sniffer": "^1.0.2",
+    "encoding-sniffer": "1.0.2",
     "glob": "13.0.6"
   },
   "packageManager": "yarn@4.6.0"

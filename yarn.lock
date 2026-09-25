@@ -6953,7 +6953,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"encoding-sniffer@npm:^1.0.2":
+"encoding-sniffer@npm:1.0.2":
   version: 1.0.2
   resolution: "encoding-sniffer@npm:1.0.2"
   dependencies:
