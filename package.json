@@ -112,7 +112,7 @@
     "@babel/preset-env": "7.29.7",
     "@babel/preset-typescript": "7.29.7",
     "@eslint/js": "10.0.1",
-    "@pact-foundation/pact": "14.0.0",
+    "@pact-foundation/pact": "17.1.4",
     "@types/copy-webpack-plugin": "8.0.1",
     "@types/jest": "30.0.0",
     "@types/luxon": "3.7.5",
