@@ -1,9 +1,8 @@
+import { Pact } from '@pact-foundation/pact';
 import config from 'config';
 import { when } from 'jest-when';
 
 import { getTokenFromApi } from '../../main/app/auth/service/get-service-auth-token';
-
-const { pactWith } = require('jest-pact');
 
 jest.mock('../../main/app/auth/service/otp', () => ({
   generateOTP: jest.fn().mockResolvedValue('123456'),
@@ -11,61 +10,45 @@ jest.mock('../../main/app/auth/service/otp', () => ({
 
 config.get = jest.fn();
 
-pactWith(
-  {
-    consumer: 'prl-citizen-frontend',
-    provider: 's2s_auth',
-    logLevel: 'DEBUG',
-  },
-  provider => {
-    describe('rpe-service-auth-provider API', () => {
-      const EXPECTED_RESPONSE = 'MOCK_TOKEN';
+const provider = new Pact({
+  consumer: 'prl-citizen-frontend',
+  provider: 's2s_auth',
+  logLevel: 'debug',
+});
 
-      const successResponse = {
-        status: 200,
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: EXPECTED_RESPONSE,
-      };
+describe('rpe-service-auth-provider API', () => {
+  const EXPECTED_RESPONSE = 'MOCK_TOKEN';
 
-      const serviceAuthTokenRequest = {
-        uponReceiving: 'a request for service auth token',
-        withRequest: {
-          method: 'POST',
-          path: '/lease',
-          headers: {
+  it('returns a service auth token', async () => {
+    await provider
+      .addInteraction()
+      .given('i request a service auth token')
+      .uponReceiving('a request for service auth token')
+      .withRequest('POST', '/lease', request =>
+        request
+          .headers({
             Accept: 'application/json, text/plain, */*',
             'content-type': 'application/json',
-          },
-          body: {
+          })
+          .jsonBody({
             microservice: 'prl-citizen-frontend',
             oneTimePassword: '123456',
-          },
-        },
-      };
-
-      beforeEach(() => {
+          })
+      )
+      .willRespondWith(200, response =>
+        response.headers({ 'content-type': 'application/json' }).jsonBody(EXPECTED_RESPONSE)
+      )
+      .executeTest(async mockServer => {
         when(config.get)
           .calledWith('services.authProvider.url')
-          .mockReturnValue(provider.mockService.baseUrl)
+          .mockReturnValue(mockServer.url)
           .calledWith('services.authProvider.microservice')
           .mockReturnValue('prl-citizen-frontend')
           .calledWith('services.authProvider.secret')
           .mockReturnValue('mock-secret');
 
-        const interaction = {
-          state: 'i request a service auth token',
-          ...serviceAuthTokenRequest,
-          willRespondWith: successResponse,
-        };
-        return provider.addInteraction(interaction);
-      });
-
-      it('returns a service auth token', async () => {
         const token = await getTokenFromApi();
         expect(token).toEqual(EXPECTED_RESPONSE);
       });
-    });
-  }
-);
+  });
+});
