@@ -1,6 +1,7 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "../../../common/fileupload/macro.njk" import fileUpload %}
+{%- from "moj/components/multi-file-upload/macro.njk" import mojMultiFileUpload -%}
 
 {% extends "common/page.njk" %}
 {% block page_content %}
@@ -42,21 +43,36 @@
       {% endif %}
       {% endif %}
       {% endfor %}
-   {{ fileUpload(
-        {
-          uploadButtonText: uploadButton,
-          fileuploadTitle: titleForFile ,
-          formPostURL: postURL ,
-          sessionFilesArray: false,
-          sessionFiles: userCase.co_certificate,
-          uploadFileHeading: '',
-          sessionNullFilesMessage: noFilesUploaded,
-          removeText: remove,
-          csrfToken: csrfToken
-        }
-      ) }}
+   <form method="post" enctype="multipart/form-data">
+         {% set uploadHtml %}
+           {{ govukFileUpload({
+             id: "documents",
+             name: "documents",
+             classes: "moj-multi-file-upload__input",
+             label: {
+               text: "Upload a file",
+               classes: "govuk-label--m"
+             },
+             attributes: { multiple: "" },
+             errorMessage: errorMessage
+           }) }}
+
+           {{ govukButton({
+             text: "Upload file",
+             classes: "govuk-button--secondary moj-multi-file-upload__button"
+           }) }}
+         {% endset %}
+
+         {{ mojMultiFileUpload({
+           uploadedFiles: {
+             heading: { text: "Files added" },
+             items: uploadedFiles
+           },
+           uploadHtml: uploadHtml
+         }) }}
+       </form>
   {% for error in sessionErrors %}
   {%- if  error.propertyName === 'document'  %}</div>  {% endif %}
   {% endfor %}
-     
+
 {% endblock %}
