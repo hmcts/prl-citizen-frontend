@@ -70,7 +70,11 @@
              heading: { text: "Files added" },
              items: uploadedFiles
            },
-           uploadHtml: uploadHtml
+           uploadHtml: uploadHtml,
+           attributes: {
+            "data-upload-url": uploadURL,
+            "data-delete-url": deleteURL
+           }
          }) }}
        </form>
   {% for error in sessionErrors %}
