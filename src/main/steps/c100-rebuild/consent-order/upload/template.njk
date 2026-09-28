@@ -45,7 +45,7 @@
       {% endfor %}
    <form method="post" enctype="multipart/form-data">
          {% set uploadHtml %}
-           {{ govukFileUpload({
+           {{ fileUpload({
              id: "documents",
              name: "documents",
              classes: "moj-multi-file-upload__input",
