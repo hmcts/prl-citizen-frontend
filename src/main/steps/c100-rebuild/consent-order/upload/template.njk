@@ -2,6 +2,7 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "../../../common/fileupload/macro.njk" import fileUpload %}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/file-upload/macro.njk" import govukFileUpload -%}
 {%- from "moj/components/multi-file-upload/macro.njk" import mojMultiFileUpload -%}
 
 {% extends "common/page.njk" %}
@@ -46,7 +47,7 @@
       {% endfor %}
    <form method="post" enctype="multipart/form-data">
          {% set uploadHtml %}
-           {{ fileUpload({
+           {{ govukFileUpload({
              id: "documents",
              name: "documents",
              classes: "moj-multi-file-upload__input",
