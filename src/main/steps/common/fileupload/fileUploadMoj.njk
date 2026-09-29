@@ -1,0 +1,71 @@
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "moj/components/multi-file-upload/macro.njk" import mojMultiFileUpload %}
+
+{% macro fileUploadMoj(component) %}
+  {% set uploadButtonText = component.uploadButtonText or 'Upload file' %}
+  {% set filesAddedHeading = component.filesAddedHeading or 'Files added' %}
+  {% set uploadedFiles = component.value or [] %}
+
+  {# multiple is an HTML boolean attribute and govukAttributes renders every value, so passing
+     false would emit multiple="false" and still allow multi-select. #}
+  {% set uploadAttributes = { accept: component.accept, tabindex: "-1", multiple: true }
+     if component.multiple else { accept: component.accept, tabindex: "-1" } %}
+
+  {% set uploadHtml %}
+    {{ govukFileUpload({
+      id: component.id,
+      name: component.name,
+      classes: "moj-multi-file-upload__input",
+      label: {
+        text: component.label.text,
+        classes: component.label.classes
+      },
+      hint: component.hint,
+      errorMessage: component.errorMessage,
+      attributes: uploadAttributes
+    }) }}
+    {{ govukButton({
+      text: uploadButtonText,
+      classes: "govuk-button--secondary moj-multi-file-upload__button"
+    }) }}
+  {% endset %}
+
+  {% set uploadedItems = [] %}
+  {% for file in uploadedFiles %}
+    {% set _ = uploadedItems.push({
+      fileName: file.id,
+      originalFileName: file.document_filename,
+      message: { text: file.document_filename },
+      deleteButton: { text: component.deleteButtonText or 'Remove' }
+    }) %}
+  {% endfor %}
+
+  {{ mojMultiFileUpload({
+    uploadedFiles: {
+      heading: { text: filesAddedHeading },
+      items: uploadedItems
+    },
+    uploadHtml: uploadHtml,
+    attributes: {
+      "data-upload-url": component.uploadUrl,
+      "data-delete-url": component.deleteUrl,
+      "data-accept": component.accept,
+      "data-max-file-size-mb": component.maxFileSize,
+      "data-max-filename-length": component.maxFilenameLength,
+      "data-error-wrong-file-type": component.errorWrongFileType,
+      "data-error-file-too-large": component.errorFileTooLarge,
+      "data-error-filename-too-long": component.errorFilenameTooLong,
+      "data-error-upload-failed": component.errorUploadFailed,
+      "data-delete-button-text": component.deleteButtonText or "Remove",
+      "data-error-delete": component.errorDelete,
+      "data-error-summary-title": component.errorSummaryTitle,
+      "data-error-prefix": component.errorPrefix,
+      "data-choose-file-text": component.chooseFileText,
+      "data-drop-file-text": component.dropFileText,
+      "data-error-only-one-file": component.errorOnlyOneFile,
+      "data-error-remove-file-first": component.errorRemoveFileFirst,
+      "data-multiple": "true" if component.multiple else "false"
+    }
+  }) }}
+{% endmacro %}

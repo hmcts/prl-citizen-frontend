@@ -1,9 +1,6 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "../../../common/fileupload/macro.njk" import fileUpload %}
-{%- from "govuk/components/button/macro.njk" import govukButton -%}
-{%- from "govuk/components/file-upload/macro.njk" import govukFileUpload -%}
-{%- from "moj/components/multi-file-upload/macro.njk" import mojMultiFileUpload -%}
+{% from "../../../common/fileupload/fileUploadMoj.njk" import fileUploadMoj %}
 
 {% extends "common/page.njk" %}
 {% block page_content %}
@@ -45,38 +42,20 @@
       {% endif %}
       {% endif %}
       {% endfor %}
-   <form method="post" enctype="multipart/form-data">
-         {% set uploadHtml %}
-           {{ govukFileUpload({
-             id: "documents",
-             name: "documents",
-             classes: "moj-multi-file-upload__input",
-             label: {
-               text: "Upload a file",
-               classes: "govuk-label--m"
-             },
-             attributes: { multiple: "" },
-             errorMessage: errorMessage
-           }) }}
-
-           {{ govukButton({
-             text: "Upload file",
-             classes: "govuk-button--secondary moj-multi-file-upload__button"
-           }) }}
-         {% endset %}
-
-         {{ mojMultiFileUpload({
-           uploadedFiles: {
-             heading: { text: "Files added" },
-             items: uploadedFiles
-           },
-           uploadHtml: uploadHtml,
-           attributes: {
-            "data-upload-url": uploadURL,
-            "data-delete-url": deleteURL
-           }
-         }) }}
-       </form>
+   {{ fileUploadMoj(
+        {
+          id: "document",
+          name: "document",
+          label: { text: titleForFile },
+          uploadButtonText: uploadButton,
+          filesAddedHeading: uploadFileHeading,
+          value: userCase.co_certificate,
+          deleteButtonText: remove,
+          uploadUrl: uploadURL,
+          deleteUrl: deleteURL,
+          multiple: true
+        }
+      ) }}
   {% for error in sessionErrors %}
   {%- if  error.propertyName === 'document'  %}</div>  {% endif %}
   {% endfor %}
