@@ -49,6 +49,8 @@ export class Helmet {
           connectSrc: [self, googleAnalyticsDomain, analyticsGoogleDomain, dynatraceDomain],
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:'],
+          formAction: [self],
+          frameAncestors: ["'none'"],
           imgSrc: [self, ...tagManager, googleAnalyticsDomain, analyticsGoogleDomain, dynatraceDomain],
           objectSrc: [self],
           scriptSrc,
