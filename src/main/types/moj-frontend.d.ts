@@ -1,4 +1,6 @@
 declare module '@ministryofjustice/frontend' {
+  export function initAll(): void;
+
   export interface MultiFileUploadHooks {
     entryHook?: (instance: unknown, file: File) => void;
     exitHook?: (instance: unknown, file: File, xhr: XMLHttpRequest, statusText: string) => void;

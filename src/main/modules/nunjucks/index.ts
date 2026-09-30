@@ -58,6 +58,7 @@ export class Nunjucks {
         hmctsFrontendPath,
         hmrcFrontendPath,
         commonForC100,
+        mojFrontendRoot,
       ],
       {
         autoescape: true,
