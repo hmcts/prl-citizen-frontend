@@ -1,5 +1,6 @@
 import { initAll as govuk } from 'govuk-frontend';
 import { initAll as hmrc } from 'hmrc-frontend/hmrc/all';
+
 import { initMultiFileUpload } from './multi-file-upload';
 
 import '../scss/main.scss';
