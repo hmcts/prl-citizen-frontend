@@ -1,0 +1,17 @@
+{
+  "90027_Cookie Slack Detector_https://privatelaw.aat.platform.hmcts.net_GET": "ignore",
+  "90027_Cookie Slack Detector_https://privatelaw.aat.platform.hmcts.net/_GET": "ignore",
+  "90027_Cookie Slack Detector_https://privatelaw.aat.platform.hmcts.net/dashboard_GET": "ignore",
+  "90027_Cookie Slack Detector_https://privatelaw.aat.platform.hmcts.net/robots.txt_GET": "ignore",
+  "90027_Cookie Slack Detector_https://privatelaw.aat.platform.hmcts.net/sitemap.xml_GET": "ignore",
+  "10049_Non-Storable Content_https://privatelaw.aat.platform.hmcts.net/_GET": "ignore",
+  "10049_Non-Storable Content_https://privatelaw.aat.platform.hmcts.net/dashboard_GET": "ignore",
+  "10049_Non-Storable Content_https://privatelaw.aat.platform.hmcts.net/robots.txt_GET": "ignore",
+  "10049_Non-Storable Content_https://privatelaw.aat.platform.hmcts.net/sitemap.xml_GET": "ignore",
+  "10112_Session Management Response Identified_https://privatelaw.aat.platform.hmcts.net/_GET": "ignore",
+  "10112_Session Management Response Identified_https://privatelaw.aat.platform.hmcts.net/dashboard_GET": "ignore",
+  "10112_Session Management Response Identified_https://privatelaw.aat.platform.hmcts.net/robots.txt_GET": "ignore",
+  "10112_Session Management Response Identified_https://privatelaw.aat.platform.hmcts.net/sitemap.xml_GET": "ignore",
+  "10104_User Agent Fuzzer_https://privatelaw.aat.platform.hmcts.net_GET": "ignore",
+  "10104_User Agent Fuzzer_https://privatelaw.aat.platform.hmcts.net/_GET": "ignore"
+}
