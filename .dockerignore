@@ -11,7 +11,3 @@
 !src/main/**
 !config/**
 !webpack.config.js
-# TEMPORARY - remove when there's a fix in master
-!app
-!public
-!.yarn
