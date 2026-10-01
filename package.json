@@ -163,7 +163,7 @@
     "@opentelemetry/core": "2.11.0",
     "deepmerge-ts": "8.0.2",
     "encoding-sniffer": "^1.0.2",
-    "fast-xml-parser": "5.11.1",
+    "fast-xml-parser": "5.11.2",
     "glob": "13.0.6",
     "semver": "7.8.5",
     "serialize-javascript": "7.1.1",
