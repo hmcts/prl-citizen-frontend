@@ -687,5 +687,104 @@ describe('documents > upload > upload-your-documents > postController', () => {
       expect(req.session.userCase.id).toBe('1234');
       expect(req.session.userCase.caseType).toBe('FL401');
     });
+
+    test('should use test case id override header when testing support is enabled', async () => {
+      submitUploadedDocumentsMock.mockClear();
+      const req = mockRequest({
+        body: {
+          onlyContinue: true,
+        },
+        headers: {
+          'x-test-case-id-override': '5678',
+        },
+        params: {
+          docCategory: 'other-documents',
+        },
+        session: {
+          testingSupport: true,
+          user: { id: '1234' },
+          userCase: {
+            id: '1234',
+            caseType: 'FL401',
+            applicantsFL401: {
+              firstName: 'test',
+              lastName: 'user',
+            },
+            applicantUploadFiles: [
+              {
+                document_url: 'string',
+                document_binary_url: 'string',
+                document_filename: 'string',
+                document_hash: 'string',
+                document_creation_date: 'string',
+                name: 'file_example_TIFF_1MB',
+              },
+            ],
+          },
+        },
+      });
+
+      submitUploadedDocumentsMock.mockResolvedValue({ data: 'Success' });
+
+      const controller = new UploadDocumentPostController(mockFormContent);
+
+      await controller.post(req, mockResponse());
+      await new Promise(process.nextTick);
+
+      expect(submitUploadedDocumentsMock).toHaveBeenCalledWith(
+        expect.objectContaining({ id: '1234' }),
+        expect.objectContaining({ caseId: '5678' })
+      );
+      expect(req.locals.logger.info).toHaveBeenCalledWith('Using test case id override for citizen document upload');
+    });
+
+    test('should ignore test case id override header when testing support is disabled', async () => {
+      submitUploadedDocumentsMock.mockClear();
+      const req = mockRequest({
+        body: {
+          onlyContinue: true,
+        },
+        headers: {
+          'x-test-case-id-override': '5678',
+        },
+        params: {
+          docCategory: 'other-documents',
+        },
+        session: {
+          testingSupport: false,
+          user: { id: '1234' },
+          userCase: {
+            id: '1234',
+            caseType: 'FL401',
+            applicantsFL401: {
+              firstName: 'test',
+              lastName: 'user',
+            },
+            applicantUploadFiles: [
+              {
+                document_url: 'string',
+                document_binary_url: 'string',
+                document_filename: 'string',
+                document_hash: 'string',
+                document_creation_date: 'string',
+                name: 'file_example_TIFF_1MB',
+              },
+            ],
+          },
+        },
+      });
+
+      submitUploadedDocumentsMock.mockResolvedValue({ data: 'Success' });
+
+      const controller = new UploadDocumentPostController(mockFormContent);
+
+      await controller.post(req, mockResponse());
+      await new Promise(process.nextTick);
+
+      expect(submitUploadedDocumentsMock).toHaveBeenCalledWith(
+        expect.objectContaining({ id: '1234' }),
+        expect.objectContaining({ caseId: '1234' })
+      );
+    });
   });
 });
