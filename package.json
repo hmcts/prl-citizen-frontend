@@ -156,7 +156,7 @@
     "webdriverio": "9.31.9",
     "webpack": "5.105.3",
     "webpack-cli": "4.10.0",
-    "webpack-dev-middleware": "5.3.4",
+    "webpack-dev-middleware": "7.4.6",
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
