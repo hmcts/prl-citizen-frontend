@@ -1,5 +1,6 @@
 {% extends "common/template.njk" %}
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "moj/components/multi-file-upload/macro.njk" import mojMultiFileUpload %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
@@ -99,10 +100,11 @@
               {{ govukFileUpload({
           id: "uploadDocumentFileUpload",
           name: "uploadDocumentFileUpload",
+          javascript: true,
           attributes: {
             accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           },
-          classes: "govuk-!-margin-bottom-4",
+          classes: "moj-multi-file-upload__input",
           errorMessage: {
             text: errorMessage
           } if errorMessage !== null
@@ -111,7 +113,7 @@
           text: uploadFileButtontext,
           name: "uploadFile",
           value: "true",
-          type: "submit", 
+          type: "submit",
           classes: "govuk-button--secondary govuk-!-margin-bottom-0",
           attributes:  {
             "aria-describedby": "fileUploadLabel"

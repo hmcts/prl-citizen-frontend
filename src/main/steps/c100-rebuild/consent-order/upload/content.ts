@@ -20,11 +20,13 @@ export const en = () => ({
   ],
   uploadButton: 'Upload file',
   remove: 'Remove',
+  filesAddedHeading: 'Files added',
+  deleteButtonText: 'Delete',
   errors: {
     document: {
       required: 'Please choose a file.',
-      multipleFiles: `You can upload only one file. 
-            If you wish to upload a new file, delete the existing 
+      multipleFiles: `You can upload only one file.
+            If you wish to upload a new file, delete the existing
             file and upload a new one`,
       fileSize: `The file you uploaded is too large.
             Maximum file size allowed is 20MB`,
@@ -51,6 +53,8 @@ export const cy = () => ({
   ],
   uploadButton: 'Llwytho ffeil i fyny',
   remove: 'Dileu',
+  filesAddedHeading: '--welsh Files added',
+  deleteButtonText: '--welsh Delete',
   errors: {
     document: {
       required: 'Dewiswch ffeil',
