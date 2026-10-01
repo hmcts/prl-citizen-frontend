@@ -4,9 +4,9 @@ import config from 'config';
 import { when } from 'jest-when';
 import jwt_decode from 'jwt-decode';
 
-import { CALLBACK_URL } from '../../../steps/urls';
+import { CALLBACK_URL, HOME_URL } from '../../../steps/urls';
 
-import { getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
+import { getEndGlobalSessionUrl, getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
 
 jest.mock('axios');
 config.get = jest.fn();
@@ -72,5 +72,15 @@ describe('getCaseWorkerUser', () => {
       givenName: undefined,
       id: undefined,
     });
+  });
+});
+
+describe('getEndGlobalSessionUrl', () => {
+  test('should create a valid URL to redirect to Idam session logout', () => {
+    when(config.get).calledWith('services.idam.endSessionURL').mockReturnValue('https://idam-web-public/o/endSession');
+
+    expect(getEndGlobalSessionUrl('http://localhost', HOME_URL)).toBe(
+      'https://idam-web-public/o/endSession?post_logout_redirect_uri=http%3A%2F%2Flocalhost%2F'
+    );
   });
 });
