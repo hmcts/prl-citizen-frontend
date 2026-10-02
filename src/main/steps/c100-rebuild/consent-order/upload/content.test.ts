@@ -25,7 +25,6 @@ const en = {
   uploadButton: 'Upload file',
   remove: 'Remove',
   filesAddedHeading: 'Files added',
-  deleteButton: 'Delete',
   chooseFile: 'Choose file',
   dropFile: 'or drop file',
   errors: {
@@ -66,7 +65,6 @@ const cy = {
   uploadButton: 'Llwytho ffeil i fyny',
   remove: 'Dileu',
   filesAddedHeading: '--welsh Files added',
-  deleteButton: '--welsh Delete',
   chooseFile: '--welsh Choose file',
   dropFile: '--welsh or drop file',
   errors: {
