@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { AllowedFileExtentionList, MAX_UPLOAD_BYTES } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
 export const en = () => ({
   title: 'Upload the draft of your consent order',
-  titleForFile: 'Select documents to upload',
+  titleForFile: 'Upload a file',
   uploadGuidance1:
     'The draft of the consent order must be signed by you (the applicant) and the other person (respondent).',
   uploadGuidance2:
@@ -21,8 +22,12 @@ export const en = () => ({
   uploadButton: 'Upload file',
   remove: 'Remove',
   filesAddedHeading: 'Files added',
-  deleteButtonText: 'Delete',
+  deleteButton: 'Delete',
+  chooseFile: 'Choose file',
+  dropFile: 'or drop file',
   errors: {
+    title: 'There is a problem',
+    prefix: 'Error:',
     document: {
       required: 'Please choose a file.',
       multipleFiles: `You can upload only one file.
@@ -32,13 +37,18 @@ export const en = () => ({
             Maximum file size allowed is 20MB`,
       fileFormat: `The file you uploaded is in the wrong format.
             Upload your file again in the correct format`,
+      filenameTooLong: 'This file name is too long',
+      uploadFailed: 'This file could not be uploaded',
+      deleteFailed: 'This file could not be removed',
+      removeFileFirst: 'Remove the uploaded file before adding anther',
+      onlyOneFile: 'You can only upload one file',
     },
   },
 });
 
 export const cy = () => ({
   title: 'Llwytho drafft o’ch gorchymyn cydsynio',
-  titleForFile: "Dewis dogfennau i'w llwytho",
+  titleForFile: '--welsh Upload a file',
   uploadGuidance1: 'Rhaid i chi (y ceisydd) a’r unigolyn arall (yr atebydd) lofnodi’r drafft o’r gorchymyn cydsynio.',
   uploadGuidance2:
     'Os ydych yn llwytho dogfennau o gyfrifiadur, rhowch enwau eglur ar y ffeiliau. Er enghraifft gorchymyn-cydsynio-drafft.doc.',
@@ -54,8 +64,12 @@ export const cy = () => ({
   uploadButton: 'Llwytho ffeil i fyny',
   remove: 'Dileu',
   filesAddedHeading: '--welsh Files added',
-  deleteButtonText: '--welsh Delete',
+  deleteButton: '--welsh Delete',
+  chooseFile: '--welsh Choose file',
+  dropFile: '--welsh or drop file',
   errors: {
+    title: '--welsh There is a problem',
+    prefix: '--welsh Error:',
     document: {
       required: 'Dewiswch ffeil',
       multipleFiles:
@@ -64,6 +78,11 @@ export const cy = () => ({
       Uchafswm maint y ffeil a ganiateir yw 20MB`,
       fileFormat: `Mae’r ffeil yr ydych wedi ei llwytho yn y fformat anghywir
       Llwythwch eich ffeil eto yn y fformat cywir`,
+      filenameTooLong: '--welsh This file name is too long',
+      uploadFailed: '--welsh This file could not be uploaded',
+      deleteFailed: '--welsh This file could not be removed',
+      removeFileFirst: '--welsh Remove the uploaded file before adding anther',
+      onlyOneFile: '--welsh You can only upload one file',
     },
   },
 });
@@ -88,10 +107,13 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const basePath = content.additionalData?.req?.baseUrl;
+  // TODO Refactor this because we don't want to do all of this for every file upload page
   return {
     ...translations,
     form,
     uploadURL: `${basePath}/ajax-upload`,
     deleteURL: `${basePath}/ajax-delete`,
+    accept: AllowedFileExtentionList.map(ext => `.${ext}`).join(','),
+    maxFileSize: String(MAX_UPLOAD_BYTES / (1024 * 1024)),
   };
 };

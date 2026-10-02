@@ -25,8 +25,12 @@ const en = {
   uploadButton: 'Upload file',
   remove: 'Remove',
   filesAddedHeading: 'Files added',
-  deleteButtonText: 'Delete',
+  deleteButton: 'Delete',
+  chooseFile: 'Choose file',
+  dropFile: 'or drop file',
   errors: {
+    title: 'There is a problem',
+    prefix: 'Error:',
     document: {
       required: 'Please choose a file.',
       multipleFiles: `You can upload only one file.
@@ -36,6 +40,11 @@ const en = {
             Maximum file size allowed is 20MB`,
       fileFormat: `The file you uploaded is in the wrong format.
             Upload your file again in the correct format`,
+      filenameTooLong: 'This file name is too long',
+      uploadFailed: 'This file could not be uploaded',
+      deleteFailed: 'This file could not be removed',
+      removeFileFirst: 'Remove the uploaded file before adding anther',
+      onlyOneFile: 'You can only upload one file',
     },
   },
 };
@@ -57,8 +66,12 @@ const cy = {
   uploadButton: 'Llwytho ffeil i fyny',
   remove: 'Dileu',
   filesAddedHeading: '--welsh Files added',
-  deleteButtonText: '--welsh Delete',
+  deleteButton: '--welsh Delete',
+  chooseFile: '--welsh Choose file',
+  dropFile: '--welsh or drop file',
   errors: {
+    title: '--welsh There is a problem',
+    prefix: '--welsh Error:',
     document: {
       required: 'Dewiswch ffeil',
       multipleFiles:
@@ -67,6 +80,11 @@ const cy = {
       Uchafswm maint y ffeil a ganiateir yw 20MB`,
       fileFormat: `Mae’r ffeil yr ydych wedi ei llwytho yn y fformat anghywir
       Llwythwch eich ffeil eto yn y fformat cywir`,
+      filenameTooLong: '--welsh This file name is too long',
+      uploadFailed: '--welsh This file could not be uploaded',
+      deleteFailed: '--welsh This file could not be removed',
+      removeFileFirst: '--welsh Remove the uploaded file before adding anther',
+      onlyOneFile: '--welsh You can only upload one file',
     },
   },
 };
