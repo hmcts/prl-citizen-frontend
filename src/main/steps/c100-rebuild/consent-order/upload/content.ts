@@ -87,8 +87,11 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const basePath = content.additionalData?.req?.baseUrl;
   return {
     ...translations,
     form,
+    uploadURL: `${basePath}/ajax-upload`,
+    deleteURL: `${basePath}/ajax-delete`,
   };
 };
