@@ -15,7 +15,6 @@ import {
   C100_URL,
   CALLBACK_URL,
   DASHBOARD_URL,
-  HOME_URL,
   KEEP_ALIVE,
   LOCAL_API_SESSION,
   SAFEGAURD_EXCLUDE_URLS,
@@ -50,7 +49,7 @@ export class OidcMiddleware {
     app.get(SIGN_OUT_URL, async (req, res, next: NextFunction) => {
       await RAProvider.destroy(req as AppRequest);
       const userId = (req.session as AppRequest['session']).user?.id;
-      const endSessionUrl: string = getEndGlobalSessionUrl(`${protocol}${res.locals.host}${port}`, HOME_URL);
+      const endSessionUrl: string = getEndGlobalSessionUrl(`${protocol}${res.locals.host}${port}`);
 
       req.session.destroy(err => {
         if (err) {
