@@ -45,6 +45,7 @@ describe('C100ChildPostCodePostController', () => {
   afterEach(() => {
     req.locals.C100Api.createCase.mockClear();
     mockFindCourtByPostCodeAndService.mockClear();
+    mockFindOsCourtByPostCodeAndService.mockClear();
     mockOsCourtLookupEnabled.mockClear();
   });
 
@@ -179,7 +180,46 @@ describe('C100ChildPostCodePostController', () => {
       state: State.AWAITING_SUBMISSION_TO_HMCTS,
       noOfDaysRemainingToSubmitCase: '3',
     });
+    expect(req.locals.logger.info).toHaveBeenCalledWith('COS court lookup result: Swansea Civil Justice Centre');
     expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test.each([
+    ['SA1 2FA', 'Swansea Civil Justice Centre'],
+    ['YO14 9LT', 'Kingston-upon-Hull Combined Court Centre'],
+    ['HU1 2EZ', 'Kingston-upon-Hull Combined Court Centre'],
+    ['CM2 0PP', 'Chelmsford Justice Centre'],
+    ['WV1 3LQ', 'Wolverhampton Combined Court Centre'],
+  ])('when OS lookup for %s returns allowed court %s', async (postcode, courtName) => {
+    mockFindOsCourtByPostCodeAndService.mockResolvedValue(courtName);
+    req.locals.C100Api.createCase.mockResolvedValueOnce({
+      id: '1234',
+      caseTypeOfApplication: 'C100',
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
+      noOfDaysRemainingToSubmitCase: '3',
+    });
+    when(config.get)
+      .calledWith('allowedCourts')
+      .mockReturnValue([
+        'Swansea Civil Justice Centre',
+        'Kingston-upon-Hull Combined Court Centre',
+        'Grimsby Combined Court Centre',
+        'Chelmsford Justice Centre',
+        "Chelmsford Magistrates' Court and Family Court",
+        'Wolverhampton Combined Court Centre',
+        "Wolverhampton Magistrates' Court",
+      ]);
+    req.body.c100RebuildChildPostCode = postcode;
+    mockFeatureToggle.isOsCourtLookupEnabled.mockResolvedValue(true);
+
+    await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
+
+    expect(mockFindOsCourtByPostCodeAndService).toHaveBeenCalledWith(postcode, req.session.user);
+    expect(mockFindCourtByPostCodeAndService).not.toHaveBeenCalled();
+    expect(req.locals.C100Api.createCase).toHaveBeenCalled();
+    expect(req.session.userCase.caseId).toBe('1234');
+    expect(req.session.destroy).not.toHaveBeenCalled();
+    expect(req.locals.logger.info).toHaveBeenCalledWith(`COS court lookup result: ${courtName}`);
   });
 
   test('when postcode is valid and any court is allowed', async () => {

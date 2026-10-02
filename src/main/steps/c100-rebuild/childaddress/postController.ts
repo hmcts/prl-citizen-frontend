@@ -134,6 +134,7 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     req: AppRequest
   ): Promise<string[]> {
     const courtName = await client.findOsCourtByPostCodeAndService(formData.c100RebuildChildPostCode as string, user);
+    req.locals.logger.info(`COS court lookup result: ${courtName || 'no court found'}`);
 
     if (!courtName?.length) {
       req.session.errors = this.handleError(req.session.errors, 'invalid');
