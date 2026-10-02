@@ -278,15 +278,6 @@ export const initMultiFileUpload = (): MultiFileUpload[] => {
         uploadOne(file);
       }
     };
-
-    // setupLabel() appends the hint before the button, and its right margin assumes that order.
-    const dropzone = container.querySelector('.moj-multi-file-upload__dropzone');
-    const hint = dropzone?.querySelector('p');
-    if (dropzone && hint) {
-      dropzone.append(hint);
-      hint.classList.add('govuk-!-margin-right-0', 'govuk-!-margin-left-2');
-    }
-
     instances.push(instance);
   });
 

@@ -25,8 +25,8 @@ const en = {
   uploadButton: 'Upload file',
   remove: 'Remove',
   filesAddedHeading: 'Files added',
-  chooseFile: 'Choose file',
-  dropFile: 'or drop file',
+  chooseFile: 'Choose files',
+  dropFile: 'Drag and drop files here or',
   errors: {
     title: 'There is a problem',
     prefix: 'Error:',
@@ -65,8 +65,8 @@ const cy = {
   uploadButton: 'Llwytho ffeil i fyny',
   remove: 'Dileu',
   filesAddedHeading: '--welsh Files added',
-  chooseFile: '--welsh Choose file',
-  dropFile: '--welsh or drop file',
+  chooseFile: '--welsh Choose files',
+  dropFile: '--welsh Drag and drop files here or',
   errors: {
     title: '--welsh There is a problem',
     prefix: '--welsh Error:',
