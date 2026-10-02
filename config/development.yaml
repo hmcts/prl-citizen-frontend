@@ -12,6 +12,7 @@ services:
     secret: 'NEED TO INSERT SECRET'
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/o/authorize'
+    endSessionURL: 'https://idam-web-public.aat.platform.hmcts.net/o/endSession'
     authorizationScope: 'openid profile roles'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
