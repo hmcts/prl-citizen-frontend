@@ -196,8 +196,6 @@ export const initMultiFileUpload = (): MultiFileUpload[] => {
     const uploadUrl = container.dataset.uploadUrl;
     const deleteUrl = container.dataset.deleteUrl;
     if (!uploadUrl || !deleteUrl) {
-      console.log('uploadURL:', uploadUrl);
-      console.log('deleteURL:', deleteUrl);
       return;
     }
 

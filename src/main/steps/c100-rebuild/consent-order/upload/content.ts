@@ -22,7 +22,6 @@ export const en = () => ({
   uploadButton: 'Upload file',
   remove: 'Remove',
   filesAddedHeading: 'Files added',
-  deleteButton: 'Delete',
   chooseFile: 'Choose file',
   dropFile: 'or drop file',
   errors: {
@@ -64,7 +63,6 @@ export const cy = () => ({
   uploadButton: 'Llwytho ffeil i fyny',
   remove: 'Dileu',
   filesAddedHeading: '--welsh Files added',
-  deleteButton: '--welsh Delete',
   chooseFile: '--welsh Choose file',
   dropFile: '--welsh or drop file',
   errors: {
@@ -111,8 +109,8 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form,
-    uploadURL: `${basePath}/ajax-upload`,
-    deleteURL: `${basePath}/ajax-delete`,
+    uploadURL: `${basePath}/upload-citizen-statement-document`,
+    deleteURL: `${basePath}/delete-citizen-statement-document`,
     accept: AllowedFileExtentionList.map(ext => `.${ext}`).join(','),
     maxFileSize: String(MAX_UPLOAD_BYTES / (1024 * 1024)),
   };
