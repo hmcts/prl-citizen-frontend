@@ -13,6 +13,7 @@ services:
   idam:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/o/authorize'
     authorizationScope: 'openid profile roles'
+    endSessionURL: 'https://idam-web-public.aat.platform.hmcts.net/o/endSession'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
     citizenClientSecret: ${PRL_CITIZEN_FRONTEND_IDAM_SECRET}
