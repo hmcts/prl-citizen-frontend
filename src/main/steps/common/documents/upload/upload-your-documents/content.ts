@@ -237,7 +237,8 @@ export const generateContent: TranslationFn = content => {
       }),
     },
   };
-  const basePath = content.additionalData?.req?.baseUrl;
+  const basePath = request.baseUrl;
+  console.log('file upload URLs:', { uploadURL: basePath, deleteURL: basePath });
 
   return {
     caption: sectionTitle,
@@ -283,8 +284,8 @@ export const generateContent: TranslationFn = content => {
       docCategoryText: (isPositionStatement ? translations.your : translations.the) + title.toLowerCase(),
     }),
     errors: errorMessages,
-    uploadURL: basePath,
-    deleteURL: basePath,
+    uploadURL: 'fix me later',
+    deleteURL: 'fix me later',
     ...FILE_UPLOAD_COMMON,
   };
 };
