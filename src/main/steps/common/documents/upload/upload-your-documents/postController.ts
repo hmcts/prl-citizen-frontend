@@ -199,7 +199,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     console.log('---UPLOAD FILES:', files);
     try {
       const response = await client.uploadDocument(user, {
-        files: [files['uploadDocumentFileUpload']],
+        files: { documents: files['documents'] },
       });
 
       if (response.status !== 'Success') {
