@@ -1,6 +1,6 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "../../../common/fileupload/fileUploadMoj.njk" import fileUploadMoj %}
+{% from "../../../common/fileupload/macro.njk" import fileUpload %}
 
 {% extends "common/page.njk" %}
 {% block page_content %}
@@ -42,33 +42,17 @@
       {% endif %}
       {% endif %}
       {% endfor %}
-    {{ fileUploadMoj(
+   {{ fileUpload(
         {
-          id: "document",
-          name: "document",
-          classes: "moj-multi-file-upload__input",
-          javascript: true,
-          label: { text: titleForFile, classes: "govuk-label--m" },
           uploadButtonText: uploadButton,
-          filesAddedHeading: filesAddedHeading,
-          value: userCase.co_certificate,
-          deleteButtonText: remove,
-          uploadUrl: uploadURL,
-          deleteUrl: deleteURL,
-          multiple: true,
-          accept: accept,
-          maxFileSize: maxFileSize,
-          chooseFileText: chooseFile,
-          dropFileText: dropFile,
-          errorSummaryTitle: errors.title,
-          errorPrefix: errors.prefix,
-          errorWrongFileType: errors.document.fileFormat,
-          errorFileTooLarge: errors.document.fileSize,
-          errorFilenameTooLong: errors.document.filenameTooLong,
-          errorUploadFailed: errors.document.uploadFailed,
-          errorDelete: errors.document.deleteFailed,
-          errorRemoveFileFirst: errors.document.removeFileFirst,
-          errorOnlyOneFile: errors.document.onlyOneFile
+          fileuploadTitle: titleForFile ,
+          formPostURL: postURL ,
+          sessionFilesArray: false,
+          sessionFiles: userCase.co_certificate,
+          uploadFileHeading: '',
+          sessionNullFilesMessage: noFilesUploaded,
+          removeText: remove,
+          csrfToken: csrfToken
         }
       ) }}
   {% for error in sessionErrors %}

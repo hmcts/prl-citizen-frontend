@@ -51,7 +51,9 @@ const en = {
   uplodFileText7: 'Email or send the photo or scan to the device you are using now.',
   uplodFileText8: 'Upload it here.',
   uploadFileHeading: 'Upload a file',
-  uploadFileButtontext: 'Upload file',
+  filesAddedHeading: 'Files added',
+  chooseFile: 'Choose files',
+  dropFile: 'Drag and drop files here or',
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
   warningText:
@@ -59,6 +61,8 @@ const en = {
   the: 'the ',
   your: 'your ',
   errors: {
+    title: 'There is a problem',
+    prefix: 'Error:',
     declarationCheck: {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
@@ -67,8 +71,10 @@ const en = {
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       noFile: 'Upload a file.',
       noStatementOrFile: 'Enter {statement} as text or upload {statement} as a file.',
-      uploadError: 'Document could not be uploaded.',
-      deleteError: 'Document could not be deleted.',
+      filenameTooLong: 'This file name is too long',
+      removeFileFirst: 'Remove the uploaded file before adding another',
+      uploadFailed: 'Document could not be uploaded.',
+      deleteFailed: 'Document could not be deleted.',
     },
   },
 };
@@ -120,7 +126,9 @@ const cy: typeof en = {
   uplodFileText7: 'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
   uplodFileText8: 'Llwythwch y ffeil yma.',
   uploadFileHeading: 'Llwytho ffeil',
-  uploadFileButtontext: 'Llwytho ffeil i fyny',
+  filesAddedHeading: '--welsh Files added',
+  chooseFile: '--welsh Choose files',
+  dropFile: '--welsh Drag and drop files here or',
   statementOfTruth: 'Datganiad Gwirionedd',
   warning: 'Rhybudd',
   warningText:
@@ -128,16 +136,20 @@ const cy: typeof en = {
   the: 'y ',
   your: 'eich ',
   errors: {
+    title: '--welsh There is a problem',
+    prefix: '--welsh Error:',
     declarationCheck: {
       required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
     },
     uploadDocumentFileUpload: {
       multipleFiles: 'Gallwch uwchlwytho un dogfen yn unig',
-      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
+      maxDocumentsReached: '--welsh you have reached maximum number of documents that you can upload.',
       noFile: 'Uwchlwytho ffeil',
       noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
-      uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
-      deleteError: "Ni ellir dileu'r ddogfen",
+      filenameTooLong: '--welsh This file name is too long',
+      removeFileFirst: '--welsh Remove the uploaded file before adding another',
+      uploadFailed: 'Ni ellir uwchlwytho’r ddogfen.',
+      deleteFailed: "Ni ellir dileu'r ddogfen",
     },
   },
 };

@@ -1,5 +1,4 @@
 {% extends "common/template.njk" %}
-{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "moj/components/multi-file-upload/macro.njk" import mojMultiFileUpload %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
@@ -12,7 +11,7 @@
       <h1 class="govuk-heading-l">
         <span class="govuk-caption-l">{{caption}}</span>
         {{title}}
-      </h1>
+      </h1>m
       {% if allowGenerateDocs %}
 
         {% if isDocumentGeneratedAndUploded %}
@@ -97,28 +96,34 @@
             method="post"
             enctype="multipart/form-data"
             novalidate>
-              {{ govukFileUpload({
-          id: "uploadDocumentFileUpload",
-          name: "uploadDocumentFileUpload",
-          javascript: true,
-          attributes: {
-            accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          },
-          classes: "moj-multi-file-upload__input",
-          errorMessage: {
-            text: errorMessage
-          } if errorMessage !== null
-        }) }}
-              {{ govukButton({
-          text: uploadFileButtontext,
-          name: "uploadFile",
-          value: "true",
-          type: "submit",
-          classes: "govuk-button--secondary govuk-!-margin-bottom-0",
-          attributes:  {
-            "aria-describedby": "fileUploadLabel"
-          } if allowGenerateDocs
-        }) }}
+              {{ fileUploadMoj(
+                {
+                  id: "document",
+                  name: "document",
+                  classes: "moj-multi-file-upload__input",
+                  javascript: true,
+                  label: { text: titleForFile, classes: "govuk-label--m" },
+                  uploadButtonText: uploadButton,
+                  filesAddedHeading: filesAddedHeading,
+                  deleteButtonText: removeDocument,
+                  uploadUrl: uploadURL,
+                  deleteUrl: deleteURL,
+                  multiple: true,
+                  accept: accept,
+                  maxFileSize: maxFileSize,
+                  chooseFileText: chooseFile,
+                  dropFileText: dropFile,
+                  errorSummaryTitle: errors.title,
+                  errorPrefix: errors.prefix,
+                  errorWrongFileType: errors.uploadDocumentFileUpload.fileFormat,
+                  errorFileTooLarge: errors.uploadDocumentFileUpload.fileSize,
+                  errorFilenameTooLong: errors.uploadDocumentFileUpload.filenameTooLong,
+                  errorUploadFailed: errors.uploadDocumentFileUpload.uploadFailed,
+                  errorDelete: errors.uploadDocumentFileUpload.deleteFailed,
+                  errorRemoveFileFirst: errors.uploadDocumentFileUpload.removeFileFirst,
+                  errorOnlyOneFile: errors.uploadDocumentFileUpload.onlyOneFile
+                }
+              ) }}
             </form>
           </div>
         </div>

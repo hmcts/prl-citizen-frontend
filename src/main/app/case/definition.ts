@@ -2628,6 +2628,10 @@ export const MAX_DOCUMENT_LIMITS = {
   DEFAULT: 20,
   OTHER_DOCUMENTS: 100
 };
+export const FILE_UPLOAD_COMMON = {
+  accept: AllowedFileExtentionList.map(ext => `.${ext}`).join(','),
+  maxFileSize: String(MAX_UPLOAD_BYTES / (1024 * 1024)),
+};
 export interface C100OrderTypeInterface {
   childArrangementOrders?: C100OrderInterface[];
   emergencyProtectionOrders?: C100OrderInterface[];
