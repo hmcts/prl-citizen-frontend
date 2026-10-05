@@ -85,7 +85,7 @@
         {% if errorMessage !== null %}
           <div class="govuk-form-group--error">
           {% endif %}
-          <div class="govuk-form-group govuk-inset-text">
+          <div class="govuk-form-group">
             <h2 class="govuk-label-wrapper">
               <label class="govuk-label govuk-label--s" for="uploadDocumentFileUpload">
                 {{uploadFileHeading}}
@@ -118,8 +118,8 @@
                   errorWrongFileType: errors.uploadDocumentFileUpload.fileFormat,
                   errorFileTooLarge: errors.uploadDocumentFileUpload.fileSize,
                   errorFilenameTooLong: errors.uploadDocumentFileUpload.filenameTooLong,
-                  errorUploadFailed: errors.uploadDocumentFileUpload.uploadFailed,
-                  errorDelete: errors.uploadDocumentFileUpload.deleteFailed,
+                  errorUploadFailed: errors.uploadDocumentFileUpload.uploadError,
+                  errorDelete: errors.uploadDocumentFileUpload.deleteError,
                   errorRemoveFileFirst: errors.uploadDocumentFileUpload.removeFileFirst,
                   errorOnlyOneFile: errors.uploadDocumentFileUpload.onlyOneFile
                 }

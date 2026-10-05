@@ -73,8 +73,8 @@ const en = {
       noStatementOrFile: 'Enter {statement} as text or upload {statement} as a file.',
       filenameTooLong: 'This file name is too long',
       removeFileFirst: 'Remove the uploaded file before adding another',
-      uploadFailed: 'Document could not be uploaded.',
-      deleteFailed: 'Document could not be deleted.',
+      uploadError: 'Document could not be uploaded.',
+      deleteError: 'Document could not be deleted.',
     },
   },
 };
@@ -148,8 +148,8 @@ const cy: typeof en = {
       noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
       filenameTooLong: '--welsh This file name is too long',
       removeFileFirst: '--welsh Remove the uploaded file before adding another',
-      uploadFailed: 'Ni ellir uwchlwytho’r ddogfen.',
-      deleteFailed: "Ni ellir dileu'r ddogfen",
+      uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
+      deleteError: "Ni ellir dileu'r ddogfen",
     },
   },
 };

@@ -6,7 +6,7 @@ import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/F
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { interpolate } from '../../../../../steps/common/string-parser';
 import { applyParms } from '../../../../../steps/common/url-parser';
-import { FETCH_CASE_DETAILS } from '../../../../../steps/urls';
+import { FETCH_CASE_DETAILS, UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
 import { UploadDocumentCategory } from '../../definitions';
 import { getUploadDocumentCategoryDetails } from '../../upload/utils';
 
@@ -78,8 +78,8 @@ const en = {
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       filenameTooLong: 'This file name is too long',
       removeFileFirst: 'Remove the uploaded file before adding another',
-      uploadFailed: 'Document could not be uploaded.',
-      deleteFailed: 'Document could not be deleted.',
+      uploadError: 'Document could not be uploaded.',
+      deleteError: 'Document could not be deleted.',
     },
   },
 };
@@ -154,8 +154,8 @@ const cy: typeof en = {
       noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
       filenameTooLong: '--welsh This file name is too long',
       removeFileFirst: '--welsh Remove the uploaded file before adding another',
-      uploadFailed: 'Ni ellir uwchlwytho’r ddogfen.',
-      deleteFailed: "Ni ellir dileu'r ddogfen",
+      uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
+      deleteError: "Ni ellir dileu'r ddogfen",
     },
   },
 };
@@ -237,8 +237,10 @@ export const generateContent: TranslationFn = content => {
       }),
     },
   };
-  const basePath = request.baseUrl;
-  console.log('file upload URLs:', { uploadURL: basePath, deleteURL: basePath });
+  const uploadUrl = applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
+    partyType,
+    docCategory,
+  });
 
   return {
     caption: sectionTitle,
@@ -284,7 +286,7 @@ export const generateContent: TranslationFn = content => {
       docCategoryText: (isPositionStatement ? translations.your : translations.the) + title.toLowerCase(),
     }),
     errors: errorMessages,
-    uploadURL: 'fix me later',
+    uploadURL: uploadUrl,
     deleteURL: 'fix me later',
     ...FILE_UPLOAD_COMMON,
   };

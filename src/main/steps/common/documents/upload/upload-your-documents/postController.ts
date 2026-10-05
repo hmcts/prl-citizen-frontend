@@ -195,7 +195,8 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
       return this.redirect(req, res, redirectUrl);
     }
-
+    console.log('---OUTSIDE TRY');
+    console.log('---UPLOAD FILES:', files);
     try {
       const response = await client.uploadDocument(user, {
         files: [files['uploadDocumentFileUpload']],
@@ -277,10 +278,13 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { onlyContinue: submitDocument, generateDocument, uploadFile } = req.body;
+    const { files } = req;
+    console.log('--FILES:', files);
+    console.log('--DOCUMENTS:', files?.['documents']);
 
     if (generateDocument) {
       this.generateDocument(req, res);
-    } else if (uploadFile) {
+    } else if (uploadFile || req.files) {
       this.uploadDocument(req, res);
     } else if (submitDocument) {
       this.submitDocuments(req, res);
