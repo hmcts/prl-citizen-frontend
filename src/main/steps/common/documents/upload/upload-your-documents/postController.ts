@@ -197,11 +197,13 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     }
     console.log('---UPLOAD FILES:', files);
     try {
+      console.log('---what we are sending to client...', [files['documents']]);
       const response = await client.uploadDocument(user, {
         files: [files['documents']],
       });
-
+      console.log('---RESPONSE:', response);
       if (response.status !== 'Success') {
+        console.log('---THERE HAS BEEN AN ERROR', req.session.errors);
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
       }
