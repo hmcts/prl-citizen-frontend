@@ -195,11 +195,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
       return this.redirect(req, res, redirectUrl);
     }
-    console.log('---OUTSIDE TRY');
     console.log('---UPLOAD FILES:', files);
     try {
       const response = await client.uploadDocument(user, {
-        files: { documents: files['documents'] },
+        files: [files['documents']],
       });
 
       if (response.status !== 'Success') {
@@ -208,6 +207,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       }
 
       caseData[documentDataRef].push(response.document);
+      console.log('---response document:', response.document);
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
@@ -233,7 +233,8 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const allowedFormData = {
       declarationCheck: parsedBody.declarationCheck,
     };
-
+    console.log('---submitDocuments uploadedDocuments:', uploadedDocuments);
+    console.log('---caseData:', caseData);
     Object.assign(req.session.userCase, allowedFormData);
     req.session.errors = form.getErrors(allowedFormData);
 
@@ -278,15 +279,15 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { onlyContinue: submitDocument, generateDocument, uploadFile } = req.body;
-    const { files } = req;
-    console.log('--FILES:', files);
-    console.log('--DOCUMENTS:', files?.['documents']);
+    // const { files } = req;
+    console.log('--REQUEST BODY', req.body);
 
     if (generateDocument) {
       this.generateDocument(req, res);
     } else if (uploadFile || req.files) {
       this.uploadDocument(req, res);
     } else if (submitDocument) {
+      // which value comes down with the document from req.body
       this.submitDocuments(req, res);
     }
   }
