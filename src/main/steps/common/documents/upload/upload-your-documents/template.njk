@@ -87,7 +87,7 @@
           {% endif %}
           <div class="govuk-form-group">
             <h2 class="govuk-label-wrapper">
-              <label class="govuk-label govuk-label--s" for="uploadDocumentFileUpload">
+              <label class="govuk-label govuk-label--m for="uploadDocumentFileUpload">
                 {{uploadFileHeading}}
               </label>
             </h2>
@@ -102,7 +102,7 @@
                   name: "document",
                   classes: "moj-multi-file-upload__input",
                   javascript: true,
-                  label: { text: titleForFile, classes: "govuk-label--m" },
+                  label: { text: uploadFileHeading, classes: "govuk-label--m" },
                   uploadButtonText: uploadButton,
                   filesAddedHeading: filesAddedHeading,
                   deleteButtonText: removeDocument,
