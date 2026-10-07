@@ -205,15 +205,35 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       if (response.status !== 'Success') {
         console.log('---THERE HAS BEEN AN ERROR', req.session.errors);
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
+        res.status(500).json({
+          error: {
+            message: 'Upload failed',
+          },
+        });
         return;
       }
 
       caseData[documentDataRef].push(response.document);
       console.log('---response document:', response.document);
       req.session.errors = removeUploadDocErrors(req.session.errors);
+      res.status(200).json({
+        success: {
+          messageText: 'File uploaded successfully',
+        },
+        file: {
+          filename: response.document.document_filename,
+          originalname: response.document.document_filename, //can documents be renamed here??
+        },
+      });
+      return;
     } catch (e) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
     } finally {
+      res.status(500).json({
+        error: {
+          message: 'Upload failed',
+        },
+      });
       this.redirect(req, res, redirectUrl);
     }
   }
@@ -281,7 +301,6 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { onlyContinue: submitDocument, generateDocument, uploadFile } = req.body;
-    // const { files } = req;
     console.log('--REQUEST BODY', req.body);
 
     if (generateDocument) {
@@ -289,7 +308,6 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     } else if (uploadFile || req.files) {
       this.uploadDocument(req, res);
     } else if (submitDocument) {
-      // which value comes down with the document from req.body
       this.submitDocuments(req, res);
     }
   }
