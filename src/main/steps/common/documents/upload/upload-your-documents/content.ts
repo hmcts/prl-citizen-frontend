@@ -287,7 +287,7 @@ export const generateContent: TranslationFn = content => {
     }),
     errors: errorMessages,
     uploadURL: uploadUrl,
-    deleteURL: 'fix me later',
+    deleteURL: uploadUrl,
     ...FILE_UPLOAD_COMMON,
   };
 };
