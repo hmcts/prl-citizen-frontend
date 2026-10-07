@@ -195,19 +195,23 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
       return this.redirect(req, res, redirectUrl);
     }
-
+    console.log('---UPLOAD FILES:', files);
     try {
+      console.log('---what we are sending to client...', [files['documents']]);
       const response = await client.uploadDocument(user, {
-        files: [files['uploadDocumentFileUpload']],
+        files: [files['documents']],
       });
-
+      console.log('---RESPONSE:', response);
       if (response.status !== 'Success') {
+        console.log('---THERE HAS BEEN AN ERROR', req.session.errors);
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
       }
 
       caseData[documentDataRef].push(response.document);
+      console.log('---response document:', response.document);
       req.session.errors = removeUploadDocErrors(req.session.errors);
+      return;
     } catch (e) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
     } finally {
@@ -232,7 +236,8 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const allowedFormData = {
       declarationCheck: parsedBody.declarationCheck,
     };
-
+    console.log('---submitDocuments uploadedDocuments:', uploadedDocuments);
+    console.log('---caseData:', caseData);
     Object.assign(req.session.userCase, allowedFormData);
     req.session.errors = form.getErrors(allowedFormData);
 
@@ -277,10 +282,11 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { onlyContinue: submitDocument, generateDocument, uploadFile } = req.body;
+    console.log('--REQUEST BODY', req.body);
 
     if (generateDocument) {
       this.generateDocument(req, res);
-    } else if (uploadFile) {
+    } else if (uploadFile || req.files) {
       this.uploadDocument(req, res);
     } else if (submitDocument) {
       this.submitDocuments(req, res);

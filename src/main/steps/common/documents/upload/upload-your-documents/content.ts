@@ -1,12 +1,12 @@
 import _ from 'lodash';
 
-import { PartyType } from '../../../../../app/case/definition';
+import { FILE_UPLOAD_COMMON, PartyType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { interpolate } from '../../../../../steps/common/string-parser';
 import { applyParms } from '../../../../../steps/common/url-parser';
-import { FETCH_CASE_DETAILS } from '../../../../../steps/urls';
+import { FETCH_CASE_DETAILS, UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
 import { UploadDocumentCategory } from '../../definitions';
 import { getUploadDocumentCategoryDetails } from '../../upload/utils';
 
@@ -56,7 +56,9 @@ const en = {
   uplodFileText7: 'Email or send the photo or scan to the device you are using now.',
   uplodFileText8: 'Upload it here.',
   uploadFileHeading: 'Upload a file',
-  uploadFileButtontext: 'Upload file',
+  filesAddedHeading: 'Files added',
+  chooseFile: 'Choose files',
+  dropFile: 'Drag and drop files here or',
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
   warningText:
@@ -64,6 +66,8 @@ const en = {
   the: 'the ',
   your: 'your ',
   errors: {
+    title: 'There is a problem',
+    prefix: 'Error:',
     declarationCheck: {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
@@ -72,6 +76,8 @@ const en = {
       noFile: 'Upload a file.',
       multipleFiles: 'You can upload only one document.',
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
+      filenameTooLong: 'This file name is too long',
+      removeFileFirst: 'Remove the uploaded file before adding another',
       uploadError: 'Document could not be uploaded.',
       deleteError: 'Document could not be deleted.',
     },
@@ -126,7 +132,9 @@ const cy: typeof en = {
   uplodFileText7: 'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
   uplodFileText8: 'Llwythwch y ffeil yma.',
   uploadFileHeading: 'Llwytho ffeil',
-  uploadFileButtontext: 'Llwytho ffeil i fyny',
+  filesAddedHeading: '--welsh Files added',
+  chooseFile: '--welsh Choose files',
+  dropFile: '--welsh Drag and drop files here or',
   statementOfTruth: 'Datganiad Gwirionedd',
   warning: 'Rhybudd',
   warningText:
@@ -134,14 +142,18 @@ const cy: typeof en = {
   the: 'y ',
   your: 'eich ',
   errors: {
+    title: '--welsh There is a problem',
+    prefix: '--welsh Error:',
     declarationCheck: {
       required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
     },
     uploadDocumentFileUpload: {
       multipleFiles: 'Gallwch uwchlwytho un dogfen yn unig',
-      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
+      maxDocumentsReached: '--welsh you have reached maximum number of documents that you can upload.',
       noFile: 'Uwchlwytho ffeil',
       noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
+      filenameTooLong: '--welsh This file name is too long',
+      removeFileFirst: '--welsh Remove the uploaded file before adding another',
       uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
       deleteError: "Ni ellir dileu'r ddogfen",
     },
@@ -225,6 +237,10 @@ export const generateContent: TranslationFn = content => {
       }),
     },
   };
+  const uploadUrl = applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
+    partyType,
+    docCategory,
+  });
 
   return {
     caption: sectionTitle,
@@ -270,5 +286,8 @@ export const generateContent: TranslationFn = content => {
       docCategoryText: (isPositionStatement ? translations.your : translations.the) + title.toLowerCase(),
     }),
     errors: errorMessages,
+    uploadURL: uploadUrl,
+    deleteURL: uploadUrl,
+    ...FILE_UPLOAD_COMMON,
   };
 };

@@ -1,9 +1,9 @@
 {% extends "common/template.njk" %}
-{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "common/fileupload/fileUploadMoj.njk" import fileUploadMoj %}
 
 <div class="govuk-form-group">
   {% block page_content %}
@@ -85,38 +85,40 @@
         {% if errorMessage !== null %}
           <div class="govuk-form-group--error">
           {% endif %}
-          <div class="govuk-form-group govuk-inset-text">
-            <h2 class="govuk-label-wrapper">
-              <label class="govuk-label govuk-label--s" for="uploadDocumentFileUpload">
-                {{uploadFileHeading}}
-              </label>
-            </h2>
+          <div class="govuk-form-group">
             <form
             action="?docCategory={{ docCategory }}&_csrf={{ csrfToken }}"
             method="post"
             enctype="multipart/form-data"
             novalidate>
-              {{ govukFileUpload({
-          id: "uploadDocumentFileUpload",
-          name: "uploadDocumentFileUpload",
-          attributes: {
-            accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          },
-          classes: "govuk-!-margin-bottom-4",
-          errorMessage: {
-            text: errorMessage
-          } if errorMessage !== null
-        }) }}
-              {{ govukButton({
-          text: uploadFileButtontext,
-          name: "uploadFile",
-          value: "true",
-          type: "submit", 
-          classes: "govuk-button--secondary govuk-!-margin-bottom-0",
-          attributes:  {
-            "aria-describedby": "fileUploadLabel"
-          } if allowGenerateDocs
-        }) }}
+              {{ fileUploadMoj(
+                {
+                  id: "uploadDocumentFileUpload",
+                  name: "uploadDocumentFileUpload",
+                  classes: "moj-multi-file-upload__input",
+                  javascript: true,
+                  label: { text: uploadFileHeading, classes: "govuk-label--m" },
+                  uploadButtonText: uploadButton,
+                  filesAddedHeading: filesAddedHeading,
+                  deleteButtonText: removeDocument,
+                  uploadUrl: uploadURL,
+                  deleteUrl: deleteURL,
+                  multiple: true,
+                  accept: accept,
+                  maxFileSize: maxFileSize,
+                  chooseFileText: chooseFile,
+                  dropFileText: dropFile,
+                  errorSummaryTitle: errors.title,
+                  errorPrefix: errors.prefix,
+                  errorWrongFileType: errors.uploadDocumentFileUpload.fileFormat,
+                  errorFileTooLarge: errors.uploadDocumentFileUpload.fileSize,
+                  errorFilenameTooLong: errors.uploadDocumentFileUpload.filenameTooLong,
+                  errorUploadFailed: errors.uploadDocumentFileUpload.uploadError,
+                  errorDelete: errors.uploadDocumentFileUpload.deleteError,
+                  errorRemoveFileFirst: errors.uploadDocumentFileUpload.removeFileFirst,
+                  errorOnlyOneFile: errors.uploadDocumentFileUpload.onlyOneFile
+                }
+              ) }}
             </form>
           </div>
         </div>
