@@ -69,6 +69,10 @@ describe('caseApi', () => {
     });
     const response = {
       status: 'success',
+      success: {
+        messageHtml: 'applicant__consent_order_draft__07102026.pdf',
+        messageText: 'applicant__consent_order_draft__07102026.pdf',
+      },
       document: {
         document_url:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',

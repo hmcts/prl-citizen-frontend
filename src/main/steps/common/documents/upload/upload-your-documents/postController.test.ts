@@ -37,6 +37,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       const documentDetail = [
         {
           status: 'Success',
+          success: { messageHtml: 'uploaded.pdf', messageText: 'uploaded.pdf' },
           document: {
             document_url: 'string',
             document_binary_url: 'string',
@@ -124,6 +125,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       const documentDetail = [
         {
           status: '',
+          success: { messageHtml: 'uploaded.pdf', messageText: 'uploaded.pdf' },
           document: {
             document_url: 'string',
             document_binary_url: 'string',
@@ -216,6 +218,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
 
       const documentDetail = {
         status: 'Success',
+        success: { messageHtml: 'file_example_TIFF_1MB.tiff', messageText: 'file_example_TIFF_1MB.tiff' },
         document: {
           document_url: 'string',
           document_binary_url: 'string',
@@ -303,6 +306,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
 
       const documentDetail = {
         status: '',
+        success: { messageHtml: 'file_example_TIFF_1MB.tiff', messageText: 'file_example_TIFF_1MB.tiff' },
         document: {
           document_url: 'string',
           document_binary_url: 'string',
@@ -393,6 +397,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       };
       uploadDocumentListFromCitizenMock.mockResolvedValue({
         status: 'Success',
+        success: { messageHtml: 'file_example_TIFF_1MB.tiff', messageText: 'file_example_TIFF_1MB.tiff' },
         document: {
           document_url: 'test/1234',
           document_binary_url: 'binary/test/1234',

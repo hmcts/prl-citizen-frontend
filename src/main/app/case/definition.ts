@@ -2541,6 +2541,10 @@ export type DocumentResponse = {
 
 export interface DocumentUploadResponse {
   status: string;
+  success: {
+    messageHtml: string;
+    messageText: string;
+  },
   document: DocumentResponse;
 }
 
