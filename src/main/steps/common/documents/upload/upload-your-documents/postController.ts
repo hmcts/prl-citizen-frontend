@@ -15,7 +15,12 @@ import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils
 import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
 import { getPartyName } from '../../../task-list/utils';
 import { UploadDocumentAPICategory, UploadDocumentCategory } from '../../definitions';
-import { getUploadedFilesDataReference, handleError, removeUploadDocErrors } from '../../upload/utils';
+import {
+  getDocumentIdFromUrl,
+  getUploadedFilesDataReference,
+  handleError,
+  removeUploadDocErrors,
+} from '../../upload/utils';
 
 @autobind
 export default class UploadDocumentPostController extends PostController<AnyObject> {
@@ -177,7 +182,8 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     const redirectUrl = this.setRedirectUrl(partyType, req);
-    const wantsJson = req.headers['sec-fetch-dest'] === 'empty' || !req.headers['accept']?.includes('text/html');
+    // when uploading a document, it should be xhr
+    const wantsJson = this.isXhr(req);
     console.log('---wantsJson:', wantsJson, req.headers['sec-fetch-dest'], req.headers['accept']);
     req.url = redirectUrl;
     this.initializeData(caseData);
@@ -236,6 +242,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     } finally {
       respond(jsonBody);
     }
+  }
+
+  private isXhr(req: AppRequest<AnyObject>): boolean {
+    return req.headers['sec-fetch-dest'] === 'empty' || !req.headers['accept']?.includes('text/html');
   }
 
   private getEmptyFileErrorType(docCategory: UploadDocumentCategory): string {
@@ -299,14 +309,55 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     }
   }
 
+  private async deleteDocument(req: AppRequest<AnyObject>, res: Response, documentId: string): Promise<void> {
+    const { session } = req;
+    const { user, userCase: caseData } = session;
+    const partyType = getCasePartyType(caseData, user.id);
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
+    const redirectUrl = this.setRedirectUrl(partyType, req);
+    req.url = redirectUrl;
+    this.initializeData(caseData);
+
+    const uploadedFilesDataReference = getUploadedFilesDataReference(partyType);
+    const errorBody = (errorKey: string): object => ({
+      error: { message: `errors.uploadDocumentFileUpload.${errorKey}` },
+    });
+
+    let jsonBody: object = {};
+    console.log('---TRYING TO DELETE DOCUMENT', documentId);
+    try {
+      await client.deleteDocument(documentId);
+
+      if (req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
+        req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(
+          document => documentId !== getDocumentIdFromUrl(document.document_url)
+        );
+
+        if (req.session.userCase?.[uploadedFilesDataReference]?.length === 0) {
+          delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
+          delete req.session.userCase[uploadedFilesDataReference];
+        }
+      }
+      req.session.errors = removeUploadDocErrors(req.session.errors);
+      console.log('---DELETION FINISHED');
+    } catch (e) {
+      console.log('---ERROR DELETING');
+      req.session.errors = handleError(req.session.errors, 'deleteError', true);
+      jsonBody = errorBody('deleteError');
+    }
+    this.respondJson(req, res, jsonBody, redirectUrl);
+  }
+
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { onlyContinue: submitDocument, generateDocument, uploadFile } = req.body;
+    const { onlyContinue: submitDocument, generateDocument, uploadFile, delete: deleteDocumentId } = req.body;
     console.log('--REQUEST BODY', req.body);
 
     if (generateDocument) {
       this.generateDocument(req, res);
     } else if (uploadFile || req.files) {
       this.uploadDocument(req, res);
+    } else if (deleteDocumentId) {
+      this.deleteDocument(req, res, String(deleteDocumentId));
     } else if (submitDocument) {
       this.submitDocuments(req, res);
     }
