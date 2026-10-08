@@ -177,25 +177,36 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     const redirectUrl = this.setRedirectUrl(partyType, req);
+    const wantsJson = req.query.js === 'true';
     req.url = redirectUrl;
     this.initializeData(caseData);
 
+    const respond = (jsonBody: object): void =>
+      wantsJson ? this.respondJson(req, res, jsonBody, redirectUrl) : this.redirect(req, res, redirectUrl);
+    // grab message from translations instead of hardcoding
+    const errorBody = (errorKey: string): object => ({
+      error: { message: `errors.uploadDocumentFileUpload.${errorKey}` },
+    });
+
     if (!files) {
-      req.session.errors = handleError(req.session.errors, this.getEmptyFileErrorType(docCategory));
-      return this.redirect(req, res, redirectUrl);
+      const errorKey = this.getEmptyFileErrorType(docCategory);
+      req.session.errors = handleError(req.session.errors, errorKey);
+      return respond(errorBody(errorKey));
     }
 
     const documentDataRef = getUploadedFilesDataReference(partyType);
 
     if (docCategory === UploadDocumentCategory.FM5_DOCUMENT && caseData[documentDataRef].length) {
       req.session.errors = handleError(req.session.errors, 'multipleFiles');
-      return this.redirect(req, res, redirectUrl);
+      return respond(errorBody('multipleFiles'));
     }
     if (isExceedingMaxDocuments(caseData[documentDataRef]?.length, docCategory)) {
       req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
-      return this.redirect(req, res, redirectUrl);
+      return respond(errorBody('maxDocumentsReached'));
     }
     console.log('---UPLOAD FILES:', files);
+    let jsonBody: object = errorBody('uploadError');
+
     try {
       console.log('---what we are sending to client...', [files['documents']]);
       const response = await client.uploadDocument(user, {
@@ -211,11 +222,18 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       caseData[documentDataRef].push(response.document);
       console.log('---response document:', response.document);
       req.session.errors = removeUploadDocErrors(req.session.errors);
+      jsonBody = {
+        success: response.success,
+        file: {
+          filename: response.document.document_url.split('/').pop(),
+          originalname: response.document.document_filename,
+        },
+      };
       return;
     } catch (e) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
     } finally {
-      this.redirect(req, res, redirectUrl);
+      respond(jsonBody);
     }
   }
 

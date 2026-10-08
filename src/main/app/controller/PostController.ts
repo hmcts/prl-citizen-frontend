@@ -85,6 +85,24 @@ export class PostController<T extends AnyObject> {
     });
   }
 
+  protected getRedirectTarget(req: AppRequest<T>, nextUrl?: string): string {
+    if (req.session.errors?.length) {
+      return req.url;
+    }
+    return nextUrl ?? getNextStepUrl(req, req.session.userCase);
+  }
+
+  protected respondJson(req: AppRequest<T>, res: Response, body: object, nextUrl?: string): void {
+    const target = this.getRedirectTarget(req, nextUrl);
+    req.session.save(err => {
+      if (err) {
+        res.status(500).json({ error: { message: 'Could not save session' } });
+        return;
+      }
+      res.status(200).json({ ...body, redirectUrl: target });
+    });
+  }
+
   /**
    * It takes a request, response, form and form data, and then assigns the form data to the user case
    * in the session, and then sets the errors in the session to the errors from the form, and then
