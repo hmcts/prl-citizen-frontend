@@ -18,5 +18,6 @@ declare module '@ministryofjustice/frontend' {
     constructor(root: Element, config?: MultiFileUploadConfig);
     uploadFile(file: File): void;
     uploadFiles(files: FileList | File[]): void;
+    getDeleteButton(file: { filename: string; originalname: string }): HTMLButtonElement;
   }
 }

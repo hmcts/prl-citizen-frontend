@@ -19,7 +19,6 @@ const en = {
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   submitButtonText: 'Submit',
-  uploadDocumentFileUpload: 'Your documents',
   removeDocument: 'Remove',
   statementTextAreaUploadText: 'You can submit {positionOrWitness} statement by either:',
   yourPosition: 'your position',
@@ -92,7 +91,6 @@ const cy: typeof en = {
   consent:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth.',
   submitButtonText: 'Cyflwyno',
-  uploadDocumentFileUpload: 'Eich dogfennau',
   removeDocument: 'Dileu',
   statementTextAreaUploadText: 'Gallwch gyflwyno {positionOrWitness} un ai:',
   yourPosition: 'eich datganiad safbwynt',

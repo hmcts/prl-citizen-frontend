@@ -1,6 +1,6 @@
 import { MultiFileUpload } from '@ministryofjustice/frontend';
 
-const MB = 1024 * 1024;
+const MB = 1000 * 1000;
 const ERROR_SUMMARY_TITLE_ID = 'upload-error-summary-title';
 
 interface UploadContainer extends HTMLElement {
@@ -278,6 +278,19 @@ export const initMultiFileUpload = (): MultiFileUpload[] => {
         uploadOne(file);
       }
     };
+
+    // The component hardcodes "Delete" in getDeleteButton and never reads the text option we pass
+    // so we replace the label by the translation we pass to the component
+    const deleteButtonText = container.dataset.deleteButtonText ?? 'Remove';
+    const originalGetDeleteButton = instance.getDeleteButton.bind(instance);
+    instance.getDeleteButton = (file: { filename: string; originalname: string }): HTMLButtonElement => {
+      const button: HTMLButtonElement = originalGetDeleteButton(file);
+      if (button.firstChild) {
+        button.firstChild.textContent = `${deleteButtonText} `;
+      }
+      return button;
+    };
+
     instances.push(instance);
   });
 
