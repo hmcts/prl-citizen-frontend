@@ -114,7 +114,7 @@
     "@eslint/js": "10.0.1",
     "@pact-foundation/pact": "17.1.4",
     "@types/jest": "30.0.0",
-    "@types/luxon": "3.7.5",
+    "@types/luxon": "3.7.6",
     "@types/multer": "2.2.0",
     "@types/node": "22.19.13",
     "@typescript-eslint/eslint-plugin": "8.70.1",
