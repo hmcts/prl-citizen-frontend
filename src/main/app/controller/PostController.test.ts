@@ -427,4 +427,95 @@ describe('PostController', () => {
     expect(flag).toBe(true);
     expect(redirectError).toBe('MOCK_ERROR');
   });
+
+  test('respondJson should return the current URL when there are session errors', () => {
+    req = mockRequest({
+      session: {
+        errors: [
+          {
+            errorType: 'uploadError',
+            propertyName: 'testField',
+          },
+        ],
+      },
+    });
+
+    const body = { success: false };
+
+    controller.respondJson(req, res, body);
+
+    expect(req.session.save).toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      success: false,
+      redirectUrl: req.url,
+    });
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+  });
+
+  test('respondJson should use the supplied nextUrl when there are no errors', () => {
+    req = mockRequest({
+      session: {
+        errors: [],
+      },
+    });
+
+    const nextUrl = '/some-next-page';
+    const body = { success: true };
+
+    controller.respondJson(req, res, body, nextUrl);
+
+    expect(req.session.save).toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      redirectUrl: nextUrl,
+    });
+    expect(getNextStepUrlMock).not.toHaveBeenCalled();
+  });
+
+  test('respondJson should use getNextStepUrl when there are no errors and no nextUrl', () => {
+    req = mockRequest({
+      session: {
+        errors: [],
+      },
+    });
+
+    const nextUrl = '/calculated-next-page';
+    getNextStepUrlMock.mockReturnValue(nextUrl);
+
+    const body = { success: true };
+
+    controller.respondJson(req, res, body);
+
+    expect(getNextStepUrlMock).toHaveBeenCalledWith(req, req.session.userCase);
+    expect(req.session.save).toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      redirectUrl: nextUrl,
+    });
+  });
+
+  test('respondJson should return 500 when session cannot be saved', () => {
+    req = mockRequest({
+      session: {
+        errors: [],
+      },
+    });
+
+    req.session.save = jest.fn(callback => callback(new Error('MOCK_ERROR')));
+
+    const body = { success: true };
+
+    controller.respondJson(req, res, body);
+
+    expect(req.session.save).toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      error: {
+        message: 'Could not save session',
+      },
+    });
+  });
 });

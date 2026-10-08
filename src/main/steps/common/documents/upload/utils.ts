@@ -1,6 +1,7 @@
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { CaseWithId } from '../../../../app/case/case';
 import { PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { FormError } from '../../../../app/form/Form';
@@ -48,6 +49,26 @@ export const isDocumentInSession = (documentId: string, documents: { document_ur
   return !!documents?.some(document => getDocumentIdFromUrl(document.document_url) === documentId);
 };
 
+export const removeDocumentFromSession = (
+  req: AppRequest,
+  caseData: Partial<CaseWithId>,
+  uploadedFilesDataReference: string,
+  documentId: string
+): void => {
+  if (req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
+    req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(
+      document => documentId !== getDocumentIdFromUrl(document.document_url)
+    );
+
+    if (req.session.userCase?.[uploadedFilesDataReference]?.length === 0) {
+      delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
+      delete req.session.userCase[uploadedFilesDataReference];
+    }
+  }
+
+  req.session.errors = removeUploadDocErrors(req.session.errors);
+};
+
 export const deleteDocument = async (req: AppRequest, res: Response): Promise<void> => {
   const { query, session } = req;
   const { user: userDetails, userCase: caseData } = session;
@@ -72,18 +93,7 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
   try {
     await client.deleteDocument(documentId);
 
-    if (req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
-      req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(
-        document => documentId !== getDocumentIdFromUrl(document.document_url)
-      );
-
-      if (req.session.userCase?.[uploadedFilesDataReference]?.length === 0) {
-        delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
-        delete req.session.userCase[uploadedFilesDataReference];
-      }
-    }
-
-    req.session.errors = removeUploadDocErrors(req.session.errors);
+    removeDocumentFromSession(req, caseData, uploadedFilesDataReference, documentId);
   } catch (e) {
     req.session.errors = handleError(req.session.errors, 'deleteError', true);
   } finally {

@@ -16,9 +16,9 @@ import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls
 import { getPartyName } from '../../../task-list/utils';
 import { UploadDocumentAPICategory, UploadDocumentCategory } from '../../definitions';
 import {
-  getDocumentIdFromUrl,
   getUploadedFilesDataReference,
   handleError,
+  removeDocumentFromSession,
   removeUploadDocErrors,
 } from '../../upload/utils';
 
@@ -328,17 +328,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     try {
       await client.deleteDocument(documentId);
 
-      if (req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
-        req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(
-          document => documentId !== getDocumentIdFromUrl(document.document_url)
-        );
-
-        if (req.session.userCase?.[uploadedFilesDataReference]?.length === 0) {
-          delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
-          delete req.session.userCase[uploadedFilesDataReference];
-        }
-      }
-      req.session.errors = removeUploadDocErrors(req.session.errors);
+      removeDocumentFromSession(req, caseData, uploadedFilesDataReference, documentId);
       console.log('---DELETION FINISHED');
     } catch (e) {
       console.log('---ERROR DELETING');
@@ -353,13 +343,13 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     console.log('--REQUEST BODY', req.body);
 
     if (generateDocument) {
-      this.generateDocument(req, res);
+      await this.generateDocument(req, res);
     } else if (uploadFile || req.files) {
-      this.uploadDocument(req, res);
+      await this.uploadDocument(req, res);
     } else if (deleteDocumentId) {
-      this.deleteDocument(req, res, String(deleteDocumentId));
+      await this.deleteDocument(req, res, String(deleteDocumentId));
     } else if (submitDocument) {
-      this.submitDocuments(req, res);
+      await this.submitDocuments(req, res);
     }
   }
 }
