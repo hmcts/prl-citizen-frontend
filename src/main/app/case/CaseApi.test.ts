@@ -70,8 +70,8 @@ describe('caseApi', () => {
     const response = {
       status: 'success',
       success: {
-        messageHtml: 'applicant__consent_order_draft__07102026.pdf',
-        messageText: 'applicant__consent_order_draft__07102026.pdf',
+        messageHtml: `applicant__consent_order_draft__${dateOfSystem}.${extensionType}`,
+        messageText: `applicant__consent_order_draft__${dateOfSystem}.${extensionType}`,
       },
       document: {
         document_url:
