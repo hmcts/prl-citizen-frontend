@@ -547,7 +547,6 @@ describe('documents > upload > upload-your-documents > postController', () => {
       ]);
     });
 
-
     test('should set error when submitUploadedDocuments state not success', async () => {
       const req = mockRequest({
         body: {
