@@ -26,7 +26,7 @@ import {
   ViewDocCategoryLinkProps,
   ViewDocumentsSectionId,
 } from '../definitions';
-import { transformFileName } from '../download/utils';
+import { encodeFileName } from '../download/utils';
 
 /** View documents related utilty */
 
@@ -152,7 +152,7 @@ export const getApplicationPackDocuments = (
           documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
             partyType: loggedInUserPartyType,
             documentId: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
-            documentName: transformFileName(document.document_filename),
+            documentName: encodeFileName(document.document_filename),
           }),
         });
       });
@@ -312,7 +312,7 @@ export const getDownloadDocUrl = (document: CitizenDocuments, loggedInUserPartyT
   return applyParms(DOWNLOAD_DOCUMENT, {
     partyType: loggedInUserPartyType,
     documentId: generateDocumentID(document),
-    documentName: transformFileName(generateDocumentName(document)),
+    documentName: encodeFileName(generateDocumentName(document)),
   });
 };
 const generateDocumentID = (doc: CitizenDocuments): string => {
@@ -348,7 +348,7 @@ const prepareOrderDocument = (
     documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
       partyType: loggedInUserPartyType,
       documentId: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
-      documentName: transformFileName(document.document_filename),
+      documentName: encodeFileName(document.document_filename),
     }),
   };
 };

@@ -1,6 +1,6 @@
 import { AWPApplicationReason, AWPApplicationType, HearingOrders, PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { transformFileName } from '../../../../steps/common/documents/download/utils';
+import { encodeFileName } from '../../../../steps/common/documents/download/utils';
 import { applyParms } from '../../../../steps/common/url-parser';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
@@ -35,7 +35,7 @@ export const generateContent: TranslationFn = content => {
           documentId: doc.value.orderDocument.document_url.substring(
             doc.value.orderDocument.document_url.lastIndexOf('/') + 1
           ),
-          documentName: transformFileName(doc.value.orderDocument.document_filename),
+          documentName: encodeFileName(doc.value.orderDocument.document_filename),
         }),
         createdDate: doc.value.otherDetails.orderCreatedDate,
         fileName: doc.value.orderDocument.document_filename,
