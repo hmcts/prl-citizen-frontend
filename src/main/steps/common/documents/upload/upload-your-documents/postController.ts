@@ -237,7 +237,8 @@ export default class UploadDocumentPostController extends PostController<AnyObje
         },
       };
       return;
-    } catch (e) {
+    } catch (error) {
+      console.log(error);
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
     } finally {
       respond(jsonBody);
@@ -303,6 +304,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       req.session.errors = removeUploadDocErrors(req.session.errors);
       delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
     } catch (error) {
+      console.log(error);
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
     } finally {
       this.redirect(req, res);
@@ -330,8 +332,8 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
       removeDocumentFromSession(req, caseData, uploadedFilesDataReference, documentId);
       console.log('---DELETION FINISHED');
-    } catch (e) {
-      console.log('---ERROR DELETING');
+    } catch (error) {
+      console.log(error);
       req.session.errors = handleError(req.session.errors, 'deleteError', true);
       jsonBody = errorBody('deleteError');
     }

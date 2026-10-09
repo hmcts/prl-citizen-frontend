@@ -61,23 +61,17 @@
       {% endif %}
 
     </div>
-
+    <p class="govuk-body">{{subtitle}}</p>
+    <h2 class="govuk-heading-m">{{beforeUploadingHeading}}</h2>
     <p class="govuk-body">{{uplodFileText1}}</p>
-    <p class="govuk-body govuk-!-margin-bottom-6">{{uplodFileText2}}</p>
     <details class="govuk-details govuk-!-margin-bottom-9" data-module="govuk-details">
       <summary class="govuk-details__summary">
         <span class="govuk-details__summary-text">
-          {{uplodFileText3}}
+          {{uplodFileText2}}
         </span>
       </summary>
       <div class="govuk-details__text">
-        <ol class="govuk-list govuk-list--number">
-          <li>{{uplodFileText4}}</li>
-          <li>{{uplodFileText5}}</li>
-          <li>{{uplodFileText6}}</li>
-          <li>{{uplodFileText7}}</li>
-          <li>{{uplodFileText8}}</li>
-        </ol>
+        {{uplodFileText3}}
       </div>
     </details>
     <div id="uploadGroup" class="uploadGroup">
@@ -97,7 +91,7 @@
                   name: "uploadDocumentFileUpload",
                   classes: "moj-multi-file-upload__input",
                   javascript: true,
-                  label: { text: uploadFileHeading, classes: "govuk-label--m" },
+                  label: { text: uploadFileTitle, classes: "govuk-label--m" },
                   uploadButtonText: uploadButton,
                   filesAddedHeading: filesAddedHeading,
                   deleteButtonText: removeDocument,

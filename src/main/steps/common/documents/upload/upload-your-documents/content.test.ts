@@ -41,15 +41,10 @@ const en = {
     "If you are uploading documents or other files, name the files clearly. For example, 'Letter from school', '{docCategory}'.",
   positionOrWitnessStatementUploadText2: 'Files must be in the format JPG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uplodFileText1:
-    'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.',
-  uplodFileText2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX and have a maximum size of 20mb.',
-  uplodFileText3: 'How to take a picture of a document on your phone and upload it',
-  uplodFileText4: 'Place your document on a flat surface in a well-lit room. Use a flash if you need to.',
-  uplodFileText5: 'Take a picture of the whole document. You should be able to see its edges.',
-  uplodFileText6: 'Check you can read all the writing, including the handwriting.',
-  uplodFileText7: 'Email or send the photo or scan to the device you are using now.',
-  uplodFileText8: 'Upload it here.',
-  uploadFileHeading: 'Upload a file',
+    'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
+  uplodFileText2: 'Uploading multiple files from a computer',
+  uplodFileText3:
+    "To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
   filesAddedHeading: 'Files added',
   chooseFile: 'Choose files',
   dropFile: 'Drag and drop files here or',
@@ -59,6 +54,8 @@ const en = {
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   the: 'the ',
   your: 'your ',
+  subtitle: 'You can upload any files you feel are relevant to your case or that a judge should be aware of.',
+  beforeUploadingHeading: 'Before you upload your files',
   errors: {
     title: 'There is a problem',
     prefix: 'Error:',
@@ -108,22 +105,15 @@ const cy: typeof en = {
   textAreaSaveText:
     "Dewiswch 'Cadw' i gadw eich testun fel dogfen ar y dudalen hon. Gallwch ei ddileu os oes arnoch angen.",
   save: 'Cadw',
-  uploadFileTitle: 'Uwchlwytho ffeiliau',
+  uploadFileTitle: '--welsh Upload files',
   positionOrWitnessStatementUploadText1:
     "Os ydych yn uwchlwytho dogfennau zip neu ffeiliau eraill, rhowch enwau clir i’r ffeiliau. Er enghraifft, ‘Llythyr gan yr ysgol’, '{docCategory}'.",
   positionOrWitnessStatementUploadText2: 'Rhaid i ffeiliau fod mewn fformat JPG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
   uplodFileText1:
-    'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, llythyr-gan-yr-ysgol.doc.',
-  uplodFileText2:
-    'Rhaid i ffeiliau fod ar ffurf JPG, BMP, PNG, TIF, PDF, DOC neu DOCX a bod yn uchafswm o 20mb o ran maint.',
-  uplodFileText3: 'Sut i dynnu llun o ddogfen ar eich ffôn a’i lwytho',
-  uplodFileText4:
-    'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
-  uplodFileText5: "Tynnwch lun o’r ddogfen gyfan. Dylech allu gweld corneli'r ddogfen.",
-  uplodFileText6: 'Gwiriwch eich bod yn gallu gweld yr ysgrifen i gyd, gan gynnwys y llawysgrifen.',
-  uplodFileText7: 'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
-  uplodFileText8: 'Llwythwch y ffeil yma.',
-  uploadFileHeading: 'Llwytho ffeil',
+    '--welsh Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
+  uplodFileText2: '--welsh Uploading multiple files from a computer',
+  uplodFileText3:
+    "--welsh To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
   filesAddedHeading: '--welsh Files added',
   chooseFile: '--welsh Choose files',
   dropFile: '--welsh Drag and drop files here or',
@@ -133,6 +123,8 @@ const cy: typeof en = {
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   the: 'y ',
   your: 'eich ',
+  subtitle: '--welsh You can upload any files you feel are relevant to your case or that a judge should be aware of.',
+  beforeUploadingHeading: '--welsh Before you upload your files',
   errors: {
     title: '--welsh There is a problem',
     prefix: '--welsh Error:',
