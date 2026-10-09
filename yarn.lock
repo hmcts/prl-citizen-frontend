@@ -2225,31 +2225,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-sdk-common@npm:2.28.0":
-  version: 2.28.0
-  resolution: "@launchdarkly/js-sdk-common@npm:2.28.0"
-  checksum: 10c0/1a84aa96301b1a84c16502877faa9a64ecc79d414a3dc88080d9dc11dee6805b871289e7444143f422f1e5bab2f0f43e833d1a00c3efe6e11b3536b6b9a257c3
+"@launchdarkly/js-sdk-common@npm:2.29.0":
+  version: 2.29.0
+  resolution: "@launchdarkly/js-sdk-common@npm:2.29.0"
+  checksum: 10c0/829617a42784ce1c8c5da683ccd65d7f22d0a07a56f103167f53b96df4c515268776f964cdf2e87010c6b543151fee8bc37fa944e0f33a005309868a4512c99f
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.23.0":
-  version: 2.23.0
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.23.0"
+"@launchdarkly/js-server-sdk-common@npm:2.24.1":
+  version: 2.24.1
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.24.1"
   dependencies:
-    "@launchdarkly/js-sdk-common": "npm:2.28.0"
+    "@launchdarkly/js-sdk-common": "npm:2.29.0"
     semver: "npm:7.5.4"
-  checksum: 10c0/6ae6e431d3f88882ac0c992cb589aef5b46dace1d4fcee74d14385e6e6b8a86184b6f17bfecb7961438be2617515beac42fbcb0e1efebbd085a162043a3160e8
+  checksum: 10c0/aee4f57b941258d13da8110dac4ef4589977269b1c144a728bcb01083864f8048ca6e2936e9540dd235187dc0cbfa052d10a2c21f3e86f734e4852ea08860d2b
   languageName: node
   linkType: hard
 
-"@launchdarkly/node-server-sdk@npm:9.14.1":
-  version: 9.14.1
-  resolution: "@launchdarkly/node-server-sdk@npm:9.14.1"
+"@launchdarkly/node-server-sdk@npm:9.14.4":
+  version: 9.14.4
+  resolution: "@launchdarkly/node-server-sdk@npm:9.14.4"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": "npm:2.23.0"
+    "@launchdarkly/js-server-sdk-common": "npm:2.24.1"
     https-proxy-agent: "npm:^7.0.6"
     launchdarkly-eventsource: "npm:2.3.0"
-  checksum: 10c0/18a967e054ede4c2ab8843cfa83892278b66c7f94b4d174750e2c6473dc80711bcfcb90da0f1b7e3e83dfffee062205c4a706f9dc2890329b6d9bf1b0adccd10
+  checksum: 10c0/860e53306748f7b9f2aecbaa28283fcda14a0faffc741439c15dc0d6297bda262efddd5b70b91943eb5a851c7f9baa83dc84e4328e95e5589065c6b1f34e37d7
   languageName: node
   linkType: hard
 
@@ -2311,14 +2311,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/core@npm:2.11.0":
-  version: 2.11.0
-  resolution: "@opentelemetry/core@npm:2.11.0"
+"@opentelemetry/core@npm:2.12.0":
+  version: 2.12.0
+  resolution: "@opentelemetry/core@npm:2.12.0"
   dependencies:
     "@opentelemetry/semantic-conventions": "npm:^1.29.0"
   peerDependencies:
     "@opentelemetry/api": ">=1.0.0 <1.10.0"
-  checksum: 10c0/00fdc61232b1a751f9e3a95872d1062b499d6d35057de635dca3b5c51d4c2180415d9cbee8b0609c59498fc330c0a5bb2afd259fd227045882c06c6e4009b0c9
+  checksum: 10c0/e0d0338d314ca827b4395acf8c7eb8f88a58fd63f1effc6068ba4dd8e3443e02e5796333ae6723fb926a7e6c18dd6d2102f5cc7e531b185618562dadbf6cad71
   languageName: node
   linkType: hard
 
@@ -3131,10 +3131,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:3.7.5":
-  version: 3.7.5
-  resolution: "@types/luxon@npm:3.7.5"
-  checksum: 10c0/7b851e94cd0d47784682dd3bc412960519d2c888bcca1408b6c8484742805637ed1a94797ce4e44fc925c8b20b52803035880d0122e3658c17f98838b387c46b
+"@types/luxon@npm:3.7.6":
+  version: 3.7.6
+  resolution: "@types/luxon@npm:3.7.6"
+  checksum: 10c0/135c55910d8f4fb615cbfaa93b173e57e3eed9731da683005acdb84dba5ece5dbbf56cc82330015ccf5247a6e84fefbb2e2ebe255c957636f604f79efacb4214
   languageName: node
   linkType: hard
 
@@ -3152,12 +3152,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/multer@npm:2.2.0":
-  version: 2.2.0
-  resolution: "@types/multer@npm:2.2.0"
+"@types/multer@npm:2.3.0":
+  version: 2.3.0
+  resolution: "@types/multer@npm:2.3.0"
   dependencies:
     "@types/express": "npm:*"
-  checksum: 10c0/72472c2da0a9afe86e2d64cfec53f4564727affcb691f78fcbdef495978857903f03326e4ecf58f6d1c3c4c89bb39e5d94fb97d4722a1f448f777c4fa690754b
+  checksum: 10c0/a66cfeede9efc71b75054a4c550c76f2886c862595dc3492dd759d02598baf3f0f3541177a64388f3a78c36b3a954c917ded5e182bbc6d4f6d04f7f9c75e26da
   languageName: node
   linkType: hard
 
@@ -10161,7 +10161,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": "npm:1.8.6"
     "@hmcts/nodejs-logging": "npm:4.0.4"
     "@hmcts/properties-volume": "npm:0.0.14"
-    "@launchdarkly/node-server-sdk": "npm:9.14.1"
+    "@launchdarkly/node-server-sdk": "npm:9.14.4"
     "@pact-foundation/pact": "npm:17.1.4"
     "@types/config": "npm:0.0.41"
     "@types/connect-redis": "npm:0.0.23"
@@ -10172,8 +10172,8 @@ __metadata:
     "@types/glob": "npm:8.1.0"
     "@types/jest": "npm:30.0.0"
     "@types/lodash": "npm:4.17.25"
-    "@types/luxon": "npm:3.7.5"
-    "@types/multer": "npm:2.2.0"
+    "@types/luxon": "npm:3.7.6"
+    "@types/multer": "npm:2.3.0"
     "@types/negotiator": "npm:0.6.5"
     "@types/node": "npm:22.19.13"
     "@types/nunjucks": "npm:3.2.6"
@@ -10259,7 +10259,7 @@ __metadata:
     terser-webpack-plugin: "npm:5.3.16"
     to-boolean: "npm:1.0.0"
     toobusy-js: "npm:0.5.1"
-    ts-jest: "npm:29.4.13"
+    ts-jest: "npm:29.4.14"
     ts-loader: "npm:9.5.4"
     ts-node: "npm:10.9.2"
     tsconfig-paths: "npm:4.2.0"
@@ -11909,9 +11909,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:29.4.13":
-  version: 29.4.13
-  resolution: "ts-jest@npm:29.4.13"
+"ts-jest@npm:29.4.14":
+  version: 29.4.14
+  resolution: "ts-jest@npm:29.4.14"
   dependencies:
     bs-logger: "npm:^0.2.6"
     fast-json-stable-stringify: "npm:^2.1.0"
@@ -11945,7 +11945,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: 10c0/8c0c445ec8793fb877edd1ab9091eee148e2ebbbd678b58f4dfa46ad2c440356ec942ac38591477ef1389256389019fc6b946caf0411f17f2bf9ddc52e711b2f
+  checksum: 10c0/58780804871e5752d7f42e69a38ea0716d0a6330272f3a253cf10dbf8c59390f64f2da6fff3d93dcb1bc514d8fa5d02963d8ef6d062fdfa96113b3aad0fd9331
   languageName: node
   linkType: hard
 
