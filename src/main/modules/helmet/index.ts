@@ -3,6 +3,8 @@ import * as express from 'express';
 import { Express, RequestHandler } from 'express';
 import helmet = require('helmet');
 
+import { getMOJForkingScreenUrl } from '../../steps/urls';
+
 export interface HelmetConfig {
   referrerPolicy: string;
 }
@@ -12,6 +14,7 @@ const analyticsGoogleDomain = '*.analytics.google.com';
 const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
 const dynatraceDomain = '*.dynatrace.com';
 const govUkPayDomain = 'https://card.payments.service.gov.uk';
+const familyMediationCouncilDomain = 'https://www.familymediationcouncil.org.uk';
 const self = "'self'";
 
 /**
@@ -55,7 +58,12 @@ export class Helmet {
           formAction: [
             self,
             new URL(appConfig.get<string>('services.equalityAndDiversity.url')).origin,
+            new URL(appConfig.get<string>('services.reasonableAdjustments.url')).origin,
+            new URL(appConfig.get<string>('services.idam.authorizationURL')).origin,
             govUkPayDomain,
+            familyMediationCouncilDomain,
+            new URL(getMOJForkingScreenUrl(false)).origin,
+            new URL(getMOJForkingScreenUrl(true)).origin,
           ],
           frameAncestors: ["'none'"],
           imgSrc: [self, ...tagManager, googleAnalyticsDomain, analyticsGoogleDomain, dynatraceDomain],
