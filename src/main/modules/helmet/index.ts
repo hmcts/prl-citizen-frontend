@@ -1,3 +1,4 @@
+import appConfig from 'config';
 import * as express from 'express';
 import { Express, RequestHandler } from 'express';
 import helmet = require('helmet');
@@ -10,6 +11,7 @@ const googleAnalyticsDomain = '*.google-analytics.com';
 const analyticsGoogleDomain = '*.analytics.google.com';
 const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
 const dynatraceDomain = '*.dynatrace.com';
+const govUkPayDomain = 'https://card.payments.service.gov.uk';
 const self = "'self'";
 
 /**
@@ -49,7 +51,12 @@ export class Helmet {
           connectSrc: [self, googleAnalyticsDomain, analyticsGoogleDomain, dynatraceDomain],
           defaultSrc: ["'none'"],
           fontSrc: [self, 'data:'],
-          formAction: [self],
+          // Browsers also enforce form-action on redirects after a form submission.
+          formAction: [
+            self,
+            new URL(appConfig.get<string>('services.equalityAndDiversity.url')).origin,
+            govUkPayDomain,
+          ],
           frameAncestors: ["'none'"],
           imgSrc: [self, ...tagManager, googleAnalyticsDomain, analyticsGoogleDomain, dynatraceDomain],
           objectSrc: [self],
