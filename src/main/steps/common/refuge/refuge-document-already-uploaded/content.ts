@@ -6,7 +6,7 @@ import { getPeople } from '../../../c100-rebuild/child-details/live-with/utils';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { C100_URL, DOWNLOAD_DOCUMENT } from '../../../urls';
 import { CommonContent } from '../../common.content';
-import { transformFileName } from '../../documents/download/utils';
+import { encodeFileName } from '../../documents/download/utils';
 import { interpolate } from '../../string-parser';
 import { applyParms } from '../../url-parser';
 import { getC8DocumentForC100 } from '../utils';
@@ -103,7 +103,7 @@ export const generateContent = (content: CommonContent): PageContent => {
   const url = applyParms(DOWNLOAD_DOCUMENT, {
     partyType,
     documentId: c8Document?.document_url.substring(c8Document.document_url.lastIndexOf('/') + 1),
-    documentName: transformFileName(c8Document?.document_filename),
+    documentName: encodeFileName(c8Document?.document_filename),
   });
 
   return {
