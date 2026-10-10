@@ -17,6 +17,8 @@ import { getPartyName } from '../../../task-list/utils';
 import { UploadDocumentAPICategory, UploadDocumentCategory } from '../../definitions';
 import { getUploadedFilesDataReference, handleError, removeUploadDocErrors } from '../../upload/utils';
 
+const TEST_CASE_ID_OVERRIDE_HEADER = 'x-test-case-id-override';
+
 @autobind
 export default class UploadDocumentPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -221,6 +223,19 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       : 'noFile';
   }
 
+  private getTrustedCaseId(req: AppRequest): string {
+    if (req.session.testingSupport) {
+      const testCaseIdOverride = req.headers[TEST_CASE_ID_OVERRIDE_HEADER];
+
+      if (typeof testCaseIdOverride === 'string') {
+        req.locals.logger.info('Using test case id override for citizen document upload');
+        return testCaseIdOverride;
+      }
+    }
+
+    return req.session.userCase.id;
+  }
+
   private async submitDocuments(req: AppRequest, res: Response): Promise<void> {
     const { user, userCase: caseData } = req.session;
     const docCategory = req.params.docCategory as UploadDocumentCategory;
@@ -245,7 +260,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     }
 
     const categoryId = this.getDocumentCategory(docCategory, partyType);
-    const trustedCaseId = req.session.userCase.id;
+    const trustedCaseId = this.getTrustedCaseId(req);
 
     try {
       const client = new CosApiClient(user.accessToken, req.locals.logger);
