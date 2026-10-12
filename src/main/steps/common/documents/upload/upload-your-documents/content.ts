@@ -63,6 +63,7 @@ const en = {
   beforeUploadingHeading: 'Before you upload your files',
   errors: {
     title: 'There is a problem',
+    prefix: 'Error:',
     declarationCheck: {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
@@ -134,6 +135,7 @@ const cy: typeof en = {
   beforeUploadingHeading: "Cyn i chi uwchlwytho eich ffeiliau'",
   errors: {
     title: 'Mae yna broblem',
+    prefix: '--welsh Error:',
     declarationCheck: {
       required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
     },
@@ -228,7 +230,7 @@ export const generateContent: TranslationFn = content => {
       }),
     },
   };
-  const uploadUrl = applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
+  const fileUploadUrl = applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
     partyType,
     docCategory,
   });
@@ -277,8 +279,8 @@ export const generateContent: TranslationFn = content => {
       docCategoryText: (isPositionStatement ? translations.your : translations.the) + title.toLowerCase(),
     }),
     errors: errorMessages,
-    uploadURL: uploadUrl,
-    deleteURL: uploadUrl,
+    uploadURL: fileUploadUrl,
+    deleteURL: fileUploadUrl,
     ...FILE_UPLOAD_COMMON,
   };
 };

@@ -190,9 +190,9 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
     const respond = (jsonBody: object): void =>
       wantsJson ? this.respondJson(req, res, jsonBody, redirectUrl) : this.redirect(req, res, redirectUrl);
-    // TODO: actually grab the translation instead of literal message
+
     const errorBody = (errorKey: string): object => ({
-      error: { message: `errors.uploadDocumentFileUpload.${errorKey}` },
+      error: { message: errorKey },
     });
 
     if (!files) {

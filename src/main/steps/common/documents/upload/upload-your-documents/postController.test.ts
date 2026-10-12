@@ -1241,7 +1241,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
 
       expect(res.json).toHaveBeenCalledWith({
         error: {
-          message: 'errors.uploadDocumentFileUpload.noStatementOrFile',
+          message: 'noStatementOrFile',
         },
         redirectUrl: expect.any(String),
       });
