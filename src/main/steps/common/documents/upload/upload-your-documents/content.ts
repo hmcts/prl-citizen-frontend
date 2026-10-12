@@ -73,7 +73,6 @@ const en = {
       multipleFiles: 'You can upload only one document.',
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       filenameTooLong: 'This file name is too long',
-      removeFileFirst: 'Remove the uploaded file before adding another',
       uploadError: 'Document could not be uploaded.',
       deleteError: 'Document could not be deleted.',
     },
@@ -111,26 +110,27 @@ const cy: typeof en = {
   textAreaSaveText:
     "Dewiswch 'Cadw' i gadw eich testun fel dogfen ar y dudalen hon. Gallwch ei ddileu os oes arnoch angen.",
   save: 'Cadw',
-  uploadFileTitle: '--welsh Upload files',
+  uploadFileTitle: 'Uwchlwytho ffeiliau',
   positionOrWitnessStatementUploadText1:
     "Os ydych yn uwchlwytho dogfennau zip neu ffeiliau eraill, rhowch enwau clir i’r ffeiliau. Er enghraifft, ‘Llythyr gan yr ysgol’, '{docCategory}'.",
   positionOrWitnessStatementUploadText2: 'Rhaid i ffeiliau fod mewn fformat JPG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
   uplodFileText1:
-    '--welsh Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
-  uplodFileText2: '--welsh Uploading multiple files from a computer',
+    "Rhowch enw i bob ffeil sy'n esbonio'n glir beth ydyw. Bydd hyn yn eich helpu chi a'r llys i gadw trefn ar y dogfennau yn eich achos.",
+  uplodFileText2: 'Uwchlwytho ffeiliau o gyfrifiadur',
   uplodFileText3:
-    "--welsh To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
-  filesAddedHeading: '--welsh Files added',
-  chooseFile: '--welsh Choose files',
-  dropFile: '--welsh Drag and drop files here or',
+    "I uwchlwytho ffeiliau lluosog, dewiswch yr un cyntaf, yna daliwch y botwm 'Ctrl' (neu allwedd 'Command' ar gyfer cyfrifiaduron Apple) a dewiswch y ffeiliau eraill.",
+  filesAddedHeading: "Ffeiliau wedi'u hychwanegu",
+  chooseFile: 'Dewis ffeiliau',
+  dropFile: 'Llusgo a gollwng ffeiliau yma neu',
   statementOfTruth: 'Datganiad Gwirionedd',
   warning: 'Rhybudd',
   warningText:
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   the: 'y ',
   your: 'eich ',
-  subtitle: '--welsh You can upload any files you feel are relevant to your case or that a judge should be aware of.',
-  beforeUploadingHeading: '--welsh Before you upload your files',
+  subtitle:
+    "Gallwch uwchlwytho unrhyw ffeiliau rydych chi'n teimlo sy'n berthnasol i'ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.",
+  beforeUploadingHeading: "Cyn i chi uwchlwytho eich ffeiliau'",
   errors: {
     title: '--welsh There is a problem',
     prefix: '--welsh Error:',
@@ -139,11 +139,10 @@ const cy: typeof en = {
     },
     uploadDocumentFileUpload: {
       multipleFiles: 'Gallwch uwchlwytho un dogfen yn unig',
-      maxDocumentsReached: '--welsh you have reached maximum number of documents that you can upload.',
+      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       noFile: 'Uwchlwytho ffeil',
       noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
       filenameTooLong: '--welsh This file name is too long',
-      removeFileFirst: '--welsh Remove the uploaded file before adding another',
       uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
       deleteError: "Ni ellir dileu'r ddogfen",
     },
