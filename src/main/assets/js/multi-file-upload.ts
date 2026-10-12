@@ -183,8 +183,18 @@ const uploadedCount = (container: HTMLElement): number =>
     row => !row.querySelector('.moj-multi-file-upload__error')
   ).length;
 
-const serverMessageOf = (xhr: XMLHttpRequest): string | undefined =>
-  (xhr.response as { error?: { message?: string } } | null)?.error?.message;
+const serverMessageOf = (container: UploadContainer, xhr: XMLHttpRequest): string | undefined => {
+  const key = (xhr.response as { error?: { message?: string } } | null)?.error?.message;
+  if (!key) {
+    return undefined;
+  }
+  const messages: Record<string, string | undefined> = {
+    uploadError: container.dataset.errorUploadFailed,
+    deleteError: container.dataset.errorDelete,
+    multipleFiles: container.dataset.errorOnlyOneFile,
+  };
+  return messages[key] ?? container.dataset.errorUploadFailed;
+};
 
 let csrfPatched = false;
 
@@ -234,7 +244,7 @@ export const initMultiFileUpload = (): MultiFileUpload[] => {
           removeFailedRows(container);
         },
         errorHook: (_instance: unknown, _file: File, xhr: XMLHttpRequest) => {
-          const message = serverMessageOf(xhr);
+          const message = serverMessageOf(container, xhr);
           if (message) {
             showError(container, message);
             removeFailedRows(container);

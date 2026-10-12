@@ -857,7 +857,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         error: {
-          message: 'errors.uploadDocumentFileUpload.deleteError',
+          message: 'deleteError',
         },
         redirectUrl: expect.any(String),
       });

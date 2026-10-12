@@ -514,7 +514,7 @@ describe('PostController', () => {
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({
       error: {
-        message: 'Could not save session',
+        message: 'uploadError',
       },
     });
   });

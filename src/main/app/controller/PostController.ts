@@ -96,7 +96,7 @@ export class PostController<T extends AnyObject> {
     const target = this.getRedirectTarget(req, nextUrl);
     req.session.save(err => {
       if (err) {
-        res.status(500).json({ error: { message: 'Could not save session' } });
+        res.status(500).json({ error: { message: 'uploadError' } });
         return;
       }
       res.status(200).json({ ...body, redirectUrl: target });

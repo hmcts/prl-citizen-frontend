@@ -57,8 +57,6 @@ const en = {
   subtitle: 'You can upload any files you feel are relevant to your case or that a judge should be aware of.',
   beforeUploadingHeading: 'Before you upload your files',
   errors: {
-    title: 'There is a problem',
-    prefix: 'Error:',
     declarationCheck: {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
@@ -67,7 +65,8 @@ const en = {
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       noFile: 'Upload a file.',
       noStatementOrFile: 'Enter {statement} as text or upload {statement} as a file.',
-      filenameTooLong: 'This file name is too long',
+      filenameTooLong: 'This file name is too long.',
+      wrongFileExtension: 'Only JPG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed.',
       uploadError: 'Document could not be uploaded.',
       deleteError: 'Document could not be deleted.',
     },
@@ -126,8 +125,6 @@ const cy: typeof en = {
     "Gallwch uwchlwytho unrhyw ffeiliau rydych chi'n teimlo sy'n berthnasol i'ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.",
   beforeUploadingHeading: "Cyn i chi uwchlwytho eich ffeiliau'",
   errors: {
-    title: '--welsh There is a problem',
-    prefix: '--welsh Error:',
     declarationCheck: {
       required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
     },
@@ -137,6 +134,7 @@ const cy: typeof en = {
       noFile: 'Uwchlwytho ffeil',
       noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
       filenameTooLong: '--welsh This file name is too long',
+      wrongFileExtension: '--welsh Only JPG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed.',
       uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
       deleteError: "Ni ellir dileu'r ddogfen",
     },

@@ -322,7 +322,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
     const uploadedFilesDataReference = getUploadedFilesDataReference(partyType);
     const errorBody = (errorKey: string): object => ({
-      error: { message: `errors.uploadDocumentFileUpload.${errorKey}` },
+      error: { message: errorKey },
     });
 
     let jsonBody: object = {};
