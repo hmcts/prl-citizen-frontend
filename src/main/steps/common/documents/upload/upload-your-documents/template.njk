@@ -90,6 +90,9 @@
                   id: "uploadDocumentFileUpload",
                   name: "uploadDocumentFileUpload",
                   classes: "moj-multi-file-upload__input",
+                  errorMessage: {
+                    text: errorMessage
+                  } if errorMessage !== null,
                   javascript: true,
                   label: { text: uploadFileTitle, classes: "govuk-label--m" },
                   uploadButtonText: uploadButton,
