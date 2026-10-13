@@ -165,6 +165,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       };
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
+      console.log(e);
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
     } finally {
       this.redirect(req, res, redirectUrl);
@@ -182,9 +183,8 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     const redirectUrl = this.setRedirectUrl(partyType, req);
-    // when uploading a document, it should be xhr
     const wantsJson = this.isXhr(req);
-    console.log('---wantsJson:', wantsJson, req.headers['sec-fetch-dest'], req.headers['accept']);
+
     req.url = redirectUrl;
     this.initializeData(caseData);
 
@@ -211,23 +211,19 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
       return respond(errorBody('maxDocumentsReached'));
     }
-    console.log('---UPLOAD FILES:', files);
     let jsonBody: object = errorBody('uploadError');
 
     try {
-      console.log('---what we are sending to client...', [files['documents']]);
       const response = await client.uploadDocument(user, {
         files: [files['documents']],
       });
       console.log('---RESPONSE:', response);
       if (response.status !== 'Success') {
-        console.log('---THERE HAS BEEN AN ERROR', req.session.errors);
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
       }
 
       caseData[documentDataRef].push(response.document);
-      console.log('---response document:', response.document);
       req.session.errors = removeUploadDocErrors(req.session.errors);
       jsonBody = {
         success: response.success,
@@ -266,8 +262,6 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const allowedFormData = {
       declarationCheck: parsedBody.declarationCheck,
     };
-    console.log('---submitDocuments uploadedDocuments:', uploadedDocuments);
-    console.log('---caseData:', caseData);
     Object.assign(req.session.userCase, allowedFormData);
     req.session.errors = form.getErrors(allowedFormData);
 
@@ -326,12 +320,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     });
 
     let jsonBody: object = {};
-    console.log('---TRYING TO DELETE DOCUMENT', documentId);
     try {
       await client.deleteDocument(documentId);
 
       removeDocumentFromSession(req, caseData, uploadedFilesDataReference, documentId);
-      console.log('---DELETION FINISHED');
     } catch (error) {
       console.log(error);
       req.session.errors = handleError(req.session.errors, 'deleteError', true);

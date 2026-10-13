@@ -58,7 +58,6 @@ const en = {
   beforeUploadingHeading: 'Before you upload your files',
   errors: {
     title: 'There is a problem',
-    prefix: 'Error:',
     declarationCheck: {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
@@ -67,9 +66,9 @@ const en = {
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       noFile: 'Upload a file.',
       noStatementOrFile: 'Enter {statement} as text or upload {statement} as a file.',
-      filenameTooLong: 'This file name is too long.',
+      filenameTooLong: 'File names must be 250 characters or less.',
       wrongFileExtension: 'Only JPG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed.',
-      fileTooLarge: 'Only files less than 20 MB are allowed.',
+      fileTooLarge: 'Files must be under 20MB.',
       uploadError: 'Document could not be uploaded.',
       deleteError: 'Document could not be deleted.',
     },
@@ -129,7 +128,6 @@ const cy: typeof en = {
   beforeUploadingHeading: "Cyn i chi uwchlwytho eich ffeiliau'",
   errors: {
     title: 'Mae yna broblem',
-    prefix: '--welsh Error:',
     declarationCheck: {
       required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
     },
@@ -138,9 +136,9 @@ const cy: typeof en = {
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       noFile: 'Uwchlwytho ffeil',
       noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
-      filenameTooLong: '--welsh This file name is too long',
-      wrongFileExtension: '--welsh Only JPG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed.',
-      fileTooLarge: '--welsh Only files less than 20 MB are allowed.',
+      filenameTooLong: 'Rhaid i enwau ffeiliau fod yn 250 nod neu lai.',
+      wrongFileExtension: "Dim ond ffeiliau JPG, BMP, PNG, TIF, PDF, DOC neu DOCX sy'n cael eu caniatáu.",
+      fileTooLarge: 'Rhaid i ffeiliau fod o dan 20MB.',
       uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
       deleteError: "Ni ellir dileu'r ddogfen",
     },

@@ -12,6 +12,3 @@
 !config/**
 !webpack.config.js
 
-# temporary fix
-!src
-!src/main
