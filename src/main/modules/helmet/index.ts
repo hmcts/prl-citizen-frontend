@@ -15,6 +15,8 @@ const tagManager = ['*.googletagmanager.com', 'https://tagmanager.google.com'];
 const dynatraceDomain = '*.dynatrace.com';
 const govUkPayDomain = 'https://card.payments.service.gov.uk';
 const familyMediationCouncilDomain = 'https://www.familymediationcouncil.org.uk';
+const legacyC100StagingRedirectDomain =
+  'https://c100-application-staging.apps.live.cloud-platform.service.justice.gov.uk';
 const self = "'self'";
 
 /**
@@ -64,6 +66,8 @@ export class Helmet {
             familyMediationCouncilDomain,
             new URL(getMOJForkingScreenUrl(false)).origin,
             new URL(getMOJForkingScreenUrl(true)).origin,
+            // The legacy staging host redirects from apps.live-1 to apps.live.
+            legacyC100StagingRedirectDomain,
           ],
           frameAncestors: ["'none'"],
           imgSrc: [self, ...tagManager, googleAnalyticsDomain, analyticsGoogleDomain, dynatraceDomain],

@@ -21,13 +21,13 @@ describe('Helmet', () => {
     },
     {
       environment: 'production',
-      pcqUrl: 'https://pcq.platform.hmcts.net',
-      raUrl: 'https://cui-ra.platform.hmcts.net',
-      idamUrl: 'https://home.account.hmcts.net/login',
+      pcqUrl: 'https://equality-and-diversity.platform.hmcts.net',
+      raUrl: 'https://manage-your-support-for-hmcts-services.service.gov.uk',
+      idamUrl: 'https://hmcts-access.service.gov.uk/login',
       expectedOrigins: [
-        'https://pcq.platform.hmcts.net',
-        'https://cui-ra.platform.hmcts.net',
-        'https://home.account.hmcts.net',
+        'https://equality-and-diversity.platform.hmcts.net',
+        'https://manage-your-support-for-hmcts-services.service.gov.uk',
+        'https://hmcts-access.service.gov.uk',
       ],
     },
     {
@@ -67,6 +67,7 @@ describe('Helmet', () => {
             'https://www.familymediationcouncil.org.uk',
             'https://apply-to-court-about-child-arrangements.service.justice.gov.uk',
             'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk',
+            'https://c100-application-staging.apps.live.cloud-platform.service.justice.gov.uk',
           ].join(' ')
         );
       }
