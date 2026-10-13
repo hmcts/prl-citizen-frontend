@@ -217,7 +217,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       const response = await client.uploadDocument(user, {
         files: [files['documents']],
       });
-      console.log('---RESPONSE:', response);
+      console.log('Received the following response:', response);
       if (response.status !== 'Success') {
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
@@ -275,7 +275,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
     const categoryId = this.getDocumentCategory(docCategory, partyType);
     const trustedCaseId = req.session.userCase.id;
-
+    console.log(
+      'Submitting the following documents:',
+      uploadedDocuments.map(d => d.document_filename)
+    );
     try {
       const client = new CosApiClient(user.accessToken, req.locals.logger);
       const response = await client.submitUploadedDocuments(user, {
@@ -334,7 +337,6 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { onlyContinue: submitDocument, generateDocument, uploadFile, delete: deleteDocumentId } = req.body;
-    console.log('--REQUEST BODY', req.body);
 
     if (generateDocument) {
       await this.generateDocument(req, res);
