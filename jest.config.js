@@ -2,7 +2,7 @@ module.exports = {
   roots: ['<rootDir>/src/main'],
   testRegex: '(/src/test/.*|\\.test)\\.(ts|js)$',
   testEnvironment: 'node',
-  preset: "ts-jest/presets/js-with-ts",
+  preset: 'ts-jest/presets/js-with-ts',
   transform: {
     '^.+\\.[tj]s$': 'ts-jest',
   },
@@ -11,10 +11,10 @@ module.exports = {
   moduleNameMapper: {
     '@hmcts/nodejs-logging': '<rootDir>/src/test/unit/mocks/hmcts/nodejs-logging',
   },
-  coverageThreshold: {
-  },
+  coverageProvider: 'v8',
+  coverageThreshold: {},
   verbose: true,
   transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!node-emoji|axios|otplib|@otplib|@scure|query-string|sanitize-html|htmlparser2|deepmerge|escape-string-regexp|is-plain-object|parse-srcset|postcss|launder)',
+    '<rootDir>/node_modules/(?!node-emoji|axios|otplib|@otplib|@scure|query-string|decode-uri-component|filter-obj|split-on-first|sanitize-html|htmlparser2|domhandler|domelementtype|domutils|dom-serializer|deepmerge|escape-string-regexp|is-plain-object|parse-srcset|postcss|launder|entities|uuid)',
   ],
 };

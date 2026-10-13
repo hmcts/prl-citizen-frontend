@@ -2,6 +2,7 @@ module.exports = {
     roots: ['<rootDir>/src/test/smoke'],
     testRegex: '(/src/test/.*|\\.test)\\.(ts|js)$',
     testEnvironment: 'node',
+    coverageProvider: 'v8',
     testRunner: 'jest-circus/runner',
     preset: "jest-puppeteer",
     transform: {
