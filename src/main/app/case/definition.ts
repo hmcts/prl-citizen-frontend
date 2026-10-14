@@ -2634,7 +2634,7 @@ export const MAX_DOCUMENT_LIMITS = {
 };
 export const FILE_UPLOAD_COMMON = {
   accept: AllowedFileExtentionList.map(ext => `.${ext}`).join(','),
-  maxFileSize: String(MAX_UPLOAD_BYTES / (1000 * 1000)),
+  maxFileSizeBytes: MAX_UPLOAD_BYTES,
   maxFilenameLength: 250
 };
 export interface C100OrderTypeInterface {
