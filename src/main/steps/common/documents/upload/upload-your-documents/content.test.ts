@@ -14,6 +14,7 @@ const en = {
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   submitButtonText: 'Submit',
+  uploadDocumentFileUpload: 'Your documents',
   removeDocument: 'Remove',
   statementTextAreaUploadText: 'You can submit {positionOrWitness} statement by either:',
   yourPosition: 'your position',
@@ -41,9 +42,20 @@ const en = {
     "If you are uploading documents or other files, name the files clearly. For example, 'Letter from school', '{docCategory}'.",
   positionOrWitnessStatementUploadText2: 'Files must be in the format JPG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uplodFileText1:
+    'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.',
+  uplodFileText2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX and have a maximum size of 20mb.',
+  uplodFileText3: 'How to take a picture of a document on your phone and upload it',
+  uplodFileText4: 'Place your document on a flat surface in a well-lit room. Use a flash if you need to.',
+  uplodFileText5: 'Take a picture of the whole document. You should be able to see its edges.',
+  uplodFileText6: 'Check you can read all the writing, including the handwriting.',
+  uplodFileText7: 'Email or send the photo or scan to the device you are using now.',
+  uplodFileText8: 'Upload it here.',
+  uploadFileHeading: 'Upload a file',
+  uploadFileButtontext: 'Upload file',
+  uploadFileText9:
     'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
-  uplodFileText2: 'Uploading multiple files from a computer',
-  uplodFileText3:
+  uploadFileText10: 'Uploading multiple files from a computer',
+  uploadFileText11:
     "To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
   filesAddedHeading: 'Files added',
   chooseFile: 'Choose files',
@@ -82,6 +94,7 @@ const cy: typeof en = {
   consent:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth.',
   submitButtonText: 'Cyflwyno',
+  uploadDocumentFileUpload: 'Eich dogfennau',
   removeDocument: 'Dileu',
   statementTextAreaUploadText: 'Gallwch gyflwyno {positionOrWitness} un ai:',
   yourPosition: 'eich datganiad safbwynt',
@@ -110,9 +123,22 @@ const cy: typeof en = {
     "Os ydych yn uwchlwytho dogfennau zip neu ffeiliau eraill, rhowch enwau clir i’r ffeiliau. Er enghraifft, ‘Llythyr gan yr ysgol’, '{docCategory}'.",
   positionOrWitnessStatementUploadText2: 'Rhaid i ffeiliau fod mewn fformat JPG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
   uplodFileText1:
+    'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, llythyr-gan-yr-ysgol.doc.',
+  uplodFileText2:
+    'Rhaid i ffeiliau fod ar ffurf JPG, BMP, PNG, TIF, PDF, DOC neu DOCX a bod yn uchafswm o 20mb o ran maint.',
+  uplodFileText3: 'Sut i dynnu llun o ddogfen ar eich ffôn a’i lwytho',
+  uplodFileText4:
+    'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
+  uplodFileText5: "Tynnwch lun o’r ddogfen gyfan. Dylech allu gweld corneli'r ddogfen.",
+  uplodFileText6: 'Gwiriwch eich bod yn gallu gweld yr ysgrifen i gyd, gan gynnwys y llawysgrifen.',
+  uplodFileText7: 'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
+  uplodFileText8: 'Llwythwch y ffeil yma.',
+  uploadFileHeading: 'Llwytho ffeil',
+  uploadFileButtontext: 'Llwytho ffeil i fyny',
+  uploadFileText9:
     "Rhowch enw i bob ffeil sy'n esbonio'n glir beth ydyw. Bydd hyn yn eich helpu chi a'r llys i gadw trefn ar y dogfennau yn eich achos.",
-  uplodFileText2: 'Uwchlwytho ffeiliau o gyfrifiadur',
-  uplodFileText3:
+  uploadFileText10: 'Uwchlwytho ffeiliau o gyfrifiadur',
+  uploadFileText11:
     "I uwchlwytho ffeiliau lluosog, dewiswch yr un cyntaf, yna daliwch y botwm 'Ctrl' (neu allwedd 'Command' ar gyfer cyfrifiaduron Apple) a dewiswch y ffeiliau eraill.",
   filesAddedHeading: "Ffeiliau wedi'u hychwanegu",
   chooseFile: 'Dewis ffeiliau',
