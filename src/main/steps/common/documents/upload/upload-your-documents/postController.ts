@@ -196,7 +196,10 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       error: { message: errorKey },
     });
 
-    if (!files) {
+    const file =
+      files?.[docCategory === UploadDocumentCategory.FM5_DOCUMENT ? 'uploadDocumentFileUpload' : 'documents'];
+
+    if (!file) {
       const errorKey = this.getEmptyFileErrorType(docCategory);
       req.session.errors = handleError(req.session.errors, errorKey);
       return respond(errorBody(errorKey));
@@ -216,7 +219,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
     try {
       const response = await client.uploadDocument(user, {
-        files: [files['documents']],
+        files: [file],
       });
       console.log('Received the following response:', response);
       if (response.status !== 'Success') {

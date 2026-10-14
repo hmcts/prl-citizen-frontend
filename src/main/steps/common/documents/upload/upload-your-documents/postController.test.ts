@@ -215,7 +215,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       });
 
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
 
       const res = mockResponse();
@@ -304,7 +304,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       });
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
       const res = mockResponse();
 
@@ -355,7 +355,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       });
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
       const res = mockResponse();
 
@@ -397,7 +397,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       });
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
       uploadDocumentListFromCitizenMock.mockResolvedValue({
         status: 'Success',
@@ -442,7 +442,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         },
       });
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
       const res = mockResponse();
       const controller = new UploadDocumentPostController({});
