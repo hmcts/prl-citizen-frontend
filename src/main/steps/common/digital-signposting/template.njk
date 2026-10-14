@@ -1,0 +1,28 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body-m">{{informationLine1}}</p>
+  <h2 class="govuk-heading-s govuk-!-margin-bottom-0">{{informationLine2}}</h2>
+  <p class="govuk-body-m">{{informationLine3}}</p>
+  <p class="govuk-body-m">{{informationLine4}}</p>
+  
+  <h2 class="govuk-heading-s govuk-!-margin-bottom-0">{{courtsAndTribunalsHeader}}</h2>
+  <p class="govuk-body-m">{{telephoneLabel}}</p>
+  <p class="govuk-body-m">{{telephoneNumber}}</p>
+  <p class="govuk-body-m">{{timesOpen}}</p>
+  <p class="govuk-body-m">{{timesClosed}}</p>
+  
+  <h2 class="govuk-heading-s govuk-!-margin-bottom-0">{{onlineFormsHeader}}</h2>
+  <p class="govuk-body-m">{{onlineFormsInformation}}</p>
+  <p class="govuk-body-m">{{informationLine4}}</p>
+  
+  <h2 class="govuk-heading-s govuk-!-margin-bottom-0">{{weAreGroup}}</h2>
+  <p class="govuk-body-m">{{weAreGroupEmailLabel}}</p>
+  <p class="govuk-body-m">{{weAreGroupEmail}}</p>
+  <p class="govuk-body-m">{{weAreGroupTelephoneLabel}}</p>
+  <p class="govuk-body-m">{{weAreGroupTelephone}}</p>
+  <p class="govuk-body-m">{{weAreGroupTimesOpenAndClosed}}</p>
+  <p class="govuk-body-m">{{weAreGroupText}}</p>
+
+{% endblock %}
