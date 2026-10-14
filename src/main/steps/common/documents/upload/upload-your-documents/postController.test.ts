@@ -2,12 +2,16 @@ import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../../app/case/CosApiClient';
 import { FormFields } from '../../../../../app/form/Form';
+import * as uploadUtils from '../../upload/utils';
 
 import UploadDocumentPostController from './postController';
 
 const generateStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'generateStatementDocument');
 const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadDocument');
 const submitUploadedDocumentsMock = jest.spyOn(CosApiClient.prototype, 'submitUploadedDocuments');
+const runSynchronousMock = jest
+  .spyOn(uploadUtils, 'runSynchronous')
+  .mockImplementation(async (_req, _res, task) => task());
 
 describe('documents > upload > upload-your-documents > postController', () => {
   describe('generateDocument', () => {
@@ -416,7 +420,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       expect(res.redirect).not.toHaveBeenCalledWith('/some-redirect-url');
     });
 
-    test('should  set error when  exceeding max documents', async () => {
+    test('should set error when exceeding max documents', async () => {
       const req = mockRequest({
         body: {
           uploadFile: true,
@@ -746,7 +750,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await new Promise(process.nextTick);
 
       expect(deleteDocumentMock).toHaveBeenCalledWith('document-123');
-
+      expect(runSynchronousMock).toHaveBeenCalled();
       expect(req.session.userCase.applicantUploadFiles).toEqual([
         {
           document_url: '/documents/document-456',
@@ -803,6 +807,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
+      expect(runSynchronousMock).toHaveBeenCalled();
       expect(req.session.userCase.applicantUploadFiles).toBeUndefined();
       expect(req.session.applicationSettings.isDocumentGeneratedAndUplaoded).toBeUndefined();
       expect(deleteDocumentMock).toHaveBeenCalledWith('document-123');
@@ -847,6 +852,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
+      expect(runSynchronousMock).toHaveBeenCalled();
       expect(req.session.errors).toEqual([
         {
           errorType: 'deleteError',
@@ -951,6 +957,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
+      expect(runSynchronousMock).toHaveBeenCalled();
       expect(uploadDocumentListFromCitizenMock).toHaveBeenCalled();
     });
 
@@ -1002,6 +1009,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
+      expect(runSynchronousMock).toHaveBeenCalled();
       expect(uploadDocumentListFromCitizenMock).toHaveBeenCalled();
     });
 
@@ -1045,6 +1053,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
+      expect(runSynchronousMock).toHaveBeenCalled();
       expect(deleteDocumentMock).toHaveBeenCalledWith('document-123');
     });
 
@@ -1193,6 +1202,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
+      expect(runSynchronousMock).toHaveBeenCalled();
       expect(res.json).toHaveBeenCalledWith({
         success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
         file: {
@@ -1281,6 +1291,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
+      expect(runSynchronousMock).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalled();
       expect(res.json).not.toHaveBeenCalled();
     });

@@ -1,8 +1,9 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { AppRequest } from '../../../../app/controller/AppRequest';
 
-import { deleteDocument, getDocumentIdFromUrl, isDocumentInSession } from './utils';
+import { deleteDocument, getDocumentIdFromUrl, isDocumentInSession, runSynchronous } from './utils';
 
 const deleteDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteDocument');
 
@@ -155,6 +156,76 @@ describe('documents > upload > utils', () => {
       expect(req.session.errors).toStrictEqual([
         { errorType: 'deleteError', propertyName: 'uploadDocumentFileUpload' },
       ]);
+    });
+  });
+
+  describe('runSynchronous', () => {
+    const buildReq = (): AppRequest => {
+      const req = mockRequest();
+      req.sessionID = 'session-1';
+      req.session.reload = jest.fn((done: (err?: Error | null) => void) => done(null));
+      return req;
+    };
+
+    test('should run tasks for the same session one after another', async () => {
+      const order: string[] = [];
+      const task = (name: string, ms: number) => async () => {
+        order.push(`${name} start`);
+        await new Promise(resolve => setTimeout(resolve, ms));
+        order.push(`${name} end`);
+      };
+      const req = buildReq();
+      const res = mockResponse();
+
+      await Promise.all([runSynchronous(req, res, task('A', 20)), runSynchronous(req, res, task('B', 0))]);
+
+      expect(order).toEqual(['A start', 'A end', 'B start', 'B end']);
+    });
+
+    test('should return a 500 and not run the task if the session reload fails', async () => {
+      const req = buildReq();
+      Object.assign(req.session, {
+        reload: jest.fn((done: (err?: Error | null) => void) => done(new Error('failed'))),
+      });
+      const res = mockResponse();
+      const task = jest.fn();
+
+      await runSynchronous(req, res, task);
+
+      expect(task).not.toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(500);
+    });
+
+    test('should not lose an update when two requests change the session at the same time', async () => {
+      let store: string[] = [];
+
+      const buildSessionReq = () => {
+        const copy = { files: [] as string[] };
+        const req = buildReq();
+        Object.assign(req.session, {
+          reload: jest.fn((done: (err?: Error | null) => void) => {
+            copy.files = [...store];
+            done(null);
+          }),
+        });
+        return { req, copy };
+      };
+
+      const addFile = (copy: { files: string[] }, name: string, ms: number) => async () => {
+        const files = copy.files;
+        await new Promise(resolve => setTimeout(resolve, ms));
+        store = [...files, name];
+      };
+
+      const a = buildSessionReq();
+      const b = buildSessionReq();
+
+      await Promise.all([
+        runSynchronous(a.req, mockResponse(), addFile(a.copy, 'a.pdf', 20)),
+        runSynchronous(b.req, mockResponse(), addFile(b.copy, 'b.pdf', 0)),
+      ]);
+
+      expect(store).toEqual(['a.pdf', 'b.pdf']);
     });
   });
 });

@@ -141,3 +141,48 @@ export const resetUploadDocumentSessionData = (req: AppRequest): void => {
   delete req.session.userCase.declarationCheck;
   delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
 };
+
+const sessionQueues = new Map<string, Promise<void>>();
+
+// Runs upload/delete of files one request at a time per session to prevent data loss
+export const runSynchronous = async <T>(
+  req: AppRequest<T>,
+  res: Response,
+  task: () => Promise<void>
+): Promise<void> => {
+  const key = req.sessionID;
+  const previous: Promise<void> = sessionQueues.get(key) ?? Promise.resolve();
+
+  let release!: () => void;
+  const current = new Promise<void>(resolve => {
+    release = resolve;
+  });
+  const tail = previous.then(() => current);
+  sessionQueues.set(key, tail);
+
+  const canListen = typeof res.once === 'function';
+  if (canListen) {
+    res.once('close', release);
+  }
+
+  try {
+    await previous;
+    await new Promise<void>((resolve, reject) => req.session.reload(err => (err ? reject(err) : resolve())));
+    await task();
+  } catch (error) {
+    console.log(error);
+    release();
+    if (!res.headersSent) {
+      res.status(500).json({ error: { message: 'uploadError' } });
+    }
+  } finally {
+    if (!canListen) {
+      release();
+    }
+    void tail.then(() => {
+      if (sessionQueues.get(key) === tail) {
+        sessionQueues.delete(key);
+      }
+    });
+  }
+};

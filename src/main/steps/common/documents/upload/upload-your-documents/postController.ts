@@ -20,6 +20,7 @@ import {
   handleError,
   removeDocumentFromSession,
   removeUploadDocErrors,
+  runSynchronous,
 } from '../../upload/utils';
 
 @autobind
@@ -341,9 +342,9 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     if (generateDocument) {
       await this.generateDocument(req, res);
     } else if (uploadFile || req.files) {
-      await this.uploadDocument(req, res);
+      await runSynchronous(req, res, () => this.uploadDocument(req, res));
     } else if (deleteDocumentId) {
-      await this.deleteDocument(req, res, String(deleteDocumentId));
+      await runSynchronous(req, res, () => this.deleteDocument(req, res, String(deleteDocumentId)));
     } else if (submitDocument) {
       await this.submitDocuments(req, res);
     }
