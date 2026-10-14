@@ -96,7 +96,7 @@
     "semver": "7.8.5",
     "serve-favicon": "2.5.1",
     "session-file-store": "1.5.0",
-    "supertest": "7.2.2",
+    "supertest": "7.3.1",
     "to-boolean": "1.0.0",
     "toobusy-js": "0.5.1",
     "ts-node": "10.9.2",
