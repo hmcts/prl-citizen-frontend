@@ -1,26 +1,28 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import _ from 'lodash';
 
 import { CosApiClient } from '../../../../../app/case/CosApiClient';
-import { CaseWithId } from '../../../../../app/case/case';
-import { DocumentUploadResponse, PartyType, YesOrNo } from '../../../../../app/case/definition';
+import { DocumentUploadResponse } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
-import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { isExceedingMaxDocuments } from '../../../../../app/form/validation';
-import { applyParms } from '../../../../../steps/common/url-parser';
+import { FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
-import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
 import { getPartyName } from '../../../task-list/utils';
-import { UploadDocumentAPICategory, UploadDocumentCategory } from '../../definitions';
+import { deleteDocument } from '../../common/deleteDocument';
+import { submitDocuments } from '../../common/submitDocuments';
+import { uploadDocument } from '../../common/uploadDocument';
+import { UploadDocumentCategory } from '../../definitions';
 import {
+  ResponseHandlers,
+  getDocumentCategory,
+  getEmptyFileErrorType,
   getUploadedFilesDataReference,
   handleError,
-  removeDocumentFromSession,
+  initializeData,
   removeUploadDocErrors,
   runSynchronous,
+  setRedirectUrl,
 } from '../../upload/utils';
 
 @autobind
@@ -29,115 +31,19 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     super(fields);
   }
 
-  private isConfidentialDoc(caseData: Partial<CaseWithId>, categoryId: UploadDocumentAPICategory): YesOrNo {
-    if (categoryId === UploadDocumentAPICategory.FM5_DOCUMENT) {
-      return YesOrNo.NO;
-    }
-
-    return caseData?.haveReasonForDocNotToBeShared === YesOrNo.YES &&
-      caseData?.reasonsToNotSeeTheDocument?.includes('hasConfidentailDetails')
-      ? YesOrNo.YES
-      : YesOrNo.NO;
-  }
-
-  private isRestrictedDoc(caseData: Partial<CaseWithId>, categoryId: UploadDocumentAPICategory): YesOrNo {
-    if (categoryId === UploadDocumentAPICategory.FM5_DOCUMENT) {
-      return YesOrNo.NO;
-    }
-
-    return caseData?.haveReasonForDocNotToBeShared === YesOrNo.YES &&
-      caseData?.reasonsToNotSeeTheDocument?.includes('containsSentsitiveInformation')
-      ? YesOrNo.YES
-      : YesOrNo.NO;
-  }
-
-  private getDocumentCategory(docCategory: UploadDocumentCategory, partyType: PartyType): UploadDocumentAPICategory {
-    let documentCategory;
-
-    switch (docCategory) {
-      case UploadDocumentCategory.POSITION_STATEMENTS:
-        documentCategory = UploadDocumentAPICategory.POSITION_STATEMENTS;
-        break;
-      case UploadDocumentCategory.WITNESS_STATEMENTS:
-        documentCategory =
-          partyType === PartyType.APPLICANT
-            ? UploadDocumentAPICategory.APPLICANT_WITNESS_STATEMENTS
-            : UploadDocumentAPICategory.RESPONDENT_WITNESS_STATEMENTS;
-        break;
-      case UploadDocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS:
-        documentCategory = UploadDocumentAPICategory.OTHER_PEOPLE_WITNESS_STATEMENTS;
-        break;
-      case UploadDocumentCategory.MEDICAL_RECORDS:
-        documentCategory = UploadDocumentAPICategory.MEDICAL_RECORDS;
-        break;
-      case UploadDocumentCategory.MEDICAL_REPORTS:
-        documentCategory = UploadDocumentAPICategory.MEDICAL_REPORTS;
-        break;
-      case UploadDocumentCategory.EMAIL_IMAGES_MEDIA:
-        documentCategory = UploadDocumentAPICategory.EMAIL_IMAGES_MEDIA;
-        break;
-      case UploadDocumentCategory.LETTERS_FROM_SCHOOL:
-        documentCategory = UploadDocumentAPICategory.LETTERS_FROM_SCHOOL;
-        break;
-      case UploadDocumentCategory.TENANCY_AND_MORTGAGE_AGREEMENTS:
-        documentCategory = UploadDocumentAPICategory.TENANCY_AND_MORTGAGE_AGREEMENTS;
-        break;
-      case UploadDocumentCategory.PREVIOUS_ORDERS_SUBMITTED:
-        documentCategory =
-          partyType === PartyType.APPLICANT
-            ? UploadDocumentAPICategory.PREVIOUS_ORDERS_SUBMITTED_APPLICANT
-            : UploadDocumentAPICategory.PREVIOUS_ORDERS_SUBMITTED_RESPONDENT;
-        break;
-      case UploadDocumentCategory.PATERNITY_TEST_REPORTS:
-        documentCategory = UploadDocumentAPICategory.PATERNITY_TEST_REPORTS;
-        break;
-      case UploadDocumentCategory.DRUG_ALCOHOL_TESTS:
-        documentCategory = UploadDocumentAPICategory.DRUG_ALCOHOL_TESTS;
-        break;
-      case UploadDocumentCategory.POLICE_REPORTS:
-        documentCategory = UploadDocumentAPICategory.POLICE_REPORTS;
-        break;
-      case UploadDocumentCategory.FM5_DOCUMENT:
-        documentCategory = UploadDocumentAPICategory.FM5_DOCUMENT;
-        break;
-      case UploadDocumentCategory.OTHER_DOCUMENTS:
-        documentCategory = UploadDocumentAPICategory.OTHER_DOCUMENTS;
-        break;
-    }
-
-    return documentCategory;
-  }
-
-  private setRedirectUrl(partyType: PartyType, req: AppRequest<Partial<CaseWithId>>) {
-    return applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
-      partyType,
-      docCategory: req.params.docCategory,
-    });
-  }
-
-  private initializeData(caseData: Partial<CaseWithId>): void {
-    if (!caseData?.applicantUploadFiles) {
-      caseData['applicantUploadFiles'] = [];
-    }
-
-    if (!caseData.respondentUploadFiles) {
-      caseData['respondentUploadFiles'] = [];
-    }
-  }
-
   private async generateDocument(req: AppRequest, res: Response): Promise<void> {
     const { params, session, body } = req;
     const { user, userCase: caseData } = session;
     const docCategory = params.docCategory as UploadDocumentCategory;
     const partyType = getCasePartyType(caseData, user.id);
-    const redirectUrl = this.setRedirectUrl(partyType, req);
+    const redirectUrl = setRedirectUrl(partyType, req);
     const statementText = _.get(body, 'statementText', '') as string;
 
     req.url = redirectUrl;
-    this.initializeData(caseData);
+    initializeData(caseData);
 
     if (!statementText) {
-      req.session.errors = handleError(req.session.errors, this.getEmptyFileErrorType(docCategory));
+      req.session.errors = handleError(req.session.errors, getEmptyFileErrorType(docCategory));
       return this.redirect(req, res, redirectUrl);
     }
 
@@ -145,7 +51,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     try {
       const response = await client.generateStatementDocument({
         caseId: caseData.id,
-        categoryId: this.getDocumentCategory(docCategory, partyType),
+        categoryId: getDocumentCategory(docCategory, partyType),
         partyId: user.id,
         partyName: getPartyName(caseData, partyType, user),
         partyType,
@@ -177,179 +83,25 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     return response.some(result => result.status !== 'Success');
   }
 
-  private async uploadDocument(req: AppRequest, res: Response): Promise<void> {
-    const { session, files, params } = req;
-    const { user, userCase: caseData } = session;
-    const docCategory = params.docCategory as UploadDocumentCategory;
-    const partyType = getCasePartyType(caseData, user.id);
-    const client = new CosApiClient(user.accessToken, req.locals.logger);
-    const redirectUrl = this.setRedirectUrl(partyType, req);
-    const wantsJson = this.isXhr(req);
-
-    req.url = redirectUrl;
-    this.initializeData(caseData);
-
-    const respond = (jsonBody: object): void =>
-      wantsJson ? this.respondJson(req, res, jsonBody, redirectUrl) : this.redirect(req, res, redirectUrl);
-
-    const errorBody = (errorKey: string): object => ({
-      error: { message: errorKey },
-    });
-
-    const file =
-      files?.[docCategory === UploadDocumentCategory.FM5_DOCUMENT ? 'uploadDocumentFileUpload' : 'documents'];
-
-    if (!file) {
-      const errorKey = this.getEmptyFileErrorType(docCategory);
-      req.session.errors = handleError(req.session.errors, errorKey);
-      return respond(errorBody(errorKey));
-    }
-
-    const documentDataRef = getUploadedFilesDataReference(partyType);
-
-    if (docCategory === UploadDocumentCategory.FM5_DOCUMENT && caseData[documentDataRef].length) {
-      req.session.errors = handleError(req.session.errors, 'multipleFiles');
-      return respond(errorBody('multipleFiles'));
-    }
-    if (isExceedingMaxDocuments(caseData[documentDataRef]?.length, docCategory)) {
-      req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
-      return respond(errorBody('maxDocumentsReached'));
-    }
-    let jsonBody: object = errorBody('uploadError');
-
-    try {
-      const response = await client.uploadDocument(user, {
-        files: [file],
-      });
-      console.log('Received the following response:', response);
-      if (response.status !== 'Success') {
-        req.session.errors = handleError(req.session.errors, 'uploadError', true);
-        return;
-      }
-
-      caseData[documentDataRef].push(response.document);
-      req.session.errors = removeUploadDocErrors(req.session.errors);
-      jsonBody = {
-        success: response.success,
-        file: {
-          filename: response.document.document_url.split('/').pop(),
-          originalname: response.document.document_filename,
-        },
-      };
-      return;
-    } catch (error) {
-      console.log(error);
-      req.session.errors = handleError(req.session.errors, 'uploadError', true);
-    } finally {
-      respond(jsonBody);
-    }
-  }
-
-  private isXhr(req: AppRequest<AnyObject>): boolean {
-    return req.headers['sec-fetch-dest'] === 'empty' || !req.headers['accept']?.includes('text/html');
-  }
-
-  private getEmptyFileErrorType(docCategory: UploadDocumentCategory): string {
-    return [UploadDocumentCategory.POSITION_STATEMENTS, UploadDocumentCategory.WITNESS_STATEMENTS].includes(docCategory)
-      ? 'noStatementOrFile'
-      : 'noFile';
-  }
-
-  private async submitDocuments(req: AppRequest, res: Response): Promise<void> {
-    const { user, userCase: caseData } = req.session;
-    const docCategory = req.params.docCategory as UploadDocumentCategory;
-    const fields = typeof this.fields === 'function' ? this.fields(caseData, req) : this.fields;
-    const form = new Form(fields);
-    const parsedBody = form.getParsedBody(req.body);
-    const partyType = getCasePartyType(caseData, user.id);
-    const uploadedDocuments = caseData?.[getUploadedFilesDataReference(partyType)] ?? [];
-    const allowedFormData = {
-      declarationCheck: parsedBody.declarationCheck,
+  private getResponseHandlers(req: AppRequest<AnyObject>, res: Response): ResponseHandlers {
+    return {
+      redirect: nextUrl => this.redirect(req, res, nextUrl),
+      respondJson: (body, nextUrl) => this.respondJson(req, res, body, nextUrl),
     };
-    Object.assign(req.session.userCase, allowedFormData);
-    req.session.errors = form.getErrors(allowedFormData);
-
-    if (!uploadedDocuments?.length) {
-      req.session.errors = handleError(req.session.errors, this.getEmptyFileErrorType(docCategory), true);
-    }
-
-    if (req.session.errors.length) {
-      return this.redirect(req, res);
-    }
-
-    const categoryId = this.getDocumentCategory(docCategory, partyType);
-    const trustedCaseId = req.session.userCase.id;
-    console.log(
-      'Submitting the following documents:',
-      uploadedDocuments.map(d => d.document_filename)
-    );
-    try {
-      const client = new CosApiClient(user.accessToken, req.locals.logger);
-      const response = await client.submitUploadedDocuments(user, {
-        caseId: trustedCaseId,
-        categoryId,
-        partyId: user.id,
-        partyName: getPartyName(caseData, partyType, user),
-        partyType,
-        isConfidential: this.isConfidentialDoc(caseData, categoryId),
-        isRestricted: this.isRestrictedDoc(caseData, categoryId),
-        restrictDocumentDetails: _.get(caseData, 'reasonsToRestrictDocument', ''),
-        documents: uploadedDocuments,
-      });
-
-      if (response.data !== 'Success') {
-        req.session.errors = handleError(req.session.errors, 'uploadError', true);
-        return;
-      }
-
-      req.session.errors = removeUploadDocErrors(req.session.errors);
-      delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
-    } catch (error) {
-      console.log(error);
-      req.session.errors = handleError(req.session.errors, 'uploadError', true);
-    } finally {
-      this.redirect(req, res);
-    }
-  }
-
-  private async deleteDocument(req: AppRequest<AnyObject>, res: Response, documentId: string): Promise<void> {
-    const { session } = req;
-    const { user, userCase: caseData } = session;
-    const partyType = getCasePartyType(caseData, user.id);
-    const client = new CosApiClient(user.accessToken, req.locals.logger);
-    const redirectUrl = this.setRedirectUrl(partyType, req);
-    req.url = redirectUrl;
-    this.initializeData(caseData);
-
-    const uploadedFilesDataReference = getUploadedFilesDataReference(partyType);
-    const errorBody = (errorKey: string): object => ({
-      error: { message: errorKey },
-    });
-
-    let jsonBody: object = {};
-    try {
-      await client.deleteDocument(documentId);
-
-      removeDocumentFromSession(req, caseData, uploadedFilesDataReference, documentId);
-    } catch (error) {
-      console.log(error);
-      req.session.errors = handleError(req.session.errors, 'deleteError', true);
-      jsonBody = errorBody('deleteError');
-    }
-    this.respondJson(req, res, jsonBody, redirectUrl);
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { onlyContinue: submitDocument, generateDocument, uploadFile, delete: deleteDocumentId } = req.body;
+    const handlers = this.getResponseHandlers(req, res);
 
     if (generateDocument) {
       await this.generateDocument(req, res);
     } else if (uploadFile || req.files) {
-      await runSynchronous(req, res, () => this.uploadDocument(req, res));
+      await runSynchronous(req, res, () => uploadDocument(req, handlers));
     } else if (deleteDocumentId) {
-      await runSynchronous(req, res, () => this.deleteDocument(req, res, String(deleteDocumentId)));
+      await runSynchronous(req, res, () => deleteDocument(req, handlers, String(deleteDocumentId)));
     } else if (submitDocument) {
-      await this.submitDocuments(req, res);
+      await submitDocuments(req, this.fields, handlers);
     }
   }
 }

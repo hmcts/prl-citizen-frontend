@@ -9,7 +9,12 @@ import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../urls';
 import { applyParms } from '../../url-parser';
 import { cy, en } from '../common/content';
-import { DocumentLabelCategory, DocumentSectionId, UploadDocumentCategory } from '../definitions';
+import {
+  DocumentLabelCategory,
+  DocumentSectionId,
+  UploadDocumentAPICategory,
+  UploadDocumentCategory,
+} from '../definitions';
 import { uploadDocumentSections } from '../upload/config';
 
 /** Upload documents related utilty */
@@ -95,6 +100,7 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
 
     removeDocumentFromSession(req, caseData, uploadedFilesDataReference, documentId);
   } catch (e) {
+    console.log(e);
     req.session.errors = handleError(req.session.errors, 'deleteError', true);
   } finally {
     req.session.save(() => {
@@ -185,4 +191,92 @@ export const runSynchronous = async <T>(
       }
     });
   }
+};
+
+export interface ResponseHandlers {
+  redirect: (nextUrl?: string) => void;
+  respondJson: (body: object, nextUrl?: string) => void;
+}
+
+export const getDocumentCategory = (
+  docCategory: UploadDocumentCategory,
+  partyType: PartyType
+): UploadDocumentAPICategory => {
+  let documentCategory;
+
+  switch (docCategory) {
+    case UploadDocumentCategory.POSITION_STATEMENTS:
+      documentCategory = UploadDocumentAPICategory.POSITION_STATEMENTS;
+      break;
+    case UploadDocumentCategory.WITNESS_STATEMENTS:
+      documentCategory =
+        partyType === PartyType.APPLICANT
+          ? UploadDocumentAPICategory.APPLICANT_WITNESS_STATEMENTS
+          : UploadDocumentAPICategory.RESPONDENT_WITNESS_STATEMENTS;
+      break;
+    case UploadDocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS:
+      documentCategory = UploadDocumentAPICategory.OTHER_PEOPLE_WITNESS_STATEMENTS;
+      break;
+    case UploadDocumentCategory.MEDICAL_RECORDS:
+      documentCategory = UploadDocumentAPICategory.MEDICAL_RECORDS;
+      break;
+    case UploadDocumentCategory.MEDICAL_REPORTS:
+      documentCategory = UploadDocumentAPICategory.MEDICAL_REPORTS;
+      break;
+    case UploadDocumentCategory.EMAIL_IMAGES_MEDIA:
+      documentCategory = UploadDocumentAPICategory.EMAIL_IMAGES_MEDIA;
+      break;
+    case UploadDocumentCategory.LETTERS_FROM_SCHOOL:
+      documentCategory = UploadDocumentAPICategory.LETTERS_FROM_SCHOOL;
+      break;
+    case UploadDocumentCategory.TENANCY_AND_MORTGAGE_AGREEMENTS:
+      documentCategory = UploadDocumentAPICategory.TENANCY_AND_MORTGAGE_AGREEMENTS;
+      break;
+    case UploadDocumentCategory.PREVIOUS_ORDERS_SUBMITTED:
+      documentCategory =
+        partyType === PartyType.APPLICANT
+          ? UploadDocumentAPICategory.PREVIOUS_ORDERS_SUBMITTED_APPLICANT
+          : UploadDocumentAPICategory.PREVIOUS_ORDERS_SUBMITTED_RESPONDENT;
+      break;
+    case UploadDocumentCategory.PATERNITY_TEST_REPORTS:
+      documentCategory = UploadDocumentAPICategory.PATERNITY_TEST_REPORTS;
+      break;
+    case UploadDocumentCategory.DRUG_ALCOHOL_TESTS:
+      documentCategory = UploadDocumentAPICategory.DRUG_ALCOHOL_TESTS;
+      break;
+    case UploadDocumentCategory.POLICE_REPORTS:
+      documentCategory = UploadDocumentAPICategory.POLICE_REPORTS;
+      break;
+    case UploadDocumentCategory.FM5_DOCUMENT:
+      documentCategory = UploadDocumentAPICategory.FM5_DOCUMENT;
+      break;
+    case UploadDocumentCategory.OTHER_DOCUMENTS:
+      documentCategory = UploadDocumentAPICategory.OTHER_DOCUMENTS;
+      break;
+  }
+
+  return documentCategory;
+};
+
+export const setRedirectUrl = (partyType: PartyType, req: AppRequest<Partial<CaseWithId>>): string => {
+  return applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
+    partyType,
+    docCategory: req.params.docCategory,
+  });
+};
+
+export const initializeData = (caseData: Partial<CaseWithId>): void => {
+  if (!caseData?.applicantUploadFiles) {
+    caseData['applicantUploadFiles'] = [];
+  }
+
+  if (!caseData.respondentUploadFiles) {
+    caseData['respondentUploadFiles'] = [];
+  }
+};
+
+export const getEmptyFileErrorType = (docCategory: UploadDocumentCategory): string => {
+  return [UploadDocumentCategory.POSITION_STATEMENTS, UploadDocumentCategory.WITNESS_STATEMENTS].includes(docCategory)
+    ? 'noStatementOrFile'
+    : 'noFile';
 };
