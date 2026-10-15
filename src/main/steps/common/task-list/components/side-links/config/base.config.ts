@@ -142,13 +142,10 @@ export const QUICKLINKS_BASE_CONFIG: QuickLinksBaseConfigProps[] = [
   {
     id: QuickLinks.DIGITAL_SIGNPOSTING,
     getLinkHref: (caseData: CaseWithId, partyType: PartyType) => {
-      return partyType === PartyType.APPLICANT
-        ? APPLICANT_DIGITAL_SIGNPOSTING
-        : RESPONDENT_DIGITAL_SIGNPOSTING;
+      return partyType === PartyType.APPLICANT ? APPLICANT_DIGITAL_SIGNPOSTING : RESPONDENT_DIGITAL_SIGNPOSTING;
     },
     show: (caseData: CaseWithId, userDetails: UserDetails) =>
-      isCaseLinked(caseData, userDetails) &&
-      !isCaseClosed(caseData),
+      isCaseLinked(caseData, userDetails) && !isCaseClosed(caseData),
     target: '_blank',
   },
 ];
