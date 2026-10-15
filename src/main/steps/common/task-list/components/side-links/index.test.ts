@@ -452,7 +452,7 @@ describe('CA - Respondent quick links', () => {
         linkHref: '/respondent/digital-signposting',
         linkText: 'Get help with forms online',
         target: '_blank',
-      }
+      },
     ]);
   });
 });
