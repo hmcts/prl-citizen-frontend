@@ -52,7 +52,7 @@ const cyContent = {
   weAreGroupTelephone: '03300 160 051',
   weAreGroupTimesOpenAndClosed: 'Dydd Llun i Ddydd Gwener, 9am i 5pm. Ar gau ar wyliau banc.',
   weAreGroupText: 'Text FORM to 60777 and someone will call you back',
-  callChargesLink: 'Find out about call charges (opens in a new tab)',
+  callChargesLink: 'Gwybodaeth am brisiau galwadau (agor mewn ffenestr newydd)',
 };
 
 jest.mock('../../../app/form/validation');
