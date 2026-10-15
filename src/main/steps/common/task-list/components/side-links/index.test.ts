@@ -282,6 +282,12 @@ describe('CA - Applicant quick links', () => {
         linkText: 'Find information about my court',
         target: '_blank',
       },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_blank',
+      },
     ]);
   });
 
@@ -340,6 +346,12 @@ describe('CA - Applicant quick links', () => {
         id: 'informationAboutCourt',
         linkHref: 'https://www.gov.uk/find-court-tribunal',
         linkText: 'Find information about my court',
+        target: '_blank',
+      },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
         target: '_blank',
       },
     ]);
@@ -435,6 +447,12 @@ describe('CA - Respondent quick links', () => {
         linkText: 'Find information about my court',
         target: '_blank',
       },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/respondent/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_blank',
+      }
     ]);
   });
 });
@@ -510,6 +528,12 @@ describe('DA - Applicant quick links', () => {
         id: 'informationAboutCourt',
         linkHref: 'https://www.gov.uk/find-court-tribunal',
         linkText: 'Find information about my court',
+        target: '_blank',
+      },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
         target: '_blank',
       },
     ]);
@@ -600,6 +624,12 @@ describe('DA - Respondent quick links', () => {
         linkHref:
           'https://www.gov.uk/government/publications/form-fl403-application-to-vary-extend-or-discharge-an-order-in-existing-proceedings',
         linkText: 'Set aside or change an application',
+        target: '_blank',
+      },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/respondent/digital-signposting',
+        linkText: 'Get help with forms online',
         target: '_blank',
       },
     ]);
