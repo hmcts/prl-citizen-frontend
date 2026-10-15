@@ -3,6 +3,7 @@ import { FormContent } from '../../../app/form/Form';
 
 const en = {
   title: 'Get help with completing forms online',
+  back: 'Back',
   informationLine1: 'Who you can contact depends on the type of help you need.',
   informationLine2: 'If online forms are not working or you have a technical query',
   informationLine3:
@@ -28,6 +29,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'Cymorth gyda chwblhau ffurflenni ar-lein',
+  back: 'Yn ôl',
   informationLine1: 'Mae’r math o gymorth y gallwch ei gael yn dibynnu ar y math o gymorth sydd ei angen arnoch.',
   informationLine2: 'Os nad yw ffurflenni ar-lein yn gweithio neu os oes gennych gwestiwn technegol',
   informationLine3:

@@ -145,7 +145,6 @@ export const QUICKLINKS_BASE_CONFIG: QuickLinksBaseConfigProps[] = [
       return partyType === PartyType.APPLICANT ? APPLICANT_DIGITAL_SIGNPOSTING : RESPONDENT_DIGITAL_SIGNPOSTING;
     },
     show: (caseData: CaseWithId, userDetails: UserDetails) =>
-      isCaseLinked(caseData, userDetails) && !isCaseClosed(caseData),
-    target: '_blank',
+      isCaseLinked(caseData, userDetails),
   },
 ];
