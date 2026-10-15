@@ -286,7 +286,7 @@ describe('CA - Applicant quick links', () => {
         id: 'getHelpWithFormsOnline',
         linkHref: '/applicant/digital-signposting',
         linkText: 'Get help with forms online',
-        target: '_blank',
+        target: '_self',
       },
     ]);
   });
@@ -352,7 +352,7 @@ describe('CA - Applicant quick links', () => {
         id: 'getHelpWithFormsOnline',
         linkHref: '/applicant/digital-signposting',
         linkText: 'Get help with forms online',
-        target: '_blank',
+        target: '_self',
       },
     ]);
   });
@@ -451,7 +451,7 @@ describe('CA - Respondent quick links', () => {
         id: 'getHelpWithFormsOnline',
         linkHref: '/respondent/digital-signposting',
         linkText: 'Get help with forms online',
-        target: '_blank',
+        target: '_self',
       },
     ]);
   });
@@ -534,7 +534,7 @@ describe('DA - Applicant quick links', () => {
         id: 'getHelpWithFormsOnline',
         linkHref: '/applicant/digital-signposting',
         linkText: 'Get help with forms online',
-        target: '_blank',
+        target: '_self',
       },
     ]);
   });
@@ -630,7 +630,7 @@ describe('DA - Respondent quick links', () => {
         id: 'getHelpWithFormsOnline',
         linkHref: '/respondent/digital-signposting',
         linkText: 'Get help with forms online',
-        target: '_blank',
+        target: '_self',
       },
     ]);
   });
