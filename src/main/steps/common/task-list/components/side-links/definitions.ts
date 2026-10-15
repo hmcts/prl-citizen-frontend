@@ -40,4 +40,5 @@ export enum QuickLinks {
   HOW_TO_REPRESENT_IN_COURT = 'howToRepresentInCourt',
   INFORMARTION_ABOUT_COURT = 'informationAboutCourt',
   SET_ASIDE_OR_CHANGE_APPLICATION = 'setAsideOrChangeApplication',
+  DIGITAL_SIGNPOSTING = 'getHelpWithFormsOnline'
 }

@@ -13,8 +13,10 @@ import {
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+  APPLICANT_DIGITAL_SIGNPOSTING,
   REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+  RESPONDENT_DIGITAL_SIGNPOSTING,
 } from '../../../../../../steps/urls';
 import { QuickLinks, QuickLinksBaseConfigProps } from '../definitions';
 
@@ -135,6 +137,18 @@ export const QUICKLINKS_BASE_CONFIG: QuickLinksBaseConfigProps[] = [
       isCaseLinked(caseData, userDetails) &&
       caseData.caseTypeOfApplication === CaseType.FL401 &&
       partyType === PartyType.RESPONDENT,
+    target: '_blank',
+  },
+  {
+    id: QuickLinks.DIGITAL_SIGNPOSTING,
+    getLinkHref: (caseData: CaseWithId, partyType: PartyType) => {
+      return partyType === PartyType.APPLICANT
+        ? APPLICANT_DIGITAL_SIGNPOSTING
+        : RESPONDENT_DIGITAL_SIGNPOSTING;
+    },
+    show: (caseData: CaseWithId, userDetails: UserDetails) =>
+      isCaseLinked(caseData, userDetails) &&
+      !isCaseClosed(caseData),
     target: '_blank',
   },
 ];
