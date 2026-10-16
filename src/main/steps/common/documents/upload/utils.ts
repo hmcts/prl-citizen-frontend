@@ -280,3 +280,12 @@ export const getEmptyFileErrorType = (docCategory: UploadDocumentCategory): stri
     ? 'noStatementOrFile'
     : 'noFile';
 };
+
+// Document categories that use single file upload instead of multi file upload
+export const SINGLE_FILE_UPLOAD_CATEGORIES: UploadDocumentCategory[] = [UploadDocumentCategory.FM5_DOCUMENT];
+
+export const isSingleFileUpload = (docCategory: UploadDocumentCategory): boolean =>
+  SINGLE_FILE_UPLOAD_CATEGORIES.includes(docCategory);
+
+export const getUploadFileFieldName = (docCategory: UploadDocumentCategory): string =>
+  isSingleFileUpload(docCategory) ? 'uploadDocumentFileUpload' : 'documents';
