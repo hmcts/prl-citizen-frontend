@@ -424,6 +424,10 @@ export const APPLICANT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${APPLICANT}/add-le
 export const REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = '/:partyType/remove-legal-representative/start';
 export const REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = '/:partyType/remove-legal-representative/confirm';
 
+/** Digital Signposting */
+export const APPLICANT_DIGITAL_SIGNPOSTING: PageLink = `${APPLICANT}/digital-signposting`;
+export const RESPONDENT_DIGITAL_SIGNPOSTING: PageLink = `${RESPONDENT}/digital-signposting`;
+
 /** Screening questions */
 export const SCREENING_QUESTION_GUIDANCE: PageLink = '/complete-your-application-guidance';
 export const SCREENING_QUESTION_COURT_FEE: PageLink = '/agree-court-fee';

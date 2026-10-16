@@ -15,6 +15,7 @@ import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
+  APPLICANT_DIGITAL_SIGNPOSTING,
   APPLICANT_FIND_ADDRESS,
   APPLICANT_MANUAL_ADDRESS,
   APPLICANT_PERSONAL_DETAILS,
@@ -411,6 +412,11 @@ export const applicantCaseSequence: Step[] = [
     url: STATEMENT_OF_SERVICE_SUCCESS,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
+  },
+  {
+    url: APPLICANT_DIGITAL_SIGNPOSTING,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
 ];

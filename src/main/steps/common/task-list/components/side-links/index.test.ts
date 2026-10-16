@@ -80,6 +80,12 @@ describe('C100 quick links', () => {
         linkText: 'Read how to represent myself in court',
         target: '_blank',
       },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
+      },
     ]);
   });
 
@@ -132,6 +138,12 @@ describe('C100 quick links', () => {
         linkHref: 'https://www.gov.uk/represent-yourself-in-court',
         linkText: 'Read how to represent myself in court',
         target: '_blank',
+      },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
       },
     ]);
   });
@@ -187,6 +199,12 @@ describe('C100 quick links', () => {
         linkHref: 'https://www.gov.uk/represent-yourself-in-court',
         linkText: 'Read how to represent myself in court',
         target: '_blank',
+      },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
       },
     ]);
   });
@@ -282,6 +300,12 @@ describe('CA - Applicant quick links', () => {
         linkText: 'Find information about my court',
         target: '_blank',
       },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
+      },
     ]);
   });
 
@@ -341,6 +365,12 @@ describe('CA - Applicant quick links', () => {
         linkHref: 'https://www.gov.uk/find-court-tribunal',
         linkText: 'Find information about my court',
         target: '_blank',
+      },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
       },
     ]);
   });
@@ -435,6 +465,12 @@ describe('CA - Respondent quick links', () => {
         linkText: 'Find information about my court',
         target: '_blank',
       },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/respondent/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
+      },
     ]);
   });
 });
@@ -511,6 +547,12 @@ describe('DA - Applicant quick links', () => {
         linkHref: 'https://www.gov.uk/find-court-tribunal',
         linkText: 'Find information about my court',
         target: '_blank',
+      },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
       },
     ]);
   });
@@ -601,6 +643,12 @@ describe('DA - Respondent quick links', () => {
           'https://www.gov.uk/government/publications/form-fl403-application-to-vary-extend-or-discharge-an-order-in-existing-proceedings',
         linkText: 'Set aside or change an application',
         target: '_blank',
+      },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/respondent/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
       },
     ]);
   });
