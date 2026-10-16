@@ -1,9 +1,19 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
+import { UploadDocumentAPICategory, UploadDocumentCategory } from '../definitions';
 
-import { deleteDocument, getDocumentIdFromUrl, isDocumentInSession, runSynchronous } from './utils';
+import {
+  deleteDocument,
+  getDocumentCategory,
+  getDocumentIdFromUrl,
+  getEmptyFileErrorType,
+  getUploadedFilesDataReference,
+  isDocumentInSession,
+  runSynchronous,
+} from './utils';
 
 const deleteDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteDocument');
 
@@ -226,6 +236,46 @@ describe('documents > upload > utils', () => {
       ]);
 
       expect(store).toEqual(['a.pdf', 'b.pdf']);
+    });
+  });
+
+  describe('getUploadedFilesDataReference', () => {
+    test('should return the applicant upload field for an applicant', () => {
+      expect(getUploadedFilesDataReference(PartyType.APPLICANT)).toBe('applicantUploadFiles');
+    });
+
+    test('should return the respondent upload field for a respondent', () => {
+      expect(getUploadedFilesDataReference(PartyType.RESPONDENT)).toBe('respondentUploadFiles');
+    });
+  });
+
+  describe('getEmptyFileErrorType', () => {
+    test('should return noStatementOrFile for position statements', () => {
+      expect(getEmptyFileErrorType(UploadDocumentCategory.POSITION_STATEMENTS)).toBe('noStatementOrFile');
+    });
+
+    test('should return noFile for other document categories', () => {
+      expect(getEmptyFileErrorType(UploadDocumentCategory.MEDICAL_RECORDS)).toBe('noFile');
+    });
+  });
+
+  describe('getDocumentCategory', () => {
+    test('should select the applicant-specific witness statement category', () => {
+      expect(getDocumentCategory(UploadDocumentCategory.WITNESS_STATEMENTS, PartyType.APPLICANT)).toBe(
+        UploadDocumentAPICategory.APPLICANT_WITNESS_STATEMENTS
+      );
+    });
+
+    test('should select the respondent-specific witness statement category', () => {
+      expect(getDocumentCategory(UploadDocumentCategory.WITNESS_STATEMENTS, PartyType.RESPONDENT)).toBe(
+        UploadDocumentAPICategory.RESPONDENT_WITNESS_STATEMENTS
+      );
+    });
+
+    test('should map FM5 documents to the FM5 API category', () => {
+      expect(getDocumentCategory(UploadDocumentCategory.FM5_DOCUMENT, PartyType.APPLICANT)).toBe(
+        UploadDocumentAPICategory.FM5_DOCUMENT
+      );
     });
   });
 });
