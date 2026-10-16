@@ -80,6 +80,12 @@ describe('C100 quick links', () => {
         linkText: 'Read how to represent myself in court',
         target: '_blank',
       },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
+      },
     ]);
   });
 
@@ -132,6 +138,12 @@ describe('C100 quick links', () => {
         linkHref: 'https://www.gov.uk/represent-yourself-in-court',
         linkText: 'Read how to represent myself in court',
         target: '_blank',
+      },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
       },
     ]);
   });
@@ -187,6 +199,12 @@ describe('C100 quick links', () => {
         linkHref: 'https://www.gov.uk/represent-yourself-in-court',
         linkText: 'Read how to represent myself in court',
         target: '_blank',
+      },
+      {
+        id: 'getHelpWithFormsOnline',
+        linkHref: '/applicant/digital-signposting',
+        linkText: 'Get help with forms online',
+        target: '_self',
       },
     ]);
   });
