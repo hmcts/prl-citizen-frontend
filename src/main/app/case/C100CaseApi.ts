@@ -350,6 +350,10 @@ interface UpdateCaseRequest extends UpdateCase {
 
 export interface DocumentUploadResponse {
   status: string;
+  success: {
+    messageHtml: string;
+    messageText: string;
+  };
   document: {
     document_url: string;
     document_binary_url: string;
