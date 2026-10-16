@@ -9,11 +9,26 @@ import { CaseWithId } from '../../case/case';
 import { AppRequest, UserDetails } from '../../controller/AppRequest';
 
 export const getRedirectUrl = (serviceUrl: string, callbackUrlPageLink: PageLink): string => {
-  const id: string = config.get('services.idam.clientID');
+  const clientId: string = config.get('services.idam.clientID');
   const loginUrl: string = config.get('services.idam.authorizationURL');
-  const callbackUrl = encodeURI(serviceUrl + callbackUrlPageLink);
+  const callbackUrl = serviceUrl + callbackUrlPageLink;
+  const scope: string = config.get('services.idam.authorizationScope');
 
-  return `${loginUrl}?client_id=${id}&response_type=code&redirect_uri=${callbackUrl}`;
+  const params = new URLSearchParams({
+    client_id: clientId,
+    response_type: 'code',
+    scope,
+    redirect_uri: callbackUrl,
+  });
+
+  return `${loginUrl}?${params.toString()}`;
+};
+
+export const getEndGlobalSessionUrl = (serviceUrl: string): string => {
+  const endSessionUrl: string = config.get('services.idam.endSessionURL');
+  const postLogoutRedirectUri = encodeURIComponent(serviceUrl);
+
+  return `${endSessionUrl}?post_logout_redirect_uri=${postLogoutRedirectUri}`;
 };
 
 export const getUserDetails = async (
