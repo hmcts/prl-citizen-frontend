@@ -355,6 +355,10 @@ export class CosApiClient {
 
       return {
         status: response.data.status,
+        success: {
+          messageHtml: response.data.document.document_filename,
+          messageText: response.data.document.document_filename,
+        },
         document: response.data.document,
       };
     } catch (error) {
