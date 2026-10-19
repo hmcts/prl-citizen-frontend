@@ -2091,31 +2091,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-sdk-common@npm:2.29.0":
-  version: 2.29.0
-  resolution: "@launchdarkly/js-sdk-common@npm:2.29.0"
-  checksum: 10c0/829617a42784ce1c8c5da683ccd65d7f22d0a07a56f103167f53b96df4c515268776f964cdf2e87010c6b543151fee8bc37fa944e0f33a005309868a4512c99f
+"@launchdarkly/js-sdk-common@npm:2.31.0":
+  version: 2.31.0
+  resolution: "@launchdarkly/js-sdk-common@npm:2.31.0"
+  checksum: 10c0/5eb193d2f621d2b8ce46feef4c9e08772dddea8f98c9d9a54959f12503899c2df28f8c18433eeef8521ee8930724c7a242851cd6d0a36fa0fb508dd23c461b29
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.24.1":
-  version: 2.24.1
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.24.1"
+"@launchdarkly/js-server-sdk-common@npm:2.25.0":
+  version: 2.25.0
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.25.0"
   dependencies:
-    "@launchdarkly/js-sdk-common": "npm:2.29.0"
+    "@launchdarkly/js-sdk-common": "npm:2.31.0"
     semver: "npm:7.5.4"
-  checksum: 10c0/aee4f57b941258d13da8110dac4ef4589977269b1c144a728bcb01083864f8048ca6e2936e9540dd235187dc0cbfa052d10a2c21f3e86f734e4852ea08860d2b
+  checksum: 10c0/bc6670d8021286b5f30d83c956059aa077315c296c756ad20661296d431b98b4186cd1f6d4c8c56cad05acd765326b69c1edc346336c77932543842fd0d55b60
   languageName: node
   linkType: hard
 
-"@launchdarkly/node-server-sdk@npm:9.14.4":
-  version: 9.14.4
-  resolution: "@launchdarkly/node-server-sdk@npm:9.14.4"
+"@launchdarkly/node-server-sdk@npm:9.15.0":
+  version: 9.15.0
+  resolution: "@launchdarkly/node-server-sdk@npm:9.15.0"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": "npm:2.24.1"
+    "@launchdarkly/js-server-sdk-common": "npm:2.25.0"
     https-proxy-agent: "npm:^7.0.6"
     launchdarkly-eventsource: "npm:2.3.0"
-  checksum: 10c0/860e53306748f7b9f2aecbaa28283fcda14a0faffc741439c15dc0d6297bda262efddd5b70b91943eb5a851c7f9baa83dc84e4328e95e5589065c6b1f34e37d7
+  checksum: 10c0/e6e1ac0ca4684deb3cfdc57a0fde407b6b3cfa36bfe998e8c43e7f3cc6db09607840a96d2a2b4b2069689cc8350fff0cba079853ca510bf4e35893048d28e276
   languageName: node
   linkType: hard
 
@@ -9879,7 +9879,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": "npm:1.8.6"
     "@hmcts/nodejs-logging": "npm:4.0.4"
     "@hmcts/properties-volume": "npm:0.0.14"
-    "@launchdarkly/node-server-sdk": "npm:9.14.4"
+    "@launchdarkly/node-server-sdk": "npm:9.15.0"
     "@pact-foundation/pact": "npm:17.1.4"
     "@types/config": "npm:0.0.41"
     "@types/connect-redis": "npm:0.0.23"
