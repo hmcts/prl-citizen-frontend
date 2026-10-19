@@ -1473,14 +1473,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dr.pogodin/csurf@npm:1.18.1":
-  version: 1.18.1
-  resolution: "@dr.pogodin/csurf@npm:1.18.1"
+"@dr.pogodin/csurf@npm:1.18.2":
+  version: 1.18.2
+  resolution: "@dr.pogodin/csurf@npm:1.18.2"
   dependencies:
     cookie: "npm:^2.0.1"
     cookie-signature: "npm:^1.2.2"
     http-errors: "npm:^2.0.1"
-  checksum: 10c0/b96afdf2be962e9d06cff27c2899dcf9cb78da5fac5b9a92c1437b93c06d75da98dd6afc1d584baef03a6b4349b5320049459519e0d30215de5577d42c6e7909
+  checksum: 10c0/a16665c00773d2023d0485b53189cd4c89aee2e1862aca45ff51385d680229b5ef68e24674b397cf99db6d835f8102654d77ad4bad3747e4b433c5173eb54803
   languageName: node
   linkType: hard
 
@@ -9872,7 +9872,7 @@ __metadata:
     "@babel/eslint-parser": "npm:7.29.9"
     "@babel/preset-env": "npm:7.29.7"
     "@babel/preset-typescript": "npm:7.29.7"
-    "@dr.pogodin/csurf": "npm:1.18.1"
+    "@dr.pogodin/csurf": "npm:1.18.2"
     "@eslint/js": "npm:10.0.1"
     "@hmcts/cookie-manager": "npm:1.1.0"
     "@hmcts/frontend": "npm:0.0.50-alpha"
