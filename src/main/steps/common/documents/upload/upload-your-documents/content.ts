@@ -8,7 +8,7 @@ import { interpolate } from '../../../../../steps/common/string-parser';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS, UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
 import { UploadDocumentCategory } from '../../definitions';
-import { getUploadDocumentCategoryDetails } from '../../upload/utils';
+import { getUploadDocumentCategoryDetails, isSingleFileUpload } from '../../upload/utils';
 
 export * from './routeGuard';
 
@@ -305,6 +305,7 @@ export const generateContent: TranslationFn = content => {
     errors: errorMessages,
     uploadURL: fileUploadUrl,
     deleteURL: fileUploadUrl,
+    isSingleFileUpload: isSingleFileUpload(docCategory),
     ...FILE_UPLOAD_COMMON,
   };
 };
