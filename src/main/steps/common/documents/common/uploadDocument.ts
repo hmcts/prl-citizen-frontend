@@ -6,9 +6,11 @@ import { UploadDocumentCategory } from '../definitions';
 import {
   ResponseHandlers,
   getEmptyFileErrorType,
+  getUploadFileFieldName,
   getUploadedFilesDataReference,
   handleError,
   initializeData,
+  isSingleFileUpload,
   removeUploadDocErrors,
   setRedirectUrl,
 } from '../upload/utils';
@@ -35,7 +37,7 @@ export const uploadDocument = async (req: AppRequest, handlers: ResponseHandlers
     error: { message: errorKey },
   });
 
-  const file = files?.[docCategory === UploadDocumentCategory.FM5_DOCUMENT ? 'uploadDocumentFileUpload' : 'documents'];
+  const file = files?.[getUploadFileFieldName(docCategory)];
 
   if (!file) {
     const errorKey = getEmptyFileErrorType(docCategory);
@@ -45,7 +47,7 @@ export const uploadDocument = async (req: AppRequest, handlers: ResponseHandlers
 
   const documentDataRef = getUploadedFilesDataReference(partyType);
 
-  if (docCategory === UploadDocumentCategory.FM5_DOCUMENT && caseData[documentDataRef].length) {
+  if (isSingleFileUpload(docCategory) && caseData[documentDataRef].length) {
     req.session.errors = handleError(req.session.errors, 'multipleFiles');
     return respond(errorBody('multipleFiles'));
   }
