@@ -23,13 +23,25 @@ const en = {
   uploadButton: 'Upload file',
   noFiles: 'No files uploaded',
   remove: 'Remove',
+  uploadFileText9:
+    'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
+  uploadFileText10: 'Uploading multiple files from a computer',
+  uploadFileText11:
+    "To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
+  filesAddedHeading: 'Files added',
+  chooseFile: 'Choose files',
+  dropFile: 'Drag and drop files here or click to select files',
   errors: {
+    title: 'There is a problem',
     miam_domesticAbuseEvidenceDocs: {
       maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
-      invalidFileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
+      wrongFileExtension: 'Only JPG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed.',
+      filenameTooLong: 'File names must be 250 characters or less.',
+      fileTooLarge: 'Files must be under 20MB.',
       uploadError: 'Document could not be uploaded',
-      deleteFile: 'Document could not be deleted',
+      deleteError: 'Document could not be deleted',
+      noFile: 'Upload a file.',
     },
   },
 };
@@ -52,15 +64,26 @@ const cy: typeof en = {
   noFiles: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
   remove: 'Dileu',
   errors: {
+    title: 'There is a problem',
     miam_domesticAbuseEvidenceDocs: {
       maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
-      invalidFileFormat:
-        "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
+      wrongFileExtension: 'Only JPG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed. - welsh',
+      filenameTooLong: 'File names must be 250 characters or less. - welsh',
+      fileTooLarge: 'Files must be under 20MB. - welsh',
       uploadError: 'Document could not be uploaded - welsh',
-      deleteFile: 'Document could not be deleted - welsh',
+      deleteError: 'Document could not be deleted - welsh',
+      noFile: 'Upload a file.',
     },
   },
+  uploadFileText9:
+    "Rhowch enw i bob ffeil sy'n esbonio'n glir beth ydyw. Bydd hyn yn eich helpu chi a'r llys i gadw trefn ar y dogfennau yn eich achos.",
+  uploadFileText10: 'Uwchlwytho ffeiliau o gyfrifiadur',
+  uploadFileText11:
+    "I uwchlwytho ffeiliau lluosog, dewiswch yr un cyntaf, yna daliwch y botwm 'Ctrl' (neu allwedd 'Command' ar gyfer cyfrifiaduron Apple) a dewiswch y ffeiliau eraill.",
+  filesAddedHeading: "Ffeiliau wedi'u hychwanegu",
+  chooseFile: 'Dewis ffeiliau',
+  dropFile: 'Llusgo a gollwng ffeiliau yma neu cliciwch i ddewis ffeiliau',
 };
 
 const languages = {
