@@ -1,6 +1,5 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "common/fileupload/macro-v1.njk" import fileUpload with context %}
-{% from "common/fileupload/fileUploadMoj.njk" import fileUploadMoj %}
 
 {% extends "common/page.njk" %}
 
@@ -14,36 +13,18 @@
     <div class="govuk-form-group--error">
   {% endif %}
 
-  {{ fileUploadMoj({
+  {{ fileUpload({
     name: "miam_domesticAbuseEvidenceDocs",
     uploadButtonText: fileUploadConfig.uploadButtonText,
-    classes: "moj-multi-file-upload__input",
-    errorMessage: {
-      text: errorMessage
-    } if errorMessage !== null,
-    javascript: true,
-    label: { text: uploadFileTitle, classes: "govuk-label--m" },
-    uploadButtonText: uploadButton,
     labelText: fileUploadConfig.labelText,
     hintText: fileUploadConfig.hintText,
     allowedFileTypes: "image/jpg,image/jpeg,image/bmp,image/png,image/tiff,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     uploadUrl: "",
-    multiple: true,
-    accept: accept,
-    maxFileSizeBytes: maxFileSizeBytes,
-    maxFilenameLength: maxFilenameLength,
-    chooseFileText: chooseFile,
-    dropFileText: dropFile,
     uploadedFiles: fileUploadConfig.uploadedFiles,
     errorMessage: fileUploadConfig.errorMessage,
     noFilesText: fileUploadConfig.noFilesText,
     removeFileText: fileUploadConfig.removeFileText,
     token: csrfToken
-    errorSummaryTitle: errors.title,
-    errorWrongFileType: errors.miam_domesticAbuseEvidenceDocs.invalidFileFormat,
-    errorFileTooLarge: errors.miam_domesticAbuseEvidenceDocs.maxFileSize,
-    errorUploadFailed: errors.miam_domesticAbuseEvidenceDocs.uploadError,
-    errorDelete: errors.miam_domesticAbuseEvidenceDocs.deleteFile
   }) }}
     
   {% if fileUploadConfig.errorMessage != undefined %}
