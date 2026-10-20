@@ -10,8 +10,10 @@ export * from './routeGuard';
 
 const en = {
   caption: 'MIAM exemptions',
+
   title: 'Upload evidence of domestic abuse (optional)',
   uploadDocumentsTitle: 'Upload your documents',
+  uploadDocumentFileUpload: 'Your documents',
   uploadEvidenceHint:
     'Give each document a file name that makes it clear what it is about. For example MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uploadEvidencePanelTitle: 'Take a picture of a document on your phone and upload it',
@@ -24,6 +26,7 @@ const en = {
   ],
   subtitle: 'You can upload any files you feel are relevant to your case or that a judge should be aware of.',
   uploadButton: 'Upload file',
+  uploadFileTitle: 'Upload files',
   noFiles: 'No files uploaded',
   remove: 'Remove',
   beforeUploadingHeading: 'Before you upload your files',
@@ -34,7 +37,7 @@ const en = {
     "To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
   filesAddedHeading: 'Files added',
   chooseFile: 'Choose files',
-  dropFile: 'Drag and drop files here or click to select files',
+  dropFile: 'Drag and drop files here or',
   errors: {
     title: 'There is a problem',
     miam_domesticAbuseEvidenceDocs: {
@@ -91,6 +94,8 @@ const cy: typeof en = {
   filesAddedHeading: "Ffeiliau wedi'u hychwanegu",
   chooseFile: 'Dewis ffeiliau',
   dropFile: 'Llusgo a gollwng ffeiliau yma neu cliciwch i ddewis ffeiliau',
+  uploadDocumentFileUpload: 'Eich dogfennau',
+  uploadFileTitle: 'Uwchlwytho ffeiliau',
 };
 
 const languages = {
@@ -138,6 +143,8 @@ export const generateContent: TranslationFn = content => {
         : [],
     },
     form,
+    uploadURL: C100_MIAM_UPLOAD_DA_EVIDENCE,
+    deleteURL: C100_MIAM_UPLOAD_DA_EVIDENCE,
     ...FILE_UPLOAD_COMMON,
   };
 };

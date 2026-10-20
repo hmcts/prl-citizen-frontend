@@ -8,8 +8,10 @@ jest.mock('../../../../../app/form/validation');
 
 const en = {
   caption: 'MIAM exemptions',
+
   title: 'Upload evidence of domestic abuse (optional)',
   uploadDocumentsTitle: 'Upload your documents',
+  uploadDocumentFileUpload: 'Your documents',
   uploadEvidenceHint:
     'Give each document a file name that makes it clear what it is about. For example MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uploadEvidencePanelTitle: 'Take a picture of a document on your phone and upload it',
@@ -20,9 +22,12 @@ const en = {
     'Email or send the photo or scan to the device you are using now.',
     'Upload it here.',
   ],
+  subtitle: 'You can upload any files you feel are relevant to your case or that a judge should be aware of.',
   uploadButton: 'Upload file',
+  uploadFileTitle: 'Upload files',
   noFiles: 'No files uploaded',
   remove: 'Remove',
+  beforeUploadingHeading: 'Before you upload your files',
   uploadFileText9:
     'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
   uploadFileText10: 'Uploading multiple files from a computer',
@@ -30,7 +35,7 @@ const en = {
     "To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
   filesAddedHeading: 'Files added',
   chooseFile: 'Choose files',
-  dropFile: 'Drag and drop files here or click to select files',
+  dropFile: 'Drag and drop files here or',
   errors: {
     title: 'There is a problem',
     miam_domesticAbuseEvidenceDocs: {
@@ -60,6 +65,9 @@ const cy = {
     'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
     'Llwythwch y ffeil yma',
   ],
+  subtitle:
+    'Gallwch uwchlwytho unrhyw ffeiliau rydych yn teimlo eu bod yn berthnasol i’ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.',
+  beforeUploadingHeading: 'Before you upload your files',
   uploadButton: 'Uwchlwytho ffeil',
   noFiles: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
   remove: 'Dileu',
@@ -84,6 +92,8 @@ const cy = {
   filesAddedHeading: "Ffeiliau wedi'u hychwanegu",
   chooseFile: 'Dewis ffeiliau',
   dropFile: 'Llusgo a gollwng ffeiliau yma neu cliciwch i ddewis ffeiliau',
+  uploadDocumentFileUpload: 'Eich dogfennau',
+  uploadFileTitle: 'Uwchlwytho ffeiliau',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
