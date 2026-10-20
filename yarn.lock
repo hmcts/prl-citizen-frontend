@@ -1473,14 +1473,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dr.pogodin/csurf@npm:1.18.1":
-  version: 1.18.1
-  resolution: "@dr.pogodin/csurf@npm:1.18.1"
+"@dr.pogodin/csurf@npm:1.18.2":
+  version: 1.18.2
+  resolution: "@dr.pogodin/csurf@npm:1.18.2"
   dependencies:
     cookie: "npm:^2.0.1"
     cookie-signature: "npm:^1.2.2"
     http-errors: "npm:^2.0.1"
-  checksum: 10c0/b96afdf2be962e9d06cff27c2899dcf9cb78da5fac5b9a92c1437b93c06d75da98dd6afc1d584baef03a6b4349b5320049459519e0d30215de5577d42c6e7909
+  checksum: 10c0/a16665c00773d2023d0485b53189cd4c89aee2e1862aca45ff51385d680229b5ef68e24674b397cf99db6d835f8102654d77ad4bad3747e4b433c5173eb54803
   languageName: node
   linkType: hard
 
@@ -2091,31 +2091,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-sdk-common@npm:2.29.0":
-  version: 2.29.0
-  resolution: "@launchdarkly/js-sdk-common@npm:2.29.0"
-  checksum: 10c0/829617a42784ce1c8c5da683ccd65d7f22d0a07a56f103167f53b96df4c515268776f964cdf2e87010c6b543151fee8bc37fa944e0f33a005309868a4512c99f
+"@launchdarkly/js-sdk-common@npm:2.31.0":
+  version: 2.31.0
+  resolution: "@launchdarkly/js-sdk-common@npm:2.31.0"
+  checksum: 10c0/5eb193d2f621d2b8ce46feef4c9e08772dddea8f98c9d9a54959f12503899c2df28f8c18433eeef8521ee8930724c7a242851cd6d0a36fa0fb508dd23c461b29
   languageName: node
   linkType: hard
 
-"@launchdarkly/js-server-sdk-common@npm:2.24.1":
-  version: 2.24.1
-  resolution: "@launchdarkly/js-server-sdk-common@npm:2.24.1"
+"@launchdarkly/js-server-sdk-common@npm:2.25.0":
+  version: 2.25.0
+  resolution: "@launchdarkly/js-server-sdk-common@npm:2.25.0"
   dependencies:
-    "@launchdarkly/js-sdk-common": "npm:2.29.0"
+    "@launchdarkly/js-sdk-common": "npm:2.31.0"
     semver: "npm:7.5.4"
-  checksum: 10c0/aee4f57b941258d13da8110dac4ef4589977269b1c144a728bcb01083864f8048ca6e2936e9540dd235187dc0cbfa052d10a2c21f3e86f734e4852ea08860d2b
+  checksum: 10c0/bc6670d8021286b5f30d83c956059aa077315c296c756ad20661296d431b98b4186cd1f6d4c8c56cad05acd765326b69c1edc346336c77932543842fd0d55b60
   languageName: node
   linkType: hard
 
-"@launchdarkly/node-server-sdk@npm:9.14.4":
-  version: 9.14.4
-  resolution: "@launchdarkly/node-server-sdk@npm:9.14.4"
+"@launchdarkly/node-server-sdk@npm:9.15.0":
+  version: 9.15.0
+  resolution: "@launchdarkly/node-server-sdk@npm:9.15.0"
   dependencies:
-    "@launchdarkly/js-server-sdk-common": "npm:2.24.1"
+    "@launchdarkly/js-server-sdk-common": "npm:2.25.0"
     https-proxy-agent: "npm:^7.0.6"
     launchdarkly-eventsource: "npm:2.3.0"
-  checksum: 10c0/860e53306748f7b9f2aecbaa28283fcda14a0faffc741439c15dc0d6297bda262efddd5b70b91943eb5a851c7f9baa83dc84e4328e95e5589065c6b1f34e37d7
+  checksum: 10c0/e6e1ac0ca4684deb3cfdc57a0fde407b6b3cfa36bfe998e8c43e7f3cc6db09607840a96d2a2b4b2069689cc8350fff0cba079853ca510bf4e35893048d28e276
   languageName: node
   linkType: hard
 
@@ -6998,11 +6998,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"handlebars@npm:^4.7.9":
-  version: 4.7.9
-  resolution: "handlebars@npm:4.7.9"
+"handlebars@npm:^4.7.10":
+  version: 4.7.10
+  resolution: "handlebars@npm:4.7.10"
   dependencies:
-    minimist: "npm:^1.2.5"
+    minimist: "npm:^1.2.8"
     neo-async: "npm:^2.6.2"
     source-map: "npm:^0.6.1"
     uglify-js: "npm:^3.1.4"
@@ -7012,7 +7012,7 @@ __metadata:
       optional: true
   bin:
     handlebars: bin/handlebars
-  checksum: 10c0/22f8105a7e68e81aff2662bb434edf05f757d21d850731d71cec886d69c10cd33d3c43e34b2892968ec62de8241611851d3d0674c8ef324ea3e01dc66262faa9
+  checksum: 10c0/9b5573584ae5836172ae3f1502d9819568ba1b92ee83b81b18223beeb4c07486595e7b0fa633102beabc66ed06fe6e7da1dd9a9ea8c7072b9550b9a88809165c
   languageName: node
   linkType: hard
 
@@ -8919,7 +8919,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
+"minimist@npm:^1.2.0, minimist@npm:^1.2.6, minimist@npm:^1.2.8":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 10c0/19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
@@ -9950,15 +9950,15 @@ __metadata:
     "@babel/eslint-parser": "npm:7.29.9"
     "@babel/preset-env": "npm:7.29.7"
     "@babel/preset-typescript": "npm:7.29.7"
-    "@dr.pogodin/csurf": "npm:1.18.1"
+    "@dr.pogodin/csurf": "npm:1.18.2"
     "@eslint/js": "npm:10.0.1"
     "@hmcts/cookie-manager": "npm:1.1.0"
     "@hmcts/frontend": "npm:0.0.50-alpha"
     "@hmcts/nodejs-healthcheck": "npm:1.8.6"
     "@hmcts/nodejs-logging": "npm:4.0.4"
     "@hmcts/properties-volume": "npm:0.0.14"
-    "@launchdarkly/node-server-sdk": "npm:9.14.4"
     "@ministryofjustice/frontend": "npm:^11.0.0"
+    "@launchdarkly/node-server-sdk": "npm:9.15.0"
     "@pact-foundation/pact": "npm:17.1.4"
     "@types/config": "npm:0.0.41"
     "@types/connect-redis": "npm:0.0.23"
@@ -10045,8 +10045,8 @@ __metadata:
     query-string: "npm:9.5.1"
     redis: "npm:3.1.2"
     require-directory: "npm:2.1.1"
-    sanitize-html: "npm:2.18.0"
-    sass: "npm:1.105.1"
+    sanitize-html: "npm:2.18.1"
+    sass: "npm:1.105.2"
     sass-loader: "npm:13.3.3"
     sass-mq: "npm:6"
     semver: "npm:7.8.5"
@@ -10058,7 +10058,7 @@ __metadata:
     terser-webpack-plugin: "npm:5.3.16"
     to-boolean: "npm:1.0.0"
     toobusy-js: "npm:0.5.1"
-    ts-jest: "npm:29.4.14"
+    ts-jest: "npm:29.4.15"
     ts-loader: "npm:9.5.4"
     ts-node: "npm:10.9.2"
     tsconfig-paths: "npm:4.2.0"
@@ -10678,18 +10678,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sanitize-html@npm:2.18.0":
-  version: 2.18.0
-  resolution: "sanitize-html@npm:2.18.0"
+"sanitize-html@npm:2.18.1":
+  version: 2.18.1
+  resolution: "sanitize-html@npm:2.18.1"
   dependencies:
-    deepmerge: "npm:^4.3.1"
     escape-string-regexp: "npm:^4.0.0"
     htmlparser2: "npm:^12.0.0"
     is-plain-object: "npm:^5.1.0"
     launder: "npm:^1.7.2"
     parse-srcset: "npm:^1.0.2"
     postcss: "npm:^8.5.27"
-  checksum: 10c0/6ee0affe8980a7dffc66f5ffb4d4668e66eb921e627709e4f850060d838d940c5621c4cdcb627f36d142e5f9494d7d3be810e9a60bb0ab2d344301cc58abb05e
+  checksum: 10c0/a79474fbd6f4db7a3c54b2c7ac9de8b3046f77fcb951e3f229f456c0b9ef8903bc606e2c73bf35757f5a3bb1470bd75af051fbe6a906005b2251fd6bfbe5d952
   languageName: node
   linkType: hard
 
@@ -10724,9 +10723,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.105.1":
-  version: 1.105.1
-  resolution: "sass@npm:1.105.1"
+"sass@npm:1.105.2":
+  version: 1.105.2
+  resolution: "sass@npm:1.105.2"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^5.0.0"
@@ -10737,7 +10736,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: 10c0/07246d9a9cc3c7974d28e03b394791c65d6a8f701d4ed2f130f5cb72ff3ef5626e5e66afb067348b2ae87011c52e18cd29f294025a6430851ee8617ef8c94f38
+  checksum: 10c0/2e219603b075559d834f8f56b03ed1b5d61a88b3fb85a92baef238a653242ef486bbe71f33daf9b8dd0f30b4f627c434e594e35591214b8b177d3b03ac24925c
   languageName: node
   linkType: hard
 
@@ -11704,13 +11703,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:29.4.14":
-  version: 29.4.14
-  resolution: "ts-jest@npm:29.4.14"
+"ts-jest@npm:29.4.15":
+  version: 29.4.15
+  resolution: "ts-jest@npm:29.4.15"
   dependencies:
     bs-logger: "npm:^0.2.6"
     fast-json-stable-stringify: "npm:^2.1.0"
-    handlebars: "npm:^4.7.9"
+    handlebars: "npm:^4.7.10"
     json5: "npm:^2.2.3"
     lodash.memoize: "npm:^4.1.2"
     make-error: "npm:^1.3.6"
@@ -11740,7 +11739,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: 10c0/58780804871e5752d7f42e69a38ea0716d0a6330272f3a253cf10dbf8c59390f64f2da6fff3d93dcb1bc514d8fa5d02963d8ef6d062fdfa96113b3aad0fd9331
+  checksum: 10c0/99f8f71c0ee07adc036cf8917eadb29a2a5e002ed695e568c464a51661352a042bf69539d29a3e2c43773fc4e7525d47eae6dfabef45277b3a85a6d2a28a1071
   languageName: node
   linkType: hard
 
