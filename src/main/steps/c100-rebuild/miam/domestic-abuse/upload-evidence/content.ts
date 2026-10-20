@@ -1,9 +1,11 @@
 import _ from 'lodash';
 
+import { FILE_UPLOAD_COMMON } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { applyParms } from '../../../../common/url-parser';
 import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
+
 export * from './routeGuard';
 
 const en = {
@@ -20,9 +22,11 @@ const en = {
     'Email or send the photo or scan to the device you are using now.',
     'Upload it here.',
   ],
+  subtitle: 'You can upload any files you feel are relevant to your case or that a judge should be aware of.',
   uploadButton: 'Upload file',
   noFiles: 'No files uploaded',
   remove: 'Remove',
+  beforeUploadingHeading: 'Before you upload your files',
   uploadFileText9:
     'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
   uploadFileText10: 'Uploading multiple files from a computer',
@@ -60,6 +64,9 @@ const cy: typeof en = {
     'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
     'Llwythwch y ffeil yma',
   ],
+  subtitle:
+    'Gallwch uwchlwytho unrhyw ffeiliau rydych yn teimlo eu bod yn berthnasol i’ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.',
+  beforeUploadingHeading: 'Before you upload your files',
   uploadButton: 'Uwchlwytho ffeil',
   noFiles: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
   remove: 'Dileu',
@@ -131,5 +138,6 @@ export const generateContent: TranslationFn = content => {
         : [],
     },
     form,
+    ...FILE_UPLOAD_COMMON,
   };
 };

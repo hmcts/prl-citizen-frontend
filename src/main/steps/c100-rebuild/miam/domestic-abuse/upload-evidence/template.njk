@@ -14,33 +14,59 @@
     <div class="govuk-form-group--error">
   {% endif %}
 
-  {{ fileUploadMoj({
-    id: "miamFileUpload",
-    name: "miam_domesticAbuseEvidenceDocs",
-    classes: "moj-multi-file-upload__input",
-    label: {
-      text: "fileUploadConfig.labelText"
-    },
-    errorMessage: {
-      text: fileUploadConfig.errorMessage
-    } if fileUploadConfig.errorMessage !== null,
-    uploadButtonText: fileUploadConfig.uploadButtonText,
-    javascript: true,
-    uploadUrl: "",
-    multiple: true,
-    accept: accept,
-    chooseFileText: chooseFile,
-    dropFileText: dropFile,
-    value: fileUploadConfig.uploadedFiles,
-    errorSummaryTitle: errors.title,
-    errorWrongFileType: errors.miam_domesticAbuseEvidenceDocs.wrongFileExtension,
-    errorFileTooLarge: errors.miam_domesticAbuseEvidenceDocs.fileTooLarge,
-    errorFilenameTooLong: errors.miam_domesticAbuseEvidenceDocs.filenameTooLong,
-    errorUploadFailed: errors.miam_domesticAbuseEvidenceDocs.uploadError,
-    errorDelete: errors.miam_domesticAbuseEvidenceDocs.deleteError
-  }) }}
-    
-  {% if fileUploadConfig.errorMessage != undefined %}
+  <p class="govuk-body">{{subtitle}}</p>
+    <h2 class="govuk-heading-m">{{beforeUploadingHeading}}</h2>
+    <p class="govuk-body">{{uploadFileText9}}</p>
+    <details class="govuk-details govuk-!-margin-bottom-9" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          {{uploadFileText10}}
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        {{uploadFileText11}}
+      </div>
+    </details>
+    <div id="uploadGroup" class="uploadGroup">
+      <div class=" govuk-!-margin-bottom-3">
+        {% if errorMessage !== null %}
+          <div class="govuk-form-group--error">
+          {% endif %}
+      <div class="govuk-form-group">
+        <form
+            action="?docCategory={{ docCategory }}&_csrf={{ csrfToken }}"
+            method="post"
+            enctype="multipart/form-data"
+            novalidate>
+              {{ fileUploadMoj({
+                id: "miamFileUpload",
+                name: "miam_domesticAbuseEvidenceDocs",
+                classes: "moj-multi-file-upload__input",
+                label: {
+                  text: "fileUploadConfig.labelText"
+                },
+                errorMessage: {
+                  text: fileUploadConfig.errorMessage
+                } if fileUploadConfig.errorMessage !== null,
+                uploadButtonText: fileUploadConfig.uploadButtonText,
+                javascript: true,
+                uploadUrl: "",
+                multiple: true,
+                accept: accept,
+                chooseFileText: chooseFile,
+                dropFileText: dropFile,
+                value: fileUploadConfig.uploadedFiles,
+                errorSummaryTitle: errors.title,
+                errorWrongFileType: errors.miam_domesticAbuseEvidenceDocs.wrongFileExtension,
+                errorFileTooLarge: errors.miam_domesticAbuseEvidenceDocs.fileTooLarge,
+                errorFilenameTooLong: errors.miam_domesticAbuseEvidenceDocs.filenameTooLong,
+                errorUploadFailed: errors.miam_domesticAbuseEvidenceDocs.uploadError,
+                errorDelete: errors.miam_domesticAbuseEvidenceDocs.deleteError
+              }) }}
+        </form>
+      </div>
+    </div>
+    {% if fileUploadConfig.errorMessage !== null %}
     </div>
   {% endif %}
 
