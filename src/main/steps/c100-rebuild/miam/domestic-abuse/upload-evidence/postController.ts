@@ -29,12 +29,18 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
     if (isExceedingMaxDocuments(req.session.userCase.miam_domesticAbuseEvidenceDocs?.length ?? 0)) {
       errorType = 'maxDocumentsReached';
     } else if (!isValidFileFormat({ documents: uploadedDocument })) {
-      errorType = 'invalidFileFormat';
+      errorType = 'wrongFileExtension';
     } else if (isFileSizeGreaterThanMaxAllowed({ documents: uploadedDocument })) {
-      errorType = 'maxFileSize';
+      errorType = 'fileTooLarge';
+    } else if (this.isFileNameTooLong(uploadedDocument)) {
+      errorType = 'filenameTooLong';
     }
 
     return errorType;
+  }
+
+  private isFileNameTooLong(file: Record<string, any>): boolean {
+    return file.name?.length > 250;
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {

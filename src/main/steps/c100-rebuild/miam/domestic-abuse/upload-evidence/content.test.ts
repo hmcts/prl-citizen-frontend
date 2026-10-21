@@ -39,9 +39,8 @@ const en = {
   errors: {
     title: 'There is a problem',
     miam_domesticAbuseEvidenceDocs: {
-      maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
-      wrongFileExtension: 'Only JPG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed.',
+      wrongFileExtension: 'Only JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed.',
       filenameTooLong: 'File names must be 250 characters or less.',
       fileTooLarge: 'Files must be under 20MB.',
       uploadError: 'Document could not be uploaded',
@@ -74,14 +73,13 @@ const cy = {
   errors: {
     title: 'There is a problem',
     miam_domesticAbuseEvidenceDocs: {
-      maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
-      wrongFileExtension: 'Only JPG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed. - welsh',
-      filenameTooLong: 'File names must be 250 characters or less. - welsh',
-      fileTooLarge: 'Files must be under 20MB. - welsh',
-      uploadError: 'Document could not be uploaded - welsh',
-      deleteError: 'Document could not be deleted - welsh',
-      noFile: 'Upload a file.',
+      wrongFileExtension: "Dim ond ffeiliau JPG, BMP, PNG, TIF, PDF, DOC neu DOCX sy'n cael eu caniatáu.",
+      filenameTooLong: 'Rhaid i enwau ffeiliau fod yn 250 nod neu lai.',
+      fileTooLarge: 'Rhaid i ffeiliau fod yn llai na 20MB.',
+      uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
+      deleteError: "Ni ellir dileu'r ddogfen.",
+      noFile: 'Uwchlwytho ffeil',
     },
   },
   uploadFileText9:
@@ -167,13 +165,13 @@ describe('C100-rebuild > MIAM >  domestic-abuse > upload-evidence', () => {
         additionalData: {
           req: {
             session: {
-              errors: [{ errorType: 'maxFileSize', propertyName: 'miam_domesticAbuseEvidenceDocs' }],
+              errors: [{ errorType: 'fileTooLarge', propertyName: 'miam_domesticAbuseEvidenceDocs' }],
             },
           },
         },
       } as unknown as CommonContent).fileUploadConfig
     ).toStrictEqual({
-      errorMessage: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
+      errorMessage: 'Files must be under 20MB.',
       hintText:
         'Give each document a file name that makes it clear what it is about. For example MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
       labelText: 'Upload your documents',
