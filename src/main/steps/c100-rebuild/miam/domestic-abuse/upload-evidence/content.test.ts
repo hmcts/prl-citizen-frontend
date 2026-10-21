@@ -153,7 +153,14 @@ describe('C100-rebuild > MIAM >  domestic-abuse > upload-evidence', () => {
       removeFileText: 'Remove',
       uploadButtonText: 'Upload file',
       uploadedFiles: [
-        { filename: 'test_document', fileremoveUrl: '/c100-rebuild/miam/domestic-abuse/upload-evidence/1234?' },
+        {
+          document_binary_url: 'binary/test/1234',
+          document_creation_date: '1/1/2024',
+          document_filename: 'test_document',
+          document_hash: '1234',
+          document_url: 'test/1234',
+          id: '1234',
+        },
       ],
     });
   });

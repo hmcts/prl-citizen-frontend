@@ -1,9 +1,6 @@
-import _ from 'lodash';
-
 import { FILE_UPLOAD_COMMON } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { applyParms } from '../../../../common/url-parser';
 import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
 
 export * from './routeGuard';
@@ -118,8 +115,17 @@ export const generateContent: TranslationFn = content => {
     session?.errors?.find(error => error.propertyName === 'miam_domesticAbuseEvidenceDocs') ?? null;
   const uploadedDocuments = session?.userCase?.miam_domesticAbuseEvidenceDocs;
 
+  const uploadedFiles = uploadedDocuments
+    ? uploadedDocuments.map(document => ({
+        id: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
+        document_filename: document.document_filename,
+        ...document,
+      }))
+    : [];
+
   return {
     ...translations,
+    form,
     fileUploadConfig: {
       labelText: translations.uploadDocumentsTitle,
       hintText: translations.uploadEvidenceHint,
@@ -129,20 +135,8 @@ export const generateContent: TranslationFn = content => {
       errorMessage: uploadDocError
         ? (translations.errors.miam_domesticAbuseEvidenceDocs?.[uploadDocError.errorType] ?? null)
         : null,
-      uploadedFiles: uploadedDocuments
-        ? uploadedDocuments
-            .filter(doc => doc?.document_url)
-            .map(document => {
-              return {
-                filename: document.document_filename,
-                fileremoveUrl: applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE, {
-                  removeFileId: _.toString(_.last(document.document_url.split('/'))),
-                }),
-              };
-            })
-        : [],
+      uploadedFiles,
     },
-    form,
     uploadURL: C100_MIAM_UPLOAD_DA_EVIDENCE,
     deleteURL: C100_MIAM_UPLOAD_DA_EVIDENCE,
     ...FILE_UPLOAD_COMMON,
