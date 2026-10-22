@@ -58,23 +58,20 @@ export const uploadDocument = async (req: AppRequest, handlers: ResponseHandlers
   let jsonBody: object = errorBody('uploadError');
 
   try {
-    const response = await client.uploadDocument(user, {
+    const response = await client.uploadMultipleDocuments(user, {
       files: [file],
     });
     console.log('Received the following response:', response);
-    if (response.status !== 'Success') {
+    if (response.length === 0 || response[0].status !== 'Success') {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
       return;
     }
 
-    caseData[documentDataRef].push(response.document);
+    caseData[documentDataRef].push(response);
     req.session.errors = removeUploadDocErrors(req.session.errors);
     jsonBody = {
-      success: response.success,
-      file: {
-        filename: response.document.document_url.split('/').pop(),
-        originalname: response.document.document_filename,
-      },
+      success: response[0].success,
+      files: response.map(file => file.document),
     };
     return;
   } catch (error) {
