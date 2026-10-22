@@ -71,7 +71,10 @@ export const uploadDocument = async (req: AppRequest, handlers: ResponseHandlers
     req.session.errors = removeUploadDocErrors(req.session.errors);
     jsonBody = {
       success: response[0].success,
-      files: response.map(file => file.document),
+      file: {
+        filename: response[0].document.document_url.split('/').pop(),
+        originalname: response[0].document.document_filename,
+      },
     };
     return;
   } catch (error) {
