@@ -6,7 +6,7 @@ import MIAMAttendanceEvidenceUploadController from './postController';
 
 const uploadDocumentMock = jest.spyOn(CaseApi.prototype, 'uploadDocument');
 
-describe.skip('MIAMAttendanceEvidenceUploadController > postController', () => {
+describe('MIAMAttendanceEvidenceUploadController > postController', () => {
   let controller;
   let req;
   let res;
