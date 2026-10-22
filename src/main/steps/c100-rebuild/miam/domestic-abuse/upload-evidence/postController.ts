@@ -14,6 +14,7 @@ import {
   isValidFileFormat,
 } from '../../../../../app/form/validation';
 import { applyParms } from '../../../../common/url-parser';
+import { documentBelongsToCase } from '../../../../common/utils';
 import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
 import { handleEvidenceDocError, removeEvidenceDocErrors } from '../../util';
 
@@ -50,6 +51,15 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
 
   private async deleteDocument(req: AppRequest<AnyObject>, res: Response, documentId: string): Promise<void> {
     const docs = req.session.userCase.miam_domesticAbuseEvidenceDocs ?? [];
+
+    if (!documentBelongsToCase(documentId, docs)) {
+      return this.respondJson(
+        req,
+        res,
+        { error: { message: 'deleteError' } },
+        applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE)
+      );
+    }
 
     try {
       await caseApi(req.session.user, req.locals.logger).deleteDocument(documentId);
