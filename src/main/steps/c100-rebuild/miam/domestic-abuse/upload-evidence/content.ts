@@ -1,6 +1,7 @@
 import { FILE_UPLOAD_COMMON } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { applyParms } from '../../../../common/url-parser';
 import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
 
 export * from './routeGuard';
@@ -136,8 +137,8 @@ export const generateContent: TranslationFn = content => {
         : null,
     },
     uploadedFiles,
-    uploadURL: C100_MIAM_UPLOAD_DA_EVIDENCE,
-    deleteURL: C100_MIAM_UPLOAD_DA_EVIDENCE,
+    uploadURL: applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE),
+    deleteURL: applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE),
     ...FILE_UPLOAD_COMMON,
   };
 };
