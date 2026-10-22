@@ -118,7 +118,6 @@ export const generateContent: TranslationFn = content => {
   const uploadedFiles = uploadedDocuments
     ? uploadedDocuments.map(document => ({
         id: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
-        document_filename: document.document_filename,
         ...document,
       }))
     : [];
@@ -135,8 +134,8 @@ export const generateContent: TranslationFn = content => {
       errorMessage: uploadDocError
         ? (translations.errors.miam_domesticAbuseEvidenceDocs?.[uploadDocError.errorType] ?? null)
         : null,
-      uploadedFiles,
     },
+    uploadedFiles,
     uploadURL: C100_MIAM_UPLOAD_DA_EVIDENCE,
     deleteURL: C100_MIAM_UPLOAD_DA_EVIDENCE,
     ...FILE_UPLOAD_COMMON,

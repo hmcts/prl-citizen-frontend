@@ -152,17 +152,38 @@ describe('C100-rebuild > MIAM >  domestic-abuse > upload-evidence', () => {
       noFilesText: 'No files uploaded',
       removeFileText: 'Remove',
       uploadButtonText: 'Upload file',
-      uploadedFiles: [
-        {
-          document_binary_url: 'binary/test/1234',
-          document_creation_date: '1/1/2024',
-          document_filename: 'test_document',
-          document_hash: '1234',
-          document_url: 'test/1234',
-          id: '1234',
-        },
-      ],
     });
+    expect(
+      generateContent({
+        language: 'en',
+        additionalData: {
+          req: {
+            session: {
+              userCase: {
+                miam_domesticAbuseEvidenceDocs: [
+                  {
+                    document_url: 'test/1234',
+                    document_binary_url: 'binary/test/1234',
+                    document_filename: 'test_document',
+                    document_hash: '1234',
+                    document_creation_date: '1/1/2024',
+                  },
+                ],
+              },
+            },
+          },
+        },
+      } as unknown as CommonContent).uploadedFiles
+    ).toStrictEqual([
+      {
+        document_binary_url: 'binary/test/1234',
+        document_creation_date: '1/1/2024',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_url: 'test/1234',
+        id: '1234',
+      },
+    ]);
   });
 
   test('should get correct error messages', () => {
@@ -185,7 +206,18 @@ describe('C100-rebuild > MIAM >  domestic-abuse > upload-evidence', () => {
       noFilesText: 'No files uploaded',
       removeFileText: 'Remove',
       uploadButtonText: 'Upload file',
-      uploadedFiles: [],
     });
+    expect(
+      generateContent({
+        language: 'en',
+        additionalData: {
+          req: {
+            session: {
+              errors: [{ errorType: 'fileTooLarge', propertyName: 'miam_domesticAbuseEvidenceDocs' }],
+            },
+          },
+        },
+      } as unknown as CommonContent).uploadedFiles
+    ).toStrictEqual([]);
   });
 });
