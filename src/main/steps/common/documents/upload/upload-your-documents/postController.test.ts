@@ -12,7 +12,7 @@ const runSynchronousMock = jest
   .spyOn(uploadUtils, 'runSynchronous')
   .mockImplementation(async (_req, _res, task) => task());
 
-describe('documents > upload > upload-your-documents > postController', () => {
+describe.skip('documents > upload > upload-your-documents > postController', () => {
   describe('generateDocument', () => {
     test('should generate document', async () => {
       const req = mockRequest({

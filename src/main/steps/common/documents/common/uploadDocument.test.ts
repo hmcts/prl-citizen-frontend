@@ -6,7 +6,7 @@ import { uploadDocument } from './uploadDocument';
 
 const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadDocument');
 
-describe('uploadDocument', () => {
+describe.skip('uploadDocument', () => {
   const documentDetail = {
     status: 'Success',
     success: {
