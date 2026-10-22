@@ -31,12 +31,13 @@
 
   {% set uploadedItems = [] %}
   {% for file in uploadedFiles %}
+    {% set successMessage %}
+      <span class="moj-multi-file-upload__success"> {{ successIcon | safe }}{{ file.document_filename }}</span>
+    {% endset %}
     {% set _ = uploadedItems.push({
       fileName: file.id,
       originalFileName: file.document_filename,
-      message: {
-        html: '<span class="moj-multi-file-upload__success"> ' + successIcon + (file.document_filename | escape) + '</span>'
-      },
+      message: { html: successMessage },
       deleteButton: { text: component.deleteButtonText or 'Remove' }
     }) %}
   {% endfor %}
