@@ -17,7 +17,7 @@ describe('C100ChildPostCodePostController', () => {
   let req;
   let res;
   const mockFindCourtByPostCodeAndService = jest.spyOn(CosApiClient.prototype, 'findCourtByPostCodeAndService');
-  const mockFindOsCourtByPostCodeAndService = jest.spyOn(CosApiClient.prototype, 'findOsCourtByPostCodeAndService');
+  const mockFindCourtByPostCodeViaCosApi = jest.spyOn(CosApiClient.prototype, 'findCourtByPostCodeViaCosApi');
   const mockOsCourtLookupEnabled = jest.spyOn(featureToggle, 'getFeatureToggle');
   const mockFormContent = {
     fields: {
@@ -45,6 +45,7 @@ describe('C100ChildPostCodePostController', () => {
   afterEach(() => {
     req.locals.C100Api.createCase.mockClear();
     mockFindCourtByPostCodeAndService.mockClear();
+    mockFindCourtByPostCodeViaCosApi.mockClear();
     mockOsCourtLookupEnabled.mockClear();
   });
 
@@ -98,7 +99,7 @@ describe('C100ChildPostCodePostController', () => {
   });
 
   test('when postcode is valid, os flag is enabled and is not an allowed court', async () => {
-    mockFindOsCourtByPostCodeAndService.mockResolvedValue('Southampton Combined Court Centre');
+    mockFindCourtByPostCodeViaCosApi.mockResolvedValue('Southampton Combined Court Centre');
     req.locals.C100Api.createCase.mockResolvedValueOnce({
       id: '1234',
       caseTypeOfApplication: 'C100',
@@ -157,7 +158,7 @@ describe('C100ChildPostCodePostController', () => {
   });
 
   test('when postcode is valid, os flag is enabled and is an allowed court', async () => {
-    mockFindOsCourtByPostCodeAndService.mockResolvedValue('Swansea Civil Justice Centre');
+    mockFindCourtByPostCodeViaCosApi.mockResolvedValue('Swansea Civil Justice Centre');
     req.locals.C100Api.createCase.mockResolvedValueOnce({
       id: '1234',
       caseTypeOfApplication: 'C100',

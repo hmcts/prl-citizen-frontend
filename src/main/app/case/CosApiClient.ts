@@ -544,7 +544,7 @@ export class CosApiClient {
     }
   }
 
-  public async findOsCourtByPostCodeAndService(postCode: string, user: UserDetails): Promise<string> {
+  public async findCourtByPostCodeViaCosApi(postCode: string, user: UserDetails): Promise<string> {
     try {
       const response = await this.client.get(`${config.get('services.cos.url')}/search/${postCode}/results`, {
         headers: {
@@ -559,7 +559,7 @@ export class CosApiClient {
       if (err?.response?.data?.message) {
         return err.response.data;
       }
-      throw new Error('Error occured, could not find court by post code - findOsCourtByPostCodeAndService');
+      throw new Error('Error occured, could not find court by post code - findCourtByPostCodeViaCosApi');
     }
   }
 }
