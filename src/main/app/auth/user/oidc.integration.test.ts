@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode';
 
 import { CALLBACK_URL } from '../../../steps/urls';
 
-import { getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
+import { getEndGlobalSessionUrl, getRedirectUrl, getSystemUser, getUserDetails } from './oidc';
 
 jest.mock('axios');
 config.get = jest.fn();
@@ -23,10 +23,12 @@ describe('getRedirectUrl', () => {
       .calledWith('services.idam.clientID')
       .mockReturnValue('prl-citizen-frontend')
       .calledWith('services.idam.authorizationURL')
-      .mockReturnValue('https://idam-web-public/login');
+      .mockReturnValue('https://idam-web-public/o/authorize')
+      .calledWith('services.idam.authorizationScope')
+      .mockReturnValue('openid profile roles');
 
     expect(getRedirectUrl('http://localhost', CALLBACK_URL)).toBe(
-      'https://idam-web-public/login?client_id=prl-citizen-frontend&response_type=code&redirect_uri=http://localhost/receiver'
+      'https://idam-web-public/o/authorize?client_id=prl-citizen-frontend&response_type=code&scope=openid+profile+roles&redirect_uri=http%3A%2F%2Flocalhost%2Freceiver'
     );
   });
 });
@@ -70,5 +72,15 @@ describe('getCaseWorkerUser', () => {
       givenName: undefined,
       id: undefined,
     });
+  });
+});
+
+describe('getEndGlobalSessionUrl', () => {
+  test('should create a valid URL to redirect to Idam session logout', () => {
+    when(config.get).calledWith('services.idam.endSessionURL').mockReturnValue('https://idam-web-public/o/endSession');
+
+    expect(getEndGlobalSessionUrl('http://localhost')).toBe(
+      'https://idam-web-public/o/endSession?post_logout_redirect_uri=http%3A%2F%2Flocalhost'
+    );
   });
 });
