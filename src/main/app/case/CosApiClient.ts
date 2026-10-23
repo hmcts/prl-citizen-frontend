@@ -355,8 +355,41 @@ export class CosApiClient {
 
       return {
         status: response.data.status,
+        success: {
+          messageHtml: response.data.document.document_filename,
+          messageText: response.data.document.document_filename,
+        },
         document: response.data.document,
       };
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, upload citizen statement document failed - uploadDocument');
+    }
+  }
+
+  public async uploadMultipleDocuments(
+    user: UserDetails,
+    request: DocumentFileUploadRequest
+  ): Promise<DocumentUploadResponse[]> {
+    try {
+      const formData = new FormData();
+
+      formData.append('files', request.files);
+
+      const response = await this.client.post(
+        config.get('services.cos.url') + '/upload-citizen-multiple-documentst',
+        formData,
+        {
+          headers: {
+            Accept: '*/*',
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          },
+        }
+      );
+
+      return response.data;
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, upload citizen statement document failed - uploadDocument');

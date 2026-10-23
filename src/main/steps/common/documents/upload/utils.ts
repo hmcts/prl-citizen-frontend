@@ -1,6 +1,7 @@
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { CaseWithId } from '../../../../app/case/case';
 import { PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { FormError } from '../../../../app/form/Form';
@@ -8,7 +9,12 @@ import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../urls';
 import { applyParms } from '../../url-parser';
 import { cy, en } from '../common/content';
-import { DocumentLabelCategory, DocumentSectionId, UploadDocumentCategory } from '../definitions';
+import {
+  DocumentLabelCategory,
+  DocumentSectionId,
+  UploadDocumentAPICategory,
+  UploadDocumentCategory,
+} from '../definitions';
 import { uploadDocumentSections } from '../upload/config';
 
 /** Upload documents related utilty */
@@ -48,6 +54,26 @@ export const isDocumentInSession = (documentId: string, documents: { document_ur
   return !!documents?.some(document => getDocumentIdFromUrl(document.document_url) === documentId);
 };
 
+export const removeDocumentFromSession = (
+  req: AppRequest,
+  caseData: Partial<CaseWithId>,
+  uploadedFilesDataReference: string,
+  documentId: string
+): void => {
+  if (req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
+    req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(
+      document => documentId !== getDocumentIdFromUrl(document.document_url)
+    );
+
+    if (req.session.userCase?.[uploadedFilesDataReference]?.length === 0) {
+      delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
+      delete req.session.userCase[uploadedFilesDataReference];
+    }
+  }
+
+  req.session.errors = removeUploadDocErrors(req.session.errors);
+};
+
 export const deleteDocument = async (req: AppRequest, res: Response): Promise<void> => {
   const { query, session } = req;
   const { user: userDetails, userCase: caseData } = session;
@@ -72,19 +98,9 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
   try {
     await client.deleteDocument(documentId);
 
-    if (req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
-      req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(
-        document => documentId !== getDocumentIdFromUrl(document.document_url)
-      );
-
-      if (req.session.userCase?.[uploadedFilesDataReference]?.length === 0) {
-        delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
-        delete req.session.userCase[uploadedFilesDataReference];
-      }
-    }
-
-    req.session.errors = removeUploadDocErrors(req.session.errors);
+    removeDocumentFromSession(req, caseData, uploadedFilesDataReference, documentId);
   } catch (e) {
+    console.log(e);
     req.session.errors = handleError(req.session.errors, 'deleteError', true);
   } finally {
     req.session.save(() => {
@@ -131,3 +147,145 @@ export const resetUploadDocumentSessionData = (req: AppRequest): void => {
   delete req.session.userCase.declarationCheck;
   delete req.session?.applicationSettings?.isDocumentGeneratedAndUplaoded;
 };
+
+const sessionQueues = new Map<string, Promise<void>>();
+
+// Runs upload/delete of files one request at a time per session to prevent data loss
+export const runSynchronous = async <T>(
+  req: AppRequest<T>,
+  res: Response,
+  task: () => Promise<void>
+): Promise<void> => {
+  const key = req.sessionID;
+  const previous: Promise<void> = sessionQueues.get(key) ?? Promise.resolve();
+
+  let release!: () => void;
+  const current = new Promise<void>(resolve => {
+    release = resolve;
+  });
+  const tail = previous.then(() => current);
+  sessionQueues.set(key, tail);
+
+  const canListen = typeof res.once === 'function';
+  if (canListen) {
+    res.once('close', release);
+  }
+
+  try {
+    await previous;
+    await new Promise<void>((resolve, reject) => req.session.reload(err => (err ? reject(err) : resolve())));
+    await task();
+  } catch (error) {
+    console.log(error);
+    release();
+    if (!res.headersSent) {
+      res.status(500).json({ error: { message: 'uploadError' } });
+    }
+  } finally {
+    if (!canListen) {
+      release();
+    }
+    void tail.then(() => {
+      if (sessionQueues.get(key) === tail) {
+        sessionQueues.delete(key);
+      }
+    });
+  }
+};
+
+export interface ResponseHandlers {
+  redirect: (nextUrl?: string) => void;
+  respondJson: (body: object, nextUrl?: string) => void;
+}
+
+export const getDocumentCategory = (
+  docCategory: UploadDocumentCategory,
+  partyType: PartyType
+): UploadDocumentAPICategory => {
+  let documentCategory;
+
+  switch (docCategory) {
+    case UploadDocumentCategory.POSITION_STATEMENTS:
+      documentCategory = UploadDocumentAPICategory.POSITION_STATEMENTS;
+      break;
+    case UploadDocumentCategory.WITNESS_STATEMENTS:
+      documentCategory =
+        partyType === PartyType.APPLICANT
+          ? UploadDocumentAPICategory.APPLICANT_WITNESS_STATEMENTS
+          : UploadDocumentAPICategory.RESPONDENT_WITNESS_STATEMENTS;
+      break;
+    case UploadDocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS:
+      documentCategory = UploadDocumentAPICategory.OTHER_PEOPLE_WITNESS_STATEMENTS;
+      break;
+    case UploadDocumentCategory.MEDICAL_RECORDS:
+      documentCategory = UploadDocumentAPICategory.MEDICAL_RECORDS;
+      break;
+    case UploadDocumentCategory.MEDICAL_REPORTS:
+      documentCategory = UploadDocumentAPICategory.MEDICAL_REPORTS;
+      break;
+    case UploadDocumentCategory.EMAIL_IMAGES_MEDIA:
+      documentCategory = UploadDocumentAPICategory.EMAIL_IMAGES_MEDIA;
+      break;
+    case UploadDocumentCategory.LETTERS_FROM_SCHOOL:
+      documentCategory = UploadDocumentAPICategory.LETTERS_FROM_SCHOOL;
+      break;
+    case UploadDocumentCategory.TENANCY_AND_MORTGAGE_AGREEMENTS:
+      documentCategory = UploadDocumentAPICategory.TENANCY_AND_MORTGAGE_AGREEMENTS;
+      break;
+    case UploadDocumentCategory.PREVIOUS_ORDERS_SUBMITTED:
+      documentCategory =
+        partyType === PartyType.APPLICANT
+          ? UploadDocumentAPICategory.PREVIOUS_ORDERS_SUBMITTED_APPLICANT
+          : UploadDocumentAPICategory.PREVIOUS_ORDERS_SUBMITTED_RESPONDENT;
+      break;
+    case UploadDocumentCategory.PATERNITY_TEST_REPORTS:
+      documentCategory = UploadDocumentAPICategory.PATERNITY_TEST_REPORTS;
+      break;
+    case UploadDocumentCategory.DRUG_ALCOHOL_TESTS:
+      documentCategory = UploadDocumentAPICategory.DRUG_ALCOHOL_TESTS;
+      break;
+    case UploadDocumentCategory.POLICE_REPORTS:
+      documentCategory = UploadDocumentAPICategory.POLICE_REPORTS;
+      break;
+    case UploadDocumentCategory.FM5_DOCUMENT:
+      documentCategory = UploadDocumentAPICategory.FM5_DOCUMENT;
+      break;
+    case UploadDocumentCategory.OTHER_DOCUMENTS:
+      documentCategory = UploadDocumentAPICategory.OTHER_DOCUMENTS;
+      break;
+  }
+
+  return documentCategory;
+};
+
+export const setRedirectUrl = (partyType: PartyType, req: AppRequest<Partial<CaseWithId>>): string => {
+  return applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
+    partyType,
+    docCategory: req.params.docCategory,
+  });
+};
+
+export const initializeData = (caseData: Partial<CaseWithId>): void => {
+  if (!caseData?.applicantUploadFiles) {
+    caseData['applicantUploadFiles'] = [];
+  }
+
+  if (!caseData.respondentUploadFiles) {
+    caseData['respondentUploadFiles'] = [];
+  }
+};
+
+export const getEmptyFileErrorType = (docCategory: UploadDocumentCategory): string => {
+  return [UploadDocumentCategory.POSITION_STATEMENTS, UploadDocumentCategory.WITNESS_STATEMENTS].includes(docCategory)
+    ? 'noStatementOrFile'
+    : 'noFile';
+};
+
+// Document categories that use single file upload instead of multi file upload
+export const SINGLE_FILE_UPLOAD_CATEGORIES: UploadDocumentCategory[] = [UploadDocumentCategory.FM5_DOCUMENT];
+
+export const isSingleFileUpload = (docCategory: UploadDocumentCategory): boolean =>
+  SINGLE_FILE_UPLOAD_CATEGORIES.includes(docCategory);
+
+export const getUploadFileFieldName = (docCategory: UploadDocumentCategory): string =>
+  isSingleFileUpload(docCategory) ? 'uploadDocumentFileUpload' : 'documents';

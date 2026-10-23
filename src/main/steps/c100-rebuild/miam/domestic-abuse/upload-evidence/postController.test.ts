@@ -62,6 +62,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'test/1234',
         document_binary_url: 'binary/test/1234',
@@ -98,6 +99,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     ];
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'test/1234',
         document_binary_url: 'binary/test/1234',
@@ -132,6 +134,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
     uploadDocumentMock.mockResolvedValue({
       status: 'Error',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'test/1234',
         document_binary_url: 'binary/test/1234',
@@ -181,6 +184,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'test/1234',
         document_binary_url: 'binary/test/1234',
@@ -209,6 +213,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'test/1234',
         document_binary_url: 'binary/test/1234',

@@ -144,6 +144,7 @@ describe('PermissionsWhyUploadController > postController', () => {
 
     uploadDocumentMock.mockResolvedValue({
       status: 'SUCCESS',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'url',
         document_binary_url: 'binary-url',
