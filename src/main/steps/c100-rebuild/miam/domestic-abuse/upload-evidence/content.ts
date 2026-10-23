@@ -1,15 +1,17 @@
-import _ from 'lodash';
-
+import { FILE_UPLOAD_COMMON } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { applyParms } from '../../../../common/url-parser';
 import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
+
 export * from './routeGuard';
 
 const en = {
   caption: 'MIAM exemptions',
+
   title: 'Upload evidence of domestic abuse (optional)',
   uploadDocumentsTitle: 'Upload your documents',
+  uploadDocumentFileUpload: 'Your documents',
   uploadEvidenceHint:
     'Give each document a file name that makes it clear what it is about. For example MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uploadEvidencePanelTitle: 'Take a picture of a document on your phone and upload it',
@@ -20,16 +22,30 @@ const en = {
     'Email or send the photo or scan to the device you are using now.',
     'Upload it here.',
   ],
+  subtitle: 'You can upload any files you feel are relevant to your case or that a judge should be aware of.',
   uploadButton: 'Upload file',
+  uploadFileTitle: 'Upload files',
   noFiles: 'No files uploaded',
   remove: 'Remove',
+  beforeUploadingHeading: 'Before you upload your files',
+  uploadFileText9:
+    'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
+  uploadFileText10: 'Uploading multiple files from a computer',
+  uploadFileText11:
+    "To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
+  filesAddedHeading: 'Files added',
+  chooseFile: 'Choose files',
+  dropFile: 'Drag and drop files here or',
   errors: {
+    title: 'There is a problem',
     miam_domesticAbuseEvidenceDocs: {
-      maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
-      invalidFileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
+      wrongFileExtension: 'Only JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed.',
+      filenameTooLong: 'File names must be 250 characters or less.',
+      fileTooLarge: 'Files must be under 20MB.',
       uploadError: 'Document could not be uploaded',
-      deleteFile: 'Document could not be deleted',
+      deleteError: 'Document could not be deleted',
+      noFile: 'Upload a file.',
     },
   },
 };
@@ -48,19 +64,34 @@ const cy: typeof en = {
     'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
     'Llwythwch y ffeil yma',
   ],
+  subtitle:
+    'Gallwch uwchlwytho unrhyw ffeiliau rydych yn teimlo eu bod yn berthnasol i’ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.',
+  beforeUploadingHeading: 'Before you upload your files',
   uploadButton: 'Uwchlwytho ffeil',
   noFiles: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
   remove: 'Dileu',
   errors: {
+    title: 'There is a problem',
     miam_domesticAbuseEvidenceDocs: {
-      maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
-      invalidFileFormat:
-        "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
-      uploadError: 'Document could not be uploaded - welsh',
-      deleteFile: 'Document could not be deleted - welsh',
+      wrongFileExtension: "Dim ond ffeiliau JPG, BMP, PNG, TIF, PDF, DOC neu DOCX sy'n cael eu caniatáu.",
+      filenameTooLong: 'Rhaid i enwau ffeiliau fod yn 250 nod neu lai.',
+      fileTooLarge: 'Rhaid i ffeiliau fod yn llai na 20MB.',
+      uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
+      deleteError: "Ni ellir dileu'r ddogfen.",
+      noFile: 'Uwchlwytho ffeil',
     },
   },
+  uploadFileText9:
+    "Rhowch enw i bob ffeil sy'n esbonio'n glir beth ydyw. Bydd hyn yn eich helpu chi a'r llys i gadw trefn ar y dogfennau yn eich achos.",
+  uploadFileText10: 'Uwchlwytho ffeiliau o gyfrifiadur',
+  uploadFileText11:
+    "I uwchlwytho ffeiliau lluosog, dewiswch yr un cyntaf, yna daliwch y botwm 'Ctrl' (neu allwedd 'Command' ar gyfer cyfrifiaduron Apple) a dewiswch y ffeiliau eraill.",
+  filesAddedHeading: "Ffeiliau wedi'u hychwanegu",
+  chooseFile: 'Dewis ffeiliau',
+  dropFile: 'Llusgo a gollwng ffeiliau yma neu cliciwch i ddewis ffeiliau',
+  uploadDocumentFileUpload: 'Eich dogfennau',
+  uploadFileTitle: 'Uwchlwytho ffeiliau',
 };
 
 const languages = {
@@ -85,8 +116,16 @@ export const generateContent: TranslationFn = content => {
     session?.errors?.find(error => error.propertyName === 'miam_domesticAbuseEvidenceDocs') ?? null;
   const uploadedDocuments = session?.userCase?.miam_domesticAbuseEvidenceDocs;
 
+  const uploadedFiles = uploadedDocuments
+    ? uploadedDocuments.map(document => ({
+        id: document.document_url.substring(document.document_url.lastIndexOf('/') + 1),
+        ...document,
+      }))
+    : [];
+
   return {
     ...translations,
+    form,
     fileUploadConfig: {
       labelText: translations.uploadDocumentsTitle,
       hintText: translations.uploadEvidenceHint,
@@ -96,17 +135,10 @@ export const generateContent: TranslationFn = content => {
       errorMessage: uploadDocError
         ? (translations.errors.miam_domesticAbuseEvidenceDocs?.[uploadDocError.errorType] ?? null)
         : null,
-      uploadedFiles: uploadedDocuments
-        ? uploadedDocuments.map(document => {
-            return {
-              filename: document.document_filename,
-              fileremoveUrl: applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE, {
-                removeFileId: _.toString(_.last(document.document_url.split('/'))),
-              }),
-            };
-          })
-        : [],
     },
-    form,
+    uploadedFiles,
+    uploadURL: applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE),
+    deleteURL: applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE),
+    ...FILE_UPLOAD_COMMON,
   };
 };
