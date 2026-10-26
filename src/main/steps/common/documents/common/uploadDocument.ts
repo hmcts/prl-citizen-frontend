@@ -11,7 +11,6 @@ import {
   handleError,
   initializeData,
   isSingleFileUpload,
-  removeUploadDocErrors,
   setRedirectUrl,
 } from '../upload/utils';
 
@@ -71,7 +70,6 @@ export const uploadDocument = async (req: AppRequest, handlers: ResponseHandlers
     }
 
     caseData[documentDataRef].push(response.document);
-    req.session.errors = removeUploadDocErrors(req.session.errors);
     jsonBody = {
       success: response.success,
       file: {
