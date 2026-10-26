@@ -37,14 +37,17 @@ export const uploadDocument = async (req: AppRequest, handlers: ResponseHandlers
     error: { message: errorKey },
   });
 
-  const file = files?.[getUploadFileFieldName(docCategory)];
-
+  let file = files?.[getUploadFileFieldName(docCategory)];
   if (!file) {
-    const errorKey = getEmptyFileErrorType(docCategory);
-    req.session.errors = handleError(req.session.errors, errorKey);
-    return respond(errorBody(errorKey));
+    if (files) {
+      file = files['uploadDocumentFileUpload'];
+    }
+    if (!file) {
+      const errorKey = getEmptyFileErrorType(docCategory);
+      req.session.errors = handleError(req.session.errors, errorKey);
+      return respond(errorBody(errorKey));
+    }
   }
-
   const documentDataRef = getUploadedFilesDataReference(partyType);
 
   if (isSingleFileUpload(docCategory) && caseData[documentDataRef].length) {

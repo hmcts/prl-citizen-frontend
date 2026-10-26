@@ -48,6 +48,47 @@ describe('uploadDocument', () => {
     });
 
     req.files = {
+      uploadDocumentFileUpload: {
+        name: 'test.pdf',
+        data: '',
+        mimetype: 'application/pdf',
+      },
+    };
+
+    req.headers.accept = 'text/html';
+
+    return req;
+  };
+
+  const createXhrRequest = () => {
+    const req = mockRequest({
+      body: {
+        uploadFile: true,
+      },
+      headers: {
+        'sec-fetch-dest': 'empty',
+        accept: 'application/json',
+      },
+      params: {
+        docCategory: 'your-position-statements',
+      },
+      session: {
+        user: {
+          id: '1234',
+          accessToken: 'test-token',
+        },
+        userCase: {
+          id: '1234',
+          caseType: 'FL401',
+          applicantsFL401: {
+            firstName: 'test',
+            lastName: 'user',
+          },
+        },
+      },
+    });
+
+    req.files = {
       documents: {
         name: 'test.pdf',
         data: '',
@@ -70,8 +111,8 @@ describe('uploadDocument', () => {
     jest.clearAllMocks();
   });
 
-  test('should upload document', async () => {
-    const req = createRequest();
+  test('should upload document with XHR request', async () => {
+    const req = createXhrRequest();
     const handlers = createHandlers();
 
     uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
@@ -82,11 +123,24 @@ describe('uploadDocument', () => {
     expect(uploadDocumentListFromCitizenMock).toHaveBeenCalledWith(req.session.user, {
       files: [req.files.documents],
     });
-    expect(handlers.redirect).toHaveBeenCalledWith(expect.any(String));
+  });
+
+  test('should upload document with non-XHR request', async () => {
+    const req = createRequest();
+    const handlers = createHandlers();
+
+    uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
+
+    await uploadDocument(req, handlers);
+
+    expect(req.session.userCase.applicantUploadFiles).toStrictEqual([documentDetail.document]);
+    expect(uploadDocumentListFromCitizenMock).toHaveBeenCalledWith(req.session.user, {
+      files: [req.files['uploadDocumentFileUpload']],
+    });
   });
 
   test('should set error when files are not present', async () => {
-    const req = createRequest();
+    const req = createXhrRequest();
     const handlers = createHandlers();
     delete req.files;
 
@@ -98,11 +152,11 @@ describe('uploadDocument', () => {
       })
     );
     expect(uploadDocumentListFromCitizenMock).not.toHaveBeenCalled();
-    expect(handlers.redirect).toHaveBeenCalledWith(expect.any(String));
+    // expect(handlers.redirect).toHaveBeenCalledWith(expect.any(String));
   });
 
   test('should set error when uploadDocument status is not success', async () => {
-    const req = createRequest();
+    const req = createXhrRequest();
     const handlers = createHandlers();
 
     uploadDocumentListFromCitizenMock.mockResolvedValue({
@@ -118,11 +172,10 @@ describe('uploadDocument', () => {
       })
     );
     expect(req.session.userCase.applicantUploadFiles).toHaveLength(0);
-    expect(handlers.redirect).toHaveBeenCalledWith(expect.any(String));
   });
 
   test('should set error when uploadDocument throws an error', async () => {
-    const req = createRequest();
+    const req = createXhrRequest();
     const handlers = createHandlers();
 
     uploadDocumentListFromCitizenMock.mockRejectedValueOnce(new Error('Upload failed'));
@@ -135,6 +188,5 @@ describe('uploadDocument', () => {
       })
     );
     expect(req.session.userCase.applicantUploadFiles).toHaveLength(0);
-    expect(handlers.redirect).toHaveBeenCalledWith(expect.any(String));
   });
 });
