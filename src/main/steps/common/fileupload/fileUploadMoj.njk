@@ -3,7 +3,7 @@
 {% from "moj/components/multi-file-upload/macro.njk" import mojMultiFileUpload %}
 
 {% macro fileUploadMoj(component) %}
-  {% set uploadButtonText = component.uploadButtonText or 'Upload file' %}
+  {% set uploadButtonText = component.uploadFileButtontext or 'Upload file' %}
   {% set filesAddedHeading = component.filesAddedHeading or 'Files added' %}
   {% set uploadedFiles = component.value or [] %}
 
@@ -24,6 +24,10 @@
       hint: component.hint,
       errorMessage: component.errorMessage,
       attributes: uploadAttributes
+    }) }}
+    {{ govukButton({
+      text: uploadButtonText,
+      classes: "govuk-button--secondary moj-multi-file-upload__button"
     }) }}
   {% endset %}
 
