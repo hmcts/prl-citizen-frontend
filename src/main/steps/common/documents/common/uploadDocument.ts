@@ -37,7 +37,7 @@ export const uploadDocument = async (req: AppRequest, handlers: ResponseHandlers
     error: { message: errorKey },
   });
 
-  const file = files?.[getUploadFileFieldName(docCategory)];
+  const file = wantsJson ? files?.[getUploadFileFieldName(docCategory)] : files?.['uploadDocumentFileUpload'];
 
   if (!file) {
     const errorKey = getEmptyFileErrorType(docCategory);
