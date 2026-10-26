@@ -193,6 +193,7 @@
                   value: filesUploaded,
                   multiple: true,
                   accept: accept,
+                  maxFiles: maxFiles,
                   maxFileSizeBytes: maxFileSizeBytes,
                   maxFilenameLength: maxFilenameLength,
                   chooseFileText: chooseFile,
@@ -202,7 +203,8 @@
                   errorFileTooLarge: errors.uploadDocumentFileUpload.fileTooLarge,
                   errorFilenameTooLong: errors.uploadDocumentFileUpload.filenameTooLong,
                   errorUploadFailed: errors.uploadDocumentFileUpload.uploadError,
-                  errorDelete: errors.uploadDocumentFileUpload.deleteError
+                  errorDelete: errors.uploadDocumentFileUpload.deleteError,
+                  errorTooManyFiles: errors.uploadDocumentFileUpload.maxDocumentsReached
                 }
               ) }}
             </form>
