@@ -47,33 +47,49 @@ export const uploadDocument = async (req: AppRequest, handlers: ResponseHandlers
 
   const documentDataRef = getUploadedFilesDataReference(partyType);
 
-  if (isSingleFileUpload(docCategory) && caseData[documentDataRef].length) {
+  if (
+    isSingleFileUpload(docCategory) &&
+    (Array.isArray(file) ? file.length > 1 : caseData[documentDataRef].length > 0)
+  ) {
     req.session.errors = handleError(req.session.errors, 'multipleFiles');
     return respond(errorBody('multipleFiles'));
   }
+
+  const filesToUpload = Array.isArray(file) ? file : [file];
+
   if (isExceedingMaxDocuments(caseData[documentDataRef]?.length, docCategory)) {
     req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
     return respond(errorBody('maxDocumentsReached'));
   }
-  let jsonBody: object = errorBody('uploadError');
 
+  let jsonBody: object = errorBody('uploadError');
+  console.log(
+    'Uploading the following files...........',
+    JSON.stringify(filesToUpload.map(f => f.originalname || f.name))
+  );
   try {
-    const response = await client.uploadDocument(user, {
-      files: [file],
+    const response = await client.uploadMultipleDocuments(user, {
+      files: filesToUpload,
     });
     console.log('Received the following response:', response);
-    if (response.status !== 'Success') {
+    if (!response || response.length === 0 || response.some(r => r.status !== 'Success')) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
       return;
     }
 
-    caseData[documentDataRef].push(response.document);
+    response.forEach(documentUploadResponseElement => {
+      caseData[documentDataRef].push(documentUploadResponseElement.document);
+    });
     req.session.errors = removeUploadDocErrors(req.session.errors);
+    const lastDoc = response[response.length - 1].document;
     jsonBody = {
-      success: response.success,
+      success: {
+        messageHtml: lastDoc.document_filename,
+        messageText: lastDoc.document_filename,
+      },
       file: {
-        filename: response.document.document_url.split('/').pop(),
-        originalname: response.document.document_filename,
+        filename: lastDoc.document_url.split('/').pop(),
+        originalname: lastDoc.document_filename,
       },
     };
     return;

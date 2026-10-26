@@ -4,7 +4,7 @@ import type { ResponseHandlers } from '../upload/utils';
 
 import { uploadDocument } from './uploadDocument';
 
-const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadDocument');
+const uploadMultipleDocumentsMock = jest.spyOn(CosApiClient.prototype, 'uploadMultipleDocuments');
 
 describe('uploadDocument', () => {
   const documentDetail = {
@@ -74,13 +74,36 @@ describe('uploadDocument', () => {
     const req = createRequest();
     const handlers = createHandlers();
 
-    uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
+    uploadMultipleDocumentsMock.mockResolvedValue([documentDetail]);
 
     await uploadDocument(req, handlers);
 
     expect(req.session.userCase.applicantUploadFiles).toStrictEqual([documentDetail.document]);
-    expect(uploadDocumentListFromCitizenMock).toHaveBeenCalledWith(req.session.user, {
+    expect(uploadMultipleDocumentsMock).toHaveBeenCalledWith(req.session.user, {
       files: [req.files.documents],
+    });
+    expect(handlers.redirect).toHaveBeenCalledWith(expect.any(String));
+  });
+
+  test('should upload multiple documents when multiple files are provided', async () => {
+    const req = createRequest();
+    const handlers = createHandlers();
+    const file1 = { name: 'test1.pdf', data: '', mimetype: 'application/pdf' };
+    const file2 = { name: 'test2.pdf', data: '', mimetype: 'application/pdf' };
+    req.files = {
+      documents: [file1, file2],
+    };
+
+    uploadMultipleDocumentsMock.mockResolvedValue([
+      { ...documentDetail, document: { ...documentDetail.document, document_filename: 'test1.pdf' } },
+      { ...documentDetail, document: { ...documentDetail.document, document_filename: 'test2.pdf' } },
+    ]);
+
+    await uploadDocument(req, handlers);
+
+    expect(req.session.userCase.applicantUploadFiles).toHaveLength(2);
+    expect(uploadMultipleDocumentsMock).toHaveBeenCalledWith(req.session.user, {
+      files: [file1, file2],
     });
     expect(handlers.redirect).toHaveBeenCalledWith(expect.any(String));
   });
@@ -97,7 +120,7 @@ describe('uploadDocument', () => {
         errorType: 'noStatementOrFile',
       })
     );
-    expect(uploadDocumentListFromCitizenMock).not.toHaveBeenCalled();
+    expect(uploadMultipleDocumentsMock).not.toHaveBeenCalled();
     expect(handlers.redirect).toHaveBeenCalledWith(expect.any(String));
   });
 
@@ -105,10 +128,12 @@ describe('uploadDocument', () => {
     const req = createRequest();
     const handlers = createHandlers();
 
-    uploadDocumentListFromCitizenMock.mockResolvedValue({
-      ...documentDetail,
-      status: '',
-    });
+    uploadMultipleDocumentsMock.mockResolvedValue([
+      {
+        ...documentDetail,
+        status: '',
+      },
+    ]);
 
     await uploadDocument(req, handlers);
 
@@ -125,7 +150,7 @@ describe('uploadDocument', () => {
     const req = createRequest();
     const handlers = createHandlers();
 
-    uploadDocumentListFromCitizenMock.mockRejectedValueOnce(new Error('Upload failed'));
+    uploadMultipleDocumentsMock.mockRejectedValueOnce(new Error('Upload failed'));
 
     await uploadDocument(req, handlers);
 

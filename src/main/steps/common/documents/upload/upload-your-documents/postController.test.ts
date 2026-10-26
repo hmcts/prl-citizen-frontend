@@ -1,16 +1,12 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../../app/case/CosApiClient';
-import * as uploadUtils from '../../upload/utils';
 
 import UploadDocumentPostController from './postController';
 
 const generateStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'generateStatementDocument');
-const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadDocument');
+const uploadMultipleDocumentsMock = jest.spyOn(CosApiClient.prototype, 'uploadMultipleDocuments');
 const submitUploadedDocumentsMock = jest.spyOn(CosApiClient.prototype, 'submitUploadedDocuments');
-const runSynchronousMock = jest
-  .spyOn(uploadUtils, 'runSynchronous')
-  .mockImplementation(async (_req, _res, task) => task());
 
 describe('documents > upload > upload-your-documents > postController', () => {
   describe('generateDocument', () => {
@@ -225,25 +221,26 @@ describe('documents > upload > upload-your-documents > postController', () => {
 
       const res = mockResponse();
 
-      uploadDocumentListFromCitizenMock.mockResolvedValue({
-        status: 'Success',
-        success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
-        document: {
-          document_url: '/documents/test',
-          document_filename: 'test.pdf',
-          document_binary_url: '/documents/test/binary',
-          document_hash: '123',
-          document_creation_date: '07/10/2026',
+      uploadMultipleDocumentsMock.mockResolvedValue([
+        {
+          status: 'Success',
+          success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+          document: {
+            document_url: '/documents/test',
+            document_filename: 'test.pdf',
+            document_binary_url: '/documents/test/binary',
+            document_hash: '123',
+            document_creation_date: '07/10/2026',
+          },
         },
-      });
+      ]);
 
       const controller = new UploadDocumentPostController({});
 
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
-      expect(runSynchronousMock).toHaveBeenCalled();
-      expect(uploadDocumentListFromCitizenMock).toHaveBeenCalled();
+      expect(uploadMultipleDocumentsMock).toHaveBeenCalled();
     });
 
     test('should route to uploadDocument when files are present even without uploadFile', async () => {
@@ -277,25 +274,26 @@ describe('documents > upload > upload-your-documents > postController', () => {
 
       const res = mockResponse();
 
-      uploadDocumentListFromCitizenMock.mockResolvedValue({
-        status: 'Success',
-        success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
-        document: {
-          document_url: '/documents/test',
-          document_filename: 'test.pdf',
-          document_binary_url: '/documents/test/binary',
-          document_hash: '123',
-          document_creation_date: '07/10/2026',
+      uploadMultipleDocumentsMock.mockResolvedValue([
+        {
+          status: 'Success',
+          success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+          document: {
+            document_url: '/documents/test',
+            document_filename: 'test.pdf',
+            document_binary_url: '/documents/test/binary',
+            document_hash: '123',
+            document_creation_date: '07/10/2026',
+          },
         },
-      });
+      ]);
 
       const controller = new UploadDocumentPostController({});
 
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
-      expect(runSynchronousMock).toHaveBeenCalled();
-      expect(uploadDocumentListFromCitizenMock).toHaveBeenCalled();
+      expect(uploadMultipleDocumentsMock).toHaveBeenCalled();
     });
 
     test('should route to deleteDocument when delete is submitted', async () => {
@@ -338,7 +336,6 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
-      expect(runSynchronousMock).toHaveBeenCalled();
       expect(deleteDocumentMock).toHaveBeenCalledWith('document-123');
     });
 
@@ -423,24 +420,25 @@ describe('documents > upload > upload-your-documents > postController', () => {
 
       const res = mockResponse();
 
-      uploadDocumentListFromCitizenMock.mockResolvedValue({
-        status: 'Success',
-        success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
-        document: {
-          document_url: '/documents/test',
-          document_filename: 'test.pdf',
-          document_binary_url: '/documents/test/binary',
-          document_hash: '123',
-          document_creation_date: '07/10/2026',
+      uploadMultipleDocumentsMock.mockResolvedValue([
+        {
+          status: 'Success',
+          success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+          document: {
+            document_url: '/documents/test',
+            document_filename: 'test.pdf',
+            document_binary_url: '/documents/test/binary',
+            document_hash: '123',
+            document_creation_date: '07/10/2026',
+          },
         },
-      });
+      ]);
 
       const controller = new UploadDocumentPostController({});
 
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
-      expect(runSynchronousMock).toHaveBeenCalled();
       expect(res.json).toHaveBeenCalledWith({
         success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
         file: {
@@ -529,7 +527,6 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await controller.post(req, res);
       await new Promise(process.nextTick);
 
-      expect(runSynchronousMock).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalled();
       expect(res.json).not.toHaveBeenCalled();
     });

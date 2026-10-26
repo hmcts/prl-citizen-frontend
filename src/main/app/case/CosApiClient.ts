@@ -367,6 +367,37 @@ export class CosApiClient {
     }
   }
 
+  public async uploadMultipleDocuments(
+    user: UserDetails,
+    request: DocumentFileUploadRequest
+  ): Promise<DocumentUploadResponse[]> {
+    try {
+      const formData = new FormData();
+
+      for (const [, file] of Object.entries(request.files)) {
+        formData.append('files', file.data, file.name);
+      }
+
+      const response = await this.client.post(
+        config.get('services.cos.url') + '/upload-citizen-multiple-documents',
+        formData,
+        {
+          headers: {
+            Accept: '*/*',
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, upload citizen statement document failed - uploadDocument');
+    }
+  }
+
   public async deleteDocument(documentId: string): Promise<string> {
     try {
       const response = await this.client.delete(config.get('services.cos.url') + `/${documentId}/delete`);
