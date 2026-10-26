@@ -3,7 +3,7 @@
 {% from "moj/components/multi-file-upload/macro.njk" import mojMultiFileUpload %}
 
 {% macro fileUploadMoj(component) %}
-  {% set uploadButtonText = component.uploadButtonText or 'Upload file' %}
+  {% set uploadButtonText = component.uploadFileButtontext or 'Upload file' %}
   {% set filesAddedHeading = component.filesAddedHeading or 'Files added' %}
   {% set uploadedFiles = component.value or [] %}
 
@@ -25,14 +25,22 @@
       errorMessage: component.errorMessage,
       attributes: uploadAttributes
     }) }}
+    {{ govukButton({
+      text: uploadButtonText,
+      classes: "govuk-button--secondary moj-multi-file-upload__button"
+    }) }}
   {% endset %}
 
+  {% set successIcon = '<svg class="moj-banner__icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" height="25" width="25"><path d="M25,6.2L8.7,23.2L0,14.1l4-4.2l4.7,4.9L21,2L25,6.2z"/></svg>' %}
   {% set uploadedItems = [] %}
   {% for file in uploadedFiles %}
+    {% set successMessage %}
+      <span class="moj-multi-file-upload__success"> {{ successIcon | safe }}{{ file.document_filename }}</span>
+    {% endset %}
     {% set _ = uploadedItems.push({
       fileName: file.id,
       originalFileName: file.document_filename,
-      message: { text: file.document_filename },
+      message: { html: successMessage },
       deleteButton: { text: component.deleteButtonText or 'Remove' }
     }) %}
   {% endfor %}
