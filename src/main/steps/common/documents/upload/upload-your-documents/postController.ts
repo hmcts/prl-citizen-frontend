@@ -21,7 +21,6 @@ import {
   handleError,
   initializeData,
   removeUploadDocErrors,
-  runSynchronous,
   setRedirectUrl,
 } from '../../upload/utils';
 
@@ -91,15 +90,15 @@ export default class UploadDocumentPostController extends PostController<AnyObje
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { onlyContinue: submitDocument, generateDocument, uploadFile, delete: deleteDocumentId } = req.body;
+    const { onlyContinue: submitDocument, generateDocument, uploadFile, delete: deleteDocumentId } = req.body || {};
     const handlers = this.getResponseHandlers(req, res);
 
     if (generateDocument) {
       await this.generateDocument(req, res);
     } else if (uploadFile || req.files) {
-      await runSynchronous(req, res, () => uploadDocument(req, handlers));
+      await uploadDocument(req, handlers);
     } else if (deleteDocumentId) {
-      await runSynchronous(req, res, () => deleteDocument(req, handlers, String(deleteDocumentId)));
+      await deleteDocument(req, handlers, String(deleteDocumentId));
     } else if (submitDocument) {
       await submitDocuments(req, this.fields, handlers);
     }

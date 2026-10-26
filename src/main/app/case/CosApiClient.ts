@@ -374,10 +374,12 @@ export class CosApiClient {
     try {
       const formData = new FormData();
 
-      formData.append('files', request.files);
+      for (const [, file] of Object.entries(request.files)) {
+        formData.append('files', file.data, file.name);
+      }
 
       const response = await this.client.post(
-        config.get('services.cos.url') + '/upload-citizen-multiple-documentst',
+        config.get('services.cos.url') + '/upload-citizen-multiple-documents',
         formData,
         {
           headers: {
