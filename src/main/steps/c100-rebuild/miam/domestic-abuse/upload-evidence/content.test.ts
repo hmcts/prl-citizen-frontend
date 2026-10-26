@@ -136,7 +136,8 @@ describe('C100-rebuild > MIAM >  domestic-abuse > upload-evidence', () => {
       } as unknown as CommonContent).fileUploadConfig
     ).toStrictEqual({
       errorMessage: null,
-      hintText: "Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case. For example, MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.",
+      hintText:
+        'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case. For example, MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
       labelText: 'Upload your documents',
       noFilesText: 'No files uploaded',
       removeFileText: 'Remove',
@@ -190,7 +191,7 @@ describe('C100-rebuild > MIAM >  domestic-abuse > upload-evidence', () => {
     ).toStrictEqual({
       errorMessage: 'Files must be under 20MB.',
       hintText:
-        "Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case. For example, MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.",
+        'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case. For example, MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
       labelText: 'Upload your documents',
       noFilesText: 'No files uploaded',
       removeFileText: 'Remove',
