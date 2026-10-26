@@ -8,12 +8,8 @@ jest.mock('../../../../../app/form/validation');
 
 const en = {
   caption: 'MIAM exemptions',
-
   title: 'Upload evidence of domestic abuse (optional)',
   uploadDocumentsTitle: 'Upload your documents',
-  uploadDocumentFileUpload: 'Your documents',
-  uploadEvidenceHint:
-    'Give each document a file name that makes it clear what it is about. For example MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uploadEvidencePanelTitle: 'Take a picture of a document on your phone and upload it',
   uploadEvidenceRequirements: [
     'Place your document on a flat service in a well-lit room. Use a flash if you need to.',
@@ -22,16 +18,15 @@ const en = {
     'Email or send the photo or scan to the device you are using now.',
     'Upload it here.',
   ],
-  subtitle: 'You can upload any files you feel are relevant to your case or that a judge should be aware of.',
   uploadButton: 'Upload file',
   uploadFileTitle: 'Upload files',
   noFiles: 'No files uploaded',
   remove: 'Remove',
   beforeUploadingHeading: 'Before you upload your files',
-  uploadFileText9:
-    'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
-  uploadFileText10: 'Uploading multiple files from a computer',
-  uploadFileText11:
+  uploadFileText1:
+    'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case. For example, MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
+  uploadFileText2: 'Uploading multiple files from a computer',
+  uploadFileText3:
     "To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
   filesAddedHeading: 'Files added',
   chooseFile: 'Choose files',
@@ -54,8 +49,6 @@ const cy = {
   caption: 'Esemptiadau MIAM',
   title: 'Uwchlwytho tystiolaeth o gam-drin domestig (dewisol)',
   uploadDocumentsTitle: 'Uwchlwythwch eich dogfennau',
-  uploadEvidenceHint:
-    'Rhowch enw ffeil i bob dogfen sy’n dweud yn glir beth ydyw. Er enghraifft MIAMexemption.docx. Rhaid i’r ffeiliau fod yn ffeiliau JPG, JPEG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
   uploadEvidencePanelTitle: 'Tynnu llun o ddogfen ar eich ffôn a’i uwchlwytho',
   uploadEvidenceRequirements: [
     'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
@@ -64,14 +57,12 @@ const cy = {
     'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
     'Llwythwch y ffeil yma',
   ],
-  subtitle:
-    'Gallwch uwchlwytho unrhyw ffeiliau rydych yn teimlo eu bod yn berthnasol i’ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.',
-  beforeUploadingHeading: 'Before you upload your files',
+  beforeUploadingHeading: "Cyn i chi uwchlwytho eich ffeiliau'",
   uploadButton: 'Uwchlwytho ffeil',
   noFiles: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
   remove: 'Dileu',
   errors: {
-    title: 'There is a problem',
+    title: 'Mae yna broblem',
     miam_domesticAbuseEvidenceDocs: {
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       wrongFileExtension: "Dim ond ffeiliau JPG, BMP, PNG, TIF, PDF, DOC neu DOCX sy'n cael eu caniatáu.",
@@ -82,15 +73,14 @@ const cy = {
       noFile: 'Uwchlwytho ffeil',
     },
   },
-  uploadFileText9:
-    "Rhowch enw i bob ffeil sy'n esbonio'n glir beth ydyw. Bydd hyn yn eich helpu chi a'r llys i gadw trefn ar y dogfennau yn eich achos.",
-  uploadFileText10: 'Uwchlwytho ffeiliau o gyfrifiadur',
-  uploadFileText11:
+  uploadFileText1:
+    "Rhowch enw i bob ffeil sy'n esbonio'n glir beth ydyw. Bydd hyn yn eich helpu chi a'r llys i gadw trefn ar y dogfennau yn eich achos. Er enghraifft MIAMexemption.docx. Rhaid i’r ffeiliau fod yn ffeiliau JPG, JPEG, BMP, PNG, TIF, PDF, DOC neu DOCX.",
+  uploadFileText2: 'Uwchlwytho ffeiliau o gyfrifiadur',
+  uploadFileText3:
     "I uwchlwytho ffeiliau lluosog, dewiswch yr un cyntaf, yna daliwch y botwm 'Ctrl' (neu allwedd 'Command' ar gyfer cyfrifiaduron Apple) a dewiswch y ffeiliau eraill.",
   filesAddedHeading: "Ffeiliau wedi'u hychwanegu",
   chooseFile: 'Dewis ffeiliau',
   dropFile: 'Llusgo a gollwng ffeiliau yma neu cliciwch i ddewis ffeiliau',
-  uploadDocumentFileUpload: 'Eich dogfennau',
   uploadFileTitle: 'Uwchlwytho ffeiliau',
 };
 
@@ -146,8 +136,7 @@ describe('C100-rebuild > MIAM >  domestic-abuse > upload-evidence', () => {
       } as unknown as CommonContent).fileUploadConfig
     ).toStrictEqual({
       errorMessage: null,
-      hintText:
-        'Give each document a file name that makes it clear what it is about. For example MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
+      hintText: "Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case. For example, MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.",
       labelText: 'Upload your documents',
       noFilesText: 'No files uploaded',
       removeFileText: 'Remove',
@@ -201,7 +190,7 @@ describe('C100-rebuild > MIAM >  domestic-abuse > upload-evidence', () => {
     ).toStrictEqual({
       errorMessage: 'Files must be under 20MB.',
       hintText:
-        'Give each document a file name that makes it clear what it is about. For example MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
+        "Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case. For example, MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.",
       labelText: 'Upload your documents',
       noFilesText: 'No files uploaded',
       removeFileText: 'Remove',
