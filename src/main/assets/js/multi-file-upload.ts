@@ -240,8 +240,8 @@ export const initMultiFileUpload = (): MultiFileUpload[] => {
       dropzoneHintText: container.dataset.dropFileText ?? 'or drop file',
       hooks: {
         exitHook: () => {
-          clearError(container);
-          removeFailedRows(container);
+          // clearError(container);
+          // removeFailedRows(container);
         },
         errorHook: (_instance: unknown, _file: File, xhr: XMLHttpRequest) => {
           const message = serverMessageOf(container, xhr);
