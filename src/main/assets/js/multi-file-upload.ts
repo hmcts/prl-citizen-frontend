@@ -266,7 +266,6 @@ export const initMultiFileUpload = (): MultiFileUpload[] => {
     const uploadOne = instance.uploadFile.bind(instance);
     instance.uploadFiles = (files: FileList | File[]): void => {
       const batch = Array.from(files);
-      clearError(container);
 
       if (!multiple) {
         if (uploadedCount(container) > 0) {
