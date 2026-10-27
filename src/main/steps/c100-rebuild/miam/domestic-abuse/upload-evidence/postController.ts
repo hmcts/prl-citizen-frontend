@@ -5,6 +5,7 @@ import FormData from 'form-data';
 import _ from 'lodash';
 
 import { caseApi } from '../../../../../app/case/CaseApi';
+import { FILE_UPLOAD_COMMON } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -13,6 +14,7 @@ import {
   isFileSizeGreaterThanMaxAllowed,
   isValidFileFormat,
 } from '../../../../../app/form/validation';
+import { isXhr } from '../../../../common/documents/common/uploadDocument';
 import { applyParms } from '../../../../common/url-parser';
 import { documentBelongsToCase } from '../../../../common/utils';
 import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
@@ -41,12 +43,7 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
   }
 
   private isFileNameTooLong(file: Record<string, any>): boolean {
-    return file.name?.length > 250;
-  }
-
-  private isXhr(req: AppRequest<AnyObject>): boolean {
-    const accept = req.headers?.['accept'];
-    return req.headers?.['sec-fetch-dest'] === 'empty' || (!!accept && !accept.includes('text/html'));
+    return file.name?.length > FILE_UPLOAD_COMMON.maxFilenameLength;
   }
 
   private async deleteDocument(req: AppRequest<AnyObject>, res: Response, documentId: string): Promise<void> {
@@ -86,7 +83,7 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
       return super.redirect(req, res);
     }
 
-    const wantsJson = this.isXhr(req);
+    const wantsJson = isXhr(req);
     const uploadUrl = applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE);
     const fail = (errorType: string): void => {
       if (wantsJson) {
