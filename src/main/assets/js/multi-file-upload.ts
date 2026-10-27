@@ -239,10 +239,7 @@ export const initMultiFileUpload = (): MultiFileUpload[] => {
       dropzoneButtonText: container.dataset.chooseFileText ?? 'Choose file',
       dropzoneHintText: container.dataset.dropFileText ?? 'or drop file',
       hooks: {
-        exitHook: () => {
-          // clearError(container);
-          // removeFailedRows(container);
-        },
+        exitHook: () => {},
         errorHook: (_instance: unknown, _file: File, xhr: XMLHttpRequest) => {
           const message = serverMessageOf(container, xhr);
           if (message) {
@@ -266,6 +263,8 @@ export const initMultiFileUpload = (): MultiFileUpload[] => {
     const uploadOne = instance.uploadFile.bind(instance);
     instance.uploadFiles = (files: FileList | File[]): void => {
       const batch = Array.from(files);
+      clearError(container);
+      removeFailedRows(container);
 
       if (!multiple) {
         if (uploadedCount(container) > 0) {
