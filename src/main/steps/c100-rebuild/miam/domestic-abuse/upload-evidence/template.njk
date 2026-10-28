@@ -1,6 +1,5 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
-{% from "common/fileupload/fileUploadMoj.njk" import fileUploadMoj %}
-
+{% from "common/fileupload/macro-v1.njk" import fileUpload with context %}
 
 {% extends "common/page.njk" %}
 
@@ -14,67 +13,23 @@
     <div class="govuk-form-group--error">
   {% endif %}
 
-    <h2 class="govuk-heading-m">{{beforeUploadingHeading}}</h2>
-    <p class="govuk-body">{{uploadFileText1}}</p>
-    <details class="govuk-details govuk-!-margin-bottom-9" data-module="govuk-details">
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">
-          {{uploadFileText2}}
-        </span>
-      </summary>
-      <div class="govuk-details__text">
-        {{uploadFileText3}}
-      </div>
-    </details>
-    <div id="uploadGroup" class="uploadGroup">
-      <div class=" govuk-!-margin-bottom-3">
-        {% if errorMessage !== null %}
-          <div class="govuk-form-group--error">
-          {% endif %}
-          <div class="govuk-form-group">
-            <form
-            action="?docCategory={{ docCategory }}&_csrf={{ csrfToken }}"
-            method="post"
-            enctype="multipart/form-data"
-            novalidate>
-              {{ fileUploadMoj(
-                {
-                  id: "miam_domesticAbuseEvidenceDocs",
-                  name: "miam_domesticAbuseEvidenceDocs",
-                  classes: "moj-multi-file-upload__input",
-                  errorMessage: {
-                    text: fileUploadConfig.errorMessage
-                  } if fileUploadConfig.errorMessage !== null,
-                  javascript: true,
-                  label: { text: uploadFileTitle, classes: "govuk-label--m" },
-                  uploadButtonText: fileUploadConfig.uploadButtonText,
-                  filesAddedHeading: filesAddedHeading,
-                  deleteButtonText: remove,
-                  uploadUrl: uploadURL,
-                  deleteUrl: deleteURL,
-                  multiple: true,
-                  accept: accept,
-                  value: uploadedFiles,
-                  maxFileSizeBytes: maxFileSizeBytes,
-                  maxFilenameLength: maxFilenameLength,
-                  chooseFileText: chooseFile,
-                  dropFileText: dropFile,
-                  errorSummaryTitle: errors.title,
-                  errorWrongFileType: errors.miam_domesticAbuseEvidenceDocs.wrongFileExtension,
-                  errorFileTooLarge: errors.miam_domesticAbuseEvidenceDocs.fileTooLarge,
-                  errorFilenameTooLong: errors.miam_domesticAbuseEvidenceDocs.filenameTooLong,
-                  errorUploadFailed: errors.miam_domesticAbuseEvidenceDocs.uploadError,
-                  errorDelete: errors.miam_domesticAbuseEvidenceDocs.deleteError
-                }
-              ) }}
-            </form>
-          </div>
-        </div>
-      {% if fileUploadConfig.errorMessage !== null %}
-      </div>
-        {% endif %}    
+  {{ fileUpload({
+    name: "miam_domesticAbuseEvidenceDocs",
+    uploadButtonText: fileUploadConfig.uploadButtonText,
+    labelText: fileUploadConfig.labelText,
+    hintText: fileUploadConfig.hintText,
+    allowedFileTypes: "image/jpg,image/jpeg,image/bmp,image/png,image/tiff,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    uploadUrl: "",
+    uploadedFiles: fileUploadConfig.uploadedFiles,
+    errorMessage: fileUploadConfig.errorMessage,
+    noFilesText: fileUploadConfig.noFilesText,
+    removeFileText: fileUploadConfig.removeFileText,
+    token: csrfToken
+  }) }}
+    
+  {% if fileUploadConfig.errorMessage != undefined %}
     </div>
-
+  {% endif %}
 
   {% set uploadReqSteps %}
     <ol class="govuk-list govuk-list--number">
