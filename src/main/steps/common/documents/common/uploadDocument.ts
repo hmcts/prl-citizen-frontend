@@ -23,11 +23,9 @@ export const isXhr = (req: AppRequest): boolean => {
   if (fetchMode === 'cors' || fetchMode === 'no-cors') {
     return true;
   }
-  const requestedWith = req.headers['x-requested-with'];
-  if (requestedWith === 'XMLHttpRequest') {
-    return true;
-  }
-  return req.headers['sec-fetch-dest'] === 'empty';
+  return (
+    req.headers['sec-fetch-dest'] === 'empty' || (!!req.headers.accept && !req.headers.accept.includes('text/html'))
+  );
 };
 
 export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: ResponseHandlers): Promise<void> => {
