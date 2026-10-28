@@ -14,6 +14,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
   beforeEach(() => {
     req = mockRequest();
     res = mockResponse();
+    req.headers['accept'] = 'text/html';
     controller = new MIAMDomesticAbuseEvidenceUploadController({});
   });
 
