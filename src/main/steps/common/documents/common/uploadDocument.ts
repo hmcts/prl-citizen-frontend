@@ -1,5 +1,6 @@
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { AppRequest } from '../../../../app/controller/AppRequest';
+import { AnyObject } from '../../../../app/controller/PostController';
 import { isExceedingMaxDocuments } from '../../../../app/form/validation';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { UploadDocumentCategory } from '../definitions';
@@ -14,10 +15,12 @@ import {
   setRedirectUrl,
 } from '../upload/utils';
 
-export const isXhr = (req: AppRequest): boolean =>
-  req.headers['sec-fetch-dest'] === 'empty' || !req.headers['accept']?.includes('text/html');
+export const isXhr = (req: AppRequest<AnyObject>): boolean => {
+  const accept = req.headers?.['accept'];
+  return req.headers?.['sec-fetch-dest'] === 'empty' || (!!accept && !accept.includes('text/html'));
+};
 
-export const uploadDocument = async (req: AppRequest, handlers: ResponseHandlers): Promise<void> => {
+export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: ResponseHandlers): Promise<void> => {
   const { session, files, params } = req;
   const { user, userCase: caseData } = session;
   const docCategory = params.docCategory as UploadDocumentCategory;
@@ -42,7 +45,6 @@ export const uploadDocument = async (req: AppRequest, handlers: ResponseHandlers
     req.session.errors = handleError(req.session.errors, errorKey);
     return respond(errorBody(errorKey));
   }
-
   const documentDataRef = getUploadedFilesDataReference(partyType);
 
   if (isSingleFileUpload(docCategory) && caseData[documentDataRef].length) {
