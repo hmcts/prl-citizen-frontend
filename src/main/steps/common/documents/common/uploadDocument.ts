@@ -12,21 +12,9 @@ import {
   handleError,
   initializeData,
   isSingleFileUpload,
+  isXhr,
   setRedirectUrl,
 } from '../upload/utils';
-
-export const isXhr = (req: AppRequest): boolean => {
-  if (!req.headers) {
-    return false;
-  }
-  const fetchMode = req.headers['sec-fetch-mode'];
-  if (fetchMode === 'cors' || fetchMode === 'no-cors') {
-    return true;
-  }
-  return (
-    req.headers['sec-fetch-dest'] === 'empty' || (!!req.headers.accept && !req.headers.accept.includes('text/html'))
-  );
-};
 
 export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: ResponseHandlers): Promise<void> => {
   const { session, files, params } = req;

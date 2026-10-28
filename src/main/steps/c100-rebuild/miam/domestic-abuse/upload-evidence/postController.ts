@@ -14,7 +14,7 @@ import {
   isFileSizeGreaterThanMaxAllowed,
   isValidFileFormat,
 } from '../../../../../app/form/validation';
-import { isXhr } from '../../../../common/documents/common/uploadDocument';
+import { isXhr } from '../../../../common/documents/upload/utils';
 import { applyParms } from '../../../../common/url-parser';
 import { documentBelongsToCase } from '../../../../common/utils';
 import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';

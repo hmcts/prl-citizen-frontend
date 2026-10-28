@@ -19,6 +19,19 @@ import { uploadDocumentSections } from '../upload/config';
 
 /** Upload documents related utilty */
 
+export const isXhr = (req: AppRequest): boolean => {
+  if (!req.headers) {
+    return false;
+  }
+  const fetchMode = req.headers['sec-fetch-mode'];
+  if (fetchMode === 'cors' || fetchMode === 'no-cors') {
+    return true;
+  }
+  return (
+    req.headers['sec-fetch-dest'] === 'empty' || (!!req.headers.accept && !req.headers.accept.includes('text/html'))
+  );
+};
+
 export const getUploadDocumentCategoryDetails = (
   language: string,
   categoryId: UploadDocumentCategory
