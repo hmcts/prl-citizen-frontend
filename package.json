@@ -47,7 +47,7 @@
     "@types/express": "5.0.6",
     "@types/express-session": "1.19.0",
     "@types/glob": "8.1.0",
-    "@types/lodash": "4.17.26",
+    "@types/lodash": "4.17.27",
     "@types/negotiator": "0.6.5",
     "@types/nunjucks": "3.2.6",
     "@types/redis": "2.8.32",
@@ -116,7 +116,7 @@
     "@types/jest": "30.0.0",
     "@types/luxon": "3.7.6",
     "@types/multer": "2.3.0",
-    "@types/node": "22.19.13",
+    "@types/node": "22.20.5",
     "@typescript-eslint/eslint-plugin": "8.70.1",
     "@typescript-eslint/parser": "8.70.1",
     "allure-commandline": "2.46.1",
@@ -154,15 +154,17 @@
     "ts-loader": "9.5.4",
     "webpack": "5.105.3",
     "webpack-cli": "4.10.0",
-    "webpack-dev-middleware": "5.3.4",
+    "webpack-dev-middleware": "7.4.6",
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
     "@opentelemetry/core": "2.12.0",
-    "follow-redirects": "1.16.1",
+    "follow-redirects": "1.16.2",
     "glob": "13.0.6",
     "semver": "7.8.5",
-    "serialize-javascript": "7.1.2"
+    "serialize-javascript": "7.1.4",
+    "body-parser": "1.20.9",
+    "undici": "8.12.2"
   },
   "packageManager": "yarn@4.6.0"
 }
