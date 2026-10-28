@@ -277,7 +277,7 @@ export const initMultiFileUpload = (): MultiFileUpload[] => {
           showError(container, container.dataset.errorOnlyOneFile ?? '');
           return;
         }
-      } else if (maxFiles && batch.length > maxFiles) {
+      } else if (maxFiles && uploadedCount(container) + batch.length > maxFiles) {
         showError(container, container.dataset.errorTooManyFiles ?? '');
         return;
       }
