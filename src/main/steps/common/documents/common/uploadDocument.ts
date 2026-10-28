@@ -15,9 +15,19 @@ import {
   setRedirectUrl,
 } from '../upload/utils';
 
-export const isXhr = (req: AppRequest<AnyObject>): boolean => {
-  const accept = req.headers?.['accept'];
-  return req.headers?.['sec-fetch-dest'] === 'empty' || (!!accept && !accept.includes('text/html'));
+export const isXhr = (req: AppRequest): boolean => {
+  if (!req.headers) {
+    return false;
+  }
+  const fetchMode = req.headers['sec-fetch-mode'];
+  if (fetchMode === 'cors' || fetchMode === 'no-cors') {
+    return true;
+  }
+  const requestedWith = req.headers['x-requested-with'];
+  if (requestedWith === 'XMLHttpRequest') {
+    return true;
+  }
+  return req.headers['sec-fetch-dest'] === 'empty';
 };
 
 export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: ResponseHandlers): Promise<void> => {
