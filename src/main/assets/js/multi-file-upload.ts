@@ -239,7 +239,9 @@ export const initMultiFileUpload = (): MultiFileUpload[] => {
       dropzoneButtonText: container.dataset.chooseFileText ?? 'Choose file',
       dropzoneHintText: container.dataset.dropFileText ?? 'or drop file',
       hooks: {
-        exitHook: () => {},
+        exitHook: () => {
+          syncFeedbackVisibility(container);
+        },
         errorHook: (_instance: unknown, _file: File, xhr: XMLHttpRequest) => {
           const message = serverMessageOf(container, xhr);
           if (message) {
