@@ -39,16 +39,11 @@ export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: Respo
     error: { message: errorKey },
   });
 
-  let file = files?.[getUploadFileFieldName(docCategory)];
+  const file = files?.[getUploadFileFieldName(docCategory)] ?? files?.['uploadDocumentFileUpload'];
   if (!file) {
-    if (files) {
-      file = files['uploadDocumentFileUpload'];
-    }
-    if (!file) {
-      const errorKey = getEmptyFileErrorType(docCategory);
-      req.session.errors = handleError(req.session.errors, errorKey);
-      return respond(errorBody(errorKey));
-    }
+    const errorKey = getEmptyFileErrorType(docCategory);
+    req.session.errors = handleError(req.session.errors, errorKey);
+    return respond(errorBody(errorKey));
   }
   const documentDataRef = getUploadedFilesDataReference(partyType);
 
