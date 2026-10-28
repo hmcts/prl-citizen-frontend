@@ -117,23 +117,24 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     if (!_.isArray(this.allowedCourts) || this.allowedCourts.includes('*')) {
       return [];
     }
-    if (
+    const osCourtLookupEnabled =
       (await getFeatureToggle()?.isOsCourtLookupEnabled()) ??
-      toBoolean(config.get<boolean>('featureToggles.enableOsCourtLookup'))
-    ) {
-      return this.getOsCourtNames(client, formData, user, req);
+      toBoolean(config.get<boolean>('featureToggles.enableOsCourtLookup'));
+
+    if (osCourtLookupEnabled) {
+      return this.getCosCourtNames(client, formData, user, req);
     }
 
     return this.getStandardCourtNames(client, formData, req);
   }
 
-  private async getOsCourtNames(
+  private async getCosCourtNames(
     client: CosApiClient,
     formData: Record<string, unknown>,
     user: UserDetails,
     req: AppRequest
   ): Promise<string[]> {
-    const courtName = await client.findOsCourtByPostCodeAndService(formData.c100RebuildChildPostCode as string, user);
+    const courtName = await client.findCourtByPostCodeViaCosApi(formData.c100RebuildChildPostCode as string, user);
 
     if (!courtName?.length) {
       req.session.errors = this.handleError(req.session.errors, 'invalid');
