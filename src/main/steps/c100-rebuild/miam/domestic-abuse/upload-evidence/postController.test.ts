@@ -39,7 +39,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
-        errorType: 'fileTooLarge',
+        errorType: 'maxFileSize',
         propertyName: 'miam_domesticAbuseEvidenceDocs',
       },
     ]);
@@ -52,7 +52,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
-        errorType: 'wrongFileExtension',
+        errorType: 'invalidFileFormat',
         propertyName: 'miam_domesticAbuseEvidenceDocs',
       },
     ]);
