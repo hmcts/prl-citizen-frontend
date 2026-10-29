@@ -14,7 +14,6 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
   beforeEach(() => {
     req = mockRequest();
     res = mockResponse();
-    req.headers['accept'] = 'text/html';
     controller = new MIAMDomesticAbuseEvidenceUploadController({});
   });
 
@@ -39,7 +38,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
-        errorType: 'maxFileSize',
+        errorType: 'fileTooLarge',
         propertyName: 'miam_domesticAbuseEvidenceDocs',
       },
     ]);
@@ -52,7 +51,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
-        errorType: 'invalidFileFormat',
+        errorType: 'wrongFileExtension',
         propertyName: 'miam_domesticAbuseEvidenceDocs',
       },
     ]);
@@ -84,6 +83,87 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
         document_creation_date: '1/1/2024',
       },
     ]);
+  });
+
+  test('should upload documents via XHR request, add to existing documents in session and redirect', async () => {
+    req.body = { onlyContinue: false, uploadFile: true };
+    req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
+    req.headers = {
+      'sec-fetch-dest': 'empty',
+      accept: 'application/json',
+    };
+    req.session.userCase.miam_domesticAbuseEvidenceDocs = [
+      {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    ];
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+      document: {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    });
+    await controller.post(req, res);
+    expect(res.redirect).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+      file: { filename: '1234', originalname: 'test_document' },
+      redirectUrl: '/c100-rebuild/miam/domestic-abuse/upload-evidence',
+    });
+    expect(req.session.errors).toStrictEqual([]);
+    expect(req.session.userCase.miam_domesticAbuseEvidenceDocs).toStrictEqual([
+      {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+      {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    ]);
+  });
+
+  test('failed upload via XHR request should respond with JSON error and not redirect', async () => {
+    req.body = { onlyContinue: false, uploadFile: true };
+    req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
+    req.headers = {
+      'sec-fetch-mode': 'cors',
+      accept: '*/*',
+    };
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Error',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+      document: {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    });
+    await controller.post(req, res);
+    expect(res.redirect).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      error: { message: 'uploadError' },
+      redirectUrl: '/c100-rebuild/miam/domestic-abuse/upload-evidence',
+    });
   });
 
   test('should upload document, add to existing documents in session and redirect', async () => {

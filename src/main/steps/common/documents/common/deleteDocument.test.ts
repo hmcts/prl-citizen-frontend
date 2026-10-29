@@ -12,8 +12,38 @@ describe('deleteDocument', () => {
     respondJson: jest.fn(),
   });
 
-  const createRequest = (documents: object[], applicationSettings = {}) =>
+  const createHttpRequest = (documents: object[], applicationSettings = {}) =>
     mockRequest({
+      headers: {
+        accept: 'text/html',
+      },
+      params: {
+        docCategory: 'your-position-statements',
+      },
+      session: {
+        user: {
+          id: '1234',
+          accessToken: 'token',
+        },
+        applicationSettings,
+        userCase: {
+          id: 'case-123',
+          caseType: 'FL401',
+          applicantsFL401: {
+            firstName: 'test',
+            lastName: 'user',
+          },
+          applicantUploadFiles: documents,
+        },
+      },
+    });
+
+  const createXhrRequest = (documents: object[], applicationSettings = {}) =>
+    mockRequest({
+      headers: {
+        'sec-fetch-mode': 'cors',
+        accept: 'application/json',
+      },
       params: {
         docCategory: 'your-position-statements',
       },
@@ -39,8 +69,38 @@ describe('deleteDocument', () => {
     deleteDocumentMock.mockReset();
   });
 
+  test('should delete document and redirect when not an XHR request', async () => {
+    const req = createHttpRequest([
+      {
+        document_url: '/documents/document-123',
+        document_binary_url: 'binary/document-123',
+        document_filename: 'test.pdf',
+      },
+      {
+        document_url: '/documents/document-456',
+        document_binary_url: 'binary/document-456',
+        document_filename: 'other.pdf',
+      },
+    ]);
+    const handlers = createHandlers();
+
+    deleteDocumentMock.mockResolvedValue('Success');
+
+    await deleteDocument(req, handlers, 'document-123');
+
+    expect(deleteDocumentMock).toHaveBeenCalledWith('document-123');
+    expect(req.session.userCase.applicantUploadFiles).toEqual([
+      {
+        document_url: '/documents/document-456',
+        document_binary_url: 'binary/document-456',
+        document_filename: 'other.pdf',
+      },
+    ]);
+    expect(handlers.redirect).toHaveBeenCalledWith(expect.any(String));
+  });
+
   test('should delete document and return successful JSON response', async () => {
-    const req = createRequest([
+    const req = createXhrRequest([
       {
         document_url: '/documents/document-123',
         document_binary_url: 'binary/document-123',
@@ -69,8 +129,8 @@ describe('deleteDocument', () => {
     expect(handlers.respondJson).toHaveBeenCalledWith({}, expect.any(String));
   });
 
-  test('should delete the uploaded files property when the last document is deleted', async () => {
-    const req = createRequest(
+  test('should delete the uploaded files property when the last document is deleted via XHR', async () => {
+    const req = createXhrRequest(
       [
         {
           document_url: '/documents/document-123',
@@ -92,7 +152,7 @@ describe('deleteDocument', () => {
   });
 
   test('should set deleteError and return error JSON when deletion fails', async () => {
-    const req = createRequest([
+    const req = createXhrRequest([
       {
         document_url: '/documents/document-123',
         document_filename: 'test.pdf',

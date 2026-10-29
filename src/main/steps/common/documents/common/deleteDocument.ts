@@ -7,6 +7,7 @@ import {
   getUploadedFilesDataReference,
   handleError,
   initializeData,
+  isXhr,
   removeDocumentFromSession,
   setRedirectUrl,
 } from '../upload/utils';
@@ -21,6 +22,7 @@ export const deleteDocument = async (
   const partyType = getCasePartyType(caseData, user.id);
   const client = new CosApiClient(user.accessToken, req.locals.logger);
   const redirectUrl = setRedirectUrl(partyType, req);
+  const wantsJson = isXhr(req);
   req.url = redirectUrl;
   initializeData(caseData);
 
@@ -39,5 +41,9 @@ export const deleteDocument = async (
     req.session.errors = handleError(req.session.errors, 'deleteError', true);
     jsonBody = errorBody('deleteError');
   }
-  handlers.respondJson(jsonBody, redirectUrl);
+  if (wantsJson) {
+    handlers.respondJson(jsonBody, redirectUrl);
+  } else {
+    handlers.redirect(redirectUrl);
+  }
 };
