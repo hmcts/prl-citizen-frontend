@@ -14,6 +14,7 @@ import {
   isSingleFileUpload,
   isXhr,
   setRedirectUrl,
+  respond,
 } from '../upload/utils';
 
 export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: ResponseHandlers): Promise<void> => {
@@ -28,9 +29,6 @@ export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: Respo
   req.url = redirectUrl;
   initializeData(caseData);
 
-  const respond = (jsonBody: object): void =>
-    wantsJson ? handlers.respondJson(jsonBody, redirectUrl) : handlers.redirect(redirectUrl);
-
   const errorBody = (errorKey: string): object => ({
     error: { message: errorKey },
   });
@@ -39,17 +37,17 @@ export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: Respo
   if (!file) {
     const errorKey = getEmptyFileErrorType(docCategory);
     req.session.errors = handleError(req.session.errors, errorKey);
-    return respond(errorBody(errorKey));
+    return respond(errorBody(errorKey), wantsJson, redirectUrl, handlers);
   }
   const documentDataRef = getUploadedFilesDataReference(partyType);
 
   if (isSingleFileUpload(docCategory) && caseData[documentDataRef].length) {
     req.session.errors = handleError(req.session.errors, 'multipleFiles');
-    return respond(errorBody('multipleFiles'));
+    return respond(errorBody('multipleFiles'), wantsJson, redirectUrl, handlers);
   }
   if (isExceedingMaxDocuments(caseData[documentDataRef]?.length, docCategory)) {
     req.session.errors = handleError(req.session.errors, 'maxDocumentsReached');
-    return respond(errorBody('maxDocumentsReached'));
+    return respond(errorBody('maxDocumentsReached'), wantsJson, redirectUrl, handlers);
   }
   let jsonBody: object = errorBody('uploadError');
 
@@ -60,7 +58,7 @@ export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: Respo
     console.log('Received the following response:', response);
     if (response.status !== 'Success') {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
-      return;
+      return respond(errorBody('uploadError'), wantsJson, redirectUrl, handlers);
     }
 
     caseData[documentDataRef].push(response.document);
@@ -71,11 +69,11 @@ export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: Respo
         originalname: response.document.document_filename,
       },
     };
-    return;
+    return respond(jsonBody, wantsJson, redirectUrl, handlers);
   } catch (error) {
     console.log(error);
     req.session.errors = handleError(req.session.errors, 'uploadError', true);
   } finally {
-    respond(jsonBody);
+    respond(jsonBody, wantsJson, redirectUrl, handlers);
   }
 };

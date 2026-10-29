@@ -10,6 +10,7 @@ import {
   isXhr,
   removeDocumentFromSession,
   setRedirectUrl,
+  respond,
 } from '../upload/utils';
 
 export const deleteDocument = async (
@@ -41,9 +42,5 @@ export const deleteDocument = async (
     req.session.errors = handleError(req.session.errors, 'deleteError', true);
     jsonBody = errorBody('deleteError');
   }
-  if (wantsJson) {
-    handlers.respondJson(jsonBody, redirectUrl);
-  } else {
-    handlers.redirect(redirectUrl);
-  }
+  respond(jsonBody, wantsJson, redirectUrl, handlers);
 };
