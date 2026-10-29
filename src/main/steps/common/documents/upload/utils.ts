@@ -20,7 +20,7 @@ import { uploadDocumentSections } from '../upload/config';
 /** Upload documents related utilty */
 
 export const respond = (jsonBody: object, wantsJson: boolean, redirectUrl: string, handlers: ResponseHandlers): void =>
-    wantsJson ? handlers.respondJson(jsonBody, redirectUrl) : handlers.redirect(redirectUrl);
+  wantsJson ? handlers.respondJson(jsonBody, redirectUrl) : handlers.redirect(redirectUrl);
 
 export const isXhr = (req: AppRequest): boolean => {
   if (!req.headers) {

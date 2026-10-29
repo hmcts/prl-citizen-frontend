@@ -13,8 +13,8 @@ import {
   initializeData,
   isSingleFileUpload,
   isXhr,
-  setRedirectUrl,
   respond,
+  setRedirectUrl,
 } from '../upload/utils';
 
 export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: ResponseHandlers): Promise<void> => {

@@ -9,8 +9,8 @@ import {
   initializeData,
   isXhr,
   removeDocumentFromSession,
-  setRedirectUrl,
   respond,
+  setRedirectUrl,
 } from '../upload/utils';
 
 export const deleteDocument = async (
