@@ -58,7 +58,7 @@ export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: Respo
     console.log('Received the following response:', response);
     if (response.status !== 'Success') {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
-      return respond(errorBody('uploadError'), wantsJson, redirectUrl, handlers);
+      return;
     }
 
     caseData[documentDataRef].push(response.document);
@@ -69,7 +69,7 @@ export const uploadDocument = async (req: AppRequest<AnyObject>, handlers: Respo
         originalname: response.document.document_filename,
       },
     };
-    return respond(jsonBody, wantsJson, redirectUrl, handlers);
+    return;
   } catch (error) {
     console.log(error);
     req.session.errors = handleError(req.session.errors, 'uploadError', true);
