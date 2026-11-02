@@ -158,7 +158,7 @@ const cy: typeof en = {
   your: 'eich ',
   subtitle:
     "Gallwch uwchlwytho unrhyw ffeiliau rydych chi'n teimlo sy'n berthnasol i'ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.",
-  maximumUploadedFilesText: '--welsh You can upload a maximum of 20 files.',
+  maximumUploadedFilesText: 'Gallwch uwchlwytho uchafswm o 20 ffeil.',
   beforeUploadingHeading: "Cyn i chi uwchlwytho eich ffeiliau'",
   errors: {
     title: 'Mae yna broblem',
@@ -167,7 +167,7 @@ const cy: typeof en = {
     },
     uploadDocumentFileUpload: {
       multipleFiles: 'Gallwch uwchlwytho un dogfen yn unig',
-      maxDocumentsReached: '--welsh You can upload a maximum of 20 files.',
+      maxDocumentsReached: 'Gallwch uwchlwytho uchafswm o 20 ffeil.',
       noFile: 'Uwchlwytho ffeil',
       noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
       filenameTooLong: 'Rhaid i enwau ffeiliau fod yn 250 nod neu lai.',
