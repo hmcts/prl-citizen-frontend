@@ -67,6 +67,7 @@ const en = {
   the: 'the ',
   your: 'your ',
   subtitle: 'You can upload any files you feel are relevant to your case or that a judge should be aware of.',
+  maximumUploadedFilesText: 'You can upload a maximum of 20 files.',
   beforeUploadingHeading: 'Before you upload your files',
   errors: {
     title: 'There is a problem',
@@ -75,7 +76,7 @@ const en = {
     },
     uploadDocumentFileUpload: {
       multipleFiles: 'You can upload only one document.',
-      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
+      maxDocumentsReached: 'You can upload a maximum of 20 files.',
       noFile: 'Upload a file.',
       noStatementOrFile: 'Enter {statement} as text or upload {statement} as a file.',
       filenameTooLong: 'File names must be 250 characters or less.',
@@ -151,6 +152,7 @@ const cy: typeof en = {
   your: 'eich ',
   subtitle:
     "Gallwch uwchlwytho unrhyw ffeiliau rydych chi'n teimlo sy'n berthnasol i'ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.",
+  maximumUploadedFilesText: '--welsh You can upload a maximum of 20 files.',
   beforeUploadingHeading: "Cyn i chi uwchlwytho eich ffeiliau'",
   errors: {
     title: 'Mae yna broblem',
@@ -159,7 +161,7 @@ const cy: typeof en = {
     },
     uploadDocumentFileUpload: {
       multipleFiles: 'Gallwch uwchlwytho un dogfen yn unig',
-      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
+      maxDocumentsReached: '--welsh You can upload a maximum of 20 files.',
       noFile: 'Uwchlwytho ffeil',
       noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
       filenameTooLong: 'Rhaid i enwau ffeiliau fod yn 250 nod neu lai.',
