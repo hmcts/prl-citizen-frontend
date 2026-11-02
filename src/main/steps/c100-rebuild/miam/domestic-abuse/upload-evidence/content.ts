@@ -49,6 +49,8 @@ const en = {
 const cy: typeof en = {
   caption: 'Esemptiadau MIAM',
   title: 'Uwchlwytho tystiolaeth o gam-drin domestig (dewisol)',
+  subtitle:
+    "Gallwch uwchlwytho unrhyw ffeiliau rydych chi'n teimlo sy'n berthnasol i'ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.",
   uploadDocumentsTitle: 'Uwchlwythwch eich dogfennau',
   uploadEvidencePanelTitle: 'Tynnu llun o ddogfen ar eich ffôn a’i uwchlwytho',
   uploadEvidenceRequirements: [

@@ -9,6 +9,7 @@ jest.mock('../../../../../app/form/validation');
 const en = {
   caption: 'MIAM exemptions',
   title: 'Upload evidence of domestic abuse (optional)',
+  subtitle: 'You can upload any files you feel are relevant to your case or that a judge should be aware of.',
   uploadDocumentsTitle: 'Upload your documents',
   uploadEvidencePanelTitle: 'Take a picture of a document on your phone and upload it',
   uploadEvidenceRequirements: [
@@ -48,6 +49,8 @@ const en = {
 const cy = {
   caption: 'Esemptiadau MIAM',
   title: 'Uwchlwytho tystiolaeth o gam-drin domestig (dewisol)',
+  subtitle:
+    "Gallwch uwchlwytho unrhyw ffeiliau rydych chi'n teimlo sy'n berthnasol i'ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.",
   uploadDocumentsTitle: 'Uwchlwythwch eich dogfennau',
   uploadEvidencePanelTitle: 'Tynnu llun o ddogfen ar eich ffôn a’i uwchlwytho',
   uploadEvidenceRequirements: [
