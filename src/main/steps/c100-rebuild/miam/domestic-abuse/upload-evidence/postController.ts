@@ -14,7 +14,7 @@ import {
   isFileSizeGreaterThanMaxAllowed,
   isValidFileFormat,
 } from '../../../../../app/form/validation';
-import { isXhr } from '../../../../common/documents/upload/utils';
+import { isXhr, runSynchronous } from '../../../../common/documents/upload/utils';
 import { applyParms } from '../../../../common/url-parser';
 import { documentBelongsToCase } from '../../../../common/utils';
 import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
@@ -25,6 +25,8 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
+
+  private readonly uploadUrl = applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE);
 
   private hasError(uploadedDocument: Record<string, any>, req: AppRequest<AnyObject>): string | undefined {
     let errorType;
@@ -50,39 +52,39 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
     const docs = req.session.userCase.miam_domesticAbuseEvidenceDocs ?? [];
 
     if (!documentBelongsToCase(documentId, docs)) {
-      return this.respondJson(
-        req,
-        res,
-        { error: { message: 'deleteError' } },
-        applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE)
-      );
+      if (isXhr(req)) {
+        return this.respondJson(req, res, { error: { message: 'deleteError' } }, this.uploadUrl);
+      }
+      handleEvidenceDocError('deleteError', req, 'miam_domesticAbuseEvidenceDocs');
+      return res.redirect(applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
     }
 
     try {
+      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
       await caseApi(req.session.user, req.locals.logger).deleteDocument(documentId);
       req.session.userCase.miam_domesticAbuseEvidenceDocs = docs.filter(
         doc => doc.document_url.substring(doc.document_url.lastIndexOf('/') + 1) !== documentId
       );
-      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
-      this.respondJson(req, res, {}, applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
+      req.locals.logger.info(
+        `miam DA doc ${documentId} deleted by user ${req.session?.user?.id} on case ${req.session?.userCase?.id}`
+      );
+      if (isXhr(req)) {
+        return this.respondJson(req, res, {}, this.uploadUrl);
+      }
+      return res.redirect(applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
     } catch (e) {
-      this.respondJson(req, res, { error: { message: 'deleteError' } }, applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
+      req.locals.logger.error(`Error deleting document with id ${documentId}: ${e.message}`);
+      if (!isXhr(req)) {
+        handleEvidenceDocError('deleteError', req, 'miam_domesticAbuseEvidenceDocs');
+        return res.redirect(applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE));
+      }
+      this.respondJson(req, res, { error: { message: 'deleteError' } }, this.uploadUrl);
+      return;
     }
   }
 
-  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { uploadFile, onlyContinue, delete: deleteDocumentId } = req.body;
-
-    if (deleteDocumentId) {
-      return this.deleteDocument(req, res, String(deleteDocumentId));
-    }
-
-    if (onlyContinue) {
-      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
-
-      return super.redirect(req, res);
-    }
-
+  private async uploadDocument(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const { uploadFile } = req.body;
     const wantsJson = isXhr(req);
     const uploadUrl = applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE);
     const fail = (errorType: string): void => {
@@ -112,12 +114,12 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
       contentType: fileUploaded.mimetype,
       filename: fileUploaded.name,
     });
-
     try {
       const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
 
       if (response.status !== 'Success') {
-        return fail('uploadError');
+        fail('uploadError');
+        return;
       }
 
       req.session.userCase.miam_domesticAbuseEvidenceDocs = req.session.userCase.miam_domesticAbuseEvidenceDocs
@@ -143,7 +145,29 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
       }
       super.redirect(req, res, uploadFile ? uploadUrl : undefined);
     } catch (e) {
+      req.locals.logger.error('Error uploading document', e);
       fail('uploadError');
     }
+  }
+
+  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const { onlyContinue, uploadFile, delete: deleteDocumentId } = req.body;
+
+    if (deleteDocumentId) {
+      await runSynchronous(req, res, () => this.deleteDocument(req, res, String(deleteDocumentId)));
+      return;
+    }
+
+    if (onlyContinue) {
+      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
+      return super.redirect(req, res);
+    }
+
+    if (uploadFile || req.files) {
+      await runSynchronous(req, res, () => this.uploadDocument(req, res));
+      return;
+    }
+
+    super.redirect(req, res, this.uploadUrl);
   }
 }

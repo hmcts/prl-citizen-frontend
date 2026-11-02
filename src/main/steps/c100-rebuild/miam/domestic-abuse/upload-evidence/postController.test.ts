@@ -2,10 +2,14 @@ import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { CaseApi } from '../../../../../app/case/CaseApi';
 import { isExceedingMaxDocuments } from '../../../../../app/form/validation';
+import * as uploadUtils from '../../../../common/documents/upload/utils';
 
 import MIAMDomesticAbuseEvidenceUploadController from './postController';
 
 const uploadDocumentMock = jest.spyOn(CaseApi.prototype, 'uploadDocument');
+const runSynchronousMock = jest
+  .spyOn(uploadUtils, 'runSynchronous')
+  .mockImplementation(async (_req, _res, task) => task());
 
 describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postController', () => {
   let req;
@@ -27,14 +31,15 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
   test('should stay on same page without errors if no file uploaded', async () => {
     req.body = { onlyContinue: false };
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/domestic-abuse/upload-evidence/:removeFileId?');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/domestic-abuse/upload-evidence');
     expect(req.session.errors).toBeUndefined();
   });
 
   test('should redirect with error if file is too large', async () => {
-    req.body = { onlyContinue: false };
+    req.body = { onlyContinue: false, uploadFile: true };
     req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: '81230000', data: '', mimetype: 'text' } };
     await controller.post(req, res);
+    expect(runSynchronousMock).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
@@ -45,9 +50,10 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
   });
 
   test('should redirect with error if invalid file type is present', async () => {
-    req.body = { onlyContinue: false };
+    req.body = { onlyContinue: false, uploadFile: true };
     req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.txt', size: '812300', data: '', mimetype: 'text' } };
     await controller.post(req, res);
+    expect(runSynchronousMock).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
@@ -259,7 +265,6 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
       },
     });
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'uploadError',

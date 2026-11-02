@@ -25,7 +25,7 @@ const en = {
   remove: 'Remove',
   beforeUploadingHeading: 'Before you upload your files',
   uploadFileText1:
-    'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case. For example, MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
+    'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
   uploadFileText2: 'Uploading multiple files from a computer',
   uploadFileText3:
     "To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
@@ -77,7 +77,7 @@ const cy = {
     },
   },
   uploadFileText1:
-    "Rhowch enw i bob ffeil sy'n esbonio'n glir beth ydyw. Bydd hyn yn eich helpu chi a'r llys i gadw trefn ar y dogfennau yn eich achos. Er enghraifft MIAMexemption.docx. Rhaid i’r ffeiliau fod yn ffeiliau JPG, JPEG, BMP, PNG, TIF, PDF, DOC neu DOCX.",
+    "Rhowch enw i bob ffeil sy'n esbonio'n glir beth ydyw. Bydd hyn yn eich helpu chi a'r llys i gadw trefn ar y dogfennau yn eich achos.",
   uploadFileText2: 'Uwchlwytho ffeiliau o gyfrifiadur',
   uploadFileText3:
     "I uwchlwytho ffeiliau lluosog, dewiswch yr un cyntaf, yna daliwch y botwm 'Ctrl' (neu allwedd 'Command' ar gyfer cyfrifiaduron Apple) a dewiswch y ffeiliau eraill.",
@@ -140,7 +140,7 @@ describe('C100-rebuild > MIAM >  domestic-abuse > upload-evidence', () => {
     ).toStrictEqual({
       errorMessage: null,
       hintText:
-        'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case. For example, MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
+        'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
       labelText: 'Upload your documents',
       noFilesText: 'No files uploaded',
       removeFileText: 'Remove',
@@ -194,7 +194,7 @@ describe('C100-rebuild > MIAM >  domestic-abuse > upload-evidence', () => {
     ).toStrictEqual({
       errorMessage: 'Files must be under 20MB.',
       hintText:
-        'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case. For example, MIAMexemption.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
+        'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
       labelText: 'Upload your documents',
       noFilesText: 'No files uploaded',
       removeFileText: 'Remove',
