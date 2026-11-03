@@ -250,6 +250,32 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     ]);
   });
 
+  test('should upload every file when multiple files are selected', async () => {
+    req.body = { onlyContinue: false, uploadFile: true };
+    req.files = {
+      miam_domesticAbuseEvidenceDocs: [
+        { name: 'a.pdf', size: 8123, data: '', mimetype: 'text' },
+        { name: 'b.pdf', size: 8123, data: '', mimetype: 'text' },
+      ],
+    };
+    uploadDocumentMock.mockClear();
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+      document: {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    });
+    await controller.post(req, res);
+    expect(uploadDocumentMock).toHaveBeenCalledTimes(2);
+    expect(req.session.userCase.miam_domesticAbuseEvidenceDocs).toHaveLength(2);
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/domestic-abuse/upload-evidence');
+  });
+
   test('should add error and redirect if response status is not Success', async () => {
     req.body = { onlyContinue: false };
     req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };

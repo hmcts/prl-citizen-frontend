@@ -95,49 +95,54 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
       super.redirect(req, res);
     };
 
-    // The multi-file upload component posts the file as "documents"
-    const fileUploaded = (_.get(req, 'files.miam_domesticAbuseEvidenceDocs') ??
-      _.get(req, 'files.documents')) as unknown as Record<string, any>;
-    if (!fileUploaded) {
+    const filesUploaded = ([] as Record<string, any>[]).concat(
+      _.get(req, 'files.miam_domesticAbuseEvidenceDocs') ?? _.get(req, 'files.documents') ?? []
+    );
+    if (!filesUploaded.length) {
       return wantsJson ? fail('uploadError') : super.redirect(req, res, C100_MIAM_UPLOAD_DA_EVIDENCE);
     }
 
-    const error = this.hasError(fileUploaded, req);
-
-    if (error) {
-      return fail(error);
-    }
-
-    const formData: FormData = new FormData();
-
-    formData.append('file', fileUploaded.data, {
-      contentType: fileUploaded.mimetype,
-      filename: fileUploaded.name,
-    });
     try {
-      const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
+      let lastResponse;
 
-      if (response.status !== 'Success') {
-        fail('uploadError');
-        return;
+      for (const fileUploaded of filesUploaded) {
+        const error = this.hasError(fileUploaded, req);
+
+        if (error) {
+          return fail(error);
+        }
+
+        const formData: FormData = new FormData();
+
+        formData.append('file', fileUploaded.data, {
+          contentType: fileUploaded.mimetype,
+          filename: fileUploaded.name,
+        });
+
+        const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
+
+        if (response.status !== 'Success') {
+          return fail('uploadError');
+        }
+
+        req.session.userCase.miam_domesticAbuseEvidenceDocs = req.session.userCase.miam_domesticAbuseEvidenceDocs
+          ? req.session.userCase.miam_domesticAbuseEvidenceDocs
+          : [];
+
+        req.session.userCase.miam_domesticAbuseEvidenceDocs?.push(response.document);
+        removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
+        lastResponse = response;
       }
 
-      req.session.userCase.miam_domesticAbuseEvidenceDocs = req.session.userCase.miam_domesticAbuseEvidenceDocs
-        ? req.session.userCase.miam_domesticAbuseEvidenceDocs
-        : [];
-
-      req.session.userCase.miam_domesticAbuseEvidenceDocs?.push(response.document);
-      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
-
-      if (wantsJson) {
+      if (wantsJson && lastResponse) {
         return this.respondJson(
           req,
           res,
           {
-            success: response.success,
+            success: lastResponse.success,
             file: {
-              filename: response.document.document_url.split('/').pop(),
-              originalname: response.document.document_filename,
+              filename: lastResponse.document.document_url.split('/').pop(),
+              originalname: lastResponse.document.document_filename,
             },
           },
           uploadUrl
