@@ -16,7 +16,7 @@ import {
 import { isXhr, runSynchronous } from '../../../../common/documents/upload/utils';
 import { applyParms } from '../../../../common/url-parser';
 import { documentBelongsToCase } from '../../../../common/utils';
-import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
+import { C100_MIAM_UPLOAD_DA_EVIDENCE, TASK_LIST_APPLICANT_URL } from '../../../../urls';
 import { handleEvidenceDocError, removeEvidenceDocErrors } from '../../util';
 
 @autobind
@@ -149,7 +149,7 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { onlyContinue, uploadFile, delete: deleteDocumentId } = req.body;
+    const { onlyContinue, saveAndComeLater, uploadFile, delete: deleteDocumentId } = req.body;
 
     if (deleteDocumentId) {
       await runSynchronous(req, res, () => this.deleteDocument(req, res, String(deleteDocumentId)));
@@ -164,6 +164,11 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
     if (uploadFile || req.files) {
       await runSynchronous(req, res, () => this.uploadDocument(req, res));
       return;
+    }
+
+    if (saveAndComeLater) {
+      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
+      return super.redirect(req, res, TASK_LIST_APPLICANT_URL);
     }
 
     super.redirect(req, res, this.uploadUrl);

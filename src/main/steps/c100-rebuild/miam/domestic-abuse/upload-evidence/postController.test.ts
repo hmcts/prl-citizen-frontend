@@ -377,4 +377,10 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
       errorType: 'maxDocumentsReached',
     });
   });
+
+  test('should redirect to task list if saveAndComeLater is present', async () => {
+    req.body = { saveAndComeLater: true };
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith('/task-list/applicant');
+  });
 });
