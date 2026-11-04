@@ -25,7 +25,6 @@ nodejs:
     DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-3859.preview.platform.hmcts.net'
     CCD_URL: 'https://ccd-data-store-api-prl-ccd-definitions-pr-3859.preview.platform.hmcts.net'
     COS_URL: 'https://prl-ccd-definitions-pr-3859.preview.platform.hmcts.net'
-    FACT_URL: 'http://fact-api-aat.service.core-compute-aat.internal'
     REASONABLE_ADJUSTMENTS: 'https://cui-ra.{{ .Values.global.environment }}.platform.hmcts.net'
     REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
     LAUNCH_DARKLY_OFFLINE_MODE: false
@@ -35,8 +34,7 @@ nodejs:
     ENABLE_CASE_TRAIN_TRACK: true
     ENABLE_RA_COMPONENT: false
     ENABLE_PCQ_COMPONENT: true
-    ENABLE_OS_COURT_LOOKUP: false
-    ALLOWED_COURTS: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre,Chelmsford Justice Centre,Chelmsford Magistrates' Court and Family Court,Wolverhampton Combined Court Centre,Wolverhampton Magistrates' Court
+    ALLOWED_COURTS: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre,Chelmsford County and Family Court,Chelmsford Magistrates' Court and Family Court,Wolverhampton Combined Court Centre,Wolverhampton Magistrates' Court
   keyVaults:
     prl:
       resourceGroup: prl
