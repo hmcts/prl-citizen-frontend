@@ -2,7 +2,8 @@
 
 {{ govukFileUpload({
   id: field.id if field.id else fieldName,
-  name: fieldName,  
+  javascript: true,
+  name: fieldName,
   label: {
     text: getContent(field.label) if not field.labelHidden else ""
   },

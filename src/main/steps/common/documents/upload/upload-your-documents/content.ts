@@ -1,14 +1,14 @@
 import _ from 'lodash';
 
-import { PartyType } from '../../../../../app/case/definition';
+import { FILE_UPLOAD_COMMON, PartyType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { interpolate } from '../../../../../steps/common/string-parser';
 import { applyParms } from '../../../../../steps/common/url-parser';
-import { FETCH_CASE_DETAILS } from '../../../../../steps/urls';
+import { FETCH_CASE_DETAILS, UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
 import { UploadDocumentCategory } from '../../definitions';
-import { getUploadDocumentCategoryDetails } from '../../upload/utils';
+import { getUploadDocumentCategoryDetails, isSingleFileUpload } from '../../upload/utils';
 
 export * from './routeGuard';
 
@@ -57,13 +57,24 @@ const en = {
   uplodFileText8: 'Upload it here.',
   uploadFileHeading: 'Upload a file',
   uploadFileButtontext: 'Upload file',
+  uploadFileText9:
+    'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
+  uploadFileText10: 'Uploading multiple files from a computer',
+  uploadFileText11:
+    "To upload multiple files select the first one, then hold down the 'Ctrl' key (or 'Command' key for Apple computers) and select the other files.",
+  filesAddedHeading: 'Files added',
+  chooseFile: 'Choose files',
+  dropFile: 'Drag and drop files here or',
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',
   warningText:
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   the: 'the ',
   your: 'your ',
+  subtitle: 'You can upload any files you feel are relevant to your case or that a judge should be aware of.',
+  beforeUploadingHeading: 'Before you upload your files',
   errors: {
+    title: 'There is a problem',
     declarationCheck: {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
@@ -72,6 +83,9 @@ const en = {
       noFile: 'Upload a file.',
       multipleFiles: 'You can upload only one document.',
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
+      filenameTooLong: 'File names must be 250 characters or less.',
+      wrongFileExtension: 'Only JPG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed.',
+      fileTooLarge: 'Files must be under 20MB.',
       uploadError: 'Document could not be uploaded.',
       deleteError: 'Document could not be deleted.',
     },
@@ -127,13 +141,25 @@ const cy: typeof en = {
   uplodFileText8: 'Llwythwch y ffeil yma.',
   uploadFileHeading: 'Llwytho ffeil',
   uploadFileButtontext: 'Llwytho ffeil i fyny',
+  uploadFileText9:
+    "Rhowch enw i bob ffeil sy'n esbonio'n glir beth ydyw. Bydd hyn yn eich helpu chi a'r llys i gadw trefn ar y dogfennau yn eich achos.",
+  uploadFileText10: 'Uwchlwytho ffeiliau o gyfrifiadur',
+  uploadFileText11:
+    "I uwchlwytho ffeiliau lluosog, dewiswch yr un cyntaf, yna daliwch y botwm 'Ctrl' (neu allwedd 'Command' ar gyfer cyfrifiaduron Apple) a dewiswch y ffeiliau eraill.",
+  filesAddedHeading: "Ffeiliau wedi'u hychwanegu",
+  chooseFile: 'Dewis ffeiliau',
+  dropFile: 'Llusgo a gollwng ffeiliau yma neu',
   statementOfTruth: 'Datganiad Gwirionedd',
   warning: 'Rhybudd',
   warningText:
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   the: 'y ',
   your: 'eich ',
+  subtitle:
+    "Gallwch uwchlwytho unrhyw ffeiliau rydych chi'n teimlo sy'n berthnasol i'ch achos neu y dylai barnwr fod yn ymwybodol ohonynt.",
+  beforeUploadingHeading: "Cyn i chi uwchlwytho eich ffeiliau'",
   errors: {
+    title: 'Mae yna broblem',
     declarationCheck: {
       required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
     },
@@ -142,6 +168,9 @@ const cy: typeof en = {
       maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
       noFile: 'Uwchlwytho ffeil',
       noStatementOrFile: 'Rhowch {statement} neu llwythwch ffeil.',
+      filenameTooLong: 'Rhaid i enwau ffeiliau fod yn 250 nod neu lai.',
+      wrongFileExtension: "Dim ond ffeiliau JPG, BMP, PNG, TIF, PDF, DOC neu DOCX sy'n cael eu caniatáu.",
+      fileTooLarge: 'Rhaid i ffeiliau fod o dan 20MB.',
       uploadError: 'Ni ellir uwchlwytho’r ddogfen.',
       deleteError: "Ni ellir dileu'r ddogfen",
     },
@@ -225,6 +254,10 @@ export const generateContent: TranslationFn = content => {
       }),
     },
   };
+  const fileUploadUrl = applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
+    partyType,
+    docCategory,
+  });
 
   return {
     caption: sectionTitle,
@@ -270,5 +303,9 @@ export const generateContent: TranslationFn = content => {
       docCategoryText: (isPositionStatement ? translations.your : translations.the) + title.toLowerCase(),
     }),
     errors: errorMessages,
+    uploadURL: fileUploadUrl,
+    deleteURL: fileUploadUrl,
+    isSingleFileUpload: isSingleFileUpload(docCategory),
+    ...FILE_UPLOAD_COMMON,
   };
 };

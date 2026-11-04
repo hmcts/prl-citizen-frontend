@@ -2541,6 +2541,10 @@ export type DocumentResponse = {
 
 export interface DocumentUploadResponse {
   status: string;
+  success: {
+    messageHtml: string;
+    messageText: string;
+  },
   document: DocumentResponse;
 }
 
@@ -2627,6 +2631,12 @@ export const MAX_DOCUMENT_LIMITS = {
   SUPPORT_DOCUMENTS: 100,
   DEFAULT: 20,
   OTHER_DOCUMENTS: 100
+};
+export const FILE_UPLOAD_COMMON = {
+  accept: AllowedFileExtentionList.map(ext => `.${ext}`).join(','),
+  maxFileSizeBytes: MAX_UPLOAD_BYTES,
+  maxFilenameLength: 250,
+  maxFiles: 20
 };
 export interface C100OrderTypeInterface {
   childArrangementOrders?: C100OrderInterface[];

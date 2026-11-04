@@ -1,0 +1,6 @@
+{
+    "watch": ["src/main"],
+    "ext": "ts,js",
+    "ignore": ["src/**/*.test.ts", "**/*.spec.ts", "src/main/assets", "src/main/public"],
+    "exec": "node --inspect=9229 -r ts-node/register ./src/main/server.ts"
+  }
