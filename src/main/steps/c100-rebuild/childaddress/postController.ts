@@ -2,14 +2,12 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import { Response } from 'express';
 import _ from 'lodash';
-import toBoolean from 'to-boolean';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
 import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormError, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { getFeatureToggle } from '../../../app/utils/featureToggles';
 import { getMOJForkingScreenUrl } from '../../../steps/urls';
 
 @autobind
@@ -82,7 +80,12 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
         return this.redirect(req, res);
       }
 
-      if (this.isCourtAllowed(courtNames)) {
+      const courtAllowed = this.isCourtAllowed(courtNames);
+      req.locals.logger.info(
+        `C100 court whitelist decision: returnedCourts=${JSON.stringify(courtNames)}, ` + `allowed=${courtAllowed}`
+      );
+
+      if (courtAllowed) {
         await this.ensureCaseExists(req, client);
         return this.redirect(req, res);
       }
@@ -117,23 +120,9 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     if (!_.isArray(this.allowedCourts) || this.allowedCourts.includes('*')) {
       return [];
     }
-    if (
-      (await getFeatureToggle()?.isOsCourtLookupEnabled()) ??
-      toBoolean(config.get<boolean>('featureToggles.enableOsCourtLookup'))
-    ) {
-      return this.getOsCourtNames(client, formData, user, req);
-    }
 
-    return this.getStandardCourtNames(client, formData, req);
-  }
-
-  private async getOsCourtNames(
-    client: CosApiClient,
-    formData: Record<string, unknown>,
-    user: UserDetails,
-    req: AppRequest
-  ): Promise<string[]> {
-    const courtName = await client.findOsCourtByPostCodeAndService(formData.c100RebuildChildPostCode as string, user);
+    const courtName = await client.findCourtByPostCodeViaCosApi(formData.c100RebuildChildPostCode as string, user);
+    req.locals.logger.info(`C100 court lookup COS response: courtName=${JSON.stringify(courtName)}`);
 
     if (!courtName?.length) {
       req.session.errors = this.handleError(req.session.errors, 'invalid');
@@ -141,21 +130,6 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     }
 
     return [courtName];
-  }
-
-  private async getStandardCourtNames(
-    client: CosApiClient,
-    formData: Record<string, unknown>,
-    req: AppRequest
-  ): Promise<string[]> {
-    const courtDetails = await client.findCourtByPostCodeAndService(formData.c100RebuildChildPostCode as string);
-    console.log('courtDetails-----------------' + JSON.stringify(courtDetails));
-    if (courtDetails?.message) {
-      req.session.errors = this.handleError(req.session.errors, 'invalid');
-      return [];
-    }
-
-    return courtDetails?.courts?.length ? _.map(courtDetails.courts, 'name') : [];
   }
 
   private isCourtAllowed(courtNames: string[]): boolean {

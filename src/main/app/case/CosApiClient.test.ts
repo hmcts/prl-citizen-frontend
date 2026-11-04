@@ -614,46 +614,30 @@ describe('CosApiClient', () => {
     expect(flag).toEqual(true);
   });
 
-  test('findCourtByPostCodeAndService throws error', async () => {
-    mockedAxios.post.mockRejectedValueOnce;
-    const client = new CosApiClient('abc', mockLogger);
-    let flag = false;
-    try {
-      await client.findCourtByPostCodeAndService('SA1 3TU');
-    } catch (error) {
-      flag = true;
-    }
-    expect(flag).toEqual(true);
-  });
-
-  test('findCourtByPostCodeAndService', async () => {
-    const response = { data: 'Court Name' };
-    mockedAxios.get.mockReturnValueOnce(response as unknown as Promise<string>);
-    const client = new CosApiClient('abc', mockLogger);
-    const actual = await client.findCourtByPostCodeAndService('SA1 3TU');
-    expect(actual).toEqual(response.data);
-  });
-
-  test('findOsCourtByPostCodeAndService throws error', async () => {
-    mockedAxios.post.mockRejectedValueOnce;
+  test('findCourtByPostCodeViaCosApi throws error', async () => {
+    mockedAxios.get.mockRejectedValueOnce(new Error('COS unavailable'));
     const client = new CosApiClient('abc', mockLogger);
     const req = mockRequest();
-    let flag = false;
-    try {
-      await client.findOsCourtByPostCodeAndService('SA1 3TU', req.session.user);
-    } catch (error) {
-      flag = true;
-    }
-    expect(flag).toEqual(true);
+
+    await expect(client.findCourtByPostCodeViaCosApi('SA1 3TU', req.session.user)).rejects.toThrow(
+      'Error occured, could not find court by post code - findCourtByPostCodeViaCosApi'
+    );
   });
 
-  test('findOsCourtByPostCodeAndService', async () => {
-    const response = { data: 'Court Name' };
-    mockedAxios.get.mockReturnValueOnce(response as unknown as Promise<string>);
+  test('findCourtByPostCodeViaCosApi', async () => {
+    const response = { data: 'Aldershot Justice Centre' };
+    mockedAxios.get.mockResolvedValueOnce(response);
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    const actual = await client.findOsCourtByPostCodeAndService('SA1 3TU', req.session.user);
+    const actual = await client.findCourtByPostCodeViaCosApi('SA1 3TU', req.session.user);
+
     expect(actual).toEqual(response.data);
+    expect(mockedAxios.get).toHaveBeenCalledWith(expect.stringContaining('/search/SA1 3TU/results'), {
+      headers: {
+        Authorization: 'Bearer ' + req.session.user.accessToken,
+        ServiceAuthorization: expect.any(String),
+      },
+    });
   });
 });
 

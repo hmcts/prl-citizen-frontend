@@ -26,8 +26,6 @@ services:
     url: http://localhost:4044
   documentManagement:
     url: http://localhost:4455
-  fact:
-    url: 'http://fact-api-aat.service.core-compute-aat.internal'
   reasonableAdjustments:
     url: 'https://cui-ra.aat.platform.hmcts.net'
   equalityAndDiversity:
@@ -56,7 +54,6 @@ featureToggles:
   enableRAComponent: false
   enablePcqComponent: true
   enableC100CaseProgressionTrainTrack: true
-  enableOsCourtLookup: false
 launchDarkly:
   offline: true
-allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre,Chelmsford Justice Centre,Chelmsford Magistrates' Court and Family Court,Wolverhampton Combined Court Centre,Wolverhampton Magistrates' Court
+allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre,Chelmsford County and Family Court,Chelmsford Magistrates' Court and Family Court,Wolverhampton Combined Court Centre,Wolverhampton Magistrates' Court
