@@ -63,7 +63,7 @@ export default class CaseDataController {
     const userDetails = req.session.user;
     const caseId = req.params.caseId ?? req.session?.userCase?.id ?? null;
 
-    if (!caseId || !userDetails || caseId !== 'test') {
+    if (!caseId || !userDetails) {
       throw new Error('FetchCaseDataController: caseId or userDetails not present.');
     }
 
