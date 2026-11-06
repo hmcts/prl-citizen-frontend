@@ -46,6 +46,9 @@ const en: QuickLinkContentProps = {
   setAsideOrChangeApplication: {
     linkText: 'Set aside or change an application',
   },
+  getHelpWithFormsOnline: {
+    linkText: 'Get help with forms online',
+  },
 };
 
 const cy: typeof en = {
@@ -93,6 +96,9 @@ const cy: typeof en = {
   },
   setAsideOrChangeApplication: {
     linkText: 'Rhoi cais o’r neilltu neu newid cais',
+  },
+  getHelpWithFormsOnline: {
+    linkText: 'Get help with forms online',
   },
 };
 

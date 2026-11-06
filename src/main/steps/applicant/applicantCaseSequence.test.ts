@@ -6,7 +6,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(48);
+    expect(applicantCaseSequence).toHaveLength(49);
 
     expect(applicantCaseSequence[0].url).toBe('/:partyType/keep-details-private/details_known');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
@@ -306,5 +306,9 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[47].url).toBe('/:partyType/statement-of-service/success');
     expect(applicantCaseSequence[47].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[47].getNextStep({ id: '1234' })).toBe('/case/1234');
+
+    expect(applicantCaseSequence[48].url).toBe('/applicant/digital-signposting');
+    expect(applicantCaseSequence[48].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[48].getNextStep({ id: '1234' })).toBe('/case/1234');
   });
 });
