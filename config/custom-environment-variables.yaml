@@ -8,6 +8,8 @@ services:
     microservice: 'prl_citizen_frontend'
   idam:
     authorizationURL: IDAM_WEB_URL
+    endSessionURL: IDAM_END_SESSION_URL
+    authorizationScope: 'openid profile roles'
     tokenURL: IDAM_API_URL
     clientID: IDAM_CLIENT_ID
     citizenClientSecret: CITIZEN_IDAM_SECRET
