@@ -69,7 +69,7 @@
     "dayjs": "1.11.23",
     "email-validator": "2.0.4",
     "express": "4.22.3",
-    "express-fileupload": "1.5.2",
+    "express-fileupload": "1.6.0",
     "express-http-proxy": "1.6.3",
     "express-nunjucks": "2.2.5",
     "express-session": "1.19.0",
