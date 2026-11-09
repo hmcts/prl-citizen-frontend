@@ -5,7 +5,6 @@ import FormData from 'form-data';
 import _ from 'lodash';
 
 import { caseApi } from '../../../../../app/case/CaseApi';
-import { FILE_UPLOAD_COMMON } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../../app/form/Form';
@@ -17,7 +16,7 @@ import {
 import { isXhr, runSynchronous } from '../../../../common/documents/upload/utils';
 import { applyParms } from '../../../../common/url-parser';
 import { documentBelongsToCase } from '../../../../common/utils';
-import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
+import { C100_MIAM_UPLOAD_DA_EVIDENCE, TASK_LIST_APPLICANT_URL } from '../../../../urls';
 import { handleEvidenceDocError, removeEvidenceDocErrors } from '../../util';
 
 @autobind
@@ -37,15 +36,9 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
       errorType = 'wrongFileExtension';
     } else if (isFileSizeGreaterThanMaxAllowed({ documents: uploadedDocument })) {
       errorType = 'fileTooLarge';
-    } else if (this.isFileNameTooLong(uploadedDocument)) {
-      errorType = 'filenameTooLong';
     }
 
     return errorType;
-  }
-
-  private isFileNameTooLong(file: Record<string, any>): boolean {
-    return file.name?.length > FILE_UPLOAD_COMMON.maxFilenameLength;
   }
 
   private async deleteDocument(req: AppRequest<AnyObject>, res: Response, documentId: string): Promise<void> {
@@ -156,7 +149,7 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { onlyContinue, uploadFile, delete: deleteDocumentId } = req.body;
+    const { onlyContinue, saveAndComeLater, uploadFile, delete: deleteDocumentId } = req.body;
 
     if (deleteDocumentId) {
       await runSynchronous(req, res, () => this.deleteDocument(req, res, String(deleteDocumentId)));
@@ -171,6 +164,11 @@ export default class MIAMDomesticAbuseEvidenceUploadController extends PostContr
     if (uploadFile || req.files) {
       await runSynchronous(req, res, () => this.uploadDocument(req, res));
       return;
+    }
+
+    if (saveAndComeLater) {
+      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
+      return super.redirect(req, res, TASK_LIST_APPLICANT_URL);
     }
 
     super.redirect(req, res, this.uploadUrl);
