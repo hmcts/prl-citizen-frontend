@@ -159,7 +159,7 @@
   },
   "resolutions": {
     "@opentelemetry/core": "2.12.1",
-    "follow-redirects": "1.16.2",
+    "follow-redirects": "1.16.3",
     "glob": "13.0.6",
     "minimatch": "11.0.5",
     "semver": "7.8.6",
