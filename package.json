@@ -158,7 +158,7 @@
     "webpack-node-externals": "3.0.0"
   },
   "resolutions": {
-    "@opentelemetry/core": "2.12.0",
+    "@opentelemetry/core": "2.12.1",
     "follow-redirects": "1.16.2",
     "glob": "13.0.6",
     "minimatch": "11.0.5",
