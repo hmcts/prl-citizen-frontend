@@ -6,7 +6,7 @@ import { respondentCaseSequence } from './respondentcaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(respondentCaseSequence).toHaveLength(31);
+    expect(respondentCaseSequence).toHaveLength(32);
 
     expect(respondentCaseSequence[0].url).toBe('/:partyType/keep-details-private/details_known');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
@@ -175,6 +175,15 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[30].showInSection).toBe('aboutApplicantCase');
     expect(
       respondentCaseSequence[30].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/case/1234');
+
+    expect(respondentCaseSequence[31].url).toBe('/respondent/digital-signposting');
+    expect(respondentCaseSequence[31].showInSection).toBe('aboutRespondentCase');
+    expect(
+      respondentCaseSequence[31].getNextStep(
         respondentUserCase as unknown as Partial<CaseWithId>,
         mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
       )
