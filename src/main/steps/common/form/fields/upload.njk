@@ -1,10 +1,11 @@
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
-
+{% from "moj/components/multi-file-upload/macro.njk" import mojMultiFileUpload %}
 {{ govukFileUpload({
   id: field.id if field.id else fieldName,
+  javascript: true,
   name: fieldName,
   type: field.type,
-  classes: field.classes,
+  classes: "moj-multi-file-upload__input",
   label: {
     text: getContent(field.label),
     classes: "govuk-visually-hidden" if field.labelHidden else ("govuk-hint" if field.labelAsHint else labelClasses)

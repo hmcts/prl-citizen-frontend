@@ -25,6 +25,7 @@ describe('statement-of-service > upload > postController', () => {
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
+      success: { messageHtml: 'test.jpg', messageText: 'test.jpg' },
       document: {
         document_url: 'test2/1234',
         document_binary_url: 'binary/test2/1234',
@@ -100,6 +101,7 @@ describe('statement-of-service > upload > postController', () => {
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Failure',
+      success: { messageHtml: 'test.jpg', messageText: 'test.jpg' },
       document: {
         document_url: 'test2/1234',
         document_binary_url: 'binary/test2/1234',
