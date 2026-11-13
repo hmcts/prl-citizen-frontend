@@ -1,28 +1,16 @@
 import autobind from 'autobind-decorator';
-import config from 'config';
 import { Response } from 'express';
 import _ from 'lodash';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
-import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { Form, FormError, FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { Form, FormError, FormFields } from '../../../app/form/Form';
 import { getMOJForkingScreenUrl } from '../../../steps/urls';
 
 @autobind
 export default class C100ChildPostCodePostController extends PostController<AnyObject> {
-  private readonly allowedCourts: string | string[];
-
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    super(fields);
-    this.allowedCourts = config.get('allowedCourts') ?? [];
-
-    if (this.allowedCourts && !_.isArray(this.allowedCourts)) {
-      this.allowedCourts = this.allowedCourts.split(',');
-    }
-  }
-
   private signoutAndRedirectToMOJ(req: AppRequest, res: Response): void {
     const isNonProd = _.get(req.session, 'testingSupport', false);
     req.session.destroy(() => res.redirect(getMOJForkingScreenUrl(isNonProd)));
@@ -74,18 +62,18 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
         return this.redirect(req, res);
       }
 
-      const courtNames = await this.getCourtNames(client, formData, user, req);
-
-      if (req.session.errors?.length) {
+      const court = await client.findCourtByPostCodeViaCosApi(formData.c100RebuildChildPostCode as string, user);
+      if (!court?.epimmsId?.trim() || typeof court.onboarded !== 'boolean') {
+        req.session.errors = this.handleError(req.session.errors, 'invalid');
         return this.redirect(req, res);
       }
 
-      const courtAllowed = this.isCourtAllowed(courtNames);
       req.locals.logger.info(
-        `C100 court whitelist decision: returnedCourts=${JSON.stringify(courtNames)}, ` + `allowed=${courtAllowed}`
+        `C100 court onboarding decision: epimmsId=${court.epimmsId}, ` +
+          `courtName=${JSON.stringify(court.courtName)}, onboarded=${court.onboarded}`
       );
 
-      if (courtAllowed) {
+      if (court.onboarded) {
         await this.ensureCaseExists(req, client);
         return this.redirect(req, res);
       }
@@ -93,7 +81,10 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
       this.signoutAndRedirectToMOJ(req, res);
     } catch (error) {
       client.logError(error);
-      req.session.errors = this.handleError(req.session.errors, 'generic');
+      req.session.errors = this.handleError(
+        req.session.errors,
+        error?.response?.status === 404 ? 'invalid' : 'generic'
+      );
       this.redirect(req, res);
     }
   }
@@ -109,38 +100,6 @@ export default class C100ChildPostCodePostController extends PostController<AnyO
     req.session.errors = form.getErrors(formData);
 
     return formData;
-  }
-
-  private async getCourtNames(
-    client: CosApiClient,
-    formData: Record<string, unknown>,
-    user: UserDetails,
-    req: AppRequest
-  ): Promise<string[]> {
-    if (!_.isArray(this.allowedCourts) || this.allowedCourts.includes('*')) {
-      return [];
-    }
-
-    const courtName = await client.findCourtByPostCodeViaCosApi(formData.c100RebuildChildPostCode as string, user);
-    req.locals.logger.info(`C100 court lookup COS response: courtName=${JSON.stringify(courtName)}`);
-
-    if (!courtName?.length) {
-      req.session.errors = this.handleError(req.session.errors, 'invalid');
-      return [];
-    }
-
-    return [courtName];
-  }
-
-  private isCourtAllowed(courtNames: string[]): boolean {
-    if (!_.isArray(this.allowedCourts)) {
-      return false;
-    }
-
-    return (
-      this.allowedCourts.includes('*') ||
-      (courtNames.length > 0 && this.allowedCourts.some(court => courtNames.includes(court)))
-    );
   }
 
   private async ensureCaseExists(req: AppRequest, client: CosApiClient): Promise<void> {

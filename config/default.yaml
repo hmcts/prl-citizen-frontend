@@ -58,4 +58,3 @@ featureToggles:
   enablePcqComponent: ENABLE_PCQ_COMPONENT
 launchDarkly:
   offline: false
-allowedCourts: Swansea Civil Justice Centre,Kingston-upon-Hull Combined Court Centre,Grimsby Combined Court Centre,Chelmsford County and Family Court,Chelmsford Magistrates' Court and Family Court,Wolverhampton Combined Court Centre,Wolverhampton Magistrates' Court

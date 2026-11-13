@@ -619,25 +619,39 @@ describe('CosApiClient', () => {
     const client = new CosApiClient('abc', mockLogger);
     const req = mockRequest();
 
-    await expect(client.findCourtByPostCodeViaCosApi('SA1 3TU', req.session.user)).rejects.toThrow(
-      'Error occured, could not find court by post code - findCourtByPostCodeViaCosApi'
-    );
+    await expect(client.findCourtByPostCodeViaCosApi('SA1 3TU', req.session.user)).rejects.toThrow('COS unavailable');
   });
 
   test('findCourtByPostCodeViaCosApi', async () => {
-    const response = { data: 'Aldershot Justice Centre' };
+    const response = { data: { epimmsId: '123456', courtName: 'Aldershot Justice Centre', onboarded: true } };
     mockedAxios.get.mockResolvedValueOnce(response);
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
     const actual = await client.findCourtByPostCodeViaCosApi('SA1 3TU', req.session.user);
 
     expect(actual).toEqual(response.data);
-    expect(mockedAxios.get).toHaveBeenCalledWith(expect.stringContaining('/search/SA1 3TU/results'), {
+    expect(mockedAxios.get).toHaveBeenCalledWith(expect.stringContaining('/search/SA1%203TU/onboarding'), {
       headers: {
         Authorization: 'Bearer ' + req.session.user.accessToken,
         ServiceAuthorization: expect.any(String),
       },
     });
+  });
+
+  test('findCourtByPostCodeViaCosApi preserves an offline court response', async () => {
+    const response = { epimmsId: '123456', courtName: 'Offline court', onboarded: false };
+    mockedAxios.get.mockResolvedValueOnce({ data: response });
+    const client = new CosApiClient('abc', mockLogger);
+
+    await expect(client.findCourtByPostCodeViaCosApi('SA1 3TU', userDetails)).resolves.toEqual(response);
+  });
+
+  test('findCourtByPostCodeViaCosApi rejects HTTP errors even when they contain a message', async () => {
+    const error = { response: { status: 404, data: { message: 'No court found' } } };
+    mockedAxios.get.mockRejectedValueOnce(error);
+    const client = new CosApiClient('abc', mockLogger);
+
+    await expect(client.findCourtByPostCodeViaCosApi('SA1 3TU', userDetails)).rejects.toEqual(error);
   });
 });
 

@@ -526,24 +526,30 @@ export class CosApiClient {
     }
   }
 
-  public async findCourtByPostCodeViaCosApi(postCode: string, user: UserDetails): Promise<string> {
+  public async findCourtByPostCodeViaCosApi(postCode: string, user: UserDetails): Promise<CourtOnboardingResponse> {
     try {
-      const response = await this.client.get(`${config.get('services.cos.url')}/search/${postCode}/results`, {
-        headers: {
-          Authorization: 'Bearer ' + user.accessToken,
-          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        },
-      });
+      const response = await this.client.get<CourtOnboardingResponse>(
+        `${config.get('services.cos.url')}/search/${encodeURIComponent(postCode)}/onboarding`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          },
+        }
+      );
 
       return response.data;
     } catch (err) {
       this.logError(err);
-      if (err?.response?.data?.message) {
-        return err.response.data;
-      }
-      throw new Error('Error occured, could not find court by post code - findCourtByPostCodeViaCosApi');
+      throw err;
     }
   }
+}
+
+export interface CourtOnboardingResponse {
+  epimmsId: string;
+  courtName: string | null;
+  onboarded: boolean;
 }
 
 interface DocumentUploadRequest {

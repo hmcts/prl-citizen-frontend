@@ -1,16 +1,12 @@
-import config from 'config';
-import { when } from 'jest-when';
-
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CosApiClient } from '../../../app/case/CosApiClient';
+import { CosApiClient, CourtOnboardingResponse } from '../../../app/case/CosApiClient';
 import { State } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../app/form/validation';
 
 import C100ChildPostCodePostController from './postController';
 
-jest.mock('config');
 jest.mock('axios');
 jest.mock('../../../app/case/CosApiClient');
 jest.mock('../../../app/auth/service/get-service-auth-token');
@@ -27,15 +23,17 @@ describe('C100ChildPostCodePostController', () => {
       },
     },
   } as unknown as FormContent;
-  config.get = jest.fn();
+  const onboardedCourt: CourtOnboardingResponse = {
+    epimmsId: '234946',
+    courtName: 'Swansea Civil Justice Centre',
+    onboarded: true,
+  };
 
   beforeEach(() => {
     req = mockRequest();
     res = mockResponse();
     mockFindCourtByPostCodeViaCosApi.mockReset();
-    (config.get as jest.Mock).mockReset();
-    when(config.get).calledWith('allowedCourts').mockReturnValue(['Swansea Civil Justice Centre']);
-    mockFindCourtByPostCodeViaCosApi.mockResolvedValue('Swansea Civil Justice Centre');
+    mockFindCourtByPostCodeViaCosApi.mockResolvedValue(onboardedCourt);
     req.locals.C100Api.createCase.mockResolvedValue({
       id: '1234',
       caseTypeOfApplication: 'C100',
@@ -68,23 +66,27 @@ describe('C100ChildPostCodePostController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('when COS returns a court that is not allowed', async () => {
-    mockFindCourtByPostCodeViaCosApi.mockResolvedValue('Southampton Combined Court Centre');
-    req.session.testingSupport = true;
-    req.body.c100RebuildChildPostCode = 'SO15 2XQ';
+  test.each([
+    [true, 'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'],
+    [false, 'https://apply-to-court-about-child-arrangements.service.justice.gov.uk'],
+  ])(
+    'when COS reports an offline court, redirect to legacy with testingSupport=%s',
+    async (testingSupport, legacyUrl) => {
+      mockFindCourtByPostCodeViaCosApi.mockResolvedValue({ ...onboardedCourt, onboarded: false });
+      req.session.testingSupport = testingSupport;
+      req.body.c100RebuildChildPostCode = 'SO15 2XQ';
 
-    await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
+      await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
 
-    expect(mockFindCourtByPostCodeViaCosApi).toHaveBeenCalledWith('SO15 2XQ', req.session.user);
-    expect(req.session.errors).toEqual([]);
-    expect(req.locals.C100Api.createCase).not.toHaveBeenCalled();
-    expect(req.session.destroy).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith(
-      'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
-    );
-  });
+      expect(mockFindCourtByPostCodeViaCosApi).toHaveBeenCalledWith('SO15 2XQ', req.session.user);
+      expect(req.session.errors).toEqual([]);
+      expect(req.locals.C100Api.createCase).not.toHaveBeenCalled();
+      expect(req.session.destroy).toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith(legacyUrl);
+    }
+  );
 
-  test('when COS returns an allowed court', async () => {
+  test('when COS reports that the court is onboarded', async () => {
     req.body.c100RebuildChildPostCode = 'SA1 2DZ';
 
     await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
@@ -102,10 +104,11 @@ describe('C100ChildPostCodePostController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('when the whitelist is configured as a comma-separated string', async () => {
-    when(config.get)
-      .calledWith('allowedCourts')
-      .mockReturnValue('Southampton Combined Court Centre,Swansea Civil Justice Centre');
+  test('when the court name differs, use the COS onboarding decision', async () => {
+    mockFindCourtByPostCodeViaCosApi.mockResolvedValue({
+      ...onboardedCourt,
+      courtName: 'A different RefData site name',
+    });
     req.body.c100RebuildChildPostCode = 'SA1 2DZ';
 
     await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
@@ -116,20 +119,29 @@ describe('C100ChildPostCodePostController', () => {
     expect(req.session.destroy).not.toHaveBeenCalled();
   });
 
-  test('when postcode is valid and any court is allowed', async () => {
-    when(config.get).calledWith('allowedCourts').mockReturnValue(['*']);
+  test('when COS has no court name, use the EPIMMS ID onboarding decision', async () => {
+    mockFindCourtByPostCodeViaCosApi.mockResolvedValue({ ...onboardedCourt, courtName: null });
     req.body.c100RebuildChildPostCode = 'DN1 3HS';
 
     await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
 
     expect(req.session.errors).toEqual([]);
     expect(req.locals.C100Api.createCase).toHaveBeenCalledTimes(1);
-    expect(mockFindCourtByPostCodeViaCosApi).not.toHaveBeenCalled();
+    expect(mockFindCourtByPostCodeViaCosApi).toHaveBeenCalledWith('DN1 3HS', req.session.user);
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test.each([null, undefined, ''])('when COS returns no court name (%p)', async courtName => {
-    mockFindCourtByPostCodeViaCosApi.mockResolvedValue(courtName as string);
+  test.each([
+    null,
+    undefined,
+    '',
+    'No Court Fetched',
+    { ...onboardedCourt, epimmsId: '' },
+    { ...onboardedCourt, epimmsId: '   ' },
+    { epimmsId: '234946', courtName: 'Swansea' },
+    { ...onboardedCourt, onboarded: 'true' },
+  ])('when COS returns an invalid onboarding response (%p)', async response => {
+    mockFindCourtByPostCodeViaCosApi.mockResolvedValue(response as CourtOnboardingResponse);
     req.body.c100RebuildChildPostCode = 'SA1 2DZ';
 
     await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
@@ -142,6 +154,30 @@ describe('C100ChildPostCodePostController', () => {
 
   test('when postcode is valid but the COS lookup fails', async () => {
     mockFindCourtByPostCodeViaCosApi.mockRejectedValue(new Error('COS unavailable'));
+    req.body.c100RebuildChildPostCode = 'SA1 2DZ';
+
+    await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
+
+    expect(req.session.errors).toEqual([{ propertyName: 'c100RebuildChildPostCode', errorType: 'generic' }]);
+    expect(req.locals.C100Api.createCase).not.toHaveBeenCalled();
+    expect(req.session.destroy).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('when COS cannot resolve a court, show the postcode validation error', async () => {
+    mockFindCourtByPostCodeViaCosApi.mockRejectedValue({ response: { status: 404 } });
+    req.body.c100RebuildChildPostCode = 'SA1 2DZ';
+
+    await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
+
+    expect(req.session.errors).toEqual([{ propertyName: 'c100RebuildChildPostCode', errorType: 'invalid' }]);
+    expect(req.locals.C100Api.createCase).not.toHaveBeenCalled();
+    expect(req.session.destroy).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test.each([401, 500])('when COS returns HTTP %s, keep the user on the postcode page', async status => {
+    mockFindCourtByPostCodeViaCosApi.mockRejectedValue({ response: { status } });
     req.body.c100RebuildChildPostCode = 'SA1 2DZ';
 
     await new C100ChildPostCodePostController(mockFormContent.fields).post(req, res);
