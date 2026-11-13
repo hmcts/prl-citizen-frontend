@@ -7,6 +7,7 @@ import { PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/d
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
 import { FormError } from '../../../app/form/Form';
+import { redirectIfCaseIsNotDraft } from '../../../modules/payments/paymentController';
 import { doesCaseHaveId } from '../../../steps/common/task-list/utils';
 import { isC100ApplicationValid } from '../../c100-rebuild/utils';
 import { MandatoryFieldsConfig } from '../validation/definitions';
@@ -30,22 +31,26 @@ export default class CheckYourAnswersGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
-    //Clear hwfRefNumber if not opted
-    let returnUrl = req.originalUrl;
-    if (req.session.userCase.hwf_needHelpWithFees === YesOrNo.NO) {
-      req.session.userCase.helpWithFeesReferenceNumber = undefined;
-      req.session.save();
-    }
-    if (isC100ApplicationValid(req.session.userCase, req)) {
-      returnUrl = returnUrl.includes('?lng')
-        ? `${returnUrl}&validApplication=true`
-        : `${returnUrl}?validApplication=true`;
-      req.session.applicationSettings = {
-        ...req.session.applicationSettings,
-        hasC100ApplicationBeenCompleted: true,
-      };
-    }
     try {
+      if (await redirectIfCaseIsNotDraft(req, res)) {
+        return;
+      }
+
+      //Clear hwfRefNumber if not opted
+      let returnUrl = req.originalUrl;
+      if (req.session.userCase.hwf_needHelpWithFees === YesOrNo.NO) {
+        req.session.userCase.helpWithFeesReferenceNumber = undefined;
+        req.session.save();
+      }
+      if (isC100ApplicationValid(req.session.userCase, req)) {
+        returnUrl = returnUrl.includes('?lng')
+          ? `${returnUrl}&validApplication=true`
+          : `${returnUrl}?validApplication=true`;
+        req.session.applicationSettings = {
+          ...req.session.applicationSettings,
+          hasC100ApplicationBeenCompleted: true,
+        };
+      }
       if (doesCaseHaveId(req.session.userCase)) {
         await req.locals.C100Api.saveC100DraftApplication(
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

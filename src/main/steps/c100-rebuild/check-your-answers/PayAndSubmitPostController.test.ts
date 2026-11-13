@@ -3,7 +3,7 @@ import axios from 'axios';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CaseApi } from '../../../app/case/C100CaseApi';
-import { Document } from '../../../app/case/definition';
+import { Document, State } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { PCQProvider } from '../../../modules/pcq';
 import { PcqController } from '../../../modules/pcq/controller';
@@ -27,6 +27,7 @@ describe('PayAndSubmitPostController test cases', () => {
   beforeEach(() => {
     req = mockRequest();
     res = mockResponse();
+    req.locals.C100Api.retrieveCaseById = jest.fn().mockResolvedValue({ state: State.CASE_DRAFT });
   });
 
   afterEach(() => {
@@ -48,6 +49,7 @@ describe('PayAndSubmitPostController test cases', () => {
         },
       },
     });
+    req.locals.C100Api.retrieveCaseById = jest.fn().mockResolvedValue({ state: State.CASE_DRAFT });
     jest.spyOn(PCQProvider, 'getPcqId').mockReturnValueOnce('1234567890123456');
     const caseData = {
       ...finalDocument,
@@ -74,6 +76,7 @@ describe('PayAndSubmitPostController test cases', () => {
         },
       },
     });
+    req.locals.C100Api.retrieveCaseById = jest.fn().mockResolvedValue({ state: State.CASE_DRAFT });
     jest.spyOn(PCQProvider, 'getPcqId').mockReturnValueOnce('1234567890123456');
     mockedAxios.post.mockResolvedValueOnce({ finalDocument });
     const controller = new PayAndSubmitPostController(mockFormContent.fields);

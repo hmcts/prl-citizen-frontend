@@ -7,13 +7,14 @@ import type { LoggerInstance } from 'winston';
 
 import { getTokenFromApi } from '../../app/auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../../app/case/case';
-import { AWPApplicationType, C100_CASE_EVENT, PartyType, PaymentErrorContext } from '../../app/case/definition';
+import { AWPApplicationType, C100_CASE_EVENT, PartyType, PaymentErrorContext, State } from '../../app/case/definition';
 import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import {
   C100_CHECK_YOUR_ANSWER,
   C100_CONFIRMATIONPAGE,
   CREATE_PAYMENT,
+  DASHBOARD_URL,
   GET_PAYMENT_STATUS,
   PAYMENT_BASE_URL,
 } from '../../steps/urls';
@@ -23,9 +24,39 @@ import { PaymentHelper } from './paymentHelper';
 
 const SUCCESS = 'Success';
 
+export const redirectIfCaseIsNotDraft = async (req: AppRequest, res: Response): Promise<boolean> => {
+  const caseId = req.session.userCase.caseId || req.session.userCase.id;
+  if (!caseId) {
+    throw new Error('Cannot verify case status: case ID is missing from the session');
+  }
+
+  const { state } = await req.locals.C100Api.retrieveCaseById(caseId);
+  if (!state) {
+    throw new Error(`Case status is missing for case ${caseId}`);
+  }
+
+  req.session.userCase.state = state;
+  if (state === State.CASE_DRAFT) {
+    return false;
+  }
+
+  req.session.paymentError = { hasError: false, errorContext: null };
+  const saveSession = promisify(req.session.save).bind(req.session);
+  await saveSession();
+
+  const redirectUrl = state === State.CASE_SUBMITTED_PAID ? C100_CONFIRMATIONPAGE : DASHBOARD_URL;
+  req.locals.logger.info(`${caseId}: Payment journey revisited in state ${state}; redirecting to ${redirectUrl}`);
+  res.redirect(redirectUrl);
+  return true;
+};
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const PaymentHandler = async (req: AppRequest, res: Response) => {
   try {
+    if (await redirectIfCaseIsNotDraft(req, res)) {
+      return;
+    }
+
     const paymentHelperTranspiler = await new PaymentHelper().SystemCredentailsToApiData(req);
     const { Authorization, ServiceAuthorization, returnUrL, caseId, hwfRefNumber, feeType } = paymentHelperTranspiler;
     const paymentApiEndpoint = config.get('services.cos.url');
@@ -95,6 +126,10 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
     res.status(500);
   } else {
     try {
+      if (await redirectIfCaseIsNotDraft(req, res)) {
+        return;
+      }
+
       const { caseId } = req.session.userCase;
       const PaymentURL =
         config.get('services.cos.url') +
@@ -145,6 +180,7 @@ export async function submitCase(
       req.session.applicationSettings
     );
     req.locals.logger.info(`${req.session.userCase.caseId}: Case submission successful`);
+    req.session.userCase.state = updatedCase.data?.state ?? req.session.userCase.state;
     //update final document in session for download on confirmation
     req.session.userCase.c100DraftDoc = updatedCase.data?.submitAndPayDownloadApplicationLink;
     //save & redirect to confirmation page
