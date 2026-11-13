@@ -27,7 +27,7 @@ const SUCCESS = 'Success';
 export const redirectIfCaseIsNotDraft = async (req: AppRequest, res: Response): Promise<boolean> => {
   const caseId = req.session.userCase.caseId || req.session.userCase.id;
   if (!caseId) {
-    return false;
+    throw new Error('Cannot verify case status: case ID is missing from the session');
   }
 
   const { state } = await req.locals.C100Api.retrieveCaseById(caseId);
