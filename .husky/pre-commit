@@ -1,11 +1,10 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Ensure we can handle interactive prompts if necessary
-if [ -t 0 ]; then
-  exec < /dev/tty
-fi
+set -e
 
-echo "\033[0;35m\n---------------------------------------------------------\n\tExecuting pre-commit checks\n---------------------------------------------------------\033[0m"
+# Use the repository's Yarn release so terminal and IDE commits run the same checks.
+node .yarn/releases/yarn-4.6.0.cjs run lint --quiet
 
-npx lint-staged
+# Disable watch mode so commits never wait for keyboard input.
+node .yarn/releases/yarn-4.6.0.cjs run test --watch=false --runInBand

@@ -176,7 +176,7 @@ describe('C100ChildPostCodePostController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test.each([401, 500])('when COS returns HTTP %s, keep the user on the postcode page', async status => {
+  test.each([401, 500, 503])('when COS returns HTTP %s, keep the user on the postcode page', async status => {
     mockFindCourtByPostCodeViaCosApi.mockRejectedValue({ response: { status } });
     req.body.c100RebuildChildPostCode = 'SA1 2DZ';
 
