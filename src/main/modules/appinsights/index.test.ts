@@ -29,12 +29,12 @@ describe('AppInsights', () => {
     delete mockTags['cloudRole'];
   });
 
-  test('should initialise app insights with instrumentation key', () => {
+  test('should initialise app insights with connection string', () => {
     config.get = jest.fn().mockReturnValue('test-key');
 
     new AppInsights().enable();
 
-    expect(config.get).toHaveBeenCalledWith('appInsights.instrumentationKey');
+    expect(config.get).toHaveBeenCalledWith('appInsights.connectionString');
     expect(mockSetup).toHaveBeenCalledWith('test-key');
     expect(mockSetSendLiveMetrics).toHaveBeenCalledWith(true);
     expect(mockSetAutoCollectConsole).toHaveBeenCalledWith(true, true);
