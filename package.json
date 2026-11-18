@@ -133,7 +133,7 @@
     "eslint-plugin-jest": "29.17.1",
     "eslint-plugin-prettier": "5.5.7",
     "globals": "16.5.0",
-    "graphql": "16.14.2",
+    "graphql": "16.15.0",
     "html-webpack-plugin": "5.6.8",
     "husky": "8.0.3",
     "jest": "30.5.2",
