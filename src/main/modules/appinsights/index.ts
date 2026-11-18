@@ -4,7 +4,7 @@ const appInsights = require('applicationinsights');
 
 export class AppInsights {
   enable(): void {
-    const appInsightsKey = config.get('appInsights.instrumentationKey');
+    const appInsightsKey = config.get('appInsights.connectionString');
 
     if (appInsightsKey) {
       const appInsightsConfig = appInsights
