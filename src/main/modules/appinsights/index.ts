@@ -9,6 +9,7 @@ export class AppInsights {
     if (appInsightsKey) {
       const appInsightsConfig = appInsights
         .setup(appInsightsKey)
+        .setInternalLogging(true, true)
         .setSendLiveMetrics(true)
         .setAutoCollectConsole(true, true)
         .setAutoCollectExceptions(true);
