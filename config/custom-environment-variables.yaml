@@ -44,6 +44,7 @@ e2e:
   userTestPassword: TEST_PASSWORD
 appInsights:
   instrumentationKey: APPINSIGHTS_KEY
+  connectionString: APPINSIGHTS_CONNECTION_STRING
 
 featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY

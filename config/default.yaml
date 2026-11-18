@@ -50,6 +50,7 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey: false
+  connectionString: false
 
 uploadTimeout: 60000
 featureToggles:
