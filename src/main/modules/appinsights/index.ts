@@ -1,9 +1,10 @@
 import config from 'config';
+import { LoggerInstance } from 'winston';
 
 const appInsights = require('applicationinsights');
 
 export class AppInsights {
-  enable(): void {
+  enable(logger: LoggerInstance): void {
     const appInsightsKey = config.get('appInsights.connectionString');
 
     if (appInsightsKey) {
@@ -15,7 +16,9 @@ export class AppInsights {
 
       appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'prl-citizen-frontend';
       appInsightsConfig.start();
-      console.log('App Insights enabled');
+      logger.info('App Insights enabled');
+    } else {
+      logger.info('App Insights not enabled: connection string not found');
     }
   }
 }
