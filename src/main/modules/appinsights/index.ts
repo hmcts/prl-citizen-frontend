@@ -9,13 +9,13 @@ export class AppInsights {
     if (appInsightsKey) {
       const appInsightsConfig = appInsights
         .setup(appInsightsKey)
-        .setInternalLogging(true, true)
         .setSendLiveMetrics(true)
         .setAutoCollectConsole(true, true)
         .setAutoCollectExceptions(true);
 
       appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'prl-citizen-frontend';
       appInsightsConfig.start();
+      console.log('App Insights enabled');
     }
   }
 }
