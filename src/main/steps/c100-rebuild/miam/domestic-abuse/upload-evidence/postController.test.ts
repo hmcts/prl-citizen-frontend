@@ -2,10 +2,14 @@ import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { CaseApi } from '../../../../../app/case/CaseApi';
 import { isExceedingMaxDocuments } from '../../../../../app/form/validation';
+import * as uploadUtils from '../../../../common/documents/upload/utils';
 
 import MIAMDomesticAbuseEvidenceUploadController from './postController';
 
 const uploadDocumentMock = jest.spyOn(CaseApi.prototype, 'uploadDocument');
+const runSynchronousMock = jest
+  .spyOn(uploadUtils, 'runSynchronous')
+  .mockImplementation(async (_req, _res, task) => task());
 
 describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postController', () => {
   let req;
@@ -27,31 +31,33 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
   test('should stay on same page without errors if no file uploaded', async () => {
     req.body = { onlyContinue: false };
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/domestic-abuse/upload-evidence/:removeFileId?');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/domestic-abuse/upload-evidence');
     expect(req.session.errors).toBeUndefined();
   });
 
   test('should redirect with error if file is too large', async () => {
-    req.body = { onlyContinue: false };
+    req.body = { onlyContinue: false, uploadFile: true };
     req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: '81230000', data: '', mimetype: 'text' } };
     await controller.post(req, res);
+    expect(runSynchronousMock).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
-        errorType: 'maxFileSize',
+        errorType: 'fileTooLarge',
         propertyName: 'miam_domesticAbuseEvidenceDocs',
       },
     ]);
   });
 
   test('should redirect with error if invalid file type is present', async () => {
-    req.body = { onlyContinue: false };
+    req.body = { onlyContinue: false, uploadFile: true };
     req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.txt', size: '812300', data: '', mimetype: 'text' } };
     await controller.post(req, res);
+    expect(runSynchronousMock).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/request');
     expect(req.session.errors).toStrictEqual([
       {
-        errorType: 'invalidFileFormat',
+        errorType: 'wrongFileExtension',
         propertyName: 'miam_domesticAbuseEvidenceDocs',
       },
     ]);
@@ -62,6 +68,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'test/1234',
         document_binary_url: 'binary/test/1234',
@@ -84,6 +91,121 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     ]);
   });
 
+  test('should upload documents via XHR request, add to existing documents in session and redirect', async () => {
+    req.body = { onlyContinue: false, uploadFile: true };
+    req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
+    req.headers = {
+      'sec-fetch-dest': 'empty',
+      accept: 'application/json',
+    };
+    req.session.userCase.miam_domesticAbuseEvidenceDocs = [
+      {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    ];
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+      document: {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    });
+    await controller.post(req, res);
+    expect(res.redirect).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+      file: { filename: '1234', originalname: 'test_document' },
+      redirectUrl: '/c100-rebuild/miam/domestic-abuse/upload-evidence',
+    });
+    expect(req.session.errors).toStrictEqual([]);
+    expect(req.session.userCase.miam_domesticAbuseEvidenceDocs).toStrictEqual([
+      {
+        document_url: 'test2/1234',
+        document_binary_url: 'binary/test2/1234',
+        document_filename: 'test_document_2',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+      {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    ]);
+  });
+
+  test('failed upload via XHR request should respond with JSON error and not redirect', async () => {
+    req.body = { onlyContinue: false, uploadFile: true };
+    req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
+    req.headers = {
+      'sec-fetch-mode': 'cors',
+      accept: '*/*',
+    };
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Error',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+      document: {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    });
+    await controller.post(req, res);
+    expect(res.redirect).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      error: { message: 'uploadError' },
+      redirectUrl: '/c100-rebuild/miam/domestic-abuse/upload-evidence',
+    });
+  });
+
+  test('max documents limit reached on upload via XHR request, should respond with JSON error and not redirect', async () => {
+    req.body = { onlyContinue: false, uploadFile: true };
+    req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
+    req.headers = {
+      'sec-fetch-mode': 'cors',
+      accept: '*/*',
+    };
+    req.session.userCase.miam_domesticAbuseEvidenceDocs = new Array(21).fill({
+      document_url: 'test2/1234',
+      document_binary_url: 'binary/test2/1234',
+      document_filename: 'test_document_2',
+      document_hash: '1234',
+      document_creation_date: '1/1/2024',
+    });
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Error',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+      document: {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    });
+    await controller.post(req, res);
+    expect(res.redirect).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      error: { message: 'maxDocumentsReached' },
+      redirectUrl: '/c100-rebuild/miam/domestic-abuse/upload-evidence',
+    });
+  });
+
   test('should upload document, add to existing documents in session and redirect', async () => {
     req.body = { onlyContinue: false, uploadFile: true };
     req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
@@ -98,6 +220,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     ];
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'test/1234',
         document_binary_url: 'binary/test/1234',
@@ -127,11 +250,18 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     ]);
   });
 
-  test('should add error and redirect if response status is not Success', async () => {
-    req.body = { onlyContinue: false };
-    req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
+  test('should upload every file when multiple files are selected', async () => {
+    req.body = { onlyContinue: false, uploadFile: true };
+    req.files = {
+      miam_domesticAbuseEvidenceDocs: [
+        { name: 'a.pdf', size: 8123, data: '', mimetype: 'text' },
+        { name: 'b.pdf', size: 8123, data: '', mimetype: 'text' },
+      ],
+    };
+    uploadDocumentMock.mockClear();
     uploadDocumentMock.mockResolvedValue({
-      status: 'Error',
+      status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'test/1234',
         document_binary_url: 'binary/test/1234',
@@ -141,7 +271,26 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
       },
     });
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/request');
+    expect(uploadDocumentMock).toHaveBeenCalledTimes(2);
+    expect(req.session.userCase.miam_domesticAbuseEvidenceDocs).toHaveLength(2);
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/miam/domestic-abuse/upload-evidence');
+  });
+
+  test('should add error and redirect if response status is not Success', async () => {
+    req.body = { onlyContinue: false };
+    req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
+    uploadDocumentMock.mockResolvedValue({
+      status: 'Error',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+      document: {
+        document_url: 'test/1234',
+        document_binary_url: 'binary/test/1234',
+        document_filename: 'test_document',
+        document_hash: '1234',
+        document_creation_date: '1/1/2024',
+      },
+    });
+    await controller.post(req, res);
     expect(req.session.errors).toStrictEqual([
       {
         errorType: 'uploadError',
@@ -181,6 +330,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'test/1234',
         document_binary_url: 'binary/test/1234',
@@ -196,7 +346,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
     expect(req.session.errors).toStrictEqual([]);
   });
 
-  test('should  set errorType if exceeding max documents', async () => {
+  test('should set errorType if exceeding max documents', async () => {
     req.body = { onlyContinue: false };
     req.files = { miam_domesticAbuseEvidenceDocs: { name: 'test.pdf', size: 8123, data: '', mimetype: 'text' } };
     req.session.userCase.miam_domesticAbuseEvidenceDocs = new Array(21).fill({
@@ -209,6 +359,7 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
 
     uploadDocumentMock.mockResolvedValue({
       status: 'Success',
+      success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
       document: {
         document_url: 'test/1234',
         document_binary_url: 'binary/test/1234',
@@ -225,5 +376,11 @@ describe('C100-rebuild > MIAM > domestic-abuse > upload-evidence > postControlle
       propertyName: 'miam_domesticAbuseEvidenceDocs',
       errorType: 'maxDocumentsReached',
     });
+  });
+
+  test('should redirect to task list if saveAndComeLater is present', async () => {
+    req.body = { saveAndComeLater: true };
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith('/task-list/applicant');
   });
 });

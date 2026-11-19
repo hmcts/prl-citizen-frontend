@@ -123,7 +123,14 @@ export class CaseApi {
         maxContentLength: Infinity,
         maxBodyLength: Infinity,
       });
-      return { document: response.data.document, status: response.data.status };
+      return {
+        document: response.data.document,
+        status: response.data.status,
+        success: {
+          messageHtml: response.data.document.document_filename,
+          messageText: response.data.document.document_filename,
+        },
+      };
     } catch (err) {
       logError(err, this.logger);
       throw new Error('Document could not be uploaded.');

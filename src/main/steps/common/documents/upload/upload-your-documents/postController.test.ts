@@ -1,13 +1,16 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../../app/case/CosApiClient';
-import { FormFields } from '../../../../../app/form/Form';
+import * as uploadUtils from '../../upload/utils';
 
 import UploadDocumentPostController from './postController';
 
 const generateStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'generateStatementDocument');
 const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadDocument');
 const submitUploadedDocumentsMock = jest.spyOn(CosApiClient.prototype, 'submitUploadedDocuments');
+const runSynchronousMock = jest
+  .spyOn(uploadUtils, 'runSynchronous')
+  .mockImplementation(async (_req, _res, task) => task());
 
 describe('documents > upload > upload-your-documents > postController', () => {
   describe('generateDocument', () => {
@@ -37,6 +40,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       const documentDetail = [
         {
           status: 'Success',
+          success: { messageHtml: 'uploaded.pdf', messageText: 'uploaded.pdf' },
           document: {
             document_url: 'string',
             document_binary_url: 'string',
@@ -124,6 +128,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       const documentDetail = [
         {
           status: '',
+          success: { messageHtml: 'uploaded.pdf', messageText: 'uploaded.pdf' },
           document: {
             document_url: 'string',
             document_binary_url: 'string',
@@ -186,8 +191,8 @@ describe('documents > upload > upload-your-documents > postController', () => {
     });
   });
 
-  describe('uploadDocument', () => {
-    test('should generate document', async () => {
+  describe('post routing', () => {
+    test('should route to uploadDocument when uploadFile is submitted', async () => {
       const req = mockRequest({
         body: {
           uploadFile: true,
@@ -196,7 +201,9 @@ describe('documents > upload > upload-your-documents > postController', () => {
           docCategory: 'your-position-statements',
         },
         session: {
-          user: { id: '1234' },
+          user: {
+            id: '1234',
+          },
           userCase: {
             id: '1234',
             caseType: 'FL401',
@@ -209,218 +216,46 @@ describe('documents > upload > upload-your-documents > postController', () => {
       });
 
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: {
+          name: 'test.pdf',
+          data: '',
+          mimetype: 'application/pdf',
+        },
       };
 
       const res = mockResponse();
 
-      const documentDetail = {
-        status: 'Success',
-        document: {
-          document_url: 'string',
-          document_binary_url: 'string',
-          document_filename: 'string',
-          document_hash: 'string',
-          document_creation_date: 'string',
-          name: 'file_example_TIFF_1MB',
-        },
-      };
-      uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
-
-      const controller = new UploadDocumentPostController({});
-
-      await controller.post(req, res);
-      await new Promise(process.nextTick);
-      expect(req.session.userCase.applicantUploadFiles).toStrictEqual([
-        {
-          document_url: 'string',
-          document_binary_url: 'string',
-          document_filename: 'string',
-          document_hash: 'string',
-          document_creation_date: 'string',
-          name: 'file_example_TIFF_1MB',
-        },
-      ]);
-    });
-
-    test('should set error when files are not present', async () => {
-      const req = mockRequest({
-        body: {
-          uploadFile: true,
-        },
-        params: {
-          docCategory: 'your-position-statements',
-        },
-        session: {
-          user: { id: '1234' },
-          userCase: {
-            id: '1234',
-            caseType: 'FL401',
-            applicantsFL401: {
-              firstName: 'test',
-              lastName: 'user',
-            },
-          },
-        },
-      });
-      const res = mockResponse();
-      const controller = new UploadDocumentPostController({});
-
-      await controller.post(req, res);
-      await new Promise(process.nextTick);
-      expect(req.session.errors).toStrictEqual([
-        {
-          errorType: 'noStatementOrFile',
-          propertyName: 'uploadDocumentFileUpload',
-        },
-      ]);
-    });
-
-    test('should set error when uploadDocument state not success', async () => {
-      const req = mockRequest({
-        body: {
-          uploadFile: true,
-        },
-        params: {
-          docCategory: 'your-position-statements',
-        },
-        session: {
-          user: { id: '1234' },
-          userCase: {
-            id: '1234',
-            caseType: 'FL401',
-            applicantsFL401: {
-              firstName: 'test',
-              lastName: 'user',
-            },
-          },
-        },
-      });
-      req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
-      };
-      const res = mockResponse();
-
-      const documentDetail = {
-        status: '',
-        document: {
-          document_url: 'string',
-          document_binary_url: 'string',
-          document_filename: 'string',
-          document_hash: 'string',
-          document_creation_date: 'string',
-          name: 'uploaded.pdf',
-        },
-      };
-      uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
-
-      const controller = new UploadDocumentPostController({});
-
-      await controller.post(req, res);
-      await new Promise(process.nextTick);
-      expect(req.session.errors).toStrictEqual([
-        {
-          errorType: 'uploadError',
-          propertyName: 'uploadDocumentFileUpload',
-        },
-      ]);
-    });
-
-    test('should set error when uploadDocument throws error', async () => {
-      const req = mockRequest({
-        body: {
-          uploadFile: true,
-        },
-        params: {
-          docCategory: 'your-position-statements',
-        },
-        session: {
-          user: { id: '1234' },
-          userCase: {
-            id: '1234',
-            caseType: 'FL401',
-            applicantsFL401: {
-              firstName: 'test',
-              lastName: 'user',
-            },
-          },
-        },
-      });
-      req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
-      };
-      const res = mockResponse();
-
-      uploadDocumentListFromCitizenMock.mockRejectedValueOnce({ status: '500' });
-
-      const controller = new UploadDocumentPostController({});
-
-      await controller.post(req, res);
-      await new Promise(process.nextTick);
-      expect(req.session.errors).toStrictEqual([
-        {
-          errorType: 'uploadError',
-          propertyName: 'uploadDocumentFileUpload',
-        },
-      ]);
-    });
-
-    test('should not set error when not exceeding max documents', async () => {
-      const req = mockRequest({
-        body: {
-          uploadFile: true,
-          documentDataRef: 'documentDataRef',
-          redirectUrl: '/some-redirect-url',
-        },
-        params: {
-          docCategory: 'your-position-statements',
-        },
-        session: {
-          user: { id: '1234' },
-          userCase: {
-            id: '1234',
-            caseType: 'FL401',
-            applicantsFL401: {
-              firstName: 'test',
-              lastName: 'user',
-            },
-            documentDataRef: new Array(18).fill({}),
-          },
-        },
-      });
-      req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
-      };
       uploadDocumentListFromCitizenMock.mockResolvedValue({
         status: 'Success',
+        success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
         document: {
-          document_url: 'test/1234',
-          document_binary_url: 'binary/test/1234',
-          document_filename: 'test_document',
-          document_hash: '1234',
-          document_creation_date: '1/1/2024',
+          document_url: '/documents/test',
+          document_filename: 'test.pdf',
+          document_binary_url: '/documents/test/binary',
+          document_hash: '123',
+          document_creation_date: '07/10/2026',
         },
       });
-      const res = mockResponse();
 
       const controller = new UploadDocumentPostController({});
+
       await controller.post(req, res);
       await new Promise(process.nextTick);
-      expect(req.session.errors).toStrictEqual([]);
 
-      expect(res.redirect).not.toHaveBeenCalledWith('/some-redirect-url');
+      expect(runSynchronousMock).toHaveBeenCalled();
+      expect(uploadDocumentListFromCitizenMock).toHaveBeenCalled();
     });
 
-    test('should  set error when  exceeding max documents', async () => {
+    test('should route to uploadDocument when files are present even without uploadFile', async () => {
       const req = mockRequest({
-        body: {
-          uploadFile: true,
-        },
+        body: {},
         params: {
           docCategory: 'your-position-statements',
         },
         session: {
-          user: { id: '1234' },
+          user: {
+            id: '1234',
+          },
           userCase: {
             id: '1234',
             caseType: 'FL401',
@@ -428,130 +263,145 @@ describe('documents > upload > upload-your-documents > postController', () => {
               firstName: 'test',
               lastName: 'user',
             },
-            applicantUploadFiles: new Array(21).fill({}),
           },
         },
       });
+
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: {
+          name: 'test.pdf',
+          data: '',
+          mimetype: 'application/pdf',
+        },
       };
+
       const res = mockResponse();
+
+      uploadDocumentListFromCitizenMock.mockResolvedValue({
+        status: 'Success',
+        success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+        document: {
+          document_url: '/documents/test',
+          document_filename: 'test.pdf',
+          document_binary_url: '/documents/test/binary',
+          document_hash: '123',
+          document_creation_date: '07/10/2026',
+        },
+      });
+
       const controller = new UploadDocumentPostController({});
 
       await controller.post(req, res);
       await new Promise(process.nextTick);
-      expect(req.session.errors).toStrictEqual([
-        {
-          errorType: 'maxDocumentsReached',
-          propertyName: 'uploadDocumentFileUpload',
+
+      expect(runSynchronousMock).toHaveBeenCalled();
+      expect(uploadDocumentListFromCitizenMock).toHaveBeenCalled();
+    });
+
+    test('should route to deleteDocument when delete is submitted', async () => {
+      const deleteDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteDocument');
+
+      const req = mockRequest({
+        body: {
+          delete: 'document-123',
         },
-      ]);
+        params: {
+          docCategory: 'your-position-statements',
+        },
+        session: {
+          user: {
+            id: '1234',
+            accessToken: 'token',
+          },
+          userCase: {
+            id: '1234',
+            caseType: 'FL401',
+            applicantsFL401: {
+              firstName: 'test',
+              lastName: 'user',
+            },
+            applicantUploadFiles: [
+              {
+                document_url: '/documents/document-123',
+              },
+            ],
+          },
+        },
+      });
+
+      const res = mockResponse();
+
+      deleteDocumentMock.mockResolvedValue('Success');
+
+      const controller = new UploadDocumentPostController({});
+
+      await controller.post(req, res);
+      await new Promise(process.nextTick);
+
+      expect(runSynchronousMock).toHaveBeenCalled();
+      expect(deleteDocumentMock).toHaveBeenCalledWith('document-123');
+    });
+
+    test('should route to submitDocuments when onlyContinue is submitted', async () => {
+      const req = mockRequest({
+        body: {
+          onlyContinue: true,
+        },
+        params: {
+          docCategory: 'your-position-statements',
+        },
+        session: {
+          user: {
+            id: '1234',
+          },
+          userCase: {
+            id: '1234',
+            caseType: 'FL401',
+            applicantsFL401: {
+              firstName: 'test',
+              lastName: 'user',
+            },
+            applicantUploadFiles: [
+              {
+                document_url: '/documents/document-123',
+              },
+            ],
+          },
+        },
+      });
+
+      const res = mockResponse();
+
+      submitUploadedDocumentsMock.mockResolvedValue({
+        data: 'Success',
+      });
+
+      const controller = new UploadDocumentPostController({});
+
+      await controller.post(req, res);
+      await new Promise(process.nextTick);
+
+      expect(submitUploadedDocumentsMock).toHaveBeenCalled();
     });
   });
 
-  describe('submitDocuments', () => {
-    const mockFormContent = {
-      fields: {},
-    } as unknown as FormFields;
-
-    test.each([
-      { category: 'your-position-statements' },
-      { category: 'your-witness-statements' },
-      { category: 'other-people-witness-statement' },
-      { category: 'media-files' },
-      { category: 'medical-records' },
-      { category: 'letters-from-school' },
-      { category: 'tenancy-and-mortgage-agreements' },
-      { category: 'medical-reports' },
-      { category: 'paternity-test-reports' },
-      { category: 'drug-and-alcohol-tests' },
-      { category: 'police-disclosures' },
-      { category: 'other-documents' },
-    ])('should submit documents for each category', async ({ category }) => {
+  describe('uploadDocument XHR handling', () => {
+    test('should return JSON response for an XHR request', async () => {
       const req = mockRequest({
         body: {
-          onlyContinue: true,
+          uploadFile: true,
         },
-        params: {
-          docCategory: category,
-        },
-        session: {
-          user: { id: '1234' },
-          userCase: {
-            id: '1234',
-            caseType: 'FL401',
-            applicantsFL401: {
-              firstName: 'test',
-              lastName: 'user',
-            },
-            applicantUploadFiles: [
-              {
-                document_url: 'string',
-                document_binary_url: 'string',
-                document_filename: 'string',
-                document_hash: 'string',
-                document_creation_date: 'string',
-                name: 'file_example_TIFF_1MB',
-              },
-            ],
-          },
-        },
-      });
-      const res = mockResponse();
-
-      const documentDetail = {
-        data: 'Success',
-      };
-      submitUploadedDocumentsMock.mockResolvedValue(documentDetail);
-
-      const controller = new UploadDocumentPostController(mockFormContent);
-
-      await controller.post(req, res);
-      await new Promise(process.nextTick);
-      expect(req.session.errors).toStrictEqual([]);
-    });
-
-    test('should set error when files are not present', async () => {
-      const req = mockRequest({
-        body: {
-          onlyContinue: true,
-        },
-        session: {
-          user: { id: '1234' },
-          userCase: {
-            id: '1234',
-            caseType: 'FL401',
-            applicantsFL401: {
-              firstName: 'test',
-              lastName: 'user',
-            },
-          },
-        },
-      });
-      const res = mockResponse();
-
-      const controller = new UploadDocumentPostController(mockFormContent);
-
-      await controller.post(req, res);
-      await new Promise(process.nextTick);
-      expect(req.session.errors).toStrictEqual([
-        {
-          errorType: 'noFile',
-          propertyName: 'uploadDocumentFileUpload',
-        },
-      ]);
-    });
-
-    test('should set error when submitUploadedDocuments state not success', async () => {
-      const req = mockRequest({
-        body: {
-          onlyContinue: true,
+        headers: {
+          'sec-fetch-dest': 'empty',
+          accept: 'application/json',
         },
         params: {
           docCategory: 'your-position-statements',
         },
         session: {
-          user: { id: '1234' },
+          user: {
+            id: '1234',
+          },
           userCase: {
             id: '1234',
             caseType: 'FL401',
@@ -559,52 +409,66 @@ describe('documents > upload > upload-your-documents > postController', () => {
               firstName: 'test',
               lastName: 'user',
             },
-            applicantUploadFiles: [
-              {
-                document_url: 'string',
-                document_binary_url: 'string',
-                document_filename: 'string',
-                document_hash: 'string',
-                document_creation_date: 'string',
-                name: 'file_example_TIFF_1MB',
-              },
-            ],
-            reasonsToNotSeeTheDocument: ['containsSentsitiveInformation'],
           },
         },
       });
+
       req.files = {
-        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+        documents: {
+          name: 'test.pdf',
+          data: '',
+          mimetype: 'application/pdf',
+        },
       };
+
       const res = mockResponse();
 
-      const documentDetail = {
-        data: '500',
-      };
-      submitUploadedDocumentsMock.mockResolvedValue(documentDetail);
+      uploadDocumentListFromCitizenMock.mockResolvedValue({
+        status: 'Success',
+        success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+        document: {
+          document_url: '/documents/test',
+          document_filename: 'test.pdf',
+          document_binary_url: '/documents/test/binary',
+          document_hash: '123',
+          document_creation_date: '07/10/2026',
+        },
+      });
 
       const controller = new UploadDocumentPostController({});
 
       await controller.post(req, res);
       await new Promise(process.nextTick);
-      expect(req.session.errors).toStrictEqual([
-        {
-          errorType: 'uploadError',
-          propertyName: 'uploadDocumentFileUpload',
+
+      expect(runSynchronousMock).toHaveBeenCalled();
+      expect(res.json).toHaveBeenCalledWith({
+        success: { messageHtml: 'test.pdf', messageText: 'test.pdf' },
+        file: {
+          filename: 'test',
+          originalname: 'test.pdf',
         },
-      ]);
+        redirectUrl: '/applicant/documents/upload/your-position-statements/upload-your-documents',
+      });
+
+      expect(res.redirect).not.toHaveBeenCalled();
     });
 
-    test('should set error when submitUploadedDocuments throws error', async () => {
+    test('should return JSON error for an XHR request when no file is supplied', async () => {
       const req = mockRequest({
         body: {
-          onlyContinue: true,
+          uploadFile: true,
+        },
+        headers: {
+          'sec-fetch-dest': 'empty',
+          accept: 'application/json',
         },
         params: {
           docCategory: 'your-position-statements',
         },
         session: {
-          user: { id: '1234' },
+          user: {
+            id: '1234',
+          },
           userCase: {
             id: '1234',
             caseType: 'FL401',
@@ -612,49 +476,41 @@ describe('documents > upload > upload-your-documents > postController', () => {
               firstName: 'test',
               lastName: 'user',
             },
-            reasonsToNotSeeTheDocument: ['hasConfidentailDetails'],
-            applicantUploadFiles: [
-              {
-                document_url: 'string',
-                document_binary_url: 'string',
-                document_filename: 'string',
-                document_hash: 'string',
-                document_creation_date: 'string',
-                name: 'file_example_TIFF_1MB',
-              },
-            ],
           },
         },
       });
-      const res = mockResponse();
 
-      submitUploadedDocumentsMock.mockRejectedValueOnce({ data: '500' });
+      const res = mockResponse();
 
       const controller = new UploadDocumentPostController({});
 
       await controller.post(req, res);
       await new Promise(process.nextTick);
-      expect(req.session.errors).toStrictEqual([
-        {
-          errorType: 'uploadError',
-          propertyName: 'uploadDocumentFileUpload',
+
+      expect(res.json).toHaveBeenCalledWith({
+        error: {
+          message: 'noStatementOrFile',
         },
-      ]);
+        redirectUrl: expect.any(String),
+      });
     });
 
-    test('should ignore all request body fields except declarationCheck when updating userCase', async () => {
+    test('should use normal redirect for a non-XHR request', async () => {
       const req = mockRequest({
         body: {
-          onlyContinue: true,
-          id: '5678',
-          declarationCheck: 'new declaration',
-          caseType: 'C100',
+          uploadFile: true,
+        },
+        headers: {
+          'sec-fetch-dest': 'document',
+          accept: 'text/html',
         },
         params: {
-          docCategory: 'other-documents',
+          docCategory: 'your-position-statements',
         },
         session: {
-          user: { id: '1234' },
+          user: {
+            id: '1234',
+          },
           userCase: {
             id: '1234',
             caseType: 'FL401',
@@ -662,30 +518,20 @@ describe('documents > upload > upload-your-documents > postController', () => {
               firstName: 'test',
               lastName: 'user',
             },
-            applicantUploadFiles: [
-              {
-                document_url: 'string',
-                document_binary_url: 'string',
-                document_filename: 'string',
-                document_hash: 'string',
-                document_creation_date: 'string',
-                name: 'file_example_TIFF_1MB',
-              },
-            ],
           },
         },
       });
 
-      submitUploadedDocumentsMock.mockResolvedValue({ data: 'Success' });
+      const res = mockResponse();
 
-      const controller = new UploadDocumentPostController(mockFormContent);
+      const controller = new UploadDocumentPostController({});
 
-      await controller.post(req, mockResponse());
+      await controller.post(req, res);
       await new Promise(process.nextTick);
 
-      expect(req.session.userCase.declarationCheck).toBe('new declaration');
-      expect(req.session.userCase.id).toBe('1234');
-      expect(req.session.userCase.caseType).toBe('FL401');
+      expect(runSynchronousMock).toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalled();
+      expect(res.json).not.toHaveBeenCalled();
     });
   });
 });

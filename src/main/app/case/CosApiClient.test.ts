@@ -363,6 +363,10 @@ describe('CosApiClient', () => {
   test('uploadDocument should return correct response data', async () => {
     const response = {
       status: 200,
+      success: {
+        messageHtml: 'test',
+        messageText: 'test',
+      },
       document: {
         document_url: 'abc',
         document_binary_url: 'bcd',
