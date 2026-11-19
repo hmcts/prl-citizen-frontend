@@ -1,7 +1,8 @@
+import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 import { Application, NextFunction, Response } from 'express';
 
-import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
+import { getEndGlobalSessionUrl, getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { caseApi } from '../../app/case/C100CaseApi';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -26,6 +27,8 @@ import {
 import * as Urls from '../../steps/urls';
 import { RAProvider } from '../reasonable-adjustments';
 
+const logger = Logger.getLogger('index');
+
 /**
  * Adds the oidc middleware to add oauth authentication
  */
@@ -43,11 +46,19 @@ export class OidcMiddleware {
       res.redirect(url);
     });
 
-    app.get(SIGN_OUT_URL, async (req, res) => {
+    app.get(SIGN_OUT_URL, async (req, res, next: NextFunction) => {
       await RAProvider.destroy(req as AppRequest);
-      req.session.destroy(() => {
+      const userId = (req.session as AppRequest['session']).user?.id;
+      const endSessionUrl: string = getEndGlobalSessionUrl(`${protocol}${res.locals.host}${port}`);
+
+      req.session.destroy(err => {
+        if (err) {
+          logger.error(`Error logging out user ${userId}`, err);
+          return next(err);
+        }
+        logger.info(`User logout successful ${userId}`);
         res.clearCookie('prl-citizen-frontend-session');
-        res.redirect('/');
+        res.redirect(endSessionUrl);
       });
     });
 
@@ -57,7 +68,7 @@ export class OidcMiddleware {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
           RAProvider.init(req);
-
+          logger.info(`User login successful ${req.session.user.id}`);
           if (req.session.cookie.path) {
             const caseId = req.session.cookie.path.split('/').pop();
             if (parseInt(caseId)) {
