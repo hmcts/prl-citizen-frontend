@@ -38,6 +38,7 @@ export interface AppSession extends Session {
   c100RebuildLdFlag: boolean;
   applicationSettings?: Record<string, any>;
   C100CyaErrors?: string[];
+  caseActivationBlocked?: boolean;
 }
 export interface UserDetails {
   accessToken: string;

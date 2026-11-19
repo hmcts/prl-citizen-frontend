@@ -81,11 +81,19 @@ describe('Dashboard content', () => {
   test('should return correct english content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'en' });
     expect(generatedContent.title).toEqual('Child arrangements and family injunction cases');
+    expect(generatedContent.activationBlockedTitle).toBe('Access code not activated');
+    expect(generatedContent.activationBlockedMessage).toBe(
+      'You cannot activate your access code yet, please contact the court dealing with your application.'
+    );
   });
 
   test('should return correct welsh content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'cy' });
     expect(generatedContent.title).toEqual('Achosion trefniadau plant a gwaharddebau teulu');
+    expect(generatedContent.activationBlockedTitle).toBe('Cod mynediad heb ei actifadu');
+    expect(generatedContent.activationBlockedMessage).toBe(
+      'Ni allwch actifadu mynediad i’r achos hwn eto. Cysylltwch â’r llys am ragor o wybodaeth.'
+    );
   });
 
   test('should return the appropriate tab contents for caseView', () => {

@@ -1,11 +1,13 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { CaseActivationNotAllowedError } from '../../../../app/case/CaseActivationNotAllowedError';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormError, FormFields } from '../../../../app/form/Form';
 import { mapDataInSession } from '../../../../steps/tasklistresponse/utils';
+import { DASHBOARD_URL } from '../../../urls';
 
 @autobind
 export default class LinkCaseToAccountPostController extends PostController<AnyObject> {
@@ -23,6 +25,13 @@ export default class LinkCaseToAccountPostController extends PostController<AnyO
     const _errors: FormError[] = req.session.errors?.length ? req.session.errors : [];
 
     return [..._errors, { errorType, propertyName }];
+  }
+
+  private redirectCaseNotReady(req: AppRequest, res: Response): void {
+    req.session.caseActivationBlocked = true;
+    delete req.session.userCase.caseCode;
+    delete req.session.userCase.accessCode;
+    this.redirect(req, res, DASHBOARD_URL);
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
@@ -45,13 +54,23 @@ export default class LinkCaseToAccountPostController extends PostController<AnyO
         return this.redirect(req, res);
       }
 
-      const accessCode = await client.validateAccessCode(
-        formData.caseCode as string,
-        formData.accessCode as string,
-        req.session.user
-      );
+      let accessCode: string;
+      try {
+        accessCode = await client.validateAccessCode(
+          formData.caseCode as string,
+          formData.accessCode as string,
+          req.session.user
+        );
+      } catch {
+        req.session.errors = this.handleError('caseStatusUnavailable', 'caseCode', req);
+        return this.redirect(req, res);
+      }
 
-      if (accessCode === 'Linked' || accessCode === 'Invalid' || accessCode === 'Duplicate') {
+      if (accessCode === 'NotReady') {
+        return this.redirectCaseNotReady(req, res);
+      }
+
+      if (accessCode !== 'Valid') {
         if (accessCode === 'Linked') {
           req.session.errors = this.handleError('accesscodeAlreadyLinked', 'accessCode', req);
         } else if (accessCode === 'Duplicate') {
@@ -63,6 +82,7 @@ export default class LinkCaseToAccountPostController extends PostController<AnyO
         return this.redirect(req, res);
       }
 
+      delete req.session.caseActivationBlocked;
       const { caseData, hearingData } = await client.linkCaseToCitizen(
         formData.caseCode as string,
         formData.accessCode as string
@@ -75,6 +95,9 @@ export default class LinkCaseToAccountPostController extends PostController<AnyO
       mapDataInSession(req.session.userCase, req.session.user.id);
       this.redirect(req, res);
     } catch (error) {
+      if (error instanceof CaseActivationNotAllowedError) {
+        return this.redirectCaseNotReady(req, res);
+      }
       client.logError(error);
       req.session.errors = this.handleError('invalidCaseCode', 'caseCode', req);
       req.session.errors = this.handleError('invalidAccessCode', 'accessCode', req);
