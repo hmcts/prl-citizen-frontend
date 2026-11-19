@@ -526,42 +526,30 @@ export class CosApiClient {
     }
   }
 
-  public async findCourtByPostCodeAndService(postCode: string): Promise<FindCourtByPostCodeAndServiceResponse> {
+  public async findCourtByPostCodeViaCosApi(postCode: string, user: UserDetails): Promise<CourtOnboardingResponse> {
     try {
-      const response = await this.client.get(
-        `${config.get('services.fact.url')}/search/results?postcode=${encodeURIComponent(
-          postCode
-        )}&serviceArea=childcare-arrangements`
+      const response = await this.client.get<CourtOnboardingResponse>(
+        `${config.get('services.cos.url')}/search/${encodeURIComponent(postCode)}/onboarding`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          },
+        }
       );
 
       return response.data;
     } catch (err) {
       this.logError(err);
-      if (err?.response?.data?.message) {
-        return err.response.data;
-      }
-      throw new Error('Error occured, could not find court by post code - findCourtByPostCodeAndService');
+      throw err;
     }
   }
+}
 
-  public async findOsCourtByPostCodeAndService(postCode: string, user: UserDetails): Promise<string> {
-    try {
-      const response = await this.client.get(`${config.get('services.cos.url')}/search/${postCode}/results`, {
-        headers: {
-          Authorization: 'Bearer ' + user.accessToken,
-          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        },
-      });
-
-      return response.data;
-    } catch (err) {
-      this.logError(err);
-      if (err?.response?.data?.message) {
-        return err.response.data;
-      }
-      throw new Error('Error occured, could not find court by post code - findOsCourtByPostCodeAndService');
-    }
-  }
+export interface CourtOnboardingResponse {
+  epimmsId: string;
+  courtName: string | null;
+  onboarded: boolean;
 }
 
 interface DocumentUploadRequest {
@@ -600,13 +588,3 @@ export type UploadedFiles =
       [fieldname: string]: Express.Multer.File[];
     }
   | Express.Multer.File[];
-
-export type FindCourtByPostCodeAndServiceResponse = {
-  slug: string;
-  name: string;
-  courts: {
-    name: string;
-    slug: string;
-  }[];
-  message?: string;
-};
