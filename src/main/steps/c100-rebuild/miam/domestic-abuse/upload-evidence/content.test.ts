@@ -23,6 +23,7 @@ const en = {
   uploadFileTitle: 'Upload files',
   noFiles: 'No files uploaded',
   remove: 'Remove',
+  maximumUploadedFilesText: 'You can upload a maximum of 20 files.',
   beforeUploadingHeading: 'Before you upload your files',
   uploadFileText1:
     'Give each file a name that clearly explains what it is. This will help you and the court to keep track of the documents in your case.',
@@ -35,7 +36,7 @@ const en = {
   errors: {
     title: 'There is a problem',
     miam_domesticAbuseEvidenceDocs: {
-      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
+      maxDocumentsReached: 'You can upload a maximum of 20 files.',
       wrongFileExtension: 'Only JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX files are allowed.',
       filenameTooLong: 'File names must be 250 characters or less.',
       fileTooLarge: 'Files must be under 20MB.',
@@ -60,6 +61,7 @@ const cy = {
     'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
     'Llwythwch y ffeil yma',
   ],
+  maximumUploadedFilesText: 'Gallwch uwchlwytho uchafswm o 20 ffeil.',
   beforeUploadingHeading: "Cyn i chi uwchlwytho eich ffeiliau'",
   uploadButton: 'Uwchlwytho ffeil',
   noFiles: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
@@ -67,7 +69,7 @@ const cy = {
   errors: {
     title: 'Mae yna broblem',
     miam_domesticAbuseEvidenceDocs: {
-      maxDocumentsReached: 'you have reached maximum number of documents that you can upload.',
+      maxDocumentsReached: 'Gallwch uwchlwytho uchafswm o 20 ffeil.',
       wrongFileExtension: "Dim ond ffeiliau JPG, BMP, PNG, TIF, PDF, DOC neu DOCX sy'n cael eu caniatáu.",
       filenameTooLong: 'Rhaid i enwau ffeiliau fod yn 250 nod neu lai.',
       fileTooLarge: 'Rhaid i ffeiliau fod yn llai na 20MB.',
