@@ -15,8 +15,9 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import mockUserCase from '../../../test/unit/utils/mockUserCase';
 import { CaseApi as C100Api } from '../../app/case/C100CaseApi';
-import { AWPApplicationType, C100_CASE_EVENT, PartyType } from '../../app/case/definition';
+import { AWPApplicationType, C100_CASE_EVENT, PartyType, State } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
+import { C100_CONFIRMATIONPAGE, DASHBOARD_URL } from '../../steps/urls';
 
 import {
   PaymentAPI,
@@ -35,6 +36,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
 const saveC100DraftApplicationMock = jest.spyOn(C100Api.prototype, 'saveC100DraftApplication');
 const submittedCaserMock = jest.spyOn(C100Api.prototype, 'submitC100Case');
+const retrieveCaseByIdMock = jest.spyOn(C100Api.prototype, 'retrieveCaseById');
 
 const mockLogger = {
   error: jest.fn().mockImplementation((message: string) => message),
@@ -49,6 +51,14 @@ req.protocol = 'http';
 req.host = 'localhost:3001';
 
 const res = mockResponse({});
+
+beforeEach(() => {
+  retrieveCaseByIdMock.mockResolvedValue({
+    ...req.session.userCase,
+    state: State.CASE_DRAFT,
+  });
+  req.locals.C100Api.retrieveCaseById = retrieveCaseByIdMock;
+});
 
 describe('PaymentHandler', () => {
   afterEach(() => {
@@ -311,6 +321,155 @@ describe('PaymentValidationHandler', () => {
       C100_CASE_EVENT.CASE_SUBMIT
     );
     expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'applicationNotSubmitted' });
+  });
+});
+
+describe('C100 payment return after submission', () => {
+  let request, response;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    request = mockRequest({
+      userCase: {
+        caseId: dummyCaseID,
+        state: State.CASE_DRAFT,
+        paymentDetails: { payment_reference: 'TEST-PAYMENT' },
+      },
+      params: { paymentId: 'test-payment-id', status: 'confirmation' },
+      session: { paymentError: { hasError: false, errorContext: null } },
+    });
+    response = mockResponse();
+    request.locals.C100Api.retrieveCaseById = jest.fn().mockResolvedValue({ state: State.CASE_DRAFT });
+    request.locals.C100Api.submitC100Case = jest.fn().mockResolvedValue({
+      data: {
+        state: State.CASE_SUBMITTED_PAID,
+        submitAndPayDownloadApplicationLink: { document_url: 'test-application' },
+      },
+    });
+    mockedAxios.get.mockResolvedValue({ data: { status: 'Success' } });
+    mockedAxios.post.mockResolvedValue({ data: 'test-service-token' });
+  });
+
+  test('submits only once when the successful payment return is visited twice', async () => {
+    request.locals.C100Api.retrieveCaseById
+      .mockResolvedValueOnce({ state: State.CASE_DRAFT })
+      .mockResolvedValueOnce({ state: State.CASE_SUBMITTED_PAID });
+
+    await PaymentValidationHandler(request, response);
+    await PaymentValidationHandler(request, response);
+
+    expect(request.locals.C100Api.submitC100Case).toHaveBeenCalledTimes(1);
+    expect(mockedAxios.get).toHaveBeenCalledTimes(1);
+    expect(response.redirect.mock.calls).toEqual([[C100_CONFIRMATIONPAGE], [C100_CONFIRMATIONPAGE]]);
+    expect(request.session.paymentError).toEqual({ hasError: false, errorContext: null });
+    expect(request.session.userCase.state).toBe(State.CASE_SUBMITTED_PAID);
+  });
+
+  test('uses the backend submitted state when the session still says draft', async () => {
+    request.locals.C100Api.retrieveCaseById.mockResolvedValue({ state: State.CASE_SUBMITTED_PAID });
+    request.session.paymentError = { hasError: true, errorContext: 'applicationNotSubmitted' };
+
+    await PaymentValidationHandler(request, response);
+
+    expect(request.locals.C100Api.retrieveCaseById).toHaveBeenCalledWith(dummyCaseID);
+    expect(request.locals.C100Api.submitC100Case).not.toHaveBeenCalled();
+    expect(mockedAxios.get).not.toHaveBeenCalled();
+    expect(response.redirect).toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
+    expect(request.session.paymentError).toEqual({ hasError: false, errorContext: null });
+    expect(request.session.save).toHaveBeenCalled();
+  });
+
+  test('still submits a paid draft when the session incorrectly says submitted', async () => {
+    request.session.userCase.state = State.CASE_SUBMITTED_PAID;
+
+    await PaymentValidationHandler(request, response);
+
+    expect(mockedAxios.get).toHaveBeenCalledTimes(1);
+    expect(request.locals.C100Api.submitC100Case).toHaveBeenCalledWith(
+      dummyCaseID,
+      request.session.userCase,
+      request.originalUrl,
+      C100_CASE_EVENT.CASE_SUBMIT,
+      undefined
+    );
+    expect(response.redirect).toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
+  });
+
+  test.each([State.CASE_ISSUED_TO_LOCAL_COURT, State.CASE_GATE_KEEPING, State.CASE_SERVED])(
+    'returns to the dashboard when the case has progressed to %s',
+    async state => {
+      request.locals.C100Api.retrieveCaseById.mockResolvedValue({ state });
+
+      await PaymentValidationHandler(request, response);
+
+      expect(response.redirect).toHaveBeenCalledWith(DASHBOARD_URL);
+      expect(request.locals.C100Api.submitC100Case).not.toHaveBeenCalled();
+      expect(mockedAxios.get).not.toHaveBeenCalled();
+    }
+  );
+
+  test('does not submit when the current case state cannot be retrieved', async () => {
+    request.locals.C100Api.retrieveCaseById.mockRejectedValue(new Error('Case lookup failed'));
+
+    await PaymentValidationHandler(request, response);
+
+    expect(request.locals.C100Api.submitC100Case).not.toHaveBeenCalled();
+    expect(mockedAxios.get).not.toHaveBeenCalled();
+    expect(response.redirect).not.toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
+  });
+
+  test('does not treat a missing backend state as a successful submission', async () => {
+    request.locals.C100Api.retrieveCaseById.mockResolvedValue({});
+
+    await PaymentValidationHandler(request, response);
+
+    expect(request.locals.C100Api.submitC100Case).not.toHaveBeenCalled();
+    expect(mockedAxios.get).not.toHaveBeenCalled();
+    expect(response.redirect).not.toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
+  });
+
+  test('does not create another payment when the payment entry is revisited after submission', async () => {
+    request.locals.C100Api.retrieveCaseById.mockResolvedValue({ state: State.CASE_SUBMITTED_PAID });
+
+    await PaymentHandler(request, response);
+
+    expect(mockedAxios.post).not.toHaveBeenCalled();
+    expect(request.locals.C100Api.submitC100Case).not.toHaveBeenCalled();
+    expect(response.redirect).toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
+  });
+
+  test('does not create a payment if the case status lookup fails at payment entry', async () => {
+    request.locals.C100Api.retrieveCaseById.mockRejectedValue(new Error('Case lookup failed'));
+
+    await PaymentHandler(request, response);
+
+    expect(mockedAxios.post).not.toHaveBeenCalled();
+    expect(response.redirect).not.toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
+  });
+
+  test('retains the submission retry error when payment succeeded but a draft cannot be submitted', async () => {
+    request.locals.C100Api.submitC100Case.mockRejectedValue(new Error('Submission failed'));
+
+    await PaymentValidationHandler(request, response);
+
+    expect(request.locals.C100Api.submitC100Case).toHaveBeenCalledTimes(1);
+    expect(request.session.paymentError).toEqual({ hasError: true, errorContext: 'applicationNotSubmitted' });
+    expect(response.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
+  });
+
+  test('refreshes the session state and application document after successful submission', async () => {
+    await submitCase(
+      request,
+      response,
+      dummyCaseID,
+      request.session.userCase,
+      request.originalUrl,
+      C100_CASE_EVENT.CASE_SUBMIT
+    );
+
+    expect(request.session.userCase.state).toBe(State.CASE_SUBMITTED_PAID);
+    expect(request.session.userCase.c100DraftDoc).toEqual({ document_url: 'test-application' });
+    expect(response.redirect).toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
   });
 });
 

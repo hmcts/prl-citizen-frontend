@@ -4,7 +4,8 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CaseApi } from '../../../app/case/C100CaseApi';
 import { FieldPrefix } from '../../../app/case/case';
-import { Gender } from '../../../app/case/definition';
+import { Gender, State } from '../../../app/case/definition';
+import { C100_CONFIRMATIONPAGE, DASHBOARD_URL } from '../../urls';
 
 import CheckYourAnswersGetController from './CheckYourAnswersGetController';
 
@@ -25,6 +26,7 @@ describe('DocumentUpload Get Controller', () => {
     req = mockRequest();
     res = mockResponse();
     req.session.save = jest.fn();
+    req.locals.C100Api.retrieveCaseById = jest.fn().mockResolvedValue({ state: State.CASE_DRAFT });
     req.locals.C100Api.saveC100DraftApplication = jest.fn();
     updateCaserMock.mockResolvedValue(req.session.userCase);
   });
@@ -32,6 +34,41 @@ describe('DocumentUpload Get Controller', () => {
   afterEach(() => {
     updateCaserMock.mockClear();
     jest.clearAllMocks;
+  });
+
+  test('redirects an already submitted case without saving a draft or showing payment errors', async () => {
+    req.session.userCase.state = State.CASE_DRAFT;
+    req.session.paymentError = { hasError: true, errorContext: 'applicationNotSubmitted' };
+    req.session.save = jest.fn(callback => callback?.());
+    req.locals.C100Api.retrieveCaseById.mockResolvedValue({ state: State.CASE_SUBMITTED_PAID });
+
+    await controller.get(req, res);
+
+    expect(req.locals.C100Api.retrieveCaseById).toHaveBeenCalledWith(req.session.userCase.id);
+    expect(req.locals.C100Api.saveC100DraftApplication).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
+    expect(req.session.paymentError).toEqual({ hasError: false, errorContext: null });
+  });
+
+  test('redirects a progressed case to the dashboard without saving draft data', async () => {
+    req.session.save = jest.fn(callback => callback?.());
+    req.locals.C100Api.retrieveCaseById.mockResolvedValue({ state: State.CASE_SERVED });
+
+    await controller.get(req, res);
+
+    expect(req.locals.C100Api.saveC100DraftApplication).not.toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith(DASHBOARD_URL);
+  });
+
+  test('continues saving when the backend says draft even if the session says submitted', async () => {
+    req.session.userCase.state = State.CASE_SUBMITTED_PAID;
+
+    await controller.get(req, res);
+
+    expect(req.locals.C100Api.retrieveCaseById).toHaveBeenCalled();
+    expect(req.locals.C100Api.saveC100DraftApplication).toHaveBeenCalled();
+    expect(req.session.userCase.state).toBe(State.CASE_DRAFT);
+    expect(res.redirect).not.toHaveBeenCalled();
   });
 
   test('should clear hwf reference number if need help with fees is no', async () => {
