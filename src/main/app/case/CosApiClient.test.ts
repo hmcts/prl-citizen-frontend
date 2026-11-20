@@ -4,6 +4,7 @@ import { LoggerInstance } from 'winston';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { UserDetails } from '../controller/AppRequest';
 
+import { CaseActivationNotAllowedError } from './CaseActivationNotAllowedError';
 import { CosApiClient, DocumentFileUploadRequest, UploadedFiles } from './CosApiClient';
 import { CaseWithId, StatementOfServiceRequest } from './case';
 import {
@@ -140,13 +141,19 @@ describe('CosApiClient', () => {
     expect(mockLogger.error).toHaveBeenCalledWith('API Error GET /retrieveByCaseId');
   });
 
-  test('validateAccessCode', async () => {
-    const response = { id: '200', state: 'SUCCESS' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+  test.each(['Valid', 'Invalid', 'Linked', 'Duplicate', 'NotReady'])('validateAccessCode returns %s', async status => {
+    mockedAxios.post.mockResolvedValueOnce({ data: status });
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    const actual = await client.validateAccessCode('1234567', '1234', req.session.user);
-    expect(actual).toEqual(response);
+
+    await expect(client.validateAccessCode('1234567890123456', 'ABCD1234', req.session.user)).resolves.toBe(status);
+    expect(mockedAxios.post).toHaveBeenLastCalledWith(
+      expect.stringContaining('/citizen/validate-access-code'),
+      { caseId: '1234567890123456', accessCode: 'ABCD1234' },
+      expect.objectContaining({
+        headers: expect.objectContaining({ Authorization: expect.stringContaining('Bearer ') }),
+      })
+    );
   });
 
   test('validateAccessCode should throw error', async () => {
@@ -476,6 +483,15 @@ describe('CosApiClient', () => {
       flag = true;
     }
     expect(flag).toBe(false);
+  });
+
+  test('linkCaseToCitizen identifies a state rejection returned by COS', async () => {
+    mockedAxios.post.mockRejectedValueOnce({ response: { status: 409, data: 'NotReady' } });
+    const client = new CosApiClient('abc', mockLogger);
+
+    await expect(client.linkCaseToCitizen('1234567890123456', 'ABCD1234')).rejects.toBeInstanceOf(
+      CaseActivationNotAllowedError
+    );
   });
 
   test('linkCaseToCitizen should throw error', async () => {

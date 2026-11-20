@@ -21,6 +21,7 @@ const en = {
       invalid: 'The case code must be made up of 16 digits',
       notNumeric: 'Case code must be numeric',
       invalidCaseCode: 'Enter your case code',
+      caseStatusUnavailable: 'The service could not check whether you can access this case. Try again later.',
     },
     accessCode: {
       required: 'Enter your access code',
@@ -47,6 +48,8 @@ const cy = {
       invalid: 'Mae’n rhaid i god yr achos gynnwys 16 digid',
       notNumeric: 'Rhaid i’ch cod achos fod yn rhif',
       invalidCaseCode: 'Rhowch eich cod achos',
+      caseStatusUnavailable:
+        'Ni allai’r gwasanaeth wirio a allwch gael mynediad i’r achos hwn. Rhowch gynnig arall arni yn nes ymlaen.',
     },
     accessCode: {
       required: 'Nodwch eich cod mynediad',

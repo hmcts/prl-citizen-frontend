@@ -16,6 +16,9 @@ export default class DashboardGetController extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+    res.locals.showActivationBlockedMessage = req.session.caseActivationBlocked === true;
+    delete req.session.caseActivationBlocked;
+
     try {
       await BreadcrumbController.enable(req.session);
       await RAProvider.resetData(req);
