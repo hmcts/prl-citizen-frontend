@@ -33,6 +33,7 @@ import {
   RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS,
+  RESPONDENT_DIGITAL_SIGNPOSTING,
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
@@ -225,5 +226,10 @@ export const respondentCaseSequence: Step[] = [
     subDir: '/common',
     getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
       ContactPreferenceNavigationController.getNextPageUrl(CONTACT_PREFERENCE_CONFIRMATION, caseData, req!),
+  },
+  {
+    url: RESPONDENT_DIGITAL_SIGNPOSTING,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
 ];
