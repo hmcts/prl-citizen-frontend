@@ -90,9 +90,9 @@ describe('Dashboard content', () => {
   test('should return correct welsh content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'cy' });
     expect(generatedContent.title).toEqual('Achosion trefniadau plant a gwaharddebau teulu');
-    expect(generatedContent.activationBlockedTitle).toBe('Cod mynediad heb ei actifadu');
+    expect(generatedContent.activationBlockedTitle).toBe('Nid yw’r cod mynediad wedi’i actifadu');
     expect(generatedContent.activationBlockedMessage).toBe(
-      'Ni allwch actifadu mynediad i’r achos hwn eto. Cysylltwch â’r llys am ragor o wybodaeth.'
+      'Ni allwch actifadu eich cod mynediad eto. Cysylltwch â’r llys sy’n delio â’ch cais.'
     );
   });
 
