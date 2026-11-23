@@ -77,9 +77,6 @@ export class FeatureToggles {
       toBoolean(config.get<boolean>('featureToggles.enableC100CaseProgressionTrainTrack'))
     );
   }
-  async isOsCourtLookupEnabled(): Promise<boolean> {
-    return toBoolean(config.get<boolean>('featureToggles.enableOsCourtLookup'));
-  }
 }
 
 let featureToggleObj: FeatureToggles;
