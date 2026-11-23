@@ -35,8 +35,8 @@ const en = {
 
 const cy: typeof en = {
   title: 'Achosion trefniadau plant a gwaharddebau teulu',
-  activationBlockedTitle: 'Cod mynediad heb ei actifadu',
-  activationBlockedMessage: 'Ni allwch actifadu mynediad i’r achos hwn eto. Cysylltwch â’r llys am ragor o wybodaeth.',
+  activationBlockedTitle: 'Nid yw’r cod mynediad wedi’i actifadu',
+  activationBlockedMessage: 'Ni allwch actifadu eich cod mynediad eto. Cysylltwch â’r llys sy’n delio â’ch cais.',
   sectionTitle: 'Actifadu cod mynediad neu gychwyn cais:',
   activateAccessCodeLinkText: 'Actifadu cod mynediad',
   newChildArrangementsLinkText: 'Cais trefniadau plant newydd (C100)',
