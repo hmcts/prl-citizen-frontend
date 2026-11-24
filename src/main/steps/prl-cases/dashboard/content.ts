@@ -4,6 +4,9 @@ import { prepareCaseView } from './tabView';
 
 const en = {
   title: 'Child arrangements and family injunction cases',
+  activationBlockedTitle: 'Access code not activated',
+  activationBlockedMessage:
+    'You cannot activate your access code yet, please contact the court dealing with your application.',
   sectionTitle: 'Activate an access code or start an application:',
   activateAccessCodeLinkText: 'Activate access code',
   newChildArrangementsLinkText: 'New child arrangements application (C100)',
@@ -32,6 +35,8 @@ const en = {
 
 const cy: typeof en = {
   title: 'Achosion trefniadau plant a gwaharddebau teulu',
+  activationBlockedTitle: 'Nid yw’r cod mynediad wedi’i actifadu',
+  activationBlockedMessage: 'Ni allwch actifadu eich cod mynediad eto. Cysylltwch â’r llys sy’n delio â’ch cais.',
   sectionTitle: 'Actifadu cod mynediad neu gychwyn cais:',
   activateAccessCodeLinkText: 'Actifadu cod mynediad',
   newChildArrangementsLinkText: 'Cais trefniadau plant newydd (C100)',

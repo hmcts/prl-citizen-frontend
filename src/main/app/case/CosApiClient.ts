@@ -24,6 +24,7 @@ import { REASONABLE_ADJUSTMENTS_SUBMIT_LANGUAGE_REQ } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
+import { CaseActivationNotAllowedError } from './CaseActivationNotAllowedError';
 import { CaseWithId, HearingData, StatementOfServiceRequest } from './case';
 import { fromApiFormat } from './from-api-format';
 import { logError } from './utils';
@@ -420,6 +421,9 @@ export class CosApiClient {
       };
     } catch (error) {
       this.logError(error);
+      if (error.response?.status === 409 && error.response?.data === 'NotReady') {
+        throw new CaseActivationNotAllowedError();
+      }
       throw new Error('Error occured, failed to link case to citizen - linkCaseToCitizen');
     }
   }
