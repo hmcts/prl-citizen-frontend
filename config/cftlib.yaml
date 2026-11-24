@@ -50,6 +50,7 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey: false
+  connectionString: false
 featureToggles:
   launchDarklyKey: ${PRL_LAUNCH_DARKLY_SDK_KEY}
   c100Rebuild: true

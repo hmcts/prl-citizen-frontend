@@ -67,7 +67,7 @@ new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new Helmet(config.get('security')).enableFor(app);
-new AppInsights().enable();
+new AppInsights().enable(logger);
 new FileUpload().enableFor(app);
 new SessionStorage().enableFor(app);
 new Nunjucks().enableFor(app);
