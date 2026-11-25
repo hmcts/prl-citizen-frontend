@@ -10432,7 +10432,7 @@ __metadata:
     redis: "npm:3.1.2"
     require-directory: "npm:2.1.1"
     sanitize-html: "npm:2.18.2"
-    sass: "npm:1.105.2"
+    sass: "npm:1.108.2"
     sass-loader: "npm:13.3.3"
     semver: "npm:7.8.6"
     serve-favicon: "npm:2.5.1"
@@ -11099,9 +11099,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.105.2":
-  version: 1.105.2
-  resolution: "sass@npm:1.105.2"
+"sass@npm:1.108.2":
+  version: 1.108.2
+  resolution: "sass@npm:1.108.2"
   dependencies:
     "@parcel/watcher": "npm:^2.4.1"
     chokidar: "npm:^5.0.0"
@@ -11112,7 +11112,7 @@ __metadata:
       optional: true
   bin:
     sass: sass.js
-  checksum: 10c0/2e219603b075559d834f8f56b03ed1b5d61a88b3fb85a92baef238a653242ef486bbe71f33daf9b8dd0f30b4f627c434e594e35591214b8b177d3b03ac24925c
+  checksum: 10c0/957bc1d19bf06e2f5d9e6df3a6dc287aedc6b24ce5f343eaaba14a56c0fbe6c4fbfb536040a2e6b02076ccf0fc629c9c9947115157318c343ea416ad938012de
   languageName: node
   linkType: hard
 
