@@ -3,10 +3,10 @@ appVersion: '1.0'
 description: A Helm chart for prl-citizen-frontend App
 name: prl-citizen-frontend
 home: https://github.com/hmcts/prl-citizen-frontend
-version: 0.0.37
+version: 0.0.38
 dependencies:
   - name: nodejs
-    version: 3.3.1
+    version: 3.3.2
     repository: 'oci://hmctsprod.azurecr.io/helm'
   - name: idam-pr
     version: 2.4.0
